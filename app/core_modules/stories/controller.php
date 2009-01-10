@@ -55,6 +55,7 @@ class stories extends controller
         $mode = $this->getParam("mode", null);
         // retrieve the sort order from the querystring
         $order = $this->getParam("order", null);
+        $ret ="";
         switch ($action) {
             case null:
             case "view":
