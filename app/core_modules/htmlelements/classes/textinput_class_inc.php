@@ -66,18 +66,16 @@ class textinput extends abhtmlbase implements ifhtml
 {
 
     /**
-    * @var integer $size: The width of the text input
-    */
+     * @var integer $size: The width of the text input
+     */
     public $size;
     public $fldType;
 
-
-
     /**
-    * Initialization method to set default values
-    *
-    * @param string $name optional :sets the name of the text input
-    */
+     * Initialization method to set default values
+     *
+     * @param string $name optional :sets the name of the text input
+     */
     public function textinput($name=null, $value=null, $type=null, $size=null)
     {
         $this->name = $name;
@@ -95,49 +93,40 @@ class textinput extends abhtmlbase implements ifhtml
             $this->cssId = 'input_'.$name;
         }
     }
+    
     /**
-    * Set the name.
-    * @param string Name
-    */
+     * Set the name.
+     * @param string Name
+     */
     public function setName($name)
     {
         $this->name = $name;
     }
+    
     /**
-    * Set the type.
-    * @param string Type
-    */
+     * Set the type.
+     * @param string Type
+     */
     public function setType($type)
     {
         $this->fldType=$type;
     }
+    
     /**
-    * Method to set the css class
-    *
-    * @param      string $css
-    * @deprecated <----------------------------------------------------------
-    */
+     * Method to set the css class
+     *
+     * @param      string $css
+     * @deprecated <----------------------------------------------------------
+     */
     public function setCss($css)
     {
         $this->cssClass = $css;
     }
-    /*
-    * Method to set the value of the text box
-    * @param string $value
-    * @deprecated <----------------------------------------------------------
-    */
-
-    /*
-    * Method to set the cssId class
-    * @param string $cssId
-    */
 
     /**
-     * Short description for function
+     * Method to set the cssId class.
      *
-     * Long description (if any) ...
-     *
-     * @param  unknown $cssId Parameter description (if any) ...
+     * @param  string $cssId
      * @return void
      * @access public
      */
@@ -159,14 +148,16 @@ class textinput extends abhtmlbase implements ifhtml
     {
         $this->value = $value;
     }
+    
     public function setOnChange($change)
     {
         $this->onChange = 'onChange ="'.$change.'"';
     }
+    
     /**
-    * Method to return the text input for display on the form
-    * @return string $str: the text element for display
-    */
+     * Method to return the text input for display on the form
+     * @return string $str: the text element for display
+     */
     public function show()
     {
         $str = '<input type="'.$this->fldType.'" value="' . $this->value . '"';
