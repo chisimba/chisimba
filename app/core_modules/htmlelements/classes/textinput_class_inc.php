@@ -78,21 +78,22 @@ class textinput extends abhtmlbase implements ifhtml
     *
     * @param string $name optional :sets the name of the text input
     */
-    public function textinput($name = null, $value = null, $type=null, $size=null)
+    public function textinput($name=null, $value=null, $type=null, $size=null)
     {
         $this->name = $name;
         $this->value = htmlentities($value);
         $this->cssClass = 'text';
         if (!is_null($type)) {
             $this->fldType=$type;
-        }
-        else {
+        } else {
             $this->fldType='text';
         }
-           if (!is_null($size)) {
+        if (!is_null($size)) {
             $this->size = $size;
         }
-        $this->cssId = 'input_'.$name;
+        if (is_string($name)) {
+            $this->cssId = 'input_'.$name;
+        }
     }
     /**
     * Set the name.
