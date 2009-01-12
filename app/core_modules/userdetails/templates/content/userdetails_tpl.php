@@ -343,25 +343,15 @@ echo '</div>';
 
 
 $phraseUserImage = $this->objLanguage->languageText('phrase_userimage', 'userdetails');
-$objUserPic = $this->getObject('imageupload', 'useradmin');
 echo '<div><div style="width:25%;  float: left; padding: 5px;">';
 echo '<h3>'.$phraseUserImage.':</h3>';
-echo '<img src="'.$objUserPic->userpicture($this->objUser->userId()).'" alt="'.$phraseUserImage.'" />';
 
 
 
 $objModule = $this->getObject('modules', 'modulecatalogue');
 
-$changeimageform = new form('changeimage', $this->uri(array('action'=>'changeimage')));
-
-
-
-
-
 if ($objModule->checkIfRegistered('filemanager')) {
-
-
-
+    $changeimageform = new form('changeimage', $this->uri(array('action'=>'changeimage')));
 
     $objSelectFile = $this->getObject('selectimage', 'filemanager');
     $objSelectFile->name = 'imageselect';
@@ -373,11 +363,12 @@ if ($objModule->checkIfRegistered('filemanager')) {
 
     $changeimageform->addToForm('<br />'.$button->show());
 
-
-
+    echo $changeimageform->show();
+} else {
+    $objUserPic = $this->getObject('imageupload', 'useradmin');
+    echo '<img src="'.$objUserPic->userpicture($this->objUser->userId()).'" alt="'.$phraseUserImage.'" />';
+    echo '<p>'.$this->objLanguage->languageText('mod_userdetails_filemanagerneeded', 'userdetails').'</p>';
 }
-
-echo $changeimageform->show();
 
 echo '</div>';
 echo '</div>';
