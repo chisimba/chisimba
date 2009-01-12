@@ -134,7 +134,7 @@ class engine {
      * Version Number of the software. (engine)
      *
      */
-    public $version = '2.0.7';
+    public $version = '2.0.8';
 
     /**
      * Template variable
@@ -782,7 +782,7 @@ class engine {
                 'MDB2' => array (
                     'connection' => $this->_objDb,
                     'dsn' => KEWL_DB_DSN,
-                    'prefix' => 'tbl_',
+                    'prefix' => 'tbl_perms_',
                     'tables' => array (),
                     'fields' => array (),
                     'alias' => array ()
