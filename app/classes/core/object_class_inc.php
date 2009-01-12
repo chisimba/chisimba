@@ -94,6 +94,7 @@ class object
         $this->objEngine  = $objEngine;
         $this->moduleName = $moduleName;
         $this->objLu = $this->objEngine->lu;
+        $this->eventDispatcher = $objEngine->eventDispatcher;
         $this->init();
     }
 

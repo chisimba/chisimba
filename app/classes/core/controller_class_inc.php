@@ -93,6 +93,7 @@ class controller extends access
         	parent::__construct($objEngine, $moduleName);
         	$version         = $objEngine->version;
         	$this->objLu     = $objEngine->lu;
+        	$this->eventDispatcher = $objEngine->eventDispatcher;
         	$this->footerStr = '<center>Powered by <a href="http://avoir.uwc.ac.za/">Chisimba</a> version ' .$version . "</center>";
         }
         catch (customException $e)

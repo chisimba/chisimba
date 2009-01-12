@@ -134,7 +134,7 @@ class engine {
      * Version Number of the software. (engine)
      *
      */
-    public $version = '2.0.6';
+    public $version = '2.0.7';
 
     /**
      * Template variable
@@ -365,6 +365,8 @@ class engine {
 
     protected $luConfig;
 
+    public $eventDispatcher;
+
     public $lu;
     /**
      * Constructor.
@@ -423,6 +425,8 @@ class engine {
         require_once ($this->getPearResource ( 'LiveUser.php' ));
         // Grab the LiveUser Admin code
         require_once ($this->getPearResource ( 'LiveUser/Admin.php' ));
+        //initialise the event messages framework
+        $this->eventDispatcher =& Event_Dispatcher::getInstance();
         //initialise the db factory method of MDB2
         $this->getDbObj ();
         //initialise the db factory method of MDB2_Schema

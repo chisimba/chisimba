@@ -202,6 +202,7 @@ class dbTable extends object
     public function init($tableName, $pearDb = NULL, $errorCallback = "globalPearErrorCallback") {
     	$modname = $this->objEngine->_moduleName;
     	$this->objLu = $this->objEngine->lu;
+    	$this->eventDispatcher = $this->objEngine->eventDispatcher;
     	// global $_globalObjDb;
         $this->_tableName = $tableName;
         $this->_errorCallback = $errorCallback;
