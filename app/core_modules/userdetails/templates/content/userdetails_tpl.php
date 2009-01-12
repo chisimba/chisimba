@@ -342,8 +342,11 @@ echo $form->show();
 echo '</div>';
 
 
+$phraseUserImage = $this->objLanguage->languageText('phrase_userimage', 'userdetails');
+$objUserPic = $this->getObject('imageupload', 'useradmin');
 echo '<div><div style="width:25%;  float: left; padding: 5px;">';
-echo '<h3>'.$this->objLanguage->languageText('phrase_userimage', 'userdetails').':</h3>';
+echo '<h3>'.$phraseUserImage.':</h3>';
+echo '<img src="'.$objUserPic->userpicture($this->objUser->userId()).'" alt="'.$phraseUserImage.'" />';
 
 
 
