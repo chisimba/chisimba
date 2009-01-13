@@ -761,7 +761,7 @@ class form implements ifhtml
      */
     private function _valCompare($fields, $errormsg)
     {
-        $jmethod = 'valCompare(' . $this->name . '.' . $fields[0] . '.value,' . $this->name . '.' . $fields[1] . '.value)';
+        $jmethod = 'valCompare(document.forms.' . $this->name . '.' . $fields[0] . '.value, document.forms.' . $this->name . '.' . $fields[1] . '.value)';
        // $jmethod = 'valCompare(el.value,' . $this->name . '.' . $fields[1] . '.value)';
         $this->_addValidationScript($jmethod, $errormsg, $fields[0]);
     }
