@@ -36,9 +36,23 @@ class auth_database extends abauth implements ifauth
     * @param string $password The password supplied in the login
     * @return TRUE|FALSE Boolean indication of success of login
     */
-    public function authenticate($username, $password, $remember = NULL)
+    public function authenticate($username, $password, $remember = true)
     {
-        $auth = $this->objLu->login($username, $password, $remember);
+        $login = $this->objLu->login($username, $password, $remember);
+        if(!$login) {
+            // check if user is inactive
+            if($this->objLu->isInactive()) {
+                throw new customException("User is inactive, please contact site admin");
+            }
+            else {
+                return FALSE;
+            }
+            //$errorArr = $this->objLu->getErrors();
+            //var_dump($errorArr); die();
+            //throw new customException($errorArr[0]['params']['reason']);
+            //exit(1);
+            //die();
+        }
 
         //Retrieve the users data from the database
         $line=$this->getUserDataAsArray($username);

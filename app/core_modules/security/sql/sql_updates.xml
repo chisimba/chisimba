@@ -77,4 +77,15 @@
             </change> 
         </data> 
     </update> 
+    <update>
+        <table>tbl_users</table>
+        <version>3.000</version>
+        <description>Added a last_login field</description>
+        <data>
+            <add>
+                <name>last_login</name>
+                <type>timestamp</type>
+            </add>
+        </data>
+    </update>
 </updates>

@@ -1,5 +1,5 @@
 <?php
-/* -------------------- USER CLASS ----------------*/
+/* -------------------- AUTHENTICATION CLASS ----------------*/
 
 /**
 * A class that implements authentication by making calls to any authentication

@@ -27,21 +27,6 @@ $fields = array(
         'length' => 100
         
         ),
-    'is_active' => array(
-        'type' => 'integer',
-        'length' => 5
-        
-        ),
-    'owner_user_id' => array(
-        'type' => 'text',
-        'length' => 100
-        
-        ),
-    'owner_group_id' => array(
-        'type' => 'text',
-        'length' => 100
-        
-        ),
 );
 
 //create other indexes here...

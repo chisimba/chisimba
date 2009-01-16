@@ -94,8 +94,11 @@ $fields = array(
          'type' => 'date',
 
 
-                )
-    );
+                ),
+    'last_login' => array(
+        'type' => 'timestamp',
+    ),  
+);
 
 
 //create other indexes here...

@@ -126,23 +126,6 @@ class useradmin_model2 extends dbtable
     */
     public function addUser($userid, $username, $password, $title, $firstname, $surname, $email, $sex, $country, $cellnumber='', $staffnumber='', $accountType='useradmin', $accountstatus='1')
     {
-        //echo $accountType;
-        $userArray = array(
-                'userid' => $userid,
-                'username' => $username,
-                'firstname' => $firstname,
-                'surname' => $surname,
-                'title' => $title,
-                'emailaddress' => $email,
-                'sex' => $sex,
-                'country' => $country,
-                'cellnumber' => $cellnumber,
-                'staffnumber' => $staffnumber,
-                'pass' => sha1($password),
-                'howcreated' => $accountType,
-                'isactive' => $accountstatus
-            );
-
         if ($accountType == '') {
             $userArray['howCreated'] = $accountType;
 
@@ -151,8 +134,45 @@ class useradmin_model2 extends dbtable
                 $userArray['howCreated'] = 'LDAP'; // Convert to lowercase
             }
         }
+        $id = $this->_serverName . "_" . rand(1000,9999) . "_" . time();
+        $data = array('id' => $id,
+                      'emailAddress' => $email,
+                      'handle' => $username,
+                      'passwd' => $password,
+                      'auth_user_id' => $userid,
+                      'firstName' => $firstname,
+                      'surname' => $surname,
+                      'title' => $title,
+                      'sex' => $sex,
+                      'country' => $country,
+                      'cellnumber' => $cellnumber,
+                      'staffnumber' => $staffnumber,
+                      'howCreated' => $accountType,
+                      'is_active' => 1,
+                      'cellnumber' => $cellnumber,
+                      'staffnumber' => $staffnumber,
+                      'howCreated' => $accountType,
+                      'perm_type' => 1,
+        );
+        $adduser = $this->objLuAdmin->addUser($data);
+        if(!$adduser) { // anonymous    : LIVEUSER_ANONYMOUS_TYPE_ID = 0  (Anon User Perm)
+             $errorArr = $this->objLuAdmin->getErrors();
+             throw new customException($errorArr[0]['params']['reason']);
+             exit(1);
+        }
+        else {
+            // add the new user to the regular folks group for now
+            $params = array('filters' => array('group_define_name' => 'Guest'));
+            $group = $this->objLuAdmin->perm->getGroups($params);
+            $result = $this->objLuAdmin->perm->addUserToGroup(array('perm_user_id' => $adduser, 'group_id' => $group[0]['group_id']));
+            if(!$result) {
+                $errorArr = $this->objLuAdmin->getErrors();
+                throw new customException($errorArr[0]['params']['reason']);
+                exit(1);
+            }
+        }
 
-        return $this->insert($userArray);
+        return $id;
     }
 
     /**
@@ -179,11 +199,11 @@ class useradmin_model2 extends dbtable
     {
         //echo $accountType;
         $userArray = array(
-                'username' => $username,
-                'firstname' => $firstname,
+                'handle' => $username,
+                'firstName' => $firstname,
                 'surname' => $surname,
                 'title' => $title,
-                'emailaddress' => $email,
+                'emailAddress' => $email,
                 'sex' => $sex,
                 'country' => $country,
                 'cellnumber' => $cellnumber,
@@ -191,27 +211,38 @@ class useradmin_model2 extends dbtable
             );
 
         if ($username != '') {
-            $userArray['username'] = $username;
+            $userArray['handle'] = $username;
         }
 
         if ($accountstatus != '') {
-            $userArray['isactive'] = $accountstatus;
+            $userArray['is_active'] = $accountstatus;
         }
 
         if ($password != '') {
-            $userArray['pass'] = sha1($password);
+            $userArray['passwd'] = $password;
         }
 
         if ($accountType != '') {
             $userArray['howCreated'] = $accountType;
 
             if ($accountType=='ldap') {
-                $userArray['pass'] = sha1('--LDAP--'); // System indentifier to use LDAP Password
+                $userArray['passwd'] = sha1('--LDAP--'); // System indentifier to use LDAP Password
                 $userArray['howCreated'] = 'LDAP'; // Convert to lowercase
             }
         }
-
-        return $this->update('id', $id, $userArray);
+        // get the user that we are interested in...
+        $user = $this->objLuAdmin->getUsers(array('container' => 'auth', 'filters' => array('id' => $id)));
+        // now update with the fresh info
+        $updateuser = $user[0]['perm_user_id'];
+        $updated = $this->objLuAdmin->updateUser($userArray, $updateuser);
+        if(!$updated) {
+            $errarr = $this->objLuAdmin->getErrors();
+            throw new customException($errarr[0]['reason']);
+            exit(1);
+        }
+        else {
+            return TRUE;
+        }
     }
 
     /**
