@@ -1718,6 +1718,26 @@ class altconfig extends object {
     }
 
     /**
+     * Whether to show the search box or not
+     *
+     * @access public
+     * @return string true or false
+     */
+    public function getenable_searchBox() {
+        if (! is_object ( $this->_root )) {
+            $this->_root = &$this->readConfig ( '', 'XML' );
+        }
+        //Lets get the parent node section first
+        $Settings = & $this->_root->getItem ( "section", "Settings" );
+        //Now onto the directive node
+        $SettingsDirective = & $Settings->getItem ( "directive", "SHOW_SEARCH_BOX" );
+        //finally unearth whats inside
+        $getsearch = $SettingsDirective->getContent ();
+
+        return $getsearch;
+    }
+
+    /**
      * The error callback function, defers to configured error handler
      *
      * @param  string $error
