@@ -623,7 +623,7 @@ class PEARCheckAction extends StepAction
 
             // go through and manually try and instantiate PEAR classes.
 
-            include_once 'MDB2.php';
+            @include_once 'MDB2.php';
 
             if (!class_exists('MDB2')) {
 
