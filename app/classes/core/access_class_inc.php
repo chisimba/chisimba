@@ -1,24 +1,24 @@
 <?php
 /**
  * Access Class.
- * 
+ *
  * The Access class handles some of the user authentication and permissions system access.
- * 
+ *
  * PHP version 5
- * 
- * This program is free software; you can redistribute it and/or modify 
- * it under the terms of the GNU General Public License as published by 
- * the Free Software Foundation; either version 2 of the License, or 
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * This program is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License 
- * along with this program; if not, write to the 
- * Free Software Foundation, Inc., 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
  * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- * 
+ *
  * @version    $Id$
  * @package    core
  * @subpackage access
@@ -43,9 +43,9 @@ $GLOBALS['kewl_entry_point_run']) {
 
 /**
  * Access class to control access.
- * 
+ *
  * Access class to control user access and the user ACL and permissions system
- * 
+ *
  * @category  Chisimba
  * @package   core
  * @author    Paul Scott <pscott@uwc.ac.za>
@@ -69,15 +69,16 @@ class access extends object
 
     /**
      * Method to control access to the module.
-     * 
+     *
      * Called by engine before the dispatch method.
      *
      * @param object $module The module controller.
      * @param string $action The action param passed to the dispatch method
-     * 
+     *
      * @return array The next action to be done
      */
     public function dispatchControl( $module, $action ) {
+        /*
         // Extract isRegistered
         extract( $this->getModuleInformation( 'decisiontable' ) );
         // Safety net if the decision table module has not been registered.
@@ -99,6 +100,7 @@ class access extends object
             }
         }
         // Action allowed continue.
+ */
         return $module->dispatch($action);
     }
 
@@ -107,18 +109,19 @@ class access extends object
      *
      * @param string $action  the action.
      * @param string $default the default to be used if action does not exist.
-     * 
+     *
      * @return bool true|false True if action valid, otherwise False.
      */
     public function isValid( $action, $default = TRUE ) {
-        return $this->objDT->isValid($action, $default);
+        //return $this->objDT->isValid($action, $default);
+        return TRUE;
     }
 
     /**
      * Method to gather information about the given module.
      *
      * @param string $moduleName The module name.
-     * 
+     *
      * @return string $info
      */
     public function getModuleInformation($moduleName) {
@@ -135,10 +138,11 @@ class access extends object
      * Method to control access to the module based on the modules configuration parameters.
      *
      * @param string $moduleName The module name.
-     * 
+     *
      * @return array the next action to be completed.
      */
     public function getPermissions($moduleName) {
+
         // Extract isRegistered, isAdminMod, isContextMod
         extract( $this->getModuleInformation( $moduleName ) );
         // The module is not registered redirect with option to register.
@@ -159,6 +163,12 @@ class access extends object
                 return $this->nextAction( 'nocontext', array('modname' => $moduleName), 'redirect' );
             }
         }
+    }
+
+    public function getAreas($moduleName) {
+        // areas are either isRegistrered, isAdminMod or isContextMod
+        $areas = $this->luAdmin->perm->getAreas();
+        return $areas;
     }
 }
 ?>

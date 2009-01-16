@@ -134,7 +134,7 @@ class engine {
      * Version Number of the software. (engine)
      *
      */
-    public $version = '2.0.8';
+    public $version = '3.0.0-alpha';
 
     /**
      * Template variable
@@ -368,6 +368,14 @@ class engine {
     public $eventDispatcher;
 
     public $lu;
+
+    public $luAdmin;
+
+    public $enableLogging;
+
+    public $_servername;
+
+    public $appid;
     /**
      * Constructor.
      * For use by application entry point script (usually /index.php)
@@ -394,6 +402,8 @@ class engine {
 		 * all configs now live in one place, referencing the config.xml file in the config directory
 		 */
         $this->_objDbConfig = $this->getObject ( 'altconfig', 'config' );
+        // do we enable logging?
+        $this->enableLogging = $this->_objDbConfig->getenable_logging ();
         // check for which db abstraction to use - MDB2 or PDO
         $this->_dbabs = $this->_objDbConfig->getenable_dbabs ();
         // check for memcache
@@ -433,6 +443,35 @@ class engine {
         $this->getDbManagementObj ();
         // init LiveUser
         $this->getLU ();
+        /* -- Remove this once all users are upgraded to 3.x series framework --*/
+        // check that the application is registered
+        $this->_servername = $this->_objDbConfig->serverName();
+        // find all available applications
+        $applications = $this->luAdmin->perm->getApplications();
+        //var_dump($applications); die();
+        if(empty($applications) || $applications[0]['application_define_name'] != $this->_servername ) {
+            $data = array('application_define_name' => $this->_servername);
+            $appid = $this->luAdmin->perm->addApplication($data);
+            $this->appid = $applications[0]['application_define_name'];
+        }
+        else {
+            $this->appid = $applications[0]['application_define_name'];
+        }
+        // Check that the basic groups are installed.
+        $groups = $this->luAdmin->perm->getGroups();
+        if ($groups === false || empty($groups)) {
+            // add the default groups
+            $data = array('group_define_name' => 'Site Admin', 'group_type' => LIVEUSER_GROUP_TYPE_ALL);
+            $groupId = $this->luAdmin->perm->addGroup($data);
+            $data = array('group_define_name' => 'Lecturers', 'group_type' => LIVEUSER_GROUP_TYPE_ALL);
+            $groupId = $this->luAdmin->perm->addGroup($data);
+            $data = array('group_define_name' => 'Students', 'group_type' => LIVEUSER_GROUP_TYPE_ALL);
+            $groupId = $this->luAdmin->perm->addGroup($data);
+            $data = array('group_define_name' => 'Guest', 'group_type' => LIVEUSER_GROUP_TYPE_ALL);
+            $groupId = $this->luAdmin->perm->addGroup($data);
+        }
+        /* -- End remove for 2.x -> 3.x series -- */
+
         //the user security module
         $this->_objUser = $this->getObject ( 'user', 'security' );
         //the language elements module
@@ -440,7 +479,7 @@ class engine {
 
         //check that the user is logged in and update the login
         if ($this->_objUser->isLoggedIn ()) {
-            $this->_objUser->updateLogin ();
+            //$this->_objUser->updateLogin ();
         }
 
         // other fields
@@ -747,33 +786,101 @@ class engine {
                         'storage' => array (
                             'dsn' => KEWL_DB_DSN,
                             'prefix' => 'tbl_',
+                            'tables' => array (
+                                'tbl_users' => array (
+                                    'fields' => array (
+                                        'id' => false,
+                                        'title' => false,
+                                        'lastlogin' => false,
+                                        'is_active' => false,
+                                        //'owner_user_id' => false,
+                                        //'owner_group_id' => false,
+                                        'surname' => false,
+                                        'firstName' => false,
+                                        'creationDate' => false,
+                                        'emailAddress' => false,
+                                        'logins' => false,
+                                        'sex' => false,
+                                        'country' => false,
+                                        'staffnumber' => false,
+                                        'cellnumber' => false,
+                                        'accesslevel' => false,
+                                        'howCreated' => false,
+                                        'updated' => false,
+
+                                    )
+
+                                 ),
+                                 'users' => array (
+                                    'fields' => array (
+                                        'id' => false,
+                                        'title' => false,
+                                        'lastlogin' => false,
+                                        'is_active' => false,
+                                        //'owner_user_id' => false,
+                                        //'owner_group_id' => false,
+                                        'surname' => false,
+                                        'firstName' => false,
+                                        'creationDate' => false,
+                                        'emailAddress' => false,
+                                        'logins' => false,
+                                        'sex' => false,
+                                        'country' => false,
+                                        'staffnumber' => false,
+                                        'cellnumber' => false,
+                                        'accesslevel' => false,
+                                        'howCreated' => false,
+                                        'updated' => false,
+
+                                    ),
+
+                                 ),
+                             ),
+                            'fields' => array (
+                                'id' => 'text',
+                                'title' => 'text',
+                                'lastlogin' => 'timestamp',
+                                'is_active' => 'text',
+                                //'owner_user_id' => 'integer',
+                                //'owner_group_id' => 'integer',
+                                'surname' => 'text',
+                                'firstName' => 'text',
+                                'creationDate' => 'date',
+                                'emailAddress' => 'text',
+                                'logins' => 'text',
+                                'sex' => 'text',
+                                'country' => 'text',
+                                'staffnumber' => 'text',
+                                'cellnumber' => 'text',
+                                'accesslevel' => 'text',
+                                'howCreated' => 'text',
+                                'updated' => 'date',
+                            ),
                             'alias' => array (
                                 'lastlogin' => 'last_login',
                                 'auth_user_id' => 'userId',
                                 'is_active' => 'isActive',
                                 'handle' => 'username',
-                                'owner_user_id' => 'owner_user_id',
-                                'owner_group_id' => 'owner_group_id',
-                                'passwd' => 'pass'
+                                //'owner_user_id' => 'owner_user_id',
+                                //'owner_group_id' => 'owner_group_id',
+                                'passwd' => 'pass',
+                                'id' => 'id',
+                                'title' => 'title',
+                                'surname' => 'surname',
+                                'firstName' => 'firstName',
+                                'creationDate' => 'creationDate',
+                                'emailAddress' => 'emailAddress',
+                                'logins' => 'logins',
+                                'sex' => 'sex',
+                                'country' => 'country',
+                                'staffnumber' => 'staffnumber',
+                                'cellnumber' => 'cellnumber',
+                                'accesslevel' => 'accesslevel',
+                                'howCreated' => 'howCreated',
+                                'updated' => 'updated',
                             ),
-                            'fields' => array (
-                                'lastlogin' => 'timestamp',
-                                'is_active' => 'text',
-                                'owner_user_id' => 'integer',
-                                'owner_group_id' => 'integer',
-                            ),
-                            'tables' => array (
-                                'tbl_users' => array (
-                                    'fields' => array (
-                                        'lastlogin' => false,
-                                        'is_active' => false,
-                                        'owner_user_id' => false,
-                                        'owner_group_id' => false,
-                            )
-                        )
                     )
                 )
-            )
         ),
         'permContainer' => array (
             'type' => 'Complex',
@@ -784,7 +891,7 @@ class engine {
                     'dsn' => KEWL_DB_DSN,
                     'prefix' => 'tbl_perms_',
                     'tables' => array (),
-                    'fields' => array (),
+                    'fields' => array ('application_id' => 'text',),
                     'alias' => array ()
                 )
                 // 'force_seq' => false
@@ -809,6 +916,7 @@ class engine {
     }
 
     public function authNotification(&$notification) {
+        log_debug($notification->getNotificationName ());
         if ($notification->getNotificationName () == 'onIdled') {
             log_debug ( "Session timed out..." );
         }

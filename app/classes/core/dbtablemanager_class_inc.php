@@ -2,25 +2,25 @@
 
 /**
  * Database management object
- * 
+ *
  * The dbTableManager class is the main (core) database management object. It can be used to create/drop tables
  * as well as index and manage tables and databases in a variety of RDBM's
- * 
+ *
  * PHP version 5
- * 
- * This program is free software; you can redistribute it and/or modify 
- * it under the terms of the GNU General Public License as published by 
- * the Free Software Foundation; either version 2 of the License, or 
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * This program is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License 
- * along with this program; if not, write to the 
- * Free Software Foundation, Inc., 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
  * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- * 
+ *
  * @category  Chisimba
  * @package   core
  * @author    Paul Scott <pscott@uwc.ac.za>
@@ -55,10 +55,10 @@ include_once 'Var_Dump.php';
 
 /**
  * database table manager
- * 
+ *
  * The database manager object can be used to create, drop and manipulate table and database structure,
  * as well as manipulate db schema as a whole
- * 
+ *
  * @category  Chisimba
  * @package   core
  * @author    Paul Scott <pscott@uwc.ac.za>
@@ -106,7 +106,7 @@ class dbTableManager extends object
      * The db object
      *
      * @access private
-     * @var    object 
+     * @var    object
      */
     private $_dbmanager = NULL;
 
@@ -117,19 +117,21 @@ class dbTableManager extends object
      * and get away with it
      *
      * @access private
-     * @var    object 
+     * @var    object
      */
     private $_db = NULL;
+
+    public $appid;
 
    /**
     * Method to initialise the dbTableManager object.
     *
-    * @access public  
+    * @access public
     * @param  string   $tableName     The name of the table this object encapsulates
     * @param  string   $dbName        The database name
     * @param  PEAR     $              ::MDB2_Schema $pearDb The PEAR::MDB2_Schema object to use (defaults to use the global connection)
     * @param  callback $errorCallback The name of a custom error callback function (defaults to the global)
-    * @return void    
+    * @return void
     */
     public function init($dbName = NULL, $pearDbManager = NULL,
         $errorCallback = "globalPearErrorCallback") {
@@ -146,7 +148,7 @@ class dbTableManager extends object
         // otherwise just use regular PHP var_dump();
         if (class_exists('Var_Dump')) {
             $var_dump = array(
-                         'Var_Dump', 
+                         'Var_Dump',
                          'display',
                         );
         } else {
@@ -156,6 +158,7 @@ class dbTableManager extends object
         // Load up the config object and get the servername
         $this->objDBConfig = $this->getObject('altconfig','config');
         $this->_serverName = $this->objDBConfig->serverName();
+        $this->appid = $this->objEngine->appid;
 
         // instantiate the MDB2 Management module
        // $this->_db = $this->_db->loadModule('Manager');
@@ -202,10 +205,10 @@ class dbTableManager extends object
      * 3. All - both Structure and content
      *
      * @access public
-     * @param  string $option  
+     * @param  string $option
      * @param  string $dumptype
      * @param  string $dumpfile
-     * @return bool  
+     * @return bool
      */
     public function dumpDatabaseToFile($option = 'dump', $dumptype = 'all', $dumpfile) {
         // lets set a time limit on this
@@ -247,7 +250,7 @@ class dbTableManager extends object
      * Method to get the schema definition of a single table
      *
      * @param  string $table
-     * @return array 
+     * @return array
      */
     public function getTableSchema($table) {
         $dbdef = $this->getDefFromDb();
@@ -263,9 +266,9 @@ class dbTableManager extends object
     /**
      * Method to get the debug strings from queries if neccessary
      *
-     * @access private  
+     * @access private
      * @param  reference to       the management object $db
-     * @param  string    $scope  
+     * @param  string    $scope
      * @param  string    $message
      * @return string    message
      */
@@ -303,7 +306,7 @@ class dbTableManager extends object
      * - redirect the method call to the manager module: $_db->manager->createTable('sometable', $fields);
      *
      * @param string $tableName
-     * @param array  $fields   
+     * @param array  $fields
      */
     public function createTable($tableName, $fields, $options) {
     	$puid = array(
@@ -363,8 +366,8 @@ class dbTableManager extends object
      *
      * @access public
      * @param  string $tableName
-     * @param  string $keyname  
-     * @param  array  $index    
+     * @param  string $keyname
+     * @param  array  $index
      * @return bool   TRUE on success | FALSE on failure
      */
     public function createTableIndex($tableName, $keyname, $index, $trunc = FALSE) {
@@ -505,15 +508,15 @@ class dbTableManager extends object
      *                            indexes. Each entry of this array is set to another type of associative
      *                            array that specifies properties of the index that are specific to
      *                            each field.
-     *                            
+     *
      *                            Currently, only the sorting property is supported. It should be used
      *                            to define the sorting direction of the index. It may be set to either
      *                            ascending or descending.
-     *                            
+     *
      *                            Not all DBMS support index sorting direction configuration. The DBMS
      *                            drivers of those that do not support it ignore this property. Use the
      *                            function supports() to determine whether the DBMS driver can manage indexes.
-     *                            
+     *
      *                            Example
      *                            array(
      *                            'fields' => array(
@@ -567,7 +570,7 @@ class dbTableManager extends object
      *                            constraints. Each entry of this array is set to another type of associative
      *                            array that specifies properties of the constraint that are specific to
      *                            each field.
-     *                            
+     *
      *                            Example
      *                            array(
      *                            'fields' => array(
@@ -694,48 +697,48 @@ class dbTableManager extends object
      * @param  array   $changes associative array that contains the details of each type
      *                          of change that is intended to be performed. The types of
      *                          changes that are currently supported are defined as follows:
-     *                          
+     *
      *                          name
-     *                          
+     *
      *                          New name for the table.
-     *                          
+     *
      *                          add
-     *                          
+     *
      *                          Associative array with the names of fields to be added as
      *                          indexes of the array. The value of each entry of the array
      *                          should be set to another associative array with the properties
      *                          of the fields to be added. The properties of the fields should
      *                          be the same as defined by the Metabase parser.
-     *                          
-     *                          
+     *
+     *
      *                          remove
-     *                          
+     *
      *                          Associative array with the names of fields to be removed as indexes
      *                          of the array. Currently the values assigned to each entry are ignored.
      *                          An empty array should be used for future compatibility.
-     *                          
+     *
      *                          rename
-     *                          
+     *
      *                          Associative array with the names of fields to be renamed as indexes
      *                          of the array. The value of each entry of the array should be set to
      *                          another associative array with the entry named name with the new
      *                          field name and the entry named Declaration that is expected to contain
      *                          the portion of the field declaration already in DBMS specific SQL code
      *                          as it is used in the CREATE TABLE statement.
-     *                          
+     *
      *                          change
-     *                          
+     *
      *                          Associative array with the names of the fields to be changed as indexes
      *                          of the array. Keep in mind that if it is intended to change either the
      *                          name of a field and any other properties, the change array entries
      *                          should have the new names of the fields as array indexes.
-     *                          
+     *
      *                          The value of each entry of the array should be set to another associative
      *                          array with the properties of the fields to that are meant to be changed as
      *                          array entries. These entries should be assigned to the new values of the
      *                          respective properties. The properties of the fields should be the same
      *                          as defined by the Metabase parser.
-     *                          
+     *
      *                          Example
      *                          array(
      *                          'name' => 'userlist',
@@ -769,12 +772,12 @@ class dbTableManager extends object
      *                          )
      *                          )
      *                          )
-     *                          
+     *
      * @param  boolean $check   indicates whether the function should just check if the DBMS driver
      *                          can perform the requested table alterations if the value is TRUE or
      *                          actually perform them otherwise.
-     * @access public 
-     *                 
+     * @access public
+     *
       * @return mixed   MDB2_OK on success, a MDB2 error on failure
      */
     function alterTable($name, $changes, $check) {

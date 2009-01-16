@@ -188,6 +188,10 @@ class dbTable extends object
 
 		public $objLu;
 
+		public $enableLogging;
+
+		public $appid;
+
 
     /**
     * Method to initialise the dbTable object.
@@ -202,6 +206,8 @@ class dbTable extends object
     public function init($tableName, $pearDb = NULL, $errorCallback = "globalPearErrorCallback") {
     	$modname = $this->objEngine->_moduleName;
     	$this->objLu = $this->objEngine->lu;
+    	$this->objLuAdmin      = $this->objEngine->luAdmin;
+    	$this->enableLogging = $this->objEngine->enableLogging;
     	$this->eventDispatcher = $this->objEngine->eventDispatcher;
     	// global $_globalObjDb;
         $this->_tableName = $tableName;
@@ -253,6 +259,7 @@ class dbTable extends object
         elseif($this->dbLayer === 'PDO') {
         	$this->dbType = $this->objEngine->pdsn['phptype'];
         }
+        $this->appid = $this->objEngine->appid;
     }
 
     /**

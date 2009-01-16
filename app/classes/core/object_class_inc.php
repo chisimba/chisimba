@@ -82,6 +82,8 @@ class object
 
     public $objLu;
 
+    public $appid;
+
     /**
      * Constructor for the object class
      *
@@ -94,7 +96,9 @@ class object
         $this->objEngine  = $objEngine;
         $this->moduleName = $moduleName;
         $this->objLu = $this->objEngine->lu;
+        $this->objLuAdmin     = $objEngine->luAdmin;
         $this->eventDispatcher = $objEngine->eventDispatcher;
+        $this->appid = $objEngine->appid;
         $this->init();
     }
 

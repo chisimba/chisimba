@@ -80,6 +80,7 @@ class controller extends access
     protected $_objLanguage;
 
     public $objLu;
+    public $appid;
 
     /**
      * Constructor for the controller class.
@@ -93,7 +94,9 @@ class controller extends access
         	parent::__construct($objEngine, $moduleName);
         	$version         = $objEngine->version;
         	$this->objLu     = $objEngine->lu;
+        	$this->objLuAdmin     = $objEngine->luAdmin;
         	$this->eventDispatcher = $objEngine->eventDispatcher;
+        	$this->appid = $objEngine->appid;
         	$this->footerStr = '<center>Powered by <a href="http://avoir.uwc.ac.za/">Chisimba</a> version ' .$version . "</center>";
         }
         catch (customException $e)
