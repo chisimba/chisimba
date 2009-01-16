@@ -311,7 +311,7 @@ class RootUserAction extends StepAction
 
         $def_sysowner = isset ( $_SESSION ['sys_owner'] ) ? $_SESSION ['sys_owner'] : 'Chisimba Owner';
 
-        $log_enable = isset ( $_SESSION ['log_enable'] ) ? $_SESSION ['log_enable'] : True;
+        $log_enable = isset ( $_SESSION ['log_enable'] ) ? $_SESSION ['log_enable'] : TRUE;
 
         $debug_enable = isset ( $_SESSION ['debug_enable'] ) ? $_SESSION ['debug_enable'] : FALSE;
 
