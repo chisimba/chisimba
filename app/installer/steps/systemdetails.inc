@@ -362,7 +362,7 @@ class RootUserAction extends StepAction
 
         ob_clean ();
 
-        check_box ( 'debug_enable', 1, $debug_enable, '', 'tabindex="8"' );
+        check_box ( 'debug_enable', 1, $debug_enable != 'production', '', 'tabindex="8"' );
 
         $debug_enable = ob_get_contents ();
 
