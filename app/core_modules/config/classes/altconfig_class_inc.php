@@ -1398,7 +1398,7 @@ class altconfig extends object {
     public function getenable_dbabs() {
         if (! is_object ( $this->_root ))
             $this->_root = &$this->readConfig ( '', 'XML' );
-        
+
         //Lets get the parent node section first
         $Settings = & $this->_root->getItem ( "section", "Settings" );
         //Now onto the directive node
@@ -1698,6 +1698,26 @@ class altconfig extends object {
     }
 
     /**
+     * Whether to enable logging or not
+     *
+     * @access public
+     * @return string true or false
+     */
+    public function getenable_logging() {
+        if (! is_object ( $this->_root )) {
+            $this->_root = &$this->readConfig ( '', 'XML' );
+        }
+        //Lets get the parent node section first
+        $Settings = & $this->_root->getItem ( "section", "Settings" );
+        //Now onto the directive node
+        $SettingsDirective = & $Settings->getItem ( "directive", "KEWL_ENABLE_LOGGING" );
+        //finally unearth whats inside
+        $getlogging = $SettingsDirective->getContent ();
+
+        return $getlogging;
+    }
+
+    /**
      * The error callback function, defers to configured error handler
      *
      * @param  string $error
@@ -1771,7 +1791,7 @@ class altconfig extends object {
 
         return $parsed;
     }
-    
+
     /**
      * Function to determine if a property exist in the config file or not, true if exist/false if doesn't exist - in a config file
      * @param  string $propertyName is the property name eg SHOW_SEARCH_BOX
@@ -1779,7 +1799,7 @@ class altconfig extends object {
      */
       public function isPropertyExist($propertyName)
       {
-         
+
         if($this->getItem($propertyName)=="")
         {
            return 'FALSE';
@@ -1788,7 +1808,7 @@ class altconfig extends object {
            return 'TRUE';
         }
       }
-      
+
       /**
      * Function to get propaerty value returns false if doesn't exist in a config file
      * @param  string $propertyName is the property name eg SHOW_SEARCH_BOX
@@ -1798,7 +1818,7 @@ class altconfig extends object {
       {
          return $this->getItem($propertyName);
       }
-      
+
     /**
      * Destructor
      */
