@@ -1052,7 +1052,7 @@ class RootUserAction extends StepAction
         $serverbox = ob_get_contents ();
         ob_clean ();
 
-        text_box ( 'site_url', isset ( $_SESSION ['site_url'] ) ? $_SESSION ['site_url'] : $this_url, '40', '', false, 'tabindex="11"' );
+        text_box ( 'site_url', isset ( $_SESSION ['site_url'] ) ? ( strlen ( $_SESSION ['site_url'] ) ? $_SESSION ['site_url'] : '/' ) : $this_url, '40', '', false, 'tabindex="11"' );
 
         $box = ob_get_contents ();
 
