@@ -95,6 +95,9 @@ class logactivity extends dbTable
      */
     public function log()
     {
+        if($this->enableLogging == '0') {
+            return TRUE;
+        }
         // Check if logger is registered - save in session to prevent additional DB hits.
         if($this->checkIfReg()){
 

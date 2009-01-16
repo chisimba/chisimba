@@ -26,7 +26,7 @@ class logdisplay extends object
     {
         try {
             $this->logShow = $this->getObject('logshow', 'logger');
-            
+
             $this->objUser = $this->getObject('user', 'security');
             $this->objLanguage = $this->getObject('language', 'language');
             $this->objCatalogue = $this->getObject('catalogueconfig', 'modulecatalogue');
@@ -49,7 +49,7 @@ class logdisplay extends object
             exit();
         }
     }
-    
+
     /**
     * Method to display the list of modules and their usage
     *
@@ -59,38 +59,38 @@ class logdisplay extends object
     public function show()
     {
         $data = $this->logShow->showStatsByModule();
-        
+
         $hdModules = $this->objLanguage->languageText('mod_logger_statisticsbymodule', 'logger');
         $lbModule = $this->objLanguage->languageText('phrase_modulename');
         $lbHits = $this->objLanguage->languageText('word_hits');
         $lbUsers = $this->objLanguage->languageText('phrase_numberofusers');
         $lnDescription = $this->objLanguage->languageText('phrase_viewmoduledescription');
-        
+
         $objHead = new htmlheading();
         $objHead->str = ucwords($hdModules);
         $objHead->type = 1;
         $str = $objHead->show();
-        
+
         if(!empty($data)){
             $headerParams=$this->getJavascriptFile('new_sorttable.js','htmlelements');
             $this->appendArrayVar('headerParams', $headerParams);
-            
+
             $objTable = new htmltable();
             $objTable->cellpadding = '5';
             $objTable->id = 'newtable';
             $objTable->css_class = 'sorttable';
             $objTable->row_attributes = 'name="row_'.$objTable->id.'"';
-            
+
             $objTable->startRow();
             $objTable->addCell($lbModule, '60%', '','', 'heading');
             $objTable->addCell($lbHits, '10%', '','', 'heading');
             $objTable->addCell($lbUsers, '10%', '','', 'heading');
             $objTable->addCell('', '20%', '','', 'heading');
             $objTable->endRow();
-                        
+
             foreach($data as $item){
                 $module = $item['module'];
-                
+
                 $objPop = new windowpop();
                 $objPop->set('location', $this->uri(array('action' => 'showmoduleinfo', 'mod' => $module)));
                 $objPop->set('linktext', $lnDescription);
@@ -100,22 +100,22 @@ class logdisplay extends object
                 $objPop->set('top', '400');
                 $objPop->set('resizable', 'yes');
                 $link = $objPop->show();
-                
+
                 $row = array();
                 $row[] = $module;
                 $row[] = $item['calls'];
                 $row[] = $item['users'];
                 $row[] = $link;
-                
+
                 $objTable->row_attributes = "name='row_".$objTable->id."' onmouseover=\"this.className='tbl_ruler';\" onmouseout=\"this.className=''; \"";
                 $objTable->addRow($row);
             }
             $str .= $objTable->show();
         }
-        
+
         return $str.'<br />';
     }
-    
+
     /**
     * Method to display the list of modules and their usage
     *
@@ -125,38 +125,38 @@ class logdisplay extends object
     public function statsByUser()
     {
         $data = $this->logShow->showStatsByModule();
-        
+
         $hdModules = $this->objLanguage->languageText('mod_logger_statisticsbymodule', 'logger');
         $lbModule = $this->objLanguage->languageText('phrase_modulename');
         $lbHits = $this->objLanguage->languageText('word_hits');
         $lbUsers = $this->objLanguage->languageText('phrase_numberofusers');
         $lnDescription = $this->objLanguage->languageText('phrase_viewmoduledescription');
-        
+
         $objHead = new htmlheading();
         $objHead->str = ucwords($hdModules);
         $objHead->type = 1;
         $str = $objHead->show();
-        
+
         if(!empty($data)){
             $headerParams=$this->getJavascriptFile('new_sorttable.js','htmlelements');
             $this->appendArrayVar('headerParams', $headerParams);
-            
+
             $objTable = new htmltable();
             $objTable->cellpadding = '5';
             $objTable->id = 'newtable';
             $objTable->css_class = 'sorttable';
             $objTable->row_attributes = 'name="row_'.$objTable->id.'"';
-            
+
             $objTable->startRow();
             $objTable->addCell($lbModule, '60%', '','', 'heading');
             $objTable->addCell($lbHits, '10%', '','', 'heading');
             $objTable->addCell($lbUsers, '10%', '','', 'heading');
             $objTable->addCell('', '20%', '','', 'heading');
             $objTable->endRow();
-                        
+
             foreach($data as $item){
                 $module = $item['module'];
-                
+
                 $objPop = new windowpop();
                 $objPop->set('location', $this->uri(array('action' => 'showmoduleinfo', 'mod' => $module)));
                 $objPop->set('linktext', $lnDescription);
@@ -166,22 +166,22 @@ class logdisplay extends object
                 $objPop->set('top', '400');
                 $objPop->set('resizable', 'yes');
                 $link = $objPop->show();
-                
+
                 $row = array();
                 $row[] = $module;
                 $row[] = $item['calls'];
                 $row[] = $item['users'];
                 $row[] = $link;
-                
+
                 $objTable->row_attributes = "name='row_".$objTable->id."' onmouseover=\"this.className='tbl_ruler';\" onmouseout=\"this.className=''; \"";
                 $objTable->addRow($row);
             }
             $str .= $objTable->show();
         }
-        
+
         return $str.'<br />';
     }
-    
+
     /**
     * Method to display the module description
     *
@@ -193,18 +193,18 @@ class logdisplay extends object
         $lnClose = $this->objLanguage->languageText('word_close');
         $modArr = $this->objCatalogue->getModuleDescription($module);
         $modArr2 = $this->objCatalogue->getModuleName($module);
-        
+
         $description = $modArr[0];
         $modName = $modArr2[0];
-        
+
         $objLink = new link('#');
         $objLink->link = $lnClose;
         $objLink->extra = 'onclick = "javascript: window.close()"';
         $description .= '<p align="center">'.$objLink->show().'</p>';
-        
+
         return $this->objFeatureBox->showContent($modName, $description);
     }
-    
+
     /**
     * Method to display the left menu with the index
     *
@@ -219,9 +219,9 @@ class logdisplay extends object
         $lnStatistics = $this->objLanguage->languageText('mod_logger_statistics', 'logger');
         $lnPages = $this->objLanguage->languageText('mod_logger_pagespermodule', 'logger');
         $lnCoursePages = $this->objLanguage->languageText('mod_logger_pagespercourse', 'logger');
-        
+
         $str = '<ul>';
-        
+
         $objLink = new link($this->uri(''));
         $objLink->link = $lnModules;
         $str .= '<li>'.$objLink->show().'</li>';
@@ -248,11 +248,12 @@ class logdisplay extends object
                         )));
 
                     $objLink->link = $contextTitle." ".$lnStatistics;
-                    $str .= '<li>'.$objLink->show().'</li>';            
+                    $str .= '<li>'.$objLink->show().'</li>';
             }
         }
     }else{
-        $objContextGroups = $this->getObject('managegroups','contextgroups');        
+        $userId=$this->objUser->userId();
+        $objContextGroups = $this->getObject('managegroups','contextgroups');
         $studRole = $objContextGroups->rolecontextcodes($userId,$role='Students');
         foreach($studRole as $myStudRole){
             $contextTitle = $this->objContext->getField('title',$myStudRole);
@@ -264,20 +265,20 @@ class logdisplay extends object
                     'contextcode' => $myStudRole
                     )));
                 $objLink->link = $contextTitle." ".$lnStatistics;
-                $str .= '<li>'.$objLink->show().'</li>';            
+                $str .= '<li>'.$objLink->show().'</li>';
         }
     }
         /*
         $objLink = new link($this->uri(array('action' => 'userstats')));
         $objLink->link = $lnUser;
         $str .= '<li>'.$objLink->show().'</li>';
-        
+
         $objLink = new link($this->uri(''));
         $objLink->link = $lnPages;
         $str .= '<li>'.$objLink->show().'</li>';
         */
         $str .= '</ul>';
-        
+
         return $this->objFeatureBox->show($hdMenu, $str);
     }
     /**
@@ -353,13 +354,13 @@ class logdisplay extends object
 
         $objTable->startRow();
         $objTable->addHeaderCell("<b>".$contextTitle."</b>", '100%', 'top', 'left',Null,'colspan=3');
-        $objTable->endRow();    
+        $objTable->endRow();
         $objTable->startRow();
         $objTable->addCell("<b>".$lbWordNo.".</b>", '5%', 'top', 'left');
         $objTable->addCell("<b>".$lbPageName."</b>", '75%', 'top', 'left');
         $objTable->addCell("<b>".$lbAccessTime."</b>", '25%', 'top', 'left');
         $objTable->endRow();
-        
+
         $mySql = $this->logShow->userLoggerDetails($userId,$thisContext, $module='contextcontent');
         $key = 1;
         $eventparamvalue = array();
@@ -399,7 +400,7 @@ class logdisplay extends object
                 $objTable->addCell($dateCreated[$key], Null, 'top', 'left',$class);
                 $objTable->endRow();
                 $key = $key+1;
-                
+
                 if($class=='odd'){
                     $class='even';
                 }else{
@@ -434,7 +435,7 @@ class logdisplay extends object
 
     $objTable->startRow();
     $objTable->addHeaderCell("<b>".$contextTitle." ".$hdStatsUser."</b>", '100%', 'top', 'left',Null,'colspan=2');
-    $objTable->endRow();    
+    $objTable->endRow();
 
     if($userId==NULL){
         $userId=$this->objUser->userId();
