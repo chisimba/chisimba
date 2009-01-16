@@ -1234,11 +1234,6 @@ class RootUserAction extends StepAction
                 $defaultskin = $value;
                 $_SESSION ['defaultskin'] = $defaultskin;
             }
-            else {
-                $_SESSION['defaultskin'] = strtolower($value);
-                break;
-            }
-
         }
         $main_server = isset ( $_SESSION ['main_server'] ) ? $_SESSION ['main_server'] : 'http://kngforge.uwc.ac.za/kng_unstable';
 
