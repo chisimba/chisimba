@@ -417,7 +417,21 @@ class useradmin_model2 extends dbtable
 
             // return;
         }
-        return $this->update('id', $id, array('pass'=>sha1($password)));
+        // get the user that we are interested in...
+        $user = $this->objLuAdmin->getUsers(array('container' => 'auth', 'filters' => array('id' => $id)));
+        // now update with the fresh info
+        $updateuser = $user[0]['perm_user_id'];
+        $userArray = array('passwd' => $password);
+        $updated = $this->objLuAdmin->updateUser($userArray, $updateuser);
+        if(!$updated) {
+            $errarr = $this->objLuAdmin->getErrors();
+            throw new customException($errarr[0]['reason']);
+            exit(1);
+        }
+        else {
+            return TRUE;
+        }
+        // return $this->update('id', $id, array('pass'=>sha1($password)));
     }
 
     /**
@@ -633,7 +647,21 @@ IP Address of Request: '.$_SERVER['REMOTE_ADDR'];
     */
     private function setUserAsActive($id)
     {
-        return $this->update('id', $id, array('isactive'=>'1'));
+        // get the user that we are interested in...
+        $user = $this->objLuAdmin->getUsers(array('container' => 'auth', 'filters' => array('id' => $id)));
+        // now update with the fresh info
+        $updateuser = $user[0]['perm_user_id'];
+        $userArray = array('is_active' => 1);
+        $updated = $this->objLuAdmin->updateUser($userArray, $updateuser);
+        if(!$updated) {
+            $errarr = $this->objLuAdmin->getErrors();
+            throw new customException($errarr[0]['reason']);
+            exit(1);
+        }
+        else {
+            return TRUE;
+        }
+        // return $this->update('id', $id, array('isactive'=>'1'));
     }
 
     /**
@@ -642,7 +670,21 @@ IP Address of Request: '.$_SERVER['REMOTE_ADDR'];
     */
     private function setUserAsInActive($id)
     {
-        return $this->update('id', $id, array('isactive'=>'0'));
+    // get the user that we are interested in...
+        $user = $this->objLuAdmin->getUsers(array('container' => 'auth', 'filters' => array('id' => $id)));
+        // now update with the fresh info
+        $updateuser = $user[0]['perm_user_id'];
+        $userArray = array('is_active' => 0);
+        $updated = $this->objLuAdmin->updateUser($userArray, $updateuser);
+        if(!$updated) {
+            $errarr = $this->objLuAdmin->getErrors();
+            throw new customException($errarr[0]['reason']);
+            exit(1);
+        }
+        else {
+            return TRUE;
+        }
+        // return $this->update('id', $id, array('isactive'=>'0'));
     }
 
     /**
@@ -653,7 +695,21 @@ IP Address of Request: '.$_SERVER['REMOTE_ADDR'];
     {
         // User cannot delete own account
         if ($id != $this->objUser->PKid()) {
-            return $this->delete('id', $id);
+            // get the user that we are interested in...
+            $user = $this->objLuAdmin->getUsers(array('container' => 'auth', 'filters' => array('id' => $id)));
+            // now update with the fresh info
+            $updateuser = $user[0]['perm_user_id'];
+
+            $updated = $this->objLuAdmin->removeUser($updateuser);
+            if(!$updated) {
+                $errarr = $this->objLuAdmin->getErrors();
+                throw new customException($errarr[0]['reason']);
+                exit(1);
+            }
+            else {
+                return TRUE;
+            }
+            // return $this->delete('id', $id);
         } else {
             return FALSE;
         }
@@ -665,7 +721,21 @@ IP Address of Request: '.$_SERVER['REMOTE_ADDR'];
     */
     private function setUserLdap($id)
     {
-        return $this->update('id', $id, array('howcreated'=>'LDAP', 'pass'=>sha1('--LDAP--')));
+        // get the user that we are interested in...
+        $user = $this->objLuAdmin->getUsers(array('container' => 'auth', 'filters' => array('id' => $id)));
+        // now update with the fresh info
+        $updateuser = $user[0]['perm_user_id'];
+        $userArray = array('howCreated' => 'LDAP', 'passwd' => '--LDAP--');
+        $updated = $this->objLuAdmin->updateUser($userArray, $updateuser);
+        if(!$updated) {
+            $errarr = $this->objLuAdmin->getErrors();
+            throw new customException($errarr[0]['reason']);
+            exit(1);
+        }
+        else {
+            return TRUE;
+        }
+        // return $this->update('id', $id, array('howcreated'=>'LDAP', 'pass'=>sha1('--LDAP--')));
     }
 
 } // end of class sqlUsers
