@@ -169,7 +169,9 @@ class user extends dbTable
         $line=$this->lookupData($username);
         if ($line) {
             if ($line['isactive']=='0'){
-                DEFINE('STATUS','inactive');
+                if (!defined('STATUS')){
+                    DEFINE('STATUS','inactive');
+                }
                 return false;
             }
             if ($line['pass']==sha1('--LDAP--')){

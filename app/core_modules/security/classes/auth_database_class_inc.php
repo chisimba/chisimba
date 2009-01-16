@@ -61,7 +61,9 @@ class auth_database extends abauth implements ifauth
         $this->setSession('userprincipal', $user);
         if ($line) {
             if ($line['isactive']=='0'){
-                DEFINE('STATUS','inactive');
+                if (!defined('STATUS')){
+                    DEFINE('STATUS','inactive');
+                }
                 return FALSE;
             }
             //LDAP will be handled in chain-of-command
