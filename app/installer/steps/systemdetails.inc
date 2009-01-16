@@ -1043,6 +1043,7 @@ class RootUserAction extends StepAction
 
         0, 'tabindex="13"' );
 
+
         $cmbdefaultSkin = ob_get_contents ();
 
         ob_clean ();
