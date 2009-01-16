@@ -348,7 +348,7 @@ class skin extends object
         $sform = '<div id="search">'.$sform->show().'</div>';
         //Letus look at the configuration file file first
         $objConfig = $this->newObject('altconfig','config');
-        //checking if configuration exist-By Emmanuel Natalis
+        /*//checking if configuration exist-By Emmanuel Natalis
         if($objConfig->isPropertyExist('SHOW_SEARCH_BOX'))
         {
         //property exist, we check if it is set to true or false
@@ -364,10 +364,10 @@ class skin extends object
              return $sform;
           }
         } else
-        {
+        {*/
            //it doesn't exist, we just echo the search box
            return $sform;
-        }
+        //}
     }
 
     /**
