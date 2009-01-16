@@ -272,24 +272,24 @@ class modulesadmin extends dbTableManager
                 $groupArray2 = array();
                 if(isset($registerdata['BLOCK'])) {
                     foreach ($registerdata['BLOCK'] as $block) {
-                        
+
                         $blockInfo = explode('|', $block);
                         if (!isset($blockInfo[1])) {
                             $blockInfo[1] = 'site';
                         }
                         //var_dump($blockInfo); die();
-                        
+
                        $this->objModuleBlocks->addBlock($moduleId, $blockInfo[0], 'normal', $blockInfo[1]);
                     }
                 }
                 if(isset($registerdata['WIDEBLOCK'])) {
                     foreach ($registerdata['WIDEBLOCK'] as $block) {
-                        
+
                         $blockInfo = explode('|', $block);
                         if (!isset($blockInfo[1])) {
                             $blockInfo[1] = 'site';
                         }
-                        
+
                         $this->objModuleBlocks->addBlock($moduleId, $blockInfo[0],'wide', $blockInfo[1]);
                     }
                 }
@@ -734,6 +734,18 @@ class modulesadmin extends dbTableManager
             $this->errorCallback('Caught exception: '.$e->getMessage());
             exit();
         }
+        // finally register the module in the permissions system
+        // register the module as an area
+        $data = array(
+            'application_id' => $this->appid,
+            'area_define_name' => $moduleId,
+        );
+        $areaId  = $this->objLuAdmin->perm->addArea($data);
+        if ($areaId === false) {
+            log_debug($this->objLuAdmin->getErrors());
+        } else {
+            log_debug("Created Area Id $areaId for module $moduleId in application $this->appid");
+        }
         return TRUE;
     }
 
@@ -836,12 +848,31 @@ class modulesadmin extends dbTableManager
                 $this->objModules->delete('module_id',$moduleId,'tbl_language_modules');
                 $this->objModules->delete('module_id',$moduleId,'tbl_modules_dependencies');
                 $this->objModules->delete('module_id',$moduleId,'tbl_modules');
-                
+
                 // finally clean up the module tags in tbl_tags
                 $this->objModules->removeTags($moduleId);
-                
-                //$this->objModules->commitTransaction();//End the transaction;
 
+                //$this->objModules->commitTransaction();//End the transaction;
+                // clean up the permissions system
+                // remove the module as an area from the Chisimba application
+                $params = array('filters' => array('area_define_name' => $moduleId));
+                $areas = $this->objLuAdmin->perm->getAreas($params);
+                // var_dump($areas); die();
+                if(is_array($areas) && !empty($areas)) {
+                    $filters = array('area_id' => $areas[0]['area_id']);
+                    $rmArea = $this->objLuAdmin->perm->removeArea($filters);
+                }
+                else {
+                    $rmArea = false;
+                }
+
+                if ($rmArea === false) {
+                    log_debug("Couldn't uninstall $moduleId");
+                    $this->objLuAdmin->getErrors();
+                }
+                else {
+                    log_debug("Uninstalling $moduleId");
+                }
                 return TRUE;
             }
         } catch (Exception $e) {
@@ -878,7 +909,7 @@ class modulesadmin extends dbTableManager
             if (!isset($tablename) || !isset($fields) || !isset($options)) {
                 return FALSE;
             }
-            
+
             $this->createTable($tablename,$fields,$options);
             if (isset($indexes)) {
                 $this->createTableIndex($tablename,$name,$indexes);

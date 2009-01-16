@@ -894,6 +894,7 @@ class modulecatalogue extends controller {
             $filepath = $this->objModFile->findRegisterFile ( $modname );
             if ($filepath) { // if there were no file it would be FALSE
                 $this->registerdata = $this->objModFile->readRegisterFile ( $filepath );
+
                 if ($this->registerdata) {
                     // Added 2005-08-24 as extra check
                     if (isset ( $this->registerdata ['WARNING'] ) && ($this->getParm ( 'confirm' ) != '1')) {
@@ -931,11 +932,15 @@ class modulecatalogue extends controller {
      */
     private function uninstallModule($modname) {
         try {
+            // find all available applications
+            $applications = $this->objLuAdmin->perm->getApplications();
+            //var_dump($applications); die();
             $filepath = $this->objModFile->findRegisterFile ( $modname );
             $this->registerdata = $this->objModFile->readRegisterFile ( $filepath );
             if (is_array ( $this->registerdata )) {
                 return $this->objModuleAdmin->uninstallModule ( $modname, $this->registerdata );
-            } else {
+            }
+            else {
                 $this->output = $this->objLanguage->languageText ( 'mod_modulecatalogue_errnofile', 'modulecatalogue' );
                 return FALSE;
             }
@@ -977,6 +982,7 @@ class modulecatalogue extends controller {
                 return TRUE;
             }
             $filepath = $this->objModFile->findRegisterFile ( $modname );
+
             if ($filepath) { //if there were no file it would be FALSE
                 $registerdata = $this->objModFile->readRegisterFile ( $filepath );
                 if ($registerdata) {
@@ -1048,6 +1054,7 @@ class modulecatalogue extends controller {
                             }
                         }
                     }
+
                     $regResult = $this->objModuleAdmin->uninstallModule ( $modname, $registerdata );
                     if ($regResult) {
                         $this->output [] = str_replace ( '[MODULE]', $modname, $this->objLanguage->languageText ( 'mod_modulecatalogue_deregconfirm', 'modulecatalogue' ) );
