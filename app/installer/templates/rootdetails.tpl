@@ -82,7 +82,7 @@ $objHelp = new domtt();
 		<?php echo $objHelp->show('Debug','This will create a log file of any error messages that may be encountered');?>
 	</td>
 	<td >
-	Debug enable?
+	Enable debug?
 	</td>
 	<td >
 	<?php echo $debug_enable?>
