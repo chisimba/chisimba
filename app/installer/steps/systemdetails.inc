@@ -374,7 +374,7 @@ class RootUserAction extends StepAction
 
         ob_clean ();
 
-        text_box ( 'serverName', $serverName, '20', '', false, 'tabindex="2"' );
+        text_box ( 'serverName', $server_name, '20', '', false, 'tabindex="2"' );
 
         normal_button ( 'getServerName', 'Generate', 'javascript:generateServerName();', 'tabindex="2"' );
 
