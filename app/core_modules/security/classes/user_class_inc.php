@@ -461,6 +461,10 @@ class user extends dbTable
     */
     public function getUserId($username)
     {
+        // get the user that we are interested in...
+        //$user = $this->objLuAdmin->getUsers(array('container' => 'auth', 'filter' => array('handle' => $username)));
+
+        //var_dump($user); die();
         $sql="select userid from tbl_users where username='$username'";
         $rs = $this->query($sql);
         if ($rs)
