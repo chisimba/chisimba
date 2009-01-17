@@ -1724,7 +1724,7 @@ class altconfig extends object {
      * @return string true or false
      */
     public function getenable_searchBox() {
-        $getsearch = $this->getItem ("SHOW_SEARCH_BOX");
+        $getsearch = $this->getItem ( "SHOW_SEARCH_BOX" );
 
         return $getsearch;
     }
