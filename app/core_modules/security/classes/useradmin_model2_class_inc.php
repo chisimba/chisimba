@@ -237,7 +237,7 @@ class useradmin_model2 extends dbtable
         $updated = $this->objLuAdmin->updateUser($userArray, $updateuser);
         if(!$updated) {
             $errarr = $this->objLuAdmin->getErrors();
-            throw new customException($errarr[0]['reason']);
+            throw new customException($errarr[0]['message']);
             exit(1);
         }
         else {
