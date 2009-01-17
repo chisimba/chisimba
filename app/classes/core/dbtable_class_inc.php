@@ -186,7 +186,9 @@ class dbTable extends object
 		'tbl_prelogin_blocks'
 		);
 
-		public $objLu;
+        public $obbjLu;
+
+        public $objLuAdmin;
 
 		public $enableLogging;
 
@@ -205,8 +207,8 @@ class dbTable extends object
     */
     public function init($tableName, $pearDb = NULL, $errorCallback = "globalPearErrorCallback") {
     	$modname = $this->objEngine->_moduleName;
-    	$this->objLu = $this->objEngine->lu;
     	$this->objLuAdmin      = $this->objEngine->luAdmin;
+    	$this->objLu           = $this->objEngine->lu;
     	$this->enableLogging = $this->objEngine->enableLogging;
     	$this->eventDispatcher = $this->objEngine->eventDispatcher;
     	// global $_globalObjDb;

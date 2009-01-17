@@ -134,7 +134,7 @@ class engine {
      * Version Number of the software. (engine)
      *
      */
-    public $version = '3.0.0-alpha';
+    public $version = '3.0.0-alpha1';
 
     /**
      * Template variable
@@ -435,14 +435,15 @@ class engine {
         require_once ($this->getPearResource ( 'LiveUser.php' ));
         // Grab the LiveUser Admin code
         require_once ($this->getPearResource ( 'LiveUser/Admin.php' ));
+        // init LiveUser
+        $this->getLU ();
         //initialise the event messages framework
         $this->eventDispatcher =& Event_Dispatcher::getInstance();
         //initialise the db factory method of MDB2
         $this->getDbObj ();
         //initialise the db factory method of MDB2_Schema
         $this->getDbManagementObj ();
-        // init LiveUser
-        $this->getLU ();
+
         /* -- Remove this once all users are upgraded to 3.x series framework --*/
         // check that the application is registered
         $this->_servername = $this->_objDbConfig->serverName();
@@ -478,9 +479,9 @@ class engine {
         $this->_objLanguage = $this->getObject ( 'language', 'language' );
 
         //check that the user is logged in and update the login
-        if ($this->_objUser->isLoggedIn ()) {
+        //if ($this->lu->isLoggedIn ()) {
             //$this->_objUser->updateLogin ();
-        }
+        //}
 
         // other fields
         //set the messages array
@@ -690,6 +691,8 @@ class engine {
     }
 
     public function getLU() {
+        //global $_lu;
+        //global $_luAdmin;
         if ($this->lu == NULL || $this->luAdmin == NULL) {
             //global $_lu;
             //global $_luAdmin;
@@ -907,9 +910,9 @@ class engine {
                 die ();
             }
             // and then the admin part
-            $this->luAdmin = LiveUser_Admin::factory ( $this->luConfig );
-            $this->luAdmin->init ();
-            $_luAdmin = $this->luAdmin;
+            $_luAdmin = LiveUser_Admin::factory ( $this->luConfig );
+            $_luAdmin->init ();
+            $this->luAdmin = $_luAdmin;
 
         }
         return;
@@ -1795,7 +1798,7 @@ class engine {
 		 *      but it will look decent and not confuse the crap out of users
 		 *      that being said, we should still go for just getMessage() in prod
 		 */
-        if ((! $this->_objActiveController->requiresLogin ( $this->_action )) || ($this->_objUser->isLoggedIn ())) {
+        if ((! $this->_objActiveController->requiresLogin ( $this->_action )) || ($this->lu->isLoggedIn ())) {
             return array ($this->_dispatchToModule ( $this->_objActiveController, $this->_action ), $this->_moduleName );
         } else {
             if (! $this->_loadModule ( 'security' )) {
@@ -1819,7 +1822,7 @@ class engine {
     private function _loadModule($moduleName) {
         $moduleName = str_replace ( "/", "", $moduleName );
         if ($moduleName == '_default') {
-            if ($this->_objUser->isLoggedIn ()) {
+            if ($this->lu->isLoggedIn ()) {
                 $moduleName = $this->_objConfig->getdefaultModuleName ();
             } else {
                 $moduleName = $this->_objConfig->getPrelogin ();

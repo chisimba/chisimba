@@ -80,7 +80,7 @@ class object
      */
     public $objConfig;
 
-    public $objLu;
+    //public $objLu;
 
     public $appid;
 
@@ -95,10 +95,11 @@ class object
     public function __construct($objEngine, $moduleName) {
         $this->objEngine  = $objEngine;
         $this->moduleName = $moduleName;
-        $this->objLu = $this->objEngine->lu;
+        $this->objLu = $objEngine->lu;
         $this->objLuAdmin     = $objEngine->luAdmin;
         $this->eventDispatcher = $objEngine->eventDispatcher;
         $this->appid = $objEngine->appid;
+
         $this->init();
     }
 
@@ -433,6 +434,10 @@ class object
         }
         header("Content-type: $contentType");
         return null;
+    }
+
+    public function getLu() {
+        $this->objLu = $this->objEngine->getLu();
     }
 
 
