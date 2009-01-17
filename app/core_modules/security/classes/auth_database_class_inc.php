@@ -47,11 +47,6 @@ class auth_database extends abauth implements ifauth
             else {
                 return FALSE;
             }
-            //$errorArr = $this->objLu->getErrors();
-            //var_dump($errorArr); die();
-            //throw new customException($errorArr[0]['params']['reason']);
-            //exit(1);
-            //die();
         }
 
         //Retrieve the users data from the database
@@ -101,8 +96,6 @@ class auth_database extends abauth implements ifauth
     */
     public function getUserDataAsArray($username)
     {
-        //echo $this->objLu->getProperty('handle'); die();
-        //var_dump($this->objLu); die();
         /*$array = array();
         $array['username'] = $this->objLu->getProperty('handle');
         $array['userid'] = $this->objLu->getProperty('auth_user_id');

@@ -109,19 +109,6 @@ class user extends dbTable
         $result = $this->objAuth->authenticateUser($username,$password, $remember);
 
         return $result;
-
-
-        /**
-        // Login via the chosen method
-        switch($this->loginMethod()) {
-            case 'ldap':
-                return $this->loginViaLdap($username, $password);
-            case 'default':
-                return $this->loginViaDatabase($username, $password);
-            default:
-                die('Unknown login method');
-        }
-        **/
     }
 
     /**
@@ -357,20 +344,6 @@ class user extends dbTable
     }
 
     /**
-    * Method to verify that the user should still be logged in
-    */
-    public function notExpired()
-    {
-        return TRUE;
-        $inactiveTime=$this->loggedInUsers->getInactiveTime($this->userId());
-        if (($inactiveTime>$this->objConfig->systemTimeout())){
-            return FALSE;
-        } else {
-            return TRUE;
-        }
-    }
-
-    /**
     * Method to add a new user to the Lecturer group
     * @param string $id the Primary Key ID of the new user
     */
@@ -388,21 +361,28 @@ class user extends dbTable
     */
     public function isLoggedIn()
     {
+        //echo "Checking for login";
+        return $this->objLu->isLoggedIn();
+        /*var_dump($this->objLu);
+
         $loggedIn=$this->getSession('isLoggedIn');
         if ($loggedIn){
             if ($this->notExpired()){
                 $ret = $loggedIn;
                 return $ret;
             } else {
-                $this->logout();
+                $this->objLu->logout();
                 return FALSE;
             }
         } else {
             return FALSE;
-        }
+        } */
     }
 
 
+    public function notExpired() {
+        return TRUE;
+    }
     /**
     * This method determines if the user is an administrator of
     * the website by checking the session values set when the user

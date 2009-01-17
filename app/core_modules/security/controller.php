@@ -142,7 +142,7 @@ class security extends controller {
      * @return string Name of template to display
      */
     function doLogoff() {
-        $this->objUser->logout ();
+        $lo = $this->objLu->logout ();
         return $this->showPreLoginModule ();
     }
 
