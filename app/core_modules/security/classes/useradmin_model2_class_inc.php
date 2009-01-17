@@ -235,7 +235,7 @@ class useradmin_model2 extends dbtable
         // now update with the fresh info
         $updateuser = $user[0]['perm_user_id'];
         $updated = $this->objLuAdmin->updateUser($userArray, $updateuser);
-        if(!$updated) {
+        if ($updated === FALSE) {
             $errarr = $this->objLuAdmin->getErrors();
             throw new customException($errarr[0]['message']);
             exit(1);
