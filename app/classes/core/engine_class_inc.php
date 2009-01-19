@@ -134,7 +134,7 @@ class engine {
      * Version Number of the software. (engine)
      *
      */
-    public $version = '3.0.0-alpha1';
+    public $version = '3.0.0-alpha2';
 
     /**
      * Template variable
@@ -449,11 +449,10 @@ class engine {
         $this->_servername = $this->_objDbConfig->serverName();
         // find all available applications
         $applications = $this->luAdmin->perm->getApplications();
-        //var_dump($applications); die();
         if(empty($applications) || $applications[0]['application_define_name'] != $this->_servername ) {
             $data = array('application_define_name' => $this->_servername);
             $appid = $this->luAdmin->perm->addApplication($data);
-            $this->appid = $applications[0]['application_define_name'];
+            $this->appid = $data['application_define_name'];
         }
         else {
             $this->appid = $applications[0]['application_define_name'];
@@ -470,6 +469,24 @@ class engine {
             $groupId = $this->luAdmin->perm->addGroup($data);
             $data = array('group_define_name' => 'Guest', 'group_type' => LIVEUSER_GROUP_TYPE_ALL);
             $groupId = $this->luAdmin->perm->addGroup($data);
+
+
+        }
+        // check if admin is part of the admin group now.
+        $admingrp = $this->luAdmin->perm->getGroups(array('filters' => array('group_define_name' => 'Site Admin')));
+        $admingrpId = $admingrp[0]['group_id'];
+        $params = array('filters' => array('group_id' => $admingrpId));
+        $usersGroup = $this->luAdmin->perm->getUsers($params);
+        if(empty($usersGroup) || $usersGroup == false) {
+            // change the default admin user to a lu user
+            $user = $this->luAdmin->auth->getUsers(array('filters' => array('auth_user_id' => 1)));
+            $ud = $user[0];
+            $userdata = array();
+            $userdata['auth_user_id'] = $ud['auth_user_id'];
+            $userdata['auth_container_name'] = 'database_local';
+            $add = $this->luAdmin->perm->addUser($userdata);
+            // now add his ass to the admin group
+            $result = $this->luAdmin->perm->addUserToGroup(array('perm_user_id' => $add, 'group_id' => $admingrpId));
         }
         /* -- End remove for 2.x -> 3.x series -- */
 
