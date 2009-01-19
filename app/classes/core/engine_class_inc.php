@@ -484,6 +484,7 @@ class engine {
             $userdata = array();
             $userdata['auth_user_id'] = $ud['auth_user_id'];
             $userdata['auth_container_name'] = 'database_local';
+            $userdata['perm_type'] = 5;
             $add = $this->luAdmin->perm->addUser($userdata);
             // now add his ass to the admin group
             $result = $this->luAdmin->perm->addUserToGroup(array('perm_user_id' => $add, 'group_id' => $admingrpId));
