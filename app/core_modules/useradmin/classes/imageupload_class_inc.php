@@ -70,7 +70,7 @@ class imageupload extends object
         //Include gravatar option if nothing has been uploaded
         		$grav_email = md5($this->objUser->email());
         		$grav_default = $this->imageUrl."default.jpg";
-        		$grav_rating = G;
+        		$grav_rating = 'G';
         		$grav_size = 130;
         		$grav_border = "000000";        		
         		$grav_url = "http://www.gravatar.com/avatar.php?gravatar_id=".$grav_email."&default=".$grav_default."&size=".$grav_size."&border=".$grav_border."&rating=".$grav_rating;
