@@ -132,6 +132,16 @@ class tabcontent extends object
      *
      * @return string
      */
+     
+      /**
+     * Method to set the width of the tabContent By Emmanuel
+     *
+     * @param string $width The width of the tabContent in pixel 
+     */
+     public function  setWidth($width)
+     {
+        $this->width=$width;
+     }
     public function show()
     {
         // Return Nothing if No tabs are added

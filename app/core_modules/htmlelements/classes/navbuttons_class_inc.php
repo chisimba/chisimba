@@ -35,7 +35,7 @@ $GLOBALS['kewl_entry_point_run']) {
 require_once("ifhtml_class_inc.php");
 
 
-class navbuttons extends object implements ifhtml
+abstract class navbuttons extends object implements ifhtml
 {
 
     /**
