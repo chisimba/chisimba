@@ -56,7 +56,6 @@ class dbquotas extends dbTable
     public function init()
     {
         parent::init('tbl_files_quotas');
-        ;
         $this->objUser = $this->getObject('user', 'security');
         $this->objLanguage = $this->getObject('language', 'language');
         $this->loadClass('formatfilesize', 'files');
