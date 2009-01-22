@@ -487,7 +487,7 @@ IP Address of Request: '.$_SERVER['REMOTE_ADDR'];
 
             $message = str_replace('[[FIRSTNAME]]', $user['firstname'], $message);
             $message = str_replace('[[SURNAME]]', $user['surname'], $message);
-            $message = str_replace('[[USERNAME]]', $user['username'], $message);
+            $message = str_replace('[[USERNAME]]', str_replace(" ", '',$user['username']), $message);
             $message = str_replace('[[EMAIL]]', $user['emailaddress'], $message);
             $message = str_replace('[[SITENAME]]', $siteName, $message);
             $message = str_replace('[[PASSWORD]]', $newPassword, $message);
