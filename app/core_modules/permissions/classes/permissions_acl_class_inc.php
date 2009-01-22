@@ -1,16 +1,16 @@
-<?php 
+<?php
 // security check - must be included in all scripts
 if ( !$GLOBALS['kewl_entry_point_run'] ) {
     die( "You cannot view this page directly" );
-} 
+}
 /**
 * @copyright (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
 * @package permissions
 * @subpackage access
 * @version 0.1
 * @since 22 November 2004
-* @author Jonathan Abrahams 
-* @filesource 
+* @author Jonathan Abrahams
+* @filesource
 */
 
 /**
@@ -26,16 +26,16 @@ if ( !$GLOBALS['kewl_entry_point_run'] ) {
 *    getAclGroups      - To get all the assigned groups for this acl.
 *    getUserAcls       - To get this users assigned acls.
 * </PRE>
-* 
-* @author Jonathan Abrahams 
+*
+* @author Jonathan Abrahams
 */
-class permissions_acl extends dbTable 
+class permissions_acl extends dbTable
 {
     /**
     * @var user an object reference.
     */
     var $objUser;
-    
+
     /**
     * Method to initialise an object.
     */
@@ -43,11 +43,11 @@ class permissions_acl extends dbTable
     {
         $this->objUser = $this->getObject( 'user', 'security' );
         parent::init( 'tbl_permissions_acl' );
-    } 
+    }
 
     /**
     * Method to assign a user to an existing acl.
-    * 
+    *
     * @param string $acl The unique ID for the access control list.
     * @param string $userId The unique ID of an existing user. NB use PKid( userId ) method in user class
     * @return string|false the newly generated unique id for this acl row if successful, otherwise false.
@@ -61,11 +61,11 @@ class permissions_acl extends dbTable
         $row['last_updated'] = date( "Y:m:d H:i:s" );
         $row['last_updated_by'] = $this->objUser->userId();
         return parent::insert( $row );
-    } 
+    }
 
     /**
     * Method to unassign a user from an acl.
-    * 
+    *
     * @param string $aclId The unique ID for the access control list.
     * @param string $userId The unique ID of an existing user. NB use PKid( userId ) method in user class
     * @return true|false TRUE on success, FALSE on failure
@@ -73,11 +73,11 @@ class permissions_acl extends dbTable
     function deleteAclUser( $aclId, $userId )
     {
         return parent::delete( 'user_id', "$userId' AND acl_id = '$aclId" );
-    } 
+    }
 
     /**
     * Method to assign a group to an acl.
-    * 
+    *
     * @param string $aclId The unique ID of an existing acl.
     * @param string $groupId The unique ID of an existing group.
     * @return true|false TRUE on success, FALSE on failure
@@ -91,11 +91,11 @@ class permissions_acl extends dbTable
         $row['last_updated'] = date( "Y:m:d H:i:s" );
         $row['last_updated_by'] = $this->objUser->userId();
         return $this->insert( $row );
-    } 
+    }
 
     /**
     * Method to unassign a group from an acl.
-    * 
+    *
     * @param string $aclId The unique ID of an existing acl.
     * @param string $groupId The unique ID of an existing group.
     * @return true|false TRUE on success, FALSE on failure
@@ -103,11 +103,11 @@ class permissions_acl extends dbTable
     function deleteAclGroup( $aclId, $groupId )
     {
         return parent::delete( 'group_id', "$groupId' AND acl_id = '$aclId" );
-    } 
+    }
 
     /**
     * Method to get all the assigned users for this acl.
-    * 
+    *
     * @param string $aclId The unique ID for this access control list.
     * @param string $fields ( optional )
     * @return array|false The user rows as an array of associate arrays, or FALSE on failure
@@ -135,11 +135,11 @@ class permissions_acl extends dbTable
             $data2[]=array('id'=>$line['id'],'fullName'=>$line['firstname'].' '.$line['surname']);
         }
         return $data2;
-    } 
+    }
 
     /**
     * Method to get all the assigned groups for this acl.
-    * 
+    *
     * @param string $aclId The unique ID for this access control list.
     * @param string $fields ( optional )
     * @return array|false The group rows as an array of associate arrays, or FALSE on failure
@@ -157,30 +157,30 @@ class permissions_acl extends dbTable
         $filter = " WHERE acl_id = '$aclId'";
 
         return $this->getArray( $sql . $join . $filter );
-    } 
+    }
 
     /**
     * Method to get this users assigned acls.
-    * 
+    *
     * @param string $userId The unique ID of an existing user. NB use PKid( userId ) method in user class
     * @return array The list of unique ID for acls as an array.
     */
     function getUserAcls( $userId )
     {
-        $permAclDb = $this->_tableName; 
+        $permAclDb = $this->_tableName;
         // Get the all groups the user belongs to, include subgroups
         $groupAdmin = $this->getObject( 'groupAdminModel', 'groupadmin' );
-        $subGroups = $groupAdmin->getUserGroups ( $userId ); 
+        $subGroups = $groupAdmin->getUserGroups ( $userId );
         // Groups higher up the group-tree has access as well.
         // Eg. Context1/students/[user1]
         // Will give user access to Context1 and Context1/students
         $accessToGroups = array();
         foreach( $subGroups as $groupId ) {
-            $groupToRoot = $groupAdmin->getGroupsToRoot( $groupId );
+            $groupToRoot =array(); // $groupAdmin->getGroupsToRoot( $groupId );
             $accessToGroups = array_unique ( array_merge( $subGroups, $groupToRoot ) );
-        } 
+        }
         // Format the group list for the db query..
-        $lstAccessGroups = "'" . implode( "','", $accessToGroups ) . "'"; 
+        $lstAccessGroups = "'" . implode( "','", $accessToGroups ) . "'";
         // User assigned acls
         $sql = "SELECT acl_id ";
         $sql .= " FROM $permAclDb";
@@ -190,10 +190,10 @@ class permissions_acl extends dbTable
         $result = array();
         foreach ( parent::getArray( $sql ) as $acl ) {
             $result[] = $acl['acl_id'];
-        } 
+        }
         // Return the list of all acls this user has access to..
         return $result ;
-    } 
-} 
+    }
+}
 
 ?>
