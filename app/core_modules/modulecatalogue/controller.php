@@ -425,6 +425,7 @@ class modulecatalogue extends controller {
                     $sysType = $this->getParam ( 'sysType', 'Basic System Only' );
                     $check = $this->objSysConfig->getValue ( 'firstreg_run', 'modulecatalogue' );
                     if (! $check) {
+
                         log_debug ( 'Modulecatalogue controller - performing first time registration' );
                         $this->firstRegister ( $sysType );
                         log_debug ( 'First time registration complete' );

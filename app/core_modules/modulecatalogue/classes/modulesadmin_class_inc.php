@@ -174,6 +174,7 @@ class modulesadmin extends dbTableManager
     */
     public function installModule(&$registerdata,$update = FALSE) {
         try {
+            $objGroups = $this->getObject('groupAdminModel', 'groupadmin');
             $allPresent = true;        //used to check if all modules are present on the system
             $this->_lastError = 0;
             if (isset($registerdata['MODULE_ID'])) {
@@ -223,6 +224,25 @@ class modulesadmin extends dbTableManager
                         }
                         return FALSE;
                     }
+                }
+                // register the module as an area
+                $data = array(
+                    'application_id' => $this->appid,
+                    'area_define_name' => $moduleId,
+                );
+                $areaId  = $this->objLuAdmin->perm->addArea($data);
+                if ($areaId === false) {
+                    log_debug($this->objLuAdmin->getErrors());
+                } else {
+                    log_debug("Created Area Id $areaId for module $moduleId in application $this->appid");
+                    // add the admin user as an area admin now.
+                    $users = $this->objLuAdmin->getUsers(array('filters' => array('perm_type' => '5')));
+                    $data = array(
+                        'area_id' => $areaId,
+                        'perm_user_id' => $users[0]['perm_user_id']
+                    );
+                    $result = $this->objLuAdmin->perm->addAreaAdmin($data);
+
                 }
                 // Now we add the tables
                 if (isset($registerdata['TABLE'])) {
@@ -359,28 +379,31 @@ class modulesadmin extends dbTableManager
                         }
                     }
                 }
-                          $objGroups = $this->getObject('groupAdminModel', 'groupadmin');
+                $objGroups = $this->getObject('groupAdminModel', 'groupadmin');
                 $groupList = '';
 
                 // Link existing groups with access to the module.
                 // First check if the group exists and create it if it doesn't.
                 if(isset($registerdata['USE_GROUPS'][0])){
-                    $objGroups = $this->getObject('groupAdminModel', 'groupadmin');
+
                     $groupList = '';
                     $group = ''; $grId = ''; $exGroup = array(); $description = '';
 
                     foreach($registerdata['USE_GROUPS'] as $group){
                         $exGroup = explode('|', $group);
                         $group = $exGroup[0];
-                        $grId = $objGroups->getId($group);
 
-                        if(empty($grId)){
+                        $this->grId = $objGroups->getId($group);
+
+                        if(empty($this->grId)){
                             if(!empty($exGroup[1])){
                                 $description = $exGroup[1];
                             }else{
                                 $description = $moduleId.' '.$group;
                             }
+
                             $objGroups->addGroup($group, $description);
+
                         }
                         $groupArray2[] = $group;
                         if(empty($groupList)){
@@ -388,13 +411,14 @@ class modulesadmin extends dbTableManager
                         }else{
                             $groupList .= ','.$group;
                         }
+
                     }
                     $aclList .= '|'.$groupList;
+
                 }
 
                 // Link existing groups with access to a context dependent module
                 if(isset($registerdata['USE_CONTEXT_GROUPS'][0])){
-                    $objGroups = $this->getObject('groupAdminModel', 'groupadmin');
                     $contextGroupList = '';
 
                     foreach($registerdata['USE_CONTEXT_GROUPS'] as $conGroup){
@@ -405,9 +429,10 @@ class modulesadmin extends dbTableManager
                         }
                     }
                     $aclList .= '|_con_'.$contextGroupList;
+                    //var_dump($aclList); die();
                 }
 
-                // Create a condition type
+                /* Create a condition type
                 if(isset($registerdata['CONDITION_TYPE'][0])){
                     $objType = $this->getObject('conditiontype','decisiontable');
                     $array = array(); $class = ''; $types = array();
@@ -423,20 +448,21 @@ class modulesadmin extends dbTableManager
                         }
                     }
                 }
-
+*/
                 /* Create conditions.
                     Create a condition in the decisiontable, returns the condition object.
                     Populate an array with condition objects for use in creating rules.
                 */
+                /*
                 $conditions = array();
                 if(isset($registerdata['CONDITION'][0])){
-
                     $array = array(); $list = ''; $paramList = array(); $name = ''; $params = '';
                     foreach($registerdata['CONDITION'] as $condition){
-                        $objCond = $this->newObject('condition','decisiontable');
+                        // $objCond = $this->newObject('condition','decisiontable');
                         $paramList = array(); $array = array(); $list = '';
 
                         $array = explode('|', $condition);
+
                         if(isset($array[2]) && !empty($array[2])){
                                     $list = explode(',', $array[2]);
                         }else{
@@ -477,7 +503,9 @@ class modulesadmin extends dbTableManager
                             }else{
                             $params = $array[1];
                         }
+
                         $conditions[$name] = $objCond->create($name, $params);
+                        var_dump($conditions); die();
                     }
                 }
 
@@ -491,7 +519,7 @@ class modulesadmin extends dbTableManager
                         $conditions[$name] = $objCond->create($name);
                     }
                 }
-
+*/
                 /* Create rules.
                     Create the decisiontable for the module.
                     Create the action in the decisiontable, returns the action object.
@@ -500,27 +528,46 @@ class modulesadmin extends dbTableManager
                     Add the condition object to the rule object.
                 */
                 if(isset($registerdata['RULE'][0])){
-                    $objDecisionTable = $this->getObject('decisiontable','decisiontable');
-                    $objAction = $this->getObject('action','decisiontable');
-                    $objAction->connect($objDecisionTable);
-                    $objRule = $this->getObject('rule','decisiontable');
-                    $objRule->connect($objDecisionTable);
+                    //$objDecisionTable = $this->getObject('decisiontable','decisiontable');
+                    //$objAction = $this->getObject('action','decisiontable');
+                    //$objAction->connect($objDecisionTable);
+                    //$objRule = $this->getObject('rule','decisiontable');
+                    //$objRule->connect($objDecisionTable);
                     $i = 1;
                     $ruleName = ''; $array = array(); $actionList = array(); $conditionList = array();
 
                     // Create the decision table
-                    $modTable = $objDecisionTable->create($moduleId);
+                    // $modTable = $objDecisionTable->create($moduleId);
 
                     foreach($registerdata['RULE'] as $rule){
-                        $ruleName = $moduleId.' rule '.$i++;
+                        // $ruleName = $moduleId.' rule '.$i++;
                         $array = explode('|', $rule);
                         $actionList = explode( ',', $array[0] );
-                        $conditionList = explode( ',', $array[1] );
+                        //$conditionList = explode( ',', $array[1] );
+                        // create the rules (rights).
+                        foreach($actionList as $action) {
+                            $data = array(
+                                'area_id' => $areaId,
+                                'right_define_name' => $action,
+                            );
+                            $rightId = $this->objLuAdmin->perm->addRight($data);
+                            //$grId = $objGroups->getId($moduleId);
+                            // add the rights to the groups now
 
-                        // Create rule object and add to the decision table
-                        $rule = $objRule->create($ruleName);
+                            $data = array(
+                                'group_id' => $this->grId,
+                                'right_id' => $rightId,
+                            );
+                            $granted = $this->objLuAdmin->perm->grantGroupRight($data);
+                            // var_dump($this->objLuAdmin->getErrors());
+                        }
+
+
+
+                        /* Create rule object and add to the decision table
+                        //$rule = $objRule->create($ruleName);
                         // Add the rule to the decision table.
-                        $objDecisionTable->addRule( $rule );
+                        //$objDecisionTable->addRule( $rule );
 
                         // Create action object and add to decision table.
                         foreach( $actionList as $anAction ) {
@@ -535,7 +582,7 @@ class modulesadmin extends dbTableManager
                             if (array_key_exists($aCondition,$conditions)){
                                 $rule->add($conditions[$aCondition]);
                             }
-                        }
+                        } */
                     }
                 }
 
@@ -559,7 +606,7 @@ class modulesadmin extends dbTableManager
 
                 // Side menus
                 if (isset($registerdata['SIDEMENU'])) {
-                    $objGroups = $this->getObject('groupAdminModel', 'groupadmin');
+                    //$objGroups = $this->getObject('groupAdminModel', 'groupadmin');
                     foreach ($registerdata['SIDEMENU'] as $sidemenu) {
                         $admin = $isAdmin;
                         $groupList = '';
@@ -573,6 +620,7 @@ class modulesadmin extends dbTableManager
                             $access = explode(',',$actions[1]);
                             $admin = 0;
                             foreach($access as $val){
+
                                 // check for context groups
                                 if(!(strpos($val, 'con_') === FALSE)){
                                     if(!empty($conGroups)){
@@ -580,10 +628,13 @@ class modulesadmin extends dbTableManager
                                     }
                                     $conGroups .= ucwords(str_replace('con_','',$val));
                                 }
+
                                 // check for module permissions, create if don't exist
                                 else if(!(strpos($val, 'acl_') === FALSE)){
                                     $perm = str_replace('acl_','',$val);
+
                                     $permId = $objPerm->getId($perm);
+                                    var_dump($permId); die();
                                     if(empty($permId)){
                                         $permId = $objPerm->newAcl($perm, $moduleId
                                         .' '.$perm);
@@ -622,6 +673,7 @@ class modulesadmin extends dbTableManager
                         else {
                             $groupList = $aclList;
                         }
+
                         $catArray = array('category'=>'menu_'.$sidemenu,'module'=>$moduleId,
                                     'adminonly'=>$admin,'permissions'=>$groupList,'dependscontext'=>$isContext);
                         if ($id = $this->existsInMenu("menu_$sidemenu",$moduleId)) {
@@ -734,18 +786,7 @@ class modulesadmin extends dbTableManager
             $this->errorCallback('Caught exception: '.$e->getMessage());
             exit();
         }
-        // finally register the module in the permissions system
-        // register the module as an area
-        $data = array(
-            'application_id' => $this->appid,
-            'area_define_name' => $moduleId,
-        );
-        $areaId  = $this->objLuAdmin->perm->addArea($data);
-        if ($areaId === false) {
-            log_debug($this->objLuAdmin->getErrors());
-        } else {
-            log_debug("Created Area Id $areaId for module $moduleId in application $this->appid");
-        }
+
         return TRUE;
     }
 
@@ -762,6 +803,7 @@ class modulesadmin extends dbTableManager
     public function uninstallModule($moduleId,&$registerdata)
     {
         try {
+            $objGroups = $this->getObject('groupAdminModel', 'groupadmin');
             $this->_lastError = 0;
             if (is_null($moduleId)) {
                 $moduleId=$registerdata['MODULE_ID'];
@@ -795,10 +837,11 @@ class modulesadmin extends dbTableManager
 
                 // Remove groups and acls for the module
                 if(isset($registerdata['ACL'][0])){
-                    $objPerms = $this->getObject('permissions_model','permissions');
-                    $objGroups = $this->getObject('groupadminmodel','groupadmin');
+                    //$objPerms = $this->getObject('permissions_model','permissions');
+                    //$objGroups = $this->getObject('groupadminmodel','groupadmin');
                     foreach($registerdata['ACL'] as $perm){
                         $perms = explode('|', $perm);
+                        var_dump($perms); die;
                         $aclId = $objPerms->getId($moduleId.'_'.$perms[0]);
                         $objPerms->deleteAcl($aclId);
                         if(isset($perms[1]) && !empty($perms[1])){
@@ -811,7 +854,7 @@ class modulesadmin extends dbTableManager
                     }
                 }
 
-                // Remove decisiontable rules and actions
+                /*// Remove decisiontable rules and actions
                 $objDecisionTable = $this->getObject('decisiontable','decisiontable');
                 $objDecisionTable->create($moduleId);
                 $objDecisionTable->retrieve();
@@ -832,7 +875,7 @@ class modulesadmin extends dbTableManager
                         $conditions[$name]->retrieveId();
                         $conditions[$name]->delete();
                     }
-                }
+                }*/
 
                 // Remove navigation links
                 $this->objModules->delete('module',$moduleId,'tbl_menu_category');
@@ -861,12 +904,18 @@ class modulesadmin extends dbTableManager
                 if(is_array($areas) && !empty($areas)) {
                     $filters = array('area_id' => $areas[0]['area_id']);
                     $rmArea = $this->objLuAdmin->perm->removeArea($filters);
+                    // get the group ID that we want to remove
+                    $groupId = $objGroups->getId($moduleId);
+                    // remove the group as well
+                    $filters = array('group_id' => $groupId);
+                    $rmGrp = $this->objLuAdmin->perm->removeGroup($filters);
                 }
                 else {
                     $rmArea = false;
+                    $rmGrp = false;
                 }
 
-                if ($rmArea === false) {
+                if ($rmArea === false || $rmGrp == false) {
                     log_debug("Couldn't uninstall $moduleId");
                     $this->objLuAdmin->getErrors();
                 }
