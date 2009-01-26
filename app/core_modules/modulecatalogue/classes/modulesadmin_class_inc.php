@@ -128,6 +128,8 @@ class modulesadmin extends dbTableManager
      */
     public $debug;
 
+    public $grId;
+
     /**
      * Standard initilisation method
      *
@@ -551,7 +553,9 @@ class modulesadmin extends dbTableManager
                                 'right_define_name' => $action,
                             );
                             $rightId = $this->objLuAdmin->perm->addRight($data);
-                            //$grId = $objGroups->getId($moduleId);
+                            if($this->grId == null) {
+                                $this->grId = $objGroups->getId($moduleId);
+                            }
                             // add the rights to the groups now
 
                             $data = array(
