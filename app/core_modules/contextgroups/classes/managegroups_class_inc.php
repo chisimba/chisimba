@@ -2,24 +2,24 @@
 
 /**
  * Manage groups
- * 
+ *
  * Class to manage Context groups
- * 
+ *
  * PHP version 3
- * 
- * This program is free software; you can redistribute it and/or modify 
- * it under the terms of the GNU General Public License as published by 
- * the Free Software Foundation; either version 2 of the License, or 
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * This program is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License 
- * along with this program; if not, write to the 
- * Free Software Foundation, Inc., 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
  * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- * 
+ *
  * @category  Chisimba
  * @package   contextgroups
  * @author    Jonathan Abrahams <jabrahams@uwc.ac.za>
@@ -42,9 +42,9 @@ $GLOBALS['kewl_entry_point_run']) {
 
 /**
  * Manage groups
- * 
+ *
  * Class to manage Context groups
- * 
+ *
  * @category  Chisimba
  * @package   contextgroups
  * @author    Jonathan Abrahams <jabrahams@uwc.ac.za>
@@ -91,7 +91,7 @@ class manageGroups extends object
     {
         $this->_objDBContext = $this->getObject('dbcontext','context');
         $this->_objGroupAdmin = $this->getObject('groupadminmodel','groupadmin');
-        $this->_objPermissions = $this->getObject('permissions_model','permissions');
+        // $this->_objPermissions = $this->getObject('permissions_model','permissions');
         $this->_objUser = $this->getObject('user','security');
 
         $this->currentUser = $this->_objUser->PKId();
@@ -129,6 +129,7 @@ class manageGroups extends object
     */
     function createAcls( $contextcode, $title )
     {
+    return;
         foreach( $this->_arrAcls as $aclName=>$row ) {
             $newAclId = $this->_objPermissions->newAcl(
                 $contextcode.'_'.$aclName,
@@ -151,7 +152,7 @@ class manageGroups extends object
         // For each subgroup
         foreach( $this->_arrSubGroups as $groupName=>$groupId ) {
             $newGroupId = $this->_objGroupAdmin->addGroup(
-                $groupName,
+                $contextcode.'_'.$groupName,
                 $contextcode.' '.$groupName,
                 $contextGroupId);
             $this->_arrSubGroups[$groupName]['id'] = $newGroupId;
@@ -173,7 +174,7 @@ class manageGroups extends object
     * </PRE>
     * @param  string|NULL the context code or NULL if it should be site wide.
     * @param  array       the list of users with pkids.
-    * @return nothing.   
+    * @return nothing.
     */
     function importGroupMembers( $contextcode, $members )
     {
@@ -280,7 +281,7 @@ class manageGroups extends object
 
     /**
     * Method to return all the contexts the user is a member of.
-    * @param  string UserId    
+    * @param  string UserId
     * @param  array  (Optional) The list of fields to get.
     * @return array  List of all context codes the user is a member of.
     */
@@ -336,9 +337,9 @@ class manageGroups extends object
         // Get all contextcodes
         $objContext = $this->getObject('dbcontext','context');
         $arrcontextcodeRows = $objContext->getAll();
-        
+
         $arrcontextcodes = array();
-        
+
         // Now check for membership
         foreach( $arrcontextcodeRows as $row ) {
             // Corrosponding groupId

@@ -89,5 +89,13 @@ class perms extends object
          }
          return $rights;
      }
+
+     public function isContextMember($group = 'Lecturers') {
+         return TRUE;
+     }
+
+     public function isMember($group = 'Lecturers') {
+         return TRUE;
+     }
 }
 ?>

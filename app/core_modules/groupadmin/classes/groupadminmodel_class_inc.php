@@ -83,7 +83,7 @@ $GLOBALS['kewl_entry_point_run']) {
  * @filesource
  */
 
-class groupAdminModel extends dbTable
+class groupAdminModel extends object
 {
 
     /**
@@ -111,42 +111,8 @@ class groupAdminModel extends dbTable
      */
     public function init()
     {
-        // Create instance of groupusersDb object, and connect back to groupsDb
-        $this->_objGroupUsers = $this->getObject( 'groupusersdb', 'groupadmin' );
-        $this->_objGroupUsers->connectGroups( $this );
 
-        // Create instance of usersDb object, and connect groupusersDb to usersDb
-        $this->_objUsers = $this->getObject( 'usersdb', 'groupadmin' );
-        $this->_objGroupUsers->connectUsers( $this->_objUsers );
-
-        // Use the tbl_groupadmin_group table to store the group data.
-        parent::init('tbl_groupadmin_group');
     }
-
-    /**
-     * Method to get the groupusers object
-     *
-     * @access public
-     * @param  void
-     * @return property
-     */
-    public function & groupusers()
-    {
-        return $this->_objGroupUsers;
-    }
-
-    /**
-    * Method to get to the users object
-    *
-    * @access public
-    * @param  void
-    * @return property
-    */
-    public function & users()
-    {
-        return $this->_objUsers;
-    }
-
 
     /**
     * Method to insert a group into group hierachy.
@@ -165,23 +131,6 @@ class groupAdminModel extends dbTable
         $groupId = $this->objLuAdmin->perm->addGroup($data);
 
         return $groupId;
-
-        // CIRCULAR References:
-        //  /-[group1]<--[group2]<--[group3]
-        //  \--------------------------^
-        // This condition can only come about with an update operation.
-        // Group1 cannot have its parent as group3, since group3 could
-        // not exist yet.
-
-        /*$newGroup = array();
-        $newGroup['name'] = $name;
-        $newGroup['description'] = $description;
-        $newGroup['parent_id']   = $parentId;
-
-        $newGroup['last_updated_by'] = $this->_objUsers->userId();
-        $newGroup['last_updated']    = $this->now();//date("Y-m-d");
-
-        return parent::insert( $newGroup ); */
     }
 
     /**
@@ -190,13 +139,17 @@ class groupAdminModel extends dbTable
      *
      * @access public
      * @param  string     $groupId The unique ID of an existing group.
-     * @return true|false true if successful, otherwise false.
+     * @return boolean    true if successful, otherwise false.
      */
     public function deleteGroup( $groupId )
     {
-        $gid = $this->getSubgroups( $groupId );
-        foreach ( $gid as $grpId ) {
-            parent::delete( 'id', $grpId );
+        $filters = array('group_id' => $groupId);
+        $removed = $this->objLuAdmin->perm->removeGroup($filters);
+        if ($removed === false) {
+            log_debug($admin->getErrors());
+            return FALSE;
+        } else {
+            return TRUE;
         }
     }
 
@@ -210,13 +163,21 @@ class groupAdminModel extends dbTable
      */
     public function getGroups( $fields = array( "id", "name" ), $filter = null )
     {
-        $tblGroup = $this->_tableName;
-
-        $sql = "SELECT ";
-        $sql.= $fields ? implode( ',', $fields ) : "*";
-        $sql.= " FROM $tblGroup";
-
-        return parent::getArray( $sql.$filter );
+        if(isset($fields) && !empty($fields)) {
+            $groups = $this->objLuAdmin->perm->getGroups(array('filters' => array('group_define_name' => $fields['name'], 'group_id' => $fields['id'])));
+        }
+        else {
+            $groups = $this->objLuAdmin->perm->getGroups();
+        }
+        if ($groups === false) {
+            log_debug($admin->getErrors());
+            return FALSE;
+        } elseif (empty($groups)) {
+            log_debug('No groups were found');
+            return FALSE;
+        } else {
+            return $groups;
+        }
     }
 
     /**
@@ -228,10 +189,7 @@ class groupAdminModel extends dbTable
      */
     public function getGroupsToRoot( $groupId )
     {
-        $toRoot = array();
 
-        $this->_getGroupsToRoot( $groupId, $toRoot );
-        return $toRoot;
     }
 
     /**
@@ -244,8 +202,7 @@ class groupAdminModel extends dbTable
      */
     public function getDescription( $groupId )
     {
-        $row = parent::getRow( 'id', $groupId );
-        return $row['description'];
+        return NULL;
     }
 
     /**
@@ -266,9 +223,7 @@ class groupAdminModel extends dbTable
      */
     public function getLeafId( $arrPath )
     {
-        $leafId = null;
-        $this->_getGroupPath( null, $arrPath, $leafId );
-        return $leafId;
+        return NULL;
     }
 
     /**
@@ -304,15 +259,7 @@ class groupAdminModel extends dbTable
      */
     public function getFullPath( $groupId )
     {
-        $groupsToRoot = $this->getGroupsToRoot( $groupId );
-        $fullPath ='';
-        foreach(  array_reverse( $groupsToRoot ) as $gId ) {
-            $fullPath.= $this->getName( $gId );
-            $fullPath.="/";
-        }
-        $groupName = $this->getName($groupId);
-        $fullPath.= $groupName;
-        return $fullPath;
+        return NULL;
     }
 
     /**
@@ -326,8 +273,13 @@ class groupAdminModel extends dbTable
      */
     public function getName( $groupId )
     {
-        $row = parent::getRow( 'id', $groupId );
-        return $row['name'];
+        $groups = $this->objLuAdmin->perm->getGroups(array('filters' => array('group_id' => $grouId)));
+        if(empty($groups) || !isset($groups[0])) {
+            return NULL;
+        }
+        else {
+            return $groups[0]['group_define_name'];
+        }
     }
 
     /**
@@ -341,11 +293,8 @@ class groupAdminModel extends dbTable
      */
     public function getSubgroups( $groupId )
     {
-        $subgroups = array();
-        $subgroups[]= $groupId;
+        return NULL;
 
-        $this->_getSubgroups( $groupId, $subgroups );
-        return $subgroups;
     }
 
     /**
@@ -360,13 +309,7 @@ class groupAdminModel extends dbTable
      */
     public function setDescription( $groupId, $newDescription )
     {
-        $updates = array();
-        $updates['description'] = $newDescription;
-
-        $updates['last_updated_by'] = $this->_objUsers->userId();
-        $updates['last_updated']    = $this->now();//date("Y:m:d H:i:s");
-
-        return $this->update( 'id', $groupId, $updates );
+        return NULL;
     }
 
     /**
@@ -381,13 +324,7 @@ class groupAdminModel extends dbTable
      */
     public function setName( $groupId, $newName )
     {
-        $updates = array();
-        $updates['name'] = $newName;
 
-        $updates['last_updated_by'] = $this->_objUsers->userId();
-        $updates['last_updated']    = $this->now();//date("Y:m:d H:i:s");
-
-        return $this->update( 'id', $groupId, $updates );
     }
 
     /**
@@ -402,8 +339,7 @@ class groupAdminModel extends dbTable
      */
     public function addGroupUser( $groupId, $userId )
     {
-        $objGroupUsers =& $this->groupusers();
-        return $objGroupUsers->addGroupUser( $groupId, $userId );
+
     }
 
     /**
@@ -418,8 +354,7 @@ class groupAdminModel extends dbTable
      */
     public function deleteGroupUser( $groupId, $userId )
     {
-        $objGroupUsers =& $this->groupusers();
-        return $objGroupUsers->deleteGroupUser( $groupId, $userId );
+
     }
 
     /**
@@ -435,8 +370,7 @@ class groupAdminModel extends dbTable
      */
     public function getGroupUsers( $groupId, $fields = null, $filter = null )
     {
-        $objGroupUsers =& $this->groupusers();
-        return $objGroupUsers->getGroupUsers( $groupId, $fields, $filter );
+
     }
 
     /**
@@ -452,8 +386,7 @@ class groupAdminModel extends dbTable
      */
     public function getNotGroupUsers( $groupId, $fields = null, $filter = null )
     {
-        $objGroupUsers =& $this->groupusers();
-        return $objGroupUsers->getNotGroupUsers( $groupId, $fields, $filter );
+
     }
 
     /**
@@ -469,8 +402,7 @@ class groupAdminModel extends dbTable
      */
     public function getSubGroupUsers( $groupId, $fields = null, $filter = null )
     {
-        $objGroupUsers =& $this->groupusers();
-        return $objGroupUsers->getSubGroupUsers( $groupId, $fields, $filter );
+
     }
 
     /**
@@ -494,8 +426,7 @@ class groupAdminModel extends dbTable
      */
     public function getUserDirectGroups( $userId )
     {
-        $objGroupUsers =& $this->groupusers();
-        return $objGroupUsers->getUserDirectGroups( $userId );
+
     }
 
     /**
@@ -518,8 +449,7 @@ class groupAdminModel extends dbTable
      */
     public function getUserGroups( $userId )
     {
-        $objGroupUsers =& $this->groupusers();
-        return $objGroupUsers->getUserGroups( $userId );
+
     }
 
     /**
@@ -533,8 +463,18 @@ class groupAdminModel extends dbTable
      */
     public function isGroupMember( $userId, $groupId )
     {
-        $objGroupUsers =& $this->groupusers();
-        return $objGroupUsers->isGroupMember( $userId, $groupId );
+        $params = array(
+            'filters' => array(
+                'group_id' => $groupId,
+            )
+        );
+        $usersGroup = $this->objLuAdmin->perm->getUsers($params);
+        foreach($usersGroup as $users) {
+            if($users['auth_user_id'] == $userId) {
+                return TRUE;
+            }
+        }
+        return FALSE;
     }
 
     /**
@@ -548,8 +488,7 @@ class groupAdminModel extends dbTable
      */
     public function isSubGroupMember( $userId, $groupId )
     {
-        $objGroupUsers =& $this->groupusers();
-        return $objGroupUsers->isSubGroupMember( $userId, $groupId );
+
     }
 
 
@@ -565,8 +504,7 @@ class groupAdminModel extends dbTable
     */
     public function getUsers( $fields = null, $filter = null )
     {
-        $objUsers =& $this->users();
-        return $objUsers->getUsers( $fields, $filter );
+
     }
 
     /**
@@ -581,16 +519,7 @@ class groupAdminModel extends dbTable
      */
     public function getField( $rows, $field )
     {
-        $rowFields = array();
-        foreach( $rows as $row ) {
-            // Multi-dimensional
-            if( is_array( $row ) ) {
-                $rowFields[] = $row[$field];
-            } else {
-                return false;
-            }
-        }
-        return $rowFields;
+
     }
 
     /**
@@ -603,7 +532,7 @@ class groupAdminModel extends dbTable
      */
     public function getChildren ( $node )
     {
-        return $this->getAll( "WHERE parent_id = '$node'" );
+
     }
 
     /**
@@ -617,7 +546,7 @@ class groupAdminModel extends dbTable
      */
     public function getParent ( $node )
     {
-        return $this->getAll( "WHERE id = '$node'" );
+
     }
 
     /**
@@ -630,7 +559,7 @@ class groupAdminModel extends dbTable
      */
     public function getRoot ( )
     {
-        return $this->getAll( "WHERE parent_id IS NULL  ORDER BY name" );
+
     }
 
 
@@ -647,38 +576,6 @@ class groupAdminModel extends dbTable
     private function _getGroupPath( $curNode, &$path, &$leaf )
     {
 
-        if( is_null( $curNode ) ) {
-            $result = $this->getRoot( );
-        } else {
-            $result = $this->getChildren( $curNode );
-        }
-
-        if ( $result ) {
-            // Queue like first start with the first group name,
-            // and move down following the path.
-            $front = array_shift( $path );
-            // Foreach of its children
-            foreach( $result as $group ) {
-                $groupId = $group['id'];
-                // This method of using the name may lead to problems
-                // The name is not unique, see example below
-                // Root
-                // |-+ CourseA
-                // | |-+ Lecturers
-                // |-+ CourseB
-                // | |-+ Lecturers
-                // |-+ CourseA
-                // | |-+ Lecturers
-                // The last matching path found will be returned.
-                // (i.e. 'Root', 'CourseA', 'Lecturers' ) the last one.
-                // I.E. CourseA should not have duplicates!!!
-                $groupName = $group['name'];
-                if( $front == $groupName ) {
-                    $leaf = empty( $path ) ? $groupId : null;
-                    $this->_getGroupPath( $groupId, $path, $leaf );
-                }
-            }
-        }
     }
 
     /**
@@ -690,19 +587,7 @@ class groupAdminModel extends dbTable
      */
     private function _getGroupsToRoot( $curNode, &$toRoot )
     {
-        $result = $this->getParent( $curNode );
 
-        if( $result ) {
-            // Only one parent, foreach not really required
-            foreach( $result as $group ) {
-                $groupId = $group['parent_id'];
-                // Stop if this is Root
-                if ( $groupId ) {
-                    $toRoot[] = $groupId;
-                    $this->_getGroupsToRoot( $groupId, $toRoot );
-                }
-            }
-        }
     }
 
     /**
@@ -714,17 +599,7 @@ class groupAdminModel extends dbTable
      */
     private function _getSubgroups( $curNode, &$subgroups )
     {
-        $result = $this->getChildren( $curNode );
 
-        if ( $result ) {
-            // Foreach of its children.
-            foreach( $result as $group ) {
-                $groupId = $group['id'];
-                $subgroups[]= $groupId;
-                $this->_getSubgroups( $groupId, $subgroups );
-            }
-            // Stops after all children found
-        }
     }
 }
 ?>

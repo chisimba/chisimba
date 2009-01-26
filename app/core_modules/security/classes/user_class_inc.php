@@ -67,7 +67,7 @@ class user extends dbTable
         $this->loggedInUsers = $this->getObject('loggedInUsers');
         $this->userLoginHistory = $this->getObject('userLoginHistory');
         $this->objSkin = $this->getObject('skin', 'skin');
-
+        $this->objGroups = $this->getObject('groupadminmodel','groupadmin');
         $this->imagePath = $this->objConfig->getsiteRootPath().'/user_images/';
         $this->imageUrl = $this->objConfig->getsiteRoot().'user_images/';
     }
@@ -81,14 +81,14 @@ class user extends dbTable
     {
         // See if they want to login via LDAP
         if (isset($_POST['useLdap'])) {
-            $useLdap=$_POST['useLdap'];
-            if ($useLdap='yes') {
-                $result='ldap';
+            $useLdap = $_POST['useLdap'];
+            if ($useLdap = 'yes') {
+                $result = 'ldap';
             } else {
-                $result='default';
+                $result = 'default';
             }
         } else {
-            $result='default';
+            $result = 'default';
         }
         return $result;
     }
@@ -105,7 +105,7 @@ class user extends dbTable
     public function authenticateUser($username, $password, $remember = NULL)
     {
         $username = trim($username);
-        $this->objAuth=$this->getObject('authenticate');
+        $this->objAuth = $this->getObject('authenticate');
         $result = $this->objAuth->authenticateUser($username,$password, $remember);
 
         return $result;
@@ -146,7 +146,9 @@ class user extends dbTable
    /**
    * Method to do the database login based on the passed
    * values of username and password
+   *
    * Depreciated 2007-10-11
+   *
    * @param string $username The username supplied in the login
    * @param string $password The password supplied in the login
    * @return TRUE|FALSE Boolean indication of success of login
@@ -349,8 +351,7 @@ class user extends dbTable
     */
     public function addLecturer($id)
     {
-        $this->objGroups=$this->getObject('groupadminmodel','groupadmin');
-        $groupId=$this->objGroups->getLeafId(array('Lecturers'));
+        $groupId = $this->objGroups->getId('Lecturers');
         $this->objGroups->addGroupUser($groupId,$id);
     }
 
@@ -361,22 +362,7 @@ class user extends dbTable
     */
     public function isLoggedIn()
     {
-        //echo "Checking for login";
         return $this->objLu->isLoggedIn();
-        /*var_dump($this->objLu);
-
-        $loggedIn=$this->getSession('isLoggedIn');
-        if ($loggedIn){
-            if ($this->notExpired()){
-                $ret = $loggedIn;
-                return $ret;
-            } else {
-                $this->objLu->logout();
-                return FALSE;
-            }
-        } else {
-            return FALSE;
-        } */
     }
 
 
@@ -395,7 +381,7 @@ class user extends dbTable
     {
         // Here we need to distinguish between the session var not being set,
         // and being set to FALSE or NULL
-        $isAdmin=$this->getSession('isAdmin','_default');
+        $isAdmin = $this->getSession('isAdmin','_default');
         if ($isAdmin!='_default') {
             if ($isAdmin) {
                 return TRUE;
@@ -422,14 +408,12 @@ class user extends dbTable
     */
     public function lookupAdmin($userId)
     {
-        $sql="SELECT accesslevel from tbl_users where userid='$userId'";
-
-        $return=$this->getArray($sql);
-
-        if ((isset($return[0]))&&($return[0]['accesslevel']=='1')){
-            return TRUE;
-        }else{
+        $user = $this->objLuAdmin->perm->getUsers(array('filters' => array('auth_user_id' => $userId)));
+        if(empty($user) || !isset($user) || $user[0]['perm_type'] < 5) {
             return FALSE;
+        }
+        else {
+            return TRUE;
         }
     }
 
@@ -441,12 +425,11 @@ class user extends dbTable
     * @param string $userId
     * @returns boolean TRUE or FALSE
     */
-    public function inAdminGroup($userId,$group='Site Admin')
+    public function inAdminGroup($userId, $group='Site Admin')
     {
-        $objGroupModel=$this->getObject('groupadminmodel','groupadmin');
-        $id=$this->PKid($userId);
-        $groupId=$objGroupModel->getId($group);
-        $return=$objGroupModel->isGroupMember($id,$groupId);
+        $groupId = $this->objGroups->getId($group);
+        $return = $this->objGroups->isGroupMember($userId, $groupId);
+
         return $return;
     }
 
@@ -918,6 +901,9 @@ class user extends dbTable
     */
     public function isContextLecturer($userId = NULL, $contextCode = NULL)
     {
+        // get the group with the context code. Group is identified by contextcode (group_define_name)
+
+        return true;
         if($userId == NULL && $contextCode == NULL){
             $objContextPermissions = $this->getObject('contextcondition','contextpermissions');
             return $objContextPermissions->isContextMember( 'Lecturers' );

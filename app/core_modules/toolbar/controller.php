@@ -21,12 +21,12 @@ class toolbar extends controller
     /**
     * Method to construct the class.
     */
-    function init()
+    public function init()
     {
         $this->objPage = $this->getObject('page');
         $this->objRegister = $this->getObject('register');
         $this->objDbMenu = $this->getObject('dbmenu');
-        $this->objPerms = $this->getObject('permissions_model', 'permissions');
+        $this->objPerms = $this->getObject('perms', 'permissions');
         $this->objGroups = $this->getObject('groupadminmodel', 'groupadmin');
         $this->objModules = $this->getObject('modules', 'modulecatalogue');
         $this->objContext = $this->getObject('dbcontext', 'context');
@@ -41,9 +41,9 @@ class toolbar extends controller
     /**
     * Standard dispatch function
     */
-    function dispatch($action)
+    public function dispatch($action)
     {
-         $this->setVar('pageSuppressXML',true);
+        $this->setVar('pageSuppressXML',true);
         switch($action){
             case 'editlinks':
                 $module = $this->getParam('modulename', NULL);

@@ -1,6 +1,7 @@
 <?php
 /**
 * Class menu extends object.
+*
 * @package toolbar
 * @filesource
 */
@@ -17,6 +18,7 @@ if (!$GLOBALS['kewl_entry_point_run']){
 * not the entire toolbar on a page.
 *
 * @author Tohir Solomons
+* @author Paul Scott <pscott@uwc.ac.za>
 * @copyright (c)2006 UWC
 * @package toolbar
 * @version 0.1
@@ -26,15 +28,17 @@ class breadcrumbs extends object
 {
     /**
     * Method to construct the class
+    *
     * @access public
     */
     public function init()
     {
         $this->tools = $this->getObject('tools');
     }
-    
+
     /**
     * Method to display the breadcrumbs
+    *
     * @access public
     * @return string
     */
