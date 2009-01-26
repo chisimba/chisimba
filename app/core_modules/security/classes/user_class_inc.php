@@ -922,10 +922,10 @@ class user extends dbTable
         /*if($this->objLuAdmin === null) {
             $this->objLuAdmin = $this->objEngine->getLuAdmin();
         }
-
+*/
         $ret = $this->objGroups->getId($contextCode);
-        var_dump($ret); die();*/
-        return true;
+
+        return $ret;
         /*f($userId == NULL && $contextCode == NULL){
             $objContextPermissions = $this->getObject('contextcondition','contextpermissions');
             return $objContextPermissions->isContextMember( 'Lecturers' );
