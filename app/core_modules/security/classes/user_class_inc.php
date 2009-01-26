@@ -55,6 +55,7 @@ class user extends dbTable
     private $imagePath;
     private $imageUrl;
     public $userData = NULL;
+    public $objPerms;
 
     /**
     * Constructor
@@ -70,6 +71,8 @@ class user extends dbTable
         $this->objGroups = $this->getObject('groupadminmodel','groupadmin');
         $this->imagePath = $this->objConfig->getsiteRootPath().'/user_images/';
         $this->imageUrl = $this->objConfig->getsiteRoot().'user_images/';
+        $this->objPerms = $this->getObject('perms', 'permissions');
+
     }
 
     /**
@@ -864,8 +867,12 @@ class user extends dbTable
     */
     public function isContextAuthor()
     {
-        $objContextPermissions = $this->getObject('contextcondition','contextpermissions');
-        return $objContextPermissions->hasContextPermission( 'isAuthor' );
+        $this->objPerms->outputRights();
+        $right = $this->objPerms->checkRule(isAuthor);
+
+        return $right;
+        //$objContextPermissions = $this->getObject('contextcondition','contextpermissions');
+        //return $objContextPermissions->hasContextPermission( 'isAuthor' );
     }
 
     /**
@@ -876,8 +883,13 @@ class user extends dbTable
     */
     public function isContextEditor()
     {
-        $objContextPermissions = $this->getObject('contextcondition','contextpermissions');
-        return $objContextPermissions->hasContextPermission( 'isEditor' );
+        $this->objPerms->outputRights();
+        $right = $this->objPerms->checkRule(isEditor);
+
+        return $right;
+
+        //$objContextPermissions = $this->getObject('contextcondition','contextpermissions');
+        //return $objContextPermissions->hasContextPermission( 'isEditor' );
     }
 
     /**
@@ -888,8 +900,13 @@ class user extends dbTable
     */
     public function isContextReader()
     {
-        $objContextPermissions = $this->getObject('contextcondition','contextpermissions');
-        return $objContextPermissions->hasContextPermission( 'isReader' );
+        $this->objPerms->outputRights();
+        $right = $this->objPerms->checkRule(isReader);
+
+        return $right;
+
+        //$objContextPermissions = $this->getObject('contextcondition','contextpermissions');
+        //return $objContextPermissions->hasContextPermission( 'isReader' );
     }
 
     /**
@@ -902,9 +919,14 @@ class user extends dbTable
     public function isContextLecturer($userId = NULL, $contextCode = NULL)
     {
         // get the group with the context code. Group is identified by contextcode (group_define_name)
+        /*if($this->objLuAdmin === null) {
+            $this->objLuAdmin = $this->objEngine->getLuAdmin();
+        }
 
+        $ret = $this->objGroups->getId($contextCode);
+        var_dump($ret); die();*/
         return true;
-        if($userId == NULL && $contextCode == NULL){
+        /*f($userId == NULL && $contextCode == NULL){
             $objContextPermissions = $this->getObject('contextcondition','contextpermissions');
             return $objContextPermissions->isContextMember( 'Lecturers' );
         }else{
@@ -913,7 +935,7 @@ class user extends dbTable
             $objGroupAdmin = $this->getObject('groupadminmodel', 'groupadmin');
             $groupId = $objGroupAdmin->getLeafId(array($contextCode, 'Lecturers'));
             return $objGroupAdmin->isGroupMember($this->PKId($userId), $groupId);
-        }
+        }*/
     }
 
     /**
