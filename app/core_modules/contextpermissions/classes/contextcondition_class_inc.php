@@ -2,24 +2,24 @@
 
 /**
  * Context conditions
- * 
+ *
  * Chisimba Context conditions class
- * 
+ *
  * PHP versions 4 and 5
- * 
- * This program is free software; you can redistribute it and/or modify 
- * it under the terms of the GNU General Public License as published by 
- * the Free Software Foundation; either version 2 of the License, or 
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * This program is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License 
- * along with this program; if not, write to the 
- * Free Software Foundation, Inc., 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
  * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- * 
+ *
  * @category  Chisimba
  * @package   contextpermissions
  * @author    Jonathan Abrahams <jabrahams@uwc.ac.za>
@@ -44,9 +44,9 @@ $this->loadClass( 'condition', 'decisiontable');
 
 /**
  * Context conditions
- * 
+ *
  * Chisimba Context conditions class
- * 
+ *
  * @category  Chisimba
  * @package   contextpermissions
  * @author    Jonathan Abrahams <jabrahams@uwc.ac.za>
@@ -62,7 +62,7 @@ class contextCondition extends condition
     /**
      * Object reference to the Group Admin module via its facet interface.
      *
-     * @access private        
+     * @access private
      * @var    groupAdminModel
      */
     var $_objGroupAdmin = NULL;
@@ -71,14 +71,14 @@ class contextCondition extends condition
      * Object reference to the Security module using User object
      *
      * @access private
-     * @var    User   
+     * @var    User
      */
     var $_objUser = NULL;
 
     /**
      * Object reference to the Context module using class DbContext.
      *
-     * @access private  
+     * @access private
      * @var    dbcontext
      */
     var $_objDBContext = NULL;
@@ -86,7 +86,7 @@ class contextCondition extends condition
     /**
      * Object reference to the Permissions module via its facet interface.
      *
-     * @access private          
+     * @access private
      * @var    permissions_model
      */
     var $_objPermissions = NULL;
@@ -95,9 +95,9 @@ class contextCondition extends condition
      * Property used for storing the delimiter used when evaluating the group path.
      *
      * @access private
-     * @var    string 
+     * @var    string
      */
-    var $_delimiter = '/';
+    var $_delimiter = '_';
 
 
    // --- OPERATIONS ---
@@ -105,7 +105,7 @@ class contextCondition extends condition
     /**
      * The object initialisation method.
      *
-     * @access public 
+     * @access public
      * @author Jonathan Abrahams
      * @return nothing
      */
@@ -127,7 +127,7 @@ class contextCondition extends condition
      *
      * @access public
      * @author Jonathan Abrahams
-     * @return array 
+     * @return array
      */
     function isAdmin()
     {
@@ -139,7 +139,7 @@ class contextCondition extends condition
      *
      * @access public
      * @author Jonathan Abrahams
-     * @return array 
+     * @return array
      */
     function dbFieldCheck($tableName='', $fieldName='')
     {
@@ -159,7 +159,7 @@ class contextCondition extends condition
     /**
      * CallBack method used by the evaluate method.
      *
-     * @access public    
+     * @access public
      * @author Jonathan Abrahams
      * @return true|false
      */
@@ -174,7 +174,7 @@ class contextCondition extends condition
     /**
      * CallBack method used by the evaluate method.
      *
-     * @access public    
+     * @access public
      * @param  string     Group name relative to the context.
      * @author Jonathan Abrahams
      * @return true|false
@@ -202,7 +202,7 @@ class contextCondition extends condition
     /**
      * CallBack method to evaluate the value parameter for groups.
      *
-     * @access  public    
+     * @access  public
      * @author  Jonathan Abrahams
      * @param   string     Full path to the group seperated by a delimiter.
      * @return  true|false Returns result of the evaluation.
@@ -211,15 +211,15 @@ class contextCondition extends condition
     function isMember($absPath=NULL)
     {
         // String to Array using delimiter.
-        $arrPath = explode($this->_delimiter,$absPath );
+        //$arrPath = explode($this->_delimiter,$absPath );
         //var_dump($arrPath);
         // Get the groupId for the given path.
-        $groupId = $this->_objGroupAdmin->getLeafId( $arrPath );
+        $groupId = $this->_objGroupAdmin->getId( $absPath );
         // Get the current users PKid
-        $userPKId = $this->_objUser->PKId();
+        //$userPKId = $this->_objUser->PKId();
         //echo "$userPKId $groupId<br/>";
         // Evaluate result: TRUE means is a member, FALSE means is not a member
-        $result = $this->_objGroupAdmin->isSubGroupMember($userPKId, $groupId );
+        $result = $this->_objGroupAdmin->isGroupMember( $this->_objUser->userId(), $groupId );
         //var_dump($result);
         // Returns the result of the evaluation.
         return $result;
@@ -228,7 +228,7 @@ class contextCondition extends condition
     /**
      * Callback method to evaluate the value parameter for permissions.
      *
-     * @access  public    
+     * @access  public
      * @author  Jonathan Abrahams
      * @param   string     Access control list reference name.
      * @return  true|false Returns result of the evaluation.
@@ -247,7 +247,7 @@ class contextCondition extends condition
     /**
      * Callback method to evaluate the value parameter for context permissions.
      *
-     * @access  public    
+     * @access  public
      * @author  Jonathan Abrahams
      * @param   string     Access control list reference name for this context.
      * @return  true|false Returns result of the evaluation.
