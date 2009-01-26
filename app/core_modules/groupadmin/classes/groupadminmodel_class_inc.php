@@ -111,7 +111,9 @@ class groupAdminModel extends object
      */
     public function init()
     {
-
+        //if($this->objLuAdmin === null) {
+        //    $this->objLuAdmin = $this->objEngine->getLuAdmin();
+        //}
     }
 
     /**
@@ -239,6 +241,7 @@ class groupAdminModel extends object
      */
     public function getId( $name = 'name' )
     {
+
         $groups = $this->objLuAdmin->perm->getGroups(array('filters' => array('group_define_name' => $name)));
         if(empty($groups) || !isset($groups[0])) {
             return NULL;
