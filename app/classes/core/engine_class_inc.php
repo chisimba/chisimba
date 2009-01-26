@@ -401,6 +401,7 @@ class engine {
 		 * the config objects
 		 * all configs now live in one place, referencing the config.xml file in the config directory
 		 */
+
         $this->_objDbConfig = $this->getObject ( 'altconfig', 'config' );
         // do we enable logging?
         $this->enableLogging = $this->_objDbConfig->getenable_logging ();
@@ -531,7 +532,6 @@ class engine {
      * @return void
      */
     public function run($presetModuleName = NULL, $presetAction = NULL) {
-
         if (empty ( $presetModuleName )) {
             $requestedModule = strtolower ( $this->getParam ( 'module', '_default' ) );
         } else {
@@ -709,14 +709,43 @@ class engine {
     }
 
     public function getLU() {
-        //global $_lu;
-        //global $_luAdmin;
         if ($this->lu == NULL || $this->luAdmin == NULL) {
-            //global $_lu;
-            //global $_luAdmin;
+            $this->configLu();
+            $_lu = LiveUser::singleton ( $this->luConfig );
+            $_lu->dispatcher->addObserver ( array (&$this, 'authNotification' ) );
+            $this->lu = $_lu;
+            if (! $_lu->init ()) {
+                var_dump ( $_lu->getErrors () );
+                die ();
+            }
+            // and then the admin part
+            $_luAdmin = LiveUser_Admin::factory ( $this->luConfig );
+            $_luAdmin->init ();
+            $this->luAdmin = $_luAdmin;
 
+        }
+        return;
+    }
 
-            // get the configs from sysconfig that we will be needing
+    public function authNotification(&$notification) {
+        log_debug($notification->getNotificationName ());
+        if ($notification->getNotificationName () == 'onIdled') {
+            log_debug ( "Session timed out..." );
+        }
+    }
+
+    public function getLuAdmin() {
+        if ($this->luAdmin === null) {
+            // and then the admin part
+            $_luAdmin = LiveUser_Admin::factory ( $this->luConfig );
+            $_luAdmin->init ();
+            $this->luAdmin = $_luAdmin;
+        }
+        return $this->luAdmin;
+    }
+
+    public function configLu() {
+        // get the configs from sysconfig that we will be needing
             $this->objSysConfig = $this->getObject ( 'dbsysconfig', 'sysconfig' );
 
             // get the session configs
@@ -920,27 +949,6 @@ class engine {
         )
     );
 
-            $_lu = LiveUser::singleton ( $this->luConfig );
-            $_lu->dispatcher->addObserver ( array (&$this, 'authNotification' ) );
-            $this->lu = $_lu;
-            if (! $_lu->init ()) {
-                var_dump ( $_lu->getErrors () );
-                die ();
-            }
-            // and then the admin part
-            $_luAdmin = LiveUser_Admin::factory ( $this->luConfig );
-            $_luAdmin->init ();
-            $this->luAdmin = $_luAdmin;
-
-        }
-        return;
-    }
-
-    public function authNotification(&$notification) {
-        log_debug($notification->getNotificationName ());
-        if ($notification->getNotificationName () == 'onIdled') {
-            log_debug ( "Session timed out..." );
-        }
     }
 
     /**
