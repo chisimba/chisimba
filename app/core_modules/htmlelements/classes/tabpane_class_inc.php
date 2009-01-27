@@ -85,7 +85,7 @@ class tabpane extends object
      * Width Adjustment
      * @var $width int : with of all the tabs
     */
-    var $width;
+    var $width=10;
     /**
      * Holds constructed tabs ready for output
      *

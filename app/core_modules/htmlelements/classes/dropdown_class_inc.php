@@ -108,7 +108,12 @@ class dropdown extends abhtmlbase implements ifhtml
   */
   public $cssClass = 'WCHhider';
 
-
+ /**
+  * 
+  *@ var string $onchangeScrip: holds the script
+  * 
+  */
+  public $onchangeScript="";
   /**
   * Class Constructor
   *
@@ -210,7 +215,7 @@ class dropdown extends abhtmlbase implements ifhtml
     if ($this->extra) {
         $str .= ' '.$this->extra;
     }
-    $str.='>'."\n";
+    $str.='  ".$onchangeScript." >'."\n";
     foreach ($this->options as $opt => $lbl)
     {
         $str.='<option value="'.$opt.'"';
@@ -265,5 +270,14 @@ class dropdown extends abhtmlbase implements ifhtml
         }
     }
   }
+  /*
+   *Function to add the onchange event to dropdown list box
+   *By Emmanuel Natalis
+   *  var $script - script to be called on the onchange effect
+   */
+function addOnchange($scrpt)
+{
+   $onchangeScript=" onChange='".$scrpt."' ";
+}
 }
 ?>
