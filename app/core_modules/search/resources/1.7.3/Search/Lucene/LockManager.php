@@ -20,13 +20,13 @@
 
 
 /** Zend_Search_Lucene_Exception */
-require_once 'Zend/Search/Lucene/Exception.php';
+//require_once 'Zend/Search/Lucene/Exception.php';
 
 /** Zend_Search_Lucene_Storage_Directory */
-require_once 'Zend/Search/Lucene/Storage/Directory.php';
+//require_once 'Zend/Search/Lucene/Storage/Directory.php';
 
 /** Zend_Search_Lucene_Storage_File */
-require_once 'Zend/Search/Lucene/Storage/File.php';
+//require_once 'Zend/Search/Lucene/Storage/File.php';
 
 
 

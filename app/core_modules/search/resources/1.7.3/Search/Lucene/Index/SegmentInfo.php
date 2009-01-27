@@ -20,17 +20,17 @@
  */
 
 /** Zend_Search_Lucene_Index_DictionaryLoader */
-require_once 'Zend/Search/Lucene/Index/DictionaryLoader.php';
+//require_once 'Zend/Search/Lucene/Index/DictionaryLoader.php';
 
 
 /** Zend_Search_Lucene_Exception */
-require_once 'Zend/Search/Lucene/Exception.php';
+//require_once 'Zend/Search/Lucene/Exception.php';
 
 /** Zend_Search_Lucene_LockManager */
-require_once 'Zend/Search/Lucene/LockManager.php';
+//require_once 'Zend/Search/Lucene/LockManager.php';
 
 /** Zend_Search_Lucene_Index_DocsFilter */
-require_once 'Zend/Search/Lucene/Index/DocsFilter.php';
+//require_once 'Zend/Search/Lucene/Index/DocsFilter.php';
 
 
 /**

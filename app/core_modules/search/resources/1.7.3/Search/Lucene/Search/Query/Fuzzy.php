@@ -21,10 +21,10 @@
 
 
 /** Zend_Search_Lucene_Search_Query */
-require_once 'Zend/Search/Lucene/Search/Query.php';
+//require_once 'Zend/Search/Lucene/Search/Query.php';
 
 /** Zend_Search_Lucene_Search_Query_MultiTerm */
-require_once 'Zend/Search/Lucene/Search/Query/MultiTerm.php';
+//require_once 'Zend/Search/Lucene/Search/Query/MultiTerm.php';
 
 
 /**

@@ -21,13 +21,13 @@
 
 
 /** Zend_Search_Lucene_Exception */
-require_once 'Zend/Search/Lucene/Exception.php';
+//require_once 'Zend/Search/Lucene/Exception.php';
 
 /** Zend_Search_Lucene_Index_SegmentInfo */
-require_once 'Zend/Search/Lucene/Index/SegmentInfo.php';
+//require_once 'Zend/Search/Lucene/Index/SegmentInfo.php';
 
 /** Zend_Search_Lucene_Index_SegmentWriter */
-require_once 'Zend/Search/Lucene/Index/SegmentWriter.php';
+//require_once 'Zend/Search/Lucene/Index/SegmentWriter.php';
 
 
 /**

@@ -22,7 +22,7 @@
 
 
 /** Zend_Search_Lucene_Exception */
-require_once 'Zend/Search/Lucene/Exception.php';
+//require_once 'Zend/Search/Lucene/Exception.php';
 
 
 /**

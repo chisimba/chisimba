@@ -20,10 +20,10 @@
  */
 
 /** Zend_Search_Lucene_Document_Html */
-require_once 'Zend/Search/Lucene/Document/Html.php';
+//require_once 'Zend/Search/Lucene/Document/Html.php';
 
 /** Zend_Search_Lucene_Index_DocsFilter */
-require_once 'Zend/Search/Lucene/Index/DocsFilter.php';
+//require_once 'Zend/Search/Lucene/Index/DocsFilter.php';
 
 
 /**

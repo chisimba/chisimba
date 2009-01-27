@@ -21,10 +21,10 @@
 
 
 /** Zend_Search_Lucene_Exception */
-require_once 'Zend/Search/Lucene/Exception.php';
+//require_once 'Zend/Search/Lucene/Exception.php';
 
 /** Zend_Search_Lucene */
-require_once 'Zend/Search/Lucene/PriorityQueue.php';
+//require_once 'Zend/Search/Lucene/PriorityQueue.php';
 
 
 /**

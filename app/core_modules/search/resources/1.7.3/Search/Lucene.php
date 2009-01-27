@@ -20,69 +20,69 @@
 
 
 /** Zend_Search_Lucene_Exception */
-require_once 'Zend/Search/Lucene/Exception.php';
+//require_once 'Zend/Search/Lucene/Exception.php';
 
 /** Zend_Search_Lucene_Document */
-require_once 'Zend/Search/Lucene/Document.php';
+//require_once 'Zend/Search/Lucene/Document.php';
 
 /** Zend_Search_Lucene_Document_Html */
-require_once 'Zend/Search/Lucene/Document/Html.php';
+//require_once 'Zend/Search/Lucene/Document/Html.php';
 
 /** Zend_Search_Lucene_Document_Docx */
-require_once 'Zend/Search/Lucene/Document/Docx.php';
+//require_once 'Zend/Search/Lucene/Document/Docx.php';
 
 /** Zend_Search_Lucene_Document_Pptx */
-require_once 'Zend/Search/Lucene/Document/Pptx.php';
+//require_once 'Zend/Search/Lucene/Document/Pptx.php';
 
 /** Zend_Search_Lucene_Document_Xlsx */
-require_once 'Zend/Search/Lucene/Document/Xlsx.php';
+//require_once 'Zend/Search/Lucene/Document/Xlsx.php';
 
 /** Zend_Search_Lucene_Storage_Directory_Filesystem */
-require_once 'Zend/Search/Lucene/Storage/Directory/Filesystem.php';
+//require_once 'Zend/Search/Lucene/Storage/Directory/Filesystem.php';
 
 /** Zend_Search_Lucene_Storage_File_Memory */
-require_once 'Zend/Search/Lucene/Storage/File/Memory.php';
+//require_once 'Zend/Search/Lucene/Storage/File/Memory.php';
 
 /** Zend_Search_Lucene_Index_Term */
-require_once 'Zend/Search/Lucene/Index/Term.php';
+//require_once 'Zend/Search/Lucene/Index/Term.php';
 
 /** Zend_Search_Lucene_Index_TermInfo */
-require_once 'Zend/Search/Lucene/Index/TermInfo.php';
+//require_once 'Zend/Search/Lucene/Index/TermInfo.php';
 
 /** Zend_Search_Lucene_Index_SegmentInfo */
-require_once 'Zend/Search/Lucene/Index/SegmentInfo.php';
+//require_once 'Zend/Search/Lucene/Index/SegmentInfo.php';
 
 /** Zend_Search_Lucene_Index_FieldInfo */
-require_once 'Zend/Search/Lucene/Index/FieldInfo.php';
+//require_once 'Zend/Search/Lucene/Index/FieldInfo.php';
 
 /** Zend_Search_Lucene_Index_Writer */
-require_once 'Zend/Search/Lucene/Index/Writer.php';
+//require_once 'Zend/Search/Lucene/Index/Writer.php';
 
 /** Zend_Search_Lucene_Search_QueryParser */
-require_once 'Zend/Search/Lucene/Search/QueryParser.php';
+//require_once 'Zend/Search/Lucene/Search/QueryParser.php';
 
 /** Zend_Search_Lucene_Search_QueryHit */
-require_once 'Zend/Search/Lucene/Search/QueryHit.php';
+//require_once 'Zend/Search/Lucene/Search/QueryHit.php';
 
 /** Zend_Search_Lucene_Search_Similarity */
-require_once 'Zend/Search/Lucene/Search/Similarity.php';
+//require_once 'Zend/Search/Lucene/Search/Similarity.php';
 
 /** Zend_Search_Lucene_Index_SegmentInfoPriorityQueue */
-require_once 'Zend/Search/Lucene/Index/SegmentInfoPriorityQueue.php';
+//require_once 'Zend/Search/Lucene/Index/SegmentInfoPriorityQueue.php';
 
 /** Zend_Search_Lucene_Index_DocsFilter */
-require_once 'Zend/Search/Lucene/Index/DocsFilter.php';
+//require_once 'Zend/Search/Lucene/Index/DocsFilter.php';
 
 /** Zend_Search_Lucene_LockManager */
-require_once 'Zend/Search/Lucene/LockManager.php';
+//require_once 'Zend/Search/Lucene/LockManager.php';
 
 
 
 /** Zend_Search_Lucene_Interface */
-require_once 'Zend/Search/Lucene/Interface.php';
+//require_once 'Zend/Search/Lucene/Interface.php';
 
 /** Zend_Search_Lucene_Proxy */
-require_once 'Zend/Search/Lucene/Proxy.php';
+//require_once 'Zend/Search/Lucene/Proxy.php';
 
 
 /**

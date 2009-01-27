@@ -21,16 +21,16 @@
 
 
 /** Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter */
-require_once 'Zend/Search/Lucene/Index/SegmentWriter/DocumentWriter.php';
+//require_once 'Zend/Search/Lucene/Index/SegmentWriter/DocumentWriter.php';
 
 /** Zend_Search_Lucene_Index_SegmentInfo */
-require_once 'Zend/Search/Lucene/Index/SegmentInfo.php';
+//require_once 'Zend/Search/Lucene/Index/SegmentInfo.php';
 
 /** Zend_Search_Lucene_Index_SegmentMerger */
-require_once 'Zend/Search/Lucene/Index/SegmentMerger.php';
+//require_once 'Zend/Search/Lucene/Index/SegmentMerger.php';
 
 /** Zend_Search_Lucene_LockManager */
-require_once 'Zend/Search/Lucene/LockManager.php';
+//require_once 'Zend/Search/Lucene/LockManager.php';
 
 
 

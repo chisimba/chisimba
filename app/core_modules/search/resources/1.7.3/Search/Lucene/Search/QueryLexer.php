@@ -21,16 +21,16 @@
 
 
 /** Zend_Search_Lucene_FSM */
-require_once 'Zend/Search/Lucene/FSM.php';
+//require_once 'Zend/Search/Lucene/FSM.php';
 
 /** Zend_Search_Lucene_Search_QueryParser */
-require_once 'Zend/Search/Lucene/Search/QueryToken.php';
+//require_once 'Zend/Search/Lucene/Search/QueryToken.php';
 
 /** Zend_Search_Lucene_Exception */
-require_once 'Zend/Search/Lucene/Exception.php';
+//require_once 'Zend/Search/Lucene/Exception.php';
 
 /** Zend_Search_Lucene_Search_QueryParserException */
-require_once 'Zend/Search/Lucene/Search/QueryParserException.php';
+//require_once 'Zend/Search/Lucene/Search/QueryParserException.php';
 
 
 /**

@@ -20,38 +20,38 @@
  */
 
 /** Zend_Search_Lucene_FSM */
-require_once 'Zend/Search/Lucene/FSM.php';
+//require_once 'Zend/Search/Lucene/FSM.php';
 
 
 /** Zend_Search_Lucene_Index_Term */
-require_once 'Zend/Search/Lucene/Index/Term.php';
+//require_once 'Zend/Search/Lucene/Index/Term.php';
 
 /** Zend_Search_Lucene_Search_QueryToken */
-require_once 'Zend/Search/Lucene/Search/QueryToken.php';
+//require_once 'Zend/Search/Lucene/Search/QueryToken.php';
 
 /** Zend_Search_Lucene_Search_Query_Term */
-require_once 'Zend/Search/Lucene/Search/Query/Term.php';
+//require_once 'Zend/Search/Lucene/Search/Query/Term.php';
 
 /** Zend_Search_Lucene_Search_Query_MultiTerm */
-require_once 'Zend/Search/Lucene/Search/Query/MultiTerm.php';
+//require_once 'Zend/Search/Lucene/Search/Query/MultiTerm.php';
 
 /** Zend_Search_Lucene_Search_Query_Boolean */
-require_once 'Zend/Search/Lucene/Search/Query/Boolean.php';
+//require_once 'Zend/Search/Lucene/Search/Query/Boolean.php';
 
 /** Zend_Search_Lucene_Search_Query_Phrase */
-require_once 'Zend/Search/Lucene/Search/Query/Phrase.php';
+//require_once 'Zend/Search/Lucene/Search/Query/Phrase.php';
 
 /** Zend_Search_Lucene_Exception */
-require_once 'Zend/Search/Lucene/Exception.php';
+//require_once 'Zend/Search/Lucene/Exception.php';
 
 /** Zend_Search_Lucene_Search_QueryParserException */
-require_once 'Zend/Search/Lucene/Search/QueryParserException.php';
+//require_once 'Zend/Search/Lucene/Search/QueryParserException.php';
 
 /** Zend_Search_Lucene_Search_BooleanExpressionRecognizer */
-require_once 'Zend/Search/Lucene/Search/BooleanExpressionRecognizer.php';
+//require_once 'Zend/Search/Lucene/Search/BooleanExpressionRecognizer.php';
 
 /** Zend_Search_Lucene_Search_QueryEntry */
-require_once 'Zend/Search/Lucene/Search/QueryEntry.php';
+//require_once 'Zend/Search/Lucene/Search/QueryEntry.php';
 
 
 /**

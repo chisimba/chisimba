@@ -19,7 +19,7 @@
  */
 
 /** Zend_Search_Lucene_Interface */
-require_once 'Zend/Search/Lucene/Interface.php';
+//require_once 'Zend/Search/Lucene/Interface.php';
 
 
 /**

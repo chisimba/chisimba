@@ -20,10 +20,10 @@
 
 
 /** Zend_Search_Lucene_FSMAction */
-require_once 'Zend/Search/Lucene/FSMAction.php';
+//require_once 'Zend/Search/Lucene/FSMAction.php';
 
 /** Zend_Search_Exception */
-require_once 'Zend/Search/Exception.php';
+//require_once 'Zend/Search/Exception.php';
 
 
 /**

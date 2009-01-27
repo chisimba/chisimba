@@ -21,7 +21,7 @@
 
 
 /** Zend_Search_Lucene_Search_Similarity_Default */
-require_once 'Zend/Search/Lucene/Search/Similarity/Default.php';
+//require_once 'Zend/Search/Lucene/Search/Similarity/Default.php';
 
 
 /**
