@@ -215,7 +215,7 @@ class dropdown extends abhtmlbase implements ifhtml
     if ($this->extra) {
         $str .= ' '.$this->extra;
     }
-    $str.='  ".$onchangeScript." >'."\n";
+    $str.="  ".$this->onchangeScript." >"."\n";
     foreach ($this->options as $opt => $lbl)
     {
         $str.='<option value="'.$opt.'"';
@@ -277,7 +277,7 @@ class dropdown extends abhtmlbase implements ifhtml
    */
 function addOnchange($scrpt)
 {
-   $onchangeScript=" onChange='".$scrpt."' ";
+   $this->onchangeScript=" onchange=\"".$scrpt."\"";
 }
 }
 ?>
