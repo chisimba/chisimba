@@ -167,6 +167,8 @@ class permissions_acl extends dbTable
     */
     function getUserAcls( $userId )
     {
+
+        return array();
         $permAclDb = $this->_tableName;
         // Get the all groups the user belongs to, include subgroups
         $groupAdmin = $this->getObject( 'groupAdminModel', 'groupadmin' );
