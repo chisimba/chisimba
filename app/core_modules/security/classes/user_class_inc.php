@@ -918,12 +918,9 @@ class user extends dbTable
     */
     public function isContextLecturer($userId = NULL, $contextCode = NULL)
     {
-        // get the group with the context code. Group is identified by contextcode (group_define_name)
-        /*if($this->objLuAdmin === null) {
-            $this->objLuAdmin = $this->objEngine->getLuAdmin();
-        }
-*/
-        $ret = $this->objGroups->getId($contextCode);
+        $grid = $this->objGroups->getId($contextCode);
+        $userId = isset($userId) ? $userId : $this->userId();
+        $ret = $objGroupAdmin->isGroupMember($userId, $grid);
 
         return $ret;
         /*f($userId == NULL && $contextCode == NULL){
