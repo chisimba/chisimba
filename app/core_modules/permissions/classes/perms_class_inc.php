@@ -49,6 +49,9 @@
 class perms extends object
 {
 
+    public $objLanguage;
+    public $objUser;
+
     /**
     * Standard Constructor
     */
@@ -91,11 +94,21 @@ class perms extends object
      }
 
      public function isContextMember($group = 'Lecturers') {
-         return TRUE;
+        $this->objUser = $this->getObject('user', 'security');
+        $this->objGroups = $this->getObject('groupadminmodel', 'groupadmin');
+        $grid = $this->objGroups->getId($group);
+        $userId = $this->objUser->userId();
+        $ret = $this->objGroups->isGroupMember($userId, $grid);
+
+        return $ret;
      }
 
      public function isMember($group = 'Lecturers') {
-         return TRUE;
+        $this->objUser = $this->getObject('user', 'security');
+        $this->objGroups = $this->getObject('groupadminmodel', 'groupadmin');
+        $grid = $this->objGroups->getId($group);
+        $userId = $this->objUser->userId();
+        $ret = $this->objGroups->isGroupMember($userId, $grid);
      }
 }
 ?>
