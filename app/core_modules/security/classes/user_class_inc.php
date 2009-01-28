@@ -918,21 +918,11 @@ class user extends dbTable
     */
     public function isContextLecturer($userId = NULL, $contextCode = NULL)
     {
-        $grid = $this->objGroups->getId($contextCode);
+        $grid = $this->objGroups->getId($contextCode.'_Lecturers');
         $userId = isset($userId) ? $userId : $this->userId();
-        $ret = $objGroupAdmin->isGroupMember($userId, $grid);
+        $ret = $this->objGroups->isGroupMember($userId, $grid);
 
         return $ret;
-        /*f($userId == NULL && $contextCode == NULL){
-            $objContextPermissions = $this->getObject('contextcondition','contextpermissions');
-            return $objContextPermissions->isContextMember( 'Lecturers' );
-        }else{
-            $userId = isset($userId) ? $userId : $this->userId();
-            $contextCode = isset($contextCode) ? $contextCode : $this->getSession('contextCode');
-            $objGroupAdmin = $this->getObject('groupadminmodel', 'groupadmin');
-            $groupId = $objGroupAdmin->getLeafId(array($contextCode, 'Lecturers'));
-            return $objGroupAdmin->isGroupMember($this->PKId($userId), $groupId);
-        }*/
     }
 
     /**
@@ -956,10 +946,16 @@ class user extends dbTable
     * @since 9 March 2005
     * @return true|false Return true if this user is a member of the context Students group.
     */
-    public function isContextStudent()
+    public function isContextStudent($contextCode = NULL)
     {
-        $objContextPermissions = $this->getObject('contextcondition','contextpermissions');
-        return $objContextPermissions->isContextMember( 'Students' );
+        $grid = $this->objGroups->getId($contextCode.'_Students');
+        $userId = $this->userId();
+        $ret = $this->objGroups->isGroupMember($userId, $grid);
+
+        return $ret;
+
+        //$objContextPermissions = $this->getObject('contextcondition','contextpermissions');
+        //return $objContextPermissions->isContextMember( 'Students' );
     }
 
     /**
@@ -968,10 +964,17 @@ class user extends dbTable
     * @since 9 March 2005
     * @return true|false Return true if this user is a member of the context Guest group.
     */
-    public function isContextGuest()
+    public function isContextGuest($contextCode = NULL)
     {
-        $objContextPermissions = $this->getObject('contextcondition','contextpermissions');
-        return $objContextPermissions->isContextMember( 'Guest' );
+        $grid = $this->objGroups->getId($contextCode."_Guest");
+        $userId = $this->userId();
+        $ret = $this->objGroups->isGroupMember($userId, $grid);
+
+        return $ret;
+
+
+        // $objContextPermissions = $this->getObject('contextcondition','contextpermissions');
+        // return $objContextPermissions->isContextMember( 'Guest' );
     }
 
     /**
@@ -982,8 +985,14 @@ class user extends dbTable
     */
     public function isLecturer()
     {
-        $objContextPermissions = $this->getObject('contextcondition','contextpermissions');
-        return $objContextPermissions->isMember( 'Lecturers' );
+        $grid = $this->objGroups->getId('Lecturers');
+        $userId = $this->userId();
+        $ret = $this->objGroups->isGroupMember($userId, $grid);
+
+        return $ret;
+
+        //$objContextPermissions = $this->getObject('contextcondition','contextpermissions');
+        //return $objContextPermissions->isMember( 'Lecturers' );
     }
 
     /**
@@ -994,8 +1003,11 @@ class user extends dbTable
     */
     public function isStudent()
     {
-        $objContextPermissions = $this->getObject('contextcondition','contextpermissions');
-        return $objContextPermissions->isMember( 'Students' );
+        $grid = $this->objGroups->getId('Students');
+        $userId = $this->userId();
+        $ret = $this->objGroups->isGroupMember($userId, $grid);
+
+        return $ret;
     }
 
     /**
@@ -1006,8 +1018,13 @@ class user extends dbTable
     */
     public function isGuest()
     {
-        $objContextPermissions = $this->getObject('contextcondition','contextpermissions');
-        return $objContextPermissions->isMember( 'Guest' );
+        $grid = $this->objGroups->getId('Guest');
+        $userId = $this->userId();
+        $ret = $this->objGroups->isGroupMember($userId, $grid);
+
+        return $ret;
+        //$objContextPermissions = $this->getObject('contextcondition','contextpermissions');
+        //return $objContextPermissions->isMember( 'Guest' );
     }
 
     public function getUserPic()
