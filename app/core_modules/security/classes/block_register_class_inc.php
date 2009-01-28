@@ -98,9 +98,14 @@ class block_register extends object
                     if(empty($regModule)){
                         $regModule = 'userregistration';
                     }
+					
+					$objAlertBox = $this->getObject('alertbox', 'htmlelements');
+					
                     $regLink = $this->newObject('link','htmlelements');
                     $regLink->link = $this->objLanguage->languageText('word_register');
                     $regLink->link($this->uri(array('action' => 'showregister'), $regModule));
+					
+					return  $objAlertBox->show($this->objLanguage->languageText('word_register'), $this->uri(array('action' => 'showregister'), $regModule));
                     return $regLink->show();
                 }
             } else {
