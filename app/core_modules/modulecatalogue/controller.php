@@ -216,7 +216,7 @@ class modulecatalogue extends controller {
             }
             //$this->setVar('letter',$this->getParam('letter','none'));
             $this->setLayoutTemplate ( 'cat_layout.php' );
-            $connected = $this->objRPCClient->checkConnection ();
+            $connected = TRUE; // $this->objRPCClient->checkConnection ();
             $this->setVar ( 'connected', $connected );
             switch ($action) { //check action
                 case 'xml' :
