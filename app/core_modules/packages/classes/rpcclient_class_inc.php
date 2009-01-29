@@ -34,22 +34,22 @@ class rpcclient extends object
      * @var object
      */
     public $sysConfig;
-    
+
     /**
      * Port
      */
     public $port = 80;
-    
+
     /**
      * Proxy info
      */
     public $proxy;
-    
+
     /**
      * Proxy object
      */
     public $objProxy;
-    
+
 
     /**
      * Standard init function
@@ -63,16 +63,25 @@ class rpcclient extends object
         $this->objConfig = $this->getObject('altconfig', 'config');
         $this->objLanguage = $this->getObject('language', 'language');
         $this->sysConfig = $this->getObject('dbsysconfig', 'sysconfig');
-        $this->objProxy = $this->getObject('proxy', 'utilities');
-        
+        $this->objProxy = $this->getObject('proxyparser', 'utilities');
+
         // get the proxy info if set
-        $proxyArr = $this->objProxy->getProxy(NULL);
-        if (!empty($proxyArr)) {
+        $proxyArr = $this->objProxy->getProxy();
+        //var_dump($proxyArr);
+        if (!empty($proxyArr) && $proxyArr['proxy_protocol'] != '') {
+            if(!isset($proxyArr['proxy_user']))
+            {
+                $proxyArr['proxy_user'] = '';
+            }
+            if(!isset($proxyArr['proxy_pass']))
+            {
+                $proxyArr['proxy_pass'] = '';
+            }
             $this->proxy = array(
-                'proxy_host' => $proxyArr['proxyserver'],
-                'proxy_port' => $proxyArr['proxyport'],
-                'proxy_user' => $proxyArr['proxyusername'],
-                'proxy_pass' => $proxyArr['proxypassword']
+                'proxy_host' => $proxyArr['proxy_host'],
+                'proxy_port' => $proxyArr['proxy_port'],
+                'proxy_user' => $proxyArr['proxy_user'],
+                'proxy_pass' => $proxyArr['proxy_pass'],
             );
         }
         else {
@@ -156,9 +165,9 @@ class rpcclient extends object
             throw new customException($this->objLanguage->languageText("mod_packages_faultcode", "packages").": ".$resp->faultCode() . $this->objLanguage->languageText("mod_packages_faultreason", "packages").": ".$resp->faultString());
         }
     }
-    
-    
-    
+
+
+
     /**
      * Method to get a list of available modules from the rpc server
      *
@@ -291,8 +300,8 @@ class rpcclient extends object
             throw new customException($this->objLanguage->languageText("mod_packages_faultcode", "packages").": ".$resp->faultCode().$this->objLanguage->languageText("mod_packages_faultreason", "packages").": ".$resp->faultString());
         }
     }
-    
-    
+
+
     /**
      * Grab a zip file of a skin from the RPC Server
      *
@@ -330,7 +339,7 @@ class rpcclient extends object
             throw new customException($this->objLanguage->languageText("mod_packages_faultcode", "packages").": ".$resp->faultCode().$this->objLanguage->languageText("mod_packages_faultreason", "packages").": ".$resp->faultString());
         }
     }
-    
+
     /**
      * Grab a zip file of a set of modules from the RPC Server
      *
@@ -367,7 +376,7 @@ class rpcclient extends object
             throw new customException($this->objLanguage->languageText("mod_packages_faultcode", "packages").": ".$resp->faultCode().$this->objLanguage->languageText("mod_packages_faultreason", "packages").": ".$resp->faultString());
         }
     }
-    
+
     /**
      * update the systemtypes.xml document
      *
@@ -403,7 +412,7 @@ class rpcclient extends object
             throw new customException($this->objLanguage->languageText("mod_packages_faultcode", "packages").": ".$resp->faultCode().$this->objLanguage->languageText("mod_packages_faultreason", "packages").": ".$resp->faultString());
         }
     }
-    
+
     public function getRemoteEngineVer()
     {
         $msg = new XML_RPC_Message('getEngineVer');
@@ -433,9 +442,9 @@ class rpcclient extends object
             */
             throw new customException($this->objLanguage->languageText("mod_packages_faultcode", "packages").": ".$resp->faultCode().$this->objLanguage->languageText("mod_packages_faultreason", "packages").": ".$resp->faultString());
         }
-        
+
     }
-    
+
     public function getCoreZip($modName)
     {
         $msg = new XML_RPC_Message('getEngineUpgrade');
@@ -465,7 +474,7 @@ class rpcclient extends object
             */
             throw new customException($this->objLanguage->languageText("mod_packages_faultcode", "packages").": ".$resp->faultCode().$this->objLanguage->languageText("mod_packages_faultreason", "packages").": ".$resp->faultString());
         }
-        
+
     }
 }
 ?>
