@@ -334,7 +334,7 @@ class skin extends object
     public function siteSearchBox()
     {
         $this->loadClass('label', 'htmlelements');
-        $slabel = new label($this->objLanguage->languageText('phrase_sitesearch', 'search', 'Site Search') .':', 'input_query');
+        $slabel = new label($this->objLanguage->languageText('phrase_sitesearch', 'search', 'Site Search') .':', 'input_search');
         $this->loadClass('textinput', 'htmlelements');
         $sform = new form('query', $this->uri(NULL,'search'));
         //$sform->addRule('searchterm', $this->objLanguage->languageText("mod_blog_phrase_searchtermreq", "blog") , 'required');
