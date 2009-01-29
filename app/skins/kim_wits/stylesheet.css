@@ -1,0 +1,248 @@
+body {
+    background-color: #fff;
+    color:#333;
+    font: 80% "Trebuchet MS", Arial, "Lucida Sans Unicode", Tahoma, sans-serif;
+    font:83%/1.5 arial,tahoma,verdana,sans-serif;
+    line-height: 200%;
+}
+
+#container {
+    background-color: #d9dfee;
+}
+
+#header {
+    background: transparent url('images/header.jpg') no-repeat top left;
+    height: 130px;
+}
+
+#wrapper {
+    background: transparent url('images/background.gif') repeat-x top left;
+    margin-top: 0px;
+}
+
+#search {
+    margin: 0;
+    color: #fff;
+    text-align: right;
+}
+
+#left, #right {
+    background-color: transparent;
+    margin-bottom: 20px;
+    margin-top: 0px;
+}
+
+
+
+#leftcontent, #contentcontent, #rightcontent {
+    margin: 10px;
+    margin-top: 25px;
+    padding-bottom: 10px;
+
+}
+
+#contentcontent, .featurebox, #nav-secondary, body.help-popup {
+    background-color: #FFF;
+    border: 2px solid #b9c8ea;
+    padding: 10px;
+}
+
+.featurebox {
+    margin-bottom: 20px;
+}
+
+fieldset {
+    background-color: #FFF;
+    border: 2px solid #b9c8ea;
+    padding: 5px;
+}
+
+
+hr { border: none; margin: 10px; }
+
+
+
+/* LINKS */
+a {
+    color: #0C386E;
+    text-decoration: none;
+}
+a:hover, #footer a:hover {
+    color: #C00;
+}
+    
+form {margin-bottom: 10px;}
+
+th {
+    background-color: #b9c8ea;
+    color: #FFF;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+td {
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+th a {
+    color: #b9c8ea;
+}
+
+#footer {
+    background-color: #d9dfee;
+    color: #FFF;
+    padding: 5px;
+    padding-top: 40px;
+}
+
+#footer a {
+    color: #b9c8ea;
+}
+
+#subfooter{
+    background-color: #31529f;
+    padding: 5px;
+    padding-top: 10px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 10px;
+}
+
+#breadcrumbs {
+    /*border-top: 2px solid #b9c8ea;*/
+    margin: 0;
+    padding-top: 5px;
+    padding-left: 14px;
+}
+
+
+/* */
+
+#menu {
+    margin-left: 0px;
+}
+
+#menu>ul>li {
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 90px;
+    margin-right: 30px;
+}
+
+#menu>ul>li:hover{
+    background-color: #b9c8ea;
+    /*border: 2px solid #b9c8ea;*/
+    color: #FFF;
+}
+
+#menu>ul>li:hover>a, #menu>ul>li:hover>a:hover {
+    color: #FFF;
+}
+
+#menu img {
+    padding-top: 5px;
+}
+
+#menu li ul {
+    border: 2px solid #b9c8ea;
+    padding: 3px;
+    padding-right: 5px;
+    margin-left: -6px;
+}
+
+#menu li {
+    border: 1px solid transparent;
+}
+
+
+#menu li ul li:hover{
+    background-color: #b9c8ea;
+    border: 2px solid #b9c8ea;
+}
+
+h1#sitename {
+    padding: 20px;
+}
+
+img {
+   padding: 5px;
+   border: 0;
+}
+
+/************ news stories tabs *************/
+
+/*
+
+Styles for the Modern Brick Menu
+Credits: Dynamic Drive CSS Library
+http://www.dynamicdrive.com/style/csslibrary/item/modern-bricks-menu/
+*/
+
+#modernbricksmenu{
+    padding: 0;
+    width: 100%;
+    background: transparent;
+    voice-family: "\"}\"";
+    voice-family: inherit;
+}
+
+#modernbricksmenu ul{
+    /*font: bold 11px Arial;*/
+    margin:0;
+    margin-left: 40px; /*margin between first menu item and left browser edge*/
+    padding: 0;
+    list-style: none;
+}
+
+#modernbricksmenu li{
+    display: inline;
+    margin: 0 2px 0 0;
+    padding: 0;
+    text-transform:uppercase;
+}
+
+#modernbricksmenu a{
+    float: left;
+    display: block;
+    color: #084FAD;
+    margin: 0 1px 0 0; /*Margin between each menu item*/
+    padding: 5px 10px;
+    text-decoration: none;
+    letter-spacing: 1px;
+    background-color: white; /*Default menu color*/
+    border-bottom: 1px solid white;
+}
+
+#modernbricksmenu a:hover{
+    background-color: #084FAD; /*Red color theme*/
+    border-color: #084FAD; /*Red color theme*/
+	color: white;
+}
+
+#modernbricksmenu #current a{ /*currently selected tab*/
+	color: white;
+    background-color: #084FAD; /*Red color theme*/
+    border-color: #084FAD; /*Red color theme*/
+	border-radius-topleft: 5px;
+	-moz-border-radius-topleft: 5px;
+    -webkit-border-top-left-radius: 5px;
+	-khtml-border-radius-topleft: 5px;
+}
+
+#modernbricksmenuline{
+    clear: both;
+    padding: 0;
+    width: 100%;
+    height: 5px;
+    line-height: 5px;
+    background: #084FAD; /*Red color theme*/
+}
+
+#twocolumn #left {
+    width: 100px;
+}
+/*
+    END - Styles for the Modern Brick Menu
+*/
