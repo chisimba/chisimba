@@ -1,0 +1,288 @@
+
+body{
+	font: 80% "Trebuchet MS", "Lucida Sans Unicode", Tahoma, sans-serif;
+    font:68%/1.5 arial,tahoma,verdana,sans-serif;
+   /* margin: 0;
+    padding: 0;*/	
+}
+
+/************** A styles *************/
+a:link,
+a:visited {
+  
+  text-decoration: none;
+}
+
+a:hover,
+a:active {
+  
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a img {
+  border: none;
+}
+/******** End of A style ***************/
+
+strong {
+  font-weight: bold;
+}
+
+hr { 
+  padding-left: 10px
+}
+
+input[type='text'],
+input[type='password'],
+input[type='file'],
+select,
+textarea {
+  padding: 3px;
+  border: solid 1px #c6c6c6;
+  border-bottom: solid 1px #e3e3e3;
+  color: #333;
+  background: #f3f3f3 url('images/bg-forms.png') left top repeat-x;
+  margin-bottom:4px;    
+}
+
+input.light {
+  background: #fff url('images/bg-forms-light.png') repeat-x;
+  margin-bottom:4px;    
+}
+
+input[type='submit'],
+input[type='reset'],
+input[type='button'] {
+  padding: 3px 10px;
+
+}
+
+input[type='checkbox'],
+input[type='radio'] {
+  width: auto !important;
+}
+/*
+table,
+tr,
+th,
+td {
+  margin: 0;
+  padding: 0;
+  border: none;
+  text-align: left;
+}
+*/
+fieldset{
+	border:1px solid black;
+	
+	}
+	
+
+
+/***********************************************************************************************
+* Common Styles for Usage
+***********************************************************************************************/
+
+
+/* Use this styles for tables instead of <td nowrap> */
+.nowrap { white-space: nowrap; }
+
+
+/* Confirm message that action has occurred successfully - white text on a dark yellow background */
+.confirm, #confirm { color: #000000; background-color: #FFDE39; }
+
+/* Success Messages */
+.success {color:#390;font-weight:bold}
+
+/* Error messages - Red Text Color*/
+.error { color: red; }
+
+/* Error messages for form inputs - Red Background - White Text*/
+input.error, input.inputerror { background-color: red; color: white; }
+
+
+/* Highlighted Text - Yellow Background*/
+.HighLightText, .highlighttext { background-color: #FFFF00; }
+
+
+/* Warning Messages - Orange Background */
+.warning { color: #FFA500; font-weight: bold; }
+
+
+/*  This specify the color of the notes or short little descriptive wording. */
+.minute
+{
+    font-size: 85%;
+}
+
+/* Use for text that is greyed out or dimmed for some reason */
+.dim, .subdued {
+    color: #999999;
+}
+
+
+/* Large Font for Indicating no Records*/
+.noRecordsMessage {
+    font-style: oblique;
+    text-align: center;
+    font-weight: normal;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    font-size: large;
+}
+
+
+
+/* Dark Wrapper - for the header*/
+.wrapperDarkBkg {
+    background-color: #CCCCCC;
+    padding: 3px;
+}
+
+
+
+/* Light Wrapper - for the Content*/
+.wrapperLightBkg {
+    background-color: #FFFFFF;
+    padding: 3px;
+    color: #000000
+}
+
+/*************************************
+* Language direction
+* For example, these below are for divs that should be left aligned for English.
+* But for Arabic or Hebrew, they will be floated right, if it gets overridden in the skin stylesheet
+*******************************************/
+
+.floatlangdir {
+    float: left;
+}
+
+.clearfloatlangdir {
+    /*clear: left;*/
+}
+
+/* END - styles based on language direction */
+
+
+/***********************************************************************************************
+*Table Styles 
+***********************************************************************************************/
+table.overflowtable {
+    table-layout:fixed;
+}
+
+table.overflowtable td.overflowcolumn {
+    overflow:hidden;
+    white-space:nowrap;
+}
+
+
+th {
+    /*background-color:#CACDD2;*/	
+    border-rght: 1px solid black ;	
+    padding-left: 5px;
+	margin:10px;
+
+}
+
+td {
+    margin-left: 10px;
+	/*color: #FFF;*/
+}
+
+th a {
+    color: #c4ebe3;
+	 
+}
+
+
+.highlightblock {
+    border: 1px dashed red;
+}
+
+ul.htmlliststyle li {
+    background: transparent url("../icons/text.gif") no-repeat 0 4px;
+    list-style-type: none;
+    margin: 0;
+    padding-left: 20px;
+}
+
+
+/* Added styles to display quota - width is controlled by code */
+div.outerquota {
+    border: 1px solid #000;
+    background-color: #FFF;
+    font-size: 80%;
+    text-align: center;
+}
+
+div.innerquota {
+    background: #00FF00;
+    height: 16px;
+}
+
+div.quotaup {
+    background: red;
+    height: 16px;
+}
+
+
+
+#nav-secondary{
+    margin: 5px; 	
+    /*border: 1px dashed ;*/
+    padding: 10px;
+	
+}
+#nav-secondary li{
+	padding-left: 15px;
+	/*background-color: #599DF6;*/
+	border: 1px solid blue transparent;
+	text-decoration:none;
+	/*-moz-border-radius: 8px;
+    border-radius: 8px;*/
+	list-style: none;
+}
+
+.featurebox{
+	margin: 5px;
+    
+    /*border: 1px dashed;*/
+	padding:2px;
+}
+
+.featureboxheader
+{
+ 	
+    /*border: 1px solid  brown transparent;
+    color: #FFF;*/
+	padding: 5px;
+	margin-top:1px;
+	margin-bottom:1px;
+}
+
+.featureboxcontent
+{
+	padding: 5px;
+
+	margin-top:1px;
+}
+
+/*fieldset {
+    background-color: #FFF;
+    /*border: 1px solid #D8E9F6;*/
+   /*border:0.5px solid #93B3F9;
+    padding: 5px;
+	
+
+}*/
+
+form {margin-bottom: 10px;}
+
+h1#sitename {
+    padding: 20px;
+}

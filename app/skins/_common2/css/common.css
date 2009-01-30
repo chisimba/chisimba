@@ -1,0 +1,312 @@
+/* Default Size of all Items on a Page */
+
+/* Set Margin/Padding of everything to zero*/
+* {
+	font-family: "Lucida Grande","Trebuchet MS", Tahoma, Verdana, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Fix up for lists*/
+li {
+    margin-left: 20px;
+}
+
+body {
+    background-color: #FFFFFF;
+    color: #000000;
+	font: 0.77em/170% "Lucida Grande", Verdana, Helvetica, sans-serif;
+}
+
+p {
+    margin-bottom: 15px;
+}
+
+
+/***********************************************************************************************
+* CSS for Two & Three Column Layouts
+***********************************************************************************************/
+
+div#wrapper{float:left;width:100%}
+
+
+/* Three Column Layout */
+#threecolumn div#wrapper div#content{margin: 0 220px 0 220px}
+#threecolumn div#left{float:left;width:220px;margin-left:-100%}
+#threecolumn div#right{float:left;width:220px;margin-left:-220px}
+
+
+
+/* Two Column Layout */
+#twocolumn div#wrapper div#content{margin: 0 0 0 220px}
+#twocolumn div#left{float:left;width:220px;margin-left:-100%}
+#twocolumn div#right{display:none}
+
+
+
+/* Right Column Column Layout */
+#rightcolumn div#wrapper div#content{margin: 0 220px 0 0}
+#rightcolumn div#left{display:none}
+#rightcolumn div#right{float:left; width:220px; margin-left:-220px}
+
+
+div#leftcontent select, div#rightcontent select {
+    max-width: 100%;
+}
+
+
+/* Footer */
+#footer {
+    clear:both;
+}
+
+/* Prevent HTML Headings from overflowing side areas*/
+#left h3, #left h1, #right h3, #right h1 {
+    width: 100%;
+    overflow:hidden;
+}
+
+
+#breadcrumbs {
+    clear:both;
+}
+
+#tooliconslist {
+    float:right;
+    padding-right: 10px;
+}
+
+#tooliconslist div {
+    display: inline;
+}
+
+div#search {
+    position: absolute;
+    top: 5px;
+    right: 0;
+    width: 300px;
+}
+
+
+/***********************************************************************************************
+* Common Styles for Usage
+***********************************************************************************************/
+
+
+/* Use this styles for tables instead of <td nowrap> */
+.nowrap { white-space: nowrap; }
+
+
+/* Confirm message that action has occurred successfully - white text on a dark yellow background */
+.confirm, #confirm { color: #000000; background-color: #FFDE39; }
+
+/* Success Messages */
+.success {color:#390;font-weight:bold}
+
+/* Error messages - Red Text Color*/
+.error { color: red; }
+
+/* Error messages for form inputs - Red Background - White Text*/
+input.error, input.inputerror { background-color: red; color: white; }
+
+
+/* Highlighted Text - Yellow Background*/
+.HighLightText, .highlighttext { background-color: #FFFF00; }
+
+
+/* Warning Messages - Orange Background */
+.warning { color: #FFA500; font-weight: bold; }
+
+
+/*  This specify the color of the notes or short little descriptive wording. */
+.minute
+{
+    font-size: 85%;
+}
+
+/* Use for text that is greyed out or dimmed for some reason */
+.dim, .subdued {
+    color: #999999;
+}
+
+
+/* Large Font for Indicating no Records*/
+.noRecordsMessage {
+    font-style: oblique;
+    text-align: center;
+    font-weight: normal;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    font-size: large;
+}
+
+
+
+/* Dark Wrapper - for the header*/
+.wrapperDarkBkg {
+    background-color: #CCCCCC;
+    padding: 3px;
+}
+
+
+
+/* Light Wrapper - for the Content*/
+.wrapperLightBkg {
+    background-color: #FFFFFF;
+    padding: 3px;
+    color: #000000
+}
+
+/*************************************
+* Language direction
+* For example, these below are for divs that should be left aligned for English.
+* But for Arabic or Hebrew, they will be floated right, if it gets overridden in the skin stylesheet
+*******************************************/
+
+.floatlangdir {
+    float: left;
+}
+
+.clearfloatlangdir {
+  /*  clear: left;*/
+}
+
+/* END - styles based on language direction */
+
+
+table.overflowtable {
+    table-layout:fixed;
+}
+
+table.overflowtable td.overflowcolumn {
+    overflow:hidden;
+    white-space:nowrap;
+}
+
+
+
+
+
+
+
+
+
+
+
+#IM, .hidden { /* Hide Instant Messenger*/
+    display: none;
+}
+
+
+
+
+
+h5.featureboxheader {
+    font-size: 100%;
+}
+
+
+.highlightblock {
+    border: 1px dashed red;
+}
+
+ul.htmlliststyle li {
+    background: transparent url("../icons/text.gif") no-repeat 0 4px;
+    list-style-type: none;
+    margin: 0;
+    padding-left: 20px;
+}
+
+div.filemanagertree {
+    overflow: auto;
+    padding-bottom: 30px;
+}
+
+/* Added styles to display quota - width is controlled by code */
+div.outerquota {
+    border: 1px solid #000;
+    background-color: #FFF;
+    font-size: 80%;
+    text-align: center;
+}
+
+div.innerquota {
+    background: #00FF00;
+    height: 16px;
+}
+
+div.quotaup {
+    background: red;
+    height: 16px;
+}
+
+
+/* Wrap Story Image */
+.storyimagewrapper {
+    float: left;
+}
+
+.newsblock {
+    width: 120px;
+    margin-right: 10px;
+    float: left;
+    text-align: center;
+    
+}
+
+.newsblockimage {
+    height: 100px;
+    vertical-align: text-bottom;
+}
+
+/* For the RSS feeds */
+
+.feed_render_title {
+    background-color: #d9d9d9;
+    padding-top:5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    margin-bottom: 4px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+}
+
+.feed_render_title_forcewhite {
+    background-color: white;
+    color: black;
+    border: 1px dashed;
+    border-color: #d9d9d9;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    margin-bottom: 4px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+}
+
+.feed_render_default {
+    background-color: #efefef;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+}
+
+p.feed_render_link {
+   margin-left: 10px;
+   margin-right: 10px;
+}
+
+p.feed_render_description {
+   margin-left: 10px;
+   margin-right: 10px;
+}
+
+.feed_render_date {
+   margin-left: 12px;
+   margin-right: 10px;
+   color: #686868;
+}

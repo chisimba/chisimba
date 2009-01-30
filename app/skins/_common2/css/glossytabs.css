@@ -1,0 +1,46 @@
+/*Credits: By Santosh Setty (http://webdesigninfo.wordpress.com) */
+/*Posted to: Dynamic Drive CSS Library (http://www.dynamicdrive.com/style/) */
+
+.glossytabs{
+    position: relative;
+    margin: 0;
+    background: url(images/glossytabs/menub_bg.gif) repeat-x; /*tab background image path*/
+    height: 46px;
+    list-style: none;
+}
+
+.glossytabs li{
+    float:left;
+}
+
+.glossytabs li a{
+    float: left;
+    display: block;
+    color:#000;
+    text-decoration: none;
+    font-family: sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    padding:0 0 0 16px; /*Padding to accomodate left tab image. Do not change*/
+    height: 46px;
+    line-height: 46px;
+    text-align: center;
+    cursor: pointer;	
+}
+
+.glossytabs li a strong{
+    float: left;
+    display: block;
+    padding: 0 16px 0 0px; /*Padding of menu items*/
+}
+
+.glossytabs li.current a, .glossytabs li a:hover{
+    color: #fff;
+    background: url(images/glossytabs/menub_hover_left.gif) no-repeat; /*left tab image path*/
+    background-position: left;
+}
+
+.glossytabs li.current a strong, .glossytabs li a:hover strong{
+    color: #fff;
+    background: url(images/glossytabs/menub_hover_right.gif) no-repeat right top; /*right tab image path*/
+}

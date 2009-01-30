@@ -1,0 +1,28 @@
+@import "cssdropdownmenu.css";
+/*** Bread crumbs****/
+#breadcrumbs {
+/*    clear:both;*/
+	margin-top:10px;
+	padding-bottom:5px;
+}
+
+/***Icons tools set***/
+
+#tooliconslist {
+    float:right;
+    padding-right: 10px;
+}
+
+#tooliconslist div {
+    display: inline;
+}
+
+
+/******Search*****/
+
+div#search {
+    position: absolute;
+    top: 5px;
+    right: 0;
+    width: 300px;
+}

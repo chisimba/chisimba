@@ -1,0 +1,4028 @@
+/*@import url('globals.css');
+@import url('layout.css');
+@import url('corners.css');
+@import url('buttons.css');
+@import url('tabs.css');
+@import url('avatars.css');
+@import url('modals.css');
+@import url('place_lists.css');
+@import url('person_lists.css');
+@import url('navigation.css');/*
+
+/* buttons
+---------------------------------------------------------------------------- */
+
+.posting a.button {
+  margin-right: 10px;
+}
+
+.posting a.button > span {
+  color: #666;
+}
+
+.posting a.button span.icon {
+  margin-right: 5px;
+}
+
+.posting #post-note-link span.icon {
+  background-image: url('/images/icon-post-note.png');
+}
+
+.posting #post-photo-link span.icon {
+  margin-top: -2px;
+  background-image: url('/images/icon-post-photo.png');
+}
+
+#main.place > .header .actions a.button {
+  margin-bottom: 5px;
+}
+
+#main.place #checkin_button span.icon {
+  margin-right: 5px;
+  background: url('/images/icon_checkin_small.png') left top no-repeat;
+}
+
+#main.place > .header .actions > div {
+  clear: both;
+}
+
+#main.place a.placemark {
+  padding: 5px 0 5px 20px;
+  font-size: 0.85em;
+  color: #666;
+  text-decoration: underline;
+  background: url('/images/icon_placemark_small.png') 0 4px no-repeat;
+}
+
+#main.place a.place_privacy {
+  padding: 5px 0 5px 20px;
+  font-size: 0.85em;
+  color: #666;
+  text-decoration: underline;
+  background: url('/images/icon_place_privacy.png') 2px 4px no-repeat;
+}
+
+#main.signup #skip a.button span.icon
+{
+  margin-right: 5px;
+  background-image: url('/images/icon_skip.png');
+}
+
+.sharing a.customize {
+    font-size: 0.8em;
+    margin-left: 1em;
+}
+
+#customize_help {
+    float: left;
+    width: 140px;
+    margin-left: -140px;
+    margin-top: 16px;
+    color: #999999;
+    font-size: 0.85em;
+}
+
+/* CONTENT ROW
+============================================================================ */
+
+#main.full
+{
+  position: relative;
+  width: 100%;
+  margin: 0 0 15px 0;
+  padding: 0;
+}
+
+/* signup pages */
+
+#main.signup
+{
+  float: left;
+  width: 790px;
+}
+
+#main.signup .content
+{
+  padding: 20px 30px 10px 30px;
+}
+
+#main.signup .header
+{
+  padding: 10px 15px 15px 15px;
+  background: url('/images/bg-tabs.png') left bottom repeat-x;
+}
+
+#main.signup .row,
+#main.account .row
+{
+  margin: 5px 0 10px 0;
+}
+
+#main.signup hr,
+#main.account hr
+{
+  margin: 20px 0 28px 0;
+}
+
+#main.signup label.name,
+#main.account label.name
+{
+  float: left;
+  display: block;
+  width: 145px;
+}
+#main.signup .field label.name,
+#main.account .field label.name
+{
+  width: 115px;
+}
+
+
+#main.signup fieldset,
+#main.account fieldset
+{
+  padding-top: 5px;
+}
+
+#main.discover > .content > h2
+{
+  margin-top: 0;
+  font-weight: normal;
+}
+
+#main.discover hr
+{
+  margin-bottom: 20px;
+}
+
+#main.list.discover > .content > h2
+{
+  margin-top: 15px;
+}
+
+#main.list.discover > .content > hr
+{
+  margin-bottom: 0;
+}
+
+#main.discover td.details
+{
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+#main.list.discover td.details > h3,
+#main.list.discover td.details > p
+{
+  margin: 0 0 5px 0;
+}
+
+#main.list.discover td.avatar
+{
+  width: 50px;
+  padding: 8px;
+  vertical-align: top;
+}
+
+#main.signup .field,
+#main.account .field
+{
+  margin: 0 0 0 160px;
+}
+
+#main.signup .field .field,
+#main.account .field .field
+{
+  margin: 0 0 0 115px;
+}
+
+#main.signup .field label,
+#main.account .field label
+{
+  margin: 0;
+  padding: 0;
+}
+
+#main.signup .field input,
+#main.account .field input
+{
+  margin-top: -6px;
+  width: 300px;
+  padding: 4px 5px 3px 5px;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #000;
+}
+
+#main.signup .field label.help,
+#main.signup .field .help p,
+#main.account .field label.help
+{
+  display: block;
+  width: 310px;
+  margin: 5px 0 0 1px;
+  font-size: 0.85em;
+  font-style: italic !important;
+  color: #999;
+}
+
+#main.signup label.notice,
+#main.account label.notice
+{
+  margin: 0;
+  padding: 0;
+}
+
+#main.signup label.notice div,
+#main.signup div.formError,
+#main.account label.notice div,
+#main.account div.formError
+{
+  display: block;
+  width: 292px;
+  margin: 5px 0 5px 0;
+  padding: 4px 10px 4px 10px;
+  font-style: normal;
+  color: #333;
+  background: #ffe4e5;
+}
+
+#main.signup label.notice.success div,
+#main.account label.notice.success div
+{
+  background: #e4ffe5;
+}
+
+#main.signup label.notice.failure div
+#main.account label.notice.failure div
+{ 
+  background: #ffe4e5;
+}
+
+#main.signup .finish
+{
+  margin: 0 0 0 160px;
+}
+
+#main.signup .finish p
+{
+  margin: 0 0 5px 0;
+}
+
+#main.signup input[type='checkbox']
+{
+  margin: 0 10px 0 0;
+}
+
+#main.signup .finish label
+{
+  font-size: 0.85em;
+  font-style: italic;
+  color: #999;
+}
+
+#main.signup .finish a
+{
+  font-style: italic;
+  font-weight: bold;
+}
+
+#main.signup input[type='submit']
+{
+  margin: 20px 0 0 0;
+}
+
+#main.signup.profile #real-name input,
+#main.account #real-name input
+{
+  width: 141px;
+}
+
+#main.signup.profile input#user_firstname,
+#main.account input#user_firstname
+{
+  margin-right: 6px;
+}
+
+#main.signup.profile textarea,
+#main.account textarea
+{
+  width: 304px;
+}
+
+#main.signup.profile #social-links label.help,
+#main.account #social-links label.help
+{
+  margin-bottom: 10px;
+}
+
+#main.signup.profile #social-links label.social,
+#main.account #social-links label.social
+{
+  display: block;
+  float: left;
+  width: 7.5em;
+  margin: 12px 2px 0 0;
+}
+
+#main.signup.profile #social-links label.social a,
+#main.account #social-links label.social a
+{
+  padding-left: 22px;
+  text-decoration: none;
+}
+
+#main.signup.profile #facebook-label a,
+#main.account #facebook-label a
+{
+  background: url('/images/icon-facebook.png') left top no-repeat;
+}
+
+#main.signup.profile #myspace-label a,
+#main.account #myspace-label a
+{
+  background: url('/images/icon-myspace.png') left top no-repeat;
+}
+
+#main.signup.profile #lastfm-label a,
+#main.account #lastfm-label a
+{
+  background: url('/images/icon-lastfm.png') left top no-repeat;
+}
+
+#main.signup.profile #linkedin-label a,
+#main.account #linkedin-label a
+{
+  background: url('/images/icon-linkedin.png') left top no-repeat;
+}
+
+#main.signup.profile #social-links input,
+#main.account #social-links input
+{
+  width: 200px;
+  margin: 5px 0 0 0;
+}
+
+#main.account input[type='submit']
+{
+  margin: 0 0 0 159px;
+}
+
+#main.account.profile #avatar-help img
+{
+  float: left;
+  margin-right: 10px;
+}
+
+#main.account.profile a.delete {
+  float: right;
+  margin: 3px 228px 0 0;
+  font-size: 0.85em;
+}
+
+#main.signup.profile label.counter,
+#main.account.profile label.counter
+{
+  position: absolute;
+  display: block;
+  width: 310px;
+  margin-top: -1.3em;
+  font-size: 0.85em;
+  line-height: 1.2em;
+  text-align: right;
+  color: #666;
+}
+
+#main.signup.profile label.counter.error,
+#main.account.profile label.counter.error
+{
+  color: #c30;
+}
+
+#main.signup.profile label.counter img,
+#main.account.profile label.counter img
+{
+  position: relative;
+  top: -0.2em;
+  margin: 0 5px 0 0;
+  padding: 0;
+  vertical-align: top;
+}
+
+#main.signup.profile hr.first
+{
+  margin-top: 0;
+}
+
+#main.signup.profile hr.nomargin
+{
+  margin: 0 auto;
+}
+
+#main.signup.mobile hr,
+#main.signup.notifications hr,
+#main.signup.extra fieldset,
+#main.signup.extra input[type='submit'],
+#main.signup.mobile .row,
+#main.signup.profile #social-links,
+#main.signup.locate hr
+{
+  margin: 0;
+}
+
+#main.signup.mobile #skip
+{
+  position: relative;
+  top: 3px;
+  float: right;
+}
+
+#main.signup.mobile h2,
+#main.signup.profile h2,
+#main.signup.notifications h2,
+#main.signup.locate h2
+{
+  margin: 0 0 15px 0;
+  font-size: 1.4em;
+}
+
+#main.signup hr.short
+{
+  width: 91.1%;
+  margin: 0 auto;
+}
+
+#main.signup.extra fieldset.buttons
+{
+  padding: 0;
+}
+
+#main.signup.extra .steps,
+#main.signup.extra .content,
+#main.signup.extra .nav
+{
+  padding: 25px 35px;
+}
+
+#main.signup.extra .steps
+{
+  text-align: center;
+}
+
+#main.signup.extra .steps ul
+{
+  width: 750px;
+  margin: 0 auto;
+}
+
+#main.signup.extra .steps li
+{
+  float: left;
+  margin: 0 30px;
+  list-style: none;
+}
+
+#main.signup.extra .steps li a
+{
+  display: block;
+  width: 90px;
+  padding: 80px 0 0 0;
+  color: #999;
+  text-decoration: none;
+}
+
+#main.signup.extra #mobile-step a
+{
+  background: url('/images/bg-mobile.png') center top no-repeat;
+}
+
+#main.signup.extra #mobile-step.selected a
+{
+  background-image: url('/images/bg-mobile-selected.png');
+}
+
+#main.signup.extra #confirm-step a
+{
+  background: url('/images/bg-confirm.png') center top no-repeat;
+}
+
+#main.signup.extra #confirm-step.selected a
+{
+  background-image: url('/images/bg-confirm-selected.png');
+}
+
+#main.signup.extra #profile-step a
+{
+  background: url('/images/bg-profile.png') center 7px no-repeat;
+}
+
+#main.signup.extra #profile-step.selected a
+{
+  background-image: url('/images/bg-profile-selected.png');
+}
+
+#main.signup.extra #privacy-step a
+{
+  background: url('/images/bg-privacy.png') center 7px no-repeat;
+}
+
+#main.signup.extra #privacy-step.selected a
+{
+  background-image: url('/images/bg-privacy-selected.png');
+}
+
+#main.signup.extra #notifications-step a
+{
+  background: url('/images/bg-notifications.png') center 7px no-repeat;
+}
+
+#main.signup.extra #notifications-step.selected a
+{
+  background-image: url('/images/bg-notifications-selected.png');
+}
+
+#main.signup.extra #locate-step a
+{
+  background: url('/images/bg-checkin.png') center 7px no-repeat;
+}
+
+#main.signup.extra #locate-step.selected a
+{
+  background-image: url('/images/bg-checkin-selected.png');
+}
+
+#main.signup.extra .content p
+{
+  margin: 0 0 20px 0;
+}
+
+#main.signup.extra .nav
+{
+  text-align: center;
+}
+
+#main.signup.extra .nav p
+{
+  display: inline;
+  margin: 0 0 0 20px;
+}
+
+#main.signup.extra .nav p a
+{
+  color: #999;
+}
+
+#main.signup.locate input[type='text']
+{
+  width: 598px;
+  padding: 5px 10px;
+  font-size: 1.7em;
+}
+
+#main.signup.locate label.help
+{
+  display: block;
+  margin: 5px 0 0 0;
+  font-size: 1em;
+  color: #666;
+}
+
+#main.account.mobile #commands-list span
+{
+  padding: 5px 15px;
+  background: #FFFDBB;
+}
+
+#main.account.mobile #confirmed form div input[type='submit']
+{
+  margin: 0;
+}
+
+#main.account.mobile #confirmed .field p
+{
+  font-size: 1.4em;
+}
+
+#main.invites input[type='text']
+{
+  width: 400px;
+}
+
+#main.invites textarea
+{
+  width: 404px;
+}
+
+#main.invites label.help
+{
+  width: 400px !important;
+}
+
+#main.invites .content
+{
+  padding-top: 1px;
+}
+
+#main.invites h1
+{
+  font-size: 1.8em !important;
+}
+
+#main.invites h2
+{
+  font-weight: normal;
+}
+
+#main.place #checkin_button div
+{
+  position: relative;
+  display: block;
+  height: 24px;
+  line-height: 24px;
+  padding-left: 26px;
+  vertical-align: middle;
+  font-size: 11px;
+  color: #666;
+}
+
+#main.place p.checked_in {
+  margin: 0 0 10px 0;
+  padding: 5px 10px;
+  font-size: 0.9em;
+  font-weight: bold;
+  color: #333;
+  background: #fdfc9a;
+}
+
+td.actions  p.checked_in {
+  padding: 5px 10px;
+  font-size: 0.85em;
+  font-weight: bold;
+  color: #333;
+  background: #fdfc9a;
+}
+
+#radius_selection
+{
+  position: relative;
+  float: left;
+  top: 2px;
+  color: #999;
+}
+
+#radius_selection select
+{
+  width: 200px;
+  margin: 0 !important;
+}
+
+/* filters bar */
+
+#filters {
+  margin: 4px 0 9px 0;
+}
+
+#filters a {
+  float: right;
+  margin: 5px 5px 0 0;
+  line-height: 15px;
+  font-size: 0.9em;
+}
+
+#search.main #filters {
+  margin: 0;
+}
+
+#search.main #filters a {
+  top: 0;
+}
+
+#filters a#rss_link {
+  position: relative;
+  display: block;
+  float: right;
+  top: 4px;
+  right: -4px;
+  margin: 0;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  background: url('/images/icon-rss.png') no-repeat;
+}
+
+#filters a#kml_link {
+  position: relative;
+  display: block;
+  float: right;
+  top: 4px;
+  right: -4px;
+  margin: 0;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  background: url('/images/icon_kml.png') no-repeat;
+}
+
+#filters a#rss_link span,
+#filters a#kml_link span
+{
+  display: none;
+}
+
+#filters #filters-bar
+{
+  margin-top: 13px;
+}
+
+/* social links
+---------------------------------------------------------------------------- */
+
+#social_link_type {
+  position: relative;
+  width: 110px;
+  height: 28px;
+  top: -3px;
+}
+
+#social_link_id {
+  width: 186px !important;
+}
+
+#social_links input[type='button'] {
+  position: relative;
+  width: 50px !important;
+  top: -1px;
+}
+
+#social_links .field > p {
+  position: relative;
+  top: 2px;
+  width: 310px;
+  font-size: 0.85em;
+  color: #666;
+}
+
+#social_links label.help {
+  width: 320px !important;
+  margin-top: 5px;
+}
+
+#social_links label.help strong > span  {
+  padding: 1px 3px;
+  color: #000;
+  background: #fdfc9a;
+}
+
+
+.social_links {
+  margin: 20px 0 0 0;
+}
+
+.social_links > div {
+  clear: both;
+  margin-top: 5px;
+}
+
+.social_links > div:first-child {
+  margin-top: 0;
+}
+
+.social_links > div > p {
+  position: absolute;
+  float: left;
+  margin-top: 7px !important;
+  padding-left: 20px;
+  background-repeat: no-repeat;
+  background-position: left center;
+}
+
+.social_links > div > a {
+  padding: 5px;
+}
+
+.social_links > div > input {
+  width: 130px !important;
+  margin: 0 0 0 170px !important;
+}
+
+.social_links #facebook > p {
+  background-image: url('/images/favicon_facebook.png');
+}
+
+.social_links #flickr > p {
+  background-image: url('/images/favicon_flickr.png');
+}
+
+.social_links #lastfm > p {
+  padding-top: 1px;
+  padding-bottom: 1px;
+  background-image: url('/images/favicon_lastfm.png');
+}
+
+.social_links #linkedin > p {
+  background-image: url('/images/favicon_linkedin.png');
+}
+
+.social_links #myspace > p {
+  background-image: url('/images/favicon_myspace.png');
+}
+
+.social_links #twitter > p {
+  background-image: url('/images/favicon_twitter.png');
+}
+
+/* settings pages messages
+---------------------------------------------------------------------------- */
+
+#message-area .message
+{
+  margin: 15px 30px 0 30px;
+  padding: 5px 10px;
+}
+
+#message-area .message p
+{
+  float: left;
+  margin: 0;
+  padding: 0 !important;
+  background: none !important;
+}
+
+#message-area .dismiss-link
+{
+  float: right;
+  margin-top: 1px;
+  font-size: 0.85em;
+  text-decoration: underline;
+}
+
+#message-area.notice .message,
+#message-area.notice .dismiss-link
+{
+  color: #669900;
+  background: #edf6cb;
+}
+
+#message-area.error .message,
+#message-area.error .dismiss-link
+{
+  color: #992200;
+  background: #ffe4e5;
+}
+
+/* terms of service
+---------------------------------------------------------------------------- */
+
+#main.tos
+{
+  float: left;
+  width: 710px;
+  border: none;
+}
+
+#main.tos > .corner
+{
+  margin: -5px 0;
+}
+
+#main.tos .content,
+#main.contact .content
+{
+  padding: 10px 20px;
+}
+
+#main.tos ol li
+{
+  font-size: 12px;
+  line-height: 140%;
+  color: #666;
+  padding: .5em 0 .5em .4em;
+  margin: 0;
+}
+
+#main.tos p
+{
+  color: #333;
+  font-size: 12px;
+  line-height: 140%;
+}
+
+#main.tos .contact p
+{
+  color: #666;
+}
+
+#main.tos h2
+{
+  font-size: 14px;
+  color: #333;
+  margin: 1.5em 0 0;
+  padding: 1.5em 0 .25em 0;
+  border-top: 1px solid #ddd;
+}
+
+#main.tos h1,
+#main.contact h1
+{
+  margin: 5px 0 0 0;
+}
+
+#sidebar.tos
+{
+  position: relative;
+  float: right;
+  width: 240px;
+  background: #fff;
+}
+
+#sidebar.tos > .corner
+{
+  background-image: url('/images/corners-white.png');
+}
+
+#sidebar.tos .content
+{
+  padding: 5px 15px;
+}
+
+#sidebar.tos ol li
+{
+  font-size: 12px;
+  line-height: 140%;
+  color: #333;
+  padding: .25em 0 .25em 0;
+  margin: 0;
+}
+
+#main > .header > .corner {
+  background-image: url('/images/corners-grey.png');
+}
+
+#main .dashboard.header {
+  padding-top: 10px;
+}
+
+/* dashboard, place page, user page
+---------------------------------------------------------------------------- */
+
+#main.dashboard,
+#main.place
+{
+  width: 760px;
+  padding: 0;
+}
+
+#main.place .title,
+#main.user .info
+{
+  float: left;
+  width: 462px;
+}
+
+#main.place .actions {
+  float: right;
+  width: 229px;
+  margin: 0 0 0 20px;
+  padding: 0 0 0 15px;
+  border-left: solid 1px #e4e4e4;
+}
+
+#main.user .actions,
+#main.place .actions
+{
+  float: right;
+  width: 230px;
+  margin: 0;
+  padding: 1px 0 1px 20px;
+  border-left: solid 1px #e4e4e4;
+}
+
+#main.dashboard .header,
+#main.place .header,
+#main.user .header
+{
+  background: #fff;
+}
+
+#main.dashboard .header .box
+{
+  margin: 25px 0 20px 0;
+  padding: 15px;
+  background: #fff;
+}
+
+#main.dashboard .header .box > .corner
+{
+  height: 5px;
+  margin: -5px 0;
+  background-image: url('/images/corners-white.png') !important;
+}
+
+#main.dashboard #tips
+{
+  padding: 0;
+  background: #c0e1f4 url('/images/bg-dashboard-tips.png') repeat-x;
+}
+
+#main.dashboard #tips > .corner
+{
+  height: 10px;
+  margin: -10px 0;
+  background-image: url('/images/corners-dashboard-tips.png') !important;
+}
+
+#main.dashboard #tips div.background
+{
+  position: absolute;
+  top: -10px;
+  left: -13px;
+  width: 102px;
+  height: 102px;
+  background: url('/images/icon-checkin-glow.png') no-repeat;
+}
+
+#main.dashboard #tips .content
+{
+  margin: 0;
+  padding: 10px 0 10px 70px;
+}
+
+#main.dashboard #tips h3
+{
+  margin: 0;
+  font-size: 1.2em;
+  color: #000;
+}
+
+#main.dashboard #tips ol
+{
+  margin: 10px 0 0 20px;
+}
+
+#main.dashboard #tips ol li
+{
+  float: left;
+  margin: 0 50px 0 0;
+  color: #666;
+}
+
+#main.dashboard #tips div.controls
+{
+  position: absolute;
+  top: 5px;
+  right: 20px;
+  font-size: 0.85em;
+  color: #999;
+}
+
+#main.dashboard #tips div.controls a
+{
+  color: #666;
+}
+
+#main.user div.button,
+#main.place div.button
+{
+  width: 120px;
+  margin: 5px 0 0 0;
+  text-align: left;
+  padding-left: 10px;
+}
+
+#main.user a.follow img
+{
+  position: relative;
+  top: -1px;
+  margin: 0 0 0 5px;
+}
+
+#main.user a.follow .separator
+{
+  position: relative;
+  top: -1px;
+  margin: 0 5px;
+  color: #999;
+}
+
+#main.user a.follow .follow_text_icon
+{
+  top: -2px;
+}
+
+#main.user a.follow strong
+{
+  color: #98b624;
+}
+
+#main.user .tabs
+{
+  padding-top: 10px;
+}
+
+#main.user .info img.avatar
+{
+  float: left;
+  margin: 0 10px 10px 0;
+  border: solid 1px #e6e6e6;
+}
+
+#main.user .info p
+{
+  margin: 20px 0 0 0;
+  color: #999;
+}
+
+#main.user .info strong
+{
+  color: #666;
+}
+
+#main.user .info h2
+{
+  font-size: 1em;
+}
+
+#main.user .actions
+{
+  padding-bottom: 7px;
+}
+
+#main.user .actions > div,
+#main.place .actions > div
+{
+  margin: 5px 0;
+}
+
+#main.place .actions > div#checkin_button {
+  margin-top: 0;
+}
+
+#main.user .actions p
+{
+  margin: 8px 0 0 0;
+}
+
+#main .followers.content p.block
+{
+  margin: 15px 0 0 0;
+}
+
+#main.user .actions p a,
+#main .followers.content p.block a
+{
+  padding: 4px 0 5px 25px;
+  font-size: 0.85em;
+  color: #999;
+  background: url('/images/icon-block.png') left center no-repeat;
+}
+
+/* nearby users page
+---------------------------------------------------------------------------- */
+
+#nearby_users table {
+  margin-top: 0;
+}
+
+#nearby_users form {
+  margin: 5px 0;
+}
+
+#nearby_users form > strong {
+  margin-right: 33px;
+}
+
+#nearby_users .blank {
+  margin-top: 15px;
+}
+
+/* my friends pages
+---------------------------------------------------------------------------- */
+
+#main.friends .content,
+#main.places .content,
+#main.messages .content,
+#main.search .content
+{
+  padding-top: 15px;
+}
+
+#main.friends h1,
+#main.places h1,
+#main.messages h1,
+#main.search h1
+{
+  margin-bottom: 10px;
+}
+
+#main.friends .trusted a
+{
+  padding-right: 25px;
+  background: url('/images/icon-trusted.png') right center no-repeat;
+}
+
+#main.places h1
+{
+  float: left;
+}
+
+#main.places div.legend
+{
+  float: right;
+  margin: 10px 0 0 0;
+}
+
+#main.places div.legend p
+{
+  float: left;
+  margin: 0;
+  padding: 4px 0 3px 0;
+  font-size: 0.85em;
+  color: #666;
+}
+
+#main.places p#place-legend,
+#main.places p#placemark-legend
+{
+  padding-left: 20px;
+}
+
+#main.places p#place-legend
+{
+  margin-right: 25px;
+  background: url('/images/icon-place-small.png') left center no-repeat;
+}
+
+#main.places p#placemark-legend
+{
+  margin-right: 5px;
+  background: url('/images/icon-place-public-small.png') left center no-repeat;
+}
+
+#main .places.content table,
+#main.messages table,
+#main.search table
+{
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#main .places.content thead tr
+{
+  border: solid 1px #dfdfdf;
+  background: #f1f1f1;
+}
+
+#main .places.content th
+{
+  padding: 5px 10px;
+  font-size: 0.85em;
+  font-weight: normal;
+}
+
+#main .places.content th,
+#main.messages td,
+#main.search td
+{
+  padding: 5px 10px;
+  vertical-align: top;
+}
+
+#main .places.content td
+{
+  padding: 5px 10px 10px 10px;
+}
+
+#main .places.content th p
+{
+  margin: 0;
+}
+
+#main .places.content th a
+{
+  color: #999;
+  text-decoration: underline;
+}
+
+#main .places.content tbody tr,
+#main.messages tbody tr,
+#main.search tbody tr {
+  border-bottom: solid 1px #dfdfdf;
+}
+
+#main.messages hr {
+  margin: 0;
+}
+
+#main.messages td.avatar
+{
+  width: 60px;
+  padding: 5px 0;
+}
+
+#main .places.content td.icon,
+#main.search td.icon {
+  width: 50px;
+  padding: 2px 0;
+  vertical-align: top;
+}
+
+#main.search td.avatar
+{
+  width: 55px;
+  padding-bottom: 8px;
+}
+
+#main.messages td.avatar img
+{
+  margin: 5px 0 2px 0;
+  background: #f0f0f0;
+}
+
+#main.messages td.avatar img
+{
+  margin-top: 5px;
+}
+
+#main .places.content td.icon img,
+#main.search td.icon img {
+  margin: 10px 0 0 20px;
+}
+
+#main.messages td.details
+{
+  width: 120px;
+}
+
+#main .places.content td.time
+{
+  width: 100px;
+}
+
+#main.messages td.time
+{
+  width: 80px;
+}
+
+#main .places.content td.visits
+{
+  width: 40px;
+}
+
+#main.messages td.actions
+{
+  width: 100px;
+  text-align: right;
+}
+
+#main.sent.messages td.actions
+{
+  width: 80px;
+}
+
+#main .places.content td h2,
+#main .places.content td h3,
+#main .places.content td p,
+#main.messages td h2,
+#main.messages td p,
+#main.search td h2,
+#main.search td h3
+{
+  margin: 0;
+}
+
+#main .places.content td h2,
+#main.search td h2
+{
+  margin-top: 5px;
+  font-size: 1.4em;
+}
+
+#main.messages td h2
+{
+  margin: 11px 0 5px 0;
+  font-size: 1em;
+  font-weight: normal;
+}
+
+#main .visitors.content td h2
+{
+  margin: 0;
+}
+
+#main.sent.messages td h2 span
+{
+  font-weight: normal;
+}
+
+#main .places.content td h3,
+#main.search td h3
+{
+  margin: 2px 0 5px 0;
+  font-size: 0.9em;
+  font-weight: normal;
+  color: #999;
+}
+
+#main.search td h3 {
+  margin-bottom: 10px;
+}
+
+#main .places.content td h3 a,
+#main.search td h3 a
+{
+  color: #999;
+}
+
+#main .places.content td h3
+{
+  margin-top: 3px;
+}
+
+#main .places.content td p,
+#main.messages td.time p,
+#main.messages td.actions p
+{
+  font-size: 0.9em;
+  color: #999;
+}
+
+#main .places.content td.details p
+{
+  margin-top: 10px;
+}
+
+#main .visitors.content td.details,
+#main .visitors.content td.visits
+{
+  vertical-align: middle;
+}
+
+#main.messages td.details p
+{
+  margin: 0;
+  font-size: 0.85em;
+  color: #999;
+}
+
+#main.messages td.body {
+  max-width: 420px;
+  overflow: hidden;
+}
+
+#main.messages td.body p
+{
+  margin: 11px 0 0 0;
+}
+
+#main.messages td.actions p
+{
+  margin: 12px 0 0 0;
+}
+
+#main .visitors.content td.details p
+{
+  margin-top: 5px;
+}
+
+#main .places.content td.time,
+#main .places.content td.visits {
+  vertical-align: middle;
+}
+
+#main.friends.map .content
+{
+  padding-bottom: 10px;
+}
+
+#main.friends.map #map,
+.people.map #map
+{
+  width: 100%;
+  height: 500px;
+  border: solid 1px #ddd;
+}
+
+#main.search .content > h2
+{
+  font-size: 1.4em;
+  font-weight: normal;
+}
+
+#main.search .content > h2 span
+{
+  padding: 5px;
+  font-weight: bold;
+  background: #e5f2b4;
+}
+
+#main.search .content > p
+{
+  font-weight: bold;
+  color: #999;
+}
+
+/* account/settings pages
+---------------------------------------------------------------------------- */
+
+#main.account h1
+{
+  margin: 0 0 8px 0;
+  font-size: 1.4em;
+}
+
+#main.account .content
+{
+  margin: 10px 15px 0 15px;
+}
+
+#main.account .radio.field label
+{
+  margin-right: 20px;
+}
+
+#main.signup .radio.field input[type='radio'],
+#main.account .radio.field input[type='radio']
+{
+  margin: 0 5px 0 0;
+}
+
+#main.signup #dob.row,
+#main.account #dob.row
+{
+  margin-top: 30px;
+}
+
+.notifications.content .grey.container,
+form.privacy .grey.container,
+.mobile.content .grey.container,
+.checkin.content .grey.container {
+  margin: 15px 0;
+  padding: 15px;
+  background: #efefef; }
+
+.notifications.content .grey.container {
+  padding-left: 105px; }
+
+.notifications.content #all.grey.container {
+  padding-left: 15px;
+}
+
+.checkin.content .grey.container {
+  margin: 15px 0;
+  padding-left: 80px;
+  background: #efefef url('/images/bg_checkin_small.png') 20px 15px no-repeat; }
+
+.notifications.content #account.grey.container {
+  background: #efefef url('/images/bg_account_notifications.png') 20px 15px no-repeat; }
+
+.notifications.content #nearby.grey.container {
+  background: #efefef url('/images/bg_nearby_notifications.png') 20px 15px no-repeat; }
+
+.notifications.content #quiet_time.grey.container
+{
+  background: #efefef url('/images/bg_quiet_time_notifications.png') 20px 15px no-repeat;
+}
+
+.notifications.content #all .white.container > div {
+  clear: both;
+  margin-bottom: 25px;
+}
+
+.notifications.content #all .white.container > div.clear {
+  margin-bottom: 0;
+}
+
+.notifications.content #all .white.container > div > p {
+  float: left;
+  margin: 0;
+  color: #666;
+}
+
+.notifications.content #all .white.container > div > div {
+  float: right;
+}
+
+.notifications.content .white.container,
+form.privacy .white.container,
+.mobile.content .white.container {
+  padding: 15px;
+  background: #fff; }
+
+form.privacy .white.container {
+  margin: 15px 0; }
+
+.notifications.content h2,
+form.privacy h2,
+.mobile.content h2,
+.checkin.content h2 {
+  margin: 0;
+  font-size: 1.1em; }
+
+.notifications.content h2 {
+  margin-bottom: 10px; }
+
+.notifications.content .container > p,
+form.privacy p,
+.checkin.content p {
+  color: #666; }
+
+.notifications.content .container > label,
+.notifications.content .container div.line > div > label {
+  margin-right: 20px;
+  padding-left: 10px; }
+
+.notifications.content .container > hr {
+  margin: 15px 0 !important; }
+
+.notifications.content .left > label,
+.notifications.content .right > label {
+  width: auto !important;
+  margin-top: 2px;
+  padding: 0 10px 0 0; }
+
+.notifications.content select {
+  width: 200px;
+  margin: 0;
+  padding: 0; }
+
+.notifications.content #quiet_time select {
+  width: 70px;
+  margin: 0;
+  padding: 0; }
+
+.notifications.content #quiet_time select.timezone {
+  width: 300px;
+  margin: 0;
+  padding: 0; }
+
+.notifications.content #quiet_time table
+{
+  margin-top: 20px;
+}
+
+.notifications.content p.override {
+  margin: 15px 0 0 0;
+  padding: 5px;
+  color: #333;
+  background: #fef791;
+}
+
+.notifications.content input[type='submit'],
+form.privacy input[type='submit'] {
+  margin-left: 105px !important; }
+
+.mobile.content input[type='submit'] {
+  margin-left: 15px !important; }
+
+form.privacy label > img {
+  margin-left: 10px;
+  position: relative;
+  top: 5px; }
+
+form.privacy .description {
+  margin-left: 90px; }
+
+form.privacy p > span,
+.checkin.content p > span {
+  padding: 0 5px;
+  background: #fef791; }
+
+.checkin.content p > span {
+  font-weight: bold;
+  color: #333; }
+
+form.privacy p {
+  margin: 10px 0 0 0 !important; }
+
+form.privacy > p {
+  margin-bottom: 15px !important; }
+
+.checkin.content p {
+  margin: 0 0 15px 0 !important; }
+
+form.privacy h3 {
+  margin: 0;
+  font-size: 1em; }
+
+form.privacy .white.container td:first-child > p {
+  position: relative;
+  top: -3px;
+  margin: 0 !important; }
+
+.mobile.content .fieldWithErrors {
+  display: inline !important; }
+
+.mobile.content input[type='text'] {
+  width: 300px;
+  margin: 0 0 15px 10px;
+  padding: 3px 5px;
+  font-size: 1.4em;
+  font-weight: bold;
+  color: #000; }
+
+.mobile.content input[type='text'],
+.checkin.content input[type='text'] {
+  background: #fff url('/images/bg-forms-light.png') repeat-x; }
+
+.mobile.content #start_over {
+  margin-top: 10px; }
+
+.mobile.content label {
+  float: left;
+  position: relative;
+  top: 9px; }
+
+.mobile.content label.error {
+  float: none;
+  display: block;
+  top: -15px;
+  left: 221px;
+}
+
+.mobile.content label.confirmation.error {
+  left: 329px;
+}
+
+.mobile.content #initial p,
+.mobile.content #unconfirmed p {
+  margin: 10px 0 0 0;
+  color: #666; }
+
+.mobile.content #initial form > h2,
+.mobile.content #unconfirmed form > h2 {
+  margin: 0 0 10px 0; }
+
+.mobile.content #confirmed h2 {
+  margin: 0; }
+
+.mobile.content .grey.container input[type='submit'] {
+  margin: 15px 0 0 0 !important; }
+
+.mobile.content .white.container span {
+  margin-right: 15px; }
+
+.mobile.content #confirmed .grey.container {
+  margin-bottom: 30px; }
+
+.mobile.content .help {
+  margin-top: 40px; }
+
+.mobile.content #confirmed > p,
+.mobile.content .help > p {
+  margin: 10px 0;
+  color: #666; }
+
+.mobile.content .help > p > span {
+  padding: 5px;
+  font-size: 1.3em;
+  font-weight: bold; }
+
+.mobile.content .help > hr {
+  margin: 30px 0 !important; }
+
+#main.account #user-notifications
+{
+  top: -23px;
+  margin-top: 20px;
+}
+
+#main.account table, #signup table
+{
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-collapse: collapse;
+  color: #666;
+}
+
+form.privacy table {
+  margin: 15px 0 0 0 !important;
+}
+
+form.privacy td.everyone,
+form.privacy td.friends,
+form.privacy td.trusted {
+  width: 100px;
+}
+
+form.privacy td select {
+  width: 120px;
+  margin: 0;
+  padding: 0;
+}
+
+form.privacy th,
+form.privacy td {
+  border-right: solid 1px #dfdfdf !important;
+}
+
+form.privacy input[type='submit'], {
+  margin-left: 0;
+}
+
+#main.account tr,
+#main.account th,
+#main.account td,
+#signup tr,
+#signup th,
+#signup td {
+  padding: 5px 10px;
+  border: none;
+  text-align: left;
+  vertical-align: bottom;
+}
+
+#main.account th em,
+#signup th em {
+  font-weight: bold;
+  color: #333;
+}
+
+form.privacy th {
+  font-weight: normal;
+}
+
+#main.account tr.alt,
+#signup tr.alt {
+  background: #f0f0f0;
+}
+
+#main.account th.text,
+#main.account th.email,
+#main.account td.text,
+#main.account td.email {
+  width: 70px;
+  text-align: center;
+  padding: 5px 0;
+  font-size: 0.85em;
+  font-weight: normal;
+  border: solid 1px #dfdfdf;
+  border-top: none;
+  border-bottom: none;
+}
+
+#main.account th.text
+{
+  padding-top: 25px;
+  background: url('/images/icon-text2.png') center 5px no-repeat;
+}
+
+#main.account th.email
+{
+  padding-top: 25px;
+  background: url('/images/icon-email2.png') center 8px no-repeat;
+}
+
+#main.account.sharing .box
+{
+  position: relative;
+  margin: 0 0 40px 0;
+  padding: 8px 0 5px 0;
+  border: solid 1px #ddd;
+  border-top: none;
+  border-bottom: none;
+}
+
+#main.account.sharing .box > .corner
+{
+  margin: -5px -1px;
+  background-image: url('/images/corners-border.png');
+}
+
+#main.account.sharing .box .content
+{
+  position: relative;
+  min-height: 50px;
+  margin: 0;
+  padding: 30px 15px 0 15px;
+}
+
+#main.account.sharing .background
+{
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  background-position: right top;
+  background-repeat: no-repeat;
+}
+
+#main.account.sharing #twitter .background
+{
+  width: 177px;
+  height: 41px;
+  background-image: url('/images/bg-twitter.png');
+}
+
+#main.account.sharing #facebook {
+  min-height: 129px;
+}
+
+#main.account.sharing #facebook h2 span {
+  font-weight: normal;
+  color: #999;
+}
+
+#main.account.sharing #facebook p {
+  margin-right: 210px;
+}
+
+#main.account.sharing #facebook p.loading {
+  padding-left: 25px;
+  color: #999;
+  background: url('/images/spinner.gif') no-repeat left center;
+}
+
+#main.account.sharing #facebook .background {
+  width: 180px;
+  height: 68px;
+  background-image: url('/images/bg_sharing_facebook.png');
+}
+
+#main.account.sharing #fireeagle .background
+{
+  width: 178px;
+  height: 45px;
+  background-image: url('/images/bg-fireeagle.png');
+}
+
+#main.account.sharing #flickr .background {
+  width: 180px;
+  height: 68px;
+  background-image: url('/images/bg_sharing_flickr.png');
+}
+
+#main.account.sharing hr
+{
+  margin: 20px 0;
+}
+
+#main.account.sharing hr.full
+{
+  margin: 0;
+}
+
+#main.account.sharing h2
+{
+  margin: 0 15px 10px 15px;
+}
+
+#main.account.sharing input[type='text'],
+#main.account.sharing input[type='password'],
+#main.account.sharing label.help
+{
+  width: 295px;
+}
+
+#main.account.sharing label.option
+{
+  display: block;
+  margin: 5px 0;
+}
+
+#main.account.sharing input[type='checkbox']
+{
+  position: relative;
+  top: -1px;
+  margin: 0 10px 0 0;
+}
+
+#main.account.sharing p
+{
+  margin-right: 200px;
+}
+
+/* place stream column
+---------------------------------------------------------------------------- */
+
+#main #stream,
+.main #stream,
+#main.landing .column {
+  float: left;
+  width: 463px;
+  margin: -5px 0 0 0;
+  padding: 5px 0;
+  overflow: hidden;
+}
+
+.main #stream > div.blank {
+  margin: 5px 0;
+}
+
+#main #stream img.avatar,
+.main #stream {
+  padding: 0;
+  border: none;
+}
+
+/* comments stream
+---------------------------------------------------------------------------- */
+
+#stream.comments > .comment {
+  clear: both;
+  padding: 10px 0;
+}
+
+#stream.comments .comment img.avatar {
+  float: left;
+}
+
+#stream.comments .comment > p.body {
+  margin: 1px 0 0 58px;
+  font-size: 1.1em;
+}
+
+#stream.comments .comment > p.parent {
+  margin: 10px 0 0 58px;
+  font-size: 0.85em;
+  color: #999;
+}
+
+#stream.comments p.parent > a.grey {
+  color: #999;
+  text-decoration: none;
+}
+
+#stream.comments p.parent img {
+  max-width: 30px;
+  max-height: 30px;
+  margin: 0 5px;
+  vertical-align: middle;
+}
+
+.comments.content > #stream,
+.mentions.content > #stream {
+  margin-top: -20px !important;
+}
+
+.comments.content .blank,
+.mentions.content .blank {
+  margin-top: 15px;
+  font-size: 0.9em !important;
+}
+
+/* inline comments
+---------------------------------------------------------------------------- */
+
+#stream .comments {
+  margin: 0 0 0 55px;
+}
+
+#stream .comments > .tracking > a {
+  float: right;
+  margin-bottom: 10px;
+  font-size: 0.85em;
+  color: #999;
+}
+
+#stream .comments > hr {
+  margin-bottom: 10px;
+}
+
+#stream .comments > .comment {
+  margin-bottom: 15px;
+}
+
+#stream .comments > .comment:last-child {
+  margin-bottom: 0;
+}
+
+#stream .comments .comment > p {
+  margin-left: 40px;
+}
+
+#stream .comments .comment > p.author {
+  margin: 0 5px 0 0 !important;
+  padding: 0;
+  font-size: 1em;
+  font-weight: bold;
+  color: #333;
+}
+
+#stream .comments .comment > p.body {
+  margin-left: 40px;
+  color: #666;
+}
+
+#stream .comments .comment > p.details {
+  margin-top: 5px;
+  font-size: 0.85em;
+  color: #999;
+}
+
+#stream .comment_form {
+  padding: 5px 0 10px 0;
+}
+
+#stream .comment_form textarea {
+  width: 400px;
+  margin-bottom: 5px;
+}
+
+#stream .comment_form input[type='submit'] {
+  float: right;
+  width: 120px;
+}
+
+#stream .comment_form label.track,
+#object #comments label.track,
+#stream .comment_form input[type='checkbox'],
+#object #comments input[type='checkbox'] {
+  position: relative;
+  float: left;
+  top: 3px;
+  font-size: 0.85em;
+}
+
+#stream .comment_form label.track,
+#object #comments label.track {
+  padding-left: 5px;
+}
+
+/* place stream posting box
+---------------------------------------------------------------------------- */
+
+#main #stream .posting,
+.main #stream .posting {
+  position: relative;
+  margin: 0 0 10px 0;
+  padding: 5px 15px 5px 15px;
+  background: #e9e9e9;
+}
+
+#main #stream .posting > .corner,
+.main #stream .posting > .corner{
+  background-image: url('/images/corners-grey-darker.png');
+}
+
+#main #stream .posting .pointer,
+.main #stream .posting .pointer {
+  width: 40px;
+  height: 15px;
+  left: 30px;
+  bottom: -20px;
+  background: url('/images/pointer-down-green.png');
+}
+
+#main #stream .posting p,
+.main #stream .posting p {
+  float: left;
+  width: 80px;
+  margin: 1px 10px 0 0;
+  font-size: 0.85em;
+  color: #999;
+}
+
+/* stream objects
+---------------------------------------------------------------------------- */
+
+#stream hr
+{
+  margin: 0;
+}
+
+#stream div.text.object,
+#stream div.photo.object
+{
+  margin: 10px 0;
+}
+
+#stream div.checkin.object
+{
+  margin: 5px 0;
+}
+
+#stream .post-controls
+{
+  margin: 0;
+}
+
+#stream .object p
+{
+  margin: 0;
+}
+
+#stream .object div.body
+{
+  margin-left: 58px;
+}
+
+#stream .object p.caption
+{
+  font-size: 1.1em;
+	color: #3e3e3e;
+  line-height: 1.35em;
+}
+
+#stream .object .status
+{
+  position: relative;
+}
+
+#stream .object .status a:link,
+#stream .object .status a:visited {
+  color: #888;
+  text-decoration: none;
+}
+
+#stream .object .status a:hover {
+  color: #666;
+  text-decoration: underline;
+}
+
+#stream .object .status p.stats
+{
+  float: left;
+  margin: 10px 80px 0 0;
+  font-size: 0.85em;
+  color: #999;
+}
+
+#stream .post-controls
+{
+  position: absolute;
+  bottom: 2px;
+  right: 0;
+  margin: 10px 0 0 0;
+}
+
+#stream .object p.author
+{
+  float: left;
+  margin: 8px 50px 0 0;
+  font-size: 0.85em;
+  color: #999;
+}
+
+#stream .object p.stats.checkin
+{
+  margin-top: 0;
+}
+
+#stream .photo.object p.author
+{
+  margin-top: 5px;
+}
+
+#stream .object img.avatar
+{
+  float: left;
+  margin: 0 10px 0 0;
+}
+
+#stream .object img.tiny.avatar
+{
+  margin: 0 10px 0 32px;
+}
+
+.post-controls
+{
+  float: right;
+  margin: 0;
+}
+
+.post-controls .edit-icon span,
+.post-controls .delete-icon span,
+.post-controls .private-icon span,
+.post-controls .public-icon span,
+.post-controls .comments-icon span
+{
+  display: none;
+}
+
+.post-controls .edit-icon,
+.post-controls .delete-icon,
+.post-controls .private-icon,
+.post-controls .public-icon,
+.post-controls .comments-icon
+{
+  display: block;
+  float: left;
+  width: 13px;
+  height: 12px;
+  margin: 0 0 0 5px;
+  background-position: left top;
+  background-repeat: no-repeat;
+}
+
+.post-controls .comments-number,
+.post-controls .loading {
+  float: left;
+  font-size: 0.8em;
+}
+
+.post-controls .comments-number > a {
+  padding-left: 5px;
+}
+
+.post-controls .edit-icon
+{
+  background-image: url('/images/icon-edit.png');
+}
+
+.post-controls .delete-icon
+{
+  background-image: url('/images/icon-delete.png');
+}
+
+.post-controls .private-icon
+{
+  background-image: url('/images/icon-post-private.png');
+}
+
+.post-controls .public-icon
+{
+  background-image: url('/images/icon-post-public.png');
+}
+
+.post-controls .comments-icon {
+  background-image: url('/images/icon_comments.png');
+  background-position: left 1px;
+}
+
+.post-controls .loading {
+  padding-left: 17px;
+  background: url('/images/spinner_small.gif') no-repeat;
+}
+
+.post-controls .comments-number a.reply_link,
+.post-controls .loading {
+  color: #a9b3b7;
+}
+
+/* stream photo objects
+---------------------------------------------------------------------------- */
+
+#stream .object .photo img
+{
+  margin: 0;
+}
+
+/* place visitors sidebar, dashboard friends sidebar
+---------------------------------------------------------------------------- */
+
+#main.user.places .header
+{
+  background: none;
+}
+
+#main > .content .wrapper
+{
+  float: right;
+  width: 250px;
+  margin-top: -14px;
+}
+
+#main .extra
+{
+  position: relative;
+  margin: 0 0 30px 0;
+  padding: 0 10px 5px 10px;
+  background: #e9e9e9;
+}
+
+#main .extra .corner
+{
+  background-image: url('/images/corners-grey-darker.png') !important;
+}
+
+#main .extra .content
+{
+  clear: both;
+  margin: 0;
+}
+
+#main .extra .row
+{
+  padding: 5px;
+}
+
+#main .extra hr {
+  border-top-color: #ccc !important;
+}
+
+#main .extra h1
+{
+  margin-bottom: 11px;
+  padding: 10px 5px 0 5px;
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #999;
+}
+
+#main .extra h2
+{
+  margin: 0;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+#main .extra p a
+{
+  font-weight: normal;
+  color: #888;
+}
+
+#main .extra p
+{
+  margin: 3px 0 0 42px;
+  font-size: 0.85em;
+  color: #888;
+  line-height: 1.3em;
+}
+
+#main .extra p.here
+{
+  font-weight: bold;
+  color: #a6cb00;
+}
+
+#main .extra hr
+{
+  clear: both;
+  margin: 0;
+  border-top: solid 1px #dfdfdf;
+}
+
+#main .extra img
+{
+  float: left;
+  margin: 0 10px 0 0;
+  padding: 0;
+  border: none;
+}
+
+#main.signup.account.profile .content
+{
+  margin: 0;
+}
+
+#main .extra.profile .header
+{
+  background: #2e4557;
+}
+
+#main .extra.profile .header > .corner
+{
+  background-image: url('/images/corners-blue-dark.png') !important;
+}
+
+#main .extra.profile p
+{
+  margin: 10px 5px;
+  font-size: 1em;
+  color: #666;
+}
+
+#main .extra.profile p strong
+{
+  color: #333;
+}
+
+#main .extra.profile a
+{
+  font-weight: normal;
+}
+
+#main > .content
+{
+  clear: both;
+  min-height: 630px;
+  padding: 25px 15px 15px 15px;
+}
+
+#main .followings.content,
+#main .followers.content
+{
+  padding-top: 10px;
+}
+
+#main .followings.content h3,
+#main .followers.content h3,
+{
+  font-size: 1.3em;
+}
+
+#main.not_found .header > div
+{
+  padding: 10px 0 25px 110px;
+  background: url('/images/icon-unknown-place.png') 10px 10px no-repeat;
+}
+
+#main.not_found h2
+{
+  margin: 10px 0 0 0;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+#main.not_found p
+{
+  color: #666;
+}
+
+#main.not_found strong
+{
+  color: #000;
+}
+
+#main.not_found div.examples
+{
+  margin: 30px 0;
+}
+
+#main.friends.pending ul,
+#main.friends.pending p,
+#main .list.content ul,
+#main .list.content p
+{
+  margin: 0;
+  padding: 0;
+}
+
+#main.friends.pending hr,
+#main .list.content hr
+{
+  margin: 15px 0 0 0;
+}
+
+#main.friends.pending li,
+#main .list.content li
+{
+  clear: both;
+  padding: 10px 0;
+  list-style-type: none;
+  border-bottom: solid 1px #dfdfdf;
+}
+
+#main.friends.pending img.avatar,
+#main.friends.pending div.details,
+#main .followings.content img,
+#main .followers.content img
+{
+  float: left;
+}
+
+#main.friends.pending h3
+{
+  margin: 10px 0 5px 0;
+  font-size: 1em;
+  color: #999;
+}
+
+#main.friends.pending input[type='checkbox']
+{
+  margin: 0 5px 0 0;
+}
+
+#main.friends.pending label.help
+{
+  display: block;
+  width: 350px;
+  margin: 5px 0 0 20px;
+  font-size: 0.85em;
+  font-style: italic;
+  color: #999;
+}
+
+#main.friends.pending #trust_label
+{
+  padding-left: 25px;
+  background: url('/images/icon-trusted.png') left center no-repeat;
+}
+
+#main.friends.pending div.details
+{
+  width: 450px;
+}
+
+#main .followings.content h4,
+#main .followers.content h4
+{
+  font-size: 1.5em;
+}
+
+#main.friends.pending img.avatar,
+#main .followings.content img,
+#main .followers.content img
+{
+  margin: 0 10px 0 0;
+  border: solid 3px #f0f0f0;
+}
+
+#main.friends.pending h2
+{
+  margin: 0;
+}
+
+#main.friends.pending div.actions
+{
+  float: right;
+  margin: 2px 0 0 0;
+  color: #999;
+}
+
+#main.friends.pending div.actions div
+{
+  display: inline;
+}
+
+#main.friends.pending input[type='submit']
+{
+  padding: 3px 5px;
+}
+
+#main.friends.pending form.friendship
+{
+  float: left;
+  width: 670px;
+}
+
+#main.friends.pending input.ignore
+{
+  float: right;
+  margin-top: 2px;
+}
+
+#main.help .header
+{
+  padding-bottom: 15px;
+}
+
+#main.help .body
+{
+  width: 465px;
+  float: left;
+}
+
+#main.help .body h2
+{
+  margin: 0;
+}
+
+#main.help .body p
+{
+  margin: 7px 0 12px 0;
+  color: #666;
+  line-height: 1.4em;
+}
+
+#main.help .sidebar
+{
+  position: relative;
+  float: right;
+  width: 250px;
+  margin: 5px 0 0 0;
+  padding: 0;
+  background: #f1f1f1;
+}
+
+#main.help .sidebar > .corner
+{
+  background-image: url('/images/corners-grey.png');
+}
+
+#main.help .sidebar > .corner.tl,
+#main.help .sidebar > .corner.tr
+{
+  background-image: url('/images/corners-green-dark.png');
+}
+
+#main.help .sidebar .header
+{
+  padding: 0px 15px 5px 15px;
+  background: #b1d918;
+}
+
+#main.help .sidebar .content
+{
+  padding: 10px 15px 5px 15px;
+}
+
+#main.help .sidebar h2
+{
+  margin: 0;
+  font-size: 1em;
+  color: #fff;
+}
+
+#main.help .sidebar p
+{
+  margin: 0;
+  line-height: 1.8em;
+}
+
+#main.help span,
+#main.account.mobile .content span
+{
+  padding: 3px 5px;
+  background: #e5f2b4;
+  color: #333;
+}
+
+#main.help h3
+{
+  font-weight: normal;
+}
+
+#main.help .guide h4 span
+{
+  padding: 0;
+  font-weight: normal;
+  background: none;
+}
+
+#main.help .guide h4
+{
+  margin: 30px 0 15px 0;
+  font-size: 1.1em;
+}
+
+#main.help #link_to_pocket_reference a
+{
+  padding: 1px 0 0 25px;
+  background: url('/images/icon-pdf.png') left center no-repeat;
+}
+
+#main.help .guide #link_to_full
+{
+  margin: 30px 0 20px 0;
+}
+
+#main.help .guide .body > div,
+#main.help .reference .body > div
+{
+  padding: 20px 0 5px 60px;
+  background: url('/images/bg-sms-guide.png') left center no-repeat;
+}
+
+#main.help .reference table
+{
+  width: 100%;
+  margin: 0 0 20px 0;
+}
+
+#main.help .reference tr
+{
+  border: solid 1px #e3e3e3;
+  border-left: none;
+  border-right: none;
+}
+
+#main.help .reference tr.odd
+{
+  background: #f9f9f9;
+}
+
+#main.help .reference tr.section
+{
+  border: none;
+}
+
+#main.help .reference tr.legend
+{
+  border-top-color: #f4f4f4;
+}
+
+#main.help .reference tr.section th
+{
+  padding: 30px 15px 5px 15px;
+  font-size: 1.4em;
+  color: #333;
+  text-transform: uppercase;
+}
+
+#main.help .reference tr.legend th
+{
+  font-size: 0.8em;
+  font-weight: normal;
+  color: #3e3e3e;
+}
+
+
+#main.help .reference td,
+#main.help .reference th
+{
+  padding: 7px 15px;
+  vertical-align: top;
+}
+
+#main.help .reference tr td:first-child
+{
+  width: 150px;
+}
+
+#main.help .reference tr td:last-child
+{
+  color: #3e3e3e;
+}
+
+#main.invites .counter
+{
+  position: relative;
+  top: -2px;
+  margin-left: 20px;
+  line-height: 20px;
+}
+
+#main.invites .counter.error
+{
+  color: #c30;
+}
+
+#main.invites .counter img
+{
+  position: relative;
+  top: -2px;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+/* friends table
+---------------------------------------------------------------------------- */
+
+#main.friends_table h1 {
+  margin-bottom: 10px;
+}
+
+/* new user landing page
+---------------------------------------------------------------------------- */
+
+#signup_confirmation > .content {
+  margin-top: 20px;
+  padding: 0 0 0 15px !important;
+}
+
+#signup_confirmation .column {
+  float: left;
+  width: 463px;
+  margin: -10px 0 0 0;
+  padding: 5px 0;
+  overflow: hidden;
+}
+
+#signup_confirmation .column > .box {
+  min-height: 104px;
+  margin-bottom: 15px;
+  padding: 15px 15px 15px 165px;
+  border-top: solid 1px #dbdbdb;
+  background: #f7f7f7;
+  background-position: 15px 15px;
+  background-repeat: no-repeat;
+}
+
+#signup_confirmation .column > p {
+  color: #666;
+}
+
+#signup_confirmation .box > p {
+  margin: 10px 0 0 0;
+  line-height: 1.4em;
+  color: #666;
+}
+
+#signup_confirmation h3 {
+  margin-top: 0;
+  font-size: 1.3em;
+  font-weight: normal;
+}
+
+#signup_confirmation #checkin.box {
+  background-image: url('/images/bg_start_checkin.png');
+}
+
+#signup_confirmation #post.box {
+  background-image: url('/images/bg_start_post.png');
+}
+
+#signup_confirmation #meet.box {
+  background-image: url('/images/bg_start_meet.png');
+}
+
+#signup_confirmation #screencasts.box {
+  background-image: url('/images/bg_start_screencasts.png');
+}
+
+  /* phone confirmation link
+  -------------------------------------------------------------------------- */
+  
+  #signup_confirmation #confirm_phone {
+    position: relative;
+    margin: 5px 0 20px 0;
+    padding: 3px 15px;
+    background: #fcf69c;
+  }
+  
+  #signup_confirmation #confirm_phone > .corner {
+    background-image: url('/images/corners_yellow.png');
+  }
+  
+  #signup_confirmation #confirm_phone > p {
+    margin: 0;
+  }
+  
+  #signup_confirmation #confirm_phone p > a {
+    color: #333;
+    text-decoration: underline;
+  }
+
+
+
+table.notifications tr.odd
+{
+  background: #f0f0f0;
+}
+
+table.notifications td,
+table.notifications th
+{
+  padding: 5px 10px;
+}
+
+table.notifications th
+{
+  width: 90px;
+  font-size: 0.85em;
+  font-weight: normal;
+  vertical-align: bottom;
+}
+
+table.notifications th div
+{
+  padding-top: 20px;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+
+table.notifications th div.stream
+{
+  background-image: url('/images/icon-list-view.png');
+}
+
+table.notifications th div.text
+{
+  background-image: url('/images/icon-text.png');
+}
+
+table.notifications th div.email
+{
+  background-image: url('/images/icon-email.png');
+  background-position: center 2px;
+}
+
+table.notifications th:first-child
+{
+  width: 210px;
+  font-size: 1em;
+  font-weight: bold;
+  vertical-align: middle;
+}
+
+table.notifications th,
+table.notifications td
+{
+  text-align: center;
+  border-right: solid 1px #ccc;
+}
+
+table.notifications th:first-child,
+table.notifications td:first-child
+{
+  text-align: left;
+  border-right: none;
+}
+
+/* main area styles
+---------------------------------------------------------------------------- */
+
+#main,
+.main {
+  position: relative;
+  float: right;
+  width: 760px;
+  min-height: 630px;
+  padding: 0;
+  background: #fff;
+}
+
+#main > .corner,
+.main > .corner {
+  background-image: url('/images/corners-white.png');
+}
+
+#main > .header,
+.main > .header {
+  padding: 10px 15px 5px 15px;
+  background: #fff;
+}
+
+#main > .header,
+.main > .header {
+  padding: 10px 15px 15px 15px;
+  background: url('/images/bg-tabs.png') left bottom repeat-x;
+}
+
+.main > .content {
+  padding: 15px 15px 10px 15px;
+}
+
+.main > .content p {
+  margin: 0;
+}
+
+#main > .header h1,
+.main > .header h1 {
+  margin: 0;
+  font-size: 1.7em;
+  color: #333;
+}
+
+#main > .header h2,
+.main > .header h2 {
+  margin: 5px 0 0 0;
+  font-size: 1.1em;
+  font-weight: normal;
+  color: #999;
+}
+
+  /* content area sidebar
+  -------------------------------------------------------------------------- */
+  
+  div.content.sidebar {
+    min-height: 0 !important;
+    margin-top: 15px;
+    padding-top: 5px !important;
+    padding-bottom: 0 !important;
+    background: url('/images/bg_other.png') right repeat-y;
+  }
+  
+  div.content.sidebar > div.gradient {
+    min-height: 630px;
+    background: url('/images/bg_other_bottom.png') right bottom no-repeat;
+  }
+  
+  div.content.sidebar div.other {
+    min-height: 500px;
+    background: url('/images/bg_other_top.png') right top no-repeat;
+  }
+  
+  /* dashboard pages styles
+  -------------------------------------------------------------------------- */
+  
+  #main.dashboard > .content {
+    padding-right: 0;
+  }
+  
+  #main.dashboard > .header h1 {
+    padding-left: 25px;
+    background: url('/images/icon-nav-happening.png') left 5px no-repeat;
+  }
+  
+  #main.nearby_people > .header h1 {
+    padding-left: 25px;
+    background: url('/images/icon-nav-nearby.png') left 5px no-repeat;
+  }
+  
+  #main.nearby_people > .header h1 {
+    padding-left: 25px;
+    background: url('/images/icon-nav-nearby.png') left 5px no-repeat;
+  }
+  
+  #main.friends > .header h1 {
+    padding-left: 25px;
+    background: url('/images/icon-nav-friends.png') left 5px no-repeat;
+  }
+  
+  #main.places > .header h1 {
+    padding-left: 25px;
+    background: url('/images/icon-nav-places.png') left 5px no-repeat;
+  }
+    
+  #main.messages > .header h1 {
+    padding-left: 25px;
+    background: url('/images/icon-nav-inbox.png') left 5px no-repeat;
+  }
+  
+  #main.account > .header h1 {
+    padding-left: 25px;
+    background: url('/images/icon-nav-account.png') left 5px no-repeat;
+  }
+  
+  #main.signup > .header h1 {
+    padding-left: 0;
+    background: none;
+  }
+  
+  /* user page styles
+  -------------------------------------------------------------------------- */
+  
+  #main.user > .content {
+    padding-right: 0;
+  }
+  
+  #main.user .places.content,
+  #main.user .friends.content {
+    padding-right: 15px;
+  }
+  
+  #main.user .actions > div,
+  #main.user .actions > p {
+    clear: both;
+  }
+  
+  #main.user .actions a.button {
+    margin-bottom: 5px;
+  }
+  
+  #main.user .actions a.button > span {
+    text-align: left;
+  }
+  
+  #main.user .actions a.button,
+  #main.place .actions a.button {
+    min-width: 120px;
+  }
+  
+  #main.user a.button span.icon {
+    margin: -2px 5px 0 0;
+  }
+  
+  #main.user a.message.button span.icon {
+    margin-top: -1px;
+    background-image: url('/images/icon-email.png');
+  }
+
+  #main.user a.nudge.button span.icon {
+    background-image: url('/images/icon_nudge.png');
+  }
+
+  #main.user a.friend.button span.icon {
+    background-image: url('/images/icon-nav-friends.png');
+  }
+  
+    /* user friends page styles
+    ------------------------------------------------------------------------ */
+    
+    #friends.main > .content {
+      padding-right: 15px;
+    }
+  
+  
+  /* place page styles
+  -------------------------------------------------------------------------- */
+  
+  #main.place > .content {
+    padding: 15px 0 10px 15px;
+  }
+  
+  #main.place > .content.full {
+    padding-right: 15px;
+  }
+  
+  #main.place .visitors.content,
+  #main.place .map.content,
+  #main.place #nearby_users.content {
+    padding-right: 15px;
+  }
+  
+  #main.place #place-map {
+    width: 233px;
+    height: 150px;
+    margin-bottom: 20px;
+    border: solid 1px #999;
+    overflow: hidden;
+  }
+  
+  #main.place .other #pano {
+    width: 233px;
+    height: 233px;
+    margin-bottom: 20px;
+    border: 1px solid #999;
+  }
+  
+  #main.place > .header h1 {
+    padding-left: 30px;
+    background: url('/images/icon_place_small.png') left center no-repeat;
+  }
+  
+  #main.place > .header ul {
+    padding-top: 10px;
+  }
+  
+  /* search page styles
+  -------------------------------------------------------------------------- */
+  
+  #search > .content {
+    padding: 20px 15px 15px 15px;
+  }
+  
+  #search .preload {
+    display: none;
+    background: url('/images/spinner_small.gif');
+  }
+  
+  #search .box {
+    position: relative;
+  }
+  
+  #search .grey.box {
+    padding: 10px;
+    background: #f2f2f2;
+  }
+  
+  #search .grey.box > .corner {
+    background-image: url('/images/corners-grey.png');
+  }
+  
+  #search .grey.box h2 {
+    margin: 0 0 20px 0;
+  }
+  
+  #search .white.box {
+    padding: 5px 10px;
+    background: #fff;
+  }
+  
+  #search .white.box > .corner {
+    background-image: url('/images/corners-white.png');
+  }
+  
+  #search form input[type='text'] {
+    display: block;
+    margin: 3px 0;
+    padding: 8px 10px 7px 10px;
+    font-weight: bold;
+  }
+  
+  #search form label.example {
+    font-size: 0.85em;
+    color: #999;
+  }
+  
+  #search label a {
+    color: #999;
+    text-decoration: underline;
+  }
+  
+  #search.places div.where {
+    float: left;
+    width: 380px;
+  }
+  
+  #search.places div.where > input {
+    width: 348px;
+  }
+  
+  #search.places div.what {
+    float: left;
+    width: 230px;
+  }
+  
+  #search.places div.what label > span {
+    font-weight: normal;
+    color: #999;
+  }
+  
+  #search.places div.what > input {
+    width: 205px;
+  }
+  
+  #search.people div.who,
+  #search.objects div.what,
+  #search.guess div.q,
+  #search form div.search {
+    float: left;
+    width: 610px;
+  }
+
+  #search.people div.who > input,
+  #search.objects div.what > input,
+  #search.guess div.q > input,
+  #search div.search > input {
+    width: 587px;
+  }
+  
+  #search div.submit {
+    float: right;
+    margin-top: 17px;
+  }
+  
+  #search.objects > .content {
+    padding-right: 0;
+  }
+  
+    /* guess my location page
+    ------------------------------------------------------------------------ */
+    
+    #search.guess > .content {
+      padding-top: 15px;
+    }
+    
+    #search.guess .search.results {
+      margin-top: 20px;
+    }
+    
+    .signup .search.results {
+      margin-bottom: 20px;
+    }
+    
+    #search.guess #location_guess {
+      margin: 0 0 20px 0;
+    }
+    
+    #search.guess #location_guess > div {
+      display: none;
+    }
+    
+    #search.guess #location_guess.ready > div {
+      display: block;
+    }
+    
+    #search.guess .spinner {
+      padding-left: 25px;
+      background: url('/images/spinner.gif') left center no-repeat;
+    }
+    
+    #search.guess #location_guess.ready > p {
+      display: none;
+    }
+    
+    #search.guess #location_guess > div.info {
+      position: relative;
+      float: left;
+      width: 418px;
+      height: 237px;
+    }
+    
+    #search.guess > .header p {
+      float: right;
+      margin: 8px 0 0 0;
+      font-size: 0.85em;
+    }
+    
+    #search.guess > .header p > a {
+      padding: 3px 0 2px 25px;
+      font-size: 1.2em;
+      background-repeat: no-repeat;
+    }
+    
+    #search.guess > .header a.geode {
+      background-image: url('/images/icon_geode.png');
+    }
+    
+    #search.guess > .header a.loki {
+      background-image: url('/images/icon_loki.png');
+    }
+    
+    #search.guess p.ip_notice {
+      font-size: 0.85em;
+      color: #999;
+    }
+    
+    #search.guess #location_guess h2 {
+      margin: 0 0 15px 0;
+      font-size: 1.1em;
+    }
+    
+    #search.guess #location_guess h3 {
+      margin: 0 0 5px 0;
+      font-size: 1.3em !important;
+    }
+    
+    #search.guess #location_guess h4 {
+      font-size: 1.1em;
+      font-weight: normal;
+    }
+    
+    #search.guess #location_guess h4 a {
+      color: #999;
+    }
+    
+    #search.guess #location_guess #map {
+      float: right;
+      width: 300px;
+      height: 235px;
+      border: solid 1px #ccc;
+    }
+    
+    #search.guess #location_guess a.button {
+      margin-top: 10px;
+    }
+    
+    #search.guess #location_guess a.button span.icon {
+      margin-right: 5px;
+      background-image: url('/images/icon_checkin_small.png');
+    }
+    
+    .signup .search.blank {
+      margin-bottom: 20px;
+    }
+    
+    .signup .search.blank p {
+      margin: 0 !important;
+    }
+    
+    #search.guess .search_box {
+      position: absolute;
+      clear: both;
+      bottom: 0;
+      width: 383px;
+      padding: 10px 15px 12px 15px;
+      background: #efefef;
+    }
+    
+    #search.guess .search_box input[type='text'] {
+      display: inline;
+      width: 307px;
+      padding: 5px;
+      background: #fff url('/images/bg-forms-light.png') repeat-x;
+    }
+    
+    #search.guess .search_box input[type='submit'] {
+      margin-left: 5px;
+      font-size: 11px;
+    }
+    
+    #search.guess .search_box label:first-child {
+      display: block;
+    }
+
+/* right-side info area
+---------------------------------------------------------------------------- */
+
+.other {
+  float: right;
+  position: relative;
+  width: 235px;
+  margin-top: -5px;
+  padding: 0 15px;
+}
+
+.other p {
+  margin: 0;
+}
+
+  /* mobile help box
+  ------------------------------------------------------------------------ */
+  
+  .other #phone_help h1 {
+    margin: 0;
+    font-size: 1.1em;
+  }
+  
+  .other #phone_help > div {
+    margin: 10px 0 15px 0;
+    padding-right: 105px;
+    background: url('/images/bg_home_phones.png') right top no-repeat;
+  }
+  
+  .other #phone_help > div > p {
+    margin: 10px 0 0 0;
+  }
+  
+  .other #phone_help > div p.no_margin {
+    margin-top: 0;
+  }
+  
+  .other #phone_help > p {
+    margin: 5px 0 0 0;
+    font-size: 0.85em;
+  }
+  
+  /* active friends list, nearby people list, mentions/comments help text
+  ------------------------------------------------------------------------ */
+  
+  .other .list,
+  .other .help {
+    margin-top: 20px;
+  }
+  
+  #main.help .other {
+    margin: 0;
+    background: none;
+  }
+  
+  .other .list:first-child,
+  .other .help:first-child {
+    margin-top: 0;
+  }
+  
+  .other .list > h1,
+  .other #profile > h1,
+  .other #help_topics > h1 {
+    position: relative;
+    margin: 0 0 10px 0;
+    padding: 6px 10px;
+    font-size: 1.1em;
+    background: #e5e7e8;
+    border-bottom: solid 1px #ccc;
+  }
+  
+  .other .people.list h2,
+  .other .people.list p,
+  .small.people.list h2,
+  .small.people.list p {
+    margin: 0 0 0 48px;
+  }
+  
+  .other .people.list h2 {
+    font-size: 1em;
+  }
+  
+  .other .people.list p,
+  .small.people.list p,
+  .other .people.list p a,
+  .small.people.list p a {
+    color: #999;
+  }
+  
+  .other .people.list p,
+  .small.people.list p {
+    margin-top: 3px !important;
+    font-size: 0.85em;
+  }
+  
+  .other .people.list hr,
+  .small.people.list hr {
+    clear: both;
+    margin: 5px 0;
+  }
+  
+  .other .people.list img.avatar,
+  .small.people.list img.avatar {
+    float: left;
+    padding: 2px;
+  }
+  
+  .other .people.list a.more {
+    position: absolute;
+    top: 9px;
+    right: 10px;
+    font-size: 0.75em;
+  }
+  
+  .other #nearby_people h2 > span.distance {
+    font-size: 0.85em;
+    font-weight: normal;
+  }
+  
+  .other .help h1 {
+    margin: 0;
+    font-size: 1.1em;
+  }
+  
+  .other .help p {
+    margin: 10px 0 0 0;
+    font-size: 0.85em;
+  }
+  
+  .other #profile > p:last-child {
+    margin-bottom: 0;
+  }
+  
+  /* person profile box
+  ------------------------------------------------------------------------ */
+  
+  .other #profile hr {
+    clear: both;
+  }
+  
+  .other #profile p {
+    padding: 5px;
+  }
+  
+  .other #profile p.links > strong {
+    float: left;
+    padding-bottom: 11px;
+  }
+
+  .other #profile div.social_links {
+    float: left;
+    margin: -8px 0 0 15px;
+    padding: 3px 1px 0 1px;
+    background: #fff;
+  }
+
+  .other #profile div.social_links > a {
+    padding: 2px;
+  }
+
+  .other #profile div.social_links img {
+    float: none;
+  }
+
+.search.results #stream {
+  width: 463px;
+}
+
+.search.results #stream img.avatar {
+  padding: 0;
+  border: 0;
+}
+
+.search.results > p.total {
+  margin-top: 10px;
+  color: #999;
+}
+
+/* post-modularization styles */
+
+#placemarks > .header h1 {
+  padding-left: 25px;
+  background: url('/images/icon-nav-placemarks.png') left 6px no-repeat;
+}
+
+#placemarks td.place {
+  background-image: url('/images/icon-placemark.png');
+}
+
+#placemarks td.actions p.checked_in {
+  display: none;
+}
+
+#search table.places {
+  margin: 15px 0;
+}
+
+.place.wall div.container {
+  margin-top: 15px;
+}
+
+.place.wall a.customize {
+  padding-left: 20px;
+  background-position: left center;
+  background-repeat: no-repeat;
+}
+
+.place.wall a.collapsed {
+  background-image: url('/images/icon_arrow_collapsed.png');
+}
+
+.place.wall a.expanded {
+  background-image: url('/images/icon_arrow_expanded.png');
+}
+
+.place.wall form#customize {
+  margin: 15px 0 0 0;
+  padding-left: 20px;
+}
+
+.place.wall a.test {
+  margin-left: 10px;
+  text-decoration: underline;
+}
+
+.place.wall fieldset,
+.place.wall fieldset > p {
+  margin: 0;
+}
+
+.place.wall fieldset {
+  margin-top: 15px;
+}
+
+.place.wall fieldset:first-child {
+  margin-top: 0;
+}
+
+.place.wall fieldset > label:first-child {
+  float: left;
+  width: 150px;
+}
+
+.place.wall fieldset.text > label:first-child {
+  margin-top: 9px;
+}
+
+.place.wall fieldset > p.help {
+  width: 430px;
+  margin: 3px 0 0 150px;
+  font-size: 0.85em;
+  color: #999;
+}
+
+.place.wall fieldset > input[type="text"] {
+  width: 410px;
+  padding: 5px;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #000;
+}
+
+.place.wall fieldset.radio > div > label {
+  margin-right: 25px;
+  padding-left: 5px;
+}
+
+.place.wall fieldset.radio > div > label:last-child {
+  margin-right: 0;
+}
+
+.place.wall input[type="submit"] {
+  margin: 15px 0 0 150px;
+}
+
+.place.wall #message-area .message {
+  margin: 0 0 15px 0;
+}
+
+#search p.right {
+  float: right;
+  font-size: 0.85em;
+  color: #666;
+}
+
+#search p.right img {
+  position: relative;
+  top: 2px;
+  vertical-align: bottom;
+}
+
+div.attribution {
+  text-align: center;
+  padding: 15px 0 0 0;
+}
+
+#signup {
+  float: left;
+  width: 790px;
+}
+
+#signup h2 {
+  margin: 0;
+  font-size: 1.2em;
+}
+
+#signup > .content > div {
+  background: url('/images/icon_privacy_toggle.png') 550px 8px no-repeat;
+}
+
+#signup > .content > div > p {
+  margin-top: 15px;
+  padding: 0 250px 25px 0;
+  color: #666;
+}
+
+form.privacy .description h2 {
+  font-weight: normal;
+}
+
+#tools > .content {
+  padding-top: 20px;
+}
+
+#tools .content > div {
+  position: relative;
+  min-height: 117px;
+  padding-left: 180px;
+}
+
+#tools h2 {
+  margin: 0;
+}
+
+#tools h3 {
+  margin-top: 3px;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+#tools p {
+  margin-top: 10px;
+  color: #666;
+}
+
+#tools hr {
+  margin: 20px 0;
+}
+
+#tools a.appstore {
+  float: right;
+}
+
+#tools div > p:first-child {
+  float: left;
+  margin: 0;
+  font-size: 0.85em;
+}
+
+#tools div > p:last-child {
+  margin-left: 160px;
+  font-size: 0.85em;
+}
+
+#tools div.iphone {
+  background: url('/images/bg_tools_iphone.png') no-repeat;
+}
+
+#tools div.mobile {
+  background: url('/images/bg_tools_mobile.png') no-repeat;
+}
+
+#tools div.wall {
+  background: url('/images/bg_tools_wall.png') no-repeat;
+}
+
+#tools div.socialthing {
+  background: url('/images/bg_tools_socialthing.png') no-repeat;
+}
+
+#tools div.friendfeed {
+  background: url('/images/bg_tools_friendfeed.png') no-repeat;
+}
+
+#tools div.twitter {
+  background: url('/images/bg_tools_twitter.png') no-repeat;
+}
+
+#tools div.pingfm {
+  background: url('/images/bg_tools_pingfm.png') no-repeat;
+}
+
+#tools div.hellotxt {
+  background: url('/images/bg_tools_hellotxt.png') no-repeat;
+}
+
+#tools div.googleearth {
+  background: url('/images/bg_tools_googleearth.png') no-repeat;
+}
+
+a.appstore {
+  display: block;
+  width: 119px;
+  height: 39px;
+  background: url('/images/icon_appstore.png') no-repeat;
+}
+
+a.appstore > span {
+  display: none;
+}
+
+#wall_tip {
+  margin: 20px 0;
+  padding: 10px 15px;
+  border: solid 1px #a6d4ee;
+  background-color: #e5efff;
+}
+
+#wall_tip a {
+  text-decoration: underline;
+}
+
+#wall_tip p > a {
+  display: block;
+  margin-top: 20px;
+}
+
+#wall_tip h1 {
+  margin: 0;
+  font-size: 1.1em;
+}
+
+#wall_tip h1 a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+#wall_tip h1 a:hover {
+  text-decoration: underline;
+}
+
+#wall_tip p {
+  min-height: 100px;
+  margin-top: 10px;
+  padding: 5px 110px 0 0;
+  font-size: 0.85em;
+  line-height: 1.3em;
+  background: url('/images/bg_tips_wall.png') right top no-repeat;
+}
+
+#comment_form p.right a.loading,
+#comments p.right a.loading {
+  color: #999;
+  padding-left: 20px;
+  background: url('/images/spinner.gif') no-repeat;
+}
+
+#main.signup,
+#main.signup .content {
+  min-height: 0;
+}
+
+#main.signup #message-area .message {
+  margin: 15px;
+}
+
+#friends .header a.discover.button,
+#main.friends.map .header a.discover.button {
+  float: right;
+  font-weight: bold;
+}
+
+#friends .blank {
+  margin-top: 20px !important;
+}
+
+#main.sharing div.checkboxes > div {
+  margin-bottom: 5px;
+}
+
+#main.sharing select {
+  margin-top: -3px;
+}
+
+#main.sharing #facebook .feed_hint {
+  width: 380px;
+  margin: 10px 0 5px 0 !important;
+  padding: 8px 10px;
+  font-size: 0.85em;
+  background: #f0f0f0;
+}
+
+#main.sharing #facebook .feed_hint p {
+  margin: 0 0 5px 0;
+}
+
+#main.sharing #facebook .feed_hint p:last-child {
+  margin-bottom: 0;
+}
+
+#main.sharing #facebook > .loading {
+  padding: 30px 15px 0 15px;
+}
+
+#main.sharing #facebook > .loading p {
+  padding-left: 25px;
+  color: #999;
+  background: url('/images/spinner.gif') no-repeat left center;
+}
+
+#main.sharing #facebook select {
+  width: 110px;
+}
+
+#main.sharing #facebook img.loading {
+  position: absolute;
+  margin-left: 5px;
+}
+
+#main.sharing #facebook select.loading {
+  color: #999;
+}
+
+#main.friends.pending h2 span {
+  font-size: 0.8em;
+  font-weight: normal;
+}
+
+#main.friends.pending .no_buttons {
+  margin-top: 10px;
+}
+
+#main.friends.pending .done {
+  padding: 10px;
+  background: #f5f5f5;
+}
+
+#main.friends.pending .done p {
+  margin: 0;
+  text-align: right;
+}
+
+#main.friends.pending .done p:first-child {
+  float: left;
+  text-align: left;
+}
+
+#main.friends.pending img.loading {
+  position: absolute;
+  margin: 1px 0 0 -25px;
+}
+
+#main.messages a.delete.loading {
+  padding-left: 20px;
+  color: #999;
+  background: url('/images/spinner.gif') left center no-repeat;
+}
+
+span.counter {
+  color: #999;
+}
+
+span.counter.over {
+  color: #c40;
+  padding-left: 20px;
+  background: url('/images/icon-error.png') left center no-repeat;
+}
+
+.object span.counter {
+  float: right;
+}
+
+#conversations span.counter {
+  float: right;
+  margin-top: 6px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  font-size: 0.85em;
+}

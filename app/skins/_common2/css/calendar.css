@@ -1,0 +1,160 @@
+/* Calendar Table */
+table.calendarTable {
+    width: 100%;
+}
+
+/* Month Name*/
+table.calendarTable thead.monthName {
+    font-size: larger;
+}
+
+/* Each */
+table.calendarTable td {
+    height: 100px;
+    vertical-align: top;
+    width: 14%;
+}
+
+th.sunday, th.saturday {
+    background-color: #C15C5C;
+    color: #FFFFFF;
+}
+
+th.monday, th.tuesday, th.wednesday, th.thursday, th.friday {
+    background-color: #C15C5C;
+    color: #FFFFFF;
+}
+
+td.sunday, td.saturday {
+    background-color: #D4D4D4;
+}
+
+td.monday, td.tuesday, td.wednesday, td.thursday, td.friday {
+    background-color: #F7F7F7;
+}
+
+td.otherday_sunday, td.otherday_saturday {
+    background-color: #FFFFFF;
+}
+
+td.otherday_monday, td.otherday_tuesday, td.otherday_wednesday, td.otherday_thursday, td.otherday_friday {
+    background-color: #EEEEEE;
+}
+
+
+
+div.daynum {
+    background-color: #A2A3AE;
+    color: #FFFFFF;
+    padding: 2px;
+    font-weight: bold;
+}
+
+div.today {
+    background-color: #31528E;
+    color: #FFFF00;
+}
+
+.bigDayNum {
+    font-size: 200%;
+}
+
+table.eventslist td{
+    padding-bottom: 40px;
+    
+}
+
+div.eventlist {
+    padding-left: 40px;
+}
+
+div.event_user {
+    background: url('../calendar/user.gif') no-repeat 10px 3px;
+}
+
+div.event_site {
+    background: url('../calendar/site.gif') no-repeat 10px 3px;
+}
+
+div.event_context {
+    background: url('../calendar/context.gif') no-repeat 10px 3px;
+}
+
+div.event_othercontext {
+    background: url('../calendar/othercontext.gif') no-repeat 10px 3px;
+}
+
+div.event_workgroup {
+    background: url('../calendar/workgroup.gif') no-repeat 10px 3px;
+}
+
+
+li.event_user {
+    background: url('../calendar/event_user.gif') no-repeat 0 7px;
+    list-style-type: none;
+    margin: 0;
+    padding-left: 10px;
+}
+
+li.event_site {
+    background: url('../calendar/event_site.gif') no-repeat 0 7px;
+    list-style-type: none;
+    margin: 0;
+    padding-left: 10px;
+}
+
+li.event_context {
+    background: url('../calendar/event_context.gif') no-repeat 0 7px;
+    list-style-type: none;
+    margin: 0;
+    padding-left: 10px;
+}
+
+li.event_othercontext {
+    background: url('../calendar/event_other.gif') no-repeat 0 7px;
+    list-style-type: none;
+    margin: 0;
+    padding-left: 10px;
+}
+
+li.event_workgroup {
+    background: url('../calendar/event_workgroup.gif') no-repeat 0 7px;
+    list-style-type: none;
+    margin: 0;
+    padding-left: 10px;
+}
+
+table.mainTable {
+    width: 100%;
+}
+
+
+table.mainTable td.otherday_sunday, table.mainTable td.otherday_saturday {
+    background-color: #FFFFFF;
+}
+
+table.mainTable td.otherday_monday, table.mainTable td.otherday_tuesday, table.mainTable td.otherday_wednesday, table.mainTable td.otherday_thursday, table.mainTable td.otherday_friday {
+    background-color: #FFFFFF;
+}
+
+table.mainTable td {
+    font-weight: bold;
+    padding: 0;
+    text-align: center;
+}
+
+table.mainTable div.daynum {
+    background-color: transparent;
+    color: #000;
+    font-weight: normal;
+}
+
+table.mainTable div.today {
+    background-color: yellow;
+    color: #000;
+    font-weight: normal;
+}
+
+#left table.eventslist td, #right table.eventslist td {
+    padding-bottom: 20px;
+}
