@@ -342,7 +342,10 @@ class groupAdminModel extends object
      */
     public function addGroupUser( $groupId, $userId )
     {
+        // add the user with perm_user_id $userId to group with $grpId
+        $ret = $this->objLuAdmin->perm->addUserToGroup(array('perm_user_id' => $userId, 'group_id' => $groupId));
 
+        return $ret;
     }
 
     /**
@@ -357,7 +360,13 @@ class groupAdminModel extends object
      */
     public function deleteGroupUser( $groupId, $userId )
     {
+        $filters = array(
+            'group_id' => $groupId,
+            'perm_user_id' => $userId,
+        );
+        $removed = $this->objLuAdmin->perm->removeUserFromGroup($filters);
 
+        return $removed;
     }
 
     /**

@@ -4,7 +4,7 @@ $objSideBar = $this->newObject('usermenu', 'toolbar');
 $objFeatureBox = $this->newObject('featurebox', 'navigation');
 
 // Set columns to 2
-$cssLayout->setNumColumns(3);
+$cssLayout->setNumColumns(2);
 $leftMenu = NULL;
 $rightSideColumn = NULL;
 $leftCol = NULL;
