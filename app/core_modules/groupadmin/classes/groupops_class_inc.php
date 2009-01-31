@@ -190,6 +190,15 @@ class groupops extends object
         // Populate the selectboxes
         //$objData = &$this->getObject('data');
         $data = $this->getAllUsers ();
+        $currentUsers = $this->getUsersInGroup( $grpId );
+        foreach ($data as $i => $user) {
+            foreach ($currentUsers as $currentUser) {
+                if ($currentUser['auth_user_id'] == $user['auth_user_id']) {
+                    unset($data[$i]);
+                    break 1;
+                }
+            }
+        }
         $userArr = array();
         foreach ($data as $user) {
             $usr['label'] = $this->objUser->fullName($user['auth_user_id']);
