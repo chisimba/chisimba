@@ -134,7 +134,7 @@ class csslayout extends object implements ifhtml
     */
     public function setNumColumns($number)
     {
-        if ($number == 2 OR $number == 3) {
+        if ($number == 1 OR $number == 2 OR $number == 3) {
             $this->numColumns = $number;
         }
     }
@@ -277,7 +277,16 @@ class csslayout extends object implements ifhtml
         $this->setVar('numColumns', $this->numColumns);
         
         // Depending on the number of columns, use approprate css styles.
-        if ($this->numColumns == 2) {
+        if ($this->numColumns == 1) {
+            $result = '
+            <div id="onecolumn">
+                <div id="content">
+                    <div id="contentcontent">
+                        '.$this->middleColumnContent.'
+                    </div>
+                </div>
+            </div>';
+        } else if ($this->numColumns == 2) {
             $result = '
             <div id="twocolumn">
                 <div id="wrapper">
