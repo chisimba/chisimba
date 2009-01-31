@@ -122,7 +122,7 @@ class groupadmin extends controller {
                 $usersin = $this->objOps->getUsersInGroup ( $grId );
                 // format them nicely
                 if (! empty ( $usersin )) {
-                    $usersin = $this->objOps->layoutUsers ( $usersin, $grId );
+                    $usersinLayout = $this->objOps->layoutUsers ( $usersin, $grId );
                 }
 
                 if ($adduser !== NULL) {
@@ -137,7 +137,7 @@ class groupadmin extends controller {
                 }
 
                 $this->setVarByRef ( 'groupinfo', $grpInfo );
-                $this->setVarByRef ( 'usersin', $usersin );
+                $this->setVarByRef ( 'usersin', $usersinLayout );
 
                 return 'usergroup_tpl.php';
 
