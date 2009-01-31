@@ -1,0 +1,129 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+ <title>/framework/trunk/app/skins/_common/icons/modules/e-support.gif - Chisimba - Trac</title><link rel="start" href="/trac/chisimba/wiki" /><link rel="search" href="/trac/chisimba/search" /><link rel="help" href="/trac/chisimba/wiki/TracGuide" /><link rel="stylesheet" href="/trac/chisimba/chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="/trac/chisimba/chrome/common/css/code.css" type="text/css" /><link rel="stylesheet" href="/trac/chisimba/chrome/common/css/browser.css" type="text/css" /><link rel="icon" href="http://trac.uwc.ac.za/icon/chisimba.ico" type="image/x-icon" /><link rel="shortcut icon" href="http://trac.uwc.ac.za/icon/chisimba.ico" type="image/x-icon" /><link rel="up" href="/trac/chisimba/browser/framework/trunk/app/skins/_common/icons/modules" title="Parent directory" /><link rel="alternate" href="/trac/chisimba/browser/framework/trunk/app/skins/_common/icons/modules/e-support.gif?format=raw" title="Original Format" type="image/gif; charset=iso-8859-15" /><style type="text/css">
+</style>
+ <script type="text/javascript" src="/trac/chisimba/chrome/common/js/trac.js"></script>
+</head>
+<body>
+
+<div class='nav' style='float:right'>
+  <ul>
+    <li class='first'><a href="/trac/chisimba/report/1" accesskey="a"><u>A</u>ctive Tickets</a></li>
+    <li class='last'><a href="/trac" accesskey="l">Project <u>L</u>ist</a></li>
+  <ul>
+</div>
+
+
+<div id="banner">
+
+<div id="header"><a id="logo" href="http://chisimba.uwc.ac.za/"><img src="/trac/chisimba/chrome/site/chisimba_logo.jpg" width="350" height="100" alt="Chisimba" /></a><hr /></div>
+
+<form id="search" action="/trac/chisimba/search" method="get">
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
+</form>
+
+
+
+<div id="metanav" class="nav"><ul><li class="first"><a href="/trac/chisimba/login">Login</a></li><li><a href="/trac/chisimba/settings">Settings</a></li><li><a accesskey="6" href="/trac/chisimba/wiki/TracGuide">Help/Guide</a></li><li><a href="/trac/chisimba/about">About Trac</a></li><li><a href="/trac/chisimba/register">Register</a></li><li class="last"><a href="/trac/chisimba/reset_password">Forgot your password?</a></li></ul></div>
+</div>
+
+<div id="mainnav" class="nav"><ul><li class="first"><a accesskey="1" href="/trac/chisimba/wiki">Wiki</a></li><li><a accesskey="2" href="/trac/chisimba/timeline">Timeline</a></li><li><a accesskey="3" href="/trac/chisimba/roadmap">Roadmap</a></li><li class="active"><a href="/trac/chisimba/browser">Browse Source</a></li><li><a href="/trac/chisimba/report">View Tickets</a></li><li><a accesskey="4" href="/trac/chisimba/search">Search</a></li><li class="last"><a href="/trac/chisimba/downloader">Downloader</a></li></ul></div>
+<div id="main">
+
+
+
+
+<div id="ctxtnav" class="nav">
+ <ul>
+  <li class="first"><a href="/trac/chisimba/changeset/12285/framework/trunk/app/skins/_common/icons/modules/e-support.gif">
+   Last Change</a></li>
+  <li class="last"><a href="/trac/chisimba/log/framework/trunk/app/skins/_common/icons/modules/e-support.gif">
+   Revision Log</a></li>
+ </ul>
+</div>
+
+
+<div id="searchable">
+<div id="content" class="browser">
+ <h1><a class="first" title="Go to root directory" href="/trac/chisimba/browser">root</a><span class="sep">/</span><a title="View framework" href="/trac/chisimba/browser/framework">framework</a><span class="sep">/</span><a title="View trunk" href="/trac/chisimba/browser/framework/trunk">trunk</a><span class="sep">/</span><a title="View app" href="/trac/chisimba/browser/framework/trunk/app">app</a><span class="sep">/</span><a title="View skins" href="/trac/chisimba/browser/framework/trunk/app/skins">skins</a><span class="sep">/</span><a title="View _common" href="/trac/chisimba/browser/framework/trunk/app/skins/_common">_common</a><span class="sep">/</span><a title="View icons" href="/trac/chisimba/browser/framework/trunk/app/skins/_common/icons">icons</a><span class="sep">/</span><a title="View modules" href="/trac/chisimba/browser/framework/trunk/app/skins/_common/icons/modules">modules</a><span class="sep">/</span><a title="View e-support.gif" href="/trac/chisimba/browser/framework/trunk/app/skins/_common/icons/modules/e-support.gif">e-support.gif</a></h1>
+
+ <div id="jumprev">
+  <form action="" method="get">
+   <div>
+    <label for="rev">View revision:</label>
+    <input type="text" id="rev" name="rev" value="" size="4" />
+   </div>
+  </form>
+ </div>
+
+ 
+
+ 
+  <table id="info" summary="Revision info"><tr>
+    <th scope="col">
+     Revision <a href="/trac/chisimba/changeset/12285">12285</a>, 0.8 kB
+     (checked in by S Crause, 38 minutes ago)
+    </th></tr><tr>
+    <td class="message"><p>
+Added e-support icon in gif file format <br />
+</p>
+</td>
+   </tr><tr>
+    <td colspan="2"><ul class="props">
+      <li>Property <strong>svn:mime-type</strong> set to <em><code>application/octet-stream</code></em></li>
+    </ul></td></tr>
+  </table>
+  <div id="preview"><div class="image-file"><img src="/trac/chisimba/browser/framework/trunk/app/skins/_common/icons/modules/e-support.gif?format=raw" alt="framework/trunk/app/skins/_common/icons/modules/e-support.gif" /></div>
+  </div>
+
+ <div id="help">
+  <strong>Note:</strong> See <a href="/trac/chisimba/wiki/TracBrowser">TracBrowser</a> for help on using the browser.
+ </div>
+
+  <div id="anydiff">
+   <form action="/trac/chisimba/anydiff" method="get">
+    <div class="buttons">
+     <input type="hidden" name="new_path" value="/framework/trunk/app/skins/_common/icons/modules/e-support.gif" />
+     <input type="hidden" name="old_path" value="/framework/trunk/app/skins/_common/icons/modules/e-support.gif" />
+     <input type="hidden" name="new_rev" value="" />
+     <input type="hidden" name="old_rev" value="" />
+     <input type="submit" value="View changes..." title="Prepare an Arbitrary Diff" />
+    </div>
+   </form>
+  </div>
+
+</div>
+</div>
+<script type="text/javascript">searchHighlight()</script>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="/trac/chisimba/browser/framework/trunk/app/skins/_common/icons/modules/e-support.gif?format=raw">Original Format</a></li></ul></div>
+
+</div>
+
+<div id="footer">
+ <hr />
+ <a id="tracpowered" href="http://trac.edgewall.org/"><img src="/trac/chisimba/chrome/common/trac_logo_mini.png" height="30" width="107"
+   alt="Trac Powered"/></a>
+ <p class="left">
+  Powered by <a href="/trac/chisimba/about"><strong>Trac 0.10.3</strong></a><br />
+  By <a href="http://www.edgewall.org/">Edgewall Software</a>.
+ </p>
+ <p class="right">
+  Visit the Trac open source project at<br /><a href="http://trac.edgewall.org/">http://trac.edgewall.org/</a>
+ </p>
+</div>
+
+
+
+ </body>
+</html>
+
