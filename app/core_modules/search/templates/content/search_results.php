@@ -1,6 +1,6 @@
 <?php
 
-echo '<h1>'.$this->objLanguage->languageText('mod_blog_searchresults', 'blog', 'Search Results').'</h1>';
+$display = '<h1>'.$this->objLanguage->languageText('mod_blog_searchresults', 'blog', 'Search Results').'</h1>';
 
 $this->loadClass('textinput', 'htmlelements');
 $this->loadClass('button', 'htmlelements');
@@ -31,11 +31,12 @@ $button->setToSubmit();
 
 $form->addToForm(' &nbsp; '.$button->show());
 
-
-echo $form->show();
+$display .= $form->show();
 
 $objSearchResults = $this->getObject('searchresults');
 
-echo $objSearchResults->displaySearchResults($this->getParam('search'), $this->getParam('searchmodule'));
+$display .= $objSearchResults->displaySearchResults($this->getParam('search'), $this->getParam('searchmodule'));
+
+$this->setVar('middleContent', $display);
 
 ?>

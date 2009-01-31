@@ -74,6 +74,7 @@ class search extends controller
 	public function dispatch($action)
 	{
 	    try{
+            $this->setLayoutTemplate('search_layout_tpl.php');
             switch ($action)
             {
                 // Display Search Results
