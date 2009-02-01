@@ -1,4 +1,5 @@
 <?php
+ob_start();
 //------------- EDIT THE Access control list -----------------------------
 // PRECONDITION : $Acl is the parameter containing the Acl to be modified.
 // POSTCONDTION : all modification are done to the given Acl.
@@ -110,4 +111,9 @@ $tblAcl.= "<TR><TD id='blog-footer'>".$btnSaveGroup."</TD></TR>";
 $tblAcl.= "</TABLE></FORM>";
 echo $tblAcl;
 //----- GROUP LIST -----------
+
+$display = ob_get_contents();
+ob_end_clean();
+
+$this->setVar('middleColumn', $display);
 ?>

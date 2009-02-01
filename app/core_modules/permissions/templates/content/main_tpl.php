@@ -1,4 +1,6 @@
 <?php
+ob_start();
+
  //-------------------------//
  // Acl list
  $fields = array ( 'id', 'name', 'description' );
@@ -55,3 +57,10 @@
        Create a new access control
   </DIV>
    <?php echo $frmPermissions->show(); ?>
+   
+<?php
+$display = ob_get_contents();
+ob_end_clean();
+
+$this->setVar('middleColumn', $display);
+?>
