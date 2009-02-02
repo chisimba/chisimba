@@ -2712,14 +2712,17 @@ div.outerquota {
     border: 1px solid #000;
     background-color: #FFF;
     font-size: 80%;
-    text-align: center;
-    height: 16px;
+    text-align: left;
+	text-valign:center;
+    height: 20px;
     overflow: hidden;
 }
 
 div.innerquota {
     background: #00FF00;
-    height: 16px;
+    /*height: 16px;*/
+	padding-left: 5px;
+	padding-right: 5px;
 }
 
 div.quotaup {
