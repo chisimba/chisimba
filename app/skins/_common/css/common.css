@@ -308,3 +308,12 @@ p.feed_render_description {
    margin-right: 10px;
    color: #686868;
 }
+
+#worksheetquestions
+{
+		border:1px dotted black;
+		padding : 4px; 
+		/*width : 200px;*/ 
+		height : 300px; 
+		overflow : auto; 
+}
