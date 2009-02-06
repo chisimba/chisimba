@@ -219,6 +219,272 @@ class upload extends filemanagerobject
         }
     }
 
+
+  /**
+    * Method to Upload ALL Files Posted as an Array of files
+    *
+    * e.g. When posting like <input type='FILE' name='file[]'/>
+    *
+    * It returns an array with details of files uploaded, as well as errors.
+    * @access Public
+    * @param  array  $ext Extensions to restrict to
+    * @return array  Results of Upload
+    */
+    public function uploadFilesArray($fileInputName, $ext=NULL, $fileUploadResultsArray = NULL)
+    {
+        $resultsArray = array();
+        // First Check if array key exists
+        //if (array_key_exists($fileInputName, $_FILES)) {
+            //$file = $_FILES[$fileInputName];
+        //} else { // If not, return FALSE
+        //    return FALSE;
+        //}
+        
+        if ($ext != NULL && !is_array($ext)) {
+            $ext = array($ext);
+        }
+
+    $counter = -1;
+
+    //Charl Mert : Capturing the array of files
+    if (is_array($_FILES[$fileInputName]['name'])){
+        foreach ($_FILES[$fileInputName]['name'] as $fname) {
+            $counter++;
+
+            $file['name'] = $fname;
+            $file['type'] = $_FILES[$fileInputName]['type'][$counter];
+            $file['error'] = $_FILES[$fileInputName]['error'][$counter];
+            $file['tmp_name'] = $_FILES[$fileInputName]['tmp_name'][$counter];
+            $file['size'] = $_FILES[$fileInputName]['size'][$counter];
+
+            //if ($counter > 3) {var_dump($file); exit;}
+            
+            // Check if Second Parameter is an array
+            if (is_array($fileUploadResultsArray)) {
+                $doubleUpload = array_key_exists($file['name'], $fileUploadResultsArray);
+            } else {
+                $doubleUpload = FALSE;
+            }
+    
+    
+            $fileInfoArray = array();
+    
+            // Check that file is not forbidden
+            if ($this->isBannedFile($file['name'], $file['type']))
+                {
+                    $fileInfoArray  = array ('success'=>FALSE, 'reason'=>'bannedfile', 'name'=>$file['name'], 'size'=>$file['size'], 'mimetype'=>$file['type'], 'errorcode'=>$file['error']);
+                }
+    
+            // Check that file was not partially uploaded
+            else if ($file['error'] == 3)
+                {
+                    $fileInfoArray  = array ('success'=>FALSE, 'reason'=>'partialuploaded');
+                }
+    
+            // No File Provided
+            else if ($file['error'] == 4)
+                {
+                    $fileInfoArray  = array ('success'=>FALSE, 'reason'=>'nouploadedfileprovided', 'errorcode'=>$file['error']);
+                    $file['name'] = 'nofileprovided';
+                }
+    
+            else if (is_array($ext) && !in_array($this->objFileParts->getExtension($file['name']), $ext)) {
+                $fileInfoArray  = array ('success'=>FALSE, 'reason'=>'doesnotmeetextension', 'name'=>$file['name'], 'size'=>$file['size'], 'mimetype'=>$file['type'], 'errorcode'=>$file['error']);
+            }
+    
+    
+    
+            // Prepare to Move File to Location and add database entry
+            // Also check that same file is not upload twice in a multiple upload environment
+            else if ($file['error'] < 3 && $doubleUpload == FALSE)
+                {
+                    // Get Subfolder file will be stored in
+                    $subfolder = $this->objFileFolder->getFileFolder($file['name'], $file['type']);
+    
+                    // Duplicate Subfolder in case file needs to go into tempFolder
+                    $originalsubfolder = $subfolder;
+    
+                    // Create Array about file that will go to Results
+                    $fileInfoArray = array('overwrite' => FALSE);
+    
+                    // Version Defaults to One
+                    $version = 1;
+    
+                    // Implement Security Measures on Filename
+                    $filename = $this->secureFileName($file['name']);
+    
+                    // Determine whether to include subfolders
+                    if ($this->useFileSubFolder) {
+                        // Create Full Server Path to Uploaded File
+                        $savepath = $this->objConfig->getcontentBasePath().'/'.$this->uploadFolder.$subfolder.'/';
+    
+                        // Create Path to File withour usrfiles prefix
+                        $path = $this->uploadFolder.$subfolder.'/';
+    
+                    } else {
+                        // Create Full Server Path to Uploaded File
+                        $savepath = $this->objConfig->getcontentBasePath().'/'.$this->uploadFolder.'/';
+    
+                        // Create Path to File withour usrfiles prefix
+                        $path = $this->uploadFolder.'/';
+                    }
+    
+                    // Clean Up Paths
+                    $savepath = $this->objCleanUrl->cleanUpUrl($savepath);
+                    $path = $this->objCleanUrl->cleanUpUrl($path);
+    
+                    // Create Directory
+                    $this->objMkdir->mkdirs($savepath, 0777);
+    
+                    // Add File Name
+                    $savepath .= $filename;
+                    $path .= $filename;
+    
+    ////////////////////////////////////////////////////////////////////
+    
+                    // Create a Flag whether file has been save to database
+                    $addToDatabaseAndIndex = FALSE;
+    
+                    // Check if File Exists
+                    if (file_exists($savepath)) {
+                        
+                        // Check if the file details are recorded
+                        $originalFile = $this->objFile->getFileDetailsFromPath($path);
+                        
+                        // If file details are recorded, move file to temp file so long
+                        if (is_array($originalFile)) {
+                            
+                            // Change Save Path 
+                            $savePath = $this->objConfig->getcontentBasePath().'/filemanager_tempfiles/'.$originalFile['id'];
+                            
+                            // Check if Overwrite Increment is enabled
+                            if ($this->enableOverwriteIncrement) {
+                                
+                                
+                                // Create Full Server Path to Uploaded File
+                                $savepath = $this->objConfig->getcontentBasePath().'/'.$this->uploadFolder.'/';
+                                // Create Path to File withour usrfiles prefix
+                                $path = $this->uploadFolder.'/';
+                                
+                                // Clean Up Paths
+                                $savepath = $this->objCleanUrl->cleanUpUrl($savepath);
+                                $path = $this->objCleanUrl->cleanUpUrl($path);
+                                
+                                $objOverwriteIncrement = $this->getObject('overwriteincrement');
+                                $filename = $objOverwriteIncrement->checkfile($filename, $path);
+                                
+                                $savepath .= $filename;
+                                $path .= $filename;
+    
+                                
+                                // Move to new destination, mark as eligible to go into database
+                                if (move_uploaded_file($file['tmp_name'], $savepath)) {
+                                    $addToDatabaseAndIndex = TRUE;
+                                } else {
+                                    $addToDatabaseAndIndex = FALSE;
+                                }
+                                
+                            // Move to Save Path
+                            } else if (move_uploaded_file($file['tmp_name'], $savePath)) {
+                                $fileInfoArray['overwrite'] = TRUE;
+                                $fileInfoArray['success'] = FALSE;
+                                $fileInfoArray['fileid'] = $originalFile['id'];
+                                $fileInfoArray['reason'] = 'needsoverwrite';
+                                
+                                $addToDatabaseAndIndex = FALSE;
+                            }
+                            
+                        } else { // Overwrite and Index
+                            if (move_uploaded_file($file['tmp_name'], $savepath)) {
+                                $addToDatabaseAndIndex = TRUE;
+                            }
+                        }
+                        
+                    // Check If File was successfully uploaded
+                    } else if (move_uploaded_file($file['tmp_name'], $savepath)) {
+                        $addToDatabaseAndIndex = TRUE;
+                    } else {// Else Failed to Upload
+                        $fileInfoArray['success'] = FALSE;
+                        $fileInfoArray['reason'] = 'filecouldnotbesaved';
+                    }
+    
+    
+                    if ($addToDatabaseAndIndex) {
+    
+                        // 1) Add to Database
+                        $fileId = $this->objFile->addFile($filename, $path, $file['size'], $file['type'], $subfolder, $version, $this->objUser->userId(), NULL, $this->getParam('creativecommons_'.$fileInputName, ''));
+    
+                        // 2) Start Analysis of File
+                        if ($subfolder == 'images' || $subfolder == 'audio' || $subfolder == 'video' || $subfolder == 'flash' || $originalsubfolder == 'images') {
+    
+                            // Get Media Info
+                            $fileInfo = $this->objAnalyzeMediaFile->analyzeFile($savepath);
+    
+                            // Add Information to Databse
+                            $this->objMediaFileInfo->addMediaFileInfo($fileId, $fileInfo[0]);
+    
+                            // Check whether mimetype needs to be updated
+                            if ($fileInfo[1] != '') {
+                                $this->objFile->updateMimeType($fileId, $fileInfo[1]);
+                            };
+    
+                            // Create Thumbnail if Image
+                            // Thumbnails are not created for temporary files
+                            if ($subfolder == 'images' || $originalsubfolder == 'images') {
+                                $this->objThumbnails->createThumbailFromFile($savepath, $fileId);
+                            }
+                        } else if ($subfolder == 'scripts' && ($file['type'] == 'application/xml' || $file['type'] == 'text/xml')) {
+    
+                            /*
+                            $objCatalogueConfig = $this->getObject('catalogueconfig', 'modulecatalogue');
+                            echo $objCatalogueConfig->getModuleName('timeline');
+                            if ($objCatalogueConfig->getModuleName('timeline') != FALSE) {
+                                // Load Timeline Parser
+                                $objTimeline = $this->getObject('timelineparser', 'timeline');
+    
+                                // Check if Valid
+                                if ($objTimeline->isValidTimeline($savepath)) {
+                                    // If yes, change category to timeline
+                                    $this->objFile->updateFileCategory($fileId, 'timeline');
+                                }
+                            }*/
+    
+                        }
+    
+    
+                        // Update Return Array Details
+                        $fileInfoArray['success'] = TRUE;
+                        $fileInfoArray['fileid'] = $fileId;
+                        $fileInfoArray['path'] = $path;
+                        $fileInfoArray['fullpath'] = $savepath;
+                        $fileInfoArray['subfolder'] = $subfolder;
+                        $fileInfoArray['originalfolder'] = $originalsubfolder;
+                        //array_push($resultsArray, $fileInfoArray);
+                    }
+    
+                    // Update Standard File Details
+                    $fileInfoArray['name'] = $filename;
+                    $fileInfoArray['mimetype'] = $file['type'];
+                    $fileInfoArray['errorcode'] = $file['error'];
+                    $fileInfoArray['size'] = $file['size'];
+    
+                }
+            else {
+                // Attempted to upload file twice
+            }
+            // Only Add Info if now a double upload
+            if (is_array($fileUploadResultsArray)) {
+                // Add Result to Upload Results Array
+                $fileUploadResultsArray[$file['name']] = $fileInfoArray;
+                
+            }
+        }
+    } else {
+        return FALSE; //Something wrong with the POST array (Maybe forgot a [] on 1 of the input names)
+    }
+        return $fileUploadResultsArray;
+    }
+
     /**
     * Method to Upload a Single File
     * @param  string $fileInputName          Name of the File Input. Eg. To upload $_FILES['file1'], simply give 'file1'
@@ -231,6 +497,7 @@ class upload extends filemanagerobject
     */
     public function uploadFile($fileInputName, $ext=NULL, &$fileUploadResultsArray=NULL)
     {
+        
         // First Check if array key exists
         if (array_key_exists($fileInputName, $_FILES)) {
             $file = $_FILES[$fileInputName];
