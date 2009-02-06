@@ -230,9 +230,8 @@ class upload extends filemanagerobject
     * @param  array  $ext Extensions to restrict to
     * @return array  Results of Upload
     */
-    public function uploadFilesArray($fileInputName, $ext=NULL, $fileUploadResultsArray = NULL)
+    public function uploadFilesArray($fileInputName, $ext=NULL, $fileUploadResultsArray = array())
     {
-        $resultsArray = array();
         // First Check if array key exists
         //if (array_key_exists($fileInputName, $_FILES)) {
             //$file = $_FILES[$fileInputName];
@@ -476,7 +475,6 @@ class upload extends filemanagerobject
             if (is_array($fileUploadResultsArray)) {
                 // Add Result to Upload Results Array
                 $fileUploadResultsArray[$file['name']] = $fileInfoArray;
-                
             }
         }
     } else {
