@@ -98,7 +98,7 @@ class jquerytabs extends object
         $this->setSelected = 0;
 
          $script = '
-            <script>
+            <script type="text/javascript">
             jQuery(document).ready(function(){
                 jQuery("#'.$this->tabId.' > ul").tabs({
                     selected: '.$this->setSelected.'
