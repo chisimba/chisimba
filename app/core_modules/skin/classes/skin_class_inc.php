@@ -408,7 +408,7 @@ class skin extends object
         }
 
         if (is_array($bodyOnLoad)) {
-            $str .= '<script type="text/javascript" language="javascript">';
+            $str .= '<script type="text/javascript">';
             $str .= 'window.onload = function() {'."\n";
             foreach ($bodyOnLoad as $bodyParam) {
                 $str .= '   '.$bodyParam."\n";
