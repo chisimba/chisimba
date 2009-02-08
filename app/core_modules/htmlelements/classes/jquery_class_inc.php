@@ -80,9 +80,7 @@ class jquery extends object
             break;
         }
 
-        $returnStr .= '<script language="JavaScript" type="text/javascript" >
-                jQuery.noConflict();
-                </script>'."\n"."\n";
+        $returnStr .= '<script type="text/javascript">jQuery.noConflict();</script>'."\n\n";
 
         return $returnStr;
     }
