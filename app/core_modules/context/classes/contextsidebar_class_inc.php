@@ -117,7 +117,7 @@ class contextsidebar extends object
                 
             }
         }
-        
+        /*
         $this->objDT = $this->getObject( 'decisiontable','decisiontable' );
         // Create the decision table for the current module
         $this->objDT->create('context');
@@ -130,7 +130,27 @@ class contextsidebar extends object
                 // redirect and indicate the user does not have sufficient access.
                 $nodes[] = array('text'=>ucwords($this->objLanguage->code2Txt('mod_context_contextcontrolpanel', 'context', NULL, '[-context-] Control Panel')), 'uri'=>$this->uri(array('action'=>'controlpanel'), 'context'), 'nodeid'=>'controlpanel');
             }
-        }
+        }*/
+		
+		//only show the course control panel if the user is a lecturer or admin
+		$objGroups = $this->getObject('managegroups', 'contextgroups');
+		$arr = $objGroups->rolecontextcodes($this->objUser->userId(),'Lecturer');
+		
+		$flag = FALSE;
+		if(count($arr) > 0)
+		{
+				foreach($arr as $code)
+				{
+					if ($this->contextCode == $code['contextcode'])
+					{
+						$flag = TRUE;
+					}
+				}
+		} 		
+		if($flag)
+		{
+			$nodes[] = array('text'=>ucwords($this->objLanguage->code2Txt('mod_context_contextcontrolpanel', 'context', NULL, '[-context-] Control Panel')), 'uri'=>$this->uri(array('action'=>'controlpanel'), 'context'), 'nodeid'=>'controlpanel');
+		}
         
         $nodes[] = array('text'=>ucwords($this->objLanguage->code2Txt('phrase_leavecourse', 'system', NULL, 'Leave [-context-]')), 'uri'=>$this->uri(array('action'=>'leavecontext'), 'context'), 'nodeid'=>'leavecontext');
         
