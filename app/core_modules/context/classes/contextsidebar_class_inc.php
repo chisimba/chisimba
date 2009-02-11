@@ -147,6 +147,11 @@ class contextsidebar extends object
 					}
 				}
 		} 		
+		if ($this->objUser->isAdmin())
+		{
+			$flag = TRUE;
+		}
+		
 		if($flag)
 		{
 			$nodes[] = array('text'=>ucwords($this->objLanguage->code2Txt('mod_context_contextcontrolpanel', 'context', NULL, '[-context-] Control Panel')), 'uri'=>$this->uri(array('action'=>'controlpanel'), 'context'), 'nodeid'=>'controlpanel');
