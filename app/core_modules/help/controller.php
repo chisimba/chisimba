@@ -10,11 +10,6 @@
 */
 class help extends controller 
 {
-    /**
-    *
-    * @var string $help_text: The help content
-    */
-    public $help_text;
 
     /**
     * Intialiser for the adminGroups object
@@ -24,22 +19,15 @@ class help extends controller
     public function init()
     {
         $this->objLanguage = $this->getObject('language', 'language');
-        $this->setVarByRef('objLanguage', $this->objLanguage);
-        //$this->objConfig = &$this->getObject('altconfig', 'config');
-        $this->loadClass('layer','htmlelements');
         //Get the activity logger class
-        //$this->objLog=$this->newObject('logactivity', 'logger');
+        $this->objLog = $this->getObject('logactivity', 'logger');
         //Log this module call
-        //$this->objLog->log();
+        $this->objLog->log();
 
-        $this->objSkin =$this->getObject('skin', 'skin');
-
-        //Create an instance of the icon obhect
-        $this->icon = $this->newObject('geticon','htmlelements');
     }
 
     /**
-    * *The standard dispatch method for the module. The dispatch() method must
+    * The standard dispatch method for the module. The dispatch() method must
     * return the name of a page body template which will render the module
     * output (for more details see Modules and templating)
     */
@@ -47,29 +35,22 @@ class help extends controller
     {
         //$this->setPageTemplate('help_page_tpl.php');
         $this->setVar('pageSuppressContainer', TRUE);
-        $this->setVar('suppressFooter', TRUE); # suppress default page footer
+        $this->setVar('suppressFooter', TRUE); // suppress default page footer
         $this->setVar('pageSuppressIM', TRUE);
         $this->setVar('pageSuppressToolbar', TRUE);
         $this->setVar('pageSuppressBanner', TRUE);
 
         $bodyParams = 'class="popupwindow help-popup" onLoad="window.focus();"';
-
         $this->setVar('bodyParams', $bodyParams);
-
+        
+        $helpId = $this->getParam('helpid');
+        $rootModule = $this->getParam('rootModule');
+            
         if ($this->getParam('action') == 'view') {
-            return $this->showHelp($this->getParam('helpid'), $this->getParam('rootModule'));
+            return $this->showHelp($helpId, $rootModule);
         } else {
-            // retrieve helpId from the querystring & switch accordingly
-            $helpId = $this->getParam('helpid', null);
-            $rootModule = $this->getParam('rootModule');
-                       
-            $this->help_text=$this->objLanguage->code2Txt($helpId, $rootModule);
-            //$this->setVar('richhelp', $this->checkForRichHelp($helpId));
-
-            //echo $this->checkFile();
-
+            $this->setVar('help_text', $this->objLanguage->code2Txt($helpId, $rootModule));
             return 'main_tpl.php';
-
         }
     }
 
@@ -115,23 +96,9 @@ class help extends controller
         }
 
         $this->setVar('helptitle', $helpTitle);
-
         $this->setVar('helptext', $helpText);
-
         $this->setVar('moduleHelp', $this->objLanguage->getArray($filter));
-
         $this->setVar('module', $module);
-
-        // The rich text and viewlets will be accessed via webservices - commented out till then
-        /*
-        $richHelp = $this->checkForRichHelp('help_'.$module.'_'.$helpItem, '.php');
-
-        $this->setVar('richHelp', $richHelp);
-
-        $viewletHelp = $this->checkForViewlet($module, $helpItem);
-
-        $this->setVar('viewletHelp', $viewletHelp);
-        */
 
         return 'help_display_tpl.php';
     }

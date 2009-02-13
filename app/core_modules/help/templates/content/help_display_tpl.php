@@ -1,5 +1,5 @@
-<div style="padding-bottom: 60px;">
 <?php
+//<div style="padding-bottom: 60px;">
 
 $this->loadClass('htmlheading', 'htmlelements');
 $this->loadClass('link', 'htmlelements');
@@ -9,18 +9,13 @@ $heading->type = 1;
 $heading->str = $helptitle;//.' '.$viewletHelp;
 
 
-echo $heading->show();
-
-echo $helptext;
+$content = $heading->show().$helptext;
 
 
 if (count($moduleHelp) > 0) {
-    echo '<h5>Related Help for this Module</h5>';
-
-    echo ('<ul>');
+    $content .= '<h5>Related Help for this Module</h5><ul>';
 
     $link = new link();
-
     foreach ($moduleHelp as $text)
     {
 
@@ -31,26 +26,24 @@ if (count($moduleHelp) > 0) {
         }
 
         $link->href = $this->uri(array('action'=>'view', 'rootModule'=>$module, 'helpid'=>$helpItem));
-
         $helpTitle = $objLanguage->code2Txt($text['code'], $module);
 
         if (strtoupper(substr($helpTitle, 0, 12)) == '[*HELPLINK*]') {
             $array = explode('/', $helpTitle);
-
             $helpTitle = $objLanguage->code2Txt('help_'.$array[1].'_title_'.$array[2], $module);
         }
 
         $link->link = $helpTitle;
-
-        echo ('<li>'.$link->show().'</li>');
+        $content .= '<li>'.$link->show().'</li>';
     }
 
-    echo ('</ul>');
+    $content .= "</ul>";
 }
 
 
-?>
-</div>
+echo $content;
+//</div>
 
-<div style="position: fixed; height: 40px; bottom: 0; left: 0; width:100%; right: 0; padding: 5px;" id="footer"><?php //echo $richHelp; 
-?></div>
+//<div style="position: fixed; height: 40px; bottom: 0; left: 0; width:100%; right: 0; padding: 5px;" id="footer"><?php //echo $richHelp; 
+//</div>
+?>

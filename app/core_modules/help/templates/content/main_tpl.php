@@ -1,5 +1,4 @@
 <?php 
-
 // Make a container layer
 $this->helpMain = $this->newObject('layer','htmlelements');
 $this->helpMain->cssClass = "debug-layers";
@@ -14,7 +13,7 @@ $this->helpDiv->cssClass = "box";
 //Create an instance of the htmlHeading object
 $this->objHeading = $this->newObject('htmlheading', 'htmlelements');
 //Set the heading to 5 which displays the tab
-$this->objHeading->type="5";
+$this->objHeading->type="2";
 //Add the label to the tab
 $this->objHeading->str=$this->objLanguage->languageText("word_help");
 
@@ -23,7 +22,7 @@ $this->helpCont = $this->newObject('layer','htmlelements');
 // Make the layer a tabbed box content area
 $this->helpCont->cssClass = "box-content";
 //Add help text to the content area
-$this->helpCont->str = $this->help_text;
+$this->helpCont->str = $help_text;
 
 //Add the tab
 $this->helpDiv->str = $this->objHeading->show();
