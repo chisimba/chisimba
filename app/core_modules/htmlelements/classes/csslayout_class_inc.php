@@ -201,7 +201,12 @@ class csslayout extends object implements ifhtml
         // <![CDATA[
         function adjustLayout()
         {
-             // Get natural heights
+            //Inhouse browser detection
+            var browser=navigator.appName;
+            var b_version=navigator.appVersion;
+            var version=parseFloat(b_version);
+
+            // Get natural heights
             var cHeight = xHeight("contentcontent");
             var lHeight = xHeight("leftcontent");
             var rHeight = xHeight("rightcontent");
@@ -211,10 +216,14 @@ class csslayout extends object implements ifhtml
             Math.max(cHeight, Math.max(lHeight, rHeight));
 
             // Assign maximum height to all columns
+            if ((browser!="Microsoft Internet Explorer")) {
 
-            xHeight("content", maxHeight);
-            xHeight("left", maxHeight);
-            xHeight("right", maxHeight);
+              xHeight("content", maxHeight);
+              xHeight("left", maxHeight);
+              xHeight("right", maxHeight);
+
+            }
+
         }
         // ]]>
         </script>';
@@ -235,6 +244,11 @@ class csslayout extends object implements ifhtml
         // <![CDATA[
         function adjustLayout()
         {
+            //Inhouse browser detection
+            var browser=navigator.appName;
+            var b_version=navigator.appVersion;
+            var version=parseFloat(b_version);
+
              // Get natural heights
             var cHeight = xHeight("contentcontent");
             var lHeight = xHeight("leftcontent");
@@ -245,10 +259,14 @@ class csslayout extends object implements ifhtml
             Math.max(cHeight, Math.max(lHeight, rHeight));
 
             // Assign maximum height to all columns
+            if ((browser!="Microsoft Internet Explorer")) {
 
-            xHeight("content", maxHeight);
-            xHeight("left", maxHeight);
-            xHeight("right", maxHeight);
+              xHeight("content", maxHeight);
+              xHeight("left", maxHeight);
+              xHeight("right", maxHeight);
+
+            }
+
         }
         // ]]>
         </script>';
