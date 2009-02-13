@@ -79,8 +79,9 @@ function _ParseCSSRule(rule) {
 	var elements = _GetElementsBySelect(affected, sMenuID);
 
 	_oCurrentSheet.addRule(newSelect, style);
-	for(var i=0; i<elements.length; i++)
+	for(var i=0; i<elements.length; i++) {
 		new _HoverElement(elements[i], className, _aActivators[pseudo]);
+	}
 }
 
 function _HoverElement(node, className, events) {
@@ -149,6 +150,7 @@ function _Setup() {
 
 //	public: hides windowed controls
 function _Apply(oLayer, oContainer, bResize) {
+ alert('apply)');
 	if (_bSetup) _Setup();
 
 	if ( _bIE55 && (oIframe = _Hider(oLayer, oContainer, bResize)) ) {
@@ -160,7 +162,7 @@ function _Apply(oLayer, oContainer, bResize) {
 };
 
 //	public: shows windowed controls
-function _Discard(oLayer, oContainer) {
+function _Discard(oLayer, oContainer) {alert('discard');
 	if ( _bIE55 && (oIframe = _Hider(oLayer, oContainer, false)) ) {
 		oIframe.style.visibility = "hidden";
 	} else if(_oRule != null) {
@@ -173,7 +175,7 @@ function _Hider(oLayer, oContainer, bResize) {
 	//	is it there already?
 	var sHiderID = "WCHhider" + oLayer.id;
 	var oIframe = element.document.getElementById(sHiderID);
-	
+	alert('iframe');
 	//	if not, create it
 	if ( !oIframe ) {
 		//	IE 6 has this property, IE 5 not. IE 5.5(even SP2) crashes when filter is applied, hence the check
