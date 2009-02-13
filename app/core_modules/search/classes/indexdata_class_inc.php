@@ -38,6 +38,22 @@ class indexdata extends object
     public $index;
 
     /**
+     * The system configuration object.
+     *
+     * @access protected
+     * @var object $objSysConfig
+     */
+    protected $objSysConfig;
+
+    /**
+     * Is Lucene enabled or not according to the system configuration?
+     *
+     * @access protected
+     * @var boolean $enableLucene
+     */
+    protected $enableLucene;
+
+    /**
      * Standard initialisation method
      *
      * @access public
@@ -48,6 +64,8 @@ class indexdata extends object
     {
         $this->objConfig = $this->getObject('altconfig', 'config');
         $this->objUser = $this->getObject('user', 'security');
+        $this->objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
+        $this->enableLucene = $this->objSysConfig->getValue('mod_search_enable_lucene', 'search');
     }
     
     /**
@@ -75,6 +93,9 @@ class indexdata extends object
      */
     public function luceneIndex($docId, $docDate, $url, $title, $contents, $teaser, $module, $userId, $tags=NULL, $license=NULL, $context='nocontext', $workgroup='noworkgroup', $permissions=NULL, $dateAvailable=NULL, $dateUnavailable=NULL, $extra=NULL, $doOptimize=TRUE)
     {
+        if (!$this->enableLucene) {
+            return;
+        }
         
         // Remove Index if it exists
         $this->removeIndex($docId);
