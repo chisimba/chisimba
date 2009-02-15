@@ -41,6 +41,15 @@ $GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 
+/**
+* HTML control class to create dialogues using the jQuery UI.
+* 
+* @package   htmlelements
+* @category  HTML Controls
+* @copyright 2009 FSIU
+* @license   GNU GPL
+* @author    Joke van Niekerk and Charl van Niekerk
+*/
 class jqdialogue extends object
 {
     /**
