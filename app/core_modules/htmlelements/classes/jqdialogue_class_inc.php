@@ -76,6 +76,9 @@ class jqdialogue extends object
      */
     protected $content;
 
+    /**
+     * Constructor to initialise instance variables.
+     */
     public function init()
     {
         $this->objSkin = $this->getObject('skin', 'skin');
