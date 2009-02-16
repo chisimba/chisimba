@@ -150,8 +150,39 @@ class dir extends object
         
     }
     
-    
+ 
+   /**
+    * 
+    * Method to recursively delete a directory and all it's files and sub directories.
+    * @param string $path The path to the directory
+    *                          
+    */
+   
+	public function deleteRecursive($path) {
+		if ($path == '') {
+			return FALSE;
+		}
+		$status = TRUE;
 
+		$dp = opendir($path);
+		while (($file=readdir($dp))!=false )
+ 		{
+        	if ($file!="." && $file!="..")
+            {
+            	if (is_dir($path."/".$file))
+                {
+					if (!@unlink($path."/".$file)) {
+						return FALSE;
+					}
+                	$this->deleteRecursive($path."/".$file); // uses recursion
+                } else {
+    				if (!@unlink($path."/".$file)) {
+						return FALSE;
+					}
+                }
+            }
+        }
+	}
     
     
 } // end of class
