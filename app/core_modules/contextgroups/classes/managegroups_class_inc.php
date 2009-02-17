@@ -93,7 +93,7 @@ class manageGroups extends object
         $this->_objGroupAdmin = $this->getObject('groupadminmodel','groupadmin');
         // $this->_objPermissions = $this->getObject('permissions_model','permissions');
         $this->_objUser = $this->getObject('user','security');
-
+		$this->contextCode = $this->_objDBContext->getContextCode ();
         $this->currentUser = $this->_objUser->PKId();
         $this->lectGroupId = $this->_objGroupAdmin->getLeafId( array( $this->_objDBContext->getcontextcode(), 'Lecturers' ) );
         $this->studGroupId = $this->_objGroupAdmin->getLeafId( array( $this->_objDBContext->getcontextcode(), 'Students' ) );
