@@ -114,6 +114,10 @@ class jqdialogue extends object
      */
     public function show()
     {
+        if (!$this->title || !$this->content) {
+            return '';
+        }
+
         $this->objSkin->setVar('SUPPRESS_PROTOTYPE', true);
         $this->objSkin->setVar('JQUERY_VERSION', '1.2.6');
 
