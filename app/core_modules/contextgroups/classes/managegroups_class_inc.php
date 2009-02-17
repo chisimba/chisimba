@@ -422,5 +422,18 @@ class manageGroups extends object
         }
         return $isMember ? $arrMemberCodes : $arrNonMemberCodes;
     }
+	
+		/**
+	* Method to check if the user is a context lecturer
+	* @return boolean
+	*/
+	public function isContextLecturer()
+	{
+		$objGroups = $this->getObject('groupAdminModel', 'groupadmin');
+		$groupId = $objGroups->getLeafId(array($this->contextCode ,'Lecturers'));		
+		$ret = $objGroups->isGroupMember($this->_objUser->PKId(), $groupId);		
+		return $ret; 
+		
+	}
 } // End publicContext Class
 ?>
