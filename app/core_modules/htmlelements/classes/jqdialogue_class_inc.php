@@ -76,6 +76,8 @@ class jqdialogue extends object
      */
     protected $content;
 
+    protected $close;
+
     /**
      * Constructor to initialise instance variables.
      */
@@ -106,6 +108,11 @@ class jqdialogue extends object
         $this->content = $content;
     }
 
+    public function setClose($close)
+    {
+        $this->close = $close;
+    }
+
     /**
      * Adds applicable scripts to the HTML header and returns the HTML for the body.
      *
@@ -124,10 +131,22 @@ class jqdialogue extends object
         $this->appendArrayVar('headerParams', $this->getJavascriptFile('jquery/api/ui/ui.core.js', 'htmlelements'));
         $this->appendArrayVar('headerParams', $this->getJavascriptFile('jquery/api/ui/dialog/ui.dialog.js', 'htmlelements'));
 
-        $script = '<script type="text/javascript">jQuery(function(){jQuery("#dialog").dialog({bgiframe:true,height:140,modal:true});});</script>';
+        $options = array();
+
+        $options[] = 'bgiframe:true';
+        $options[] = 'height:140';
+        $options[] = 'modal:true';
+
+        if ($this->close) {
+            $options[] = 'close:function(event,ui){'.$this->close.'}';
+        }
+
+        $optionsCode = implode(',', $options);
+
+        $script = '<script type="text/javascript">jQuery(function(){jQuery("#dialog").dialog({'.$optionsCode.'});});</script>';
         $this->appendArrayVar('headerParams', $script);
 
-        $html = '<div id="dialog" title="'.htmlspecialchars($this->title).'"><p>'.htmlspecialchars($this->content).'</p></div>';
+        $html = '<div id="dialog" title="'.htmlspecialchars($this->title).'"><p>'.$this->content.'</p></div>';
 
         return $html;
     }
