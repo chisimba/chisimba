@@ -91,6 +91,8 @@ class context extends controller {
 
         //Load Module Catalogue Class
             $this->objModuleCatalogue = $this->getObject('modules', 'modulecatalogue');
+			
+			$this->objContextGroups = $this->getObject('managegroups', 'contextgroups');
 
         } catch ( customException $e ) {
             customException::cleanUp ();
@@ -113,17 +115,17 @@ class context extends controller {
         }
     }
 
-    /**
+     /**
      * Method to override isValid to enable administrators to perform certain action
      *
      * @param $action Action to be taken
      * @return boolean
      */
-    public function isValid($action) {
-        if ($this->objUser->isAdmin ()) {
+    public function isValid($action) {		
+        if ($this->objUser->isAdmin () || $this->objContextGroups->isContextLecturer()) {
             return TRUE;
         } else {
-            return parent::isValid ( $action );
+            return FALSE;//parent::isValid ( $action );
         }
     }
 
