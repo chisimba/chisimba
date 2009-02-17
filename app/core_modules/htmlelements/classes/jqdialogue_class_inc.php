@@ -76,6 +76,12 @@ class jqdialogue extends object
      */
     protected $content;
 
+    /**
+     * Custom JavaScript code to execute when the dialogue is closed.
+     *
+     * @access protected
+     * @var string $close
+     */
     protected $close;
 
     /**
@@ -108,6 +114,12 @@ class jqdialogue extends object
         $this->content = $content;
     }
 
+    /**
+     * Sets the custom JavaScript code to execute when the dialogue is closed.
+     *
+     * @access public
+     * @param string $close The custom code.
+     */
     public function setClose($close)
     {
         $this->close = $close;
