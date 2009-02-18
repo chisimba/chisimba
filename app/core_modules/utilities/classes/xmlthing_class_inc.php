@@ -85,8 +85,14 @@ class xmlthing extends object
     {
         $this->xw = new xmlWriter();
         $this->xw->openMemory();
-           $this->xw->startDocument($version,$encoding);
-           $this->xw->setIndent($indent);
+        $this->xw->startDocument($version,$encoding);
+        $this->xw->setIndent($indent);
+    }
+
+    public function editDoc($indent=TRUE) {
+        $this->xw = new xmlWriter();
+        $this->xw->openMemory();
+        $this->xw->setIndent($indent);
     }
 
     /**
