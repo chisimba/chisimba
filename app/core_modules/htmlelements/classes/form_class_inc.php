@@ -568,43 +568,49 @@ class form implements ifhtml
                 $this->_valRequire($mix, $errormsg);
                 break;
             case 'maxlength':
-                            $this->_valMaxLength($mix,$errormsg);
-                            break;
+                $this->_valMaxLength($mix,$errormsg);
+                break;
             case 'minlength':
-                            $this->_valMinLength($mix,$errormsg);
-                            break;
+                $this->_valMinLength($mix,$errormsg);
+                break;
             case 'rangelength':
-                        $this->_valRangeLength($mix,$errormsg);
-                        break;
+                $this->_valRangeLength($mix,$errormsg);
+                break;
             case 'email':
-                      $this->_valEmail($mix,$errormsg);
-                      break;
+                $this->_valEmail($mix,$errormsg);
+                break;
             case 'letteronly':
-                      $this->_valLettersOnly($mix,$errormsg);
-                      break;
+                $this->_valLettersOnly($mix,$errormsg);
+                break;
             case 'alphanumeric':
-                      //
-                      break;
+                //
+                break;
+            case 'containsnumber':
+                $this->_valContainsNumber($mix, $errormsg);
+                break;
             case 'numeric':
                 $this->_valNumeric($mix, $errormsg);
                 break;
-                        case 'maxnumber':
-                      $this->_valMaxNumber($mix,$errormsg);
-                      break;
-                  case 'minnumber':
-                      $this->_valMinNumber($mix,$errormsg);
-                      break;
-                  case 'select';
-                      $this->_valSelect($mix,$errormsg);
-                      break;
+            case 'maxnumber':
+                $this->_valMaxNumber($mix,$errormsg);
+                break;
+            case 'minnumber':
+                $this->_valMinNumber($mix,$errormsg);
+                break;
+            case 'select';
+                $this->_valSelect($mix,$errormsg);
+                break;
             case 'compare';
                 $this->_valCompare($mix, $errormsg);
                 break;
-                        case 'regex':
-                        case 'nopunctuaion';
+            case 'regex':
+            case 'nopunctuaion';
             case 'nonzero';
             case 'url':
                 $this->_validateURL($mix,$errormsg);
+                break;
+            case 'datenotfuture':
+                $this->_valDateNotFuture($mix,$errormsg);
                 break;
             case 'uploadedfile';
             case 'maxfilesize';
@@ -613,7 +619,6 @@ class form implements ifhtml
             case 'fieldexists':
                 $this->_fieldExists($mix);
                 break;
-
         }
     }
 
@@ -672,7 +677,7 @@ class form implements ifhtml
      * @param $fieldname string : The name of the field
      * @param $errormsg  string : the erroe message
      */
-    private function _addValidationScript($script = null, $errormsg = null, $fieldname = null)
+    private function _addValidationScript($script = null, $errormsg = null, $fieldname = null, $ignoreHidden = true)
     {//.getElementByName("'.$fieldname.'");';  //document.forms['".$this->name."']
         if(isset($errormsg)){
             $errormsg = 'alert("'.$errormsg.'");';
@@ -681,10 +686,13 @@ class form implements ifhtml
             var formElement = document.getElementById('input_".$fieldname."');
             if(formElement != null){
                 var el = formElement;
-                ok = ok && ".$script."
-                if(formElement.type == 'hidden'){
-                    ok = true;
-                }
+                ok = ok && ".$script."; ";
+        if ($ignoreHidden) {
+            $this->javascript .= "if(formElement.type == 'hidden'){
+                                    ok = true;
+                                  }";
+        }
+        $this->javascript .="
             }else{
                 var elArray = document.getElementsByName('".$fieldname."');
                 var el = elArray[0];
@@ -752,6 +760,18 @@ class form implements ifhtml
         $jmethod = 'valRequired(el.value)';
         $this->_addValidationScript($jmethod, $errormsg, $fieldname);
     }
+    
+    /**
+     * Method to check a datepicker field is not in the future
+     *
+     * @param $fieldname string the datepicker name
+     * @param $errormsg string the error message
+     */
+    private function _valDateNotFuture($fieldname, $errormsg) {
+        $max = date('Y-m-d');
+        $jmethod = "valDateNotFuture(el.value, '$max')";
+        $this->_addValidationScript($jmethod, $errormsg, $fieldname, false);
+    }
 
     /**
      * Method to compare two fields
@@ -777,6 +797,19 @@ class form implements ifhtml
         $jmethod = 'valNumeric(el.value)';
         $this->_addValidationScript($jmethod, $errormsg, $field);
 
+    }
+    
+    /**
+     * Method to check a field contains a number
+     * eg. a latitude field 128.57N
+     *
+     * @param $fieldname string : The name of the field
+     * @param $errormsg  string : the error message
+     */
+    private function _valContainsNumber($field, $errormsg)
+    {
+        $jmethod = 'valContainsNumber(el.value)';
+        $this->_addValidationScript($jmethod, $errormsg, $field);
     }
 
     /**

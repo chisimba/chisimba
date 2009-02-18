@@ -6,7 +6,7 @@ function aa(){alert("here");}
 
 function valNumeric(val){
 	var ok=true;	
-	if(isNaN(val)){
+	if(!val || isNaN(val)){
 		ok=false;
 	}
 	return ok;
@@ -94,7 +94,25 @@ function valSelect(el){
 	return false;
 }
 
+function valDateNotFuture(value, max)
+{
+	if (value > max) {
+		return false;
+	}
+	return true;
+}
 
+function valContainsNumber(val)
+{
+	var pattern = new RegExp("^[0-9]+(.*)");
+	var matchArray = val.match(pattern);
+
+	if (matchArray == null) {
+		return false;
+	} else {
+		return true;
+	}
+}
 
 
 

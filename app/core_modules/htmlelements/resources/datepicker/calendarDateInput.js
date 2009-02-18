@@ -558,7 +558,7 @@ function DateInput(DateName, Required, DateFormat, DefaultDate) {
       }
       // Create the form elements
       with (document) {
-         writeln('<input type="hidden" name="' + DateName + '" value="' + InitialDate + '">');
+         writeln('<input type="hidden" id="input_' + DateName + '" name="' + DateName + '" value="' + InitialDate + '">');
          // Find this form number
          for (var f=0;f<forms.length;f++) {
             for (var e=0;e<forms[f].elements.length;e++) {
