@@ -130,7 +130,7 @@ class block_contextmembers extends object
         
         $objModules = $this->getObject('modules', 'modulecatalogue');
         
-        if ($objModules->checkIfRegistered('userimport')) {
+        if ($objModules->checkIfRegistered('userimport') && $this->objUser->isAdmin()) {
             $link = new link ($this->uri(NULL, 'userimport'));
             $link->link = $this->objLanguage->languageText('mod_contextgroups_importusers', 'contextgroups', 'Import Users');
             
