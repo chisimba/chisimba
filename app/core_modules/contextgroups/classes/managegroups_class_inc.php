@@ -152,7 +152,7 @@ class manageGroups extends object
         // For each subgroup
         foreach( $this->_arrSubGroups as $groupName=>$groupId ) {
             $newGroupId = $this->_objGroupAdmin->addGroup(
-                $contextcode.'_'.$groupName,
+                $contextcode.'/'.$groupName,
                 $contextcode.' '.$groupName,
                 $contextGroupId);
             $this->_arrSubGroups[$groupName]['id'] = $newGroupId;
