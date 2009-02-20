@@ -147,6 +147,7 @@ class jqdialogue extends object
         $options = array();
 
         $options[] = 'bgiframe:true';
+        $options[] = 'buttons: { "Ok": function() { $(this).dialog("close"); } }';
         $options[] = 'height:140';
         $options[] = 'modal:true';
 
