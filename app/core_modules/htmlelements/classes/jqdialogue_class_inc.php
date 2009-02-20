@@ -148,7 +148,9 @@ class jqdialogue extends object
 
         $options[] = 'bgiframe:true';
         $options[] = 'buttons:{"Ok":function(){jQuery(this).dialog("close");}}';
+        $options[] = 'height:"auto"';
         $options[] = 'modal:true';
+        $options[] = 'width:"auto"';
 
         if ($this->close) {
             $options[] = 'close:function(event,ui){'.$this->close.'}';
