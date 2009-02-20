@@ -74,6 +74,9 @@ class jquery extends object
             case '1.2.6':
                 $returnStr = $this->getJavascriptFile('jquery/1.2.6/jquery-1.2.6.js','htmlelements')."\n";
             break;
+            case '1.3.2':
+                $returnStr = $this->getJavascriptFile('jquery/1.3.2/jquery-1.3.2.min.js','htmlelements')."\n";
+            break;
 
             default: //Leaving this on 1.2.3 to be sure it won't effect the rest of the system
                 $returnStr = $this->getJavascriptFile('jquery/1.2.3/jquery-1.2.3.pack.js','htmlelements')."\n";
