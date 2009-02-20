@@ -159,7 +159,7 @@ class jqdialogue extends object
         $script = '<script type="text/javascript">jQuery(function(){jQuery("#dialog").dialog({'.$optionsCode.'});});</script>';
         $this->appendArrayVar('headerParams', $script);
 
-        $html = '<div id="dialog" title="'.htmlspecialchars($this->title).'"><p>'.$this->content.'</p></div>';
+        $html = '<div id="jqdialogue" title="'.htmlspecialchars($this->title).'"><p>'.$this->content.'</p></div>';
 
         return $html;
     }
