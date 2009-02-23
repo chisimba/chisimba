@@ -69,6 +69,15 @@ if (isset($output)) {
         } else {
             foreach ($output as $value) {
                 if (is_array($value)) {
+                    if(!array_key_exists('old', $value)) {
+                        $value['old'] = NULL;
+                    }
+                    if(!array_key_exists('current', $value)) {
+                        $value['current'] = NULL;
+                    }
+                    if(!array_key_exists('modname', $value)) {
+                        $value['modname'] = NULL;
+                    }
                     $success = str_replace('[OLDVER]',"<b>{$value['old']}</b>",$this->objLanguage->languageText('mod_modulecatalogue_updatesuccess','modulecatalogue'));
                     $success = str_replace('[NEWVER]',"<b>{$value['current']}</b>",$success);
                     $msg->message .= "<b>{$value['modname']}</b> $success<br />";
