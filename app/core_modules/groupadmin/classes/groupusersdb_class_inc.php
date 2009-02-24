@@ -82,6 +82,7 @@ class groupusersdb extends dbTable
         parent::init('tbl_groupadmin_groupuser');
         // The connectUsers, and connectGroups methods must be called as well.
         // The objects of users and groups are connected to by these methods.
+		$this->_objUsers = $this->getObject('user', 'security');
     }
 
     /**

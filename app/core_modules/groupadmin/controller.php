@@ -97,6 +97,8 @@ class groupadmin extends controller {
         }
         switch ($action) {
             default :
+				$this->setLayoutTemplate('main_layout_tpl.php');
+				return "main_tpl.php";
                 // get a list of all the groups
                 $groups = $this->objOps->getAllGroups ();
                 // formulate the groups list into something pretty
@@ -104,7 +106,35 @@ class groupadmin extends controller {
                 $this->setVarByRef ( 'grps', $grps );
 
                 return 'viewgrps_tpl.php';
-
+			case 'contextgroups':
+				$this->setLayoutTemplate('main_layout_tpl.php');
+				return 'contextgroups_tpl.php';
+				
+			case 'ajaxgetsiteadmins':
+				echo $this->objOps->getSiteAdmins();
+				//echo "here are some site admins";
+				exit(0);
+				
+			case 'ajaxgetlecturers':
+				echo $this->objOps->getSiteLecturers();
+				exit(0);
+				
+			case 'ajaxgetstudents':
+				echo $this->objOps->getSiteStudents();
+				exit(0);
+			
+			case 'ajaxgetsiteadminslist':
+				echo $this->objOps->getSiteAdminsList();
+				exit(0);
+				
+			case 'ajaxgetlecturerlist':				
+				echo $this->objOps->getLecturerList();
+				exit(0);
+				
+			case 'ajaxgetstudentist':
+				echo $this->objOps->getStudentsList();
+				exit(0);
+				
             case 'editgrp' :
                 // get the group id
                 $grId = $this->getParam ( 'id', NULL );

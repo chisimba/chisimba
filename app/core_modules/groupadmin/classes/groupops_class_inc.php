@@ -71,7 +71,152 @@ class groupops extends object
     public function init()
     {
         $this->objUser = $this->getObject('user', 'security');
+		$this->objLanguage = $this->getObject('language', 'language');
     }
+
+//////NEW METHODS
+
+	/**
+	* Method to get the left menu
+	*/
+	public function getLeftMenu()
+	{
+		//side bar navigation object
+		$objSideBar = $this->getObject('sidebar','navigation');
+		
+		//set the menu items -> Site Groups , Course Groups
+		
+		$nodes = array();
+		
+		$nodes[0]['text'] = $this->objLanguage->languageText ( "mod_groupadmin_sitegroups", "groupadmin" );
+		$nodes[0]['uri'] = $this->uri(array('action' => 'sitegroups'));
+		
+		$nodes[1]['text'] = ucwords($this->objLanguage->code2Txt('mod_groupadmin_contextgroups', 'groupadmin', NULL, '[-context-] Groups'));
+		$nodes[1]['uri'] = $this->uri(array('action' => 'contextgroups'));
+		
+		return $objSideBar->show($nodes);
+		
+	}
+	
+	
+	/**
+	* Method to get the List of site Admins
+	*/
+	public function getSiteAdmins()
+	{
+		
+		
+		return '<div id="siteadminslist">list of site admins goes here</div> ';
+	}
+	
+	/**
+	* Method to populate the site Admins List
+	*/
+	public function getSiteAdminsList()
+	{
+		$arr = array("WES","Zach Nitsckie", "Sue Van Der Bergh","WES","Zach Nitsckie", "Sue Van Der Bergh","WES","Zach Nitsckie", "Sue Van Der Bergh");
+		return $this->generateList($arr);
+		
+	}
+	
+	/**
+	* Method to populate the site Admins List
+	*/
+	public function getLecturerList()
+	{
+		return $this->getSiteAdminsList();
+	}
+	
+	/**
+	* Method to populate the site Admins List
+	*/
+	public function getStudentsList()
+	{
+		return $this->getSiteAdminsList();
+	}
+
+/**
+	* Method to get the List of site Admins
+	*/
+	public function getSiteLecturers()
+	{
+		
+		
+		return 'list of site lecturers goes here ';
+	}
+	
+	
+	/**
+	* Method to load the content
+	*/
+	public function loadContent($divId)
+	{
+		$objIcon = $this->getObject('geticon', 'htmlelements');
+		$objIcon->setIcon('loader');
+		$loading = $objIcon->show();
+		$str = '<div class="groupadmincontent">
+							<div class="siteadminlist">
+								<div class="siteadminscontent"  id="'.$divId.'content">'.$loading.'</div>
+							</div>
+							<div class="siteadmintoolbox" id="'.$divId.'toolbox" >Ajax seach goes here</div>
+						</div>';	
+		return $str;
+	}
+	
+	/**
+	* Method to generate a list 
+	*/
+	public function generateList($arr)
+	{
+		if(count($arr) > 0)
+		{
+			$objIcon = $this->getObject('geticon', 'htmlelements');
+			$objIcon->setIcon('delete','png');
+			$str = '<div class="nicelist"><table>';
+			foreach($arr as $list)
+			{
+					$str .= '<tr><td>'.$list.'</td><td style="margin-left:0px;>'.$objIcon->show().'</td ></tr>';
+			}
+			$str .='</table></div>';
+			return $str;
+		} else {
+			return '<span class="subdued">'. $this->objLanguage->languageText('mod_groupadmin_nousers','groupadmin').'</span>';
+		}
+	}
+
+
+/**
+	* Method to get the List of site Admins
+	*/
+	public function getSiteStudents()
+	{
+		
+		
+		return 'list of site students goes here ';
+	}
+
+
+
+
+
+////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public function getAllGroups() {
         $groups = $this->objLuAdmin->getGroups();
