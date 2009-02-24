@@ -127,12 +127,27 @@ class groupAdminModel extends object
     * @param  string       $parentId    the unique id of this groups immediate ancestor.( optional default is null=root )
     * @return string|false the newly generated unique id for this group if successful, otherwise false.
     */
-    public function addGroup( $name,  $description, $parentId = null )
+    public function addGroup( $name,  $description = NULL, $parentId = null )
     {
         $data = array('group_define_name' => $name, 'group_type' => LIVEUSER_GROUP_TYPE_ALL);
         $groupId = $this->objLuAdmin->perm->addGroup($data);
 
         return $groupId;
+    }
+
+    public function addSubGroups($contextCode, $contextGroupId) {
+        // create the subgroups first
+        $grps = array("Lecturers", "Students", "Guest");
+        foreach($grps as $grp) {
+            $grpid = $this->addGroup($contextCode."^".$grp);
+            // then add them as subGroups of the parent Group.
+            $data = array(
+                'group_id' => $contextGroupId,
+                'subgroup_id' => $grpid
+            );
+            $assign = $this->objLuAdmin->perm->assignSubGroup($data);
+        }
+
     }
 
     /**

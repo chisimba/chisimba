@@ -149,14 +149,15 @@ class manageGroups extends object
     {
         // Context node
         $contextGroupId = $this->_objGroupAdmin->addGroup($contextcode,$title,NULL);
-        // For each subgroup
-        foreach( $this->_arrSubGroups as $groupName=>$groupId ) {
-            $newGroupId = $this->_objGroupAdmin->addGroup(
+        // Create the  subgroups
+        $newGroupId = $this->_objGroupAdmin->addSubGroups( $contextcode, $contextGroupId);
+        /*foreach( $this->_arrSubGroups as $groupName=>$groupId ) {
+            $newGroupId = $this->_objGroupAdmin->addSubGroups(
                 $groupName,
                 $contextcode.' '.$groupName,
                 $contextGroupId);
             $this->_arrSubGroups[$groupName]['id'] = $newGroupId;
-        } // End foreach subgroup
+        } // End foreach subgroup*/
 
         // Add groupMembers
         $this->addGroupMembers();
@@ -422,7 +423,7 @@ class manageGroups extends object
         }
         return $isMember ? $arrMemberCodes : $arrNonMemberCodes;
     }
-	
+
 		/**
 	* Method to check if the user is a context lecturer
 	* @return boolean
@@ -430,10 +431,10 @@ class manageGroups extends object
 	public function isContextLecturer()
 	{
 		$objGroups = $this->getObject('groupAdminModel', 'groupadmin');
-		$groupId = $objGroups->getLeafId(array($this->contextCode ,'Lecturers'));		
-		$ret = $objGroups->isGroupMember($this->_objUser->PKId(), $groupId);		
-		return $ret; 
-		
+		$groupId = $objGroups->getLeafId(array($this->contextCode ,'Lecturers'));
+		$ret = $objGroups->isGroupMember($this->_objUser->PKId(), $groupId);
+		return $ret;
+
 	}
 } // End publicContext Class
 ?>
