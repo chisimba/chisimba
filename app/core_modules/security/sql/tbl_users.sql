@@ -20,7 +20,7 @@ $fields = array(
         ),
     'username' => array(
         'type' => 'text',
-        'length' => 25,
+        'length' => 255,
 
         ),
     'title' => array(
