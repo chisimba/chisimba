@@ -24,7 +24,7 @@ $fields = array(
         ),
     'group_define_name' => array(
         'type' => 'text',
-        'length' => 100
+        'length' => 255
         
         ),
 );
