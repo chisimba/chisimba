@@ -338,10 +338,17 @@ class htmlarea extends object
 
 
     /**
-    * Method to toolbar set to CMS Specific specific
+    * Method to toolbar set to CMS Specific
     */
     function setCMSToolBar(){
          $this->toolbarSet = 'cms';
+    }
+
+   /**
+    * Method to toolbar set to Form Builder 'forms' Specific
+    */
+    function setFormsToolBar(){
+         $this->toolbarSet = 'forms';
     }
 
     /**
