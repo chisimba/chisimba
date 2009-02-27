@@ -312,7 +312,7 @@ class groupAdminModel extends object
     public function getSubgroups( $groupId )
     {
         $filters = array('group_id' => $groupId);
-        $subgroups = $admin->perm->getGroups(array('subgroups' => true, 'filters' => $filters));
+        $subgroups = $this->objLuAdmin->perm->getGroups(array('subgroups' => true, 'filters' => $filters));
         if ($subgroups === FALSE ) {
             return FALSE;
         }

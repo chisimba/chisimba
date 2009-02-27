@@ -72,10 +72,95 @@ class groupops extends object
     {
         $this->objUser = $this->getObject('user', 'security');
 		$this->objLanguage = $this->getObject('language', 'language');
+		$this->objGroups = $this->getObject('groupadminmodel');
+		
+		$objIcon = $this->getObject('geticon', 'htmlelements');
+		$objIcon->setIcon('loader');
+		$this->loading = $objIcon->show();
     }
 
 //////NEW METHODS
+	/**
+	*Method to get the groups
+	*/
+	public function getGroups()
+	{		
+		$groups = $this->objLuAdmin->perm->getGroups();//$this->objGroups->getGroups();
+		//var_dump($groups);
+		if(count($groups) > 0)
+		{
+			$str = '<div id="accordion">';
+			foreach($groups as $group)
+			{
+				$subGroups = $this->objGroups->getSubgroups($group['group_id']);
+				var_dump($subGroups);
+				//if($subGroups)
+				$str .='<div>
+								<h3 id="'.$group['group_id'].'"><a href="#">'.$group['group_define_name'].'</a></h3>
+								<div style="height:175px;" id="tab_'.$group['group_id'].'">
+									
+								<div class="siteadminlist">
+										<div id="'.$group['group_id'].'_list">'.$this->loading.'</div>
+								</div>
+								</div>
+						</div>
+					';
+			}
+		}
+		return $str.'</div>';
+	}
+	/**
+	* Method to get first groupd Id
+	*/
+	public function getFirstGroupId()
+	{
+		$groups = $this->objLuAdmin->perm->getGroups();
+		return $groups[0]['group_id'];
+	}
 
+	/**
+	*Method to get the list of users to be searched
+	*/
+	public function getSearchableUsers()
+	{
+		$users = $this->objUser->getAll();
+		$arr = array();
+		foreach($users as $user)
+		{
+			$arr[$this->objUser->fullname($user['userid'])] = $user['userid'];
+		}
+		
+		return $arr;
+	}
+	
+	
+	/**
+	*Method to generate the display for a group
+	* @param string $groupId
+	*/
+	public function loadGroupContent($groupId)
+	{
+		//show the users list
+		//$arr = $this->objGroups->getGroupUsers($groupId);
+		$arr = $this->getUsersInGroup($groupId); 		
+		
+		return $this->generateList($arr);
+		$str ='
+		<div class="groupadmincontent">
+							<div class="siteadminlist">
+								<div id="'.$groupId.'_list">'.$this->layoutUsers($arr).'</div>
+							</div>
+							<div id="siteadmintoolbox" >'.$this->searchUsersBox($groupId).'</div>
+						</div>';
+		
+		//$str = $this->generateList($arr);
+		//show the search box
+		//$str .= $this->searchUsersBox($groupId);
+		//return $this->
+		//var_dump($usersGroup);
+		return $str;
+	}
+	
 	/**
 	* Method to get the left menu
 	*/
@@ -149,19 +234,38 @@ class groupops extends object
 	/**
 	* Method to load the content
 	*/
-	public function loadContent($divId)
+	public function loadContent($groupId)
 	{
-		$objIcon = $this->getObject('geticon', 'htmlelements');
-		$objIcon->setIcon('loader');
-		$loading = $objIcon->show();
+		
 		$str = '<div class="groupadmincontent">
 							<div class="siteadminlist">
-								<div class="siteadminscontent"  id="'.$divId.'content">'.$loading.'</div>
+								<div class="siteadminscontent"  id="'.$groupId.'content">'.$this->loading.'</div>
 							</div>
-							<div class="siteadmintoolbox" id="'.$divId.'toolbox" >Ajax seach goes here</div>
+							<div class="siteadmintoolbox" id="'.$groupId.'toolbox" >'.$this->searchUsersBox().'</div>
 						</div>';	
 		return $str;
 	}
+	
+	/**
+	* Method to get the search box
+	*/
+	public function searchUsersBox()
+	{
+		
+		
+		return '<form autocomplete="off">
+		
+		<p>
+			<label>Search Users:</label><br/>
+			<textarea id="suggest4"></textarea><br/>
+			<input type="button" value="Add to Group" />
+		</p>
+		</form>';
+		$fieldSet->setLegend('Add Users to Group');
+		return $fieldSet->show();
+		
+	}
+	
 	
 	/**
 	* Method to generate a list 
@@ -175,7 +279,7 @@ class groupops extends object
 			$str = '<div class="nicelist"><table>';
 			foreach($arr as $list)
 			{
-					$str .= '<tr><td>'.$list.'</td><td style="margin-left:0px;>'.$objIcon->show().'</td ></tr>';
+					$str .= '<tr><td style="margin-right:0px;">'.$username = $this->objUser->fullName($list['auth_user_id']).'</td><td style="margin-left:0px;">'.$objIcon->show().'</td ></tr>';
 			}
 			$str .='</table></div>';
 			return $str;
