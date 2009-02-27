@@ -106,6 +106,31 @@ class groupadmin extends controller {
                 $this->setVarByRef ( 'grps', $grps );
 
                 return 'viewgrps_tpl.php';
+				
+				
+			case 'searchusers':
+				$items = $this->objOps->getSearchableUsers();				
+				
+				$q = $this->getParam('q');
+				foreach ($items as $key=>$value) {
+					if (strpos(strtolower($key), $q) !== false) {
+						echo "$key|$value\n";
+						
+					}
+				}
+
+				exit(0);
+			
+			case 'ajaxgetgroupname':
+				//echo 'here is the content for group..'.$this->getParam('groupid');
+				$details = $this->objOps->getGroupInfo($this->getParam('groupid'));
+				echo '<span class="subdued">Add to users to </span>'.$details[0]['group_define_name'];
+				exit(0);
+				
+			case 'ajaxgetgroupcontent':
+				//echo 'here is the content for group..'.$this->getParam('groupid');
+				echo $this->objOps->loadGroupContent($this->getParam('groupid'));
+				exit(0);
 			case 'contextgroups':
 				$this->setLayoutTemplate('main_layout_tpl.php');
 				return 'contextgroups_tpl.php';
