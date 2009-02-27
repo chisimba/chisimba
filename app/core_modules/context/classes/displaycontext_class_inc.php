@@ -121,7 +121,7 @@ class displaycontext extends object {
 
         if (! $disablePrivateAccess) {
             // If admin, show link
-			$access = $this->objDBContext->getField('access', $context ['contextcode'])
+			$access = $this->objDBContext->getField('access', $context ['contextcode']);
             if ($this->objUser->isAdmin () || 
 					in_array ( $context ['contextcode'], $this->userContexts ) || 
 					$access == 'Public' ||
