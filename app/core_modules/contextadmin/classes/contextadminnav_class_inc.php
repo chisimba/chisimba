@@ -143,7 +143,7 @@ class contextadminnav extends object
     public function getAlphaListingTable()
     {
         $objContext = $this->getObject('dbcontext', 'context');
-        $sql = 'SELECT title FROM tbl_context ORDER BY title';
+        $sql = 'SELECT title FROM tbl_context WHERE access != \'Private\' ORDER BY title';
         $results = $objContext->getArray($sql);
         
         $available = array();
@@ -226,7 +226,7 @@ class contextadminnav extends object
     public function getAlphaListingAjax()
     {
         $objContext = $this->getObject('dbcontext', 'context');
-        $sql = 'SELECT title FROM tbl_context ORDER BY title';
+        $sql = 'SELECT title FROM tbl_context WHERE access != \'Private\' ORDER BY title';
         $results = $objContext->getArray($sql);
         
         $available = array();
