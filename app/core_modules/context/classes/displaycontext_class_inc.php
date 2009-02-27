@@ -89,6 +89,7 @@ class displaycontext extends object {
         $this->loadClass ( 'link', 'htmlelements' );
         $this->loadClass ( 'htmlheading', 'htmlelements' );
         $this->objLanguage = $this->getObject ( 'language', 'language' );
+		$this->objDBContext = $this->getObject('dbcontext', 'context');
 
         $objIcon = $this->getObject ( 'geticon', 'htmlelements' );
         $objIcon->setIcon ( 'imagepreview' );
@@ -120,7 +121,11 @@ class displaycontext extends object {
 
         if (! $disablePrivateAccess) {
             // If admin, show link
-            if ($this->objUser->isAdmin () || in_array ( $context ['contextcode'], $this->userContexts )) {
+			$access = $this->objDBContext->getField('access', $context ['contextcode'])
+            if ($this->objUser->isAdmin () || 
+					in_array ( $context ['contextcode'], $this->userContexts ) || 
+					$access == 'Public' ||
+					$access == 'Open' ) {
                 $showLink = TRUE;
             }
         }
