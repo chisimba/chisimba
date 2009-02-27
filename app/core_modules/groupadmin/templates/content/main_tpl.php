@@ -1,111 +1,103 @@
 <?php
+$scripts = $this->getJavaScriptFile('jquery/jquery-ui-personalized-1.6rc6/jquery-1.3.1.js', 'htmlelements');
+$scripts .= $this->getJavaScriptFile('jquery/jquery-ui-personalized-1.6rc6/jquery-ui-personalized-1.6rc6.js', 'htmlelements');
+$scripts .= '<link type="text/css" href="'.$this->getResourceUri('jquery/jquery-ui-personalized-1.6rc6/theme/ui.all.css', 'htmlelements').'" rel="Stylesheet" />';
+$scripts .= '<script type="text/javascript">
+			$(function(){
+
+				// Accordion
+				$("#accordion").accordion({ header: "h3", autoheight: true }).
+					bind("accordionchange", function(event, ui) {
+  //console.dir(ui.newHeader); // jQuery, activated header
+  //console.log(ui.newHeader[0].id); //this has the id attribute of the header that was clicked
+//  doSomething(ui.newHeader[0].id);
+						tabId = ui.newHeader[0].id;
+						loadGroupTab(tabId);
+						//alert(ui.newHeader[0].id);
+					});
+
+				// Tabs
+				$(\'#tabs\').tabs();
+
+
+			});
+		</script>';
+
+$this->appendArrayVar('headerParams', $scripts);
+
+//get all the groups
+echo '	<div style="width:650px;border:0px solid black;">
+				<div style="float:left;width:420px;padding-right:10px">
+				'.$this->objOps->getGroups().'
+			</div >
+			<div style="padding-left:10px" >
+			<form id="searchform" name="wes" autocomplete="off">
+				<p>
+					<label>Search Users</label><br/>
+					<textarea id="suggest4"></textarea><br/>
+					<div class="warning" id="groupname">...</div>
+					<input id="searchbutton" type="button" value="Add to Group" />
+				</p>
+			</form>
+		</div>
+</div>';
+$groupId = $this->objOps->getFirstGroupId();
+$this->appendArrayVar('bodyOnLoad', 'loadGroupTab('.$groupId.');');
 
 $objIcon = $this->getObject('geticon', 'htmlelements');
 $tabcontent = $this->newObject('tabcontent', 'htmlelements');
-//$tab = $this->newObject('tabbedbox', 'htmlelements');
 $objIcon->setIcon('loader');
 $loading = $objIcon->show();
 
-
 $script = $this->getJavaScriptFile('groupadmin.js');
 $this->appendArrayVar('headerParams', $script);
-$this->appendArrayVar('bodyOnLoad', "loadAll();");
 
-/*$tab->tabbedbox();
-$tab->addTabLabel($this->objLanguage->languageText('mod_groupadmin_sitegroups', 'groupadmin'));
-$tab->addBoxContent('site groups go here');
-   */        
-
-$sacontent = '<div class="groupadmincontent">
-							<div class="siteadminlist">
-								<div id="siteadminscontent">'.$loading.'</div>
-							</div>
-							<div id="siteadmintoolbox" >Ajax seach goes here</div>
-						</div>';
-
-$tabcontent->addTab($this->objLanguage->languageText('mod_groupadmin_siteadmins','groupadmin'), $this->objOps->loadContent('siteadmins'));
-$tabcontent->addTab(ucwords($this->objLanguage->languageText('mod_context_authors','context')),$this->objOps->loadContent('lecturers'));
-$tabcontent->addTab(ucwords($this->objLanguage->languageText('mod_context_readonly','context')),$this->objOps->loadContent('students'));
-$tabcontent->width = '90%';
-echo  $tabcontent->show();
-//$admins = array('name' => 'Site Administrators', 'content' => 'ggg');
-//$objTabs->addTab($admins);
-
-
-
-//echo "Loading......".$objIcon->show();
-
-
-
-//$middleContent .= '<div id="browsefiles">'.$loading->show().'</div>';
-
-
-//echo $objTabs->show();
 
 $script = $this->getJavaScriptFile('jquery/jquery.autocomplete.js', 'htmlelements');
 $this->appendArrayVar('headerParams', $script);
 $str = '<link rel="stylesheet" href="'.$this->getResourceUri('jquery/jquery.autocomplete.css', 'htmlelements').'" type="text/css" />';
 $this->appendArrayVar('headerParams', $str);
 
+	
+	$str = '<script type="text/javascript">
+$().ready(function() {
+
+	function findValueCallback(event, data, formatted) {
+		$("<li>").html( !data ? "No match!" : "Selected: " + formatted).appendTo("#result");
+	}
+
+	function formatItem(row) {
+		return row[0] + " (<strong>id: " + row[1] + "</strong>)";
+	}
+	function formatResult(row) {
+		return row[0].replace(/(<.+?>)/gi, \'\');
+	}
+
+	$("#suggest4").autocomplete(\'index.php?module=groupadmin&action=searchusers\', {
+		width: 300,
+		multiple: true,
+		matchContains: true,
+		formatItem: formatItem,
+		formatResult: formatResult
+	});
+
+
+	$("#clear").click(function() {
+		$(":input").unautocomplete();
+	});
+});
+
+function changeOptions(){
+	var max = parseInt(window.prompt(\'Please type number of items to display:\', jQuery.Autocompleter.defaults.max));
+	if (max > 0) {
+		$("#suggest1").setOptions({
+			max: max
+		});
+	}
+}
+
+	</script>';
+	$this->appendArrayVar('headerParams', $str);
+
+	
 ?>
-
-<form onsubmit="return false;" action="">
-<p>
-Ajax City Autocomplete: (try a few examples like: 'Little Grebe', 'Black-crowned Night Heron', 'Kentish Plover')<br />
-<input type="text" style="width: 200px;" value="" id="CityAjax" class="ac_input"/>
-<input type="button" onclick="lookupAjax();" value="Get Value"/>
-</p>
-</form>
-
-<script type="text/javascript">
-function findValue(li) {
-if( li == null ) return alert("No match!");
-
-// if coming from an AJAX call, let's use the CityId as the value
-if( !!li.extra ) var sValue = li.extra[0];
-
-// otherwise, let's just display the value in the text box
-else var sValue = li.selectValue;
-
-//alert("The value you selected was: " + sValue);
-}
-
-function selectItem(li) {
-findValue(li);
-}
-
-function formatItem(row) {
-return row[0] + " (id: " + row[1] + ")";
-}
-
-function lookupAjax(){
-var oSuggest = $("#CityAjax")[0].autocompleter;
-oSuggest.findValue();
-return false;
-}
-
-function lookupLocal(){
-var oSuggest = $("#CityLocal")[0].autocompleter;
-
-oSuggest.findValue();
-
-return false;
-}
-
-
-$("#CityAjax").autocomplete(
-"autocomplete.php",
-{
-delay:10,
-minChars:2,
-matchSubset:1,
-matchContains:1,
-cacheLength:10,
-onItemSelect:selectItem,
-onFindValue:findValue,
-formatItem:formatItem,
-autoFill:true
-}
-);
-
-</script>
