@@ -31,7 +31,7 @@ echo '	<div style="width:650px;border:0px solid black;">
 				'.$this->objOps->getGroups().'
 			</div >
 			<div style="padding-left:10px" >
-			<form id="searchform" name="wes" autocomplete="off">
+			<form id="searchform" name="searchform" autocomplete="off">
 				<p>
 					<label>Search Users</label><br/>
 					<textarea id="suggest4"></textarea><br/>

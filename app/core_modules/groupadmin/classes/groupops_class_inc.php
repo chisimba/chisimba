@@ -244,20 +244,6 @@ class groupops extends object
 	}
 
 
-/**
-	* Method to get the List of site Admins
-	*/
-	public function getSiteStudents()
-	{
-		
-		
-		return 'list of site students goes here ';
-	}
-
-
-
-
-
 ////////////////////////////////////////
 
 
