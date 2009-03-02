@@ -93,7 +93,7 @@ class groupops extends object
 			foreach($groups as $group)
 			{
 				$subGroups = $this->objGroups->getSubgroups($group['group_id']);
-				var_dump($subGroups);
+				//var_dump($subGroups);
 				//if($subGroups)
 				$str .='<div>
 								<h3 id="'.$group['group_id'].'"><a href="#">'.$group['group_define_name'].'</a></h3>
@@ -184,51 +184,6 @@ class groupops extends object
 	}
 	
 	
-	/**
-	* Method to get the List of site Admins
-	*/
-	public function getSiteAdmins()
-	{
-		
-		
-		return '<div id="siteadminslist">list of site admins goes here</div> ';
-	}
-	
-	/**
-	* Method to populate the site Admins List
-	*/
-	public function getSiteAdminsList()
-	{
-		$arr = array("WES","Zach Nitsckie", "Sue Van Der Bergh","WES","Zach Nitsckie", "Sue Van Der Bergh","WES","Zach Nitsckie", "Sue Van Der Bergh");
-		return $this->generateList($arr);
-		
-	}
-	
-	/**
-	* Method to populate the site Admins List
-	*/
-	public function getLecturerList()
-	{
-		return $this->getSiteAdminsList();
-	}
-	
-	/**
-	* Method to populate the site Admins List
-	*/
-	public function getStudentsList()
-	{
-		return $this->getSiteAdminsList();
-	}
-
-/**
-	* Method to get the List of site Admins
-	*/
-	public function getSiteLecturers()
-	{
-		
-		
-		return 'list of site lecturers goes here ';
-	}
 	
 	
 	/**
