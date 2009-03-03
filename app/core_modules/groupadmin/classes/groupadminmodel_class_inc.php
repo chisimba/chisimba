@@ -311,13 +311,36 @@ class groupAdminModel extends object
      */
     public function getSubgroups( $groupId )
     {
-        $filters = array('group_id' => $groupId);
+        $groups = $this->objLuAdmin->perm->getGroups(
+            array(
+                'select' => 'all',
+                'rekey' => true,
+                'filters' => array('group_id' => $groupId),
+                'hierarchy' => true,
+            )
+        );
+
+        foreach ($groups as $grps) {
+            if(array_key_exists('subgroups', $grps)) {
+                $subgroups[] = $grps['subgroups'];
+            }
+            else {
+                $subgroups = NULL;
+            }
+        }
+
+        return $subgroups;
+
+
+
+
+        /*$filters = array('group_id' => $groupId);
         $subgroups = $this->objLuAdmin->perm->getGroups(array('subgroups' => true, 'filters' => $filters));
         if ($subgroups === FALSE ) {
             return FALSE;
         }
-
-        return $subgroups;
+*/
+        //return $subgroups;
 
     }
 
