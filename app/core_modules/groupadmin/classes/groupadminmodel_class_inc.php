@@ -343,7 +343,6 @@ class groupAdminModel extends object
         );
         $grps = NULL;
         foreach($groups as $grp) {
-            $gname = explode('^', $grp['group_define_name']);
             if(!array_key_exists(1, explode('^', $grp['group_define_name']))) {
                 $grps[] = $grp;
             }
