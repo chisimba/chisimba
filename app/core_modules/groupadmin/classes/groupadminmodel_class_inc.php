@@ -330,18 +330,25 @@ class groupAdminModel extends object
         }
 
         return $subgroups;
+    }
 
-
-
-
-        /*$filters = array('group_id' => $groupId);
-        $subgroups = $this->objLuAdmin->perm->getGroups(array('subgroups' => true, 'filters' => $filters));
-        if ($subgroups === FALSE ) {
-            return FALSE;
+    public function getTopLevelGroups() {
+        $groups = $this->objLuAdmin->perm->getGroups(
+            array(
+                'select' => 'all',
+                'rekey' => true,
+                'filters' => array(),
+                'hierarchy' => true,
+            )
+        );
+        $grps = NULL;
+        foreach($groups as $grp) {
+            $gname = explode('^', $grp['group_define_name']);
+            if(!array_key_exists(1, explode('^', $grp['group_define_name']))) {
+                $grps[] = $grp;
+            }
         }
-*/
-        //return $subgroups;
-
+        return $grps;
     }
 
     /**
