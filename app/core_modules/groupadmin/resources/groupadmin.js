@@ -29,12 +29,36 @@ function loadGroupTab(groupId)
 			complete: function(msg){              
                 getGroupName(groupId)
             }
-        });
-		
-		
+        });	
         
     }
 	
+function addUser(groupId, username)
+{
+	 jQuery.ajax({
+            type: "GET", 
+            url: "index.php", 
+            data: "module=groupadmin&action=ajaxadduser&groupid="+groupId+"&username="+username,
+            success: function(msg){              
+				loadGroupTab(groupId);
+				jQuery('#result').html(msg);
+            }
+        });
+}
+
+function removeUser(groupId, userid)
+{
+	 jQuery.ajax({
+            type: "GET", 
+            url: "index.php", 
+            data: "module=groupadmin&action=ajaxremoveuser&groupid="+groupId+"&userid="+userid,
+            success: function(msg){              
+				loadGroupTab(groupId);
+				jQuery('#result').html(msg);
+            }
+        });
+}
+
 function showLoading()
 {		
 	return '<img src="skins/_common/icons/loader.gif">';
@@ -48,20 +72,48 @@ function getGroupName(groupId)
             url: "index.php", 
             data: "module=groupadmin&action=ajaxgetgroupname&groupid="+groupId,
             success: function(msg){
-                jQuery('#groupname').html(msg);
+                jQuery('#groupname').html(msg);				
+				jQuery('#groupid').val(groupId);
                 if ('function' == typeof window.adjustLayout) {
                     adjustLayout();
                 }
             }
         });
 		
-        frm = document.getElementById('searchform');
-		frm.action = 'index.php&module=groupadmin&groupid='+groupId;
-		//frm.searchbutton.value = "Add users to "+groupId;
-        //alert(frm.action);
-        //alert(workgroupId);
+       
+	
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 function getSiteAdmins()
     {
          
@@ -183,3 +235,5 @@ function getSiteAdminsList()
         //alert(workgroupId);
         
     }
+	
+	*/

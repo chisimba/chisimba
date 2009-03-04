@@ -17,19 +17,13 @@ $scripts .= '<script type="text/javascript">
 				$(\'#tabs\').tabs({
 					select: function(event, ui) {
 						id = stripId(ui.panel.id);
-						loadGroupTab(id);
-						
+						loadGroupTab(id);						
 					},
-					remote: true
+					remote: true,
+					fxAutoHeight: true,
+					fxShow: { height: \'show\', opacity: \'show\' },
 	
-					});
-				/*$(\'#tabs\').tabs().bind(\'tabsselect\', function(event, ui) {						
-						loadGroupTab(ui.panel.id);
-					});
-
-				$(\'#tabs\').onClick: function() {
-						alert(\'onClick\');
-					}*/
+					});			
 
 			});
 function stripId(str)
@@ -49,7 +43,9 @@ echo '	<div style="width:650px;border:0px solid black;">
 			<form id="searchform" name="searchform" autocomplete="off">
 				<p>
 					<label>Search Users</label><br/>
-					<textarea id="suggest4" ></textarea><br/>
+					<input type="text" id="suggest4">
+					<input type="text" id="hiddensuggest4"><br/>
+					<input type="text" id="groupid"><br/>
 					<div class="warning" id="groupname">...</div>
 					<input id="searchbutton" type="button" onclick="submitSearchForm(this.form)" value="Add to Group" />
 				</p>
@@ -96,17 +92,27 @@ $(":text, textarea").result(findValueCallback).next().click(function() {
 
 	$("#suggest4").autocomplete(\'index.php?module=groupadmin&action=searchusers\', {
 		width: 300,
-		multiple: true,
+		multiple: false,
 		matchContains: true,
 		formatItem: formatItem,
-		formatResult: formatResult
-	});
+		formatResult: formatResult,
+		
+	}).result(function (evt, data, formatted) {				
+					$("#hiddensuggest4").val(data[1]);
+					});
 
 
 	$("#clear").click(function() {
 		$(":input").unautocomplete();
 	});
 });
+
+function submitSearch(data)
+{
+
+	alert(data[0]);
+}
+
 
 function changeOptions(){
 	var max = parseInt(window.prompt(\'Please type number of items to display:\', jQuery.Autocompleter.defaults.max));
@@ -118,14 +124,22 @@ function changeOptions(){
 }
 
 function submitSearchForm(frm)
-{
-
-	alert(frm.suggest4.value);
+{	
+	username = frm.hiddensuggest4.value;
+	groupId = frm.groupid.value;
+	if(username)
+	{
+		addUser(groupId, username);
+	}
+	
+	frm.hiddensuggest4.value = "";
+	frm.suggest4.value = "";
 	
 }
 	</script>';
 	$this->appendArrayVar('headerParams', $str);
 
 	
-?><h3>Result:</h3> <ol id="result"></ol>
+?><h3>Result:</h3> <ol id="result"></ol><div id="hiddenIDbox"></div>
+
 

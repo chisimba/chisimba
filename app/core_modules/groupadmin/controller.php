@@ -120,9 +120,24 @@ class groupadmin extends controller {
 						
 					}
 				}
-
+				exit(0);
+				
+			case 'ajaxadduser':
+				$userId = $this->objUser->getUserId($this->getParam('username'));
+				//echo $userId; 
+				$groupId = $this->getParam('groupid');
+				echo $groupId;
+				$res = $this->objGroups->addGroupUser($groupId, $userId);
+				var_dump($userId);
 				exit(0);
 			
+			case 'ajaxremoveuser':
+				$userId = $this->getParam('userid');
+				$groupId = $this->getParam('groupid');				
+				$res = $this->objGroups->deleteGroupUser($groupId, $userId);
+				var_dump($userId);
+				exit(0);
+				
 			case 'ajaxgetgroupname':
 				//echo 'here is the content for group..'.$this->getParam('groupid');
 				$details = $this->objOps->getGroupInfo($this->getParam('groupid'));
@@ -132,13 +147,14 @@ class groupadmin extends controller {
 			case 'ajaxgetgroupcontent':
 				//echo 'here is the content for group..'.$this->getParam('groupid');
 				$groupId = $this->getParam('groupid');
-				$subGroups = $this->objGroups->getSubgroups($groupId);
+				/*$subGroups = $this->objGroups->getSubgroups($groupId);
 				if($subGroups)
 				{
 					echo $this->objOps->doSubGroups($subGroups);
 				} else {
 					echo $this->objOps->loadGroupContent($groupId);
-				}
+				}*/
+				echo $this->objOps->loadGroupContent($groupId);
 				exit(0);
 			case 'contextgroups':
 				$this->setLayoutTemplate('main_layout_tpl.php');

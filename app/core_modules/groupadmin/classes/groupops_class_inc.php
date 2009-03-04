@@ -209,7 +209,7 @@ class groupops extends object
 		//$arr = $this->objGroups->getGroupUsers($groupId);
 		$arr = $this->getUsersInGroup($groupId); 		
 		
-		return $this->generateList($arr);
+		return $this->generateList($arr, $groupId);
 		$str ='
 		<div class="groupadmincontent">
 							<div class="siteadminlist">
@@ -268,38 +268,46 @@ class groupops extends object
 	
 	/**
 	* Method to get the search box
-	*/
+	*//*
 	public function searchUsersBox()
 	{
 		
 		
-		return '<form autocomplete="off">
+		return '<form autocomplete="off" >
 		
 		<p>
 			<label>Search Users:</label><br/>
-			<textarea id="suggest4"></textarea><br/>
+			<input type="text" id="suggest4"><br/>
+			<input type="hidden" id="hiddensuggest4"><br/>
 			<input type="button" value="Add to Group" />
 		</p>
 		</form>';
-		$fieldSet->setLegend('Add Users to Group');
-		return $fieldSet->show();
+		
 		
 	}
-	
+	*/
 	
 	/**
 	* Method to generate a list 
 	*/
-	public function generateList($arr)
+	public function generateList($arr, $groupId)
 	{
 		if(count($arr) > 0)
 		{
 			$objIcon = $this->getObject('geticon', 'htmlelements');
+			//$this->loadClass('link', 'htmlelements');
 			$objIcon->setIcon('delete','png');
+			
+			
 			$str = '<div class="nicelist"><table>';
 			foreach($arr as $list)
 			{
-					$str .= '<tr><td style="margin-right:0px;">'.$username = $this->objUser->fullName($list['auth_user_id']).'</td><td style="margin-left:0px;">'.$objIcon->show().'</td ></tr>';
+				$objLink = $this->newObject('link', 'htmlelements');
+				$objLink->href = '#';
+				$objLink->link = $objIcon->show();
+				$objLink->extra = ' onclick="removeUser(\''.$groupId.'\', \''.$list['auth_user_id'].'\') "' ;
+				$str .= '<tr><td style="margin-right:0px;">'.$username = $this->objUser->fullName($list['auth_user_id']).'</td><td style="margin-left:0px;">'.$objLink->show().'</td ></tr>';
+				$objLink = null;
 			}
 			$str .='</table></div>';
 			return $str;
