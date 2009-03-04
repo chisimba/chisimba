@@ -8,26 +8,41 @@ function loadAll()
 	getStudentList();
 }
 
-function tabsselect()
-{
-	alert('ye baby');
-	}
+
 	
 function loadGroupTab(groupId)
     {
-         
+           
         jQuery.ajax({
             type: "GET", 
             url: "index.php", 
             data: "module=groupadmin&action=ajaxgetgroupcontent&groupid="+groupId,
-            success: function(msg){
-                jQuery('#'+groupId+'_list').html(msg);
+            success: function(msg){              
+				jQuery('#'+groupId+'_list').html(msg);				
                 if ('function' == typeof window.adjustLayout) {
                     adjustLayout();
                 }
+            },
+			beforeSend: function(msg){    				
+                jQuery('#'+groupId+'_list').html(showLoading());
+            },
+			complete: function(msg){              
+                getGroupName(groupId)
             }
         });
 		
+		
+        
+    }
+	
+function showLoading()
+{		
+	return '<img src="skins/_common/icons/loader.gif">';
+}
+
+function getGroupName(groupId)
+{
+	//load the 
 		jQuery.ajax({
             type: "GET", 
             url: "index.php", 
@@ -45,8 +60,7 @@ function loadGroupTab(groupId)
 		//frm.searchbutton.value = "Add users to "+groupId;
         //alert(frm.action);
         //alert(workgroupId);
-        
-    }
+}
 
 function getSiteAdmins()
     {

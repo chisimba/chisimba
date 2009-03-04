@@ -77,7 +77,9 @@ class groupadmin extends controller {
         // Log this module call
         $this->objLog->log ();
         $this->objOps = $this->getObject ( 'groupops' );
-
+		$this->objGroups = $this->getObject('groupadminmodel');
+		 $this->jQuery =$this->newObject('jquery', 'htmlelements');
+		 $this->jQuery->loadLiveQueryPlugin();
     }
 
     /**
@@ -129,12 +131,19 @@ class groupadmin extends controller {
 				
 			case 'ajaxgetgroupcontent':
 				//echo 'here is the content for group..'.$this->getParam('groupid');
-				echo $this->objOps->loadGroupContent($this->getParam('groupid'));
+				$groupId = $this->getParam('groupid');
+				$subGroups = $this->objGroups->getSubgroups($groupId);
+				if($subGroups)
+				{
+					echo $this->objOps->doSubGroups($subGroups);
+				} else {
+					echo $this->objOps->loadGroupContent($groupId);
+				}
 				exit(0);
 			case 'contextgroups':
 				$this->setLayoutTemplate('main_layout_tpl.php');
 				return 'contextgroups_tpl.php';
-				
+			/*	
 			case 'ajaxgetsiteadmins':
 				echo $this->objOps->getSiteAdmins();
 				//echo "here are some site admins";
@@ -159,7 +168,7 @@ class groupadmin extends controller {
 			case 'ajaxgetstudentist':
 				echo $this->objOps->getStudentsList();
 				exit(0);
-				
+				*/
             case 'editgrp' :
                 // get the group id
                 $grId = $this->getParam ( 'id', NULL );

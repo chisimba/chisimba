@@ -76,7 +76,7 @@ class groupops extends object
 		
 		$objIcon = $this->getObject('geticon', 'htmlelements');
 		$objIcon->setIcon('loader');
-		$this->loading = $objIcon->show();
+		$this->loading = "";//$objIcon->show();
     }
 
 //////NEW METHODS
@@ -85,30 +85,95 @@ class groupops extends object
 	*/
 	public function getGroups()
 	{		
-		$groups = $this->objLuAdmin->perm->getGroups();//$this->objGroups->getGroups();
-		//var_dump($groups);
+		$groups =  $this->objGroups->getTopLevelGroups();//$this->objGroups->getGroups();
+		
 		if(count($groups) > 0)
 		{
 			$str = '<div id="accordion">';
 			foreach($groups as $group)
 			{
-				$subGroups = $this->objGroups->getSubgroups($group['group_id']);
+				$groupId = $this->objGroups->getId($group['group_define_name']);
+				$subGroups = $this->objGroups->getSubgroups($groupId);
 				//var_dump($subGroups);
-				//if($subGroups)
 				$str .='<div>
-								<h3 id="'.$group['group_id'].'"><a href="#">'.$group['group_define_name'].'</a></h3>
-								<div style="height:175px;" id="tab_'.$group['group_id'].'">
-									
-								<div class="siteadminlist">
-										<div id="'.$group['group_id'].'_list">'.$this->loading.'</div>
-								</div>
-								</div>
-						</div>
-					';
+								<h3 id="'.$groupId.'"><a href="#">'.$group['group_define_name'].'</a></h3>
+								<div style="height:175px;" id="tab_'.$groupId.'">
+									<div class="siteadminlist">';
+				
+				if($subGroups)
+				{
+					$str .= $this->doSubGroups($subGroups);
+				} else {
+					$str .= '<div id="'.$groupId.'_list">'.$this->loading.'</div>';
+					
+				}
+				$str .= '</div></div>
+					</div>';
 			}
-		}
 		return $str.'</div>';
+		}
 	}
+	
+	/**
+	*Method to get the groups
+	*/
+	public function doSubGroups($subGroups)
+	{
+		$str = "";
+	
+		if($subGroups)
+		{
+			//if the group has sub group then generate
+			//a multi tabbed box
+			$tabs = "";
+			$tabcontents = "";
+			$str .= '<div id="tabs">
+							<ul>';
+
+			foreach($subGroups[0] as $subgroup)
+			{
+				//var_dump($subgroup);
+				$subgroupId = $this->objGroups->getId($subgroup['group_define_name']);
+				//var_dump($groupId);
+				$tabs .= '
+								<li>
+									<a href="#'.$subgroupId.'_list">
+										<span>'.$this->formatGroupName($subgroup['group_define_name']).'</span>
+									</a>
+								</li>';
+				$tabcontents .= $this->getSubGroupInterface($subgroupId);
+			}
+			$str .=$tabs.'</ul>'.$tabcontents.'</div>';				
+
+				//$str .= '</div>';
+		}
+					
+			return $str;
+	}
+	/**
+	* Method to generate the tabbed box of the subgroup
+	*@param string $subGroupId
+	*/
+	public function getSubGroupInterface($subGroupId)
+	{
+		$str = '
+					<div id="'.$subGroupId.'_list">
+						'.$this->loadGroupContent($subGroupId).'
+					</div>
+					';
+		return $str;
+	}
+	
+	
+	/**
+	* Method to format the name of the group by removing the ^
+	*/
+	public function formatGroupName($groupName)
+	{
+		
+		return substr_replace($groupName, "", 0, strpos($groupName, "^")+1);
+	}
+	
 	/**
 	* Method to get first groupd Id
 	*/
@@ -127,7 +192,7 @@ class groupops extends object
 		$arr = array();
 		foreach($users as $user)
 		{
-			$arr[$this->objUser->fullname($user['userid'])] = $user['userid'];
+			$arr[$this->objUser->fullname($user['userid'])] = $user['username'];//$user['userid'];
 		}
 		
 		return $arr;

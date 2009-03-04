@@ -7,20 +7,35 @@ $scripts .= '<script type="text/javascript">
 
 				// Accordion
 				$("#accordion").accordion({ header: "h3", autoheight: true }).
-					bind("accordionchange", function(event, ui) {
-  //console.dir(ui.newHeader); // jQuery, activated header
-  //console.log(ui.newHeader[0].id); //this has the id attribute of the header that was clicked
-//  doSomething(ui.newHeader[0].id);
+					bind("accordionchange", function(event, ui) {  
 						tabId = ui.newHeader[0].id;
 						loadGroupTab(tabId);
 						//alert(ui.newHeader[0].id);
 					});
 
 				// Tabs
-				$(\'#tabs\').tabs();
+				$(\'#tabs\').tabs({
+					select: function(event, ui) {
+						id = stripId(ui.panel.id);
+						loadGroupTab(id);
+						
+					},
+					remote: true
+	
+					});
+				/*$(\'#tabs\').tabs().bind(\'tabsselect\', function(event, ui) {						
+						loadGroupTab(ui.panel.id);
+					});
 
+				$(\'#tabs\').onClick: function() {
+						alert(\'onClick\');
+					}*/
 
 			});
+function stripId(str)
+{
+	return str.substring(0, str.indexOf("_list"));
+}
 		</script>';
 
 $this->appendArrayVar('headerParams', $scripts);
@@ -34,9 +49,9 @@ echo '	<div style="width:650px;border:0px solid black;">
 			<form id="searchform" name="searchform" autocomplete="off">
 				<p>
 					<label>Search Users</label><br/>
-					<textarea id="suggest4"></textarea><br/>
+					<textarea id="suggest4" ></textarea><br/>
 					<div class="warning" id="groupname">...</div>
-					<input id="searchbutton" type="button" value="Add to Group" />
+					<input id="searchbutton" type="button" onclick="submitSearchForm(this.form)" value="Add to Group" />
 				</p>
 			</form>
 		</div>
@@ -67,11 +82,17 @@ $().ready(function() {
 	}
 
 	function formatItem(row) {
-		return row[0] + " (<strong>id: " + row[1] + "</strong>)";
+		return row[0] + " (<strong>username: " + row[1] + "</strong>)";
 	}
 	function formatResult(row) {
-		return row[0].replace(/(<.+?>)/gi, \'\');
+		//return row[0].replace(/(<.+?>)/gi, \'\');
+		return row[0];
 	}
+
+$(":text, textarea").result(findValueCallback).next().click(function() {
+		$(this).prev().search();
+	});
+
 
 	$("#suggest4").autocomplete(\'index.php?module=groupadmin&action=searchusers\', {
 		width: 300,
@@ -96,8 +117,15 @@ function changeOptions(){
 	}
 }
 
+function submitSearchForm(frm)
+{
+
+	alert(frm.suggest4.value);
+	
+}
 	</script>';
 	$this->appendArrayVar('headerParams', $str);
 
 	
-?>
+?><h3>Result:</h3> <ol id="result"></ol>
+
