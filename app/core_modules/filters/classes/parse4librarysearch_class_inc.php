@@ -109,7 +109,7 @@ class parse4librarysearch extends object
         foreach ($results[1] as $item)
         {
 
-			$objForm = new form('library_search_form', $this->uri(array('action' => 'search')));
+			$objForm = new form('library_search_form', $this->uri(array('action' => 'search'), 'librarysearch'));
 			$searchInput = new textinput ('search_key');
 
 			$selectCluster = new dropdown('subject_cluster');
