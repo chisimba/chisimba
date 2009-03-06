@@ -97,6 +97,60 @@ class curl extends object
         }
     }
 
+
+    /**
+    * Method to get contents of a page using POST
+	* This method follows the location for when the server issues a redirect
+    * @param string $url URL of the Page
+    * @return string contents of the page
+    */
+    public function getUrl($url, $postargs=FALSE)
+    {
+        // Setup URL for Curl
+        $ch = curl_init($url);
+        
+        // More Curl settings
+        curl_setopt($ch, CURLOPT_HEADER, FALSE);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+
+        // Add Server Proxy if it exists
+        if ($this->proxyInfo['server'] != '') {
+            curl_setopt($ch, CURLOPT_PROXY, $this->proxyInfo['server']);
+        }
+        
+        // Add Port Proxy if it exists
+        if ($this->proxyInfo['port'] != '') {
+            curl_setopt($ch, CURLOPT_PROXYPORT, $this->proxyInfo['port']);
+        }
+        
+        // Add Username for Proxy if it exists
+        if ($this->proxyInfo['username'] != '') {
+            $userNamePassword = $this->proxyInfo['username'];
+            
+            // Add Password Proxy if it exists
+            if ($this->proxyInfo['username'] != '') {
+                $userNamePassword .= ':'.$this->proxyInfo['password'];
+            }
+            
+            curl_setopt ($ch, CURLOPT_PROXYUSERPWD, $userNamePassword);
+        }
+        
+        if($postargs !== FALSE){
+            curl_setopt ($ch, CURLOPT_POST, TRUE);
+            curl_setopt ($ch, CURLOPT_POSTFIELDS, $postargs);
+        }
+        
+        // Get the page
+        $data = curl_exec ($ch);
+        
+        // Close the CURL
+        curl_close($ch);
+        
+        // Return Data
+        return $data;
+    }
+
     
     /**
     * Method to transfer/get contents of a page
@@ -111,7 +165,7 @@ class curl extends object
         // More Curl settings
         curl_setopt($ch, CURLOPT_HEADER, FALSE);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        
+
         // Add Server Proxy if it exists
         if ($this->proxyInfo['server'] != '') {
             curl_setopt($ch, CURLOPT_PROXY, $this->proxyInfo['server']);
