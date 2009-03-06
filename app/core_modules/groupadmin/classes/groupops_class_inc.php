@@ -73,7 +73,7 @@ class groupops extends object
         $this->objUser = $this->getObject('user', 'security');
 		$this->objLanguage = $this->getObject('language', 'language');
 		$this->objGroups = $this->getObject('groupadminmodel');
-		
+
 		$objIcon = $this->getObject('geticon', 'htmlelements');
 		$objIcon->setIcon('loader');
 		$this->loading = "";//$objIcon->show();
@@ -84,9 +84,9 @@ class groupops extends object
 	*Method to get the groups
 	*/
 	public function getGroups()
-	{		
+	{
 		$groups =  $this->objGroups->getTopLevelGroups();//$this->objGroups->getGroups();
-		
+
 		if(count($groups) > 0)
 		{
 			$str = '<div id="accordion">';
@@ -99,13 +99,13 @@ class groupops extends object
 								<h3 id="'.$groupId.'"><a href="#">'.$group['group_define_name'].'</a></h3>
 								<div style="height:175px;" id="tab_'.$groupId.'">
 									<div class="siteadminlist">';
-				
+
 				if($subGroups)
 				{
 					$str .= $this->doSubGroups($subGroups);
 				} else {
 					$str .= '<div id="'.$groupId.'_list">'.$this->loading.'</div>';
-					
+
 				}
 				$str .= '</div></div>
 					</div>';
@@ -113,14 +113,14 @@ class groupops extends object
 		return $str.'</div>';
 		}
 	}
-	
+
 	/**
 	*Method to get the groups
 	*/
 	public function doSubGroups($subGroups)
 	{
 		$str = "";
-	
+
 		if($subGroups)
 		{
 			//if the group has sub group then generate
@@ -143,11 +143,11 @@ class groupops extends object
 								</li>';
 				$tabcontents .= $this->getSubGroupInterface($subgroupId);
 			}
-			$str .=$tabs.'</ul>'.$tabcontents.'</div>';				
+			$str .=$tabs.'</ul>'.$tabcontents.'</div>';
 
 				//$str .= '</div>';
 		}
-					
+
 			return $str;
 	}
 	/**
@@ -163,17 +163,17 @@ class groupops extends object
 					';
 		return $str;
 	}
-	
-	
+
+
 	/**
 	* Method to format the name of the group by removing the ^
 	*/
 	public function formatGroupName($groupName)
 	{
-		
+
 		return substr_replace($groupName, "", 0, strpos($groupName, "^")+1);
 	}
-	
+
 	/**
 	* Method to get first groupd Id
 	*/
@@ -188,17 +188,18 @@ class groupops extends object
 	*/
 	public function getSearchableUsers()
 	{
-		$users = $this->objUser->getAll();
+		$users = $this->getAllUsers();
+
 		$arr = array();
 		foreach($users as $user)
 		{
-			$arr[$this->objUser->fullname($user['userid'])] = $user['username'];//$user['userid'];
+			$arr[$this->objUser->fullname($user['auth_user_id'])] = $user['handle'];//$user['userid'];
 		}
-		
+
 		return $arr;
 	}
-	
-	
+
+
 	/**
 	*Method to generate the display for a group
 	* @param string $groupId
@@ -207,8 +208,8 @@ class groupops extends object
 	{
 		//show the users list
 		//$arr = $this->objGroups->getGroupUsers($groupId);
-		$arr = $this->getUsersInGroup($groupId); 		
-		
+		$arr = $this->getUsersInGroup($groupId);
+
 		return $this->generateList($arr, $groupId);
 		$str ='
 		<div class="groupadmincontent">
@@ -217,7 +218,7 @@ class groupops extends object
 							</div>
 							<div id="siteadmintoolbox" >'.$this->searchUsersBox($groupId).'</div>
 						</div>';
-		
+
 		//$str = $this->generateList($arr);
 		//show the search box
 		//$str .= $this->searchUsersBox($groupId);
@@ -225,7 +226,7 @@ class groupops extends object
 		//var_dump($usersGroup);
 		return $str;
 	}
-	
+
 	/**
 	* Method to get the left menu
 	*/
@@ -233,48 +234,48 @@ class groupops extends object
 	{
 		//side bar navigation object
 		$objSideBar = $this->getObject('sidebar','navigation');
-		
+
 		//set the menu items -> Site Groups , Course Groups
-		
+
 		$nodes = array();
-		
+
 		$nodes[0]['text'] = $this->objLanguage->languageText ( "mod_groupadmin_sitegroups", "groupadmin" );
 		$nodes[0]['uri'] = $this->uri(array('action' => 'sitegroups'));
-		
+
 		$nodes[1]['text'] = ucwords($this->objLanguage->code2Txt('mod_groupadmin_contextgroups', 'groupadmin', NULL, '[-context-] Groups'));
 		$nodes[1]['uri'] = $this->uri(array('action' => 'contextgroups'));
-		
+
 		return $objSideBar->show($nodes);
-		
+
 	}
-	
-	
-	
-	
+
+
+
+
 	/**
 	* Method to load the content
 	*/
 	public function loadContent($groupId)
 	{
-		
+
 		$str = '<div class="groupadmincontent">
 							<div class="siteadminlist">
 								<div class="siteadminscontent"  id="'.$groupId.'content">'.$this->loading.'</div>
 							</div>
 							<div class="siteadmintoolbox" id="'.$groupId.'toolbox" >'.$this->searchUsersBox().'</div>
-						</div>';	
+						</div>';
 		return $str;
 	}
-	
+
 	/**
 	* Method to get the search box
 	*//*
 	public function searchUsersBox()
 	{
-		
-		
+
+
 		return '<form autocomplete="off" >
-		
+
 		<p>
 			<label>Search Users:</label><br/>
 			<input type="text" id="suggest4"><br/>
@@ -282,13 +283,13 @@ class groupops extends object
 			<input type="button" value="Add to Group" />
 		</p>
 		</form>';
-		
-		
+
+
 	}
 	*/
-	
+
 	/**
-	* Method to generate a list 
+	* Method to generate a list
 	*/
 	public function generateList($arr, $groupId)
 	{
@@ -297,8 +298,8 @@ class groupops extends object
 			$objIcon = $this->getObject('geticon', 'htmlelements');
 			//$this->loadClass('link', 'htmlelements');
 			$objIcon->setIcon('delete','png');
-			
-			
+
+
 			$str = '<div class="nicelist"><table>';
 			foreach($arr as $list)
 			{
@@ -354,6 +355,16 @@ class groupops extends object
     public function getNonGrpUsers() {
         $users = $this->objLuAdmin->getUsers(array('container' => 'auth'));
         return $users;
+    }
+
+    public function getUserByUserId($userId) {
+        $params = array(
+                    'filters' => array(
+                        'auth_user_id' => $userId,
+                    )
+                  );
+        $user = $this->objLuAdmin->perm->getUsers($params);
+        return $user[0];
     }
 
     public function getUsersInGroup($groupid) {

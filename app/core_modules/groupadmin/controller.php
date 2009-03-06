@@ -108,42 +108,44 @@ class groupadmin extends controller {
                 $this->setVarByRef ( 'grps', $grps );
 
                 return 'viewgrps_tpl.php';
-				
-				
+
+
 			case 'searchusers':
-				$items = $this->objOps->getSearchableUsers();				
-				
+				$items = $this->objOps->getSearchableUsers();
+
 				$q = $this->getParam('q');
 				foreach ($items as $key=>$value) {
 					if (strpos(strtolower($key), $q) !== false) {
 						echo "$key|$value\n";
-						
+
 					}
 				}
 				exit(0);
-				
+
 			case 'ajaxadduser':
 				$userId = $this->objUser->getUserId($this->getParam('username'));
-				//echo $userId; 
+				//echo $userId;
+				// get the permissions id for this user...
+				$permid = $this->objOps->getUserByUserId($userId);
+				$permid = $permid['perm_user_id'];
 				$groupId = $this->getParam('groupid');
-				echo $groupId;
-				$res = $this->objGroups->addGroupUser($groupId, $userId);
-				var_dump($userId);
+				$res = $this->objGroups->addGroupUser($groupId, $permid);
+
 				exit(0);
-			
+
 			case 'ajaxremoveuser':
 				$userId = $this->getParam('userid');
-				$groupId = $this->getParam('groupid');				
+				$groupId = $this->getParam('groupid');
 				$res = $this->objGroups->deleteGroupUser($groupId, $userId);
 				var_dump($userId);
 				exit(0);
-				
+
 			case 'ajaxgetgroupname':
 				//echo 'here is the content for group..'.$this->getParam('groupid');
 				$details = $this->objOps->getGroupInfo($this->getParam('groupid'));
 				echo '<span class="subdued">Add to users to </span>'.$details[0]['group_define_name'];
 				exit(0);
-				
+
 			case 'ajaxgetgroupcontent':
 				//echo 'here is the content for group..'.$this->getParam('groupid');
 				$groupId = $this->getParam('groupid');
@@ -159,28 +161,28 @@ class groupadmin extends controller {
 			case 'contextgroups':
 				$this->setLayoutTemplate('main_layout_tpl.php');
 				return 'contextgroups_tpl.php';
-			/*	
+			/*
 			case 'ajaxgetsiteadmins':
 				echo $this->objOps->getSiteAdmins();
 				//echo "here are some site admins";
 				exit(0);
-				
+
 			case 'ajaxgetlecturers':
 				echo $this->objOps->getSiteLecturers();
 				exit(0);
-				
+
 			case 'ajaxgetstudents':
 				echo $this->objOps->getSiteStudents();
 				exit(0);
-			
+
 			case 'ajaxgetsiteadminslist':
 				echo $this->objOps->getSiteAdminsList();
 				exit(0);
-				
-			case 'ajaxgetlecturerlist':				
+
+			case 'ajaxgetlecturerlist':
 				echo $this->objOps->getLecturerList();
 				exit(0);
-				
+
 			case 'ajaxgetstudentist':
 				echo $this->objOps->getStudentsList();
 				exit(0);
