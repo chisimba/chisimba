@@ -99,7 +99,7 @@ class parse4ss extends object
     {
         //Match straight URLs
         $this->width = "425";
-        $this->height = "348";
+        $this->height = "355";
         $regEx = "/\\[slideshare(.*?)\\]/";
         //[slideshare id=20847&doc=fantastic-photography-3404&w=425]
         preg_match_all($regEx, $str, $results, PREG_PATTERN_ORDER);
@@ -115,9 +115,6 @@ class parse4ss extends object
                 $id = $arTmp[1];
                 $arTmp = explode("=", $arPat['1']);
                 $doc = $arTmp[1];
-                $arTmp = explode("=", $arPat['2']);
-                $w = $arTmp[1];
-                $this->width=$w;
                 $replacement = $this->getSlideObject($id,$doc);
             } else {
               $objLanguage = $this->getObject('language', 'language');
@@ -143,11 +140,16 @@ class parse4ss extends object
      */
     private function getSlideObject($id,$doc)
     {
-          return "<object type=\"application/x-shockwave-flash\" "
-            ."data=\"https://s3.amazonaws.com:443/slideshare/ssplayer.swf?"
-            . "id=$id&amp;doc=$doc\" width=\"" . $this->width . "\" height=\"" 
-            . $this->height ."\"><param name=\"movie\" value=\""
-            . "https://s3.amazonaws.com:443/slideshare/ssplayer.swf?id=$id&amp;doc=$doc\" /></object>";
+          return "<object style=\"margin:0px\" "
+            . "width=\"$this->width\" "
+            . "height=\"$this->height\">"
+            . "<param name=\"movie\" "
+            . "value=\"http://static.slideshare.net/swf/ssplayer2.swf?doc=$doc\" />"
+            . "<param name=\"allowFullScreen\" value=\"true\"/>"
+            . "<param name=\"allowScriptAccess\" value=\"always\"/>"
+            . "<embed src=\"http://static.slideshare.net/swf/ssplayer2.swf?doc=$doc&stripped_title=$doc\" "
+            . "type=\"application/x-shockwave-flash\" allowscriptaccess=\"always\" "
+            . "allowfullscreen=\"true\" width=\"$this->width\" height=\"$this->height\"></embed></object>";
     }
     
     /**
