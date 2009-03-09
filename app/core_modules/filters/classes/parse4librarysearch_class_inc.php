@@ -114,10 +114,10 @@ class parse4librarysearch extends object
 
 			$selectCluster = new dropdown('subject_cluster');
 	
-			$selectCluster->addOption('cat_database','Database');
-			$selectCluster->addOption('cat_books','Books');
-			$selectCluster->addOption('cat_websites','Websites');
-			$selectCluster->selected = 'cat_websites';
+			$selectCluster->addOption('database','Database');
+			$selectCluster->addOption('books','Books');
+			$selectCluster->addOption('websites','Websites');
+			$selectCluster->selected = 'websites';
 	
 			// Submit Button
 	        $button = new button('submit_search', $this->objLanguage->languageText('word_search'));
