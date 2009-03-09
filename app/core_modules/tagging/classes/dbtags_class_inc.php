@@ -35,13 +35,13 @@ class dbtags extends dbTable
         $this->objLanguage = $this->getObject("language", "language");
         parent::init('tbl_tags');
     }
-    
+
     public function getAllTags()
     {
         $this->_changeTable('tbl_tags');
         return $this->getAll();
     }
-    
+
     public function deleteTags($itemId, $module)
     {
         //change tables to the postmeta table to delete the tags
@@ -56,7 +56,7 @@ class dbtags extends dbTable
             }
         }
     }
-    
+
     /**
      * Method to get all of the tags associated with a particular post
      *
@@ -68,7 +68,7 @@ class dbtags extends dbTable
         $this->_changeTable("tbl_tags");
         return $this->getAll("WHERE item_id = '$itemId' AND module = '$module'");
     }
-    
+
     /**
      * Insert a set of tags into the database associated with the post
      *
@@ -84,6 +84,8 @@ class dbtags extends dbTable
         foreach($tagarray as $tins)
         {
             $tins = trim($tins);
+            $tins = addslashes($tins);
+            var_dump($tins);
             if(!empty($tins))
             {
                 $this->insert(array('userid' => $userid, 'item_id' => $itemId, 'meta_key' => 'tag', 'meta_value' => $tins, 'module' => $module, 'uri' => $uri, 'context' => $context));
@@ -91,7 +93,7 @@ class dbtags extends dbTable
         }
 
     }
-    
+
     /**
      * Method to retrieve the tags associated with a userid
      *
@@ -103,7 +105,7 @@ class dbtags extends dbTable
         $this->_changeTable("tbl_tags");
         return $this->getAll("WHERE userid = '$userid' and meta_key = 'tag'");
     }
-    
+
 
     /**
      * Method to get a tag weight by counting the tags
@@ -114,11 +116,12 @@ class dbtags extends dbTable
      */
     public function getTagWeight($tag, $userid)
     {
+        $tag = addslashes($tag);
         $this->_changeTable("tbl_tags");
         $count = $this->getRecordCount("WHERE meta_value = '$tag' AND userid = '$userid'");
         return $count;
     }
-    
+
     /**
      * Method to get a tag weight by counting the tags
      *
@@ -128,6 +131,7 @@ class dbtags extends dbTable
      */
     public function getSiteTagWeight($tag)
     {
+        $tag = addslashes($tag);
         $this->_changeTable("tbl_tags");
         $count = $this->getRecordCount("WHERE meta_value = '$tag'");
         return $count;
@@ -147,8 +151,8 @@ class dbtags extends dbTable
         }
         return TRUE;
     }
-    
-    /** 
+
+    /**
     * Method to get the tags by Module distinctly
     * @param string $module
     * @return array
@@ -156,11 +160,11 @@ class dbtags extends dbTable
     public function getTagsByModule($module)
     {
         $sql = "SELECT DISTINCT meta_value FROM tbl_tags WHERE module='".$module."' and meta_key='tag'";
-        
-        return $this->getArray($sql);    
+
+        return $this->getArray($sql);
     }
-    
-    
+
+
     /**
      * Method to dynamically switch tables
      *
@@ -180,11 +184,12 @@ class dbtags extends dbTable
             return FALSE;
         }
     }
-    
+
     public function getSimilarTags($tag)
     {
+        $tag = addslashes($tag);
         $sql = "SELECT DISTINCT meta_value FROM tbl_tags WHERE meta_value LIKE '{$tag}%' ORDER BY meta_value";
-        
+
         return $this->getArray($sql);
     }
 }
