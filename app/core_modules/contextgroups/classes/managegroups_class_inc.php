@@ -260,7 +260,7 @@ class manageGroups extends object
     function usercontextcodes($userId=NULL)
     {
         // Get the users PKId.
-        $userId = $this->_objUser->PKId( $userId );
+        //$userId = $this->_objUser->PKId( $userId );
         // Get all contextcodes
         $objContext = $this->getObject('dbcontext','context');
         $arrcontextcodeRows = $objContext->getAll('ORDER BY contextcode');
@@ -289,7 +289,7 @@ class manageGroups extends object
     function userContexts($userId=NULL, $fields=array() )
     {
         // Get the users PKId.
-        $userId = $this->_objUser->PKId( $userId );
+        //$userId = $this->_objUser->PKId( $userId );
 
         $objContext = $this->getObject('dbcontext','context');
         // Get all contextcodes
