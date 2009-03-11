@@ -160,10 +160,20 @@ class manageGroups extends object
         } // End foreach subgroup*/
 
         // Add groupMembers
-        $this->addGroupMembers();
+        $objGroupOps = $this->getObject('groupops', 'groupadmin');
+        $objGroups = $this->getObject('groupadminmodel', 'groupadmin');
+		$userId = $this->_objUser->userId();
+			
+		// get the permissions id for this user...
+		
+		$permid = $objGroupOps->getUserByUserId($userId);
+		$permid = $permid['perm_user_id'];
+		//get the lecturer groupid
+		$groupId = $this->_objGroupAdmin->getLeafId( array($contextcode, 'Lecturers') );
+		$objGroups->addGroupUser($groupId, $permid);
 
         // Now create the ACLS
-        $this->createAcls( $contextcode, $title );
+        //$this->createAcls( $contextcode, $title );
     } // End createGroups
 
     /**
