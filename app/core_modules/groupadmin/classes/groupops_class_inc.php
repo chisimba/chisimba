@@ -531,5 +531,6 @@ class groupops extends object
         $this->objGroups = $this->getObject('groupadminmodel', 'groupadmin');
         return $this->objGroups->deleteGroupUser( $grid, $id );
     }
+
 }
 ?>
