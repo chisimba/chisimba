@@ -48,13 +48,14 @@ function addUser(groupId, username)
 
 function removeUser(groupId, userid)
 {
+	//alert(userid);
 	 jQuery.ajax({
             type: "GET", 
             url: "index.php", 
             data: "module=groupadmin&action=ajaxremoveuser&groupid="+groupId+"&userid="+userid,
             success: function(msg){              
 				loadGroupTab(groupId);
-				jQuery('#result').html(msg);
+				//jQuery('#result').html(msg);
             }
         });
 }

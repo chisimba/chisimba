@@ -135,9 +135,11 @@ class groupadmin extends controller {
 
 			case 'ajaxremoveuser':
 				$userId = $this->getParam('userid');
+				$permid = $this->objOps->getUserByUserId($userId);
+				$permid = $permid['perm_user_id'];
 				$groupId = $this->getParam('groupid');
-				$res = $this->objGroups->deleteGroupUser($groupId, $userId);
-				var_dump($userId);
+				$res = $this->objGroups->deleteGroupUser($groupId, $permid);
+				var_dump($$res);
 				exit(0);
 
 			case 'ajaxgetgroupname':
