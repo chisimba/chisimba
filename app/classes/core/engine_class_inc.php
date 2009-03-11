@@ -1099,7 +1099,12 @@ class engine {
     public function getPatchObject($name, $moduleName = '') {
         $engine = $this;
         $objname = $name . "_installscripts";
-        $filename = $this->_objConfig->getModulePath () . $name . "/patches/installscripts_class_inc.php";
+        if(!in_array($name, $this->coremods)) {
+            $filename = $this->_objConfig->getModulePath () . $name . "/patches/installscripts_class_inc.php";
+        }
+        else {
+            $filename = $this->_objConfig->getSiteRootPath().'core_modules/'.$name.'/patches/installscripts_class_inc.php';
+        }
         if (file_exists ( $filename )) {
             require_once ($filename);
             if (is_subclass_of ( $objname, 'object' )) {
