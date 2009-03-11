@@ -8,7 +8,7 @@ class groupadmin_installscripts extends dbTable {
 
     public function preinstall($version = NULL) {
         switch ($version) {
-            default :
+        case '2.005':
                 $pusers = $this->objGroupOps->getAllUsers();
                 $cusers = $this->getAll();
                 $perms = $this->objGroupOps->getAllPermUsers();
@@ -29,6 +29,11 @@ class groupadmin_installscripts extends dbTable {
                                                  );
                     }
                 }
+
+                break;
+
+        default :
+            break;
         }
 
         return 'preinstall done';
