@@ -102,7 +102,7 @@ class groupops extends object
 
 				if($subGroups)
 				{
-					$str .= $this->doSubGroups($subGroups);
+					$str .= $this->doSubGroups($groupId, $subGroups);
 				} else {
 					$str .= '<div id="'.$groupId.'_list">'.$this->loading.'</div>';
 
@@ -117,7 +117,7 @@ class groupops extends object
 	/**
 	*Method to get the groups
 	*/
-	public function doSubGroups($subGroups)
+	public function doSubGroups($groupId, $subGroups)
 	{
 		$str = "";
 
@@ -127,7 +127,29 @@ class groupops extends object
 			//a multi tabbed box
 			$tabs = "";
 			$tabcontents = "";
-			$str .= '<div id="tabs">
+			
+			$scripts = '<script type="text/javascript">
+						$(function(){				
+
+							// Tabs
+							$(\'#'.$groupId.'_tabs\').tabs({
+								select: function(event, ui) {
+									id = stripId(ui.panel.id);
+									loadGroupTab(id);						
+								},
+								remote: true,
+								fxAutoHeight: true,
+								fxShow: { height: \'show\', opacity: \'show\' },
+				
+								});			
+
+						});
+
+					</script>';
+
+
+			$this->appendArrayVar('headerParams', $scripts);
+			$str .= '<div id="'.$groupId.'_tabs">
 							<ul>';
 
 			foreach($subGroups[0] as $subgroup)

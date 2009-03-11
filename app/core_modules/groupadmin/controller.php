@@ -149,44 +149,21 @@ class groupadmin extends controller {
 			case 'ajaxgetgroupcontent':
 				//echo 'here is the content for group..'.$this->getParam('groupid');
 				$groupId = $this->getParam('groupid');
-				/*$subGroups = $this->objGroups->getSubgroups($groupId);
+				$subGroups = $this->objGroups->getSubgroups($groupId);
+				
 				if($subGroups)
 				{
-					echo $this->objOps->doSubGroups($subGroups);
+					echo $this->objOps->doSubGroups($groupId, $subGroups);
 				} else {
 					echo $this->objOps->loadGroupContent($groupId);
-				}*/
-				echo $this->objOps->loadGroupContent($groupId);
+				}
+				//echo $this->objOps->loadGroupContent($groupId);
 				exit(0);
+				
 			case 'contextgroups':
 				$this->setLayoutTemplate('main_layout_tpl.php');
 				return 'contextgroups_tpl.php';
-			/*
-			case 'ajaxgetsiteadmins':
-				echo $this->objOps->getSiteAdmins();
-				//echo "here are some site admins";
-				exit(0);
 
-			case 'ajaxgetlecturers':
-				echo $this->objOps->getSiteLecturers();
-				exit(0);
-
-			case 'ajaxgetstudents':
-				echo $this->objOps->getSiteStudents();
-				exit(0);
-
-			case 'ajaxgetsiteadminslist':
-				echo $this->objOps->getSiteAdminsList();
-				exit(0);
-
-			case 'ajaxgetlecturerlist':
-				echo $this->objOps->getLecturerList();
-				exit(0);
-
-			case 'ajaxgetstudentist':
-				echo $this->objOps->getStudentsList();
-				exit(0);
-				*/
             case 'editgrp' :
                 // get the group id
                 $grId = $this->getParam ( 'id', NULL );

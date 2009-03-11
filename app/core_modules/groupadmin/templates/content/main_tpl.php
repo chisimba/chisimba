@@ -44,8 +44,8 @@ echo '	<div style="width:650px;border:0px solid black;">
 				<p>
 					<label>Search Users</label><br/>
 					<input type="text" id="suggest4">
-					<input type="text" id="hiddensuggest4"><br/>
-					<input type="text" id="groupid"><br/>
+					<input type="hidden" id="hiddensuggest4">
+					<input type="hidden" id="groupid">
 					<div class="warning" id="groupname">...</div>
 					<input id="searchbutton" type="button" onclick="submitSearchForm(this.form)" value="Add to Group" />
 				</p>
@@ -140,6 +140,6 @@ function submitSearchForm(frm)
 	$this->appendArrayVar('headerParams', $str);
 
 	
-?><h3>Result:</h3> <ol id="result"></ol><div id="hiddenIDbox"></div>
+?><!--h3>Result:</h3> <ol id="result"></ol><div id="hiddenIDbox"></div-->
 
 
