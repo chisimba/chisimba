@@ -229,6 +229,11 @@ class filemanager extends controller
      */
     public function dispatch($action='home')
     {
+        // Check to ensure the user has access to the file manager.
+        if (!$this->userHasAccess()) {
+            return 'access_denied_tpl.php';
+        }
+
         $this->setLayoutTemplate('filemanager_layout_tpl.php');
         
         // retrieve the mode (edit/add/translate) from the querystring
