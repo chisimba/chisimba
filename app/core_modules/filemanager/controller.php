@@ -84,6 +84,14 @@ class filemanager extends controller
     public $objLog;
 
     /**
+     * Object of the groupadminmodel class in the groupadmin module.
+     *
+     * @access protected
+     * @var object
+     */
+    protected $objGroup;
+
+    /**
      * Object of the dbsysconfig class in the sysconfig module.
      *
      * @access protected
@@ -116,6 +124,7 @@ class filemanager extends controller
         // Other Classes
         $this->objConfig = $this->getObject('altconfig', 'config');
         $this->objUser = $this->getObject('user', 'security');
+        $this->objGroup = $this->getObject('groupadminmodel', 'groupadmin');
         $this->objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
         
         $this->objLanguage = $this->getObject('language', 'language');
