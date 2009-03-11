@@ -76,7 +76,8 @@ class contextgroups extends controller
         // Load the Group Admin Model
         $this->objGroups = $this->getObject('groupAdminModel', 'groupadmin');
         $this->objGroupUsers = $this->getObject('groupusersdb', 'groupadmin');
-        
+        $this->objGroupsOps = $this->getObject('groupops', 'groupadmin');
+		
         $this->objUser = $this->getObject('user', 'security');
         $this->userId = $this->objUser->userId();
         $this->objLanguage = $this->getObject('language', 'language');
@@ -273,41 +274,57 @@ class contextgroups extends controller
         $changedItems = explode(',', $changedItems);
         array_shift($changedItems); 
         $changedItems = array_unique($changedItems); 
-        
-        
-        $lecturerGroupId=$this->objGroups->getLeafId(array($contextCode,'Lecturers'));
-        $studentGroupId=$this->objGroups->getLeafId(array($contextCode,'Students'));
-        $guestGroupId=$this->objGroups->getLeafId(array($contextCode,'Guest'));
-        
-        
+		
+        $groups =  $this->objGroups->getTopLevelGroups();
+		$contextGroupId = $this->objGroups->getId($contextCode);
+		$subGroups = $this->objGroups->getSubgroups($contextGroupId);
+       
+		foreach($subGroups[0] as $subGroup)
+		{
+			$groupName =  $this->objGroupsOps->formatGroupName($subGroup['group_define_name']);
+			switch ($groupName)
+			{
+				case 'Lecturers':
+					$lecturerGroupId = $this->objGroups->getId($subGroup['group_define_name']);
+					break;
+				case 'Students':
+					$studentGroupId = $this->objGroups->getId($subGroup['group_define_name']);
+					break;
+				case 'Guest':
+					$guestGroupId = $this->objGroups->getId($subGroup['group_define_name']);
+					break;
+			} 
+			
+		}		
+		        
         foreach ($changedItems as $item)
         {
-            $pkId = $this->objUser->PKId($item);
-            
-            // delete from lecturer, student, guest - added afterwards
-            // done to prevent duplication
-            $this->objGroupUsers->deleteGroupUser($lecturerGroupId, $pkId);
-            $this->objGroupUsers->deleteGroupUser($studentGroupId, $pkId);
-            $this->objGroupUsers->deleteGroupUser($guestGroupId, $pkId);
-            
+			$permid = $this->objGroupsOps->getUserByUserId($item);
+			$pkId = $permid['perm_user_id'];	
+			
+			//remove users 
+			$this->objGroupsOps->removeUser($lecturerGroupId, $pkId);
+			$this->objGroupsOps->removeUser($studentGroupId, $pkId);
+			$this->objGroupsOps->removeUser($guestGroupId, $pkId);
+           
             switch ($_POST[$item])
             {
                 case 'none': // Already Removed from system
                     break;
                 case 'lecturer': // add as lecturer
-                    $this->objGroupUsers->addGroupUser($lecturerGroupId, $pkId);
+                    print $this->objGroups->addGroupUser($lecturerGroupId, $pkId);
                     break;
                 case 'student': // add as student
-                    $this->objGroupUsers->addGroupUser($studentGroupId, $pkId);
+                    $this->objGroups->addGroupUser($studentGroupId, $pkId);
                     break;
                 case 'guest': // add as guest
-                    $this->objGroupUsers->addGroupUser($guestGroupId, $pkId);
+                    $this->objGroups->addGroupUser($guestGroupId, $pkId);
                     break;
                 default:
                     break; // Should be impossible to get out here
             }
         }
-        
+       // die;
         return $this->nextAction(NULL, array('message'=>'usersupdated'));
     }
     
@@ -348,32 +365,39 @@ class contextgroups extends controller
         $filter = " ORDER BY surname ";
         
         // Lecturers
-        $gid=$this->objGroups->getLeafId(array($contextCode,'Lecturers'));
+        $gid=$this->objGroups->getLeafId(array($contextCode,'Lecturers'));		
         $lecturers = $this->objGroups->getGroupUsers($gid, array('userid', 'firstName', 'surname', 'title', 'emailAddress', 'country', 'sex', 'staffnumber'), $filter);
+		
         $lecturersArray = array();
-        foreach ($lecturers as $lecturer)
-        {
-            $lecturersArray[] = $lecturer['userid'];
-        }
-        
+		if (count($lecturers) > 0)
+		{
+				foreach ($lecturers as $lecturer)
+				{
+					$lecturersArray[] = $lecturer['userid'];
+				}
+		}
         // Students
         $gid=$this->objGroups->getLeafId(array($contextCode,'Students'));
         $students = $this->objGroups->getGroupUsers($gid, array('userid', 'firstName', 'surname', 'title', 'emailAddress', 'country', 'sex', 'staffnumber'), $filter);
         $studentsArray = array();
-        foreach ($students as $student)
-        {
-            $studentsArray[] = $student['userid'];
-        }
-        
+		if (count($students) > 0)
+		{
+			foreach ($students as $student)
+			{
+				$studentsArray[] = $student['userid'];
+			}
+		}
         // Guests
         $gid=$this->objGroups->getLeafId(array($contextCode,'Guest'));
         $guests = $this->objGroups->getGroupUsers($gid, array('userid', 'firstName', 'surname', 'title', 'emailAddress', 'country', 'sex', 'staffnumber'), $filter);
         $guestsArray = array();
-        foreach ($guests as $guest)
-        {
-            $guestsArray[] = $guest['userid'];
-        }
-        
+		if (count($guests) > 0)
+		{
+			foreach ($guests as $guest)
+			{
+				$guestsArray[] = $guest['userid'];
+			}
+		}
         // Send to Template
         $this->setVarByRef('lecturers', $lecturersArray);
         $this->setVarByRef('lecturerDetails', $lecturers);
