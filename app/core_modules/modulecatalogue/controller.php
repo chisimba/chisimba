@@ -458,7 +458,6 @@ class modulecatalogue extends controller {
                     if (method_exists ( $ins, 'preinstall' )) {
                         $ins->preinstall ();
                     }
-
                     if (($this->output = $this->objPatch->applyUpdates ( $modname )) === FALSE) {
                         $this->setVar ( 'error', str_replace ( '[MODULE]', $modname, $this->objLanguage->languageText ( 'mod_modulecatalogue_failed', 'modulecatalogue' ) ) );
                     } else {
