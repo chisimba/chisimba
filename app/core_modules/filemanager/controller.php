@@ -306,7 +306,30 @@ class filemanager extends controller
         }
     }
     
-    
+    /**
+     * Checks if the user should have access to the file manager.
+     *
+     * @return boolean True if the user has access, false otherwise.
+     */
+    protected function userHasAccess()
+    {
+        $limitedUsers = $this->objSysConfig->getValue('LIMITEDUSERS', 'filemanager');
+        if ($limitedUsers) {
+            $userId = $this->objUser->userId();
+            $groups = array('Site Admin', 'Lecturers');
+            $isMember = FALSE;
+            foreach ($groups as $group) {
+                $groupId = $this->objGroup->getId($group);
+                if ($this->objGroup->isGroupMember($userId, $groupId)) {
+                    $isMember = TRUE;
+                    break;
+                }
+            }
+            return $isMember;
+        } else {
+            return TRUE;
+        }
+    }
     
     /*------------- BEGIN: Set of methods to replace case selection ------------*/
 
