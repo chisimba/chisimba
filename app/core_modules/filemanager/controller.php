@@ -82,6 +82,14 @@ class filemanager extends controller
     * 
     */
     public $objLog;
+
+    /**
+     * Object of the dbsysconfig class in the sysconfig module.
+     *
+     * @access protected
+     * @var object
+     */
+    protected $objSysConfig;
     
     public $debug = FALSE;
 
@@ -108,6 +116,7 @@ class filemanager extends controller
         // Other Classes
         $this->objConfig = $this->getObject('altconfig', 'config');
         $this->objUser = $this->getObject('user', 'security');
+        $this->objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
         
         $this->objLanguage = $this->getObject('language', 'language');
         $this->objMenuTools = $this->getObject('tools', 'toolbar');
