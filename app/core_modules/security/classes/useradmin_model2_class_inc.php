@@ -160,16 +160,14 @@ class useradmin_model2 extends dbtable
              throw new customException($errorArr[0]['params']['reason']);
              exit(1);
         }
-        else {
-            // add the new user to the regular folks group for now
-            $params = array('filters' => array('group_define_name' => 'Guest'));
-            $group = $this->objLuAdmin->perm->getGroups($params);
-            $result = $this->objLuAdmin->perm->addUserToGroup(array('perm_user_id' => $adduser, 'group_id' => $group[0]['group_id']));
-            if(!$result) {
-                $errorArr = $this->objLuAdmin->getErrors();
-                throw new customException($errorArr[0]['params']['reason']);
-                exit(1);
-            }
+        // add the new user to the regular folks group for now
+        $params = array('filters' => array('group_define_name' => 'Guest'));
+        $group = $this->objLuAdmin->perm->getGroups($params);
+        $result = $this->objLuAdmin->perm->addUserToGroup(array('perm_user_id' => $adduser, 'group_id' => $group[0]['group_id']));
+        if(!$result) {
+            $errorArr = $this->objLuAdmin->getErrors();
+            throw new customException($errorArr[0]['params']['reason']);
+            exit(1);
         }
 
         return $id;
