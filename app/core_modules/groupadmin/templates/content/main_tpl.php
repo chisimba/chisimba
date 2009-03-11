@@ -38,7 +38,7 @@ $this->appendArrayVar('headerParams', $scripts);
 echo '	<div style="width:650px;border:0px solid black;">
 				<div style="float:left;width:420px;padding-right:10px">
 				'.$this->objOps->getGroups().'
-			</div >
+			<div style="clear:both"></div></div >
 			<div style="padding-left:10px" >
 			<form id="searchform" name="searchform" autocomplete="off">
 				<p>
