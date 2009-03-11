@@ -1040,5 +1040,29 @@ class user extends dbTable
         return $this->getRow('userid', $userId);
     }
 
+    public function migrateAdmin() {
+        $user = $this->getUserDetails(1);
+        $this->objUserModel = $this->getObject('useradmin_model2', 'security');
+        $data = array( 'auth_user_id' => $user['userid'],
+                       'handle' => $user['username'],
+                       'passwd' => $user['pass'],
+                       'title' => $user['title'],
+                       'firstname' => $user['firstname'],
+                       'surname' => $user['surname'],
+                       'emailAddress' => $user['emailaddress'],
+                       'sex' => $user['sex'],
+                       'country' => $user['country'],
+                       'cellnumber' => $user['cellnumber'],
+                       'staffnumber' => $user['staffnumber'],
+                       'howCreated' => $user['howcreated'],
+                       'is_active' => $user['isactive'],
+                       'id' => $user['id'],
+        );
+        // delete the user
+        //$this->delete('id', $user['id'], 'tbl_users');
+        $adduser = $this->objLuAdmin->addUser($data);
+
+        return;
+    }
 }
 ?>
