@@ -312,7 +312,7 @@ class contextgroups extends controller
                 case 'none': // Already Removed from system
                     break;
                 case 'lecturer': // add as lecturer
-                    print $this->objGroups->addGroupUser($lecturerGroupId, $pkId);
+                    $this->objGroups->addGroupUser($lecturerGroupId, $pkId);
                     break;
                 case 'student': // add as student
                     $this->objGroups->addGroupUser($studentGroupId, $pkId);

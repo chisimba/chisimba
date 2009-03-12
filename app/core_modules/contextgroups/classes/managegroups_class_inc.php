@@ -442,7 +442,9 @@ class manageGroups extends object
 	{
 		$objGroups = $this->getObject('groupAdminModel', 'groupadmin');
 		$groupId = $objGroups->getLeafId(array($this->contextCode ,'Lecturers'));
-		$ret = $objGroups->isGroupMember($this->_objUser->PKId(), $groupId);
+		
+		$ret = $objGroups->isGroupMember($this->_objUser->userId(), $groupId);
+		//var_dump($this->_objUser->userId());
 		return $ret;
 
 	}
