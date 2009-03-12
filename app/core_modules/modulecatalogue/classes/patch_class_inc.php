@@ -305,6 +305,10 @@ class patch extends dbtable {
             $result['current'] = $this->getVersion($modname);
             $result['old'] = $oldversion;
             $result['modname'] = $modname;
+
+            // finally reload the defaultdata
+            $objModAdmin = $this->getObject('modulesadmin');
+            $objModAdmin->loadData($modname);
             // Now pass along the info to the template.
             return $result;
         } catch (Exception $e) {

@@ -1016,9 +1016,14 @@ class modulesadmin extends dbTableManager
                 foreach ($dummy as $field=>$value) {
                     $sqlArray[$field]= $value;
                 }
-                if (!$this->objModules->insert($sqlArray,$table)) {
-                    log_debug("Error inserting default data for $table");
+
+                // check that the record does not already exist
+                if(!$this->objModules->getRow('id', $sqlArray['id'], $table)) {
+                    if(!$this->objModules->insert($sqlArray,$table)) {
+                        log_debug("Error inserting default data for $table");
+                    }
                 }
+
             }
             return TRUE;
         } catch (Exception $e) {
