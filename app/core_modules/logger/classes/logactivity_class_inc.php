@@ -95,6 +95,7 @@ class logactivity extends dbTable
      */
     public function log()
     {
+		/*
         if($this->enableLogging == '0') {
             return TRUE;
         }
@@ -122,6 +123,7 @@ class logactivity extends dbTable
             }
         }
         return FALSE;
+		*/
     } // function log()
 
     /**
