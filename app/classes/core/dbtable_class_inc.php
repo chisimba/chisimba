@@ -371,8 +371,11 @@ class dbTable extends object
     * @param  string $pkfield the name of the primary key field
     * @param  mixed  $pkvalue the value of the primary key field for the record
     */
-    public function getRow($pk_field, $pk_value) {
+    public function getRow($pk_field, $pk_value, $table = NULL) {
         $pk_value = addslashes($pk_value);
+        if($table != NULL) {
+            $this->_tableName = $table;
+        }
         $stmt = "SELECT * FROM {$this->_tableName} WHERE {$pk_field}='{$pk_value}'";
         if($this->objMemcache == TRUE) {
         	if(chisimbacache::getMem()->get(md5($this->cachePrefix.$stmt))) {
