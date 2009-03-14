@@ -85,10 +85,33 @@ class dbtags extends dbTable
         {
             $tins = trim($tins);
             $tins = addslashes($tins);
-            var_dump($tins);
             if(!empty($tins))
             {
                 $this->insert(array('userid' => $userid, 'item_id' => $itemId, 'meta_key' => 'tag', 'meta_value' => $tins, 'module' => $module, 'uri' => $uri, 'context' => $context));
+            }
+        }
+
+    }
+    
+    /**
+     * Insert a set of tags into the database associated with the post
+     *
+     * @param array $tagarray
+     * @param string $userid
+     * @param String $itemId
+     * @param string $module
+     * @param string $context Optional - Context item belongs to
+     */
+    public function insertHashTags($tagarray, $userid, $itemId, $module, $uri, $context=NULL)
+    {
+        $this->_changeTable("tbl_tags");
+        foreach($tagarray as $tins)
+        {
+            $tins = trim($tins);
+            $tins = addslashes($tins);
+            if(!empty($tins))
+            {
+                $this->insert(array('userid' => $userid, 'item_id' => $itemId, 'meta_key' => 'hashtag', 'meta_value' => $tins, 'module' => $module, 'uri' => $uri, 'context' => $context));
             }
         }
 
