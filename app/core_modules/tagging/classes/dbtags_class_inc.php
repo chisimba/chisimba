@@ -211,6 +211,13 @@ class dbtags extends dbTable
         return $this->getArray($sql);
     }
 
+    public function getAllPostsByTag($tag, $module = NULL) {
+        return $this->getAll("WHERE meta_value = '$tag' and module='$module'");
+    }
+
+    public function getPostsBySpecTag($tag, $key, $module = NULL) {
+        return $this->getAll("WHERE meta_key = '$key' AND meta_value = '$tag' and module = '$module'");
+    }
 
     /**
      * Method to dynamically switch tables
