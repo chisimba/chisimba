@@ -311,7 +311,7 @@ class RootUserAction extends StepAction
 
         $def_sysowner = isset ( $_SESSION ['sys_owner'] ) ? $_SESSION ['sys_owner'] : 'Chisimba Owner';
 
-        $log_enable = isset ( $_SESSION ['log_enable'] ) ? $_SESSION ['log_enable'] : TRUE;
+        $log_enable = isset ( $_SESSION ['log_enable'] ) ? $_SESSION ['log_enable'] : FALSE;
 
         $debug_enable = isset ( $_SESSION ['debug_enable'] ) ? $_SESSION ['debug_enable'] : FALSE;
 
@@ -356,7 +356,7 @@ class RootUserAction extends StepAction
 
         ob_clean ();
 
-        check_box ( 'log_enable', 1, $log_enable, '', 'tabindex="7"' );
+        check_box ( 'log_enable', 0, $log_enable, '', 'tabindex="7"' );
 
         $log_enable = ob_get_contents ();
 
