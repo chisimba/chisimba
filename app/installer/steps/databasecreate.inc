@@ -165,10 +165,21 @@ class DbCreateAction extends StepAction
 		}
 
 	// Sql tables live in the modules that own them.
-
-    $this->_installDb32('core_modules/security/sql/tbl_users.sql');
+	$this->_installDb32('core_modules/security/sql/tbl_users.sql');
     $this->_installDb32('core_modules/security/sql/tbl_userloginhistory.sql');
     $this->_installDb32('core_modules/security/sql/tbl_loggedinusers.sql');
+    $this->_installDb32('core_modules/security/sql/tbl_perms_applications.sql');
+    $this->_installDb32('core_modules/security/sql/tbl_perms_area_admin_areas.sql');
+    $this->_installDb32('core_modules/security/sql/tbl_perms_areas.sql');
+    $this->_installDb32('core_modules/security/sql/tbl_perms_grouprights.sql');
+    $this->_installDb32('core_modules/security/sql/tbl_perms_groups.sql');
+    $this->_installDb32('core_modules/security/sql/tbl_perms_group_subgroups.sql');
+    $this->_installDb32('core_modules/security/sql/tbl_perms_groupusers.sql');
+    $this->_installDb32('core_modules/security/sql/tbl_perms_perm_users.sql');
+    $this->_installDb32('core_modules/security/sql/tbl_perms_right_implied.sql');
+    $this->_installDb32('core_modules/security/sql/tbl_perms_rights.sql');
+    $this->_installDb32('core_modules/security/sql/tbl_perms_userrights.sql');
+
     $this->_installDb32('core_modules/modulecatalogue/sql/tbl_modules.sql');
     $this->_installDb32('core_modules/modulecatalogue/sql/tbl_modules_dependencies.sql');
     $this->_installDb32('core_modules/modulecatalogue/sql/tbl_modules_owned_tables.sql');
@@ -194,15 +205,15 @@ class DbCreateAction extends StepAction
 	$this->_installDb32('core_modules/permissions/sql/tbl_permissions_acl_description.sql');
 
 	//decision tables
-	$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_action_rule.sql');
-	$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_action.sql');
-	$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_condition.sql');
-	$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_conditiontype.sql');
-	$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_decisiontable_action.sql');
-	$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_decisiontable_rule.sql');
-	$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_decisiontable.sql');
-	$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_rule_condition.sql');
-	$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_rule.sql');
+	//$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_action_rule.sql');
+	//$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_action.sql');
+	//$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_condition.sql');
+	//$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_conditiontype.sql');
+	//$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_decisiontable_action.sql');
+	//$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_decisiontable_rule.sql');
+	//$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_decisiontable.sql');
+	//$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_rule_condition.sql');
+	//$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_rule.sql');
 	$this->_installDb32('core_modules/tagging/sql/tbl_tags.sql');
 	//OK now lets dump in the default data from the xml files...
 	//get an array of the directories that we need to look through for the default files...
@@ -226,7 +237,7 @@ class DbCreateAction extends StepAction
 	$output = '';
 	foreach($defaults as $default)
 	{
-		
+
 		$xmlfile = isset($_SESSION['sys_root']) ? $_SESSION['sys_root'].$default : false;
 		//echo $xmlfile;
 		if(is_file($xmlfile))
@@ -259,7 +270,7 @@ class DbCreateAction extends StepAction
 		}
 
 	}
-		
+
 		return true;
 	}//end processAction()
 
@@ -302,7 +313,7 @@ class DbCreateAction extends StepAction
 	     		if (is_file($sqlfile)) {
 	     			$handler = new DbHandler();
 	     			$conn = &$handler->getDbHandler($_SESSION['dsn']);
-					
+
 					include_once($sqlfile);
 					$tablecreatereturn = $conn->createTables($tablename,$fields,$options);
 					//echo $tablecreatereturn;
