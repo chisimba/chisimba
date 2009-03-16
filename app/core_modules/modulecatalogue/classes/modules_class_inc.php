@@ -148,8 +148,8 @@ class modules extends dbTable
             exit();
         }
     }
-    
-    
+
+
     /**
      * Method to get the Title of a Module
      * @param string $moduleId Module Id
@@ -159,7 +159,7 @@ class modules extends dbTable
     {
         return ucwords($this->objLanguage->code2Txt('mod_'.$moduleId.'_name', $moduleId));
     }
-    
+
     /**
      * Method to get the Description of a Module
      * @param string $moduleId Module Id
@@ -194,7 +194,7 @@ class modules extends dbTable
     */
      public function checkIfRegistered($moduleId) {
          try {
-             $row = $this->getRow('module_id',$moduleId);
+             $row = $this->getRow('module_id',$moduleId, 'tbl_modules');
              return !empty($row);
          } catch (Exception $e) {
              echo customException::cleanUp('Caught exception: '.$e->getMessage());
@@ -278,7 +278,7 @@ class modules extends dbTable
             exit();
         }
     }
-    
+
     public function insertTags($tagarr, $status, $mod)
     {
         // user id hard coded to admin for firsttime reg...
@@ -292,9 +292,9 @@ class modules extends dbTable
         }
         foreach($tagarr as $tags)
         {
-            $insarr = array('userid' => $userid, 
-                            'item_id' => $itemid, 
-                            'meta_key' => $metakey, 
+            $insarr = array('userid' => $userid,
+                            'item_id' => $itemid,
+                            'meta_key' => $metakey,
                             'meta_value' => $tags,
                             'module' => $module,
                             'uri' => '',
@@ -303,7 +303,7 @@ class modules extends dbTable
         }
         return;
     }
-    
+
     public function removeTags($mod)
     {
         $metakey = 'moduletag_'.$mod;
@@ -320,8 +320,8 @@ class modules extends dbTable
         }
         return;
     }
-    
-    
+
+
     /**
      * Method to get a list of context plugins
      * @param array List of Modules that are context plugins
@@ -330,19 +330,19 @@ class modules extends dbTable
     {
         $modules = $this->getModules(2);
         $contextPlugins = array();
-        
+
         $objModuleFile = $this->getObject('modulefile');
-        
+
         foreach ($modules as $module)
         {
             if ($objModuleFile->contextPlugin($module['module_id'])) {
                 $contextPlugins[] = $module['module_id'];
             }
         }
-        
+
         return $contextPlugins;
     }
-    
+
     /**
      * Method to get a list of context plugins with information of the modules
      * @param array List of Modules that are context plugins along with information of the modules
@@ -351,19 +351,19 @@ class modules extends dbTable
     {
         $modules = $this->getModules(2);
         $contextPlugins = array();
-        
+
         $objModuleFile = $this->getObject('modulefile');
-        
+
         foreach ($modules as $module)
         {
             if ($objModuleFile->contextPlugin($module['module_id'])) {
                 $contextPlugins[] = $module;
             }
         }
-        
+
         return $contextPlugins;
     }
-    
+
     /**
      * Method to check whether a module is contextaware
      * @param string $moduleId Module Id
@@ -372,14 +372,14 @@ class modules extends dbTable
     public function isContextAware($moduleId)
     {
         $row = $this->getRow('module_id',$moduleId);
-        
+
         if ($row == FALSE) {
             return FALSE;
         } else {
             return $row['iscontextaware'] == 1 ? TRUE : FALSE;
         }
     }
-    
+
     /**
      * Method to check whether a module depends context
      * i.e. should only be run if a user is in a context
@@ -389,7 +389,7 @@ class modules extends dbTable
     public function dependsContext($moduleId)
     {
         $row = $this->getRow('module_id',$moduleId);
-        
+
         if ($row == FALSE) {
             return FALSE;
         } else {
