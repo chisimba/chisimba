@@ -13,7 +13,7 @@
     <modulelist>
         <category>
             <categoryname>Basic System Only</categoryname>
-            <module>decisiontable</module>
+            <!-- module>decisiontable</module -->
             <module>modulecatalogue</module>
             <module>redirect</module>
             <module>security</module>
@@ -21,7 +21,6 @@
             <module>sysconfig</module>
             <module>tree</module>
             <module>groupadmin</module>
-            <module>permissions</module>
             <module>config</module>
             <module>context</module>
             <module>contextgroups</module>
@@ -48,6 +47,7 @@
             <module>mail</module>
             <module>utilities</module>
             <module>packages</module>
+            <module>permissions</module>
         </category>
 
         <category>
@@ -126,7 +126,7 @@
             <module>worksheet</module>
             <module>youtube</module>
         </category>
-        
+
         <category>
             <categoryname>Document Conversion</categoryname>
             <module>documentconverter</module>
