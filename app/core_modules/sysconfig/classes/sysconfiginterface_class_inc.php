@@ -100,7 +100,7 @@ class sysconfiginterface extends object
         //Get the pk value
         $id = $this->getParam('id');
         //Get the records for editing
-        $ar = $this->objDbSysconfig->getRow('id', $id);
+        $ar = $this->objDbSysconfig->getRow('id', $id, 'tbl_sysconfig_properties');
         //Get the two values needed
         if (isset($ar)) {
             $pname = $ar['pname'];

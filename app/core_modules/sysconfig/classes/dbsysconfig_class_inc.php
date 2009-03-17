@@ -67,30 +67,30 @@ class dbsysconfig extends dbTable
         // Check if an insert would produce a duplicate
         if (!$this->_checkForDuplicate($pname, $pmodule)) {
             $this->insert(array('pmodule' => $pmodule,
-                    'pname' => $pname,
-                    'pvalue' => $pvalue,
-                    'pdesc' => $pdesc,
-                    'creatorId' => $this->objUser->userId(),
-                    'dateCreated' => date("Y/m/d H:i:s")));
+            'pname' => $pname,
+            'pvalue' => $pvalue,
+            'pdesc' => $pdesc,
+            'creatorId' => $this->objUser->userId(),
+            'dateCreated' => date("Y/m/d H:i:s")));
             return true;
         } else {
             $id = $this->_lookUpId($pname, $pmodule);
             // Bail out if this is an update, and the field was edited
             if (isset($this->updateFlag)){
-                $line=$this->getRow('id',$id);
+                $line=$this->getRow('id',$id, 'tbl_sysconfig_properties');
                 if (($line['datemodified']!=NULL) || (($line['pvalue'] == $pvalue) && ($line['pdesc'] == $pdesc)) || ($line['modifierid']!=NULL) ){
-                  //return true;
-                  $pvalue = $line['pvalue'];
+                    //return true;
+                    $pvalue = $line['pvalue'];
                 }
             }
 
             $this->update('id',$id,array('pmodule' => $pmodule,
-                    'pname' => $pname,
-                    'pvalue' => $pvalue,
-                    'pdesc' => $pdesc,
-                    //'modifierId' => $this->objUser->userId(),
-                    //'dateModified' => date("Y/m/d H:i:s")
-                    ));
+            'pname' => $pname,
+            'pvalue' => $pvalue,
+            'pdesc' => $pdesc,
+            //'modifierId' => $this->objUser->userId(),
+            //'dateModified' => date("Y/m/d H:i:s")
+            ));
             return true;
         } #if
     } #function insertParam
@@ -108,8 +108,8 @@ class dbsysconfig extends dbTable
     {
         $id = $this->_lookUpId($pname, $pmodule);
         $rsArray = (array('pmodule' => $pmodule,
-                'pname' => $pname,
-                'pvalue' => $pvalue));
+        'pname' => $pname,
+        'pvalue' => $pvalue));
         $this->update("id", $id, $rsArray);
     }
 
@@ -382,8 +382,8 @@ class dbsysconfig extends dbTable
     * leading and trailing forward slash (/) as string
     *//*DEPRECATED
     function defaultIconFolder() {
-        return getValue("default_iconfolder")
-        //KEWL_DEFAULTICONFOLDER;
+    return getValue("default_iconfolder")
+    //KEWL_DEFAULTICONFOLDER;
     }*/
 
     /**
