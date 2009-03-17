@@ -251,27 +251,28 @@ class modulesadmin extends dbTableManager
                 // Here we load data into tables from files of SQL statements
                 if (!$update) {
                     if (!$this->loadData($moduleId)) return FALSE;
-                }
-                // register the module as an area
-                $data = array(
-                    'application_id' => $this->appid,
-                    'area_define_name' => $moduleId,
-                );
-                $areaId  = $this->objLuAdmin->perm->addArea($data);
-                if ($areaId === false) {
-                    log_debug($this->objLuAdmin->getErrors());
-                } else {
-                    log_debug("Created Area Id $areaId for module $moduleId in application $this->appid");
-                    // add the admin user as an area admin now.
-                    $users = $this->objLuAdmin->getUsers(array('filters' => array('perm_type' => '5')));
-                    if(array_key_exists(0, $users) && is_array($users)) {
-                        $data = array(
-                            'area_id' => $areaId,
-                            'perm_user_id' => $users[0]['perm_user_id']
-                        );
-                        $result = $this->objLuAdmin->perm->addAreaAdmin($data);
-                    }
 
+                    // register the module as an area
+                    $data = array(
+                        'application_id' => $this->appid,
+                        'area_define_name' => $moduleId,
+                    );
+                    $areaId  = $this->objLuAdmin->perm->addArea($data);
+                    if ($areaId === false) {
+                        log_debug($this->objLuAdmin->getErrors());
+                    } else {
+                        log_debug("Created Area Id $areaId for module $moduleId in application $this->appid");
+                        // add the admin user as an area admin now.
+                        $users = $this->objLuAdmin->getUsers(array('filters' => array('perm_type' => '5')));
+                        if(array_key_exists(0, $users) && is_array($users)) {
+                            $data = array(
+                                'area_id' => $areaId,
+                                'perm_user_id' => $users[0]['perm_user_id']
+                            );
+                            $result = $this->objLuAdmin->perm->addAreaAdmin($data);
+                        }
+
+                    }
                 }
             }
                 // Create directory
