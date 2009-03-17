@@ -239,7 +239,7 @@ class groupAdminModel extends object
      * @return string|null returns the groupId if successful, otherwise null.
      */
     public function getLeafId( $arrPath )
-    {		
+    {
 		$groupId = $this->getId($arrPath[0]);
 		//var_dump($groupId);
 		if(array_key_exists(1, $arrPath))
@@ -247,7 +247,7 @@ class groupAdminModel extends object
 			//$subGroups = $this->getSubgroups($groupId);
 			$groupId = $this->getId($arrPath[0].'^'.$arrPath[1]);
 		}
-		
+
 		return $groupId;
     }
 
@@ -264,7 +264,6 @@ class groupAdminModel extends object
      */
     public function getId( $name = 'name' )
     {
-
         $groups = $this->objLuAdmin->perm->getGroups(array('filters' => array('group_define_name' => $name)));
         if(empty($groups) || !isset($groups[0])) {
             return NULL;
@@ -455,7 +454,7 @@ class groupAdminModel extends object
 			{
 				$newArr[] = $objUser->getUserDetails($user['auth_user_id']);
 			}
-			
+
 			return $newArr;
 		}
         return $usersGroup;
@@ -588,9 +587,9 @@ class groupAdminModel extends object
 			if($userId == $group['auth_user_id'])
 			{
 				return true;
-			}			
-		}       
-		
+			}
+		}
+
 		//try the subgroups
 		$subGroups = $this->getSubgroups($groupId);
 	//	var_dump($subGroups);
@@ -606,12 +605,12 @@ class groupAdminModel extends object
 				$usersGroup = $this->objLuAdmin->perm->getUsers($params);
 				foreach($usersGroup as $group)
 				{
-				
+
 					if($userId == $group['auth_user_id'])
 					{
 						return true;
-					}			
-				} 
+					}
+				}
 			}
 		} else {
 			return False;
