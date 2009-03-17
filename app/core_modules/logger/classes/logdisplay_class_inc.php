@@ -231,7 +231,7 @@ class logdisplay extends object
             $objLink->link = $lnCoursePages;
             $str .= '<li>'.$objLink->show().'</li>';
         }
-    $hasAccess = $this->objEngine->_objUser->isLecturer();
+    $hasAccess = $this->objUser->isLecturer();
     if($hasAccess){
         $userId=$this->objUser->userId();
         $role='Lecturers';
