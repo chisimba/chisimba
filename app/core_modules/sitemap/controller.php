@@ -22,13 +22,13 @@ class sitemap extends controller
     * @access private
     */
     private $modulesWithLinks;
-    
+
     /**
     * @var object $objLanguage Object to render language texts
     * @access public
     */
     public $objLanguage;
-    
+
     /**
     * Constructor
     */
@@ -37,14 +37,14 @@ class sitemap extends controller
         // Provisional List of Modules with module links classes
         // Note: This will in future comes from keywords
         $this->modulesWithLinks = array('forum', 'podcast', 'cmsadmin', 'announcements', 'assignment', 'assignmentadmin');
-        
+
         $this->objLanguage = $this->getObject('language', 'language');
         $objContext = $this->getObject('dbcontext', 'context');
         $this->contextCode = $objContext->getContextCode();
-        
+
         $this->contextModule = $this->getObject('dbcontextmodules', 'context');
     }
-    
+
     /**
      * Method to process actions to be taken from the querystring
      *
@@ -56,32 +56,32 @@ class sitemap extends controller
         // Load the Modules Object to Check whether modules is registered
         $objModules =& $this->getObject('modules', 'modulecatalogue');
         $objClassCheck =& $this->getObject('checkobject', 'utilities');
-        
+
         // Sort Modules in Alphabetical Order
         asort($this->modulesWithLinks);
-        
+
         // Create New Array
         $modules = array();
-        
+
         // Loop through modules
         foreach ($this->modulesWithLinks as $module)
         {
             // First check if module is registered
-            $moduleInfo = $objModules->getRow('module_id', $module);
+            $moduleInfo = $objModules->getRow('module_id', $module, 'tbl_modules');
             if ($moduleInfo != FALSE) {
-                
+
                 // Then check if class exists
                 if ($objClassCheck->objectFileExists('modulelinks_'.$module, $module)) {
-                    
+
                     // If site module add
                     if ($moduleInfo['iscontextaware'] == 0) {
                         $modules[] = $module;
                     } else {
-                        
+
                         // Check that module does not depend context
                         if ($this->contextCode == '' && $moduleInfo['dependscontext'] == '0') {
                             $modules[] = $module;
-                            
+
                         // Lastly, check that is plugin for root
                         } else if ($this->contextModule->isVisible($module, $this->contextCode)) {
                             $modules[] = $module;
@@ -90,10 +90,10 @@ class sitemap extends controller
                 }
             }
         }
-        
+
         // Send list to Template
         $this->setVarByRef('modules', $modules);
-        
+
         switch ($action)
         {
             case 'fcklink':
@@ -109,7 +109,7 @@ class sitemap extends controller
         }
 
     }
-    
+
     /**
     * Method to generate a form and drop down allowing users to view the sitemap of one module at a time
     * @param array $modules List of Modules to populate in the drop down
@@ -123,37 +123,37 @@ class sitemap extends controller
         $this->loadClass('dropdown', 'htmlelements');
         $this->loadClass('hiddeninput', 'htmlelements');
         $this->loadClass('button', 'htmlelements');
-        
+
         $form = new form ('getsitemap', $this->uri(array('action'=>$action)));
         $form->method = 'get';
-        
+
         $form->addToForm($this->showModeLinks($selected, $action).' &nbsp; - ');
-        
+
         $formModule = new hiddeninput('module', 'sitemap');
         $form->addToForm($formModule->show());
-        
+
         $formAction = new hiddeninput('action', $action);
         $form->addToForm($formAction->show());
-        
+
         $dropdown = new dropdown ('showmodule');
         $dropdown->addOption('all', $this->objLanguage->languageText('mod_sitemap_showsitemapforallmodules', 'sitemap'));
-        
+
         foreach ($modules as $module)
         {
             $dropdown->addOption($module, $this->objLanguage->languageText('mod_'.$module.'_name', $module));
         }
-        
+
         $dropdown->setSelected($selected);
-        
+
         $form->addToForm($dropdown->show());
-        
+
         $button = new button ('', $this->objLanguage->languageText('word_go'));
         $button->setToSubmit();
         $form->addToForm($button->show());
-        
+
         return $form->show();
     }
-    
+
     /**
     * This method provides the links allowing the user to switch between Visual and Text Site Map Modules
     * @param string $showModule Current Module Sitemap being viewed
@@ -163,13 +163,13 @@ class sitemap extends controller
     protected function showModeLinks($showModule, $mode)
     {
         $this->loadClass('link', 'htmlelements');
-        
+
         $visualLink = new link ($this->uri(array('action'=>'visual', 'showmodule'=>$showModule)));
         $visualLink->link = $this->objLanguage->languageText('mod_sitemap_visualsitemap', 'sitemap');
-        
+
         $textLink = new link ($this->uri(array('action'=>'text', 'showmodule'=>$showModule)));
         $textLink->link = $this->objLanguage->languageText('mod_sitemap_textsitemap', 'sitemap');
-        
+
         if ($mode == 'visual') {
             $visual = $this->objLanguage->languageText('mod_sitemap_visualsitemap', 'sitemap');
             $text = $textLink->show();
@@ -177,7 +177,7 @@ class sitemap extends controller
             $visual = $visualLink->show();
             $text = $this->objLanguage->languageText('mod_sitemap_textsitemap', 'sitemap');
         }
-        
+
         return $visual.' / '.$text;
     }
 }
