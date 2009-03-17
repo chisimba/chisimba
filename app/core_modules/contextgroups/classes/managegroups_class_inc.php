@@ -163,9 +163,9 @@ class manageGroups extends object
         $objGroupOps = $this->getObject('groupops', 'groupadmin');
         $objGroups = $this->getObject('groupadminmodel', 'groupadmin');
 		$userId = $this->_objUser->userId();
-			
+
 		// get the permissions id for this user...
-		
+
 		$permid = $objGroupOps->getUserByUserId($userId);
 		$permid = $permid['perm_user_id'];
 		//get the lecturer groupid
@@ -248,7 +248,7 @@ class manageGroups extends object
         $groupId=$this->_objGroupAdmin->getLeafId( array($contextcode) );
         $groupId=$this->_objGroupAdmin->deleteGroup($groupId);
         // Delete the acls for the context
-        $this->deleteAcls( $contextcode );
+        //$this->deleteAcls( $contextcode );
     }
 
     /**
@@ -380,7 +380,7 @@ class manageGroups extends object
         // Define the full path to the group.
         $fullPath = $role ? array( $contextcode, $role ) : array( $contextcode );
         // Get the groupId for the given context.
-        $groupId = $this->_objGroupAdmin->getLeafId( $fullPath );		
+        $groupId = $this->_objGroupAdmin->getLeafId( $fullPath );
         // Fields to retrieve.
         $fields = $fields ? $fields : array( "tbl_users.userId", "  'firstName' || ' ' || 'surname'  as fullName " );
 
@@ -442,7 +442,7 @@ class manageGroups extends object
 	{
 		$objGroups = $this->getObject('groupAdminModel', 'groupadmin');
 		$groupId = $objGroups->getLeafId(array($this->contextCode ,'Lecturers'));
-		
+
 		$ret = $objGroups->isGroupMember($this->_objUser->userId(), $groupId);
 		//var_dump($this->_objUser->userId());
 		return $ret;
