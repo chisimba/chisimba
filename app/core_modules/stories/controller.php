@@ -101,7 +101,7 @@ class stories extends controller
             case "getfullstory":
                 $id = $this->getParam('id', null);
                 $objStories =  $this->getObject('sitestories');
-                $textRow = $objStories->getRow('id', $id);
+                $textRow = $objStories->getRow('id', $id, 'tbl_stories');
                 $mainText = $textRow['maintext'];
                 $curModule = $this->getParam('module', NULL);
 
@@ -121,12 +121,12 @@ class stories extends controller
             case "gettrunctstory":
                 $id = $this->getParam('id', null);
                 $objStories =  $this->getObject('sitestories');
-                $textRow = $objStories->getRow('id', $id);
+                $textRow = $objStories->getRow('id', $id, 'tbl_stories');
                 $mainText = $textRow['maintext'];
                 $mainText = substr($mainText, 0, 150);
                 $mainText = $mainText."...";
                 $curModule = $this->getParam('module', NULL);
-                
+
                 $ret .= "<div id=\"$id\">".$mainText;
                 if ($this->objUser->isAdmin()) {
                 $editArray = array(
@@ -232,7 +232,7 @@ class stories extends controller
         }
         return $ret;
     }
-    
+
     function requiresLogin($action)
     {
         $notrequiredAction = array('getfullstory', 'readmore', 'gettrunctstory', 'getallstories', 'getlessstories');
