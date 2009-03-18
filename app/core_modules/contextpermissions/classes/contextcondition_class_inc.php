@@ -97,7 +97,7 @@ class contextCondition extends condition
      * @access private
      * @var    string
      */
-    var $_delimiter = '_';
+    var $_delimiter = '^';
 
 
    // --- OPERATIONS ---
@@ -210,18 +210,10 @@ class contextCondition extends condition
      */
     function isMember($absPath=NULL)
     {
-        // String to Array using delimiter.
-        //$arrPath = explode($this->_delimiter,$absPath );
-        //var_dump($arrPath);
-        // Get the groupId for the given path.
         $groupId = $this->_objGroupAdmin->getId( $absPath );
-        // Get the current users PKid
-        //$userPKId = $this->_objUser->PKId();
-        //echo "$userPKId $groupId<br/>";
         // Evaluate result: TRUE means is a member, FALSE means is not a member
         $result = $this->_objGroupAdmin->isGroupMember( $this->_objUser->userId(), $groupId );
-        //var_dump($result);
-        // Returns the result of the evaluation.
+        // var_dump($result);
         return $result;
     }
 
