@@ -918,7 +918,7 @@ class user extends dbTable
     */
     public function isContextLecturer($userId = NULL, $contextCode = NULL)
     {
-        $grid = $this->objGroups->getId($contextCode.'_Lecturers');
+        $grid = $this->objGroups->getId($contextCode.'^Lecturers');
         $userId = isset($userId) ? $userId : $this->userId();
         $ret = $this->objGroups->isGroupMember($userId, $grid);
 
@@ -948,7 +948,7 @@ class user extends dbTable
     */
     public function isContextStudent($contextCode = NULL)
     {
-        $grid = $this->objGroups->getId($contextCode.'_Students');
+        $grid = $this->objGroups->getId($contextCode.'^Students');
         $userId = $this->userId();
         $ret = $this->objGroups->isGroupMember($userId, $grid);
 
@@ -966,7 +966,7 @@ class user extends dbTable
     */
     public function isContextGuest($contextCode = NULL)
     {
-        $grid = $this->objGroups->getId($contextCode."_Guest");
+        $grid = $this->objGroups->getId($contextCode."^Guest");
         $userId = $this->userId();
         $ret = $this->objGroups->isGroupMember($userId, $grid);
 
