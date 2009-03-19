@@ -1,30 +1,30 @@
 <?php
  /**
  * useradmin_model class
- * 
+ *
  * This class is used by the useradmin module.
- * 
+ *
  * PHP version 5
- *  
- * This program is free software; you can redistribute it and/or modify 
- * it under the terms of the GNU General Public License as published by 
- * the Free Software Foundation; either version 2 of the License, or 
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * This program is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License 
- * along with this program; if not, write to the 
- * Free Software Foundation, Inc., 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
  * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- * 
- * 
+ *
+ *
  * @category  Chisimba
  * @package   security
  * @author James Scoble <jscoble@uwc.ac.za>
  * @copyright 2004-2007, University of the Western Cape & AVOIR Project
- * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
  * @link      http://avoir.uwc.ac.za
  */
 // security check - must be included in all scripts
@@ -57,7 +57,7 @@ class useradmin_model extends dbtable
     * @param array $info data for new user
     * @returns string $id the PKID of the new login
     */
-    
+
     function addUser($info)
     {
         $sdata['userid']=$info['userId'];
@@ -78,14 +78,14 @@ class useradmin_model extends dbtable
         $id=$this->insert($sdata);
         return $id;
     }
-    
+
 
     /**
     * Method to create a user account from getParam()
     * @param string $userId
     * @returns string $id
     */
-    
+
     function createUserAccount($userId,$howcreated='selfregister')
     {
         $password=$this->getParam('password');
@@ -114,7 +114,7 @@ class useradmin_model extends dbtable
         $this->emailPassword($newdata['userId'],$newdata['username'],$newdata['firstname'],$newdata['surname'],$newdata['emailaddress'], $password);
         return $id;
     }
-    
+
 
     /**
     * Method to edit a user account using info from getParam()
@@ -195,7 +195,7 @@ class useradmin_model extends dbtable
              foreach ($keys as $key) {
                 $results[$i][$key] = stripslashes($results[$i][$key]);
              }
-        }        
+        }
         return $results;
     }
 
@@ -225,7 +225,7 @@ class useradmin_model extends dbtable
     {
         $sql="SELECT COUNT(*) AS thecount FROM tbl_users WHERE userId='$userId'";
         $count=$this->getArray($sql);
-        if ($count[0]['thecount']>0) { 
+        if ($count[0]['thecount']>0) {
             return $this->objLanguage->languageText("userid_taken", 'useradmin');
         }
         else {
@@ -241,7 +241,7 @@ class useradmin_model extends dbtable
     {
         $sql="SELECT COUNT(*) AS thecount FROM tbl_users WHERE username='$username'";
         $count=$this->getArray($sql);
-        if ($count[0]['thecount']>0) { 
+        if ($count[0]['thecount']>0) {
             return $this->objLanguage->languageText("username_taken", 'useradmin', 'This username is taken');
         }
         else {
@@ -328,7 +328,7 @@ class useradmin_model extends dbtable
     * @param string $email - data to send
     * @param string $password - data to send
     */
-    
+
     function emailPassword($userId,$username,$firstname,$surname,$email,$password)
     {
         $info=$this->siteURL();
@@ -350,19 +350,19 @@ class useradmin_model extends dbtable
         $header="From: ".$this->objLanguage->languageText('mod_useradmin_greet5','useradmin').'<noreply@'.$info['server'].">\r\n";
         @mail($email,$subject,$emailtext,$header);
     }
-    
+
 
     /**
     * Method to determine site URL for email and other purposes
     * @returns array $kngdata an array of the info on the site
     */
-    
+
     function siteURL()
     {
         $KNGname=$this->objConfig->getSitename();
         $WWWname=$this->objConfig->getSiteName();
         $KNGpath=$this->objConfig->getsiteRoot();
-        
+
         if ($KNGpath==''){
             $KNGpath=$_SERVER['PHP_SELF'];
         }
@@ -374,7 +374,7 @@ class useradmin_model extends dbtable
             'server'=>$WWWname
             );
     }
-    
+
 
     /**
     * Is a user an LDAP user.
@@ -429,6 +429,18 @@ class useradmin_model extends dbtable
         }
     }
     */
+
+    /**
+    * Method to get the details of a user by providing the id (not userid)
+    * @param string $id Id of the User
+    * @return array|boolean Array if the user exists, else FALSE
+    */
+    public function getUserDetails($id)
+    {
+        return $this->getRow('id', $id);
+    }
+
+
 } // end of class sqlUsers
 
 ?>
