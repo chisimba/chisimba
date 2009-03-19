@@ -134,7 +134,8 @@ class previewfolder extends filemanagerobject
                     $objTable->addCell($folderIcon);
                     
                     $folderLink = new link ($this->uri(array('action'=>'viewfolder', 'folder'=>$folder['id'])));
-                    $folderLink->link = basename($folder['folderpath']);
+					$folderLink->title = basename($folder['folderpath']);
+                    $folderLink->link = substr(basename($folder['folderpath']), 0, 70) . '...';
                     $objTable->addCell($folderLink->show());
                     $objTable->addCell('<em>'.$this->objLanguage->languageText('word_folder', 'system', 'Folder').'</em>');
                     $objTable->endRow();

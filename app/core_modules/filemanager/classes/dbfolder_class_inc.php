@@ -186,6 +186,7 @@ class dbfolder extends dbTable
             foreach ($folders as $folder)
             {
                 $folderText = basename($folder['folderpath']);
+				$folderShortText = substr(basename($folder['folderpath']), 0, 60) . '...';
 
                 if ($folder['id'] == $selected) {
                     $folderText = '<strong>'.$folderText.'</strong>';
@@ -195,9 +196,9 @@ class dbfolder extends dbTable
                 }
                 
                 if ($treeType == 'htmldropdown') {
-                    $node =& new treenode(array('text' => $folderText, 'link' => $folder['id'], 'icon' => $icon, 'expandedIcon' => $expandedIcon, 'cssClass'=>$cssClass));
+                    $node =& new treenode(array('title' => $folderText, 'text' => $folderShortText, 'link' => $folder['id'], 'icon' => $icon, 'expandedIcon' => $expandedIcon, 'cssClass'=>$cssClass));
                 } else {
-                    $node =& new treenode(array('text' => $folderText, 'link' => $this->uri(array('action'=>'viewfolder', 'folder'=>$folder['id'])), 'icon' => $icon, 'expandedIcon' => $expandedIcon, 'cssClass'=>$cssClass));
+                    $node =& new treenode(array('title' => $folderText, 'text' => $folderShortText, 'link' => $this->uri(array('action'=>'viewfolder', 'folder'=>$folder['id'])), 'icon' => $icon, 'expandedIcon' => $expandedIcon, 'cssClass'=>$cssClass));
                 }
                 
 
