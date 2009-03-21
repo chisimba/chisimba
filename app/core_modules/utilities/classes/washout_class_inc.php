@@ -92,14 +92,29 @@ class washout extends object
      * @return string The text after it has been parsed
      *
      */
-    public function parseText($txt, $bbcode = TRUE)
+    public function parseText($txt, $bbcode = TRUE, $excluded=NULL)
     {
-        //Loop over all parsers and run them on $txt
+        // Initialize variable
+        $doParse = TRUE;
+        // Loop over all parsers and run them on $txt.
         foreach ($this->classes as $parser) {
             try {
                 $currentParser = $parser;
-                $objCurrentParser = $this->getObject($currentParser, 'filters');
-                $txt = $objCurrentParser->parse($txt);
+                // Make sure that there are no exclusions.
+                if ($excluded && is_array($excluded)) {
+                    $parserPat = strtolower(str_replace("parse4", "", $parser));
+                	if (in_array($parserPat, $excluded)) {
+                 	    $doParse = FALSE;
+                    } else {
+                        $doParse = TRUE;
+                    }
+                } else {
+                    $doParse = TRUE;
+                }
+                if ($doParse == TRUE) {
+                    $objCurrentParser = $this->getObject($currentParser, 'filters');
+                    $txt = $objCurrentParser->parse($txt);
+                }
             }
             catch (customException $e)
             {
