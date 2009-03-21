@@ -54,6 +54,9 @@ class parse4rss extends object
         $this->objConfig = $this->getObject('altconfig', 'config');
         // Get an instance of the params extractor
         $this->objExpar = $this->getObject("extractparams", "utilities");
+        // Get an instance of the washout class for parsing filters in RSS
+        $this->objWashout = $this->getObject("washout", "utilities");
+        
     }
 
     /**
@@ -141,6 +144,10 @@ class parse4rss extends object
                 $txt = str_replace($item, $replacement, $txt);
                 $counter++;
             }
+            
+            // Now parse the filters that might be in the feeds, but
+            // avoid parsing the RSS any further to prevent recursion
+            $txt = $this->objWashout->parseText($txt, TRUE, array("rss"));
 
             return $txt;
         }
