@@ -7,7 +7,7 @@ $cssLayout =& $this->newObject('csslayout', 'htmlelements');
 $cssLayout->setNumColumns(2);
 
 //add left column
-$cssLayout->setLeftColumnContent($this->objOps->getLeftMenu());
+//$cssLayout->setLeftColumnContent($this->objOps->getLeftMenu());
 
 //set middle content
 $cssLayout->setMiddleColumnContent($this->getContent());
