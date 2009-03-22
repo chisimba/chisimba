@@ -195,7 +195,8 @@ class xmlrpcapi extends object
             $this->objConfig = $this->getObject('altconfig', 'config');
             $this->objLanguage = $this->getObject('language', 'language');
             // database abstraction object
-            $this->objDbBlog = $this->getObject('dbblog', 'blog');
+            //we don't need the blog here
+            //$this->objDbBlog = $this->getObject('dbblog', 'blog');
             // User Object
             $this->objUser = $this->getObject('user', 'security');
             // API abstraction objects
