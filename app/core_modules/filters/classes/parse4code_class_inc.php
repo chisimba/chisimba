@@ -8,7 +8,7 @@
  *       $a="Hello";
  *       $b="World";
  *       echo $a . " " . $b .".";
- *     [code]
+ *     [/code]
  * 
  * PHP version 5
  * 
@@ -56,7 +56,7 @@ $GLOBALS['kewl_entry_point_run'])
  *       $a="Hello";
  *       $b="World";
  *       echo $a . " " . $b .".";
- *     [code]
+ *     [/code]
 * 
 * @author     Tohir Solomons
 * @version    $Id: parse4kngtext_class_inc.php 2808 2007-08-03 09:05:13Z paulscott $
@@ -103,19 +103,13 @@ class parse4code extends object
     private function renderText($snippet)
     {
         preg_match_all('%\[code\ lang=(?:"|&quot;)(?P<language>\w*)(?:"|&quot;)\](?P<code>.*?)\[/code\]%si', $snippet, $result, PREG_PATTERN_ORDER);
-        
-        //echo '<pre>'.print_r($result).'</pre>';
-        
         $source = strip_tags($result['code'][0]);
         $source = str_replace('&nbsp;', ' ', $source);
         $source = html_entity_decode($source);
-        
         $geshiwrapper = $this->newObject('geshiwrapper', 'utilities');
         $geshiwrapper->source = $source;
         $geshiwrapper->language = $result['language'][0];
-        
         $geshiwrapper->startGeshi();
-        
         return $geshiwrapper->show();
     }
 
