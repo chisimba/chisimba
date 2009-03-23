@@ -2825,6 +2825,10 @@ p.im_source {
    background-color: white;
 }
 
+.menulinktext {
+    margin-left: 27px;
+}
+
 /**** Some classes specific to AHIS project (no separate skin developed) ****/
 tr.ahisLinkTable td {
     padding: 2px 20px;
