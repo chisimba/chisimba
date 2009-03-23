@@ -48,7 +48,7 @@ $GLOBALS['kewl_entry_point_run'])
 /**
 *
 * Class to parse a string (e.g. page content) that contains a filter
-* tag to rais an alert box
+* tag to raise an alert box
 *
 * It takes the form
 * [ALERT: url=http://somesite.com]The text of the alert[/ALERT]
@@ -115,12 +115,12 @@ class parse4alertbox extends object
     */
     public function parse($txt)
     {
-           //Match filters based on a wordpress style
+        //Match filters based on a wordpress style
         //Note the ? in the regex is important to enable the multiline
         //   feature, else it greedy
         preg_match_all('/(\\[ALERT:)(.*?)\\](.*?)(\\[\\/ALERT\\])/iusm', $txt, $results);
-           $counter = 0;
-           foreach ($results[3] as $item) {
+        $counter = 0;
+        foreach ($results[3] as $item) {
             //Parse for the parameters
             $str = trim($results[2][$counter]);
             //The whole match must be replaced
@@ -152,6 +152,14 @@ class parse4alertbox extends object
         }
     }
 
+    /**
+    * 
+    * Get the alert URL via ajax call
+    * or sow an error if there is no URL
+    * 
+    * @Return string THe URL contents or an error message.
+    * 
+    */
     private function getAlert($url, &$item)
     {
         if (isset($url) && $url !== NULL) {
