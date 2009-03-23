@@ -70,7 +70,7 @@ class cssmenu extends object
                 $icon=$this->toolbarIcon->show();
 
                 $objLink = new link($this->uri('',$link));
-                $objLink->link = $icon.'<span>'.$val.'</span>';
+                $objLink->link = $icon.'<div class="menulinktext">'.$val.'</div>';
 
                 $valLink=$objLink->show();
 
