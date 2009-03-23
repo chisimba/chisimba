@@ -551,10 +551,19 @@ class modulesadmin extends dbTableManager
                         //$conditionList = explode( ',', $array[1] );
                         // create the rules (rights).
                         foreach($actionList as $action) {
-                            $data = array(
-                                'area_id' => $areaId,
-                                'right_define_name' => $action,
-                            );
+                            if(isset($areaId)) {
+                                $data = array(
+                                    'area_id' => $areaId,
+                                    'right_define_name' => $action,
+                                );
+                            }
+                            else {
+                                $data = array(
+                                    'application_id' => $this->appid,
+                                    'area_define_name' => $moduleId,
+                                );
+                                $areaId  = $this->objLuAdmin->perm->addArea($data);
+                            }
                             $rightId = $this->objLuAdmin->perm->addRight($data);
                             if($this->grId == null) {
                                 $this->grId = $objGroups->getId($moduleId);
