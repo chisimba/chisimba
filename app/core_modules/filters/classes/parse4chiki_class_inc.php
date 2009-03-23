@@ -82,8 +82,9 @@ class parse4chiki extends object
     public function parse($str)
     {
         $str = stripslashes($str);
-        preg_match_all('/\\{\\{(.*?)\\}\\}/', $str, $results, PREG_PATTERN_ORDER);
+        preg_match_all('/\\{(.*?)\\}/', $str, $results, PREG_PATTERN_ORDER);
         $counter = 0;
+        
         foreach ($results[0] as $item)
         {
             $extracted = $results[1][$counter];
