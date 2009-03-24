@@ -1,24 +1,24 @@
 <?php
 /**
  * Packages interface class
- * 
+ *
  * XML-RPC (Remote Procedure call) class
- * 
+ *
  * PHP version 5
- * 
- * This program is free software; you can redistribute it and/or modify 
- * it under the terms of the GNU General Public License as published by 
- * the Free Software Foundation; either version 2 of the License, or 
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * This program is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License 
- * along with this program; if not, write to the 
- * Free Software Foundation, Inc., 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
  * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- * 
+ *
  * @category  Chisimba
  * @package   api
  * @author    Paul Scott <pscott@uwc.ac.za>
@@ -43,9 +43,9 @@ $GLOBALS['kewl_entry_point_run']) {
 
 /**
  * Packages XML-RPC Class
- * 
+ *
  * Class to provide Chisimba Packages XML-RPC functionality
- * 
+ *
  * @category  Chisimba
  * @package   api
  * @author    Paul Scott <pscott@uwc.ac.za>
@@ -60,10 +60,10 @@ class packagesapi extends object
 
     /**
      * init method
-     * 
+     *
      * Standard Chisimba init method
-     * 
-     * @return void  
+     *
+     * @return void
      * @access public
      */
     public function init()
@@ -81,7 +81,7 @@ class packagesapi extends object
             exit;
         }
     }
-    
+
 
 
     /**
@@ -105,7 +105,7 @@ class packagesapi extends object
             $dep2 = $this->objCatalogueConfig->getModuleDeps($dep);
             $dep2 = explode(',', $dep2);
             $depos[] = $dep2;
-            
+
         }
         //log_debug($depos);
         foreach($depos as $d2)
@@ -165,11 +165,13 @@ class packagesapi extends object
             $path = $this->objConfig->getsiteRootPath().'core_modules/'.$mod->scalarval().'/';
             $filepath = $this->objConfig->getsiteRootPath().'core_modules/'.$mod->scalarval().'.zip';
             //zip up the module
-            $objZip = $this->getObject('wzip', 'utilities');
+            //$objZip = $this->getObject('wzip', 'utilities');
             //$zipfile = $objZip->packFilesZip($filepath, $path, TRUE, FALSE);
-            $zipfile = $objZip->addArchive($path, $filepath, $this->objConfig->getsiteRootPath().'core_modules/');
+            //$zipfile = $objZip->addArchive($path, $filepath, $this->objConfig->getsiteRootPath().'core_modules/');
+            $zipfile = $this->makeZip($path, $filepath);
             $filetosend = file_get_contents($zipfile);
             $filetosend = base64_encode($filetosend);
+            log_debug($filetosend);
             $val = new XML_RPC_Value($filetosend, 'string');
             //unlink($filepath);
             if($this->objModules->checkIfRegistered('remotepopularity'))
@@ -214,14 +216,15 @@ class packagesapi extends object
         // Ooops, couldn't open the file so return an error message.
         return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
     }
-    
+
     public function zipDependencies($modulesarr, $mod)
     {
-        $objZip = $this->getObject('wzip', 'utilities');
+        //$objZip = $this->getObject('wzip', 'utilities');
         $filepath = $this->objConfig->getModulePath().$mod.'.zip';
         $modulesarr = implode(',', $modulesarr);
         // log_debug($modulesarr);
-        $zipfile = $objZip->addArchive($modulesarr, $filepath, $this->objConfig->getModulePath());
+        //$zipfile = $objZip->addArchive($modulesarr, $filepath, $this->objConfig->getModulePath());
+        $zipfile = $this->makeZip($modulesarr, $filepath);
         $filetosend = file_get_contents($zipfile);
         $filetosend = base64_encode($filetosend);
         return $filetosend;
@@ -241,8 +244,9 @@ class packagesapi extends object
         log_debug($mod);
         $path = $this->objConfig->getModulePath();
         //zip up the module
-        $objZip = $this->getObject('wzip', 'utilities');
-        $zipfile = $objZip->addArchive($path, $filepath, $this->objConfig->getModulePath());
+        //$objZip = $this->getObject('wzip', 'utilities');
+        //$zipfile = $objZip->addArchive($path, $filepath, $this->objConfig->getModulePath());
+        $zipfile = $this->makeZip($path, $filepath);
         $filetosend = file_get_contents($zipfile);
         $filetosend = base64_encode($filetosend);
         $val = new XML_RPC_Value($filetosend, 'string');
@@ -263,7 +267,7 @@ class packagesapi extends object
         return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
     }
 
-    
+
     /**
      * Method to grab a specified module's description
      *
@@ -373,8 +377,9 @@ class packagesapi extends object
         $filepath = $this->objConfig->getskinRoot().$skin.".zip";
         //log_debug("Zip is at $filepath");
         //zip up the skin
-        $objZip = $this->getObject('wzip', 'utilities');
-        $zipfile = $objZip->addArchive($path, $filepath, $this->objConfig->getSkinRoot());
+        //$objZip = $this->getObject('wzip', 'utilities');
+        //$zipfile = $objZip->addArchive($path, $filepath, $this->objConfig->getSkinRoot());
+        $zipfile = $this->makeZip($path, $filepath);
         $filetosend = file_get_contents($zipfile);
         $filetosend = base64_encode($filetosend);
         // log_debug($filetosend);
@@ -385,7 +390,7 @@ class packagesapi extends object
         // Ooops, couldn't open the file so return an error message.
         return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
     }
-    
+
     /**
      * Method to return a list of available skins for remote download
      *
@@ -397,7 +402,7 @@ class packagesapi extends object
         foreach(glob('*') as $skins)
         {
             $sklist .= $skins."|";
-        }    
+        }
         $val = new XML_RPC_Value($sklist, 'string');
         log_debug("Sent Skin List to client");
         return new XML_RPC_Response($val);
@@ -418,7 +423,7 @@ class packagesapi extends object
         log_debug("Sent systemtypes.xml to client at ".$_SERVER['REMOTE_ADDR']);
         return new XML_RPC_Response($val);
     }
-    
+
     /**
      * Method to get the remote engine version for core upgrade
      *
@@ -431,23 +436,62 @@ class packagesapi extends object
         $val = new XML_RPC_Value($ver, 'string');
         return new XML_RPC_Response($val);
     }
-    
+
     public function getEngUpgrade()
     {
-        $objZip = $this->getObject('wzip', 'utilities');
+        //$objZip = $this->getObject('wzip', 'utilities');
         $filepath = $this->objConfig->getsiteRootPath().'core.zip';
         $path = $this->objConfig->getsiteRootPath().'classes/';
-        
-        $zipfile = $objZip->addArchive($path, $filepath, $this->objConfig->getsiteRootPath());
+
+        //$zipfile = $objZip->addArchive($path, $filepath, $this->objConfig->getsiteRootPath());
+        $zipfile = $this->makeZip($path, $filepath);
         $filetosend = file_get_contents($zipfile);
         $filetosend = base64_encode($filetosend);
-        
+
         $val = new XML_RPC_Value($filetosend, 'string');
         unlink($filepath);
         log_debug("Sent core upgrade to client at ".$_SERVER['REMOTE_ADDR']);
         return new XML_RPC_Response($val);
         // Ooops, couldn't open the file so return an error message.
         return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
+    }
+
+    private function makeZip($path, $filename) {
+        if(!extension_loaded('zip')) {
+            log_debug("Zip extension missing!");
+            throw new customException("Zip extension required!");
+        }
+        $zip = new ZipArchive();
+        if ($zip->open($filename, ZIPARCHIVE::CREATE)!==TRUE) {
+            log_debug("Unable to open zip file for creation");
+            throw new customException("cannot open <$filename>");
+        }
+        // glob and get a list of files
+        chdir($path);
+        log_debug("Changed path to $path");
+        // log_debug($this->rglob('*', 0, ''));
+        foreach($this->rglob('*', 0, '') as $files) {
+            if(is_dir($files)) {
+                $zip->addEmptyDir($files);
+            }
+            else {
+                $zip->addFile($files);
+            }
+        }
+        log_debug("numfiles: " . $zip->numFiles);
+        log_debug("status:" . $zip->status);
+        $zip->close();
+
+        return $filename;
+    }
+
+    public function rglob($pattern='*', $flags = 0, $path='') {
+        $paths = glob($path.'*', GLOB_MARK|GLOB_ONLYDIR|GLOB_NOSORT);
+        $files = glob($path.$pattern, $flags);
+        foreach ($paths as $path) {
+            $files = array_merge($files,$this->rglob($pattern, $flags, $path));
+        }
+        return $files;
     }
 }
 ?>
