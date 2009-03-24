@@ -329,9 +329,10 @@ class skin extends object
 
     /**
      * Method to generate a form for a site-wide search
+     * @param boolean $compact whether or not to use the compact search form for small screens.
      * @return str Search Form
      */
-    public function siteSearchBox()
+    public function siteSearchBox($compact = FALSE)
     {
         $this->loadClass('label', 'htmlelements');
         $slabel = new label($this->objLanguage->languageText('phrase_sitesearch', 'search', 'Site Search') .':', 'input_search');
@@ -340,11 +341,14 @@ class skin extends object
         //$sform->addRule('searchterm', $this->objLanguage->languageText("mod_blog_phrase_searchtermreq", "blog") , 'required');
         $query = new textinput('search');
         $query->size = 15;
-        $sform->addToForm($slabel->show().' '.$query->show().' ');
-        $this->objSButton = &new button($this->objLanguage->languageText('word_go', 'system'));
+        $this->objSButton = new button($this->objLanguage->languageText('word_go', 'system'));
         $this->objSButton->setValue($this->objLanguage->languageText('word_go', 'system'));
         $this->objSButton->setToSubmit();
-        $sform->addToForm($this->objSButton->show());
+        if ($compact) {
+            $sform->addToForm($slabel->show().' '.$this->objSButton->show().'<br /> '.$query->show());
+        } else {
+            $sform->addToForm($slabel->show().' '.$query->show().' '.$this->objSButton->show());
+        }
         $sform = '<div id="search">'.$sform->show().'</div>';
         //Letus look at the configuration file file first
         $objConfig = $this->getObject('altconfig','config');
