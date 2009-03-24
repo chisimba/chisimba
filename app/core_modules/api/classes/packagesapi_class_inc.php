@@ -151,13 +151,23 @@ class packagesapi extends object
                 unset($deps);
             }
             //check for core_modules and unset that too
+            if(!isset($deps)) {
+                $deps = NULL;
+            }
+
             if(preg_match("/core_modules/i", $deps))
             {
                 unset($deps);
             }
             $depe[] = $deps;
+
         }
-        $depe = array_filter($depe);
+        if(!isset($depe)) {
+            $depe = array();
+        }
+        if(is_array($depe)) {
+            $depe = array_filter($depe);
+        }
         $filepath = $this->objConfig->getModulePath().$mod->scalarval().'.zip';
         if(!file_exists($path))
         {
@@ -171,7 +181,7 @@ class packagesapi extends object
             $zipfile = $this->makeZip($path, $filepath);
             $filetosend = file_get_contents($zipfile);
             $filetosend = base64_encode($filetosend);
-            log_debug($filetosend);
+            // log_debug($filetosend);
             $val = new XML_RPC_Value($filetosend, 'string');
             //unlink($filepath);
             if($this->objModules->checkIfRegistered('remotepopularity'))
@@ -468,7 +478,7 @@ class packagesapi extends object
         }
         // glob and get a list of files
         chdir($path);
-        log_debug("Changed path to $path");
+        //log_debug("Changed path to $path");
         // log_debug($this->rglob('*', 0, ''));
         foreach($this->rglob('*', 0, '') as $files) {
             if(is_dir($files)) {
@@ -478,8 +488,8 @@ class packagesapi extends object
                 $zip->addFile($files);
             }
         }
-        log_debug("numfiles: " . $zip->numFiles);
-        log_debug("status:" . $zip->status);
+        //log_debug("numfiles: " . $zip->numFiles);
+        //log_debug("status:" . $zip->status);
         $zip->close();
 
         return $filename;
