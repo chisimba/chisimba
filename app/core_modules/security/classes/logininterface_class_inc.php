@@ -126,7 +126,7 @@ class loginInterface extends object
             }
             //--- Create an element for the remember me checkbox
             $objRElement = new checkbox("remember");
-            $objRElement->setCSS("transparentbgnb");
+            $objRElement->setCSS("transparentbgnb noborder");
             $objRElement->label=$this->objLanguage->languageText("phrase_rememberme", "security");
             $rem = $objRElement->label.' '.$objRElement->show() . "<br />";
 
