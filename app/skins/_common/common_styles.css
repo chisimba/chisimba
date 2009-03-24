@@ -2829,10 +2829,6 @@ p.im_source {
     margin-left: 27px;
 }
 
-/**** Some classes specific to AHIS project (no separate skin developed) ****/
-tr.ahisLinkTable td {
-    padding: 2px 20px;
-}
-hr.ahis {
-    margin: 5px 50px 15px 50px;
+.noborder {
+	border: none;
 }
