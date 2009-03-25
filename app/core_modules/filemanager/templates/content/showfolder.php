@@ -55,9 +55,9 @@ if ((count($files) > 0 || count($subfolders) > 0 || count($symlinks) > 0) && $fo
     
     // Check ability to create symlinks
     if ($this->contextCode != '' && $this->getParam('context') != 'no' && substr($folder['folderpath'], 0, 7) != 'context') {
-        
+       
         $folderPermission = $this->objFolders->checkPermissionUploadFolder('context', $this->contextCode);
-        
+       
         if ($folderPermission) {
             $symlinkButton = new button ('symlinkcontext', $this->objLanguage->code2Txt('mod_filemanager_attachtocontext', 'filemanager', NULL, 'Attach to [-context-]'));
             $symlinkButton->setToSubmit();
@@ -83,7 +83,7 @@ if ((count($files) > 0 || count($subfolders) > 0 || count($symlinks) > 0) && $fo
 }
 
 
-if ($folderPermission) {
+if ($folderPermission2) {
     echo '<h3>'.$this->objLanguage->languageText('phrase_uploadfiles', 'system', 'Upload Files').'</h3>';
     
     if ($quota['quotausage'] >= $quota['quota']) {

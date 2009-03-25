@@ -891,6 +891,7 @@ class filemanager extends controller
 
         $this->setVar('folderId', $id);
         $this->setVar('folderPermission', $folderPermission);
+        $this->setVar('folderPermission2', $folderPermission);
 
         $subfolders = $this->objFolders->getSubFolders($id);
         $this->setVarByRef('subfolders', $subfolders);
