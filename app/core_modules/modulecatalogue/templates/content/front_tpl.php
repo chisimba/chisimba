@@ -197,7 +197,7 @@ if ($modules) {
                 $actions = false;
             } else {
                 $doc = simplexml_load_string($this->objRPCClient->getModuleDescription($moduleId));
-                if ($doc) {
+                if (is_object($doc)) {
                     $moduleName = ucfirst((string)$doc->array->data->value[0]->string);
                     $desc = (string)$doc->array->data->value[1]->string;
 
