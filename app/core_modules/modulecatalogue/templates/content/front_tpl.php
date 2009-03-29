@@ -215,6 +215,7 @@ if ($modules) {
             }
 
             $rClass = ($rClass == 'odd')? 'even' : 'odd';
+            if (!isset($actions)) $actions = '';
             $objRemoteTable->startRow();
             $objRemoteTable->addCell('&nbsp;',20,null,'left',$rClass);
             $objRemoteTable->addCell($icon->show(),30,null,'left',$rClass);
