@@ -2,7 +2,7 @@
 
 /**
  * Class to parse a string (e.g. page content) that contains a wiki
- * like tag such as {{Tag}}
+ * like tag such as {Tag}
  *
  * PHP version 5
  *
@@ -45,7 +45,7 @@ $GLOBALS['kewl_entry_point_run'])
 /**
  *
  * Class to parse a string (e.g. page content) that contains a wiki
- * like tag such as {{Tag}}
+ * like tag such as {Tag}
  *
  * @author Derek Keats
  *
@@ -110,7 +110,7 @@ class parse4chiki extends object
     /**
     *
     * Execute the command identified by the chiki (single word string
-    * enclosed in {{curly braces}})
+    * enclosed in {curly braces})
     *
     * @access private
     * @param string $chikiStr The chiki string
