@@ -99,7 +99,6 @@ class toolbar_elearn extends object
      */
     public function addContextLogoutJS()
     {
-        $contextUri = str_replace('&amp;', '&', $this->uri(array('action'=>'leavecontext'), 'context'));
         $homeUri = $this->uri(NULL, '_default');
         return "
 <script type=\"text/javascript\">
@@ -110,8 +109,6 @@ jQuery('.homelink').attr('href', 'javascript:;');
 jQuery('.homelink').bind('click', function() {
         
         if (confirm('".$this->objLanguage->code2Txt('mod_toolbar_requestcontextlogoutoption', 'toolbar', NULL, 'Would you like to log out of this [-context-]')."?')) {
-            window.location.href = '{$contextUri}';
-        } else {
             window.location.href = '{$homeUri}';
         }
     });
