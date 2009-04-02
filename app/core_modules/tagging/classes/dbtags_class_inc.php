@@ -211,6 +211,12 @@ class dbtags extends dbTable
         return $this->getArray($sql);
     }
 
+    public function getHashTagsByModule($module) {
+        $sql = "SELECT DISTINCT meta_value FROM tbl_tags WHERE module='$module' and meta_key='hashtag'";
+
+        return $this->getArray($sql);
+    }
+
     public function getAllPostsByTag($tag, $module = NULL) {
         return $this->getAll("WHERE meta_value = '$tag' and module='$module'");
     }
