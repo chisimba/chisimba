@@ -2826,9 +2826,13 @@ p.im_source {
 }
 
 .menulinktext {
-    margin-left: 27px;
+    margin-left: 5px;
 }
 
 .noborder {
 	border: none;
+}
+.chisimba-combobox {
+width:200px;
+margin-bottom: 20px
 }
