@@ -81,7 +81,9 @@ class dbcontextblocks extends dbTable {
      */
     public function getContextBlocks($contextCode, $side) {
         $results = $this->getContextBlocksList ( $contextCode, $side );
-        if (count ( $results ) == 0) {
+ 
+
+       if (count ( $results ) == 0) {
             return '';
         } else {
             $str = '';
@@ -102,8 +104,7 @@ class dbcontextblocks extends dbTable {
                     $str .= '<div id="' . $result ['id'] . '" class="block">' . $blockStr . '</div>';
                 }
             }
-
-            return $str;
+            return  $str;
         }
     }
 

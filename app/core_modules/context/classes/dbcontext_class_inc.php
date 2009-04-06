@@ -391,8 +391,33 @@ class dbcontext extends dbTable {
      * @access public
      */
     public function getListOfPublicContext() {
-        return $this->getAll ( "WHERE access='Open' OR access='Public' ORDER BY menutext" );
-    }
+     //   return $this->getAll ( "WHERE access='Open' OR access='Public' or access='Private' ORDER BY menutext" );
+        $objUserContext = $this->getObject('usercontext', 'context');
+        // Get all user contents
+        $sql="WHERE access='Open' OR access='Public'  ORDER BY menutext" ;
+        $publicCourses=$this->getAll ($sql);
+
+       
+        if($this->objUser->isLoggedIn()){
+        $contexts= $objUserContext->getUserContext($this->objUser->userId());
+        $tmp = array();
+        $row=0;
+        foreach ($contexts as $con){
+	       $tmp[$row] = array('contextcode'=>$con,'menutext'=>$this->getTitle($con));
+	      $row++;
+         }
+        //then add public courese
+         foreach ($publicCourses as $p){
+           $tmp[$row] = array('contextcode'=>$p['contextcode'],'menutext'=>$this->getTitle($p['contextcode']));
+          $row++;
+         }
+
+        return $tmp;
+
+        }else{
+        return $publicCourses;
+        }
+ }
 
     /**
      * Method to delete a context

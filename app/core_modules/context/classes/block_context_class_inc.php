@@ -107,8 +107,9 @@ class block_context extends object
             $dropdown = new dropdown ('contextcode');
             foreach ($courses AS $course)
             {
-                $dropdown->addOption($course['contextcode'], $course['menutext']);
-            }
+//                $dropdown->addOption($course[0], $course[1]);
+  $dropdown->addOption($course['contextcode'], $course['menutext']);  
+          }
             $dropdown->setSelected($objContext->getContextCode());
             $button = new button ('submitform', ucwords($this->objLanguage->code2Txt('mod_context_entercourse', 'context', NULL, 'Enter [-context-]')));
             $button->setToSubmit();
