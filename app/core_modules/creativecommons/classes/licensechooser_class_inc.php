@@ -141,7 +141,11 @@ class licensechooser extends object
             }
             
             // Set Default Selected Value
-            $radio->setSelected($this->defaultValue);
+            if ($this->defaultValue) {
+                $radio->setSelected($this->defaultValue);
+            } else {
+                $radio->setSelected($this->objSysConfig->getValue('default', 'creativecommons'));
+            }
             
             // Return Radio Button
             return $radio->show();
