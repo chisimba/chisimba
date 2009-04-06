@@ -93,6 +93,11 @@ class context extends controller {
             $this->objModuleCatalogue = $this->getObject('modules', 'modulecatalogue');
 			
 			$this->objContextGroups = $this->getObject('managegroups', 'contextgroups');
+			
+			$test = "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW";
+			$lect = $this->objContextGroups->isContextLecturer();
+error_log(var_export($lect, TRUE));
+
 
         } catch ( customException $e ) {
             customException::cleanUp ();
@@ -121,7 +126,7 @@ class context extends controller {
      * @param $action Action to be taken
      * @return boolean
      */
-    public function isValid($action) {		
+    public function isValid($action) {			
         if ($this->objUser->isAdmin () || $this->objContextGroups->isContextLecturer()) {
             return TRUE;
         } else {
@@ -532,14 +537,69 @@ class context extends controller {
             }
         }
     }
+    
+     /**
+     * Method to get all contexts via ajax
+     */
+    protected function __ajaxgetallcontexts() {    	
+       	$objUtils = $this->getObject('utilities');
+    	echo $objUtils->searchBlock();      
+       
+    }
+    
+    
+    /**
+     * Method to leave a context
+     *
+     * @access protected
+     */
+    protected function __searchcontext() {
+    	$objUtils = $this->getObject('utilities');
+    	$items = $objUtils->getContextList();
+
+		$q = $this->getParam('q');
+		foreach ($items as $key=>$value) {
+			if (strpos(strtolower($key), $q) !== false) {
+				echo "$key|$value\n";
+
+			}
+		}
+		exit(0);
+    }
+    
     /**
      * Method to leave a context
      *
      * @access protected
      */
     protected function __leavecontext() {
-        $this->objContext->leaveContext ();
+    	
+    	$this->objContext->leaveContext ();
         return $this->nextAction ( NULL, NULL, '_default' );
+    }
+    
+     /**
+     * Method to format a context
+     *
+     * @access protected
+     */
+    protected function __ajaxgetselectedcontext()
+    {
+    	$objUtils = $this->getObject('utilities');
+    	echo $objUtils->formatSelectedContext($this->getParam('contextcode'));
+    	exit(0);
+    }
+    
+    /**
+     * Method to format the user context list
+     *
+     * @access protected
+     */
+    protected function __ajaxgetselectedusercontext()
+    {
+    	$objUtils = $this->getObject('utilities');
+    	echo $objUtils->formatUserContext($this->getParam('username'));
+    	exit(0);
     }
 }
 

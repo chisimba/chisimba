@@ -79,6 +79,7 @@ class block_browsecontext extends object
     {
         try {
             $this->objLanguage =  $this->getObject('language', 'language');
+            $this->objUser =  $this->getObject('user', 'security');
             $this->title = ucwords($this->objLanguage->code2Txt('mod_context_browseallcontexts', 'context', NULL, 'Browse All [-contexts-]'));
             //$this->title = ucWords($this->objLanguage->code2Txt("mod_context_contexts",'context'));
             
@@ -99,14 +100,16 @@ class block_browsecontext extends object
 
 
         $objTab = $this->newObject('tabpane', 'htmlelements');
+        $objUtils = $this->getObject('utilities', 'context');
         $objNav = $this->getObject('contextadminnav', 'contextadmin');
         $str = $this->objLanguage->languageText('word_browse', 'glossary', 'Browse').': '.$objNav->getAlphaListingAjax();
         $str2 = '<div id="browseusercontextcontent"></div>';
         $str .= '<div id="browsecontextcontent"></div>';
+        //$str3 = '<div id="browseallcontextcontent"></div>';
         
         $str .= $this->getJavaScriptFile('contextbrowser.js');
         
-        $this->appendArrayVar('bodyOnLoad', "getContexts('A');getUserContexts()");
+        $this->appendArrayVar('bodyOnLoad', "getContexts('A');getUserContexts();");
         
         
         $this->appendArrayVar('headerParams', '<script type="text/javascript">contextPrivateMessage="'.$this->objLanguage->code2Txt('mod_context_privatecontextexplanation', 'context', NULL, 'This is a closed [-context-] only accessible to members').'"; </script>');
@@ -119,6 +122,15 @@ class block_browsecontext extends object
                 'name' =>ucWords($this->objLanguage->code2Txt('phrase_othercourses', 'system', NULL, 'Other [-contexts-]')) ,
                 'content' => $str
             ) );
+        
+        //show all the course if you are admin    
+        if ($this->objUser->isAdmin())
+        {
+	        $objTab->addTab(array(
+	                'name' =>ucWords($this->objLanguage->code2Txt('phrase_allcourses', 'system', NULL, 'Search [-contexts-]')) ,
+	                'content' => $objUtils->searchBlock()
+	            ) );
+        }
 
 /*            $objTab->addTab(ucWords($this->objLanguage->code2Txt('phrase_mycourses', 'system', NULL, 'My [-contexts-]')), $str2);
         $objTab->addTab(ucWords($this->objLanguage->code2Txt('phrase_othercourses', 'system', NULL, 'Other [-contexts-]')),$str);*/

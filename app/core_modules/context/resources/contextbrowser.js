@@ -41,6 +41,56 @@
         
     }
     
+    function getAllContext()
+    {
+    	
+    	
+    	jQuery.ajax({
+            type: "GET", 
+            url: "index.php", 
+            data: "module=context&action=ajaxgetallcontexts",
+            success: function(msg){
+                jQuery('#browseallcontextcontent').html(msg);
+                if ('function' == typeof window.adjustLayout) {
+                    adjustLayout();
+                }
+            }
+        });
+    }
+    
+    function getContext(contextCode)
+    {
+    	
+    	jQuery.ajax({
+            type: "GET", 
+            url: "index.php", 
+            data: "module=context&action=ajaxgetselectedcontext&contextcode="+contextCode,
+            success: function(msg){
+                jQuery('#context_results').html(msg);
+                if ('function' == typeof window.adjustLayout) {
+                    adjustLayout();
+                }
+            }
+        });	
+    }
+    
+    function getUserContext(username)
+    {
+    	
+    	jQuery.ajax({
+            type: "GET", 
+            url: "index.php", 
+            data: "module=context&action=ajaxgetselectedusercontext&username="+username,
+            success: function(msg){
+                jQuery('#context_results').html(msg);
+                if ('function' == typeof window.adjustLayout) {
+                    adjustLayout();
+                }
+            }
+        });	
+    }
+    
+    
     function contextPrivate()
     {
         alert(contextPrivateMessage);

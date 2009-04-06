@@ -83,6 +83,7 @@ class utilities extends object {
         $this->objDBContextParams = $this->getObject ( 'dbcontextparams', 'context' );
         $this->objLanguage = $this->getObject ( 'language', 'language' );
         $this->contextCode = $this->objDBContext->getContextCode ();
+        $this->objUser = $this->getObject('user', 'security');
         $this->_objContextModules = $this->getObject ( 'dbcontextmodules', 'context' );
 
     }
@@ -331,5 +332,199 @@ class utilities extends object {
             exit ();
         }
     }
+    
+    
+    /**
+     * Block to searh for context
+     */
+    public function searchBlock()
+    {
+    	
+	//$script = $this->getJavaScriptFile('jquery/1.2.3/jquery-1.2.3.pack.js', 'htmlelements');
+	
+	$script = $this->getJavaScriptFile('jquery/jquery-ui-personalized-1.6rc6/jquery-1.3.1.js', 'htmlelements');
+	$script .= $this->getJavaScriptFile('jquery/jquery-ui-personalized-1.6rc6/jquery-ui-personalized-1.6rc6.js', 'htmlelements');
+	$script .= '<link type="text/css" href="'.$this->getResourceUri('jquery/jquery-ui-personalized-1.6rc6/theme/ui.all.css', 'htmlelements').'" rel="Stylesheet" />';
+	$script .= $this->getJavaScriptFile('jquery/jquery.autocomplete.js', 'htmlelements');
+	$this->appendArrayVar('headerParams', $script);
+	$str = '<link rel="stylesheet" href="'.$this->getResourceUri('jquery/jquery.autocomplete.css', 'htmlelements').'" type="text/css" />';
+	$this->appendArrayVar('headerParams', $str);
+	
+		$str = '<script type="text/javascript">
+$().ready(function() {
+
+	function findValueCallback(event, data, formatted) {
+		$("<li>").html( !data ? "No match!" : "Selected: " + formatted).appendTo("#result");
+	}
+
+	function formatItem(row) {
+		return row[0] + " (<strong>username: " + row[1] + "</strong>)";
+	}
+	
+	function formatContextItem(row) {
+		return row[0] + " (<strong>'.$this->objLanguage->code2Txt('phrase_othercourses', 'system', NULL, '[-context-]').' Code: " + row[1] + "</strong>)";
+	}
+	
+	function formatResult(row) {
+		//return row[0].replace(/(<.+?>)/gi, \'\');
+		return row[0];
+	}
+
+$(":text, textarea").result(findValueCallback).next().click(function() {
+		$(this).prev().search();
+	});
+
+
+	$("#usersearch").autocomplete(\'index.php?module=groupadmin&action=searchusers\', {
+		width: 300,
+		multiple: false,
+		matchContains: true,
+		formatItem: formatItem,
+		formatResult: formatResult,
+		
+	}).result(function (evt, data, formatted) {				
+					$("#usersearch_selected").val(data[1]);
+					});
+
+$("#contextsearch").autocomplete(\'index.php?module=context&action=searchcontext\', {
+		width: 300,
+		multiple: false,
+		matchContains: true,
+		formatItem: formatContextItem,
+		formatResult: formatResult,
+		
+	}).result(function (evt, data, formatted) {				
+					$("#contextsearch_selected").val(data[1]);
+					});
+					
+	$("#clear").click(function() {
+		$(":input").unautocomplete();
+	});
+});
+
+function submitSearch(data)
+{
+
+	alert(data[0]);
+}
+
+
+function changeOptions(){
+	var max = parseInt(window.prompt(\'Please type number of items to display:\', jQuery.Autocompleter.defaults.max));
+	if (max > 0) {
+		$("#suggest1").setOptions({
+			max: max
+		});
+	}
+}
+
+function submitSearchForm(frm)
+{	
+	username = frm.usersearch_selected.value;
+	
+	if(username)
+	{
+		getUserContext(username);
+	}
+	
+	frm.usersearch_selected.value = "";
+	frm.usersearch.value = "";
+	
+}
+
+function submitContextSearchForm(frm)
+{
+	contextCode = frm.contextsearch_selected.value;
+	if(contextCode)
+	{
+		getContext(contextCode);
+		
+	}
+	
+	frm.contextsearch_selected.value = "";
+	frm.contextsearch.value = "";
+}
+
+	</script>';
+	$this->appendArrayVar('headerParams', $str);
+    	$input = '<div style="padding:10px;border:0px dashed black;" >
+			<form id="searchform" name="searchform" autocomplete="off">
+				<p>
+					
+					<table>
+						<tr>
+							<td>Search by user</td>
+							<td><input type="text" id="usersearch"><input type="hidden" id="usersearch_selected">&nbsp;
+					<input id="searchbutton" type="button" onclick="submitSearchForm(this.form)" value="Search" /></td>
+						</tr>
+						<tr>
+							<td>'.$this->objLanguage->code2Txt('phrase_othercourses', 'system', NULL, 'Search by [-context-]').'</td>
+							<td><input type="text" id="contextsearch"><input type="hidden" name="contextsearch_selected" id="contextsearch_selected">	
+							&nbsp;
+							<input id="searchbutton" type="button" onclick="submitContextSearchForm(this.form)" value="Search" /></td>
+						</tr>
+					</table>
+				</p>
+			</form>
+		</div>
+		<div id="context_results"></div>';
+    	
+    	return $input;
+    }
+    
+    /**
+     * Method to get all the context by a filter
+     * @param string $filter
+     */
+    public function getContextList()
+    {
+    	$contexts = $this->objDBContext->getAll();
+
+		$arr = array();
+		foreach($contexts as $context)
+		{
+			$arr[ $this->objDBContext->getTitle($context['contextcode'])] = $context['contextcode'];//$user['userid'];
+		}
+
+		return $arr;
+    }
+    
+    
+    /**
+     * Method to format a users context
+     * @oaram string username
+     */
+    public function formatUserContext($username)
+    {
+    	$this->objUserContext = $this->getObject('usercontext', 'context');
+    	$contexts = $this->objUserContext->getUserContext($this->objUser->getUserId($username));
+    	if(count($contexts) > 0)
+    	{
+    		$str = "";
+    		$objDisplayContext = $this->getObject ( 'displaycontext', 'context' );
+    		foreach($contexts as $contextCode)
+    		{
+    			$context = $this->objDBContext->getContext($contextCode);
+    			$str .= $objDisplayContext->formatContextDisplayBlock ( $context, FALSE, FALSE ) . '<br />';
+    		}
+    		
+    		return $str;
+    	} else {
+    		return '<span class="subdued>'.$this->objLanguage->code2Txt('phrase_othercourses', 'system', NULL, 'No [-contexts-] found for this user') .'</span>';
+    	}
+    	
+    }
+    
+    /**
+     * Method to format a context
+     * @oaram string username
+     */
+    public function formatSelectedContext($contextCode)
+    {
+    	$context = $this->objDBContext->getContext($contextCode);
+    	$objDisplayContext = $this->getObject ( 'displaycontext', 'context' );
+    	return $objDisplayContext->formatContextDisplayBlock ( $context, FALSE, FALSE ) . '<br />';
+    }
+    
 }
 ?>
