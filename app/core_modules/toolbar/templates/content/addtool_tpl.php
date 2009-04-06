@@ -35,7 +35,7 @@ $dependsLabel = $objLanguage->languageText('mod_toolbar_dependscontext','toolbar
 $saveLabel = $objLanguage->languageText('word_save','security', 'Save');
 $backLabel = $objLanguage->languageText('word_back','security', 'Back');
 $setPermLabel = $objLanguage->languageText('mod_toolbar_confperm', 'toolbar','Configure link Permissions');
-$linkPermLabel = $objLanguage->languageText('mod_toolbar_linkpermissions','toolbar', 'Link Permissions');
+//$linkPermLabel = $objLanguage->languageText('mod_toolbar_linkpermissions','toolbar', 'Link Permissions');
 
 // categories for dropdown list
 $organise = $objLanguage->languageText('category_organise', 'toolbar','Organise');
@@ -169,20 +169,20 @@ $objCheck->setChecked($dependsContext);
 $objTable->addRow(array($objLabel->show(), $objCheck->show()));
 
 // Link Permissions
-$objHead->str = $linkPermLabel;
-$objHead->type = 3;
+//$objHead->str = $linkPermLabel;
+//$objHead->type = 3;
 
-$objTable->startRow();
-$objTable->addCell($objHead->show(), '', '','','','colspan="4"');
-$objTable->endRow();
+//$objTable->startRow();
+//$objTable->addCell($objHead->show(), '', '','','','colspan="4"');
+//$objTable->endRow();
 
-$objLink = new link('javascript:void(0)');
-$objLink->link = $setPermLabel;
-$objLink->extra = "onclick = \"javascript:window.open('". $this->uri(array('action'=>'setperm', 'modulename'=>$moduleName), '', '', TRUE)."', 'setperms', 'width=800, height=600, scrollbars')\"";
+//$objLink = new link('javascript:void(0)');
+//$objLink->link = $setPermLabel;
+//$objLink->extra = "onclick = \"javascript:window.open('". $this->uri(array('action'=>'setperm', 'modulename'=>$moduleName), '', '', TRUE)."', 'setperms', 'width=800, height=600, scrollbars')\"";
 
-$objTable->startRow();
-$objTable->addCell($objLink->show(), '', '','','','colspan="4"');
-$objTable->endRow();
+//$objTable->startRow();
+//$objTable->addCell($objLink->show(), '', '','','','colspan="4"');
+//$objTable->endRow();
 
 $formElements = '';
 
