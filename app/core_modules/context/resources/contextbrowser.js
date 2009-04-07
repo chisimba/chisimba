@@ -91,6 +91,38 @@
     }
     
     
+    function listContexts()
+    {
+    	
+    	jQuery.ajax({
+            type: "GET", 
+            url: "index.php", 
+            data: "module=context&action=ajaxlistcontext",
+            success: function(msg){
+                jQuery('#context_results').html(msg);
+                if ('function' == typeof window.adjustLayout) {
+                    adjustLayout();
+                }
+            }
+        });	
+    }
+    
+    function ajaxUpdate(uri, divId)
+    {
+    		jQuery.ajax({
+            type: "GET", 
+            url: "index.php", 
+            data: uri,
+            success: function(msg){
+                jQuery('#'+divId).html(msg);
+                if ('function' == typeof window.adjustLayout) {
+                    adjustLayout();
+                }
+            }
+        });	
+    }
+    
+    
     function contextPrivate()
     {
         alert(contextPrivateMessage);

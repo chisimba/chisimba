@@ -375,8 +375,9 @@ $(":text, textarea").result(findValueCallback).next().click(function() {
 	});
 
 
-	$("#usersearch").autocomplete(\'index.php?module=groupadmin&action=searchusers\', {
+	$("#usersearch").autocomplete(\'index.php?module=context&action=searchusers\', {
 		width: 300,
+		minChars: 2,
 		multiple: false,
 		matchContains: true,
 		formatItem: formatItem,
@@ -445,6 +446,11 @@ function submitContextSearchForm(frm)
 	frm.contextsearch.value = "";
 }
 
+function getContexts()
+{
+	listContexts();
+}
+
 	</script>';
 	$this->appendArrayVar('headerParams', $str);
     	$input = '<div style="padding:10px;border:0px dashed black;" >
@@ -463,6 +469,8 @@ function submitContextSearchForm(frm)
 							&nbsp;
 							<input id="searchbutton" type="button" onclick="submitContextSearchForm(this.form)" value="Search" /></td>
 						</tr>
+						<tr>
+							<td><input type="button" value="View all Courses" onclick="getContexts()"></td>
 					</table>
 				</p>
 			</form>
@@ -484,6 +492,23 @@ function submitContextSearchForm(frm)
 		foreach($contexts as $context)
 		{
 			$arr[ $this->objDBContext->getTitle($context['contextcode'])] = $context['contextcode'];//$user['userid'];
+		}
+
+		return $arr;
+    }
+    
+     /**
+     * Method to get all the context by a filter
+     * @param string $filter
+     */
+    public function getUserList()
+    {
+    	$users = $this->objUser->getAll();
+
+		$arr = array();
+		foreach($users as $user)
+		{
+			$arr[ $this->objUser->fullname($user['userid'])] = $user['username'];//$user['userid'];
 		}
 
 		return $arr;
@@ -526,5 +551,62 @@ function submitContextSearchForm(frm)
     	return $objDisplayContext->formatContextDisplayBlock ( $context, FALSE, FALSE ) . '<br />';
     }
     
+    /**
+     * Method to show all the context
+     */
+    public function listContexts()
+    {
+    	$objIcon = $this->getObject('geticon','htmlelements');
+    	$objLink = $this->getObject('link','htmlelements');
+    	$objTable = $this->getObject('htmltable','htmlelements');
+    	
+    	$contexts = $this->objDBContext->getAll("ORDER BY updated DESC");
+    	if(count($contexts) > 1)
+    	{
+    		$str = '<table><tr class="header"><td>Title</td><td>Code</td><td>Creator</td><<td>Lat Updated</td>/t>&nbsp;</td></tr>';
+    		$objTable->addHeaderCell('Code');
+    		$objTable->addHeaderCell('Title', '40%');    		
+    		$objTable->addHeaderCell('Creator');
+    		$objTable->addHeaderCell('Last Updated');
+    		$objTable->addHeaderCell('&nbsp');
+    		
+    		foreach($contexts as $context)
+    		{
+    			$arr = array();
+    			$arr[] = $context['contextcode'];
+    			$arr[]= $context['title'];
+    			
+    			$arr[] =$this->objUser->fullname($context['userid']);
+    			$arr[]=$context['updated'];
+    			
+    			$str .='<tr style="border-top:1px dotted black;">';    			
+    			$str .='<td>'.$context['contextcode'].'</td>';
+    			$str .='<td>'.$context['title'].'</td>';
+    			$str .='<td>'.$this->objUser->fullname($context['userid']).'</td>';
+    			$str .='<td>'.$context['updated'].'</td>';
+    			$objIcon->setIcon('entercourse');
+    			$objLink->href = $this->uri(array('action' => 'joincontext', 'contextcode' => $context['contextcode']), 'context');
+    			$objLink->link = $objIcon->show();
+    			$enter = $objLink->show();
+    			
+    			$objIcon->setIcon('delete');
+    			$objLink->href = $this->uri(array('action' => 'delete', 'contextcode' => $context['contextcode']), 'contextadmin');
+    			$objLink->link = $objIcon->show();
+    			$delete = $objLink->show();    			
+    			
+    			$str .='<td>'.$enter.$delete.'</td>';
+    			
+    			$str .= '</tr>';
+    			
+    			$arr[] = $enter.$delete;
+    			$objTable->addRow($arr);
+    		}
+    		$str .= '</table>';
+    		
+    		return $objTable->show();
+    	}
+    	
+    	
+    }
 }
 ?>

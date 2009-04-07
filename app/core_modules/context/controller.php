@@ -567,6 +567,25 @@ error_log(var_export($lect, TRUE));
 		exit(0);
     }
     
+     /**
+     * Method to leave a context
+     *
+     * @access protected
+     */
+    protected function __searchusers() {
+    	$objUtils = $this->getObject('utilities');
+    	$items = $objUtils->getUserList();
+
+		$q = $this->getParam('q');
+		foreach ($items as $key=>$value) {
+			if (strpos(strtolower($key), $q) !== false) {
+				echo "$key|$value\n";
+
+			}
+		}
+		exit(0);
+    }
+    
     /**
      * Method to leave a context
      *
@@ -599,6 +618,18 @@ error_log(var_export($lect, TRUE));
     {
     	$objUtils = $this->getObject('utilities');
     	echo $objUtils->formatUserContext($this->getParam('username'));
+    	exit(0);
+    }
+    
+    /**
+     * Method to list all he context
+     *
+     * @access protected
+     */
+    protected function __ajaxlistcontext()
+    {
+    	$objUtils = $this->getObject('utilities');
+    	echo $objUtils->listContexts();
     	exit(0);
     }
 }
