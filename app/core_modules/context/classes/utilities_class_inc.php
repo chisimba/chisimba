@@ -470,7 +470,7 @@ function getContexts()
 							<input id="searchbutton" type="button" onclick="submitContextSearchForm(this.form)" value="Search" /></td>
 						</tr>
 						<tr>
-							<td><input type="button" value="View all Courses" onclick="getContexts()"></td>
+							<td><input type="button" value="View all Courses" onclick="listContexts()"></td>
 					</table>
 				</p>
 			</form>
