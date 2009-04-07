@@ -121,6 +121,10 @@ class groupadmin extends controller {
 					}
 				}
 				exit(0);
+				
+			case 'ajaxgetmultipleusers':
+				echo $this->objOps->getUserList($this->getParam('groupid'));
+				exit(0);
 
 			case 'ajaxadduser':
 				$userId = $this->objUser->getUserId($this->getParam('username'));
@@ -141,6 +145,9 @@ class groupadmin extends controller {
 				$res = $this->objGroups->deleteGroupUser($groupId, $permid);
 				var_dump($$res);
 				exit(0);
+				break;
+				
+			
 
 			case 'ajaxgetgroupname':
 				//echo 'here is the content for group..'.$this->getParam('groupid');

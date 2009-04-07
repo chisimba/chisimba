@@ -78,6 +78,29 @@ function getGroupName(groupId)
                 if ('function' == typeof window.adjustLayout) {
                     adjustLayout();
                 }
+            },
+			complete: function(msg){              
+                loadUsers(groupId)
+            }
+        });
+		
+       
+	
+}
+
+function loadUsers(groupId)
+{
+	//load the 
+		jQuery.ajax({
+            type: "GET", 
+            url: "index.php", 
+            data: "module=groupadmin&action=ajaxgetmultipleusers&groupid="+groupId,
+            success: function(msg){
+                jQuery('#multipleusers').html(msg);				
+				//jQuery('#groupid').val(groupId);
+                if ('function' == typeof window.adjustLayout) {
+                    adjustLayout();
+                }
             }
         });
 		

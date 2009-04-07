@@ -113,6 +113,39 @@ class groupops extends object
 		return $str.'</div>';
 		}
 	}
+	
+	/**
+	 * Method to build a list of user
+	 * so that multiple users can be selected
+	 * and added to a particular group
+	 */
+	public function getUserList($groupId)
+	{
+		
+		$users = $this->getAllUsers();
+		$objTable = $this->getObject('htmltable', 'htmlelements');
+		$objLink = $this->getObject('link', 'htmlelements');
+		$objIcon = $this->getObject('geticon', 'htmlelements');
+		$objIcon->setIcon('add', 'png');
+		$objLink->link = $objIcon->show();
+		$arr = array();
+		foreach($users as $user)
+		{
+			if(!$this->isGroupMember($groupId, $user['auth_user_id']))
+			{
+				$objTable->startRow();
+				$objTable->addCell($this->objUser->fullname($user['auth_user_id']));
+				
+				$objLink->extra = " onclick=addUser('".$groupId."','".$user['handle']."')";
+				$objLink->href = '#';
+				$objTable->addCell($objLink->show());
+				$arr[$this->objUser->fullname($user['auth_user_id'])] = $user['handle'];//$user['userid'];
+				$objTable->endRow();
+			}
+		}
+
+		return $objTable->show();
+	}
 
 	/**
 	*Method to get the groups
@@ -214,14 +247,37 @@ class groupops extends object
 
 		$arr = array();
 		foreach($users as $user)
-		{
+		{			
 			$arr[$this->objUser->fullname($user['auth_user_id'])] = $user['handle'];//$user['userid'];
 		}
 
 		return $arr;
 	}
 
-
+	/**
+	 * Method to check if a user is a 
+	 * group
+	 * @param string $groupId
+	 */
+	public function isGroupMember($groupId, $userId)
+	{
+		$arr = $this->getUsersInGroup($groupId);
+		if(count($arr) > 0)
+		{
+			foreach($arr as $user)
+			{
+				if($userId == $user['auth_user_id'])
+				{
+					return TRUE;
+				}
+			}
+			
+			return FALSE;
+		} else {
+			return FALSE;
+		}
+	}
+	
 	/**
 	*Method to generate the display for a group
 	* @param string $groupId

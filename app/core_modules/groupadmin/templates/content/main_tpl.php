@@ -1,4 +1,8 @@
 <?php
+$objIcon = $this->getObject('geticon', 'htmlelements');
+$objIcon->setIcon('loader');
+$loader = $objIcon->show();
+
 $scripts = $this->getJavaScriptFile('jquery/jquery-ui-personalized-1.6rc6/jquery-1.3.1.js', 'htmlelements');
 $scripts .= $this->getJavaScriptFile('jquery/jquery-ui-personalized-1.6rc6/jquery-ui-personalized-1.6rc6.js', 'htmlelements');
 $scripts .= '<link type="text/css" href="'.$this->getResourceUri('jquery/jquery-ui-personalized-1.6rc6/theme/ui.all.css', 'htmlelements').'" rel="Stylesheet" />';
@@ -46,8 +50,13 @@ echo '	<div style=" width:650px;border:0px solid black;">
 					<input type="text" id="suggest4">
 					<input type="hidden" id="hiddensuggest4">
 					<input type="hidden" id="groupid">
-					<div class="warning" id="groupname">...</div>
+					<div class="warning" id="groupname">'.$loader.'</div>
 					<input id="searchbutton" type="button" onclick="submitSearchForm(this.form)" value="Add to Group" />
+				</p>
+				<p>
+					<div id="multipleusers" style="height:150px; overflow:auto;">
+					'.$loader.'
+					</div>
 				</p>
 			</form>
 		</div>
