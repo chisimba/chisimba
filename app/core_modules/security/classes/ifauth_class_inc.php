@@ -15,7 +15,7 @@
 */
 interface ifauth
 {
-    public function authenticate($username, $password);
+    public function authenticate($username, $password, $remember = true);
     public function getUserDataAsArray($username);
 }
 ?>

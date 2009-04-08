@@ -1,5 +1,5 @@
 <?php
-/* -------------------- IFAUTH INTERFACE CLASS ----------------*/
+/* -------------------- LDAP INTERFACE CLASS ----------------*/
 
 /**
  *
@@ -50,7 +50,7 @@ class auth_ldap extends abauth implements ifauth {
      * @param string $password The password supplied in the login
      * @return TRUE|FALSE Boolean indication of success of login
      */
-    public function authenticate($username, $password) {
+    public function authenticate($username, $password, $remember = true) {
         // Check for blank password - there's a bug in LDAP that makes it accept '' as valid.
         if ($password == '') {
             return FALSE;
@@ -87,8 +87,9 @@ class auth_ldap extends abauth implements ifauth {
     function createUser($username) {
         $data = $this->objUser->lookupData ( $username );
         $info = $this->getUserDataAsArray ( $username );
+//        var_dump($data); var_dump($info); die();
         if (is_array ( $data ) || $this->objUser->valueExists ( 'userid', $info ['userid'] )) // if we already have this user
-{
+        {
             return TRUE;
         } else { // new user
             // Build up an array of the user's info
@@ -97,17 +98,22 @@ class auth_ldap extends abauth implements ifauth {
             } else {
                 $info ['staffnumber'] = $info ['userid'];
             }
-            $info ['userId'] = $info ['userid'];
-            $info ['sex'] = '';
-            $info ['accessLevel'] = 'guests';
-            $info ['howCreated'] = 'LDAP';
-            $info ['isactive'] = '1';
+            $infoauth_user_id = $info ['userid'];
+            $infosex = '';
+            //$info ['accessLevel'] = 'guests';
+            $infohowCreated = 'LDAP';
+            $infois_active = '1';
+            $infoemailAddress = $info['emailaddress'];
+            $infohandle = $username;
+            $infopasswd = '--LDAP--';
+            $infofirstName = $info['firstname'];
             $objConf2 = $this->getObject ( 'altconfig', 'config' );
-            $info ['country'] = $objConf2->getCountry ();
-            // Instantiate the sqlusers class and call the adduser() function
-            // To create the new user on the KNG system.
-            $tbl = $this->newObject ( 'sqlusers', 'security' );
-            $id = $tbl->addUser ( $info );
+            $infocountry = $objConf2->getCountry ();
+            $infoperm_type = 1;
+           
+            // To create the new user on the system.
+            $tbl = $this->getObject ( 'useradmin_model2', 'security' );
+            $id = $tbl->addUser ( $infoauth_user_id, $username, $infopassword, $infotitle, $infofirstName, $infosurname, $infoemailAddress, $infosex, $infocountry, '', $infoauth_user_id, $infohowCreated, $accountstatus='1' );
             // If LDAP confirms the user is an Academic,
             // add as a site-lecturer in KNG groups.
             if ($this->isAcademic ( $username )) {
