@@ -22,10 +22,7 @@ $scripts .= '<script type="text/javascript">
 					select: function(event, ui) {
 						id = stripId(ui.panel.id);
 						loadGroupTab(id);						
-					},
-					remote: true,
-					fxAutoHeight: true,
-					fxShow: { height: \'show\', opacity: \'show\' },
+					}
 	
 					});			
 
@@ -38,12 +35,13 @@ function stripId(str)
 
 $this->appendArrayVar('headerParams', $scripts);
 
-//get all the groups
+//get all the groups'.$this->objOps->getGroups().'
 echo '	<div style=" width:650px;border:0px solid black;">
 				<div style="float:left;width:420px;padding-right:10px">
-				'.$this->objOps->getGroups().'
-			<div style="clear:both"></div></div >
-			<div style="position: fixed; top:200px; left:700px;padding:10px;border:1px dashed black;" >
+					'.$this->objOps->getGroups().'
+				<div style="clear:both"></div>
+		</div >
+		<div style="position: fixed; top:200px; width:200px; left:700px;padding:10px;" >
 			<form id="searchform" name="searchform" autocomplete="off">
 				<p>
 					<label>Search Users</label><br/>
@@ -60,7 +58,7 @@ echo '	<div style=" width:650px;border:0px solid black;">
 				</p>
 			</form>
 		</div>
-</div>';
+</div><div style="clear:both"></div>';
 $groupId = $this->objOps->getFirstGroupId();
 $this->appendArrayVar('bodyOnLoad', 'loadGroupTab('.$groupId.');');
 
