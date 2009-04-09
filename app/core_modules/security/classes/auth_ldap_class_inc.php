@@ -63,7 +63,7 @@ class auth_ldap extends abauth implements ifauth {
         }
         // Now try to "login" to LDAP with the domain-name and password
         $ldapconn = ldap_connect ( $this->ldapserver );
-        $ldapbind = ldap_bind ( $ldapconn, $dn, $password );
+        $ldapbind = @ldap_bind ( $ldapconn, $dn, $password );
         if (! $ldapbind) {
             ldap_close ( $ldapconn );
             return FALSE;
