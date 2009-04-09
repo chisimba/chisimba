@@ -52,9 +52,9 @@ class auth_ldap extends abauth implements ifauth {
      */
     public function authenticate($username, $password, $remember = true) {
         // Check for blank password - there's a bug in LDAP that makes it accept '' as valid.
-        //if ($password == '') {
-        //    return FALSE;
-        //}
+        if ($password == '') {
+            return FALSE;
+        }
         // Get the user domain-name - return FALSE if its not there
         $dn = $this->checkUser ( $username );
         //No dn found there no such user on the system.
