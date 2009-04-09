@@ -2,7 +2,7 @@
 /* -------------------- IFAUTH INTERFACE CLASS ----------------*/
 
 /**
-* 
+*
 * Interface class defining methods that must be present in an authentication
 * plugin class that implements this interface.
 *

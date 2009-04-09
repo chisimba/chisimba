@@ -52,9 +52,9 @@ class auth_ldap extends abauth implements ifauth {
      */
     public function authenticate($username, $password, $remember = true) {
         // Check for blank password - there's a bug in LDAP that makes it accept '' as valid.
-        if ($password == '') {
-            return FALSE;
-        }
+        //if ($password == '') {
+        //    return FALSE;
+        //}
         // Get the user domain-name - return FALSE if its not there
         $dn = $this->checkUser ( $username );
         //No dn found there no such user on the system.
@@ -63,7 +63,7 @@ class auth_ldap extends abauth implements ifauth {
         }
         // Now try to "login" to LDAP with the domain-name and password
         $ldapconn = ldap_connect ( $this->ldapserver );
-        $ldapbind = @ldap_bind ( $ldapconn, $dn, $password );
+        $ldapbind = ldap_bind ( $ldapconn, $dn, $password );
         if (! $ldapbind) {
             ldap_close ( $ldapconn );
             return FALSE;
@@ -72,6 +72,17 @@ class auth_ldap extends abauth implements ifauth {
             $this->_record = $this->getInfo ( $ldapconn, $username );
             $this->createUser ( $username );
             ldap_close ( $ldapconn );
+            $login = $this->objLu->login($username, $password, $remember);
+            if(!$login) {
+                // check if user is inactive
+                if($this->objLu->isInactive()) {
+                    throw new customException("User is inactive, please contact site admin");
+                }
+                else {
+                    return FALSE;
+                }
+            }
+
             return TRUE;
         }
     }
@@ -87,7 +98,7 @@ class auth_ldap extends abauth implements ifauth {
     function createUser($username) {
         $data = $this->objUser->lookupData ( $username );
         $info = $this->getUserDataAsArray ( $username );
-//        var_dump($data); var_dump($info); die();
+        //var_dump($data); var_dump($info); die();
         if (is_array ( $data ) || $this->objUser->valueExists ( 'userid', $info ['userid'] )) // if we already have this user
         {
             return TRUE;
@@ -110,10 +121,10 @@ class auth_ldap extends abauth implements ifauth {
             $objConf2 = $this->getObject ( 'altconfig', 'config' );
             $infocountry = $objConf2->getCountry ();
             $infoperm_type = 1;
-           
+
             // To create the new user on the system.
             $tbl = $this->getObject ( 'useradmin_model2', 'security' );
-            $id = $tbl->addUser ( $infoauth_user_id, $username, $infopassword, $infotitle, $infofirstName, $infosurname, $infoemailAddress, $infosex, $infocountry, '', $infoauth_user_id, $infohowCreated, $accountstatus='1' );
+            $id = $tbl->addUser ( $infoauth_user_id, $username, $infopasswd, $info['title'], $infofirstName, $info['surname'], $infoemailAddress, $infosex, $infocountry, '', $infoauth_user_id, $infohowCreated, $accountstatus='1' );
             // If LDAP confirms the user is an Academic,
             // add as a site-lecturer in KNG groups.
             if ($this->isAcademic ( $username )) {
