@@ -72,8 +72,10 @@ class auth_ldap extends abauth implements ifauth {
             $this->_record = $this->getInfo ( $ldapconn, $username );
             $this->createUser ( $username );
             ldap_close ( $ldapconn );
-            $login = $this->objLu->login($username, $password, $remember);
+
+            $login = $this->objLu->login($username, '--LDAP--', $remember);
             if(!$login) {
+                var_dump($login);
                 // check if user is inactive
                 if($this->objLu->isInactive()) {
                     throw new customException("User is inactive, please contact site admin");
