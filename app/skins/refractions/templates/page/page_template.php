@@ -1,25 +1,11 @@
 <?php
 
 // Get Header that goes into every skin
-require($objConfig->getsiteRootPath().'skins/_common/templates/skinpageheader.php');
-
-if (!isset($pageTitle)) {
-    $pageTitle = $objConfig->getSiteName();
-}
-
-// Add Toolbar if not suppressed
-if (!isset($pageSuppressToolbar)) {
-    
-    // Get Toolbar Object
-    $menu = $this->getObject('menu','toolbar');
-    $toolbar = $menu->show();
-    
-    // get any header params or body onload parameters for objects on the toolbar
-    $menu->getParams($headerParams, $bodyOnLoad);
-}
+require($objConfig->getsiteRootPath().'skins/_common/templates/skinpageheader2-0.php');
 
 ?>
     <head>
+	
         <title>
 <?php
     echo $pageTitle;
@@ -27,13 +13,14 @@ if (!isset($pageSuppressToolbar)) {
         </title>
 <?php
     if (!isset($pageSuppressSkin)) {
-        echo '<link rel="stylesheet" type="text/css" href="skins/_common/base.css">
-        <link rel="stylesheet" type="text/css" href="skins/refractions/stylesheet.css">';
+        echo '<link rel="stylesheet" type="text/css" href="skins/_common2/base.css">
+				  <link rel="stylesheet" type="text/css" href="skins/refractions/stylesheet.css">';
     }
     
     echo $objSkin->putJavaScript($mime, $headerParams, $bodyOnLoad);
-    
+
 ?>
+
     </head>
 <?php
     if (isset($bodyParams)) {
@@ -58,34 +45,34 @@ if (!isset($pageSuppressToolbar)) {
         if (!isset($pageSuppressSearch)) {
             echo $objSkin->siteSearchBox();
         }
-        if (!isset($pageSuppressToolbar)) {
-            echo $toolbar;
-        }
+        
 ?>
         </div>
-	
+	<div id="navigation">
+	<?php
+	if (!isset($pageSuppressToolbar)) {
+            echo $toolbar;
+        }
+		?>
+		<div>
 <?php
     }
     
     // get content
-    echo $this->getLayoutContent().'<div id="middlecontent" class="middlecontent">&nbsp;</div>';
+    echo $this->getLayoutContent().'<br id="footerbr" />';
     
     if (!isset($suppressFooter)) {
-         // Create the bottom template area
-        $this->footerNav = & $this->newObject('layer', 'htmlelements');
-        $this->footerNav->id = 'footer';
-        $this->footerNav->cssClass='';
-        $this->footerNav->position='';
+         $footerStr = "";
         if (isset($footerStr)) {
-            $this->footerNav->str = $footerStr;
+           $footerStr = $footerStr;
         } else if ($objUser->isLoggedIn()) {
             $this->loadClass('link', 'htmlelements');
             $link = new link ($this->URI(array('action'=>'logoff'),'security'));
             $link->link=$objLanguage->languageText("word_logout");
             $str=$objLanguage->languageText("mod_context_loggedinas", 'context').' <strong>'.$objUser->fullname().'</strong>  ('.$link->show().')';
-            $this->footerNav->str = $str;
+            $footerStr= $str;
         }
-        echo $this->footerNav->show();
+        echo '<div id="footer">'.$footerStr.'</div>';
     }
     if (!isset($pageSuppressContainer)) {
         echo '</div>';

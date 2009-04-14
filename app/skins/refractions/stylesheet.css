@@ -23,8 +23,9 @@
 #header {
     background-color: #fff;
 	padding:10px;
-    /*border: 1px solid #599DF6;
-	-moz-border-radius: 18px;
+    
+    height: 50px;
+	/*-moz-border-radius: 18px;
     border-radius: 18px;*/
 	
 }
