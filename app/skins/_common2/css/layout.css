@@ -25,6 +25,7 @@ html, body {
 	width: 200px;
 	/*border: gray 1px dotted;*/
 	padding:5px;
+	overflow:hidden;
 }
 #threecolumn {
 	margin: 0px;
@@ -38,6 +39,7 @@ html, body {
 	/*border: gray 1px dotted;*/
 	margin: 0 210px 0 210px;
 	padding:5px;
+	overflow:hidden;
 }
 #right {
 	float: right;

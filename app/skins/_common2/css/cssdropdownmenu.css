@@ -76,6 +76,7 @@
 #menu li:hover>ul {
     display: block;
     z-index: 101;
+	
 }
 
 /* this is needed if you want to style #menu div - force containment of floated LIs inside of main UL */

@@ -75,10 +75,9 @@ td {
   text-align: left;
 }
 */
-fieldset{
-	border:1px solid black;
+fieldset{	
 	
-	}
+}
 	
 
 
@@ -241,7 +240,7 @@ div.quotaup {
 #nav-secondary li{
 	padding-left: 15px;
 	/*background-color: #599DF6;*/
-	border: 1px solid blue transparent;
+	/*border: 1px solid blue transparent;*/
 	text-decoration:none;
 	/*-moz-border-radius: 8px;
     border-radius: 8px;*/
@@ -253,14 +252,15 @@ div.quotaup {
     
     /*border: 1px dashed;*/
 	padding:2px;
+	overflow:hidden;
 }
 
 .featureboxheader
 {
- 	
+ 	/*background-color:blue;*/
     /*border: 1px solid  brown transparent;
     color: #FFF;*/
-	padding: 5px;
+	padding: 2px;
 	margin-top:1px;
 	margin-bottom:1px;
 }
@@ -268,7 +268,8 @@ div.quotaup {
 .featureboxcontent
 {
 	padding: 5px;
-
+	padding-top:2px;
+	/*background-color:red;*/
 	margin-top:1px;
 }
 
@@ -281,7 +282,7 @@ div.quotaup {
 
 }*/
 
-form {margin-bottom: 10px;}
+/*form {margin-bottom: 10px;}*/
 
 h1#sitename {
     padding: 20px;

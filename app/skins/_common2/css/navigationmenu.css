@@ -1,7 +1,7 @@
-@import "cssdropdownmenu.css";
+
 /*** Bread crumbs****/
 #breadcrumbs {
-/*    clear:both;*/
+    clear:both;
 	margin-top:10px;
 	padding-bottom:5px;
 }
@@ -26,3 +26,6 @@ div#search {
     right: 0;
     width: 300px;
 }
+
+
+
