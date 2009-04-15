@@ -283,6 +283,34 @@ class csslayout extends object implements ifhtml
     public function show()
     {
         // Depending on the number of columns, load appropriate script to fix the column heights
+        
+        $this->setVar('numColumns', $this->numColumns);
+       
+        // Depending on the number of columns, use approprate css styles.
+        if ($this->skinVersion('2.0'))
+        {
+	        if ($this->numColumns == 2) {
+	            	$result = '	<div id="threecolumn">
+										<div id="left">'.$this->leftColumnContent.'</div>									
+										<div id="content"> '. $this->middleColumnContent .'</div>
+									</div>';
+	
+	        } else {
+	            // for a three column layout, first load the right column, then the middle column
+	           	$result = '	<div id="threecolumn">
+										<div id="left">'.$this->leftColumnContent.'</div>						
+										<div id="right">'.$this->rightColumnContent.'</div>			
+										<div id="content"> '. $this->middleColumnContent .'</div>
+										
+									</div>';
+	        }
+	
+	        $str = $result;
+	
+	        return $str;
+        }
+        
+        
         if ($this->numColumns == 2) {
             $this->putTwoColumnFixInHeader();
         } else {
@@ -380,6 +408,32 @@ class csslayout extends object implements ifhtml
         $this->appendArrayVar('headerParams', $this->getJavascriptFile('x_minified.js','htmlelements'));
         $this->appendArrayVar('headerParams', $this->fixTwoColumnLayoutJavascript());
         $this->appendArrayVar('bodyOnLoad',$this->bodyOnLoadScript());
+    }
+    
+    public function skinVersion($version = null)
+    {
+    	if(empty($version))
+    	{
+    		return FALSE;
+    	}
+    	
+    	//get the skinname.txt in the skins folder
+    	$objSkin = $this->getObject('skin', 'skin');
+    	
+    	if(file_exists($objSkin->getSkinLocation().'/skinversion.txt'))
+    	{
+    		//get the version number
+    		 $file = $objSkin->getSkinLocation().'/skinversion.txt';
+    		 $contents =  trim(file_get_contents($file));
+    		 if($contents == $version)
+    		 {
+    		 	return TRUE;
+    		 } else {
+    		 	return FALSE;
+    		 }
+    	}
+    	
+    	return FALSE;
     }
 
 }
