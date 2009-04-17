@@ -35,7 +35,7 @@ div#header div#msg {
     width: 80px;
 }
 div#header h1 a:link, h1 a:visited {
-    color: white;
+    color: #C0C0C0;
     text-decoration: none
 }
 div#header h1 a:link:hover, h1 a:visited:hover {
