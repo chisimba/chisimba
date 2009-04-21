@@ -1256,8 +1256,12 @@ function $(element) {
 if (Prototype.BrowserFeatures.XPath) {
   document._getElementsByXPath = function(expression, parentElement) {
     var results = [];
-    var query = document.evaluate(expression, $(parentElement) || document,
-      null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+    var query=[];
+        try{
+            query= document.evaluate(expression, $(parentElement) || document,null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+        }catch(e){
+            
+        }
     for (var i = 0, length = query.snapshotLength; i < length; i++)
       results.push(query.snapshotItem(i));
     return results;
