@@ -56,12 +56,14 @@ if ($this->isValid('addblock')) {
         $smallBlockOptions['dynamicblock|'.$smallBlock['id'].'|'.$smallBlock['module']] = htmlentities($smallBlock['title']);
     }
     
+    
     // Add Small Blocks
     foreach ($smallBlocks as $smallBlock)
     {
         $block = $this->newObject('block_'.$smallBlock['blockname'], $smallBlock['moduleid']);
         $title = $block->title;
-        
+       //parse some abstractions
+       $title=$this->objLanguage->abstractText($title);
         if ($title == '') {
             $title = $smallBlock['blockname'].'|'.$smallBlock['moduleid'];
         }
