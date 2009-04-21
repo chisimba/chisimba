@@ -207,6 +207,9 @@ error_log(var_export($lect, TRUE));
         $this->_preventRootAccess ();
 
         $this->setLayoutTemplate ( NULL );
+        
+        $leftBlocks = $this->objContextBlocks->getContextBlocks ( $this->contextCode, 'left' );
+        $this->setVarByRef ( 'leftBlocksStr', $leftBlocks );
 
         $rightBlocks = $this->objContextBlocks->getContextBlocks ( $this->contextCode, 'right' );
         $this->setVarByRef ( 'rightBlocksStr', $rightBlocks );
