@@ -120,7 +120,6 @@ class parse4files extends object
             $ar= $this->objExpar->getArrayParams($str, ",");
             $this->setupPage();
             $replacement = $this->getFiles();
-            //$replacement = htmlentities($replacement);
             $txt = str_replace($item, $replacement, $txt);
             $counter++;
         }
@@ -150,6 +149,12 @@ class parse4files extends object
         } else {
             $this->userId=NULL;
         }
+        //Get contextcode
+        if (isset($this->objExpar->context)) {
+            $this->context = $this->objExpar->context;
+        } else {
+            $this->context=NULL;
+        }
         //Get directory
         if (isset($this->objExpar->newline)) {
             $this->newLine = $this->objExpar->newline;
@@ -173,15 +178,18 @@ class parse4files extends object
     private function getFiles()
     {
         $oF = $this->getObject('dbfile', 'filemanager');
-        if ($this->folder == "/") {
+        if ($this->folder == "/" || $this->folder=="") {
                $this->folder = NULL;
         } else {
             $this->folder = "/" . $this->folder;
         }
-        $sql = "SELECT filename, mimetype, path, filefolder, description FROM tbl_files WHERE userid = '" . $this->userId
-          . "' AND filefolder = 'users/" . $this->userId . $this->folder . "'";
+        if (isset($this->context) && $this->context !== NULL) {
+            $sql = "SELECT filename, mimetype, path, filefolder, description FROM tbl_files WHERE filefolder = 'context/" . $this->context . $this->folder . "'";
+        } else {
+            $sql = "SELECT filename, mimetype, path, filefolder, description FROM tbl_files WHERE userid = '" . $this->userId
+              . "' AND filefolder = 'users/" . $this->userId . $this->folder . "'";
+        }
         $ar = $oF->getArray($sql);
-
         return $this->renderFiles($ar);
     }
 
