@@ -43,10 +43,14 @@ $objCssLayout->setNumColumns(3);
 
 if ($this->isValid('addblock')) {
 
-    $smallBlocksDropDown = new dropdown ('rightblocks');
-    $smallBlocksDropDown->cssId = 'ddrightblocks';
-    $smallBlocksDropDown->addOption('', $objLanguage->languageText('phrase_selectone', 'phrase', 'Select One').'...');
-    
+    $rightBlocksDropDown = new dropdown ('rightblocks');
+    $rightBlocksDropDown->cssId = 'ddrightblocks';
+    $rightBlocksDropDown->addOption('', $objLanguage->languageText('phrase_selectone', 'phrase', 'Select One').'...');
+
+    $leftBlocksDropDown = new dropdown ('leftblocks');
+    $leftBlocksDropDown->cssId = 'ddleftblocks';
+    $leftBlocksDropDown->addOption('', $objLanguage->languageText('phrase_selectone', 'phrase', 'Select One').'...');
+
     // Create array for sorting
     $smallBlockOptions = array();
     
@@ -74,11 +78,18 @@ if ($this->isValid('addblock')) {
     // Sort Alphabetically
     asort($smallBlockOptions);
     
-    // Add Small Blocks
+    // Add Small Blocks for right
     foreach ($smallBlockOptions as $block=>$title)
     {
-        $smallBlocksDropDown->addOption($block, $title);
+        $rightBlocksDropDown->addOption($block, $title);
     }
+
+    //then left too
+        foreach ($smallBlockOptions as $block=>$title)
+    {
+        $leftBlocksDropDown->addOption($block, $title);
+    }
+
     
     // Create array for sorting
     $wideBlockOptions = array();
@@ -129,7 +140,8 @@ $header->type = 3;
 $header->str = $objLanguage->languageText('mod_context_addablock', 'context', 'Add a Block');
 
 $toolbar = $this->getObject('contextsidebar');
-$objCssLayout->setLeftColumnContent($toolbar->show());
+
+$objCssLayout->leftColumnContent =$toolbar->show();//setLeftColumnContent($toolbar->show());
 
 $objCssLayout->rightColumnContent = '';
 
@@ -139,7 +151,7 @@ if ($this->isValid('addblock')) {
 $objCssLayout->rightColumnContent .= '<div id="rightblocks">'.$rightBlocksStr.'</div>';
 
 if ($this->isValid('addblock')) {
-    $objCssLayout->rightColumnContent .= '<div id="rightaddblock">'.$header->show().$smallBlocksDropDown->show();
+    $objCssLayout->rightColumnContent .= '<div id="rightaddblock">'.$header->show().$rightBlocksDropDown->show();
     $objCssLayout->rightColumnContent .= '<div id="rightpreview"><div id="rightpreviewcontent"></div> '.$button->show().' </div>';
     $objCssLayout->rightColumnContent .= '</div>';
 }
@@ -153,6 +165,17 @@ if ($this->isValid('addblock')) {
     $objCssLayout->middleColumnContent .= '<div id="middleaddblock">'.$header->show().$wideBlocksDropDown->show();
     $objCssLayout->middleColumnContent .= '<div id="middlepreview"><div id="middlepreviewcontent"></div> '.$button->show().' </div>';
     $objCssLayout->middleColumnContent .= '</div>';
+}
+
+$button = new button ('addleftblock', $objLanguage->languageText('mod_prelogin_addblock', 'prelogin', 'Add Block'));
+$button->cssId = 'leftbutton';
+
+$objCssLayout->leftColumnContent .= '<br/><div id="leftblocks">'.$leftBlocksStr.'</div>';
+
+if ($this->isValid('addblock')) {
+    $objCssLayout->leftColumnContent .= '<div id="leftaddblock">'.$header->show().$leftBlocksDropDown->show();
+    $objCssLayout->leftColumnContent .= '<div id="leftpreview"><div id="leftpreviewcontent"></div> '.$button->show().' </div>';
+    $objCssLayout->leftColumnContent .= '</div>';
 }
 
 echo $objCssLayout->show();
