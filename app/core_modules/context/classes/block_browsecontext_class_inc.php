@@ -123,7 +123,7 @@ class block_browsecontext extends object
                 'content' => $str
             ) );
         
-        //show all the course if you are admin    
+  /*      //show all the course if you are admin
         if ($this->objUser->isAdmin())
         {
 	        $objTab->addTab(array(
@@ -131,7 +131,7 @@ class block_browsecontext extends object
 	                'content' => $objUtils->searchBlock()
 	            ) );
         }
-
+*/
 /*            $objTab->addTab(ucWords($this->objLanguage->code2Txt('phrase_mycourses', 'system', NULL, 'My [-contexts-]')), $str2);
         $objTab->addTab(ucWords($this->objLanguage->code2Txt('phrase_othercourses', 'system', NULL, 'Other [-contexts-]')),$str);*/
         return $objTab->show();
