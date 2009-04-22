@@ -470,7 +470,7 @@ function getContexts()
 							<input id="searchbutton" type="button" onclick="submitContextSearchForm(this.form)" value="Search" /></td>
 						</tr>
 						<tr>
-							<td><input type="button" value="View all Courses" onclick="listContexts()"></td>
+							<td><input type="button" value="'.$this->objLanguage->code2Txt('mod_context_viewallcontexts', 'context', NULL, 'View All [-contexts-]').'" onclick="listContexts()"></td>
 					</table>
 				</p>
 			</form>
