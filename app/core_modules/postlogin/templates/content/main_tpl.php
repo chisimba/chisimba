@@ -42,14 +42,19 @@ $objCssLayout->setNumColumns(3);
 
 if ($objUser->isAdmin()) {
 
-    $smallBlocksDropDown = new dropdown ('rightblocks');
-    $smallBlocksDropDown->cssId = 'ddrightblocks';
-    $smallBlocksDropDown->addOption('', $objLanguage->languageText('phrase_selectone', 'context', 'Select One').'...');
+    $rightBlocksDropDown = new dropdown ('rightblocks');
+    $rightBlocksDropDown->cssId = 'ddrightblocks';
+    $rightBlocksDropDown->addOption('', $objLanguage->languageText('phrase_selectone', 'context', 'Select One').'...');
     
-    
+    $leftBlocksDropDown = new dropdown ('leftblocks');
+    $leftBlocksDropDown->cssId = 'ddleftblocks';
+    $leftBlocksDropDown->addOption('', $objLanguage->languageText('phrase_selectone', 'context', 'Select One').'...');
+
     foreach ($smallDynamicBlocks as $smallBlock)
     {
-        $smallBlocksDropDown->addOption('dynamicblock|'.$smallBlock['id'].'|'.$smallBlock['module'], htmlentities($smallBlock['title']));
+        $rightBlocksDropDown->addOption('dynamicblock|'.$smallBlock['id'].'|'.$smallBlock['module'], htmlentities($smallBlock['title']));
+        $leftBlocksDropDown->addOption('dynamicblock|'.$smallBlock['id'].'|'.$smallBlock['module'], htmlentities($smallBlock['title']));
+
     }
     
     foreach ($smallBlocks as $smallBlock)
@@ -57,16 +62,16 @@ if ($objUser->isAdmin()) {
         $block = $this->newObject('block_'.$smallBlock['blockname'], $smallBlock['moduleid']);
         $title = $block->title;
         
-        $smallBlocksDropDown->addOption('block|'.$smallBlock['blockname'].'|'.$smallBlock['moduleid'], htmlentities($title));
+        $rightBlocksDropDown->addOption('block|'.$smallBlock['blockname'].'|'.$smallBlock['moduleid'], htmlentities($title));
+        $leftBlocksDropDown->addOption('block|'.$smallBlock['blockname'].'|'.$smallBlock['moduleid'], htmlentities($title));
+
+
     }
+
     
-    $rightBlocks = $smallBlocksDropDown->show();
-    
-    $smallBlocksDropDown->cssId = 'ddleftblocks';
-    $smallBlocksDropDown->name = 'leftblocks';
-    
-    $leftBlocks = $smallBlocksDropDown->show();
-    
+    $rightBlocks = $rightBlocksDropDown->show();
+    $leftBlocks = $leftBlocksDropDown->show();
+   
     $wideBlocksDropDown = new dropdown ('middleblocks');
     $wideBlocksDropDown->cssId = 'ddmiddleblocks';
     $wideBlocksDropDown->addOption('', $objLanguage->languageText('phrase_selectone', 'context', 'Select One').'...');
@@ -127,7 +132,7 @@ $objCssLayout->leftColumnContent .= '<div id="leftblocks">'.$leftBlocksStr.'</di
 
 if ($objUser->isAdmin()) {
     $objCssLayout->leftColumnContent .= '<div id="leftaddblock">'.$header->show().$leftBlocks;
-    $objCssLayout->leftColumnContent .= '<div id="lefttpreview"><div id="leftpreviewcontent"></div> '.$leftButton.' </div>';
+    $objCssLayout->leftColumnContent .= '<div id="leftpreview"><div id="leftpreviewcontent"></div> '.$leftButton.' </div>';
     $objCssLayout->leftColumnContent .= '</div>';
 }
 
