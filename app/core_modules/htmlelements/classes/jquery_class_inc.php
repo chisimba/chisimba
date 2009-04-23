@@ -318,6 +318,23 @@ class jquery extends object
         $this->appendArrayVar('headerParams', $this->getJavascriptFile($basePath.'jquery.jframe.js'));
     }
 
+	
+   /**
+     * Method to load the fg menu plugin
+     *
+     * This plugin creates a pre released version of the jQuery ipod style menu
+	 * created by the filament group
+     * 
+     */
+    public function loadFgMenuPlugin($version = '3.0', $theme = 'start')
+    {
+        $basePath = 'jquery/plugins/fgmenu/'.$version.'/';
+        $this->appendArrayVar('headerParams', $this->getJavascriptFile($basePath.'fg.menu.js'));
+		$this->appendArrayVar('headerParams', '<link rel="stylesheet" type="text/css" href="'.$this->getResourceUri($basePath.'fg.menu.css') .'">');
+		$this->appendArrayVar('headerParams', '<link rel="stylesheet" type="text/css" href="'.$this->getResourceUri($basePath.'theme/'.$theme.'/ui.all.css') .'">');
+    }
+
+	
 }
 
 ?>
