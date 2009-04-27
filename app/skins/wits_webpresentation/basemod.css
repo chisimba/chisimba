@@ -1,0 +1,157 @@
+
+@charset "UTF-8";
+/**
+ * "Yet Another Multicolumn Layout" - (X)HTML/CSS Framework
+ *
+ * (en) Screen layout for YAML examples
+ * (de) Bildschirmlayout f�r YAML-Beispiele
+ *
+ * @copyright       Copyright 2005-2007, Dirk Jesse
+ * @license         CC-A 2.0 (http://creativecommons.org/licenses/by/2.0/),
+ *                  YAML-C (http://www.yaml.de/en/license/license-conditions.html)
+ * @link            http://www.yaml.de
+ * @package         yaml
+ * @version         3.0.4
+ * @revision        $Revision: 130 $
+ * @lastmodified    $Date: 2007-10-05 19:05:21 +0200 (Fr, 05 Okt 2007) $
+ */
+/*@media all
+{*/
+/*------------------------------------------------------------------------------------------------------*/
+/**
+* (en) Formatting YAML's  basic layout elements
+*/
+/* (en) Marginal areas & page background */
+body {
+background: #ded9d9;
+padding: 0;
+}
+#page_shadows {
+width: 1000px;
+background: url(images/bg_page.png) repeat-y top center;
+margin: 0 auto;
+}
+/* (en) Layout: width, background, borders */
+#page_margins {
+min-width: 990px;
+max-width: 990px;
+margin: 0 auto;
+}
+#page {
+background: #fff;
+}
+/* (en) Centering layout in old IE-versions */
+body { text-align: center }
+#page_margins { text-align:left }
+/* (en) Designing main layout elements */
+#header {
+color: #000;
+background: #fff repeat-x top left;
+padding: 20px 20px 1em 20px; 
+width: 948px;
+}
+/* (en) adjustment of top navigation */
+#topnav {
+background: #F3F3F5;
+border-bottom: 1px solid #D7D7D7;
+top: 0;
+right: 0;
+width: 965px;
+text-align: right;
+padding: 5px 25px 5px 0px;
+position: relative;
+}
+#topnav span {
+margin: 0 5px;
+}
+/* (en) adjustment of main navigation */
+#nav { position: relative; z-index: 100; }
+#main { background: #fff; padding: 10px 20px; }
+#footer {
+padding-bottom: 5px;
+}
+#footer_content {
+text-align: left;
+color: #666; 
+border-top: 5px solid #6D6E72;
+    border-bottom: 1px solid #DADADA;
+    padding: 5px;
+  margin: 0 20px 40px 20px;
+}
+/*------------------------------------------------------------------------------------------------------*/
+/**
+* (en) Formatting content container
+* (de) Formatierung der Inhalts-Container
+*
+* |-------------------------------|
+* | #header                       |
+* |-------------------------------|
+* | #col1   | #col3     | #col2   |
+* | 25%     | flexible  | 25%     |
+* |-------------------------------|
+* | #footer                       |
+* |-------------------------------|
+*/
+#col1 { width: 25% }
+#col1_content { padding: 10px 10px 10px 20px; }
+#col2 { width: 25% }
+#col2_content { padding: 10px 20px 10px 10px; }
+#col3 { margin: 0 25% }
+#col3_content { padding: 10px }
+/*------------------------------------------------------------------------------------------------------*/
+/**
+* (en) Main Navigation
+*/
+#nav_main {
+margin-left: 20px;
+width: 950px;
+height: 27px;
+background: #4A4A4C/* url(images/bg_mainnav.png) repeat-x top left;*/
+}
+.ddcolortabs {
+float: left;
+}
+.ddcolortabs ul {
+margin: 0;
+padding: 0;
+list-style: none;
+float: left;
+}
+.ddcolortabs ul li {
+float: left;
+margin: 0;
+padding: 0;
+}
+.ddcolortabs ul li a {
+color: #FFFFFF;
+margin: 0;
+padding: 5px 10px;
+display: block;
+text-decoration: none;
+}
+.ddcolortabs ul li a:hover {
+background: #0091B9;/*url(../images/bg_mainnav_active.png) repeat-x top left;*/
+color: #FFFFFF;
+text-decoration: none;
+}
+/*currently selected tab*/
+.ddcolortabs ul li a.current {
+background: url(images/bg_mainnav_active.png) repeat-x top left;
+color: #FFFFFF;
+text-decoration: none;
+}
+.tabcontainer {
+clear: left;
+width: 950px; /*width of 2nd level sub menus*/
+margin-left: 20px;
+height: 1.5em;
+margin-top: 5px;
+color: #CCCCCC;
+}
+.tabcontainer a {
+margin: 0 5px;
+color: #333333;
+}
+.tabcontent {
+display:none;
+}
