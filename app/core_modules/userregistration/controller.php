@@ -18,6 +18,11 @@ class userregistration extends controller
     public $objLanguage;
 
     /**
+     * @var object Instance of the skin object of the skin module.
+     */
+    protected $objSkin;
+
+    /**
      * @var object $objUserAdmin User Administration \ Object
      */
     public $objUserAdmin;
@@ -34,6 +39,7 @@ class userregistration extends controller
     {
         $this->objConfig = $this->getObject('altconfig', 'config');
         $this->objLanguage = $this->getObject('language', 'language');
+        $this->objSkin = $this->getObject('skin', 'skin');
         $this->objUserAdmin = $this->getObject('useradmin_model2', 'security');
         $this->objUser = $this->getObject('user', 'security');
         $this->objUrl = $this->getObject('url', 'strings');
