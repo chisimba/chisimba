@@ -59,7 +59,11 @@ class userregistration extends controller
         // $this->setSession('time', '');
         // return $this->nextAction(NULL, NULL, '_default');
         // }
-        $this->setLayoutTemplate('login_layout_tpl.php');
+        // Add login layout if page is displayed outside facebox.
+        if (!$this->getParam('facebox')) {
+            $this->setLayoutTemplate('login_layout_tpl.php');
+        }
+
         $canRegister = ($this->objConfig->getItem('KEWL_ALLOW_SELFREGISTER') != strtoupper('FALSE'));
         if (!$canRegister) {
             //Disabling Registration
