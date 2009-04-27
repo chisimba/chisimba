@@ -26,7 +26,6 @@ class skin extends object
         if (($xmlflag=='1')||($xmlflag==TRUE)||($xmlflag=='TRUE')){
             $this->setVar('pageSuppressXML',TRUE);
         }
-        //$this->server = $this->objConfig->serverName();
 
         // Browser Detection Class
         $this->browserInfo = $this->getObject('browser');
