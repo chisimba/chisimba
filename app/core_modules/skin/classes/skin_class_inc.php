@@ -27,6 +27,13 @@ class skin extends object
             $this->setVar('pageSuppressXML',TRUE);
         }
 
+        // Suppress chrome if output needs to be displayed inside facebox.
+        if ($this->getParam('facebox')) {
+            $this->setVar('pageSuppressContainer', TRUE);
+            $this->setVar('pageSuppressBanner', TRUE);
+            $this->setVar('suppressFooter', TRUE);
+        }
+
         // Browser Detection Class
         $this->browserInfo = $this->getObject('browser');
 
