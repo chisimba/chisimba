@@ -55,23 +55,4 @@ looking for Kewl.Nextgen, please see http://avoir.uwc.ac.za/</mainText>
         <modified>2006-07-12 11:59:29</modified>
         <commentCount>0</commentCount>
     </tbl_stories>
-<tbl_stories>
-        <id>init_4</id>
-        <category>prelogin</category>
-        <isActive>1</isActive>
-        <parentId>base</parentId>
-        <language>en</language>
-        <title>Chisimba default prelogin story 2</title>
-        <abstract>blah</abstract>
-        <mainText>&amp;nbsp;testin.</mainText>
-        <dateCreated>2005-04-20 12:04:42</dateCreated>
-        <creatorId>1</creatorId>
-        <expirationDate>2025-04-21 00:00:00</expirationDate>
-        <isSticky>1</isSticky>
-        <modified>2006-07-12 11:59:29</modified>
-        <dateModified>2005-04-20 12:04:12</dateModified>
-        <modifierId>1</modifierId>
-        <commentCount>0</commentCount>
-    </tbl_stories>
-
 </defaultdata>
