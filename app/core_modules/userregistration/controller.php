@@ -51,14 +51,6 @@ class userregistration extends controller
      */
     public function dispatch($action) 
     {
-        // If user is logged in, they should not have access to this page
-        // Also destroy data
-        // if ($this->objUser->isLoggedIn()) {
-        // $this->setSession('id', '');
-        // $this->setSession('password', '');
-        // $this->setSession('time', '');
-        // return $this->nextAction(NULL, NULL, '_default');
-        // }
         // Add login layout if page is displayed outside facebox.
         if (!$this->getParam('facebox')) {
             $this->setLayoutTemplate('login_layout_tpl.php');
