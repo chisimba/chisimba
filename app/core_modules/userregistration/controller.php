@@ -11,18 +11,22 @@ class userregistration extends controller
      * @var object $objConfig Config Object
      */
     public $objConfig;
+
     /**
      * @var object $objLanguage Language Object
      */
     public $objLanguage;
+
     /**
      * @var object $objUserAdmin User Administration \ Object
      */
     public $objUserAdmin;
+
     /**
      * @var object $objUser User Object Object
      */
     public $objUser;
+
     /**
      * Constructor
      */
