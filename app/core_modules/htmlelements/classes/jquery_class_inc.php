@@ -334,6 +334,23 @@ class jquery extends object
 		$this->appendArrayVar('headerParams', '<link rel="stylesheet" type="text/css" href="'.$this->getResourceUri($basePath.'theme/'.$theme.'/ui.all.css') .'">');
     }
 
+
+    /**
+     * Method to load the cluetip plugin
+     * This plugin makes it easy to produce highly customizable tooltips.
+	 *
+	 * View Demo : http://plugins.learningjquery.com/cluetip/demo/
+     */
+    public function loadCluetipPlugin($version = '0.9.9')
+    {
+        $basePath = 'jquery/plugins/cluetip/'.$version . '/';
+        $this->appendArrayVar('headerParams', '<link rel="stylesheet" type="text/css" href="'.$this->getResourceUri($basePath.'jquery.cluetip.css'.'">'));
+
+        $this->appendArrayVar('headerParams', $this->getJavascriptFile($basePath.'lib/hoverIntent.js', 'htmlelements'));
+        $this->appendArrayVar('headerParams', $this->getJavascriptFile($basePath.'lib/jquery.bgiframe.min.js', 'htmlelements'));
+        $this->appendArrayVar('headerParams', $this->getJavascriptFile($basePath.'jquery.cluetip.js', 'htmlelements'));
+    }
+
 	
 }
 
