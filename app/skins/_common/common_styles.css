@@ -2836,3 +2836,11 @@ p.im_source {
 width:120px;
 margin-bottom: 20px
 }
+
+/*Hidden*/
+.hidden {
+	visibility: hidden;
+	display: none;
+}
+
+
