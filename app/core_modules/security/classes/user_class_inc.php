@@ -49,7 +49,6 @@ class user extends dbTable
     private $objLanguage;
     private $loggedInUsers;
     private $userLoginHistory;
-    //var $userGroups;
     private $_record = NULL;
 
     private $imagePath;
