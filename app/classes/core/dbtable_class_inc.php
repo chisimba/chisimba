@@ -173,7 +173,7 @@ class dbTable extends object
 		'tbl_prelogin_blocks',
 		);
 
-        public $obbjLu;
+        public $objLu;
 
         public $objLuAdmin;
 
