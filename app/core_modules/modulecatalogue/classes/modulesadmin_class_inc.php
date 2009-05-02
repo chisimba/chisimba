@@ -956,16 +956,15 @@ class modulesadmin extends dbTableManager
     private function makeTable($table,$moduleId='NONE')
     {
         try {
-            $this->objTableInfo=$this->newObject('tableinfo','modulecatalogue');
-            if ($moduleId=='NONE'){
-                $moduleId=$this->module_id;
+            $this->objTableInfo = $this->newObject('tableinfo', 'modulecatalogue');
+            if ($moduleId == 'NONE') {
+                $moduleId = $this->module_id;
             }
             $this->objTableInfo->tablelist();
-            if ($this->objTableInfo->checktable($table))
-            {
+            if ($this->objTableInfo->checktable($table)) {
                 return TRUE; // table already exists, don't try to create it over again!
             }
-            if (!$sqlfile = $this->objModFile->findSqlFile($moduleId,$table)){
+            if (!$sqlfile = $this->objModFile->findSqlFile($moduleId,$table)) {
                 //for some reason the exception below results in a blank screen. return false instead.
                 //throw new Exception($sqlfile.' '.$this->objLanguage->languageText('mod_modulecatalogue_sqlnotfound','modulecatalogue'));
                 return FALSE;
@@ -975,9 +974,9 @@ class modulesadmin extends dbTableManager
                 return FALSE;
             }
 
-            $this->createTable($tablename,$fields,$options);
+            $this->createTable($tablename, $fields, $options);
             if (isset($indexes)) {
-                $this->createTableIndex($tablename,$name,$indexes);
+                $this->createTableIndex($tablename, $name, $indexes);
             }
             return TRUE;
         } catch (Exception $e) {
