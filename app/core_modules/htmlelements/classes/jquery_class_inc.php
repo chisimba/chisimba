@@ -338,8 +338,8 @@ class jquery extends object
     /**
      * Method to load the cluetip plugin
      * This plugin makes it easy to produce highly customizable tooltips.
-	 *
-	 * View Demo : http://plugins.learningjquery.com/cluetip/demo/
+     *
+     * View Demo : http://plugins.learningjquery.com/cluetip/demo/
      */
     public function loadCluetipPlugin($version = '0.9.9')
     {
