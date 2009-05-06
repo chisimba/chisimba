@@ -244,11 +244,49 @@ class contextadmin extends controller
             return $this->nextAction('step3', array('mode'=>$mode));
         }
     }
-    
     /**
-     * Step 3 - Selecting modules to be used in context
+     * Step 3 of Creating a Context - Adding Goals
      */
     private function __step3()
+    {
+        $contextCode = $this->getSession('contextCode');
+        
+        $context = $this->objContext->getContext($contextCode);
+        
+        if ($context == FALSE) {
+            return $this->nextAction(NULL);
+        }
+        
+        $this->setVar('mode', $this->getParam('mode'));
+        $this->setVar('contextCode', $contextCode);
+        $this->setVar('context', $context);
+        
+        return 'step3.php';
+    }
+
+     /**
+     * Method to save step 3 of creating a context - goals
+     */
+    private function __savestep3()
+    {
+        if ($this->getParam('contextCode') != $this->getSession('contextCode')) {
+            return $this->nextAction(NULL);
+        } else {
+            $contextCode = $this->getSession('contextCode');
+            
+            $goals = $this->getParam('goals');
+            $mode = $this->getParam('mode');
+           
+            $this->objContext->updateGoals($contextCode, $goals);
+            
+            return $this->nextAction('step4', array('mode'=>$mode));
+        }
+    }
+   
+    /**
+     * Step 4 - Selecting modules to be used in context
+     */
+    private function __step4()
     {
         $contextCode = $this->getSession('contextCode');
         
@@ -271,13 +309,13 @@ class contextadmin extends controller
         $this->setVarByRef('contextModules', $contextModules);
         $this->setVarByRef('plugins', $plugins);
         
-        return 'step3.php';
+        return 'step4.php';
     }
     
     /**
      * Method to save step 3 of creating a context - module selection
      */
-    private function __savestep3()
+    private function __savestep4()
     {
         if ($this->getParam('contextCode') != $this->getSession('contextCode')) {
             return $this->nextAction(NULL);
