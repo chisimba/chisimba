@@ -59,14 +59,16 @@ class loggedInUsers extends dbTable
         $sql="DELETE FROM tbl_loggedinusers
             WHERE
                 (userid = '$userId')
-                AND ((CURRENT_TIMESTAMP-whenlastactive)>'{$this->systemTimeOut}')";
+                AND (((CURRENT_TIMESTAMP-whenlastactive)/100)>'{$this->systemTimeOut}')";
+        //echo "[$sql]";
+        //DELETE FROM tbl_loggedinusers WHERE (userid = '1') AND ((CURRENT_TIMESTAMP-whenlastactive)>'480')
         $this->query($sql);
         // Update the tbl_loggedinusers table
         $ipAddress=$_SERVER['REMOTE_ADDR'];
         $sessionId=session_id();
         $contextCode="lobby";
         $theme="default";
-        $myDate=date('Y-m-d H:m:s');
+        $myDate=date('Y-m-d H:i:s');
         $isInvisible='0';
         $sql="
             INSERT INTO tbl_loggedinusers (
