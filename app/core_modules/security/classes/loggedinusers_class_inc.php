@@ -60,8 +60,6 @@ class loggedInUsers extends dbTable
             WHERE
                 (userid = '$userId')
                 AND (((CURRENT_TIMESTAMP-whenlastactive)/100)>'{$this->systemTimeOut}')";
-        //echo "[$sql]";
-        //DELETE FROM tbl_loggedinusers WHERE (userid = '1') AND ((CURRENT_TIMESTAMP-whenlastactive)>'480')
         $this->query($sql);
         // Update the tbl_loggedinusers table
         $ipAddress=$_SERVER['REMOTE_ADDR'];
