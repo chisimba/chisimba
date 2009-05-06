@@ -134,7 +134,7 @@ class dbcontext extends dbTable {
      *
      * @return boolean Result of adding a context
      */
-    public function createContext($contextCode, $title, $status = 'Published', $access = 'Private', $about = NULL) {
+    public function createContext($contextCode, $title, $status = 'Published', $access = 'Private', $about = NULL, $goals=FALSE) {
         $contextCode = preg_replace ( '/\W*/', '', $contextCode );
         $contextCode = strtolower ( $contextCode );
 
@@ -148,7 +148,7 @@ class dbcontext extends dbTable {
             return FALSE;
         } else {
             // Insert Record
-            $result = $this->insert ( array ('contextcode' => $contextCode, 'title' => $title, 'menutext' => $title, 'access' => $access, 'status' => $status, 'about' => $about, 'userid' => $this->objUser->userId (), 'dateCreated' => date ( "Y-m-d" ), 'updated' => date ( "Y-m-d H:i:s" ), 'lastupdatedby' => $this->objUser->userId () ) );
+            $result = $this->insert ( array ('contextcode' => $contextCode, 'title' => $title, 'menutext' => $title, 'access' => $access, 'status' => $status, 'about' => $about, 'userid' => $this->objUser->userId (), 'dateCreated' => date ( "Y-m-d" ), 'updated' => date ( "Y-m-d H:i:s" ), 'lastupdatedby' => $this->objUser->userId (), 'goals' => $goals ) );
 
             // If Successful
             if ($result) {
@@ -179,7 +179,7 @@ class dbcontext extends dbTable {
      *
      * @return boolean Result of Update
      */
-    public function updateContext($contextCode, $title=FALSE, $status=FALSE, $access=FALSE, $about=FALSE) {
+    public function updateContext($contextCode, $title=FALSE, $status=FALSE, $access=FALSE, $about=FALSE, $goals=FALSE) {
         $fields = array();
 
         $fields['updated'] = date ( 'Y-m-d H:i:s' );
@@ -197,6 +197,9 @@ class dbcontext extends dbTable {
         }
         if ($about !== FALSE) {
             $fields['about'] = $about;
+        }
+        if ($goals !== FALSE) {
+            $fields['goals'] = $goals;
         }
 
         $result = $this->update ( 'contextcode', $contextCode, $fields );
@@ -217,7 +220,20 @@ class dbcontext extends dbTable {
      * @access public
      */
     public function updateAbout($contextCode, $about) {
-        $result = $this->updateContext ( $contextCode, FALSE, FALSE, FALSE, $about );
+        $result = $this->updateContext ( $contextCode, FALSE, FALSE, FALSE, $about, FALSE );
+
+        return $result;
+    }
+    /**
+     * Method to update the goals text of a context
+     *
+     * @param  string $contextCode The context code
+     * @param  string $about The about text
+     * @return boolean
+     * @access public
+     */
+    public function updateGoals($contextCode, $goals) {
+        $result = $this->updateContext ( $contextCode, FALSE, FALSE, FALSE, FALSE, $goals );
 
         return $result;
     }
@@ -346,7 +362,7 @@ class dbcontext extends dbTable {
     }
 
     /**
-     * Method to get the MenuText
+     * Method to get the About
      *
      * @param  string $contextCode : The contextCode
      * @return array
@@ -358,6 +374,20 @@ class dbcontext extends dbTable {
         }
 
         return $this->getField ( 'about', $contextCode );
+    }
+    /**
+     * Method to get the Goals
+     *
+     * @param  string $contextCode : The contextCode
+     * @return array
+     * @access public
+     */
+    public function getGoals($contextCode = NULL) {
+        if (! isset ( $contextCode )) {
+            $contextCode = $this->getSession ( 'contextCode' );
+        }
+
+        return $this->getField ( 'goals', $contextCode );
     }
 
     /**

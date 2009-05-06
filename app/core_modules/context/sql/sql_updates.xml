@@ -7,8 +7,19 @@
         <data>
             <add>
                 <name>archive</name>
-                <type>integer</type>                
+                <type>integer</type>
             </add>
         </data>
     </update>    
+    <update>
+        <table>tbl_context</table>
+        <version>1.551</version>
+        <description>Added goals Field</description>
+        <data>
+            <add>
+                <name>goals</name>
+                <type>text</type>                
+            </add>
+        </data>
+    </update>
 </updates>
