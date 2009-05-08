@@ -80,7 +80,10 @@ $fields = array(
     'archive' => array(
         'type' => 'integer',
         'length' => 10
-)
+	),
+    'goals' => array(
+        'type' => 'text'
+	)
     );
 
 $name = 'contextcode';
