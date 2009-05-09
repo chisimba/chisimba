@@ -54,6 +54,13 @@ $GLOBALS ['kewl_entry_point_run']) {
 class share extends object {
 
     /**
+     * example usage:
+     * $this->objShare = $this->getObject('share', 'toolbar');
+     * $this->objShare->setup($this->uri(''), 'My super web', 'Super Interesting Post! ');
+     * $middleColumn = $this->objShare->show();
+     */
+
+    /**
      *
      * @var string $objLanguage String object property for holding the
      * language object
