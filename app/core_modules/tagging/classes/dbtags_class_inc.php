@@ -126,6 +126,30 @@ class dbtags extends dbTable
      * @param string $module
      * @param string $context Optional - Context item belongs to
      */
+    public function insertStarTags($tagarray, $userid, $itemId, $module, $uri, $context=NULL)
+    {
+        $this->_changeTable("tbl_tags");
+        foreach($tagarray as $tins)
+        {
+            $tins = trim($tins);
+            $tins = addslashes($tins);
+            if(!empty($tins))
+            {
+                $this->insert(array('userid' => $userid, 'item_id' => $itemId, 'meta_key' => 'startag', 'meta_value' => $tins, 'module' => $module, 'uri' => $uri, 'context' => $context));
+            }
+        }
+
+    }
+
+    /**
+     * Insert a set of tags into the database associated with the post
+     *
+     * @param array $tagarray
+     * @param string $userid
+     * @param String $itemId
+     * @param string $module
+     * @param string $context Optional - Context item belongs to
+     */
     public function insertAtTags($tagarray, $userid, $itemId, $module, $uri, $context=NULL)
     {
         $this->_changeTable("tbl_tags");
@@ -213,6 +237,12 @@ class dbtags extends dbTable
 
     public function getHashTagsByModule($module) {
         $sql = "SELECT DISTINCT meta_value FROM tbl_tags WHERE module='$module' and meta_key='hashtag'";
+
+        return $this->getArray($sql);
+    }
+
+    public function getStarTagsByModule($module) {
+        $sql = "SELECT DISTINCT meta_value FROM tbl_tags WHERE module='$module' and meta_key='startag'";
 
         return $this->getArray($sql);
     }
