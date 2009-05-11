@@ -8,6 +8,104 @@
     /*background-image: url('images/site_bkg.jpg');*/
 }
 
+/** BEGIN: Content Feature Box as used for the blocks that appear in the page body  **/
+.contentfeaturebox {
+       position: relative;
+       padding-top: 0.7em;
+       padding-right: 0pt;
+       padding-bottom: 0.6em;
+       padding-left: 0pt;
+       border-bottom-width: 1px;
+       border-bottom-style: dashed;
+       border-bottom-color: #d2dada;
+       line-height: 1.1em; 
+}
+
+/*.contentfeaturebox .hover
+{
+
+        background-color: #f7f7f7;
+
+}*/
+
+.contentfeaturebox p, .featurebox h1, .featurebox h2, .featurebox h3, .featurebox h4, .featurebox h5, .featurebox h6 {
+        margin: 0 0 .3em ;
+        padding-left: 0px;
+        border-bottom: 1px solid #0033FF;
+        color: #6A7F3C;
+        background-color: #fff;
+}
+.contenttest {color: #003366}
+.contentfeaturebox p {
+        border:none;
+        margin: 0 0 1em;
+        color: #333333;
+}
+
+
+/* Normal Bubble */
+div.bubble {
+	width: auto;
+	font-size: 0.75em;
+	margin-bottom: 24px;
+}
+
+div.bubble blockquote {
+	margin: 0px;
+	padding: 0px;
+	border: 1px solid #c9c2c1;
+	background-color: #fff;
+}
+
+div.bubble blockquote p {
+	margin: 10px;
+	padding: 0px;
+}
+
+div.bubble cite {
+	position: relative;
+	margin: 0px;
+	padding: 7px 0px 0px 15px;
+	top: 6px;
+	background: transparent url(tip.gif) no-repeat 20px 0;
+	font-style: normal;
+}
+
+/* Rounded Bubble */
+div.bubble div.rounded {
+	margin-bottom: 10px;
+	border: 3px solid #fff;
+	background-color: #b7e0ff;
+}
+div.bubble div.rounded blockquote {
+	border: 0;
+	background-color: transparent;
+}
+div.bubble div.rounded blockquote p {
+	margin: 0px 10px;
+}
+div.bubble cite.rounded {
+	position: relative;
+	margin: 0px;
+	padding-left: 15px;
+	padding-top: 12px;
+	top: 9px;
+	background: transparent url(tip-rounded.gif) no-repeat 15px 0;
+}
+
+/* Pimped Bubble */
+div#pimped.bubble {
+	font-size: 0.9em;
+}
+div#pimped.bubble div.rounded {
+	color: #fff;
+	border: 3px solid #fff;
+	background-color: #111;
+}
+div#pimped.bubble cite.rounded {
+	background: transparent url(tip-pimped.gif) no-repeat 15px 0;
+}
+
 #container {
     background-color: #fff;
    
