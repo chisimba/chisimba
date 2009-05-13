@@ -298,7 +298,7 @@ class groupAdminModel extends object
      */
     public function getName( $groupId )
     {
-        $groups = $this->objLuAdmin->perm->getGroups(array('filters' => array('group_id' => $grouId)));
+        $groups = $this->objLuAdmin->perm->getGroups(array('filters' => array('group_id' => $groupId)));
         if(empty($groups) || !isset($groups[0])) {
             return NULL;
         }
