@@ -730,7 +730,7 @@ class engine {
     }
 
     public function authNotification(&$notification) {
-        log_debug($notification->getNotificationName ());
+        //log_debug($notification->getNotificationName ());
         if ($notification->getNotificationName () == 'onIdled') {
             log_debug ( "Session timed out..." );
         }
