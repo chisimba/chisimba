@@ -193,6 +193,14 @@ class dbtags extends dbTable
         return $count;
     }
 
+    public function getModuleTagWeight($tag, $module)
+    {
+        $tag = addslashes($tag);
+        $this->_changeTable("tbl_tags");
+        $count = $this->getRecordCount("WHERE meta_value = '$tag' AND module = '$module'");
+        return $count;
+    }
+
     /**
      * Method to get a tag weight by counting the tags
      *
