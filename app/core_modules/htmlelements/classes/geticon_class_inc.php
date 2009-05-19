@@ -456,6 +456,41 @@ class getIcon extends object implements ifhtml
         return $objLayer->show();
     }
 
+
+/**
+    * Same as above except with id as mandatory param
+    * 
+    * @author Megan Watson, Charl Mert
+    * @param  string $url        The uri generated path for the task to be performed
+    * @param  string $name       The name of the icon file before the 'extension', but not including the extension. For example, for the icon "help.gif", $name would be set to "help".
+    * @param  string $linkText   The text to display below the icon.
+    * @param  string $type       The file type / extension (usually gif or png). For example, for the icon "help.gif", $type would be set to "gif" or left out.
+    * @param  string $iconfolder The iconfolder to use, defaults to the one specified in the config file for KNG
+    */
+    public function getCleanBlockIconId($divId, $url, $name, $linkText, $type = 'gif', $iconfolder='icons/', $extra = NULL)
+    {
+        $objLayer = $this->newObject('layer', 'htmlelements');
+        $this->loadClass('link', 'htmlelements');
+        
+        $this->setIcon($name, $type, $iconfolder);
+        $this->extra = $extra;
+        $this->title = $linkText;
+        $icStr = $this->show();
+        
+        $icStr .= '<span>'.$linkText.'</span>';
+        
+        $objLink = new link($url);
+        $objLink->link = $icStr;
+        $linkStr = $objLink->show();
+        
+        $objLayer->str = $linkStr;
+		$objLayer->id = $divId;
+        $objLayer->cssClass = 'icon';
+        
+        return $objLayer->show();
+    }
+
+
     /**
     * Method to show the icon
     * @return the icon URL as a string
