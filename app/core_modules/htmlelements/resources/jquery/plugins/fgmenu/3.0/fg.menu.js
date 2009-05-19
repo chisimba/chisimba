@@ -500,7 +500,7 @@ Menu.prototype.setPosition = function(widget, caller, options) {
 	yVal += options.positionOpts.offsetY;
 	
 	// position the object vertically
-	if (options.positionOpts.directionV == 'up') {
+	if (options.positionOpts.directionV == 'down') {
 		el.css({ top: 'auto', bottom: yVal });
 		if (options.positionOpts.detectV && !fitVertical(el)) {
 			el.css({ bottom: 'auto', top: yVal });
