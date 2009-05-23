@@ -120,7 +120,10 @@ class loginInterface extends object
             $objElement->setCSS("transparentbgnb");
             $objElement->label=$this->objLanguage->languageText("phrase_networkid").' ';
             $ldap = '';
-            if ($this->objConfig->getuseLDAP()) {
+            $objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
+            $showLDAPCheckBox=$objSysConfig->getValue('show_ldap_checkbox', 'security');
+            
+            if ($this->objConfig->getuseLDAP() && $showLDAPCheckBox == 'true') {
                 $ldap .= $objElement->label.' '.$objElement->show();
 
             }
