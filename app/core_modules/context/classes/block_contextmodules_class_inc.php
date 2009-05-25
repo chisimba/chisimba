@@ -91,7 +91,7 @@ class block_contextmodules extends object
         
         $this->objLanguage = $this->getObject('language', 'language');
         
-        $this->title = ucwords($this->objLanguage->code2Txt('mod_context_contextpluginsabs', 'context', array('plugins'=>'plugins'), '[-context-] [-plugins-]'));
+        $this->title = ucwords($this->objLanguage->code2Txt('mod_context_context', 'context', array('plugins'=>'plugins'), '[-context-]'))." ".$this->objLanguage->code2Txt('mod_context_plugins', 'context', array('plugins'=>'plugins'), '[-plugins-]');
     }
    
     /**
