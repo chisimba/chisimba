@@ -530,5 +530,19 @@ class getIcon extends object implements ifhtml
         $ret .=" />";
         return $ret;
     }
+
+
+    /**
+    * Method to get the src url of the image.
+    * @return the icon URL as a string
+    */
+    public function getSrc()
+    {
+        $ret = $this->iconfolder
+            . $this->name . "." . $this->type;
+
+        return $ret;
+    }
+
 }
 ?>
