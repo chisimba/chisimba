@@ -327,7 +327,6 @@ class groupAdminModel extends object
                 'hierarchy' => true,
             )
         );
-
         foreach ($groups as $grps) {
             if(array_key_exists('subgroups', $grps)) {
                 $subgroups[] = $grps['subgroups'];
@@ -670,9 +669,23 @@ class groupAdminModel extends object
      * @param  string      the current node ( groupId ).
      * @return array|false The parent group rows as an array of associate arrays, or FALSE on failure
      */
-    public function getParent ( $node )
+    public function getParent ( $subGroupId )
     {
+		$subgroups = FALSE;
+        $groups = $this->objLuAdmin->perm->getGroups(
+            array(
+                'select' => 'all',
+                'rekey' => true,
+                'filters' => array('subgroup_id' => $subGroupId),
+                'hierarchy' => true,
+            )
+        );
 
+        foreach ($groups as $grps) {
+                $parentgroup = $grps["group_define_name"];
+        }
+
+        return $parentgroup;
     }
 
     /**
