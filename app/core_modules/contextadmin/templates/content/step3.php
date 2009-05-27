@@ -39,8 +39,11 @@ echo '<br />'.$header->show();
 $objSelectImage = $this->getObject('selectimage', 'filemanager');
 $htmlEditor = $this->newObject('htmlarea', 'htmlelements');
 $htmlEditor->name = 'goals';
-$htmlEditor->value = $context['goals'];
-
+if(!empty($context['goals'])){
+	$htmlEditor->value = $context['goals'];
+}else{
+	$htmlEditor->value = "";
+}
 $table = $this->newObject('htmltable', 'htmlelements');
 $table->startRow();
 
@@ -71,8 +74,5 @@ $hiddenInput = new hiddeninput('contextCode', $contextCode);
 $form->addToForm($hiddenInput->show());
 
 echo $form->show();
-
-
-
 
 ?>
