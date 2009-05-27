@@ -351,6 +351,19 @@ class jquery extends object
         $this->appendArrayVar('headerParams', $this->getJavascriptFile($basePath.'jquery.cluetip.js', 'htmlelements'));
     }
 
+    /**
+     * Method to load the corner plugin
+     * This plugin creates round/beveled and just about any type of corner.
+	 *
+	 * View Demo : http://www.malsup.com/jquery/corner/
+     */
+    public function loadCornerPlugin($version = '1.7')
+    {
+        $basePath = 'jquery/plugins/corner/'.$version . '/';
+
+        $this->appendArrayVar('headerParams', $this->getJavascriptFile($basePath.'jquery.corner.js', 'htmlelements'));
+    }
+
 	
 }
 
