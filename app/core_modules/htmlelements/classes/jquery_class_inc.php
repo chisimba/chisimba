@@ -290,7 +290,7 @@ class jquery extends object
     {
         $basePath = 'jquery/plugins/pngfix/'.$version.'/';
 
-        $this->appendArrayVar('headerParams', $this->getJavascriptFile($basePath.'jquery.pngFix.pack.js'));
+        $this->appendArrayVar('headerParams', $this->getJavascriptFile($basePath.'jquery.pngFix.js'));
 
         //Activating the plugin
         $script = '
