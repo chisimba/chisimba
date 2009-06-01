@@ -160,20 +160,7 @@ class parse4photogallery extends object
         <h2>'.$image['title'].'</h2></div></div>
 
     ';
-            $desc = ($image['description'] == '') ? '[add a description]' : $image['description'];
-
-
-            $ajax = "<span class=\"subdued\" id=\"description\">[add a description]</span>
-                        <script>
-
-                                new Ajax.InPlaceEditor('description', 'index.php', { callback: function(form, value) { return 'module=photogallery&action=saveimage&imageid=".$image['id']."&field=description&myparam=' + escape(value) }})
-                        </script>";
-
-
-            echo $head;
-
-            echo $str;
-
+            
 
 
             $info=getimagesize($this->filemanager->getFullFilePath($image['file_id']));
@@ -195,41 +182,9 @@ class parse4photogallery extends object
             $link->extra = ' rel="lightbox" ';
             $str.=$link->show().'</div>';
 
+            $str.=$head;
 
-            /*          *
-             *
-             * $filename = $this->filemanager->getFileName($album['thumbnail']);
 
-            $path = $objThumbnail->getThumbnail($album['thumbnail'],$filename);
-
-            $link->href = $this->uri(array('action' => 'viewalbum', 'albumid' => $album['id']),"photogallery");
-            $link->link = '<img src="'.$path.'" alt="'.$album['title'].'" />';
-
-            $str .= $link->show();
-            $str .= '<div class="albumdesc">';
-
-            $link->href = $this->uri(array('action' => 'viewalbum', 'albumid' => $album['id']),"photogallery");
-            $link->link = $album['title'];
-
-            $imageCount = count($this->dbimages->getAll("WHERE album_id= '".$album['id']."'"));
-            $cntStr = ($imageCount > 1) ? $imageCount.' photos' : $imageCount.' photo';
-
-            if($album['description'] == '')
-            {
-                $desc =  '[add a description]';
-            } else {
-                $desc = $album['description'];
-            }
-
-            $url = $this->uri(array('action' => 'savealbumdescription' , 'albumid' => $album['id']), 'photogallery');
-            $ajax = "<span class=\"subdued\" id=\"description\">".$desc."</span>
-                        <script>
-                            new Ajax.InPlaceEditor('description', 'index.php', { callback: function(form, value) { return 'module=photogallery&action=savealbumdescription&albumid=".$album['id']."&field=description&myparam=' + escape(value) }})
-                        </script>";
-
-            $str .=	'<h3>'.$link->show().'</h3>'.$ajax.'<br/><span class="caption">('.$cntStr.')</span></div>
-                    <p style="clear: both; "></p></div>';
-*/
         }
 
         return '<div id="albums">'. $str .'</div></div>';
