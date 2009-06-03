@@ -451,8 +451,8 @@ class getIcon extends object implements ifhtml
         $linkStr = $objLink->show();
         
         $objLayer->str = $linkStr;
-        $objLayer->cssClass = 'icon';
-        
+        $objLayer->cssClass = '_icon';
+
         return $objLayer->show();
     }
 
