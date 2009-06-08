@@ -1,4 +1,4 @@
-<?php
+e admin s<?php
 
 /**
  * Utilities
@@ -600,8 +600,8 @@ function getContexts()
     		$str = '<table cellspacing="1" class="tablesorter">
 						<thead>
 							<tr>
-								<th>Title</th>
 								<th>Code</th>
+								<th>Title</th>
 								<th>Creator</th>
 								<th>Date Created</th>
 								<th>Last Updated</th>
