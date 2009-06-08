@@ -483,7 +483,7 @@ function getContexts()
     public function searchBlock()
     {
     	$script  = $this->getJavaScriptFile('jquery/1.2.3/jquery-1.2.3.pack.js', 'htmlelements');
-		$script .= $this->getJavaScriptFile('jquery/jquery.tablesorter.js', 'htmlelements');		
+		//$script .= $this->getJavaScriptFile('jquery/jquery.tablesorter.js', 'htmlelements');		
 		$script .= $this->getJavaScriptFile('jquery/plugins/tablesorter/pager/jquery.tablesorter.pager.js', 'htmlelements');
 		$script .= '<link rel="stylesheet" href="'.$this->getResourceUri('jquery/plugins/themes/blue/style.css', 'htmlelements').'" type="text/css" />';
 		$script .= '<script type="text/javascript" id="js">
