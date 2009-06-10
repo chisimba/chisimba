@@ -484,7 +484,7 @@ function getContexts()
     {
     	$script  = $this->getJavaScriptFile('jquery/1.2.3/jquery-1.2.3.pack.js', 'htmlelements');
 		$script .= $this->getJavaScriptFile('jquery/jquery.tablesorter.js', 'htmlelements');		
-		//$script .= $this->getJavaScriptFile('jquery/plugins/tablesorter/pager/jquery.tablesorter.pager.js', 'htmlelements');
+		$script .= $this->getJavaScriptFile('jquery/plugins/tablesorter/pager/jquery.tablesorter.pager.js', 'htmlelements');
 		$script .= '<link rel="stylesheet" href="'.$this->getResourceUri('jquery/plugins/themes/blue/style.css', 'htmlelements').'" type="text/css" />';
 		$script .= '<script type="text/javascript" id="js">
 						$(function() {
@@ -494,7 +494,7 @@ function getContexts()
 							}); </script>';
 		$this->appendArrayVar('headerParams', $script);	
     	
-		$pagerDiv ='	<div id="pager" class="pager">
+		$pagerDiv ='<div style="clear:both"></div>	<div id="pager" class="pager">
 			<form>
 				<img src="'.$this->getResourceUri('jquery/plugins/tablesorter/pager/icons/first.png', 'htmlelements').'" class="first"/>
 				<img src="'.$this->getResourceUri('jquery/plugins/tablesorter/pager/icons/prev.png', 'htmlelements').'" class="prev"/>
