@@ -39,7 +39,7 @@ echo '<br />'.$header->show();
 
 echo '<p>'.$this->objLanguage->code2Txt('mod_context_selectcontextpluginsabs', 'context', array('plugins'=>'plugins'), 'Select the [-plugins-] you would like to use in your [-context-]').':</p>';
 
-$form = new form('updateplugins', $this->uri(array('action'=>'savestep3')));
+$form = new form('updateplugins', $this->uri(array('action'=>'savestep4')));
 
 $table = $this->newObject('htmltable', 'htmlelements');
 

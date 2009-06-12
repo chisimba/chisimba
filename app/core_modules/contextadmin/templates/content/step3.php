@@ -13,7 +13,6 @@ $formAction = 'savestep3';
 $headerTitle = $context['title'].' - '.$this->objLanguage->code2Txt('mod_contextadmin_outcomes', 'contextadmin', NULL, '[-context-] Outcomes');
 $formButton = $this->objLanguage->languageText('mod_contextadmin_gotonextstep', 'contextadmin', 'Go to Next Step');
 
-
 $objStepMenu = $this->newObject('stepmenu', 'navigation');
 if ($mode == 'edit') {
     $objStepMenu->addStep(str_replace('[-num-]', 1, $this->objLanguage->code2Txt('mod_contextadmin_stepnumber', 'contextadmin', NULL, 'Step [-num-]')).' - '.ucwords($this->objLanguage->code2Txt('mod_context_contextsettings', 'context', NULL, '[-context-] Settings')), ucwords($this->objLanguage->code2Txt('mod_contextadmin_updatecontextitlesettings', 'contextadmin', NULL, 'Update [-context-] Title and Settings')));
