@@ -98,14 +98,20 @@ class parse4photogallery extends object
         $this->objExpar = $this->getObject("extractparams", "utilities");
         $this->objUser = $this->getObject('user', 'security');
         $this->filemanager =  $this->getObject('dbfile','filemanager');
-        $this->dbimages =  $this->getObject('dbimages', 'photogallery');
         $this->_objConfig = $this->getObject('altconfig', 'config');
+
+        $objModule = $this->getObject('modules','modulecatalogue');
+        //See if the mathml module is registered and set a param
+        $isRegistered = $objModule->checkIfRegistered('photogallery');
+        if ($isRegistered){
+        $this->dbimages =  $this->getObject('dbimages', 'photogallery');
         $this->_objUtils =  $this->getObject('utils',"photogallery");
         $scripts = '<script type="text/javascript" src="'.$this->_objConfig->getModuleURI().'photogallery/resources/lightbox/js/prototype.js"></script>
 <script type="text/javascript" src="'.$this->_objConfig->getModuleURI().'photogallery/resources/lightbox/js/scriptaculous.js?load=effects"></script>
 <script type="text/javascript" src="'.$this->_objConfig->getModuleURI().'photogallery/resources/lightbox/js/lightbox.js"></script>
 <link rel="stylesheet" href="'.$this->_objConfig->getModuleURI().'photogallery/resources/lightbox/css/lightbox.css" type="text/css" media="screen" />';
         $this->appendArrayVar('headerParams',$scripts);
+        }
     }
 
     /**
@@ -117,6 +123,10 @@ class parse4photogallery extends object
     */
     public function parse($txt)
     {
+        $objModule = $this->getObject('modules','modulecatalogue');
+        //See if the mathml module is registered and set a param
+        $isRegistered = $objModule->checkIfRegistered('photogallery');
+        if ($isRegistered){
 
         //Match filters based on a wordpress style
         preg_match_all('/\[PHOTOGALLERY\](.*)\[\/PHOTOGALLERY\]/U', $txt, $results, PREG_PATTERN_ORDER);
@@ -127,11 +137,12 @@ class parse4photogallery extends object
             $txt = str_replace($item, $replacement, $txt);
             $counter++;
         }
-
+        }
         return $txt;
     }
 
     private function getAlbum($title){
+
         $dbalbum =  $this->getObject('dbalbum', 'photogallery');
         $sql="WHERE title='".$title."' ORDER BY position";
         $albums= $dbalbum->getAll($sql);
