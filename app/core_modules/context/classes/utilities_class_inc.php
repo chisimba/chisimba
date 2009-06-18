@@ -1,4 +1,4 @@
-e admin s<?php
+<?php
 
 /**
  * Utilities
@@ -494,7 +494,7 @@ function getContexts()
 							}); </script>';
 		$this->appendArrayVar('headerParams', $script);	
     	
-		$pagerDiv ='<div style="clear:both"></div>	<div id="pager" class="pager">
+		$pagerDiv ='	<div id="pager" class="pager">
 			<form>
 				<img src="'.$this->getResourceUri('jquery/plugins/tablesorter/pager/icons/first.png', 'htmlelements').'" class="first"/>
 				<img src="'.$this->getResourceUri('jquery/plugins/tablesorter/pager/icons/prev.png', 'htmlelements').'" class="prev"/>
