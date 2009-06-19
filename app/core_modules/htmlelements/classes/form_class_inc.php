@@ -591,6 +591,9 @@ class form implements ifhtml
             case 'numeric':
                 $this->_valNumeric($mix, $errormsg);
                 break;
+            case 'nonnumeric':
+                $this->_valNonNumeric($mix, $errormsg);
+                break;
             case 'maxnumber':
                 $this->_valMaxNumber($mix,$errormsg);
                 break;
@@ -795,6 +798,19 @@ class form implements ifhtml
     private function _valNumeric($field, $errormsg)
     {
         $jmethod = 'valNumeric(el.value)';
+        $this->_addValidationScript($jmethod, $errormsg, $field);
+
+    }
+    
+    /**
+     * Method to check for non numeric field
+     *
+     * @param $fieldname string : The name of the field
+     * @param $errormsg  string : the error message
+     */
+    private function _valNonNumeric($field, $errormsg)
+    {
+        $jmethod = 'valNonNumeric(el.value)';
         $this->_addValidationScript($jmethod, $errormsg, $field);
 
     }

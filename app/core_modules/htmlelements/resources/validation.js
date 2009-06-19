@@ -13,6 +13,15 @@ function valNumeric(val){
 	
 }
 
+function valNonNumeric(val){
+	var ok=true;	
+	if(!val || !(isNaN(val))){
+		ok=false;
+	}
+	return ok;
+	
+}
+
 function valRequired(val){
 	//check if its a required field
 	var ok=true	;	
