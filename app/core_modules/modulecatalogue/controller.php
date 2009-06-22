@@ -641,7 +641,7 @@ class modulecatalogue extends controller {
                         $zip = new ZipArchive;
                         $zip->open("$modName.zip");
 
-                        if (! $$zip->extractTo($this->objConfig->getModulePath ().$modName )) {
+                        if (! $zip->extractTo($this->objConfig->getModulePath ().$modName )) {
                             log_debug ( "unzipping failed!" );
                             $zip->close();
                             header ( 'HTTP/1.0 500 Internal Server Error' );
@@ -658,7 +658,7 @@ class modulecatalogue extends controller {
                             $zip = new ZipArchive;
                             $zip->open("$modName.zip");
 
-                            if (! $$zip->extractTo($this->objConfig->getModulePath ().$modName )) {
+                            if (! $zip->extractTo($this->objConfig->getModulePath ().$modName )) {
                                 log_debug ( "unzipping failed!" );
                                 $zip->close();
                                 header ( 'HTTP/1.0 500 Internal Server Error' );
@@ -715,7 +715,7 @@ class modulecatalogue extends controller {
                     //$objZip = $this->getObject ( 'wzip', 'utilities' );
                     $zip = new ZipArchive;
                     $zip->open("$skin.zip");
-                    if (! $$zip->extractTo($this->objConfig->getSkinRoot ().$skin )) {
+                    if (! $zip->extractTo($this->objConfig->getSkinRoot ().$skin )) {
                         log_debug ( "unzipping failed!" );
                         header ( 'HTTP/1.0 500 Internal Server Error' );
                         echo $this->objLanguage->languageText ( 'mod_modulecatalogue_unziperror', 'modulecatalogue' );
