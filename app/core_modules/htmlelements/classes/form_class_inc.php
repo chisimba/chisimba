@@ -717,9 +717,11 @@ class form implements ifhtml
             }
             if (!ok){
                 ".$errormsg."
-                el.focus();
-                if (el.type != 'select-one'){
-                    el.select();
+                if (el.type != 'hidden') {
+                    el.focus();
+                        if (el.type != 'select-one'){
+                            el.select();
+                    }
                 }
                 return false;
             }";
