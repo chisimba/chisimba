@@ -84,7 +84,7 @@ function valMaxNumber(val,maxNumber)
 {
 	var ok=true;
 		if(!isNaN(val)){
-			if(!val>maxNumber)
+			if(val>maxNumber)
 				ok=false;
 		}else{
 			ok=false;
