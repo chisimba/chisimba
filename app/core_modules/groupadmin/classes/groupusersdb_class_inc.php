@@ -83,6 +83,7 @@ class groupusersdb extends dbTable
         // The connectUsers, and connectGroups methods must be called as well.
         // The objects of users and groups are connected to by these methods.
 		$this->_objUsers = $this->getObject('user', 'security');
+		$this->objGroups = $this->getObject('groupadminmodel');
     }
 
     /**
@@ -349,7 +350,9 @@ class groupusersdb extends dbTable
         $tblUser       = $users->_tableName;
 
         // Get Subgroups for this groupId
-        $SubGroups = $groups->getSubgroups( $groupId );
+        //$SubGroups = $groups->getSubgroups( $groupId );
+        if(!empty($groupId)){
+        $SubGroups = $this->objGroups->getSubgroups( $groupId );
         $lstGroups = "'".implode("', '", $SubGroups )."'";
 
         $sql = "SELECT ";
@@ -361,6 +364,9 @@ class groupusersdb extends dbTable
         // Return the users for the given group in an array.
         $result = $this->getArray( $sql.$filter );
         return $result;
+        }else{
+        return False;
+        }
     }
     
     /**
