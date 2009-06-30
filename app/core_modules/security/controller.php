@@ -166,6 +166,7 @@ class security extends controller {
             return $this->nextAction ( NULL, NULL, $postlogin );
         } else {
             $this->setLayoutTemplate ( 'login_layout_tpl.php' );
+            $this->setVar('_actionneedpassword', 1);
             return 'forgotyourpassword_tpl.php';
         }
     }
