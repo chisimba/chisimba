@@ -28,7 +28,7 @@ class groupadmin_installscripts extends dbTable {
                                                  $user['cellnumber'], $user['staffnumber'], $user['howcreated'], $user['isactive']
                                                  );
                         // set the password back
-                        $this->update('id',$id,array('pass'=>$user['pass'],'tbl_users');
+                        $this->update('id',$id,array('pass'=>$user['pass'],'tbl_users'));
                     }
                 }
 
