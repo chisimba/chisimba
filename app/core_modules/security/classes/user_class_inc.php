@@ -530,7 +530,6 @@ class user extends dbTable
             $sql="SELECT username FROM tbl_users WHERE userid='$userId'";
             $rs = $this->query($sql);
             if ($rs) {
-//                $line = $rs->fetchRow();
                 $ret=$rs[0]["username"];
             } else {
                 $ret=$this->objLanguage->languageText("error_datanotfound", 'security');
@@ -562,9 +561,7 @@ class user extends dbTable
         } else {
             //look up third part numeric ID
             $line = $this->getRow('userid', $userId);
-
-            if ($line == FALSE)
-            {
+            if ($line == FALSE) {
                 $result=$this->objLanguage->languageText("error_datanotfound", 'security');
             } else {
                 $result=$line['firstname'].' '.$line['surname'];
@@ -589,12 +586,16 @@ class user extends dbTable
         if (!$userId) {
             $userId = $this->getSession('userid');
         }
-        $sql = "SELECT surname FROM tbl_users WHERE userid='" . $userId . "'";
-        $rs = $this->query($sql);
-        if ($rs) {
-            return $rs[0]["surname"];
+        if ($userId == NULL) {
+           return $this->objLanguage->languageText("error_notloggedin_anon");
         } else {
-            return false;
+        	$sql = "SELECT surname FROM tbl_users WHERE userid='" . $userId . "'";
+        	$rs = $this->query($sql);
+        	if ($rs) {
+                return $rs[0]["surname"];
+        	} else {
+           	    return FALSE;
+        	}
         }
     }
 
@@ -614,13 +615,16 @@ class user extends dbTable
         if (!$userId) {
             $userId = $this->getSession('userid');
         }
-        $sql = "SELECT firstname FROM tbl_users WHERE userid='" . $userId . "'";
-        $rs = $this->query($sql);
-
-        if ($rs) {
-            return $rs[0]["firstname"];
+        if ($userId == NULL) {
+           return $this->objLanguage->languageText("error_notloggedin_anon");
         } else {
-            return false;
+            $sql = "SELECT firstname FROM tbl_users WHERE userid='" . $userId . "'";
+            $rs = $this->query($sql);
+	        if ($rs) {
+	            return $rs[0]["firstname"];
+	        } else {
+	            return FALSE;
+	        }
         }
     }
 
@@ -725,6 +729,36 @@ class user extends dbTable
         }
     }
 
+    /**
+    * Return the title of the user defaulting to the current user
+    * 
+    * @param string $userId The numeric ID of a user, it defaults
+    * to the userId of the current user by setting it to NULL as
+    * default.
+    * 
+    */
+    public function getTitle($userId=NULL)
+    {
+        if (!$userId) {
+            $title=$this->getSession('title');
+            if ($title){
+                $ret=$title;
+            } else {
+                $ret = FALSE; // Use false to avoid displaying Anonymous User (not logged in).
+            }
+        } else {
+            $sql="SELECT title FROM tbl_users WHERE userid='$userId'";
+            $rs = $this->query($sql);
+            if ($rs) {
+                $line = $rs->fetchRow();
+                $ret=$line["title"];
+            } else {
+                   $ret=$this->objLanguage->languageText("error_datanotfound", 'security');
+            }
+       }
+       return $ret;
+    }
+    
     /**
     * Return the number of times a current user has logged
     * into the site.
