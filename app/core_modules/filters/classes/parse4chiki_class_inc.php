@@ -70,6 +70,7 @@ class parse4chiki extends object
     public function init()
     {
         $this->objLanguage = $this->getObject('language', 'language');
+        $this->objUser = $this->getObject('user', 'security');
     }
 
     /**
@@ -134,6 +135,47 @@ class parse4chiki extends object
     {
         return "<span class='warning'>Chiki test was successful!</span>";
     }
+    /**
+    *
+    * Method to return the first name of the logged in user
+    * @access private
+    * @return string The parsed chiki for this method
+    */
+    private function __firstname()
+    {
+        return $this->objUser->getFirstname();
+    }
+    /**
+    *
+    * Method to return the surname of the logged in user
+    * @access private
+    * @return string The parsed chiki for this method
+    */
+    private function __surname()
+    {
+        return $this->objUser->getSurname();
+    }
+    /**
+    *
+    * Method to return the title of the logged in user
+    * @access private
+    * @return string The parsed chiki for this method
+    */
+    private function __title()
+    {
+        return $this->objUser->getTitle();
+    }
+    /**
+    *
+    * Method to return the full name of the logged in user
+    * @access private
+    * @return string The parsed chiki for this method
+    */
+    private function __fullname()
+    {
+        return $this->objUser->fullname();
+    }
+    
     /**
     *
     * Method to return a link to blog
