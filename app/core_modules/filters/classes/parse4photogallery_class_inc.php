@@ -51,8 +51,6 @@ if (!
  * code for including the all files in a user directory as links with descriptions
  * where descriptions exist.
  *
- * @author Derek Keats
- *
  */
 class parse4photogallery extends object
 {
@@ -66,24 +64,11 @@ class parse4photogallery extends object
     */
     public $objLanguage;
 
-    /**
-    *
-    * String object $objExpar is a string to hold the parameter extractor object
-    * @access public
-    *
+
+   /**
+    * Object referencing class that is used to retrieve album image
+    * @var <type>
     */
-    public $objExpar;
-
-    /**
-     *
-
-     * @access public
-     *
-     */
-    public $type;
-
-    public $filemanager;
-
     public $dbimages;
     /**
      * @return void
@@ -95,22 +80,21 @@ class parse4photogallery extends object
         // Get an instance of the language object
         $this->objLanguage = $this->getObject('language', 'language');
         // Get an instance of the params extractor
-        $this->objExpar = $this->getObject("extractparams", "utilities");
         $this->objUser = $this->getObject('user', 'security');
         $this->filemanager =  $this->getObject('dbfile','filemanager');
         $this->_objConfig = $this->getObject('altconfig', 'config');
 
         $objModule = $this->getObject('modules','modulecatalogue');
-        //See if the mathml module is registered and set a param
+        //See if the mathml module is registered and set params
         $isRegistered = $objModule->checkIfRegistered('photogallery');
         if ($isRegistered){
-        $this->dbimages =  $this->getObject('dbimages', 'photogallery');
-        $this->_objUtils =  $this->getObject('utils',"photogallery");
-        $scripts = '<script type="text/javascript" src="'.$this->_objConfig->getModuleURI().'photogallery/resources/lightbox/js/prototype.js"></script>
+            $this->dbimages =  $this->getObject('dbimages', 'photogallery');
+            $this->_objUtils =  $this->getObject('utils',"photogallery");
+            $scripts = '<script type="text/javascript" src="'.$this->_objConfig->getModuleURI().'photogallery/resources/lightbox/js/prototype.js"></script>
 <script type="text/javascript" src="'.$this->_objConfig->getModuleURI().'photogallery/resources/lightbox/js/scriptaculous.js?load=effects"></script>
 <script type="text/javascript" src="'.$this->_objConfig->getModuleURI().'photogallery/resources/lightbox/js/lightbox.js"></script>
 <link rel="stylesheet" href="'.$this->_objConfig->getModuleURI().'photogallery/resources/lightbox/css/lightbox.css" type="text/css" media="screen" />';
-        $this->appendArrayVar('headerParams',$scripts);
+            $this->appendArrayVar('headerParams',$scripts);
         }
     }
 
@@ -128,27 +112,39 @@ class parse4photogallery extends object
         $isRegistered = $objModule->checkIfRegistered('photogallery');
         if ($isRegistered){
 
-        //Match filters based on a wordpress style
-        preg_match_all('/\[PHOTOGALLERY\](.*)\[\/PHOTOGALLERY\]/U', $txt, $results, PREG_PATTERN_ORDER);
-        $counter = 0;
-        foreach ($results[0] as $item) {
-            $str = $results[1][$counter];
-            $replacement = $this->getAlbum($str);
-            $txt = str_replace($item, $replacement, $txt);
-            $counter++;
-        }
+            //Match filters based on a wordpress style
+            preg_match_all('/\[PHOTOGALLERY\](.*)\[\/PHOTOGALLERY\]/U', $txt, $results, PREG_PATTERN_ORDER);
+            $counter = 0;
+            foreach ($results[0] as $item) {
+                $str = $results[1][$counter];
+                $replacement = $this->getAlbum($str);
+                $txt = str_replace($item, $replacement, $txt);
+                $counter++;
+            }
         }
         return $txt;
     }
 
+    /**
+     * This function gets the albums that match the current title and
+     * renders them inplace of the filter
+     * @param <type> $title
+     * @return <type>
+     */
     private function getAlbum($title){
-
         $dbalbum =  $this->getObject('dbalbum', 'photogallery');
         $sql="WHERE title='".$title."' ORDER BY position";
         $albums= $dbalbum->getAll($sql);
         return $this->renderAlbum($albums);
     }
 
+    /**
+     * loop through the albums, displaying each of them.
+     * @todo: Its is always one album anyway, the loop might not
+     * be necessary
+     * @param <Array> $albums
+     * @return well htm formated display of the album
+     */
     private function renderAlbum($albums){
         $str = '';
         $link = $this->getObject('link','htmlelements');
@@ -158,22 +154,11 @@ class parse4photogallery extends object
         foreach($albums as $album)
         {
             $str .= '<div class="image">';
-
-
-
             $images=$dbimages->getAlbumImages($album['id']);
             $image=$images[0];
-
-
             $nav = $this->_objUtils->getImageNav($image['id']);
-
             $head = '<div id="main2">'.$nav.'<div id="gallerytitle">
-        <h2>'.$image['title'].'</h2></div></div>
-
-    ';
-            
-
-
+                     <h2>'.$image['title'].'</h2></div></div>';
             $info=getimagesize($this->filemanager->getFullFilePath($image['file_id']));
             if (isset($info[0])){
                 $width=$info[0];
@@ -183,7 +168,6 @@ class parse4photogallery extends object
             if ($width>500){
                 $width=500;
             }
-
             $filename = $this->filemanager->getFileName($image['file_id']);
             $path = $objThumbnail->getThumbnail($image['file_id'],$filename);
             $bigPath = $this->filemanager->getFilePath($image['file_id']);
@@ -192,10 +176,7 @@ class parse4photogallery extends object
             $link->link = '<img title="'.$image['title'].'" src="'.$bigPath.'" alt="'.$image['title'].'" width="'.$width.'" />';
             $link->extra = ' rel="lightbox" ';
             $str.=$link->show().'</div>';
-
             $str.=$head;
-
-
         }
 
         return '<div id="albums">'. $str .'</div></div>';
