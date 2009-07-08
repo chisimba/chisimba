@@ -12,6 +12,7 @@ class groupadmin_installscripts extends dbTable {
                 $pusers = $this->objGroupOps->getAllUsers();
                 $cusers = $this->getAll();
                 $perms = $this->objGroupOps->getAllPermUsers();
+                $auths=array();
                 foreach ($perms as $p) {
                     $auths[] = $p['auth_user_id'];
                 }
@@ -28,7 +29,7 @@ class groupadmin_installscripts extends dbTable {
                                                  $user['cellnumber'], $user['staffnumber'], $user['howcreated'], $user['isactive']
                                                  );
                         // set the password back
-                        $this->update('id',$id,array('pass'=>$user['pass'],'tbl_users'));
+                        $this->query("UPDATE tbl_users SET pass='".$user['pass']."' WHERE id='$id'");
                     }
                 }
 
