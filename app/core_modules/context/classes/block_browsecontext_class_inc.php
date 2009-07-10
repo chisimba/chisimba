@@ -140,12 +140,7 @@ class block_browsecontext extends object
 	        $objTab->addTab(array(
 	                'name' =>ucWords($this->objLanguage->code2Txt('phrase_allcourses', 'system', NULL, 'Search [-contexts-]')) ,
 	                'content' => '<div id="topic-grid"></div>'
-	            ) );
-	            
-	        $objTab->addTab(array(
-	                'name' =>ucWords($this->objLanguage->code2Txt('phrase_allcourses', 'system', NULL, '2Search [-contexts-]')) ,
-	                'content' => $objUtils->searchBlock__()
-	            ) );
+	            ) );	        
         }
 
 /*            $objTab->addTab(ucWords($this->objLanguage->code2Txt('phrase_mycourses', 'system', NULL, 'My [-contexts-]')), $str2);
