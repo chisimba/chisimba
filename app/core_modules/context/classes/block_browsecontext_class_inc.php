@@ -111,6 +111,17 @@ class block_browsecontext extends object
         $this->appendArrayVar('headerParams', $this->getJavaScriptFile('contextbrowser.js'));
         $this->appendArrayVar('bodyOnLoad', "getContexts('A');getUserContexts();");
         
+        //Ext stuff
+        $ext =$this->getJavaScriptFile('ext-3.0-rc2/adapter/ext/ext-base.js', 'htmlelements');
+        $ext .=$this->getJavaScriptFile('ext-3.0-rc2/ext-all.js', 'htmlelements');
+        $ext .=$this->getJavaScriptFile('search.js', 'context');
+        //$ext .=$this->getJavaScriptFile('ext-3.0-rc2/examples/grid/paging.js', 'htmlelements');
+        $ext .=$this->getJavaScriptFile('ext-3.0-rc2/examples/shared/examples.js', 'htmlelements');
+       
+        $ext .= '<link rel="stylesheet" href="'.$this->getResourceUri('ext-3.0-rc2/resources/css/ext-all.css', 'htmlelements').'" type="text/css" />';
+        $ext .= '<link rel="stylesheet" href="'.$this->getResourceUri('ext-3.0-rc2/examples/grid/grid-example.css', 'htmlelements').'" type="text/css" />';
+        $ext .= '<link rel="stylesheet" href="'.$this->getResourceUri('ext-3.0-rc2/examples/shared/examples.css', 'htmlelements').'" type="text/css" />';
+        $this->appendArrayVar('headerParams', $ext);
         
         $this->appendArrayVar('headerParams', '<script type="text/javascript">contextPrivateMessage="'.$this->objLanguage->code2Txt('mod_context_privatecontextexplanation', 'context', NULL, 'This is a closed [-context-] only accessible to members').'"; </script>');
         
@@ -128,7 +139,12 @@ class block_browsecontext extends object
         {
 	        $objTab->addTab(array(
 	                'name' =>ucWords($this->objLanguage->code2Txt('phrase_allcourses', 'system', NULL, 'Search [-contexts-]')) ,
-	                'content' => $objUtils->searchBlock()
+	                'content' => '<div id="topic-grid"></div>'
+	            ) );
+	            
+	        $objTab->addTab(array(
+	                'name' =>ucWords($this->objLanguage->code2Txt('phrase_allcourses', 'system', NULL, '2Search [-contexts-]')) ,
+	                'content' => $objUtils->searchBlock__()
 	            ) );
         }
 

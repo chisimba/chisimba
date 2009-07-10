@@ -482,6 +482,11 @@ function getContexts()
     
     public function searchBlock()
     {
+    	return '<div id="topic-grid"></div>';
+    }
+    
+    public function searchBlock__()
+    {
     	$script  = $this->getJavaScriptFile('jquery/1.2.3/jquery-1.2.3.pack.js', 'htmlelements');
 		$script .= $this->getJavaScriptFile('jquery/jquery.tablesorter.js', 'htmlelements');		
 		$script .= $this->getJavaScriptFile('jquery/plugins/tablesorter/pager/jquery.tablesorter.pager.js', 'htmlelements');
@@ -662,6 +667,41 @@ function getContexts()
     		return $str;
     	}
     	
+    	
+    }
+    
+    public function jsonListContext($start = 0, $limit=25)
+    {
+    	
+    	$contexts = $this->objDBContext->getAll("ORDER BY updated DESC limit $start, $limit");
+    	$all = $this->objDBContext->getAll();
+    	
+    	$contextCount = count($contexts);
+    	$cnt = 0;
+    	$str = '{"totalCount":"'.count($all).'","courses":[';
+    	if($contextCount > 0)
+    	{
+    		foreach($contexts as $context)
+    		{
+    			$cnt++;
+    			$str .= '{';
+    			//$str .= '"id":"'.$context['id'].'",';
+    			$str .= '"contextcode":"'.$context['contextcode'].'",';    			
+    			$str .= '"title":"'.$context['title'].'",';
+    			$str .= '"author":"'.htmlentities($this->objUser->fullname($context['userid'])).'",'; 
+    			$str .= '"datecreated":"'.$context['datecreated'].'",'; 
+    			$str .= '"lastupdated":"'.$context['updated'].'",'; 
+    			$str .= '"excerpt":"'.addslashes($context['about']).'"'; 
+    			$str .= '}';
+    			if ($cnt < $contextCount)
+    			{
+    				$str .= ',';
+    			}
+    		}
+    	}
+    	
+    	$str .= ']}';
+    	return $str;
     	
     }
 }

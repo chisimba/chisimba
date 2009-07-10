@@ -94,10 +94,10 @@ class context extends controller {
 			
 			$this->objContextGroups = $this->getObject('managegroups', 'contextgroups');
 			
-			$test = "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW";
+			/*$test = "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW";
 			$lect = $this->objContextGroups->isContextLecturer();
 error_log(var_export($lect, TRUE));
-
+*/
 
         } catch ( customException $e ) {
             customException::cleanUp ();
@@ -633,6 +633,18 @@ error_log(var_export($lect, TRUE));
     {
     	$objUtils = $this->getObject('utilities');
     	echo $objUtils->listContexts();
+    	exit(0);
+    }
+    
+     /**
+     * Method to list all he context
+     *
+     * @access protected
+     */
+    protected function __jsonlistcontext()
+    {
+    	$objUtils = $this->getObject('utilities');
+    	echo $objUtils->jsonListContext($this->getParam('start'), $this->getParam('limit'));
     	exit(0);
     }
 }
