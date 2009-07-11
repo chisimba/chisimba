@@ -166,12 +166,13 @@
     </phplint>
   </target>
   
+  
   <!-- Generate the API dox -->
   <target name="apidocs" description="Generates the PHPDocumetor API docs for the framework" depends="init, svnexport, lint">
     <phpdoc title="Chisimba API Documentation" destdir="apidocs" sourcecode="true" output="HTML:Smarty:PHP" defaultpackagename="chisimba" defaultcategoryname="chisimba">
      <fileset dir="${build.dir}/app/" id="apidox">
         <include name="**/*.php" />
-	<!-- exclude the pear stuff -->
+	<!-- exclude the pear stuff --> 
 	<exclude name="lib/pear/**" />
      </fileset>
      <projdocfileset dir=".">
@@ -181,12 +182,13 @@
      </projdocfileset>
     </phpdoc>
   </target>
-  
+  <!--
   <target name="sortdocs" description="Sorts the docs and generates different formats through OO.o" depends="docsvnexport">
-      <!-- Sort docs target - python OO.o UNO bridge script to do conversions -->
-      <exec command="sh conv.sh" dir="${docexportdir}" passthru="TRUE" /> <!-- ${docexportdir}/conv.sh" dir="${docexportdir}" passthru="TRUE" / -->
-      <!-- end build docs via OO.o -->
+      <!-- Sort docs target - python OO.o UNO bridge script to do conversions -
+      <exec command="sh conv.sh" dir="${docexportdir}" passthru="TRUE" /> <!-- ${docexportdir}/conv.sh" dir="${docexportdir}" passthru="TRUE" / -
+      <!-- end build docs via OO.o --
   </target>
+  -->
   
   <target name="build-tgz" description="Generates .tgz file containing framework" depends="init,svnexport, lint, apidocs">
     <tar destfile="${tarfile}" compression="gzip">
@@ -213,7 +215,7 @@
   </target>
   
   
-  <!-- Build PDF of the docs -->
+  <!-- Build PDF of the docs -
   <target name="doc-pdftgz" description="Generates .tgz file containing the docs as PDF's" depends="init, docsvnexport">
     <tar destfile="${pdfdoctarfile}" compression="gzip">
       <fileset dir="${build.dir}/docs/build/">
@@ -229,8 +231,8 @@
       </fileset>
     </zip>
   </target>
-  
-  <!-- Build OpenOffice odt's -->
+-->  
+  <!-- Build OpenOffice odt's --><!--
   <target name="doc-odttgz" description="Generates .tgz file containing the docs as OO.o files" depends="init, docsvnexport">
     <tar destfile="${odtdoctarfile}" compression="gzip">
       <fileset dir="${build.dir}/docs/build/">
@@ -246,8 +248,8 @@
       </fileset>
     </zip>
   </target>
-  
-  <!-- Build MS Word format docs -->
+  -->
+  <!-- Build MS Word format docs --><!--
   <target name="doc-doctgz" description="Generates .tgz file containing the docs as MS Word docs" depends="init, docsvnexport">
     <tar destfile="${docdoctarfile}" compression="gzip">
       <fileset dir="${build.dir}/docs/build/">
@@ -262,7 +264,7 @@
           <include name="**/*.doc" />
       </fileset>
     </zip>
-  </target>
+  </target> -->
   <!-- end doc builds -->
   
   <!-- Deploy targets - local first, then remotes -->
@@ -270,14 +272,14 @@
   <target name="deploy-local" description="Copies archives to local folder" depends="init, build">
     <copy file="${tarfile}" todir="./final" overwrite="true"/>
     <copy file="${zipfile}" todir="./final" overwrite="true"/>
-    <copy file="${apidoczipfile}" todir="./final" overwrite="true"/>
+    <!--copy file="${apidoczipfile}" todir="./final" overwrite="true"/>
     <copy file="${apidoctarfile}" todir="./final" overwrite="true"/>
     <copy file="${docdoctarfile}" todir="./final" overwrite="true"/>
     <copy file="${docdoczipfile}" todir="./final" overwrite="true"/>
     <copy file="${odtdoctarfile}" todir="./final" overwrite="true"/>
     <copy file="${odtdoczipfile}" todir="./final" overwrite="true"/>
     <copy file="${pdfdoctarfile}" todir="./final" overwrite="true"/>
-    <copy file="${pdfdoczipfile}" todir="./final" overwrite="true"/>
+    <copy file="${pdfdoczipfile}" todir="./final" overwrite="true"/ -->
     <!-- Clean up -->
     <delete dir="./build" includeemptydirs="true" verbose="true" failonerror="true" />
   </target>
