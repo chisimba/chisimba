@@ -108,17 +108,23 @@ class bestguess extends object
                             $uid = $objSysConfig->getValue('blog_singleuserid', 'blog');
                         }
                         break;
+                        
+                    //case 'cms':
+                        // Is it feasible to deduce a User from a CMS page?
+                        //break;
 
                     case 'jabberblog':
                         $objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
                         $uid = $objSysConfig->getValue('jposteruid', 'jabberblog');
                         break;
+                        
                     default:
                         if ($this->objUser->isLoggedIn()) {
                             $uid = $this->objUser->userId();
                         } else {
                             $uid=FALSE;
                         }
+                        
                         break;
                 }
             }
