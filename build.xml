@@ -125,7 +125,7 @@
   
   <target name="init" description="Performs any initialisation steps required by this build">
     <mkdir dir="${build.dir}"/>
-    <!-- mkdir dir="${build.dir}/docs" / -->
+    <mkdir dir="${build.dir}/docs" />
     <mkdir dir="final" />
   </target>
   
@@ -161,7 +161,27 @@
   <target name="lint" description="Performs a lintian check (syntax check) on all the code going into the archive(s)" depends="init, svnexport">
     <phplint haltonfailure="true">
       <fileset dir="${build.dir}/app/">
-        <include name="**/*.php"/>
+        <include name="**/*.php"/>i
+        <!-- exclude the pear stuff -->
+        <exclude name="lib/pear/**" />
+        <!-- exclude the installer -->
+        <exclude name="installer/**" />
+        <!-- exclude the skins -->
+        <exclude name="skins/**" />
+        <!-- exclude the tests -->
+        <exclude name="tests/**" />
+        <!-- exclude the packages -->
+        <exclude name="packages/**" />
+        <!-- exclude the configs -->
+        <exclude name="config/**" />
+        <!-- exclude the error log -->
+        <exclude name="error_log/**" />
+        <!-- exclude the user_images -->
+        <exclude name="user_images/**" />
+        <!-- exclude the usrfiles -->
+        <exclude name="usrfiles/**" />
+        <!-- exclude the cron dir -->
+        <exclude name="cron/**" />
       </fileset>
     </phplint>
   </target>
