@@ -76,7 +76,7 @@ class tigraNode extends object
     /**
     * Alternate constructor
     */
-    public function show()
+    public function showInit()
     {
         $jscript = '';
 
