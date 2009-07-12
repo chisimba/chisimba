@@ -161,7 +161,7 @@
   <target name="lint" description="Performs a lintian check (syntax check) on all the code going into the archive(s)" depends="init, svnexport">
     <phplint haltonfailure="true">
       <fileset dir="${build.dir}/app/">
-        <include name="**/*.php"/>i
+        <include name="**/*.php"/>
         <!-- exclude the pear stuff -->
         <exclude name="lib/pear/**" />
         <!-- exclude the installer -->
