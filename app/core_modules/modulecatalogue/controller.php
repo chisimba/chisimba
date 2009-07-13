@@ -541,7 +541,7 @@ class modulecatalogue extends controller {
                     $modName = $this->getParam ( 'moduleId' );
                     if ($modName == 'core') {
                         log_debug ( "Downloading $modName from remote..." );
-                        if (! file_exists ( "$modName.zip" )) {
+                        if (! file_exists ( $modName.".zip" )) {
                             if (! $encodedZip = $this->objRPCClient->getCoreZip ( $modName )) {
                                 header ( 'HTTP/1.0 500 Internal Server Error' );
                                 echo $this->objLanguage->languageText ( 'mod_modulecatalogue_rpcerror', 'modulecatalogue' );
@@ -552,7 +552,7 @@ class modulecatalogue extends controller {
                                 echo $this->objLanguage->languageText ( 'mod_modulecatalogue_rpcerror', 'modulecatalogue' );
                                 break;
                             }
-                            if (! $fh = fopen ( "$modName.zip", 'wb' )) {
+                            if (! $fh = fopen ( $modName.".zip", 'wb' )) {
                                 header ( 'HTTP/1.0 500 Internal Server Error' );
                                 echo $this->objLanguage->languageText ( 'mod_modulecatalogue_fileerror', 'modulecatalogue' );
                                 break;
@@ -569,7 +569,7 @@ class modulecatalogue extends controller {
                         break;
                     }
                     log_debug ( "Downloading module $modName from remote..." );
-                    if (! file_exists ( "$modName.zip" )) {
+                    if (! file_exists ( $modName.".zip" )) {
                         if (! $encodedZip = $this->objRPCClient->getModuleZip ( $modName )) {
                             header ( 'HTTP/1.0 500 Internal Server Error' );
                             echo $this->objLanguage->languageText ( 'mod_modulecatalogue_rpcerror', 'modulecatalogue' );
@@ -580,7 +580,7 @@ class modulecatalogue extends controller {
                             echo $this->objLanguage->languageText ( 'mod_modulecatalogue_rpcerror', 'modulecatalogue' );
                             break;
                         }
-                        if (! $fh = fopen ( "$modName.zip", 'wb' )) {
+                        if (! $fh = fopen ( $modName.".zip", 'wb' )) {
                             header ( 'HTTP/1.0 500 Internal Server Error' );
                             echo $this->objLanguage->languageText ( 'mod_modulecatalogue_fileerror', 'modulecatalogue' );
                             break;
@@ -639,7 +639,7 @@ class modulecatalogue extends controller {
                         //$objZip->unPackFilesFromZip("$modName.zip", $this->objConfig->getModulePath());
                         //if (!$objZip->unPackFilesFromZip("$modName.zip", $this->objConfig->getModulePath())) {
                         $zip = new ZipArchive;
-                        $zip->open("$modName.zip");
+                        $zip->open($modName.".zip");
 
                         if (! $zip->extractTo($this->objConfig->getModulePath ().$modName )) {
                             log_debug ( "unzipping failed!" );
@@ -656,7 +656,7 @@ class modulecatalogue extends controller {
                             log_debug ( "New module $modName from remote." );
                             //$objZip = $this->getObject ( 'wzip', 'utilities' );
                             $zip = new ZipArchive;
-                            $zip->open("$modName.zip");
+                            $zip->open($modName.".zip");
 
                             if (! $zip->extractTo($this->objConfig->getModulePath ().$modName )) {
                                 log_debug ( "unzipping failed!" );
@@ -684,14 +684,14 @@ class modulecatalogue extends controller {
                         echo "$this->output\n{$this->objModuleAdmin->output}";
                         break;
                     }
-                    unlink ( "$modName.zip" );
+                    unlink ( $modName.".zip" );
                     echo "<b>" . $this->objLanguage->languageText ( 'word_installed' ) . "</b>";
                     break;
 
                 case 'ajaxinstallcore' :
                     $modName = $this->getParam ( 'moduleId' );
                     log_debug ( "Prepping to install $modName" );
-                    unlink ( "$modName.zip" );
+                    unlink ( $modName.".zip" );
                     echo "<b>" . $this->objLanguage->languageText ( 'word_installed' ) . "</b>";
                     break;
 
@@ -714,7 +714,7 @@ class modulecatalogue extends controller {
                     $skin = $this->getParam ( 'skinname' );
                     //$objZip = $this->getObject ( 'wzip', 'utilities' );
                     $zip = new ZipArchive;
-                    $zip->open("$skin.zip");
+                    $zip->open($skin.".zip");
                     if (! $zip->extractTo($this->objConfig->getSkinRoot ().$skin )) {
                         log_debug ( "unzipping failed!" );
                         header ( 'HTTP/1.0 500 Internal Server Error' );
@@ -728,7 +728,7 @@ class modulecatalogue extends controller {
 
                 case 'ajaxinstallskin' :
                     $skin = $this->getParam ( 'skinname' );
-                    unlink ( "$skin.zip" );
+                    unlink ( $skin.".zip" );
                     // this doesn't seem to work correctly...
                     $this->objConfig->setdefaultSkin ( $skin );
                     echo "<b>" . $this->objLanguage->languageText ( 'word_installed' ) . "</b>";
@@ -738,7 +738,7 @@ class modulecatalogue extends controller {
                     $start = microtime ( true );
                     $skinName = $this->getParam ( 'skinname' );
                     log_debug ( "Downloading $skinName from remote..." );
-                    if (! file_exists ( "$skinName.zip" )) {
+                    if (! file_exists ( $skinName.".zip" )) {
                         if (! $encodedZip = $this->objRPCClient->getSkinZip ( $skinName )) {
                             header ( 'HTTP/1.0 500 Internal Server Error' );
                             echo $this->objLanguage->languageText ( 'mod_modulecatalogue_rpcerror', 'modulecatalogue' );
@@ -749,7 +749,7 @@ class modulecatalogue extends controller {
                             echo $this->objLanguage->languageText ( 'mod_modulecatalogue_rpcerror', 'modulecatalogue' );
                             break;
                         }
-                        if (! $fh = fopen ( "$skinName.zip", 'wb' )) {
+                        if (! $fh = fopen ( $skinName.".zip", 'wb' )) {
                             header ( 'HTTP/1.0 500 Internal Server Error' );
                             echo $this->objLanguage->languageText ( 'mod_modulecatalogue_fileerror', 'modulecatalogue' );
                             break;
