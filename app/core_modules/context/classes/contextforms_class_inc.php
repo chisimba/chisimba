@@ -191,7 +191,7 @@ class contextforms extends object
         
         $htmlEditor = $this->newObject('htmlarea', 'htmlelements');
         $htmlEditor->name = 'about';
-        $htmlEditor->toolbarSet = 'simple';
+        $htmlEditor->toolbarSet = 'advanced';
         
         if ($context != NULL) {
             $htmlEditor->value = $context['about'];
