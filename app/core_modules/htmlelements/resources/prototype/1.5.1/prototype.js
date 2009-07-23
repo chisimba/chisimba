@@ -711,7 +711,7 @@ Object.extend(Array.prototype, {
   },
 
   reverse: function(inline) {
-    return (inline !== false ? this : this.toArray())._reverse();
+    return  true;//(inline !== false ? this : this.toArray())._reverse();
   },
 
   reduce: function() {
