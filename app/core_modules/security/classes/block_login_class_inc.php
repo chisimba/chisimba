@@ -71,7 +71,7 @@ class block_login extends object
         try {
             $this->objLanguage =  $this->getObject('language', 'language');
             $this->objUser = $this->getObject('user', 'security');
-            if($this->objUser->isLoggedIn() && $this->getParam('module', NULL)!=="cmsadmin") {
+            if($this->objUser->isLoggedIn()) {
                 $this->blockType="invisible";
             } else {
                 $this->title = $this->objLanguage->languageText("word_login");
@@ -88,7 +88,7 @@ class block_login extends object
     public function show()
     {
         try {
-            if($this->objUser->isLoggedIn() && $this->getParam('module', NULL)!=="cmsadmin") {
+            if($this->objUser->isLoggedIn()) {
                 return NULL;
             } else {
                 $objLogin =  $this->getObject('logininterface', 'security');

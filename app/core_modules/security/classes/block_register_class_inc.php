@@ -71,7 +71,7 @@ class block_register extends object
             {
                 $this->blockType="invisible";
             }
-            if($this->objUser->isLoggedIn() && $this->getParam('module', NULL)!=="cmsadmin") {
+            if($this->objUser->isLoggedIn()) {
                 $this->blockType="invisible";
             } else { 
                 $this->title = $this->objLanguage->languageText("word_registration");
@@ -91,7 +91,7 @@ class block_register extends object
         try {
             $allowRegistration =  strtolower($this->objSysConfig->getValue('MOD_SECURITY_ALLOWREGISTRATION', 'security'));
             if ($allowRegistration !== "false") {
-                if($this->objUser->isLoggedIn() && $this->getParam('module', NULL)!=="cmsadmin") {
+                if($this->objUser->isLoggedIn()) {
                     return NULL;
                 } else {
                     $regModule = $this->objSysConfig->getValue('REGISTRATION_MODULE', 'security');
