@@ -96,7 +96,7 @@ class packagesapi extends object
         $mod = $module->getParam(0);
         // lets check to see if this module has dependencies...
         $depends = $this->objCatalogueConfig->getModuleDeps($mod->scalarval());
-        // log_debug($depends);
+        //log_debug($depends);
         //$depends = $depends[0];
         $depends = explode(',', $depends);
         foreach($depends as $dep)
@@ -174,14 +174,9 @@ class packagesapi extends object
             // try the core modules....
             $path = $this->objConfig->getsiteRootPath().'core_modules/'.$mod->scalarval().'/';
             $filepath = $this->objConfig->getsiteRootPath().'core_modules/'.$mod->scalarval().'.zip';
-            //zip up the module
-            //$objZip = $this->getObject('wzip', 'utilities');
-            //$zipfile = $objZip->packFilesZip($filepath, $path, TRUE, FALSE);
-            //$zipfile = $objZip->addArchive($path, $filepath, $this->objConfig->getsiteRootPath().'core_modules/');
             $zipfile = $this->makeZip($path, $filepath);
             $filetosend = file_get_contents($zipfile);
             $filetosend = base64_encode($filetosend);
-            // log_debug($filetosend);
             $val = new XML_RPC_Value($filetosend, 'string');
             //unlink($filepath);
             if($this->objModules->checkIfRegistered('remotepopularity'))
@@ -201,16 +196,8 @@ class packagesapi extends object
             return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
         }
         //zip up the module(s)
-        // finally zip up the mods needed and send to client...
         $filetosend = $this->zipDependencies($depe, $mod->scalarval());
-        /*$objZip = $this->getObject('wzip', 'utilities');
-        //$zipfile = $objZip->packFilesZip($filepath, $path, TRUE, FALSE);
-        $zipfile = $objZip->addArchive($path, $filepath, $this->objConfig->getModulePath());
-        $filetosend = file_get_contents($zipfile);
-        $filetosend = base64_encode($filetosend);*/
-        //log_debug($filetosend);
         $val = new XML_RPC_Value($filetosend, 'string');
-        //unlink($filepath);
         if($this->objModules->checkIfRegistered('remotepopularity'))
         {
             $objDbPop = $this->getObject('dbpopularity', 'remotepopularity');
@@ -234,7 +221,10 @@ class packagesapi extends object
         $modulesarr = implode(',', $modulesarr);
         // log_debug($modulesarr);
         //$zipfile = $objZip->addArchive($modulesarr, $filepath, $this->objConfig->getModulePath());
+log_debug($modulesarr);
+log_debug("that was the modles array thing");
         $zipfile = $this->makeZip($modulesarr, $filepath);
+log_debug($zipfile);
         $filetosend = file_get_contents($zipfile);
         $filetosend = base64_encode($filetosend);
         return $filetosend;
@@ -467,10 +457,11 @@ class packagesapi extends object
     }
 
     private function makeZip($path, $filename) {
-        if(!extension_loaded('zip')) {
+       /* if(!extension_loaded('zip')) {
             log_debug("Zip extension missing!");
             throw new customException("Zip extension required!");
-        }
+        } */
+        try {
         $zip = new ZipArchive();
         if ($zip->open($filename, ZIPARCHIVE::CREATE)!==TRUE) {
             log_debug("Unable to open zip file for creation");
@@ -479,7 +470,7 @@ class packagesapi extends object
         // glob and get a list of files
         chdir($path);
         //log_debug("Changed path to $path");
-        // log_debug($this->rglob('*', 0, ''));
+        //log_debug($this->rglob('*', 0, ''));
         foreach($this->rglob('*', 0, '') as $files) {
             if(is_dir($files)) {
                 $zip->addEmptyDir($files);
@@ -489,9 +480,12 @@ class packagesapi extends object
             }
         }
         //log_debug("numfiles: " . $zip->numFiles);
-        //log_debug("status:" . $zip->status);
+        //log_debug("status:" . $zip->GetStatusString());
         $zip->close();
-
+        }
+        catch (customException $e) {
+            customException::cleanUp();
+        }
         return $filename;
     }
 
