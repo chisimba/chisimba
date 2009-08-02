@@ -788,24 +788,24 @@ class modulecatalogue extends controller {
                         log_debug ( "getting $dls from remote..." );
                         $encodedZip = $this->objRPCClient->getModuleZip ( $dls );
                         $zipContents = base64_decode ( strip_tags ( $encodedZip ) );
-                        file_put_contents ( $dls . ".zip", $zipContents );
+                        file_put_contents ( $this->objConfig->getModulePath ().$dls . ".zip", $zipContents );
                         log_debug ( "Unzipping $dls..." );
                         $zip = new ZipArchive;
-                        $zip->open($dls.".zip");
+                        $zip->open($this->objConfig->getModulePath ().$dls.".zip");
                         // check for core modules and install them where they should go
                         if (in_array ( $dls, $this->objEngine->coremods )) {
                             log_debug ( "upgrading core module $dls as part of system type..." );
                             //                      if (!$objZip->unPackFilesFromZip("$dls.zip", $this->objConfig->getsiteRootPath().'core_modules/')) {
 
 
-                            if (! $zip->extractTo($this->objConfig->getsiteRootPath () . 'core_modules/' )) {
+                            if (! $zip->extractTo($this->objConfig->getsiteRootPath () . 'core_modules/'.$dls )) {
                                 header ( 'HTTP/1.0 500 Internal Server Error' );
                                 echo $this->objLanguage->languageText ( 'mod_modulecatalogue_unziperror', 'modulecatalogue' );
                                 //echo "<br /> $objZip->error";
                                 break;
                             }
 
-                        } elseif (! $zip->extractTo($this->objConfig->getModulePath () )) {
+                        } elseif (! $zip->extractTo($this->objConfig->getModulePath ().$dls )) {
                             log_debug ( "unzipping failed!" );
                             header ( 'HTTP/1.0 500 Internal Server Error' );
                             echo $this->objLanguage->languageText ( 'mod_modulecatalogue_unziperror', 'modulecatalogue' );
@@ -814,6 +814,8 @@ class modulecatalogue extends controller {
                             break;
                         }
                     }
+                    log_debug("About to batch register: ");
+                    log_debug($modules);
                     // finally install all of the mods
                     $this->batchRegister ( $modules );
                     /*foreach($modules as $installables)
@@ -823,7 +825,7 @@ class modulecatalogue extends controller {
                     }*/
                     // clean up after ourselves
                     foreach ( $modules as $deleteables ) {
-                        unlink ( $deleteables . ".zip" );
+                        unlink ( $this->objConfig->getModulePath ().$deleteables . ".zip" );
                     }
                     // echo $this->objLanguage->languageText('phrase_installing');
                     // now set the system type to this type in the config.xml
