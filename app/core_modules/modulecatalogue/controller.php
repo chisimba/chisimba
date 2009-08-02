@@ -623,10 +623,12 @@ class modulecatalogue extends controller {
                     $modName = $this->getParam ( 'moduleId' );
                     @chmod ( $this->objConfig->getModulePath (), 0777 );
                     if (in_array ( $modName, $this->objEngine->coremods )) {
+                        log_debug("Unzipping replacement core module $modName");
                         $zip = new ZipArchive;
                         $zip->open($modName.".zip");
                         if (! $zip->extractTo($this->objConfig->getsiteRootPath () . 'core_modules/'.$modName )) {
                             $zip->close();
+                            log_debug("Unzip failed!");
                             header ( 'HTTP/1.0 500 Internal Server Error' );
                             echo $this->objLanguage->languageText ( 'mod_modulecatalogue_unziperror', 'modulecatalogue' );
                             //echo "<br /> $objZip->error";
@@ -635,11 +637,6 @@ class modulecatalogue extends controller {
                         }
                         $zip->close();
                     } elseif (is_dir ( $this->objConfig->getModulePath () . $modName )) {
-                        log_debug ( "replacing module...$modName" );
-                        // unlink($this->objConfig->getModulePath().$modName);
-                        //$objZip = $this->getObject ( 'wzip', 'utilities' );
-                        //$objZip->unPackFilesFromZip("$modName.zip", $this->objConfig->getModulePath());
-                        //if (!$objZip->unPackFilesFromZip("$modName.zip", $this->objConfig->getModulePath())) {
                         $zip = new ZipArchive;
                         $zip->open($modName.".zip");
 
@@ -648,15 +645,12 @@ class modulecatalogue extends controller {
                             $zip->close();
                             header ( 'HTTP/1.0 500 Internal Server Error' );
                             echo $this->objLanguage->languageText ( 'mod_modulecatalogue_unziperror', 'modulecatalogue' );
-                            //echo "<br /> $objZip->error";
-                            //unlink("$modName.zip");
                             break;
                         }
                         $zip->close();
                     } else {
                         if (! is_dir ( $this->objConfig->getModulePath () . $modName )) {
                             log_debug ( "New module $modName from remote." );
-                            //$objZip = $this->getObject ( 'wzip', 'utilities' );
                             $zip = new ZipArchive;
                             $zip->open($modName.".zip");
 
@@ -665,8 +659,6 @@ class modulecatalogue extends controller {
                                 $zip->close();
                                 header ( 'HTTP/1.0 500 Internal Server Error' );
                                 echo $this->objLanguage->languageText ( 'mod_modulecatalogue_unziperror', 'modulecatalogue' );
-                                //echo "<br /> $objZip->error";
-                                //unlink("$modName.zip");
                                 break;
                             }
                             $zip->close();
