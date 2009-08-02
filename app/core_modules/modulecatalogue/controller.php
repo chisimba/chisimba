@@ -603,11 +603,13 @@ class modulecatalogue extends controller {
                         break;
                     }
                     // clean up the core classes directory and prep for upgrade
-                    log_debug ( $this->objLanguage->languageText ( "mod_modulecatalogue_prepupcore", "modulecatalogue" ) );
+                    //log_debug ( $this->objLanguage->languageText ( "mod_modulecatalogue_prepupcore", "modulecatalogue" ) );
                     //$this->deltree($this->objConfig->getsiteRootPath().'classes/');
                     // ok now we can unzip the new code...
-                    $objZip = $this->getObject ( 'wzip', 'utilities' );
-                    if (! $objZip->unZipArchive ( "core.zip", $this->objConfig->getsiteRootPath () )) {
+                    //$objZip = $this->getObject ( 'wzip', 'utilities' );
+                    $zip = new ZipArchive;
+                    $zip->open("core.zip");
+                    if (! $zip->extractTo( $this->objConfig->getsiteRootPath ()."classes/" )) {
                         log_debug ( "Unzipping new core..." );
                         header ( 'HTTP/1.0 500 Internal Server Error' );
                         echo $this->objLanguage->languageText ( 'mod_modulecatalogue_unziperror', 'modulecatalogue' );
