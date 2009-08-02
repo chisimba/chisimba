@@ -216,15 +216,12 @@ class packagesapi extends object
 
     public function zipDependencies($modulesarr, $mod)
     {
-        //$objZip = $this->getObject('wzip', 'utilities');
+        log_debug("THE MODULE IS:   ".$mod);
+        //log_debug($modulesarr);
         $filepath = $this->objConfig->getModulePath().$mod.'.zip';
-        $modulesarr = implode(',', $modulesarr);
-        // log_debug($modulesarr);
-        //$zipfile = $objZip->addArchive($modulesarr, $filepath, $this->objConfig->getModulePath());
-log_debug($modulesarr);
-log_debug("that was the modles array thing");
-        $zipfile = $this->makeZip($modulesarr, $filepath);
-log_debug($zipfile);
+        
+        $zipfile = $this->makeSysZip($modulesarr, $filepath);
+        //log_debug($zipfile);
         $filetosend = file_get_contents($zipfile);
         $filetosend = base64_encode($filetosend);
         return $filetosend;
@@ -488,6 +485,39 @@ log_debug($zipfile);
         }
         return $filename;
     }
+
+    private function makeSysZip($paths, $filename) {
+        try {
+            $zip = new ZipArchive();
+            if ($zip->open($filename, ZIPARCHIVE::CREATE)!==TRUE) {
+                log_debug("Unable to open zip file for creation");
+                throw new customException("cannot open <$filename>");
+            }
+            foreach($paths as $path) {
+                // glob and get a list of files
+                log_debug("adding $path now...");
+                chdir($path);
+                //log_debug("Changed path to $path");
+                //log_debug($this->rglob('*', 0, ''));
+                foreach($this->rglob('*', 0, '') as $files) {
+                    if(is_dir($files)) {
+                        $zip->addEmptyDir($files);
+                    }
+                    else {
+                        $zip->addFile($files);
+                    }
+                }
+            }
+            //log_debug("numfiles: " . $zip->numFiles);
+            //log_debug("status:" . $zip->GetStatusString());
+            $zip->close();
+        }
+        catch (customException $e) {
+            customException::cleanUp();
+        }
+        return $filename;
+    }
+
 
     public function rglob($pattern='*', $flags = 0, $path='') {
         $paths = glob($path.'*', GLOB_MARK|GLOB_ONLYDIR|GLOB_NOSORT);
