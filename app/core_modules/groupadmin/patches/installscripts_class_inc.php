@@ -21,6 +21,8 @@ class groupadmin_installscripts extends dbTable {
                         continue;
                     }
                     else {
+                        $sql="SELECT group_id from tbl_groupadmin_groupuser where user_id='".$user['id']."'";
+                        $oldgroups=$this->getArray($sql);
                         // delete the user from the old system
                         $this->delete('id', $user['id'], 'tbl_users');
                         // now add him back with a perms id
@@ -30,6 +32,10 @@ class groupadmin_installscripts extends dbTable {
                                                  );
                         // set the password back
                         $this->query("UPDATE tbl_users SET pass='".$user['pass']."' WHERE id='$id'");
+                        // jsc says: The following loop doesn't seem to work right - still trying to figure out why.
+                        foreach ($oldgroups as $line){
+                            $this->objLuAdmin->perm->addUserToGroup(array('perm_user_id' => $id, 'group_id' => $line['group_id']));
+                        }
                     }
                 }
 
