@@ -41,12 +41,17 @@ class featurebox extends object
      * @access publc
      * @return string
      */
-    public function show($title = null, $content = null, $id = null, $hidden = 'default', $showToggle = TRUE)
+    public function show($title = null, $content = null, $id = null, $hidden = 'default', $showToggle = TRUE, $showTitle = TRUE, $cssClass = 'featurebox', $cssId = '')
     {
         $objIcon = $this->newObject('geticon', 'htmlelements');
 
-          $sidebar = '<div class="featurebox">';
-          $toggle = '';
+		if (trim($cssId) != '') {
+ 	       $sidebar = '<div class="'.$cssClass.'" id="'.$cssId.'"  >';
+		} else {
+		   $sidebar = '<div class="'.$cssClass.'" id="'.$cssId.'"  >';
+		}
+
+        $toggle = '';
           
         //Adding support for styling corners
         $sidebar .= '<div class="featureboxtopcontainer">
@@ -59,20 +64,22 @@ class featurebox extends object
 
         if(!empty($id) && $showToggle)
         {
-              $objIcon->setIcon('toggle');
+            $objIcon->setIcon('toggle');
             $objIcon->extra = "style='vertical-align:middle'";
             $toggle = "<a href=\"javascript:;\" onclick=\"Effect.toggle('".$id."','slide', adjustLayout());\">".$objIcon->show()."</a>";
             $title = "<a href=\"javascript:;\" onclick=\"Effect.toggle('".$id."','slide', adjustLayout());\">".$title."</a>";
         }
-        
-        $sidebar .= '   <h5 class="featureboxheader">'.$toggle.'  '.$title.'</h5>';
+
+		if ($showTitle) {
+        	$sidebar .= '   <h5 class="featureboxheader">'.$toggle.'  '.$title.'</h5>';
+		} 
+
         $sidebar .= '<div class="featureboxcontent"';
         if($id != NULL){
             $sidebar .= ' id="'.$id.'" style="overflow: hidden;display:'.$hidden.';" >';
         }else{
             $sidebar .= '>';
         }
-    
         
         $sidebar .= $content.'</div>';
 
