@@ -108,6 +108,20 @@ class csslayout extends object implements ifhtml
     public $middleColumnContent;
 
     /**
+     * The contents of the footer
+     *
+     * @var string $footerContent
+     */
+    public $footerContent;
+
+    /**
+     * The current skin engine in being used
+     *
+     * @var string $middleColumnContent
+     */
+    public $skinEngine;
+
+    /**
     * Constructor Method for the class
     *
     * This method sets the default number of columns
@@ -120,6 +134,9 @@ class csslayout extends object implements ifhtml
         $this->leftColumnContent = NULL;
         $this->rightColumnContent = NULL;
         $this->middleColumnContent = NULL;
+	
+		$objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
+        $this->skinEngine = $objSysConfig->getValue('CHISIMBA_SKIN_ENGINE', 'skin');
     }
 
     /**
@@ -175,6 +192,19 @@ class csslayout extends object implements ifhtml
         $this->middleColumnContent = $content;
     }
 
+    /**
+    * Method to set the content of the footer
+    *
+    * @param string $content Content of the footer
+    * @return void
+    * @access public
+    */
+    public function setFooterContent($content)
+    {
+        $this->footerContent = $content;
+    }
+
+
      /**
     * Method to return the JavaScript that should run when the page loads
     *
@@ -182,10 +212,12 @@ class csslayout extends object implements ifhtml
     * @return string The javascript that must be run
     */
     public function bodyOnLoadScript()
-    {
+    {	
+		if ($this->skinEngine == 'default' || $this->skinEngine == '') {
         return
             'xAddEventListener(window, "resize", adjustLayout, false);'."\n"
             .'adjustLayout();'."\n";
+		}
     }
 
     /**
@@ -228,7 +260,9 @@ class csslayout extends object implements ifhtml
         // ]]>
         </script>';
 
-        return $fixLayoutScript;
+		if ($this->skinEngine == 'default' || $this->skinEngine == '') {
+        	return $fixLayoutScript;
+		}
     }
 
     /**
@@ -271,7 +305,9 @@ class csslayout extends object implements ifhtml
         // ]]>
         </script>';
 
-        return $fixLayoutScript;
+		if ($this->skinEngine == 'default' || $this->skinEngine == '') {
+	        return $fixLayoutScript;
+		}
     }
 
     /**
@@ -282,100 +318,181 @@ class csslayout extends object implements ifhtml
     */
     public function show()
     {
-        // Depending on the number of columns, load appropriate script to fix the column heights
-        
-        $this->setVar('numColumns', $this->numColumns);
-       
-        // Depending on the number of columns, use approprate css styles.
-        if ($this->skinVersion('2.0'))
-        {
-	        if ($this->numColumns == 2) {
-	            	$result = '	<div id="threecolumn">
-										<div id="left">'.$this->leftColumnContent.'</div>									
-										<div id="content"> '. $this->middleColumnContent .'</div>
-									</div>';
-	
-	        } else {
-	            // for a three column layout, first load the right column, then the middle column
-	           	$result = '	<div id="threecolumn">
-										<div id="left">'.$this->leftColumnContent.'</div>						
-										<div id="right">'.$this->rightColumnContent.'</div>			
-										<div id="content"> '. $this->middleColumnContent .'</div>
-										
-									</div>';
-	        }
-	
-	        $str = $result;
-	
-	        return $str;
-        }
-        
-        
-        if ($this->numColumns == 2) {
-            $this->putTwoColumnFixInHeader();
-        } else {
-            // else, load the three column javascript fix
-            $this->putThreeColumnFixInHeader();
-        }
-        
-        // Send the number of columns to the page template
-        // Useful for modifications on that level
-        $this->setVar('numColumns', $this->numColumns);
-        
-        // Depending on the number of columns, use approprate css styles.
-        if ($this->numColumns == 1) {
-            $result = '
-            <div id="onecolumn">
-                <div id="content">
-                    <div id="contentcontent">
-                        '.$this->middleColumnContent.'
-                    </div>
-                </div>
-            </div>';
-        } else if ($this->numColumns == 2) {
-            $result = '
-            <div id="twocolumn">
-                <div id="wrapper">
-                    <div id="content">
-                        <div id="contentcontent">
-                            '.$this->middleColumnContent.'
-                        </div>
-                    </div>
-                </div>';
-                        $result .= '
-                <div id="left">
-                    <div id="leftcontent">
-                      '.$this->leftColumnContent.'
-                    </div>
-                </div>
-            </div>';
-        } else {
-            // for a three column layout, first load the right column, then the middle column
-            $result = '
-            <div id="threecolumn">
-                <div id="wrapper">
-                    <div id="content">
-                        <div id="contentcontent">
-                            '.$this->middleColumnContent.'
-                        </div>
-                    </div>
-                </div>';
-                        $result .= '
-                <div id="left">
-                    <div id="leftcontent">
-                      '.$this->leftColumnContent.'
-                    </div>
-                </div>';
-                        $result .= '
-                <div id="right">
-                    <div id="rightcontent">
-                        '.$this->rightColumnContent.'
-                    </div>
-                </div>
-            </div>';
-        }
+		if ($this->skinEngine == 'default' || $this->skinEngine == '') {
+			// Depending on the number of columns, load appropriate script to fix the column heights
 
-        $str = $result;
+			$this->setVar('numColumns', $this->numColumns);
+
+			// Depending on the number of columns, use approprate css styles.
+			if ($this->skinVersion('2.0'))
+			{
+				if ($this->numColumns == 2) {
+					$result = '	<div id="threecolumn">
+						<div id="left">'.$this->leftColumnContent.'</div>									
+						<div id="content"> '. $this->middleColumnContent .'</div>
+						</div>';
+
+				} else {
+					// for a three column layout, first load the right column, then the middle column
+					$result = '	<div id="threecolumn">
+						<div id="left">'.$this->leftColumnContent.'</div>						
+						<div id="right">'.$this->rightColumnContent.'</div>			
+						<div id="content"> '. $this->middleColumnContent .'</div>
+
+						</div>';
+				}
+
+				$str = $result;
+
+				return $str;
+			}
+
+			if ($this->numColumns == 2) {
+				$this->putTwoColumnFixInHeader();
+			} else {
+				// else, load the three column javascript fix
+				$this->putThreeColumnFixInHeader();
+			}
+
+			// Send the number of columns to the page template
+			// Useful for modifications on that level
+			$this->setVar('numColumns', $this->numColumns);
+
+			// Depending on the number of columns, use approprate css styles.
+			if ($this->numColumns == 1) {
+				$result = '
+					<div id="onecolumn">
+					<div id="content">
+					<div id="contentcontent">
+					'.$this->middleColumnContent.'
+					</div>
+					</div>
+					</div>';
+			} else if ($this->numColumns == 2) {
+				$result = '
+					<div id="twocolumn">
+					<div id="wrapper">
+					<div id="content">
+					<div id="contentcontent">
+					'.$this->middleColumnContent.'
+					</div>
+					</div>
+					</div>';
+				$result .= '
+					<div id="left">
+					<div id="leftcontent">
+					'.$this->leftColumnContent.'
+					</div>
+					</div>
+					</div>';
+			} else {
+				// for a three column layout, first load the right column, then the middle column
+				$result = '
+					<div id="threecolumn">
+					<div id="wrapper">
+					<div id="content">
+					<div id="contentcontent">
+					'.$this->middleColumnContent.'
+					</div>
+					</div>
+					</div>';
+				$result .= '
+					<div id="left">
+					<div id="leftcontent">
+					'.$this->leftColumnContent.'
+					</div>
+					</div>';
+				$result .= '
+					<div id="right">
+					<div id="rightcontent">
+					'.$this->rightColumnContent.'
+					</div>
+					</div>
+					</div>';
+			}
+
+			$str = $result;
+		}
+
+		else if ($this->skinEngine == 'university') {
+			$this->setVar('numColumns', $this->numColumns);
+
+			// Depending on the number of columns, use approprate css styles.
+			if ($this->numColumns == 1) {
+				$result = '
+ 					<div id="main">
+					<div id="onecolumn">
+
+					<div id="content">
+					  <div id="contentcontent">
+						'.$this->middleColumnContent.'
+					  </div>
+					</div>
+	
+					 <!--<div id="footer">
+						'.$this->footerContent.'
+					  </div>-->
+
+					</div>
+					</div>';
+			} else if ($this->numColumns == 2) {
+				$result = '
+ 					<div id="main">
+					<div id="twocolumn">
+					<div id="wrapper">
+
+					  <div id="column_left">
+						'.$this->leftColumnContent.'
+					  </div>
+						
+					<div id="content">
+					  <div id="contentcontent">
+						'.$this->middleColumnContent.'
+					  </div>
+					</div>
+					  <!--<div id="footer">
+						'.$this->footerContent.'
+					  </div>-->
+
+					</div>
+					</div>
+					</div>';
+
+			} else {
+				// for a three column layout, first load the right column, then the middle column
+				$result = '
+ 					<div id="main">
+					<div id="threecolumn">
+					<div id="wrapper">
+
+
+					  <div id="column_left">
+						'.$this->leftColumnContent.'
+					  </div>
+
+					<div id="content">
+					<div id="contentcontent">
+						'.$this->middleColumnContent.'
+					</div>
+					</div>
+	
+					  <div id="column_right">
+						'.$this->rightColumnContent.'
+					  </div>
+
+					  <!--<div id="footer">
+						'.$this->footerContent.'
+					  </div>-->
+
+					</div>
+					</div>
+					</div>';
+
+			}
+
+			$str = $result;
+
+		}
 
         return $str;
     }
@@ -391,9 +508,11 @@ class csslayout extends object implements ifhtml
     */
     public function putThreeColumnFixInHeader()
     {
-        $this->appendArrayVar('headerParams', $this->getJavascriptFile('x_minified.js','htmlelements'));
-        $this->appendArrayVar('headerParams', $this->fixThreeColumnLayoutJavascript());
-        $this->appendArrayVar('bodyOnLoad',$this->bodyOnLoadScript());
+		if ($this->skinEngine == 'default' || $this->skinEngine == '') {
+			$this->appendArrayVar('headerParams', $this->getJavascriptFile('x_minified.js','htmlelements'));
+			$this->appendArrayVar('headerParams', $this->fixThreeColumnLayoutJavascript());
+			$this->appendArrayVar('bodyOnLoad',$this->bodyOnLoadScript());
+		}
     }
 
     /**
@@ -405,9 +524,11 @@ class csslayout extends object implements ifhtml
     */
     public function putTwoColumnFixInHeader()
     {
-        $this->appendArrayVar('headerParams', $this->getJavascriptFile('x_minified.js','htmlelements'));
-        $this->appendArrayVar('headerParams', $this->fixTwoColumnLayoutJavascript());
-        $this->appendArrayVar('bodyOnLoad',$this->bodyOnLoadScript());
+		if ($this->skinEngine == 'default' || $this->skinEngine == '') {
+			$this->appendArrayVar('headerParams', $this->getJavascriptFile('x_minified.js','htmlelements'));
+			$this->appendArrayVar('headerParams', $this->fixTwoColumnLayoutJavascript());
+			$this->appendArrayVar('bodyOnLoad',$this->bodyOnLoadScript());
+		}
     }
     
     public function skinVersion($version = null)
