@@ -36,6 +36,7 @@ class groupadmin_installscripts extends dbTable {
                         foreach ($oldgroups as $line){
                             $this->objLuAdmin->perm->addUserToGroup(array('perm_user_id' => $id, 'group_id' => $line['group_id']));
                         }
+                        $this->query("UPDATE tbl_groupadmin_groupuser set user_id='$id' where user_id='".$user['id']."'");
                     }
                 }
 
