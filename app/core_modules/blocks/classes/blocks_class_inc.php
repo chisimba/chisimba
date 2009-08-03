@@ -109,7 +109,7 @@ class blocks extends object {
      *
      * @param string $blockType The type of block (e.g. tabbed box)
      */
-    public function showBlock($block, $module, $blockType = NULL, $titleLength = 20, $wrapStr = TRUE, $showToggle = TRUE, $hidden = 'default') {
+    public function showBlock($block, $module, $blockType = NULL, $titleLength = 20, $wrapStr = TRUE, $showToggle = TRUE, $hidden = 'default', $showTitle = TRUE, $cssClass = 'featurebox', $cssId = '') {
         if ($this->objModule->checkIfRegistered ( $module, $module )) {
             $blockfile = $this->objConfig->getModulePath () . $module . '/classes/block_' . $block . '_class_inc.php';
             if ($this->blockExists ( $block, $module )) {
@@ -121,6 +121,7 @@ class blocks extends object {
                     $objWrap = $this->getObject ( 'trimstr', 'strings' );
                     $title = $objWrap->wrapString ( $title, $titleLength );
                 }
+
                 if (isset ( $objBlock->blockType )) {
                     $blockType = $objBlock->blockType;
                 }
@@ -135,12 +136,7 @@ class blocks extends object {
                             $showToggle = TRUE;
                         }
 
-                        if ($showToggle) {
-                            return $objFeatureBox->show ( $title, $objBlock->show (), $block, $hidden, TRUE );
-                        } else {
-                            return $objFeatureBox->show ( $title, $objBlock->show (), $block, $hidden, FALSE );
-                        }
-
+                        return $objFeatureBox->show ($title, $objBlock->show (), $block, $hidden, $showToggle, $showTitle, $cssClass, $cssId);
                     case "tabbedbox" :
                         // Put it all inside a tabbed box
                         // $this->loadClass('tabbedbox', 'htmlelements');
