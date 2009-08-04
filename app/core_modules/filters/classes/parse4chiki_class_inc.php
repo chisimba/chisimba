@@ -278,6 +278,18 @@ class parse4chiki extends object
     
     /**
     *
+    * Method to return a link to mcqtests
+    * @access private
+    * @return string The parsed chiki for this method
+    *
+    */
+    private function __assignments()
+    {
+        return $this->getModuleLink("assignments");
+    }
+    
+    /**
+    *
     * Method to return insertlink statement
     * @access private
     * @return string The parsed chiki for this method
