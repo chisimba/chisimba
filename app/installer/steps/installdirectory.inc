@@ -141,10 +141,10 @@ class InstallDirectoryAction extends StepAction
         $sys_root = str_replace ( '\\', '/', $sys_root );
         $sys_root .= '/';
         $sys_root = str_replace ( '//', '/', $sys_root );
-        @chmod ( $sys_root, 0700 );
+        @chmod ( $sys_root, 0755 );
         if (! is_dir ( $sys_root )) {
             mkdir ( $sys_root );
-            chmod ( $sys_root, 0700 );
+            chmod ( $sys_root, 0755 );
             $this->errors [] = 'Could not find the directory specified ' . $sys_root . ' but created it for you';
             $this->success = false;
             return false;
@@ -156,7 +156,7 @@ class InstallDirectoryAction extends StepAction
         $module_path = str_replace ( '//', '/', $module_path );
         if (! is_dir ( $module_path )) {
             @mkdir ( $module_path );
-            @chmod ( $module_path, 0700 );
+            @chmod ( $module_path, 0755 );
             if (is_writeable ( $module_path )) {
 
             //$this->errors[] = 'Could not find the directory specified '.$module_path.' but created it for you';
@@ -342,7 +342,7 @@ class InstallDirectoryAction extends StepAction
 
             if ($fp == false) {
 
-                $this->errors [] = 'Could not open ' . $check_dir . ' for writing. Please consult the help guides for your operating system to make this directory writeable. On GNU/Linux systems, this is normally achieved by: chmod -R 0700 ' . $sys_root . ' and ensuring that the directory is owned by the webserver user (usually apache or www-data)';
+                $this->errors [] = 'Could not open ' . $check_dir . ' for writing. Please consult the help guides for your operating system to make this directory writeable. On GNU/Linux systems, this is normally achieved by: chmod -R 0755 ' . $sys_root . ' and ensuring that the directory is owned by the webserver user (usually apache or www-data)';
 
                 // only output what commands to perform for the first instance
 
@@ -351,16 +351,16 @@ class InstallDirectoryAction extends StepAction
 
 
                 if ($check_dir == 'modules') {
-                    //chmod($check_dir, 0700);
+                    //chmod($check_dir, 0755);
 
 
                     $this->errors [] = 'Please change permissions on the ' . $check_dir . ' directory and all files below it ' .
 
                     'to have write access by the webserver by executing the following ';
 
-                    $this->errors [] = '<p><i>chmod 700 ' . $check_dir;
+                    $this->errors [] = '<p><i>chmod 755 ' . $check_dir;
 
-                    $this->errors [] = 'find ' . $check_dir . ' -type d | xargs chmod 700';
+                    $this->errors [] = 'find ' . $check_dir . ' -type d | xargs chmod 755';
 
                     $this->errors [] = 'find ' . $check_dir . ' -type f | xargs chmod 600</i></p>';
 
@@ -409,9 +409,9 @@ class InstallDirectoryAction extends StepAction
 
                         'to have write access by the webserver by executing the following ';
 
-                        $this->errors [] = '<p><i>chmod 700 ' . $check_dir;
+                        $this->errors [] = '<p><i>chmod 755 ' . $check_dir;
 
-                        $this->errors [] = 'find ' . $check_dir . ' -type d | xargs chmod 700';
+                        $this->errors [] = 'find ' . $check_dir . ' -type d | xargs chmod 755';
 
                         $this->errors [] = 'find ' . $check_dir . ' -type f | xargs chmod 600</i></p>';
 
@@ -442,7 +442,7 @@ class InstallDirectoryAction extends StepAction
 
                 mkdir ( $check_dir );
 
-                chmod ( $check_dir, 0700 );
+                chmod ( $check_dir, 0755 );
                 
                 //added by Wesley Nitsckie 17 Dec 2008
                 //creating the .htaccess file
