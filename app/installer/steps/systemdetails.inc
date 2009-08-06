@@ -274,7 +274,7 @@ class RootUserAction extends StepAction
 
         $defaultpostlogin = isset ( $_POST ['postLogin'] ) ? $_POST ['postLogin'] : 'postlogin';
 
-        $defaultskin = isset ( $_POST ['defaultskin'] ) ? $_POST ['defaultskin'] : 'echo';
+        $defaultskin = isset ( $_POST ['defaultskin'] ) ? $_POST ['defaultskin'] : 'refractions';
 
         $main_server = isset ( $_POST ['main_server'] ) ? $_POST ['main_server'] : 'http://kngforge.uwc.ac.za/';
 
@@ -1039,7 +1039,7 @@ class RootUserAction extends StepAction
 
         $dirskinList, false,
 
-        array (isset ( $_SESSION ['defaultskin'] ) ? $_SESSION ['defaultskin'] : 'echo' ),
+        array (isset ( $_SESSION ['defaultskin'] ) ? $_SESSION ['defaultskin'] : 'refractions' ),
 
         0, 'tabindex="13"' );
 
@@ -1193,7 +1193,7 @@ class RootUserAction extends StepAction
         //save key for selected skin
 
 
-        $defaultskin = isset ( $_SESSION ['defaultskin'] ) ? $_SESSION ['defaultskin'] : 'echo';
+        $defaultskin = isset ( $_SESSION ['defaultskin'] ) ? $_SESSION ['defaultskin'] : 'refractions';
 
         //We need to extract the actual value of the selected key
 
