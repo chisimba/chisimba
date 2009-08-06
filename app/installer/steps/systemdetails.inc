@@ -1034,7 +1034,6 @@ class RootUserAction extends StepAction
         asort ( $dirskinList );
 
         closedir ( $dh );
-
         combo_box ( 'defaultskin',
 
         $dirskinList, false,
@@ -1209,7 +1208,7 @@ class RootUserAction extends StepAction
 
         $dirskinList = array ();
 
-        $dirskinList = array ('echo' => 'Echo' );
+        // $dirskinList = array ('echo' => 'Echo' );
 
         while ( false !== ($file = readdir ( $dh )) ) { #see http://www.php.net/manual/en/function.readdir.php
 
@@ -1229,12 +1228,16 @@ class RootUserAction extends StepAction
         asort ( $dirskinList );
 
         closedir ( $dh );
-        foreach ( $dirskinList as $key => $value ) {
-            if ($key == $defaultskin) {
-                $defaultskin = $value;
-                $_SESSION ['defaultskin'] = $defaultskin;
-            }
-        }
+//var_dump($dirskinList);
+//var_dump($defaultskin);
+        //foreach ( $dirskinList as $key => $value ) {
+        //    if ($key == $defaultskin) {
+        //        $defaultskin = $value;
+//var_dump($defaultskin);
+                $_SESSION ['defaultskin'] = $dirskinList[$defaultskin];
+         //   }
+       // }
+//var_dump($_SESSION['defaultskin']);
         $main_server = isset ( $_SESSION ['main_server'] ) ? $_SESSION ['main_server'] : 'http://kngforge.uwc.ac.za/kng_unstable';
 
         $contentPath = isset ( $_SESSION ['contentPath'] ) ? $_SESSION ['contentPath'] : '';
@@ -1242,7 +1245,6 @@ class RootUserAction extends StepAction
         $def_sysowner = isset ( $_SESSION ['sys_owner'] ) ? $_SESSION ['sys_owner'] : '';
 
         $log_enable = isset ( $_SESSION ['log_enable'] ) ? $_SESSION ['log_enable'] : '';
-
         if ($log_enable == 1) {
             $log_enable = "TRUE";
 
@@ -1252,8 +1254,8 @@ class RootUserAction extends StepAction
         }
 
         $debug_enable = isset ( $_SESSION ['debug_enable'] ) ? $_SESSION ['debug_enable'] : '';
-
-        if ($debug_enable == 1) {
+// var_dump($debug_enable);
+        if ($debug_enable != '') {
             $_SESSION ['debug_enable'] = "developer";
             $debug_enable = "TRUE";
 
@@ -1263,7 +1265,8 @@ class RootUserAction extends StepAction
 
             $debug_enable = "FALSE";
         }
-
+//var_dump($_SESSION['debug_enable']);
+//var_dump($debug_enable);
         $this_url = isset ( $_SESSION ['site_url'] ) ? $_SESSION ['site_url'] : $_SERVER ['SERVER_NAME'];
         $this_server = isset ( $_SESSION ['site_server_url'] ) ? $_SESSION ['site_server_url'] : $_SERVER ['SERVER_NAME'];
 
