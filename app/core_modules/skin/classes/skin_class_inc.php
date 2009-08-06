@@ -12,10 +12,18 @@
 class skin extends object
 {
 
+    /**
+     * Instance of the modules object in the modulecatalogue module.
+     *
+     * @var object
+     */
+    protected $objModules;
+
     public $skinFile = 'stylesheet.css';
 
     public function init()
     {
+        $this->objModules = $this->getObject('modules', 'modulecatalogue');
         $this->objLanguage = $this->getObject('language', 'language');
         $this->loadClass('form','htmlelements');
         $this->loadClass('dropdown','htmlelements');
@@ -481,7 +489,7 @@ class skin extends object
         //Letus look at the configuration file file first
         $objConfig = $this->getObject('altconfig','config');
         //checking if configuration exist-By Emmanuel Natalis
-        if(strtoupper($objConfig->getenable_searchBox()) == 'TRUE') {
+        if(strtoupper($objConfig->getenable_searchBox()) == 'TRUE' && $this->objModules->checkIfRegistered('search')) {
             return $sform;
         }
         else {
