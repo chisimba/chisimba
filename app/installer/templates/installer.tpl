@@ -116,7 +116,7 @@
         
         <div id="topnav">
         <br>
-         <img id="5ive" src="<?php echo $extras;?>/5ive.gif" alt="5ive Installer" />
+         <img id="5ive" src="<?php echo $extras;?>/5ive.gif" alt="Chisimba Installer" />
        <br> 
        </div>
         
@@ -191,14 +191,15 @@
                         <table>
                         
                         </table>
-                        <?php if (!$start && !$complete) { ?>
-                            <input type="image" onmouseover="over('previous', this)" onmouseout="off('previous', this)" src="./extra/previous_off.gif" name="previous" value="Previous">
-                        <?php } ?>
+                        
                         <?php if ($enable_skip) {?>
                             <input type="image" onmouseover="over('skip', this)" onmouseout="off('skip', this)" src="./extra/skip_off.gif" name="skip" value="Skip Step">
                         <?php } ?>
                         <?php if (!$complete) { ?>
                             <input id="next_button" type="image" onmouseover="over('next', this)" onmouseout="off('next', this)" src="./extra/next_off.gif" name="next" value="Next">
+                        <?php } ?>
+                        <?php if (!$start && !$complete) { ?>
+                            <input type="image" onmouseover="over('previous', this)" onmouseout="off('previous', this)" src="./extra/previous_off.gif" name="previous" value="Previous">
                         <?php } ?>
                         <?php if ($can_cancel) {?>
                             <input type="image" onmouseover="over('cancel', this)" onmouseout="off('cancel', this)" src="./extra/cancel_off.gif" name="cancel" value="Cancel">
