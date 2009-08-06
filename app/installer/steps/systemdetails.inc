@@ -344,7 +344,7 @@ class RootUserAction extends StepAction
 
         ob_clean ();
 
-        text_box ( 'proxy', $proxy, '40', '', false, 'tabindex="12"' );
+        text_box ( 'proxy', $proxy, '40', '', false, 'tabindex="14"' );
 
         $proxy = ob_get_contents ();
 
@@ -1001,7 +1001,7 @@ class RootUserAction extends StepAction
         }
 
         // Now display it in a drop-down
-        combo_box ( 'SysType', $simbaTypes, false, array (isset ( $_SESSION ['SysType'] ) ? $_SESSION ['SysType'] : 'SysType' ), 0, 'tabindex="1"' );
+        combo_box ( 'SysType', $simbaTypes, false, array (isset ( $_SESSION ['SysType'] ) ? $_SESSION ['SysType'] : 'SysType' ), 0, 'tabindex="10"' );
         $cmbSysType = ob_get_contents ();
         ob_clean ();
 
@@ -1040,18 +1040,18 @@ class RootUserAction extends StepAction
 
         array (isset ( $_SESSION ['defaultskin'] ) ? $_SESSION ['defaultskin'] : 'refractions' ),
 
-        0, 'tabindex="13"' );
+        0, 'tabindex="11"' );
 
 
         $cmbdefaultSkin = ob_get_contents ();
 
         ob_clean ();
 
-        text_box ( 'site_server_url', isset ( $_SESSION ['site_server_url'] ) ? $_SESSION ['site_server_url'] : $this_server, '40', '', false, 'tabindex="11"' );
+        text_box ( 'site_server_url', isset ( $_SESSION ['site_server_url'] ) ? $_SESSION ['site_server_url'] : $this_server, '40', '', false, 'tabindex="12"' );
         $serverbox = ob_get_contents ();
         ob_clean ();
 
-        text_box ( 'site_url', isset ( $_SESSION ['site_url'] ) ? ( strlen ( $_SESSION ['site_url'] ) ? $_SESSION ['site_url'] : '/' ) : $this_url, '40', '', false, 'tabindex="11"' );
+        text_box ( 'site_url', isset ( $_SESSION ['site_url'] ) ? ( strlen ( $_SESSION ['site_url'] ) ? $_SESSION ['site_url'] : '/' ) : $this_url, '40', '', false, 'tabindex="13"' );
 
         $box = ob_get_contents ();
 
