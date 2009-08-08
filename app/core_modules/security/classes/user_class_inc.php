@@ -945,7 +945,7 @@ class user extends dbTable
     * Method to check if this user is a context Lecturer
     * @author Jonathan Abrahams
     * @param string $userId: The id of the user to check | current user if not given
-    * @param string $contextCode: The context to check | current context if not given
+    * @param string $contextCode: The context to check.
     * @return true|false Return true if this user is a member of the context lecturers group.
     */
     public function isContextLecturer($userId = NULL, $contextCode = NULL)
@@ -963,7 +963,7 @@ class user extends dbTable
     * a lecturere are an administrator
     *
     * @param string $userId: The id of the user to check | current user if not given
-    * @param string $contextCode: The context to check | current context if not given
+    * @param string $contextCode: The context to check.
     */
     public function isCourseAdmin($userId = NULL, $contextCode = NULL)
     {
