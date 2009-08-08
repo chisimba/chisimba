@@ -93,7 +93,7 @@ class manageGroups extends object
         $this->_objGroupAdmin = $this->getObject('groupadminmodel','groupadmin');
         // $this->_objPermissions = $this->getObject('permissions_model','permissions');
         $this->_objUser = $this->getObject('user','security');
-		$this->contextCode = $this->_objDBContext->getContextCode ();
+        $this->contextCode = $this->_objDBContext->getContextCode ();
         $this->currentUser = $this->_objUser->PKId();
         $this->lectGroupId = $this->_objGroupAdmin->getLeafId( array( $this->_objDBContext->getcontextcode(), 'Lecturers' ) );
         $this->studGroupId = $this->_objGroupAdmin->getLeafId( array( $this->_objDBContext->getcontextcode(), 'Students' ) );
@@ -162,15 +162,15 @@ class manageGroups extends object
         // Add groupMembers
         $objGroupOps = $this->getObject('groupops', 'groupadmin');
         $objGroups = $this->getObject('groupadminmodel', 'groupadmin');
-		$userId = $this->_objUser->userId();
+        $userId = $this->_objUser->userId();
 
-		// get the permissions id for this user...
+        // get the permissions id for this user...
 
-		$permid = $objGroupOps->getUserByUserId($userId);
-		$permid = $permid['perm_user_id'];
-		//get the lecturer groupid
-		$groupId = $this->_objGroupAdmin->getLeafId( array($contextcode, 'Lecturers') );
-		$objGroups->addGroupUser($groupId, $permid);
+        $permid = $objGroupOps->getUserByUserId($userId);
+        $permid = $permid['perm_user_id'];
+        //get the lecturer groupid
+        $groupId = $this->_objGroupAdmin->getLeafId( array($contextcode, 'Lecturers') );
+        $objGroups->addGroupUser($groupId, $permid);
 
         // Now create the ACLS
         //$this->createAcls( $contextcode, $title );
@@ -434,19 +434,19 @@ class manageGroups extends object
         return $isMember ? $arrMemberCodes : $arrNonMemberCodes;
     }
 
-		/**
-	* Method to check if the user is a context lecturer
-	* @return boolean
-	*/
-	public function isContextLecturer()
-	{
-		$objGroups = $this->getObject('groupAdminModel', 'groupadmin');
-		$groupId = $objGroups->getLeafId(array($this->contextCode ,'Lecturers'));
+        /**
+    * Method to check if the user is a context lecturer
+    * @return boolean
+    */
+    public function isContextLecturer()
+    {
+        $objGroups = $this->getObject('groupAdminModel', 'groupadmin');
+        $groupId = $objGroups->getLeafId(array($this->contextCode ,'Lecturers'));
 
-		$ret = $objGroups->isGroupMember($this->_objUser->userId(), $groupId);
+        $ret = $objGroups->isGroupMember($this->_objUser->userId(), $groupId);
 
-		return $ret;
+        return $ret;
 
-	}
+    }
 } // End publicContext Class
 ?>
