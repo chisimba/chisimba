@@ -237,15 +237,15 @@ class groupAdminModel extends object
      */
     public function getLeafId( $arrPath )
     {
-    	$groupId = $this->getId($arrPath[0]);
-    	//var_dump($groupId);
-    	if(array_key_exists(1, $arrPath))
-    	{
-    		//$subGroups = $this->getSubgroups($groupId);
-    		$groupId = $this->getId($arrPath[0].'^'.$arrPath[1]);
-    	}
+        $groupId = $this->getId($arrPath[0]);
+        //var_dump($groupId);
+        if(array_key_exists(1, $arrPath))
+        {
+            //$subGroups = $this->getSubgroups($groupId);
+            $groupId = $this->getId($arrPath[0].'^'.$arrPath[1]);
+        }
 
-    	return $groupId;
+        return $groupId;
     }
 
     /**
@@ -315,7 +315,7 @@ class groupAdminModel extends object
      */
     public function getSubgroups( $groupId )
     {
-    	$subgroups = FALSE;
+        $subgroups = FALSE;
         $groups = $this->objLuAdmin->perm->getGroups(
             array(
                 'select' => 'all',
@@ -436,23 +436,23 @@ class groupAdminModel extends object
      */
     public function getGroupUsers( $groupId, $fields = null, $filter = null )
     {
-    	$params = array(
+        $params = array(
             'filters' => array(
                 'group_id' => $groupId,
             )
         );
         $usersGroup = $this->objLuAdmin->perm->getUsers($params);
-    	if($fields)
-    	{
-    		$objUser = $this->getObject('user', 'security');
-    		$newArr = array();
-    		foreach($usersGroup as $user)
-    		{
-    			$newArr[] = $objUser->getUserDetails($user['auth_user_id']);
-    		}
+        if($fields)
+        {
+            $objUser = $this->getObject('user', 'security');
+            $newArr = array();
+            foreach($usersGroup as $user)
+            {
+                $newArr[] = $objUser->getUserDetails($user['auth_user_id']);
+            }
 
-    		return $newArr;
-    	}
+            return $newArr;
+        }
         return $usersGroup;
     }
 
@@ -571,46 +571,46 @@ class groupAdminModel extends object
      */
     public function isSubGroupMember( $userId, $groupId )
     {
-    	$params = array(
+        $params = array(
             'filters' => array(
                 'group_id' => $groupId,
             )
         );
         $usersGroup = $this->objLuAdmin->perm->getUsers($params);
-    	foreach($usersGroup as $group)
-    	{
-    		//var_dump($group);
-    		if($userId == $group['auth_user_id'])
-    		{
-    			return true;
-    		}
-    	}
+        foreach($usersGroup as $group)
+        {
+            //var_dump($group);
+            if($userId == $group['auth_user_id'])
+            {
+                return true;
+            }
+        }
 
-    	//try the subgroups
-    	$subGroups = $this->getSubgroups($groupId);
-    //	var_dump($subGroups);
-    	if(count($subGroups[0]) > 0)
-    	{
-    		foreach($subGroups[0] as $subGroup)
-    		{
-    			$params = array(
-    					'filters' => array(
-    						'group_id' => $this->getId($subGroup['group_define_name'])
-    					)
-    				);
-    			$usersGroup = $this->objLuAdmin->perm->getUsers($params);
-    			foreach($usersGroup as $group)
-    			{
+        //try the subgroups
+        $subGroups = $this->getSubgroups($groupId);
+    //    var_dump($subGroups);
+        if(count($subGroups[0]) > 0)
+        {
+            foreach($subGroups[0] as $subGroup)
+            {
+                $params = array(
+                        'filters' => array(
+                            'group_id' => $this->getId($subGroup['group_define_name'])
+                        )
+                    );
+                $usersGroup = $this->objLuAdmin->perm->getUsers($params);
+                foreach($usersGroup as $group)
+                {
 
-    				if($userId == $group['auth_user_id'])
-    				{
-    					return true;
-    				}
-    			}
-    		}
-    	} else {
-    		return False;
-    	}
+                    if($userId == $group['auth_user_id'])
+                    {
+                        return true;
+                    }
+                }
+            }
+        } else {
+            return False;
+        }
     }
 
 
@@ -668,7 +668,7 @@ class groupAdminModel extends object
      */
     public function getParent ( $subGroupId )
     {
-    	$subgroups = FALSE;
+        $subgroups = FALSE;
         $groups = $this->objLuAdmin->perm->getGroups(
             array(
                 'select' => 'all',
