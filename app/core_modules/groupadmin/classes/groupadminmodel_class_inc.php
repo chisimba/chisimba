@@ -238,10 +238,8 @@ class groupAdminModel extends object
     public function getLeafId( $arrPath )
     {
         $groupId = $this->getId($arrPath[0]);
-        //var_dump($groupId);
-        if(array_key_exists(1, $arrPath))
-        {
-            //$subGroups = $this->getSubgroups($groupId);
+
+        if (array_key_exists(1, $arrPath)) {
             $groupId = $this->getId($arrPath[0].'^'.$arrPath[1]);
         }
 
