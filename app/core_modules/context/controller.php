@@ -130,7 +130,7 @@ error_log(var_export($lect, TRUE));
         if ($this->objUser->isAdmin () || $this->objContextGroups->isContextLecturer()) {
             return TRUE;
         } else {
-            return FALSE;//parent::isValid ( $action );
+            return FALSE;
         }
     }
 
