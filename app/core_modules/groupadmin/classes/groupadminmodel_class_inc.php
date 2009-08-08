@@ -111,9 +111,6 @@ class groupAdminModel extends object
      */
     public function init()
     {
-        //if($this->objLuAdmin === null) {
-        //    $this->objLuAdmin = $this->objEngine->getLuAdmin();
-        //}
     }
 
     /**
