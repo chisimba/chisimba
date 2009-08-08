@@ -55,7 +55,6 @@ class user extends dbTable
     private $imageUrl;
     public $userData = NULL;
     public $objPerms;
-    protected $objContextGroups;
 
     /**
     * Constructor
@@ -72,7 +71,6 @@ class user extends dbTable
         $this->imagePath = $this->objConfig->getsiteRootPath().'/user_images/';
         $this->imageUrl = $this->objConfig->getsiteRoot().'user_images/';
         $this->objPerms = $this->getObject('perms', 'permissions');
-        $this->objContextGroups = $this->getObject('managegroups', 'contextgroups');
     }
 
     /**
