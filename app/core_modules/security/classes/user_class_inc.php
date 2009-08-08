@@ -961,10 +961,13 @@ class user extends dbTable
     * This method checks if a user
     * is a cours administrator ie. eithere
     * a lecturere are an administrator
+    *
+    * @param string $userId: The id of the user to check | current user if not given
+    * @param string $contextCode: The context to check | current context if not given
     */
-    public function isCourseAdmin()
+    public function isCourseAdmin($userId = NULL, $contextCode = NULL)
     {
-        if($this->isContextLecturer() || $this->IsAdmin())
+        if($this->isContextLecturer($userId, $contextCode) || $this->IsAdmin())
         {
             return true;
         } else {
