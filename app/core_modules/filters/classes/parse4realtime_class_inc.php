@@ -1,8 +1,11 @@
 <?php
 
 /**
-* Class to parse a string (e.g. page content) that contains a presentation
-* item from the a webpresent module, whether local, URL or remote API
+*
+* Parse string for filter for photogallery
+*
+* Class to parse a string (e.g. page content) that contains a filter
+* code for including the all photos in an album.
 *
 * PHP version 5
 *
@@ -21,8 +24,8 @@
 *
 * @category  Chisimba
 * @package   filters
-* @author    David Wafula
-* @copyright 2008 David Wafula
+* @author    David Wafuala <Wanyonyi.Wafula@wits.ac.za>
+* @copyright 2009 David Wafula
 * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
 * @link      http://avoir.uwc.ac.za
 */
@@ -33,192 +36,148 @@ if (!
  * @global string $GLOBALS['kewl_entry_point_run']
  * @name   $kewl_entry_point_run
  */
-$GLOBALS['kewl_entry_point_run'])
+    $GLOBALS['kewl_entry_point_run'])
 {
     die("You cannot view this page directly");
 }
 // end security check
+
+
 /**
  *
+ * Parse string for filter for displaying a virtual classroom
+ *
+ * Class to parse a string (e.g. page content) that contains a filter
+ * code for including the all files in a user directory as links with descriptions
+ * where descriptions exist.
+ *
  */
-
-    class parse4realtime extends object
-    {
-        /**
-        *
-        * String to hold an error message
-        * @accesss private
-        */
-        private $errorMessage;
-
-        /**
-         *
-         * pointer to the config module
-         */
-        public $objConfig;
-
-        /**
-         *
-         * @var <type>
-         */
-        public $objLanguage;
-
-        /**
-         * used to extract params from a string
-         * @var <type>
-         */
-        public $objExpar;
-
-        /**
-         * unique id
-         * @var <String
-         */
-        public $id;
-
-        /**
-         * the url to play the realtime applet from
-         * @var String
-         */
-        public $url;
+class parse4realtime extends object
+{
 
     /**
-     *
-     * Constructor for the wikipedia parser
-     *
+    *
+    * @var string $objLanguage String object property for holding the
+    * language object
+    * @access public
+    *
+    */
+    public $objLanguage;
+
+
+
+    /**
      * @return void
      * @access public
      *
      */
-        function init()
-        {
-            // Get an instance of the language object
-            $this->objLanguage = $this->getObject('language', 'language');
-            // Get an instance of the params extractor
-            $this->objExpar = $this->getObject("extractparams", "utilities");
-            // Load the XML_RPC PEAR Class
-            require_once($this->getPearResource('XML/RPC/Server.php'));
-            // $this->objConfig = $this->getObject('altconfig', 'config');
-        }
-        /**
-         * This function generates a random string. This is used as id for the java slides server as well as
-         * the client (applet)
-         * @param <type> $length
-         * @return <type>
-         */
-        public function randomString($length)
-        {
-            // Generate random 32 charecter string
-            $string = md5(time());
+    public function init()
+    {
+        // Get an instance of the language object
+        $this->objLanguage = $this->getObject('language', 'language');
+        // Get an instance of the params extractor
+        $this->objUser = $this->getObject('user', 'security');
+        $this->filemanager =  $this->getObject('dbfile','filemanager');
+        $this->_objConfig = $this->getObject('altconfig', 'config');
 
-            // Position Limiting
-            $highest_startpoint = 32-$length;
+        $objModule = $this->getObject('modules','modulecatalogue');
+        //See if the mathml module is registered and set params
+        $isRegistered = $objModule->checkIfRegistered('realtime');
+        if ($isRegistered){
 
-            // Take a random starting point in the randomly
-            // Generated String, not going any higher then $highest_startpoint
-            $randomString = substr($string,rand(0,$highest_startpoint),$length);
-
-            return $randomString;
-
-        }
-        
-        /**
-         * This starts the slide server on the remote server. Needed for the applet
-         * to run
-         */
-        public function startSlideServer($siteRoot,$slideServerId){
-            // create a new cURL resource
-            $ch = curl_init();
-
-            $url= $siteRoot."/index.php?module=webpresent&action=runslideserver&slideServerId=".$slideServerId;
-            
-            // set URL and other appropriate options
-            curl_setopt($ch, CURLOPT_URL,$url);
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-
-            // grab URL and pass it to the browser
-            curl_exec($ch);
-
-            // close cURL resource, and free up system resources
-            curl_close($ch);
-        }
-      /**
-        *
-        * Method to parse the string
-        * @param  string $str The string to parse
-        * @return string The parsed string
-        *
-        */
-        public function parse($txt)
-        {
-            // Match all [FILEPREVIEW /] tags
-            preg_match_all('%\[REALTIME.*?/\]%six', $txt, $result, PREG_PATTERN_ORDER);
-           
-            $result = $result[0];
-        
-            // Combine duplicates
-            $result = array_unique($result);
-        
-            // If there are any matches
-            if (count($result) > 0) {
-            
-                // Load Preview Class
-                $realtime = $this->getObject('realtimestarter', 'realtime');
-                // Go through each result
-                foreach ($result as $str)
-                {
-                    // Fix required - Replace &quot; with "
-                    $strReplace = str_replace ('&quot;', '"', $str);
-                
-                    //($id,$agenda,$resourcesPath,$appletCodeBase,$slidesDir,$username,$fullnames,$userLevel,$runSlideServerCommand,$slideServerId)
-                    
-                    // Match ids
-                    preg_match_all('/id\ *?=\ *?"(?P<id>.*?)"/six', $strReplace, $resultId, PREG_PATTERN_ORDER);
-                    $sessionId = $resultId['id'];
-                    
-                    //the agenda:
-                    preg_match_all('/agenda\ *?=\ *?"(?P<agenda>.*?)"/six', $strReplace, $agendaId, PREG_PATTERN_ORDER);
-                    $agenda = $agendaId['agenda'];                    
-                    
-                    //resources path
-                    preg_match_all('/resourcesPath\ *?=\ *?"(?P<resourcesPath>.*?)"/six', $strReplace, $resourcesId, PREG_PATTERN_ORDER);
-                    $resourcesPath = $resourcesId['resourcesPath'];
-                    
-                    preg_match_all('/appletCodeBase\ *?=\ *?"(?P<appletCodeBase>.*?)"/six', $strReplace, $appletCodeId, PREG_PATTERN_ORDER);
-                    $appletCodeBase = $appletCodeId['appletCodeBase'];
-                    
-                    preg_match_all('/slidesDir\ *?=\ *?"(?P<slidesDir>.*?)"/six', $strReplace, $slidesDirId, PREG_PATTERN_ORDER);
-                    $slidesDir = $slidesDirId['slidesDir'];
-                    
-                    preg_match_all('/username\ *?=\ *?"(?P<username>.*?)"/six', $strReplace, $usernameId, PREG_PATTERN_ORDER);
-                    $username = $usernameId['username'];
-                    
-                    preg_match_all('/fullnames\ *?=\ *?"(?P<fullnames>.*?)"/six', $strReplace, $fullnamesId, PREG_PATTERN_ORDER);
-                    $fullnames = $fullnamesId['fullnames'];
-                  
-                    preg_match_all('/userlevel\ *?=\ *?"(?P<userlevel>.*?)"/six', $strReplace, $userlevelId, PREG_PATTERN_ORDER);
-                    $userlevel = $userlevelId['userlevel'];
-                  
-                    preg_match_all('/slideServerId\ *?=\ *?"(?P<slideServerId>.*?)"/six', $strReplace, $xslideServerId, PREG_PATTERN_ORDER);
-                    $slideServerId = $xslideServerId['slideServerId'];
-                  
-                    preg_match_all('/siteRoot\ *?=\ *?"(?P<siteRoot>.*?)"/six', $strReplace, $siteRootId, PREG_PATTERN_ORDER);
-                    $siteRoot = $siteRootId['siteRoot'];
-      
-                    
-                    //var_dump($siteRoot);
-                    //exit();
-                    
-                    $this->startSlideServer($siteRoot[0],$slideServerId[0]);
-                    
-                    $preview = $realtime->generateURL($sessionId[0],$agenda[0],$resourcesPath[0],$appletCodeBase[0],$slidesDir[0],$username[0],$fullnames[0],$userLevel[0],$slideServerId[0]);
-                    // Replace filter code with preview
-                    $txt = str_replace($str, $preview, $txt);
-
-                } // End foreach
-            } // End if count
-       
-            // Return rendered text
-            return $txt;
         }
     }
+
+    /**
+    *
+    * Method to parse the string
+    * @param  string $str The string to parse
+    * @return string The parsed string
+    *
+    */
+    public function parse($txt)
+    {
+        $objModule = $this->getObject('modules','modulecatalogue');
+        //See if the mathml module is registered and set a param
+        $isRegistered = $objModule->checkIfRegistered('realtime');
+        if ($isRegistered){
+            //this takes the format [REALTIME]Room Name[/REALTIME]
+            preg_match_all('/\\[REALTIME](.*?)\\[\/REALTIME]/', $txt, $results, PREG_PATTERN_ORDER);            $roomName = $results[1][0];
+
+            $counter = 0;
+            foreach ($results[0] as $item)
+            {
+                $content = $results[1][$counter];
+
+                $replacement=$this->renderVirtualRoom($content);
+                $txt = str_replace($item, $replacement, $txt);
+                $counter++;
+            }
+            
+        }else{
+            $txt.=' Error: Realtime module not registered';
+        }
+
+        return $txt;
+    }
+
+
+    /**
+     * loop through the albums, displaying each of them.
+     * @todo: Its is always one album anyway, the loop might not
+     * be necessary
+     * @param <Array> $albums
+     * @return well htm formated display of the album
+     */
+    private function renderVirtualRoom(
+        $room,
+        $slidesDir='/',
+        $presentationId='/',
+        $presentationName='/'
+        ){
+
+        $str = '';
+
+        $siteRoot=$this->_objConfig->getSiteRoot();
+        $imgLink='<img src="'.$siteRoot.'skins/_common/icons/webpresent/btn_ENTER.jpg" width="200" height="80">';
+
+        $modPath=$this->_objConfig->getModulePath();
+        $replacewith="";
+        $docRoot=$_SERVER['DOCUMENT_ROOT'];
+        $resourcePath=str_replace($docRoot,$replacewith,$modPath);
+        $codebase="http://" . $_SERVER['HTTP_HOST']."/".$resourcePath.'/realtime/resources/';
+
+        $objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
+        $servletURL=$objSysConfig->getValue('SERVLETURL', 'realtime');
+        $openfireHost=$objSysConfig->getValue('OPENFIRE_HOST', 'realtime');
+        $openfirePort=$objSysConfig->getValue('OPENFIRE_CLIENT_PORT', 'realtime');
+        $openfireHttpBindUrl=$objSysConfig->getValue('OPENFIRE_HTTP_BIND', 'realtime');
+
+        $username=$this->objUser->userName();
+        $fullnames=$this->objUser->fullname();
+        $email=$this->objUser->email();
+        $ispresenter='yes';
+        $inviteUrl=$this->_objConfig->getSiteRoot();
+        $roomUrl='';
+        $roomUrl.=$servletURL.'?';
+        $roomUrl.='port='.$openfirePort.'&';
+        $roomUrl.='host='.$openfireHost.'&';
+        $roomUrl.='username='.$username.'&';
+        $roomUrl.='roomname='.$room.'&';
+        $roomUrl.='audiovideourl='.$openfireHttpBindUrl.'&';
+        $roomUrl.='slidesdir='.$slidesDir.'&';
+        $roomUrl.='ispresenter='.$ispresenter.'&';
+        $roomUrl.='presentationid='.$presentationId.'&';
+        $roomUrl.='presentationName='.$presentationName.'&';
+        $roomUrl.='names='.$fullnames.'&';
+        $roomUrl.='email='.$email.'&';
+        $roomUrl.='inviteurl='.$inviteUrl.'&';
+        $roomUrl.='useec2=false&';
+        $roomUrl.='joinid=none&';
+        $roomUrl.='codebase='.$codebase;
+        $str.='<a href = "'.$roomUrl.'">'.$imgLink.'</a>';
+
+        return $str;
+    }
+}
 ?>
