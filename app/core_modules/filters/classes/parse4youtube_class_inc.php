@@ -154,8 +154,8 @@ class parse4youtube extends object
                 $objYouTube->set('hitsPerPage', $hitsperpage);
                 $vw->set('cols', $cols);
                 //$objYouTube->ytIdentifier = $identifier;
-                $apiXml = $objYouTube->show($objYouTube->setupCall());
-                $replacement = $vw->showVideos($apiXml);
+                $apiXml = $objYouTube->show($objYouTube->setupCall($ytmethod));
+                $replacement = $vw->showVideos($apiXml, $ytmethod);
             } else {
                 $replacement = $item . "<br .<span class=\"error\">"
                   .  $this->objLanguage->languageText('mod_filters_error_noyoutube', 'filters')
