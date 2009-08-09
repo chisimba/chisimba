@@ -156,7 +156,7 @@ class parse4realtime extends object
         $username=$this->objUser->userName();
         $fullnames=$this->objUser->fullname();
         $email=$this->objUser->email();
-        $ispresenter='yes';
+        $ispresenter=$this->objUser->isLecturer()?"yes":"no";
         $inviteUrl=$this->_objConfig->getSiteRoot();
         $roomUrl='';
         $roomUrl.=$servletURL.'?';
