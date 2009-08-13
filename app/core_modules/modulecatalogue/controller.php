@@ -168,7 +168,7 @@ class modulecatalogue extends controller {
                 $this->objCatalogueConfig->writeCatalogue ();
             }
             $this->objSideMenu = $this->getObject ( 'catalogue', 'modulecatalogue' );
-            $this->objSideMenu->addNodes ( array ('updates', 'remote', 'all', 'skins', 'languages' ) );
+            $this->objSideMenu->addNodes ( array ('local updates', 'remote updates', 'all packages', 'skins', 'languages' ) );
             $sysTypes = $this->objCatalogueConfig->getCategories ();
             //$xmlCat = $this->objCatalogueConfig->getNavParam('category');
             //get list of categories
