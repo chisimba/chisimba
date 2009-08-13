@@ -60,7 +60,9 @@ $button->setToSubmit();
 
 $form = new form ('createcontext', $this->uri(array('action'=>$formAction)));
 
-$backUri = $this->uri(array('action'=>'edit','contextcode'=>$contextCode),'contextadmin');
+// Fixed Ticket #3128 J C O'Connor
+//$backUri = $this->uri(array('action'=>'edit','contextcode'=>$contextCode),'contextadmin');
+$backUri = $this->uri(array('action'=>'step2','mode'=>'edit','contextcode'=>$contextCode),'contextadmin');
 $backButton = new button('back', $this->objLanguage->languageText('word_back'),"document.location='$backUri'");
 
 $form->addToForm($table->show());
