@@ -32,9 +32,10 @@ class groupadmin_installscripts extends dbTable {
                                                  );
                         // set the password back
                         $this->query("UPDATE tbl_users SET pass='".$user['pass']."' WHERE id='$id'");
+                        $newdata=$this->objGroupOps->getUserByUserid($user['userid']);
                         // jsc says: The following loop doesn't seem to work right - still trying to figure out why.
                         foreach ($oldgroups as $line){
-                            $this->objLuAdmin->perm->addUserToGroup(array('perm_user_id' => $id, 'group_id' => $line['group_id']));
+                            $this->objLuAdmin->perm->addUserToGroup(array('perm_user_id' => $newdata['perm_user_id'], 'group_id' => $line['group_id']));
                         }
                         $this->query("UPDATE tbl_groupadmin_groupuser set user_id='$id' where user_id='".$user['id']."'");
                     }
