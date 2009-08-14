@@ -131,6 +131,7 @@ class PHPCheckAction extends StepAction
                                         'GD'=>Array('version'=>'', 'available' => true, 'message'=> ''),
 
                                         'Zlib'=>Array('version'=>'', 'available' => true, 'message'=> ''),
+                                        'zip'=>Array('version'=>'', 'available' => true, 'message'=> ''),
 
                                         'calendar'=>Array('version'=>'', 'available' => true, 'message'=> ''),
 
@@ -233,6 +234,21 @@ class PHPCheckAction extends StepAction
 
         }
 
+        // check zip
+
+        if (!function_exists('zip_open')) {
+
+            $this->required_settings['zip']['available'] = false;
+
+            $this->required_settings['zip']['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
+
+            $this->success = false;
+
+        } else {
+
+            $this->required_settings['zip']['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';
+
+        }
 
         // check calendar
 
