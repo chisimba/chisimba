@@ -156,7 +156,7 @@ class InstallDirectoryAction extends StepAction
         $module_path = str_replace ( '//', '/', $module_path );
         if (! is_dir ( $module_path )) {
             @mkdir ( $module_path );
-            @chmod ( $module_path, 0755 );
+            @chmod ( $module_path, 0777 );
             if (is_writeable ( $module_path )) {
 
             //$this->errors[] = 'Could not find the directory specified '.$module_path.' but created it for you';
