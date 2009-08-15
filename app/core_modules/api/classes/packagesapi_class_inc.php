@@ -96,8 +96,6 @@ class packagesapi extends object
         $mod = $module->getParam(0);
         // lets check to see if this module has dependencies...
         $depends = $this->objCatalogueConfig->getModuleDeps($mod->scalarval());
-        //log_debug($depends);
-        //$depends = $depends[0];
         $depends = explode(',', $depends);
         foreach($depends as $dep)
         {
@@ -459,26 +457,24 @@ class packagesapi extends object
             throw new customException("Zip extension required!");
         } */
         try {
-        $zip = new ZipArchive();
-        if ($zip->open($filename, ZIPARCHIVE::CREATE)!==TRUE) {
-            log_debug("Unable to open zip file for creation");
-            throw new customException("cannot open <$filename>");
-        }
-        // glob and get a list of files
-        chdir($path);
-        //log_debug("Changed path to $path");
-        //log_debug($this->rglob('*', 0, ''));
-        foreach($this->rglob('*', 0, '') as $files) {
-            if(is_dir($files)) {
-                $zip->addEmptyDir($files);
+            $zip = new ZipArchive();
+            if ($zip->open($filename, ZIPARCHIVE::CREATE)!==TRUE) {
+                log_debug("Unable to open zip file for creation");
+                throw new customException("cannot open <$filename>");
             }
-            else {
-                $zip->addFile($files);
+            // glob and get a list of files
+            chdir($path);
+            //log_debug("Changed path to $path");
+            //log_debug($this->rglob('*', 0, ''));
+            foreach($this->rglob('*', 0, '') as $files) {
+                if(is_dir($files)) {
+                    $zip->addEmptyDir($files);
+                }
+                else {
+                    $zip->addFile($files);
+                }
             }
-        }
-        //log_debug("numfiles: " . $zip->numFiles);
-        //log_debug("status:" . $zip->GetStatusString());
-        $zip->close();
+            $zip->close();
         }
         catch (customException $e) {
             customException::cleanUp();
@@ -495,10 +491,7 @@ class packagesapi extends object
             }
             foreach($paths as $path) {
                 // glob and get a list of files
-                log_debug("adding $path now...");
                 chdir($path);
-                //log_debug("Changed path to $path");
-                //log_debug($this->rglob('*', 0, ''));
                 foreach($this->rglob('*', 0, '') as $files) {
                     if(is_dir($files)) {
                         $zip->addEmptyDir($files);
@@ -508,8 +501,6 @@ class packagesapi extends object
                     }
                 }
             }
-            //log_debug("numfiles: " . $zip->numFiles);
-            //log_debug("status:" . $zip->GetStatusString());
             $zip->close();
         }
         catch (customException $e) {
