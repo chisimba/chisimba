@@ -57,6 +57,7 @@
             <module>feed</module>
             <module>filemanager</module>
             <module>httpclient</module>
+            <module>userparamsadmin</module>
             <module>blog</module>
         </category>
 
