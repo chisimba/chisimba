@@ -146,6 +146,8 @@ class modulecatalogue extends controller {
 
     protected $objTagCloud;
 
+    protected $extzip = FALSE;
+
     /**
      * Standard initialisation function
      */
@@ -168,7 +170,11 @@ class modulecatalogue extends controller {
                 $this->objCatalogueConfig->writeCatalogue ();
             }
             $this->objSideMenu = $this->getObject ( 'catalogue', 'modulecatalogue' );
-            $this->objSideMenu->addNodes ( array ('local updates', 'remote updates', 'all packages', 'skins', 'languages' ) );
+            // Check which zip thing we will be using
+            if(extension_loaded('zip') && function_exists('zip_open')) {
+                $this->extzip = FALSE;
+            }
+            $this->objSideMenu->addNodes ( array ('local updates', 'remote updates', 'all', 'skins', 'languages' ) );
             $sysTypes = $this->objCatalogueConfig->getCategories ();
             //$xmlCat = $this->objCatalogueConfig->getNavParam('category');
             //get list of categories
@@ -208,10 +214,10 @@ class modulecatalogue extends controller {
                 return 'noaccess_tpl.php';
             }
             if (! isset ( $activeCat )) {
-                $activeCat = $this->getParm ( 'cat', 'Updates' );
+                $activeCat = $this->getParm ( 'cat', 'Local Updates' );
             }
             $this->setVar ( 'activeCat', $activeCat );
-            if ($activeCat == 'remote') {
+            if ($activeCat == 'remote updates') {
                 $action = 'remote';
             }
             //$this->setVar('letter',$this->getParam('letter','none'));
@@ -229,7 +235,7 @@ class modulecatalogue extends controller {
                     return $this->nextAction ( 'list', array ('cat' => 'Updates', 'message' => $this->objLanguage->languageText ( 'mod_modulecatalogue_installeddeps', 'modulecatalogue' ) ) );
                 case null :
                 case 'list' :
-                    if (strtolower ( $activeCat ) == 'updates') {
+                    if (strtolower ( $activeCat ) == 'local updates') {
                         $this->setVar ( 'patchArray', $this->objPatch->checkModules () );
                         return 'updates_tpl.php';
                     } elseif (strtolower ( $activeCat == 'skins' )) {
@@ -602,18 +608,19 @@ class modulecatalogue extends controller {
                         echo $this->objLanguage->languageText ( 'mod_modulecatalogue_notcore', 'modulecatalogue' );
                         break;
                     }
-                    // clean up the core classes directory and prep for upgrade
-                    //log_debug ( $this->objLanguage->languageText ( "mod_modulecatalogue_prepupcore", "modulecatalogue" ) );
-                    //$this->deltree($this->objConfig->getsiteRootPath().'classes/');
-                    // ok now we can unzip the new code...
-                    //$objZip = $this->getObject ( 'wzip', 'utilities' );
-                    $zip = new ZipArchive;
+                    /*$zip = new ZipArchive;
                     $zip->open("core.zip");
                     if (! $zip->extractTo( $this->objConfig->getsiteRootPath ()."classes/" )) {
                         log_debug ( "Unzipping new core..." );
                         header ( 'HTTP/1.0 500 Internal Server Error' );
                         echo $this->objLanguage->languageText ( 'mod_modulecatalogue_unziperror', 'modulecatalogue' );
                         echo "<br /> $objZip->error";
+                        break;
+                    }*/
+                    if($this->handleZip('core.zip', 'core') === FALSE) {
+                        log_debug ( "Unzipping new core failed..." );
+                        header ( 'HTTP/1.0 500 Internal Server Error' );
+                        echo $this->objLanguage->languageText ( 'mod_modulecatalogue_unziperror', 'modulecatalogue' );
                         break;
                     }
                     echo $this->objLanguage->languageText ( 'phrase_installing' );
@@ -623,7 +630,22 @@ class modulecatalogue extends controller {
                     $modName = $this->getParam ( 'moduleId' );
                     @chmod ( $this->objConfig->getModulePath (), 0777 );
                     if (in_array ( $modName, $this->objEngine->coremods )) {
-                        log_debug("Unzipping replacement core module $modName");
+                        if (! $this->handleZip($modName, 'core_modules')) {
+                            log_debug("Unzip failed!");
+                            header ( 'HTTP/1.0 500 Internal Server Error' );
+                            echo $this->objLanguage->languageText ( 'mod_modulecatalogue_unziperror', 'modulecatalogue' );
+                            break;
+                        }
+                    }
+                    else {
+                        if (! $this->handleZip($modName, 'modules')) {
+                            log_debug ( "unzipping failed!" );
+                            header ( 'HTTP/1.0 500 Internal Server Error' );
+                            echo $this->objLanguage->languageText ( 'mod_modulecatalogue_unziperror', 'modulecatalogue' );
+                            break;
+                        }
+                    }
+                        /* log_debug("Unzipping replacement core module $modName");
                         $zip = new ZipArchive;
                         $zip->open($modName.".zip");
                         if (! $zip->extractTo($this->objConfig->getsiteRootPath () . 'core_modules/'.$modName )) {
@@ -664,7 +686,8 @@ class modulecatalogue extends controller {
                             $zip->close();
                         }
                     }
-                    //$zip->close();
+                    //$zip->close(); */
+
                     echo $this->objLanguage->languageText ( 'phrase_installing' );
                     break;
 
@@ -707,7 +730,7 @@ class modulecatalogue extends controller {
                 case 'ajaxunzipskin' :
                     $skin = $this->getParam ( 'skinname' );
                     //$objZip = $this->getObject ( 'wzip', 'utilities' );
-                    $zip = new ZipArchive;
+                    /*$zip = new ZipArchive;
                     $zip->open($skin.".zip");
                     if (! $zip->extractTo($this->objConfig->getSkinRoot ().$skin )) {
                         log_debug ( "unzipping failed!" );
@@ -715,6 +738,12 @@ class modulecatalogue extends controller {
                         echo $this->objLanguage->languageText ( 'mod_modulecatalogue_unziperror', 'modulecatalogue' );
                         //echo "<br /> $objZip->error";
                         //unlink("$modName.zip");
+                        break;
+                    }*/
+                    if (! $this->handleZip( $skin, 'skin' )) {
+                        log_debug ( "Skin unzipping failed!" );
+                        header ( 'HTTP/1.0 500 Internal Server Error' );
+                        echo $this->objLanguage->languageText ( 'mod_modulecatalogue_unziperror', 'modulecatalogue' );
                         break;
                     }
                     echo $this->objLanguage->languageText ( 'phrase_installing' );
@@ -788,9 +817,27 @@ class modulecatalogue extends controller {
                         log_debug ( "getting $dls from remote..." );
                         $encodedZip = $this->objRPCClient->getModuleZip ( $dls );
                         $zipContents = base64_decode ( strip_tags ( $encodedZip ) );
-                        file_put_contents ( $this->objConfig->getModulePath ().$dls . ".zip", $zipContents );
+                        file_put_contents ( $dls . ".zip", $zipContents );
                         log_debug ( "Unzipping $dls..." );
-                        $zip = new ZipArchive;
+                        if (in_array ( $dls, $this->objEngine->coremods )) {
+                            log_debug ( "upgrading core module $dls as part of system type..." );
+                            if (! $this->handleZip($dls, 'core_modules')) {
+                                header ( 'HTTP/1.0 500 Internal Server Error' );
+                                echo $this->objLanguage->languageText ( 'mod_modulecatalogue_unziperror', 'modulecatalogue' );
+                                //echo "<br /> $objZip->error";
+                                break;
+                            }
+                        }
+                        else {
+                            if (! $this->handleZip($dls, 'modules')) {
+                                log_debug ( "unzipping failed!" );
+                                header ( 'HTTP/1.0 500 Internal Server Error' );
+                                echo $this->objLanguage->languageText ( 'mod_modulecatalogue_unziperror', 'modulecatalogue' );
+                                break;
+                            }
+                        }
+
+                        /* $zip = new ZipArchive;
                         $zip->open($this->objConfig->getModulePath ().$dls.".zip");
                         // check for core modules and install them where they should go
                         if (in_array ( $dls, $this->objEngine->coremods )) {
@@ -812,8 +859,9 @@ class modulecatalogue extends controller {
                             //echo "<br /> $objZip->error";
                             //unlink("$modName.zip");
                             break;
-                        }
+                        } */
                     }
+                    
                     log_debug("About to batch register: ");
                     log_debug($modules);
                     // finally install all of the mods
@@ -825,7 +873,7 @@ class modulecatalogue extends controller {
                     }*/
                     // clean up after ourselves
                     foreach ( $modules as $deleteables ) {
-                        unlink ( $this->objConfig->getModulePath ().$deleteables . ".zip" );
+                        unlink ( $deleteables . ".zip" );
                     }
                     // echo $this->objLanguage->languageText('phrase_installing');
                     // now set the system type to this type in the config.xml
@@ -1226,5 +1274,111 @@ class modulecatalogue extends controller {
         }
     }
 
+    private function handleZip($zipfile, $modtype) {
+        if($this->extzip == TRUE) {
+            $zip = new ZipArchive;
+            if($modtype == 'core') {
+                $zip->open("core.zip");
+                if (! $zip->extractTo( $this->objConfig->getsiteRootPath ()."classes/" )) {
+                        //log_debug($zip->error);
+                        $zip->close();
+                        return FALSE;
+                }
+                else {
+                    $zip->close();
+                    return TRUE;
+                }
+            }
+            // now for a core_module
+            elseif($modtype == 'core_modules') {
+                $zip->open($zipfile.".zip");
+                if (! $zip->extractTo( $this->objConfig->getsiteRootPath () . 'core_modules/'.$zipfile )) {
+                        //log_debug($zip->error);
+                        $zip->close();
+                        return FALSE;
+                }
+                else {
+                    $zip->close();
+                    return TRUE;
+                }
+            }
+            // last but not least the regular modules
+            elseif($modtype == 'modules') {
+                $zip->open($zipfile.".zip");
+                if (! $zip->extractTo( $this->objConfig->getModulePath ().$zipfile )) {
+                        //log_debug($zip->error);
+                        $zip->close();
+                        return FALSE;
+                }
+                else {
+                    $zip->close();
+                    return TRUE;
+                }
+            }
+            elseif($modtype == 'skin') {
+                $zip->open($zipfile.".zip");
+                if (! $zip->extractTo( $this->objConfig->getSkinRoot ().$zipfile )) {
+                        //log_debug($zip->error);
+                        $zip->close();
+                        return FALSE;
+                }
+                else {
+                    $zip->close();
+                    return TRUE;
+                }
+            }
+            else {
+                log_debug("Unknown module type!");
+                return FALSE;
+            }
+        }
+        else {
+            // we are using the wzip PHP implementation an you are probably using MAMP
+            $zip = $this->getObject ( 'wzip', 'utilities' );
+            if($modtype == 'core') {
+                if (! $zip->unZipArchive( 'core.zip', $this->objConfig->getsiteRootPath ()."classes/" )) {
+                        log_debug($zip->error);
+                        return FALSE;
+                }
+                else {
+                    return TRUE;
+                }
+            }
+            // now for a core_module
+            elseif($modtype == 'core_modules') {
+                if (! $zip->unZipArchive( $zipfile.".zip", $this->objConfig->getsiteRootPath () . 'core_modules/'.$zipfile )) {
+                        log_debug($zip->error);
+                        return FALSE;
+                }
+                else {
+                    return TRUE;
+                }
+            }
+            // last but not least the regular modules
+            elseif($modtype == 'modules') {
+                if (! $zip->unZipArchive( $zipfile.".zip", $this->objConfig->getModulePath ().$zipfile )) {
+                        log_debug($zip->error);
+                        return FALSE;
+                }
+                else {
+                    return TRUE;
+                }
+            }
+            elseif($modtype == 'skin') {
+                if (! $zip->unZipArchive( $zipfile.".zip", $this->objConfig->getSkinRoot ().$zipfile )) {
+                        log_debug($zip->error);
+                        return FALSE;
+                }
+                else {
+                    return TRUE;
+                }
+            }
+            else {
+                log_debug("Unknown module type!");
+                return FALSE;
+            }
+        }
+         
+    }
 }
 ?>
