@@ -319,7 +319,6 @@ class rpcclient extends object
 
         // send the request message
         $resp = $cli->send($msg);
-        //log_debug($resp);
         if (!$resp)
         {
             throw new customException($this->objLanguage->languageText("mod_packages_commserr", "packages").": ".$cli->errstr);
