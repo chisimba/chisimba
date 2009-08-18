@@ -147,33 +147,39 @@ class manageGroups extends object
     */
     function createGroups( $contextcode, $title )
     {
+        $objGroupOps = $this->getObject('groupops', 'groupadmin');
+								if(class_exists('groupops',false)){
         // Context node
         $contextGroupId = $this->_objGroupAdmin->addGroup($contextcode,$title,NULL);
         // Create the  subgroups
         $newGroupId = $this->_objGroupAdmin->addSubGroups( $contextcode, $contextGroupId);
-        /*foreach( $this->_arrSubGroups as $groupName=>$groupId ) {
-            $newGroupId = $this->_objGroupAdmin->addSubGroups(
-                $groupName,
-                $contextcode.' '.$groupName,
-                $contextGroupId);
-            $this->_arrSubGroups[$groupName]['id'] = $newGroupId;
-        } // End foreach subgroup*/
-
         // Add groupMembers
-        $objGroupOps = $this->getObject('groupops', 'groupadmin');
         $objGroups = $this->getObject('groupadminmodel', 'groupadmin');
         $userId = $this->_objUser->userId();
-
         // get the permissions id for this user...
-
         $permid = $objGroupOps->getUserByUserId($userId);
         $permid = $permid['perm_user_id'];
         //get the lecturer groupid
         $groupId = $this->_objGroupAdmin->getLeafId( array($contextcode, 'Lecturers') );
         $objGroups->addGroupUser($groupId, $permid);
+        }else{
+		       // Context node
+		       $contextGroupId = $this->_objGroupAdmin->addGroup($contextcode,$title,NULL);
+		       // For each subgroup
+		       foreach( $this->_arrSubGroups as $groupName=>$groupId ) {
+		           $newGroupId = $this->_objGroupAdmin->addGroup(
+		               $groupName,
+		               $contextcode.' '.$groupName,
+		               $contextGroupId);
+		           $this->_arrSubGroups[$groupName]['id'] = $newGroupId;
+		       } // End foreach subgroup
 
-        // Now create the ACLS
-        //$this->createAcls( $contextcode, $title );
+		       // Add groupMembers
+		       $this->addGroupMembers();
+
+		       // Now create the ACLS
+		       $this->createAcls( $contextcode, $title );        
+        }
     } // End createGroups
 
     /**
