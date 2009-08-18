@@ -124,7 +124,7 @@ class contextgroups extends controller
         $needPermissions = array('searchforusers', 'viewsearchresults', 'addusers', 'removeuser', 'removeallusers');
         
         if (in_array($action, $needPermissions)) {
-            if ($this->objUser->isAdmin() || $this->objUser->isContextLecturer()) {
+            if ($this->objUser->isAdmin() || $this->objUser->isContextLecturer($this->objUser->userId(),$this->objContext->getContextCode())) {
                 return TRUE;
             } else {
                 return FALSE;
@@ -156,10 +156,10 @@ class contextgroups extends controller
         
         //Ehb-added-begin
          $currentContextCode=$this->objContext->getContextCode();
-                $where="where contextCode<>"."'".$currentContextCode."'";
-                $data=$this->objContext->getAll($where);
-                $this->setVarByRef('data',$data);
-                    //Ehb-added-End
+         $where="where contextCode<>"."'".$currentContextCode."'";
+         $data=$this->objContext->getAll($where);
+         $this->setVarByRef('data',$data);
+        //Ehb-added-End
       
         
         return 'home_tpl.php';
