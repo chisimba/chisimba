@@ -113,9 +113,11 @@ class parse4realtime extends object
                 $txt = str_replace($item, $replacement, $txt);
                 $counter++;
             }
-            
+
         }else{
-            $txt.=' Error: Realtime module not registered';
+            //Commented out by JO'C
+            //It breaks the content when the Realtime module is not installed.
+            //$txt.=' Error: Realtime module not registered';
         }
 
         return $txt;
