@@ -840,6 +840,25 @@ class xmlrpcapi extends object
                                                                           ),
                                                     'docstring' => 'returns the user details for a given username'),
 
+                            'user.getUserlist' => array('function' => array($this->objUser, 'getUserList'),
+                                                      'signature' => array(
+                                                                          array('array'),
+                                                                          ),
+                                                    'docstring' => 'returns the user list as a list of usernames on the system'),
+
+                            'user.getCountrylist' => array('function' => array($this->objUser, 'getCountryList'),
+                                                      'signature' => array(
+                                                                          array('array'),
+                                                                          ),
+                                                    'docstring' => 'returns the list of countries available to register in on the system'),
+
+                            'user.registerUser' => array('function' => array($this->objUser, 'regUser'),
+                                                      'signature' => array(
+                                                                          array('string', 'string', 'string', 'string', 'string', 'string', 'string', 'string', 'string', 'string', 'string', 'string'),
+                                                                          ),
+                                                    'docstring' => 'adds the user to the database'),
+
+
                             //Context API
                             'user.isContextPlugin' => array('function' => array($this->objContext, 'isContextPlugin'),
                                                       'signature' => array(

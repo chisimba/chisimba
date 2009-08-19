@@ -375,11 +375,11 @@ class packagesapi extends object
         //$objZip = $this->getObject('wzip', 'utilities');
         //$zipfile = $objZip->addArchive($path, $filepath, $this->objConfig->getSkinRoot());
         $zipfile = $this->makeZip($path, $filepath);
-        $filetosend = file_get_contents($zipfile);
+        $filetosend = file_get_contents($this->objConfig->getSiteRootPath()."/".$zipfile);
         $filetosend = base64_encode($filetosend);
         // log_debug($filetosend);
         $val = new XML_RPC_Value($filetosend, 'string');
-        unlink($filepath);
+        unlink($this->objConfig->getSiteRootPath()."/".$zipfile);
         log_debug("Sent Skin: ".$skin." to client at ".$_SERVER['REMOTE_ADDR']);
         return new XML_RPC_Response($val);
         // Ooops, couldn't open the file so return an error message.
@@ -394,9 +394,12 @@ class packagesapi extends object
     {
         $path = $this->objConfig->getskinRoot();
         chdir($path);
+        $sklist = NULL;
         foreach(glob('*') as $skins)
         {
-            $sklist .= $skins."|";
+            if($skins != 'icons2' || $skins != '_common2') {
+                $sklist .= $skins."|";
+            }
         }
         $val = new XML_RPC_Value($sklist, 'string');
         log_debug("Sent Skin List to client");

@@ -106,6 +106,12 @@ class api extends controller
                 $this->objRPC->serve();   
                 // break to be pedantic, although not strictly needed.    
                 break;
+
+            case 'test':
+                $objLangCode = $this->getObject('languagecode', 'language');
+        $arrOfCountries = $objLangCode->countryListArr();
+var_dump($arrOfCountries);
+                break;
         }
     }
     

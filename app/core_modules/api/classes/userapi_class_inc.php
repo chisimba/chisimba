@@ -183,7 +183,114 @@ class userapi extends object
     
     }
 
+    public function regUser($params) {
+        $objUAModel = $this->getObject('useradmin_model2', 'security');
+
+        $param = $params->getParam(0);
+        if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+        }
+        $userid = $param->scalarval();
+
+        $param = $params->getParam(1);
+        if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+        }
+        $username = $param->scalarval();
+
+        $param = $params->getParam(2);
+        if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+        }
+        $password = $param->scalarval();
+
+        $param = $params->getParam(3);
+        if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+        }
+        $title = $param->scalarval();
+
+        $param = $params->getParam(4);
+        if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+        }
+        $firstname = $param->scalarval();
+
+        $param = $params->getParam(5);
+        if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+        }
+        $surname = $param->scalarval();
+
+        $param = $params->getParam(6);
+        if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+        }
+        $email = $param->scalarval();
+
+        $param = $params->getParam(7);
+        if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+        }
+        $sex = $param->scalarval();
+
+        $param = $params->getParam(8);
+        if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+        }
+        $country = $param->scalarval();
+
+        $param = $params->getParam(9);
+        if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+        }
+        $cellnumber = $param->scalarval();
+
+        $param = $params->getParam(10);
+        if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+        }
+        $staffnumber = $param->scalarval();
+
+        if(!isset($userid) || $userid == '') {
+            $userid = $objUAModel->generateUserId();
+        }
+        // check if the username is available
+        if( $objUAModel->usernameAvailable($username) == TRUE && $objUAModel->emailAvailable($email) == TRUE && $objUAModel->useridAvailable($userid) == TRUE) {
+            $res = $objUAModel->addUser($userid, $username, $password, $title, $firstname, $surname, $email, $sex, $country, $cellnumber, $staffnumber, $accountType='api', $accountstatus='1');
+            $val = new XML_RPC_Value($res, 'string');
+        }
+        else { 
+            $res = "FALSE";
+            $val = new XML_RPC_Value($res, 'string');
+        }
+        
+        return new XML_RPC_Response($val);
+    }
+
+    public function getUserList() {
+        $objGrpOps = $this->getObject('groupops', 'groupadmin');
+        $users = $objGrpOps->getAllUsers();
+        // get a list of usernames to return to the client only. 
+        // @see $this->getUserDetails($username)
+        foreach($users as $user) {
+            $userarr[] = new XML_RPC_VALUE($user['handle'], "string");
+        }
+        // return the XML_RPC array type
+        $val = new XML_RPC_Value($userarr, "array");
+        return new XML_RPC_Response($val);
+    }
+
+    public function getCountryList() {
+        $objLangCode = $this->getObject('languagecode', 'language');
+        $arrOfCountries = $objLangCode->countryListArr();
+        foreach($arrOfCountries as $count) {
+            $countarr[] = new XML_RPC_VALUE($count, "string");
+        }
+        // return the XML_RPC array type
+        $val = new XML_RPC_Value($countarr, "array");
+        return new XML_RPC_Response($val);
+    }
+
 }
-
-
 ?>
