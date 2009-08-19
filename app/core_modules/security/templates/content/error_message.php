@@ -76,9 +76,10 @@ $registerLink->link = $this->objLanguage->languageText('word_register');
 $backHomeLink = new link ($this->uri(NULL, $this->objConfig->getValue('KEWL_PRELOGIN_MODULE')));
 $backHomeLink->link = $this->objLanguage->languageText('phrasebacktohomepage', 'security');
 
+$canRegister = ($this->objConfig->getItem('KEWL_ALLOW_SELFREGISTER') != strtoupper('FALSE'));
 if ($this->getParam('message') == 'wrongpassword') {
     $middleContent .= $newPasswordLink->show().' / ';
-} else if ($this->objConfig->getallowSelfRegister()) {
+} else if ($canRegister) {
     $middleContent .= $registerLink->show().' / ';
 }
 
