@@ -666,9 +666,9 @@ IP Address of Request: '.$_SERVER['REMOTE_ADDR'];
     * Method to Set an Account as Inactive
     * @param string $id User Id of the User
     */
-    private function setUserAsInActive($id)
+    public function setUserAsInActive($id)
     {
-    // get the user that we are interested in...
+        // get the user that we are interested in...
         $user = $this->objLuAdmin->getUsers(array('container' => 'auth', 'filters' => array('id' => $id)));
         // now update with the fresh info
         $updateuser = $user[0]['perm_user_id'];
@@ -682,7 +682,6 @@ IP Address of Request: '.$_SERVER['REMOTE_ADDR'];
         else {
             return TRUE;
         }
-        // return $this->update('id', $id, array('isactive'=>'0'));
     }
 
     /**
@@ -710,6 +709,29 @@ IP Address of Request: '.$_SERVER['REMOTE_ADDR'];
             // return $this->delete('id', $id);
         } else {
             return FALSE;
+        }
+    }
+
+   /**
+    * Method to Delete an User Account
+    * @param string $id User Id of the User
+    */
+    public function apiUserDelete($id)
+    {
+        // User can delete own account!! Be careful!
+        // get the user that we are interested in...
+        $user = $this->objLuAdmin->getUsers(array('container' => 'auth', 'filters' => array('id' => $id)));
+        // now update with the fresh info
+        $updateuser = $user[0]['perm_user_id'];
+
+        $updated = $this->objLuAdmin->removeUser($updateuser);
+        if(!$updated) {
+            $errarr = $this->objLuAdmin->getErrors();
+            throw new customException($errarr[0]['reason']);
+            exit(1);
+        }
+        else {
+            return TRUE;
         }
     }
 
