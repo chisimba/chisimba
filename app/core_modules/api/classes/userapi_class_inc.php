@@ -270,14 +270,29 @@ class userapi extends object
 
     public function getUserList() {
         $objGrpOps = $this->getObject('groupops', 'groupadmin');
-        $users = $objGrpOps->getAllUsers();
+        $objUser = $this->getObject('user', 'security');
+        $users = $objGrpOps->getAllPermUsers();
         // get a list of usernames to return to the client only. 
         // @see $this->getUserDetails($username)
         foreach($users as $user) {
-            $userarr[] = new XML_RPC_VALUE($user['handle'], "string");
+            $userarr[] = new XML_RPC_VALUE($objUser->username($user['auth_user_id'])." (".$objUser->fullname($user['auth_user_id']).")", "string");
         }
         // return the XML_RPC array type
         $val = new XML_RPC_Value($userarr, "array");
+        return new XML_RPC_Response($val);
+    }
+
+    public function getUserListString() {
+        $objGrpOps = $this->getObject('groupops', 'groupadmin');
+        $users = $objGrpOps->getAllPermUsers();
+        // get a list of usernames to return to the client only. 
+        // @see $this->getUserDetails($username) 
+        $list = NULL;
+        foreach($users as $user) {
+            $userarr[] = new XML_RPC_VALUE($objUser->username($user['auth_user_id'])." (".$objUser->fullname($user['auth_user_id']).")", "string");
+        }
+        // return the XML_RPC array type
+        $val = new XML_RPC_Value($list, "string");
         return new XML_RPC_Response($val);
     }
 
@@ -292,5 +307,77 @@ class userapi extends object
         return new XML_RPC_Response($val);
     }
 
+    public function getCommaCountryList() {
+        $objLangCode = $this->getObject('languagecode', 'language');
+        $arrOfCountries = $objLangCode->countryListArr();
+        $list = NULL;
+        foreach($arrOfCountries as $count) {
+            $list .= $count.",";
+        }
+        // return the XML_RPC array type
+        $val = new XML_RPC_Value($list, "string");
+        return new XML_RPC_Response($val);
+    }
+
+    public function userInactivate($params) {
+        $objUAModel = $this->getObject('useradmin_model2', 'security');
+        $objUser = $this->getObject('user', 'security');
+        
+        $param = $params->getParam(0);
+        if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+        }
+        $username = $param->scalarval();
+        $username = explode("(", $username);
+        
+        if(!isset($username) || empty($username) ) {
+            $val = new XML_RPC_Value("FALSE", "string");
+        }
+        else { 
+            $username = trim($username[0]);
+            $userdetails = $objUser->lookupData($username);
+            $id = $objUser->PKId($userdetails['userid']);
+            $res = $objUAModel->setUserAsInActive($id);
+            log_debug($res);
+            if($res) {
+                $val = new XML_RPC_Value("TRUE", "string");
+            }
+            else {
+                $val = new XML_RPC_Value("FALSE", "string");
+            }
+        }
+
+        return new XML_RPC_Response($val);
+    }
+
+    public function userDelete($params) {
+        $objUAModel = $this->getObject('useradmin_model2', 'security');
+        $objUser = $this->getObject('user', 'security');
+        
+        $param = $params->getParam(0);
+        if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+        }
+        $username = $param->scalarval();
+        $username = explode("(", $username);
+        
+        if(!isset($username) || empty($username) ) {
+            $val = new XML_RPC_Value("FALSE", "string");
+        }
+        else { 
+            $username = trim($username[0]);
+            $userdetails = $objUser->lookupData($username);
+            $id = $objUser->PKId($userdetails['userid']);
+            $res = $objUAModel->apiUserDelete($id);
+            if($res) {
+                $val = new XML_RPC_Value("TRUE", "string");
+            }
+            else {
+                $val = new XML_RPC_Value("FALSE", "string");
+            }
+        }
+
+        return new XML_RPC_Response($val);
+    }
 }
 ?>

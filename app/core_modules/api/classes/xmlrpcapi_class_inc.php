@@ -846,11 +846,36 @@ class xmlrpcapi extends object
                                                                           ),
                                                     'docstring' => 'returns the user list as a list of usernames on the system'),
 
+                            'user.inactivateUser' => array('function' => array($this->objUser, 'userInactivate'),
+                                                      'signature' => array(
+                                                                          array('string', 'string'),
+                                                                          ),
+                                                    'docstring' => 'notionally removes a user from the system by marking him or her as inactive'),
+
+                            'user.deleteUser' => array('function' => array($this->objUser, 'userDelete'),
+                                                      'signature' => array(
+                                                                          array('string', 'string'),
+                                                                          ),
+                                                    'docstring' => 'permanently removes a user from the system'),
+
+
+                            'user.getUserlistString' => array('function' => array($this->objUser, 'getUserListString'),
+                                                      'signature' => array(
+                                                                          array('string'),
+                                                                          ),
+                                                    'docstring' => 'returns the user list as a comma seperated string of usernames'),
+
                             'user.getCountrylist' => array('function' => array($this->objUser, 'getCountryList'),
                                                       'signature' => array(
                                                                           array('array'),
                                                                           ),
-                                                    'docstring' => 'returns the list of countries available to register in on the system'),
+                                                    'docstring' => 'returns the list of countries available to register on the system'),
+
+                            'user.getCountrylistString' => array('function' => array($this->objUser, 'getCommaCountryList'),
+                                                      'signature' => array(
+                                                                          array('string'),
+                                                                          ),
+                                                    'docstring' => 'returns the list of countries available to register on the system as a comma seperated string'),
 
                             'user.registerUser' => array('function' => array($this->objUser, 'regUser'),
                                                       'signature' => array(
