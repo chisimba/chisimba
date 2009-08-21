@@ -99,6 +99,7 @@ class loginInterface extends object
 
             //--Create an element for the username
             $objInput = new textinput('username', '', 'text','15');
+            $objInput->extra = "maxlength=255";
             $objLabel = new label($this->objLanguage->languageText('word_username').': ', 'input_username');
             //Add validation for username
             $objForm->addRule('username',$this->objLanguage->languageText("mod_login_unrequired", 'security', 'Please enter a username. A username is required in order to login.'),'required');
@@ -110,6 +111,7 @@ class loginInterface extends object
 
             //--- Create an element for the password
             $objInput = new textinput('password', '', 'password', '15');
+            $objInput->extra = "maxlength=255";
             $objLabel = new label($this->objLanguage->languageText('word_password'). ': ', 'input_password');
             //Add the password box to the form
             //$objForm->addToForm();
