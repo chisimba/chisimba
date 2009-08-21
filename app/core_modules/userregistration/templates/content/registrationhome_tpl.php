@@ -59,13 +59,14 @@ $messages = array();
 $table = $this->newObject('htmltable', 'htmlelements');
 $table->startRow();
 $username = new textinput('register_username');
+$username->extra = "maxlength=255";
 $usernameLabel = new label($this->objLanguage->languageText('word_username', 'system').'&nbsp;', 'input_register_username');
 $usernameContents = new label($this->objLanguage->languageText('phrase_usernamemayconsistof', 'userdetails', 'May consist of a-z, 0-9 and underscore'), 'input_register_username');
 
 if ($mode == 'addfixup') {
     $username->value = $this->getParam('register_username');
 
-    if ($this->getParam('register_username') == '') {
+    if ($this->getParam('register_username') == '' || strlen($this->getParam('register_username')) > 255) {
         $messages[] = $this->objLanguage->languageText('phrase_enterusername', 'system', 'Please enter a username');
     }
 }
@@ -80,9 +81,11 @@ $table->startRow();
 
 $password = new textinput('register_password');
 $password->fldType = 'password';
+$password->extra = "maxlength=255";
 $passwordLabel = new label($this->objLanguage->languageText('word_password', 'system'), 'input_register_password');
 $confirmPassword = new textinput('register_confirmpassword');
 $confirmPassword->fldType = 'password';
+$confirmPassword->extra = 'maxlength=255';
 $confirmPasswordLabel = new label($this->objLanguage->languageText('phrase_confirmpassword', 'userregistration', 'Confirm Password'), 'input_register_confirmpassword');
 $table->addCell($passwordLabel->show(), 150, 'top', 'right');
 $table->addCell('&nbsp;', 5);
