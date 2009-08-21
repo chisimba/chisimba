@@ -2,10 +2,8 @@
 
 /**
 *
-* Parse string for filter for photogallery
-*
-* Class to parse a string (e.g. page content) that contains a filter
-* code for including the all photos in an album.
+* Class used to parse [REALTIME]room name[/REALTIME] filter into a link to an
+instant virtual classroom
 *
 * PHP version 5
 *
