@@ -70,6 +70,10 @@ class security extends controller {
         $username = $this->getParam ( 'username', '' );
         $password = $this->getParam ( 'password', '' );
         $remember = $this->getParam( 'remember', 'off');
+        if(strlen($username) > 255 || strlen($password) > 255) {
+            $message = 'wrongpassword';
+            return $this->nextAction ( 'error', array ('message' => $message ) );
+        }
         if($remember == 'on') {
             $remember = true;
         }
