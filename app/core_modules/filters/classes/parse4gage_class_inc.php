@@ -87,8 +87,6 @@ class parse4gage extends object
         return $txt;
     }
     
-    
-    
     /**
     *
     * Method to set up the parameter / value pairs for th efilter
@@ -171,8 +169,6 @@ class parse4gage extends object
         }
         return $ret;
     }
-    
-
     
     /**
     *
