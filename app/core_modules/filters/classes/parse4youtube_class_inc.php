@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Class to parse a string (e.g. page content) that contains a link
  * to a yout tube video and render the video in the page
@@ -136,10 +135,9 @@ class parse4youtube extends object
             if ($flagOk == TRUE) {
                 // moved the instantiation to inside the flag check as per bug #0002236
                 //Instantiate the youtubeapi class
-                $objYouTube = $this->getObject('youtubeapi', 'youtube');
+                $objYouTube = $this->newObject('youtubeapi', 'youtube');
                 //Get the view class for youtubeapi
-                $vw = $this->getObject('youtubetpl','youtube');
-
+                $vw = $this->newObject('youtubetpl','youtube');
                 $arCodes = $this->extractYoutubeCodes($exPat);
                 $ytmethod = $arCodes['ytmethod'];
                 $identifier = $arCodes['ytidentifier'];
@@ -252,7 +250,6 @@ class parse4youtube extends object
           'cols' => $arCodes[2],
           'ytpage' => $arCodes[3],
           'hitsperpage' => $arCodes[4]);
-
         return $arRet;
     }
 
