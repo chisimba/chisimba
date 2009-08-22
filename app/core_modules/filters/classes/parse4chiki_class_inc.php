@@ -334,6 +334,18 @@ class parse4chiki extends object
     {
         return $this->__makeChikiText($this->objLanguage->languageText("mod_filters_chiki_needsedit", "filters"));
     }
+    
+    /**
+    *
+    * Method to return   
+    * @access private
+    * @return string The parsed chiki for this method
+    *
+    */
+    private function __changeme()
+    {
+        return $this->__makeChikiText($this->objLanguage->languageText("mod_filters_chiki_needsedit", "filters"));
+    }
 
     /**
     *
