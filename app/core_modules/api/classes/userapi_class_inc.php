@@ -185,7 +185,7 @@ class userapi extends object
 
     public function regUser($params) {
         $objUAModel = $this->getObject('useradmin_model2', 'security');
-
+        $objLangCode = $this->getObject('languagecode', 'language');
         $param = $params->getParam(0);
         if (!XML_RPC_Value::isValue($param)) {
             log_debug($param);
@@ -239,6 +239,9 @@ class userapi extends object
             log_debug($param);
         }
         $country = $param->scalarval();
+        // expecting a country code, so lets look that up now...
+        $list = $objLangCode->countryListArr();
+        $c = array_keys($list, $country);
 
         $param = $params->getParam(9);
         if (!XML_RPC_Value::isValue($param)) {
@@ -257,7 +260,7 @@ class userapi extends object
         }
         // check if the username is available
         if( $objUAModel->usernameAvailable($username) == TRUE && $objUAModel->emailAvailable($email) == TRUE && $objUAModel->useridAvailable($userid) == TRUE) {
-            $res = $objUAModel->addUser($userid, $username, $password, $title, $firstname, $surname, $email, $sex, $country, $cellnumber, $staffnumber, $accountType='api', $accountstatus='1');
+            $res = $objUAModel->addUser($userid, $username, $password, $title, $firstname, $surname, $email, $sex, $c[0], $cellnumber, $staffnumber, $accountType='api', $accountstatus='1');
             $val = new XML_RPC_Value($res, 'string');
         }
         else { 
@@ -361,7 +364,31 @@ class userapi extends object
         $username = $param->scalarval();
         $username = explode("(", $username);
         
+        $param = $params->getParam(1);
+        if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+        }
+        $adminuser = $param->scalarval();
+
+        $param = $params->getParam(2);
+        if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+        }
+        $adminpass = $param->scalarval();
+
+        $adminuserdetails = $objUser->lookupData($adminuser);
+        $adUserId = $adminuserdetails['userid'];
         if(!isset($username) || empty($username) ) {
+            $val = new XML_RPC_Value("FALSE", "string");
+        }
+        // we check if the user and pass is 100% esse, by logging in
+        elseif(!$objUser->authenticateUser($adminuser, $adminpass, FALSE)) {
+            // fail
+            $val = new XML_RPC_Value("FALSE", "string");
+        }
+        // finally check if the user is in the admin group to be deleting folks!
+        elseif(!$objUser->inAdminGroup($adUserId)) {
+            // fail
             $val = new XML_RPC_Value("FALSE", "string");
         }
         else { 

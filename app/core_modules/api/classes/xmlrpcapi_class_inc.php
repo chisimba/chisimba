@@ -854,7 +854,7 @@ class xmlrpcapi extends object
 
                             'user.deleteUser' => array('function' => array($this->objUser, 'userDelete'),
                                                       'signature' => array(
-                                                                          array('string', 'string'),
+                                                                          array('string', 'string', 'string', 'string'),
                                                                           ),
                                                     'docstring' => 'permanently removes a user from the system'),
 
