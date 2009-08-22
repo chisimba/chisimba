@@ -150,7 +150,6 @@ class parse4widget extends object
         return $txt;
     }
 
-
     /**
     * Method to extract the HTML entities from the
     * widget which have been converted to entitied
