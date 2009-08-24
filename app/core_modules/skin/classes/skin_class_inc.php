@@ -114,7 +114,7 @@ class skin extends object
 			} else {
 				//If new skin config file doesn't exist defaulting to old skin engine
 				$objSysConfig->changeParam('CHISIMBA_SKIN_ENGINE', 'skin', 'default');
-			}	
+			}
 
 			if ($this->skinEngine == 'default' || $this->skinEngine == '') {
 				//Test if stylesheet exists in the skinlocation
@@ -135,7 +135,7 @@ class skin extends object
 
 			}
 
-			
+
 
         }
     }
@@ -347,7 +347,7 @@ class skin extends object
 
 		$objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
 		$skinEngine = $objSysConfig->getValue('CHISIMBA_SKIN_ENGINE');
-	
+
 		//Determining which css to load based on current skin engine requirements
 		if (isset($skinEngine)) {
 			if ($skinEngine == 'default' || $skinEngine == '') {
@@ -599,6 +599,21 @@ class skin extends object
         }
 
         return $str;
+    }
+
+   /**
+    *
+    * Method to output site load.
+    *
+    * @return string The number of users currently logged into the site
+    * @access Public
+    * @author Jeremy O'Connor
+    */
+    public function siteLoad()
+    {
+        $objDBLoggedInUsers = $this->getObject('dbloggedinusers');
+        $count = $objDBLoggedInUsers->Count();
+        return "$count users currently online";
     }
 
 } # End of class
