@@ -612,7 +612,7 @@ class skin extends object
     public function siteLoad()
     {
         $objDBLoggedInUsers = $this->getObject('dbloggedinusers');
-        $count = $objDBLoggedInUsers->Count();
+        $count = $objDBLoggedInUsers->count();
         return "$count users currently online";
     }
 
