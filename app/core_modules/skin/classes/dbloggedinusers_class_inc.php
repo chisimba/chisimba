@@ -26,7 +26,7 @@ class dbloggedinusers extends dbTable
 	* @return integer number of rows in table
     */
 
-	public function Count()
+	public function count()
 	{
     	return $this->getRecordCount();
     	/*
