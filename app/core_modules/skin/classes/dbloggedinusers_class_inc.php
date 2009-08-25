@@ -28,7 +28,7 @@ class dbloggedinusers extends dbTable
 
 	public function count()
 	{
-    	return $this->getRecordCount();
+    	return (int)$this->getRecordCount();
     	/*
 		$sql =
         "SELECT COUNT(id) AS cnt FROM {$this->_tableName}";
