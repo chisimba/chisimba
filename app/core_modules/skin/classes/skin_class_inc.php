@@ -613,7 +613,7 @@ class skin extends object
     {
         $objDBLoggedInUsers = $this->getObject('dbloggedinusers');
         $count = $objDBLoggedInUsers->count();
-        return "&nbsp;$count user".($count == 1?"":"s")." currently online";
+        return "&nbsp;".($count == 1?$this->objLanguage->code2Txt('mod_skin_usersonline_singular','skin',array('COUNT'=>$count)):$this->objLanguage->code2Txt('mod_skin_usersonline_plural','skin',array('COUNT'=>$count)));
     }
 
 } # End of class
