@@ -613,7 +613,7 @@ class skin extends object
     {
         $objDBLoggedInUsers = $this->getObject('dbloggedinusers');
         $count = $objDBLoggedInUsers->count();
-        return "&nbsp;$count users currently online";
+        return "&nbsp;$count user".($count == 1?"":"s")." currently online";
     }
 
 } # End of class
