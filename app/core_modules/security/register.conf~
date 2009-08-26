@@ -35,7 +35,7 @@ TABLE: tbl_perms_userrights
 
 COMMENT: Login box appearance configs
 CONFIG:  show_ldap_checkbox|false|mod_security_showldapcheckbox
-CONFIG:  show_twitter_auth|false|mod_security_showtwitterauth
+CONFIG:  show_twitter_auth|true|mod_security_showtwitterauth
 
 COMMENT: Session setups
 CONFIG: sess_name|PHPSESSION|mod_security_sessname

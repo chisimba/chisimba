@@ -13,7 +13,7 @@ if (! $GLOBALS ['kewl_entry_point_run']) {
  *
  * @author Sean Legassick
  *
- * $Id$
+ * $Id: controller.php 14468 2009-08-21 05:16:02Z paulscott $
  */
 class security extends controller {
     public $objUser;

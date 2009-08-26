@@ -43,6 +43,9 @@ switch ($this->getParam('message')){
         $loginString=$this->objLanguage->languageText('mod_security_removelogin','security');
         $smallText.="<br /><br />\n<a href='$loginURL' class='pseudobutton'>$loginString</a>\n<br />\n";
         break;
+    case 'dooauth':
+        $Header->str = $this->objLanguage->languageText('mod_security_dooauth', 'security');
+        $smallText = $this->objLanguage->languageText('mod_security_oauthmessage','security');
     default:
         $Header->str=$this->objLanguage->languageText('mod_security_unknownerror','security');
         $smallText = $this->objLanguage->languageText('mod_security_errormessage','security');

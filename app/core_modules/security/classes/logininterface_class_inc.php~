@@ -38,7 +38,7 @@ if (!$GLOBALS['kewl_entry_point_run'])
 *
 * Class to render login box, register links, and do other pre login duties
 *
-* @version $Id$
+* @version $Id: logininterface_class_inc.php 13519 2009-05-23 08:55:03Z davidwaf $
 * @copyright 2003
 **/
 class loginInterface extends object
@@ -177,7 +177,7 @@ class loginInterface extends object
             $twitterObj = new EpiTwitter($this->consumer_key, $this->consumer_secret);
             $twiticon = $objIcon->getLinkedIcon($twitterObj->getAuthenticateUrl(), 'Sign-in-with-Twitter-lighter', 'png');
             $twitter = $twiticon;
-            return $twitter.'<br />';
+            return $twitter.'<br />;
         }
         else {
             return NULL;
