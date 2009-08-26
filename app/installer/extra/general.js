@@ -267,7 +267,7 @@ function sq_redirect(url) {
 	document.write('		</style>');
 	document.write('	</head>');
 	document.write('	<body>');
-	document.write('		Please wait while you are redirected. If you are not redirected, please click <a href="' + url + '" title="Click here to manually redirect">here</a>');
+	document.write('		Please wait while the final set ups are being completed. You will be redirected momentarily...');
 	document.write('	</body>');
 	document.write('</html>');
 
