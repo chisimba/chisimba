@@ -17,13 +17,13 @@
     <update>
 
         <table>tbl_logger</table>
-        <version>1.002</version>
+        <version>1.003</version>
         <description>Added a new column dateLastUpdated to save the date Last Updated of the previous insert to the log</description>
 
         <data>
             <add>
                 <name>dateLastUpdated</name>
-                <type>datetime</type>
+                <type>timestamp</type>
             </add>
         </data>
     </update>
