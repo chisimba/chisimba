@@ -249,7 +249,19 @@ class security extends controller {
      * @return string Name of template to display
      */
     function doLogoff() {
-        $lo = $this->objLu->logout ();
+        $show = $this->objDbSysconfig->getValue('show_twitter_auth', 'security');
+        if(strtolower($show) == 'true') {
+            $this->consumer_key = $this->objDbSysconfig->getValue('twitter_consumer_key', 'security');
+            $this->consumer_secret = $this->objDbSysconfig->getValue('twitter_consumer_secret', 'security');
+            $this->objEpiTwitter = new EpiTwitter($this->consumer_key, $this->consumer_secret, $_COOKIE['oauth_token'], $_COOKIE['oauth_token_secret']);
+
+            $this->objEpiTwitter->get_accountEnd_session();
+            $lo = $this->objLu->logout ();
+        }
+        else {
+            $lo = $this->objLu->logout ();
+        }
+
         return $this->showPreLoginModule ();
     }
 

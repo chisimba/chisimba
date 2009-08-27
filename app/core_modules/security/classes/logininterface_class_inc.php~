@@ -177,7 +177,7 @@ class loginInterface extends object
             $twitterObj = new EpiTwitter($this->consumer_key, $this->consumer_secret);
             $twiticon = $objIcon->getLinkedIcon($twitterObj->getAuthenticateUrl(), 'Sign-in-with-Twitter-lighter', 'png');
             $twitter = $twiticon;
-            return $twitter.'<br />;
+            return $twitter.'<br />';
         }
         else {
             return NULL;

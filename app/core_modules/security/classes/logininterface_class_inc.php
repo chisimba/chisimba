@@ -166,7 +166,7 @@ class loginInterface extends object
     public function oauthDisp() {
         // displays a set of oAuth providers
         $this->objDbSysconfig = $this->getObject('dbsysconfig', 'sysconfig');
-        $show = $this->objDbSysconfig->getValue('show_twitter_auth', 'security');;
+        $show = $this->objDbSysconfig->getValue('show_twitter_auth', 'security');
         if(strtolower($show) == 'true') {
             $objIcon = $this->getObject('geticon', 'htmlelements');
             $objIcon->alt = "Sign in with Twitter";
