@@ -1,5 +1,32 @@
 <?xml version='1.0' encoding='ISO-8859-1'?>
 <updates>
+    <update>
+
+        <table>tbl_logger</table>
+        <version>1.002</version>
+        <description>Added a new column isLanguageCode to save the id of the previous insert to the log</description>
+
+        <data>
+            <add>
+                <name>isLanguageCode</name>
+                <type>text</type>
+                <length>10</length> 
+            </add>
+        </data>
+    </update>
+    <update>
+
+        <table>tbl_logger</table>
+        <version>1.002</version>
+        <description>Added a new column dateLastUpdated to save the date Last Updated of the previous insert to the log</description>
+
+        <data>
+            <add>
+                <name>dateLastUpdated</name>
+                <type>datetime</type>
+            </add>
+        </data>
+    </update>
 
     <update>
 
