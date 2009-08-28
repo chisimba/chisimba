@@ -41,14 +41,22 @@ class groupadmin_installscripts extends dbTable {
                             $ogrpid = $og['group_id'];
                             log_debug("old grp id = $ogrpid");
                             // parent::init('tbl_groupadmin_group');
-                            $oldname = $this->getAll("SELECT name from tbl_groupadmin_group WHERE id = '$ogrpid'");
+                            $oldname = $this->getArray("SELECT name, parent_id from tbl_groupadmin_group WHERE id = '$ogrpid'");
                             log_debug($oldname);
+                            if($oldname[0]['parent_id'] != ''){
+                                $parentid = $oldname[0]['parent_id']; 
+                                $p = $this->getArray("SELECT name from tbl_groupadmin_group WHERE id = '$parentid'");
+                                $oldgrpname = $p[0]['name']."^".$oldname[0]['name']; 
+                            } 
+                            else {
+                                $oldgrpname = $oldname[0]['name'];
+                            }
                             // check if the name exists in the new groups, else add it
-                            $ngrpid = $this->objGroupModel->getId($oldname);
+                            $ngrpid = $this->objGroupModel->getId($oldgrpname);
                             if($ngrpid == NULL) {
                                 // create the group
-                                log_debug("group doesnt exist, creating $oldname");
-                                $ngrpid = $this->objGroupModel->addGroup( $oldname, NULL, null );
+                                log_debug("group doesnt exist, creating $oldgrpname");
+                                $ngrpid = $this->objGroupModel->addGroup( $oldgrpname, NULL, null );
                             }  
                             
                             // now we add the user to the group
