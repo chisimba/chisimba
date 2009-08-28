@@ -733,11 +733,11 @@ class engine {
         // log_debug($notification->getNotificationName ());
         if ($notification->getNotificationName () == 'onIdled') {
             // log_debug ( "Session timed out..." );
-            $this->lu->logout();
+            // $this->lu->logout();
         }
         if ($notification->getNotificationName () == 'onLogout') {
             // log_debug ( "User has signed off..." );
-            $this->lu->logout();
+            // $this->lu->logout();
         }
     }
 
