@@ -89,7 +89,7 @@ class File_Bittorrent2_MakeTorrent
     /**
      * @var string The .torrent created by string
      */
-    protected $created_by = 'File_Bittorrent2_MakeTorrent $Rev: 76 $. http://pear.php.net/package/File_Bittorrent';
+    protected $created_by = 'File_Bittorrent2_MakeTorrent $Rev$. http://pear.php.net/package/File_Bittorrent';
 
     /**
      * @var string The .torrent suggested name (file/dir)
