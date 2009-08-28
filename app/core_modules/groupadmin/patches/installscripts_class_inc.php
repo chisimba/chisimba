@@ -8,6 +8,7 @@ class groupadmin_installscripts extends dbTable {
     }
 
     public function preinstall($version = NULL) {
+        log_debug("Doing preinstall code");
         switch ($version) {
             default :
                 $pusers = $this->objGroupOps->getAllUsers();
@@ -38,16 +39,20 @@ class groupadmin_installscripts extends dbTable {
                         foreach($oldgroups as $og) {
                             // get the group name of the id we have from the old group
                             $ogrpid = $og['group_id'];
+                            log_debug("old grp id = $ogrpid");
                             // parent::init('tbl_groupadmin_group');
                             $oldname = $this->getAll("SELECT name from tbl_groupadmin_group WHERE id = '$ogrpid'");
+                            log_debug($oldname);
                             // check if the name exists in the new groups, else add it
-                            $ngrpid = $this->objGroupModel->getId($oldname)
+                            $ngrpid = $this->objGroupModel->getId($oldname);
                             if($ngrpid == NULL) {
                                 // create the group
+                                log_debug("group doesnt exist, creating $oldname");
                                 $ngrpid = $this->objGroupModel->addGroup( $oldname, NULL, null );
                             }  
                             
                             // now we add the user to the group
+                            log_debug("adding user with userid $id to group with id $ngrpid");
                             $this->objGroupModel->addGroupUser( $ngrpid, $id );
                         }
                        /* $newdata=$this->objGroupOps->getUserByUserid($user['userid']);
@@ -58,7 +63,7 @@ class groupadmin_installscripts extends dbTable {
                         $this->query("UPDATE tbl_groupadmin_groupuser set user_id='$id' where user_id='".$user['id']."'"); */
                     }
                 }
-
+                log_debug("preinstall code complete");
                 break;
         }
 
