@@ -480,7 +480,7 @@ class engine {
         $usersGroup = $this->luAdmin->perm->getUsers($params);
         if(empty($usersGroup) || $usersGroup == false) {
             // change the default admin user to a lu user
-            $user = $this->luAdmin->auth->getUsers(array('filters' => array('auth_user_id' => 1)));
+            $user = $this->luAdmin->auth->getUsers(array('filters' => array('auth_user_id' => '1')));
             if(is_array($user) && array_key_exists(0, $user)) {
                 $ud = $user[0];
                 $userdata = array();
