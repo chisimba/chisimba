@@ -38,7 +38,7 @@ if (!$GLOBALS['kewl_entry_point_run'])
 *
 * Class to render login box, register links, and do other pre login duties
 *
-* @version $Id: logininterface_class_inc.php 13519 2009-05-23 08:55:03Z davidwaf $
+* @version $Id: logininterface_class_inc.php 14548 2009-08-27 07:47:38Z paulscott $
 * @copyright 2003
 **/
 class loginInterface extends object
@@ -166,7 +166,7 @@ class loginInterface extends object
     public function oauthDisp() {
         // displays a set of oAuth providers
         $this->objDbSysconfig = $this->getObject('dbsysconfig', 'sysconfig');
-        $show = $this->objDbSysconfig->getValue('show_twitter_auth', 'security');;
+        $show = $this->objDbSysconfig->getValue('show_twitter_auth', 'security');
         if(strtolower($show) == 'true') {
             $objIcon = $this->getObject('geticon', 'htmlelements');
             $objIcon->alt = "Sign in with Twitter";

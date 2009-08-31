@@ -13,7 +13,7 @@ if (! $GLOBALS ['kewl_entry_point_run']) {
  *
  * @author Sean Legassick
  *
- * $Id: controller.php 14468 2009-08-21 05:16:02Z paulscott $
+ * $Id: controller.php 14548 2009-08-27 07:47:38Z paulscott $
  */
 class security extends controller {
     public $objUser;
@@ -256,9 +256,12 @@ class security extends controller {
             $this->objEpiTwitter = new EpiTwitter($this->consumer_key, $this->consumer_secret, $_COOKIE['oauth_token'], $_COOKIE['oauth_token_secret']);
 
             $this->objEpiTwitter->get_accountEnd_session();
+            $lo = $this->objLu->logout ();
         }
-        $lo = $this->objLu->logout ();
-        
+        else {
+            $lo = $this->objLu->logout ();
+        }
+
         return $this->showPreLoginModule ();
     }
 
