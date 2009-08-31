@@ -69,7 +69,16 @@ class washout extends object
     public function init()
     {
         try {
+        	$this->objSysConfig = $this->getObject ( 'dbsysconfig', 'sysconfig' );
+            $this->useFilters = $this->objSysConfig->getValue ( 'usefilters', 'utilities' );
+            if ($this->useFilters == 'yes')
+            {
+            	continue;
+            } else {
+            	return;
+            }
             $objFilters = $this->getObject('filterinfo', 'filters');
+            
             $parsers = $objFilters->getFilters();
             foreach ($parsers as $parser)
             {
@@ -94,6 +103,14 @@ class washout extends object
      */
     public function parseText($txt, $bbcode = TRUE, $excluded=NULL)
     {
+    	//check the configs if the filters are enabled
+    	if ($this->useFilters == 'yes')
+        {
+        	continue;
+        } else {
+        	return;
+        }
+    	
         // Initialize variable
         $doParse = TRUE;
         // Loop over all parsers and run them on $txt.
