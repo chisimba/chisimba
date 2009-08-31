@@ -37,7 +37,7 @@ class auth_database extends abauth implements ifauth
     * @return TRUE|FALSE Boolean indication of success of login
     */
     public function authenticate($username, $password, $remember = true)
-    { echo $username, $password;
+    {
         $login = $this->objLu->login($username, $password, $remember);
         if(!$login) {
             // check if user is inactive
