@@ -94,10 +94,14 @@ class context extends controller {
 			
 			$this->objContextGroups = $this->getObject('managegroups', 'contextgroups');
 			
-			/*$test = "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW";
-			$lect = $this->objContextGroups->isContextLecturer();
-error_log(var_export($lect, TRUE));
-*/
+			if($this->objModuleCatalogue->checkIfRegistered('activitystreamer'))
+			{
+				$this->objActivityStreamer = $this->getObject('activityops', 'activitystreamer');
+				$this->eventDispatcher->addObserver ( array ($this->objActivityStreamer, 'postmade' ) );
+				$this->eventsEnabled = TRUE;
+			} else {
+				$this->eventsEnabled = FALSE;
+			}
 
         } catch ( customException $e ) {
             customException::cleanUp ();
@@ -254,6 +258,22 @@ error_log(var_export($lect, TRUE));
             return $this->nextAction ( 'join', array ('error' => 'nocontext' ) );
         } else {
             if ($this->objContext->joinContext ( $contextCode )) {
+            	//add to activity log
+            	if($this->eventsEnabled)
+            	{
+            		$message = $this->objUser->fullname(). ' entered '.$this->objContext->getMenuText();
+            	 	$this->eventDispatcher->post($this->objActivityStreamer, "context", array('title'=> $message,
+    																				'link'=> $this->uri(array()),
+    																				'contextcode' => $this->objContext->getContextCode(),
+    																				'author' => $this->objUser->fullname(),
+    																				'description'=>$message));
+    																				
+    				$this->eventDispatcher->post($this->objActivityStreamer, "context", array('title'=> $message,
+    																				'link'=> $this->uri(array()),
+    																				'contextcode' => null,
+    																				'author' => $this->objUser->fullname(),
+    																				'description'=>$message));
+            	}
                 return $this->nextAction ( 'home' );
             } else {
                 return $this->nextAction ( 'join', array ('error' => 'unabletoenter' ) );
@@ -597,6 +617,21 @@ error_log(var_export($lect, TRUE));
     protected function __leavecontext() {
     	
     	$this->objContext->leaveContext ();
+    	//add to activity log
+            	if($this->eventsEnabled)
+            	{
+            		$message = $this->objUser->fullname(). ' left '.$this->objContext->getMenuText();
+            	 	$this->eventDispatcher->post($this->objActivityStreamer, "context", array('title'=> $message,
+    																				'link'=> $this->uri(array()),
+    																				'contextcode' => $this->objContext->getContextCode(),
+    																				'author' => $this->objUser->fullname(),
+    																				'description'=>$message));
+					$this->eventDispatcher->post($this->objActivityStreamer, "context", array('title'=> $message,
+    																				'link'=> $this->uri(array()),
+    																				'contextcode' => null,
+    																				'author' => $this->objUser->fullname(),
+    																				'description'=>$message));
+            	}
         return $this->nextAction ( NULL, NULL, '_default' );
     }
     

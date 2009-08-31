@@ -624,12 +624,12 @@ function getContexts()
 
 							</tr>
 						</tfoot><tbody>';
-    		$objTable->addHeaderCell('Code');
+    		/*$objTable->addHeaderCell('Code');
     		$objTable->addHeaderCell('Title', '40%');    		
     		$objTable->addHeaderCell('Creator');
     		$objTable->addHeaderCell('Last Updated');
     		$objTable->addHeaderCell('&nbsp');
-    		
+    		*/
     		foreach($contexts as $context)
     		{
     			$arr = array();
@@ -639,12 +639,6 @@ function getContexts()
     			$arr[] =$this->objUser->fullname($context['userid']);
     			$arr[]=$context['updated'];
     			
-    			$str .='<tr>';    			
-    			$str .='<td>'.$context['contextcode'].'</td>';
-    			$str .='<td>'.$context['title'].'</td>';
-    			$str .='<td>'.$this->objUser->fullname($context['userid']).'</td>';
-    			$str .='<td>'.$context['datecreated'].'</td>';
-    			$str .='<td>'.$context['updated'].'</td>';
     			$objIcon->setIcon('entercourse');
     			$objLink->href = $this->uri(array('action' => 'joincontext', 'contextcode' => $context['contextcode']), 'context');
     			$objLink->link = $objIcon->show();
@@ -655,12 +649,20 @@ function getContexts()
     			$objLink->link = $objIcon->show();
     			$delete = $objLink->show();    			
     			
+    			$str .='<tr>';    			
+    			$str .='<td>'.$context['contextcode'].'</td>';
+    			$str .='<td>'.$context['title'].'</td>';
+    			$str .='<td>'.$this->objUser->fullname($context['userid']).'</td>';
+    			$str .='<td>'.$context['datecreated'].'</td>';
+    			$str .='<td>'.$context['updated'].'</td>';
+    			
+    			
     			$str .='<td>'.$enter.$delete.'</td>';
     			
     			$str .= '</tr>';
     			
-    			$arr[] = $enter.$delete;
-    			$objTable->addRow($arr);
+    			//$arr[] = $enter.$delete;
+    			//$objTable->addRow($arr);
     		}
     		$str .= '</tbody></table>';
     		

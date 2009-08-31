@@ -123,7 +123,10 @@ class block_browsecontext extends object
         $ext .= '<link rel="stylesheet" href="'.$this->getResourceUri('ext-3.0-rc2/examples/shared/examples.css', 'htmlelements').'" type="text/css" />';
         $this->appendArrayVar('headerParams', $ext);
         
-        $this->appendArrayVar('headerParams', '<script type="text/javascript">contextPrivateMessage="'.$this->objLanguage->code2Txt('mod_context_privatecontextexplanation', 'context', NULL, 'This is a closed [-context-] only accessible to members').'"; </script>');
+        $this->appendArrayVar('headerParams', '
+        	<script type="text/javascript">
+        		var uri = "'.str_replace('&amp;','&',$this->uri(array('action' => 'jsonlistcontext', 'module' => 'context'))).'"; 
+        		contextPrivateMessage="'.$this->objLanguage->code2Txt('mod_context_privatecontextexplanation', 'context', NULL, 'This is a closed [-context-] only accessible to members').'"; </script>');
         
         $objTab->addTab(array(
                 'name' =>ucWords($this->objLanguage->code2Txt('phrase_mycourses', 'system', NULL, 'My [-contexts-]')) ,

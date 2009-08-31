@@ -8,28 +8,7 @@
 
 Ext.onReady(function(){
 
-    // create the Data Store
-   /* var store = new Ext.data.JsonStore({
-        root: 'topics',
-        totalProperty: 'totalCount',
-        idProperty: 'threadid',
-        remoteSort: true,
-
-        fields: [
-            'title', 'forumtitle', 'forumid', 'author',
-            {name: 'replycount', type: 'int'},
-            {name: 'lastpost', mapping: 'lastpost', type: 'date', dateFormat: 'timestamp'},
-            'lastposter', 'excerpt'
-        ],
-
-        // load using script tags for cross domain, if the data in on the same domain as
-        // this page, an HttpProxy would be better
-        proxy: new Ext.data.HttpProxy({
-            url: 'http://localhost/eteach/index.php?module=context&action=jsonlistcontext'
-        })
-    });
-    store.setDefaultSort('lastpost', 'desc');
-*/
+   
 var contextdata = new Ext.data.JsonStore({
         root: 'courses',
         totalProperty: 'totalCount',
@@ -37,7 +16,7 @@ var contextdata = new Ext.data.JsonStore({
         remoteSort: false,        
         fields: ['contextcode', 'title', 'author', 'datecreated', 'lastupdated','excerpt' ],
         proxy: new Ext.data.HttpProxy({        	 	
-            	url: 'http://localhost/eteach/index.php?module=context&action=jsonlistcontext'
+            	url: uri
         })
 	});
 	 contextdata.setDefaultSort('lastupdated', 'desc');
