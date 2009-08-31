@@ -616,22 +616,23 @@ class context extends controller {
      */
     protected function __leavecontext() {
     	
+    	if($this->eventsEnabled)
+    	{
+    		$message = $this->objUser->fullname(). ' left '.$this->objContext->getMenuText();
+    	 	$this->eventDispatcher->post($this->objActivityStreamer, "context", array('title'=> $message,
+																			'link'=> $this->uri(array()),
+																			'contextcode' => $this->objContext->getContextCode(),
+																			'author' => $this->objUser->fullname(),
+																			'description'=>$message));
+			$this->eventDispatcher->post($this->objActivityStreamer, "context", array('title'=> $message,
+																			'link'=> $this->uri(array()),
+																			'contextcode' => null,
+																			'author' => $this->objUser->fullname(),
+																			'description'=>$message));
+    	}
     	$this->objContext->leaveContext ();
     	//add to activity log
-            	if($this->eventsEnabled)
-            	{
-            		$message = $this->objUser->fullname(). ' left '.$this->objContext->getMenuText();
-            	 	$this->eventDispatcher->post($this->objActivityStreamer, "context", array('title'=> $message,
-    																				'link'=> $this->uri(array()),
-    																				'contextcode' => $this->objContext->getContextCode(),
-    																				'author' => $this->objUser->fullname(),
-    																				'description'=>$message));
-					$this->eventDispatcher->post($this->objActivityStreamer, "context", array('title'=> $message,
-    																				'link'=> $this->uri(array()),
-    																				'contextcode' => null,
-    																				'author' => $this->objUser->fullname(),
-    																				'description'=>$message));
-            	}
+            	
         return $this->nextAction ( NULL, NULL, '_default' );
     }
     
