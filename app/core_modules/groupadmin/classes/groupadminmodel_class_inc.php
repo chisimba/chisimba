@@ -131,7 +131,6 @@ class groupAdminModel extends object
     {
         $data = array('group_define_name' => $name, 'group_type' => LIVEUSER_GROUP_TYPE_ALL);
         $groupId = $this->objLuAdmin->perm->addGroup($data);
-
         return $groupId;
     }
 

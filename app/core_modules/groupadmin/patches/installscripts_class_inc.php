@@ -30,45 +30,43 @@ class groupadmin_installscripts extends dbTable {
                                                  $user['surname'], $user['emailaddress'], $user['sex'], $user['country'],
                                                  $user['cellnumber'], $user['staffnumber'], $user['howcreated'], $user['isactive']
                                                  );
+                        $userid = $user['userid'];
                         // set the password back
                         $this->query("UPDATE tbl_users SET pass='".$user['pass']."' WHERE id='$id'");
-
+                        // re-create the top level groups
+                        $allogrps = $this->getArray("SELECT name, parent_id from tbl_groupadmin_group WHERE parent_id IS NULL");
+                        foreach($allogrps as $ogs) {
+                            $ogsname = $ogs['name'];
+                            $ongrpid = $this->objGroupModel->getId($ogsname);
+                            if( !isset($ongrpid) || $ongrpid == NULL ) {
+                                if($ogsname != '' || $ogsname != NULL || !empty($ogsname)) {
+                                    // create the group
+                                    log_debug("group doesnt exist, creating $ogsname");
+                                    $ongrpid = $this->objGroupModel->addGroup( $ogsname, NULL, null );
+                                    $ongrpid = $this->objGroupModel->getId($ogsname); 
+                                    log_debug("Adding subgroups now");
+                                    $this->objGroupModel->addSubGroups($ogsname, $ongrpid);
+                                }
+                            }
+                        }  
                         // re-create the users groups
-                        $sql="SELECT group_id from tbl_groupadmin_groupuser where user_id='".$user['id']."'";
+                        $sql = "SELECT group_id from tbl_groupadmin_groupuser where user_id='".$user['id']."'";
                         $oldgroups = $this->getArray($sql);
                         foreach($oldgroups as $og) {
                             // get the group name of the id we have from the old group
                             $ogrpid = $og['group_id'];
-                            log_debug("old grp id = $ogrpid");
-                            // parent::init('tbl_groupadmin_group');
-                            $oldname = $this->getArray("SELECT name, parent_id from tbl_groupadmin_group WHERE id = '$ogrpid'");
-                            log_debug($oldname);
-                            if($oldname[0]['parent_id'] != ''){
-                                $parentid = $oldname[0]['parent_id']; 
-                                $p = $this->getArray("SELECT name from tbl_groupadmin_group WHERE id = '$parentid'");
-                                $oldgrpname = $p[0]['name']."^".$oldname[0]['name']; 
-                            } 
-                            else {
+                            $oldname = $this->getArray("SELECT name, parent_id from tbl_groupadmin_group WHERE id = '$ogrpid' AND parent_id IS NULL");
+                            if(!empty($oldname))  {
                                 $oldgrpname = $oldname[0]['name'];
+                                $ngrpid = $this->objGroupModel->getId($oldgrpname);
+                                // now we add the user to the group
+                                log_debug("adding user with userid $userid to group with id $ngrpid");
+                                // get the users perm user id
+                                $usrdata = $this->objGroupOps->getUserByUserId($userid);
+                                $userid = $usrdata['perm_user_id'];
+                                $this->objGroupModel->addGroupUser( $ngrpid, $userid );
                             }
-                            // check if the name exists in the new groups, else add it
-                            $ngrpid = $this->objGroupModel->getId($oldgrpname);
-                            if($ngrpid == NULL) {
-                                // create the group
-                                log_debug("group doesnt exist, creating $oldgrpname");
-                                $ngrpid = $this->objGroupModel->addGroup( $oldgrpname, NULL, null );
-                            }  
-                            
-                            // now we add the user to the group
-                            log_debug("adding user with userid $id to group with id $ngrpid");
-                            $this->objGroupModel->addGroupUser( $ngrpid, $id );
                         }
-                       /* $newdata=$this->objGroupOps->getUserByUserid($user['userid']);
-                        // jsc says: The following loop doesn't seem to work right - still trying to figure out why.
-                        foreach ($oldgroups as $line){
-                            $this->objLuAdmin->perm->addUserToGroup(array('perm_user_id' => $newdata['perm_user_id'], 'group_id' => $line['group_id']));
-                        }
-                        $this->query("UPDATE tbl_groupadmin_groupuser set user_id='$id' where user_id='".$user['id']."'"); */
                     }
                 }
                 log_debug("preinstall code complete");

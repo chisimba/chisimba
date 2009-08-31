@@ -225,7 +225,6 @@ class groupops extends object
 	*/
 	public function formatGroupName($groupName)
 	{
-
 		return substr_replace($groupName, "", 0, strpos($groupName, "^")+1);
 	}
 
