@@ -484,7 +484,7 @@ class modulecatalogue extends controller {
                     $success = true;
                     foreach ( $mods as $mod ) {
                         $success = true;
-                        if (($this->output [] = $this->objPatch->applyUpdates ( $mod ['module_id'] )) === FALSE) {
+                        if (($this->output  = $this->objPatch->applyUpdates ( $mod ['module_id'] )) === FALSE) {
                             $success = false;
                             $error .= str_replace ( '[MODULE]', $mod ['module_id'], $this->objLanguage->languageText ( 'mod_modulecatalogue_failed', 'modulecatalogue' ) ) . "<br />";
                         }
