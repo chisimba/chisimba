@@ -75,7 +75,7 @@ class auth_ldap extends abauth implements ifauth {
 
             $login = $this->objLu->login($username, '--LDAP--', $remember);
             if(!$login) {
-                var_dump($login);
+                // var_dump($login);
                 // check if user is inactive
                 if($this->objLu->isInactive()) {
                     throw new customException("User is inactive, please contact site admin");
@@ -132,6 +132,8 @@ class auth_ldap extends abauth implements ifauth {
             if ($this->isAcademic ( $username )) {
                 $this->objUser->addLecturer ( $id );
             }
+
+            return TRUE;
         }
 
     }
