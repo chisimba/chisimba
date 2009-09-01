@@ -743,7 +743,7 @@ class dbfolder extends dbTable
             case 'context':
                 $objContext = $this->getObject('dbcontext', 'context');
                 if ($id == $objContext->getContextCode()) {
-                    return $this->objUser->isCourseAdmin();
+                    return $this->objUser->isContextLecturer($this->objUser->userId(),$objContext->getContextCode()) || $this->objUser->isAdmin();
                 } else {
                     return FALSE;
                 }
