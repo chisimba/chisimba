@@ -82,9 +82,9 @@ class parse4smileys extends object {
      * @todo   -cparse4smileys Implement do not parse if inside a HTML tag.
      *         
      */
-    function parseSmiley($str)
+    public function init()
     {
-        static $smileyIcons = array(
+        $this->smileyIcons = array(
         '>-)' => 'alien',
         'O:-)' => 'angel', 'o:-)' => 'angel',
         'X-(' => 'angry', 'x-(' => 'angry',
@@ -135,19 +135,20 @@ class parse4smileys extends object {
         ':-s' => 'worried', ':-S' => 'worried',
 
         );
-        $objIcon = NULL;
-        $objIcon = $this->getObject('geticon', 'htmlelements');
-        
+        // $objIcon = NULL;
+        $this->objIcon = $this->getObject('geticon', 'htmlelements');
+    }
         //$objIcon = &$this->getObject('geticon', 'htmlelements');
         /* 
         *  Loop through the array and make the arrays for 
         *  $test and $replace for the regex. This is done because
         *  it is otherwise hard to keep track of the smileys 
         */ 
-        foreach ($smileyIcons as $smiley => $image){
+    public function parseSmiley($str) {
+        foreach ($this->smileyIcons as $smiley => $image) {
             $test[] = $smiley;
-            $objIcon->setIcon($image, 'gif', 'icons/smileys/');
-            $icon = $objIcon->show();
+            $this->objIcon->setIcon($image, 'gif', 'icons/smileys/');
+            $icon = $this->objIcon->show();
             $replace[] = $icon;
         }
         
