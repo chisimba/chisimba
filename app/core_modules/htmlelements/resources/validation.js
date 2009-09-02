@@ -2,6 +2,28 @@
 
 function aa(){alert("here");}
 
+//FCKEditor Specific maxLength Validator, Consumes the FCKEditor API to get the values.
+function valFckMaxLength(val, elemId, maxLength) {
+
+	var oEditor = FCKeditorAPI.GetInstance(elemId);
+	var txtInputLength = oEditor.GetHTML().length
+
+	//FCKEditor ads this by default so calculate length minus this.
+	var FCKEditorPrependDefault = '<p></p>';
+	var omitLength = FCKEditorPrependDefault.length;
+
+	var actualLength = txtInputLength - omitLength;
+
+	if (txtInputLength == 0) {
+		if (txtInputLength <= maxLength) {
+			return true;
+		}
+	} else if ((actualLength) <= maxLength) {
+		return true;
+	}
+
+	return false;
+}
 
 
 function valNumeric(val){
