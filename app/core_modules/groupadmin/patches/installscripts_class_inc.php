@@ -58,7 +58,7 @@ class groupadmin_installscripts extends dbTable {
                             $oldname = $this->getArray("SELECT name, parent_id from tbl_groupadmin_group WHERE id = '$ogrpid' AND parent_id IS NULL");
                             if(!empty($oldname))  {
                                 $oldgrpname = $oldname[0]['name'];
-                                $ngrpid = $this->objGroupModel->getId($oldgrpname);
+                                $ngrpid = $this->objGroupModel->getId($oldgrpname."^Students");
                                 // now we add the user to the group
                                 log_debug("adding user with userid $userid to group with id $ngrpid");
                                 // get the users perm user id
