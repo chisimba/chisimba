@@ -625,6 +625,10 @@ class form implements ifhtml
             case 'fieldexists':
                 $this->_fieldExists($mix);
                 break;
+            case 'fckmaxlength':
+                $this->_valFckMaxLength($mix,$errormsg);
+                break;
+
         }
     }
 
@@ -683,13 +687,14 @@ class form implements ifhtml
      * @param $fieldname string : The name of the field
      * @param $errormsg  string : the erroe message
      */
-    private function _addValidationScript($script = null, $errormsg = null, $fieldname = null, $ignoreHidden = true)
+    private function _addValidationScript($script = null, $errormsg = null, $fieldname = null, $ignoreHidden = true, $elemIdPrefix = 'input_')
     {//.getElementByName("'.$fieldname.'");';  //document.forms['".$this->name."']
         if(isset($errormsg)){
             $errormsg = 'alert("'.$errormsg.'");';
         }
+
         $this->javascript .="
-            var formElement = document.getElementById('input_".$fieldname."');
+            var formElement = document.getElementById('".$elemIdPrefix.$fieldname."');
             if(formElement != null){
                 var el = formElement;
                 ok = ok && ".$script."; ";
@@ -711,7 +716,7 @@ class form implements ifhtml
                     }
                     ok = ok && selected;
                 }else{
-                    alert('Error in form validation. ID=\'input_{$fieldname}\'.');
+                    alert('Error in form validation. ID=\'$elemIdPrefix{$fieldname}\'.');
                     return false;
                 }
             }
@@ -741,6 +746,7 @@ class form implements ifhtml
                             }
                             ';
 */
+
     }
 
     /**
@@ -856,6 +862,19 @@ class form implements ifhtml
         $jmethod = 'valMaxLength(el.value,'.$mix['length'].')';
         $this->_addValidationScript($jmethod, $errormsg, $mix['name']);
     }
+
+    /**
+    * Method to check the maximum field size for the FCK Editor Instance.
+	* Utilizes the FCKEditor API to provide accurate, concurrent string length calculations.
+    * @param $mix array :Should include a field name and the length
+    * @param  $errormsg string : the error message
+    */
+    private function _valFckMaxLength($mix, $errormsg)
+    {
+        $jmethod = 'valFckMaxLength(el.value, \'' .$mix['name'].'\', '.$mix['length'].')';
+        $this->_addValidationScript($jmethod, $errormsg, $mix['name'], false, '');
+    }
+
 
     /**
     * Method to check the maximum field size
