@@ -12,6 +12,7 @@ $this->loadClass('hiddeninput', 'htmlelements');
 $objIcon = $this->newObject('geticon', 'htmlelements');
 $objIcon->setIcon('loader');
 
+$contextexists=$this->objLanguage->code2Txt('mod_contextadmin_contextcodeexists', 'contextadmin');
 if ($mode == 'edit') {
     $fixup = NULL;
     
@@ -95,7 +96,7 @@ if ($mode == 'edit') {
                                 
                                 // IF code exists
                                 if (msg == "exists") {
-                                    jQuery("#contextcodemessage").html("Context Code exists. Please try another one.");
+                                    jQuery("#contextcodemessage").html("'.$contextexists.'");
                                     jQuery("#contextcodemessage").addClass("error");
                                     jQuery("#input_contextcode").addClass("inputerror");
                                     jQuery("#contextcodemessage").removeClass("success");
