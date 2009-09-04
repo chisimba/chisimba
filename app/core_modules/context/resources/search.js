@@ -24,7 +24,7 @@ var contextdata = new Ext.data.JsonStore({
     // pluggable renders
     function renderTopic(value, p, record){
         return String.format(
-        		'<b><a href="http://localhost/eteach/index.php?module=context&action=joincontext&contextcode={1}">{0}</a></b>', value, record.data.contextcode);
+        		'<b><a href="'+baseuri+'?module=context&action=joincontext&contextcode={1}">{0}</a></b>', value, record.data.contextcode);
                 /*'<b><a href="http://localhost/eteach/index.php?module=context&action=joincontext&contextcode={2}" target="_blank">{0}</a></b>
                 <a href="http://extjs.com/forum/forumdisplay.php?f={3}" target="_blank">{1} Forum</a>',
                 value, record.data.title, record.id, record.data.contextcode);*/

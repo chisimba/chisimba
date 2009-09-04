@@ -101,6 +101,7 @@ class block_browsecontext extends object
 
         $objTab = $this->newObject('tabpane', 'htmlelements');
         $objUtils = $this->getObject('utilities', 'context');
+        $objSysConfig  = $this->getObject('altconfig','config');
         $objNav = $this->getObject('contextadminnav', 'contextadmin');
         $str = $this->objLanguage->languageText('word_browse', 'glossary', 'Browse').': '.$objNav->getAlphaListingAjax();
         $str2 = '<div id="browseusercontextcontent"></div>';
@@ -126,6 +127,7 @@ class block_browsecontext extends object
         $this->appendArrayVar('headerParams', '
         	<script type="text/javascript">
         		var uri = "'.str_replace('&amp;','&',$this->uri(array('action' => 'jsonlistcontext', 'module' => 'context'))).'"; 
+        		var baseuri = "'.$objSysConfig->getsiteRoot().'index.php";
         		contextPrivateMessage="'.$this->objLanguage->code2Txt('mod_context_privatecontextexplanation', 'context', NULL, 'This is a closed [-context-] only accessible to members').'"; </script>');
         
         $objTab->addTab(array(
