@@ -93,7 +93,7 @@ var contextdata = new Ext.data.JsonStore({
 
         // paging bar on the bottom
         bbar: new Ext.PagingToolbar({
-            pageSize: 25,
+            pageSize: 10,
             store: contextdata,
             displayInfo: true,
             displayMsg: 'Displaying topics {0} - {1} of {2}',
@@ -117,5 +117,5 @@ var contextdata = new Ext.data.JsonStore({
     grid.render();
 
     // trigger the data store load
-    contextdata.load({params:{start:0, limit:25}});
+    contextdata.load({params:{start:0, limit:10}});
 });

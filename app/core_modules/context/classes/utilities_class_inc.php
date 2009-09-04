@@ -672,7 +672,7 @@ function getContexts()
     	
     }
     
-    public function jsonListContext($start = 0, $limit=25)
+    public function jsonListContext($start = 0, $limit=10)
     {
     	
     	$contexts = $this->objDBContext->getAll("ORDER BY updated DESC limit $start, $limit");
