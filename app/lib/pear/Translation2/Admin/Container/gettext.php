@@ -27,14 +27,14 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   Internationalization
- * @package    Translation2
- * @author     Lorenzo Alberton <l dot alberton at quipo dot it>
- * @author     Michael Wallner <mike at php dot net>
- * @copyright  2004-2005 Lorenzo Alberton, Michael Wallner
- * @license    http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Translation2
+ * @category  Internationalization
+ * @package   Translation2
+ * @author    Lorenzo Alberton <l.alberton@quipo.it>
+ * @author    Michael Wallner <mike@php.net>
+ * @copyright 2004-2007 Lorenzo Alberton, Michael Wallner
+ * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Translation2
  */
 
 /**
@@ -47,14 +47,14 @@ require_once 'Translation2/Container/gettext.php';
  *
  * This storage driver requires the gettext extension
  *
- * @category   Internationalization
- * @package    Translation2
- * @author     Lorenzo Alberton <l dot alberton at quipo dot it>
- * @author     Michael Wallner <mike at php dot net>
- * @copyright  2004-2005 Lorenzo Alberton, Michael Wallner
- * @license    http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Translation2
+ * @category  Internationalization
+ * @package   Translation2
+ * @author    Lorenzo Alberton <l.alberton@quipo.it>
+ * @author    Michael Wallner <mike@php.net>
+ * @copyright 2004-2007 Lorenzo Alberton, Michael Wallner
+ * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Translation2
  */
 class Translation2_Admin_Container_gettext extends Translation2_Container_gettext
 {
@@ -70,20 +70,21 @@ class Translation2_Admin_Container_gettext extends Translation2_Container_gettex
     /**
      * Creates a new entry in the langs_avail .ini file.
      *
-     * @param   array   $langData
-     * @param   string  $path
+     * @param array  $langData language data
+     * @param string $path     path to gettext data dir
+     *
      * @return  mixed   Returns true on success or PEAR_Error on failure.
      */
     function addLang($langData, $path = null)
     {
-        if (!isset($path)) {
+        if (!isset($path) || !is_string($path)) {
             $path = $this->_domains[$this->options['default_domain']];
         }
-        
+
         $path .= '/'. $langData['lang_id'] . '/LC_MESSAGES';
-        
+
         if (!is_dir($path)) {
-            require_once 'System.php';
+            include_once 'System.php';
             if (!System::mkdir(array('-p', $path))) {
                 return $this->raiseError(sprintf(
                         'Cannot create new language in path "%s"', $path
@@ -92,7 +93,7 @@ class Translation2_Admin_Container_gettext extends Translation2_Container_gettex
                 );
             }
         }
-        
+
         return true;
     }
 
@@ -109,7 +110,8 @@ class Translation2_Admin_Container_gettext extends Translation2_Container_gettex
      *                              'error_text' => 'not available'
      *                              'encoding'   => 'iso-8859-1',
      * );
-     * @return mixed true on success, PEAR_Error on failure
+     *
+     * @return true|PEAR_Error on failure
      */
     function addLangToList($langData)
     {
@@ -125,24 +127,25 @@ class Translation2_Admin_Container_gettext extends Translation2_Container_gettex
     /**
      * Add a new entry in the strings domain.
      *
-     * @param string $stringID
-     * @param string $pageID
-     * @param array  $strings Associative array with string translations.
+     * @param string $stringID string ID
+     * @param string $pageID   page/group ID
+     * @param array  $strings  Associative array with string translations.
      *               Sample format:  array('en' => 'sample', 'it' => 'esempio')
-     * @return mixed true on success, PEAR_Error on failure
+     *
+     * @return true|PEAR_Error on failure
      */
     function add($stringID, $pageID, $strings)
     {
         if (!isset($pageID)) {
             $pageID = $this->options['default_domain'];
         }
-        
+
         $langs = array_intersect(array_keys($strings), $this->getLangs('ids'));
-        
+
         if (!count($langs)) {
             return true; // really?
         }
-        
+
         if ($this->_bulk) {
             foreach ($strings as $lang => $string) {
                 if (in_array($lang, $langs)) {
@@ -167,16 +170,17 @@ class Translation2_Admin_Container_gettext extends Translation2_Container_gettex
     /**
      * Remove an entry from the domain.
      *
-     * @param string $stringID
-     * @param string $pageID
-     * @return mixed true on success, PEAR_Error on failure
+     * @param string $stringID string ID
+     * @param string $pageID   page/group ID
+     *
+     * @return true|PEAR_Error on failure
      */
     function remove($stringID, $pageID)
     {
         if (!isset($pageID)) {
             $pageID = $this->options['default_domain'];
         }
-        
+
         if ($this->_bulk) {
             $this->_queue['remove'][$pageID][$stringID] = true;
             return true;
@@ -184,44 +188,87 @@ class Translation2_Admin_Container_gettext extends Translation2_Container_gettex
             $tmp = array($pageID => array($stringID => true));
             return $this->_remove($tmp);
         }
+
+    }
+
+    // }}}
+    // {{{ removePage
+
+    /**
+     * Remove all the strings in the given page/group (domain)
+     *
+     * @param string $pageID page/group ID
+     * @param string $path   path to gettext data dir
+     *
+     * @return mixed true on success, PEAR_Error on failure
+     */
+    function removePage($pageID = null, $path = null)
+    {
+        if (!isset($pageID)) {
+            $pageID = $this->options['default_domain'];
+        }
+
+        if (!isset($path)) {
+            if (!empty($this->_domains[$pageID])) {
+                $path = $this->_domains[$pageID];
+            } else {
+                $path = $this->_domains[$this->options['default_domain']];
+            }
+        }
+
+        if (PEAR::isError($e = $this->_removeDomain($pageID))) {
+            return $e;
+        }
         
+        $this->fetchLangs();
+        foreach ($this->langs as $langID => $lang) {
+            $domain_file = $path .'/'. $langID .'/LC_MESSAGES/'. $pageID .'.';
+            if (!@unlink($domain_file.'mo') || !@unlink($domain_file.'po')) {
+                return $this->raiseError('Cannot delete page ' . $pageID. ' (file '.$domain_file.'.*)',
+                    TRANSLATION2_ERROR
+                );
+            }
+        }
+
+        return true;
     }
 
     // }}}
     // {{{ update()
-    
+
     /**
      * Update
-     * 
+     *
      * Alias for Translation2_Admin_Container_gettext::add()
-     * 
-     * @see add()
-     * 
-     * @access  public
+     *
+     * @param string $stringID string ID
+     * @param string $pageID   page/group ID
+     * @param array  $strings  strings
+     *
      * @return  mixed
-     * @param   string  $stringID
-     * @param   string  $pageID
-     * @param   array   $strings
+     * @access  public
+     * @see add()
      */
     function update($stringID, $pageID, $strings)
     {
         return $this->add($stringID, $pageID, $strings);
     }
-    
+
     // }}}
     // {{{ removeLang()
-    
+
     /**
      * Remove Language
-     * 
-     * @access  public
-     * @return  true|PEAR_Error
-     * @param   string  $langID
-     * @param   bool    $force  (unused)
+     *
+     * @param string $langID language ID
+     * @param bool   $force  (unused)
+     *
+     * @return true|PEAR_Error
+     * @access public
      */
     function removeLang($langID, $force = false)
     {
-        require_once 'System.php';
+        include_once 'System.php';
         foreach ((array) $this->_domains as $domain => $path) {
             if (is_dir($fp = $path .'/'. $langID)) {
                 if (PEAR::isError($e = System::rm(array('-rf', $fp))) || !$e) {
@@ -237,16 +284,17 @@ class Translation2_Admin_Container_gettext extends Translation2_Container_gettex
         }
         return true;
     }
-    
+
     // }}}
     // {{{ updateLang()
-    
+
     /**
      * Update the lang info in the langs_avail file
-     * 
-     * @access  public
-     * @return  mixed   Returns true on success or PEAR_Error on failure.
-     * @param   array   $langData
+     *
+     * @param array $langData language data
+     *
+     * @return mixed Returns true on success or PEAR_Error on failure.
+     * @access public
      */
     function updateLang($langData)
     {
@@ -255,15 +303,15 @@ class Translation2_Admin_Container_gettext extends Translation2_Container_gettex
         }
         return $changed ? $this->_writeLangsAvailFile() : true;
     }
-    
+
     // }}}
     // {{{ getPageNames()
 
     /**
      * Get a list of all the domains
      *
-     * @access  public
-     * @return  array
+     * @return array
+     * @access public
      */
     function getPageNames()
     {
@@ -272,26 +320,26 @@ class Translation2_Admin_Container_gettext extends Translation2_Container_gettex
 
     // }}}
     // {{{ begin()
-    
+
     /**
      * Begin
-     * 
-     * @access  public
+     *
      * @return  void
+     * @access  public
      */
     function begin()
     {
         $this->_bulk = true;
     }
-    
+
     // }}}
     // {{{ commit()
-    
+
     /**
      * Commit
-     * 
-     * @access  public
-     * @return  mixed   Returns true on success or PEAR_Error on failure.
+     *
+     * @return true|PEAR_Error on failure.
+     * @access public
      */
     function commit()
     {
@@ -308,22 +356,24 @@ class Translation2_Admin_Container_gettext extends Translation2_Container_gettex
         }
         return true;
     }
-    
+
     // }}}
     // {{{ _add()
-    
+
     /**
      * Add
-     * 
-     * @access  private
-     * @return  mixed   Returns true on success or PEAR_Error on failure.
+     *
+     * @param array &$bulk array('pageID' => array([languages]))
+     *
+     * @return true|PEAR_Error on failure.
+     * @access private
      */
     function _add(&$bulk)
     {
-        require_once 'File/Gettext.php';
+        include_once 'File/Gettext.php';
         $gtFile = &File_Gettext::factory($this->options['file_type']);
         $langs  = $this->getLangs('array');
-        
+
         foreach ((array) $bulk as $pageID => $languages) {
             //create the new domain on demand
             if (!isset($this->_domains[$pageID])) {
@@ -336,15 +386,15 @@ class Translation2_Admin_Container_gettext extends Translation2_Container_gettex
                 $path .= '/';
             }
             $file = '/LC_MESSAGES/'. $pageID .'.'. $this->options['file_type'];
-            
+
             foreach ($languages as $lang => $strings) {
-            
+
                 if (is_file($path . $lang . $file)) {
                     if (PEAR::isError($e = $gtFile->load($path . $lang . $file))) {
                         return $e;
                     }
                 }
-                
+
                 if (!isset($gtFile->meta['Content-Type'])) {
                     $gtFile->meta['Content-Type'] = 'text/plain; charset=';
                     if (isset($langs[$lang]['encoding'])) {
@@ -353,7 +403,7 @@ class Translation2_Admin_Container_gettext extends Translation2_Container_gettex
                         $gtFile->meta['Content-Type'] .= $this->options['default_encoding'];
                     }
                 }
-    
+
                 foreach ($strings as $stringID => $string) {
                     $gtFile->strings[$stringID] = $string;
                 }
@@ -361,34 +411,34 @@ class Translation2_Admin_Container_gettext extends Translation2_Container_gettex
                 if (PEAR::isError($e = $gtFile->save($path . $lang . $file))) {
                     return $e;
                 }
-                
+
                 //refresh cache
                 $this->cachedDomains[$lang][$pageID] = $gtFile->strings;
             }
         }
-        
+
         $bulk = null;
         return true;
     }
-    
+
     // }}}
     // {{{ _remove()
-    
+
     /**
      * Remove
-     * 
-     * @access  private
-     * @return  mixed   Returns true on success or PEAR_Error on failure.
+     *
+     * @param array &$bulk array('pageID' => array([languages]))
+     *
+     * @return true|PEAR_Error on failure.
+     * @access private
      */
     function _remove(&$bulk)
     {
-        require_once 'File/Gettext.php';
+        include_once 'File/Gettext.php';
         $gtFile = &File_Gettext::factory($this->options['file_type']);
-        
+
         foreach ($this->getLangs('ids') as $lang) {
-            
             foreach ((array) $bulk as $pageID => $stringIDs) {
-                
                 $file = sprintf(
                     '%s/%s/LC_MESSAGES/%s.%s',
                     $this->_domains[$pageID],
@@ -396,16 +446,16 @@ class Translation2_Admin_Container_gettext extends Translation2_Container_gettex
                     $pageID,
                     $this->options['file_type']
                 );
-                
+
                 if (is_file($file)) {
                     if (PEAR::isError($e = $gtFile->load($file))) {
                         return $e;
                     }
-                    
+
                     foreach (array_keys($stringIDs) as $stringID) {
                         unset($gtFile->strings[$stringID]);
                     }
-                    
+
                     if (PEAR::isError($e = $gtFile->save($file))) {
                         return $e;
                     }
@@ -415,25 +465,26 @@ class Translation2_Admin_Container_gettext extends Translation2_Container_gettex
                 }
             }
         }
-        
+
         $bulk = null;
         return true;
     }
-    
+
     // }}}
     // {{{ _addDomain()
-    
+
     /**
      * Add the path-to-the-new-domain to the domains-path-INI-file
      *
-     * @access  private
-     * @param   $pageID string domain name
-     * @return  mixed   Returns true on success or PEAR_Error on failure.
+     * @param string $pageID domain name
+     *
+     * @return true|PEAR_Error on failure
+     * @access private
      */
     function _addDomain($pageID)
     {
         $domain_path = count($this->_domains) ? reset($this->_domains) : 'locale/';
-        
+
         if (!is_resource($f = fopen($this->options['domains_path_file'], 'a'))) {
             return $this->raiseError(sprintf(
                     'Cannot write to domains path INI file "%s"',
@@ -442,34 +493,87 @@ class Translation2_Admin_Container_gettext extends Translation2_Container_gettex
                 TRANSLATION2_ERROR_CANNOT_WRITE_FILE
             );
         }
-        
+
         $CRLF = $this->options['carriage_return'];
-        
-        @flock($f, LOCK_EX);
-        fwrite($f, $CRLF . $pageID . ' = ' . $domain_path . $CRLF);
-        @flock($f, LOCK_UN);
-        fclose($f);
+
+        while (true) {
+            if (@flock($f, LOCK_EX)) {
+                fwrite($f, $CRLF . $pageID . ' = ' . $domain_path . $CRLF);
+                @flock($f, LOCK_UN);
+                fclose($f);
+                break;
+            }
+        }
 
         $this->_domains[$pageID] = $domain_path;
 
         return true;
     }
-    
+
+    // }}}
+    // {{{ _removeDomain()
+
+    /**
+     * Remove the path-to-the-domain from the domains-path-INI-file
+     *
+     * @param string $pageID domain name
+     *
+     * @return true|PEAR_Error on failure
+     * @access private
+     */
+    function _removeDomain($pageID)
+    {
+        $domain_path = count($this->_domains) ? reset($this->_domains) : 'locale/';
+
+        if (!is_resource($f = fopen($this->options['domains_path_file'], 'r+'))) {
+            return $this->raiseError(sprintf(
+                    'Cannot write to domains path INI file "%s"',
+                    $this->options['domains_path_file']
+                ),
+                TRANSLATION2_ERROR_CANNOT_WRITE_FILE
+            );
+        }
+
+        $CRLF = $this->options['carriage_return'];
+
+        while (true) {
+            if (@flock($f, LOCK_EX)) {
+                $pages = file($this->options['domains_path_file']);
+                foreach ($pages as $page) {
+                    if (preg_match('/^'.$pageID.'\s*=/', $page)) {
+                        //skip
+                        continue;
+                    }
+                    fwrite($f, $page . $CRLF);
+                }
+                fflush($f);
+                ftruncate($f, ftell($f));
+                @flock($f, LOCK_UN);
+                fclose($f);
+                break;
+            }
+        }
+
+        unset($this->_domains[$pageID]);
+
+        return true;
+    }
+
     // }}}
     // {{{ _writeLangsAvailFile()
-    
+
     /**
      * Write the langs_avail INI file
-     * 
-     * @access  private
-     * @return  mixed   Returns true on success or PEAR_Error on failure.
+     *
+     * @return true|PEAR_Error on failure.
+     * @access private
      */
     function _writeLangsAvailFile()
     {
         if (PEAR::isError($langs = $this->getLangs())) {
             return $langs;
         }
-        
+
         if (!is_resource($f = fopen($this->options['langs_avail_file'], 'w'))) {
             return $this->raiseError(sprintf(
                     'Cannot write to available langs INI file "%s"',
@@ -481,7 +585,7 @@ class Translation2_Admin_Container_gettext extends Translation2_Container_gettex
         $CRLF = $this->options['carriage_return'];
 
         @flock($f, LOCK_EX);
-        
+
         foreach ($langs as $id => $data) {
             fwrite($f, '['. $id .']'. $CRLF);
             foreach ($this->_fields as $k) {
@@ -491,45 +595,46 @@ class Translation2_Admin_Container_gettext extends Translation2_Container_gettex
             }
             fwrite($f, $CRLF);
         }
-        
+
         @flock($f, LOCK_UN);
         fclose($f);
         return true;
     }
-    
+
     // }}}
     // {{{ _updateLangData()
-    
+
     /**
      * Update Lang Data
-     * 
-     * @access  private
-     * @return  mixed   Returns true on success or PEAR_Error on failure.
-     * @param   array   $langData
+     *
+     * @param array $langData language data
+     *
+     * @return true|PEAR_Error on failure.
+     * @access private
      */
     function _updateLangData($langData)
     {
         if (PEAR::isError($langs = $this->getLangs())) {
             return $langs;
         }
-        
-        $lang     = &$langs[$langData['lang_id']];
-        $changed  = false;
+
+        $lang    = &$langs[$langData['lang_id']];
+        $changed = false;
         foreach ($this->_fields as $k) {
-            if (    isset($langData[$k]) && 
+            if (    isset($langData[$k]) &&
                     (!isset($lang[$k]) || $langData[$k] != $lang[$k])) {
                 $lang[$k] = $langData[$k];
                 $changed  = true;
             }
         }
-        
+
         if ($changed) {
             $lang['id']  = $langData['lang_id'];
             $this->langs = $langs;
         }
         return $changed;
     }
-    
+
     // }}}
 }
 ?>

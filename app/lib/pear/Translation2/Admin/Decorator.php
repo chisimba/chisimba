@@ -27,13 +27,13 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   Internationalization
- * @package    Translation2
- * @author     Lorenzo Alberton <l dot alberton at quipo dot it>
- * @copyright  2004-2005 Lorenzo Alberton
- * @license    http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Translation2
+ * @category  Internationalization
+ * @package   Translation2
+ * @author    Lorenzo Alberton <l.alberton@quipo.it>
+ * @copyright 2004-2007 Lorenzo Alberton
+ * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Translation2
  */
 
 /**
@@ -46,37 +46,54 @@ require_once 'Translation2/Decorator.php';
  *
  * Create a subclass of this class for your own "decoration".
  *
- * @category   Internationalization
- * @package    Translation2
- * @author     Lorenzo Alberton <l dot alberton at quipo dot it>
- * @copyright  2004-2005 Lorenzo Alberton
- * @license    http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @link       http://pear.php.net/package/Translation2
+ * @category  Internationalization
+ * @package   Translation2
+ * @author    Lorenzo Alberton <l.alberton@quipo.it>
+ * @copyright 2004-2007 Lorenzo Alberton
+ * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
+ * @link      http://pear.php.net/package/Translation2
  * @abstract
- * @todo       Don't allow stacking on top of regular Decorators, 
- *             since that will break things.
+ * @todo      Don't allow stacking on top of regular Decorators,
+ *            since that will break things.
  */
 class Translation2_Admin_Decorator extends Translation2_Decorator
 {
     // {{{ addLang()
 
     /**
-     * Create a new language
+     * Prepare the storage container for a new lang.
+     * If the langsAvail table doesn't exist yet, it is created.
      *
-     * @see  Translation2_Admin::addLang()
+     * @param array $langData array('lang_id'    => 'en',
+     *                              'table_name' => 'i18n',
+     *                              'name'       => 'english',
+     *                              'meta'       => 'some meta info',
+     *                              'error_text' => 'not available');
+     * @param array $options  array('charset'   => 'utf8',
+     *                              'collation' => 'utf8_general_ci');
+     *
+     * @return mixed true on success, PEAR_Error on failure
+     * @see Translation2_Admin::addLang()
      */
-    function addLang($langData)
+    function addLang($langData, $options = array())
     {
-        return $this->translation2->addLang($langData);
+        return $this->translation2->addLang($langData, $options);
     }
     
     // }}}
     // {{{ removeLang()
 
     /**
-     * Remove a language
+     * Remove the lang from the langsAvail table and drop the strings table.
+     * If the strings table holds other langs and $force==false, then
+     * only the lang column is dropped. If $force==true the whole
+     * table is dropped without any check
      *
-     * @see  Translation2_Admin::removeLang()
+     * @param string  $langID language ID
+     * @param boolean $force  remove the language info without further checks
+     *
+     * @return mixed true on success, PEAR_Error on failure
+     * @see Translation2_Admin::removeLang()
      */
     function removeLang($langID = null, $force = false)
     {
@@ -89,7 +106,10 @@ class Translation2_Admin_Decorator extends Translation2_Decorator
     /**
      * Update the lang info in the langsAvail table
      *
-     * @see  Translation2_Admin::updateLang()
+     * @param array $langData array containing language info
+     *
+     * @return mixed true on success, PEAR_Error on failure
+     * @see Translation2_Admin::updateLang()
      */
     function updateLang($langData)
     {
@@ -100,11 +120,17 @@ class Translation2_Admin_Decorator extends Translation2_Decorator
     // {{{ add()
 
     /**
-     * Add a translation
+     * Add a new translation
      *
-     * @see  Translation2_Admin::add()
+     * @param string $stringID    string ID
+     * @param string $pageID      page/group ID
+     * @param array  $stringArray Associative array with string translations.
+     *               Sample format:  array('en' => 'sample', 'it' => 'esempio')
+     *
+     * @return mixed true on success, PEAR_Error on failure
+     * @see Translation2_Admin::add()
      */
-    function add($stringID, $pageID = null, $stringArray)
+    function add($stringID, $pageID, $stringArray)
     {
         return $this->translation2->add($stringID, $pageID, $stringArray);
     }
@@ -113,11 +139,17 @@ class Translation2_Admin_Decorator extends Translation2_Decorator
     // {{{ update()
 
     /**
-     * Update a translation
+     * Update an existing translation
      *
-     * @see  Translation2_Admin::update()
+     * @param string $stringID    string ID
+     * @param string $pageID      page/group ID
+     * @param array  $stringArray Associative array with string translations.
+     *               Sample format:  array('en' => 'sample', 'it' => 'esempio')
+     *
+     * @return mixed true on success, PEAR_Error on failure
+     * @see Translation2_Admin::update()
      */
-    function update($stringID, $pageID = null, $stringArray)
+    function update($stringID, $pageID, $stringArray)
     {
         return $this->translation2->update($stringID, $pageID, $stringArray);
     }
@@ -126,13 +158,33 @@ class Translation2_Admin_Decorator extends Translation2_Decorator
     // {{{ remove()
 
     /**
-     * Remove a translation
+     * Remove a translated string
      *
-     * @see  Translation2_Admin::remove()
+     * @param string $stringID string ID
+     * @param string $pageID   page/group ID
+     *
+     * @return mixed true on success, PEAR_Error on failure
+     * @see Translation2_Admin::remove()
      */
     function remove($stringID, $pageID = null)
     {
         return $this->translation2->remove($stringID, $pageID);
+    }
+
+    // }}}
+    // {{{ removePage
+
+    /**
+     * Remove all the strings in the given page/group
+     *
+     * @param string $pageID page/group ID
+     *
+     * @return mixed true on success, PEAR_Error on failure
+     * @see Translation2_Admin::removePage()
+     */
+    function removePage($pageID = null)
+    {
+        return $this->translation2->removePager($pageID);
     }
 
     // }}}
@@ -141,7 +193,8 @@ class Translation2_Admin_Decorator extends Translation2_Decorator
     /**
      * Get a list of all the pageIDs in any table.
      *
-     * @see  Translation2_Admin::getPageNames()
+     * @return array
+     * @see Translation2_Admin::getPageNames()
      */
     function getPageNames()
     {
@@ -152,9 +205,11 @@ class Translation2_Admin_Decorator extends Translation2_Decorator
     // {{{ cleanCache()
 
     /**
-     * Clean the cache
+     * If you use the CacheLiteFunction decorator, you may want to invalidate
+     * the cache after a change in the data base.
      *
-     * @see  Translation2_Admin::cleanCache()
+     * @return void
+     * @see Translation2_Admin::cleanCache()
      */
     function cleanCache()
     {

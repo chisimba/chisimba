@@ -27,13 +27,13 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   Internationalization
- * @package    Translation2
- * @author     Alan Knowles <alan@akbkhome.com>
- * @copyright  2004-2005 Alan Knowles
- * @license    http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Translation2
+ * @category  Internationalization
+ * @package   Translation2
+ * @author    Alan Knowles <alan@akbkhome.com>
+ * @copyright 2004-2008 Alan Knowles
+ * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Translation2
  */
 
 /**
@@ -66,13 +66,13 @@ require_once 'DB/DataObject.php';
  *
  * - then just run the dataobjects createtables script.
  *
- * @category   Internationalization
- * @package    Translation2
- * @author     Alan Knowles <alan@akbkhome.com>
- * @copyright  2004-2005 Alan Knowles
- * @license    http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Translation2
+ * @category  Internationalization
+ * @package   Translation2
+ * @author    Alan Knowles <alan@akbkhome.com>
+ * @copyright 2004-2008 Alan Knowles
+ * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Translation2
  */
 class Translation2_Container_dataobjectsimple extends Translation2_Container
 {
@@ -81,7 +81,8 @@ class Translation2_Container_dataobjectsimple extends Translation2_Container
     /**
      * Initialize the container
      *
-     * @param  string table name
+     * @param string $table table name
+     *
      * @return boolean true
      */
     function init($table = null)
@@ -99,8 +100,8 @@ class Translation2_Container_dataobjectsimple extends Translation2_Container
     /**
      * Set some default options
      *
-     * @access private
      * @return void
+     * @access private
      */
     function _setDefaultOptions()
     {
@@ -112,6 +113,8 @@ class Translation2_Container_dataobjectsimple extends Translation2_Container
 
     /**
      * Fetch the available langs if they're not cached yet.
+     *
+     * @return void
      */
     function fetchLangs()
     {
@@ -139,11 +142,12 @@ class Translation2_Container_dataobjectsimple extends Translation2_Container
     /**
      * Returns an array of the strings in the selected page
      *
-     * @param string $pageID
-     * @param string $langID
+     * @param string $pageID page/group ID
+     * @param string $langID language ID
+     *
      * @return array
      */
-    function &getPage($pageID = null, $langID = null)
+    function getPage($pageID = null, $langID = null)
     {
         $langID = $this->_getLangID($langID);
         if (PEAR::isError($langID)) {
@@ -187,9 +191,10 @@ class Translation2_Container_dataobjectsimple extends Translation2_Container
     /**
      * Get a single item from the container, without caching the whole page
      *
-     * @param string $stringID
-     * @param string $pageID
-     * @param string $langID
+     * @param string $stringID string ID
+     * @param string $pageID   page/group ID
+     * @param string $langID   language ID
+     *
      * @return string
      */
     function getOne($string, $pageID = null, $langID = null)
@@ -197,8 +202,8 @@ class Translation2_Container_dataobjectsimple extends Translation2_Container
         $langID = $langID ? $langID : (isset($this->currentLang['id']) ? $this->currentLang['id'] : '-');
         // get the string id
         $do = DB_DataObject::factory($this->options['table']);
-        $do->lang = '-';
-        $do->page = $pageID;
+        $do->lang        = '-';
+        $do->page        = $pageID;
         $do->translation = $string;
         // we dont have the base language translation..
         if (!$do->find(true)) {
@@ -207,8 +212,8 @@ class Translation2_Container_dataobjectsimple extends Translation2_Container
         $stringID = $do->string_id;
 
         $do = DB_DataObject::factory($this->options['table']);
-        $do->lang = $langID;
-        $do->page = $pageID;
+        $do->lang      = $langID;
+        $do->page      = $pageID;
         $do->string_id = $stringID;
         //print_r($do);
         $do->selectAdd();
@@ -226,8 +231,9 @@ class Translation2_Container_dataobjectsimple extends Translation2_Container
     /**
      * Get the stringID for the given string
      *
-     * @param string $stringID
-     * @param string $pageID
+     * @param string $string string
+     * @param string $pageID page/group ID
+     *
      * @return string
      */
     function getStringID($string, $pageID = null)
@@ -235,8 +241,8 @@ class Translation2_Container_dataobjectsimple extends Translation2_Container
         // get the english version...
 
         $do = DB_DataObject::factory($this->options['table']);
-        $do->lang = $this->currentLang['id'];
-        $do->page = $pageID;
+        $do->lang        = $this->currentLang['id'];
+        $do->page        = $pageID;
         $do->translation = $string;
         if ($do->find(true)) {
             return '';

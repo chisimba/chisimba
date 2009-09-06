@@ -27,14 +27,14 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   Internationalization
- * @package    Translation2
- * @author     Lorenzo Alberton <l dot alberton at quipo dot it>
- * @author     Michael Wallner <mike at php dot net>
- * @copyright  2004-2005 Lorenzo Alberton, Michael Wallner
- * @license    http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Translation2
+ * @category  Internationalization
+ * @package   Translation2
+ * @author    Lorenzo Alberton <l.alberton@quipo.it>
+ * @author    Michael Wallner <mike@php.net>
+ * @copyright 2004-2008 Lorenzo Alberton, Michael Wallner
+ * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Translation2
  */
 
 /**
@@ -53,15 +53,15 @@ require_once 'I18Nv2.php';
  * This storage driver requires the gettext extension
  * and the PEAR::I18Nv2 class for locale handling
  *
- * @category   Internationalization
- * @package    Translation2
- * @author     Lorenzo Alberton <l dot alberton at quipo dot it>
- * @author     Michael Wallner <mike at php dot net>
- * @copyright  2004-2005 Lorenzo Alberton, Michael Wallner
- * @license    http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Translation2
- * @see        /docs/gettext_readme.txt for an usage example
+ * @category  Internationalization
+ * @package   Translation2
+ * @author    Lorenzo Alberton <l.alberton@quipo.it>
+ * @author    Michael Wallner <mike@php.net>
+ * @copyright 2004-2008 Lorenzo Alberton, Michael Wallner
+ * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Translation2
+ * @see       /docs/gettext_readme.txt for an usage example
  */
 class Translation2_Container_gettext extends Translation2_Container
 {
@@ -92,7 +92,8 @@ class Translation2_Container_gettext extends Translation2_Container
     /**
      * Initialize the container 
      *
-     * @param  array  gettext parameters
+     * @param array $options gettext parameters
+     *
      * @return boolean|PEAR_Error object if domains INI file doesn't exist
      */
     function init($options)
@@ -101,7 +102,7 @@ class Translation2_Container_gettext extends Translation2_Container
         $this->_parseOptions($options);
         $this->_native = (
             function_exists('gettext') &&
-            ($this->options['file_type'] != 'po') &&
+            (strtolower($this->options['file_type']) == 'mo') &&
             !$this->options['blank_on_missing']
         );
         
@@ -120,6 +121,7 @@ class Translation2_Container_gettext extends Translation2_Container
             foreach ((array) $this->_domains as $domain => $path) {
                 bindtextdomain($domain, $path);
             }
+            textdomain($this->options['default_domain']);
         }
         $this->setLang($this->options['default_lang']);
         
@@ -151,8 +153,11 @@ class Translation2_Container_gettext extends Translation2_Container
     // {{{ _switchLang()
 
     /**
-     * @param string new langID
-     * @return string previous lang
+     * Set the given langID
+     *
+     * @param string $langID new langID
+     *
+     * @return string previous langID
      * @access private
      */
     function _switchLang($langID)
@@ -185,8 +190,9 @@ class Translation2_Container_gettext extends Translation2_Container
     /**
      * Sets the current lang
      *
-     * @param  string $langID
-     * @return array Lang data
+     * @param string $langID language ID
+     *
+     * @return array language data
      */
     function setLang($langID)
     {
@@ -202,7 +208,9 @@ class Translation2_Container_gettext extends Translation2_Container
     /**
      * Get all the strings from a domain (parsing the .mo file)
      *
-     * @param string $pageID
+     * @param string $pageID page/group ID
+     * @param string $langID language ID
+     *
      * @return array|PEAR_Error
      */
     function getPage($pageID = null, $langID = null)
@@ -230,7 +238,7 @@ class Translation2_Container_gettext extends Translation2_Container
             );
         }
         
-        require_once 'File/Gettext.php';
+        include_once 'File/Gettext.php';
         $gtFile = &File_Gettext::factory($this->options['file_type']);
         
         $path = $this->_domains[$pageID] .'/'. $curLang .'/LC_MESSAGES/';
@@ -265,9 +273,10 @@ class Translation2_Container_gettext extends Translation2_Container
     /**
      * Get a single item from the container, without caching the whole page
      *
-     * @param string $stringID
-     * @param string $pageID
-     * @param string $langID
+     * @param string $stringID string ID
+     * @param string $pageID   page/group ID
+     * @param string $langID   language ID
+     *
      * @return string
      */
     function getOne($stringID, $pageID = null, $langID = null)
@@ -280,13 +289,13 @@ class Translation2_Container_gettext extends Translation2_Container
             if (empty($pageID) || $pageID == TRANSLATION2_DEFAULT_PAGEID) {
                 $pageID = $this->options['default_domain'];
             }
-            
+
             $string = dgettext($pageID, $stringID);
 
             $this->_switchLang($oldLang);
             return $string;
         }
-        
+
         // use File_Gettext
         $page = $this->getPage($pageID, $langID);
         if (PEAR::isError($page = $this->getPage($pageID, $langID))) {
@@ -313,8 +322,9 @@ class Translation2_Container_gettext extends Translation2_Container
     /**
      * Get the stringID for the given string
      *
-     * @param string $stringID
-     * @param string $pageID
+     * @param string $string string
+     * @param string $pageID page/group ID
+     *
      * @return string|PEAR_Error
      */
     function getStringID($string, $pageID = null)

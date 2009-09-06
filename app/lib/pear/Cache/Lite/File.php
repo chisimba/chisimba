@@ -72,10 +72,11 @@ class Cache_Lite_File extends Cache_Lite
     *
     * @param string $id cache id
     * @param string $group name of the cache group
-    * @return string data of the cache (or false if no cache available)
+    * @param boolean $doNotTestCacheValidity if set to true, the cache validity won't be tested
+    * @return string data of the cache (else : false)
     * @access public
     */
-    function get($id, $group = 'default') 
+    function get($id, $group = 'default', $doNotTestCacheValidity = false)
     {
         if ($data = parent::get($id, $group, true)) {
             if ($filemtime = $this->lastModified()) {

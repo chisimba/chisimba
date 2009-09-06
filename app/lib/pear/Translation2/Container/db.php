@@ -27,14 +27,14 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   Internationalization
- * @package    Translation2
- * @author     Lorenzo Alberton <l dot alberton at quipo dot it>
- * @author     Ian Eure <ieure at php dot net>
- * @copyright  2004-2005 Lorenzo Alberton, Ian Eure
- * @license    http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Translation2
+ * @category  Internationalization
+ * @package   Translation2
+ * @author    Lorenzo Alberton <l.alberton@quipo.it>
+ * @author    Ian Eure <ieure@php.net>
+ * @copyright 2004-2008 Lorenzo Alberton, Ian Eure
+ * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Translation2
  */
 
 /**
@@ -48,14 +48,14 @@ require_once 'Translation2/Container.php';
  * This storage driver can use all databases which are supported
  * by the PEAR::DB abstraction layer to fetch data.
  *
- * @category   Internationalization
- * @package    Translation2
- * @author     Lorenzo Alberton <l dot alberton at quipo dot it>
- * @author     Ian Eure <ieure at php dot net>
- * @copyright  2004-2005 Lorenzo Alberton, Ian Eure
- * @license    http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Translation2
+ * @category  Internationalization
+ * @package   Translation2
+ * @author    Lorenzo Alberton <l.alberton@quipo.it>
+ * @author    Ian Eure <ieure@php.net>
+ * @copyright 2004-2008 Lorenzo Alberton, Ian Eure
+ * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Translation2
  */
 class Translation2_Container_db extends Translation2_Container
 {
@@ -80,7 +80,8 @@ class Translation2_Container_db extends Translation2_Container
     /**
      * Initialize the container 
      *
-     * @param  mixed  string DSN or object DB instance
+     * @param mixed &$db string DSN or object DB instance
+     *
      * @return boolean|PEAR_Error object if something went wrong
      */
     function init(&$db)
@@ -98,9 +99,10 @@ class Translation2_Container_db extends Translation2_Container
     /**
      * Connect to database by using the given DSN string
      *
+     * @param mixed &$db string DSN or object DB instance
+     *
+     * @return boolean|PEAR_Error object if something went wrong
      * @access private
-     * @param  mixed  string DSN or object DB instance
-     * @return mixed  Object on error, otherwise bool
      */
     function _connect(&$db)
     {
@@ -109,7 +111,7 @@ class Translation2_Container_db extends Translation2_Container
             $this->db =& $db;
         } else if (is_string($db) || is_array($db)) {
             // Passed a DSN
-            require_once 'DB.php';
+            include_once 'DB.php';
             $this->db =& DB::connect($db);
         } else {
             // Passed something invalid
@@ -147,8 +149,27 @@ class Translation2_Container_db extends Translation2_Container
         $this->options['strings_tables']        = array(); // 'lang_id' => 'table_name'
         $this->options['string_id_col']         = 'id';
         $this->options['string_page_id_col']    = 'page_id';
+        $this->options['string_page_id_col_length'] = 50;
         $this->options['string_text_col']       = '%s'; // col_name if one table per lang is used,
                                                         // or a pattern (i.e. "tr_%s" => "tr_EN_US")
+    }
+
+    // }}}
+    // {{{ setCharset()
+
+    /**
+     * Set charset used to read/store the translations
+     *
+     * @param string $charset character set (encoding)
+     *
+     * @return PEAR_Error on failure
+     */
+    function setCharset($charset)
+    {
+        if (in_array('setcharset', array_map('strtolower', get_class_methods($this->db)))) {
+            return $this->db->setCharset($charset);
+        }
+        return $this->db->query('SET NAMES ' .$this->db->quoteSmart($charset));
     }
 
     // }}}
@@ -156,6 +177,8 @@ class Translation2_Container_db extends Translation2_Container
 
     /**
      * Fetch the available langs if they're not cached yet.
+     *
+     * @return PEAR_Error on failure
      */
     function fetchLangs()
     {
@@ -185,13 +208,14 @@ class Translation2_Container_db extends Translation2_Container
     /**
      * Returns an array of the strings in the selected page
      *
-     * @param string $pageID
-     * @param string $langID
+     * @param string $pageID page/group ID
+     * @param string $langID language ID
+     *
      * @return array
      */
-    function &getPage($pageID = null, $langID = null)
+    function getPage($pageID = null, $langID = null)
     {
-        $langID   = $this->_getLangID($langID);
+        $langID = $this->_getLangID($langID);
         if (PEAR::isError($langID)) {
             return $langID;
         }
@@ -222,14 +246,15 @@ class Translation2_Container_db extends Translation2_Container
     /**
      * Get a single item from the container
      *
-     * @param string $stringID
-     * @param string $pageID
-     * @param string $langID
+     * @param string $stringID string ID
+     * @param string $pageID   page/group ID
+     * @param string $langID   language ID
+     *
      * @return string
      */
     function getOne($stringID, $pageID = null, $langID = null)
     {
-        $langID   = $this->_getLangID($langID);
+        $langID = $this->_getLangID($langID);
         if (PEAR::isError($langID)) {
             return $langID;
         }
@@ -252,7 +277,7 @@ class Translation2_Container_db extends Translation2_Container
 
         ++$this->_queries;
         return $this->db->getOne($query);
-   }
+    }
 
     // }}}
     // {{{ getStringID()
@@ -260,8 +285,9 @@ class Translation2_Container_db extends Translation2_Container
     /**
      * Get the stringID for the given string
      *
-     * @param string $stringID
-     * @param string $pageID
+     * @param string $string string
+     * @param string $pageID page/group ID
+     *
      * @return string
      */
     function getStringID($string, $pageID = null)
@@ -290,10 +316,10 @@ class Translation2_Container_db extends Translation2_Container
     /**
      * Get the table a language is stored in
      *
-     * @param string $langID Language
+     * @param string $langID language ID
+     *
      * @return string table $langID is stored in
      * @access private
-     * @author Ian Eure
      */
     function _getLangTable($langID)
     {
@@ -310,9 +336,9 @@ class Translation2_Container_db extends Translation2_Container
      * Get the column a language's string is stored in
      *
      * @param string $langID Language
+     *
      * @return string column $langID is stored in
      * @access private
-     * @author Ian Eure
      */
     function _getLangCol($langID)
     {

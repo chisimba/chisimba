@@ -375,12 +375,9 @@ class Cache_Lite
                     return true;
                 }
             }
-            if ($this->_automaticCleaningFactor>0) {
-                $rand = rand(1, $this->_automaticCleaningFactor);
-                if ($rand==1) {
-                    $this->clean(false, 'old');
-                }
-            }
+            if ($this->_automaticCleaningFactor>0 && ($this->_automaticCleaningFactor==1 || mt_rand(1, $this->_automaticCleaningFactor)==1)) {
+				$this->clean(false, 'old');			
+			}
             if ($this->_writeControl) {
                 $res = $this->_writeAndControl($data);
                 if (is_bool($res)) {
@@ -395,11 +392,11 @@ class Cache_Lite
                 $res = $this->_write($data);
             }
             if (is_object($res)) {
-	        	// $res is a PEAR_Error object 
+                // $res is a PEAR_Error object 
                 if (!($this->_errorHandlingAPIBreak)) {   
-	                return false; // we return false (old API)
-	            }
-	        }
+                    return false; // we return false (old API)
+                }
+            }
             return $res;
         }
         return false;
@@ -410,10 +407,11 @@ class Cache_Lite
     *
     * @param string $id cache id
     * @param string $group name of the cache group
+    * @param boolean $checkbeforeunlink check if file exists before removing it
     * @return boolean true if no problem
     * @access public
     */
-    function remove($id, $group = 'default')
+    function remove($id, $group = 'default', $checkbeforeunlink = false)
     {
         $this->_setFileName($id, $group);
         if ($this->_memoryCaching) {
@@ -424,6 +422,9 @@ class Cache_Lite
             if ($this->_onlyMemoryCaching) {
                 return true;
             }
+        }
+        if ( $checkbeforeunlink ) {
+            if (!file_exists($this->_file)) return true;
         }
         return $this->_unlink($this->_file);
     }
@@ -482,7 +483,7 @@ class Cache_Lite
         if ($this->_caching) {
             $array = array(
                 'counter' => $this->_memoryCachingCounter,
-                'array' => $this->_memoryCachingState
+                'array' => $this->_memoryCachingArray
             );
             $data = serialize($array);
             $this->save($data, $id, $group);
@@ -598,8 +599,8 @@ class Cache_Lite
             $motif = ($group) ? 'cache_'.$group.'_' : 'cache_';
         }
         if ($this->_memoryCaching) {
-            while (list($key, ) = each($this->_memoryCachingArray)) {
-                if (strpos($key, $motif, 0)) {
+	    foreach($this->_memoryCachingArray as $key => $v) {
+                if (strpos($key, $motif) !== false) {
                     unset($this->_memoryCachingArray[$key]);
                     $this->_memoryCachingCounter = $this->_memoryCachingCounter - 1;
                 }
@@ -621,13 +622,13 @@ class Cache_Lite
                             case 'old':
                                 // files older than lifeTime get deleted from cache
                                 if (!is_null($this->_lifeTime)) {
-                                    if ((mktime() - @filemtime($file2)) > $this->_lifeTime) {
+                                    if ((time() - @filemtime($file2)) > $this->_lifeTime) {
                                         $result = ($result and ($this->_unlink($file2)));
                                     }
                                 }
                                 break;
                             case 'notingrou':
-                                if (!strpos($file2, $motif, 0)) {
+                                if (strpos($file2, $motif) === false) {
                                     $result = ($result and ($this->_unlink($file2)));
                                 }
                                 break;
@@ -639,7 +640,7 @@ class Cache_Lite
                                 break;
                             case 'ingroup':
                             default:
-                                if (strpos($file2, $motif, 0)) {
+                                if (strpos($file2, $motif) !== false) {
                                     $result = ($result and ($this->_unlink($file2)));
                                 }
                                 break;
@@ -711,7 +712,9 @@ class Cache_Lite
             clearstatcache();
             $length = @filesize($this->_file);
             $mqr = get_magic_quotes_runtime();
-            set_magic_quotes_runtime(0);
+            if ($mqr) {
+                set_magic_quotes_runtime(0);
+            }
             if ($this->_readControl) {
                 $hashControl = @fread($fp, 32);
                 $length = $length - 32;
@@ -721,7 +724,9 @@ class Cache_Lite
             } else {
                 $data = '';
             }
-            set_magic_quotes_runtime($mqr);
+            if ($mqr) {
+                set_magic_quotes_runtime($mqr);
+            }
             if ($this->_fileLocking) @flock($fp, LOCK_UN);
             @fclose($fp);
             if ($this->_readControl) {
@@ -765,8 +770,14 @@ class Cache_Lite
             if ($this->_readControl) {
                 @fwrite($fp, $this->_hash($data, $this->_readControlType), 32);
             }
-            $len = strlen($data);
-            @fwrite($fp, $data, $len);
+            $mqr = get_magic_quotes_runtime();
+            if ($mqr) {
+                set_magic_quotes_runtime(0);
+            }
+            @fwrite($fp, $data);
+            if ($mqr) {
+                set_magic_quotes_runtime($mqr);
+            }
             if ($this->_fileLocking) @flock($fp, LOCK_UN);
             @fclose($fp);
             return true;
@@ -789,7 +800,7 @@ class Cache_Lite
         }
         $dataRead = $this->_read();
         if (is_object($dataRead)) {
-            return $result; # We return the PEAR_Error object
+            return $dataRead; # We return the PEAR_Error object
         }
         if ((is_bool($dataRead)) && (!$dataRead)) {
             return false; 

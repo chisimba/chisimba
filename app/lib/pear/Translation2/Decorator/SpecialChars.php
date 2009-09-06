@@ -27,13 +27,13 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   Internationalization
- * @package    Translation2
- * @author     Lorenzo Alberton <l dot alberton at quipo dot it>
- * @copyright  2004-2005 Lorenzo Alberton
- * @license    http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Translation2
+ * @category  Internationalization
+ * @package   Translation2
+ * @author    Lorenzo Alberton <l.alberton@quipo.it>
+ * @copyright 2004-2007 Lorenzo Alberton
+ * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Translation2
  */
 
 /**
@@ -49,14 +49,14 @@ require_once 'Translation2/Decorator.php';
  * $tr->setOptions(array('charset' => 'UTF-8'));
  * </code>
  *
- * @category   Internationalization
- * @package    Translation2
- * @author     Lorenzo Alberton <l dot alberton at quipo dot it>
- * @copyright  2004-2005 Lorenzo Alberton
- * @license    http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Translation2
- * @see        http://www.php.net/htmlentities for a list of available charsets.
+ * @category  Internationalization
+ * @package   Translation2
+ * @author    Lorenzo Alberton <l.alberton@quipo.it>
+ * @copyright 2004-2007 Lorenzo Alberton
+ * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Translation2
+ * @see       http://www.php.net/htmlentities for a list of available charsets.
  */
 class Translation2_Decorator_SpecialChars extends Translation2_Decorator
 {
@@ -76,15 +76,19 @@ class Translation2_Decorator_SpecialChars extends Translation2_Decorator
      *
      * replace special chars with the matching html entities
      *
-     * @param string $stringID
-     * @param string $pageID
-     * @param string $langID
+     * @param string $stringID    string ID
+     * @param string $pageID      page/group ID
+     * @param string $langID      language ID
      * @param string $defaultText Text to display when the string is empty
+     *
      * @return string
      */
     function get($stringID, $pageID=TRANSLATION2_DEFAULT_PAGEID, $langID=null, $defaultText=null)
     {
         $str = $this->translation2->get($stringID, $pageID, $langID, $defaultText);
+        if (PEAR::isError($str)) {
+            return $str;
+        }
         if (!empty($str)) {
             $str = htmlentities($str, ENT_QUOTES, $this->charset);
         }
@@ -97,13 +101,17 @@ class Translation2_Decorator_SpecialChars extends Translation2_Decorator
     /**
      * Same as getRawPage, but apply transformations when needed
      *
-     * @param string $pageID
-     * @param string $langID
+     * @param string $pageID page/group ID
+     * @param string $langID language ID
+     *
      * @return array
      */
     function getPage($pageID=TRANSLATION2_DEFAULT_PAGEID, $langID=null)
     {
         $data = $this->translation2->getPage($pageID, $langID);
+        if (PEAR::isError($data)) {
+            return $data;
+        }
         foreach ($data as $key => $val) {
             if (!empty($val)) {
                 $data[$key] = htmlentities($val, ENT_QUOTES, $this->charset);

@@ -27,13 +27,13 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   Internationalization
- * @package    Translation2
- * @author     Lorenzo Alberton <l dot alberton at quipo dot it>
- * @copyright  2004-2005 Lorenzo Alberton
- * @license    http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Translation2
+ * @category  Internationalization
+ * @package   Translation2
+ * @author    Lorenzo Alberton <l.alberton@quipo.it>
+ * @copyright 2004-2007 Lorenzo Alberton
+ * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Translation2
  */
 
 /**
@@ -44,13 +44,13 @@ require_once 'Translation2/Decorator.php';
 /**
  * Decorator to provide a fallback language for empty strings.
  *
- * @category   Internationalization
- * @package    Translation2
- * @author     Lorenzo Alberton <l dot alberton at quipo dot it>
- * @copyright  2004-2005 Lorenzo Alberton
- * @license    http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Translation2
+ * @category  Internationalization
+ * @package   Translation2
+ * @author    Lorenzo Alberton <l.alberton@quipo.it>
+ * @copyright 2004-2007 Lorenzo Alberton
+ * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Translation2
  */
 class Translation2_Decorator_Lang extends Translation2_Decorator
 {
@@ -70,16 +70,18 @@ class Translation2_Decorator_Lang extends Translation2_Decorator
      * set Decorator option (intercept 'fallbackLang' option).
      * I don't know why it's needed, but it doesn't work without.
      *
-     * @param string option name
-     * @param mixed  option value
+     * @param string $option option name
+     * @param mixed  $value  option value
+     *
+     * @return self
      */
     function setOption($option, $value=null)
     {
         if ($option == 'fallbackLang') {
             $this->fallbackLang = $value;
-        } else {
-            parent::setOption($option, $value);
+            return $this;
         }
+        return parent::setOption($option, $value);
     }
 
     // }}}
@@ -90,14 +92,15 @@ class Translation2_Decorator_Lang extends Translation2_Decorator
      *
      * If the string is empty, check the fallback language
      *
-     * @param string $stringID
-     * @param string $pageID
-     * @param string $langID
+     * @param string $stringID    string ID
+     * @param string $pageID      page/group ID
+     * @param string $langID      language ID
      * @param string $defaultText Text to display when the strings in both
      *                            the default and the fallback lang are empty
+     *
      * @return string
      */
-    function get($stringID, $pageID=TRANSLATION2_DEFAULT_PAGEID, $langID=null, $defaultText='')
+    function get($stringID, $pageID = TRANSLATION2_DEFAULT_PAGEID, $langID = null, $defaultText = '')
     {
         $str = $this->translation2->get($stringID, $pageID, $langID, $defaultText);
         if (empty($str)) {
@@ -113,14 +116,21 @@ class Translation2_Decorator_Lang extends Translation2_Decorator
      * Same as getRawPage, but resort to fallback language and
      * replace parameters when needed
      *
-     * @param string $pageID
-     * @param string $langID
+     * @param string $pageID page/group ID
+     * @param string $langID language ID
+     *
      * @return array
      */
-    function getPage($pageID=TRANSLATION2_DEFAULT_PAGEID, $langID=null, $defaultText='')
+    function getPage($pageID = TRANSLATION2_DEFAULT_PAGEID, $langID = null)
     {
         $data1 = $this->translation2->getPage($pageID, $langID);
+        if (PEAR::isError($data1)) {
+            return $data1;
+        }
         $data2 = $this->translation2->getPage($pageID, $this->fallbackLang);
+        if (PEAR::isError($data2)) {
+            return $data2;
+        }
         foreach ($data1 as $key => $val) {
             if (empty($val)) {
                 $data1[$key] = $data2[$key];
@@ -129,7 +139,7 @@ class Translation2_Decorator_Lang extends Translation2_Decorator
         // append keys when fallback lang contains more than current
         $diff = array_diff(array_keys($data2), array_keys($data1));
         foreach ($diff as $key) {
-        	$data1[$key] = $data2[$key];
+            $data1[$key] = $data2[$key];
         }
         return $data1;
     }

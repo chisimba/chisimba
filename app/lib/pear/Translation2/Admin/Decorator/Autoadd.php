@@ -27,14 +27,14 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   Internationalization
- * @package    Translation2
- * @author     Lorenzo Alberton <l dot alberton at quipo dot it>
- * @author     Ian Eure <ieure at php dot net>
- * @copyright  2004-2005 Lorenzo Alberton, Ian Eure
- * @license    http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Translation2
+ * @category  Internationalization
+ * @package   Translation2
+ * @author    Lorenzo Alberton <l.alberton@quipo.it>
+ * @author    Ian Eure <ieure@php.net>
+ * @copyright 2004-2007 Lorenzo Alberton, Ian Eure
+ * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Translation2
  */
 
 /**
@@ -61,13 +61,13 @@ require_once 'Translation2/Admin/Decorator.php';
  *
  * 'Entirely new string' will be added to the English language table.
  *
- * @category   Internationalization
- * @package    Translation2
- * @author     Ian Eure <ieure at php dot net>
- * @copyright  2004-2005 Ian Eure
- * @license    http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @link       http://pear.php.net/package/Translation2
- * @since      2.0.0beta3
+ * @category  Internationalization
+ * @package   Translation2
+ * @author    Ian Eure <ieure@php.net>
+ * @copyright 2004-2007 Ian Eure
+ * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
+ * @link      http://pear.php.net/package/Translation2
+ * @since     2.0.0beta3
  */
 class Translation2_Admin_Decorator_Autoadd extends Translation2_Admin_Decorator
 {
@@ -81,7 +81,12 @@ class Translation2_Admin_Decorator_Autoadd extends Translation2_Admin_Decorator
     /**
      * Get a translated string
      *
-     * @see   Translation2::get()
+     * @param string $stringID string ID
+     * @param string $pageID   page/group ID
+     * @param string $langID   language ID
+     *
+     * @return string
+     * @see Translation2::get()
      */
     function get($stringID, $pageID = TRANSLATION2_DEFAULT_PAGEID, $langID = null)
     {

@@ -27,13 +27,13 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   Internationalization
- * @package    Translation2
- * @author     Alan Knowles <alan@akbkhome.com>
- * @copyright  2004-2005 Alan Knowles
- * @license    http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Translation2
+ * @category  Internationalization
+ * @package   Translation2
+ * @author    Alan Knowles <alan@akbkhome.com>
+ * @copyright 2004-2007 Alan Knowles
+ * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Translation2
  */
 
 /**
@@ -60,12 +60,12 @@ require_once 'Translation2/Container/dataobjectsimple.php';
  *  translation // the translated value in language lang.
  * </pre>
  *
- * @category   Internationalization
- * @package    Translation2
- * @author     Alan Knowles <alan@akbkhome.com>
- * @copyright  2004-2005 Alan Knowles
- * @license    http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @link       http://pear.php.net/package/Translation2
+ * @category  Internationalization
+ * @package   Translation2
+ * @author    Alan Knowles <alan@akbkhome.com>
+ * @copyright 2004-2007 Alan Knowles
+ * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
+ * @link      http://pear.php.net/package/Translation2
  */
 class Translation2_Admin_Container_dataobjectsimple extends Translation2_Container_dataobjectsimple
 {
@@ -76,13 +76,13 @@ class Translation2_Admin_Container_dataobjectsimple extends Translation2_Contain
      * If the table is shared with other langs, it is ALTERed to
      * hold strings in this lang too.
      *
-     *
      * @param array $langData array('lang_id'    => 'en',
      *                              'table_name' => 'i18n',
      *                              'name'       => 'english',
      *                              'meta'       => 'some meta info',
      *                              'error_text' => 'not available');
-     * @param array $options
+     * @param array $options  DB_DataObject options
+     *
      * @return true|PEAR_Error
      */
     function addLang($langData, $options = array())
@@ -106,6 +106,7 @@ class Translation2_Admin_Container_dataobjectsimple extends Translation2_Contain
      *                              'name'       => 'english',
      *                              'meta'       => 'some meta info',
      *                              'error_text' => 'not available');
+     *
      * @return true|PEAR_Error
      */
     function addLangToList($langData)
@@ -119,13 +120,14 @@ class Translation2_Admin_Container_dataobjectsimple extends Translation2_Contain
     /**
      * Add a new entry in the strings table.
      *
-     * @param string $stringID
-     * @param string $pageID
+     * @param string $string      string
+     * @param string $pageID      page/group ID
      * @param array  $stringArray Associative array with string translations.
      *               Sample format:  array('en' => 'sample', 'it' => 'esempio')
+     *
      * @return true|PEAR_Error
      */
-    function add($string, $page, $stringArray)
+    function add($string, $pageID, $stringArray)
     {
         //look up the string id first..
         $do = DB_DataObject::factory($this->options['table']);
@@ -141,11 +143,11 @@ class Translation2_Admin_Container_dataobjectsimple extends Translation2_Contain
             $do->update();
         }
 
-        foreach($stringArray as $lang=>$value) {
+        foreach ($stringArray as $lang=>$value) {
             $do = DB_DataObject::factory($this->options['table']);
             $do->string_id = $stringID;
-            $do->page  = $page;
-            $do->lang = $lang;
+            $do->page      = $pageID;
+            $do->lang      = $lang;
             if ($do->find(true)) {
                 $do->translation = $value;
                 $do->update();
@@ -164,10 +166,11 @@ class Translation2_Admin_Container_dataobjectsimple extends Translation2_Contain
     /**
      * Update an existing entry in the strings table.
      *
-     * @param string $stringID
-     * @param string $pageID
+     * @param string $stringID    string ID
+     * @param string $pageID      page/group ID
      * @param array  $stringArray Associative array with string translations.
-     *               Sample format:  array('en' => 'sample', 'it' => 'esempio')
+     *               Sample format: array('en' => 'sample', 'it' => 'esempio')
+     *
      * @return true|PEAR_Error
      */
     function update($stringID, $pageID, $stringArray)
@@ -182,8 +185,9 @@ class Translation2_Admin_Container_dataobjectsimple extends Translation2_Contain
     /**
      * Remove an entry from the strings table.
      *
-     * @param string $stringID
-     * @param string $pageID
+     * @param string $stringID string ID
+     * @param string $pageID   page/group ID
+     *
      * @return true|PEAR_Error
      */
     function remove($stringID, $pageID)
@@ -192,7 +196,34 @@ class Translation2_Admin_Container_dataobjectsimple extends Translation2_Contain
         $do = DB_DataObject::factory($this->options['table']);
         $do->page = $pageID;
         $do->translation = $stringID;
-        // we dont have the base language translation..
+        // we don't have the base language translation..
+        if (!$do->find()) {
+            return '';
+        }
+
+        while ($do->fetch()) {
+            $do2 = DB_DataObject::factory($this->options['table']);
+            $do2->get($do->id);
+            $do2->delete();
+        }
+        return true;
+    }
+
+    // }}}
+    // {{{ removePage()
+
+    /**
+     * Remove all the strings in the given page/group
+     *
+     * @param string $pageID page/group ID
+     *
+     * @return mixed true on success, PEAR_Error on failure
+     */
+    function removePage($pageID = null)
+    {
+        $do = DB_DataObject::factory($this->options['table']);
+        $do->page = $pageID;
+        // we don't have the base language translation..
         if (!$do->find()) {
             return '';
         }

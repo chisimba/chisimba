@@ -27,14 +27,14 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   Internationalization
- * @package    Translation2
- * @author     Lorenzo Alberton <l dot alberton at quipo dot it>
- * @author     Rolf 'Red' Ochsenbein <red at raven dot ch>
- * @copyright  2004-2006 Lorenzo Alberton, Rolf 'Red' Ochsenbein
- * @license    http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Translation2
+ * @category  Internationalization
+ * @package   Translation2
+ * @author    Lorenzo Alberton <l.alberton@quipo.it>
+ * @author    Rolf 'Red' Ochsenbein <red@raven.ch>
+ * @copyright 2004-2007 Lorenzo Alberton, Rolf 'Red' Ochsenbein
+ * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Translation2
  */
 
 /**
@@ -50,14 +50,14 @@ require_once 'Translation2/Decorator.php';
  * &quot;$emptyPostfix.$outputString.$emptyPrefix&quot;, the three variables
  * being class properties you can set to a custom string.
  *
- * @category   Internationalization
- * @package    Translation2
- * @author     Lorenzo Alberton <l dot alberton at quipo dot it>
- * @author     Rolf 'Red' Ochsenbein <red at raven dot ch>
- * @copyright  2004-2006 Lorenzo Alberton, Rolf 'Red' Ochsenbein
- * @license    http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Translation2
+ * @category  Internationalization
+ * @package   Translation2
+ * @author    Lorenzo Alberton <l.alberton@quipo.it>
+ * @author    Rolf 'Red' Ochsenbein <red@raven.ch>
+ * @copyright 2004-2007 Lorenzo Alberton, Rolf 'Red' Ochsenbein
+ * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Translation2
  */
 class Translation2_Decorator_DefaultText extends Translation2_Decorator
 {
@@ -108,19 +108,19 @@ class Translation2_Decorator_DefaultText extends Translation2_Decorator
      * If the string is empty, return the $defaultText if not empty,
      * the $stringID otherwise.
      *
-     * @param string $stringID
-     * @param string $pageID
-     * @param string $langID
+     * @param string $stringID    string ID
+     * @param string $pageID      page/group ID
+     * @param string $langID      language ID
      * @param string $defaultText Text to display when the string is empty
+     *
      * @return string
      */
-    function get($stringID, $pageID=TRANSLATION2_DEFAULT_PAGEID, $langID=null, $defaultText='')
+    function get($stringID, $pageID = TRANSLATION2_DEFAULT_PAGEID, $langID = null, $defaultText = '')
     {
         if ($pageID == TRANSLATION2_DEFAULT_PAGEID) {
             $pageID = $this->translation2->currentPageID;
         }
         $str = $this->translation2->get($stringID, $pageID, $langID);
-
         if (!empty($str)) {
             return $str;
         }
@@ -154,11 +154,12 @@ class Translation2_Decorator_DefaultText extends Translation2_Decorator
     /**
      * Replace empty strings with their $stringID
      *
-     * @param string $pageID
-     * @param string $langID
+     * @param string $pageID page/group ID
+     * @param string $langID language ID
+     *
      * @return array
      */
-    function getPage($pageID=TRANSLATION2_DEFAULT_PAGEID, $langID=null)
+    function getPage($pageID = TRANSLATION2_DEFAULT_PAGEID, $langID = null)
     {
         $data = $this->translation2->getPage($pageID, $langID);
         return $this->replaceEmptyStringsWithKeys($data);
@@ -173,12 +174,14 @@ class Translation2_Decorator_DefaultText extends Translation2_Decorator
      * the requested string will be returned.
      *
      * @param string $string This is NOT the stringID, this is a real string.
-     *               The method will search for its matching stringID, and then
-     *               it will return the associate string in the selected language.
-     * @param string $pageID
+     *                       The method will search for its matching stringID, 
+     *                       and then it will return the associate string in the
+     *                       selected language.
+     * @param string $pageID page/group ID
+     *
      * @return string
      */
-    function &getStringID($string, $pageID=TRANSLATION2_DEFAULT_PAGEID)
+    function &getStringID($string, $pageID = TRANSLATION2_DEFAULT_PAGEID)
     {
         if ($pageID == TRANSLATION2_DEFAULT_PAGEID) {
             $pageID = $this->translation2->currentPageID;

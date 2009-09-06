@@ -27,13 +27,13 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   Internationalization
- * @package    Translation2
- * @author     Lorenzo Alberton <l dot alberton at quipo dot it>
- * @copyright  2004-2006 Lorenzo Alberton
- * @license    http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Translation2
+ * @category  Internationalization
+ * @package   Translation2
+ * @author    Lorenzo Alberton <l.alberton@quipo.it>
+ * @copyright 2004-2007 Lorenzo Alberton
+ * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Translation2
  */
 
 /**
@@ -46,13 +46,13 @@ require_once 'Cache/Lite/Function.php';
 /**
  * Decorator to cache fetched data using the Cache_Lite_Function class.
  *
- * @category   Internationalization
- * @package    Translation2
- * @author     Lorenzo Alberton <l dot alberton at quipo dot it>
- * @copyright  2004-2006 Lorenzo Alberton
- * @license    http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Translation2
+ * @category  Internationalization
+ * @package   Translation2
+ * @author    Lorenzo Alberton <l.alberton@quipo.it>
+ * @copyright 2004-2007 Lorenzo Alberton
+ * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Translation2
  */
 class Translation2_Decorator_CacheLiteFunction extends Translation2_Decorator
 {
@@ -127,6 +127,8 @@ class Translation2_Decorator_CacheLiteFunction extends Translation2_Decorator
      * Istanciate a new Cache_Lite_Function object
      * and get the name for an unused global variable,
      * needed by Cache_Lite_Function
+     *
+     * @return void
      * @access private
      */
     function _prepare()
@@ -155,6 +157,8 @@ class Translation2_Decorator_CacheLiteFunction extends Translation2_Decorator
      * Set the language that shall be used when retrieving strings.
      *
      * @param string $langID language code (for instance, 'en' or 'it')
+     *
+     * @return void
      */
     function setLang($langID)
     {
@@ -163,6 +167,7 @@ class Translation2_Decorator_CacheLiteFunction extends Translation2_Decorator
         //generate temp variable
         $translation2_storage_cachelitefunction_temp = $this->translation2->storage;
 
+        $this->_prepare();
         $res = $this->cacheLiteFunction->call(
             'translation2_storage_cachelitefunction_temp->setLang', $langID);
         if (PEAR::isError($res)) {
@@ -178,17 +183,85 @@ class Translation2_Decorator_CacheLiteFunction extends Translation2_Decorator
     /**
      * Set a Cache_Lite option
      *
-     * passes a Cache_Lite option forward to the Cache_Lite object
-     * @see Cache_Lite constructor for available options
+     * Passes a Cache_Lite option forward to the Cache_Lite object
+     * See Cache_Lite constructor for available options
      *
-     * @param string $name name of the option
+     * @param string $name  name of the option
      * @param string $value new value of the option
+     *
+     * @return self
      * @access public
+     * @see Cache_Lite::setOption()
      */
     function setCacheOption($name, $value)
     {
         $this->_prepare();
         $this->cacheLiteFunction->setOption($name, $value);
+        return $this;
+    }
+
+    // }}}
+    // {{{ getLang()
+
+    /**
+     * get lang info
+     *
+     * Get some extra information about the language (its full name,
+     * the localized error text, ...)
+     *
+     * @param string $langID language ID
+     * @param string $format ['name', 'meta', 'error_text', 'array']
+     *
+     * @return mixed [string | array], depending on $format
+     */
+    function getLang($langID = null, $format = 'name')
+    {
+        $langs = $this->getLangs('array');
+
+        if (is_null($langID)) {
+            if (!isset($this->lang['id']) || !array_key_exists($this->lang['id'], $langs)) {
+                $msg = 'Translation2::getLang(): unknown language "'.$langID.'".'
+                      .' Use Translation2::setLang() to set a default language.';
+                return $this->storage->raiseError($msg, TRANSLATION2_ERROR_UNKNOWN_LANG);
+            }
+            $langID = $this->lang['id'];
+        }
+
+        if ($format == 'array') {
+            return $langs[$langID];
+        } elseif (isset($langs[$langID][$format])) {
+            return $langs[$langID][$format];
+        } elseif (isset($langs[$langID]['name'])) {
+            return $langs[$langID]['name'];
+        }
+        $msg = 'Translation2::getLang(): unknown language "'.$langID.'".'
+              .' Use Translation2::setLang() to set a default language.';
+        return $this->storage->raiseError($msg, TRANSLATION2_ERROR_UNKNOWN_LANG);
+    }
+
+    // }}}
+    // {{{ getLangs()
+
+    /**
+     * get langs
+     *
+     * Get some extra information about the languages (their full names,
+     * the localized error text, their codes, ...)
+     *
+     * @param string $format ['ids', 'names', 'array']
+     *
+     * @return array
+     */
+    function getLangs($format = 'name')
+    {
+        // WITHOUT THIS, IT DOESN'T WORK
+        global $translation2_cachelitefunction_temp;
+        //generate temp variable
+        $translation2_cachelitefunction_temp = $this->translation2;
+
+        $this->_prepare();
+        return $this->cacheLiteFunction->call('translation2_cachelitefunction_temp->getLangs',
+            $format);
     }
 
     // }}}
@@ -200,14 +273,15 @@ class Translation2_Decorator_CacheLiteFunction extends Translation2_Decorator
      * First check if the string is cached, if not => fetch the page
      * from the container and cache it for later use.
      *
-     * @param string $stringID
-     * @param string $pageID
-     * @param string $langID
+     * @param string $stringID    string ID
+     * @param string $pageID      page/group ID
+     * @param string $langID      language ID
      * @param string $defaultText Text to display when the strings in both
      *                            the default and the fallback lang are empty
+     *
      * @return string
      */
-    function getRaw($stringID, $pageID=TRANSLATION2_DEFAULT_PAGEID, $langID=null, $defaultText='')
+    function getRaw($stringID, $pageID = TRANSLATION2_DEFAULT_PAGEID, $langID = null, $defaultText = '')
     {
         // WITHOUT THIS, IT DOESN'T WORK
         global $translation2_cachelitefunction_temp;
@@ -234,14 +308,15 @@ class Translation2_Decorator_CacheLiteFunction extends Translation2_Decorator
      * First check if the string is cached, if not => fetch the page
      * from the container and cache it for later use.
      *
-     * @param string $stringID
-     * @param string $pageID
-     * @param string $langID
+     * @param string $stringID    string ID
+     * @param string $pageID      page/group ID
+     * @param string $langID      language ID
      * @param string $defaultText Text to display when the strings in both
      *                            the default and the fallback lang are empty
+     *
      * @return string
      */
-    function get($stringID, $pageID=TRANSLATION2_DEFAULT_PAGEID, $langID=null, $defaultText='')
+    function get($stringID, $pageID = TRANSLATION2_DEFAULT_PAGEID, $langID = null, $defaultText = '')
     {
         // WITHOUT THIS, IT DOESN'T WORK
         global $translation2_cachelitefunction_temp;
@@ -272,11 +347,12 @@ class Translation2_Decorator_CacheLiteFunction extends Translation2_Decorator
      * First check if the strings are cached, if not => fetch the page
      * from the container and cache it for later use.
      *
-     * @param string $pageID
-     * @param string $langID
+     * @param string $pageID page/group ID
+     * @param string $langID language ID
+     *
      * @return array
      */
-    function getRawPage($pageID=TRANSLATION2_DEFAULT_PAGEID, $langID=null)
+    function getRawPage($pageID = TRANSLATION2_DEFAULT_PAGEID, $langID = null)
     {
         // WITHOUT THIS, IT DOESN'T WORK
         global $translation2_cachelitefunction_temp;
@@ -301,11 +377,12 @@ class Translation2_Decorator_CacheLiteFunction extends Translation2_Decorator
      * Same as getRawPage, but resort to fallback language and
      * replace parameters when needed
      *
-     * @param string $pageID
-     * @param string $langID
+     * @param string $pageID page/group ID
+     * @param string $langID language ID
+     *
      * @return array
      */
-    function getPage($pageID=TRANSLATION2_DEFAULT_PAGEID, $langID=null, $defaultText='')
+    function getPage($pageID = TRANSLATION2_DEFAULT_PAGEID, $langID = null)
     {
         // WITHOUT THIS, IT DOESN'T WORK
         global $translation2_cachelitefunction_temp;
@@ -324,15 +401,17 @@ class Translation2_Decorator_CacheLiteFunction extends Translation2_Decorator
     }
 
     // }}}
-    // {{{ translate()
+    // {{{ getStringID()
 
     /**
      * Get translated string
      *
      * @param string $string This is NOT the stringID, this is a real string.
-     *               The method will search for its matching stringID, and then
-     *               it will return the associate string in the selected language.
-     * @param string $langID
+     *                       The method will search for its matching stringID, 
+     *                       and then it will return the associate string in the 
+     *                       selected language.
+     * @param string $pageID page/group ID
+     *
      * @return string
      */
     function getStringID($string, $pageID=TRANSLATION2_DEFAULT_PAGEID)
@@ -356,12 +435,14 @@ class Translation2_Decorator_CacheLiteFunction extends Translation2_Decorator
 
     /**
      * Statistically purge the cache
+     *
+     * @return void
      */
     function _cleanCache()
     {
         if ($this->cleaningFrequency > 0) {
             if (mt_rand(1, $this->cleaningFrequency) == 1) {
-            	$this->cacheLiteFunction->clean($this->defaultGroup);
+                $this->cacheLiteFunction->clean($this->defaultGroup);
             }
         }
     }
