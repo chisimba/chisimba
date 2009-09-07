@@ -395,7 +395,7 @@ class language extends dbTable {
             'error_text' => 'this text is not available in English',
             'encoding'   => 'UTF-8',
         );*/
-        return $this->lang->addLang($langData)
+        return $this->lang->addLang($langData);
     }
 
     public function updateLanguage($langData) {
