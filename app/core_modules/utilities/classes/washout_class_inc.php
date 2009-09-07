@@ -106,7 +106,7 @@ class washout extends object
         }
         //find all filters that match the format [FILTERNAME*]*[/FILTERNAME] where * is anything and replace
         $txt = preg_replace('/\\[(\w+)(.*?)\\](.*?)\\[\/\\1\\]/e',"\$this->getHTML('\\0', '\\1')", $txt);
-        $txt = preg_replace('/\\[(\w+)(.*?)\\]/', "\$this->getHTML('\\0', '\\1')", $txt);
+        $txt = preg_replace('/\\[(\w+)(.*?)\\]/e', "\$this->getHTML('\\0', '\\1')", $txt);
         
         /*
         $counter = 0;
@@ -198,7 +198,6 @@ class washout extends object
      *
      */
     function getHTML($filterCode, $filterName) {
-      
       //These are exceptions where the tag name doesn't match the class name
       if (strtolower($filterName) == 'form') {
         $filterName = 'FORMBUILDER';
