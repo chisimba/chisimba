@@ -384,6 +384,31 @@ class language extends dbTable {
 
 
     }
+
+    public function addLanguage($langData) {
+        /*// set some info about the new lang
+        $langData = array(
+            'lang_id'    => 'en',
+            'table_name' => 'tbl_en',
+            'name'       => 'English',
+            'meta'       => 'some meta info',
+            'error_text' => 'this text is not available in English',
+            'encoding'   => 'UTF-8',
+        );*/
+        return $this->lang->addLang($langData)
+    }
+
+    public function updateLanguage($langData) {
+        // data array should be the same as above...
+        $this->lang->updateLang($langData);
+    }
+
+    public function removeLanguage($langId, $destroy = FALSE) {
+        // specifiy destroy to true to COMPLETELY remove all strings! (Dangerous)
+        // language ID is the 2 letter lang code as specified in addLang...
+        return $this->lang->removeLang($langId, $destroy);
+    }
+
     /**
     * The error callback function, defers to configured error handler
     *
