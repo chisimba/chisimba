@@ -121,57 +121,79 @@ class languageConfig extends object
         try {
             //Define table properties so that MDB2 knows about them
             $params = array(
-            'langs_avail_table' => TABLE_PREFIX.'langs_avail',
-            'lang_id_col'     => 'id',
-            'lang_name_col'   => 'name',
-            'lang_meta_col'   => 'meta',
-            'lang_errmsg_col' => 'error_text',
-            'strings_tables'  => array(
-                                'en' => TABLE_PREFIX.'en',
-
-                                    ),
-            'string_id_col'      => 'id',
-            'string_page_id_col' => 'pageID',
-            'string_text_col'    => '%s'  //'%s' will be replaced by the lang code
+                'langs_avail_table' => TABLE_PREFIX.'langs_avail',
+                'lang_id_col'     => 'id',
+                'lang_name_col'   => 'name',
+                'lang_meta_col'   => 'meta',
+                'lang_errmsg_col' => 'error_text',
+                'strings_tables'  => array(
+                    'en' => TABLE_PREFIX.'en',
+                ),
+                'string_id_col'      => 'id',
+                'string_page_id_col' => 'pageID',
+                'string_text_col'    => '%s'  //'%s' will be replaced by the lang code
             );
+            
             $driver = 'MDB2';
 
             //instantiate class
             $this->_siteConf = $this->getObject('altconfig','config');
-            $dsn = $this->_parseDSN(KEWL_DB_DSN); //$this->_siteConf->getDsn());
+            $dsn = $this->_parseDSN(KEWL_DB_DSN);
             $this->lang = &Translation2::factory($driver, $dsn, $params);
             if (PEAR::isError($this->lang)) {
-                echo $this->lang->getMessage(); die();
                 throw new customException($this->lang->getMessage());
-                die();
             }
+
+            // caching
             $this->lang =& $this->lang->getDecorator('CacheMemory');
-            
+            $this->lang->setOption('prefetch', true);
+            $this->lang =& $this->lang->getDecorator('CacheLiteFunction');
+            // TODO: make the caching configuration options for language items configurable
+            $cacheLiteOptions = array(
+                'cacheDir' => '/tmp/',
+                'caching'  => true,       // enable or disable caching
+                'lifeTime' => 3600,       // in seconds
+                'cleaningFrequency' => 0, // never clean cached files (set 1 to clean at every request)
+            );
+            $this->lang->setOptions($cacheLiteOptions);
+
+            // charsets
             $this->lang =& $this->lang->getDecorator('SpecialChars');
             // control the charset to use
-            $this->lang->setOption('charset', 'iso-8859-1');
+            $this->lang->setOption('charset', 'UTF-8');
             // add a UTF-8 decorator to automatically decode UTF-8 strings
             $this->lang =& $this->lang->getDecorator('UTF8');
             // add a default text decorator to deal with empty strings
             $this->lang = & $this->lang->getDecorator('DefaultText');
-            $this->lang->setOption('prefetch', true); //default value is true
+             //default value is true
             if (PEAR::isError($this->lang)) {
-                echo $this->lang->getMessage(); die();
-            //    throw new Exception('Could not load Translation class');
+                throw new customException( $this->lang->getMessage() );
             }
+            if(!is_object($this->lang)) {
+                throw new customException('Translation class not loaded');
+            }
+
             // set primary language
-            if(!is_object($this->lang)) throw new Exception('Translation class not loaded');
             $this->lang->setLang("en");
             
             // set the group of strings you want to fetch from
-            $this->lang->setPageID('defaultGroup');
-            $this->caller = $this->moduleName;
+            $this->caller = $this->getParam('module');
+            if($this->caller == '') {
+                $page = 'system';
+            }
+            else {
+                $page = $this->caller;
+            }
+            // This needs to be dynamic, coming from the module that we are using currently
+            $this->lang->setPageID($page);
             // add a Lang decorator to provide a fallback language
             $this->lang =& $this->lang->getDecorator('Lang');
             $this->lang->setOption('fallbackLang', 'en');
-            $this->lang->getDecorator('CacheLiteFunction');
-            $this->lang->setOption('cacheDir', 'cache/');
+            
+            /*$this->lang->setOption('cacheDir', '/var/www/cache/');
             $this->lang->setOption('lifeTime', 86400);
+            $this->lang->setOption('cleaningFrequency', 0); */
+            
             // replace the empty string with its stringID
 
             return $this->lang;
