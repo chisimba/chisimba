@@ -79,6 +79,35 @@ class skin extends object
         return $this->objConfig->getskinRoot().$this->getSession('skin').'/';
     }
 
+
+
+    /**
+    * Method to get the skin engine type
+    *
+    * This is collected from the skin.conf so if none exists the default engine is
+    * assumed.
+	*
+    * @return String the current skins engine type.
+    */
+    public function getSkinEngine($skinPath = '')
+	{
+		if ($skinPath == '') {
+			$skinPath = $this->getSkinLocation();
+		}
+
+		//Load skin.conf
+		$skinConfigFile = $skinPath . 'skin.conf';
+
+		if (file_exists($skinConfigFile)) {
+			$skinData = $this->readConf($skinConfigFile);
+			$this->skinEngine = $skinData['SKIN_ENGINE'];
+			return $this->skinEngine;
+		} else {
+			//If new skin config file doesn't exist defaulting to old skin engine
+			return 'default';
+		}
+	}
+
     /**
     * Method to validate whether a skin session exists, or has been changed
     *
@@ -104,17 +133,7 @@ class skin extends object
 
             $mySkinLocation=$this->objConfig->getsiteRootPath().$this->skinRoot.$_POST['skinlocation'].'/';
 
-			//Load skin.conf
-			$skinConfigFile = $mySkinLocation . 'skin.conf';
-
-			if (file_exists($skinConfigFile)) {
-				$skinData = $this->readConf($skinConfigFile);
-				$this->skinEngine = $skinData['SKIN_ENGINE'];
-				$objSysConfig->changeParam('CHISIMBA_SKIN_ENGINE', 'skin', $skinData['SKIN_ENGINE']);
-			} else {
-				//If new skin config file doesn't exist defaulting to old skin engine
-				$objSysConfig->changeParam('CHISIMBA_SKIN_ENGINE', 'skin', 'default');
-			}
+			$this->skinEngine = $this->getSkinEngine($mySkinLocation);
 
 			if ($this->skinEngine == 'default' || $this->skinEngine == '') {
 				//Test if stylesheet exists in the skinlocation
@@ -134,8 +153,6 @@ class skin extends object
 				}
 
 			}
-
-
 
         }
     }
@@ -345,8 +362,7 @@ class skin extends object
 	{
 		$skinRoot = $this->skinRoot;
 
-		$objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
-		$skinEngine = $objSysConfig->getValue('CHISIMBA_SKIN_ENGINE');
+		$skinEngine = $this->getSkinEngine();
 
 		//Determining which css to load based on current skin engine requirements
 		if (isset($skinEngine)) {
