@@ -441,7 +441,11 @@ class groupops extends object
                     )
                   );
         $user = $this->objLuAdmin->perm->getUsers($params);
-        return $user[0];
+        if (isset($user[0])){
+           return $user[0];
+        } else {
+            return FALSE;
+        }
     }
 
     public function getUsersInGroup($groupid) {
