@@ -39,7 +39,7 @@ $searchKey = $this->getParam('search', $this->getParam('query'));
 
 $display .= $objSearchResults->displaySearchResults($searchKey, $this->getParam('searchmodule'));
 
-//$this->setVar('middleContent', $display);
+$this->setVar('middleContent', $display);
 
 $cssLayout = $this->newObject('csslayout', 'htmlelements');
 $cssLayout->setNumColumns(1);
