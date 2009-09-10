@@ -183,12 +183,14 @@ class washout extends object
      *
      */
     function parserExists($classname) { //bisection search here would be faster as $this->classes is already sorted alphabetically
-      foreach ($this->classes as $existingClassname) {
-        if ($classname == $existingClassname) {
-          return true;
+        if ($this->classes) { 
+	       foreach ($this->classes as $existingClassname) {
+	           if ($classname == $existingClassname) {
+	               return true;
+	           }
+	       }
         }
-      }
-      return false;
+        return false;
     }
     
     
