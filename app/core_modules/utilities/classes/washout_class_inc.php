@@ -102,7 +102,7 @@ class washout extends object
     {
     	//check the configs if the filters are enabled
     	  if ($this->useFilters != 'yes') {
-        	return;
+        	return $txt;
         }
         //find all filters that match the format [FILTERNAME*]*[/FILTERNAME] where * is anything and replace
         $txt = preg_replace('/\\[(\w+)(.*?)\\](.*?)\\[\/\\1\\]/e',"\$this->getHTML('\\0', '\\1')", $txt);
