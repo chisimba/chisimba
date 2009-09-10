@@ -56,13 +56,16 @@ class groupadmin_installscripts extends dbTable {
             			//var_dump($oldgroups);
                         foreach($oldgroups as $og) {
                             $oldGroupPath = $this->getOldGroupPath($og['group_id']);
+                            if (''==$oldGroupPath) {
+                                continue;
+                            }
                             $ngrpid = $this->objGroupModel->getId($oldGroupPath);
                             // now we add the user to the group
                             log_debug("adding user with userid $userid to group with id $ngrpid [$oldGroupPath]");
                             // get the users perm user id
                             $usrdata = $this->objGroupOps->getUserByUserId($userid);
-                            $userid_ = $usrdata['perm_user_id'];
-                            $this->objGroupModel->addGroupUser( $ngrpid, $userid_ );
+                            //$permUserId = $usrdata['perm_user_id'];
+                            $this->objGroupModel->addGroupUser( $ngrpid, $usrdata['perm_user_id'] ); //$permUserId
                         }
                     }
                 }
