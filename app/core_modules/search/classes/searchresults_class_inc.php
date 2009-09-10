@@ -59,7 +59,7 @@ class searchresults extends object
         $phrase = trim(str_replace(':', ' ', $text));
         $phrase = trim(str_replace('+', ' ', $phrase));
         $phrase = trim(str_replace('-', ' ', $phrase));
-        
+ 
         if ($module != NULL) {
             
             if ($text != '') {

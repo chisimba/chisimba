@@ -35,8 +35,17 @@ $display .= $form->show();
 
 $objSearchResults = $this->getObject('searchresults');
 
-$display .= $objSearchResults->displaySearchResults($this->getParam('search'), $this->getParam('searchmodule'));
+$searchKey = $this->getParam('search', $this->getParam('query'));
 
-$this->setVar('middleContent', $display);
+$display .= $objSearchResults->displaySearchResults($searchKey, $this->getParam('searchmodule'));
 
+//$this->setVar('middleContent', $display);
+
+$cssLayout = $this->newObject('csslayout', 'htmlelements');
+$cssLayout->setNumColumns(1);
+$middleColumn = $display;
+
+$cssLayout->setMiddleColumnContent($middleColumn);
+
+echo $cssLayout->show();
 ?>
