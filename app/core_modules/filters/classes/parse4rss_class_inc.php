@@ -2,7 +2,7 @@
 
 /**
  * Class to parse a string (e.g. page content) that contains a request
- * to load a RSS feed in the form [FEED]username[/FEED]
+ * to load a RSS feed in the form [RSS]URL[/RSS]
  * 
  * PHP version 5
  * 
@@ -31,7 +31,7 @@
 /**
 *
 * Class to parse a string (e.g. page content) that contains a request
-* to load a RSS feed in the form [FEED]username[/FEED]
+* to load a RSS feed in the form [RSS]URL[/RSS]
 *
 * @author Derek Keats
 *         
@@ -75,12 +75,8 @@ class parse4rss extends object
             $txt = stripslashes($txt);
             // Match filters based on a Chisimba style
             preg_match_all('/(\\[RSS:?)(.*?)\\](.*?)(\\[\\/RSS\\])/ism', $txt, $results);
-            // Match filters that use the FEED tag
-            preg_match_all('/(\\[FEED:?)(.*?)\\](.*?)(\\[\\/FEED\\])/ism', $txt, $resultsFeed);
             // Match filters based on NIC style
             preg_match_all('/\\[RSS\s*(limit=\d*)?\s*(display=[a-zA-Z]*)?\s*(limit=\d*)?\s*](.*?)\\[\/RSS]/', $txt, $results2, PREG_PATTERN_ORDER);
-            // Match filters based on NIC style for the FEED tag
-            preg_match_all('/\\[FEED\s*(limit=\d*)?\s*(display=[a-zA-Z]*)?\s*(limit=\d*)?\s*](.*?)\\[\/FEED]/', $txt, $results2Feed, PREG_PATTERN_ORDER);
 
             // Parse the first pattern (RSS)
             $counter = 0;
@@ -97,23 +93,7 @@ class parse4rss extends object
                 $counter++;
             }
             $item=NULL;
-            
-            // Parse the second pattern (FEED)
-            $counter = 0;
-            foreach ($resultsFeed[3] as $item) {
-                //Parse for the parameters
-                $str = trim($resultsFeed[2][$counter]);
-                $this->objExpar->getArrayParams($str, ",");
-                //$this->objExpar->getParamsQuoted($str, ",", "'"); --- NOT WORKING YET
-                //The whole match must be replaced
-                $replaceable = $resultsFeed[0][$counter];
-                $this->setupPage();
-                $replacement = $this->getFeed($item, $this->limit);
-                $txt = str_replace($replaceable, $replacement, $txt);
-                $counter++;
-            }
-            $item=NULL;
-            
+                      
             // Parse the third pattern pattern
             $counter = 0;
             foreach ($results2[0] as $item)
@@ -129,22 +109,7 @@ class parse4rss extends object
                 $counter++;
             }
             $item=NULL;
-            
-            // Parse the fourth pattern pattern with the FEED tag
-            $counter = 0;
-            foreach ($results2Feed[0] as $item)
-            {
-                // check for a limit=x parameter
-                if ($results2Feed[1][$counter] != "") {
-                    $limit = intval(substr($results2Feed[1][$counter],strpos($results2Feed[1][$counter],"=")+1));
-                } else {
-                    $limit = NULL;
-                }
-                $replacement = $this->getFeed($results2Feed[4][$counter], $limit);
-                $txt = str_replace($item, $replacement, $txt);
-                $counter++;
-            }
-            
+           
             // Now parse the filters that might be in the feeds, but
             // avoid parsing the RSS any further to prevent recursion
             $txt = $this->objWashout->parseText($txt, TRUE, array("rss"));

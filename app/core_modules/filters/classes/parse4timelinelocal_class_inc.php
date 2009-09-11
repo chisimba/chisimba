@@ -84,7 +84,7 @@ class parse4timelinelocal extends object
             $objTlParser = $this->getObject('timelineparser', 'timeline');
         }
         $str = stripslashes($str);
-        preg_match_all('/\\[TIMELINE_LOCAL](.*?)\\[\/TIMELINE_LOCAL]/', $str, $results, PREG_PATTERN_ORDER);
+        preg_match_all('/\\[TIMELINELOCAL](.*?)\\[\/TIMELINELOCAL]/', $str, $results, PREG_PATTERN_ORDER);
         $counter = 0;
         foreach ($results[0] as $item)
         {

@@ -27,7 +27,7 @@
  * @author    Tohir Solomons <tsolomons@uwc.ac.za>
  * @copyright 2007 Tohir Solomons
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
- * @version   $Id$
+ * @version   $Id: parse4reference_class_inc.php 11052 2008-10-25 16:04:14Z charlvn $
  * @link      http://avoir.uwc.ac.za
  * @see
  */
@@ -54,7 +54,7 @@ $GLOBALS['kewl_entry_point_run'])
  *
  * @author Tohir Solomons
  */
-class parse4reference extends object
+class parse4ref extends object
 {
     /**
     * Constructor

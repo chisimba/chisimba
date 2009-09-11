@@ -24,7 +24,7 @@
  * @author    Derek Keats <dkeats@uwc.ac.za>
  * @copyright 2007 Derek Keats
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
- * @version   $Id$
+ * @version   $Id: parse4googlevid_class_inc.php 11998 2008-12-29 22:35:37Z charlvn $
  * @link      http://avoir.uwc.ac.za
  * @see       
  */
@@ -49,7 +49,7 @@ $GLOBALS['kewl_entry_point_run'])
  *
  */
 
-class parse4googlevid extends object
+class parse4gvid extends object
 {
     /**
     *

@@ -87,7 +87,7 @@ class parse4simplemaplocal extends object
         if ($isRegistered) {
             $this->objSMParser = $this->getObject('smapparser', 'simplemap');
         
-            preg_match_all('/\\[SIMPLEMAP_LOCAL](.*?)\\[\/SIMPLEMAP_LOCAL]/', $str, $results, PREG_PATTERN_ORDER);
+            preg_match_all('/\\[SIMPLEMAPLOCAL](.*?)\\[\/SIMPLEMAPLOCAL]/', $str, $results, PREG_PATTERN_ORDER);
             $counter = 0;
             foreach ($results[0] as $item)
             {

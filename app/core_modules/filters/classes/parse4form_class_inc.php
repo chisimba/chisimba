@@ -57,7 +57,7 @@ $GLOBALS['kewl_entry_point_run'])
  *
  */
 
-class parse4formbuilder extends object
+class parse4form extends object
 {
 
     /**

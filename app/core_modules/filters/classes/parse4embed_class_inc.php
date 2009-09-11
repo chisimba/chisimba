@@ -26,7 +26,7 @@
  * @author    Derek Keats <dkeats@uwc.ac.za>
  * @copyright 2007 Derek Keats
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
- * @version   $Id$
+ * @version   $Id: parse4mmedia_class_inc.php 11998 2008-12-29 22:35:37Z charlvn $
  * @link      http://avoir.uwc.ac.za
  * @see       
  */
@@ -50,10 +50,10 @@ $GLOBALS['kewl_entry_point_run'])
  * file.
  * 
  * @author    Derek Keats
- * @version   $Id$
+ * @version   $Id: parse4mmedia_class_inc.php 11998 2008-12-29 22:35:37Z charlvn $
  * @copyright 2003 GPL
  */
-class parse4mmedia extends object {
+class parse4embed extends object {
     /**
      * Method to take a string and return it with anchor linkd to 
      * quicktime movies changed to embeded media

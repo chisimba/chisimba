@@ -25,7 +25,7 @@
  * @author    Paul Scott <pscott@uwc.ac.za>
  * @copyright 2007 Paul Scott
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
- * @version   $Id$
+ * @version   $Id: parse4screenshots_class_inc.php 11998 2008-12-29 22:35:37Z charlvn $
  * @link      http://avoir.uwc.ac.za     
  */
 // security check - must be included in all scripts
@@ -54,7 +54,7 @@ $GLOBALS['kewl_entry_point_run'])
  *
  */
 
-class parse4screenshots extends object
+class parse4screenshot extends object
 {
     /**
      * The Config object (altconfig)

@@ -73,13 +73,19 @@ class filtermanager extends object
     {
         //Set the parent table here
         $this->objConfig = $this->getObject('altconfig', 'config');
+        //Set the filter base dir
+        $this->filterDir = $this->objConfig->getsiteRootPath() . "core_modules/filters/classes/";
+        //Set the disabled location for filter classes
+        $this->disabledDir = $this->filterDir . "disabled/";
+        //Get the language object
+        $this->objLanguage = $this->getObject('language', 'language');
     }
     
     /**
     * 
     * Disable all filters
     * 
-    * @return TRUE
+    * @return boolean TRUE
     * @access public
     *  
     */
@@ -88,14 +94,13 @@ class filtermanager extends object
         // save current working directory (cwd)
         $savedDir = getcwd();
         //load up all of the parsers from filters
-        $filterDir = $this->objConfig->getsiteRootPath() . "core_modules/filters/classes/";
-        chdir($filterDir);
+        chdir($this->filterDir);
         $parsers = glob("parse4*_class_inc.php");
         foreach ($parsers as $parser) {
-        	$parserFilePath = $filterDir . $parser;
+        	$parserFilePath = $this->filterDir . $parser;
         	if (file_exists($parserFilePath)) {
-        		rename($parserFilePath, $filterDir . "disabled/" . $parser) 
-        		   or die("Could not move filter. Check permissions.");
+        		rename($parserFilePath, $this->disabledDir . $parser) 
+        		   or die("mod_filters_errcantmove");
         	}
         }
         // restore path
@@ -116,14 +121,12 @@ class filtermanager extends object
         // save current working directory (cwd)
         $savedDir = getcwd();
         //load up all of the parsers from filters
-        $filterDir = $this->objConfig->getsiteRootPath() . "core_modules/filters/classes/";
-        $disabledDir = $this->objConfig->getsiteRootPath() . "core_modules/filters/classes/disabled/";
-        chdir($disabledDir);
+        chdir($this->disabledDir);
         $parsers = glob("parse4*_class_inc.php");
         foreach ($parsers as $parser) {
-            $parserFilePath = $disabledDir . $parser;
+            $parserFilePath = $this->disabledDir . $parser;
             if (file_exists($parserFilePath)) {
-                rename($parserFilePath, $filterDir . $parser) 
+                rename($parserFilePath, $this->filterDir . $parser) 
                    or die("Could not move filter. Check permissions.");
             }
         }
