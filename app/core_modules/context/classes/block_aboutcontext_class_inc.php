@@ -77,6 +77,7 @@ class block_aboutcontext extends object
     */
     public function init()
     {
+        
         try {
             $this->objLanguage =  $this->getObject('language', 'language');
             $this->title = ucWords($this->objLanguage->code2Txt('mod_context_aboutcontext', 'context'));
@@ -90,8 +91,9 @@ class block_aboutcontext extends object
     */
     public function show()
     {
+        $objWashout = $this->getObject('washout', 'utilities');
         $objContext = $this->getObject('dbcontext');
-        return $objContext->getAbout();
+        return $objWashout->parseText($objContext->getAbout());
     }
 }
 ?>
