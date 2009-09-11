@@ -135,8 +135,8 @@ class csslayout extends object implements ifhtml
         $this->rightColumnContent = NULL;
         $this->middleColumnContent = NULL;
 	
-		$objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
-        $this->skinEngine = $objSysConfig->getValue('CHISIMBA_SKIN_ENGINE', 'skin');
+		$this->objSkin = $this->getObject('skin', 'skin');
+		$this->skinEngine = $this->objSkin->getSkinEngine();
     }
 
     /**
