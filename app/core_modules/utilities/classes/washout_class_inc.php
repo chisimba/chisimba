@@ -231,9 +231,9 @@ class washout extends object
       else if (strtolower($filterName) == 'simplemap_local') {
         $filterName = 'SIMPLEMAPLOCAL';
       }
-      else if (strtolower($filterName) == 'slideshare') {
+      /*else if (strtolower($filterName) == 'slideshare') {
         $filterName = 'SS';
-      }
+      }*/
       else if (strtolower($filterName) == 'timeline_local') {
         $filterName = 'TIMELINELOCAL';
       }
