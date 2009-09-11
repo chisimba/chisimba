@@ -52,7 +52,7 @@ $GLOBALS['kewl_entry_point_run'])
  *
  */
 
-class parse4ss extends object
+class parse4slideshare extends object
 {
     /**
     *

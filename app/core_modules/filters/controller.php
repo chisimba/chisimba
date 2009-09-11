@@ -45,83 +45,174 @@ $GLOBALS['kewl_entry_point_run']) {
  *
  */
 class filters extends controller {
-
+    /**
+    *
+    * @var string $objLanguage String object property for holding the
+    * language object
+    * @access public
+    *
+    */
+    public $objLanguage;
+    
+    /**
+    *
+    * @var string $objLanguage String object property for holding the
+    * user object
+    * @access public
+    *
+    */
+    public $objUser;
+    /**
+    *
+    * @var string $objLog String object property for holding the
+    * logger object for logging user activity
+    * @access public
+    *
+    */
+    public $objLog;
+	
     /**
     * Intialiser for the filter object
     */
     function init()
     { 
-        // Get the multimedia parser
-        $this->objParse4Mmedia = $this->getObject('parse4mmedia'); 
-        // Get the multimedia parser
-        $this->objParse4KngText = $this->getObject('parse4kngtext'); 
-        // Get the smiley parser
-        $this->objParse4smileys = $this->getObject('parse4smileys'); 
-    } 
+        $this->objUser = $this->getObject('user', 'security');
+        $this->objLanguage = $this->getObject('language', 'language');
+    }
+    
+    /**
+     *
+     * The standard dispatch method for the this module.
+     * The dispatch method uses methods determined from the action
+     * parameter of the  querystring and executes the appropriate method,
+     * returning its appropriate template. This template contains the code
+     * which renders the module output.
+     *
+     */
+    public function dispatch()
+    {
+        //Get action from query string and set default to view
+        $this->action=$this->getParam('action', 'missingaction');
+        /*
+        * Convert the action into a method (alternative to
+        * using case selections)
+        */
+        $method = $this->__getMethod($this->action);
+        /*
+        * Return the template determined by the method resulting
+        * from action
+        */
+        return $this->$method();
+    }
+    
+    /**
+     * 
+     * Method to disable all filters by moving them to the disabled directory
+     * @access public
+     */
+    public function __disableall()
+    {
+    	if($this->objUser->isAdmin()) {
+	        $objFilterManager = $this->getObject('filtermanager', 'filters');
+	        $str = $objFilterManager->disableAll();
+            $this->setvar('str', $this->objLanguage->languageText('mod_filters_weridness','filters'));
+    	}
+        return 'dump_tpl.php';
+    }
+
+     /**
+     * 
+     * Method to enable all filters by moving them from the disabled directory
+     * back to the classes directory
+     * @access public
+     *
+     */
+    public function __enableall()
+    {
+    	if($this->objUser->isAdmin()) {
+	        $objFilterManager = $this->getObject('filtermanager', 'filters');
+	        $str = $objFilterManager->enableAll();
+	        $this->setvar('str', $this->objLanguage->languageText('mod_filters_allenabled','filters')); 
+    	}
+        return 'dump_tpl.php';
+    }
+    
+    
+    /**
+    *
+    * Method to return an error when the action is not a valid
+    * action method
+    *
+    * @access private
+    * @return string The dump template populated with the error message
+    *
+    */
+    private function __actionError()
+    {
+        $this->setVar('str', "<h3>"
+          . $this->objLanguage->languageText("phrase_unrecognizedaction")
+          .": " . $this->action . "</h3>");
+        return 'dump_tpl.php';
+    }
 
     /**
-    * Run test for the functionality of the parsers
+    *
+    * Method to check if a given action is a valid method
+    * of this class preceded by double underscore (__). If it __action
+    * is not a valid method it returns FALSE, if it is a valid method
+    * of this class it returns TRUE.
+    *
+    * @access private
+    * @param string $action The action parameter passed byref
+    * @return boolean TRUE|FALSE
+    *
     */
-    function dispatch($action = null)
+    private function __validAction(& $action)
     {
-        $strCode="This is outside of the code block at the\n
-          top of the code block. THe next bit is in a code block\n
-          [code]
-          \$a='Now is the time';
-          \$b=' for all good dudes';
-          \$c=' to come to the aid of ';
-          \$d=' the party goers. ';
-          \$d=str_replace(\$a, \$b, \$c)
-          echo \$a . \$b . \$c \$d;
-          str_replace(\$a, \$b, \$c);
-          [/code]\n
-          This is out side of the code block.";
-        //MP3 Test
-        $strTest="This is a test. I am merely testing.
-          There is nothing happening here. It is only 
-          a test. How about some <a href=\"http://localhost/tf/test.mp3\">
-          music</a> inserted here.";
-        //WAV test
-        $strTest1="This is a test. I am merely testing.
-          There is nothing happening here. It is only 
-          a test. How about some <a href=\"http://localhost/tf/test.mov\">
-          music</a> inserted here.";
-        //AVI test
-        $strTest2="This is a test. I am merely testing.
-          There is nothing happening here. It is only 
-          a test. How about some <a href=\"http://localhost/tf/test.avi\">
-          video</a> inserted here.";
-        //MPG test
-        $strTest3="This is a test. I am merely testing.
-          There is nothing happening here. It is only 
-          a test. How about some <a href=\"http://localhost/tf/test.mpg\">
-          video</a> inserted here.";
-        $strTest4="This is a test. I am merely testing.
-          There is nothing happening here. It is only 
-          a test. How about some <a href=\"http://localhost/tf/test.wmv\">
-          video</a> inserted here.";
-        $strTest5="This is a test. I am merely testing.
-          There is nothing happening here. It is only 
-          a test. How about some <a href=\"http://localhost/tf/test.swf\">
-          flash movie</a> inserted here.";
-        $smtest="This is a smiley here :) dont you think :) and another 
-          smile :-) and wink ;). This one is based on [] tags [smile].
-          This on is another wink ;-) and a [] one for wink [wink].
-          This is a mixed one :-/ and [] [mixed]. It does not yet exclude smiles
-          that are anchor tags, as <a href='a.b.c'>[smile]</a>
-          This is a test of them all<br />
-          [biggrin][wink][mixed][thoughtful][tongueout][cool][approve][wideeyes]
-          [clown][sad][shy][blush][kiss][surprise][blackeye][angry][dead][sleepy][evil]";
-          
-        $strTest6 = $strTest . $strTest1 . $strTest2 . $strTest3 . $strTest4 . $strTest5;
-        $this->setvar('strOut', $this->objParse4KngText->parseCode($strCode));
-        //$this->setvar('strOut', $this->objParse4smileys->parseSmiley($smtest));
-        //$this->setvar('strOut', $this->objParse4Mmedia->parseMp3($strTest));
-        //$this->setvar('strOut', $this->objParse4Mmedia->parseAll($strTest6));
+        if (method_exists($this, "__".$action)) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
 
-        return 'utest_tpl.php';
-    
-    } 
+    /**
+    *
+    * Method to convert the action parameter into the name of
+    * a method of this class.
+    *
+    * @access private
+    * @param string $action The action parameter passed byref
+    * @return stromg the name of the method
+    *
+    */
+    function __getMethod($action)
+    {
+        if ($this->__validAction($action)) {
+            return "__" . $action;
+        } else {
+            return "__actionError";
+        }
+    }
+
+    /*------------- END: Set of methods to replace case selection ------------*/
+
+
+
+    /**
+    *
+    * This is a method to determine if the user has to
+    * be logged in or not. This module always requires
+    * login
+    *
+    * @return boolean TRUE|FALSE
+    *
+    */
+    public function requiresLogin()
+    {
+        return TRUE;
+    }
+
 } 
 
 ?>
