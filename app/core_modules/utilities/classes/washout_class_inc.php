@@ -107,50 +107,7 @@ class washout extends object
         //find all filters that match the format [FILTERNAME*]*[/FILTERNAME] where * is anything and replace
         $txt = preg_replace('/\\[(\w+)(.*?)\\](.*?)\\[\/\\1\\]/e',"\$this->getHTML('\\0', '\\1')", $txt);
         $txt = preg_replace('/\\[(\w+)(.*?)\\]/e', "\$this->getHTML('\\0', '\\1')", $txt);
-        
-        /*
-        $counter = 0;
-        //go through each filter and use the parse method of its associated class
-        foreach ($results[0] as $filter) {
-          $filtername = $results['filter'][$counter]; //name of filter, eg. FILTERNAME from example above
-          if ($this->parserExists('parse4' . strtolower($filtername))) { //if a class exists to parse this filter
-            $objCurrentParser = $this->getObject('parse4' . strtolower($filtername), 'filters');
-            $txt = $objCurrentParser->parse($txt, $results[0][$counter]); //replace the entire filter with whatever the parser class specifies.
-            $counter++;
-          }
-        }
-        */
-      	/*
-        // Initialize variable
-        $doParse = TRUE;
-        // Loop over all parsers and run them on $txt.
-        foreach ($this->classes as $parser) {
-            try {
-                $currentParser = $parser;
-                // Make sure that there are no exclusions.
-                if ($excluded && is_array($excluded)) {
-                    $parserPat = strtolower(str_replace("parse4", "", $parser));
-                	if (in_array($parserPat, $excluded)) {
-                 	    $doParse = FALSE;
-                    } else {
-                        $doParse = TRUE;
-                    }
-                } else {
-                    $doParse = TRUE;
-                }
-                if ($doParse == TRUE) {
-                    $objCurrentParser = $this->getObject($currentParser, 'filters');
-                    $txt = $objCurrentParser->parse($txt);
-                }
-            }
-            catch (customException $e)
-            {
-                customException::cleanUp();
-                exit;
-            }
-        }
-        */
-        
+              
         //all the filters that don't conform to [FILTERNAME*]*[/FILTERNAME]
         //manually execute them
         
@@ -179,10 +136,15 @@ class washout extends object
     
     
     /**
-     * Checks the parser array if the $classname parser exists
-     *
-     */
-    function parserExists($classname) { //bisection search here would be faster as $this->classes is already sorted alphabetically
+    * 
+    * Checks the parser array if the $classname parser exists
+    * 
+    * @param string $classname THe name of the class being checked
+    * @return boolean TRUE | FALSE
+    * @access private
+    * 
+    */
+    private function parserExists($classname) { //bisection search here would be faster as $this->classes is already sorted alphabetically
         if ($this->classes) { 
 	       foreach ($this->classes as $existingClassname) {
 	           if ($classname == $existingClassname) {
@@ -196,54 +158,24 @@ class washout extends object
     
     
     /**
-     * Method used from within preg_replace. Sends an individual filter tag to the corresponding filter class
-     *
-     */
-    function getHTML($filterCode, $filterName) {
-      //These are exceptions where the tag name doesn't match the class name
-      if (strtolower($filterName) == 'form') {
-        $filterName = 'FORMBUILDER';
-      }
-      else if (strtolower($filterName) == 'gvid') {
-        $filterName = 'GOOGLEVID';
-      }
-      else if (strtolower($filterName) == 'map') {
-        $filterName = 'MINDMAP';
-      }
-      else if (strtolower($filterName) == 'embed') {
-        $filterName = 'MMEDIA';
-      }
-      else if (strtolower($filterName) == 'myspacevid') {
-        $filterName = 'MYSPACEVIDEO';
-      }
-      else if (strtolower($filterName) == 'ogg') {
-        $filterName = 'OGGSTREAM';
-      }
-      else if (strtolower($filterName) == 'ref') {
-        $filterName = 'REFERENCE';
-      }
-      else if (strtolower($filterName) == 'feed') { //rss class takes both feed and rss tags
-        $filterName = 'RSS';
-      }
-      else if (strtolower($filterName) == 'screenshot') {
-        $filterName = 'SCREENSHOTS';
-      }
-      else if (strtolower($filterName) == 'simplemap_local') {
-        $filterName = 'SIMPLEMAPLOCAL';
-      }
-      /*else if (strtolower($filterName) == 'slideshare') {
-        $filterName = 'SS';
-      }*/
-      else if (strtolower($filterName) == 'timeline_local') {
-        $filterName = 'TIMELINELOCAL';
-      }
-      if ($this->parserExists('parse4' . strtolower($filterName))) {
-        $objCurrentParser = $this->getObject('parse4' . strtolower($filterName), 'filters');
-        return $objCurrentParser->parse(" " . $filterCode . " "); //replace the entire filter with whatever the parser class specifies.
-      }
-      else {
-        return $filterCode;
-      }
+    * 
+    * Method used from within preg_replace. Sends an individual filter tag to the corresponding 
+    * filter class
+    * 
+    * @param string $filterCode the filter code for the filter that appears in the brackets
+    * @param string $filterName the name of the Filter (after parse4 in the filename)
+    * @access public
+    * @return string The filter code parsed.
+    *
+    */
+    public function getHTML($filterCode, $filterName) {
+        if ($this->parserExists('parse4' . strtolower($filterName))) {
+            $objCurrentParser = $this->getObject('parse4' . strtolower($filterName), 'filters');
+            //replace the entire filter with whatever the parser class specifies.
+            return $objCurrentParser->parse(" " . $filterCode . " "); 
+        } else {
+            return $filterCode;
+        }
     }
 }
 ?>
