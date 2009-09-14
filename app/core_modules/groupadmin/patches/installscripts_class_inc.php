@@ -28,7 +28,7 @@ class groupadmin_installscripts extends dbTable {
                       }
                    }
                }
-               
+
                 $pusers = $this->objGroupOps->getAllUsers();
                 $cusers = $this->getAll();
                 $perms = $this->objGroupOps->getAllPermUsers();
@@ -63,10 +63,12 @@ class groupadmin_installscripts extends dbTable {
                             }
                             $ngrpid = $this->objGroupModel->getId($oldGroupPath);
                             // now we add the user to the group
-                            log_debug("adding user with userid $userid to group with id $ngrpid [$oldGroupPath]");
                             // get the users perm user id
                             $usrdata = $this->objGroupOps->getUserByUserId($userid);
-                            //$permUserId = $usrdata['perm_user_id'];
+
+                            $permUserId = $usrdata['perm_user_id'];
+
+                            log_debug("adding user with userid $userid (perm_user_id={$permUserId}) to group with id $ngrpid [$oldGroupPath]");
                             $this->objGroupModel->addGroupUser( $ngrpid, $usrdata['perm_user_id'] ); //$permUserId
                         }
                     }
