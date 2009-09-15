@@ -261,7 +261,7 @@ class context extends controller {
             	//add to activity log
             	if($this->eventsEnabled)
             	{
-            		$message = $this->objUser->fullname(). ' entered '.$this->objContext->getMenuText();
+            		$message = $this->objUser->getsurname(). ' '.$this->objLanguage->languageText('mod_context_hasentered', 'context').' '.$this->objContext->getContextCode();
             	 	$this->eventDispatcher->post($this->objActivityStreamer, "context", array('title'=> $message,
     																				'link'=> $this->uri(array()),
     																				'contextcode' => $this->objContext->getContextCode(),
@@ -618,7 +618,7 @@ class context extends controller {
     	
     	if($this->eventsEnabled)
     	{
-    		$message = $this->objUser->fullname(). ' left '.$this->objContext->getMenuText();
+     		$message = $this->objUser->getsurname(). ' '.$this->objLanguage->languageText('mod_context_hasleft', 'context').' '.$this->objContext->getContextCode();
     	 	$this->eventDispatcher->post($this->objActivityStreamer, "context", array('title'=> $message,
 																			'link'=> $this->uri(array()),
 																			'contextcode' => $this->objContext->getContextCode(),
