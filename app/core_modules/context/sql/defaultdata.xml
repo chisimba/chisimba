@@ -22,7 +22,7 @@
         <title>Add  your page Title here</title>
         <updated>2006-07-12 11:47:12</updated>
     </tbl_contentnodes>
-    <tbl_context>
+    <tbl_contentnodes>
         <id>2kng</id>
         <parentNodeId>1kng</parentNodeId>
         <prevNodeId>1kng</prevNodeId>
