@@ -83,7 +83,7 @@ class groupops extends object
 	/**
 	*Method to get the groups
 	*/
-	public function getGroups()
+	public function getGroups($groupId)
 	{
 		$groups =  $this->objGroups->getTopLevelGroups();//$this->objGroups->getGroups();
 
@@ -111,6 +111,67 @@ class groupops extends object
 					</div>';
 			}
 		return $str.'</div>';
+		}
+	}
+	
+	public function showGroup($groupId = null)
+	{
+		if($groupId == null)
+		{
+			return null;
+		}
+		
+		$str = '<div id="accordion">';
+			//foreach($groups as $group)
+			//{
+				//$groupId = $this->objGroups->getId($group['group_define_name']);
+				$subGroups = $this->objGroups->getSubgroups($groupId);
+				//var_dump($subGroups);
+				$str .='<div>
+								<h3 id="'.$groupId.'"><a href="#">'.$group['group_define_name'].'</a></h3>
+								<div style="height:175px;" id="tab_'.$groupId.'">
+									<div class="siteadminlist">';
+
+				if($subGroups)
+				{
+					$str .= $this->doSubGroups($groupId, $subGroups);
+				} else {
+					$str .= '<div id="'.$groupId.'_list">'.$this->loading.'</div>';
+
+				}
+				$str .= '</div></div>
+					</div>';
+			//}
+		return $str.'</div>';
+	}
+	
+	/**
+	 * Method to show a dropdown
+	 * list of all the top level 
+	 * groups
+	 *
+	 * @return string
+	 */
+	function searchGroupDropDown()
+	{
+		$groups =  $this->objGroups->getTopLevelGroups();//$this->objGroups->getGroups();
+		$selectedGroupId = $this->getParam('groupid');
+		if(count($groups) > 0)
+		{
+			$str = '<select name="groupid">';
+			foreach($groups as $group)
+			{
+				$groupId = $this->objGroups->getId($group['group_define_name']);
+				$selected = ($groupId == $selectedGroupId) ? "selected" :"";
+				$str .= '<option value="'.$groupId.'" '.$selected.'>';
+				$str .= $group['group_define_name'];
+				$str .= "</option>";
+			}
+			$str .='</select>';
+			
+			return $str;
+		} else {
+			return false;
 		}
 	}
 	

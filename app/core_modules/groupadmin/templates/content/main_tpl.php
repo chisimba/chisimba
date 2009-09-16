@@ -2,6 +2,16 @@
 $objIcon = $this->getObject('geticon', 'htmlelements');
 $objIcon->setIcon('loader');
 $loader = $objIcon->show();
+$button = $this->getObject('button', 'htmlelements');
+$button->setToSubmit();
+$button->value = 'Search';
+$button->id = 'Search';
+
+
+$form = $this->newObject('form', 'htmlelements');
+$form->action = $this->uri(array('action'=> 'showgroup'), 'groupadmin');
+$form->addToForm($this->objOps->searchGroupDropDown());
+$form->addToForm('&nbsp;<input type="submit" value="View Group" />');
 
 $scripts = $this->getJavaScriptFile('jquery/jquery-ui-personalized-1.6rc6/jquery-1.3.1.js', 'htmlelements');
 $scripts .= $this->getJavaScriptFile('jquery/jquery-ui-personalized-1.6rc6/jquery-ui-personalized-1.6rc6.js', 'htmlelements');
@@ -34,13 +44,19 @@ function stripId(str)
 		</script>';
 
 $this->appendArrayVar('headerParams', $scripts);
-
+//style="position: fixed; top:200px; width:200px; left:700px;padding:10px;"
 //get all the groups'.$this->objOps->getGroups().'
+
+echo  '<label>Search Groups</label><br/>'.$form->show();
+
 echo '	<div style=" width:650px;border:0px solid black;">
 				<div style="float:left;width:420px;padding-right:10px">
-					'.$this->objOps->getGroups().'
+					'.$this->objOps->showGroup($this->getParam('groupid')).' 
 				<div style="clear:both"></div>
-		</div >
+		</div >';
+if($this->getParam('groupid')){
+	
+echo '
 		<div style="position: fixed; top:200px; width:200px; left:700px;padding:10px;" >
 			<form id="searchform" name="searchform" autocomplete="off">
 				<p>
@@ -59,8 +75,12 @@ echo '	<div style=" width:650px;border:0px solid black;">
 			</form>
 		</div>
 </div><div style="clear:both"></div>';
-$groupId = $this->objOps->getFirstGroupId();
-$this->appendArrayVar('bodyOnLoad', 'loadGroupTab('.$groupId.');');
+}
+if($this->getParam('groupid'))
+{
+	$groupId = $this->getParam('groupid');//$this->objOps->getFirstGroupId();
+	$this->appendArrayVar('bodyOnLoad', 'loadGroupTab('.$groupId.');');
+}
 
 $objIcon = $this->getObject('geticon', 'htmlelements');
 $tabcontent = $this->newObject('tabcontent', 'htmlelements');
@@ -108,6 +128,17 @@ $(":text, textarea").result(findValueCallback).next().click(function() {
 					$("#hiddensuggest4").val(data[1]);
 					});
 
+					
+	$("#searchgroup").autocomplete(\'index.php?module=groupadmin&action=searchusers\', {
+		width: 300,
+		multiple: false,
+		matchContains: true,
+		formatItem: formatItem,
+		formatResult: formatResult,
+		
+	}).result(function (evt, data, formatted) {				
+					$("#hiddensuggest4").val(data[1]);
+					});
 
 	$("#clear").click(function() {
 		$(":input").unautocomplete();
