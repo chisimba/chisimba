@@ -50,7 +50,7 @@ jQuery.fn.simpleTree = function(opt){
 			speed:		'fast',
 			afterAjax:	false,
 			afterMove:	false,
-			afterClick:	false,
+			afterClick:	true,
 			afterDblClick:	false,
 			// added by Erik Dohmen (2BinBusiness.nl) to make context menu cliks available
 			afterContextMenu:	false,
@@ -108,7 +108,7 @@ jQuery.fn.simpleTree = function(opt){
 				var url = jQuery.trim(jQuery('>li', node).text());
 				if(url && url.indexOf('url:'))
 				{
-					url=jQuery.trim(url.replace(/.*\{url:(.*)\}/i ,'$1'));
+					url=jQuery.trim(url.replace(/.*\{url:(.*)\}/i ,'jQuery1'));
 					jQuery.ajax({
 						type: "GET",
 						url: url,
@@ -219,7 +219,8 @@ jQuery.fn.simpleTree = function(opt){
 			TREE.setEventLine(jQuery('.line, .line-last', obj));
 		};
 		TREE.setTrigger = function(node){
-			jQuery('>span',node).before('<img class="trigger" src="images/spacer.gif" border=0>');
+//			jQuery('>span',node).before('');
+			jQuery('>span',node).before('<img class="trigger" src="core_modules/htmlelements/resources/jquery/plugins/simpletree/0.3/images/spacer.gif" border=0>');
 			var trigger = jQuery('>.trigger', node);
 			trigger.click(function(event){
 				TREE.nodeToggle(node);
@@ -413,7 +414,7 @@ jQuery.fn.simpleTree = function(opt){
 			if(typeof(TREE.option.afterMove) == 'function')
 			{
 				var pos = jQuery(dragNode_source).prevAll(':not(.line)').size();
-				TREE.option.afterMove(jQuery(node).parents('li:first'), $(dragNode_source), pos);
+				TREE.option.afterMove(jQuery(node).parents('li:first'), jQuery(dragNode_source), pos);
 			}
 		};
 
