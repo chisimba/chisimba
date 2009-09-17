@@ -104,12 +104,27 @@ class washout extends object
     	  if ($this->useFilters != 'yes') {
         	return $txt;
         }
+        /*
+        //simple version of previous code that called every filter
+        if ($this->classes) { 
+	          foreach ($this->classes as $existingClassname) {
+               $objCurrentParser = $this->getObject($existingClassname, 'filters');
+               $txt = $objCurrentParser->parse($txt); 
+	          }
+        }
+        */
+
+        
         //find all filters that match the format [FILTERNAME*]*[/FILTERNAME] where * is anything and replace
-        $txt = preg_replace('/\\[(\w+)(.*?)\\](.*?)\\[\/\\1\\]/ie',"\$this->getHTML('\\0', '\\1')", $txt);
-        $txt = preg_replace('/\\[(\w+)(.*?)\\]/ie', "\$this->getHTML('\\0', '\\1')", $txt);
+        $txt = preg_replace('/\\[(\\w+)(\\W([^\\]\\[]*?)|)\\](?s:.*?)(\\[\\/\\1\\])/Ueim',"\$this->getHTML('\\0', '\\1')", $txt);
+        if (PREG_NO_ERROR !== preg_last_error()){
+          $this->pcre_error_decode();
+        }
+        $txt = preg_replace('/\\[(\\w+)(\\W([^\\]\\[]*?)|)\\]/ie', "\$this->getHTML('\\0', '\\1')", $txt);
               
         //all the filters that don't conform to [FILTERNAME*]*[/FILTERNAME]
         //manually execute them
+        
         
         $class =  $this->getObject('parse4smileys', 'filters');
         $txt = $class->parse($txt);
@@ -133,7 +148,29 @@ class washout extends object
         return $txt;
     }
     
-    
+    function pcre_error_decode() {
+    switch (preg_last_error()) {
+        case PREG_NO_ERROR:
+            print "pcre_error: PREG_NO_ERROR!\n";
+            break;
+        case PREG_INTERNAL_ERROR:
+            print "pcre_error: PREG_INTERNAL_ERROR!\n";
+            break;
+        case PREG_BACKTRACK_LIMIT_ERROR:
+            print "pcre_error: PREG_BACKTRACK_LIMIT_ERROR!\n";
+            break;
+        case PREG_RECURSION_LIMIT_ERROR:
+            print "pcre_error: PREG_RECURSION_LIMIT_ERROR!\n";
+            break;
+        case PREG_BAD_UTF8_ERROR:
+            print "pcre_error: PREG_BAD_UTF8_ERROR!\n";
+            break;
+        case PREG_BAD_UTF8_OFFSET_ERROR:
+            print "pcre_error: PREG_BAD_UTF8_OFFSET_ERROR!\n";
+            break;
+    }
+}
+
     
     /**
     * 
@@ -168,6 +205,7 @@ class washout extends object
     * @return string The filter code parsed.
     *
     */
+
     public function getHTML($filterCode, $filterName) {
         if ($this->parserExists('parse4' . strtolower($filterName))) {
             $objCurrentParser = $this->getObject('parse4' . strtolower($filterName), 'filters');
