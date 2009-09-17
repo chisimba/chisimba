@@ -105,8 +105,8 @@ class washout extends object
         	return $txt;
         }
         //find all filters that match the format [FILTERNAME*]*[/FILTERNAME] where * is anything and replace
-        $txt = preg_replace('/\\[(\w+)(.*?)\\](.*?)\\[\/\\1\\]/e',"\$this->getHTML('\\0', '\\1')", $txt);
-        $txt = preg_replace('/\\[(\w+)(.*?)\\]/e', "\$this->getHTML('\\0', '\\1')", $txt);
+        $txt = preg_replace('/\\[(\w+)(.*?)\\](.*?)\\[\/\\1\\]/ems',"\$this->getHTML('\\0', '\\1')", $txt);
+        $txt = preg_replace('/\\[(\w+)(.*?)\\]/ems', "\$this->getHTML('\\0', '\\1')", $txt);
               
         //all the filters that don't conform to [FILTERNAME*]*[/FILTERNAME]
         //manually execute them
