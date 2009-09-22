@@ -107,7 +107,7 @@ class context extends controller {
             customException::cleanUp ();
 
         //Load Module Catalogue Class
-            $this->objModuleCatalogue = $this->getObject('modules', 'modulecatalogue');
+            //$this->objModuleCatalogue = $this->getObject('modules', 'modulecatalogue');
 
         }
     }
@@ -517,7 +517,7 @@ class context extends controller {
      */
     protected function __ajaxgetcontexts() {
         $letter = $this->getParam ( 'letter' );
-
+        
         $contexts = $this->objContext->getContextStartingWith ( $letter );
 
         if (count ( $contexts ) == 0) {
@@ -530,20 +530,18 @@ class context extends controller {
             }
         }
     }
-
+   
     /**
      * Method to get user contexts via ajax
      */
-    protected function __ajaxgetusercontexts() {
-       
-        $objUser = $this->getObject('user', 'security');
+    protected function __ajaxgetusercontexts() 
+    {	        
         $objUserContext = $this->getObject('usercontext', 'context');
-        $contexts = $objUserContext->getUserContext($objUser->userId());
+        $contexts =  $objUserContext->getUserContext($this->objUser->userId());
 
         $con = array();
         if (count($contexts) > 0)
-        {
-            
+        {            
             foreach ($contexts as $context)
             {
                 $con[] = $this->objContext->getContext($context);
@@ -558,7 +556,8 @@ class context extends controller {
             foreach ( $contexts as $context ) {
                 echo $objDisplayContext->formatContextDisplayBlock ( $context, FALSE, FALSE ) . '<br />';
             }
-        }
+        }        
+        
     }
     
      /**

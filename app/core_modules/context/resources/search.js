@@ -17,7 +17,15 @@ var contextdata = new Ext.data.JsonStore({
         fields: ['contextcode', 'title', 'author', 'datecreated', 'lastupdated','excerpt' ],
         proxy: new Ext.data.HttpProxy({        	 	
             	url: uri
-        })
+        }),
+        listeners:{ 
+    		'loadexception': function(theO, theN, response){
+    			//alert(response.responseText);
+    		},
+    		'load': function(){
+    				//alert('load');	
+    			}
+    	},
 	});
 	 contextdata.setDefaultSort('lastupdated', 'desc');
 	 
