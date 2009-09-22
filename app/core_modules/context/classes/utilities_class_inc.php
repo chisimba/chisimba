@@ -672,38 +672,45 @@ function getContexts()
     	
     }
     
-    public function jsonListContext($start = 0, $limit=10)
-    {
+    
+    /**
+     * Method to get a paginated
+     * list of courses
+     *
+     * @param unknown_type $start
+     * @param unknown_type $limit
+     * @return unknown
+     */
+    public function jsonListContext($start=0, $limit=10)
+    {    	
+    	$start = (empty($start)) ? 0 : $start;
+    	$limit = (empty($limit)) ? 25 : $limit;
     	
-    	$contexts = $this->objDBContext->getAll("ORDER BY updated DESC limit $start, $limit");
-    	$all = $this->objDBContext->getAll();
+    	$contexts = $this->objDBContext->getAll("ORDER BY updated DESC limit ".$start.", ".$limit);
+    	$all = $this->objDBContext->getArray("SELECT count( id ) as cnt FROM tbl_context");
     	
-    	$contextCount = count($contexts);
-    	$cnt = 0;
-    	$str = '{"totalCount":"'.count($all).'","courses":[';
+    	$allCount = $all[0]['cnt'];
+    	
+    	$contextCount = count($contexts);    	
+    	$courses = array();
+    	
     	if($contextCount > 0)
-    	{
+    	{    		
     		foreach($contexts as $context)
     		{
-    			$cnt++;
-    			$str .= '{';
-    			//$str .= '"id":"'.$context['id'].'",';
-    			$str .= '"contextcode":"'.$context['contextcode'].'",';    			
-    			$str .= '"title":"'.$context['title'].'",';
-    			$str .= '"author":"'.htmlentities($this->objUser->fullname($context['userid'])).'",'; 
-    			$str .= '"datecreated":"'.$context['datecreated'].'",'; 
-    			$str .= '"lastupdated":"'.$context['updated'].'",'; 
-    			$str .= '"excerpt":"'.addslashes($context['about']).'"'; 
-    			$str .= '}';
-    			if ($cnt < $contextCount)
-    			{
-    				$str .= ',';
-    			}
+    			$arr = array();
+    			$arr['contextcode'] = $context['contextcode'];
+    			$arr['title'] = htmlentities($context['title']);
+    			$arr['author'] = htmlentities($this->objUser->fullname($context['userid']));
+    			$arr['datecreated'] = $context['datecreated'];
+    			$arr['lastupdated'] = $context['updated'];
+    			$arr['expert'] = "";
+    			
+    			$courses[] = $arr;
     		}
     	}
-    	
-    	$str .= ']}';
-    	return $str;
+
+    	return json_encode(array('totalCount' => $allCount, 'courses' =>  $courses));
     	
     }
 }
