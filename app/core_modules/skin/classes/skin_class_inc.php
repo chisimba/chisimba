@@ -625,12 +625,12 @@ class skin extends object
     * @access Public
     * @author Jeremy O'Connor
     */
-    public function siteLoad()
-    {
-        $objDBLoggedInUsers = $this->getObject('dbloggedinusers');
-        $count = $objDBLoggedInUsers->count();
-        return "&nbsp;".($count == 1?$this->objLanguage->code2Txt('mod_skin_usersonline_singular','skin',array('COUNT'=>$count)):$this->objLanguage->code2Txt('mod_skin_usersonline_plural','skin',array('COUNT'=>$count)));
-    }
+//    public function siteLoad()
+//    {
+//        $objDBLoggedInUsers = $this->getObject('dbloggedinusers');
+//        $count = $objDBLoggedInUsers->count();
+//        return "&nbsp;".($count == 1?$this->objLanguage->code2Txt('mod_skin_usersonline_singular','skin',array('COUNT'=>$count)):$this->objLanguage->code2Txt('mod_skin_usersonline_plural','skin',array('COUNT'=>$count)));
+//    }
 
 } # End of class
 ?>
