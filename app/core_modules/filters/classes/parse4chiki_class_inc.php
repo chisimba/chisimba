@@ -89,16 +89,6 @@ class parse4chiki extends object
         foreach ($results[0] as $item)
         {
             $extracted = $results[1][$counter];
-            /*if (strstr($extracted, "|")) {
-                $arParams = explode("|", $results[1][$counter]);
-                $repl = $arParams['0'];
-                $width = isset($arParams['1']) ? $arParams['1'] : '100%';
-                $height = isset($arParams['2']) ? $arParams['2'] : '500';
-            } else {
-                $height = "500";
-                $width = "100%";
-                $repl = $results[1][$counter];
-            }*/
             $chikiStr =strtolower($results[1][$counter]);
             $chikiStr = $this->executeChikiCmd($chikiStr);
             $replacement = $chikiStr;
@@ -420,9 +410,7 @@ class parse4chiki extends object
     */
     private function __chikiError()
     {
-        return " <span class='error'>"
-          . $this->objLanguage->languageText("mod_filters_unrecognizedchiki", "filters")
-          .": <b>" . $this->chikiStr . "</b></span> ";
+        return "{" . $this->chikiStr . "}";
     }
     /**
      *
