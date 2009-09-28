@@ -71,7 +71,7 @@ class customException extends Exception
     	// log the exception
     	log_debug($m);
     	// do the cleanup
-        $this->cleanUp();
+        $this->cleanUp($msg);
         // send out the pretty error page
 		$this->diePage($msg);
     }
@@ -84,8 +84,13 @@ class customException extends Exception
      * @return string
      */
     public function diePage($msg) {
-    	$this->uri = "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'] . "?module=errors&action=syserr&msg=".$msg;
-    	header("Location: $this->uri");
+        if($msg === 'MDB2+Error%3A+connect+failed') {
+            $this->dbDeath($msg);
+        }
+        else {
+    	    $this->uri = "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'] . "?module=errors&action=syserr&msg=".$msg;
+    	    header("Location: $this->uri");
+        }
     }
 
     /**
@@ -95,10 +100,11 @@ class customException extends Exception
      * @return url 
      */
     public function dbDeath($msg) {
-    	$usrmsg    = urlencode($msg[0]);
-    	$devmsg    = urlencode($msg[1]);
-    	$this->uri = "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'] . "?module=errors&action=dberror&usrmsg=".$usrmsg."&devmsg=".$devmsg;
-    	header("Location: $this->uri");
+    	//$usrmsg    = urlencode($msg[0]);
+    	//$devmsg    = urlencode($msg[1]);
+    	$this->uri = "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'] . "?module=errors&action=dberror&usrmsg=".$msg."&devmsg=".$msg;
+        echo urldecode($msg); die();
+    	//header("Location: $this->uri");
     }
 
     /**
@@ -107,10 +113,13 @@ class customException extends Exception
      * @param  void
      * @return void
      */
-    public function cleanUp() {
-        // generic cleanup code here
-        // for now, we can output a message?
-
+    public function cleanUp($msg = NULL, $db = FALSE) {
+        if($db == FALSE) {
+            $this->diePage($msg);
+        }
+        else {
+            $this->dbDeath($msg);
+        }
     }
 }
 ?>
