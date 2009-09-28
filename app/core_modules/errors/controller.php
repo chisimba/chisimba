@@ -137,25 +137,26 @@ class errors extends controller
                 break;
             case 'dberror':
                 //check for a dead database as well
-                $dsn = KEWL_DB_DSN;
-                $dsn = $this->parseDSN($dsn);
+                //$dsn = KEWL_DB_DSN;
+                //$dsn = $this->parseDSN($dsn);
                 // Connect to the database
-                require_once 'MDB2.php';
+                //require_once 'MDB2.php';
                 //MDB2 has a factory method, so lets use it now...
-                $checkdb = &MDB2::connect($dsn);
+                //$checkdb = &MDB2::connect($dsn);
                 //Check for errors on the connect method
-                if (PEAR::isError($checkdb)) {
-                    $devmsg = $checkdb->getMessage();
-                    $usrmsg = $checkdb->getUserInfo();
-                    $this->setVarByRef('devmsg',$devmsg);
-                    $this->setVarByRef('usrmsg',$usrmsg);
-                    return 'dberror_tpl.php';
-                    break;
-                }
+                //if (PEAR::isError($checkdb)) {
+                //    $devmsg = $checkdb->getMessage();
+                //    $usrmsg = $checkdb->getUserInfo();
+                //    $this->setVarByRef('devmsg',$devmsg);
+                //    $this->setVarByRef('usrmsg',$usrmsg);
+                //    return 'dberror_tpl.php';
+                 //   break;
+               // }
                 $devmsg = $this->getParam('devmsg');
                 $usrmsg = $this->getParam('usrmsg');
                 $this->setVarByRef('devmsg',$devmsg);
                 $this->setVarByRef('usrmsg',$usrmsg);
+                die();
                 return 'dberror_tpl.php';
                 break;
 
