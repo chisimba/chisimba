@@ -85,7 +85,7 @@ class customException extends Exception
      */
     public function diePage($msg) {
         if($msg === 'MDB2+Error%3A+connect+failed') {
-            $this->dbDeath($msg);
+            $this->dbNoConn($msg);
         }
         else {
     	    $this->uri = "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'] . "?module=errors&action=syserr&msg=".$msg;
@@ -100,11 +100,15 @@ class customException extends Exception
      * @return url 
      */
     public function dbDeath($msg) {
-    	//$usrmsg    = urlencode($msg[0]);
-    	//$devmsg    = urlencode($msg[1]);
+    	$usrmsg    = urlencode($msg[0]);
+    	$devmsg    = urlencode($msg[1]);
     	$this->uri = "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'] . "?module=errors&action=dberror&usrmsg=".$msg."&devmsg=".$msg;
-        echo urldecode($msg); die();
-    	//header("Location: $this->uri");
+    	header("Location: $this->uri");
+    }
+
+    public function dbNoConn($msg) {
+        echo urldecode($msg);
+        die();
     }
 
     /**
