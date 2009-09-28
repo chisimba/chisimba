@@ -156,7 +156,7 @@ class errors extends controller
                 $usrmsg = $this->getParam('usrmsg');
                 $this->setVarByRef('devmsg',$devmsg);
                 $this->setVarByRef('usrmsg',$usrmsg);
-                die();
+             
                 return 'dberror_tpl.php';
                 break;
 
