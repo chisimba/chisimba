@@ -102,7 +102,7 @@ class customException extends Exception
     public function dbDeath($msg) {
     	$usrmsg    = urlencode($msg[0]);
     	$devmsg    = urlencode($msg[1]);
-    	$this->uri = "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'] . "?module=errors&action=dberror&usrmsg=".$msg."&devmsg=".$msg;
+    	$this->uri = "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'] . "?module=errors&action=dberror&usrmsg=".$usrmsg."&devmsg=".$devmsg;
     	header("Location: $this->uri");
     }
 
