@@ -394,7 +394,9 @@ class skin extends object
 					<link rel="stylesheet" type="text/css" href="'.$skinRoot.'_common/print.css" media="print" />
 					<link rel="stylesheet" type="text/css" href="'.$skinRoot.'_common/forms.css" media="print" />
 					<link rel="stylesheet" type="text/css" href="'.$skinRoot.'_common/forms-extra.css" media="print" />
+<!--[if lte IE 6]>
 					<link rel="stylesheet" type="text/css" href="'.$skinRoot.$this->getSkin().'/style_ie6.css" media="screen" />
+<![endif]-->
 					<link rel="stylesheet" type="text/css" href="'.$skinRoot.$this->getSkin().'/style.css" media="screen" />
 					<link rel="stylesheet" type="text/css" href="'.$skinRoot.$this->getSkin().'/integration.css" media="screen" />
 					';
