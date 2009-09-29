@@ -152,9 +152,9 @@ class curlwrapper extends object
     }
 
     /**
-     * 
+     *
      * Make sure all the options are set first
-     * 
+     *
      */
     public function getUrl()
     {
@@ -165,16 +165,17 @@ class curlwrapper extends object
         return $data;
     }
 
-    public function sendData($url, $postargs=FALSE)
+    public function sendData($url, $postargs=FALSE, $username, $password)
     {
         $this->ch = curl_init($url);
         //$this->setProxy();
         if($postargs !== FALSE){
-            curl_setopt ($this->ch, CURLOPT_POST, TRUE);
+            curl_setopt ($this->ch, CURLOPT_POST, 1);
             curl_setopt ($this->ch, CURLOPT_POSTFIELDS, $postargs);
         }
-        if($this->username !== FALSE && $this->password !== FALSE) {
-            curl_setopt($this->ch, CURLOPT_USERPWD, $this->userName.':'.$this->password);
+        if($username !== FALSE && $password !== FALSE) {
+            log_debug("Setting $username and $password");
+            curl_setopt($this->ch, CURLOPT_USERPWD, $username.':'.$password);
         }
         curl_setopt($this->ch, CURLOPT_VERBOSE, 1);
         curl_setopt($this->ch, CURLOPT_NOBODY, 0);
@@ -184,8 +185,10 @@ class curlwrapper extends object
         curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($this->ch, CURLOPT_HTTPHEADER, $this->headers);
         $response = curl_exec($this->ch);
+        log_debug($response);
         $this->responseInfo=curl_getinfo($this->ch);
         curl_close($this->ch);
+
         if(intval($this->responseInfo['http_code'])==200){
             if(class_exists('SimpleXMLElement')){
                 $xml = new SimpleXMLElement($response);
@@ -198,17 +201,94 @@ class curlwrapper extends object
         }
     }
 
-
-    private function process($url,$postargs=FALSE)
-    {
+    public function postCurl($url, $postargs) {
+        $this->userName = FALSE;
+        $this->password = FALSE;
+        $this->user_agent = 'Chisimba';
         $ch = curl_init($url);
+        // Add Server Proxy if it exists
+        if ($this->proxyInfo['server'] != '') {
+            curl_setopt($ch, CURLOPT_PROXY, $this->proxyInfo['server']);
+        }
+        // Add Port Proxy if it exists
+        if ($this->proxyInfo['port'] != '') {
+            curl_setopt($ch, CURLOPT_PROXYPORT, $this->proxyInfo['port']);
+        }
+        // Add Username for Proxy if it exists
+        if ($this->proxyInfo['username'] != '') {
+            $userNamePassword = $this->proxyInfo['username'];
+            $this->userName = $this->proxyInfo['username'];
+
+            // Add Password Proxy if it exists
+            if ($this->proxyInfo['username'] != '') {
+                $userNamePassword .= ':'.$this->proxyInfo['password'];
+                $this->password = $this->proxyInfo['password'];
+            }
+
+            curl_setopt ($ch, CURLOPT_PROXYUSERPWD, $userNamePassword);
+        }
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION,1);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+        curl_setopt($ch, CURLOPT_ENCODING, "");
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array("Expect:"));
+        curl_setopt($ch, CURLOPT_USERAGENT, "Chisimba (http://avoir.uwc.ac.za)");
+        curl_setopt($ch, CURLOPT_REFERER, $this->uri(''));
+        curl_setopt($ch, CURLOPT_URL, $url);
+
+        curl_setopt ($ch, CURLOPT_POST, TRUE);
+        curl_setopt ($ch, CURLOPT_POSTFIELDS, $postargs);
+
+        $response = curl_exec($ch);
+        $error = curl_error($ch);
+        curl_close($ch);
+        if($response != '') {
+            return $response;
+        }
+        else {
+            return $error;
+        }
+    }
+
+    public function process($url,$postargs=FALSE)
+    {
+        $this->userName = FALSE;
+        $this->password = FALSE;
+        $this->user_agent = 'Chisimba';
+        $ch = curl_init($url);
+
+        // Add Server Proxy if it exists
+        if ($this->proxyInfo['server'] != '') {
+            curl_setopt($ch, CURLOPT_PROXY, $this->proxyInfo['server']);
+        }
+
+        // Add Port Proxy if it exists
+        if ($this->proxyInfo['port'] != '') {
+            curl_setopt($ch, CURLOPT_PROXYPORT, $this->proxyInfo['port']);
+        }
+
+        // Add Username for Proxy if it exists
+        if ($this->proxyInfo['username'] != '') {
+            $userNamePassword = $this->proxyInfo['username'];
+            $this->userName = $this->proxyInfo['username'];
+
+            // Add Password Proxy if it exists
+            if ($this->proxyInfo['username'] != '') {
+                $userNamePassword .= ':'.$this->proxyInfo['password'];
+                $this->password = $this->proxyInfo['password'];
+            }
+
+            curl_setopt ($ch, CURLOPT_PROXYUSERPWD, $userNamePassword);
+        }
 
         if($postargs !== FALSE){
             curl_setopt ($ch, CURLOPT_POST, TRUE);
             curl_setopt ($ch, CURLOPT_POSTFIELDS, $postargs);
         }
 
-        if($this->username !== FALSE && $this->password !== FALSE)
+        if($this->userName !== FALSE && $this->password !== FALSE)
             curl_setopt($ch, CURLOPT_USERPWD, $this->userName.':'.$this->password);
 
         curl_setopt($ch, CURLOPT_VERBOSE, 1);
@@ -217,7 +297,7 @@ class curlwrapper extends object
         curl_setopt($ch, CURLOPT_USERAGENT, $this->user_agent);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION,1);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
+        //curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
 
         $response = curl_exec($ch);
 
