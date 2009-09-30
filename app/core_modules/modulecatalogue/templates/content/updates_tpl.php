@@ -37,7 +37,7 @@ $objTable->addCell($h2->show(),null,null,'left');
 $objTable->addCell($updateAll->show()."<br />$updateXML<br />$updateSys",null,null,'right');//<br/>$makePatch
 $objTable->endRow();
 $tString = '';
-if (isset($output)) {
+if (isset($output) && is_array($output)) {
     $msg = $this->getObject('timeoutmessage','htmlelements');
     $msg->message = '';
 
