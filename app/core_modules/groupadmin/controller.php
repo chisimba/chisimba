@@ -99,7 +99,7 @@ class groupadmin extends controller {
         }
         switch ($action) {
             default :
-				$this->setLayoutTemplate('main_layout_tpl.php');
+				//$this->setLayoutTemplate('main_layout_tpl.php');
 				return "main_tpl.php";
                 // get a list of all the groups
                 $groups = $this->objOps->getAllGroups ();
@@ -219,8 +219,38 @@ class groupadmin extends controller {
                 $this->objOps->removeUser($grid, $id);
                 $this->nextAction('editgrp', array('id' => $grid));
                 break;
-
-
+			///////////////////
+			/// JSON CALLS ////
+			///////////////////
+            case 'json_getallgroups':
+            	echo $this->objOps->getJsonAllGroups();
+            	exit(0);
+            	break;
+            	
+            case 'json_getgroupusers':
+            	echo $this->objOps->getJsonGroupUsers($this->getParam('groupid'), $this->getParam('start'), $this->getParam('limit'));
+            	exit(0);
+            	break;
+            	
+            case 'json_getsubgroups':
+            	echo $this->objOps->getJsonSubGroups($this->getParam('groupid'));
+            	exit(0);
+            	break;
+            	
+            case 'json_removeusers':
+            	echo $this->objOps->jsonRemoveUsers($this->getParam('groupid'), $this->getParam('ids'));
+            	//exit(0);
+            	break;
+            	
+            case 'json_allusers':
+            	echo $this->objOps->jsonGetAllUsers($this->getParam('groupid'), $this->getParam('start'), $this->getParam('limit'));
+            	exit(0);
+            	break;
+            	
+            case 'json_addusers':
+            	echo $this->objOps->jsonAddUsers($this->getParam('groupid'), $this->getParam('ids'));
+            	//exit(0);
+            	break; 
         }
     }
 } //end of class

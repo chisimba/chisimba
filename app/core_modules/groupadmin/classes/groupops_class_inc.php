@@ -73,17 +73,329 @@ class groupops extends object
         $this->objUser = $this->getObject('user', 'security');
 		$this->objLanguage = $this->getObject('language', 'language');
 		$this->objGroups = $this->getObject('groupadminmodel');
+		$this->objDBContext = $this->getObject('dbcontext','context');
 
 		$objIcon = $this->getObject('geticon', 'htmlelements');
 		$objIcon->setIcon('loader');
 		$this->loading = "";//$objIcon->show();
     }
 
+    ///////////////////////////////
+    //// JSON METHODS ///////////
+    ////////////////////////////
+    /**
+     * Method to get a list of users
+     * for a group
+     * 
+     * @param string $groupId
+     * @return json 
+     * @access public
+     * 
+     */
+    public function getJsonGroupUsers($groupId, $start=0, $limit=25)
+    {   
+    	$filter = " LIMIT ".$start.', '.$limit;
+    	$sql = "SELECT gu.perm_user_id, pu.auth_user_id, 
+				us.firstName, us.surname, us.username,
+				us.last_login, us.logins, us.emailAddress
+				from tbl_perms_groupusers as gu
+				left join tbl_perms_perm_users as pu
+				on gu.perm_user_id = pu.perm_user_id
+				left join tbl_users as us
+				on pu.auth_user_id = us.userId
+				WHERE group_id = ".$groupId."				
+				ORDER BY us.surname ".$filter;
+								
+    	$users = $this->objDBContext->getArray($sql);
+    	$userCount = count($this->getUsersInGroup($groupId));
+    	
+    	if(count($users>0)){
+    		
+    		$arr = array();
+    		$arrUsers = array();
+	    	foreach($users as $groupUser){
+	    		$user = $groupUser;//$this->objUser->getUserDetails($groupUser['auth_user_id']);
+	    		$arrUser = array();
+	    		$arrUser['id'] = $user['perm_user_id'];
+	    		$arrUser['userid'] = $user['username'];
+	    		$arrUser['username'] = $user['username'];
+	    		$arrUser['firstname'] = $user['firstname'];
+	    		$arrUser['surname'] = $user['surname'];
+	    		$arrUser['lastloggedin'] = $user['last_login'];
+	    		$arrUser['emailaddress'] = $user['emailaddress'];
+	    		$arrUsers[] = $arrUser;
+	    	}	    	
+	    	
+	    	$arr['totalCount'] = strval($userCount);
+			$arr['users'] = $arrUsers;			
+	    	return json_encode($arr);
+    	}else {
+    		$arr['totalCount'] = "0";
+			$arr['users'] = array();			
+	    	return json_encode($arr);
+    	}
+    	
+    }
+    
+    
+    /**
+     * Method to get the Groups 
+     * formatted in Json
+     *
+     * @return json
+     * @access public
+     * @author Wesley Nitsckie
+     */
+    public function getJsonAllGroups()
+    {
+    	$limit = ($this->getParam('limit') == "") ? "": $this->getParam('limit');
+    	$offset = ($this->getParam('offset') == "") ? "": $this->getParam('offset');
+
+    	$filter = ($this->getParam('letter') == "") ? "": $this->getParam('letter').'%';
+    	
+    	$params = array('limit' => intval($limit), 'offset' => intval($offset), 'filter' => $filter);
+    	
+    	$groups = $this->objGroups->getTopLevelGroups($params);
+  		$totalCount = count($this->objGroups->getTopLevelGroups(array('filter' => $filter) )); 	
+  		//var_dump($groups);
+    	$noGroups = count($groups);
+    	if($noGroups > 0)
+    	{    		
+    		$arrGroups = array();
+    		
+    		foreach ($groups as $group)
+    		{
+    			//$subGroups = $this->objGroups->getSubgroups($groupId);
+    			//var_dump($subGroups);
+    			//$subGroupCnt = ($subGroups) ? count($subGroups[0]) : 0;
+    			
+    			$groupId = $this->objGroups->getId($group['group_define_name']);
+    			$arr = array();
+    			$arr['groupname'] = $group['group_define_name'];
+    			$arr['grouptitle'] = $this->_getContextTitle($group['group_define_name']);
+    			$arr['id'] = strval($groupId);
+    			//$arr['hassubgroups'] = $subGroupCnt;    			
+    			
+    			$arrGroups[] = $arr;
+    			$arr = null;
+    			
+    		}
+    		$arr['totalCount'] = strval($totalCount);
+			$arr['groups'] = $arrGroups;
+    		return json_encode($arr);
+    	}else {
+    		$arr['totalCount'] = "0";
+			$arr['groups'] = array();
+    		return json_encode($arr);
+    	}
+    	
+    	
+    }
+    
+    
+    /**
+     * Method to get the context Title
+     *
+     * @param string $contextCode
+     * @return string
+     * @access private
+     */
+    private function _getContextTitle($contextCode = null){
+    	if(empty($contextCode))
+    	{
+    		return "";
+    	}else {
+    		return htmlentities($this->objDBContext->getTitle($contextCode, false));
+    	}
+    }
+    
+    /**
+     * Method that returns the subgroups
+     * for a given group in json format
+     *
+     * @param string $groupId
+     * @return unknown
+     */
+    public function getJsonSubGroups($groupId = null)
+    {
+    	$arr = array();
+    	if(!empty($groupId))
+    	{    	
+    		$subGroups = $this->objGroups->getSubgroups($groupId);
+    		//var_dump($subGroups);
+    		$arr = array();
+    		if($subGroups){
+	    		$cnt = 0;
+	    		$keys = array_keys($subGroups[0]);
+	    		foreach ($subGroups[0] as $subgroup)
+	    		{
+	    			
+	    			//var_dump($keys);
+	    			$groupId = $keys[$cnt];//array_keys($subGroups[0][$cnt]);
+	    			$arr[] = array('groupid' => $groupId,
+	    						'name' => $this->formatGroupName($subgroup['group_define_name'])
+	    						);	
+	    			$cnt++;
+	    		}
+    		}
+    	}
+    	
+    	return json_encode(array('subgroups' => $arr));
+    }
+    
+    /**
+     * Method to remove users from 
+     *
+     * @param integer $groupId
+     * @param string $userIds
+     * @return unknown
+     */
+    public function jsonRemoveUsers($groupId, $userIds){
+    	
+    	if ($groupId && $userIds) {
+    		$userIds = substr_replace($userIds, "",strlen($userIds) - 1);
+    		//error_log('Success '.$groupId.'\n'.$userIds);
+    		$users = explode(',', $userIds);
+    		error_log(var_export(count($users)), true);
+    		foreach ($users as $id)
+    		{
+    			//echo 'here';
+    			//error_log('here');
+    			
+    			if($id){
+    				var_dump($id);
+    				$res = $this->removeUser($groupId, $id);
+    				var_dump($res);
+    			//error_log(var_export($res));	
+    			}
+    		}
+    		
+     		$extjs['success'] = true;
+		}
+		else {
+		     $extjs['success'] = false;
+		     $extjs['errors']['message'] = 'Unable to connect to DB';
+		}
+		
+		return json_encode($extjs); 
+		
+    	if(empty($userIds)){
+    		error_log('Error'.$groupId.'\n'.$userIds);
+    		return "failure";//json_encode(array('success' => 'false', 'msg' => 'Error'.$groupId.'\n'.$userIds));
+    	}else{
+    		error_log('Success'.$groupId.'\n'.$userIds);
+    		return "success";//json_encode(array('success' => 'true', 'msg' => 'Success'.$groupId.'\n'.$userIds ));
+    	}
+    }
+    
+    
+    public function jsonGetAllUsers($groupId = null, $start = 0, $limit = 25)
+    {
+    	
+    	$params["start"] = ($this->getParam("start")) ? $this->getParam("start") : null;
+	$params["limit"] = ($this->getParam("limit")) ? $this->getParam("limit") : null;
+	$params["search"] = ($this->getParam("fields")) ? json_decode(stripslashes($this->getParam("fields"))) : null;
+	$params["query"] = ($this->getParam("query")) ? $this->getParam("query") : null;
+	$params["sort"] = ($this->getParam("sort")) ? $this->getParam("sort") : null;
+	//$params["dir"] = isset($_REQUEST["dir"]) ? $_REQUEST["dir"] : null;
+	//$params['fields'] = $_REQUEST["fields"];
+	$where = "";
+	
+	if(is_array($params['search'])){
+		$max = count($params['search']);
+		
+		$cnt = 0;
+		
+		foreach($params['search'] as $field){
+			$cnt++;
+			$where .= $field.' LIKE "'.$params['query'].'%"';
+			if($cnt < $max){
+				$where .= " OR ";
+			}
+		}
+		
+		$where = ' WHERE '.$where;
+	}
+	
+    	$filter = " LIMIT $start , $limit";
+    	$sql = "SELECT pu.perm_user_id, us.firstName, us.surname, us.username, 
+    			us.last_login, us.logins, us.emailAddress 
+    			FROM tbl_users as us 
+    			left join tbl_perms_perm_users as pu
+				on us.userId = pu.auth_user_id
+    			".$where."
+    			ORDER BY us.surname ".$filter;// var_dump($sql);
+    	$users = $this->objDBContext->getArray($sql);
+    	$countSQL = "SELECT DISTINCT(username) FROM tbl_users";
+    	$userCount = count($this->objDBContext->getArray($countSQL));
+    	
+    	if(count($users>0)){
+    		
+    		$arr = array();
+    		$arrUsers = array();
+	    	foreach($users as $groupUser){
+	    		$user = $groupUser;//$this->objUser->getUserDetails($groupUser['auth_user_id']);
+	    		$arrUser = array();
+	    		$arrUser['id'] = $user['perm_user_id'];
+	    		$arrUser['userid'] = $user['username'];
+	    		$arrUser['username'] = $user['username'];
+	    		$arrUser['firstName'] = $user['firstname'];
+	    		$arrUser['surname'] = $user['surname'];
+	    		$arrUser['lastloggedin'] = $user['last_login'];
+	    		$arrUser['emailAddress'] = $user['emailaddress'];
+	    		$arrUsers[] = $arrUser;
+	    	}	    	
+	    	
+	    	$arr['totalCount'] = strval($userCount);
+			$arr['users'] = $arrUsers;			
+	    	return json_encode($arr);
+    	}else {
+    		$arr['totalCount'] = "0";
+			$arr['users'] = array();			
+	    	return json_encode($arr);
+    	}
+    	
+    }
+    
+    /**
+     * Method to add users to a group via
+     * json
+     *
+     * @param unknown_type $groupId
+     * @param unknown_type $userIds
+     * @return unknown
+     */
+    public function jsonAddUsers($groupId, $userIds)
+    {
+    	if ($groupId && $userIds) {
+    		$userIds = substr_replace($userIds, "",strlen($userIds) - 1);
+    		
+    		$users = explode(',', $userIds);
+    		error_log(var_export($users), true);
+    		foreach ($users as $id)
+    		{
+    			if($id){    
+    				///error_log(var_export($id, true));				
+    				$res = $this->objGroups->addGroupUser($groupId, $id);    				
+    			}
+    		}
+    		
+     		$extjs['success'] = true;
+		}
+		else {
+		     $extjs['success'] = false;
+		     $extjs['errors']['message'] = 'Unable to connect to DB';
+		}
+		
+		return json_encode($extjs);
+    }
+    
+    
 //////NEW METHODS
 	/**
 	*Method to get the groups
 	*/
-	public function getGroups($groupId)
+	public function getGroups()
 	{
 		$groups =  $this->objGroups->getTopLevelGroups();//$this->objGroups->getGroups();
 
@@ -111,67 +423,6 @@ class groupops extends object
 					</div>';
 			}
 		return $str.'</div>';
-		}
-	}
-	
-	public function showGroup($groupId = null)
-	{
-		if($groupId == null)
-		{
-			return null;
-		}
-		
-		$str = '<div id="accordion">';
-			//foreach($groups as $group)
-			//{
-				//$groupId = $this->objGroups->getId($group['group_define_name']);
-				$subGroups = $this->objGroups->getSubgroups($groupId);
-				//var_dump($subGroups);
-				$str .='<div>
-								<h3 id="'.$groupId.'"><a href="#">'.$group['group_define_name'].'</a></h3>
-								<div style="height:175px;" id="tab_'.$groupId.'">
-									<div class="siteadminlist">';
-
-				if($subGroups)
-				{
-					$str .= $this->doSubGroups($groupId, $subGroups);
-				} else {
-					$str .= '<div id="'.$groupId.'_list">'.$this->loading.'</div>';
-
-				}
-				$str .= '</div></div>
-					</div>';
-			//}
-		return $str.'</div>';
-	}
-	
-	/**
-	 * Method to show a dropdown
-	 * list of all the top level 
-	 * groups
-	 *
-	 * @return string
-	 */
-	function searchGroupDropDown()
-	{
-		$groups =  $this->objGroups->getTopLevelGroups();//$this->objGroups->getGroups();
-		$selectedGroupId = $this->getParam('groupid');
-		if(count($groups) > 0)
-		{
-			$str = '<select name="groupid">';
-			foreach($groups as $group)
-			{
-				$groupId = $this->objGroups->getId($group['group_define_name']);
-				$selected = ($groupId == $selectedGroupId) ? "selected" :"";
-				$str .= '<option value="'.$groupId.'" '.$selected.'>';
-				$str .= $group['group_define_name'];
-				$str .= "</option>";
-			}
-			$str .='</select>';
-			
-			return $str;
-		} else {
-			return false;
 		}
 	}
 	
@@ -502,11 +753,7 @@ class groupops extends object
                     )
                   );
         $user = $this->objLuAdmin->perm->getUsers($params);
-        if (isset($user[0])){
-           return $user[0];
-        } else {
-            return FALSE;
-        }
+        return $user[0];
     }
 
     public function getUsersInGroup($groupid) {
@@ -648,7 +895,7 @@ class groupops extends object
     }
 
     public function removeUser($grid, $id) {
-        $this->objGroups = $this->getObject('groupadminmodel', 'groupadmin');
+        //$this->objGroups = $this->getObject('groupadminmodel', 'groupadmin');
         return $this->objGroups->deleteGroupUser( $grid, $id );
     }
 

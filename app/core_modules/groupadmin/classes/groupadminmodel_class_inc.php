@@ -83,7 +83,7 @@ $GLOBALS['kewl_entry_point_run']) {
  * @filesource
  */
 
-class groupAdminModel extends object
+class groupAdminModel extends dbTable
 {
 
     /**
@@ -326,6 +326,8 @@ class groupAdminModel extends object
                 'hierarchy' => true,
             )
         );
+        
+       
         foreach ($groups as $grps) {
             if(array_key_exists('subgroups', $grps)) {
                 $subgroups[] = $grps['subgroups'];
@@ -338,15 +340,75 @@ class groupAdminModel extends object
         return $subgroups;
     }
 
-    public function getTopLevelGroups() {
-        $groups = $this->objLuAdmin->perm->getGroups(
-            array(
+    public function getTopLevelGroups($filters = null) {
+    	
+    	if($filters == null)
+    	{
+    		$params = array(
                 'select' => 'all',
                 'rekey' => true,
                 'filters' => array(),
-                'hierarchy' => true,
-            )
-        );
+                'hierarchy' => true,                
+            );
+            $hasFilters = "";
+    	} else {
+    		
+    		
+    		$params['rekey'] = true;
+    		$params['hierarchy'] = true;
+    		$params['select'] = 'all';
+    		
+    		if(!empty($filters['limit'])){
+    			$params['limit'] = $filters['limit'];
+    			$lim = ' ,'.$filters['limit'];
+    		} else{
+    			
+    		}
+    		
+    		if(!empty($filters['offset'])){
+    			$params['offset'] = $filters['offset'];
+    			$off = ' LIMIT '.$filters['offset'];
+    		} else {
+    			$off = ' LIMIT 0';
+    		}
+    		
+    		if(empty($filters['offset']) && empty($filters['limit']))
+    		{
+    			$off = "";
+    			$lim = "";
+    		}
+    		
+    		if(!empty($filters['filter'])){
+    			$params['filters'] =array('group_define_name' => array('value' =>  $filters['filter'], 'op' => 'like'), 
+    									  'group_define_name' => array('value' =>  $filters['filter'].'^%', 'op' => 'not like'));
+    			$fil = ' like "'.$filters['filter'].'"';
+    		}
+    		
+    		$hasFilters = "and group_define_name  " . $fil." ORDER by group_define_name ".$off.$lim ;
+    		
+    	}    	
+    	
+    	//@author Wesley Nitsckie
+    	// I had to hack the sql because code pertaining to
+    	// the LiveUser is a mission to have 2 filter on the same
+    	//field. After struggling for hours the best/easiest solution
+    	//for now is to do a direct query to find the top level groups .ie
+    	//groups that dont contain the ^ character
+    	$sql = "SELECT group_define_name, group_id FROM tbl_perms_groups 
+    				WHERE group_define_name not like '%^%'". 
+    				$hasFilters;
+    	//var_dump($sql);
+        //$groups = $this->objLuAdmin->perm->getGroups($params);    
+        parent::init('tbl_perms_groups ');
+        $groups = $this->getArray($sql, 'tbl_perms_groups')  ;
+        return $groups;
+        
+        //please uncomment the code below if a better solution is 
+        //find other than direct sql
+        /*
+      var_dump($groups); 
+            var_dump($sql); die;
+      
         $grps = NULL;
         foreach($groups as $grp) {
             if(!array_key_exists(1, explode('^', $grp['group_define_name']))) {
@@ -354,6 +416,7 @@ class groupAdminModel extends object
             }
         }
         return $grps;
+        */
     }
 
     /**
@@ -579,6 +642,7 @@ class groupAdminModel extends object
             )
         );
         $usersGroup = $this->objLuAdmin->perm->getUsers($params);
+       
 		foreach($usersGroup as $group)
 		{
 			//var_dump($group);
@@ -590,7 +654,7 @@ class groupAdminModel extends object
 
 		//try the subgroups
 		$subGroups = $this->getSubgroups($groupId);
-	//	var_dump($subGroups);
+		
 		if(count($subGroups[0]) > 0)
 		{
 			foreach($subGroups[0] as $subGroup)
