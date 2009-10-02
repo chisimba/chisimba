@@ -334,16 +334,18 @@ class groupops extends object
     		$arr = array();
     		$arrUsers = array();
 	    	foreach($users as $groupUser){
-	    		$user = $groupUser;//$this->objUser->getUserDetails($groupUser['auth_user_id']);
-	    		$arrUser = array();
-	    		$arrUser['id'] = $user['perm_user_id'];
-	    		$arrUser['userid'] = $user['username'];
-	    		$arrUser['username'] = $user['username'];
-	    		$arrUser['firstName'] = $user['firstname'];
-	    		$arrUser['surname'] = $user['surname'];
-	    		$arrUser['lastloggedin'] = $user['last_login'];
-	    		$arrUser['emailAddress'] = $user['emailaddress'];
-	    		$arrUsers[] = $arrUser;
+	    		if($groupUser[perm_user_id] != ""){
+		    		$user = $groupUser;//$this->objUser->getUserDetails($groupUser['auth_user_id']);
+		    		$arrUser = array();
+		    		$arrUser['id'] = $user['perm_user_id'];
+		    		$arrUser['userid'] = $user['username'];
+		    		$arrUser['username'] = $user['username'];
+		    		$arrUser['firstName'] = $user['firstname'];
+		    		$arrUser['surname'] = $user['surname'];
+		    		$arrUser['lastloggedin'] = $user['last_login'];
+		    		$arrUser['emailAddress'] = $user['emailaddress'];
+		    		$arrUsers[] = $arrUser;
+	    		}
 	    	}	    	
 	    	
 	    	$arr['totalCount'] = strval($userCount);

@@ -239,19 +239,23 @@ class groupadmin extends controller {
             	
             case 'json_removeusers':
             	echo $this->objOps->jsonRemoveUsers($this->getParam('groupid'), $this->getParam('ids'));
-            	//exit(0);
+            	exit(0);
             	break;
             	
-            case 'json_allusers':
-            	echo $this->objOps->jsonGetAllUsers($this->getParam('groupid'), $this->getParam('start'), $this->getParam('limit'));
+            case 'json_allusers':            	
+            	echo $this->objOps->jsonGetAllUsers($this->getParam('groupid'), $this->getParam('start'), $this->getParam('limit'));            	      
             	exit(0);
             	break;
             	
             case 'json_addusers':
             	echo $this->objOps->jsonAddUsers($this->getParam('groupid'), $this->getParam('ids'));
-            	//exit(0);
+            	exit(0);
             	break; 
         }
     }
 } //end of class
+
+
+
+
 ?>
