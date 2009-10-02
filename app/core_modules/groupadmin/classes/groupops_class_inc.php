@@ -321,10 +321,10 @@ class groupops extends object
     	$sql = "SELECT pu.perm_user_id, us.firstName, us.surname, us.username, 
     			us.last_login, us.logins, us.emailAddress 
     			FROM tbl_users as us 
-    			left join tbl_perms_perm_users as pu
+    			INNER join tbl_perms_perm_users as pu
 				on us.userId = pu.auth_user_id
     			".$where."
-    			ORDER BY us.surname ".$filter;// var_dump($sql);
+    			ORDER BY us.surname ".$filter; var_dump($sql);
     	$users = $this->objDBContext->getArray($sql);
     	$countSQL = "SELECT DISTINCT(username) FROM tbl_users";
     	$userCount = count($this->objDBContext->getArray($countSQL));
