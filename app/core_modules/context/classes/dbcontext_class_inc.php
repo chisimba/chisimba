@@ -338,8 +338,8 @@ class dbcontext extends dbTable {
      * @access public
      * @return context Title
      */
-    public function getTitle($contextCode = NULL) {
-        if (! isset ( $contextCode )) {
+    public function getTitle($contextCode = NULL, $useSession = true) {
+        if (! isset ( $contextCode ) || $useSession) {
             $contextCode = $this->getSession ( 'contextCode' );
         }
 
