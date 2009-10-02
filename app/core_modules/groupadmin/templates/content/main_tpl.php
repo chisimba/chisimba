@@ -22,8 +22,11 @@
 	        	</script>');
 	
 	$ext .= '<link rel="stylesheet" href="'.$this->getResourceUri('ext-3.0-rc2/resources/css/ext-all.css', 'htmlelements').'" type="text/css" />';
+	$ext .= '<link rel="stylesheet" href="'.$this->getResourceUri('ext-3.0-rc2/resources/css/ext-all.css', 'htmlelements').'" type="text/css" />';
 	$ext .= '<link rel="stylesheet" href="'.$this->getResourceUri('ColumnNodeUI.css', 'groupadmin').'" type="text/css" />';
-	//$ext .= '<link rel="stylesheet" href="'.$this->getResourceUri('ext-3.0-rc2/examples/shared/examples.css', 'htmlelements').'" type="text/css" />';
+	$ext .= '<link rel="stylesheet" href="skins/_common/css/extjs/silk/silk.css" type="text/css" />';
+	$ext .= '<link rel="stylesheet" href="skins/_common/css/extjs/menus.css" type="text/css" />';
+	$ext .= '<link rel="stylesheet" href="skins/_common/css/extjs/buttons.css" type="text/css" />';
 	
 	$ext .= "<style>
 	

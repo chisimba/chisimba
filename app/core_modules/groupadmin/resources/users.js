@@ -71,7 +71,7 @@ var sm3 = new Ext.grid.CheckboxSelectionModel({
 var addButton  = new Ext.Button({
             text:'Add Users',
             tooltip:'Add the selected User',
-            iconCls:'add',
+            iconCls:'silk-add',
 			id:'addtogroup',
             // Place a reference in the GridPanel
             //ref: '../../removeButton',
@@ -131,7 +131,7 @@ var usersGridPanel = new Ext.grid.GridPanel({
     	},
     	
 	plugins:[new Ext.ux.grid.Search({
-				 iconCls:'icon-zoom'
+				 iconCls:'zoom'
 				 //,readonlyIndexes:['emailaddress']
 				 //,disableIndexes:['username']
 				 ,minChars:3

@@ -1,10 +1,28 @@
 
 var pageSize = 25;
 var userOffset = 0;
-var selectedTab = "S";
+var selectedTab = "A";
 var selectedGroupId;
+var win;
 var myMask = new Ext.LoadMask(Ext.getBody(), {msg:"Please wait..."});
 
+//the main function 
+Ext.onReady(function(){
+	Ext.QuickTips.init();
+		
+	myBorderPanel.render('mainPanel');
+	
+	SiteAdminGrid.setVisible(false);
+
+	groupsGrid.getSelectionModel().on('rowselect', function(sm, ri, record)
+	{ 
+       SiteAdminGrid.setVisible(true);
+       selectedGroupId = record.data.id;
+       loadGroup(record.data.id, record.data.groupname, record.data.grouptitle);
+      
+    });       
+
+});
 
 ///////////////////////////
 ///// Tab Panels //////////
@@ -228,7 +246,7 @@ var scrollMenu = new Ext.menu.Menu();
 var rmButton = new Ext.Button({
             text:'Remove User',
             tooltip:'Remove the selected User',
-            iconCls:'remove',
+            iconCls:'silk-delete',
 			id:'rmgroup',
             // Place a reference in the GridPanel
             ref: '../../removeButton',
@@ -238,14 +256,14 @@ var rmButton = new Ext.Button({
             }
         });
         
-var win;
+
 
 // The toolbar for the user grid
 var toolBar = new Ext.Toolbar({
 	items:[{
             text:'Add User',
             tooltip:'Add a User to this group',
-            iconCls:'add',
+            iconCls: 'silk-add',
             handler: function (){
 	        	if(!win){
 		            win = new Ext.Window({
@@ -265,8 +283,7 @@ var toolBar = new Ext.Toolbar({
         }, '-',rmButton, 
         '-', 
         {
-        	icon: 'preview.png',        
-        	cls: 'x-btn-text-icon',
+        	iconCls: 'blist',
         	text: 'Sub Groups',
         	menu: scrollMenu
         }]
@@ -302,7 +319,7 @@ var groupsGrid = new Ext.grid.GridPanel({
 	 	collapsible: true,   // make collapsible
     	cmargins: '10 10 10 10', // adjust top margin when collapsed
     	id: 'west-region-container',
-    	//layout: 'fit',
+    	layout: 'fit',
 		
 		width:450,
         height:300,
@@ -311,7 +328,7 @@ var groupsGrid = new Ext.grid.GridPanel({
         title:'Groups starting with ',
         iconCls:'icon-grid',
         loadMask: true,
-		stripeRows: true,
+		//stripeRows: true,
 		sm: new Ext.grid.RowSelectionModel({singleSelect:true}),
         // grid columns            
     	bbar: groupsPageNavigation,
@@ -407,40 +424,7 @@ var myBorderPanel = new Ext.Panel({
     items: [alphaTab, groupsGrid, SiteAdminGrid]
 });
 
-//the main function 
-Ext.onReady(function(){
-	Ext.QuickTips.init();
-	
 
-
-	
-	//render the alphabet list
-	//alphaTab.render('alphabet');	 
-	myBorderPanel.render('mainPanel');
-	SiteAdminGrid.setVisible(false);
-	//navigationTabs.render('main-interface');
-	alphaGroupStore.on('beforeload', function(opt){
-		//alert(opt.params);
-		//alphaGroupStore.setBaseParam('params', {start});
-		//alphaGroupStore.load({params:{limit:25, offset:0, letter: selectedTab}});
-	});
-	
-	groupsGrid.getSelectionModel().on('rowselect', function(sm, ri, record)
-	{ 
-        
-        //submissionsPanel.expand(true);
-        //submissionsGrid.setVisible(true);
-       //alert('Groups selected'+record.data.id);
-       SiteAdminGrid.setVisible(true);
-       selectedGroupId = record.data.id;
-       loadGroup(record.data.id, record.data.groupname, record.data.grouptitle);
-        //submissionsStore.load({params: {title:record.data.title}});
-        //submissionsGrid.setTitle('Submissions for - '+record.data.title);
-        //Ext.example.msg('Success!', record.data.title);
-    });
-       
-
-});
 
 
 ////////////////////////////////
@@ -485,6 +469,7 @@ function loadSubgroupMenu(records){
     for (var i = 0; i < records.length; ++i){
         scrollMenu.add({
             text: records[i].data.name,
+             iconCls:'groups',
             itemId: records[i].data.groupid,
             handler: onSubGroupClick
         });
