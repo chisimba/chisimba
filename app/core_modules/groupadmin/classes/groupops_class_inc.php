@@ -99,9 +99,9 @@ class groupops extends object
 				us.firstName, us.surname, us.username,
 				us.last_login, us.logins, us.emailAddress
 				from tbl_perms_groupusers as gu
-				left join tbl_perms_perm_users as pu
+				INNER join tbl_perms_perm_users as pu
 				on gu.perm_user_id = pu.perm_user_id
-				left join tbl_users as us
+				INNER join tbl_users as us
 				on pu.auth_user_id = us.userId
 				WHERE group_id = ".$groupId."				
 				ORDER BY us.surname ".$filter;
