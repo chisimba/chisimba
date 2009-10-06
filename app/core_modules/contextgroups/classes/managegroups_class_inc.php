@@ -366,20 +366,45 @@ class manageGroups extends object
     */
     function rolecontextcodes($userId,$role)
     {
+    	
         // Get the users PKId.
-        $userId = $this->_objUser->PKId( $userId );
-        // Get all contextcodes
-        $objContext = $this->getObject('dbcontext','context');
-        $arrcontextcodeRows = $objContext->getAll();
+        //$userId = $this->_objUser->userId()
+        //var_dump($this->_objUser->userId());die;
+        $sql = "SELECT gr.group_define_name 
+				FROM tbl_perms_groups as gr
+				INNER JOIN tbl_perms_groupusers as gu
+				ON gr.group_id = gu.group_id
+				INNER JOIN tbl_perms_perm_users as us
+				ON gu.perm_user_id = us.perm_user_id
+				WHERE us.auth_user_id = ".$userId."
+				AND gr.group_define_name LIKE '%^".$role."'";
+        
+        $recs = $this->_objDBContext->getArray($sql);
+        
+        if(count($recs) > 0)
+        {
+        	 $arrcontextcodes = array();
+        	foreach ($recs as $group) {
+        		
+        		$gname =substr_replace($group['group_define_name'], "",strpos($group['group_define_name'], "^"));// substr_replace("^","",$pos, $group['group_define_name']);
+        		$arrcontextcodes[] = $gname;
+        	}
+        }else {
+        	return array();
+        }
+        return  $arrcontextcodes;
+        var_dump($recs);die;
+        // Get all contextcodes      
+        $arrcontextcodeRows = $this->_objDBContext->getArray("SELECT contextcode from tbl_context");
 
-        $arrcontextcodes = array();
+       
 
         // Now check for membership
         foreach( $arrcontextcodeRows as $row ) {
             // Corrosponding groupId
             $groupId = $this->_objGroupAdmin->getLeafId(array($row['contextcode'],$role));
             // Check membership
-            $isMember = $this->_objGroupAdmin->isSubGroupMember($userId,$groupId);
+            $isMember = false;//$this->_objGroupAdmin->isSubGroupMember($userId,$groupId);
             // if member add to list
             if( $isMember ) {
                 $arrcontextcodes[] = $row['contextcode'];
