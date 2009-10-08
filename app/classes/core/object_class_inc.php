@@ -440,6 +440,13 @@ class object
         $this->objLu = $this->objEngine->getLu();
     }
 
+    public function toString() {
+        $objectvars = get_object_vars($this);
+        foreach($objectvars as $key => $value)
+            $content .= $key ."='". $value. "'; ";
+        return "Instance of " . get_class($this) ."; Properties: ". $content;
+    }
+
 
 }
 ?>
