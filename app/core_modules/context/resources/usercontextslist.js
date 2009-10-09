@@ -72,7 +72,7 @@ var usercontextdata = new Ext.data.JsonStore({
         viewConfig: {
             forceFit:true,
             enableRowBody:true,
-            showPreview:true,
+            showPreview:false,
             getRowClass : function(record, rowIndex, p, store){
                 if(this.showPreview){
                     p.body = '<p><b>'+record.data.accessTitle+': '+record.data.access+'</b></p>';
