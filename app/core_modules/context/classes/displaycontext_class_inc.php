@@ -85,6 +85,7 @@ class displaycontext extends object {
     public function init() {
         $this->objContextImage = $this->getObject ( 'contextimage' );
         $this->objUser = $this->getObject ( 'user', 'security' );
+        $this->objContext = $this->getObject ( 'dbcontext' );
         $this->objUserContext = $this->getObject ( 'usercontext' );
         $this->loadClass ( 'link', 'htmlelements' );
         $this->loadClass ( 'htmlheading', 'htmlelements' );
@@ -237,6 +238,98 @@ class displaycontext extends object {
             return $header->show () . $content;
         }
 
+    }
+    /**
+     * Method to display the information of a context
+     *
+     * @param array $context
+     * @return array
+     */
+    public function jsonContextDisplayBlock( $context ) {
+        $canEdit = FALSE;
+
+        // Flag on whether to show link for private courses
+        $showLink = FALSE;
+        $disablePrivateAccess = FALSE;
+
+        if (! $disablePrivateAccess) {
+            // If admin, show link
+			         $access = $this->objDBContext->getField('access', $context ['contextcode']);
+            if ($this->objUser->isAdmin () || 
+					in_array ( $context ['contextcode'], $this->userContexts ) || 
+					$access == 'Public' ||
+					$access == 'Open' ) {
+                $showLink = TRUE;
+            }
+        }
+
+        if ($showLink) {
+            $link = new link ( $this->uri ( array ('action' => 'joincontext', 'contextcode' => $context ['contextcode'] ) ) );
+            $link->link = $context ['title'];
+        } else {
+            $link = new link ( 'javascript:contextPrivate();' );
+            $link->link = $context ['title'];
+        }
+        $courseInfoArray = array();
+        $title = $link->show ();
+        $courseInfoArray['code'] = $context ['contextcode'];
+        $courseInfoArray['coursecode'] = ucwords ( $this->objLanguage->code2Txt ( 'mod_context_contextcode', 'system', NULL, '[-context-] Code' ) ).' : ' . $context ['contextcode'];
+        $courseInfoArray['title'] = $context ['title'];
+        $lecturers = $this->objUserContext->getContextLecturers ( $context ['contextcode'] );
+        if (count ( $lecturers ) > 0) {
+            $str = "";
+            $courseInfoArray['lecturerTitle'] .= ucwords ( $this->objLanguage->code2Txt ( 'word_lecturers', 'system', NULL, '[-authors-]' ) ) ;
+            $divider = '';
+
+            foreach ( $lecturers as $lecturer ) {
+                $str = $divider . $lecturer ['firstname'] . ' ' . $lecturer ['surname'];
+                $divider = ', ';
+
+                if ($this->objUser->userId () == $lecturer ['userid']) {
+                    $canEdit = TRUE;
+                }
+            }
+            $courseInfoArray['lecturers'] = $str;
+        }
+
+        switch (strtolower ( $context ['access'] )) {
+            case 'public' :
+                $access = $this->objLanguage->code2Txt ( 'mod_context_publiccontextexplanation', 'context', NULL, 'This is an open [-context-] that any user may enter' );
+                break;
+
+            case 'open' :
+                $access = $this->objLanguage->code2Txt ( 'mod_context_opencontextexplanation', 'context', NULL, 'This is an open [-context-] that any logged-in user may enter' );
+                break;
+
+            default :
+                $access = $this->objLanguage->code2Txt ( 'mod_context_privatecontextexplanation', 'context', NULL, 'This is a closed [-context-] only accessible to members' );
+                break;
+        }
+        $courseInfoArray['accessTitle'] = ucwords ( $this->objLanguage->languageText ( 'mod_context_accessettings', 'context', 'Access Settings' ) );
+        $courseInfoArray['access'] = $context ['access'] .' - '. $access;
+
+        return $courseInfoArray;
+
+    }
+    /**
+     * Added by Paul Mungai
+     * Method to display the user context for json
+     * @param array $jsonContext
+     * @return array
+     */
+    public function jsonContextOutput( $userContexts ) {
+     	$objUserContext = $this->getObject('usercontext', 'context');
+     	$countUserContexts = $objUserContext->getUserContext($this->objUser->userId());
+     	$activityCount = ( count ( $countUserContexts ) );
+      $str = '{"contextCount":"'.$activityCount.'","userContexts":[';
+      $contextArray = array();
+    	 foreach( $userContexts as $userContext ){
+    	  $thisContext = $this->objContext->getContext( $userContext );
+
+       $contxtDetails = $this->jsonContextDisplayBlock( $thisContext );
+    			$contextArray[] = $contxtDetails;
+    	 }
+      return json_encode(array('contextCount' => $activityCount, 'usercourses' =>  $contextArray));
     }
 }
 

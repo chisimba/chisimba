@@ -84,6 +84,14 @@ class usercontext extends object {
     public function getUserContext($userId) {
         return $this->objGroups->usercontextcodes ( $userId );
     }
+    /**
+     * Method to get the list of Contexts that a user belongs to
+     *
+     * @param string $userId User Id
+     */
+    public function jsonUserCourses($userId, $start, $limit) {
+        return $this->objGroups->usercontextcodeslimited ( $userId, $start, $limit );
+    }
 
     /**
      * Method to determine whether a user is a member of a context or not.

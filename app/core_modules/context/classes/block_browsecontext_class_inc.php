@@ -81,8 +81,7 @@ class block_browsecontext extends object
             $this->objLanguage =  $this->getObject('language', 'language');
             $this->objUser =  $this->getObject('user', 'security');
             $this->title = ucwords($this->objLanguage->code2Txt('mod_context_browseallcontexts', 'context', NULL, 'Browse All [-contexts-]'));
-            //$this->title = ucWords($this->objLanguage->code2Txt("mod_context_contexts",'context'));
-            
+            //$this->title = ucWords($this->objLanguage->code2Txt("mod_context_contexts",'context'));            
             
             $this->loadClass('checkbox', 'htmlelements');
         } catch (customException $e) {
@@ -116,6 +115,7 @@ class block_browsecontext extends object
         $ext =$this->getJavaScriptFile('ext-3.0-rc2/adapter/ext/ext-base.js', 'htmlelements');
         $ext .=$this->getJavaScriptFile('ext-3.0-rc2/ext-all.js', 'htmlelements');
         $ext .=$this->getJavaScriptFile('search.js', 'context');
+        $ext .=$this->getJavaScriptFile('usercontextslist.js', 'context');
         //$ext .=$this->getJavaScriptFile('ext-3.0-rc2/examples/grid/paging.js', 'htmlelements');
         $ext .=$this->getJavaScriptFile('ext-3.0-rc2/examples/shared/examples.js', 'htmlelements');
        
@@ -127,13 +127,15 @@ class block_browsecontext extends object
         $this->appendArrayVar('headerParams', '
         	<script type="text/javascript">
         		var uri = "'.str_replace('&amp;','&',$this->uri(array('action' => 'jsonlistcontext', 'module' => 'context'))).'"; 
+        		var usercontexturi = "'.str_replace('&amp;','&',$this->uri(array('action' => 'jsonusercontexts', 'module' => 'context'))).'"; 
         		var baseuri = "'.$objSysConfig->getsiteRoot().'index.php";
         		contextPrivateMessage="'.$this->objLanguage->code2Txt('mod_context_privatecontextexplanation', 'context', NULL, 'This is a closed [-context-] only accessible to members').'"; </script>');
         
         $objTab->addTab(array(
                 'name' =>ucWords($this->objLanguage->code2Txt('phrase_mycourses', 'system', NULL, 'My [-contexts-]')) ,
-                'content' => $str2
+                'content' => '<div id="courses-grid"></div>'
             ));
+            //'content' => '<div id="courses-grid"></div>'.$str2
         $objTab->addTab(array(
                 'name' =>ucWords($this->objLanguage->code2Txt('phrase_othercourses', 'system', NULL, 'Other [-contexts-]')) ,
                 'content' => $str

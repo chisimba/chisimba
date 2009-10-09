@@ -559,6 +559,29 @@ class context extends controller {
         }        
         
     }
+     /**
+     * Added by Paul Mungai
+     * Method to list all user contexts
+     * @access protected
+     */
+    protected function __jsonusercontexts()
+    {    
+     $start = $this->getParam('contextstart');
+     if (empty($start)){
+      $start = 0;
+     } 
+     $limit = $this->getParam('contextlimit');
+     if (empty($limit)){
+      $limit = 20;
+     } 
+    	$objUserContext = $this->getObject('usercontext', 'context');
+    	$objDisplayContext = $this->getObject ( 'displaycontext', 'context' );
+    	$userContexts = $objUserContext->jsonUserCourses($this->objUser->userId(), $start, $limit);
+    	if ( count ( $userContexts ) > 0 ){
+      echo $objDisplayContext->jsonContextOutput( $userContexts );
+    	 exit(0);
+    	}
+    }
     
      /**
      * Method to get all contexts via ajax
