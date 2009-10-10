@@ -255,10 +255,10 @@ class xmlrpcapi extends object
             $this->objDocConvert = $this->getObject('documentconversionapi');
             // IM API
             $this->objImAPI = $this->getObject('imapi');
-			// Security API
-			$this->objSecurityApi = $this->getObject('securityapi');
-			// MXit Dictionary API
-			$this->objMxitDictionary = $this->getObject('mxitdictionaryapi');
+//			// Security API
+//			$this->objSecurityApi = $this->getObject('securityapi');
+//			// MXit Dictionary API
+//			$this->objMxitDictionary = $this->getObject('mxitdictionaryapi');
 
         }
         catch (customException $e)
@@ -938,22 +938,22 @@ class xmlrpcapi extends object
                                                     'docstring' => 'Grabs a base64 encoded string from skype to save to users dir'),
 							// security module public method(s)
 
-							'security.GetActiveUserCount' => array('function' => array($this->objSecurityApi, 'getActiveUsers'), 
-													'signature'=> array(
-																		array('integer'),), 
-													'docstring' => 'Gets the number of active users on the site'),
+							//'security.GetActiveUserCount' => array('function' => array($this->objSecurityApi, 'getActiveUsers'), 
+							//						'signature'=> array(
+							//											array('integer'),), 
+						//							'docstring' => 'Gets the number of active users on the site'),
                             
-							// MXit dictionary
-							'mxitdictionary.getDefinitionByWord' => array('function' => array($this->objMxitDictionary, 'getDefinition'),
-													'signiture'=>array(
-																		array('string', 'string'),),
-													'docstring'=>'Gets the mxit definition searched by word'),
-
-							'mxitdictionary.getAllWords' => array('function' => array($this->objMxitDictionary, 'getAll'),
-													'signiture'=>array(
-																		array('string', 'int', 'int', 'array'),),
-													'docstring'=>'Gets all the mxit words and thier definitions'),
-							// Document Conversion
+						//	// MXit dictionary
+						//	'mxitdictionary.getDefinitionByWord' => array('function' => array($this->objMxitDictionary, 'getDefinition'),
+						//							'signiture'=>array(
+						//												array('string', 'string'),),
+						//							'docstring'=>'Gets the mxit definition searched by word'),
+//
+//							'mxitdictionary.getAllWords' => array('function' => array($this->objMxitDictionary, 'getAll'),
+//													'signiture'=>array(
+//																		array('string', 'int', 'int', 'array'),),
+//													'docstring'=>'Gets all the mxit words and thier definitions'),
+//							// Document Conversion
 							'document.convertFile' => array('function' => array($this->objDocConvert, 'convertOpenOffice'),
                                                    'signature' => array(
                                                                     array('string', 'string', 'string', 'string', 'string', 'string'),
