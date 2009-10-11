@@ -312,6 +312,50 @@ class manageGroups extends object
         return $arrcontextcodes;
        
     }
+    /**
+    * Method to return all the contexts the user is a member of. Contains start and limit for json
+    * @param  string UserId
+    * @return array  List of all context codes the user is a member of.
+    */
+    function usercontextcodeslimited($userId=NULL, $start, $limit)
+    {
+        //sql to find the user's groups
+        $sql = "SELECT gu.group_id, gr.group_define_name 
+				from tbl_perms_groupusers as gu
+				LEFT JOIN tbl_perms_perm_users as pu
+				ON gu.perm_user_id = pu.perm_user_id
+				LEFT JOIN tbl_perms_groups as gr
+				ON gu.group_id = gr.group_id
+				WHERE pu.auth_user_id = '".$userId."' LIMIT ".$start.",".$limit;
+        
+        //get a list of groups this user belongs to
+        $userGroups =  $this->_objDBContext->getArray($sql);        
+      
+        //get the list of contexts
+        $arrcontextcodeRows = $this->_objDBContext->getArray('SELECT contextcode FROM tbl_context');
+        
+        $arrcontextcodes = array();
+        
+        //check if this user is part of this context
+        foreach($arrcontextcodeRows as $context)
+        {
+        	foreach($userGroups as $ug)
+        	{
+        		$gn = $ug['group_define_name'];        		
+        		
+        		//get everything before the ^ character
+        		$groupname = substr($gn,0,strpos($gn, '^'));
+        		
+        		if($groupname == $context['contextcode']){
+        			$arrcontextcodes[] = $context['contextcode'];
+        			break;
+        		}
+        	}
+        }
+        
+        return $arrcontextcodes;
+       
+    }
 
     /**
     * Method to return all the contexts the user is a member of.
