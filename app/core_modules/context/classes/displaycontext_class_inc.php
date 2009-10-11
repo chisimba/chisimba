@@ -282,7 +282,7 @@ class displaycontext extends object {
             $divider = '';
 
             foreach ( $lecturers as $lecturer ) {
-                $str = $divider . $lecturer ['firstname'] . ' ' . $lecturer ['surname'];
+                $str .= $divider . $lecturer ['firstname'] . ' ' . $lecturer ['surname'];
                 $divider = ', ';
 
                 if ($this->objUser->userId () == $lecturer ['userid']) {
