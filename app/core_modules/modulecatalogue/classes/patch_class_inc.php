@@ -278,16 +278,17 @@ class patch extends dbtable {
                                         throw new customException('error in patch data');
                                         break;
                                 }
-
-                                $field2change = array_keys($pData['change']);
-                                $existfields = $this->objModuleAdmin->listTblFields($update->table);
-                                foreach($field2change as $changes) {
-                                    if(in_array($changes, $existfields)) {
-                                        // return FALSE;
-                                        // No changes were needed so we bring the mod to the version specified
-                                        $patch = array('moduleid'=>$modname,'version'=>$ver,'tablename'=>$update->table,
+                                if(is_array($pData['change'])) {
+                                    $field2change = array_keys($pData['change']);
+                                    $existfields = $this->objModuleAdmin->listTblFields($update->table);
+                                    foreach($field2change as $changes) {
+                                        if(in_array($changes, $existfields)) {
+                                            // return FALSE;
+                                            // No changes were needed so we bring the mod to the version specified
+                                            $patch = array('moduleid'=>$modname,'version'=>$ver,'tablename'=>$update->table,
                                                        'patchdata'=>$pData,'applied'=>$this->objModule->now());
-                                        $this->objModule->insert($patch,'tbl_module_patches');
+                                            $this->objModule->insert($patch,'tbl_module_patches');
+                                        }
                                     }
                                 }
                                 if ($this->objModuleAdmin->alterTable($update->table,$pData,true) == true) {
