@@ -104,8 +104,8 @@ var contextdata = new Ext.data.JsonStore({
             pageSize: 10,
             store: contextdata,
             displayInfo: true,
-            displayMsg: 'Displaying topics {0} - {1} of {2}',
-            emptyMsg: "No topics to display",
+            displayMsg: 'Displaying courses {0} - {1} of {2}',
+            emptyMsg: "No courses to display",
             items:[
                 '-', {
                 pressed: false,

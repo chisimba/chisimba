@@ -114,8 +114,8 @@ class block_browsecontext extends object
         //Ext stuff
         $ext =$this->getJavaScriptFile('ext-3.0-rc2/adapter/ext/ext-base.js', 'htmlelements');
         $ext .=$this->getJavaScriptFile('ext-3.0-rc2/ext-all.js', 'htmlelements');
-        $ext .=$this->getJavaScriptFile('search.js', 'context');
         $ext .=$this->getJavaScriptFile('usercontextslist.js', 'context');
+        $ext .=$this->getJavaScriptFile('search.js', 'context');
         //$ext .=$this->getJavaScriptFile('ext-3.0-rc2/examples/grid/paging.js', 'htmlelements');
         $ext .=$this->getJavaScriptFile('ext-3.0-rc2/examples/shared/examples.js', 'htmlelements');
        
@@ -126,8 +126,8 @@ class block_browsecontext extends object
         
         $this->appendArrayVar('headerParams', '
         	<script type="text/javascript">
-        		var uri = "'.str_replace('&amp;','&',$this->uri(array('action' => 'jsonlistcontext', 'module' => 'context'))).'"; 
-        		var usercontexturi = "'.str_replace('&amp;','&',$this->uri(array('action' => 'jsonusercontexts', 'module' => 'context'))).'"; 
+        		var uri = "'.str_replace('&amp;','&',$this->uri(array('module' => 'context', 'action' => 'jsonlistcontext'))).'"; 
+        		var usercontexturi = "'.str_replace('&amp;','&',$this->uri(array('module' => 'context', 'action' => 'jsonusercontexts'))).'"; 
         		var baseuri = "'.$objSysConfig->getsiteRoot().'index.php";
         		contextPrivateMessage="'.$this->objLanguage->code2Txt('mod_context_privatecontextexplanation', 'context', NULL, 'This is a closed [-context-] only accessible to members').'"; </script>');
         

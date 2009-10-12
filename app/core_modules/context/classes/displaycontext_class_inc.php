@@ -278,7 +278,7 @@ class displaycontext extends object {
         $lecturers = $this->objUserContext->getContextLecturers ( $context ['contextcode'] );
         if (count ( $lecturers ) > 0) {
             $str = "";
-            $courseInfoArray['lecturerTitle'] .= ucwords ( $this->objLanguage->code2Txt ( 'word_lecturers', 'system', NULL, '[-authors-]' ) ) ;
+            $courseInfoArray['lecturertitle'] .= ucwords ( $this->objLanguage->code2Txt ( 'word_lecturers', 'system', NULL, '[-authors-]' ) ) ;
             $divider = '';
 
             foreach ( $lecturers as $lecturer ) {
@@ -305,7 +305,7 @@ class displaycontext extends object {
                 $access = $this->objLanguage->code2Txt ( 'mod_context_privatecontextexplanation', 'context', NULL, 'This is a closed [-context-] only accessible to members' );
                 break;
         }
-        $courseInfoArray['accessTitle'] = ucwords ( $this->objLanguage->languageText ( 'mod_context_accessettings', 'context', 'Access Settings' ) );
+        $courseInfoArray['accesstitle'] = ucwords ( $this->objLanguage->languageText ( 'mod_context_accessettings', 'context', 'Access Settings' ) );
         $courseInfoArray['access'] = $context ['access'] .' - '. $access;
 
         return $courseInfoArray;
@@ -321,7 +321,7 @@ class displaycontext extends object {
      	$objUserContext = $this->getObject('usercontext', 'context');
      	$countUserContexts = $objUserContext->getUserContext($this->objUser->userId());
      	$activityCount = ( count ( $countUserContexts ) );
-      $str = '{"contextCount":"'.$activityCount.'","userContexts":[';
+      $str = '{"contextcount":"'.$activityCount.'","usercontexts":[';
       $contextArray = array();
     	 foreach( $userContexts as $userContext ){
     	  $thisContext = $this->objContext->getContext( $userContext );
@@ -329,7 +329,7 @@ class displaycontext extends object {
        $contxtDetails = $this->jsonContextDisplayBlock( $thisContext );
     			$contextArray[] = $contxtDetails;
     	 }
-      return json_encode(array('contextCount' => $activityCount, 'usercourses' =>  $contextArray));
+      return json_encode(array('contextcount' => $activityCount, 'usercourses' =>  $contextArray));
     }
 }
 

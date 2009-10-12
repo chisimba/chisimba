@@ -12,10 +12,10 @@ Ext.onReady(function(){
    
 var usercontextdata = new Ext.data.JsonStore({
         root: 'usercourses',
-        totalProperty: 'contextCount',
+        totalProperty: 'contextcount',
         idProperty: 'code',
         remoteSort: false,        
-        fields: ['code', 'coursecode', 'title', 'lecturerTitle', 'lecturers', 'accessTitle','access' ],
+        fields: ['code', 'coursecode', 'title', 'lecturertitle', 'lecturers', 'accesstitle','access' ],
         proxy: new Ext.data.HttpProxy({        	 	
             	url: usercontexturi
         }),
@@ -28,7 +28,7 @@ var usercontextdata = new Ext.data.JsonStore({
     			}
     	},
 	});
-	 usercontextdata.setDefaultSort('code', 'desc');
+	 usercontextdata.setDefaultSort('title', 'asc');
 	 
     // pluggable renders
     function renderTitle(value, p, record){
@@ -36,10 +36,10 @@ var usercontextdata = new Ext.data.JsonStore({
         		'<b><a href="'+baseuri+'?module=context&action=joincontext&contextcode={1}">{0}</a></b>', value, record.data.code);
     }
 
-    var mygrid = new Ext.grid.GridPanel({
+    var usergrid = new Ext.grid.GridPanel({
         el:'courses-grid',
         width:700,
-        height:300,
+        height:350,
         title:'My Courses',
         store: usercontextdata,
         trackMouseOver:false,
@@ -54,7 +54,7 @@ var usercontextdata = new Ext.data.JsonStore({
             width: 100,            
             sortable: true
         },{
-            id: 'topic', // id assigned so we can apply custom css (e.g. .x-grid-col-topic b { color:#333 })
+            id: 'code', // id assigned so we can apply custom css (e.g. .x-grid-col-topic b { color:#333 })
             header: "Title",
             dataIndex: 'title',
             width: 320,
@@ -75,7 +75,7 @@ var usercontextdata = new Ext.data.JsonStore({
             showPreview:false,
             getRowClass : function(record, rowIndex, p, store){
                 if(this.showPreview){
-                    p.body = '<p><b>'+record.data.accessTitle+': '+record.data.access+'</b></p>';
+                    p.body = '<p><b>'+record.data.accesstitle+' </b></p><p>'+record.data.access+'</p>';
                     return 'x-grid3-row-expanded';
                 }
                 return 'x-grid3-row-collapsed';
@@ -84,7 +84,7 @@ var usercontextdata = new Ext.data.JsonStore({
 
         // paging bar on the bottom
         bbar: new Ext.PagingToolbar({
-            pageSize: 10,
+            pageSize: 15,
             store: usercontextdata,
             displayInfo: true,
             displayMsg: 'Displaying courses {0} - {1} of {2}',
@@ -96,7 +96,7 @@ var usercontextdata = new Ext.data.JsonStore({
                 text: 'Show Access Details',
                 cls: 'x-btn-text-icon details',
                 toggleHandler: function(btn, pressed){
-                    var view = mygrid.getView();
+                    var view = usergrid.getView();
                     view.showPreview = pressed;
                     view.refresh();
                 }
@@ -105,8 +105,8 @@ var usercontextdata = new Ext.data.JsonStore({
     });
 
     // render it
-    mygrid.render();
+    usergrid.render();
 
     // trigger the data store load
-    usercontextdata.load({params:{contextstart:0, contextlimit:10}});
+    usercontextdata.load({params:{start:0, limit:15}});
 });

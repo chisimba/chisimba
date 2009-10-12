@@ -566,17 +566,17 @@ class context extends controller {
      */
     protected function __jsonusercontexts()
     {    
-     $start = $this->getParam('contextstart');
-     if (empty($start)){
-      $start = 0;
+     $ctstart = $this->getParam('start');
+     if (empty($ctstart)){
+      $ctstart = 0;
      } 
-     $limit = $this->getParam('contextlimit');
-     if (empty($limit)){
-      $limit = 20;
+     $ctlimit = $this->getParam('limit');
+     if (empty($ctlimit)){
+      $ctlimit = 15;
      } 
     	$objUserContext = $this->getObject('usercontext', 'context');
     	$objDisplayContext = $this->getObject ( 'displaycontext', 'context' );
-    	$userContexts = $objUserContext->jsonUserCourses($this->objUser->userId(), $start, $limit);
+    	$userContexts = $objUserContext->jsonUserCourses($this->objUser->userId(), $ctstart, $ctlimit);
     	if ( count ( $userContexts ) > 0 ){
       echo $objDisplayContext->jsonContextOutput( $userContexts );
     	 exit(0);
