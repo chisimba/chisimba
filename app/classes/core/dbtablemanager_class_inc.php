@@ -161,7 +161,7 @@ class dbTableManager extends object
         $this->appid = $this->objEngine->appid;
 
         // instantiate the MDB2 Management module
-       // $this->_db = $this->_db->loadModule('Manager');
+        //$this->_db = $this->_db->loadModule('Manager');
 
         // call_user_func($var_dump, $this->_dbmanager);
     }
@@ -262,6 +262,15 @@ class dbTableManager extends object
                 return FALSE;
         }
     }
+
+    /**
+     * Method to get a list of the fields in a table
+     *
+     * @param $table string Required
+     */
+     public function listTblFields($table) {
+         return $this->_db->mgListTableFields($table);
+     }
 
     /**
      * Method to get the debug strings from queries if neccessary
