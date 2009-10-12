@@ -303,12 +303,11 @@ class manageGroups extends object
         		$groupname = substr($gn,0,strpos($gn, '^'));
         		
         		if($groupname == $context['contextcode']){
-        			$arrcontextcodes[] = $context['contextcode'];
+        			$arrcontextcodes[] = $context['contextcode'];        		 
         			break;
         		}
         	}
         }
-        
         return $arrcontextcodes;
        
     }
