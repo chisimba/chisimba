@@ -84,7 +84,7 @@ var usercontextdata = new Ext.data.JsonStore({
 
         // paging bar on the bottom
         bbar: new Ext.PagingToolbar({
-            pageSize: 15,
+            pageSize: 100,
             store: usercontextdata,
             displayInfo: true,
             displayMsg: 'Displaying courses {0} - {1} of {2}',
