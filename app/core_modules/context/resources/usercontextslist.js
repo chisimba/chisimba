@@ -108,5 +108,5 @@ var usercontextdata = new Ext.data.JsonStore({
     usergrid.render();
 
     // trigger the data store load
-    usercontextdata.load({params:{start:0, limit:15}});
+    usercontextdata.load({params:{start:0, limit:100}});
 });
