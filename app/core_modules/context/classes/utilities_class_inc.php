@@ -681,7 +681,7 @@ function getContexts()
      * @param unknown_type $limit
      * @return unknown
      */
-    public function jsonListContext($start=0, $limit=10)
+    public function jsonListContext($start=0, $limit=25)
     {    	
     	$start = (empty($start)) ? 0 : $start;
     	$limit = (empty($limit)) ? 25 : $limit;

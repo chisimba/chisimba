@@ -7,7 +7,7 @@
  */
 
 Ext.onReady(function(){
-
+var pageSize = 25;
    
 var contextdata = new Ext.data.JsonStore({
         root: 'courses',
@@ -44,12 +44,13 @@ var contextdata = new Ext.data.JsonStore({
     var grid = new Ext.grid.GridPanel({
         el:'topic-grid',
         width:700,
-        height:300,
+        height:400,
         title:'Browse Courses',
         store: contextdata,
         trackMouseOver:false,
         disableSelection:true,
         loadMask: true,
+        autoScroll:true,
 
         // grid columns
         columns:[
@@ -101,7 +102,7 @@ var contextdata = new Ext.data.JsonStore({
 
         // paging bar on the bottom
         bbar: new Ext.PagingToolbar({
-            pageSize: 10,
+            pageSize: pageSize,
             store: contextdata,
             displayInfo: true,
             displayMsg: 'Displaying courses {0} - {1} of {2}',
@@ -125,5 +126,5 @@ var contextdata = new Ext.data.JsonStore({
     grid.render();
 
     // trigger the data store load
-    contextdata.load({params:{start:0, limit:10}});
+    contextdata.load({params:{start:0, limit:pageSize}});
 });
