@@ -48,7 +48,7 @@ var othercontextdata = new Ext.data.JsonStore({
     }
 
     var othergrid = new Ext.grid.GridPanel({
-        el:'courses-grid',
+        //el:'courses-grid',
         width:700,
         height:350,
         title:'Courses',
@@ -177,7 +177,7 @@ function loadContexts(tabPanel, tab){
 	othercontextdata.load({params:{limit:10, offset:0, letter: tab.id}});	
 }
 
-
+/*
 Ext.onReady(function(){
     // render it
     othergrid.render();
@@ -185,3 +185,4 @@ Ext.onReady(function(){
     // trigger the data store load
     othercontextdata.load({params:{start:0, limit:500}});
 });
+*/

@@ -37,7 +37,7 @@ var usercontextdata = new Ext.data.JsonStore({
     }
 
     var usergrid = new Ext.grid.GridPanel({
-        el:'courses-grid',
+        //el:'courses-grid',
         width:700,
         height:350,
        // title:'My Courses',
@@ -103,10 +103,11 @@ var usercontextdata = new Ext.data.JsonStore({
             }]
         })
     });
+    /*
 Ext.onReady(function(){
     // render it
     usergrid.render();
 
     // trigger the data store load
     usercontextdata.load({params:{start:0, limit:500}});
-});
+});*/

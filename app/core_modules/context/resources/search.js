@@ -41,7 +41,7 @@ var contextdata = new Ext.data.JsonStore({
     }
 
     var grid = new Ext.grid.GridPanel({
-        el:'topic-grid',
+        //el:'topic-grid',
         width:700,
         height:400,
         title:'Browse Courses',
@@ -120,10 +120,10 @@ var contextdata = new Ext.data.JsonStore({
             }]
         })
     });
-Ext.onReady(function(){
+/*Ext.onReady(function(){
     // render it
     grid.render();
 
     // trigger the data store load
     contextdata.load({params:{start:0, limit:pageSize}});
-});
+});*/
