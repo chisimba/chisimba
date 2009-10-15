@@ -105,33 +105,37 @@ class block_browsecontext extends object
         $str = $this->objLanguage->languageText('word_browse', 'glossary', 'Browse').': '.$objNav->getAlphaListingAjax();
         $str2 = '<div id="browseusercontextcontent"></div>';
         $str .= '<div id="browsecontextcontent"></div>';
-        //$str3 = '<div id="browseallcontextcontent"></div>';
-        
+        $str3 = '<div id="browseallcontextcontent"></div>';
+		
         $str .= $this->getJavaScriptFile('contextbrowser.js');
-        $this->appendArrayVar('headerParams', $this->getJavaScriptFile('contextbrowser.js'));
-        $this->appendArrayVar('bodyOnLoad', "getContexts('A');getUserContexts();");
-        
-        //Ext stuff
-        $ext =$this->getJavaScriptFile('ext-3.0-rc2/adapter/ext/ext-base.js', 'htmlelements');
-        $ext .=$this->getJavaScriptFile('ext-3.0-rc2/ext-all.js', 'htmlelements');
-        $ext .=$this->getJavaScriptFile('usercontextslist.js', 'context');
-        $ext .=$this->getJavaScriptFile('search.js', 'context');
-        //$ext .=$this->getJavaScriptFile('ext-3.0-rc2/examples/grid/paging.js', 'htmlelements');
-        $ext .=$this->getJavaScriptFile('ext-3.0-rc2/examples/shared/examples.js', 'htmlelements');
-       
-        $ext .= '<link rel="stylesheet" href="'.$this->getResourceUri('ext-3.0-rc2/resources/css/ext-all.css', 'htmlelements').'" type="text/css" />';
-        $ext .= '<link rel="stylesheet" href="'.$this->getResourceUri('ext-3.0-rc2/examples/grid/grid-example.css', 'htmlelements').'" type="text/css" />';
-        $ext .= '<link rel="stylesheet" href="'.$this->getResourceUri('ext-3.0-rc2/examples/shared/examples.css', 'htmlelements').'" type="text/css" />';
-        $this->appendArrayVar('headerParams', $ext);
+        //$this->appendArrayVar('headerParams', $this->getJavaScriptFile('contextbrowser.js'));
+        //$this->appendArrayVar('bodyOnLoad', "getContexts('A');getUserContexts();");
         
         $this->appendArrayVar('headerParams', '
         	<script type="text/javascript">
-        		var uri = "'.str_replace('&amp;','&',$this->uri(array('module' => 'context', 'action' => 'jsonlistcontext'))).'"; 
-        		var usercontexturi = "'.str_replace('&amp;','&',$this->uri(array('module' => 'context', 'action' => 'jsonusercontexts'))).'"; 
+			var uri = "'.str_replace('&amp;','&',$this->uri(array('module' => 'context', 'action' => 'jsonlistcontext'))).'"; 
+        	var usercontexturi = "'.str_replace('&amp;','&',$this->uri(array('module' => 'context', 'action' => 'jsonusercontexts'))).'"; 
+			var othercontexturi = "'.str_replace('&amp;','&',$this->uri(array('module' => 'context', 'action' => 'jsonusercontexts'))).'"; 
         		var baseuri = "'.$objSysConfig->getsiteRoot().'index.php";
         		contextPrivateMessage="'.$this->objLanguage->code2Txt('mod_context_privatecontextexplanation', 'context', NULL, 'This is a closed [-context-] only accessible to members').'"; </script>');
+
+		//Ext stuff
+        $ext =$this->getJavaScriptFile('ext-3.0-rc2/adapter/ext/ext-base.js', 'htmlelements');
+        $ext .=$this->getJavaScriptFile('ext-3.0-rc2/ext-all.js', 'htmlelements');
+		$ext .=$this->getJavaScriptFile('othercontexts.js', 'context');
+        $ext .=$this->getJavaScriptFile('usercontextslist.js', 'context');
+		$ext .=$this->getJavaScriptFile('search.js', 'context');
+		$ext .=$this->getJavaScriptFile('extcontexbrowser.js', 'context');
+        //$ext .=$this->getJavaScriptFile('ext-3.0-rc2/examples/grid/paging.js', 'htmlelements');
+        //$ext .=$this->getJavaScriptFile('ext-3.0-rc2/examples/shared/examples.js', 'htmlelements');
+      
+        $ext .= '<link rel="stylesheet" href="'.$this->getResourceUri('ext-3.0-rc2/resources/css/ext-all.css', 'htmlelements').'" type="text/css" />';
+        $ext .= '<link rel="stylesheet" href="'.$this->getResourceUri('ext-3.0-rc2/examples/grid/grid-example.css', 'htmlelements').'" type="text/css" />';
+        $ext .= '<link rel="stylesheet" href="'.$this->getResourceUri('ext-3.0-rc2/examples/shared/examples.css', 'htmlelements').'" type="text/css" />';
+       $this->appendArrayVar('headerParams', $ext);
         
-        $objTab->addTab(array(
+        
+        /*$objTab->addTab(array(
                 'name' =>ucWords($this->objLanguage->code2Txt('phrase_mycourses', 'system', NULL, 'My [-contexts-]')) ,
                 'content' => '<div id="courses-grid"></div>'
             ));
@@ -139,20 +143,25 @@ class block_browsecontext extends object
         $objTab->addTab(array(
                 'name' =>ucWords($this->objLanguage->code2Txt('phrase_othercourses', 'system', NULL, 'Other [-contexts-]')) ,
                 'content' => $str
-            ) );
+            ) );*/
         
         //show all the course if you are admin
-        if ($this->objUser->isAdmin())
+        /*if ($this->objUser->isAdmin())
         {
 	        $objTab->addTab(array(
 	                'name' =>ucWords($this->objLanguage->code2Txt('phrase_allcourses', 'system', NULL, 'Search [-contexts-]')) ,
 	                'content' => '<div id="topic-grid"></div>'
 	            ) );	        
-        }
+        }*/
 
 /*            $objTab->addTab(ucWords($this->objLanguage->code2Txt('phrase_mycourses', 'system', NULL, 'My [-contexts-]')), $str2);
         $objTab->addTab(ucWords($this->objLanguage->code2Txt('phrase_othercourses', 'system', NULL, 'Other [-contexts-]')),$str);*/
-        return $objTab->show();
+		//return $objTab->show();
+		
+		return '<div id="contextbrowser"></div>
+				<div id="contextbrowser"></div>
+				<div id="contextbrowser"></div>';
+        
     }
 }
 ?>

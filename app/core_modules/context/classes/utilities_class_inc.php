@@ -713,5 +713,7 @@ function getContexts()
     	return json_encode(array('totalCount' => $allCount, 'courses' =>  $courses));
     	
     }
+
+	
 }
 ?>

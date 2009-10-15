@@ -695,7 +695,7 @@ class context extends controller {
     }
     
      /**
-     * Method to list all he context
+     * Method to list all the context
      *
      * @access protected
      */
@@ -705,6 +705,19 @@ class context extends controller {
     	echo $objUtils->jsonListContext($this->getParam('start'), $this->getParam('limit'));
     	exit(0);
     }
+ 	/**
+     * Method to list all the context
+     *
+     * @access protected
+     */
+	protected function __jsonlistallcontext()
+    {
+		$objUtils = $this->getObject('utilities');
+    	echo $objUtils->jsonListAllContext();
+    	exit(0);
+    }
+
+	
 }
 
 ?>

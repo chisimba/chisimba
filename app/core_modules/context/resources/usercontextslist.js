@@ -8,7 +8,7 @@
  * wandopm@gmail.com
  */
 
-Ext.onReady(function(){
+
    
 var usercontextdata = new Ext.data.JsonStore({
         root: 'usercourses',
@@ -103,7 +103,7 @@ var usercontextdata = new Ext.data.JsonStore({
             }]
         })
     });
-
+Ext.onReady(function(){
     // render it
     usergrid.render();
 

@@ -6,7 +6,6 @@
  * http://extjs.com/license
  */
 
-Ext.onReady(function(){
 var pageSize = 25;
    
 var contextdata = new Ext.data.JsonStore({
@@ -121,7 +120,7 @@ var contextdata = new Ext.data.JsonStore({
             }]
         })
     });
-
+Ext.onReady(function(){
     // render it
     grid.render();
 
