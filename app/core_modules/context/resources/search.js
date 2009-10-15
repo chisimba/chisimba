@@ -6,7 +6,7 @@
  * http://extjs.com/license
  */
 
-var pageSize = 25;
+
    
 var contextdata = new Ext.data.JsonStore({
         root: 'courses',

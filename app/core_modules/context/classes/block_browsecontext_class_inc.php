@@ -82,7 +82,7 @@ class block_browsecontext extends object
             $this->objUser =  $this->getObject('user', 'security');
             $this->title = ucwords($this->objLanguage->code2Txt('mod_context_browseallcontexts', 'context', NULL, 'Browse All [-contexts-]'));
             //$this->title = ucWords($this->objLanguage->code2Txt("mod_context_contexts",'context'));            
-            
+            $this->blockType = 'none';
             $this->loadClass('checkbox', 'htmlelements');
         } catch (customException $e) {
             customException::cleanUp();
@@ -160,7 +160,7 @@ class block_browsecontext extends object
 		
 		return '<div id="contextbrowser"></div>
 				<div id="contextbrowser"></div>
-				<div id="contextbrowser"></div>';
+				<div id="contextbrowser"></div><p>&nbsp;</p>';
         
     }
 }

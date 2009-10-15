@@ -40,7 +40,7 @@ var usercontextdata = new Ext.data.JsonStore({
         el:'courses-grid',
         width:700,
         height:350,
-        title:'My Courses',
+       // title:'My Courses',
         store: usercontextdata,
         trackMouseOver:false,
         disableSelection:true,
