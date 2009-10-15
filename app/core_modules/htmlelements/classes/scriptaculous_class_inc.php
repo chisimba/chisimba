@@ -37,26 +37,26 @@ class scriptaculous extends object
         
         // Load Prototype
         //$returnStr = $this->getJavascriptFile('prototype/1.5.0_rc1/prototype.js','htmlelements')."\n";
-        $returnStr = $this->getJavascriptFile('prototype/1.5.1/prototype.js','htmlelements')."\n";
+        $returnStr = $this->getJavascriptFile('scriptaculous/1.7.1_beta3/lib/prototype.js','htmlelements')."\n";
         
         // Load Builder
-        $returnStr .= $this->getJavascriptFile('scriptaculous/1.7.0/builder.js','htmlelements')."\n";
+        $returnStr .= $this->getJavascriptFile('scriptaculous/1.7.1_beta3/src/builder.js','htmlelements')."\n";
         
         // Load Effects
-        $returnStr .= $this->getJavascriptFile('scriptaculous/1.7.0/effects.js','htmlelements')."\n";
+        $returnStr .= $this->getJavascriptFile('scriptaculous/1.7.1_beta3/src/effects.js','htmlelements')."\n";
         
         // Load appropriate Drag-and-Drop
         if ($usingXHTML) {
             $returnStr .= $this->getJavascriptFile('scriptaculous/1.7.0/dragdrop_XHTML.js','htmlelements')."\n";
         } else {
-            $returnStr .= $this->getJavascriptFile('scriptaculous/1.7.0/dragdrop.js','htmlelements')."\n";
+            $returnStr .= $this->getJavascriptFile('scriptaculous/1.7.1_beta3/src/dragdrop.js','htmlelements')."\n";
         }
         
         // Load Controls
-        $returnStr .= $this->getJavascriptFile('scriptaculous/1.7.0/controls.js','htmlelements')."\n";
+        $returnStr .= $this->getJavascriptFile('scriptaculous/1.7.1_beta3/src/controls.js','htmlelements')."\n";
         
         // Load Slider
-        $returnStr .= $this->getJavascriptFile('scriptaculous/1.7.0/slider.js','htmlelements')."\n";
+        $returnStr .= $this->getJavascriptFile('scriptaculous/1.7.1_beta3/src/slider.js','htmlelements')."\n";
         
         
 //  Do not include the scriptaculous.js file

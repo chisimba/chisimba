@@ -108,7 +108,7 @@ class slider extends object
         $textinput->value = $this->value;
         $textinput->cssId = 'slider_'.$this->name;
         $textinput->size = strlen($this->maxValue)+1;
-        $textinput->extra = ' readonly="readonly"';
+        //$textinput->extra = ' readonly="readonly"';
         
         // Create Divs needed
         return '<div id="sliderbkg_'.$this->name.'" class="sliderbackground"><div id="sliderhandle_'.$this->name.'" class="sliderhandle"></div></div>'.$textinput->show();
