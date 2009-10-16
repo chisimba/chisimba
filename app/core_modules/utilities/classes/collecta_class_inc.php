@@ -25,6 +25,7 @@ class collecta extends object
     public $curl_options;
     
     public function init() {
+        $key = '066a0e2ff425a14416cdbe138a964349';
         $this->key = ($key) ? $key : null;
         $this->base_url = 'http://api.collecta.com/search';
  
@@ -105,39 +106,8 @@ class collecta extends object
         return $url;
     }
     
-    private function curl($url,  $headers = array(), $options = array()) {
-        if(isset($this->curl_headers)) {
-            $headers = $this->curl_headers;
-        }
-        if(isset($this->curl_options)) {
-            $options = $this->curl_options;
-        }
-        if(!isset($options['CURLOPT_TIMEOUT'])){
-            $options['CURLOPT_TIMEOUT'] = 5;
-        }
-        $this->objCurl->initializeCurl($url);
-        
-        $ch_options = array(
-            'CURLOPT_URL' => $url,
-            'CURLOPT_FOLLOWLOCATION' => false,
-            'CURLOPT_RETURNTRANSFER' => true,
-            'CURLOPT_HTTPHEADER' => $headers,
-        );
-      
-        foreach($options as $option=>$value) {
-            $ch_options[strtoupper($option)] = $value;
-        }
-    
-        foreach($ch_options as $option=>$value) {
-            if (is_string($option)) {
-                $option = constant(strtoupper($option));
-            }
-            $this->objCurl->setopt($option, $value);
-        }
-        
-        $raw = $this->objCurl->getUrl();
-        
-        return $raw;
+    public function curl($url) {
+        return $this->objCurl->exec($url);
     }
 }
 ?>
