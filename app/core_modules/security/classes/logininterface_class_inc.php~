@@ -38,7 +38,7 @@ if (!$GLOBALS['kewl_entry_point_run'])
 *
 * Class to render login box, register links, and do other pre login duties
 *
-* @version $Id: logininterface_class_inc.php 14548 2009-08-27 07:47:38Z paulscott $
+* @version $Id: logininterface_class_inc.php 13519 2009-05-23 08:55:03Z davidwaf $
 * @copyright 2003
 **/
 class loginInterface extends object
@@ -95,7 +95,8 @@ class loginInterface extends object
 
             // prepare the link for the oAuth providers 
             $box = $this->oauthDisp();
-            
+            $fb = $this->fbConnect();
+
             // Create a Form object
             $objForm = new form('loginform', $formAction);
             $objFields = new fieldset();
@@ -178,6 +179,23 @@ class loginInterface extends object
             $twiticon = $objIcon->getLinkedIcon($twitterObj->getAuthenticateUrl(), 'Sign-in-with-Twitter-lighter', 'png');
             $twitter = $twiticon;
             return $twitter.'<br />';
+        }
+        else {
+            return NULL;
+        }
+    }
+
+    public function fbConnect() {
+        $this->objMods = $this->getObject('modules', 'modulecatalogue');
+        $this->objDbSysconfig = $this->getObject('dbsysconfig', 'sysconfig');
+        $show = $this->objDbSysconfig->getValue('show_facebook_auth', 'security');
+        if($this->objMods->checkIfRegistered('facebookapps') && strtolower($show) == 'true' ) {
+             $apikey = $this->objDbSysconfig->getValue('api_key', 'facebookapps');
+             $fb = "<script src=\"http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php\" type=\"text/javascript\"></script>
+                    <fb:login-button></fb:login-button> 
+                    <script type=\"text/javascript\"> FB.init(\"$apikey\", \"xd_receiver.htm\"); 
+                    </script>";
+             return $fb;
         }
         else {
             return NULL;

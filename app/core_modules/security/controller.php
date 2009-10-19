@@ -42,7 +42,7 @@ class security extends controller {
     }
 
     function requiresLogin($action) {
-        $actions = array ('showlogin', 'login', 'logintwitter', 'error', 'needpassword', 'needpasswordconfirm', 'emailsent', 'generatenewcaptcha', 'oauthdisp' );
+        $actions = array ('showlogin', 'login', 'logintwitter', 'error', 'needpassword', 'needpasswordconfirm', 'emailsent', 'generatenewcaptcha', 'oauthdisp', 'fbconnect' );
 
         if (in_array ( $action, $actions )) {
             return FALSE;
@@ -60,6 +60,10 @@ class security extends controller {
             case 'logintwitter' :
                 $module = $this->getParam ( 'mod' );
                 return $this->doTwitterLogin ( $module );
+            case 'bbauthlogin' :
+                // log in via Yahoo! BBAuth
+
+                break;
             case 'logoff' :
                 return $this->doLogoff ();
             case 'error' :
@@ -74,6 +78,52 @@ class security extends controller {
                 return $this->emailSent ();
             case 'oauthdisp' :
                 echo $this->oauthDisp(); break;
+            case 'fbconnect' :
+                $this->objMods = $this->getObject('modules', 'modulecatalogue');
+                $this->objDbSysconfig = $this->getObject('dbsysconfig', 'sysconfig');
+                if($this->objMods->checkIfRegistered('facebookapps')) {
+                    $apikey = $this->objDbSysconfig->getValue('apikey', 'facebookapps');
+                    $secret = $this->objDbSysconfig->getValue('apisecret', 'facebookapps');
+                    include($this->getResourcePath('facebook.php','facebookapps'));
+                    
+                    $facebook = new Facebook($apikey, $secret);
+                    $uid = $facebook->get_loggedin_user(); 
+                    $user_details = $facebook->api_client->users_getInfo($uid, 'first_name, last_name, proxied_email, username, sex'); 
+                    // var_dump($user_details); die();
+                    $details = $user_details[0];
+                    $username = $details['username'];
+                    $p = explode("@", $details['proxied_email']);
+                    $password = $p[0];
+                    // try the login
+                    $objUModel = $this->getObject('useradmin_model2', 'security');
+                    $objUser = $this->getObject('user', 'security');
+                    $login = $this->objUser->authenticateUser($username, $password, FALSE);
+                    if(!$login) {
+                        // login failure, so new user. Lets create him in the system now and then log him in.
+                        $userid = $details['uid'];
+                        $title = '';
+                        $firstname = $details['first_name'];
+                        $surname = $details['last_name'];
+                        $email = $details['proxied_email'];
+                        $sex = $details['sex'];
+                        if($sex == 'male') {
+                            $sex = 'M';
+                        }
+                        else {
+                            $sex = 'F';
+                        }
+                        $country = '';
+                        $accountType = 'Facebook'; 
+                        $objUModel->addUser($userid, $username, $password, $title, $firstname, $surname, $email, $sex, $country, $cellnumber='', $staffnumber='', $accountType, '1');
+                        $this->objUser->authenticateUser($username, $password, FALSE);
+                        $this->nextAction('');
+                    }
+                    else {
+                        $this->nextAction('');
+                    }
+                   
+                }
+                break;
             case 'showlogin' :
             default :
                 return $this->showPreLoginModule ();

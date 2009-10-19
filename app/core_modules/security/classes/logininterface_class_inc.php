@@ -95,7 +95,8 @@ class loginInterface extends object
 
             // prepare the link for the oAuth providers 
             $box = $this->oauthDisp();
-            
+            $fb = $this->fbConnect();
+
             // Create a Form object
             $objForm = new form('loginform', $formAction);
             $objFields = new fieldset();
@@ -144,7 +145,7 @@ class loginInterface extends object
             // Set the button type to submit
             $objButton->setToSubmit();
             // Add the button to the form
-            $objFields->addContent($ldap.'<br />'.$rem.'<br />'.$box.'<br />'.$objButton->show().'<br/>');
+            $objFields->addContent($ldap.'<br />'.$rem.'<br />'.$box.'<br />'.$fb.'<br />'.$objButton->show().'<br/>');
             //$objForm->addToForm();
 
 
@@ -178,6 +179,23 @@ class loginInterface extends object
             $twiticon = $objIcon->getLinkedIcon($twitterObj->getAuthenticateUrl(), 'Sign-in-with-Twitter-lighter', 'png');
             $twitter = $twiticon;
             return $twitter.'<br />';
+        }
+        else {
+            return NULL;
+        }
+    }
+
+    public function fbConnect() {
+        $this->objMods = $this->getObject('modules', 'modulecatalogue');
+        $this->objDbSysconfig = $this->getObject('dbsysconfig', 'sysconfig');
+        $show = $this->objDbSysconfig->getValue('show_fbconnect_auth', 'security');
+        if($this->objMods->checkIfRegistered('facebookapps') && strtolower($show) == 'true' ) {
+             $apikey = $this->objDbSysconfig->getValue('apikey', 'facebookapps');
+             $fb = "<script src=\"http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php\" type=\"text/javascript\"></script>
+                    <fb:login-button size=\"large\" background=\"white\" length=\"short\" onlogin='window.location=\"index.php?module=security&action=fbconnect\";'></fb:login-button> 
+                    <script type=\"text/javascript\"> FB.init(\"$apikey\", \"xd_receiver.htm\", {\"ifUserConnected\":\"index.php?module=security&action=fbconnect\"}); 
+                    </script>";
+             return $fb;
         }
         else {
             return NULL;
