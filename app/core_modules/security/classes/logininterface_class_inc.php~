@@ -38,7 +38,7 @@ if (!$GLOBALS['kewl_entry_point_run'])
 *
 * Class to render login box, register links, and do other pre login duties
 *
-* @version $Id: logininterface_class_inc.php 15191 2009-10-19 09:15:11Z paulscott $
+* @version $Id: logininterface_class_inc.php 15198 2009-10-20 08:12:49Z paulscott $
 * @copyright 2003
 **/
 class loginInterface extends object
@@ -192,7 +192,7 @@ class loginInterface extends object
         if($this->objMods->checkIfRegistered('facebookapps') && strtolower($show) == 'true' ) {
              $apikey = $this->objDbSysconfig->getValue('apikey', 'facebookapps');
              $fb = "<script src=\"http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php\" type=\"text/javascript\"></script>
-                    <fb:login-button size=\"large\" background=\"white\" length=\"short\" onlogin='window.location=\"index.php?module=security&action=fbconnect\";'></fb:login-button> 
+                    <fb:login-button size=\"large\" autologoutlink=\"true\" background=\"white\" length=\"short\" onlogin='window.location=\"index.php?module=security&action=fbconnect\";'></fb:login-button> 
                     <script type=\"text/javascript\"> FB.init(\"$apikey\", \"xd_receiver.htm\", {\"ifUserConnected\":\"index.php?module=security&action=fbconnect\"}); 
                     </script>";
              return $fb;

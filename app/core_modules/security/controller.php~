@@ -13,7 +13,7 @@ if (! $GLOBALS ['kewl_entry_point_run']) {
  *
  * @author Sean Legassick
  *
- * $Id: controller.php 15191 2009-10-19 09:15:11Z paulscott $
+ * $Id: controller.php 15198 2009-10-20 08:12:49Z paulscott $
  */
 class security extends controller {
     public $objUser;
@@ -310,10 +310,11 @@ class security extends controller {
             $lo = $this->objLu->logout ();
         }
         if($fbshow == 'true') {
-            $fb = "<script src=\"http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php\" type=\"text/javascript\"></script> 
-                    <script type=\"text/javascript\"> FB.Connect.logout(); 
-                    </script>";
-            $this->facebook->logout($this->uri(''));
+            $apikey = $this->objDbSysconfig->getValue('apikey', 'facebookapps');
+            $secret = $this->objDbSysconfig->getValue('apisecret', 'facebookapps');
+            include($this->getResourcePath('facebook.php','facebookapps'));
+            $this->facebook = new Facebook($apikey, $secret);
+            $this->facebook->clear_cookie_state();
             $lo = $this->objLu->logout ();
         }
         else {
