@@ -13,7 +13,7 @@ if (! $GLOBALS ['kewl_entry_point_run']) {
  *
  * @author Sean Legassick
  *
- * $Id: controller.php 14468 2009-08-21 05:16:02Z paulscott $
+ * $Id: controller.php 15191 2009-10-19 09:15:11Z paulscott $
  */
 class security extends controller {
     public $objUser;
@@ -86,9 +86,9 @@ class security extends controller {
                     $secret = $this->objDbSysconfig->getValue('apisecret', 'facebookapps');
                     include($this->getResourcePath('facebook.php','facebookapps'));
                     
-                    $facebook = new Facebook($apikey, $secret);
-                    $uid = $facebook->get_loggedin_user(); 
-                    $user_details = $facebook->api_client->users_getInfo($uid, 'first_name, last_name, proxied_email, username, sex'); 
+                    $this->facebook = new Facebook($apikey, $secret);
+                    $uid = $this->facebook->get_loggedin_user(); 
+                    $user_details = $this->facebook->api_client->users_getInfo($uid, 'first_name, last_name, proxied_email, username, sex'); 
                     // var_dump($user_details); die();
                     $details = $user_details[0];
                     $username = $details['username'];
@@ -114,7 +114,7 @@ class security extends controller {
                         }
                         $country = '';
                         $accountType = 'Facebook'; 
-                        $objUModel->addUser($userid, $username, $password, $title, $firstname, $surname, $email, $sex, $country, $cellnumber='', $staffnumber='', $accountType='useradmin', $accountstatus='1');
+                        $objUModel->addUser($userid, $username, $password, $title, $firstname, $surname, $email, $sex, $country, $cellnumber='', $staffnumber='', $accountType, '1');
                         $this->objUser->authenticateUser($username, $password, FALSE);
                         $this->nextAction('');
                     }
@@ -300,12 +300,20 @@ class security extends controller {
      */
     function doLogoff() {
         $show = $this->objDbSysconfig->getValue('show_twitter_auth', 'security');
+        $fbshow = $this->objDbSysconfig->getValue('show_fbconnect_auth', 'security');
         if(strtolower($show) == 'true') {
             $this->consumer_key = $this->objDbSysconfig->getValue('twitter_consumer_key', 'security');
             $this->consumer_secret = $this->objDbSysconfig->getValue('twitter_consumer_secret', 'security');
             $this->objEpiTwitter = new EpiTwitter($this->consumer_key, $this->consumer_secret, $_COOKIE['oauth_token'], $_COOKIE['oauth_token_secret']);
 
             $this->objEpiTwitter->get_accountEnd_session();
+            $lo = $this->objLu->logout ();
+        }
+        if($fbshow == 'true') {
+            $fb = "<script src=\"http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php\" type=\"text/javascript\"></script> 
+                    <script type=\"text/javascript\"> FB.Connect.logout(); 
+                    </script>";
+            $this->facebook->logout($this->uri(''));
             $lo = $this->objLu->logout ();
         }
         else {

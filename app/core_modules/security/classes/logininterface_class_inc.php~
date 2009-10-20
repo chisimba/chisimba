@@ -38,7 +38,7 @@ if (!$GLOBALS['kewl_entry_point_run'])
 *
 * Class to render login box, register links, and do other pre login duties
 *
-* @version $Id: logininterface_class_inc.php 13519 2009-05-23 08:55:03Z davidwaf $
+* @version $Id: logininterface_class_inc.php 15191 2009-10-19 09:15:11Z paulscott $
 * @copyright 2003
 **/
 class loginInterface extends object
@@ -145,7 +145,7 @@ class loginInterface extends object
             // Set the button type to submit
             $objButton->setToSubmit();
             // Add the button to the form
-            $objFields->addContent($ldap.'<br />'.$rem.'<br />'.$box.'<br />'.$objButton->show().'<br/>');
+            $objFields->addContent($ldap.'<br />'.$rem.'<br />'.$box.'<br />'.$fb.'<br />'.$objButton->show().'<br/>');
             //$objForm->addToForm();
 
 
@@ -188,12 +188,12 @@ class loginInterface extends object
     public function fbConnect() {
         $this->objMods = $this->getObject('modules', 'modulecatalogue');
         $this->objDbSysconfig = $this->getObject('dbsysconfig', 'sysconfig');
-        $show = $this->objDbSysconfig->getValue('show_facebook_auth', 'security');
+        $show = $this->objDbSysconfig->getValue('show_fbconnect_auth', 'security');
         if($this->objMods->checkIfRegistered('facebookapps') && strtolower($show) == 'true' ) {
-             $apikey = $this->objDbSysconfig->getValue('api_key', 'facebookapps');
+             $apikey = $this->objDbSysconfig->getValue('apikey', 'facebookapps');
              $fb = "<script src=\"http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php\" type=\"text/javascript\"></script>
-                    <fb:login-button></fb:login-button> 
-                    <script type=\"text/javascript\"> FB.init(\"$apikey\", \"xd_receiver.htm\"); 
+                    <fb:login-button size=\"large\" background=\"white\" length=\"short\" onlogin='window.location=\"index.php?module=security&action=fbconnect\";'></fb:login-button> 
+                    <script type=\"text/javascript\"> FB.init(\"$apikey\", \"xd_receiver.htm\", {\"ifUserConnected\":\"index.php?module=security&action=fbconnect\"}); 
                     </script>";
              return $fb;
         }

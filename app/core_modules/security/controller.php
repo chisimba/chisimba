@@ -86,9 +86,9 @@ class security extends controller {
                     $secret = $this->objDbSysconfig->getValue('apisecret', 'facebookapps');
                     include($this->getResourcePath('facebook.php','facebookapps'));
                     
-                    $facebook = new Facebook($apikey, $secret);
-                    $uid = $facebook->get_loggedin_user(); 
-                    $user_details = $facebook->api_client->users_getInfo($uid, 'first_name, last_name, proxied_email, username, sex'); 
+                    $this->facebook = new Facebook($apikey, $secret);
+                    $uid = $this->facebook->get_loggedin_user(); 
+                    $user_details = $this->facebook->api_client->users_getInfo($uid, 'first_name, last_name, proxied_email, username, sex'); 
                     // var_dump($user_details); die();
                     $details = $user_details[0];
                     $username = $details['username'];
@@ -300,12 +300,21 @@ class security extends controller {
      */
     function doLogoff() {
         $show = $this->objDbSysconfig->getValue('show_twitter_auth', 'security');
+        $fbshow = $this->objDbSysconfig->getValue('show_fbconnect_auth', 'security');
         if(strtolower($show) == 'true') {
             $this->consumer_key = $this->objDbSysconfig->getValue('twitter_consumer_key', 'security');
             $this->consumer_secret = $this->objDbSysconfig->getValue('twitter_consumer_secret', 'security');
             $this->objEpiTwitter = new EpiTwitter($this->consumer_key, $this->consumer_secret, $_COOKIE['oauth_token'], $_COOKIE['oauth_token_secret']);
 
             $this->objEpiTwitter->get_accountEnd_session();
+            $lo = $this->objLu->logout ();
+        }
+        if($fbshow == 'true') {
+            $apikey = $this->objDbSysconfig->getValue('apikey', 'facebookapps');
+            $secret = $this->objDbSysconfig->getValue('apisecret', 'facebookapps');
+            include($this->getResourcePath('facebook.php','facebookapps'));
+            $this->facebook = new Facebook($apikey, $secret);
+            $this->facebook->clear_cookie_state();
             $lo = $this->objLu->logout ();
         }
         else {

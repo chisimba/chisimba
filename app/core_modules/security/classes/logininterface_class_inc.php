@@ -192,7 +192,7 @@ class loginInterface extends object
         if($this->objMods->checkIfRegistered('facebookapps') && strtolower($show) == 'true' ) {
              $apikey = $this->objDbSysconfig->getValue('apikey', 'facebookapps');
              $fb = "<script src=\"http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php\" type=\"text/javascript\"></script>
-                    <fb:login-button size=\"large\" background=\"white\" length=\"short\" onlogin='window.location=\"index.php?module=security&action=fbconnect\";'></fb:login-button> 
+                    <fb:login-button size=\"large\" autologoutlink=\"true\" background=\"white\" length=\"short\" onlogin='window.location=\"index.php?module=security&action=fbconnect\";'></fb:login-button> 
                     <script type=\"text/javascript\"> FB.init(\"$apikey\", \"xd_receiver.htm\", {\"ifUserConnected\":\"index.php?module=security&action=fbconnect\"}); 
                     </script>";
              return $fb;
