@@ -49,8 +49,8 @@ var othercontextdata = new Ext.data.JsonStore({
 
     var othergrid = new Ext.grid.GridPanel({
         //el:'courses-grid',
-        width:700,
-        height:350,
+        width:540,
+        height:400,
         title:'Courses',
         store: othercontextdata,
         trackMouseOver:false,
