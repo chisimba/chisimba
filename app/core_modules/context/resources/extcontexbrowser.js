@@ -23,12 +23,8 @@ isLoaded['search_courses'] = false;
 				items:[myBorderPanel], 
 				itemId: 'other_courses', 
 				title: 'Other Courses'
-			},{
-				items:[grid], 
-				//html:' search courses goes here',
-				itemId: 'search_courses', 
-				title: 'Search Courses'
-			}
+			}			
+			
 			],
 			
 		listeners:{
@@ -75,5 +71,14 @@ Ext.onReady(function(){
 	//contextdata.load({params:{start:0, limit:pageSize}});
    //usercontextdata.load({params:{start:0, limit:pageSize}});
 	//othercontextdata.load({params:{start:0, limit:pageSize}});
+	if(isAdmin == true)
+	{
+		tabs.add({
+				items:[grid], 
+				//html:' search courses goes here',
+				itemId: 'search_courses', 
+				title: 'Search Courses'
+			});
+	}
 	
 });

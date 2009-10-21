@@ -106,7 +106,7 @@ class block_browsecontext extends object
         $str2 = '<div id="browseusercontextcontent"></div>';
         $str .= '<div id="browsecontextcontent"></div>';
         $str3 = '<div id="browseallcontextcontent"></div>';
-		
+		$isAdmin = ($this->objUser->isAdmin()) ? "true" : "false";
         $str .= $this->getJavaScriptFile('contextbrowser.js');
         //$this->appendArrayVar('headerParams', $this->getJavaScriptFile('contextbrowser.js'));
         //$this->appendArrayVar('bodyOnLoad', "getContexts('A');getUserContexts();");
@@ -118,6 +118,7 @@ class block_browsecontext extends object
         	var usercontexturi = "'.str_replace('&amp;','&',$this->uri(array('module' => 'context', 'action' => 'jsonusercontexts'))).'"; 
 			var othercontexturi = "'.str_replace('&amp;','&',$this->uri(array('module' => 'context', 'action' => 'jsonusercontexts'))).'"; 
         		var baseuri = "'.$objSysConfig->getsiteRoot().'index.php";
+        		var isAdmin = '.$isAdmin.';
         		contextPrivateMessage="'.$this->objLanguage->code2Txt('mod_context_privatecontextexplanation', 'context', NULL, 'This is a closed [-context-] only accessible to members').'"; </script>');
 
 		//Ext stuff
