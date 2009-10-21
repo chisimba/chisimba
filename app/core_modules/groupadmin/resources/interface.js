@@ -273,7 +273,7 @@ var toolBar = new Ext.Toolbar({
 		                height:350,
 		                closeAction:'hide',
 		                plain: true,						
-		                items: [usersGridPanel],		
+		                items: [usersGridPanel]		
 		                
 		            });
 		        }
@@ -338,6 +338,7 @@ var groupsGrid = new Ext.grid.GridPanel({
 	            header: "Group Name",
 	            dataIndex: 'groupname',
 	            width: 100,
+	            align: 'left',
 	            //renderer: renderTopic,
 	            sortable: true
 	        },

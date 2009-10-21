@@ -49,11 +49,11 @@ var userNavigation = new Ext.PagingToolbar({
 	    			userOffset = params.start; 			
 	    			proxyStore.setUrl(baseUri+'?module=groupadmin&action=json_allusers&groupid='+selectedGroupId+'&limit='+params.start+'&offset='+params.start);
 	    		}  
-            },
+            }
              
             
         });
-        
+    
 var sm3 = new Ext.grid.CheckboxSelectionModel({
         listeners: {
             // On selection change, set enabled state of the removeButton
