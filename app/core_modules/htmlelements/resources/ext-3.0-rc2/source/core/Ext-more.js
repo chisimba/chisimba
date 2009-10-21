@@ -36,7 +36,7 @@ Ext.apply(Ext, function(){
          * "http://extjs.com/s.gif" and you should change this to a URL on your server).
          * @type String
          */
-        BLANK_IMAGE_URL : "http:/"+"/extjs.com/s.gif",
+        BLANK_IMAGE_URL : "", //"http:/"+"/extjs.com/s.gif",
 
         extendX : function(supr, fn){
             return Ext.extend(supr, fn(supr.prototype));
