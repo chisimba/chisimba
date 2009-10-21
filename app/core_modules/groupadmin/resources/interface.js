@@ -210,7 +210,7 @@ var groupsPageNavigation = new Ext.PagingToolbar({
             store: alphaGroupStore,
             displayInfo: true,
             
-            displayMsg: 'Displaying Groups {0} - {1} of {2}',
+            displayMsg: 'Show Groups {0} - {1} of {2}',
             emptyMsg: "No Groups to display",
             listeners:{ 
             	beforechange: function(ptb, params){	    			
@@ -323,7 +323,7 @@ var groupsGrid = new Ext.grid.GridPanel({
     	id: 'west-region-container',
     	layout: 'fit',
 		
-		width:400,
+		width:450,
         height:300,
        // frame:true,
         store: alphaGroupStore,
@@ -361,7 +361,7 @@ var groupsGrid = new Ext.grid.GridPanel({
 				 iconCls:'zoom'
 				 //,readonlyIndexes:['emailaddress']
 				 //,disableIndexes:['username']
-				 ,minChars:1
+				 ,minChars:2
 				 ,autoFocus:true
 				 // ,menuStyle:'radio'
 		 })],
@@ -438,7 +438,7 @@ var SiteAdminGrid = new Ext.grid.GridPanel({
 
 var myBorderPanel = new Ext.Panel({
     //renderTo: document.body,
-    width: 900,
+    width: 950,
     height: 400,
     margins: '10 10 10 10',
     padding: '10 10 10 10',

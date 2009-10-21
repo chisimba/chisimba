@@ -112,7 +112,7 @@ class groupops extends object
 		
 		foreach($params['search'] as $field){
 			$cnt++;
-			$where .= $field.' LIKE "%'.$params['query'].'%"';
+			$where .= $field.' LIKE "'.$params['query'].'%"';
 			if($cnt < $max){
 				$where .= " OR ";
 			}
