@@ -92,6 +92,74 @@ class groupops extends object
      * @access public
      * 
      */
+	public function jsonGetGoups($start = 0, $limit = 25)
+	{
+	$params["start"] = ($this->getParam("start")) ? $this->getParam("start") : null;
+	$params["limit"] = ($this->getParam("limit")) ? $this->getParam("limit") : null;
+	$params["search"] = ($this->getParam("fields")) ? json_decode(stripslashes($this->getParam("fields"))) : null;
+	$params["query"] = ($this->getParam("query")) ? $this->getParam("query") : null;
+	$params["sort"] = ($this->getParam("sort")) ? $this->getParam("sort") : null;
+	
+	$where = "";;
+		
+	
+	if(is_array($params['search'])){
+
+		$where = " AND (";
+		$max = count($params['search']);
+		
+		$cnt = 0;
+		
+		foreach($params['search'] as $field){
+			$cnt++;
+			$where .= $field.' LIKE "%'.$params['query'].'%"';
+			if($cnt < $max){
+				$where .= " OR ";
+			}
+		}
+		$where .= ")";
+		}
+		
+		
+		$sql = "SELECT pu.group_define_name, pu.group_id, ct.title 
+				FROM tbl_perms_groups as pu
+				inner join tbl_context as ct
+				on pu.group_define_name = ct.contextcode
+				WHERE group_define_name NOT LIKE '%^%'".$where;
+		
+		
+		$groups = $this->objDBContext->getArray($sql);
+    	$totalCount = count($this->objDBContext->getArray($sql));
+		
+		if($totalCount > 0)
+    	{    		
+    		$arrGroups = array();
+    		
+    		foreach ($groups as $group)
+    		{
+    			$groupId = $this->objGroups->getId($group['group_define_name']);
+    			$arr = array();
+    			$arr['group_define_name'] = $group['group_define_name'];
+    			$arr['title'] = $group['title'];
+    			$arr['id'] = strval($groupId);
+    			    			
+    			$arrGroups[] = $arr;
+    			$arr = null;
+    			
+    		}
+    		$arr['totalCount'] = strval($totalCount);
+			$arr['groups'] = $arrGroups;
+    		return json_encode($arr);
+    	}else {
+    		$arr['totalCount'] = "0";
+			$arr['groups'] = array();
+    		return json_encode($arr);
+    		}
+		
+	}
+
+
+
     public function getJsonGroupUsers($groupId, $start=0, $limit=25)
     {   
     	$filter = " LIMIT ".$start.', '.$limit;
@@ -523,6 +591,9 @@ class groupops extends object
 	* Method to generate the tabbed box of the subgroup
 	*@param string $subGroupId
 	*/
+
+
+	
 	public function getSubGroupInterface($subGroupId)
 	{
 		$str = '

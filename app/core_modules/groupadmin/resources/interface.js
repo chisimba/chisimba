@@ -9,7 +9,8 @@ var myMask = new Ext.LoadMask(Ext.getBody(), {msg:"Please wait..."});
 //the main function 
 Ext.onReady(function(){
 	Ext.QuickTips.init();
-		
+	
+	alphaGroupStore.load({params:{start:0, limit:25}});
 	myBorderPanel.render('mainPanel');
 	
 	SiteAdminGrid.setVisible(false);
@@ -32,7 +33,7 @@ Ext.onReady(function(){
 
 
 //alphabet tabs
-var alphaTab = new Ext.TabPanel({
+/*var alphaTab = new Ext.TabPanel({
 	//plain:true,
 	region: 'north',
 	id:'mainTabPanel',
@@ -68,7 +69,7 @@ var alphaTab = new Ext.TabPanel({
 	]
 	
 	
-});
+});*/
 ////////////////////////
 /// Data Stores ////////
 ////////////////////////
@@ -83,7 +84,7 @@ var alphaTab = new Ext.TabPanel({
     fields: ['name', 'url', {name:'size', type: 'float'}, {name:'lastmod', type:'date'}]
 });*/
 var proxyGroupStore = new Ext.data.HttpProxy({
-            url: baseUri+'?module=groupadmin&action=json_getallgroups&filter=0&limit=25&offset=0'
+            url: baseUri+'?module=groupadmin&action=json_getgroupsbysearch&limit=25&start=0'
         });
 
         
@@ -95,8 +96,8 @@ var proxyGroupStore = new Ext.data.HttpProxy({
 		baseParams: [{'letter':selectedTab}],
         fields: [
         	'id',
-            'groupname', 
-            'grouptitle'           
+            'group_define_name', 
+            'title'           
         ],
         
 		listeners:{ 
@@ -104,10 +105,11 @@ var proxyGroupStore = new Ext.data.HttpProxy({
     			alert(response.responseText);
     		},
     		'beforeload': function(thisstore, options){
-    			thisstore.setBaseParam('letter', selectedTab);
+    			//thisstore.setBaseParam('letter', selectedTab);
     		},
     		'load': function(){
-    				//alert('alphagroup store load');	
+    				//alert('alphagroup store load');
+					//loadGroups(tabPanel, tab);	
     			}
     	},
         // load using script tags for cross domain, if the data in on the same domain as
@@ -212,7 +214,7 @@ var groupsPageNavigation = new Ext.PagingToolbar({
             emptyMsg: "No Groups to display",
             listeners:{ 
             	beforechange: function(ptb, params){	    			
-	    			proxyGroupStore.setUrl(baseUri+'?module=groupadmin&action=json_getallgroups&filter='+selectedTab+'&limit='+params.start+'&offset='+params.start);	    			
+	    			proxyGroupStore.setUrl(baseUri+'?module=groupadmin&action=json_getgroupsbysearch&limit='+params.start+'&offset='+params.start);	    			
 	    		}            
             }
             
@@ -325,7 +327,7 @@ var groupsGrid = new Ext.grid.GridPanel({
         height:300,
        // frame:true,
         store: alphaGroupStore,
-        title:'Groups starting with ',
+        title:'Search Group',
         iconCls:'icon-grid',
         loadMask: true,
 		//stripeRows: true,
@@ -334,28 +336,47 @@ var groupsGrid = new Ext.grid.GridPanel({
     	bbar: groupsPageNavigation,
         
         columns:[{
-	            id: 'groupname', // id assigned so we can apply custom css (e.g. .x-grid-col-topic b { color:#333 })
+	            id: 'group_define_name', // id assigned so we can apply custom css (e.g. .x-grid-col-topic b { color:#333 })
 	            header: "Group Name",
-	            dataIndex: 'groupname',
+	            dataIndex: 'group_define_name',
 	            width: 100,
 	            align: 'left',
 	            //renderer: renderTopic,
 	            sortable: true
 	        },
 	        {
-	            id: 'grouptitle', // id assigned so we can apply custom css (e.g. .x-grid-col-topic b { color:#333 })
+	            id: 'title', // id assigned so we can apply custom css (e.g. .x-grid-col-topic b { color:#333 })
 	            header: "Title",
-	            dataIndex: 'grouptitle',
+	            dataIndex: 'title',
 	            width: 320,
 	            align: 'left',
 	            //renderer: renderTopic,
 	            sortable: true
 	        }],
-	    viewConfig: {
+	    	viewConfig: {
             //forceFit:true,
              emptyText: 'No Groups found'
 
-        	}
+        	}, plugins:[new Ext.ux.grid.Search({
+				 iconCls:'zoom'
+				 //,readonlyIndexes:['emailaddress']
+				 //,disableIndexes:['username']
+				 ,minChars:1
+				 ,autoFocus:true
+				 // ,menuStyle:'radio'
+		 })],
+			listeners:{ 
+    		'loadexception': function(theO, theN, response){
+    			alert(response.responseText);
+    		},
+    		'beforeload': function(thisstore, options){
+    			//thisstore.setBaseParam('letter', selectedTab);
+    		},
+    		'load': function(){
+    				loadGroups(tabPanel, tab)
+					//loadGroups(tabPanel, tab);	
+    			}
+    	}
 	
 });
 
@@ -423,7 +444,7 @@ var myBorderPanel = new Ext.Panel({
     padding: '10 10 10 10',
     title: 'Group Administration',
     layout: 'border',
-    items: [alphaTab, groupsGrid, SiteAdminGrid]
+    items: [groupsGrid, SiteAdminGrid]
 });
 
 
@@ -439,10 +460,12 @@ var myBorderPanel = new Ext.Panel({
 //alphabet list is clicked
 function loadGroups(tabPanel, tab){
 	//load the groups
-	groupsGrid.setTitle('Groups starting with \''+tab.id+'\'');
+	//groupsGrid.setTitle('Groups starting with \''+tab.id+'\'');
 	//groupsGrid.render('main-interface');
-	
-	alphaGroupStore.load({params:{limit:25, offset:0, letter: tab.id}});	
+	//alert('Here');
+	//window.alert("I am an alert box");
+
+	//alphaGroupStore.setUrl(baseUri+'?module=groupadmin&action=json_getgroupsbysearch&limit=25&start=0');
 }
 
 //this function will be called when 
