@@ -321,7 +321,7 @@ var groupsGrid = new Ext.grid.GridPanel({
     	id: 'west-region-container',
     	layout: 'fit',
 		
-		width:450,
+		width:400,
         height:300,
        // frame:true,
         store: alphaGroupStore,
@@ -347,6 +347,7 @@ var groupsGrid = new Ext.grid.GridPanel({
 	            header: "Title",
 	            dataIndex: 'grouptitle',
 	            width: 320,
+	            align: 'left',
 	            //renderer: renderTopic,
 	            sortable: true
 	        }],
@@ -367,7 +368,7 @@ var SiteAdminGrid = new Ext.grid.GridPanel({
     margins: '10 10 10 10',	 
 	tbar: toolBar,        
     bbar:pageNavigation,    
-    width:600,
+    width:400,
     height:300,   
     store: abstractStore,    
     iconCls:'icon-grid',
@@ -416,7 +417,7 @@ var SiteAdminGrid = new Ext.grid.GridPanel({
 
 var myBorderPanel = new Ext.Panel({
     //renderTo: document.body,
-    width: 1024,
+    width: 900,
     height: 400,
     margins: '10 10 10 10',
     padding: '10 10 10 10',
