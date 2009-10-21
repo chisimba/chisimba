@@ -123,7 +123,7 @@ class groupops extends object
 		
 		$sql = "SELECT pu.group_define_name, pu.group_id, ct.title 
 				FROM tbl_perms_groups as pu
-				inner join tbl_context as ct
+				LEFT join tbl_context as ct
 				on pu.group_define_name = ct.contextcode
 				WHERE group_define_name NOT LIKE '%^%'".$where;
 		
