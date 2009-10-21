@@ -33,7 +33,7 @@ var othercontextdata = new Ext.data.JsonStore({
     		'load': function(){
     				//alert('load');
 					}
-				},
+				}
 					
     			});
 

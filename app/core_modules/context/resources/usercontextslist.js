@@ -26,7 +26,7 @@ var usercontextdata = new Ext.data.JsonStore({
     		'load': function(){
     				//alert('load');	
     			}
-    	},
+    	}
 	});
 	 usercontextdata.setDefaultSort('title', 'asc');
 	 

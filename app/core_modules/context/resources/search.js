@@ -24,7 +24,7 @@ var contextdata = new Ext.data.JsonStore({
     		'load': function(){
     				//alert('load');	
     			}
-    	},
+    	}
 	});
 	 contextdata.setDefaultSort('lastupdated', 'desc');
 	 
