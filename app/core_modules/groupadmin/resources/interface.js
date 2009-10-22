@@ -10,16 +10,17 @@ var myMask = new Ext.LoadMask(Ext.getBody(), {msg:"Please wait..."});
 Ext.onReady(function(){
 	Ext.QuickTips.init();
 	
-	alphaGroupStore.load({params:{start:0, limit:25}});
+	alphaGroupStore.load({params:{start:0, limit:25, letter:'A'}});
 	myBorderPanel.render('mainPanel');
 	
 	SiteAdminGrid.setVisible(false);
 
 	groupsGrid.getSelectionModel().on('rowselect', function(sm, ri, record)
 	{ 
+		
        SiteAdminGrid.setVisible(true);
        selectedGroupId = record.data.id;
-       loadGroup(record.data.id, record.data.groupname, record.data.grouptitle);
+       loadGroup(record.data.id, record.data.group_define_name, record.data.title);
       
     });       
 
@@ -102,7 +103,7 @@ var proxyGroupStore = new Ext.data.HttpProxy({
         
 		listeners:{ 
     		'loadexception': function(theO, theN, response){
-    			alert(response.responseText);
+    			//alert(response.responseText);
     		},
     		'beforeload': function(thisstore, options){
     			//thisstore.setBaseParam('letter', selectedTab);
@@ -142,7 +143,7 @@ var proxyStore = new Ext.data.HttpProxy({
         ],
         listeners:{ 
     		'loadexception': function(theO, theN, response){
-    			alert(response.responseText);
+    			//alert(response.responseText);
     		},
     		'load': function(thestore, records){    				
     				//alert('user group loaded');
@@ -170,7 +171,7 @@ var proxyStore = new Ext.data.HttpProxy({
 		fields: ['groupid', 'name'],
 		listeners:{ 
     		'loadexception': function(theO, theN, response){
-    			alert('subGroupStore error\n'+response.responseText);
+    			//alert('subGroupStore error\n'+response.responseText);
     		},
     		'load': function(thestore, records){    				
     				//alert('subgroupstore loaded');
@@ -210,7 +211,7 @@ var groupsPageNavigation = new Ext.PagingToolbar({
             store: alphaGroupStore,
             displayInfo: true,
             
-            displayMsg: 'Show Groups {0} - {1} of {2}',
+            displayMsg: 'Groups {0} - {1} of {2}',
             emptyMsg: "No Groups to display",
             listeners:{ 
             	beforechange: function(ptb, params){	    			
@@ -235,7 +236,7 @@ var subGroupsCombo = new Ext.form.ComboBox({
 	listeners:{
 		select: function(item, record) {
                 //alert(record.data.groupid);
-                alert('subgroup select listener');
+                //alert('subgroup select listener');
                 loadSubgroup(record.data.groupid)
             }
 	}
@@ -323,7 +324,7 @@ var groupsGrid = new Ext.grid.GridPanel({
     	id: 'west-region-container',
     	layout: 'fit',
 		
-		width:450,
+		width:460,
         height:300,
        // frame:true,
         store: alphaGroupStore,
@@ -332,7 +333,8 @@ var groupsGrid = new Ext.grid.GridPanel({
         loadMask: true,
 		//stripeRows: true,
 		sm: new Ext.grid.RowSelectionModel({singleSelect:true}),
-        // grid columns            
+        // grid columns  
+        tbar:[],         
     	bbar: groupsPageNavigation,
         
         columns:[{
@@ -362,12 +364,15 @@ var groupsGrid = new Ext.grid.GridPanel({
 				 //,readonlyIndexes:['emailaddress']
 				 //,disableIndexes:['username']
 				 ,minChars:2
+				 ,position:'top'
 				 ,autoFocus:true
+				 ,minCharsTipText:'Type at least 2 characters'
+				 //,searchTipText :'Type at least 2 characters'
 				 // ,menuStyle:'radio'
 		 })],
 			listeners:{ 
     		'loadexception': function(theO, theN, response){
-    			alert(response.responseText);
+    			//alert(response.responseText);
     		},
     		'beforeload': function(thisstore, options){
     			//thisstore.setBaseParam('letter', selectedTab);
@@ -474,6 +479,7 @@ function loadGroup(nodeId, groupname, grouptitle){
 	
 	//load the subgroups
 	subGroupStore.load({params:{start:0, limit:25, groupid: nodeId}});	
+	
 	SiteAdminGrid.setTitle(groupname+" - " +grouptitle);
 	SiteAdminGrid.render('groupusers');
 	//alert(nodeId);

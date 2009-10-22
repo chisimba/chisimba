@@ -94,10 +94,10 @@ class groupops extends object
      */
 	public function jsonGetGoups($start = 0, $limit = 25)
 	{
-	$params["start"] = ($this->getParam("start")) ? $this->getParam("start") : null;
-	$params["limit"] = ($this->getParam("limit")) ? $this->getParam("limit") : null;
-	$params["search"] = ($this->getParam("fields")) ? json_decode(stripslashes($this->getParam("fields"))) : null;
-	$params["query"] = ($this->getParam("query")) ? $this->getParam("query") : null;
+	$params["start"] = ($this->getParam("start")) ? $this->getParam("start") : $start;
+	$params["limit"] = ($this->getParam("limit")) ? $this->getParam("limit") : $limit;
+	$params["search"] = ($this->getParam("fields")) ? json_decode(stripslashes($this->getParam("fields"))) : array('group_define_name', 'title');
+	$params["query"] = ($this->getParam("query")) ? $this->getParam("query") : 'a';
 	$params["sort"] = ($this->getParam("sort")) ? $this->getParam("sort") : null;
 	
 	$where = "";;
