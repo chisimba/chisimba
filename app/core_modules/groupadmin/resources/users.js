@@ -136,6 +136,7 @@ var usersGridPanel = new Ext.grid.GridPanel({
 				 //,disableIndexes:['username']
 				 ,minChars:3
 				 ,autoFocus:true
+				 ,position:'top'
 				 // ,menuStyle:'radio'
 		 })]
 	
