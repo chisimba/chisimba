@@ -5,41 +5,32 @@
  * 
  * http://extjs.com/license
  * By Paul Mungai
+ * Searching Plugin: Qhamani Fenama
  * wandopm@gmail.com
  */
 
-var selectedTab = "A";
-
 var proxyContextStore = new Ext.data.HttpProxy({
-            url:baseuri+'?module=context&action=jsonlistallcontext&filter=0&limit=10&offset=0'
+            url:baseuri+'?module=context&action=jsongetcontexts&limt=25&start=0'
         });
+
    
 var othercontextdata = new Ext.data.JsonStore({
-
-		root: 'courses',
+        root: 'courses',
         totalProperty: 'othercontextcount',
         idProperty: 'code',
-        remoteSort: false, 
-		baseParams: [{'letter':selectedTab}],       
-        fields: ['code', 'coursecode', 'title', 'lecturertitle', 'lecturers', 'accesstitle','access' ],
+        remoteSort: false,        
+        fields: ['code', 'contextcode', 'title', 'lecturertitle', 'lecturers', 'accesstitle','access' ],
         proxy:proxyContextStore,
         listeners:{ 
     		'loadexception': function(theO, theN, response){
     			//alert(response.responseText);
     		},
-			'beforeload': function(thisstore, options){
-    			thisstore.setBaseParam('letter', selectedTab);
-    		},
     		'load': function(){
-    				//alert('load');
-					}
-				}
-					
-    			});
-
-
-
-	 othercontextdata.setDefaultSort('title', 'desc');
+    				//alert('load');	
+    			}
+    	},
+	});
+	 othercontextdata.setDefaultSort('title', 'asc');
 	 
     // pluggable renders
     function renderTitle(value, p, record){
@@ -51,7 +42,7 @@ var othercontextdata = new Ext.data.JsonStore({
         //el:'courses-grid',
         width:540,
         height:400,
-        title:'Courses',
+       // title:'My Courses',
         store: othercontextdata,
         trackMouseOver:false,
         disableSelection:true,
@@ -61,11 +52,11 @@ var othercontextdata = new Ext.data.JsonStore({
         columns:[
         {
             header: "Course Code",
-            dataIndex: 'code',
+            dataIndex: 'contextcode',
             width: 100,            
             sortable: true
         },{
-            id: 'code', // id assigned so we can apply custom css (e.g. .x-grid-col-topic b { color:#333 })
+            //id: 'code', // id assigned so we can apply custom css (e.g. .x-grid-col-topic b { color:#333 })
             header: "Title",
             dataIndex: 'title',
             width: 320,
@@ -92,9 +83,15 @@ var othercontextdata = new Ext.data.JsonStore({
                 return 'x-grid3-row-collapsed';
             }
         },
-
-
-		
+		    	
+		plugins:[new Ext.ux.grid.Search({
+				 iconCls:'zoom'
+				 //,readonlyIndexes:['emailaddress']
+				 //,disableIndexes:['lectures']
+				 ,minChars:1
+				 ,autoFocus:true
+				 // ,menuStyle:'radio'
+		 })],
 
         // paging bar on the bottom
         bbar: new Ext.PagingToolbar({
@@ -117,72 +114,11 @@ var othercontextdata = new Ext.data.JsonStore({
             }]
         })
     });
-	//alphabet tabs
-		var alphaTab = new Ext.TabPanel({
-			//plain:true,
-			region: 'north',
-			id:'mainTabPanel',
-			width: 700,
-			defaults:{autoHeight: true},
-			//height: 20,
-			margins: '10 10 10 10',
-			split:true,
-			loadMask: true,
-			activeTab: selectedTab,
-			enableTabScroll:true,
-			tabPosition:'top',
-		   // renderTo:'alphabet',
-			listeners: {
-				        'render': function(tabPanel){                    
-				            //loadGroups(tabPanel)
-				        }, 
-				        'tabchange': function(tabPanel , tab){
-				        	//load the data for the selected tab
-				        	selectedTab = tab.id;
-				        	loadContexts(tabPanel, tab);                	
-				        }
-				        
-				    },
-			items:[ {title:'0',id:'0'},{title:'1',id:'1'},{title:'2',id:'2'},
-					{title:'3',id:'3'},{title:'4',id:'4'},{title:'5',id:'5'},{title:'6',id:'6'},{title:'7',id:'7'},{title:'8',id:'8'},
-					{title:'9',id:'9'},
-					{title:'A',id:'A'},{title:'B',id:'B'},{title:'C',id:'C'},{title:'D',id:'D'},{title:'E',id:'E'},{title:'F',id:'F'},
-					{title:'G',id:'G'},{title:'H',id:'H'},{title:'I',id:'I'},{title:'J',id:'J'},{title:'K',id:'K'},{title:'L',id:'L'},
-					{title:'M',id:'M'},{title:'N',id:'N'},{title:'O',id:'O'},{title:'P',id:'P'},{title:'Q',id:'Q'},
-					{title:'R',id:'R'},{title:'S',id:'S'},{title:'T',id:'T'},{title:'U',id:'U'},{title:'V',id:'V'},{title:'W',id:'W'},
-					{title:'X',id:'X'},	{title:'Y',id:'Y'},{title:'Z',id:'Z'}
-	
-			]
-	
-	
-		});
-
-	var myBorderPanel = new Ext.Panel({
-    //renderTo: document.body,
-    width: 700,
-	//defaults:{autoHeight: true},
-    height: 400,
-    margins: '10 10 10 10',
-    padding: '10 10 10 10',
-    title: 'Other Courses',
-    layout: 'border',
-    items: [othergrid, alphaTab]
-	});
-
-function loadContexts(tabPanel, tab){
-	//load the groups
-	myBorderPanel.setTitle('Courses starting with \''+tab.id+'\'');
-	//groupsGrid.render('main-interface');
-	
-	othercontextdata.load({params:{limit:10, offset:0, letter: tab.id}});	
-}
-
-/*
+    /*
 Ext.onReady(function(){
     // render it
-    othergrid.render();
+    usergrid.render();
 
     // trigger the data store load
-    othercontextdata.load({params:{start:0, limit:500}});
-});
-*/
+    usercontextdata.load({params:{start:0, limit:500}});
+});*/

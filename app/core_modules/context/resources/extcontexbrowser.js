@@ -20,7 +20,7 @@ isLoaded['search_courses'] = false;
 				title: 'My Courses'
 			},{
 				//html:' other courses goes here',
-				items:[myBorderPanel], 
+				items:[othergrid], 
 				itemId: 'other_courses', 
 				title: 'Other Courses'
 			}			

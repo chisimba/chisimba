@@ -717,6 +717,13 @@ class context extends controller {
     	exit(0);
     }
 
+	protected function __jsongetcontexts()
+	{
+		$objUtils = $this->getObject('utilities');
+    	echo $objUtils->getContext($this->getParam('start'), $this->getParam('limit'));
+    	exit(0);
+	}
+
 	
 }
 

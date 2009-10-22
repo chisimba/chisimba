@@ -671,6 +671,134 @@ function getContexts()
     	
     	
     }
+
+
+	public function jsonListAllContext()
+    {
+	
+		$limit = ($this->getParam('limit') == "") ? "": $this->getParam('limit');
+    	$offset = ($this->getParam('offset') == "") ? "": $this->getParam('offset');
+    	$filter = ($this->getParam('letter') == "") ? "": $this->getParam('letter').'%';
+
+    	$sql = "SELECT * FROM tbl_context WHERE title LIKE '".$filter."' ORDER BY title ASC limit ".$offset.", ".$limit;
+		$contexts = $this->objDBContext->getArray($sql);
+    	$nocontexts = count($contexts);
+		$courses = array();
+    	$this->objUserContext = $this->getObject ( 'usercontext', 'context' );
+    	if($nocontexts > 0)
+    	{    		
+    		foreach($contexts as $context)
+    		{
+    			$arr = array();
+    			$arr['code'] = $context['contextcode'];
+    			$arr['title'] = htmlentities($context['title']);
+				$lectures = $this->objUserContext->getContextLecturers($context['contextcode']);
+				$lecturesname = "";
+					foreach($lectures as $lecture)
+					{
+						$lecturesname .= $lecture['firstname']." ".$lecture['surname'].", ";	
+					}
+    			$arr['lecturers'] = htmlentities(substr($lecturesname, 0, -2));
+    			$arr['access'] =  $context['access'];			
+    			$courses[] = $arr;
+    		}
+    	}
+
+    	return json_encode(array('othercontextcount' => $nocontexts, 'courses' =>  $courses));
+    	
+	}
+
+
+
+
+	public function getContext($start = 0, $limit = 25)
+	{
+	
+	$params["start"] = ($this->getParam("start")) ? $this->getParam("start") : null;
+	$params["limit"] = ($this->getParam("limit")) ? $this->getParam("limit") : null;
+	$params["search"] = ($this->getParam("fields")) ? json_decode(stripslashes($this->getParam("fields"))) : null;
+	$params["query"] = ($this->getParam("query")) ? $this->getParam("query") : null;
+	$params["sort"] = ($this->getParam("sort")) ? $this->getParam("sort") : null;
+	
+	$where = "";$limit = 25;
+		
+	
+	if(is_array($params['search'])){
+		$max = count($params['search']);
+		
+		$cnt = 0;
+		
+		foreach($params['search'] as $field){
+			$cnt++;
+			
+			/*if($field == "lecturers")
+			{
+				$sql = "SELECT * FROM tbl_context";
+				
+				$minicontexts = $this->objDBContext->getArray($sql);
+				error_log(var_export($minicontexts, true));
+				foreach($minicontexts as $context){
+					$str = $this->objUserContext->getContextLecturers($context['contextcode']);
+					
+				}
+				
+			}*/
+			
+			$where .= $field.' LIKE "'.$params['query'].'%"';
+						
+			if($cnt < $max){
+				$where .= " OR ";
+			}
+		}
+		
+		$where = ' WHERE '.$where;
+		
+	}
+	
+	$arr = array();
+		
+    	$filter = " LIMIT $start , $limit";
+    	
+		$sql = "SELECT * FROM tbl_context ".$where." ORDER BY title ".$filter; 
+		//Debuging
+		//error_log(var_export($sql, true));
+		//Debuging
+    	$contexts = $this->objDBContext->getArray($sql);
+    	$countSQL = "SELECT DISTINCT(contextcode) FROM tbl_context";
+    	$contextCount = count($this->objDBContext->getArray($countSQL));
+    	$this->objUserContext = $this->getObject ( 'usercontext', 'context' );
+    	if(count($contexts>0)){
+    		
+    		$arr = array();
+    		$course = array();
+	    	foreach($contexts as $context){
+					$arr = array();
+					$arr['contextcode'] = $context['contextcode'];
+					$arr['code'] = $context['contextcode'];
+					$arr['title'] = htmlentities($context['title']);
+					$lectures = $this->objUserContext->getContextLecturers($context['contextcode']);
+					$lecturesname = "";
+						foreach($lectures as $lecture)
+						{
+							$lecturesname .= $lecture['firstname']." ".$lecture['surname'].", ";	
+						}
+					$arr['lecturers'] = htmlentities(substr($lecturesname, 0, -2));
+					$arr['access'] =  $context['access'];			
+					$courses[] = $arr;
+	    	}	    	
+	    	//echo "<script>alert('Information updated')</script>";
+			return json_encode(array('othercontextcount' => $contextCount, 'courses' =>  $courses));
+	    			
+	    	return json_encode($arr);
+    	}else {
+    		$arr['othercontextcount'] = "0";
+			$arr['courses'] = array();
+			var_dump($arr);			
+	    	return json_encode($arr);
+    	}
+		
+		
+	}
     
     
     /**

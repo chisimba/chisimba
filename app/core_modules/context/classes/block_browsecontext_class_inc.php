@@ -124,8 +124,9 @@ class block_browsecontext extends object
 		//Ext stuff
         $ext =$this->getJavaScriptFile('ext-3.0-rc2/adapter/ext/ext-base.js', 'htmlelements');
         $ext .=$this->getJavaScriptFile('ext-3.0-rc2/ext-all.js', 'htmlelements');
+		$ext .=$this->getJavaScriptFile('Ext.ux.grid.Search.js', 'context');
 		$ext .=$this->getJavaScriptFile('othercontexts.js', 'context');
-        $ext .=$this->getJavaScriptFile('usercontextslist.js', 'context');
+		$ext .=$this->getJavaScriptFile('usercontextslist.js', 'context');
 		$ext .=$this->getJavaScriptFile('search.js', 'context');
 		$ext .=$this->getJavaScriptFile('extcontexbrowser.js', 'context');
         $ext .=$this->getJavaScriptFile('ext-3.0-rc2/examples/grid/paging.js', 'htmlelements');
