@@ -86,11 +86,11 @@ class groupops extends object
     /**
      * Method to get a list of users
      * for a group
-     * 
+     *
      * @param string $groupId
-     * @return json 
+     * @return json
      * @access public
-     * 
+     *
      */
 	public function jsonGetGoups($start = 0, $limit = 25)
 	{
@@ -99,17 +99,17 @@ class groupops extends object
 	$params["search"] = ($this->getParam("fields")) ? json_decode(stripslashes($this->getParam("fields"))) : array('group_define_name', 'title');
 	$params["query"] = ($this->getParam("query")) ? $this->getParam("query") : 'a';
 	$params["sort"] = ($this->getParam("sort")) ? $this->getParam("sort") : null;
-	
+
 	$where = "";;
-		
-	
+
+
 	if(is_array($params['search'])){
 
 		$where = " AND (";
 		$max = count($params['search']);
-		
+
 		$cnt = 0;
-		
+
 		foreach($params['search'] as $field){
 			$cnt++;
 			$where .= $field.' LIKE "'.$params['query'].'%"';
@@ -119,22 +119,22 @@ class groupops extends object
 		}
 		$where .= ")";
 		}
-		
-		
-		$sql = "SELECT pu.group_define_name, pu.group_id, ct.title 
+
+
+		$sql = "SELECT pu.group_define_name, pu.group_id, ct.title
 				FROM tbl_perms_groups as pu
 				LEFT join tbl_context as ct
 				on pu.group_define_name = ct.contextcode
 				WHERE group_define_name NOT LIKE '%^%'".$where;
-		
-		
+
+
 		$groups = $this->objDBContext->getArray($sql);
     	$totalCount = count($this->objDBContext->getArray($sql));
-		
+
 		if($totalCount > 0)
-    	{    		
+    	{
     		$arrGroups = array();
-    		
+
     		foreach ($groups as $group)
     		{
     			$groupId = $this->objGroups->getId($group['group_define_name']);
@@ -142,10 +142,10 @@ class groupops extends object
     			$arr['group_define_name'] = $group['group_define_name'];
     			$arr['title'] = $group['title'];
     			$arr['id'] = strval($groupId);
-    			    			
+
     			$arrGroups[] = $arr;
     			$arr = null;
-    			
+
     		}
     		$arr['totalCount'] = strval($totalCount);
 			$arr['groups'] = $arrGroups;
@@ -155,15 +155,15 @@ class groupops extends object
 			$arr['groups'] = array();
     		return json_encode($arr);
     		}
-		
+
 	}
 
 
 
     public function getJsonGroupUsers($groupId, $start=0, $limit=25)
-    {   
+    {
     	$filter = " LIMIT ".$start.', '.$limit;
-    	$sql = "SELECT gu.perm_user_id, pu.auth_user_id, 
+    	$sql = "SELECT gu.perm_user_id, pu.auth_user_id,
 				us.firstName, us.surname, us.username,
 				us.last_login, us.logins, us.emailAddress
 				from tbl_perms_groupusers as gu
@@ -171,14 +171,14 @@ class groupops extends object
 				on gu.perm_user_id = pu.perm_user_id
 				INNER join tbl_users as us
 				on pu.auth_user_id = us.userId
-				WHERE group_id = ".$groupId."				
+				WHERE group_id = ".$groupId."
 				ORDER BY us.surname ".$filter;
-								
+
     	$users = $this->objDBContext->getArray($sql);
     	$userCount = count($this->getUsersInGroup($groupId));
-    	
+
     	if(count($users>0)){
-    		
+
     		$arr = array();
     		$arrUsers = array();
 	    	foreach($users as $groupUser){
@@ -192,22 +192,22 @@ class groupops extends object
 	    		$arrUser['lastloggedin'] = $user['last_login'];
 	    		$arrUser['emailaddress'] = $user['emailaddress'];
 	    		$arrUsers[] = $arrUser;
-	    	}	    	
-	    	
+	    	}
+
 	    	$arr['totalCount'] = strval($userCount);
-			$arr['users'] = $arrUsers;			
+			$arr['users'] = $arrUsers;
 	    	return json_encode($arr);
     	}else {
     		$arr['totalCount'] = "0";
-			$arr['users'] = array();			
+			$arr['users'] = array();
 	    	return json_encode($arr);
     	}
-    	
+
     }
-    
-    
+
+
     /**
-     * Method to get the Groups 
+     * Method to get the Groups
      * formatted in Json
      *
      * @return json
@@ -220,33 +220,33 @@ class groupops extends object
     	$offset = ($this->getParam('offset') == "") ? "": $this->getParam('offset');
 
     	$filter = ($this->getParam('letter') == "") ? "": $this->getParam('letter').'%';
-    	
+
     	$params = array('limit' => intval($limit), 'offset' => intval($offset), 'filter' => $filter);
-    	
+
     	$groups = $this->objGroups->getTopLevelGroups($params);
-  		$totalCount = count($this->objGroups->getTopLevelGroups(array('filter' => $filter) )); 	
+  		$totalCount = count($this->objGroups->getTopLevelGroups(array('filter' => $filter) ));
   		//var_dump($groups);
     	$noGroups = count($groups);
     	if($noGroups > 0)
-    	{    		
+    	{
     		$arrGroups = array();
-    		
+
     		foreach ($groups as $group)
     		{
     			//$subGroups = $this->objGroups->getSubgroups($groupId);
     			//var_dump($subGroups);
     			//$subGroupCnt = ($subGroups) ? count($subGroups[0]) : 0;
-    			
+
     			$groupId = $this->objGroups->getId($group['group_define_name']);
     			$arr = array();
     			$arr['groupname'] = $group['group_define_name'];
     			$arr['grouptitle'] = $this->_getContextTitle($group['group_define_name']);
     			$arr['id'] = strval($groupId);
-    			//$arr['hassubgroups'] = $subGroupCnt;    			
-    			
+    			//$arr['hassubgroups'] = $subGroupCnt;
+
     			$arrGroups[] = $arr;
     			$arr = null;
-    			
+
     		}
     		$arr['totalCount'] = strval($totalCount);
 			$arr['groups'] = $arrGroups;
@@ -256,11 +256,11 @@ class groupops extends object
 			$arr['groups'] = array();
     		return json_encode($arr);
     	}
-    	
-    	
+
+
     }
-    
-    
+
+
     /**
      * Method to get the context Title
      *
@@ -276,7 +276,7 @@ class groupops extends object
     		return htmlentities($this->objDBContext->getTitle($contextCode, false));
     	}
     }
-    
+
     /**
      * Method that returns the subgroups
      * for a given group in json format
@@ -288,7 +288,7 @@ class groupops extends object
     {
     	$arr = array();
     	if(!empty($groupId))
-    	{    	
+    	{
     		$subGroups = $this->objGroups->getSubgroups($groupId);
     		//var_dump($subGroups);
     		$arr = array();
@@ -297,29 +297,29 @@ class groupops extends object
 	    		$keys = array_keys($subGroups[0]);
 	    		foreach ($subGroups[0] as $subgroup)
 	    		{
-	    			
+
 	    			//var_dump($keys);
 	    			$groupId = $keys[$cnt];//array_keys($subGroups[0][$cnt]);
 	    			$arr[] = array('groupid' => $groupId,
 	    						'name' => $this->formatGroupName($subgroup['group_define_name'])
-	    						);	
+	    						);
 	    			$cnt++;
 	    		}
     		}
     	}
-    	
+
     	return json_encode(array('subgroups' => $arr));
     }
-    
+
     /**
-     * Method to remove users from 
+     * Method to remove users from
      *
      * @param integer $groupId
      * @param string $userIds
      * @return unknown
      */
     public function jsonRemoveUsers($groupId, $userIds){
-    	
+
     	if ($groupId && $userIds) {
     		$userIds = substr_replace($userIds, "",strlen($userIds) - 1);
     		//error_log('Success '.$groupId.'\n'.$userIds);
@@ -329,24 +329,24 @@ class groupops extends object
     		{
     			//echo 'here';
     			//error_log('here');
-    			
+
     			if($id){
     				var_dump($id);
     				$res = $this->removeUser($groupId, $id);
     				var_dump($res);
-    			//error_log(var_export($res));	
+    			//error_log(var_export($res));
     			}
     		}
-    		
+
      		$extjs['success'] = true;
 		}
 		else {
 		     $extjs['success'] = false;
 		     $extjs['errors']['message'] = 'Unable to connect to DB';
 		}
-		
-		return json_encode($extjs); 
-		
+
+		return json_encode($extjs);
+
     	if(empty($userIds)){
     		error_log('Error'.$groupId.'\n'.$userIds);
     		return "failure";//json_encode(array('success' => 'false', 'msg' => 'Error'.$groupId.'\n'.$userIds));
@@ -355,11 +355,11 @@ class groupops extends object
     		return "success";//json_encode(array('success' => 'true', 'msg' => 'Success'.$groupId.'\n'.$userIds ));
     	}
     }
-    
-    
+
+
     public function jsonGetAllUsers($groupId = null, $start = 0, $limit = 25)
     {
-    	
+
     	$params["start"] = ($this->getParam("start")) ? $this->getParam("start") : null;
 	$params["limit"] = ($this->getParam("limit")) ? $this->getParam("limit") : null;
 	$params["search"] = ($this->getParam("fields")) ? json_decode(stripslashes($this->getParam("fields"))) : null;
@@ -368,12 +368,12 @@ class groupops extends object
 	//$params["dir"] = isset($_REQUEST["dir"]) ? $_REQUEST["dir"] : null;
 	//$params['fields'] = $_REQUEST["fields"];
 	$where = "";
-	
+
 	if(is_array($params['search'])){
 		$max = count($params['search']);
-		
+
 		$cnt = 0;
-		
+
 		foreach($params['search'] as $field){
 			$cnt++;
 			$where .= $field.' LIKE "'.$params['query'].'%"';
@@ -381,28 +381,28 @@ class groupops extends object
 				$where .= " OR ";
 			}
 		}
-		
+
 		$where = ' WHERE '.$where;
 	}
-	
+
     	$filter = " LIMIT $start , $limit";
-    	$sql = "SELECT pu.perm_user_id, us.firstName, us.surname, us.username, 
-    			us.last_login, us.logins, us.emailAddress 
-    			FROM tbl_users as us 
+    	$sql = "SELECT pu.perm_user_id, us.firstName, us.surname, us.username,
+    			us.last_login, us.logins, us.emailAddress
+    			FROM tbl_users as us
     			INNER join tbl_perms_perm_users as pu
 				on us.userId = pu.auth_user_id
     			".$where."
-    			ORDER BY us.surname ".$filter; 
+    			ORDER BY us.surname ".$filter;
     	$users = $this->objDBContext->getArray($sql);
     	$countSQL = "SELECT DISTINCT(username) FROM tbl_users";
     	$userCount = count($this->objDBContext->getArray($countSQL));
-    	
+
     	if(count($users>0)){
-    		
+
     		$arr = array();
     		$arrUsers = array();
 	    	foreach($users as $groupUser){
-	    		if($groupUser[perm_user_id] != ""){
+	    		if($groupUser['perm_user_id'] != ""){
 		    		$user = $groupUser;//$this->objUser->getUserDetails($groupUser['auth_user_id']);
 		    		$arrUser = array();
 		    		$arrUser['id'] = $user['perm_user_id'];
@@ -414,19 +414,19 @@ class groupops extends object
 		    		$arrUser['emailAddress'] = $user['emailaddress'];
 		    		$arrUsers[] = $arrUser;
 	    		}
-	    	}	    	
-	    	
+	    	}
+
 	    	$arr['totalCount'] = strval($userCount);
-			$arr['users'] = $arrUsers;			
+			$arr['users'] = $arrUsers;
 	    	return json_encode($arr);
     	}else {
     		$arr['totalCount'] = "0";
-			$arr['users'] = array();			
+			$arr['users'] = array();
 	    	return json_encode($arr);
     	}
-    	
+
     }
-    
+
     /**
      * Method to add users to a group via
      * json
@@ -439,28 +439,28 @@ class groupops extends object
     {
     	if ($groupId && $userIds) {
     		$userIds = substr_replace($userIds, "",strlen($userIds) - 1);
-    		
+
     		$users = explode(',', $userIds);
     		error_log(var_export($users), true);
     		foreach ($users as $id)
     		{
-    			if($id){    
-    				///error_log(var_export($id, true));				
-    				$res = $this->objGroups->addGroupUser($groupId, $id);    				
+    			if($id){
+    				///error_log(var_export($id, true));
+    				$res = $this->objGroups->addGroupUser($groupId, $id);
     			}
     		}
-    		
+
      		$extjs['success'] = true;
 		}
 		else {
 		     $extjs['success'] = false;
 		     $extjs['errors']['message'] = 'Unable to connect to DB';
 		}
-		
+
 		return json_encode($extjs);
     }
-    
-    
+
+
 //////NEW METHODS
 	/**
 	*Method to get the groups
@@ -495,7 +495,7 @@ class groupops extends object
 		return $str.'</div>';
 		}
 	}
-	
+
 	/**
 	 * Method to build a list of user
 	 * so that multiple users can be selected
@@ -503,7 +503,7 @@ class groupops extends object
 	 */
 	public function getUserList($groupId)
 	{
-		
+
 		$users = $this->getAllUsers();
 		$objTable = $this->getObject('htmltable', 'htmlelements');
 		$objLink = $this->getObject('link', 'htmlelements');
@@ -517,7 +517,7 @@ class groupops extends object
 			{
 				$objTable->startRow();
 				$objTable->addCell($this->objUser->fullname($user['auth_user_id']));
-				
+
 				$objLink->extra = " onclick=addUser('".$groupId."','".$user['handle']."')";
 				$objLink->href = '#';
 				$objTable->addCell($objLink->show());
@@ -542,21 +542,21 @@ class groupops extends object
 			//a multi tabbed box
 			$tabs = "";
 			$tabcontents = "";
-			
+
 			$scripts = '<script type="text/javascript">
-						$(function(){				
+						$(function(){
 
 							// Tabs
 							$(\'#'.$groupId.'_tabs\').tabs({
 								select: function(event, ui) {
 									id = stripId(ui.panel.id);
-									loadGroupTab(id);						
+									loadGroupTab(id);
 								},
 								remote: true,
 								fxAutoHeight: true,
 								fxShow: { height: \'show\', opacity: \'show\' },
-				
-								});			
+
+								});
 
 						});
 
@@ -593,7 +593,7 @@ class groupops extends object
 	*/
 
 
-	
+
 	public function getSubGroupInterface($subGroupId)
 	{
 		$str = '
@@ -631,7 +631,7 @@ class groupops extends object
 
 		$arr = array();
 		foreach($users as $user)
-		{			
+		{
 			$arr[$this->objUser->fullname($user['auth_user_id'])] = $user['handle'];//$user['userid'];
 		}
 
@@ -639,7 +639,7 @@ class groupops extends object
 	}
 
 	/**
-	 * Method to check if a user is a 
+	 * Method to check if a user is a
 	 * group
 	 * @param string $groupId
 	 */
@@ -655,13 +655,13 @@ class groupops extends object
 					return TRUE;
 				}
 			}
-			
+
 			return FALSE;
 		} else {
 			return FALSE;
 		}
 	}
-	
+
 	/**
 	*Method to generate the display for a group
 	* @param string $groupId
