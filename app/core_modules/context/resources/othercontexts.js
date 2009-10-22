@@ -47,7 +47,8 @@ var othercontextdata = new Ext.data.JsonStore({
         trackMouseOver:false,
         disableSelection:true,
         loadMask: true,
-
+		emptyText:'No Courses Found',
+		
         // grid columns
         columns:[
         {
@@ -86,8 +87,8 @@ var othercontextdata = new Ext.data.JsonStore({
 		    	
 		plugins:[new Ext.ux.grid.Search({
 				 iconCls:'zoom'
-				 //,readonlyIndexes:['emailaddress']
-				 //,disableIndexes:['lectures']
+				 //,readonlyIndexes:['lecturers']
+				 ,disableIndexes:['lecturers']
 				 ,minChars:1
 				 ,autoFocus:true
 				 // ,menuStyle:'radio'
@@ -98,20 +99,9 @@ var othercontextdata = new Ext.data.JsonStore({
             pageSize: 500,
             store: othercontextdata,
             displayInfo: true,
-            displayMsg: 'Displaying courses {0} - {1} of {2}',
+            displayMsg: 'Courses {0} - {1} of {2}',
             emptyMsg: "No courses to display",
-            items:[
-                '-', {
-                pressed: false,
-                enableToggle:true,
-                text: 'Show Access Details',
-                cls: 'x-btn-text-icon details',
-                toggleHandler: function(btn, pressed){
-                    var view = othergrid.getView();
-                    view.showPreview = pressed;
-                    view.refresh();
-                }
-            }]
+            
         })
     });
     /*

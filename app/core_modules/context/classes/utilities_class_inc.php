@@ -761,7 +761,7 @@ function getContexts()
     	
 		$sql = "SELECT * FROM tbl_context ".$where." ORDER BY title ".$filter; 
 		//Debuging
-		//error_log(var_export($sql, true));
+		error_log(var_export($_REQUEST, true));
 		//Debuging
     	$contexts = $this->objDBContext->getArray($sql);
     	$countSQL = "SELECT DISTINCT(contextcode) FROM tbl_context";
@@ -770,7 +770,7 @@ function getContexts()
     	if(count($contexts>0)){
     		
     		$arr = array();
-    		$course = array();
+    		$courses = array();
 	    	foreach($contexts as $context){
 					$arr = array();
 					$arr['contextcode'] = $context['contextcode'];
