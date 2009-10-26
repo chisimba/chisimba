@@ -28,7 +28,7 @@ var othercontextdata = new Ext.data.JsonStore({
     		'load': function(){
     				//alert('load');	
     			}
-    	},
+    	}
 	});
 	 othercontextdata.setDefaultSort('title', 'asc');
 	 
@@ -100,7 +100,7 @@ var othercontextdata = new Ext.data.JsonStore({
             store: othercontextdata,
             displayInfo: true,
             displayMsg: 'Courses {0} - {1} of {2}',
-            emptyMsg: "No courses to display",
+            emptyMsg: "No courses to display"
             
         })
     });
