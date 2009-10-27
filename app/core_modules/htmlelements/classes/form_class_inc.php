@@ -615,6 +615,9 @@ class form implements ifhtml
             case 'url':
                 $this->_validateURL($mix,$errormsg);
                 break;
+            case 'either':
+                $this->_valEither($mix,$errormsg);
+                break;
             case 'datenotfuture':
                 $this->_valDateNotFuture($mix,$errormsg);
                 break;
@@ -796,6 +799,19 @@ class form implements ifhtml
     private function _valCompare($fields, $errormsg)
     {
         $jmethod = 'valCompare(document.forms.' . $this->name . '.' . $fields[0] . '.value, document.forms.' . $this->name . '.' . $fields[1] . '.value)';
+       // $jmethod = 'valCompare(el.value,' . $this->name . '.' . $fields[1] . '.value)';
+        $this->_addValidationScript($jmethod, $errormsg, $fields[0]);
+    }
+
+    /**
+     * Method to validate either of two fields
+     *
+     * @param $fields array : The names of the fields
+     * @param $errormsg  string : the error message
+     */
+    private function _valEither($fields, $errormsg)
+    {
+        $jmethod = 'valEither(document.forms.' . $this->name . '.' . $fields[0] . '.value, document.forms.' . $this->name . '.' . $fields[1] . '.value)';
        // $jmethod = 'valCompare(el.value,' . $this->name . '.' . $fields[1] . '.value)';
         $this->_addValidationScript($jmethod, $errormsg, $fields[0]);
     }

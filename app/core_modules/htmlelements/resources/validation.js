@@ -62,11 +62,16 @@ function valRequired(val){
 	
 	return ok;	
 }
+
 function valCompare(val1,val2){
 	var ok=true;
 	if(val1!=val2)
 		ok=false;	
 	return ok;
+}
+
+function valEither(val1,val2){
+	return (val1 || val2);
 }
 
 function valMaxLength(val,fieldlength){
@@ -129,9 +134,11 @@ function valMinNumber(val,minNumber)
 
 function valSelect(el){
 	var ok=true;
-	if(el.selectedindex)
-		alert(el.value)
-	return false;
+	if(el.value == -1)
+		return false;
+	else {
+		return true;
+	}
 }
 
 function valDateNotFuture(value, max)
