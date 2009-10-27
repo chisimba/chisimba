@@ -127,6 +127,25 @@ class share extends object {
         $this->delImage = $this->objIcon->getLinkedIcon($this->delAPI, 'sharedelicious', 'png');
         $this->inImage = $this->objIcon->getLinkedIcon($this->inAPI, 'sharelinkedin', 'png');
     }
+
+    public function setupService($url, $title, $text = 'Interesting Post! ') {
+        $this->myURL = $url;
+        $this->myTitle = $title;
+        if($this->useTeeny === TRUE) {
+            $this->myURL = $this->teeny->create($url);
+        }
+        // ok now set the API URL's to use the title and url where appropriate, as well as the text.
+        $this->twitAPI = $this->twitAPI.$text.$this->myURL;
+        $this->fbAPI = $this->fbAPI.$this->myURL;
+        $this->delAPI = $this->delAPI.$this->myURL."&title=".$title;
+        $this->inAPI = $this->inAPI.$this->myURL."&title=".$title;
+
+        $this->tImage = $this->objIcon->getUrlLinkedIcon($this->twitAPI, 'sharetwitter', 'png');
+        $this->fbImage = $this->objIcon->getUrlLinkedIcon($this->fbAPI, 'sharefacebook', 'png');
+        $this->delImage = $this->objIcon->getUrlLinkedIcon($this->delAPI, 'sharedelicious', 'png');
+        $this->inImage = $this->objIcon->getUrlLinkedIcon($this->inAPI, 'sharelinkedin', 'png');
+    }
+
     public function show() {
         $this->shareBar = $this->tImage.$this->fbImage.$this->delImage.$this->inImage;
 
