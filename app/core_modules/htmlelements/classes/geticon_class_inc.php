@@ -324,6 +324,33 @@ class getIcon extends object implements ifhtml
     }
     
     /**
+    *
+    * Method to return an icon with a FQDN link
+    *
+    * @param string $url        The uri generated path for the task to be performed
+    * @param string $name       The name of the icon file before the 'extension',
+    *                           but not including the extension. For
+    *                           example, for the icon "help.gif", $name would be set to "help".
+    * @param string $type       The file type / extension (usually gif or png). For
+        example, for the icon "help.gif", $type would be set to "gif" or left out.
+    * @param string $iconfolder The iconfolder to use, defaults to the
+    *                           one specified in the config file for KNG
+    *                           
+    */
+    public function getUrlLinkedIcon($url, $name, $type = 'gif', $folder='icons/')
+    {
+        // Check if last character of folder is a slash, else add one
+        if (substr($folder, -1) != '/') {
+            $folder .= '/';
+        }
+        //$this->setIcon($name, $type, $iconfolder);
+        $objLink = $this->newObject('link', 'htmlelements');
+        $objLink->href=$url;
+        $objLink->link = '<img src="'.$this->_objConfig->getSiteRoot().$this->_objConfig->getskinRoot()."_common/".$folder.$name.".".$type.'" />';
+        return $objLink->show();
+    }
+    
+    /**
     * Method to return an icon / text combination link - an icon with text below encapsulated in a div
     *
     * @author Megan Watson
