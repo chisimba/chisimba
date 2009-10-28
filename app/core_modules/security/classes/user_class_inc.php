@@ -731,11 +731,11 @@ class user extends dbTable
 
     /**
     * Return the title of the user defaulting to the current user
-    * 
+    *
     * @param string $userId The numeric ID of a user, it defaults
     * to the userId of the current user by setting it to NULL as
     * default.
-    * 
+    *
     */
     public function getTitle($userId=NULL)
     {
@@ -758,7 +758,7 @@ class user extends dbTable
        }
        return $ret;
     }
-    
+
     /**
     * Return the number of times a current user has logged
     * into the site.
@@ -963,9 +963,9 @@ class user extends dbTable
     * is a cours administrator ie. eithere
     * a lecturere are an administrator
     */
-    public function isCourseAdmin()
+    public function isCourseAdmin($contextCode = NULL)
     {
-        if($this->isContextLecturer() || $this->IsAdmin())
+        if($this->isContextLecturer($this->userId(), $contextCode) || $this->IsAdmin())
         {
             return true;
         } else {
