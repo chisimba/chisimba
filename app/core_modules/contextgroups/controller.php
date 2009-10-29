@@ -2,28 +2,28 @@
 
 /**
  * Controller class for the context groups module.
- * 
+ *
  * Purpose of this module is to allow for context member management.
  * It should hide the group information from the user.
  * Target user: Lecturers.
  * Precondition : User must be in a context.
  * Tasks: Add/remove Lecturers, students, or guests.
- * 
+ *
  * PHP versions 4 and 5
- * 
- * This program is free software; you can redistribute it and/or modify 
- * it under the terms of the GNU General Public License as published by 
- * the Free Software Foundation; either version 2 of the License, or 
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * This program is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License 
- * along with this program; if not, write to the 
- * Free Software Foundation, Inc., 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
  * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- * 
+ *
  * @category  Chisimba
  * @package   contextgroups
  * @author    Tohir Solomons <tsolomons@uwc.ac.za>
@@ -46,13 +46,13 @@ $GLOBALS['kewl_entry_point_run']) {
 
 /**
  * Controller class for the context groups module.
- * 
+ *
  * Purpose of this module is to allow for context member management.
  * It should hide the group information from the user.
  * Target user: Lecturers.
  * Precondition : User must be in a context.
  * Tasks: Add/remove Lecturers, students, or guests.
- * 
+ *
  * @category  Chisimba
  * @package   contextgroups
  * @author    Tohir Solomons <tsolomons@uwc.ac.za>
@@ -72,17 +72,17 @@ class contextgroups extends controller
     {
         $this->objContextUsers = $this->getObject('contextusers');
         $this->objContext = $this->getObject('dbcontext', 'context');
-        
+
         // Load the Group Admin Model
         $this->objGroups = $this->getObject('groupAdminModel', 'groupadmin');
         $this->objGroupUsers = $this->getObject('groupusersdb', 'groupadmin');
         $this->objGroupsOps = $this->getObject('groupops', 'groupadmin');
-		
+
         $this->objUser = $this->getObject('user', 'security');
         $this->userId = $this->objUser->userId();
         $this->objLanguage = $this->getObject('language', 'language');
     }
-    
+
     /**
     * Dispatch Method
     * @param string $action Action to be taken
@@ -93,10 +93,10 @@ class contextgroups extends controller
         if ($this->objContext->getContextCode() == '') {
             return $this->nextAction(NULL, NULL, '_default');
         }
-        
+
         // Set Layout Template
         $this->setLayoutTemplate('contextgroups_layout_tpl.php');
-        
+
         switch ($action)
         {
             default:
@@ -113,7 +113,7 @@ class contextgroups extends controller
                 return $this->removeAllUsersFromGroup();
         }
     }
-    
+
     /**
      * Method to place permissions handling
      * @param string $action Action to be taken
@@ -122,7 +122,7 @@ class contextgroups extends controller
     public function isValid($action)
     {
         $needPermissions = array('searchforusers', 'viewsearchresults', 'addusers', 'removeuser', 'removeallusers');
-        
+
         if (in_array($action, $needPermissions)) {
             if ($this->objUser->isAdmin() || $this->objUser->isContextLecturer($this->objUser->userId(),$this->objContext->getContextCode())) {
                 return TRUE;
@@ -133,7 +133,7 @@ class contextgroups extends controller
             return FALSE;
         }
     }
-    
+
     /**
     * Method to show the list of users in a context
     */
@@ -141,30 +141,30 @@ class contextgroups extends controller
     {
         // Generate an array of users in the context, and send it to page template
         $this->prepareContextUsersArray();
-        
+
         // Default Values for Search
         $searchFor = $this->getSession('searchfor', '');
         $this->setVar('searchfor', $searchFor);
-        
+
         $field = $this->getSession('field', 'firstName');
         $course=$this->getSession('course','course');
         $group=$this->getSession('group','group');
         $this->setVar('field', $field);
         $this->setVar('course', $course);
         $this->setVar('group', $group);
-        
-        
+
+
         //Ehb-added-begin
          $currentContextCode=$this->objContext->getContextCode();
          $where="where contextCode<>"."'".$currentContextCode."'";
          $data=$this->objContext->getAll($where);
          $this->setVarByRef('data',$data);
         //Ehb-added-End
-      
-        
+
+
         return 'home_tpl.php';
     }
-    
+
     /**
     * Method to search for Users
     * This function sets them as a session and then redirects to the results
@@ -173,28 +173,28 @@ class contextgroups extends controller
     {
         $searchFor = $this->getParam('search');
         $this->setSession('searchfor', $searchFor);
-        
+
         $field = $this->getParam('field');
         $this->setSession('field', $field);
-        
-        
+
+
         //Ehb-added-begin
        $course=$this->getParam('course');
         $this->setSession('course', $course);
-        
+
         $group=$this->getParam('group');
         $this->setSession('group',$group);
       //Ehb-added-End
-        
+
         $order = $this->getParam('order');
         $this->setSession('order', $order);
-                       
+
         $numResults = $this->getParam('results');
         $this->setSession('numresults', $numResults);
-        
+
         return $this->nextAction('viewsearchresults');
     }
-    
+
     /**
     * Method to Show the Results for a Search
     * @param int $page - Page of Results to show
@@ -203,17 +203,17 @@ class contextgroups extends controller
     {
         $searchFor = $this->getSession('searchfor', '');
         $field = $this->getSession('field', 'firstName');
-        
+
          //Ehb-added-begin
         $course=$this->getSession('course','course');
         $group=$this->getSession('group','group');
            //Ehb-added-End
         $order = $this->getSession('order', 'firstName');
         $numResults = $this->getSession('numresults', 20);
-        
-        
-         
-        
+
+
+
+
         $this->setVar('searchfor', $searchFor);
         $this->setVar('field', $field);
         $this->setVar('order', $order);
@@ -228,57 +228,57 @@ class contextgroups extends controller
         }
         $currentContextCode=$this->objContext->getContextCode();
         $results = $this->objContextUsers->searchUsers($searchFor, $field, $order, $numResults, ($page-1),$course,$group);
-       
+
         $this->setVarByRef('results', $results);
-        
+
         $countResults = $this->objContextUsers->countResults();
-        
+
         $this->setVarByRef('countResults', $countResults);
-        
+
         $this->setVarByRef('page', $page);
-        
-        
+
+
         $paging = $this->objContextUsers->generatePaging($searchFor, $field, $order, $numResults, ($page-1));
         $this->setVarByRef('paging', $paging);
         $contextCode = $this->objContext->getContextCode();
         $this->setVarByRef('contextCode', $contextCode);
-        
+
         //Ehb-added-begin
         $currentContextCode=$this->objContext->getContextCode();
                 $where="where contextCode<>"."'".$currentContextCode."'";
-                $data=$this->objContext->getAll($where);            
+                $data=$this->objContext->getAll($where);
                 $this->setVarByRef('data',$data);
                     //Ehb-added-End
-        
+
         // Get Users into Arrays
         $this->prepareContextUsersArray();
-        
-        
+
+
         return 'searchresults_tpl.php';
     }
-    
+
     /**
     * Method to Update User Roles
     */
     private function updateUserRoles()
     {
         $contextCode = $_POST['context'];
-        
+
         if ($contextCode != $this->objContext->getContextCode()) {
             //return $this->nextAction('error');
             die ('Joined another Context. Adding Users in this way is forbidden. Please start all over again.');
         }
-        
+
         $changedItems = $_POST['changedItems'];
-        
+
         $changedItems = explode(',', $changedItems);
-        array_shift($changedItems); 
-        $changedItems = array_unique($changedItems); 
-		
+        array_shift($changedItems);
+        $changedItems = array_unique($changedItems);
+
         $groups =  $this->objGroups->getTopLevelGroups();
 		$contextGroupId = $this->objGroups->getId($contextCode);
 		$subGroups = $this->objGroups->getSubgroups($contextGroupId);
-       
+
 		foreach($subGroups[0] as $subGroup)
 		{
 			$groupName =  $this->objGroupsOps->formatGroupName($subGroup['group_define_name']);
@@ -293,20 +293,20 @@ class contextgroups extends controller
 				case 'Guest':
 					$guestGroupId = $this->objGroups->getId($subGroup['group_define_name']);
 					break;
-			} 
-			
-		}		
-		        
+			}
+
+		}
+
         foreach ($changedItems as $item)
         {
 			$permid = $this->objGroupsOps->getUserByUserId($item);
-			$pkId = $permid['perm_user_id'];	
-			
-			//remove users 
+			$pkId = $permid['perm_user_id'];
+
+			//remove users
 			$this->objGroupsOps->removeUser($lecturerGroupId, $pkId);
 			$this->objGroupsOps->removeUser($studentGroupId, $pkId);
 			$this->objGroupsOps->removeUser($guestGroupId, $pkId);
-           
+
             switch ($_POST[$item])
             {
                 case 'none': // Already Removed from system
@@ -327,7 +327,7 @@ class contextgroups extends controller
        // die;
         return $this->nextAction(NULL, array('message'=>'usersupdated'));
     }
-    
+
     /**
     * Method to remove a user from a group
     * @param string $userId User Id of the User
@@ -338,22 +338,32 @@ class contextgroups extends controller
         if ($userId == '') {
             return $this->nextAction(NULL, array('message'=>'nouseridprovidedfordelete'));
         }
-        
+
         $group = ucfirst(strtolower($group));
-        
+
         if (!in_array($group, array('Lecturers', 'Students', 'Guest'))) {
             return $this->nextAction(NULL, array('message'=>'nopropergroupprovidedfordelete'));
         }
-        
-        $groupId=$this->objGroups->getLeafId(array($this->objContext->getContextCode(), $group));
-        $pkId = $this->objUser->PKId($userId);
-        
-        $this->objGroupUsers->deleteGroupUser($groupId, $pkId);
-        
+
+// Old code
+//        $groupId=$this->objGroups->getLeafId(array($this->objContext->getContextCode(), $group));
+//        $pkId = $this->objUser->PKId($userId);
+//        $this->objGroupUsers->deleteGroupUser($groupId, $pkId);
+
+        // Get group Id.
+        $contextCode = $this->objContext->getContextCode();
+        $groupDefineName = "{$contextCode}^{$group}";
+        $groupId = $this->objGroups->getId($groupDefineName);
+        // Get user pkId.
+		$permid = $this->objGroupsOps->getUserByUserId($userId);
+		$pkId = $permid['perm_user_id'];
+		// Remove the user.
+		$this->objGroupsOps->removeUser($groupId, $pkId);
+
         return $this->nextAction(NULL, array('message'=>'userdeletedfromgroup', 'userid'=>$userId, 'group'=>$group));
     }
-    
-    
+
+
     /**
     * Method to Prepare a List of Users in a Context sorted by lecturer, student, guest
     * The results are sent to the template
@@ -363,11 +373,11 @@ class contextgroups extends controller
         // Get Context Code
         $contextCode = $this->objContext->getContextCode();
         $filter = " ORDER BY surname ";
-        
+
         // Lecturers
-        $gid=$this->objGroups->getLeafId(array($contextCode,'Lecturers'));		
+        $gid=$this->objGroups->getLeafId(array($contextCode,'Lecturers'));
         $lecturers = $this->objGroups->getGroupUsers($gid, array('userid', 'firstName', 'surname', 'title', 'emailAddress', 'country', 'sex', 'staffnumber'), $filter);
-		
+
         $lecturersArray = array();
 		if (count($lecturers) > 0)
 		{
@@ -406,29 +416,61 @@ class contextgroups extends controller
         $this->setVarByRef('guests', $guestsArray);
         $this->setVarByRef('guestDetails', $guests);
     }
-    
+
     /**
     * Method to remove all users from a group
     */
     private function removeAllUsersFromGroup()
     {
         $mode = $this->getParam('mode');
-        if($mode == 'lecturer'){
+        switch ($mode) {
+        case 'lecturer':
+            $group = 'Lecturers';
             $userIds = $this->getParam('lecturerId');
-            $groupId=$this->objGroups->getLeafId(array($this->objContext->getContextCode(), 'Lecturers'));
-        }elseif($mode == 'student'){
+            break;
+        case 'student':
+            $group = 'Students';
             $userIds = $this->getParam('studentId');
-            $groupId=$this->objGroups->getLeafId(array($this->objContext->getContextCode(), 'Students'));
-        }else{
+            break;
+        case 'guest':
+            $group = 'Guest';
             $userIds = $this->getParam('guestId');
-            $groupId=$this->objGroups->getLeafId(array($this->objContext->getContextCode(), 'Guest'));
+            break;
+        default:
+            trigger_error('Internal error::Invalid mode.', E_USER_ERROR);
+            exit();
         }
-        if(count($userIds) > 0){
-            foreach($userIds as $userId){
-                $pkId = $this->objUser->PKId($userId);
-                $this->objGroupUsers->deleteGroupUser($groupId, $pkId);
+        // Get group Id.
+        $contextCode = $this->objContext->getContextCode();
+        $groupDefineName = "{$contextCode}^{$group}";
+        $groupId = $this->objGroups->getId($groupDefineName);
+        if (!empty($userIds)) {
+            foreach($userIds as $userId) {
+                // Get user pkId.
+        		$permid = $this->objGroupsOps->getUserByUserId($userId);
+        		$pkId = $permid['perm_user_id'];
+        		// Remove the user.
+        		$this->objGroupsOps->removeUser($groupId, $pkId);
             }
         }
+
+// Old code
+//        if($mode == 'lecturer'){
+//            $userIds = $this->getParam('lecturerId');
+//            $groupId=$this->objGroups->getLeafId(array($this->objContext->getContextCode(), 'Lecturers'));
+//        }elseif($mode == 'student'){
+//            $userIds = $this->getParam('studentId');
+//            $groupId=$this->objGroups->getLeafId(array($this->objContext->getContextCode(), 'Students'));
+//        }else{
+//            $userIds = $this->getParam('guestId');
+//            $groupId=$this->objGroups->getLeafId(array($this->objContext->getContextCode(), 'Guest'));
+//        }
+//        if(count($userIds) > 0){
+//            foreach($userIds as $userId){
+//                $pkId = $this->objUser->PKId($userId);
+//                $this->objGroupUsers->deleteGroupUser($groupId, $pkId);
+//            }
+//        }
         return $this->nextAction(NULL);
     }
 
