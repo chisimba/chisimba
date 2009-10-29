@@ -97,7 +97,7 @@ class block_aboutcontext extends object {
         $showEdit='';
         if ($objUser->isAdmin () || $objContextGroups->isContextLecturer()) {
             $objIcon->setIcon('edit');
-            $link=new link($this->uri(array('action'=>'step2','mode'=>'edit','contextcode'=>$objContext->getContextCode()),'contextadmin'));
+            $link=new link($this->uri(array('action'=>'edit','contextcode'=>$objContext->getContextCode()),'contextadmin'));
             $link->link=$objIcon->show();
             $showEdit=$link->show();
         }
