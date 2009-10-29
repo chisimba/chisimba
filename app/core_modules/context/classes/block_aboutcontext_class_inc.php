@@ -2,24 +2,24 @@
 
 /**
  * About Context block
- * 
+ *
  * This class generates a block that displays the about information of a context
- * 
+ *
  * PHP version 5
- * 
- * This program is free software; you can redistribute it and/or modify 
- * it under the terms of the GNU General Public License as published by 
- * the Free Software Foundation; either version 2 of the License, or 
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * This program is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License 
- * along with this program; if not, write to the 
- * Free Software Foundation, Inc., 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
  * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- * 
+ *
  * @category  Chisimba
  * @package   context
  * @author    Tohir Solomons <tsolomons@uwc.ac.za>
@@ -38,8 +38,7 @@ if (!
  * @global entry point $GLOBALS['kewl_entry_point_run']
  * @name   $kewl_entry_point_run
  */
-$GLOBALS['kewl_entry_point_run'])
-{
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 // end security check
@@ -47,9 +46,9 @@ $GLOBALS['kewl_entry_point_run'])
 
 /**
  * About Context block
- * 
+ *
  * This class generates a block that displays the about information of a context
- * 
+ *
  * @category  Chisimba
  * @package   context
  * @author    Tohir Solomons <tsolomons@uwc.ac.za>
@@ -59,41 +58,50 @@ $GLOBALS['kewl_entry_point_run'])
  * @link      http://avoir.uwc.ac.za
  * @see       core
  */
-class block_aboutcontext extends object
-{
-    /**
-    * @var string $title The title of the block
-    */
+class block_aboutcontext extends object {
+/**
+ * @var string $title The title of the block
+ */
     public $title;
-    
+
     /**
-    * @var object $objLanguage String to hold the language object
-    */
+     * @var object $objLanguage String to hold the language object
+     */
     private $objLanguage;
 
     /**
-    * Standard init function to instantiate language object
-    * and create title, etc
-    */
-    public function init()
-    {
-        
+     * Standard init function to instantiate language object
+     * and create title, etc
+     */
+    public function init() {
+
         try {
+            $this->loadClass('link','htmlelements');
             $this->objLanguage =  $this->getObject('language', 'language');
             $this->title = ucWords($this->objLanguage->code2Txt('mod_context_aboutcontext', 'context'));
+
         } catch (customException $e) {
             customException::cleanUp();
         }
     }
-    
+
     /**
-    * Standard block show method.
-    */
-    public function show()
-    {
+     * Standard block show method.
+     */
+    public function show() {
         $objWashout = $this->getObject('washout', 'utilities');
         $objContext = $this->getObject('dbcontext');
-        return $objWashout->parseText($objContext->getAbout());
+        $objIcon= $this->newObject('geticon','htmlelements');
+        $objUser = $this->getObject ( 'user', 'security' );
+        $objContextGroups = $this->getObject('managegroups', 'contextgroups');
+        $showEdit='';
+        if ($objUser->isAdmin () || $objContextGroups->isContextLecturer()) {
+            $objIcon->setIcon('edit');
+            $link=new link($this->uri(array('action'=>'step2','mode'=>'edit'),'contextadmin'));
+            $link->link=$objIcon->show();
+            $showEdit=$link->show();
+        }
+        return $showEdit.$objWashout->parseText($objContext->getAbout());
     }
 }
 ?>
