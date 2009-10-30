@@ -338,28 +338,36 @@ class contextgroups extends controller
         if ($userId == '') {
             return $this->nextAction(NULL, array('message'=>'nouseridprovidedfordelete'));
         }
-
         $group = ucfirst(strtolower($group));
-
         if (!in_array($group, array('Lecturers', 'Students', 'Guest'))) {
             return $this->nextAction(NULL, array('message'=>'nopropergroupprovidedfordelete'));
         }
-
 // Old code
 //        $groupId=$this->objGroups->getLeafId(array($this->objContext->getContextCode(), $group));
 //        $pkId = $this->objUser->PKId($userId);
 //        $this->objGroupUsers->deleteGroupUser($groupId, $pkId);
-
         // Get group Id.
         $contextCode = $this->objContext->getContextCode();
-        $groupDefineName = "{$contextCode}^{$group}";
-        $groupId = $this->objGroups->getId($groupDefineName);
+        $contextGroupId = $this->objGroups->getId($contextCode);
+		$subGroups = $this->objGroups->getSubgroups($contextGroupId);
+        $groupId = NULL;
+		foreach($subGroups[0] as $subGroup)
+		{
+			$groupName =  $this->objGroupsOps->formatGroupName($subGroup['group_define_name']);
+			if ($groupName == $group) {
+			    $groupId = $this->objGroups->getId($subGroup['group_define_name']);
+			    break;
+			}
+		}
+		if (is_null($groupId)) {
+		    trigger_error('Internal Error::Invalid subgroup.', E_USER_ERROR);
+		    exit;
+		}
         // Get user pkId.
 		$permid = $this->objGroupsOps->getUserByUserId($userId);
 		$pkId = $permid['perm_user_id'];
 		// Remove the user.
 		$this->objGroupsOps->removeUser($groupId, $pkId);
-
         return $this->nextAction(NULL, array('message'=>'userdeletedfromgroup', 'userid'=>$userId, 'group'=>$group));
     }
 
@@ -422,38 +430,6 @@ class contextgroups extends controller
     */
     private function removeAllUsersFromGroup()
     {
-        $mode = $this->getParam('mode');
-        switch ($mode) {
-        case 'lecturer':
-            $group = 'Lecturers';
-            $userIds = $this->getParam('lecturerId');
-            break;
-        case 'student':
-            $group = 'Students';
-            $userIds = $this->getParam('studentId');
-            break;
-        case 'guest':
-            $group = 'Guest';
-            $userIds = $this->getParam('guestId');
-            break;
-        default:
-            trigger_error('Internal error::Invalid mode.', E_USER_ERROR);
-            exit();
-        }
-        // Get group Id.
-        $contextCode = $this->objContext->getContextCode();
-        $groupDefineName = "{$contextCode}^{$group}";
-        $groupId = $this->objGroups->getId($groupDefineName);
-        if (!empty($userIds)) {
-            foreach($userIds as $userId) {
-                // Get user pkId.
-        		$permid = $this->objGroupsOps->getUserByUserId($userId);
-        		$pkId = $permid['perm_user_id'];
-        		// Remove the user.
-        		$this->objGroupsOps->removeUser($groupId, $pkId);
-            }
-        }
-
 // Old code
 //        if($mode == 'lecturer'){
 //            $userIds = $this->getParam('lecturerId');
@@ -471,8 +447,52 @@ class contextgroups extends controller
 //                $this->objGroupUsers->deleteGroupUser($groupId, $pkId);
 //            }
 //        }
+        $mode = $this->getParam('mode');
+        switch ($mode) {
+        case 'lecturer':
+            $group = 'Lecturers';
+            $userIds = $this->getParam('lecturerId');
+            break;
+        case 'student':
+            $group = 'Students';
+            $userIds = $this->getParam('studentId');
+            break;
+        case 'guest':
+            $group = 'Guest';
+            $userIds = $this->getParam('guestId');
+            break;
+        default:
+            trigger_error('Internal Error::Invalid mode.', E_USER_ERROR);
+            exit;
+        }
+        // Get group Id.
+        $contextCode = $this->objContext->getContextCode();
+        $contextGroupId = $this->objGroups->getId($contextCode);
+		$subGroups = $this->objGroups->getSubgroups($contextGroupId);
+        $groupId = NULL;
+		foreach($subGroups[0] as $subGroup)
+		{
+			$groupName =  $this->objGroupsOps->formatGroupName($subGroup['group_define_name']);
+			if ($groupName == $group) {
+			    $groupId = $this->objGroups->getId($subGroup['group_define_name']);
+			    break;
+			}
+		}
+		if (is_null($groupId)) {
+		    trigger_error('Internal Error::Invalid subgroup.', E_USER_ERROR);
+		    exit;
+		}
+		// Iterate through the selected users.
+        if (!empty($userIds)) {
+            foreach($userIds as $userId) {
+                // Get user pkId.
+        		$permid = $this->objGroupsOps->getUserByUserId($userId);
+        		$pkId = $permid['perm_user_id'];
+        		// Remove the user.
+        		$this->objGroupsOps->removeUser($groupId, $pkId);
+            }
+        }
         return $this->nextAction(NULL);
     }
-
 }
 ?>
