@@ -3,6 +3,8 @@ $headerParams=$this->getJavascriptFile('new_sorttable.js','htmlelements');
 $this->appendArrayVar('headerParams',$headerParams);
 $headerParams=$this->getJavascriptFile('selectall.js','htmlelements');
 $this->appendArrayVar('headerParams',$headerParams);
+$headerParams=$this->getJavascriptFile('getselectcount.js','contextgroups');
+$this->appendArrayVar('headerParams',$headerParams);
 
 $this->loadClass('form', 'htmlelements');
 $this->loadClass('dropdown', 'htmlelements');
@@ -116,7 +118,7 @@ $objButton->extra='onclick="javascript:SetAllCheckBoxes(\'removelecturers\', \'l
 $buttons .= '&nbsp;&nbsp;&nbsp;&nbsp;'.$objButton->show();
 
 $objButton = new button('delete', $this->objLanguage->languageText('mod_contextgroups_deleteselected', 'contextgroups', 'Delete Selected'));
-$objButton->extra='onclick="javascript:if(confirm(\''.$this->objLanguage->code2Txt('mod_contextgroups_confirmlecturer', 'contextgroups', NULL, 'Are you sure you want to delete these [-authors-]?').'\')){document.removelecturers.submit();}else{return false;}"';
+$objButton->extra='onclick="javascript:if(confirm(\''.$this->objLanguage->code2Txt('mod_contextgroups_confirmlecturer', 'contextgroups', NULL, 'Are you sure you want to delete these [-authors-]?').' \'+getSelectCount(\'removelecturers\', \'lecturerId[]\')+\' '.$this->objLanguage->languageText('mod_contextgroups_membersselected','contextgroups').'.\')){document.removelecturers.submit();}else{return false;}"';
 $buttons .= '&nbsp;&nbsp;&nbsp;&nbsp;'.$objButton->show();
 
 $objForm = new form('removelecturers', $this->uri(array('action'=>'removeallusers', 'mode'=>'lecturer')));
@@ -219,7 +221,7 @@ $objButton->extra='onclick="javascript:SetAllCheckBoxes(\'removestudents\', \'st
 $buttons .= '&nbsp;&nbsp;&nbsp;&nbsp;'.$objButton->show();
 
 $objButton = new button('delete', $this->objLanguage->languageText('mod_contextgroups_deleteselected', 'contextgroups', 'Delete Selected'));
-$objButton->extra='onclick="javascript:if(confirm(\''.$this->objLanguage->code2Txt('mod_contextgroups_confirmstudent', 'contextgroups', NULL, 'Are you sure you want to delete these [-readonlys-]?').'\')){document.removestudents.submit();}else{return false;}"';
+$objButton->extra='onclick="javascript:if(confirm(\''.$this->objLanguage->code2Txt('mod_contextgroups_confirmstudent', 'contextgroups', NULL, 'Are you sure you want to delete these [-readonlys-]?').' \'+getSelectCount(\'removestudents\', \'studentId[]\')+\' '.$this->objLanguage->languageText('mod_contextgroups_membersselected','contextgroups').'.\')){document.removestudents.submit();}else{return false;}"';
 $buttons .= '&nbsp;&nbsp;&nbsp;&nbsp;'.$objButton->show();
 
 $objForm = new form('removestudents', $this->uri(array('action'=>'removeallusers', 'mode'=>'student')));
@@ -321,7 +323,7 @@ $objButton->extra='onclick="javascript:SetAllCheckBoxes(\'removeguests\', \'gues
 $buttons .= '&nbsp;&nbsp;&nbsp;&nbsp;'.$objButton->show();
 
 $objButton = new button('delete', $this->objLanguage->languageText('mod_contextgroups_deleteselected', 'contextgroups', 'Delete Selected'));
-$objButton->extra='onclick="javascript:if(confirm(\''.$this->objLanguage->languageText('mod_contextgroups_confirmguest', 'contextgroups', 'Are you sure you want to delete these guests?').'\')){document.removeguests.submit();}else{return false;}"';
+$objButton->extra='onclick="javascript:if(confirm(\''.$this->objLanguage->languageText('mod_contextgroups_confirmguest', 'contextgroups', 'Are you sure you want to delete these guests?').' \'+getSelectCount(\'removeguests\', \'guestId[]\')+\' '.$this->objLanguage->languageText('mod_contextgroups_membersselected','contextgroups').'.\')){document.removeguests.submit();}else{return false;}"';
 $buttons .= '&nbsp;&nbsp;&nbsp;&nbsp;'.$objButton->show();
 
 $objForm = new form('removeguests', $this->uri(array('action'=>'removeallusers', 'mode'=>'guest')));
