@@ -25,7 +25,7 @@ if ($this->isValid('addusers')) {
 
     $link = new link($this->uri(array('action'=>'viewsearchresults')));
     $link->link = $objIcon->show();
-    
+
     $header->str .= ' '.$link->show();
 }
 
@@ -62,21 +62,20 @@ if ($this->isValid('removeuser') && count($lecturerDetails) > 0) {
 $objTable->endRow();
 
 if (count($lecturerDetails) > 0) {
-    
+
     $objTable->row_attributes='onmouseover="this.className=\'tbl_ruler\';" onmouseout="this.className=\'none\'; "';
-    
+
     foreach ($lecturerDetails as $lecturer)
     {
         $objCheck=new checkbox('lecturerId[]');
         $objCheck->value=$lecturer['userid'];
 
         $objTable->startRow();
-        if($this->isValid('removeallusers')){
-            if($lecturer['userid'] != $this->userId){
-                $objTable->addCell($objCheck->show());        
-            }else{
-                $objTable->addCell('');
-            }
+        if($this->isValid('removeallusers') && $lecturer['userid'] != $this->userId){
+            $objTable->addCell($objCheck->show());
+        }
+        else {
+            $objTable->addCell('');
         }
         $objTable->addCell($lecturer['userid']);
         $objTable->addCell($lecturer['staffnumber']);
@@ -84,16 +83,19 @@ if (count($lecturerDetails) > 0) {
         $objTable->addCell($lecturer['firstname']);
         $objTable->addCell($lecturer['surname']);
         $objTable->addCell($lecturer['emailaddress']);
-        if ($this->isValid('removeuser')) {
+        if ($this->isValid('removeuser') && $lecturer['userid'] != $this->userId) {
             $string = str_replace(
-                '[-user-]', 
-                ucwords($this->objLanguage->code2txt('word_lecturer', 'system', NULL, '[-author-]')), 
+                '[-user-]',
+                $lecturer['title'].' '.$lecturer['firstname'].' '.$lecturer['surname'],
                 $this->objLanguage->languageText('mod_contextgroups_confirmdeleteuser', 'contextgroups')
-            );
-            
+            ); //ucwords($this->objLanguage->code2txt('word_lecturer', 'system', NULL, '[-author-]'))
+
             $deleteicon = $objIcon->getDeleteIconWithConfirm(NULL, array('action'=>'removeuser', 'userid'=>$lecturer['userid'], 'group'=>'Lecturers'), 'contextgroups', $string);
-            
+
             $objTable->addCell($deleteicon);
+        }
+        else {
+            $objTable->addCell('&nbsp;');
         }
         $objTable->endRow();
     }
@@ -168,9 +170,9 @@ if ($this->isValid('removeuser') && count($studentDetails) > 0) {
 $objTable->endRow();
 
 if (count($studentDetails) > 0) {
-    
+
     $objTable->row_attributes='onmouseover="this.className=\'tbl_ruler\';" onmouseout="this.className=\'none\'; "';
-    
+
     foreach ($studentDetails as $student)
     {
         $objCheck=new checkbox('studentId[]');
@@ -178,11 +180,11 @@ if (count($studentDetails) > 0) {
 
         $objTable->startRow();
         if($this->isValid('removeallusers')){
-            if($student['userid'] != $this->userId){
-                $objTable->addCell($objCheck->show());        
-            }else{
-                $objTable->addCell('');
-            }
+            //if($student['userid'] != $this->userId){
+            $objTable->addCell($objCheck->show());
+            //}else{
+            //    $objTable->addCell('');
+            //}
         }
         $objTable->addCell($student['userid']);
         $objTable->addCell($student['staffnumber']);
@@ -192,12 +194,12 @@ if (count($studentDetails) > 0) {
         $objTable->addCell($student['emailaddress']);
         if ($this->isValid('removeuser')) {
             $string = str_replace(
-                '[-user-]', 
-                ucwords($this->objLanguage->code2txt('word_student', 'system', NULL, '[-readonly-]')), 
+                '[-user-]',
+                $student['title'].' '.$student['firstname'].' '.$student['surname'],
                 $this->objLanguage->languageText('mod_contextgroups_confirmdeleteuser', 'contextgroups')
-            );
+            ); //ucwords($this->objLanguage->code2txt('word_student', 'system', NULL, '[-readonly-]'))
             $deleteicon = $objIcon->getDeleteIconWithConfirm(NULL, array('action'=>'removeuser', 'userid'=>$student['userid'], 'group'=>'Students'), 'contextgroups', $string);
-            
+
             $objTable->addCell($deleteicon);
         }
         $objTable->endRow();
@@ -270,9 +272,9 @@ if ($this->isValid('removeuser') && count($guestDetails) > 0) {
 $objTable->endRow();
 
 if (count($guestDetails) > 0) {
-    
+
     $objTable->row_attributes='onmouseover="this.className=\'tbl_ruler\';" onmouseout="this.className=\'none\'; "';
-    
+
     foreach ($guestDetails as $guest)
     {
         $objCheck=new checkbox('guestId[]');
@@ -280,11 +282,11 @@ if (count($guestDetails) > 0) {
 
         $objTable->startRow();
         if($this->isValid('removeallusers')){
-            if($guest['userid'] != $this->userId){
-                $objTable->addCell($objCheck->show());        
-            }else{
-                $objTable->addCell('');
-            }
+            //if($guest['userid'] != $this->userId){
+            $objTable->addCell($objCheck->show());
+            //}else{
+            //    $objTable->addCell('');
+            //}
         }
         $objTable->addCell($guest['userid']);
         $objTable->addCell($guest['staffnumber']);
@@ -294,12 +296,12 @@ if (count($guestDetails) > 0) {
         $objTable->addCell($guest['emailaddress']);
         if ($this->isValid('removeuser')) {
             $string = str_replace(
-                '[-user-]', 
-                ucwords($this->objLanguage->languageText('word_guest', 'system', 'guest')), 
+                '[-user-]',
+                $guest['title'].' '.$guest['firstname'].' '.$guest['surname'],
                 $this->objLanguage->languageText('mod_contextgroups_confirmdeleteuser', 'contextgroups')
-            );
+            ); //ucwords($this->objLanguage->languageText('word_guest', 'system', 'guest'))
             $deleteicon = $objIcon->getDeleteIconWithConfirm(NULL, array('action'=>'removeuser', 'userid'=>$guest['userid'], 'group'=>'Guest'), 'contextgroups', $string);
-            
+
             $objTable->addCell($deleteicon);
         }
         $objTable->endRow();
@@ -371,44 +373,44 @@ if ($this->isValid('addusers')) {
     $input->size = 20;
     $table->addCell($searchLabel->show().$searchdropdown->show()."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$label->show().$input->show());
 
-   
+
 
     $table->endRow();
 
     $table->startRow();
-    
+
         //Ehb-added-begin
-            $label=new label($this->objLanguage->languageText('mod_contextgroups_choosecourse', 'contextgroups'),'input_course');        
+            $label=new label($this->objLanguage->languageText('mod_contextgroups_choosecourse', 'contextgroups'),'input_course');
             $courseDropdown=new dropdown('course');
             $courseDropdown->addOption('all',$this->objLanguage->languageText('mod_contextgroups_allcourses', 'contextgroups'));
             for($i=0; $i<count($data); $i++){
           $courseDropdown->addOption($data[$i]['contextcode'], $data[$i]['title']);
         }
         $courseDropdown->setSelected($course);
-        
-            $label2=new label($this->objLanguage->languageText('mod_contextgroups_choosegroup', 'contextgroups'),'input_group');        
+
+            $label2=new label($this->objLanguage->languageText('mod_contextgroups_choosegroup', 'contextgroups'),'input_group');
             $groupDropdown=new dropdown('group');
             $groupDropdown->addOption('all','All groups');
             $groups=array("Lecturers","Students","Guest");
-        
+
                 for($i=0; $i<count($groups); $i++){
           $groupDropdown->addOption($groups[$i],$groups[$i]);
         }
-        
+
         $groupDropdown->setSelected($group);
-        
+
         $table->addCell($label2->show().$groupDropdown->show()."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$label->show().$courseDropdown->show());
         $table->endRow();
    //Ehb-added-End
 
             $table->startRow();
-            
+
         $orderLabel = new label ($this->objLanguage->languageText('mod_contextgroups_orderresultsby', 'contextgroups').': ', 'input_order');
     $searchdropdown->name = 'order';
     $searchdropdown->cssId = 'input_order';
     //$table->addCell($orderLabel->show().$searchdropdown->show());
 
-            
+
      $label = new label ($this->objLanguage->languageText('mod_contextgroups_noofresults', 'contextgroups').': ', 'input_results');
     $dropdown = new dropdown('results');
     $dropdown->addOption('20', '20');
