@@ -220,8 +220,8 @@ class htmlarea extends object {
 
        </script>
             ";
-        return $editor;
-    //return $this->showFCKEditor();
+       // return $editor;
+    return $this->showFCKEditor();
     }
 
     /**
