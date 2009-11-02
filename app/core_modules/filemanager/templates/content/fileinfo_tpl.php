@@ -46,9 +46,9 @@ if ($mode == 'selectfilewindow' || $mode == 'selectimagewindow' || $mode == 'fck
     if (count($restrictions) == 0) {
         $header->str .= ' (<a href="javascript:selectFile();">'.$this->objLanguage->languageText('mod_filemanager_selectfile', 'filemanager', 'Select File').'</a>) ';
     } else if (in_array(strtolower($file['datatype']), $restrictions)) {
-        $header->str .= ' (<a href="javascript:selectFile();">'.$this->objLanguage->languageText('mod_filemanager_selectfile', 'filemanager', 'Select File').'</a>) ';
-    } 
-    
+            $header->str .= ' (<a href="javascript:selectFile();">'.$this->objLanguage->languageText('mod_filemanager_selectfile', 'filemanager', 'Select File').'</a>) ';
+        }
+
     if ($mode == 'fckimage' || $mode == 'fckflash') {
         if (isset($file['width']) && isset($file['height'])) {
             $widthHeight = ', '.$file['width'].', '.$file['height'];
@@ -58,18 +58,19 @@ if ($mode == 'selectfilewindow' || $mode == 'selectimagewindow' || $mode == 'fck
     } else {
         $widthHeight = '';
     }
-    
+
     if ($mode == 'fckimage' || $mode == 'fckflash' || $mode == 'fcklink') {
-        
-        //var_dump($file);
-        
+
+    //var_dump($file);
+
         $checkOpenerScript = '
         <script type="text/javascript">
         //<![CDATA[
         function selectFile()
         {
             if (window.opener) {
-                window.top.opener.SetUrl("'.htmlspecialchars_decode($this->uri(array('action'=>'file', 'id'=>$file['id'], 'filename'=>$file['filename'], 'type'=>'.'.$file['datatype']), 'filemanager', '', TRUE, FALSE, TRUE)).'"'.$widthHeight.') ;
+                 //31.10.2009 davidwaf added the following  that uses CKeditor 3
+                window.opener.CKEDITOR.tools.callFunction(1, "'.htmlspecialchars_decode($this->uri(array('action'=>'file', 'id'=>$file['id'], 'filename'=>$file['filename'], 'type'=>'.'.$file['datatype']), 'filemanager', '', TRUE, FALSE, TRUE)).'"'.$widthHeight.') ;
                 window.top.close() ;
                 window.top.opener.focus() ;
             }
@@ -77,11 +78,11 @@ if ($mode == 'selectfilewindow' || $mode == 'selectimagewindow' || $mode == 'fck
         //]]>
         </script>
                 ';
-        
+
         $this->appendArrayVar('headerParams', $checkOpenerScript);
-        
+
     } else if ($mode == 'selectfilewindow') {
-        $checkOpenerScript = '
+            $checkOpenerScript = '
         <script type="text/javascript">
         function selectFile()
         {
@@ -101,14 +102,14 @@ if ($mode == 'selectfilewindow' || $mode == 'selectimagewindow' || $mode == 'fck
         }
         </script>
                 ';
-        
-        $this->appendArrayVar('headerParams', $checkOpenerScript);
-        
-    } else if ($mode == 'selectimagewindow') {
-        
-        $objThumbnails = $this->getObject('thumbnails');
-        
-        $checkOpenerScript = '
+
+            $this->appendArrayVar('headerParams', $checkOpenerScript);
+
+        } else if ($mode == 'selectimagewindow') {
+
+                $objThumbnails = $this->getObject('thumbnails');
+
+                $checkOpenerScript = '
         <script type="text/javascript">
         function selectFile()
         {
@@ -126,9 +127,9 @@ if ($mode == 'selectfilewindow' || $mode == 'selectimagewindow' || $mode == 'fck
         }
         </script>
                 ';
-        
-        $this->appendArrayVar('headerParams', $checkOpenerScript);
-    }
+
+                $this->appendArrayVar('headerParams', $checkOpenerScript);
+            }
 }
 
 if ($folderPermission) {
@@ -148,8 +149,7 @@ if (count($tags) == 0) {
     echo '<em>'.$this->objLanguage->languageText('phrase_notags', 'system', 'no tags').'</em>';
 } else {
     $comma = '';
-    foreach ($tags as $tag)
-    {
+    foreach ($tags as $tag) {
         $tagLink = new link ($this->uri(array('action'=>'viewbytag', 'tag'=>$tag)));
         $tagLink->link = $tag;
 
@@ -165,24 +165,24 @@ echo '</p>';
 $tabContent = $this->newObject('tabber', 'htmlelements');
 $tabContent->width = '90%';
 if ($preview != '') {
-    
-    
-    
-    
-    
+
+
+
+
+
     if ($file['category'] == 'images') {
         $this->appendArrayVar('headerParams', $this->getJavaScriptFile('jquery/jquery.imagefit_0.2.js', 'htmlelements'));
         $this->appendArrayVar('bodyOnLoad', "jQuery('#filemanagerimagepreview').imagefit();");
-        
+
         $preview = '<div id="filemanagerimagepreview">'.$preview.'</div>';
     }
-    
+
     $previewContent = '<h2>'.$this->objLanguage->languageText('mod_filemanager_filepreview', 'filemanager', 'File Preview').'</h2>'.$preview;
-    
-    
+
+
     //$tabContent->addTab($this->objLanguage->languageText('mod_filemanager_filepreview', 'filemanager', 'File Preview'), $previewContent);
     $tabContent->addTab(array('name'=>$this->objLanguage->languageText('mod_filemanager_filepreview', 'filemanager', 'File Preview'), 'content'=>$previewContent));
-    
+
     //$tabContent->addTab($this->objLanguage->languageText('mod_filemanager_embedcode', 'filemanager', 'Embed Code'), $embedCode);
     $tabContent->addTab(array('name'=>$this->objLanguage->languageText('mod_filemanager_embedcode', 'filemanager', 'Embed Code'),'content'=>$embedCode));
 }
@@ -194,10 +194,10 @@ $fileInfoContent = '<h2>'.$fileInfo.'</h2>'.$this->objFiles->getFileInfoTable($f
 
 
 if (array_key_exists('width', $file)) {
-    
-    
+
+
     $mediaInfo = $this->objLanguage->languageText('mod_filemanager_mediainfo', 'filemanager', 'Media Information');
-    
+
     $fileInfoContent .= '<br /><h2>'.$mediaInfo.'</h2>'.$this->objFiles->getFileMediaInfoTable($file['id']);
 }
 
@@ -206,27 +206,11 @@ $tabContent->addTab(array('name'=>$fileInfo,'content'=>$fileInfoContent));
 
 
 echo $tabContent->show();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 if ($file['category'] == 'archives' && $file['datatype'] == 'zip') {
-    
+
     $folderParts = explode('/', $file['filefolder']);
     //getTree($folderType='users', $id, $treeType='dhtml', $selected='')
-    
+
     $form = new form ('extractarchive', $this->uri(array('action'=>'extractarchive')));
     $form->addToForm($this->objLanguage->languageText('mod_filemanager_extractarchiveto', 'filemanager', 'Extract Archive to').': '.$this->objFolders->getTree($folderParts[0], $folderParts[1], 'htmldropdown', $folderId));
 
