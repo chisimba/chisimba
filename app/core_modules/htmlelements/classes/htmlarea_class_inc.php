@@ -170,6 +170,7 @@ class htmlarea extends object {
      */
     function show() {
         $base = '<script language="JavaScript" src="'.$this->getResourceUri('ckeditor/ckeditor.js','htmlelements').'" type="text/javascript"></script>';
+
         $baseajax = '<script language="JavaScript" src="'.$this->getResourceUri('ckeditor/_source/core/ajax.js','htmlelements').'" type="text/javascript"></script>';
 
         /*$extbase = '<script language="JavaScript" src="'.$this->getResourceUri('ext-3.0-rc2/adapter/ext/ext-base.js','htmlelements').'" type="text/javascript"></script>';
@@ -220,8 +221,8 @@ class htmlarea extends object {
 
        </script>
             ";
-       // return $editor;
-    return $this->showFCKEditor();
+        return $editor;
+    //return $this->showFCKEditor();
     }
 
     /**
