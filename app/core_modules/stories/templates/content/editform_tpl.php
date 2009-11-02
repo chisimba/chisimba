@@ -337,7 +337,7 @@ if ($inputType == 'plaintext') {
     //$editor->setBasicToolBar();
     $editor->setContent($mainText);
     //$objFmTable->addCell($editor->show(). $switchLink, NULL, "top", "center", NULL, "colspan=\"2\"");
-    $objFmTable->addCell($editor->showFCKEditor(). $switchLink, NULL, "top", "center", NULL, "colspan=\"2\"");
+    $objFmTable->addCell($editor->show(). $switchLink, NULL, "top", "center", NULL, "colspan=\"2\"");
     $objFmTable->endRow();
 
 }
