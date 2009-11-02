@@ -96,7 +96,7 @@ if (count($lecturerDetails) > 0) {
         if ($this->isValid('removeuser') && $lecturer['userid'] != $this->userId) {
             $string = str_replace(
                 '[-user-]',
-                $lecturer['title'].' '.$lecturer['firstname'].' '.$lecturer['surname'],
+                /*$lecturer['title'].' '.*/$lecturer['firstname'].' '.$lecturer['surname'],
                 $this->objLanguage->languageText('mod_contextgroups_confirmdeleteuser', 'contextgroups')
             ); //ucwords($this->objLanguage->code2txt('word_lecturer', 'system', NULL, '[-author-]'))
 
@@ -205,7 +205,7 @@ if (count($studentDetails) > 0) {
         if ($this->isValid('removeuser')) {
             $string = str_replace(
                 '[-user-]',
-                $student['title'].' '.$student['firstname'].' '.$student['surname'],
+                /*$student['title'].' '.*/$student['firstname'].' '.$student['surname'],
                 $this->objLanguage->languageText('mod_contextgroups_confirmdeleteuser', 'contextgroups')
             ); //ucwords($this->objLanguage->code2txt('word_student', 'system', NULL, '[-readonly-]'))
             $deleteicon = $objIcon->getDeleteIconWithConfirm(NULL, array('action'=>'removeuser', 'userid'=>$student['userid'], 'group'=>'Students'), 'contextgroups', $string);
@@ -307,7 +307,7 @@ if (count($guestDetails) > 0) {
         if ($this->isValid('removeuser')) {
             $string = str_replace(
                 '[-user-]',
-                $guest['title'].' '.$guest['firstname'].' '.$guest['surname'],
+                /*$guest['title'].' '.*/$guest['firstname'].' '.$guest['surname'],
                 $this->objLanguage->languageText('mod_contextgroups_confirmdeleteuser', 'contextgroups')
             ); //ucwords($this->objLanguage->languageText('word_guest', 'system', 'guest'))
             $deleteicon = $objIcon->getDeleteIconWithConfirm(NULL, array('action'=>'removeuser', 'userid'=>$guest['userid'], 'group'=>'Guest'), 'contextgroups', $string);

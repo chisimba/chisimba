@@ -353,6 +353,10 @@ class contextgroups extends controller
 //        $this->objGroupUsers->deleteGroupUser($groupId, $pkId);
         // Get group Id.
         $contextCode = $this->objContext->getContextCode();
+        $groupDefineName = "{$contextCode}^{$group}";
+        $groupId = $this->objGroups->getId($groupDefineName);
+        /*
+        $contextCode = $this->objContext->getContextCode();
         $contextGroupId = $this->objGroups->getId($contextCode);
 		$subGroups = $this->objGroups->getSubgroups($contextGroupId);
         $groupId = NULL;
@@ -368,6 +372,7 @@ class contextgroups extends controller
 		    trigger_error('Internal Error::Invalid subgroup.', E_USER_ERROR);
 		    exit;
 		}
+		*/
         // Get user pkId.
 		$permid = $this->objGroupsOps->getUserByUserId($userId);
 		$pkId = $permid['perm_user_id'];
@@ -474,6 +479,10 @@ class contextgroups extends controller
         }
         // Get group Id.
         $contextCode = $this->objContext->getContextCode();
+        $groupDefineName = "{$contextCode}^{$group}";
+        $groupId = $this->objGroups->getId($groupDefineName);
+        /*
+        $contextCode = $this->objContext->getContextCode();
         $contextGroupId = $this->objGroups->getId($contextCode);
 		$subGroups = $this->objGroups->getSubgroups($contextGroupId);
         $groupId = NULL;
@@ -489,6 +498,7 @@ class contextgroups extends controller
 		    trigger_error('Internal Error::Invalid subgroup.', E_USER_ERROR);
 		    exit;
 		}
+		*/
 		// Iterate through the selected users.
 		$count = 0;
         if (!empty($userIds)) {
