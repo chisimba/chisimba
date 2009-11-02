@@ -11,88 +11,86 @@ $GLOBALS['kewl_entry_point_run']) {
 }
 
 /**
-* textare class to use to make textarea inputs.
-* 
-* @package   htmlelements
-* @category  HTML Controls
-* @author    Wesley Nitsckie
-* @copyright 2004, University of the Western Cape & AVOIR Project
-* @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
-Public License
-* @version   $Id$
-* @link      http://avoir.uwc.ac.za
-* @todo      -c HTML Editor that will extend this object
-*/
+ * textare class to use to make textarea inputs.
+ *
+ * @package   htmlelements
+ * @category  HTML Controls
+ * @author    Wesley Nitsckie
+ * @copyright 2004, University of the Western Cape & AVOIR Project
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+ Public License
+ * @version   $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @todo      -c HTML Editor that will extend this object
+ */
 
 //require_once("htmlbase_class_inc.php");
-class htmlarea extends object
- {
-     /**
-    * 
-    * @var string $siteRootPath: The path to the site
-    */
+class htmlarea extends object {
+/**
+ *
+ * @var string $siteRootPath: The path to the site
+ */
     var $siteRootPath;
-     /**
-    * 
-    * @var string $cols: The number of columns the textare will have
-    */
+    /**
+     *
+     * @var string $cols: The number of columns the textare will have
+     */
     var $cols;
     /**
-    * 
-    * @var string $rows: The number of rows the textare will have
-    */
+     *
+     * @var string $rows: The number of rows the textare will have
+     */
     var $rows;
-    
+
     /**
-    * 
-    * @var string $label: The label of the editor
-    */
+     *
+     * @var string $label: The label of the editor
+     */
     var $label;
-    
+
     /**
-    * 
-    * @var string $cssClass: The style sheet class
-    */
+     *
+     * @var string $cssClass: The style sheet class
+     */
     var $cssClass;
-    
+
     /**
-    * 
-    * @var string $height: The height of the editor
-    */
+     *
+     * @var string $height: The height of the editor
+     */
     var $height;
-    
+
     /**
-    * 
-    * @var string $width: The width of the editor 
-    */
+     *
+     * @var string $width: The width of the editor
+     */
     var $width;
     /**
-    * 
-    * @var string $toolbarSet: The toolbarSet of the editor : either Default or Basic
-    */
+     *
+     * @var string $toolbarSet: The toolbarSet of the editor : either Default or Basic
+     */
     var $toolbarSet;
 
     /**
-    * @var boolean $context Are we in a context aware mode.
-    */
+     * @var boolean $context Are we in a context aware mode.
+     */
     var $context;
 
-   /**
-    * @var string $fck_version Which version of FCKEditor to load (2.5.1 vs 2.6.3)
-    */
+    /**
+     * @var string $fck_version Which version of FCKEditor to load (2.5.1 vs 2.6.3)
+     */
     public $fckVersion;
 
-   /**
-    * @var string $templatePath Path to fckeditor templates
-    */
+    /**
+     * @var string $templatePath Path to fckeditor templates
+     */
     public $templatePath;
 
-    
+
     /**
-    * Method to establish the default values
-    */
-    function init($name=null,$value=null,$rows=4,$cols=50,$context=false)
-     {
+     * Method to establish the default values
+     */
+    function init($name=null,$value=null,$rows=4,$cols=50,$context=false) {
         $this->sysConf = $this->getObject('dbsysconfig', 'sysconfig');
         //Loading the default FCK version from config
         $this->fckVersion = $this->sysConf->getValue('FCKEDITOR_VERSION', 'htmlelements');
@@ -108,84 +106,129 @@ class htmlarea extends object
         //$this->_objConfig =& $this->getObject('config', 'config');
         //$siteRootPath = $this->_objConfig->siteRootPath();
         $objConfig=$this->getObject('altconfig','config');
-        $siteRoot=$objConfig->getsiteRoot();
+        $this->siteRoot=$objConfig->getsiteRoot();
         //$siteRootPath = "http://".$_SERVER['HTTP_HOST']."/nextgen/";
         //$this->setSiteRootPath($siteRoot);
         $this->context = $context;
         $this->toolbarSet = 'advanced';
-        
+
+
     }
 
-   /**
-    * Method to set the version of FCKEditor to load (2.5.1 vs 2.6.3)
-    *
-    */
-    public function setVersion($fckVersion)
-    {
+    /**
+     * Method to set the version of FCKEditor to load (2.5.1 vs 2.6.3)
+     *
+     */
+    public function setVersion($fckVersion) {
         $this->fckVersion = $fckVersion;
     }
 
     /**
-    * function to set the root path
-    * 
-    * @var string $siteRootPath: The site path
-    */
-    function setSiteRootPath($siteRootPath)
-    {
+     * function to set the root path
+     *
+     * @var string $siteRootPath: The site path
+     */
+    function setSiteRootPath($siteRootPath) {
         $this->siteRootPath = $siteRootPath;
     }
-    
+
     /**
-    * function to set the value of one of the properties of this class
-    * 
-    * @var string $name: The name of the textare
-    */
-    function setName($name)
-    {
+     * function to set the value of one of the properties of this class
+     *
+     * @var string $name: The name of the textare
+     */
+    function setName($name) {
         $this->name=$name;
     }
     /**
-    * function to set the amount of rows 
-    * @var string $Rows: The number of rows of the textare
-    *             
-    */
-    function setRows($rows)
-    {
+     * function to set the amount of rows
+     * @var string $Rows: The number of rows of the textare
+     *
+     */
+    function setRows($rows) {
         $this->rows=$rows;
     }
     /**
-    * function to set the amount of cols 
-    * @var string $cols: The number of cols of the textare
-    *             
-    */
-    function setColumns($cols)
-    {
+     * function to set the amount of cols
+     * @var string $cols: The number of cols of the textare
+     *
+     */
+    function setColumns($cols) {
         $this->cols=$cols;
     }
-    
+
     /**
-    * function to set the content
-    * @var string $content: The content of the textare
-    */
-    function setContent($value=null)
-    {
+     * function to set the content
+     * @var string $content: The content of the textare
+     */
+    function setContent($value=null) {
         $this->value=$value;
     }
-   
+
     /**
-    * Method to display the WYSIWYG Editor
-    */
-    function show()
-    {
-        return $this->showFCKEditor();
+     * Method to display the WYSIWYG Editor
+     */
+    function show() {
+        $base = '<script language="JavaScript" src="'.$this->getResourceUri('ckeditor/ckeditor.js','htmlelements').'" type="text/javascript"></script>';
+        $baseajax = '<script language="JavaScript" src="'.$this->getResourceUri('ckeditor/_source/core/ajax.js','htmlelements').'" type="text/javascript"></script>';
+
+        /*$extbase = '<script language="JavaScript" src="'.$this->getResourceUri('ext-3.0-rc2/adapter/ext/ext-base.js','htmlelements').'" type="text/javascript"></script>';
+        $extalljs = '<script language="JavaScript" src="'.$this->getResourceUri('ext-3.0-rc2/ext-all.js','htmlelements').'" type="text/javascript"></script>';
+        $extallcss = '<link rel="stylesheet" type="text/css" href="'.$this->getResourceUri('ext-3.0-rc2/resources/css/ext-all.css','htmlelements').'"/>';
+        */
+        $tinyboxjs= '<script language="JavaScript" src="'.$this->getResourceUri('tinybox/tinybox.js','htmlelements').'" type="text/javascript"></script>';
+        $tinyboxcss = '<link rel="stylesheet" type="text/css" href="'.$this->getResourceUri('tinybox/style.css','htmlelements').'"/>';
+        
+        $initVars='
+
+       <script type="text/javascript">
+        var instancename=\''.$this->name.'\';
+        var  siteRootPath=\''.$this->siteRoot.'\';
+       </script>
+      ';
+
+        $this->appendArrayVar('headerParams', $initVars);
+       /*
+        $this->appendArrayVar('headerParams', $extbase);
+        $this->appendArrayVar('headerParams', $extalljs);
+        $this->appendArrayVar('headerParams', $extallcss);*/
+        
+        
+        $this->appendArrayVar('headerParams', $base);
+        $this->appendArrayVar('headerParams', $baseajax);
+        //$this->appendArrayVar('headerParams', $tinyboxcss);
+        //$this->appendArrayVar('headerParams', $tinyboxjs);
+       /* $extdiv='
+        <div id="contexttools">  </div>
+        <div id="contexttools-win"> </div>
+        <div id="chapterlist"  class="x-hide-display"></div>
+        <div id="filters" style="padding-left: 3em;" class="x-hide-display"></div>
+        </div>
+
+       ';*/
+        //$editor.=$extdiv;
+        $editor.='<textarea name="'.$this->name.'">'.$this->value.'</textarea>';
+        $editor.="
+       <script type=\"text/javascript\">
+        CKEDITOR.replace( '$this->name',
+		{
+			filebrowserBrowseUrl : '$this->siteRoot?module=filemanager&action=fcklink&context=no&loadwindow=yes',
+			filebrowserImageBrowseUrl : '$this->siteRoot?module=filemanager&action=fckimage&context=no&loadwindow=yes',
+			filebrowserFlashBrowseUrl : '$this->siteRoot?module=filemanager&action=fckflash&context=yes&loadwindow=yes'
+		}
+        );
+
+       </script>
+            ";
+        return $editor;
+    //return $this->showFCKEditor();
     }
-    
+
     /**
-    * Method to show the FCKEditor
-    * @return string
-    */
-    function showFCKEditor($version = '2.6.3')
-    {
+     * Method to show the FCKEditor
+     * @return string
+     */
+    function showFCKEditor($version = '2.6.3') {
         if ($this->fckVersion == '2.5.1') {
             require_once($this->getResourcePath('fckeditor_2.5.1/fckeditor.php', 'htmlelements'));
         } else {
@@ -195,43 +238,43 @@ class htmlarea extends object
 
         $sitePath = pathinfo($_SERVER['PHP_SELF']);
         $sBasePath = $sitePath['dirname'];
-        
+
         $sBasePath = str_replace('\\', '/', $sBasePath);
         $sBasePath = preg_replace('/\/+/', '/', $sBasePath);
-      
+
         if (substr($sBasePath, -1, 1) != '/') {
             $sBasePath .= '/';
         }
-        
+
         if ($this->fckVersion == '2.5.1') {
             $sBasePath .= 'core_modules/htmlelements/resources/fckeditor_2.5.1/';
         } else {
             $sBasePath .= 'core_modules/htmlelements/resources/fckeditor/fckeditor_2.6.3/';
         }
-        
+
         $oFCKeditor = new FCKeditor($this->name) ;
         $oFCKeditor->BasePath = $sBasePath ;
         $oFCKeditor->Width= $this->width ;
         $oFCKeditor->Height=$this->height;
         $oFCKeditor->ToolbarSet=$this->toolbarSet;
         //$oFCKeditor->SiteRoot=$objConfig->getsiteRoot();
-        
+
         $siteRootPath= str_replace('\\', '/', $sitePath['dirname']);
         $siteRootPath = preg_replace('/\/+/', '/', $siteRootPath);
-        
-        
+
+
         if (substr($siteRootPath, -1, 1) != '/') {
             $siteRootPath .= '/';
         }
-        
+
         $oFCKeditor->SiteRoot = $siteRootPath;
-        
-        $oFCKeditor->Config['SkinPath'] = $sBasePath . 'editor/skins/default/' ;     
+
+        $oFCKeditor->Config['SkinPath'] = $sBasePath . 'editor/skins/default/' ;
         $oFCKeditor->Config['CustomConfigurationsPath'] = $sBasePath . 'chisimba_config.js'  ;
-        
+
         // Only setting the template path if one specified else leaving the config '' will
         // continue default behaviour
-        if ($this->templatePath != ''){
+        if ($this->templatePath != '') {
             $oFCKeditor->Config['TemplatesXmlPath'] = $this->templatePath;
         }
 
@@ -240,29 +283,28 @@ class htmlarea extends object
         } else {
             $oFCKeditor->Context = 'No';
         }
-       
+
         $oFCKeditor->Value = $this->value;
-        
+
         //$this->setVar('pageSuppressXML', TRUE);
-        
+
         $this->showFCKEditorWakeupJS();
-        
+
         //return $oFCKeditor->CreateHtml();
-        
-        
+
+
         return '<span onmouseover="wakeUpFireFoxFckeditor(\''.$this->name.'\');">'.$oFCKeditor->CreateHtml().'</span>';
-        // Addition for Testing Purposes
-        // <div id="content_'.$this->name.'"></div>
+    // Addition for Testing Purposes
+    // <div id="content_'.$this->name.'"></div>
     }
-    
+
     /**
      * Method to load JS to fix FCKEditor refusing to focus
      * @author Tohir Solomons
-     *         
+     *
      *         Taken from: http://www.tohir.co.za/2006/06/fckeditor-doesnt-want-to-focus-in.html
      */
-    function showFCKEditorWakeupJS()
-    {
+    function showFCKEditorWakeupJS() {
         $this->appendArrayVar('headerParams', '
 <script type="text/javascript">
     function wakeUpFireFoxFckeditor(fckEditorInstance)
@@ -300,74 +342,72 @@ class htmlarea extends object
     
 </script>');
     }
-    
+
     /**
-    * Method to show the tinyMCE Editor
-    * @return string
-    */
-    function showTinyMCE()
-    {      
+     * Method to show the tinyMCE Editor
+     * @return string
+     */
+    function showTinyMCE() {
         $str = '';
         $str =$this->getJavaScripts();
         $str .='<form name="imgform"><input type="hidden" name="hiddentimg"/></form>';
         $str .='<textarea id="'.$this->name.'" name="'.$this->name.'" rows="'.$this->rows.'" cols="'.$this->cols.'" style="width: 100%">'.$this->value.'</textarea>';
         return   $str;
     }
-    
+
     /**
-    * Method to set the toolbar set to basic 
-    * meaning that only the basic commands are available of the editor
-    */
-    function setBasicToolBar(){
+     * Method to set the toolbar set to basic
+     * meaning that only the basic commands are available of the editor
+     */
+    function setBasicToolBar() {
         $this->toolbarSet = 'simple';
     }
-    
-    /**
-    * Method to toolbar set to default 
-    */
-    function setDefaultToolBarSet(){
-         $this->toolbarSet = 'advanced';
-    }
-    
-    /**
-    * Method to toolbar set to default without the save button
-    */
-    function setDefaultToolBarSetWithoutSave(){
-         $this->toolbarSet = 'DefaultWithoutSave';
-    }
-
 
     /**
-    * Method to toolbar set to CMS Specific
-    */
-    function setCMSToolBar(){
-         $this->toolbarSet = 'cms';
-    }
-
-   /**
-    * Method to toolbar set to Form Builder 'forms' Specific
-    */
-    function setFormsToolBar(){
-         $this->toolbarSet = 'forms';
+     * Method to toolbar set to default
+     */
+    function setDefaultToolBarSet() {
+        $this->toolbarSet = 'advanced';
     }
 
     /**
-    * Method to load the Content Templates
-    * Loads content templates from usrfiles/cmstemplates/fcktemplates.xml
-    *
-    * This file gets manipulated via the cmsadmin template manager
-    */
-    function loadCMSTemplates(){
-         $objConfig =  $this->newObject('altconfig', 'config');
-         $this->templatePath = $objConfig->getSitePath().$objConfig->getcontentPath().'cmstemplates/'.$this->fckVersion.'/fcktemplates.xml';
+     * Method to toolbar set to default without the save button
+     */
+    function setDefaultToolBarSetWithoutSave() {
+        $this->toolbarSet = 'DefaultWithoutSave';
+    }
+
+
+    /**
+     * Method to toolbar set to CMS Specific
+     */
+    function setCMSToolBar() {
+        $this->toolbarSet = 'cms';
     }
 
     /**
-    * Method to get the javascript files
-    * @return string
-    */
-    public function getJavaScripts()
-    {
+     * Method to toolbar set to Form Builder 'forms' Specific
+     */
+    function setFormsToolBar() {
+        $this->toolbarSet = 'forms';
+    }
+
+    /**
+     * Method to load the Content Templates
+     * Loads content templates from usrfiles/cmstemplates/fcktemplates.xml
+     *
+     * This file gets manipulated via the cmsadmin template manager
+     */
+    function loadCMSTemplates() {
+        $objConfig =  $this->newObject('altconfig', 'config');
+        $this->templatePath = $objConfig->getSitePath().$objConfig->getcontentPath().'cmstemplates/'.$this->fckVersion.'/fcktemplates.xml';
+    }
+
+    /**
+     * Method to get the javascript files
+     * @return string
+     */
+    public function getJavaScripts() {
         $str = '
                 <script language="javascript" type="text/javascript" src="core_modules/htmlelements/resources/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
                 
@@ -412,8 +452,8 @@ class htmlarea extends object
                 </script>
                     ';
         $this->appendArrayVar('headerParams', $str);
-        //return $str;
+    //return $str;
     }
- }
+}
 
 ?>
