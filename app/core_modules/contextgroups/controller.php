@@ -266,7 +266,8 @@ class contextgroups extends controller
 
         if ($contextCode != $this->objContext->getContextCode()) {
             //return $this->nextAction('error');
-            die ('Joined another Context. Adding Users in this way is forbidden. Please start all over again.');
+            trigger_error('Internal Error::Joined another Context. Adding Users in this way is forbidden. Please start all over again.', E_USER_ERROR);
+            exit;
         }
 
         $changedItems = $_POST['changedItems'];
@@ -325,7 +326,7 @@ class contextgroups extends controller
             }
         }
        // die;
-        return $this->nextAction(NULL, array('message'=>'usersupdated'));
+        return $this->nextAction(NULL, array('message'=>$this->objLanguage->languageText('mod_contextgroups_usersupdated','contextgroups')));
     }
 
     /**
@@ -335,12 +336,16 @@ class contextgroups extends controller
     */
     private function removeUserFromGroup($userId=NULL, $group=NULL)
     {
-        if ($userId == '') {
-            return $this->nextAction(NULL, array('message'=>'nouseridprovidedfordelete'));
+        if (is_null($userId) || $userId == '') {
+            //return $this->nextAction(NULL, array('message'=>'nouseridprovidedfordelete'));
+            trigger_error('Internal Error::No userId provided for delete.', E_USER_ERROR);
+            exit;
         }
         $group = ucfirst(strtolower($group));
         if (!in_array($group, array('Lecturers', 'Students', 'Guest'))) {
-            return $this->nextAction(NULL, array('message'=>'nopropergroupprovidedfordelete'));
+            //return $this->nextAction(NULL, array('message'=>'nopropergroupprovidedfordelete'));
+            trigger_error('Internal Error::No proper group provided for delete.', E_USER_ERROR);
+            exit;
         }
 // Old code
 //        $groupId=$this->objGroups->getLeafId(array($this->objContext->getContextCode(), $group));
@@ -368,9 +373,11 @@ class contextgroups extends controller
 		$pkId = $permid['perm_user_id'];
 		// Remove the user.
 		$this->objGroupsOps->removeUser($groupId, $pkId);
-        return $this->nextAction(NULL, array('message'=>'userdeletedfromgroup', 'userid'=>$userId, 'group'=>$group));
+		// Get user name.
+        $userFullName = $this->objUser->fullname($userId);
+        return $this->nextAction(NULL, array('message'=>$this->objLanguage->code2Txt('mod_contextgroups_userdeletedfromgroup', 'contextgroups', array('USER'=>$userFullName,'GROUP'=>$group))
+        ));
     }
-
 
     /**
     * Method to Prepare a List of Users in a Context sorted by lecturer, student, guest
@@ -483,8 +490,10 @@ class contextgroups extends controller
 		    exit;
 		}
 		// Iterate through the selected users.
+		$count = 0;
         if (!empty($userIds)) {
             foreach($userIds as $userId) {
+                ++$count;
                 // Get user pkId.
         		$permid = $this->objGroupsOps->getUserByUserId($userId);
         		$pkId = $permid['perm_user_id'];
@@ -492,7 +501,9 @@ class contextgroups extends controller
         		$this->objGroupsOps->removeUser($groupId, $pkId);
             }
         }
-        return $this->nextAction(NULL);
+        //return $this->nextAction(NULL);
+        return $this->nextAction(NULL, array('message'=>$this->objLanguage->code2Txt('mod_contextgroups_usersdeletedfromgroup', 'contextgroups', array('COUNT'=>$count,'GROUP'=>$group))
+        ));
     }
 }
 ?>

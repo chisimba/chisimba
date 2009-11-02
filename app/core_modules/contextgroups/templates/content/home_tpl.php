@@ -1,4 +1,12 @@
 <?php
+// Show message if available.
+$objConfirm = $this->newObject('timeoutmessage','htmlelements');
+if(!is_null($message = $this->getParam('message'))){
+    $objConfirm->setMessage($message);
+    $objConfirm->setTimeout(0);
+    echo $objConfirm->show().'<br />';
+}
+// Javascript files.
 $headerParams=$this->getJavascriptFile('new_sorttable.js','htmlelements');
 $this->appendArrayVar('headerParams',$headerParams);
 $headerParams=$this->getJavascriptFile('selectall.js','htmlelements');
