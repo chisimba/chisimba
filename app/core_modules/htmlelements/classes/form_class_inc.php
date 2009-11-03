@@ -379,7 +379,7 @@ class form implements ifhtml
      */
     private function _formTextLeft()
     {
-        $str = '<table>';
+        $str = '<table id="formtable">';
 
         foreach($this->elements as $e => $f) {
             $str .= '<tr>';
