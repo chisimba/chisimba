@@ -292,3 +292,9 @@ div.quotaup {
 h1#sitename {
     padding: 20px;
 }
+
+.radio1 {width:100%}
+#formtable {
+	width:100%;
+	padding:5px;
+	}
