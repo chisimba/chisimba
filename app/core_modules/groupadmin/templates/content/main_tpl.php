@@ -4,7 +4,6 @@
 
 
 	$objSysConfig  = $this->getObject('altconfig','config');
-	$ext =$this->getJavaScriptFile('ext-3.0-rc2/adapter/ext/ext-base.js', 'htmlelements');
 	$ext .=$this->getJavaScriptFile('ext-3.0-rc2/ext-all-debug.js', 'htmlelements');
 	
 	$ext .=$this->getJavaScriptFile('ColumnNodeUI.js', 'groupadmin');
@@ -20,9 +19,8 @@
 	        	<script type="text/javascript">	        		
 	        		var baseUri = "'.$objSysConfig->getsiteRoot().'index.php";
 	        	</script>');
+	$this->objExtjs->getExtjsResource();
 	
-	$ext .= '<link rel="stylesheet" href="'.$this->getResourceUri('ext-3.0-rc2/resources/css/ext-all.css', 'htmlelements').'" type="text/css" />';
-	$ext .= '<link rel="stylesheet" href="'.$this->getResourceUri('ext-3.0-rc2/resources/css/ext-all.css', 'htmlelements').'" type="text/css" />';
 	$ext .= '<link rel="stylesheet" href="'.$this->getResourceUri('ColumnNodeUI.css', 'groupadmin').'" type="text/css" />';
 	$ext .= '<link rel="stylesheet" href="skins/_common/css/extjs/silk/silk.css" type="text/css" />';
 	$ext .= '<link rel="stylesheet" href="skins/_common/css/extjs/menus.css" type="text/css" />';
