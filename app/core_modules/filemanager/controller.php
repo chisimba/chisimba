@@ -1104,11 +1104,11 @@ class filemanager extends controller
                 if (! $zip->extractTo( $fullFolderPath )) {
                      //log_debug($zip->error);
                      $zip->close();
-                     return FALSE;
+                     //return FALSE;
                 }
                 else {
                     $zip->close();
-                    return TRUE;
+                    //return TRUE;
                 }
             }
             else {
