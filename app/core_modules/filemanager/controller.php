@@ -1094,9 +1094,27 @@ class filemanager extends controller
 
             //keep the user connection alive, even if browser is closed!
             //$callback = $objBackground->keepAlive();
+            if(extension_loaded('zip') && function_exists('zip_open')) {
+                $this->extzip = TRUE;
+            }
 
-            $objZip = $this->newObject('wzip', 'utilities');
-            $objZip->unzip($file, $fullFolderPath);
+            if($this->extzip == TRUE) {
+                $zip = new ZipArchive;
+                $zip->open($file);
+                if (! $zip->extractTo( $fullFolderPath )) {
+                     //log_debug($zip->error);
+                     $zip->close();
+                     return FALSE;
+                }
+                else {
+                    $zip->close();
+                    return TRUE;
+                }
+            }
+            else {
+                $objZip = $this->newObject('wzip', 'utilities');
+                $objZip->unzip($file, $fullFolderPath);
+            }
             
             if ($this->debug) {
                 echo 'Full Folder Path';
