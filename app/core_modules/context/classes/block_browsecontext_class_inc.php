@@ -81,6 +81,7 @@ class block_browsecontext extends object
             $this->objLanguage =  $this->getObject('language', 'language');
             $this->objUser =  $this->getObject('user', 'security');
 			$this->objExtjs = $this->getObject('tabs', 'extjs');
+			$this->objModuleCatalogue = $this->getObject('modules', 'modulecatalogue');
             $this->title = ucwords($this->objLanguage->code2Txt('mod_context_browseallcontexts', 'context', NULL, 'Browse All [-contexts-]'));
             //$this->title = ucWords($this->objLanguage->code2Txt("mod_context_contexts",'context'));            
             $this->blockType = 'none';
@@ -97,8 +98,13 @@ class block_browsecontext extends object
     public function show()
     {
         //$objTab = $this->newObject('jqtabs', 'htmlelements');
-
-
+		if(!$this->objModuleCatalogue->checkIfRegistered('extjs'))
+		{
+			return '<div class="warning">'.
+					$this->objLanguage->languageText('mod_context_extjsnoinstalled', 'context')
+					 .'</div>';
+		}
+		
         $objTab = $this->newObject('tabpane', 'htmlelements');
         $objUtils = $this->getObject('utilities', 'context');
         $objSysConfig  = $this->getObject('altconfig','config');
