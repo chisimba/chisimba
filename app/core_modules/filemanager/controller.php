@@ -1086,14 +1086,14 @@ class filemanager extends controller
                 var_dump($folderParts);
             }
             
-            $objBackground = $this->newObject('background', 'utilities');
+            // $objBackground = $this->newObject('background', 'utilities');
 
             //check the users connection status,
             //only needs to be done once, then it becomes internal
-            $status = $objBackground->isUserConn();
+            //$status = $objBackground->isUserConn();
 
             //keep the user connection alive, even if browser is closed!
-            $callback = $objBackground->keepAlive();
+            //$callback = $objBackground->keepAlive();
 
             $objZip = $this->newObject('wzip', 'utilities');
             $objZip->unzip($file, $fullFolderPath);
