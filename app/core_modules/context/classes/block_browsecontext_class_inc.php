@@ -80,9 +80,7 @@ class block_browsecontext extends object
         try {
             $this->objLanguage =  $this->getObject('language', 'language');
             $this->objUser =  $this->getObject('user', 'security');
-			$this->objExtjs = $this->getObject('tabs', 'extjs');
-			$this->objModuleCatalogue = $this->getObject('modules', 'modulecatalogue');
-            $this->title = ucwords($this->objLanguage->code2Txt('mod_context_browseallcontexts', 'context', NULL, 'Browse All [-contexts-]'));
+			$this->title = ucwords($this->objLanguage->code2Txt('mod_context_browseallcontexts', 'context', NULL, 'Browse All [-contexts-]'));
             //$this->title = ucWords($this->objLanguage->code2Txt("mod_context_contexts",'context'));            
             $this->blockType = 'none';
             $this->loadClass('checkbox', 'htmlelements');
@@ -98,13 +96,7 @@ class block_browsecontext extends object
     public function show()
     {
         //$objTab = $this->newObject('jqtabs', 'htmlelements');
-		if(!$this->objModuleCatalogue->checkIfRegistered('extjs'))
-		{
-			return '<div class="warning">'.
-					$this->objLanguage->languageText('mod_context_extjsnoinstalled', 'context')
-					 .'</div>';
-		}
-		
+				
         $objTab = $this->newObject('tabpane', 'htmlelements');
         $objUtils = $this->getObject('utilities', 'context');
         $objSysConfig  = $this->getObject('altconfig','config');
@@ -127,19 +119,23 @@ class block_browsecontext extends object
         		var baseuri = "'.$objSysConfig->getsiteRoot().'index.php";
         		var isAdmin = '.$isAdmin.';
         		contextPrivateMessage="'.$this->objLanguage->code2Txt('mod_context_privatecontextexplanation', 'context', NULL, 'This is a closed [-context-] only accessible to members').'"; </script>');
+		
 
 		//Ext stuff
+		$ext =$this->getJavaScriptFile('ext-3.0-rc2/adapter/ext/ext-base.js', 'htmlelements');
+		$ext .=$this->getJavaScriptFile('ext-3.0-rc2/ext-all.js', 'htmlelements');
         $ext .=$this->getJavaScriptFile('Ext.ux.grid.Search.js', 'context');
 		$ext .=$this->getJavaScriptFile('usercontextslist.js', 'context');
 		$ext .=$this->getJavaScriptFile('othercontexts.js', 'context');
 		$ext .=$this->getJavaScriptFile('search.js', 'context');		
-        $ext .=$this->getJavaScriptFile('ext-3.0-rc2/examples/grid/paging.js', 'extjs');
-        $ext .=$this->getJavaScriptFile('ext-3.0-rc2/examples/shared/examples.js', 'extjs');
+        $ext .=$this->getJavaScriptFile('ext-3.0-rc2/examples/grid/paging.js', 'htmlelements');
+        $ext .=$this->getJavaScriptFile('ext-3.0-rc2/examples/shared/examples.js', 'htmlelements');
 		$ext .=$this->getJavaScriptFile('extcontexbrowser.js', 'context');
       
-        $ext .= '<link rel="stylesheet" href="'.$this->getResourceUri('ext-3.0-rc2/examples/grid/grid-examples.css', 'extjs').'" type="text/css" />';
  		
-		$this->objExtjs->getExtjsResource();
+		$ext .= '<link rel="stylesheet" href="'.$this->getResourceUri('ext-3.0-rc2/resources/css/ext-all.css', 'htmlelements').'" type="text/css" />';
+        $ext .= '<link rel="stylesheet" href="'.$this->getResourceUri('ext-3.0-rc2/examples/grid/grid-example.css', 'htmlelements').'" type="text/css" />';
+        $ext .= '<link rel="stylesheet" href="'.$this->getResourceUri('ext-3.0-rc2/examples/shared/examples.css', 'htmlelements').'" type="text/css" />';
 
         $this->appendArrayVar('headerParams', $ext);
         
