@@ -112,7 +112,7 @@ class block_browsecontext extends object
         
         $this->appendArrayVar('headerParams', '
         	<script type="text/javascript">
-        	var pageSize = 25;
+        	var pageSize = 500;
 			var uri = "'.str_replace('&amp;','&',$this->uri(array('module' => 'context', 'action' => 'jsonlistcontext'))).'"; 
         	var usercontexturi = "'.str_replace('&amp;','&',$this->uri(array('module' => 'context', 'action' => 'jsonusercontexts'))).'"; 
 			var othercontexturi = "'.str_replace('&amp;','&',$this->uri(array('module' => 'context', 'action' => 'jsonusercontexts'))).'"; 
