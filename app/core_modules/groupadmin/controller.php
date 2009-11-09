@@ -80,8 +80,7 @@ class groupadmin extends controller {
 		$this->objGroups = $this->getObject('groupadminmodel');
 		$this->jQuery =$this->newObject('jquery', 'htmlelements');
 		$this->jQuery->loadLiveQueryPlugin();
-		$this->objExtjs = $this->getObject('tabs', 'extjs');
-    }
+	}
 
     /**
      * Method to handle the messages.

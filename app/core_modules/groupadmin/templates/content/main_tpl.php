@@ -4,7 +4,7 @@
 
 
 	$objSysConfig  = $this->getObject('altconfig','config');
-	$ext .=$this->getJavaScriptFile('ext-3.0-rc2/ext-all-debug.js', 'extjs');
+	$ext .=$this->getJavaScriptFile('ext-3.0-rc2/ext-all-debug.js', 'htmlelements');
 	
 	$ext .=$this->getJavaScriptFile('ColumnNodeUI.js', 'groupadmin');
 	$ext .=$this->getJavaScriptFile('Ext.ux.grid.Search.js', 'groupadmin');
@@ -19,7 +19,16 @@
 	        	<script type="text/javascript">	        		
 	        		var baseUri = "'.$objSysConfig->getsiteRoot().'index.php";
 	        	</script>');
-	$this->objExtjs->getExtjsResource();
+
+			$extbase_js = '<script language="JavaScript" src="'.$this->getResourceUri('ext-3.0-rc2/adapter/ext/ext-base.js','htmlelements').'" type="text/javascript"></script>';
+		
+			$extall_js = '<script language="JavaScript" src="'.$this->getResourceUri('ext-3.0-rc2/ext-all.js', 'htmlelements').'" type="text/javascript"></script>';
+		
+			$extall_css = '<link rel="stylesheet" href="'.$this->getResourceUri('ext-3.0-rc2/resources/css/ext-all.css', 'htmlelements').'" type="text/css" />';
+		
+			$this->appendArrayVar('headerParams', $extbase_js);
+			$this->appendArrayVar('headerParams', $extall_js);
+			$this->appendArrayVar('headerParams', $extall_css);
 	
 	$ext .= '<link rel="stylesheet" href="'.$this->getResourceUri('ColumnNodeUI.css', 'groupadmin').'" type="text/css" />';
 	$ext .= '<link rel="stylesheet" href="skins/_common/css/extjs/silk/silk.css" type="text/css" />';
