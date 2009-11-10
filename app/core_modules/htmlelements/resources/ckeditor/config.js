@@ -11,6 +11,7 @@ CKEDITOR.editorConfig = function( config )
         config.extraPlugins = 'contexttools';
         config.toolbar = 'ChisimbaToolbarSet';
         config.image_browseServer=true;
+        config.enterMode = CKEDITOR.ENTER_BR;
       
       	config.toolbar_ChisimbaToolbarSet =
 	[
