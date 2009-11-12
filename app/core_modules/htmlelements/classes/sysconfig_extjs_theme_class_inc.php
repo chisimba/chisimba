@@ -78,10 +78,9 @@ class sysconfig_extjs_theme extends object {
         $dh=opendir($basedir);
         $dirList=array();
 		while (false !== ($file = readdir($dh))) { #see http://www.php.net/manual/en/function.readdir.php
-            if ($file != '.' && $file != '..' && strtolower($file)!='cvs') {
+            if ($file != '.' && $file != '..' && strtolower($file)!='.svn') {
 
-                if ( (is_dir($file) && file_exists($basedir.$file.'/'.$this->skinFile))
-                ||   (is_dir($file) && file_exists($basedir.$file.'/skin.conf')) ){
+                if (is_dir($file)){
 
                     $skinnameFile=$basedir.$file.'/themename.txt';
                     $skinConfigFile=$basedir.$file.'/skin.conf';
