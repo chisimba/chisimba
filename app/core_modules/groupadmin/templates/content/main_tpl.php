@@ -4,8 +4,10 @@
 
 
 	$objSysConfig  = $this->getObject('altconfig','config');
-	$ext =$this->getJavaScriptFile('ext-3.0-rc2/ext-all-debug.js', 'htmlelements');
-	$ext .=$this->getJavaScriptFile('ColumnNodeUI.js', 'groupadmin');
+	$objExtJS = $this->getObject('extjs','htmlelements');
+	$objExtJS->show();
+	//$ext =$this->getJavaScriptFile('ext-3.0-rc2/ext-all-debug.js', 'htmlelements');
+	$ext =$this->getJavaScriptFile('ColumnNodeUI.js', 'groupadmin');
 	$ext .=$this->getJavaScriptFile('Ext.ux.grid.Search.js', 'groupadmin');
 	$ext .=$this->getJavaScriptFile('users.js', 'groupadmin');
 	$ext .=$this->getJavaScriptFile('interface.js', 'groupadmin');
@@ -19,7 +21,7 @@
 	        		var baseUri = "'.$objSysConfig->getsiteRoot().'index.php";
 	        	</script>');
 
-			$extbase_js = '<script language="JavaScript" src="'.$this->getResourceUri('ext-3.0-rc2/adapter/ext/ext-base.js','htmlelements').'" type="text/javascript"></script>';
+/*			$extbase_js = '<script language="JavaScript" src="'.$this->getResourceUri('ext-3.0-rc2/adapter/ext/ext-base.js','htmlelements').'" type="text/javascript"></script>';
 		
 			$extall_js = '<script language="JavaScript" src="'.$this->getResourceUri('ext-3.0-rc2/ext-all.js', 'htmlelements').'" type="text/javascript"></script>';
 		
@@ -33,7 +35,8 @@
 	$ext .= '<link rel="stylesheet" href="skins/_common/css/extjs/silk/silk.css" type="text/css" />';
 	$ext .= '<link rel="stylesheet" href="skins/_common/css/extjs/menus.css" type="text/css" />';
 	$ext .= '<link rel="stylesheet" href="skins/_common/css/extjs/buttons.css" type="text/css" />';
-	
+	$ext .= '<link rel="stylesheet" href="skins/_common/css/extjs/DarkGrayTheme/css/xtheme-darkgray.css" type="text/css" />';
+	*/
 	$ext .= "<style>
 	
 			#main-interface{
