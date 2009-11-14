@@ -167,6 +167,7 @@ class menu extends object
                     }else{
                         $text = $this->objLanguage->code2Txt('mod_'.$v.'_name',$v);
                     }
+                    $text= $this->objLanguage->abstractText($text);
                     $this->cssMenu->addMenuItem($this->objLanguage->languageText('category_'.$category, 'toolbar',ucwords($category)), ucwords($text),$v);
                 }
             }
