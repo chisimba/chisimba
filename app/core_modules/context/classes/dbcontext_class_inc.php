@@ -59,11 +59,11 @@ $GLOBALS ['kewl_entry_point_run']) {
  * @see       core
  */
 class dbcontext extends dbTable {
-    /**
-     * The user Object
-     *
-     * @var object $objUser
-     */
+/**
+ * The user Object
+ *
+ * @var object $objUser
+ */
     public $objUser;
 
     /**
@@ -144,10 +144,10 @@ class dbcontext extends dbTable {
 
         //check if there is an entry in the database
         if ($this->valueExists ( 'contextcode', $contextCode )) {
-            // If Yes, do not create
+        // If Yes, do not create
             return FALSE;
         } else {
-            // Insert Record
+        // Insert Record
             $result = $this->insert ( array ('contextcode' => $contextCode, 'title' => $title, 'menutext' => $title, 'access' => $access, 'status' => $status, 'about' => $about, 'userid' => $this->objUser->userId (), 'dateCreated' => date ( "Y-m-d" ), 'updated' => date ( "Y-m-d H:i:s" ), 'lastupdatedby' => $this->objUser->userId (), 'goals' => $goals ) );
 
             // If Successful
@@ -346,6 +346,8 @@ class dbcontext extends dbTable {
         return $this->getField ( 'title', $contextCode );
     }
 
+
+
     /**
      * Method to get the MenuText
      *
@@ -421,31 +423,34 @@ class dbcontext extends dbTable {
      * @access public
      */
     public function getListOfPublicContext() {
-        //return $this->getAll ( "WHERE access='Open' OR access='Public' ORDER BY menutext" );
-          $objUserContext = $this->getObject('usercontext', 'context');
+    //return $this->getAll ( "WHERE access='Open' OR access='Public' ORDER BY menutext" );
+        $objUserContext = $this->getObject('usercontext', 'context');
         // Get all user contents
         $sql="WHERE access='Open' OR access='Public'  ORDER BY menutext" ;
+
         $publicCourses=$this->getAll ($sql);
 
 
-        if($this->objUser->isLoggedIn()){
-        $contexts= $objUserContext->getUserContext($this->objUser->userId());
-        $tmp = array();
-        $row=0;
-        foreach ($contexts as $con){
-           $tmp[$row] = array('contextcode'=>$con,'menutext'=>$this->getTitle($con));
-          $row++;
-         }
-        //then add public courese
-         foreach ($publicCourses as $p){
-           $tmp[$row] = array('contextcode'=>$p['contextcode'],'menutext'=>$this->getTitle($p['contextcode']));
-          $row++;
-         }
+        if($this->objUser->isLoggedIn()) {
+            $contexts= $objUserContext->getUserContext($this->objUser->userId());
+            $tmp = array();
+            $row=0;
+            foreach ($contexts as $con) {
+                $data=$this->getContextDetails($con);
+                $tmp[$row] = array('contextcode'=>$con,'menutext'=>$data['title']);
+                $row++;
+            }
+            //then add public courese
+            foreach ($publicCourses as $p) {
+                $data=$this->getContextDetails($p['contextcode']);
+                $tmp[$row] = array('contextcode'=>$p['contextcode'],'menutext'=>$data['title']);
+                $row++;
+            }
 
-        return $tmp;
+            return $tmp;
 
-        }else{
-        return $publicCourses;
+        }else {
+            return $publicCourses;
         }
 
     }
@@ -461,7 +466,7 @@ class dbcontext extends dbTable {
         $result = $this->delete ( 'contextCode', $contextCode );
 
         if ($result) {
-            //delete groups
+        //delete groups
             $contextGroups = $this->getObject ( 'manageGroups', 'contextgroups' );
             $contextGroups->deleteGroups ( $contextCode );
         }
