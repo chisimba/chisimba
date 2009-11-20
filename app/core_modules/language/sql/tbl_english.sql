@@ -9,34 +9,31 @@ $options = array('comment' => 'English language table','collate' => 'utf8_genera
 // Fields
 $fields = array(
     'id' => array(
-        'type' => 'text',
-        'length' => 50,
-
+        'type' => 'clob',
         ),
     'en' => array(
         'type' => 'clob',
-        //'length' => 255,
         ),
-    'pageId' => array(
+    'pageid' => array(
         'type' => 'text',
         'length' => 150
         ),
-    'isInNextGen' => array(
+    'isinnextgen' => array(
         'type' => 'text',
         'length' => 10
         ),
-    'dateCreated' => array(
+    'datecreated' => array(
         'type' => 'date'
         ),
-    'creatorUserId' => array(
+    'creatoruserid' => array(
         'type' => 'text',
         'length' => 25,
 
         ),
-    'dateLastModified' => array(
+    'datelastmodified' => array(
         'type' => 'date'
         ),
-    'modifiedByUserId' => array(
+    'modifiedbyuserid' => array(
         'type' => 'text',
         'length' => 25
         )
