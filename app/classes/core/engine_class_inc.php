@@ -1942,7 +1942,7 @@ class engine {
 
     public function __destruct() {
         if ($this->_dbabs === 'MDB2') {
-            $this->_objDb->disconnect ();
+         //   $this->_objDb->disconnect ();
         } elseif ($this->_dbabs === 'PDO') {
             $this->_objDb = NULL;
         }
