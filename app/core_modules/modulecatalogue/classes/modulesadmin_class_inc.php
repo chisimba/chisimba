@@ -263,8 +263,8 @@ class modulesadmin extends dbTableManager
                     } else {
                         log_debug("Created Area Id $areaId for module $moduleId in application $this->appid");
                         // add the admin user as an area admin now.
-                        $users = $this->objLuAdmin->getUsers(array('filters' => array('perm_type' => '5')));
-                        if(array_key_exists(0, $users) && is_array($users)) {
+                        $users = $this->objLuAdmin->getUsers(array('filters' => array('perm_type' => 5)));
+                        if(is_array($users) && array_key_exists(0, $users)) {
                             $data = array(
                                 'area_id' => $areaId,
                                 'perm_user_id' => $users[0]['perm_user_id']

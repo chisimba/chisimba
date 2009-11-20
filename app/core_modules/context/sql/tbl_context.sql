@@ -90,7 +90,7 @@ $name = 'contextcode';
 
 $indexes = array(
                 'fields' => array(
-                    'contextCode' => array()
+                    'contextcode' => array()
                 )
         );
 ?>

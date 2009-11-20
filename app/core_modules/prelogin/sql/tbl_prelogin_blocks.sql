@@ -33,16 +33,16 @@ $fields = array(
         'type' => 'integer',
         'length' => 2,
         ),
-    'isBlock' => array(
+    'isblock' => array(
         'type' => 'boolean',
         'notnull' => TRUE,
         'default' => FALSE
         ),
-    'blockName' => array(
+    'blockname' => array(
         'type' => 'text',
         'length' => 50
         ),
-    'blockModule' => array(
+    'blockmodule' => array(
         'type' => 'text',
         'length' => 50
         ), 
@@ -50,10 +50,10 @@ $fields = array(
         'type' => 'text',
         'length' => 255,
         ),
-    'dateLastUpdated' => array(
+    'datelastupdated' => array(
         'type' => 'date'
         ),
-    'updatedBy' => array(
+    'updatedby' => array(
         'type' => 'text',
         'length' => 25
         )

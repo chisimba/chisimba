@@ -53,7 +53,7 @@ class logshow extends dbTable
         if ($userId == NULL) {
             $userId = $this->objUser->userId();
         }
-        $where = "WHERE tbl_logger.eventparamname='pagelog' AND tbl_logger.userid='$userId.'";
+        $where = "WHERE tbl_logger.eventparamname='pagelog' AND tbl_logger.userid='$userId'";
         if ($order != NULL) {
             $where = $where." ".$order;
         }
@@ -122,7 +122,7 @@ class logshow extends dbTable
      */
     public function showStatsByDate($timeframe = NULL)
     {
-        $where = " WHERE datecreated >= '".$timeframe."' ";
+        $where = " WHERE datecreated >= '$timeframe'";
         return $this->getAll($where);
     }
     /**
@@ -138,12 +138,12 @@ class logshow extends dbTable
         $userId=$this->objUser->userId();
     }
     if($contextCode==Null){
-            $where = " WHERE userid = '".$userId."' and module = '".$module."'";
+            $where = " WHERE userid = '$userId' and module = '$module'";
             return $this->getAll($where);
     }elseif($module==Null){
-            $where = " WHERE userid = '".$userId."' and context = '".$contextCode."'";
+            $where = " WHERE userid = '$userId' and context = '$contextCode'";
     }else{
-            $where = " WHERE userid = '".$userId."' and context = '".$contextCode."' and module = '".$module."'";
+            $where = " WHERE userid = '$userId' and context = '$contextCode' and module = '$module'";
     }
 //        $sql = "SELECT * FROM tbl_logger".$where;
         return $this->getAll($where);

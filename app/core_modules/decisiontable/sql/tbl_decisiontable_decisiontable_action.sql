@@ -12,11 +12,11 @@ $fields = array(
         'type' => 'text',
         'length' => 32
         ),
-    'actionId' => array(
+    'actionid' => array(
         'type' => 'text',
         'length' => 32,
         ),
-    'decisiontableId' => array(
+    'decisiontableid' => array(
         'type' => 'text',
         'length' => 32,
         )
@@ -24,11 +24,11 @@ $fields = array(
 
 //create other indexes here...
 
-$name = 'decisiontableId';
+$name = 'decisiontableid';
 
 $indexes = array(
                 'fields' => array(
-                    'decisiontableId' => array(),
+                    'decisiontableid' => array(),
                     'actionid' => array()
                 )
         );

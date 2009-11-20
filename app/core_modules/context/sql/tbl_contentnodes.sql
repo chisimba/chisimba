@@ -29,19 +29,19 @@ $fields = array(
         'type' => 'text',
         'length' => 32
         ),
-    'parentNodeId' => array(
+    'parentnodeid' => array(
         'type' => 'text',
         'length' => 64
         ),
-    'prevNodeId' => array(
+    'prevnodeid' => array(
         'type' => 'text',
         'length' => 60
         ),
-    'nextNodeId' => array(
+    'nextnodeid' => array(
         'type' => 'text',
         'length' => 32
         ),
-    'userId' => array(
+    'userid' => array(
         'type' => 'text',
         'length' => 25
         ),
