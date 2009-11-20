@@ -602,6 +602,7 @@ class engine {
                 $_globalObjDb->setFetchMode ( MDB2_FETCHMODE_ASSOC );
                 //set the options for portability!
                 $_globalObjDb->setOption ( 'portability', MDB2_PORTABILITY_FIX_CASE | MDB2_PORTABILITY_ALL );
+                $_globalObjDb->setOption ('quote_identifier', true);
 
                 //Check for errors
                 if (PEAR::isError ( $_globalObjDb )) {
@@ -613,15 +614,14 @@ class engine {
                     //return the db object for use globally
                     return $_globalObjDb;
                 }
+                // Load the MDB2 Functions module
+                $_globalObjDb->loadModule ( 'Function' );
                 // keep a copy as a field as well
                 $this->_objDb = $_globalObjDb;
 
                 //Load up some of the extra MDB2 modules:
                 MDB2::loadFile ( 'Date' );
                 MDB2::loadFile ( 'Iterator' );
-
-                // Load the MDB2 Functions module
-                $_globalObjDb->loadModule ( 'Function' );
 
                 // install the error handler with our custom callback on error
                 $this->_objDb->setErrorHandling ( PEAR_ERROR_CALLBACK, array ($this, '_pearErrorCallback' ) );
