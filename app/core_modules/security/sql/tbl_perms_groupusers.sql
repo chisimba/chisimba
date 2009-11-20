@@ -13,12 +13,12 @@ $fields = array(
         
         ),
     'perm_user_id' => array(
-        'type' => 'text',
+        'type' => 'integer',
         'length' => 50
         
         ),
     'group_id' => array(
-        'type' => 'text',
+        'type' => 'integer',
         'length' => 50
         
         ),

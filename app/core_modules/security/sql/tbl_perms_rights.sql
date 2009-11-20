@@ -17,7 +17,7 @@ $fields = array(
         'length' => 10,
     ),
     'right_id' => array(
-        'type' => 'text',
+        'type' => 'integer',
         'length' => 50,
         
     ),

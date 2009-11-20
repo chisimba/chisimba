@@ -28,7 +28,7 @@ $fields = array(
         
         ),
     'perm_type' => array(
-        'type' => 'text',
+        'type' => 'integer',
         'length' => 32
         
         ),

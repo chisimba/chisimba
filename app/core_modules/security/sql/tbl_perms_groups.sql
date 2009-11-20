@@ -13,12 +13,12 @@ $fields = array(
         
         ),
     'group_id' => array(
-        'type' => 'text',
+        'type' => 'integer',
         'length' => 32
         
         ),
     'group_type' => array(
-        'type' => 'text',
+        'type' => 'integer',
         'length' => 32
         
         ),

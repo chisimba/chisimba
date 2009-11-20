@@ -1,26 +1,4 @@
 <?php
-/*
-CREATE TABLE `tbl_files` (
-  `id` varchar(32)  NOT NULL,
-  `userid` varchar(25)  NOT NULL,
-  `filename` varchar(255)  NOT NULL,
-  `datatype` varchar(10)  default NULL,
-  `path` varchar(255)  NOT NULL,
-  `description` varchar(255)  default NULL,
-  `version` int(11) NOT NULL default '1',
-  `filesize` int(11) NOT NULL,
-  `mimetype` varchar(255)  NOT NULL,
-  `category` varchar(255)  NOT NULL,
-  `moduleuploaded` varchar(255)  default NULL,
-  `creatorid` varchar(25)  NOT NULL,
-  `datecreated` datetime NOT NULL,
-  `modifierid` varchar(25)  NOT NULL,
-  `datemodified` datetime NOT NULL,
-  PRIMARY KEY  (`id`),
-  KEY `userId` (`userid`,`filename`,`version`,`filesize`,`mimetype`,`category`,`creatorid`,`modifierid`),
-  KEY `datatype` (`datatype`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
-*/
 $tablename = 'tbl_files';
 
 $options = array('collate' => 'utf8_general_ci', 'character_set' => 'utf8');
@@ -43,7 +21,7 @@ $fields = array(
         ),
     'datatype' => array(
         'type' => 'text',
-        'length' => 10
+        'length' => 255
         ),
     'path' => array(
         'type' => 'text',

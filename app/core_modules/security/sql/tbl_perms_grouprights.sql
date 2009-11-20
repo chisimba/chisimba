@@ -13,17 +13,17 @@ $fields = array(
         
         ),
     'group_id' => array(
-        'type' => 'text',
+        'type' => 'integer',
         'length' => 50
         
         ),
     'right_id' => array(
-        'type' => 'text',
+        'type' => 'integer',
         'length' => 50
         
         ),
     'right_level' => array(
-        'type' => 'text',
+        'type' => 'integer',
         'length' => 50
         
         ),

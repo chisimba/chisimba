@@ -13,12 +13,12 @@ $fields = array(
         
         ),
     'right_id' => array(
-        'type' => 'text',
+        'type' => 'integer',
         'length' => 50
         
         ),
     'implied_right_id' => array(
-        'type' => 'text',
+        'type' => 'integer',
         'length' => 50
         
         ),
