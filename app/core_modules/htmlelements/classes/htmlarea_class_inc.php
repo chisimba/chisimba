@@ -170,16 +170,8 @@ class htmlarea extends object {
      */
     function show() {
         $base = '<script language="JavaScript" src="'.$this->getResourceUri('ckeditor/ckeditor.js','htmlelements').'" type="text/javascript"></script>';
-
         $baseajax = '<script language="JavaScript" src="'.$this->getResourceUri('ckeditor/_source/core/ajax.js','htmlelements').'" type="text/javascript"></script>';
-
-        /*$extbase = '<script language="JavaScript" src="'.$this->getResourceUri('ext-3.0-rc2/adapter/ext/ext-base.js','htmlelements').'" type="text/javascript"></script>';
-        $extalljs = '<script language="JavaScript" src="'.$this->getResourceUri('ext-3.0-rc2/ext-all.js','htmlelements').'" type="text/javascript"></script>';
-        $extallcss = '<link rel="stylesheet" type="text/css" href="'.$this->getResourceUri('ext-3.0-rc2/resources/css/ext-all.css','htmlelements').'"/>';
-        */
-        $tinyboxjs= '<script language="JavaScript" src="'.$this->getResourceUri('tinybox/tinybox.js','htmlelements').'" type="text/javascript"></script>';
-        $tinyboxcss = '<link rel="stylesheet" type="text/css" href="'.$this->getResourceUri('tinybox/style.css','htmlelements').'"/>';
-        
+       
         $initVars='
 
        <script type="text/javascript">
@@ -189,25 +181,9 @@ class htmlarea extends object {
       ';
 
         $this->appendArrayVar('headerParams', $initVars);
-       /*
-        $this->appendArrayVar('headerParams', $extbase);
-        $this->appendArrayVar('headerParams', $extalljs);
-        $this->appendArrayVar('headerParams', $extallcss);*/
-        
-        
         $this->appendArrayVar('headerParams', $base);
         $this->appendArrayVar('headerParams', $baseajax);
-        //$this->appendArrayVar('headerParams', $tinyboxcss);
-        //$this->appendArrayVar('headerParams', $tinyboxjs);
-       /* $extdiv='
-        <div id="contexttools">  </div>
-        <div id="contexttools-win"> </div>
-        <div id="chapterlist"  class="x-hide-display"></div>
-        <div id="filters" style="padding-left: 3em;" class="x-hide-display"></div>
-        </div>
 
-       ';*/
-        //$editor.=$extdiv;
         $editor.='<textarea name="'.$this->name.'">'.$this->value.'</textarea>';
         $editor.="
        <script type=\"text/javascript\">
@@ -230,6 +206,9 @@ class htmlarea extends object {
      * @return string
      */
     function showFCKEditor($version = '2.6.3') {
+        //jump to ckeditor, as some modules are still calling this method
+        return $this->show();
+        /*
         if ($this->fckVersion == '2.5.1') {
             require_once($this->getResourcePath('fckeditor_2.5.1/fckeditor.php', 'htmlelements'));
         } else {
@@ -297,6 +276,8 @@ class htmlarea extends object {
         return '<span onmouseover="wakeUpFireFoxFckeditor(\''.$this->name.'\');">'.$oFCKeditor->CreateHtml().'</span>';
     // Addition for Testing Purposes
     // <div id="content_'.$this->name.'"></div>
+         *
+         */
     }
 
     /**
