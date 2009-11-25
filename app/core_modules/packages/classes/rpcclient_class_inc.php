@@ -66,32 +66,22 @@ class rpcclient extends object
         $this->objProxy = $this->getObject('proxyparser', 'utilities');
         $this->objPing = $this->getObject('ping', 'utilities');
 
-		//Remote Package Server Details
-		$this->mirrorserv = $this->sysConfig->getValue('package_server', 'packages');
-	    $this->mirrorurl = $this->sysConfig->getValue('package_url', 'packages');
+        //Remote Package Server Details
+        $this->mirrorserv = $this->sysConfig->getValue('package_server', 'packages');
+        $this->mirrorurl = $this->sysConfig->getValue('package_url', 'packages');
 
-		//Not using the proxy for local connections and only if the server can be reached
-		if (!$this->objPing->isLocal() && $this->objPing->webPing($this->mirrorserv)) {
-        	// get the proxy info if set
-        	$proxyArr = $this->objProxy->getProxy();
-		} else {
-			$this->mirrorserv = 'localhost';
-			$this->mirrorurl = '?module=api';
-
-			$proxyArr = array();
-			
-			$this->proxy = array(
-                'proxy_host' => '',
-                'proxy_port' => '',
-                'proxy_user' => '',
-                'proxy_pass' => '',
-            );
-
-		}
-
-        if ((!empty($proxyArr) && $proxyArr['proxy_protocol'] != '')
-			&& $_SERVER['HTTP_HOST'] != 'localhost') {
-
+        //Not using the proxy for local connections and only if the server can be reached
+        if (!$this->objPing->isLocal() || $this->objPing->webPing($this->mirrorserv)) {
+            // get the proxy info if set
+            $proxyArr = $this->objProxy->getProxy();
+        } 
+        else {
+            $this->mirrorserv = 'localhost';
+            $this->mirrorurl = '?module=api';
+            $proxyArr = array();
+            $this->proxy = array('proxy_host' => '', 'proxy_port' => '', 'proxy_user' => '', 'proxy_pass' => '', );
+        }
+        if ((!empty($proxyArr) && $proxyArr['proxy_protocol'] != '') && $_SERVER['HTTP_HOST'] != 'localhost') {
             if(!isset($proxyArr['proxy_user']))
             {
                 $proxyArr['proxy_user'] = '';
