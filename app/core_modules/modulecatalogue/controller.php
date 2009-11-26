@@ -172,7 +172,7 @@ class modulecatalogue extends controller {
             $this->objSideMenu = $this->getObject ( 'catalogue', 'modulecatalogue' );
             // Check which zip thing we will be using
             if(extension_loaded('zip') && function_exists('zip_open')) {
-                $this->extzip = FALSE;
+                $this->extzip = TRUE;
             }
             $this->objSideMenu->addNodes ( array ('local updates', 'remote updates', 'all', 'skins', 'languages' ) );
             $sysTypes = $this->objCatalogueConfig->getCategories ();
