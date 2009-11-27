@@ -1,5 +1,5 @@
 <?php
-/* -------------------- LDAP INTERFACE CLASS ----------------*/
+/* -------------------- IFAUTH INTERFACE CLASS ----------------*/
 
 /**
  *
@@ -11,6 +11,7 @@
  * @copyright AVOIR
  * @licence GNU/GPL
  *
+ 
  */
 
 $this->loadClass ( "abauth", "security" );
@@ -20,6 +21,9 @@ class auth_ldap extends abauth implements ifauth {
     private $ldapserver;
     private $ldapuservarname;
     private $ldapWhere;
+    private $ldapPassword;
+    private $ldapPort;
+    private $ldapusernamevar;
 
     /**
      *
@@ -28,18 +32,17 @@ class auth_ldap extends abauth implements ifauth {
      *
      */
     public function init() {
-        //Instantiate the configuration object
+    //Instantiate the configuration object
         $this->objConfig = $this->getObject ( 'dbsysconfig', 'sysconfig' );
         $this->objUser = $this->getObject ( 'user', 'security' );
         $this->ldapserver = $this->objConfig->getValue ( 'MOD_SECURITY_LDAPSERVER', 'security' );
         $this->ldapuservarname = $this->objConfig->getValue ( 'MOD_SECURITY_LDAPUSERVARNAME', 'security' );
+        $this->ldapWhere = $this->objConfig->getValue ( 'MOD_SECURITY_LDAPWHERE', 'security' );
         $this->ldapwhere = $this->objConfig->getValue ( 'MOD_SECURITY_LDAPWHERE', 'security' );
-        if (strlen ( $this->ldapserver ) < 3) {
-            $this->ldapserver = "192.102.9.68"; // hard-coded for now - will be changed later
-            $this->ldapuservarname = 'generationqualifier';
-            $this->ldapWhere = "o=UWC";
-        }
-        // Have to call the parent to init the class properties for sessions
+        $this->ldapPassword = $this->objConfig->getValue ( 'MOD_SECURITY_LDAPPASSWORD', 'security' );
+        $this->ldapPort = $this->objConfig->getValue ( 'MOD_SECURITY_LDAPPORT', 'security' );
+        $this->ldapusernamevar = $this->objConfig->getValue ( 'MOD_SECURITY_LDAPUSERNAMEVAR', 'security' );
+
         parent::init ( 'tbl_users' );
     }
 
@@ -50,8 +53,8 @@ class auth_ldap extends abauth implements ifauth {
      * @param string $password The password supplied in the login
      * @return TRUE|FALSE Boolean indication of success of login
      */
-    public function authenticate($username, $password, $remember = true) {
-        // Check for blank password - there's a bug in LDAP that makes it accept '' as valid.
+    public function authenticate($username, $password) {
+    // Check for blank password - there's a bug in LDAP that makes it accept '' as valid.
         if ($password == '') {
             return FALSE;
         }
@@ -63,20 +66,27 @@ class auth_ldap extends abauth implements ifauth {
         }
         // Now try to "login" to LDAP with the domain-name and password
         $ldapconn = ldap_connect ( $this->ldapserver );
+        ldap_set_option($ldapconn, LDAP_OPT_REFERRALS, 0);
+        ldap_set_option($ldapconn,LDAP_OPT_PROTOCOL_VERSION,3);
+
+
         $ldapbind = @ldap_bind ( $ldapconn, $dn, $password );
+
         if (! $ldapbind) {
             ldap_close ( $ldapconn );
             return FALSE;
         } else {
-            // If the login succeeded we can get the info.
-            $this->_record = $this->getInfo ( $ldapconn, $username );
+        // If the login succeeded we can get the info.
             $this->createUser ( $username );
+            $this->_record=$this->getLocalUserInfoAsArray($username);
+            
             ldap_close ( $ldapconn );
-
+            $this->setActive($username);
             $login = $this->objLu->login($username, '--LDAP--', $remember);
             if(!$login) {
-                // var_dump($login);
-                // check if user is inactive
+
+            // check if user is inactive
+
                 if($this->objLu->isInactive()) {
                     throw new customException("User is inactive, please contact site admin");
                 }
@@ -84,14 +94,63 @@ class auth_ldap extends abauth implements ifauth {
                     return FALSE;
                 }
             }
-
             return TRUE;
         }
     }
 
+    public function setActive($userId) {
+        $sql="UPDATE tbl_users  SET  isActive = '1' WHERE  username='".$userId."'";
+        $this->query($sql);
+    }
+
+
     public function getUserDataAsArray($username) {
         return $this->_record;
     }
+
+
+    /**
+     * Look up user's data in the database.
+     * @param string $username
+     * @return array on success, FALSE on failure.
+     */
+    public function getLocalUserInfoAsArray($username) {
+        /*$array = array();
+        $array['username'] = $this->objLu->getProperty('handle');
+        $array['userid'] = $this->objLu->getProperty('auth_user_id');
+        $array['isactive'] = $this->objLu->getProperty('is_active');
+        $array['emailaddress'] = $this->objLu->getProperty('email');
+        $array['sex'] = $this->objLu->getProperty('sex');
+
+        var_dump($array); die();*/
+
+        $sql="SELECT
+            tbl_users.username,
+            tbl_users.userid,
+            tbl_users.title,
+            tbl_users.firstname,
+            tbl_users.surname,
+            tbl_users.pass,
+            tbl_users.creationdate,
+            tbl_users.emailaddress,
+            tbl_users.logins,
+            tbl_users.isactive,
+            tbl_users.accesslevel
+            FROM
+            tbl_users
+            WHERE
+            (username = '".addslashes($username)."')";
+        $array=$this->getArray($sql);
+        //var_dump($array[0]); die();
+        if (!empty($array)) {
+            return $array[0];
+        } else {
+            return FALSE;
+        }
+    }
+
+
+    
 
     /**
      *
@@ -100,33 +159,61 @@ class auth_ldap extends abauth implements ifauth {
     function createUser($username) {
         $data = $this->objUser->lookupData ( $username );
         $info = $this->getUserDataAsArray ( $username );
-        //var_dump($data); var_dump($info); die();
+
         if (is_array ( $data ) || $this->objUser->valueExists ( 'userid', $info ['userid'] )) // if we already have this user
         {
             return TRUE;
         } else { // new user
+
+        //Getting extra details from LDAP
+            $ldapData = $this->getUserLdapDetails($username);
             // Build up an array of the user's info
             if ($info ['userid'] == FALSE) {
                 $info ['userid'] = mt_rand ( 1000, 9999 ) . date ( 'ymd' );
             } else {
-                $info ['staffnumber'] = $info ['userid'];
-            }
-            $infoauth_user_id = $info ['userid'];
-            $infosex = '';
-            //$info ['accessLevel'] = 'guests';
-            $infohowCreated = 'LDAP';
-            $infois_active = '1';
-            $infoemailAddress = $info['emailaddress'];
-            $infohandle = $username;
-            $infopasswd = '--LDAP--';
-            $infofirstName = $info['firstname'];
-            $objConf2 = $this->getObject ( 'altconfig', 'config' );
-            $infocountry = $objConf2->getCountry ();
-            $infoperm_type = 1;
 
-            // To create the new user on the system.
-            $tbl = $this->getObject ( 'useradmin_model2', 'security' );
-            $id = $tbl->addUser ( $infoauth_user_id, $username, $infopasswd, $info['title'], $infofirstName, $info['surname'], $infoemailAddress, $infosex, $infocountry, '', $infoauth_user_id, $infohowCreated, $accountstatus='1' );
+                $info [$this->ldapusernamevar] = $username;
+
+            }
+
+
+            $info ['staffnumber'] = $username;
+            $info ['username'] = $username;
+            $info ['userId'] = $info ['userid'];
+            $info ['sex'] = '';
+            $info ['accessLevel'] = 'guests';
+            $info ['howCreated'] = 'LDAP';
+            $info ['isactive'] = '1';
+
+            if (isset($ldapData['sn'][0])) {
+                $info ['surname'] = $ldapData['sn'][0];
+            }
+
+            if (isset($ldapData['title'][0])) {
+                $info ['title'] = $ldapData['title'][0];
+            }
+
+            if (isset($ldapData['givenname'][0])) {
+                $info ['firstname'] = $ldapData['givenname'][0];
+            }
+            if (isset($ldapData['mail'][0])) {
+                $info ['email'] = $ldapData['mail'][0];
+            }
+
+
+            log_debug(var_export($ldapData['title'], true));
+            log_debug(var_export($ldapData['sn'],true));
+            log_debug(var_export($ldapData['givenname'],true));
+
+            $objConf2 = $this->getObject ( 'altconfig', 'config' );
+            $info ['country'] = $objConf2->getCountry ();
+
+            // Instantiate the sqlusers class and call the adduser() function
+            // To create the new user on the KNG system.
+            //$tbl = $this->newObject ( 'sqlusers', 'security' );
+            //$id = $tbl->addUser ( $info );
+            $objUserAdmin = $this->getObject('useradmin_model2', 'security');
+            $objUserAdmin->addUser($info['userid'], $info['username'], '--LDAP--',$info['title'], $info['firstname'], $info['surname'], $info['email'], $info['sex'], $info['country'], $info['cellnumber'], $info['staffnumber'], 'ldap', '1');
             // If LDAP confirms the user is an Academic,
             // add as a site-lecturer in KNG groups.
             if ($this->isAcademic ( $username )) {
@@ -138,6 +225,43 @@ class auth_ldap extends abauth implements ifauth {
 
     }
 
+
+    /**
+     * method to contact the ldap server and see if a given username is valid there
+     * @author James Scoble
+     * @param string $username
+     * @param string $where the LDAP "domain" to look in
+     * erLdapDetailsreturn string|bool - string if successful, FALSE if not
+     */
+    public function getUserLdapDetails($username) {
+
+        $ldapconn = ldap_connect ('ldap://'.$this->ldapserver, $this->ldapPort) or die ('LDAP CONNECTION FAILED');
+
+        ldap_set_option($ldapconn, LDAP_OPT_REFERRALS, 0);
+        ldap_set_option($ldapconn,LDAP_OPT_PROTOCOL_VERSION,3);
+
+        $ldapbind = ldap_bind ( $ldapconn, $this->ldapuservarname,$this->ldapPassword );
+
+
+        $where = $this->ldapWhere;
+        if (! $ldapbind) {
+            $this->setSession ( 'ldaperror', 'FAIL' );
+            return FALSE;
+        }
+        $filter = '(CN=' . $username.')';
+        //$filter = '(sn=*)';
+        $look = array ('DN','CN','SN','TITLE','GIVENNAME','MAIL' );
+        $find = ldap_search ( $ldapconn, $where, $filter, $look );
+        $data = ldap_get_entries ( $ldapconn, $find );
+        ldap_close ( $ldapconn );
+        if ($data ['count'] > 0) {
+            return $data [0];
+        } else {
+            return FALSE;
+        }
+    }
+
+
     /**
      * method to contact the ldap server and see if a given username is valid there
      * @author James Scoble
@@ -146,16 +270,28 @@ class auth_ldap extends abauth implements ifauth {
      * @return string|bool - string if successful, FALSE if not
      */
     public function checkUser($username) {
-        $ldapconn = ldap_connect ( $this->ldapserver );
-        $ldapbind = @ldap_bind ( $ldapconn );
+
+        $ldapconn = ldap_connect ('ldap://'.$this->ldapserver, $this->ldapPort) or die ('LDAP CONNECTION FAILED');
+
+        ldap_set_option($ldapconn, LDAP_OPT_REFERRALS, 0);
+        ldap_set_option($ldapconn,LDAP_OPT_PROTOCOL_VERSION,3);
+
+        $ldapbind = ldap_bind ( $ldapconn, $this->ldapuservarname,$this->ldapPassword );
+
         $where = $this->ldapWhere;
+
         if (! $ldapbind) {
             $this->setSession ( 'ldaperror', 'FAIL' );
             return FALSE;
         }
-        $filter = 'cn=' . $username;
-        $look = array ('dn' );
+        $filter = '(CN=' . $username.')';
+        $look = array ('DN' );
         $find = ldap_search ( $ldapconn, $where, $filter, $look );
+        if (!$find) {
+            echo "Couldn't Find Any Matching AD Object";
+            exit;
+        }
+        
         $data = ldap_get_entries ( $ldapconn, $find );
         ldap_close ( $ldapconn );
         if ($data ['count'] > 0) {
@@ -173,7 +309,7 @@ class auth_ldap extends abauth implements ifauth {
      * @return string|bool - string if successful, FALSE if not
      */
     public function tryLogin($username, $passwd) {
-        // Check for blank password - there's a bug in LDAP that makes it accept '' as valid.
+    // Check for blank password - there's a bug in LDAP that makes it accept '' as valid.
         if ($passwd == '') {
             return FALSE;
         }
@@ -184,6 +320,10 @@ class auth_ldap extends abauth implements ifauth {
         }
         // Now try to "login" to LDAP with the domain-name and password
         $ldapconn = ldap_connect ( $this->ldapserver );
+        ldap_set_option($ldapconn, LDAP_OPT_REFERRALS, 0);
+        ldap_set_option($ldapconn,LDAP_OPT_PROTOCOL_VERSION,3);
+
+
         $ldapbind = @ldap_bind ( $ldapconn, $dn, $passwd );
         if (! $ldapbind) {
             return FALSE;
@@ -230,7 +370,7 @@ class auth_ldap extends abauth implements ifauth {
         $results ['logins'] = '0';
         $results ['password'] = '--LDAP--';
         if (! empty ( $results ) || ! is_bool ( $results ['userid'] )) {
-            // send an array of the results
+        // send an array of the results
             return $results;
         } else {
             return FALSE;
@@ -246,7 +386,7 @@ class auth_ldap extends abauth implements ifauth {
      * @Todo this needs to be made generic ---
      */
     public function isAcademic($username, $where = "ou=ACADEMIC") //,{$this->ldapWhere}")
-{
+    {
         $test = $this->checkUser ( $username, $where );
         if (! $test) {
             return FALSE;
