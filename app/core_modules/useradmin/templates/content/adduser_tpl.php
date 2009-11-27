@@ -220,6 +220,10 @@ $table->startRow();
     $table->addCell('&nbsp;');
     //if ($mode == 'addfixup') {
         $table->addCell($objCountries->countryAlpha());
+		$test = $objCountries->countryAlpha();
+		//asort($test);
+		//echo '<script type="text/javascript">alert('.$test.')</script>';
+		//echo $test;
     // } else {
 
     // }

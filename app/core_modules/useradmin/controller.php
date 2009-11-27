@@ -17,6 +17,7 @@ class useradmin extends controller
     public $objUserAdmin;
     public $objUser;
     public $isAdmin;
+	public $objUtility;
     
     /**
     *
@@ -34,6 +35,8 @@ class useradmin extends controller
         $this->objCleanUrl = $this->getObject('cleanurl', 'filemanager');
         
         $this->objUrl = $this->getObject('url', 'strings');
+		
+		$this->objUtility = $this->getObject('utility', 'useradmin');
     }
 
     /**
@@ -51,7 +54,6 @@ class useradmin extends controller
         // echo '<pre>';
         // print_r($_SESSION);
         // echo '</pre>';
-        
         switch ($action)
         {
             case 'viewbyletter':
@@ -76,6 +78,18 @@ class useradmin extends controller
                 return $this->resetImage($this->getParam('id'));
             case 'batchprocess':
                 return $this->batchProcess();
+			case 'jsongetusers':
+                return $this->__jsongetusers();
+			case 'jsonsavenewuser':
+				return $this->__jsonsaveNewUser();
+			case 'deleteuser':
+				return $this->__deleteuser();
+			case 'checkusername':
+				return $this->__jsonUsertaken();
+			case 'jsonupdateuserdetails':
+                return $this->__jsonUpdateUserDetails();
+			case 'jsongetsingleuser':
+                return $this->__jsongetSingleUser();
             default:
                 return $this->userAdminHome();
         }
@@ -85,6 +99,24 @@ class useradmin extends controller
     *
     *
     */
+
+
+	  private function isValidUser($id, $errorcode='userviewdoesnotexist')
+	 	    {
+			    if ($id == '') {
+	 	            return $this->nextAction(NULL, array('error'=>'noidgiven'));
+	 	        }
+	 	        
+	 	        $user = $this->objUserAdmin->getUserDetails($id);
+	 	        
+			    if ($user == FALSE) {
+	 	            return $this->nextAction(NULL, array('error'=>$errorcode));
+	 	        } else {
+	 	            return $user;
+	 	        }
+	 	    }
+
+
     public function userAdminHome()
     {
         $letter = $this->getSession('letter', 'A');
@@ -199,7 +231,7 @@ class useradmin extends controller
     */
     function saveNewUser()
     {
-        $userId = $this->objUserAdmin->generateUserId();
+		$userId = $this->objUserAdmin->generateUserId();
         
         $username = $this->getParam('useradmin_username');
         $password = $this->getParam('useradmin_password');
@@ -212,7 +244,7 @@ class useradmin extends controller
         $cellnumber = $this->getParam('useradmin_cellnumber');
         $staffnumber = $this->getParam('useradmin_staffnumber');
         $accountstatus = $this->getParam('accountstatus');
-        $country = $this->getParam('country');
+		$country = $this->getParam('country');
         
         $checkFields = array($userId, $username, $firstname, $surname, $email);
         
@@ -250,6 +282,8 @@ class useradmin extends controller
             
             if ($pkid != FALSE) {
                 $fileId = $this->getParam('imageselect');
+				//error_log(var_export($fileId, true));
+				//echo "<script type=\"text/javascript\">alert($fileId)</script>";
                 if ($fileId != '') {
                     $filepath = $this->objFile->getFullFilePath($fileId);
                 
@@ -301,21 +335,7 @@ class useradmin extends controller
         
     }
     
-    private function isValidUser($id, $errorcode='userviewdoesnotexist')
-    {
-        if ($id == '') {
-            return $this->nextAction(NULL, array('error'=>'noidgiven'));
-        }
-        
-        $user = $this->objUserAdmin->getUserDetails($id);
-        
-        if ($user == FALSE) {
-            return $this->nextAction(NULL, array('error'=>$errorcode));
-        } else {
-            return $user;
-        }
-    }
-    
+      
     /**
     *
     *
@@ -604,6 +624,47 @@ class useradmin extends controller
         return $this->nextAction($nextAction, array('message'=>'batchprocessed', 'option'=>$this->getParam('option')));
     }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	public function __jsongetusers()
+	{
+		echo $this->objUtility->jsongetusers($this->getParam('start'), $this->getParam('limit'));
+		exit(0);
+	}
+
+	public function __jsonSaveNewUser()
+    {
+		$this->objUtility->jsonSaveNewUser();
+		return $this->nextAction(userAdminHome);
+     }
+
+	public function __jsonUsertaken()
+	{
+		echo $this->objUtility->jsonUserTaken($this->getParam('username'));
+		exit(0);
+	}
+	
+	public function __deleteuser() 
+	{
+        $this->objUserAdmin->apiUserDelete($this->getParam('id'));
+        return $this->nextAction(userAdminHome);
+    }
+	
+	public function __jsonUpdateUserDetails()
+    {
+		$this->objUtility->jsonUpdateUserDetails();
+		return $this->nextAction(userAdminHome);        
+    }
+
+	public function __jsongetSingleUser()
+	{
+ 		echo $this->objUtility->getSingleUser($this->getParam('id'));
+		exit(0);
+	}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
 ?>
