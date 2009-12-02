@@ -35,7 +35,7 @@
 					},
 					{
 		 				defaultType: 'textfield',
-						fieldLabel: 'Staff/Student Number',
+						fieldLabel: 'Identification Number',
 						name: 'useradmin_staffnumber'
 					},
 					{     
@@ -74,25 +74,7 @@
 							inputValue: 'F'
 						  }
 						]
-					  },{
-						xtype: 'radiogroup',
-						name: 'accountstatus',
-						fieldLabel: 'Account Status',
-						items: [
-						  {
-							xtype: 'radio',
-							name: 'accountstatus',
-							boxLabel: 'Active',
-							inputValue: '1',
-							checked: true
-						  },{
-							xtype: 'radio',
-							name: 'accountstatus',
-							boxLabel: 'Inactive',
-							inputValue: '0'
-						  }
-						]
-					},{     
+					  },{     
 						fieldLabel: 'Username',
 						name: 'useradmin_username',
 						vtype: 'username',
@@ -116,7 +98,6 @@
 		        }			
 			]
 			}],
-
 			buttons: [{
 				text: 'Add User',
 				handler: function (){

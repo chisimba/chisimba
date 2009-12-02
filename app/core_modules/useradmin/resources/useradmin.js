@@ -7,6 +7,9 @@
  * By Qhamani Fenama
  * qfenama@gmail.com/qfenama@uwc.ac.za
  */
+    // shorthand alias
+    var fm = Ext.form;
+
 	var proxyUserStore = new Ext.data.HttpProxy({
 		        url:baseuri+'?module=useradmin&action=jsongetusers&start=0&limit=25'
 		    });
@@ -14,9 +17,10 @@
 	var userdata = new Ext.data.JsonStore({
 		    root: 'users',
 		    totalProperty: 'usercount',
-		    idProperty: 'userid',
+		    idProperty: 'id',
 		    remoteSort: false,        
-		    fields: ['userId',
+		    fields: ['id'
+					,'userid'
 					,'staffnumber'
 					,'username' 
 					,'title'
@@ -24,19 +28,25 @@
 					,'surname'
 					,'emailaddress'
 					,'howcreated'
-					,'isactive'
-					,
-					{
-					  name: 'delete'
-		    		},
-					{
-					  name: 'edit'
-		    		}],
+					,'isactive'],
 
 		    proxy: proxyUserStore
 	});
 
-	 userdata.setDefaultSort('surname', 'asc');
+
+	// pluggable renders
+    function renderDelete(value, p, record)
+	{
+		return String.format('<b><a href="javascript:deleteUser(\'{0}\')"><img src="skins/_common/css/extjs/silk/fam/delete.gif" border="0" alt="Delete User" title="Delete User" /></a></b>',record.data.id);
+	}
+
+
+	function renderEdit(value, p, record)
+	{
+		return String.format('<b><a href="javascript:showForm(\'{0}\')"><img src="skins/_common/css/extjs/silk/fam/user_edit.png" border="0" alt="Edit User" title="Edit User" /></a></b>',record.data.id);
+    }
+	
+	userdata.setDefaultSort('surname', 'asc');
 
 	//custom column plugin example
     var activecheckColumn = new Ext.grid.CheckColumn({            
@@ -49,6 +59,7 @@
 	var LDAPcheckColumn = new Ext.grid.CheckColumn({
             header: "LDAP",
             dataIndex: 'howcreated',
+			editable : true,
             width: 55,
             sortable: true
 		});
@@ -74,6 +85,28 @@
 			}
 	}]});
 
+	function deleteUser(sid)
+	{
+		Ext.MessageBox.confirm('Confirm Delete', "Are you sure you want to delete the user?", function(btn, text) 			{
+			if (btn == 'yes')
+			{
+				Ext.Ajax.request({
+				url: baseuri,
+				method: 'POST',
+				params: {
+				       module: 'useradmin',
+				       action: 'deleteuser',
+				       id: sid
+				},
+				success: function(response) {
+				userdata.load({params:{start:0, limit:25}});
+				},
+				failure: function(xhr,params) {
+				}});
+			}
+		});
+	}
+
 	function showForm(sid)
 	{
 		vid = sid;
@@ -97,7 +130,7 @@
 									action: 'jsongetSingleUser',
 									id:	sid
 									},
-								waitMsg:'Loading',
+								waitMsg:'Loading...',
 
 								success:function(form, action) {
 								}, 
@@ -105,26 +138,9 @@
 				            	failure:function(form, action) {
 								}
 							});
-				
 	}
-
-    var usergrid = new Ext.grid.GridPanel({
-        el: 'user-grid',
-        width: 900,
-        height: 400,
-		frame: true,
-		title:'Browse Users',
-        store: userdata,
-        trackMouseOver:false,
-        disableSelection:true,
-        loadMask: true,
-		emptyText:'No Users Found',
-		tbar: toolBar,
-		
-        //grid columns
-        columns:[
-        {
-            header: "Staff/Stud No.",
+	var cm = new Ext.grid.ColumnModel([{
+		header: "Staff/Stud No.",
             dataIndex: 'staffnumber',
             width: 100,            
             sortable: true
@@ -154,24 +170,41 @@
             dataIndex: 'emailaddress',
             width: 120,
             sortable: true
-        },
+		},
 			LDAPcheckColumn
 		,
 			activecheckColumn
 		,{            
             header: "Delete",
-            dataIndex: 'delete',
+            dataIndex: 'id',
+			renderer: renderDelete,
             width: 55,
             sortable: true
         },{            
             header: "Edit",
-            dataIndex: 'edit',
+			dataIndex: 'id',
+            renderer: renderEdit,
             width: 55,
             sortable: true
-        }],
+        }]);
 
+   var usergrid = new Ext.grid.EditorGridPanel({
+        el: 'user-grid',
+		cm: cm,
+        width: 900,
+        height: 400,
+		frame: true,
+		title:'Browse Users',
+        store: userdata,
+        trackMouseOver:false,
+        disableSelection:true,
+        loadMask: true,
+		emptyText:'No Users Found',
+		clicksToEdit: 1,
+		tbar: toolBar,
+		       
         // customize view config
-        plugins:[new Ext.ux.grid.Search({
+        plugins: [activecheckColumn, new Ext.ux.grid.Search({
 				 iconCls:'zoom'
 				 ,disableIndexes:['isactive', 'howcreated', 'delete', 'edit']
 				 ,minChars:1
@@ -193,5 +226,6 @@
 Ext.onReady(function(){
 	//trigger the data store load
     userdata.load({params:{start:0, limit:25}});
-    // render it
+	
+	// render it
     usergrid.render();});

@@ -102,6 +102,7 @@ public function jsongetusers($start, $limit)
 				$users = array();
 				foreach($var_users as $user){
 						$arr = array();
+						$arr['id'] = $user['id'];
 						$arr['userid'] = $user['userid'];
 						$arr['staffnumber'] = $user['staffnumber'];
 						$arr['username'] = $user['username'];
@@ -121,7 +122,7 @@ public function jsongetusers($start, $limit)
 						    $arr['isactive'] = true;
 						}
 
-						//Prepare Delete Link
+						/*Prepare Delete Link
 						$this->loadclass('link','htmlelements');
 						$objIcon = $this->newObject('geticon', 'htmlelements');
 						$delLink = array(
@@ -142,7 +143,7 @@ public function jsongetusers($start, $limit)
 						$objIcon->setIcon('edit');
 						$editUserLink->link=$objIcon->show();
 				        $arr['edit'] = $editUserLink->show();
-						//End of Prepared Edit Link
+						//End of Prepared Edit Link*/
 
 				    	$users[] = $arr;
 					}	    	
@@ -242,15 +243,7 @@ public function jsongetusers($start, $limit)
             'country'=>$country
             );
             
-        //$this->setSession('userDetails', $userDetails);
-        
-        
-        //$results = array('id'=>$id);
-              
-        //$results['detailschanged']=TRUE;
-        
-        // Process Update
-        $update = $this->objUserAdmin->updateUserDetails($id, $username, $firstname, $surname, $title, $email, $sex, $country, $cellnumber, $staffnumber, $password, $accounttype, $accountstatus);
+           $update = $this->objUserAdmin->updateUserDetails($id, $username, $firstname, $surname, $title, $email, $sex, $country, $cellnumber, $staffnumber, $password, $accounttype, $accountstatus);
     }
 
 

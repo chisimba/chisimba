@@ -7,21 +7,16 @@
  * By Qhamani Fenama
  * qfenama@gmail.com/qfenama@uwc.ac.za
  */
-
 	var editwin;
 	var addwin;
 	var vid ;
 
 	Ext.QuickTips.init();
 
-		// turn on validation errors beside the field globally
+	// turn on validation errors beside the field globally
 	Ext.form.Field.prototype.msgTarget = 'side';
 
 	var bd = Ext.getBody();
-
-	/////////////////////////////////////////
-	///////////START FORM FIELDS/////////////
-	/////////////////////////////////////////
 	
 	var val2;
 
@@ -48,13 +43,8 @@
 		},
 	
 		usernameText: 'Username is already taken'
-
-
 	});
-	/////////////////////////////////////////
-	///////////END FORM FIELDS///////////////
-	/////////////////////////////////////////
-
+	
 	var titledata =  new Ext.data.ArrayStore({
 			id: 0,
 			fields: [
@@ -70,7 +60,6 @@
 				data: Ext.countrydata.countries
 		});
 
-
 	// create the combo instance
 	var titleCombo = new Ext.form.ComboBox({
 		typeAhead: true,
@@ -84,7 +73,8 @@
 		store: titledata,
 		valueField: 'titleId',
 		displayField: 'titleText',
-		allowBlank:false
+		allowBlank:false,
+		width: 150
 	});
 
 	// create the combo instance
@@ -100,9 +90,9 @@
 		store: titledata,
 		valueField: 'titleId',
 		displayField: 'titleText',
-		allowBlank:false
+		allowBlank:false,
+		width: 150
 	});
-
 
 	// create the combo instance
 	var countryCombo = new Ext.form.ComboBox({
@@ -118,7 +108,8 @@
 		store: countrydata,
 		valueField: 'countryId',
 		displayField: 'countryText',
-		allowBlank:false
+		allowBlank:false,
+		width: 150
 	});
 
 	var editcountry = new Ext.form.ComboBox({
@@ -134,13 +125,10 @@
 		store: countrydata,
 		valueField: 'countryId',
 		displayField: 'countryText',
-		allowBlank:false
+		allowBlank:false,
+		width: 150
 	});
-	////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////
-
-	////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////
+	
 	var edituri;
 
 	var edituser = new Ext.FormPanel({ 
@@ -170,7 +158,7 @@
 					},
 					{
 		 				defaultType: 'textfield',
-						fieldLabel: 'Staff/Student Number',
+						fieldLabel: 'Identification Number',
 						name: 'useradmin_staffnumber'
 					},
 					{     
@@ -209,25 +197,7 @@
 							inputValue: 'F'
 						  }
 						]
-					  },{
-						xtype: 'radiogroup',
-						name: 'accountstatus',
-						fieldLabel: 'Account Status',
-						items: [
-						  {
-							xtype: 'radio',
-							name: 'accountstatus',
-							boxLabel: 'Active',
-							inputValue: '1',
-							checked: true
-						  },{
-							xtype: 'radio',
-							name: 'accountstatus',
-							boxLabel: 'Inactive',
-							inputValue: '0'
-						  }
-						]
-					},{     
+					  },{     
 						fieldLabel: 'Username',
 						readOnly: true,
 						name: 'useradmin_username',
@@ -245,7 +215,7 @@
 						vtype: 'password',
 						inputType: 'password',
 						allowBlank: true,
-						initialPassField: 'epass' //id of the initial password field
+						initialPassField: 'epass'
 					}]
 		        }			
 			]
@@ -257,5 +227,5 @@
 					edituri = baseuri+"?module=useradmin&action=jsonupdateuserdetails&id="+vid;
 					edituser.getForm().getEl().dom.action = edituri;
 					edituser.getForm().submit();
-			}}]
-});
+				}}]
+});				
