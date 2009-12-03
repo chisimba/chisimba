@@ -62,6 +62,7 @@
 						items: [
 						  {
 							xtype: 'radio',
+							labelSeparator:'',
 							name: 'useradmin_sex',
 							boxLabel: 'Male',
 							inputValue: 'M',
@@ -69,9 +70,31 @@
 					
 						  },{
 							xtype: 'radio',
+							labelSeparator:'',
 							name: 'useradmin_sex',
 							boxLabel: 'Female',
 							inputValue: 'F'
+						  }
+						]
+					  },{
+						xtype: 'radiogroup',
+						name: 'useradmin_sex',
+						fieldLabel: 'Account Status',
+						items: [
+						  {
+							xtype: 'radio',
+							labelSeparator:'',
+							name: 'accountstatus',
+							boxLabel: 'Active',
+							inputValue: '1',
+							checked: true
+					
+						  },{
+							xtype: 'radio',
+							labelSeparator:'',
+							name: 'accountstatus',
+							boxLabel: 'InActive',
+							inputValue: '0'
 						  }
 						]
 					  },{     

@@ -24,7 +24,6 @@
 		password : function(val, field) {
 			if (field.initialPassField) {
 				var pwd = Ext.getCmp(field.initialPassField);
-				//alert(pwd);
 				return (val == pwd.getValue());
 			}
 			return true;
@@ -185,17 +184,40 @@
 						items: [
 						  {
 							xtype: 'radio',
+							id : 'sex_M',
+							labelSeparator:'',
 							name: 'useradmin_sex',
 							boxLabel: 'Male',
-							inputValue: 'M',
-							checked: true
-					
+							inputValue: 'M'												
 						  },{
 							xtype: 'radio',
+							id : 'sex_F',
+							labelSeparator:'',
 							name: 'useradmin_sex',
 							boxLabel: 'Female',
 							inputValue: 'F'
-						  }
+						}
+						]
+					  },{
+						xtype: 'radiogroup',
+						name: 'useradmin_sex',
+						fieldLabel: 'Account Status',
+						items: [
+						  {
+							xtype: 'radio',
+							id : 'active_1',
+							labelSeparator:'',
+							name: 'accountstatus',
+							boxLabel: 'Active',
+							inputValue: '1',
+						  },{
+							xtype: 'radio',
+							id : 'active_0',
+							labelSeparator:'',
+							name: 'accountstatus',
+							boxLabel: 'InActive',
+							inputValue: '0',
+						}
 						]
 					  },{     
 						fieldLabel: 'Username',

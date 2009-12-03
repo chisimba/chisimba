@@ -7,10 +7,7 @@
  * By Qhamani Fenama
  * qfenama@gmail.com/qfenama@uwc.ac.za
  */
-    // shorthand alias
-    var fm = Ext.form;
-
-	var proxyUserStore = new Ext.data.HttpProxy({
+    var proxyUserStore = new Ext.data.HttpProxy({
 		        url:baseuri+'?module=useradmin&action=jsongetusers&start=0&limit=25'
 		    });
 	   
@@ -52,7 +49,7 @@
     var activecheckColumn = new Ext.grid.CheckColumn({            
             header: "Active",
             dataIndex: 'isactive',
-            width: 55,
+            width: 40,
             sortable: true
         });
 
@@ -60,7 +57,7 @@
             header: "LDAP",
             dataIndex: 'howcreated',
 			editable : true,
-            width: 55,
+            width: 40,
             sortable: true
 		});
 
@@ -87,7 +84,7 @@
 
 	function deleteUser(sid)
 	{
-		Ext.MessageBox.confirm('Confirm Delete', "Are you sure you want to delete the user?", function(btn, text) 			{
+		Ext.MessageBox.confirm('Delete User', "Are you sure you want to delete the user?", function(btn, text) 			{
 			if (btn == 'yes')
 			{
 				Ext.Ajax.request({
@@ -110,6 +107,7 @@
 	function showForm(sid)
 	{
 		vid = sid;
+		//edituser.getForm().reset();
 		if(!editwin){
 			editwin = new Ext.Window({
 				
@@ -123,7 +121,7 @@
 		}
 	
 		editwin.show(this);
-		edituser.getForm().load({
+		edituser.getForm().doAction('load',{
 								url:baseuri,
 								params: {
 									module: 'useradmin',
@@ -131,8 +129,12 @@
 									id:	sid
 									},
 								waitMsg:'Loading...',
-
-								success:function(form, action) {
+								success: function(form, action) {
+								//set the radio buttons								
+								var fID = 'sex_' + action.result.data.useradmin_sex;
+								Ext.getCmp(fID).setValue(true);
+								fID = 'active_' + action.result.data.accountstatus;
+								Ext.getCmp(fID).setValue(true);
 								}, 
        	
 				            	failure:function(form, action) {
@@ -140,35 +142,35 @@
 							});
 	}
 	var cm = new Ext.grid.ColumnModel([{
-		header: "Staff/Stud No.",
+		header: "Identification No.",
             dataIndex: 'staffnumber',
             width: 100,            
             sortable: true
         },{
             header: "Username",
             dataIndex: 'username',
-            width: 120,
+            width: 85,
             sortable: true
         },{
             header: "Title",
             dataIndex: 'title',
-            width: 55,
+            width: 70,
             hidden: false,
             sortable: true
 		},{            
             header: "First Name",
             dataIndex: 'firstname',
-            width: 120,
+            width: 100,
             sortable: true
 		},{
             header: "Surname",
             dataIndex: 'surname',
-            width: 120,
+            width: 100,
             sortable: true
 		},{
             header: "Email",
             dataIndex: 'emailaddress',
-            width: 120,
+            width: 100,
             sortable: true
 		},
 			LDAPcheckColumn
@@ -178,20 +180,20 @@
             header: "Delete",
             dataIndex: 'id',
 			renderer: renderDelete,
-            width: 55,
+            width: 40,
             sortable: true
         },{            
             header: "Edit",
 			dataIndex: 'id',
             renderer: renderEdit,
-            width: 55,
+            width: 40,
             sortable: true
         }]);
 
    var usergrid = new Ext.grid.EditorGridPanel({
         el: 'user-grid',
 		cm: cm,
-        width: 900,
+        width: 750,
         height: 400,
 		frame: true,
 		title:'Browse Users',
@@ -200,11 +202,11 @@
         disableSelection:true,
         loadMask: true,
 		emptyText:'No Users Found',
-		clicksToEdit: 1,
+		//clicksToEdit: 1,
 		tbar: toolBar,
 		       
         // customize view config
-        plugins: [activecheckColumn, new Ext.ux.grid.Search({
+        plugins: [new Ext.ux.grid.Search({
 				 iconCls:'zoom'
 				 ,disableIndexes:['isactive', 'howcreated', 'delete', 'edit']
 				 ,minChars:1
