@@ -148,11 +148,11 @@ class useradmin_model2 extends dbtable
                       'cellnumber' => $cellnumber,
                       'staffnumber' => $staffnumber,
                       'howCreated' => $accountType,
-                      'is_active' => '1',
+                      'is_active' => $accountstatus,
                       'cellnumber' => $cellnumber,
                       'staffnumber' => $staffnumber,
                       'howCreated' => $accountType,
-                      'perm_type' => '1',
+                      'perm_type' => 1,
         );
         $adduser = $this->objLuAdmin->addUser($data);
         if(!$adduser) { // anonymous    : LIVEUSER_ANONYMOUS_TYPE_ID = 0  (Anon User Perm)
@@ -314,7 +314,6 @@ class useradmin_model2 extends dbtable
     public function usernameAvailable($username)
     {
         $recordCount = $this->getRecordCount('WHERE username=\''.$username.'\'');
-        // echo $recordCount;
         if ($recordCount == 0) {
             return TRUE;
         } else {
@@ -757,8 +756,6 @@ IP Address of Request: '.$_SERVER['REMOTE_ADDR'];
         }
         // return $this->update('id', $id, array('howcreated'=>'LDAP', 'pass'=>sha1('--LDAP--')));
     }
-
+	
 } // end of class sqlUsers
-
-
 ?>
