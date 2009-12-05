@@ -81,8 +81,8 @@ fieldset{
 	
 label {
 font-weight: bold;
-display: block;
-float: left;
+/*display: block;
+float: left;*/
 }
 /* label:after { content: ": " } */
 
