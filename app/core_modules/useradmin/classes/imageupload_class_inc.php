@@ -18,6 +18,7 @@ class imageupload extends object
     * @var string The URL of the file.
     */
     private $imageUrl;
+    private $grav_enabled = TRUE;
 
     public function init()
     {
@@ -25,6 +26,9 @@ class imageupload extends object
         $this->objUser=$this->getObject('user','security');
         $this->imagePath = $this->objConfig->getsiteRootPath().'/user_images/';
         $this->imageUrl = $this->objConfig->getsiteRoot().'user_images/';
+        $this->imageUri = '/user_images/';
+        $this->objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
+        $this->grav_enabled = $this->objSysConfig->getValue('enable_gravitar', 'useradmin');
     }
 
     /**
@@ -64,18 +68,22 @@ class imageupload extends object
     */
     public function userpicture($userId)
     {
-        if (file_exists($this->imagePath.$userId.".jpg")){
-            return($this->imageUrl.$userId.".jpg");
-        } else {
-        //Include gravatar option if nothing has been uploaded
-        		$grav_email = md5($this->objUser->email());
-        		$grav_default = $this->imageUrl."default.jpg";
-        		$grav_rating = 'G';
-        		$grav_size = 130;
-        		$grav_border = "000000";        		
-        		$grav_url = "http://www.gravatar.com/avatar.php?gravatar_id=".$grav_email."&default=".$grav_default."&size=".$grav_size."&border=".$grav_border."&rating=".$grav_rating;
-        		return $grav_url;
-            
+        $path = $_SERVER ['PHP_SELF'];
+        $path = str_replace("/index.php", "", $path);
+        if (file_exists($this->imageUri.$userId.".jpg")){
+            return($path.$this->imagePath.$userId.".jpg");
+        } elseif($this->grav_enabled == 'TRUE') {
+            //Include gravatar option if nothing has been uploaded
+            $grav_email = md5($this->objUser->email());
+            $grav_default = $this->imageUrl."default.jpg";
+            $grav_rating = 'G';
+            $grav_size = 130;
+            $grav_border = "000000";        		
+            $grav_url = "http://www.gravatar.com/avatar.php?gravatar_id=".$grav_email."&default=".$grav_default."&size=".$grav_size."&border=".$grav_border."&rating=".$grav_rating;
+            return $grav_url;
+        }
+        else {
+            return $path.$this->imageUri."default.jpg";
         }
     }
 
