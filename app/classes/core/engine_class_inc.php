@@ -1564,14 +1564,17 @@ class engine {
      * @param   bool   $javascriptCompatibility flag to produce javascript compatible URLs
      * @returns string $uri the URL
      */
-    public function uri($params = array(), $module = '', $mode = '', $omitServerName = FALSE, $javascriptCompatibility = FALSE, $Strict = FALSE) {
+    public function uri($params = array(), $module = '', $mode = '', $omitServerName = FALSE, $javascriptCompatibility = FALSE, $Strict = FALSE, $https = FALSE) {
         if (! empty ( $action )) {
             $params ['action'] = $action;
         }
         if ($omitServerName) {
             $uri = $_SERVER ['PHP_SELF'];
-        } else {
+        } elseif($https == FALSE) {
             $uri = "http://" . $_SERVER ['HTTP_HOST'] . $_SERVER ['PHP_SELF'];
+        }
+        else {
+            $uri = "https://" . $_SERVER ['HTTP_HOST'] . $_SERVER ['PHP_SELF'];
         }
         if ($mode == 'push' && $this->getParam ( '_pushed_action' )) {
             $mode = 'preserve';
