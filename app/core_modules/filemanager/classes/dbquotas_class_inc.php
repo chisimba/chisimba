@@ -133,11 +133,11 @@ class dbquotas extends dbTable
      * Method to setup Quota for the first time.
      * @param string $path Path
      */
-    private function setupQuotaFirstRun($path)
+    public function setupQuotaFirstRun($path, $userid = NULL)
     {
         $usage = $this->getFileUsage($path);
         
-        $result = $this->addQuota($path, $usage);
+        $result = $this->addQuota($path, $usage, $userid);
         
         if ($result != FALSE) {
             return $this->getRow('path', $path);
@@ -151,17 +151,21 @@ class dbquotas extends dbTable
      * @param string $path Path for which quota is applicable
      * @param string $usage Current Usage
      */
-    private function addQuota($path, $usage)
+    private function addQuota($path, $usage, $creatorid = NULL)
     {
+        if($creatorid == NULL) {
+            $creatorid = $this->objUser->userId();
+            $modifierid = $creatorid;
+        }
         return $this->insert(
                 array(
                     'path' => $path,
                     'usedefault' => 'Y',
                     'quota' => 0,
                     'quotausage' => $usage,
-                    'creatorid' => $this->objUser->userId(),
+                    'creatorid' => $creatorid,
                     'datecreated' => strftime('%Y-%m-%d %H:%M:%S', mktime()),
-                    'modifierid' => $this->objUser->userId(),
+                    'modifierid' => $creatorid,
                     'datemodified' => strftime('%Y-%m-%d %H:%M:%S', mktime()),
                 ));
     }
