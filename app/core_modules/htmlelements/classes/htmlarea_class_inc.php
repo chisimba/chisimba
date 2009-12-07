@@ -86,6 +86,11 @@ class htmlarea extends object {
      */
     public $templatePath;
 
+    /**
+     * this var stores the instance of ckeditor when its created
+     * @var <String> 
+     */
+    var $editor;
 
     /**
      * Method to establish the default values
@@ -184,8 +189,8 @@ class htmlarea extends object {
         $this->appendArrayVar('headerParams', $base);
         $this->appendArrayVar('headerParams', $baseajax);
 
-        $editor.='<textarea name="'.$this->name.'">'.$this->value.'</textarea>';
-        $editor.="
+        $this->editor.='<textarea name="'.$this->name.'">'.$this->value.'</textarea>';
+        $this->editor.="
        <script type=\"text/javascript\">
         CKEDITOR.replace( '$this->name',
 		{
@@ -197,7 +202,7 @@ class htmlarea extends object {
 
        </script>
             ";
-        return $editor;
+        return $this->editor;
     //return $this->showFCKEditor();
     }
 
