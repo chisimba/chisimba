@@ -170,6 +170,21 @@ class useradmin_model2 extends dbtable
             exit(1);
         }
 
+        // finally add a content directory for the new user
+        $this->objFolders = $this->getObject('dbfolder', 'filemanager');
+        $this->objQuotas = $this->getObject('dbquotas', 'filemanager');
+        $path = $this->objConfig->getcontentBasePath()."users/";
+        mkdir($path.$userid, 0777);
+        touch($path.$userid."/info.txt");
+        $folderId = $this->objFolders->indexFolder($path.$userid);
+//var_dump($folderId);
+        $folder = $this->objFolders->getFolder($folderId);
+//var_dump($folder);
+        $folderParts = explode('/', $folder['folderpath']);
+//var_dump($folderParts);
+        $quota = $this->objQuotas->getQuota($folder['folderpath']);
+//var_dump($quota);
+
         return $id;
     }
 

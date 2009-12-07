@@ -71,6 +71,7 @@ class user extends dbTable
         $this->imagePath = $this->objConfig->getsiteRootPath().'/user_images/';
         $this->imageUrl = $this->objConfig->getsiteRoot().'user_images/';
         $this->objPerms = $this->getObject('perms', 'permissions');
+
     }
 
     /**
@@ -730,11 +731,11 @@ class user extends dbTable
 
     /**
     * Return the title of the user defaulting to the current user
-    * 
+    *
     * @param string $userId The numeric ID of a user, it defaults
     * to the userId of the current user by setting it to NULL as
     * default.
-    * 
+    *
     */
     public function getTitle($userId=NULL)
     {
@@ -757,7 +758,7 @@ class user extends dbTable
        }
        return $ret;
     }
-    
+
     /**
     * Return the number of times a current user has logged
     * into the site.
@@ -829,16 +830,16 @@ class user extends dbTable
         }
 
         if ($alt == NULL) {
-            $alt = '';
+            $alt = 'User Image';
         } else {
             $alt = ' alt="'.$alt.'" title="'.$alt.'" ';
         }
 
 
         if (file_exists($this->imagePath.$userId.'.jpg')){
-            return '<img src="'.$this->imageUrl.$userId.'.jpg'.$forceRefresh.'" '.$alt.' />';
+            return '<img src="'.$this->imagePath.$userId.'.jpg'.$forceRefresh.'" '.$alt.' />';
         } else {
-            return '<img src="'.$this->imageUrl.'default.jpg" '.$alt.' />';
+            return '<img src="'.$this->imagePath.'default.jpg" '.$alt.' />';
         }
     }
 
@@ -858,9 +859,9 @@ class user extends dbTable
         }
 
         if (file_exists($this->imagePath.$userId.'.jpg')){
-            return $this->imageUrl.$userId.'.jpg'.$forceRefresh;
+            return $this->imagePath.$userId.'.jpg'.$forceRefresh;
         } else {
-            return $this->imageUrl.'default.jpg';
+            return $this->imagePath.'default.jpg';
         }
     }
 
@@ -878,15 +879,15 @@ class user extends dbTable
         }
 
         if ($alt == NULL) {
-            $alt = '';
+            $alt = 'User Image';
         } else {
             $alt = ' alt="'.$alt.'" title="'.$alt.'" ';
         }
 
         if (file_exists($this->imagePath.$userId.'.jpg')){
-            return '<img src="'.$this->imageUrl.$userId.'_small.jpg" '.$alt.'/>';
+            return '<img src="'.$this->imagePath.$userId.'_small.jpg" '.$alt.'/>';
         } else {
-            return '<img src="'.$this->imageUrl.'default_small.jpg" '.$alt.'/>';
+            return '<img src="'.$this->imagePath.'default_small.jpg" '.$alt.'/>';
         }
     }
 
@@ -945,7 +946,7 @@ class user extends dbTable
     * Method to check if this user is a context Lecturer
     * @author Jonathan Abrahams
     * @param string $userId: The id of the user to check | current user if not given
-    * @param string $contextCode: The context to check.
+    * @param string $contextCode: The context to check | current context if not given
     * @return true|false Return true if this user is a member of the context lecturers group.
     */
     public function isContextLecturer($userId = NULL, $contextCode = NULL)
@@ -961,13 +962,10 @@ class user extends dbTable
     * This method checks if a user
     * is a cours administrator ie. eithere
     * a lecturere are an administrator
-    *
-    * @param string $userId: The id of the user to check | current user if not given
-    * @param string $contextCode: The context to check.
     */
-    public function isCourseAdmin($userId = NULL, $contextCode = NULL)
+    public function isCourseAdmin($contextCode = NULL)
     {
-        if($this->isContextLecturer($userId, $contextCode) || $this->IsAdmin())
+        if($this->isContextLecturer($this->userId(), $contextCode) || $this->IsAdmin())
         {
             return true;
         } else {
@@ -1066,7 +1064,7 @@ class user extends dbTable
       {
         $objUserPic = $this->getObject('imageupload', 'useradmin');
         $objBox =  $this->newObjecT('featurebox', 'navigation');
-        $str = '<p align="center"><img src="'.$objUserPic->userpicture($this->userId() ).'" alt="User Image" /></p>';
+        $str = '<p align="center"><img src="'.$objUserPic->userpicture($this->userId() ).'" alt="User pImage" /></p>';
         return $objBox->show($this->fullName(), $str);
       }
 

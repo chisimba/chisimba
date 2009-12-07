@@ -830,16 +830,16 @@ class user extends dbTable
         }
 
         if ($alt == NULL) {
-            $alt = '';
+            $alt = 'User Image';
         } else {
             $alt = ' alt="'.$alt.'" title="'.$alt.'" ';
         }
 
 
         if (file_exists($this->imagePath.$userId.'.jpg')){
-            return '<img src="'.$this->imageUrl.$userId.'.jpg'.$forceRefresh.'" '.$alt.' />';
+            return '<img src="'.$this->imagePath.$userId.'.jpg'.$forceRefresh.'" '.$alt.' />';
         } else {
-            return '<img src="'.$this->imageUrl.'default.jpg" '.$alt.' />';
+            return '<img src="'.$this->imagePath.'default.jpg" '.$alt.' />';
         }
     }
 
@@ -859,9 +859,9 @@ class user extends dbTable
         }
 
         if (file_exists($this->imagePath.$userId.'.jpg')){
-            return $this->imageUrl.$userId.'.jpg'.$forceRefresh;
+            return $this->imagePath.$userId.'.jpg'.$forceRefresh;
         } else {
-            return $this->imageUrl.'default.jpg';
+            return $this->imagePath.'default.jpg';
         }
     }
 
@@ -879,15 +879,15 @@ class user extends dbTable
         }
 
         if ($alt == NULL) {
-            $alt = '';
+            $alt = 'User Image';
         } else {
             $alt = ' alt="'.$alt.'" title="'.$alt.'" ';
         }
 
         if (file_exists($this->imagePath.$userId.'.jpg')){
-            return '<img src="'.$this->imageUrl.$userId.'_small.jpg" '.$alt.'/>';
+            return '<img src="'.$this->imagePath.$userId.'_small.jpg" '.$alt.'/>';
         } else {
-            return '<img src="'.$this->imageUrl.'default_small.jpg" '.$alt.'/>';
+            return '<img src="'.$this->imagePath.'default_small.jpg" '.$alt.'/>';
         }
     }
 
