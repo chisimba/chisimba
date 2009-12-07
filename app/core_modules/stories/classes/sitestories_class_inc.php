@@ -46,7 +46,7 @@ class sitestories extends dbTable {
         $creatorId = $ar['creatorId'];
         $isActive = stripslashes($ar['isActive']);
         $title =stripslashes($ar['title']);
-        $abstract = stripslashes($ar['abstract']);
+        $abstract = $this->objWashout->parseText(stripslashes($ar['abstract']));
         $mainText = $this->objWashout->parseText(
                 stripslashes($ar['mainText'])
             );
@@ -150,7 +150,7 @@ class sitestories extends dbTable {
             $creatorId = $line['creatorid'];
             $isActive = stripslashes($line['isactive']);
             $title = stripslashes($line['title']);
-            $abstract = stripslashes($line['abstract']);
+            $abstract = $this->objWashout->parseText(stripslashes($line['abstract']));
             $mainText = $this->objWashout->parseText(
                 stripslashes($line['maintext'])
             );
@@ -429,7 +429,7 @@ class sitestories extends dbTable {
             $creatorId = $line['creatorid'];
             $isActive = stripslashes($line['isactive']);
             $title = stripslashes($line['title']);
-            $abstract = stripslashes($line['abstract']);
+            $abstract = $this->objWashout->parseText(stripslashes($line['abstract']));
             $mainText = $this->objWashout->parseText(
                 stripslashes($line['maintext'])
             );
@@ -591,7 +591,7 @@ class sitestories extends dbTable {
             $creatorId = $line['creatorid'];
             $isActive = stripslashes($line['isactive']);
             $title = stripslashes($line['title']);
-            $abstract = stripslashes($line['abstract']);
+            $abstract = $this->objWashout->parseText(stripslashes($line['abstract']));
             $mainText = $this->objWashout->parseText(
                 stripslashes($line['maintext'])
             );
