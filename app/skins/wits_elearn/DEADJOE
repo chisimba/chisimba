@@ -1,0 +1,18 @@
+
+*** These modified files were found in JOE when it aborted on Tue Apr 21 17:15:03 2009
+*** JOE was aborted by UNIX signal 1
+
+*** File 'svn-commit.3.tmp'
+hanged css file pointer
+--This line, and those below, will be ignored--
+
+M    skinname.txt
+M    templates/page/page_template.php
+
+*** File '(Unnamed)'
+config.xml
+config.xml
+svn-commit.tmp
+svn-commit.tmp
+svn-commit.2.tmp
+svn-commit.3.tmp
