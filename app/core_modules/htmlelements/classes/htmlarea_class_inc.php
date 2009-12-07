@@ -196,7 +196,8 @@ class htmlarea extends object {
 		{
 			filebrowserBrowseUrl : '$this->siteRoot?module=filemanager&action=fcklink&context=no&loadwindow=yes',
 			filebrowserImageBrowseUrl : '$this->siteRoot?module=filemanager&action=fckimage&context=no&loadwindow=yes',
-			filebrowserFlashBrowseUrl : '$this->siteRoot?module=filemanager&action=fckflash&context=yes&loadwindow=yes'
+			filebrowserFlashBrowseUrl : '$this->siteRoot?module=filemanager&action=fckflash&context=yes&loadwindow=yes',
+                         height:'".$this->height."', width:'".$this->width."'
 		}
         );
 
