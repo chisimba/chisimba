@@ -10,6 +10,9 @@ var myMask = new Ext.LoadMask(Ext.getBody(), {msg:"Please wait..."});
 Ext.onReady(function(){
 	Ext.QuickTips.init();
 	
+	// turn on validation errors beside the field globally
+	Ext.form.Field.prototype.msgTarget = 'side';
+	
 	alphaGroupStore.load({params:{start:0, limit:25, letter:'A'}});
 	myBorderPanel.render('mainPanel');
 	
@@ -259,7 +262,31 @@ var rmButton = new Ext.Button({
             }
         });
         
+var addGroupPanel = new Ext.Panel({
+	
+})
 
+var addGroupButton = new Ext.Button({
+	text:'Add Group',
+    tooltip:'Add a new Group',
+    iconCls: 'silk-add',
+    handler: function (){
+	        	if(!win){
+		            win = new Ext.Window({
+		                
+		                layout:'fit',
+		                width:400,
+		                height:150,
+		                closeAction:'hide',
+		                plain: true,						
+		                items: [addNewGroupPanel]		
+		                
+		            });
+		        }
+		        win.show(this);
+		       // alphaGroupStore.load({params:{start:0, limit:pageSize}})
+            }
+})
 
 // The toolbar for the user grid
 var toolBar = new Ext.Toolbar({
@@ -281,7 +308,7 @@ var toolBar = new Ext.Toolbar({
 		            });
 		        }
 		        win.show(this);
-		        userStore.load({params:{start:0, limit:pageSize}})
+		        
             }
         }, '-',rmButton, 
         '-', 
@@ -334,7 +361,7 @@ var groupsGrid = new Ext.grid.GridPanel({
 		//stripeRows: true,
 		sm: new Ext.grid.RowSelectionModel({singleSelect:true}),
         // grid columns  
-        tbar:[],         
+        tbar:[addGroupButton],         
     	bbar: groupsPageNavigation,
         
         columns:[{
@@ -376,7 +403,8 @@ var groupsGrid = new Ext.grid.GridPanel({
     		},
     		'beforeload': function(thisstore, options){
     			//thisstore.setBaseParam('letter', selectedTab);
-    		},
+    		},    		
+
     		'load': function(){
     				loadGroups(tabPanel, tab)
 					//loadGroups(tabPanel, tab);	
@@ -452,8 +480,67 @@ var myBorderPanel = new Ext.Panel({
     items: [groupsGrid, SiteAdminGrid]
 });
 
+///////////// Form Panels
 
+var addNewGroupPanel = new Ext.FormPanel({ 
+			//standardSubmit: true,
+			url: baseUri+"?module=groupadmin&action=json_addgroup",
+			frame:true,
+			title: 'Add a new Group',
+			bodyStyle:'padding:5px 5px 0',
+			width: 300,
+			waitMsgTarget: true,
+			defaultType: 'textfield',
+			layout: 'form',
+			items: [
+					{
+						fieldLabel: 'Group Name',
+						name: 'groupname',
+						itemId: 'groupname',
+						allowBlank:false,
+						vtype: 'groupname',
+						invalidText:'This group is already taken'			
+		        
+					}],
+					
+			buttons: [{
+				text: 'Add Group',
+				id:'addnewgroup',
+				handler: function (){
+					//edituri = baseUri+"?module=groupadmin&action=json_addgroup";
+					//addGroupPanel.getForm().getEl().dom.action = edituri;
+					//addGroupPanel.getForm().submit();
+					//if (addGroupPanel.url)
+					//{
+					//	addGroupPanel.getForm().getEl().dom.action = addGroupPanel.url;
+					//}
+					//alert('submit');
+					addNewGroupPanel.getForm().submit();
+					
+					var q = addNewGroupPanel.get('groupname').getValue();					
+					//win.show(false);
+					//addNewGroupPanel.get('groupname').setValue('');
+					win.close();
+					alphaGroupStore.load({params:{start:0, limit:25, letter:q}});
+					
+				}
+			}]
+				
+});
 
+var val2;
+Ext.apply(Ext.form.VTypes, {	
+
+	groupname : function(val, field){
+		if (field != "")
+		{
+			return groupAvailable(val);			
+		}else{		
+			return false;
+		}
+	},
+	groupNameText: 'Group ID arleady exist'
+});
 
 ////////////////////////////////
 //// HELPER METHODS ////////////
@@ -605,3 +692,34 @@ function doRemoveUsers()
 	});
 	
  }
+
+ 
+ function groupAvailable(val)
+	{   
+		Ext.Ajax.request({
+		    url: baseUri,
+		    method: 'POST',
+		    params: {
+		           module: 'groupadmin',
+		           action: 'checkgroup',
+		           groupname: val
+		    },
+		    success: function(response) {
+				var jsonData = Ext.util.JSON.decode(response.responseText);
+		    	//val2 = jsonData.data;
+		    	if(jsonData.data == '1')
+		    	{
+		    		return true;
+		    	}else{
+		    		return false;
+		    	}
+		    	//return jsonData.data;
+		    	
+		    	//return val2;
+			},
+		    failure: function(xhr,params) {
+		    	alert('something wemnt wront');
+				return false;
+		    }
+		});
+}

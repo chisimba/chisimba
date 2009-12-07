@@ -255,6 +255,17 @@ class groupadmin extends controller {
 				echo $this->objOps->jsonGetGoups($this->getParam('start'), $this->getParam('limit'));
     			exit(0);
 				break;
+				
+			case 'checkgroup':				
+				echo $this->objOps->jsonCheckGroupAvailable($this->getParam('groupname'));
+				exit(0);
+				break;
+				
+			case 'json_addgroup':
+				error_log(var_export($_REQUEST, true));
+				echo $this->objOps->jsonAddGroup($this->getParam('groupname'));
+				exit(0);
+				
         }
     }
 } //end of class

@@ -260,6 +260,23 @@ class groupops extends object
 
     }
 
+    /**
+     * Method to check if a group id exist
+     *
+     * @param string $groupId
+     * @return boolean
+     */
+    public function jsonCheckGroupAvailable($groupName){
+    	    	
+    	$recordCount = $this->objUser->getArray("SELECT count(group_id) as cnt FROM tbl_perms_groups WHERE group_define_name=\"$groupName\"");
+    	//var_dump($recordCount[0]['cnt']);
+    	$extjs = (intval($recordCount[0]['cnt']) > 0) ? '0':'1';              
+		
+		//error_log(var_export('Status = '.$status, true));
+		//error_log(var_export($_REQUEST, true));
+				
+		return json_encode(array('success' => true, 'data' => $extjs));
+    }
 
     /**
      * Method to get the context Title
@@ -275,6 +292,13 @@ class groupops extends object
     	}else {
     		return htmlentities($this->objDBContext->getTitle($contextCode, false));
     	}
+    }
+    
+    public function jsonAddGroup($groupName){
+    	error_log(var_export($groupName, true));
+    	$extjs =  $this->objGroups->addGroup($groupName);
+    	
+    	return json_encode(array('success' => 'true', 'errors' => $extjs));
     }
 
     /**
