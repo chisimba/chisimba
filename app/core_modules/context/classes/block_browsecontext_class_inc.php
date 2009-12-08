@@ -106,12 +106,26 @@ class block_browsecontext extends object
         $str .= '<div id="browsecontextcontent"></div>';
         $str3 = '<div id="browseallcontextcontent"></div>';
 		$isAdmin = ($this->objUser->isAdmin()) ? "true" : "false";
-        $str .= $this->getJavaScriptFile('contextbrowser.js');
+        //$str .= $this->getJavaScriptFile('contextbrowser.js');
         //$this->appendArrayVar('headerParams', $this->getJavaScriptFile('contextbrowser.js'));
         //$this->appendArrayVar('bodyOnLoad', "getContexts('A');getUserContexts();");
         
         $this->appendArrayVar('headerParams', '
         	<script type="text/javascript">
+			var mycourses = "'.$this->objLanguage->languageText('mod_context_mycourses', 'context').'";
+			var othercourses = "'.$this->objLanguage->languageText('mod_context_othercourses', 'context').'";
+			var searchcourses = "'.$this->objLanguage->languageText('mod_context_searchcourses', 'context').'";
+			var coursecode = "'.$this->objLanguage->languageText('mod_context_coursecode', 'context').'";
+			var title = "'.$this->objLanguage->languageText('mod_context_title', 'context').'";
+			var lecturers = "'.$this->objLanguage->languageText('mod_context_lecturers', 'context').'";
+			var emptymsg = "'.$this->objLanguage->languageText('mod_context_emptymsg', 'context').'";
+			var expandmsg = "'.$this->objLanguage->languageText('mod_context_expandmsg', 'context').'";
+			var courseno = "'.$this->objLanguage->languageText('mod_context_showedcourses', 'context').'";
+			var creator = "'.$this->objLanguage->languageText('mod_context_creator', 'context').'";
+			var datecreated = "'.$this->objLanguage->languageText('mod_context_datectreated', 'context').'";
+			var lastupdated = "'.$this->objLanguage->languageText('mod_context_lastupdated', 'context').'";
+			var showabout = "'.$this->objLanguage->languageText('mod_context_showabout', 'context').'";
+			//alert(showabout);
         	var pageSize = 500;
 			var uri = "'.str_replace('&amp;','&',$this->uri(array('module' => 'context', 'action' => 'jsonlistcontext'))).'"; 
         	var usercontexturi = "'.str_replace('&amp;','&',$this->uri(array('module' => 'context', 'action' => 'jsonusercontexts'))).'"; 

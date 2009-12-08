@@ -52,19 +52,19 @@ var othercontextdata = new Ext.data.JsonStore({
         // grid columns
         columns:[
         {
-            header: "Course Code",
+            header: coursecode,
             dataIndex: 'contextcode',
             width: 100,            
             sortable: true
         },{
             //id: 'code', // id assigned so we can apply custom css (e.g. .x-grid-col-topic b { color:#333 })
-            header: "Title",
+            header: title,
             dataIndex: 'title',
             width: 320,
             renderer: renderTitle,
             sortable: true
         },{
-            header: "Lecturers",
+            header: lecturers,
             dataIndex: 'lecturers',
             width: 280,
             hidden: false,
@@ -87,7 +87,6 @@ var othercontextdata = new Ext.data.JsonStore({
 		    	
 		plugins:[new Ext.ux.grid.Search({
 				 iconCls:'zoom'
-				 //,readonlyIndexes:['lecturers']
 				 ,disableIndexes:['lecturers']
 				 ,minChars:1
 				 ,autoFocus:true
@@ -99,8 +98,8 @@ var othercontextdata = new Ext.data.JsonStore({
             pageSize: 500,
             store: othercontextdata,
             displayInfo: true,
-            displayMsg: 'Courses {0} - {1} of {2}',
-            emptyMsg: "No courses to display"
+            displayMsg: courseno,
+            emptyMsg: emptymsg
             
         })
     });

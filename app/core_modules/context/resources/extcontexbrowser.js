@@ -17,12 +17,12 @@ isLoaded['search_courses'] = false;
 			{				
 				items: [usergrid], 
 				itemId: 'my_courses', 
-				title: 'My Courses'
+				title: mycourses
 			},{
 				//html:' other courses goes here',
 				items:[othergrid], 
 				itemId: 'other_courses', 
-				title: 'Other Courses'
+				title: othercourses
 			}			
 			
 			],
@@ -68,16 +68,13 @@ function loadTabData(tabId){
 
 Ext.onReady(function(){
 	tabs.render();
-	//contextdata.load({params:{start:0, limit:pageSize}});
-   //usercontextdata.load({params:{start:0, limit:pageSize}});
-	//othercontextdata.load({params:{start:0, limit:pageSize}});
 	if(isAdmin == true)
 	{
 		tabs.add({
 				items:[grid], 
 				//html:' search courses goes here',
 				itemId: 'search_courses', 
-				title: 'Search Courses'
+				title: searchcourses
 			});
 	}
 	
