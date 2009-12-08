@@ -1352,7 +1352,7 @@ class filemanager extends controller
         return 'quotaslist_tpl.php';
     }
     
-    private private function __editquota()
+    private function __editquota()
     {
         $id = $this->getParam('id');
         
