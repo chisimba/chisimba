@@ -106,6 +106,7 @@ foreach ($dbarray as $db) {
     echo "<div class=\"test\">\n";
     echo "<div class=\"title\">Testing $display_dsn</div>\n";
 
+
     $suite = new PHPUnit_TestSuite();
 
     foreach ($testcases as $testcase) {
