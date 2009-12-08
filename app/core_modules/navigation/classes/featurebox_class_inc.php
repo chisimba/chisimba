@@ -66,8 +66,8 @@ class featurebox extends object
         {
             $objIcon->setIcon('toggle');
             $objIcon->extra = "style='vertical-align:middle'";
-            $toggle = "<a href=\"javascript:;\" onclick=\"Effect.toggle('".$id."','slide', adjustLayout());\">".$objIcon->show()."</a>";
-            $title = "<a href=\"javascript:;\" onclick=\"Effect.toggle('".$id."','slide', adjustLayout());\">".$title."</a>";
+            $toggle = "<a href=\"javascript:;\" onclick=\"Effect.toggle('".$id."','slide');\">".$objIcon->show()."</a>";
+            $title = "<a href=\"javascript:;\" onclick=\"Effect.toggle('".$id."','slide');\">".$title."</a>";
         }
 
 		if ($showTitle) {
