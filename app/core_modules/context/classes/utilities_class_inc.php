@@ -101,14 +101,14 @@ class utilities extends object {
         $icon->setModuleIcon ( 'context' );
         $contentIcon = $icon->show ();
 
-        $str .= "<a href=\"#\" onclick=\"Effect.toggle('contextmenu','slide', adjustLayout());\">" . $toolsIcon . " Tools</a>";
+        $str .= "<a href=\"#\" onclick=\"Effect.toggle('contextmenu','slide');\">" . $toolsIcon . " Tools</a>";
         $str .= '<div id="contextmenu"  style="width:150px;overflow: hidden;display:' . $showOrHide . ';"> ';
         $str .= $this->getPluginNavigation ( $selectedModule );
         $str .= '</div>';
 
         $content = $this->getContextContentNavigation ();
         if ($content != '') {
-            $str .= "<br/><a href=\"#\" onclick=\"Effect.toggle('contextmenucontent','slide', adjustLayout());\">" . $contentIcon . " Content</a>";
+            $str .= "<br/><a href=\"#\" onclick=\"Effect.toggle('contextmenucontent','slide');\">" . $contentIcon . " Content</a>";
             $str .= '<div id="contextmenucontent"  style="width:150px;overflow: hidden;display:' . $showOrHideContent . ';"> ';
             $str .= $content;
             $str .= '</div>';
