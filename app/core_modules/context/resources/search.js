@@ -5,7 +5,9 @@
  * 
  * http://extjs.com/license
  */
-  
+
+
+   
 var contextdata = new Ext.data.JsonStore({
         root: 'courses',
         totalProperty: 'totalCount',
@@ -42,7 +44,7 @@ var contextdata = new Ext.data.JsonStore({
         //el:'topic-grid',
         width:540,
         height:400,
-        //title:'Browse Courses',
+        title:'Browse Courses',
         store: contextdata,
         trackMouseOver:false,
         disableSelection:true,
@@ -52,31 +54,31 @@ var contextdata = new Ext.data.JsonStore({
         // grid columns
         columns:[
         {
-            header: coursecode,
+            header: "Code",
             dataIndex: 'contextcode',
             width: 100,            
             sortable: true
         },{
             id: 'topic', // id assigned so we can apply custom css (e.g. .x-grid-col-topic b { color:#333 })
-            header: title,
+            header: lang['context'],
             dataIndex: 'title',
             width: 220,
             renderer: renderTopic,
             sortable: true
         },{
-            header: creator,
+            header: "Creator",
             dataIndex: 'author',
             width: 100,
             hidden: false,
             sortable: true
         },{
-            header: datecreated,
+            header: "Date Created",
             dataIndex: 'datecreated',
-            width: 100,
+            width: 70,
             align: 'right',
             sortable: true
         },{
-            header: lastupdated,
+            header: "Last Updated",
             dataIndex: 'lastupdated',
             width: 100,
             align: 'right',
@@ -102,13 +104,13 @@ var contextdata = new Ext.data.JsonStore({
             pageSize: pageSize,
             store: contextdata,
             displayInfo: true,
-            displayMsg: courseno,
-            emptyMsg: emptymsg,
+            displayMsg: 'Displaying '+lang['contexts']+' {0} - {1} of {2}',
+            emptyMsg: "No '+lang['contexts']+' to display",
             items:[
                 '-', {
                 pressed: false,
                 enableToggle:true,
-                text: showabout,
+                text: 'Show About',
                 cls: 'x-btn-text-icon details',
                 toggleHandler: function(btn, pressed){
                     var view = grid.getView();

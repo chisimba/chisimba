@@ -106,27 +106,20 @@ class block_browsecontext extends object
         $str .= '<div id="browsecontextcontent"></div>';
         $str3 = '<div id="browseallcontextcontent"></div>';
 		$isAdmin = ($this->objUser->isAdmin()) ? "true" : "false";
-        //$str .= $this->getJavaScriptFile('contextbrowser.js');
-        //$this->appendArrayVar('headerParams', $this->getJavaScriptFile('contextbrowser.js'));
-        //$this->appendArrayVar('bodyOnLoad', "getContexts('A');getUserContexts();");
+        $str .= $this->getJavaScriptFile('contextbrowser.js');        
         
         $this->appendArrayVar('headerParams', '
         	<script type="text/javascript">
-			var mycourses = "'.$this->objLanguage->languageText('mod_context_mycourses', 'context').'";
-			var othercourses = "'.$this->objLanguage->languageText('mod_context_othercourses', 'context').'";
-			var searchcourses = "'.$this->objLanguage->languageText('mod_context_searchcourses', 'context').'";
-			var coursecode = "'.$this->objLanguage->languageText('mod_context_coursecode', 'context').'";
-			var title = "'.$this->objLanguage->languageText('mod_context_title', 'context').'";
-			var lecturers = "'.$this->objLanguage->languageText('mod_context_lecturers', 'context').'";
-			var emptymsg = "'.$this->objLanguage->languageText('mod_context_emptymsg', 'context').'";
-			var expandmsg = "'.$this->objLanguage->languageText('mod_context_expandmsg', 'context').'";
-			var courseno = "'.$this->objLanguage->languageText('mod_context_showedcourses', 'context').'";
-			var creator = "'.$this->objLanguage->languageText('mod_context_creator', 'context').'";
-			var datecreated = "'.$this->objLanguage->languageText('mod_context_datectreated', 'context').'";
-			var lastupdated = "'.$this->objLanguage->languageText('mod_context_lastupdated', 'context').'";
-			var showabout = "'.$this->objLanguage->languageText('mod_context_showabout', 'context').'";
-			//alert(showabout);
         	var pageSize = 500;
+        	var lang = new Array();
+        	lang["mycontext"] =   "'.ucWords($this->objLanguage->code2Txt('phrase_mycourses', 'system', NULL, 'My [-contexts-]')).'";
+        	lang["contexts"] =   "'.ucWords($this->objLanguage->code2Txt('wordcontext', 'system', NULL, '[-contexts-]')).'";
+        	lang["context"] =   "'.ucWords($this->objLanguage->code2Txt('wordcontext', 'system', NULL, '[-context-]')).'";
+        	lang["othercontext"] =   "'.ucWords($this->objLanguage->code2Txt('phrase_othercourses', 'system', NULL, 'Other [-contexts-]')).'";
+        	lang["searchcontext"] =   "'.ucWords($this->objLanguage->code2Txt('phrase_allcourses', 'system', NULL, 'Search [-contexts-]')).'";
+        	lang["contextcode"] =   "'.ucWords($this->objLanguage->code2Txt('mod_context_contextcode', 'system', NULL, '[-contexts-] Code')).'";
+        	lang["lecturers"] =   "'.ucWords($this->objLanguage->code2Txt('word_lecturers', 'system', NULL, '[-authors-]')).'";
+        	
 			var uri = "'.str_replace('&amp;','&',$this->uri(array('module' => 'context', 'action' => 'jsonlistcontext'))).'"; 
         	var usercontexturi = "'.str_replace('&amp;','&',$this->uri(array('module' => 'context', 'action' => 'jsonusercontexts'))).'"; 
 			var othercontexturi = "'.str_replace('&amp;','&',$this->uri(array('module' => 'context', 'action' => 'jsonusercontexts'))).'"; 
@@ -134,51 +127,17 @@ class block_browsecontext extends object
         		var isAdmin = '.$isAdmin.';
         		contextPrivateMessage="'.$this->objLanguage->code2Txt('mod_context_privatecontextexplanation', 'context', NULL, 'This is a closed [-context-] only accessible to members').'"; </script>');
 		
-
-		//Ext stuff
-		
+		//Ext stuff		
 		$objExtJS = $this->getObject('extjs','htmlelements');
 		$objExtJS->show();
-		//$ext =$this->getJavaScriptFile('ext-3.0-rc2/adapter/ext/ext-base.js', 'htmlelements');
-		//$ext .=$this->getJavaScriptFile('ext-3.0-rc2/ext-all.js', 'htmlelements');
-        $ext =$this->getJavaScriptFile('Ext.ux.grid.Search.js', 'context');
+		
+		$ext =$this->getJavaScriptFile('Ext.ux.grid.Search.js', 'context');		
 		$ext .=$this->getJavaScriptFile('usercontextslist.js', 'context');
 		$ext .=$this->getJavaScriptFile('othercontexts.js', 'context');
 		$ext .=$this->getJavaScriptFile('search.js', 'context');		
-        //$ext .=$this->getJavaScriptFile('ext-3.0-rc2/examples/grid/paging.js', 'htmlelements');
-        //$ext .=$this->getJavaScriptFile('ext-3.0-rc2/examples/shared/examples.js', 'htmlelements');
-		$ext .=$this->getJavaScriptFile('extcontexbrowser.js', 'context');
+        $ext .=$this->getJavaScriptFile('extcontexbrowser.js', 'context');
       
- 		
-		//$ext .= '<link rel="stylesheet" href="'.$this->getResourceUri('ext-3.0-rc2/resources/css/ext-all.css', 'htmlelements').'" type="text/css" />';
-       // //$ext .= '<link rel="stylesheet" href="'.$this->getResourceUri('ext-3.0-rc2/examples/grid/grid-example.css', 'htmlelements').'" type="text/css" />';
-        //$ext .= '<link rel="stylesheet" href="'.$this->getResourceUri('ext-3.0-rc2/examples/shared/examples.css', 'htmlelements').'" type="text/css" />';
-
-        $this->appendArrayVar('headerParams', $ext);
-        
-        
-        /*$objTab->addTab(array(
-                'name' =>ucWords($this->objLanguage->code2Txt('phrase_mycourses', 'system', NULL, 'My [-contexts-]')) ,
-                'content' => '<div id="courses-grid"></div>'
-            ));
-            //'content' => '<div id="courses-grid"></div>'.$str2
-        $objTab->addTab(array(
-                'name' =>ucWords($this->objLanguage->code2Txt('phrase_othercourses', 'system', NULL, 'Other [-contexts-]')) ,
-                'content' => $str
-            ) );*/
-        
-        //show all the course if you are admin
-        /*if ($this->objUser->isAdmin())
-        {
-	        $objTab->addTab(array(
-	                'name' =>ucWords($this->objLanguage->code2Txt('phrase_allcourses', 'system', NULL, 'Search [-contexts-]')) ,
-	                'content' => '<div id="topic-grid"></div>'
-	            ) );	        
-        }*/
-
-/*            $objTab->addTab(ucWords($this->objLanguage->code2Txt('phrase_mycourses', 'system', NULL, 'My [-contexts-]')), $str2);
-        $objTab->addTab(ucWords($this->objLanguage->code2Txt('phrase_othercourses', 'system', NULL, 'Other [-contexts-]')),$str);*/
-		//return $objTab->show();
+        $this->appendArrayVar('headerParams', $ext);       
 		
 		return '<div id="contextbrowser"></div>				
 				<p>&nbsp;</p>';

@@ -49,19 +49,19 @@ var usercontextdata = new Ext.data.JsonStore({
         // grid columns
         columns:[
         {
-            header: coursecode,
+            header: lang['contextcode'],
             dataIndex: 'code',
             width: 100,            
             sortable: true
         },{
             id: 'code', // id assigned so we can apply custom css (e.g. .x-grid-col-topic b { color:#333 })
-            header: title,
+            header: "Title",
             dataIndex: 'title',
             width: 320,
             renderer: renderTitle,
             sortable: true
         },{
-            header: lecturers,
+            header: lang['lecturers'],
             dataIndex: 'lecturers',
             width: 280,
             hidden: false,
@@ -87,13 +87,13 @@ var usercontextdata = new Ext.data.JsonStore({
             pageSize: 500,
             store: usercontextdata,
             displayInfo: true,
-            displayMsg: courseno,
-            emptyMsg: emptymsg,
+            displayMsg: 'Displaying '+lang['contexts']+' {0} - {1} of {2}',
+            emptyMsg: "No courses to display",
             items:[
                 '-', {
                 pressed: false,
                 enableToggle:true,
-                text: expandmsg,
+                text: 'Show Access Details',
                 cls: 'x-btn-text-icon details',
                 toggleHandler: function(btn, pressed){
                     var view = usergrid.getView();
