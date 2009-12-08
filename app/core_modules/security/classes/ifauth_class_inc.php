@@ -2,7 +2,7 @@
 /* -------------------- IFAUTH INTERFACE CLASS ----------------*/
 
 /**
-*
+* 
 * Interface class defining methods that must be present in an authentication
 * plugin class that implements this interface.
 *
@@ -15,7 +15,7 @@
 */
 interface ifauth
 {
-    public function authenticate($username, $password, $remember = true);
+    public function authenticate($username, $password);
     public function getUserDataAsArray($username);
 }
 ?>
