@@ -181,6 +181,7 @@ class auth_ldap extends abauth implements ifauth {
             $info ['username'] = $username;
             $info ['userId'] = $info ['userid'];
             $info ['sex'] = '';
+            $info ['cellnumber'] = '';
             $info ['accessLevel'] = 'guests';
             $info ['howCreated'] = 'LDAP';
             $info ['isactive'] = '1';
