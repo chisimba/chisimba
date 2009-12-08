@@ -38,8 +38,9 @@ var usercontextdata = new Ext.data.JsonStore({
 
     var usergrid = new Ext.grid.GridPanel({
         //el:'courses-grid',
-        width:540,
+        width:"100%",
         height:400,
+
        // title:'My Courses',
         store: usercontextdata,
         trackMouseOver:false,
@@ -51,19 +52,19 @@ var usercontextdata = new Ext.data.JsonStore({
         {
             header: lang['contextcode'],
             dataIndex: 'code',
-            width: 100,            
+            width: 10,
             sortable: true
         },{
             id: 'code', // id assigned so we can apply custom css (e.g. .x-grid-col-topic b { color:#333 })
             header: "Title",
             dataIndex: 'title',
-            width: 320,
+            width: 50,
             renderer: renderTitle,
             sortable: true
         },{
             header: lang['lecturers'],
             dataIndex: 'lecturers',
-            width: 280,
+            width: 30,
             hidden: false,
             sortable: true
         }],
