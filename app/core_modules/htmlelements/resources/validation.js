@@ -70,6 +70,17 @@ function valCompare(val1,val2){
 	return ok;
 }
 
+function valDateNotBefore(val1, val2) {
+	return (val2 >= val1);
+}
+
+function valTwoFieldDate(month, year) {
+	var reportDate = new Date();
+	reportDate.setFullYear(year, month-1, 1);
+	var today = new Date();
+	return (today >= reportDate)
+}
+
 function valEither(val1,val2){
 	return (val1 || val2);
 }
@@ -143,10 +154,7 @@ function valSelect(el){
 
 function valDateNotFuture(value, max)
 {
-	if (value > max) {
-		return false;
-	}
-	return true;
+	return (value <= max);
 }
 
 function valContainsNumber(val)

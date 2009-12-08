@@ -621,6 +621,12 @@ class form implements ifhtml
             case 'datenotfuture':
                 $this->_valDateNotFuture($mix,$errormsg);
                 break;
+            case 'datenotbefore':
+                $this->_valDateNotBefore($mix,$errormsg);
+                break;
+            case 'twofielddate':
+                $this->_valTwoFieldDate($mix, $errormsg);
+                break;
             case 'uploadedfile';
             case 'maxfilesize';
             case 'filename';
@@ -788,6 +794,26 @@ class form implements ifhtml
         $max = date('Y-m-d');
         $jmethod = "valDateNotFuture(el.value, '$max')";
         $this->_addValidationScript($jmethod, $errormsg, $fieldname, false);
+    }
+
+    /**
+     * Method to check a datepicker field is not earlier than another datepicker
+     *
+     * @param $mix array the datepicker names
+     * @param $errormsg string the error message
+     */
+    private function _valDateNotBefore($mix, $errormsg) {
+        $jmethod = "valDateNotBefore(document.forms.{$this->name}.{$mix[0]}.value, document.forms.{$this->name}.{$mix[1]}.value)";
+        $this->_addValidationScript($jmethod, $errormsg, $mix[0], false);
+    }
+
+    /**
+     * Method to ensure that a date specified by separate month and year
+     * fields is not in the future.
+     */
+    private function _valTwoFieldDate($mix, $errormsg) {
+        $jmethod = "valTwoFieldDate(document.forms.{$this->name}.{$mix['month']}.value, document.forms.{$this->name}.{$mix['year']}.value)";
+        $this->_addValidationScript($jmethod, $errormsg, $mix['month'], false);
     }
 
     /**

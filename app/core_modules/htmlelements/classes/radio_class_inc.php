@@ -195,7 +195,7 @@ class radio extends abhtmlbase implements ifhtml
             
             $str .= ' id="' .$cssId. '"';
     
-            if($this->selected==$opt){
+            if($this->selected===$opt){
                 $str.=' checked="checked"';
             }
             if($this->extra){

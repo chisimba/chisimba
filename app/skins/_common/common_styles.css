@@ -352,6 +352,10 @@ div#wrapper{float:left;width:100%}
 
 }
 
+.fmmenu_confirm a {
+    background-color: #FFDE39;
+}
+
 
 
 /* Use for text that is greyed out or dimmed for some reason */
@@ -2720,7 +2724,7 @@ div.outerquota {
 
 div.innerquota {
     background: #00FF00;
-    /*height: 16px;*/
+    height: inherit;
 	padding-left: 5px;
 	padding-right: 5px;
 }
