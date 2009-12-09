@@ -315,6 +315,7 @@ class security extends controller {
             include($this->getResourcePath('facebook.php','facebookapps'));
             $this->facebook = new Facebook($apikey, $secret);
             $this->facebook->clear_cookie_state();
+            sleep(300);
             $lo = $this->objLu->logout ();
         }
         else {

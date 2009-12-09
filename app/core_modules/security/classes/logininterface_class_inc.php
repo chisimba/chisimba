@@ -185,6 +185,7 @@ class loginInterface extends object
         }
     }
 
+    
     public function fbConnect() {
         $this->objMods = $this->getObject('modules', 'modulecatalogue');
         $this->objDbSysconfig = $this->getObject('dbsysconfig', 'sysconfig');
@@ -192,7 +193,24 @@ class loginInterface extends object
         if($this->objMods->checkIfRegistered('facebookapps') && strtolower($show) == 'true' ) {
              $apikey = $this->objDbSysconfig->getValue('apikey', 'facebookapps');
              $fb = "<script src=\"http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php\" type=\"text/javascript\"></script>
-                    <fb:login-button size=\"large\" autologoutlink=\"true\" background=\"white\" length=\"short\" onlogin='window.location=\"index.php?module=security&action=fbconnect\";'></fb:login-button> 
+                    <fb:login-button size=\"large\" autologoutlink=\"false\" background=\"white\" length=\"short\" onlogin='window.location=\"index.php?module=security&action=fbconnect\";'></fb:login-button> 
+                    <script type=\"text/javascript\"> FB.init(\"$apikey\", \"xd_receiver.htm\", {\"debugLogLevel\":0, \"reloadIfSessionStateChanged\":true}); 
+                    </script>";
+             return $fb."<br />";
+        }
+        else {
+            return NULL;
+        }
+    }
+/*
+    public function fbConnect() {
+        $this->objMods = $this->getObject('modules', 'modulecatalogue');
+        $this->objDbSysconfig = $this->getObject('dbsysconfig', 'sysconfig');
+        $show = $this->objDbSysconfig->getValue('show_fbconnect_auth', 'security');
+        if($this->objMods->checkIfRegistered('facebookapps') && strtolower($show) == 'true' ) {
+             $apikey = $this->objDbSysconfig->getValue('apikey', 'facebookapps');
+             $fb = "<script src=\"http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php\" type=\"text/javascript\"></script>
+                    <fb:login-button size=\"large\" autologoutlink=\"false\" background=\"white\" length=\"short\" onlogin='window.location=\"index.php?module=security&action=fbconnect\";'></fb:login-button> 
                     <script type=\"text/javascript\"> FB.init(\"$apikey\", \"xd_receiver.htm\", {\"ifUserConnected\":\"index.php?module=security&action=fbconnect\"}); 
                     </script>";
              return $fb."<br />";
@@ -201,5 +219,6 @@ class loginInterface extends object
             return NULL;
         }
     }
+*/
 }
 ?>
