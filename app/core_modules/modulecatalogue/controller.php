@@ -434,21 +434,6 @@ class modulecatalogue extends controller {
                         log_debug ( 'Modulecatalogue controller - performing first time registration' );
                         $this->firstRegister ( $sysType );
                         log_debug ( 'First time registration complete' );
-                        //the config object
-                    //$this->objConfig = $this->getObject('altconfig','config');
-                    //the lucene document object
-                    //$this->doc = $this->getObject('doc', 'lucene');
-                    //lucene indexing object
-                    //$this->index = $this->getObject('indexer','lucene');
-                    //log_debug('Creating the initial Lucene index');
-                    //set the path to index
-                    //$this->index->indexPath = $this->objConfig->getcontentBasePath();
-                    //$this->indexPath = $this->index->indexPath;
-                    //do the indexing - note this indexes an ENTIRE tree, not a single doc
-                    //$this->index->doIndex($this->doc);
-                    //log_debug('done creating Lucene index');
-
-
                     } else {
                         log_debug ( 'First time registration has already been performed on this system. Aborting' );
                     }
@@ -863,7 +848,7 @@ class modulecatalogue extends controller {
                     }
                     
                     log_debug("About to batch register: ");
-                    log_debug($modules);
+                    //log_debug($modules);
                     // finally install all of the mods
                     $this->batchRegister ( $modules );
                     /*foreach($modules as $installables)
@@ -1337,7 +1322,7 @@ class modulecatalogue extends controller {
             $zip = $this->getObject ( 'wzip', 'utilities' );
             if($modtype == 'core') {
                 if (! $zip->unZipArchive( 'core.zip', $this->objConfig->getsiteRootPath ()."classes/" )) {
-                        log_debug($zip->error);
+                        //log_debug($zip->error);
                         return FALSE;
                 }
                 else {
@@ -1347,7 +1332,7 @@ class modulecatalogue extends controller {
             // now for a core_module
             elseif($modtype == 'core_modules') {
                 if (! $zip->unZipArchive( $zipfile.".zip", $this->objConfig->getsiteRootPath () . 'core_modules/'.$zipfile )) {
-                        log_debug($zip->error);
+                        //log_debug($zip->error);
                         return FALSE;
                 }
                 else {
@@ -1357,7 +1342,7 @@ class modulecatalogue extends controller {
             // last but not least the regular modules
             elseif($modtype == 'modules') {
                 if (! $zip->unZipArchive( $zipfile.".zip", $this->objConfig->getModulePath ().$zipfile )) {
-                        log_debug($zip->error);
+                        //log_debug($zip->error);
                         return FALSE;
                 }
                 else {
