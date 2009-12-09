@@ -145,7 +145,7 @@ class loginInterface extends object
             // Set the button type to submit
             $objButton->setToSubmit();
             // Add the button to the form
-            $objFields->addContent($ldap.'<br />'.$rem.'<br />'.$box.'<br />'.$fb.'<br />'.$objButton->show().'<br/>');
+            $objFields->addContent($ldap.'<br />'.$rem.'<br />'.$box.$fb.$objButton->show().'<br/>');
             //$objForm->addToForm();
 
 
@@ -195,7 +195,7 @@ class loginInterface extends object
                     <fb:login-button size=\"large\" autologoutlink=\"true\" background=\"white\" length=\"short\" onlogin='window.location=\"index.php?module=security&action=fbconnect\";'></fb:login-button> 
                     <script type=\"text/javascript\"> FB.init(\"$apikey\", \"xd_receiver.htm\", {\"ifUserConnected\":\"index.php?module=security&action=fbconnect\"}); 
                     </script>";
-             return $fb;
+             return $fb."<br />";
         }
         else {
             return NULL;
