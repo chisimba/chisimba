@@ -346,8 +346,9 @@ class security extends controller {
             $this->consumer_key = $this->objDbSysconfig->getValue('twitter_consumer_key', 'security');
             $this->consumer_secret = $this->objDbSysconfig->getValue('twitter_consumer_secret', 'security');
             $this->objEpiTwitter = new EpiTwitter($this->consumer_key, $this->consumer_secret, $_COOKIE['oauth_token'], $_COOKIE['oauth_token_secret']);
-
             $this->objEpiTwitter->get_accountEnd_session();
+            setcookie("oauth_token", '', time()-100);
+            setcookie("oauth_token_secret", '', time()-100);
             $lo = $this->objLu->logout ();
         }
         if($fbshow == 'true') {
