@@ -13,7 +13,7 @@ if (! $GLOBALS ['kewl_entry_point_run']) {
  *
  * @author Sean Legassick
  *
- * $Id: controller.php 15198 2009-10-20 08:12:49Z paulscott $
+ * $Id: controller.php 15878 2009-12-10 05:07:04Z paulscott $
  */
 class security extends controller {
     public $objUser;
@@ -139,7 +139,27 @@ class security extends controller {
                         $accountType = 'Facebook'; 
                         $objUModel->addUser($userid, $username, $password, $title, $firstname, $surname, $email, $sex, $country, $cellnumber='', $staffnumber='', $accountType, '1');
                         $this->objUser->authenticateUser($username, $password, FALSE);
-                        $this->nextAction('');
+                        if (! isset ( $_REQUEST [session_name ()] )) {
+                            $this->objEngine->sessionStart ();
+                        } else {
+                            session_regenerate_id ();
+                        }
+                        $this->objSkin->validateSkinSession ();
+                        $url = $this->getSession ( 'oldurl' );
+                        $url ['passthroughlogin'] = 'true';
+                        if ($module != NULL) {
+                            $url ['module'] = $module;
+                        }
+                        if (is_array ( $url ) && (isset ( $url ['module'] )) && ($url ['module'] != 'splashscreen')) {
+                            if (isset ( $url ['action'] ) && ($url ['action'] != 'logoff')) {
+                                $act = $url ['action'];
+                            } else {
+                                $act = NULL;
+                            }
+                            return $this->nextAction ( $act, $url, $url ['module'] );
+                        }
+                        $postlogin = $this->objConfig->getdefaultModuleName ();
+                        return $this->nextAction ( NULL, NULL, $postlogin );
                     }
                 }
                 break;
