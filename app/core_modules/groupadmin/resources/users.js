@@ -1,6 +1,6 @@
 
  var userDataProxy = new Ext.data.HttpProxy({
-            url: baseUri+'?module=groupadmin&action=json_allusers&groupid='
+            url: baseUri+'?module=groupadmin&action=json_allusers&start=0&limit=25'
         });
         
 
@@ -24,7 +24,7 @@
         ],
         listeners:{ 
     		'loadexception': function(theO, theN, response){
-    			alert(response.responseText);
+    			//alert(response.responseText);
     		},
     		'load': function(thestore, records){    				
     				//alert('user group loaded');
@@ -47,7 +47,7 @@ var userNavigation = new Ext.PagingToolbar({
             listeners:{ 	    		
 	    		beforechange: function(ptb, params){	
 	    			userOffset = params.start; 			
-	    			proxyStore.setUrl(baseUri+'?module=groupadmin&action=json_allusers&groupid='+selectedGroupId+'&limit='+params.start+'&offset='+params.start);
+	    			proxyStore.setUrl(baseUri+'?module=groupadmin&action=json_allusers&groupid='+selectedGroupId+'&limit='+params.limit+'&start='+params.start);
 	    		}  
             }
              

@@ -4,6 +4,8 @@ var userOffset = 0;
 var selectedTab = "A";
 var selectedGroupId;
 var win;
+var editwin;
+var edituri;
 var myMask = new Ext.LoadMask(Ext.getBody(), {msg:"Please wait..."});
 
 //the main function 
@@ -13,7 +15,7 @@ Ext.onReady(function(){
 	// turn on validation errors beside the field globally
 	Ext.form.Field.prototype.msgTarget = 'side';
 	
-	alphaGroupStore.load({params:{start:0, limit:25, letter:'A'}});
+	alphaGroupStore.load({params:{start:0, limit:25}});
 	myBorderPanel.render('mainPanel');
 	
 	SiteAdminGrid.setVisible(false);
@@ -29,64 +31,6 @@ Ext.onReady(function(){
 
 });
 
-///////////////////////////
-///// Tab Panels //////////
-////////////////////////////
-
-
-
-
-//alphabet tabs
-/*var alphaTab = new Ext.TabPanel({
-	//plain:true,
-	region: 'north',
-	id:'mainTabPanel',
-	width: 800,
-    height: 20,
-    margins: '10 10 10 10',
-    split:true,
-    loadMask: true,
-    activeTab: selectedTab,
-    enableTabScroll:true,
-    tabPosition:'top',
-   // renderTo:'alphabet',
-	listeners: {
-                'render': function(tabPanel){                    
-                    //loadGroups(tabPanel)
-                }, 
-                'tabchange': function(tabPanel , tab){
-                	//load the data for the selected tab
-                	selectedTab = tab.id;
-                	loadGroups(tabPanel, tab);                	
-                }
-                
-            },
-	items:[ {title:'0',id:'0'},{title:'1',id:'1'},{title:'2',id:'2'},
-			{title:'3',id:'3'},{title:'4',id:'4'},{title:'5',id:'5'},{title:'6',id:'6'},{title:'7',id:'7'},{title:'8',id:'8'},
-			{title:'9',id:'9'},
-			{title:'A',id:'A'},{title:'B',id:'B'},{title:'C',id:'C'},{title:'D',id:'D'},{title:'E',id:'E'},{title:'F',id:'F'},
-			{title:'G',id:'G'},{title:'H',id:'H'},{title:'I',id:'I'},{title:'J',id:'J'},{title:'K',id:'K'},{title:'L',id:'L'},
-			{title:'M',id:'M'},{title:'N',id:'N'},{title:'O',id:'O'},{title:'P',id:'P'},{title:'Q',id:'Q'},
-			{title:'R',id:'R'},{title:'S',id:'S'},{title:'T',id:'T'},{title:'U',id:'U'},{title:'V',id:'V'},{title:'W',id:'W'},
-			{title:'X',id:'X'},	{title:'Y',id:'Y'},{title:'Z',id:'Z'}
-	
-	]
-	
-	
-});*/
-////////////////////////
-/// Data Stores ////////
-////////////////////////
-/*var GroupStore = new Ext.data.JsonStore({
-    // store configs
-    autoDestroy: true,
-    url: baseUri+'?module=groupadmin&action=json-getgroups',
-    storeId: 'GroupStore',
-    // reader configs
-    root: 'images',
-    idProperty: 'name',  
-    fields: ['name', 'url', {name:'size', type: 'float'}, {name:'lastmod', type:'date'}]
-});*/
 var proxyGroupStore = new Ext.data.HttpProxy({
             url: baseUri+'?module=groupadmin&action=json_getgroupsbysearch&limit=25&start=0'
         });
@@ -120,6 +64,8 @@ var proxyGroupStore = new Ext.data.HttpProxy({
         // this page, an HttpProxy would be better
         proxy:proxyGroupStore 
     });
+
+alphaGroupStore.setDefaultSort('group_define_name', 'asc');
     
 var proxyStore = new Ext.data.HttpProxy({
             url: baseUri+'?module=groupadmin&action=json_getgroupusers&groupid='
@@ -142,7 +88,6 @@ var proxyStore = new Ext.data.HttpProxy({
             'userid',           
             'lastloggedin',
             'emailaddress'
-            //{name: 'lastloggedin', mapping: 'lastloggedin', type: 'date', dateFormat: 'timestamp'}
         ],
         listeners:{ 
     		'loadexception': function(theO, theN, response){
@@ -150,26 +95,21 @@ var proxyStore = new Ext.data.HttpProxy({
     		},
     		'load': function(thestore, records){    				
     				//alert('user group loaded');
-    				
-    			}
+    		}
 		},
 
         // load using script tags for cross domain, if the data in on the same domain as
         // this page, an HttpProxy would be better
         proxy:proxyStore 
     });
-    //store.setDefaultSort('lastpost', 'desc');
-    
+        
     var proxySubGroupStore = new Ext.data.HttpProxy({
             url: baseUri+'?module=groupadmin&action=json_getsubgroups'
         });
         
     var subGroupStore = new Ext.data.JsonStore({
-		//autoLoad: true,
-		//url: baseUri+'?module=groupadmin&action=json_getsubgroups&groupid=1433',
 		proxy:proxySubGroupStore, 
 		idProperty: 'groupid',
-		//baseParams:[{'groupid': selectedTab}],
 		root: 'subgroups',
 		fields: ['groupid', 'name'],
 		listeners:{ 
@@ -188,7 +128,6 @@ var proxyStore = new Ext.data.HttpProxy({
 ///////////////////////
 /// Toolbars //////////
 ////////////////////////
-
 
 
 //the page navigation for the users in a group
@@ -210,27 +149,18 @@ var pageNavigation = new Ext.PagingToolbar({
 
 //the page navigation for the top level groups        
 var groupsPageNavigation = new Ext.PagingToolbar({
-            pageSize: 25,
+            pageSize: pageSize,
             store: alphaGroupStore,
             displayInfo: true,
-            
             displayMsg: 'Groups {0} - {1} of {2}',
-            emptyMsg: "No Groups to display",
-            listeners:{ 
-            	beforechange: function(ptb, params){	    			
-	    			proxyGroupStore.setUrl(baseUri+'?module=groupadmin&action=json_getgroupsbysearch&limit='+params.start+'&offset='+params.start);	    			
-	    		}            
-            }
-            
-        });
+            emptyMsg: "No Groups to display"
+      });
 
 // the list of sugroups in the form of a dropdown
 var subGroupsCombo = new Ext.form.ComboBox({
-	//store: subGroupStore,
 	displayField:'name',
 	valueField: 'groupid',
 	typeAhead: true,
-	//mode: 'local',
 	triggerAction: 'all',
 	forceSelection:true,
 
@@ -238,12 +168,9 @@ var subGroupsCombo = new Ext.form.ComboBox({
 	selectOnFocus:true,
 	listeners:{
 		select: function(item, record) {
-                //alert(record.data.groupid);
-                //alert('subgroup select listener');
                 loadSubgroup(record.data.groupid)
             }
 	}
-	//applyTo: 'local-states'
 });
 
 //the dropdown for the subgroups
@@ -262,9 +189,6 @@ var rmButton = new Ext.Button({
             }
         });
         
-var addGroupPanel = new Ext.Panel({
-	
-})
 
 var addGroupButton = new Ext.Button({
 	text:'Add Group',
@@ -284,7 +208,7 @@ var addGroupButton = new Ext.Button({
 		            });
 		        }
 		        win.show(this);
-		       // alphaGroupStore.load({params:{start:0, limit:pageSize}})
+		        
             }
 })
 
@@ -338,65 +262,64 @@ var toolBar = new Ext.Toolbar({
 ////////////////////////////////
 //// Grids ////////////////////
 ////////////////////////////////
+function renderEdit(value, p, record)
+	{
+		return String.format('<b><a href="javascript:showEditForm(\'{0}\',\'{1}\')"><img src="skins/_common/css/extjs/silk/fam/pencil.png" border="0" alt="Edit Group" title="Edit Group" /></a></b>',record.data.id, record.data.group_define_name);
+    }
 
 //the top level groups grid
 var groupsGrid = new Ext.grid.GridPanel({
 		region: 'west',
-		//closable:true,
 		split:true,
-		
 		margins: '10 10 10 10',
 	 	collapsible: true,   // make collapsible
     	cmargins: '10 10 10 10', // adjust top margin when collapsed
     	id: 'west-region-container',
     	layout: 'fit',
-		
 		width:460,
         height:300,
-       // frame:true,
         store: alphaGroupStore,
         title:'Search Group',
         iconCls:'icon-grid',
         loadMask: true,
-		//stripeRows: true,
 		sm: new Ext.grid.RowSelectionModel({singleSelect:true}),
         // grid columns  
         tbar:[addGroupButton],         
     	bbar: groupsPageNavigation,
-        
         columns:[{
-	            id: 'group_define_name', // id assigned so we can apply custom css (e.g. .x-grid-col-topic b { color:#333 })
+	            //id: 'group_define_name', // id assigned so we can apply custom css (e.g. .x-grid-col-topic b { color:#333 })
 	            header: "Group Name",
 	            dataIndex: 'group_define_name',
 	            width: 100,
 	            align: 'left',
-	            //renderer: renderTopic,
 	            sortable: true
 	        },
 	        {
-	            id: 'title', // id assigned so we can apply custom css (e.g. .x-grid-col-topic b { color:#333 })
+	            //id: 'title', // id assigned so we can apply custom css (e.g. .x-grid-col-topic b { color:#333 })
 	            header: "Title",
 	            dataIndex: 'title',
-	            width: 320,
+	            width: 280,
 	            align: 'left',
-	            //renderer: renderTopic,
+	            sortable: true
+	        },
+			{
+	            header: "Edit",
+	            dataIndex: 'group_define_name',
+	            width: 50,
+	            align: 'center',
+	            renderer: renderEdit,
 	            sortable: true
 	        }],
 	    	viewConfig: {
-            //forceFit:true,
-             emptyText: 'No Groups found'
+            emptyText: 'No Groups found'
 
         	}, plugins:[new Ext.ux.grid.Search({
 				 iconCls:'zoom'
-				 //,readonlyIndexes:['emailaddress']
-				 //,disableIndexes:['username']
 				 ,minChars:2
 				 ,position:'top'
 				 ,autoFocus:true
 				 ,minCharsTipText:'Type at least 2 characters'
-				 //,searchTipText :'Type at least 2 characters'
-				 // ,menuStyle:'radio'
-		 })],
+			})],
 			listeners:{ 
     		'loadexception': function(theO, theN, response){
     			//alert(response.responseText);
@@ -432,8 +355,6 @@ var SiteAdminGrid = new Ext.grid.GridPanel({
     // grid columns
     cm: new Ext.grid.ColumnModel([
             sm2,{
-
-   // columns:[{
             header: "Last Name",
             dataIndex: 'surname',
             width: 150,            
@@ -470,7 +391,6 @@ var SiteAdminGrid = new Ext.grid.GridPanel({
 });
 
 var myBorderPanel = new Ext.Panel({
-    //renderTo: document.body,
     width: 950,
     height: 400,
     margins: '10 10 10 10',
@@ -480,11 +400,68 @@ var myBorderPanel = new Ext.Panel({
     items: [groupsGrid, SiteAdminGrid]
 });
 
+var gid;
+var gname;
 ///////////// Form Panels
+
+var editGroupPanel = new Ext.FormPanel({ 
+			//standardSubmit: true,
+			frame:true,
+			title: 'Edit a Group',
+			bodyStyle:'padding:5px 5px 0',
+			width: 300,
+			waitMsgTarget: true,
+			defaultType: 'textfield',
+			layout: 'form',
+			items: [
+					{
+						fieldLabel: 'Group Name',
+						name: 'groupname',
+						itemId: 'groupname',
+						allowBlank:false,
+						vtype: 'groupname',
+						invalidText:'This group is already taken'			
+		        
+					}],
+					
+			buttons: [{
+				text: 'Update Group',
+				id:'editgroup',
+				handler: function (){
+					//edituri = baseUri+"?module=groupadmin&action=json_editgroup&id="+gid;
+					//editGroupPanel.getForm().getEl().dom.action = edituri;
+					//editGroupPanel.getForm().submit();	
+
+					if(editGroupPanel.getForm().isValid())
+					{
+						var v = editGroupPanel.get('groupname').getValue();
+
+						editGroupPanel.getForm().submit({
+								url: baseUri,
+								params:{
+										module: 'groupadmin',
+										action: 'json_editgroup',
+										oldgroupname: gname,
+										id: gid
+								},
+								success: function(action){
+								alphaGroupStore.load({params:{start:0, limit:25, query:v, 
+fields: '["group_define_name"]'}});
+									editGroupPanel.getForm().reset();	
+								},        	
+				            	failure:function(action){}
+								});
+
+						editwin.hide();
+					}						
+				}
+			}]
+				
+});
 
 var addNewGroupPanel = new Ext.FormPanel({ 
 			//standardSubmit: true,
-			url: baseUri+"?module=groupadmin&action=json_addgroup",
+			//url: baseUri+"?module=groupadmin&action=json_addgroup",
 			frame:true,
 			title: 'Add a new Group',
 			bodyStyle:'padding:5px 5px 0',
@@ -507,34 +484,44 @@ var addNewGroupPanel = new Ext.FormPanel({
 				text: 'Add Group',
 				id:'addnewgroup',
 				handler: function (){
-					//edituri = baseUri+"?module=groupadmin&action=json_addgroup";
-					//addGroupPanel.getForm().getEl().dom.action = edituri;
-					//addGroupPanel.getForm().submit();
-					//if (addGroupPanel.url)
-					//{
-					//	addGroupPanel.getForm().getEl().dom.action = addGroupPanel.url;
-					//}
-					//alert('submit');
-					addNewGroupPanel.getForm().submit();
+					/*if(addNewGroupPanel.url)
+					{
+						//addNewGroupPanel.getForm().getEl().dom.action = addNewGroupPanel.url;
+					}
+					alert(addNewGroupPanel.getForm().isValid());*/
 					
-					var q = addNewGroupPanel.get('groupname').getValue();					
-					//win.show(false);
-					//addNewGroupPanel.get('groupname').setValue('');
-					win.close();
-					alphaGroupStore.load({params:{start:0, limit:25, letter:q}});
-					
+					if(addNewGroupPanel.getForm().isValid())
+					{
+						var v = addNewGroupPanel.get('groupname').getValue();
+
+						addNewGroupPanel.getForm().submit({
+								url: baseUri,
+								params:{
+										module: 'groupadmin',
+										action: 'json_addgroup'
+								},
+								success: function(action){
+								alphaGroupStore.load({params:{start:0, limit:25, query:v, 
+fields: '["group_define_name"]'}});
+									addNewGroupPanel.getForm().reset();	
+								},        	
+				            	failure:function(action){}
+								});
+
+						win.hide();
+					}
 				}
 			}]
-				
 });
 
-var val2;
+var val2 = 0;
 Ext.apply(Ext.form.VTypes, {	
 
 	groupname : function(val, field){
 		if (field != "")
-		{
-			return groupAvailable(val);			
+		{	
+			groupAvailable(val);
+			return (val2 == '1');		
 		}else{		
 			return false;
 		}
@@ -542,23 +529,40 @@ Ext.apply(Ext.form.VTypes, {
 	groupNameText: 'Group ID arleady exist'
 });
 
+function showEditForm(groupid, groupname)
+{
+	gid = groupid;
+	gname = groupname;
+	
+	if(!editwin){
+		            editwin = new Ext.Window({
+		                
+		                layout:'fit',
+		                width:400,
+		                height:150,
+		                closeAction:'hide',
+		                plain: true,						
+		                items: [editGroupPanel]		
+		                
+		            });
+		        }
+		        editwin.show(this);
+				editGroupPanel.getForm().load({
+								url: baseUri,
+								params:{
+										module: 'groupadmin',
+										action: 'json_getgroup',
+										id: gid},
+								waitMsg:'Loading...',
+								success: function(action){
+								},        	
+				            	failure:function(action){
+								}
+							});
+}
 ////////////////////////////////
 //// HELPER METHODS ////////////
 ///////////////////////////////
-
-
-//this function will be called when the
-//page is loaded and when the an tab on the
-//alphabet list is clicked
-function loadGroups(tabPanel, tab){
-	//load the groups
-	//groupsGrid.setTitle('Groups starting with \''+tab.id+'\'');
-	//groupsGrid.render('main-interface');
-	//alert('Here');
-	//window.alert("I am an alert box");
-
-	//alphaGroupStore.setUrl(baseUri+'?module=groupadmin&action=json_getgroupsbysearch&limit=25&start=0');
-}
 
 //this function will be called when 
 //the group is selected in the groups grid
@@ -569,7 +573,6 @@ function loadGroup(nodeId, groupname, grouptitle){
 	
 	SiteAdminGrid.setTitle(groupname+" - " +grouptitle);
 	SiteAdminGrid.render('groupusers');
-	//alert(nodeId);
 	proxyStore.setUrl(baseUri+'?module=groupadmin&action=json_getgroupusers&groupid='+nodeId);
 	//load the data for this group
 	abstractStore.load({params:{start:0, limit:25}}); 	
@@ -583,8 +586,7 @@ function loadSubgroup1(groupId)
 
 function loadSubgroupMenu(records){
 	scrollMenu.removeAll();
-	//var scrollMenu = new Ext.menu.Menu();
-    for (var i = 0; i < records.length; ++i){
+	for (var i = 0; i < records.length; ++i){
         scrollMenu.add({
             text: records[i].data.name,
              iconCls:'groups',
@@ -598,10 +600,9 @@ function onSubGroupClick(item){
 	proxyStore.setUrl(baseUri+'?module=groupadmin&action=json_getgroupusers&groupid='+item.getItemId());
 	abstractStore.load({params:{start:0, limit:25}}); 
 	selectedGroupId = item.getItemId();
-	//SiteAdminGrid.setTitle(SiteAdminGrid.getTitle()+' - '+item.getText());
 }
 
-//method tht removes users from a group
+//method that removes users from a group
 function doRemoveUsers()
 {	
 	myMask.show();
@@ -615,7 +616,6 @@ function doRemoveUsers()
 	{
 		idString = r.id +','+ idString ;		
 	});   	
-				//alert(userOffset);
 		//post to server
 	Ext.Ajax.request({
 	    url: baseUri,
@@ -658,7 +658,7 @@ function doRemoveUsers()
 	
 	Ext.each( selArr, function( r ) 
 	{
-		idString = r.id +','+ idString ;		
+		idString = r.id +','+ idString;		
 	});   	
 			
 		//post to server
@@ -706,20 +706,10 @@ function doRemoveUsers()
 		    },
 		    success: function(response) {
 				var jsonData = Ext.util.JSON.decode(response.responseText);
-		    	//val2 = jsonData.data;
-		    	if(jsonData.data == '1')
-		    	{
-		    		return true;
-		    	}else{
-		    		return false;
-		    	}
-		    	//return jsonData.data;
-		    	
-		    	//return val2;
-			},
+		    	val2 = jsonData.data;
+		    },
 		    failure: function(xhr,params) {
-		    	alert('something wemnt wront');
-				return false;
+		    	return false;
 		    }
 		});
 }

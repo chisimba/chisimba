@@ -242,8 +242,8 @@ class groupadmin extends controller {
             	exit(0);
             	break;
             	
-            case 'json_allusers':            	
-            	echo $this->objOps->jsonGetAllUsers($this->getParam('groupid'), $this->getParam('start'), $this->getParam('limit'));            	      
+            case 'json_allusers': 
+			   	echo $this->objOps->jsonGetAllUsers($this->getParam('groupid'), $this->getParam('start'), $this->getParam('limit'));            	      
             	exit(0);
             	break;
             	
@@ -252,25 +252,35 @@ class groupadmin extends controller {
             	exit(0);
             	break; 
 			case 'json_getgroupsbysearch':
-				echo $this->objOps->jsonGetGoups($this->getParam('start'), $this->getParam('limit'));
+				//error_log(var_export($_REQUEST, true));
+				echo $this->objOps->jsonGetGroups($this->getParam('start'), $this->getParam('limit'));
     			exit(0);
 				break;
 				
-			case 'checkgroup':				
+			case 'checkgroup':	
+				//error_log(var_export($_REQUEST, true));			
 				echo $this->objOps->jsonCheckGroupAvailable($this->getParam('groupname'));
 				exit(0);
 				break;
 				
 			case 'json_addgroup':
-				error_log(var_export($_REQUEST, true));
+				//error_log(var_export($_REQUEST, true));
 				echo $this->objOps->jsonAddGroup($this->getParam('groupname'));
 				exit(0);
-				
+				break;
+
+			case 'json_editgroup':
+				//error_log(var_export($_REQUEST, true));
+				echo $this->objOps->jsonEditGroup($this->getParam('id'), $this->getParam('groupname'), $this->getParam('oldgroupname'));
+				exit(0);
+				break;
+			
+			case 'json_getgroup':
+				//error_log(var_export($_REQUEST, true));
+				echo $this->objOps->jsonGetGroup($this->getParam('id'));
+				exit(0);
+				break;
         }
     }
 } //end of class
-
-
-
-
 ?>

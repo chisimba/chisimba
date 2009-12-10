@@ -92,16 +92,16 @@ class groupops extends object
      * @access public
      *
      */
-	public function jsonGetGoups($start = 0, $limit = 25)
+	public function jsonGetGroups($start = 0, $limit = 25)
 	{
 	$params["start"] = ($this->getParam("start")) ? $this->getParam("start") : $start;
 	$params["limit"] = ($this->getParam("limit")) ? $this->getParam("limit") : $limit;
 	$params["search"] = ($this->getParam("fields")) ? json_decode(stripslashes($this->getParam("fields"))) : array('group_define_name', 'title');
-	$params["query"] = ($this->getParam("query")) ? $this->getParam("query") : 'a';
+	$params["query"] = ($this->getParam("query")) ? $this->getParam("query") : '';
 	$params["sort"] = ($this->getParam("sort")) ? $this->getParam("sort") : null;
 
 	$where = "";;
-
+	$filter = " LIMIT ".$start.', '.$limit;
 
 	if(is_array($params['search'])){
 
@@ -127,8 +127,8 @@ class groupops extends object
 				on pu.group_define_name = ct.contextcode
 				WHERE group_define_name NOT LIKE '%^%'".$where;
 
-
-		$groups = $this->objDBContext->getArray($sql);
+		//error_log(var_export($sql.$filter, true));
+		$groups = $this->objDBContext->getArray($sql.$filter);
     	$totalCount = count($this->objDBContext->getArray($sql));
 
 		if($totalCount > 0)
@@ -145,7 +145,6 @@ class groupops extends object
 
     			$arrGroups[] = $arr;
     			$arr = null;
-
     		}
     		$arr['totalCount'] = strval($totalCount);
 			$arr['groups'] = $arrGroups;
@@ -155,10 +154,7 @@ class groupops extends object
 			$arr['groups'] = array();
     		return json_encode($arr);
     		}
-
 	}
-
-
 
     public function getJsonGroupUsers($groupId, $start=0, $limit=25)
     {
@@ -205,7 +201,6 @@ class groupops extends object
 
     }
 
-
     /**
      * Method to get the Groups
      * formatted in Json
@@ -218,32 +213,24 @@ class groupops extends object
     {
     	$limit = ($this->getParam('limit') == "") ? "": $this->getParam('limit');
     	$offset = ($this->getParam('offset') == "") ? "": $this->getParam('offset');
-
     	$filter = ($this->getParam('letter') == "") ? "": $this->getParam('letter').'%';
-
     	$params = array('limit' => intval($limit), 'offset' => intval($offset), 'filter' => $filter);
 
     	$groups = $this->objGroups->getTopLevelGroups($params);
   		$totalCount = count($this->objGroups->getTopLevelGroups(array('filter' => $filter) ));
-  		//var_dump($groups);
-    	$noGroups = count($groups);
+  		$noGroups = count($groups);
     	if($noGroups > 0)
     	{
     		$arrGroups = array();
 
     		foreach ($groups as $group)
     		{
-    			//$subGroups = $this->objGroups->getSubgroups($groupId);
-    			//var_dump($subGroups);
-    			//$subGroupCnt = ($subGroups) ? count($subGroups[0]) : 0;
-
     			$groupId = $this->objGroups->getId($group['group_define_name']);
     			$arr = array();
     			$arr['groupname'] = $group['group_define_name'];
     			$arr['grouptitle'] = $this->_getContextTitle($group['group_define_name']);
     			$arr['id'] = strval($groupId);
-    			//$arr['hassubgroups'] = $subGroupCnt;
-
+    			
     			$arrGroups[] = $arr;
     			$arr = null;
 
@@ -269,12 +256,8 @@ class groupops extends object
     public function jsonCheckGroupAvailable($groupName){
     	    	
     	$recordCount = $this->objUser->getArray("SELECT count(group_id) as cnt FROM tbl_perms_groups WHERE group_define_name=\"$groupName\"");
-    	//var_dump($recordCount[0]['cnt']);
     	$extjs = (intval($recordCount[0]['cnt']) > 0) ? '0':'1';              
 		
-		//error_log(var_export('Status = '.$status, true));
-		//error_log(var_export($_REQUEST, true));
-				
 		return json_encode(array('success' => true, 'data' => $extjs));
     }
 
@@ -295,10 +278,62 @@ class groupops extends object
     }
     
     public function jsonAddGroup($groupName){
-    	error_log(var_export($groupName, true));
     	$extjs =  $this->objGroups->addGroup($groupName);
-    	
     	return json_encode(array('success' => 'true', 'errors' => $extjs));
+    }
+
+	public function jsonEditGroup($id, $newgroupname, $oldgroupname){
+    	
+		$this->updateSubGroup($newgroupname, $oldgroupname);
+		$sql = "UPDATE tbl_context SET contextcode = '".$newgroupname."' WHERE contextcode = '".$oldgroupname."'";
+		$this->objDBContext->getArray($sql);
+
+		$sql = "UPDATE tbl_perms_groups SET group_define_name = '".$newgroupname."' WHERE group_id = ".$id;
+		$this->objDBContext->getArray($sql);
+				
+    	return json_encode(array('success' => 'true'));
+    }
+	
+	public function updateSubGroup($newgroupname, $oldgroupname)
+	{
+		$sql = "SELECT group_define_name FROM tbl_perms_groups WHERE group_define_name LIKE '".$oldgroupname."^%'";
+		$subgrp = $this->objDBContext->getArray($sql);
+
+		foreach($subgrp as $grp)
+		{
+			$pieces = explode("^", $grp['group_define_name']);
+			$sql = "UPDATE tbl_perms_groups SET group_define_name = '".$newgroupname."^".$pieces[1]."' WHERE group_define_name = '".$grp['group_define_name']."'";
+			$this->objDBContext->getArray($sql);
+		}
+
+
+
+
+
+
+
+		error_log(var_export($sql, true));
+		//$sql = "UPDATE tbl_perms_groups SET group_define_name = '".$newgroupname."' WHERE group_id = ".$id;
+		//$this->objDBContext->getArray($sql);
+	}
+
+	public function jsonGetGroup($id){
+
+    	$sql = "Select group_define_name from tbl_perms_groups WHERE group_id = '".$id."'";		
+		$arr = array();
+		$singlegroup = array();
+		$groups = $this->objUser->getArray($sql);
+		$totalCount = count($groups);
+		if(count($groups) > 0){
+		foreach($groups as $group){
+        $arr['groupname'] = $group['group_define_name'];
+			}
+		return json_encode(array('success' => true, 'data' =>  $arr));
+	}
+	else {
+		$arr[] = array();
+		return json_encode(array('success' => false, 'data' => $arr));
+		}
     }
 
     /**
@@ -384,7 +419,7 @@ class groupops extends object
     public function jsonGetAllUsers($groupId = null, $start = 0, $limit = 25)
     {
 
-    	$params["start"] = ($this->getParam("start")) ? $this->getParam("start") : null;
+    $params["start"] = ($this->getParam("start")) ? $this->getParam("start") : null;
 	$params["limit"] = ($this->getParam("limit")) ? $this->getParam("limit") : null;
 	$params["search"] = ($this->getParam("fields")) ? json_decode(stripslashes($this->getParam("fields"))) : null;
 	$params["query"] = ($this->getParam("query")) ? $this->getParam("query") : null;
@@ -417,8 +452,9 @@ class groupops extends object
 				on us.userId = pu.auth_user_id
     			".$where."
     			ORDER BY us.surname ".$filter;
+		error_log(var_export($sql, true));
     	$users = $this->objDBContext->getArray($sql);
-    	$countSQL = "SELECT DISTINCT(username) FROM tbl_users";
+    	$countSQL = "SELECT username FROM tbl_users";
     	$userCount = count($this->objDBContext->getArray($countSQL));
 
     	if(count($users>0)){
