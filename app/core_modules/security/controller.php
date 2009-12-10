@@ -88,20 +88,18 @@ class security extends controller {
                     
                     $this->facebook = new Facebook($apikey, $secret);
                     $uid = $this->facebook->get_loggedin_user(); 
-//echo "UID: ";
-//var_dump($uid);
                     $user_details = $this->facebook->api_client->users_getInfo($uid, 'first_name, last_name, proxied_email, username, sex'); 
-                    // var_dump($user_details); die();
                     $details = $user_details[0];
                     $username = $details['username'];
                     $p = explode("@", $details['proxied_email']);
                     $password = $p[0];
-//var_dump($details);
+                    if($username == '' || $password == '') {
+                        return $this->nextAction ( 'error', array ('message' => 'no_fbconnect' ) );
+                    }
                     // try the login
                     $objUModel = $this->getObject('useradmin_model2', 'security');
                     $objUser = $this->getObject('user', 'security');
                     $login = $this->objUser->authenticateUser($username, $password, FALSE);
-//var_dump($login); die();
                     if ($login) {
                         if (! isset ( $_REQUEST [session_name ()] )) {
                             $this->objEngine->sessionStart ();

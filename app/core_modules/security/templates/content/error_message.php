@@ -46,6 +46,11 @@ switch ($this->getParam('message')){
     case 'dooauth':
         $Header->str = $this->objLanguage->languageText('mod_security_dooauth', 'security');
         $smallText = $this->objLanguage->languageText('mod_security_oauthmessage','security');
+        break;
+    case 'no_fbconnect':
+        $Header->str=$this->objLanguage->languageText('mod_security_no_fbconnect', 'security');
+        $smallText = $this->objLanguage->languageText('mod_security_no_fbconnectmsg','security');
+        break;
     default:
         $Header->str=$this->objLanguage->languageText('mod_security_unknownerror','security');
         $smallText = $this->objLanguage->languageText('mod_security_errormessage','security');

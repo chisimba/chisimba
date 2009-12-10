@@ -3,7 +3,7 @@ MODULE_NAME: Security
 MODULE_DESCRIPTION: This is a core module that controls access to the site, allowing registered users to log in or out. It also handles account creation for LDAP users.
 MODULE_AUTHORS: Derek Keats, Megan Watson, Sean Legassick, James Scoble, Paul Scott
 MODULE_RELEASEDATE: 2004 06 11
-MODULE_VERSION: 3.022
+MODULE_VERSION: 3.027
 MODULE_PATH: security
 MODULE_ISADMIN: 0
 MODULE_ISVISIBLE: 0
@@ -13,7 +13,7 @@ MODULE_CATEGORY: core
 MODULE_CATEGORY: admin
 MODULE_STATUS: stable
 
-UPDATE_DESCRIPTION: Added Twitter oAuth for login
+UPDATE_DESCRIPTION: Cleaned up Facebook connect auth to make it more stable on lower bandwidth
 
 TAGS: permissions|security|core|required
 
@@ -34,8 +34,9 @@ TABLE: tbl_perms_rights
 TABLE: tbl_perms_userrights
 
 COMMENT: Login box appearance configs
-CONFIG:  show_ldap_checkbox|false|mod_security_showldapcheckbox
-CONFIG:  show_twitter_auth|true|mod_security_showtwitterauth
+CONFIG: show_ldap_checkbox|false|mod_security_showldapcheckbox
+CONFIG: show_twitter_auth|false|mod_security_showtwitterauth
+CONFIG: show_fbconnect_auth|false|mod_security_showfbconnectauth
 
 COMMENT: Session setups
 CONFIG: sess_name|PHPSESSION|mod_security_sessname
@@ -88,6 +89,7 @@ TEXT: mod_security_pwencryption|Password encryption|Password encryption scheme
 
 TEXT: mod_security_twitterconsumerkey|twitter consumer key|Twitter Consumer Key
 TEXT: mod_security_twitterconsumersecret|twitter consumer secret|Twitter Consumer Secret
+TEXT: mod_security_showfbconnectauth|show fb auth|Show Facebook Connect auth
 
 TEXT: mod_security_showldapcheckbox|show ldap check box|Show LDAP Check Box
 TEXT: mod_security_showtwitterauth|Show the Twitter authentication URL|Show the Twitter authentication URL
@@ -107,6 +109,17 @@ TEXT: mod_security_ldapuservarname|Explaination of the config parameter for LDAP
 
 CONFIG: MOD_SECURITY_LDAPWHERE|o=UWC|mod_security_ldapwhere
 TEXT: mod_security_ldapwhere|Explaination of the config parameter for LDAP where clause to select the container|The LDAP where clause for limiting search (e.g. o=UWC). Check with your LDAP administrator for the value of this parameter.
+
+CONFIG: MOD_SECURITY_LDAPPASSWORD|xyz|mod_security_ldappassword
+TEXT: mod_security_ldappassword|The phrase for ldpa password |This is the password to use for connecting to ldap server
+
+CONFIG: MOD_SECURITY_LDAPPORT|389|mod_security_ldapport
+TEXT: mod_security_ldapport|The phrase for ldpa port |This is the port to use for connecting to ldap server
+
+CONFIG: MOD_SECURITY_LDAPUSERNAMEVAR|staffnumber|mod_security_ldapusernamevar
+TEXT: mod_security_ldapusernamevar|The phrase for ldpa username var |This is the value to use for mapping onto ldap username
+
+
 
 TEXT: mod_security_configregmodule|Explaination of the config variable|The module called for registering a new user.
 
