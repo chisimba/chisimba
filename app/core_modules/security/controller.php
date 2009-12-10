@@ -97,8 +97,31 @@ class security extends controller {
                     // try the login
                     $objUModel = $this->getObject('useradmin_model2', 'security');
                     $objUser = $this->getObject('user', 'security');
-                    $login = $this->objUser->authenticateUser($username, $password, FALSE);
-                    if(!$login) {
+                    // $login = $this->objUser->authenticateUser($username, $password, FALSE);
+                    if ($this->objUser->authenticateUser ( $username, $password, FALSE )) {
+                        if (! isset ( $_REQUEST [session_name ()] )) {
+                            $this->objEngine->sessionStart ();
+                        } else {
+                            session_regenerate_id ();
+                        }
+                        $this->objSkin->validateSkinSession ();
+                        $url = $this->getSession ( 'oldurl' );
+                        $url ['passthroughlogin'] = 'true';
+                        if ($module != NULL) {
+                            $url ['module'] = $module;
+                        }
+                        if (is_array ( $url ) && (isset ( $url ['module'] )) && ($url ['module'] != 'splashscreen')) {
+                            if (isset ( $url ['action'] ) && ($url ['action'] != 'logoff')) {
+                                $act = $url ['action'];
+                            } else {
+                                $act = NULL;
+                            }
+                            return $this->nextAction ( $act, $url, $url ['module'] );
+                        }
+                        $postlogin = $this->objConfig->getdefaultModuleName ();
+                        return $this->nextAction ( NULL, NULL, $postlogin );
+                    }
+                    else {
                         // login failure, so new user. Lets create him in the system now and then log him in.
                         $userid = $details['uid'];
                         $title = '';
@@ -116,12 +139,28 @@ class security extends controller {
                         $accountType = 'Facebook'; 
                         $objUModel->addUser($userid, $username, $password, $title, $firstname, $surname, $email, $sex, $country, $cellnumber='', $staffnumber='', $accountType, '1');
                         $this->objUser->authenticateUser($username, $password, FALSE);
-                        $this->nextAction('');
+                        if (! isset ( $_REQUEST [session_name ()] )) {
+                            $this->objEngine->sessionStart ();
+                        } else {
+                            session_regenerate_id ();
+                        }
+                        $this->objSkin->validateSkinSession ();
+                        $url = $this->getSession ( 'oldurl' );
+                        $url ['passthroughlogin'] = 'true';
+                        if ($module != NULL) {
+                            $url ['module'] = $module;
+                        }
+                        if (is_array ( $url ) && (isset ( $url ['module'] )) && ($url ['module'] != 'splashscreen')) {
+                            if (isset ( $url ['action'] ) && ($url ['action'] != 'logoff')) {
+                                $act = $url ['action'];
+                            } else {
+                                $act = NULL;
+                            }
+                            return $this->nextAction ( $act, $url, $url ['module'] );
+                        }
+                        $postlogin = $this->objConfig->getdefaultModuleName ();
+                        return $this->nextAction ( NULL, NULL, $postlogin );
                     }
-                    else {
-                        $this->nextAction('');
-                    }
-                   
                 }
                 break;
             case 'showlogin' :
