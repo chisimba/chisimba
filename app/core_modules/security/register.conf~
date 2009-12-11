@@ -3,7 +3,7 @@ MODULE_NAME: Security
 MODULE_DESCRIPTION: This is a core module that controls access to the site, allowing registered users to log in or out. It also handles account creation for LDAP users.
 MODULE_AUTHORS: Derek Keats, Megan Watson, Sean Legassick, James Scoble, Paul Scott
 MODULE_RELEASEDATE: 2004 06 11
-MODULE_VERSION: 3.027
+MODULE_VERSION: 3.028
 MODULE_PATH: security
 MODULE_ISADMIN: 0
 MODULE_ISVISIBLE: 0
@@ -13,7 +13,7 @@ MODULE_CATEGORY: core
 MODULE_CATEGORY: admin
 MODULE_STATUS: stable
 
-UPDATE_DESCRIPTION: Cleaned up Facebook connect auth to make it more stable on lower bandwidth
+UPDATE_DESCRIPTION: Added language for fbconnect failure case
 
 TAGS: permissions|security|core|required
 
@@ -201,3 +201,6 @@ TEXT: mod_login_unrequired|username is required|Please enter a username. A usern
 TEXT: phrase_rememberme|remember me|Remember me
 TEXT: mod_security_dooauth|do oauth|Please log in via your preferred oAuth provider
 TEXT: mod_security_oauthmessage|oauth message body|The account that you are trying to access has been created via an oAuth provider. Please log in via the oAuth authorization mechanism
+
+TEXT: mod_security_no_fbconnect|fb connect failure|Facebook login failure!
+TEXT: mod_security_no_fbconnectmsg|fbconn fail msg|Facebook may be experiencing high traffic volumes or the network may be temporarily down. Please try again or sign in via another method.
