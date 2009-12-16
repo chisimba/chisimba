@@ -199,8 +199,10 @@ class htmlarea extends object {
 			filebrowserFlashBrowseUrl : '$this->siteRoot?module=filemanager&action=fckflash&context=yes&loadwindow=yes',
                          height:'".$this->height."', width:'".$this->width."'
 		}
-        );
+             
 
+        );
+        CKEDITOR.config.protectedSource.push( /<([\S]+)[^>]*class=\"preserve\"[^>]*>.*<\/\1>/g );
        </script>
             ";
         return $this->editor;
