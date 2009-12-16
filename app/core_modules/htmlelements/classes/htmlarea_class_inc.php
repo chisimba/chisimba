@@ -202,7 +202,11 @@ class htmlarea extends object {
              
 
         );
-        CKEDITOR.config.protectedSource.push( /<([\S]+)[^>]*class=\"preserve\"[^>]*>.*<\/\1>/g );
+        // protect <anytag class=\"preserve\"></anytag>
+CKEDITOR.config.protectedSource.push( /<([\S]+)[^>]*class=\"preserve\"[^>]*>.*<\/\1>/g );
+// protect <anytag class=\"preserve\" /><
+CKEDITOR.config.protectedSource.push( /<[^>]+class=\"preserve\"[^>\/]*\/>/g );
+
        </script>
             ";
         return $this->editor;
