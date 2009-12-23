@@ -154,6 +154,22 @@ class filters extends controller {
           .": " . $this->action . "</h3>");
         return 'dump_tpl.php';
     }
+    
+    /**
+    *
+    * Method to return an error when the action is missing
+    *
+    * @access private
+    * @return string The dump template populated with the error message
+    *
+    */
+    private function __missingaction()
+    {
+        $this->setVar('str', "<h3>"
+          . $this->objLanguage->languageText("mod_filters_error_noaction", "filters")
+          ."</h3>");
+        return 'dump_tpl.php';
+    }
 
     /**
     *
