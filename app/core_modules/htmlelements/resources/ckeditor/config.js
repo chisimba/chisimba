@@ -12,7 +12,7 @@ CKEDITOR.editorConfig = function( config )
     config.extraPlugins = 'contexttools';
     config.toolbar = 'advanced';
     config.image_browseServer=true;
-    config.enterMode = CKEDITOR.ENTER_BR;
+    //config.enterMode = CKEDITOR.ENTER_BR;
     config.toolbar_advanced =
     [
     ['Source','-','Save','NewPage','Preview','-','Templates'],
