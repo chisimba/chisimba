@@ -93,6 +93,12 @@ class htmlarea extends object {
     var $editor;
 
     /**
+     * This var holds custom plugins
+     * @var <type>
+     */
+    var $extraPlugins;
+
+    /**
      * Method to establish the default values
      */
     function init($name=null,$value=null,$rows=4,$cols=50,$context=false) {
@@ -137,6 +143,12 @@ class htmlarea extends object {
         $this->siteRootPath = $siteRootPath;
     }
 
+    /**
+     * sets the extra plugins to appear in tool bar
+     */
+    function setExtraPlugins($plugins){
+        $this->extraPlugins="contexttools";
+    }
     /**
      * function to set the value of one of the properties of this class
      *
@@ -197,16 +209,11 @@ class htmlarea extends object {
 			filebrowserBrowseUrl : '$this->siteRoot?module=filemanager&action=fcklink&context=no&loadwindow=yes',
 			filebrowserImageBrowseUrl : '$this->siteRoot?module=filemanager&action=fckimage&context=no&loadwindow=yes',
 			filebrowserFlashBrowseUrl : '$this->siteRoot?module=filemanager&action=fckflash&context=yes&loadwindow=yes',
-                         height:'".$this->height."', width:'".$this->width."'
+                        height:'".$this->height."', width:'".$this->width."',
+                        toolbar:'".$this->toolbarSet."'
+                       
 		}
-             
-
         );
-        // protect <anytag class=\"preserve\"></anytag>
-CKEDITOR.config.protectedSource.push( /<([\S]+)[^>]*class=\"preserve\"[^>]*>.*<\/\1>/g );
-// protect <anytag class=\"preserve\" /><
-CKEDITOR.config.protectedSource.push( /<[^>]+class=\"preserve\"[^>\/]*\/>/g );
-
        </script>
             ";
         return $this->editor;
