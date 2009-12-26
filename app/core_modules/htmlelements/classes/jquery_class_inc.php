@@ -60,7 +60,7 @@ class jquery extends object
     public function show()
     {
         // Load JQuery
-
+//WHY NOT MAKE IT GENERALISABLE? -- dkeats
         switch ($this->version){
             case '1.2.1':
                 $returnStr = $this->getJavascriptFile('jquery/1.2.1/jquery-1.2.1.pack.js','htmlelements')."\n";
@@ -74,6 +74,9 @@ class jquery extends object
             case '1.2.6':
                 $returnStr = $this->getJavascriptFile('jquery/1.2.6/jquery-1.2.6.js','htmlelements')."\n";
             break;
+            case '1.3.1':
+                $returnStr = $this->getJavascriptFile('jquery/1.3.1/jquery-1.3.1.min.js','htmlelements')."\n";
+                break;
             case '1.3.2':
                 $returnStr = $this->getJavascriptFile('jquery/1.3.2/jquery-1.3.2.min.js','htmlelements')."\n";
             break;
