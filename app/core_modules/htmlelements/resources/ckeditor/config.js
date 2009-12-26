@@ -13,6 +13,7 @@ CKEDITOR.editorConfig = function( config )
     config.toolbar = 'advanced';
     config.image_browseServer=true;
     config.enterMode = CKEDITOR.ENTER_BR;
+    config.shiftEnterMode = CKEDITOR.ENTER_P;
     config.toolbar_advanced =
     [
     ['Source','-','Save','NewPage','Preview','-','Templates'],
