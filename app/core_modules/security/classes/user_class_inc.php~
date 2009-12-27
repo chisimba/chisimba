@@ -70,6 +70,7 @@ class user extends dbTable
         $this->objGroups = $this->getObject('groupadminmodel','groupadmin');
         $this->imagePath = $this->objConfig->getsiteRootPath().'/user_images/';
         $this->imageUrl = $this->objConfig->getsiteRoot().'user_images/';
+        $this->imageUri = '/user_images/';
         $this->objPerms = $this->getObject('perms', 'permissions');
 
     }
@@ -837,9 +838,9 @@ class user extends dbTable
 
 
         if (file_exists($this->imagePath.$userId.'.jpg')){
-            return '<img src="'.$this->imagePath.$userId.'.jpg'.$forceRefresh.'" '.$alt.' />';
+            return '<img src="'.$this->imageUri.$userId.'.jpg'.$forceRefresh.'" '.$alt.' />';
         } else {
-            return '<img src="'.$this->imagePath.'default.jpg" '.$alt.' />';
+            return '<img src="'.$this->imageUri.'default.jpg" '.$alt.' />';
         }
     }
 
@@ -1064,7 +1065,7 @@ class user extends dbTable
       {
         $objUserPic = $this->getObject('imageupload', 'useradmin');
         $objBox =  $this->newObjecT('featurebox', 'navigation');
-        $str = '<p align="center"><img src="'.$objUserPic->userpicture($this->userId() ).'" alt="User pImage" /></p>';
+        $str = '<p align="center"><img src="'.$objUserPic->userpicture($this->userId() ).'" alt="User Image" /></p>';
         return $objBox->show($this->fullName(), $str);
       }
 
