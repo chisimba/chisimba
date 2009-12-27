@@ -70,12 +70,13 @@ class imageupload extends object
     {
         $path = $_SERVER ['PHP_SELF'];
         $path = str_replace("/index.php", "", $path);
-        if (file_exists($this->imageUri.$userId.".jpg")){
-            return($path.$this->imagePath.$userId.".jpg");
+        
+        if (file_exists($this->imagePath.$userId.".jpg")){
+            return($path.$this->imageUri.$userId.".jpg");
         } elseif($this->grav_enabled == 'TRUE') {
             //Include gravatar option if nothing has been uploaded
             $grav_email = md5($this->objUser->email());
-            $grav_default = $this->imageUrl."default.jpg";
+            $grav_default = $path.$this->imageUri."default.jpg"; //$this->imageUrl."default.jpg";
             $grav_rating = 'G';
             $grav_size = 130;
             $grav_border = "000000";        		
@@ -95,9 +96,9 @@ class imageupload extends object
     public function smallUserPicture($userId)
     {
         if (file_exists($this->imagePath.$userId."_small.jpg")){
-            return($this->imageUrl.$userId."_small.jpg");
+            return($this->imageUri.$userId."_small.jpg");
         } else {
-            return ($this->imageUrl."default_small.jpg");
+            return ($this->imageUri."default_small.jpg");
         }
     }
 
