@@ -122,19 +122,55 @@ class jsonutils extends object {
      * @return object $obj An object of the input object as JSON
      * @access public
      */
-     public function jsonObject($object) {
-         if(is_object($object)) {
-             header("Content-Type: application/json");
-             return json_encode($object);
-         }
-         elseif(is_array($object)) {
-             $object = $this->array2object($object);
-             header("Content-Type: application/json");
-             return json_encode($object);
-         }
-         else {
-             return FALSE;
-         }    
-     }
+    public function jsonObject($object, $headers = TRUE) {
+        if(is_object($object)) {
+            if($headers == TRUE) {
+                header("Content-Type: application/json");
+            }
+            return json_encode($object);
+        }
+        elseif(is_array($object)) {
+            $object = $this->array2object($object);
+            if($headers == TRUE) {
+                header("Content-Type: application/json");
+            }
+            return json_encode($object);
+        }
+        else {
+            if($headers == TRUE) {
+                header("Content-Type: application/json");
+            }
+            return NULL;
+        }    
+    }
+     
+    /**
+     * JSON encode something
+     *
+     * Take an anything and return a JSON object with headers This is a just more than a simple wrapper for json_encode
+     *
+     * @param  object|array|string $data the input
+     * @return object $object An object of the input object as JSON
+     * @access public
+     */
+    public function jsonEncodeHeader($data, $headers = TRUE) {
+        if($headers == TRUE) {
+            header("Content-Type: application/json");
+        }
+        return json_encode($data);
+    }
+    
+    /**
+     * JSON decode something
+     *
+     * Take an anything and return a JSON decoded bit
+     *
+     * @param  object|array|string $data the input
+     * @return data
+     * @access public
+     */
+    public function jsonDecode($data) {
+        return json_decode($data);
+    }
 }
 ?>
