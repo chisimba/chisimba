@@ -123,23 +123,17 @@ class jsonutils extends object {
      * @access public
      */
     public function jsonObject($object, $headers = TRUE) {
+        if($headers == TRUE) {
+            header("Content-Type: application/json");
+        }
         if(is_object($object)) {
-            if($headers == TRUE) {
-                header("Content-Type: application/json");
-            }
             return json_encode($object);
         }
         elseif(is_array($object)) {
             $object = $this->array2object($object);
-            if($headers == TRUE) {
-                header("Content-Type: application/json");
-            }
             return json_encode($object);
         }
         else {
-            if($headers == TRUE) {
-                header("Content-Type: application/json");
-            }
             return NULL;
         }    
     }
