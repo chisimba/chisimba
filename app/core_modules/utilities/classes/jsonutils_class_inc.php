@@ -122,9 +122,14 @@ class jsonutils extends object {
      * @return object $obj An object of the input object as JSON
      * @access public
      */
-    public function jsonObject($object, $headers = TRUE) {
+    public function jsonObject($object, $headers = TRUE, $charset = NULL) {
         if($headers == TRUE) {
-            header("Content-Type: application/json");
+            if(is_string($charset)) {
+                header("Content-Type: application/json; charset=$charset");
+            }
+            else {
+                header("Content-Type: application/json");
+            }
         }
         if(is_object($object)) {
             return json_encode($object);
@@ -147,9 +152,14 @@ class jsonutils extends object {
      * @return object $object An object of the input object as JSON
      * @access public
      */
-    public function jsonEncodeHeader($data, $headers = TRUE) {
+    public function jsonEncodeHeader($data, $headers = TRUE, $charset = NULL) {
         if($headers == TRUE) {
-            header("Content-Type: application/json");
+            if(is_string($charset)) {
+                header("Content-Type: application/json; charset=$charset");
+            }
+            else {
+                header("Content-Type: application/json");
+            }
         }
         return json_encode($data);
     }
