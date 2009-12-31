@@ -53,7 +53,8 @@ $GLOBALS ['kewl_entry_point_run']) {
  * @package utilities
  *
  */
-class jsonutils extends object {
+class jsonutils extends object
+{
 
     /**
      * @var string $objLanguage String object property for holding the language object
@@ -67,7 +68,8 @@ class jsonutils extends object {
      *
      * @access public
      */
-    public function init() {
+    public function init()
+    {
         $this->objLanguage = $this->getObject('language', 'language');
     }
     
@@ -78,7 +80,8 @@ class jsonutils extends object {
      * @return object $obj An object of the input array
      * @access public
      */
-    public function array2object($array) {
+    public function array2object($array)
+    {
         if (is_array($array)) {
             $obj = new StdClass();
             foreach ($array as $key => $val){
@@ -122,7 +125,8 @@ class jsonutils extends object {
      * @return object $obj An object of the input object as JSON
      * @access public
      */
-    public function jsonObject($object, $headers = TRUE, $charset = NULL) {
+    public function jsonObject($object, $headers = TRUE, $charset = NULL)
+    {
         if($headers == TRUE) {
             if(is_string($charset)) {
                 header("Content-Type: application/json; charset=$charset");
@@ -152,7 +156,8 @@ class jsonutils extends object {
      * @return object $object An object of the input object as JSON
      * @access public
      */
-    public function jsonEncodeHeader($data, $headers = TRUE, $charset = NULL) {
+    public function jsonEncodeHeader($data, $headers = TRUE, $charset = NULL)
+    {
         if($headers == TRUE) {
             if(is_string($charset)) {
                 header("Content-Type: application/json; charset=$charset");
@@ -173,7 +178,8 @@ class jsonutils extends object {
      * @return data
      * @access public
      */
-    public function jsonDecode($data) {
+    public function jsonDecode($data)
+    {
         return json_decode($data);
     }
 }
