@@ -84,14 +84,13 @@ class jsonutils extends object
     {
         if (is_array($array)) {
             $obj = new StdClass();
-            foreach ($array as $key => $val){
+            foreach ($array as $key => $val) {
                 $obj->$key = $val;
             }
-        }
-        else { 
+        } else { 
             $obj = $array; 
         }
-       return $obj;
+        return $obj;
     }
     
     /**
@@ -106,13 +105,14 @@ class jsonutils extends object
             foreach ($object as $key => $value) {
                 $array[strtolower($key)] = $value;
             }
-        }
-        else {
+        } else {
             $array = $object;
         }
-        if(!isset($array)) {
+
+        if (!isset($array)) {
             $array = array();
         }
+
         return $array;
     }
     
@@ -127,22 +127,20 @@ class jsonutils extends object
      */
     public function jsonObject($object, $headers = TRUE, $charset = NULL)
     {
-        if($headers == TRUE) {
-            if(is_string($charset)) {
+        if ($headers == TRUE) {
+            if (is_string($charset)) {
                 header("Content-Type: application/json; charset=$charset");
-            }
-            else {
+            } else {
                 header("Content-Type: application/json");
             }
         }
-        if(is_object($object)) {
+
+        if (is_object($object)) {
             return json_encode($object);
-        }
-        elseif(is_array($object)) {
+        } elseif (is_array($object)) {
             $object = $this->array2object($object);
             return json_encode($object);
-        }
-        else {
+        } else {
             return NULL;
         }    
     }
@@ -158,14 +156,14 @@ class jsonutils extends object
      */
     public function jsonEncodeHeader($data, $headers = TRUE, $charset = NULL)
     {
-        if($headers == TRUE) {
-            if(is_string($charset)) {
+        if ($headers == TRUE) {
+            if (is_string($charset)) {
                 header("Content-Type: application/json; charset=$charset");
-            }
-            else {
+            } else {
                 header("Content-Type: application/json");
             }
         }
+
         return json_encode($data);
     }
     
