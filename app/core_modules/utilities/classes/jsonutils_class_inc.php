@@ -215,7 +215,7 @@ class jsonutils extends object
       * @param object $object   Object to set values for
       * @param string $property property name
       */
-      public function setProperty($object, $property) {
+      public function unsetProperty($object, $property) {
           if(!is_object($object)) {
               throw new customException($this->objLanguage->languageText("mod_utilities_mustbeobject", "utilities"));
           }
