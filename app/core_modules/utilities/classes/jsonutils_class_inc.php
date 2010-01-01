@@ -180,5 +180,49 @@ class jsonutils extends object
     {
         return json_decode($data);
     }
+    
+    /**
+     * Method to wrap StdClass creation
+     * 
+     * @access public
+     * @return object $object
+     */
+     public function createObject() {
+         $object = new StdClass();
+         return $object;
+     }
+     
+     /**
+      * Method to set a stdClass property
+      * 
+      * @param object $object   Object to set values for
+      * @param string $property property name
+      * @param string $value    property value
+      */
+      public function setProperty($object, $property, $value) {
+          if(!is_object($object)) {
+              throw new customException($this->objLanguage->languageText("mod_utilities_mustbeobject", "utilities"));
+          }
+          else {
+              $object->$property = $value;
+              return TRUE;
+          }
+      }
+      
+      /**
+      * Method to unset a stdClass property
+      * 
+      * @param object $object   Object to set values for
+      * @param string $property property name
+      */
+      public function setProperty($object, $property) {
+          if(!is_object($object)) {
+              throw new customException($this->objLanguage->languageText("mod_utilities_mustbeobject", "utilities"));
+          }
+          else {
+              $object->$property = NULL;
+              return TRUE;
+          }
+      }
 }
 ?>
