@@ -27,7 +27,7 @@ class microformats extends object
     {
         require_once($this->getResourcePath('microformats/phpMicroformats.class.php'));
         // others?
-        
+        $this->objUser = $this->getObject('user', 'security');
     }
     
     /**
@@ -95,6 +95,16 @@ class microformats extends object
     public function showHcalendar($event)
     {
         return phpMicroformats::createHCalendar($event);
+    }
+    
+    public function hCardUser() {
+        $pdata = $this->objUser->lookupData($this->objUser->userName());
+        // var_dump($pdata);
+        $personalData = array();
+        $personalData['name'] = $pdata['firstname']." ".$pdata['surname'];
+        $personalData['email'] = $pdata['emailaddress'];
+        // var_dump($pdata);
+        return $this->showHcard($personalData);
     }
 
 }
