@@ -636,7 +636,7 @@ class useradmin extends controller
 	public function __jsonSaveNewUser()
     {
 		$this->objUtility->jsonSaveNewUser();
-		return $this->nextAction(userAdminHome);
+		return $this->nextAction('userAdminHome');
      }
 
 	public function __jsonUsertaken()
@@ -648,13 +648,13 @@ class useradmin extends controller
 	public function __deleteuser() 
 	{
         $this->objUserAdmin->apiUserDelete($this->getParam('id'));
-        return $this->nextAction(userAdminHome);
+        return $this->nextAction('userAdminHome');
     }
 	
 	public function __jsonUpdateUserDetails()
     {
 		$this->objUtility->jsonUpdateUserDetails();
-		return $this->nextAction(userAdminHome);        
+		return $this->nextAction('userAdminHome');        
     }
 
 	public function __jsongetSingleUser()
