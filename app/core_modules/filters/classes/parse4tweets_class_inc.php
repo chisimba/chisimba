@@ -129,7 +129,7 @@ class parse4tweets extends object
                 $str = $results[1][$counter];
                 $ar = explode("=", $str, 2);
                 $twitterType = strtolower(trim($ar[0]));
-                $value = strtolower(trim($ar[1]));
+                $value = urlencode(strtolower(trim($ar[1])));
                 $replacement = $this->getTweets($twitterType, $value, $counter);
                 $txt = str_replace($item, $replacement, $txt);
                 $counter++;
