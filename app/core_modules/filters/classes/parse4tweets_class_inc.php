@@ -156,6 +156,7 @@ class parse4tweets extends object
     */
     private function getTweets($twitterType, $value, $counter)
     {
+        $value = htmlentities($value);
         if ($twitterType == 'user') {
             $hashVal = md5(microtime());
             $this->script .= $this->jqTwit->loadQueryByNumber('from:'
