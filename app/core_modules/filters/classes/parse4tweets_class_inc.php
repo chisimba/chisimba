@@ -2,7 +2,7 @@
 /**
 * Class to parse a string (e.g. page content) that contains a filter
 * code for including a twitter widget whis can have two formats 
-*   [TWITTER: user=username]  or [TWITTER: query=querycodes]
+*   [TWEETS: user=username]  or [TWEETS: query=querycodes]
 * where querycodes match the Twitter API and can be one of
 *   searchphrase (for example chisimba)
 *   from: username
@@ -10,7 +10,8 @@
 *   to: username
 *   to:username&phrase=searchphrase
 *   from:username+OR+from:anotherusername
-*
+* You can also use [TWEETS: query=querycodes|number=10|avatar=32]
+* 
 * PHP version 5
 *
 * This program is free software; you can redistribute it and/or modify
@@ -85,8 +86,6 @@ class parse4tweets extends object
     */
     public $twitterType;
 
-
-
     /**
      *
      * Constructor for the TWITTER filter parser
@@ -121,12 +120,11 @@ class parse4tweets extends object
         if($isRegistered) {
             $this->jqTwit = $this->getObject("jqtwitter","twitter");
             $this->jqTwit->loadTweetCss();
-            $this->jqTwit->loadJquery();
             $this->jqTwit->loadTweetPlugin();
             $counter = 0;
             foreach ($results[0] as $item) {
-                $this->item=$item;
                 $str = $results[1][$counter];
+                $str = $this->extractTweetParams($str);
                 $ar = explode("=", $str, 2);
                 $twitterType = strtolower(trim($ar[0]));
                 $value = urlencode(strtolower(trim($ar[1])));
@@ -144,6 +142,31 @@ class parse4tweets extends object
 
 
     /**
+    * Extract the parameters number and avatarsize from the filter.
+    * It sets number and avatarsize as class properties.
+    *
+    * @param string $str The string to parse
+    * @return string The part containing the Twitter query
+    * @access private
+    *
+    */
+    private function extractTweetParams($str)
+    {
+        $ar = explode("|", $str);
+        $tweetRequest = array_shift($ar);
+        if (count($ar) > 0) {
+            foreach ($ar as $entry) {
+                $ar2 = explode("=", $entry);
+                $key = (string)$ar2[0];
+                $value = $ar2[1];
+                $this->$key = $value;
+            }
+        }
+        return $tweetRequest;
+    }
+
+
+    /**
     * 
     * Method to retrieve the status from Twitter based on the
     * settings in the filter
@@ -157,16 +180,26 @@ class parse4tweets extends object
     private function getTweets($twitterType, $value, $counter)
     {
         $value = htmlentities($value);
+        if (isset ($this->avatarsize)) {
+            $avatarSize = $this->avatarsize;
+        } else {
+            $avatarSize = "132";
+        }
+        if (isset ($this->number)) {
+            $displayCount = $this->number;
+        } else {
+            $displayCount = "6";
+        }
         if ($twitterType == 'user') {
             $hashVal = md5(microtime());
             $this->script .= $this->jqTwit->loadQueryByNumber('from:'
-              . $value, 'fromuser', $counter);
+              . $value, 'fromuser', $counter, $avatarSize, $displayCount);
             $str = "<div id='fromuser"  . $hashVal
               . "_" . $counter . "' class='query'></div>";
         } else {
             $hashVal = md5(microtime());
             $this->script .= $this->jqTwit->loadQueryByNumber($value, 'query'
-              . $hashVal, $counter);
+              . $hashVal, $counter, $avatarSize, $displayCount);
             $str = "<div id='query" . $hashVal . "_"
               . $counter . "' class='query'></div>";
         }
