@@ -100,7 +100,7 @@ class parse4quickembed extends object
         //Check if the oembed module is installed
         $objModule = $this->getObject('modules','modulecatalogue');
         if ($objModule->checkIfRegistered('oembed', 'oembed')) {
-            $regEx = "/\\[QUICKEMBED:|\\[quickembed:(.*?)\\]/";
+            $regEx = "/\\[quickembed:(.*?)\\]/i";
             preg_match_all($regEx, $str, $results, PREG_PATTERN_ORDER);
             //Extract all the matches
             $counter = 0;
