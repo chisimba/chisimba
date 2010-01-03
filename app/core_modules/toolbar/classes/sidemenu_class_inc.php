@@ -132,7 +132,6 @@ class sidemenu extends object
 
         $this->objHead->str = $this->objUser->fullName();
         $menu = $this->objHead->show();
-
         $menu .= '<p align="center"><img src="'.$this->objUserPic->userpicture($this->objUser->userId() ).'" alt="User Image" /></p><br />';
 
         $menu .= $this->getMenuList($menus);
@@ -173,20 +172,13 @@ class sidemenu extends object
      */
     function userDetails()
     {
-        /*$this->objHead->type = 4;
-        $access = $this->checkAccess();
-        $menus = $this->dbMenu->getSideMenus('postlogin', $access, $this->context);
-        $menus = $this->checkPerm($menus);*/
-
-        $menu = '<p align="center"><img src="'.$this->objUserPic->userpicture($this->objUser->userId() ).'" alt="User Image" /></p>';
-        
         $objFeature = $this->newObject('featurebox', 'navigation');
-        return $objFeature->show($this->objUser->fullName(), $menu);
-
+        $head = NULL;
+        $head .= '<div class="vcard">'."\n";
+        $head .= '<span class="fn">'.$this->objUser->fullName().'</span>'."\n";
+		$body  = '<p align="center"><img class="photo" src="'.$this->objUserPic->userpicture($this->objUser->userId() ).'" alt="'.$this->objUser->fullName().'" /></p>'."\n";
         
-
-
-        return $menu;
+        return $objFeature->show($head, $body);
     }
 
     /**

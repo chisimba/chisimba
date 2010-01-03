@@ -31,6 +31,8 @@ class postloginmenu extends object
     function init()
     {
         $this->objSideMenu = $this->getObject('sidemenu','toolbar');
+        $this->objHcard = $this->getObject('microformats', 'utilities');
+        
     }
 
     /**
@@ -41,10 +43,9 @@ class postloginmenu extends object
     {
         //split the side menu into the menu items and the context login and user image
         $menu = '';
-        
         $menu .= $this->objSideMenu->userDetails();
         $menu .= $this->objSideMenu->getPostLoginMenuItems().'<br />';
-        //$menu .= $this->objSideMenu->contextDetails();
+        // $menu .= $this->objHcard->hCardUserFooter();
         
         return $menu;
     }
