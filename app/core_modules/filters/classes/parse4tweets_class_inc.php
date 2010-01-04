@@ -183,7 +183,7 @@ class parse4tweets extends object
         if (isset ($this->avatarsize)) {
             $avatarSize = $this->avatarsize;
         } else {
-            $avatarSize = "132";
+            $avatarSize = "32";
         }
         if (isset ($this->number)) {
             $displayCount = $this->number;
