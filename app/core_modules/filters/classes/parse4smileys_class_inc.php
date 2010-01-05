@@ -42,116 +42,120 @@ $GLOBALS['kewl_entry_point_run'])
 }
 // end security check
 
-
+/**
+ * Class for parsing smilies in a text string
+ *
+ * :-) will be replaces with an smiling image
+ *
+ *
+ */
 class parse4smileys extends object {
     /**
+     *
      * The array is taken from the Moodle smiley parser. The
      * idea is to use preg_replace with a callback to increase efficiency.
      * The regular expression to detect the smileys is created from the 
-     * smiley array. 
+     * smiley array.
+     *
+     * @access public
+     * @return VOID
+     *
      */
-    function init() {
+    public function init() {
         $this->objIcon = NULL;
         $this->objIcon = $this->getObject('geticon', 'htmlelements');
-        
         $this->smileyIcons = array(
-        htmlentities('>-)') => 'alien',
-        htmlentities('O:-)') => 'angel', 
-        htmlentities('o:-)') => 'angel',
-        htmlentities('X-(') => 'angry', 
-        htmlentities('x-(') => 'angry',
-        htmlentities('=D>') => 'applause',
-        htmlentities('b-(') => 'black_eye', 
-        htmlentities('P-(') => 'black_eye', 
-        htmlentities('p-(') => 'black_eye',
-        htmlentities(':-[') => 'bye',
-        htmlentities(':-p') => 'cheeky', 
-        htmlentities(':-P') => 'cheeky',
-        htmlentities('~:>') => 'chicken',
-        htmlentities(':o)') => 'clown', 
-        htmlentities(':O)') => 'clown',
-        htmlentities(':-/') => 'confused',
-        htmlentities('B-)') => 'cool',
-        htmlentities('<):-)>') => 'cowboy',
-        htmlentities('8-}') => 'crazy',
-        htmlentities(':-((') => 'cry',
-        htmlentities('/:-D/') => 'dance_of_joy',
-        htmlentities('#-o') => 'doh',
-        htmlentities('=P~') => 'drool', 
-        htmlentities('=p~') => 'drool', 
-        htmlentities('=b~') => 'drool',
-        htmlentities(':"->') => 'embarrassed',
-        htmlentities('>:-)') => 'evil',
-        htmlentities(':-L') => 'frustrated',
-        htmlentities('>:-D<') => 'hug',
-        htmlentities(':-D') => 'grin',
-        htmlentities('@-)') => 'hypnotised',
-        htmlentities('*-:-)') => 'idea',
-        htmlentities(':-*') => 'kiss',
-        htmlentities(':-))') => 'laugh',
-        htmlentities(':-x') => 'love', 
-        htmlentities(':-X') => 'love',
-        htmlentities(':-B') => 'nerd',    
-        htmlentities('[-(') => 'not_talking',
-        htmlentities('[-o<') => 'praying', 
-        htmlentities('[-O<') => 'praying',
-        htmlentities('/:-)') => 'raise_eyebrow',
-        htmlentities('8-|') => 'roll_eyes',
-        htmlentities('@};-') => 'rose',
-        htmlentities(':-(') => 'sad',
-        htmlentities('[-X') => 'shame_on_you', 
-        htmlentities('[-x') => 'shame_on_you',
-        htmlentities(':-O') => 'shocked', 
-        htmlentities(':-o') => 'shocked',
-        htmlentities(';;-)') => 'shy',
-        htmlentities(':-&') => 'sick',
-        htmlentities('8-X') => 'skull', 
-        htmlentities('xx-P') => 'skull', 
-        htmlentities('8-x') => 'skull', 
-        htmlentities('XX-P') => 'skull', 
-        htmlentities('I-)') => 'sleeping',
-        htmlentities(':-)>-') => 'victory',
-        htmlentities(':-)') => 'smile',
-        htmlentities('(:-|') => 'tired',
-        htmlentities(':-|') => 'straight_face',
-        htmlentities(':-?') => 'thinking',
-        htmlentities(':-"') => 'whistle',
-        htmlentities(';-)') => 'wink',
-        htmlentities(':-s') => 'worried', 
-        htmlentities(':-S') => 'worried',
+            htmlentities('>-)') => 'alien',
+            htmlentities('O:-)') => 'angel',
+            htmlentities('o:-)') => 'angel',
+            htmlentities('X-(') => 'angry',
+            htmlentities('x-(') => 'angry',
+            htmlentities('=D>') => 'applause',
+            htmlentities('b-(') => 'black_eye',
+            htmlentities('P-(') => 'black_eye',
+            htmlentities('p-(') => 'black_eye',
+            htmlentities(':-[') => 'bye',
+            htmlentities(':-p') => 'cheeky',
+            htmlentities(':-P') => 'cheeky',
+            htmlentities('~:>') => 'chicken',
+            htmlentities(':o)') => 'clown',
+            htmlentities(':O)') => 'clown',
+            htmlentities(':-/') => 'confused',
+            htmlentities('B-)') => 'cool',
+            htmlentities('<):-)>') => 'cowboy',
+            htmlentities('8-}') => 'crazy',
+            htmlentities(':-((') => 'cry',
+            htmlentities('/:-D/') => 'dance_of_joy',
+            htmlentities('#-o') => 'doh',
+            htmlentities('=P~') => 'drool',
+            htmlentities('=p~') => 'drool',
+            htmlentities('=b~') => 'drool',
+            htmlentities(':"->') => 'embarrassed',
+            htmlentities('>:-)') => 'evil',
+            htmlentities(':-L') => 'frustrated',
+            htmlentities('>:-D<') => 'hug',
+            htmlentities(':-D') => 'grin',
+            htmlentities('@-)') => 'hypnotised',
+            htmlentities('*-:-)') => 'idea',
+            htmlentities(':-*') => 'kiss',
+            htmlentities(':-))') => 'laugh',
+            htmlentities(':-x') => 'love',
+            htmlentities(':-X') => 'love',
+            htmlentities(':-B') => 'nerd',
+            htmlentities('[-(') => 'not_talking',
+            htmlentities('[-o<') => 'praying',
+            htmlentities('[-O<') => 'praying',
+            htmlentities('/:-)') => 'raise_eyebrow',
+            htmlentities('8-|') => 'roll_eyes',
+            htmlentities('@};-') => 'rose',
+            htmlentities(':-(') => 'sad',
+            htmlentities('[-X') => 'shame_on_you',
+            htmlentities('[-x') => 'shame_on_you',
+            htmlentities(':-O') => 'shocked',
+            htmlentities(':-o') => 'shocked',
+            htmlentities(';;-)') => 'shy',
+            htmlentities(':-&') => 'sick',
+            htmlentities('8-X') => 'skull',
+            htmlentities('xx-P') => 'skull',
+            htmlentities('8-x') => 'skull',
+            htmlentities('XX-P') => 'skull',
+            htmlentities('I-)') => 'sleeping',
+            htmlentities(':-)>-') => 'victory',
+            htmlentities(':-)') => 'smile',
+            htmlentities('(:-|') => 'tired',
+            htmlentities(':-|') => 'straight_face',
+            htmlentities(':-?') => 'thinking',
+            htmlentities(':-"') => 'whistle',
+            htmlentities(';-)') => 'wink',
+            htmlentities(':-s') => 'worried',
+            htmlentities(':-S') => 'worried',
         );
-        
     }
     
     
     
-    /**Each time a new smiley is added to the list, you
-     * should uncomment 
-     * $regex = $this->createSmileyRegex(); and 
-     * echo str_replace('\\', '\\\\', $regex);
-     * then view a story of page that uses filters, and the regular expression
-     * should print out at the top
-     */
-    function parseSmiley($str)
+    /**
+    *
+    * Each time a new smiley is added to the list, you
+    * should uncomment 
+    * $regex = $this->createSmileyRegex(); and 
+    * echo str_replace('\\', '\\\\', $regex);
+    * then view a story of page that uses filters, and the regular expression
+    * should print out at the top
+    *
+    * @param string $str The content to parse
+    * @return string The parsed content
+    * @access public
+    *
+    */
+    public function parseSmiley($str)
     {   
         $regex = '/(\\&(g(t(\\;(\\-(\\)(|))|\\:(\\-(\\)(|)|D(\\&(l(t(\\;(|))))|))))))|l(t(\\;(\\)(\\:(\\-(\\)(\\&(g(t(\\;(|))))))))))))|O(\\:(\\-(\\)(|))))|o(\\:(\\-(\\)(|))))|X(\\-(\\((|))|X(\\-(P(|))))|x(\\-(\\((|))|x(\\-(P(|))))|\\=(D(\\&(g(t(\\;(|)))))|P(\\~(|))|p(\\~(|))|b(\\~(|)))|b(\\-(\\((|)))|P(\\-(\\((|)))|p(\\-(\\((|)))|\\:(\\-(\\[(|)|p(|)|P(|)|\\/(|)|\\((\\((|)|)|L(|)|D(|)|\\*(|)|\\)(\\)(|)|\\&(g(t(\\;(\\-(|))))|)|)|x(|)|X(|)|B(|)|O(|)|o(|)|\\&(a(m(p(\\;(|))))|q(u(o(t(\\;(|)))))|)|\\|(|)|\\?(|)|s(|)|S(|))|o(\\)(|))|O(\\)(|))|\\&(q(u(o(t(\\;(\\-(\\&(g(t(\\;(|))))))))))))|\\~(\\:(\\&(g(t(\\;(|))))))|B(\\-(\\)(|)))|8(\\-(\\}(|)|\\|(|)|X(|)|x(|)))|\\/(\\:(\\-(D(\\/(|))|\\)(|))))|\\#(\\-(o(|)))|\\@(\\-(\\)(|))|\\}(\\;(\\-(|))))|\\*(\\-(\\:(\\-(\\)(|)))))|\\[(\\-(\\((|)|o(\\&(l(t(\\;(|))))|)|O(\\&(l(t(\\;(|))))|)|X(|)|x(|)))|\\;(\\;(\\-(\\)(|)))|\\-(\\)(|)))|I(\\-(\\)(|)))|\\((\\:(\\-(\\|(|)))))/e';
         //Uncomment the two following lines to generate a new regular expression
         //$regex = $this->createSmileyRegex();
         //echo str_replace('\\', '\\\\', $regex);
         return preg_replace($regex, "\$this->getSmiley('\\1')", $str);
-        
-        /* Previous Code
-        foreach ($this->smileyIcons as $smiley => $image) {
-            $test[] = $smiley;
-            $this->objIcon->setIcon($image, 'gif', 'icons/smileys/');
-            $icon = $this->objIcon->show();
-            $replace[] = $icon;
-        }
-        
-        return str_replace($test, $replace, $str);
-        */
-        
-    } # end of function
+    }
     
 
     /**
@@ -178,10 +182,12 @@ class parse4smileys extends object {
      *
      * @param string $smiley The smiley to be converted to an image
      * @return the html string corresponding to the given smiley
+     * @access public
+     * 
      */
     public function getSmiley($smiley) {
-      $this->objIcon->setIcon($this->smileyIcons[$smiley], 'gif', 'icons/smileys/');
-      return $this->objIcon->show();
+        $this->objIcon->setIcon($this->smileyIcons[$smiley], 'gif', 'icons/smileys/');
+        return $this->objIcon->show();
     }
     
     
@@ -191,10 +197,11 @@ class parse4smileys extends object {
      * smileys given in the smileyIcons array
      * @returns a regular expression that matches all given smileys
      */
-    public function createSmileyRegex() {
-      $regexGraph = $this->constructSmileyRegexGraph();
-      $regex = '/(' . $this->depthFirstRegex($regexGraph) . ')/e';
-      return $regex;
+    public function createSmileyRegex()
+    {
+        $regexGraph = $this->constructSmileyRegexGraph();
+        $regex = '/(' . $this->depthFirstRegex($regexGraph) . ')/e';
+        return $regex;
     }
     
     /**
@@ -227,25 +234,28 @@ class parse4smileys extends object {
      * This will recognise both :) and :(, but not : by
      * itself.
      * @returns an array as described above
+     * @access public
+     *
      */           
-    function constructSmileyRegexGraph() {
-      $nodes = array();
-      foreach ($this->smileyIcons as $smiley=>$image) {
-        $array = &$nodes;
-        $counter = 0;
-        $smileyChars = str_split($smiley);
-        for ($counter = 0; $counter < strlen($smiley); $counter++) {
-          if (!array_key_exists($smileyChars[$counter], $array)) {
-            $array[$smileyChars[$counter]]['nextlevel'] = array();
-            $array[$smileyChars[$counter]]['iscomplete'] = 0;
-          }
-          if ($counter == (strlen($smiley)-1)) {
-            $array[$smileyChars[$counter]]['iscomplete'] = 1;
-          }
-          $array = &$array[$smileyChars[$counter]]['nextlevel'];
+    public function constructSmileyRegexGraph()
+    {
+        $nodes = array();
+        foreach ($this->smileyIcons as $smiley=>$image) {
+            $array = &$nodes;
+            $counter = 0;
+            $smileyChars = str_split($smiley);
+            for ($counter = 0; $counter < strlen($smiley); $counter++) {
+                if (!array_key_exists($smileyChars[$counter], $array)) {
+                    $array[$smileyChars[$counter]]['nextlevel'] = array();
+                    $array[$smileyChars[$counter]]['iscomplete'] = 0;
+                }
+                if ($counter == (strlen($smiley)-1)) {
+                    $array[$smileyChars[$counter]]['iscomplete'] = 1;
+                }
+                $array = &$array[$smileyChars[$counter]]['nextlevel'];
+            }
         }
-      }
-      return $nodes;
+        return $nodes;
     }
     
     
@@ -258,30 +268,31 @@ class parse4smileys extends object {
      * constructSmileyRegexGraph() comments.
      * @returns a regular expression string
      */
-    function depthFirstRegex($graph) {
-      $regex = "";
-      $counter = 0;
-      $isend = '';
-      if (count($graph) == 0) {
-        return "";
-      }
-      foreach ($graph as $character=>$value) {
-        if ($graph[$character]['iscomplete'] == 1) {
-          $isend = '|';
+    function depthFirstRegex($graph)
+    {
+        $regex = "";
+        $counter = 0;
+        $isend = '';
+        if (count($graph) == 0) {
+            return "";
         }
-        if ($counter != 0) {
-          $regex .= '|';
+        foreach ($graph as $character=>$value) {
+            if ($graph[$character]['iscomplete'] == 1) {
+                $isend = '|';
+            }
+            if ($counter != 0) {
+                $regex .= '|';
+            }
+            $charRegex = '/^[A-Z0-9a-z]/';
+            $printchr = $character;
+            if (preg_match($charRegex,$character) == 0) {
+                $printchr = '\\' . $character;
+            }
+            $next = $this->depthFirstRegex($graph[$character]['nextlevel']);
+            $regex .= $printchr . '(' . $next . $isend . ')';
+            $counter++;
         }
-        $charRegex = '/^[A-Z0-9a-z]/';
-        $printchr = $character;
-        if (preg_match($charRegex,$character) == 0) {
-          $printchr = '\\' . $character;
-        }
-        $next = $this->depthFirstRegex($graph[$character]['nextlevel']);
-        $regex .= $printchr . '(' . $next . $isend . ')';
-        $counter++;
-      }
-      return $regex . '';
+        return $regex . '';
     }
        
 } # end of class
