@@ -97,7 +97,7 @@ class jqtabs extends object
     */    
     public function init()
     {
-        $jQuery = $this->newObject('jquery', 'htmlelements');
+        $jQuery = $this->newObject('jquery', 'jquery');
         $jQuery->loadUITabbing();
 
         $this->tabId = 'jQueryTab_'.rand(1,10);

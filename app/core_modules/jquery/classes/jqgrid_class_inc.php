@@ -125,7 +125,7 @@ class jqgrid extends object
     */    
     public function init()
     {
-        $this->jQuery = $this->newObject('jquery', 'htmlelements');
+        $this->jQuery = $this->newObject('jquery', 'jquery');
         $this->jQuery->loadLiveQueryPlugin();
         $this->loadClass('layer', 'htmlelements');
 

@@ -66,7 +66,7 @@ class jqtruncate extends object
     */
     private function loadTruncate()
     {
-        $this->appendArrayVar('headerParams', $this->getJavaScriptFile('truncate/jquery.truncate-2.3-pack.js'));
+        $this->appendArrayVar('headerParams', $this->getJavaScriptFile('plugins/truncate/jquery.truncate-2.3-pack.js'));
     }
 
     public function setTruncation(&$cls, &$chars, &$moreText, &$lessText)

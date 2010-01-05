@@ -74,8 +74,7 @@ class jqboxy extends object
         //Need to find a better way to do this, perhaps adding parameter support 
         //for object instanciation to the core enigine_class
         $theme = $this->getVar('jquery_boxy_theme', 'default');
-
-        $jQuery = $this->newObject('jquery', 'htmlelements');
+        $jQuery = $this->newObject('jquery', 'jquery');
         $jQuery->loadBoxPlugin('0.1.3', $theme);
         $jQuery->loadLiveQueryPlugin();
     }

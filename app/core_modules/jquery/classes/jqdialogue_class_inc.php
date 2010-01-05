@@ -140,9 +140,9 @@ class jqdialogue extends object
         $this->objSkin->setVar('SUPPRESS_PROTOTYPE', true);
         $this->objSkin->setVar('JQUERY_VERSION', '1.2.6');
 
-        $this->appendArrayVar('headerParams', $this->getJavascriptFile('jquery/api/ui/ui.core.js', 'htmlelements'));
-        $this->appendArrayVar('headerParams', $this->getJavascriptFile('jquery/api/ui/dialog/ui.dialog.js', 'htmlelements'));
-        $this->appendArrayVar('headerParams', '<link rel="stylesheet" type="text/css" href="'.$this->getResourceUri('jquery/api/ui/theme/ui.all.css', 'htmlelements').'">');
+        $this->appendArrayVar('headerParams', $this->getJavascriptFile('api/ui/ui.core.js', 'jquery'));
+        $this->appendArrayVar('headerParams', $this->getJavascriptFile('api/ui/dialog/ui.dialog.js', 'jquery'));
+        $this->appendArrayVar('headerParams', '<link rel="stylesheet" type="text/css" href="'.$this->getResourceUri('api/ui/theme/ui.all.css', 'jquery').'">');
 
         $options = array();
 
@@ -166,3 +166,4 @@ class jqdialogue extends object
         return $html;
     }
 }
+?>

@@ -67,7 +67,7 @@ class jqexpanding extends object
     */
     private function loadScript()
     {
-        $this->appendArrayVar('headerParams', $this->getJavaScriptFile('jquery/plugins/textareagrow/jquery.jgrow-0.2.js'));
+        $this->appendArrayVar('headerParams', $this->getJavaScriptFile('plugins/textareagrow/jquery.jgrow-0.2.js'));
     }
 
     public function setSetScript($divId)
