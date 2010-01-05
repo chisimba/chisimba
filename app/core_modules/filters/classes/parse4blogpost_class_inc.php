@@ -1,15 +1,46 @@
 <?php
+/**
+* Class to parse a string (e.g. page content) that contains a
+* tag for displaying a metaweblog API based blog post at the point of the
+* tag.
+*
+* PHP version 5
+*
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; either version 2 of the License, or
+* (at your option) any later version.
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+* You should have received a copy of the GNU General Public License
+* along with this program; if not, write to the
+* Free Software Foundation, Inc.,
+* 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+*
+* @category  Chisimba
+* @package   filters
+* @author    Paul Scott <pscott@uwc.ac.za>
+* @copyright 2007 Paul Scott
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+* @version   $Id: parse4adsense_class_inc.php 11998 2008-12-29 22:35:37Z charlvn $
+* @link      http://avoir.uwc.ac.za
+*/
 // security check - must be included in all scripts
 if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 /**
- * XML-RPC Client class
+ * XML-RPC Client class provided by filters
  *
- * @author Paul Scott
- * @copyright GPL
- * @package filters
- * @version 0.1
+ * @category  Chisimba
+ * @package   filters
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @copyright 2007 Paul Scott
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   $Id: parse4adsense_class_inc.php 11998 2008-12-29 22:35:37Z charlvn $
+ * @link      http://avoir.uwc.ac.za
  */
 class parse4blogpost extends object
 {
@@ -89,7 +120,7 @@ class parse4blogpost extends object
 
     
     /**
-    *
+    * Parse the string in the form of [BLOGPOST: server=127.0.0.1,endpoint=/cmysql, postid=gen14Srv13Nme33_44423_1260037572]
     * Method to parse the string
     * @param  string $str The string to parse
     * @return string The parsed string
@@ -104,10 +135,9 @@ class parse4blogpost extends object
             $str = trim($results[1][$counter]);
             //The whole match must be replaced
             $replaceable = $results[0][$counter];
-            $ar= $this->objExpar->getArrayParams($str, ",");
-            //var_dump($ar); die();
+            $ar = $this->objExpar->getArrayParams($str, ",");
             $val = $this->getBlogPost($ar);
-              $replacement = $val;
+            $replacement = $val;
             $txt = str_replace($replaceable, $replacement, $txt);
             $counter++;
         }
@@ -129,17 +159,10 @@ class parse4blogpost extends object
             $this->server = '127.0.0.1';
         }
         
-        /*// get the server and url from the params
-        if (isset($ar['url'])) {
-            $this->url = $ar['url'];
+        if (isset($this->objExpar->endpoint)) {
+            $this->url = $this->objExpar->endpoint.'/index.php?module=api';
         } else {
             $this->url = '/index.php?module=api';
-        }*/
-        
-        if (isset($this->objExpar->endpoint)) {
-            $this->url = $this->objExpar->endpoint;
-        } else {
-            $this->url = '/chisimba_framework/app/index.php?module=api';
         }
         
         // OK now get the post ID from the filter text
@@ -148,8 +171,7 @@ class parse4blogpost extends object
         } else {
             $this->postid = NULL;
         }
-        
-        //echo $this->url; die();//, //$this->url, $this->postid; die();
+
         $params = array(new XML_RPC_Value($this->postid, "string"), new XML_RPC_Value('username', "string"), new XML_RPC_Value('password', "string"));
         
         // Create the message
