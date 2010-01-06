@@ -1,7 +1,13 @@
 <?php
 /**
+ *
+ * Render a Youtube Video
+ *
  * Class to parse a string (e.g. page content) that contains a link
- * to a yout tube video and render the video in the page
+ * to a yout tube video and render the video in the page. Note that
+ * an alternative way is to use [quickembed:] thus rendering this
+ * plugin redundant. However, it needs to be retained as it is
+ * in heavy use.
  *
  * PHP version 5
  *
