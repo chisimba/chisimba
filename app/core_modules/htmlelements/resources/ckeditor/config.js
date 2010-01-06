@@ -12,6 +12,9 @@ CKEDITOR.editorConfig = function( config )
     config.extraPlugins = 'contexttools';
     config.toolbar = 'advanced';
     config.image_browseServer=true;
+    config.resize_minWidth = 400;
+    config.resize_maxWidth = '100%';
+
     config.enterMode = CKEDITOR.ENTER_BR;
     config.shiftEnterMode = CKEDITOR.ENTER_P;
     config.toolbar_advanced =
@@ -55,7 +58,7 @@ CKEDITOR.editorConfig = function( config )
 
     config.toolbar_cms =
     [
-     ['Source','-','Save','Preview', 'Templates'],
+    ['Source','-','Save','Preview', 'Templates'],
     ['Cut','Copy','Paste','PasteText','PasteWord','-','Print','SpellCheck'],
     ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
     ['Bold','Italic','Underline','StrikeThrough','-','Subscript','Superscript'],
@@ -65,7 +68,7 @@ CKEDITOR.editorConfig = function( config )
     ['Image','Flash','Table','Rule','Smiley','SpecialChar','PageBreak'],
     ['TextColor','BGColor'],['Link','Unlink','Anchor','FitWindow'],
     '/',
-        ['Styles','Format','Font','FontSize'],
+    ['Styles','Format','Font','FontSize'],
     ];
 
     config.toolbar_forms =
