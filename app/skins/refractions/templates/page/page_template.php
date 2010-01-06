@@ -13,8 +13,8 @@ require($objConfig->getsiteRootPath().'skins/_common/templates/skinpageheader2-0
         </title>
 <?php
     if (!isset($pageSuppressSkin)) {
-        echo '<link rel="stylesheet" type="text/css" href="skins/_common2/base.css">
-				  <link rel="stylesheet" type="text/css" href="skins/refractions/stylesheet.css">';
+        echo '<link rel="stylesheet" type="text/css" href="skins/_common2/base.css" />
+				  <link rel="stylesheet" type="text/css" href="skins/refractions/stylesheet.css" />';
     }
     
     echo $objSkin->putJavaScript($mime, $headerParams, $bodyOnLoad);
