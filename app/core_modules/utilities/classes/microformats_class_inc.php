@@ -97,12 +97,12 @@ class microformats extends object
         return phpMicroformats::createHCalendar($event);
     }
     
-    public function hCardUser() {
+    public function hCardUserFooter() {
         $pdata = $this->objUser->lookupData($this->objUser->userName());
         // var_dump($pdata);
         $personalData = array();
         $personalData['name'] = $pdata['firstname']." ".$pdata['surname'];
-        $personalData['email'] = $pdata['emailaddress'];
+        // $personalData['email'] = $pdata['emailaddress'];
         // var_dump($pdata);
         return $this->showHcard($personalData);
     }

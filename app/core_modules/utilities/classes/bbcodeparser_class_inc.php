@@ -25,6 +25,7 @@ class bbcodeparser extends object
     */
     public function init()
     {
+        include_once($this->getPearResource('HTML/BBCodeParser.php'));
         if(!class_exists('HTML_BBCodeParser'))
         {
             @include_once('HTML/BBCodeParser.php');
@@ -47,6 +48,7 @@ class bbcodeparser extends object
             //log_debug("set the parser");
             $parser->setText($text);
             $parser->parse();
+    
             return $parser->getParsed();
         } else {
             return $text;
