@@ -38,7 +38,7 @@ if (!$GLOBALS['kewl_entry_point_run'])
 *
 * Class to render login box, register links, and do other pre login duties
 *
-* @version $Id: logininterface_class_inc.php 15198 2009-10-20 08:12:49Z paulscott $
+* @version $Id: logininterface_class_inc.php 15865 2009-12-09 12:20:57Z paulscott $
 * @copyright 2003
 **/
 class loginInterface extends object
@@ -116,7 +116,7 @@ class loginInterface extends object
 
             //--- Create an element for the password
             $objInput = new textinput('password', '', 'password', '15');
-            $objInput->extra = "maxlength=255";
+            $objInput->extra = 'maxlength="255"';
             $objLabel = new label($this->objLanguage->languageText('word_password'). ': ', 'input_password');
             //Add the password box to the form
             //$objForm->addToForm();
