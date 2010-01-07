@@ -28,9 +28,17 @@
 * @link      http://avoir.uwc.ac.za
 */
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
+{
     die("You cannot view this page directly");
 }
+// end security check
 /**
  * XML-RPC Client class provided by filters
  *
@@ -120,7 +128,8 @@ class parse4blogpost extends object
 
     
     /**
-    * Parse the string in the form of [BLOGPOST: server=127.0.0.1,endpoint=/cmysql, postid=gen14Srv13Nme33_44423_1260037572]
+    * Parse the string in the form of [BLOGPOST: server=127.0.0.1,
+    * endpoint=/cmysql, postid=gen14Srv13Nme33_44423_1260037572]
     * Method to parse the string
     * @param  string $str The string to parse
     * @return string The parsed string
@@ -129,15 +138,16 @@ class parse4blogpost extends object
     public function parse($txt)
     {
         preg_match_all('/\\[BLOGPOST:(.*?)\\]/', $txt, $results);
-           $counter = 0;
-           foreach ($results[1] as $item) {
+        $counter = 0;
+
+        foreach ($results[1] as $item) {
             //Parse for the parameters
             $str = trim($results[1][$counter]);
             //The whole match must be replaced
             $replaceable = $results[0][$counter];
             $ar = $this->objExpar->getArrayParams($str, ",");
             $val = $this->getBlogPost($ar);
-            $replacement = $val;
+            $replacement = $this->parseContent($val);
             $txt = str_replace($replaceable, $replacement, $txt);
             $counter++;
         }
@@ -147,6 +157,7 @@ class parse4blogpost extends object
     /**
      * Method to get a blog post from the metaweblog api
      *
+     * @param string array $ar An array of parseable parameters
      * @param void
      * @return string
      */
@@ -165,43 +176,61 @@ class parse4blogpost extends object
             $this->url = '/index.php?module=api';
         }
         
-        // OK now get the post ID from the filter text
+        // OK now get the post ID from the filter text.
         if (isset($ar['postid'])) {
             $this->postid = $ar['postid'];
         } else {
             $this->postid = NULL;
         }
 
-        $params = array(new XML_RPC_Value($this->postid, "string"), new XML_RPC_Value('username', "string"), new XML_RPC_Value('password', "string"));
+        $params = array(new XML_RPC_Value($this->postid, "string"), 
+          new XML_RPC_Value('username', "string"),
+          new XML_RPC_Value('password', "string"));
         
-        // Create the message
+        // Create the message.
         $msg = new XML_RPC_Message('metaWeblog.getPost', $params);
-        $cli = new XML_RPC_Client($this->url, $this->server, $this->port, $this->proxy['proxy_host'], $this->proxy['proxy_port'], $this->proxy['proxy_user'], $this->proxy['proxy_pass']);
+        $cli = new XML_RPC_Client($this->url, $this->server, $this->port, 
+          $this->proxy['proxy_host'], $this->proxy['proxy_port'],
+          $this->proxy['proxy_user'], $this->proxy['proxy_pass']);
         $cli->setDebug(0);
         
-        // send the request message
+        // Send the request message.
         $resp = $cli->send($msg);
-        if (!$resp)
-        {
-            throw new customException($this->objLanguage->languageText("mod_packages_commserr", "packages").": ".$cli->errstr);
+        if (!$resp) {
+            throw new customException($this->objLanguage->languageText("mod_packages_commserr",
+              "packages").": ".$cli->errstr);
             exit;
         }
-        if (!$resp->faultCode())
-        {
+        if (!$resp->faultCode()) {
             $val = $resp->value();
             $xml = $val->serialize($val);
             $data = simplexml_load_string($xml);
             return $data->struct->member->value->string;
-        }
-        else
-        {
-            /*
-            * Display problems that have been gracefully caught and
-            * reported by the xmlrpc server class.
-            */
-            throw new customException($this->objLanguage->languageText("mod_packages_faultcode", "packages").": ".$resp->faultCode() . $this->objLanguage->languageText("mod_packages_faultreason", "packages").": ".$resp->faultString());
+        } else {
+            // Display problems that have been gracefully caught and
+            //   reported by the xmlrpc server class.
+            throw new customException($this->objLanguage->languageText("mod_packages_faultcode",
+              "packages").": ".$resp->faultCode() .
+               $this->objLanguage->languageText("mod_packages_faultreason",
+               "packages").": ".$resp->faultString());
         }
     }
 
+    /**
+     *
+     * Parse the output for any contained filters
+     *
+     * @param string $val The content being parsed
+     * @return string The parsed content
+     * @access private
+     * 
+     */
+    private function parseContent($val)
+    {
+        $objWashout = $this->getObject('washout', 'utilities');
+        // Avoid parsing the Ajax-based filters.
+        return $objWashout->parseText($content, TRUE,
+          array('blog', 'blogpost','deltags','filepreview', 'tweets'));
+    }
 }
 ?>

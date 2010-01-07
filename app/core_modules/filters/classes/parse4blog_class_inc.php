@@ -108,6 +108,7 @@ class parse4blog extends object
               . $this->postid;
             $replacement = $this->getReplacement($uri);
             $str = str_replace($item, $replacement, $str);
+            //die($str);
             $counter++;
         }
         // Return the string, parsed or not, depending on if oembed is isntalled
@@ -126,7 +127,7 @@ class parse4blog extends object
     private function getReplacement($uri)
     {
         $hashVal = md5(microtime());
-        $retScript = "\n\n<script>jQuery(document).ready(function() "
+        $retScript = "\n\n<script>\njQuery(document).ready(function() "
           . "{\n jQuery('#$hashVal').load('$uri');})</script>\n";
         $ret = "<div id='$hashVal'></div>\n\n";
         return $retScript . $ret;
