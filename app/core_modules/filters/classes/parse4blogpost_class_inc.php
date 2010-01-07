@@ -147,6 +147,7 @@ class parse4blogpost extends object
             $replaceable = $results[0][$counter];
             $ar = $this->objExpar->getArrayParams($str, ",");
             $val = $this->getBlogPost($ar);
+            //$replacement = $val;
             $replacement = $this->parseContent($val);
             $txt = str_replace($replaceable, $replacement, $txt);
             $counter++;
@@ -229,8 +230,8 @@ class parse4blogpost extends object
     {
         $objWashout = $this->getObject('washout', 'utilities');
         // Avoid parsing the Ajax-based filters.
-        return $objWashout->parseText($content, TRUE,
-          array('blog', 'blogpost','deltags','filepreview', 'tweets'));
+        return $objWashout->parseText($val, TRUE,
+          array('blog', 'deltags','filepreview', 'tweets'));
     }
 }
 ?>
