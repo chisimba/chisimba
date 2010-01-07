@@ -1,7 +1,38 @@
 <?php
+/**
+*
+* A class to run filters on text before display. This will call
+* all common parsers to parse audio links to display the file, etc.
+*
+* It is called a washout because it id designed to parse the
+* what comes out of the 'washing machine'.
+*
+* @category  Chisimba
+* @author Derek Keats
+* @author Paul Scott <pscott@uwc.ac.za>
+* @copyright UWC and AVOIR under the GPL
+* @package   utilities
+* @copyright 2007 AVOIR
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+* @version   $Id$
+* @link      http://avoir.uwc.ac.za
+*/
+
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
-    die("You cannot view this page directly");
+if (!
+/**
+ * The $GLOBALS is an array used to control access to certain constants.
+ * Here it is used to check if the file is opening in engine, if not it
+ * stops the file from running.
+ *
+ * @global entry point $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ *
+ */
+$GLOBALS['kewl_entry_point_run'])
+{
+        die("You cannot view this page directly");
 }
 // end security check
 
@@ -11,7 +42,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 * all common parsers to parse audio links to display the file, etc.
 *
 * It is called a washout because it id designed to parse the
-* what comes out of the washing machine.
+* what comes out of the 'washing machine'.
 *
 * @category  Chisimba
 * @author Derek Keats
@@ -57,6 +88,12 @@ class washout extends object
     private $objModules;
 
     /**
+    * @var string array $excluded An array of excluded filters
+    * @access private
+    */
+    private $excluded;
+
+    /**
      * Constructor method, builds an array of standard parsers,
      * ones that for legacy reasons do not live in the outputparsers
      * module.
@@ -69,7 +106,7 @@ class washout extends object
     public function init()
     {
         try {
-        	$this->objSysConfig = $this->getObject ( 'dbsysconfig', 'sysconfig' );
+            $this->objSysConfig = $this->getObject ( 'dbsysconfig', 'sysconfig' );
             $this->useFilters = $this->objSysConfig->getValue ( 'usefilters', 'utilities' );
             if ($this->useFilters != 'yes') {
             	return;
@@ -94,36 +131,37 @@ class washout extends object
     /**
      * Method to parse the washing
      *
-     * @param string $txt
+     * @param string $txt The string to be parsed
+     * @param boolean $bbcode Whether or not to parse for BBCODE
+     * @param string array $excluded An array of filters to exclude from parsing
      * @return string The text after it has been parsed
      *
      */
     public function parseText($txt, $bbcode = TRUE, $excluded=NULL)
     {
-    	//check the configs if the filters are enabled
-    	  if ($this->useFilters != 'yes') {
-        	return $txt;
+    	// Check the configs if the filters are enabled.
+    	if ($this->useFilters != 'yes') {
+            return $txt;
         }
-        /*
-        //simple version of previous code that called every filter
-        if ($this->classes) { 
-	          foreach ($this->classes as $existingClassname) {
-               $objCurrentParser = $this->getObject($existingClassname, 'filters');
-               $txt = $objCurrentParser->parse($txt); 
-	          }
-        }
-        */
 
-        
-        //find all filters that match the format [FILTERNAME*]*[/FILTERNAME] where * is anything and replace
-        $txt = preg_replace('/\\[(\\w+)(\\W([^\\]\\[]*?)|)\\](?s:.*?)(\\[\\/\\1\\])/Ueim',"\$this->getHTML('\\0', '\\1')", $txt);
-        if (PREG_NO_ERROR !== preg_last_error()){
-          $this->pcre_error_decode();
+        // Set the excluded array as a class property.
+        if ($excluded !== NULL) {
+            $this->excluded = $excluded;
         }
-        $txt = preg_replace('/\\[(\\w+)(\\W([^\\]\\[]*?)|)\\]/ie', "\$this->getHTML('\\0', '\\1')", $txt);
+       
+        // Find all filters that match the format [FILTERNAME*]*[/FILTERNAME]
+        //    where * is anything and replace.
+        $txt = preg_replace('/\\[(\\w+)(\\W([^\\]\\[]*?)|)\\](?s:.*?)(\\[\\/\\1\\])/Ueim',
+          "\$this->getHTML('\\0', '\\1')", $txt);
+        // @todo Author please explain what this does
+        if (PREG_NO_ERROR !== preg_last_error()){
+            $this->pcre_error_decode();
+        }
+        $txt = preg_replace('/\\[(\\w+)(\\W([^\\]\\[]*?)|)\\]/ie',
+          "\$this->getHTML('\\0', '\\1')", $txt);
               
-        //all the filters that don't conform to [FILTERNAME*]*[/FILTERNAME]
-        //manually execute them
+        // All the filters that don't conform to [FILTERNAME*]*[/FILTERNAME],
+        //  manually execute them.
         
         
         $class =  $this->getObject('parse4smileys', 'filters');
@@ -142,34 +180,40 @@ class washout extends object
         $txt = $class->parse($txt);
         
         $txt = $this->bbcode->parse4bbcode($txt);
-        // comment it out for now
-        //return $this->objUrl->tagExtLinks($this->objUrl->makeClickableLinks($txt));
-        //return $this->objUrl->makeClickableLinks($txt);
         return $txt;
     }
-    
-    function pcre_error_decode() {
-    switch (preg_last_error()) {
-        case PREG_NO_ERROR:
-            print "pcre_error: PREG_NO_ERROR!\n";
-            break;
-        case PREG_INTERNAL_ERROR:
-            print "pcre_error: PREG_INTERNAL_ERROR!\n";
-            break;
-        case PREG_BACKTRACK_LIMIT_ERROR:
-            print "pcre_error: PREG_BACKTRACK_LIMIT_ERROR!\n";
-            break;
-        case PREG_RECURSION_LIMIT_ERROR:
-            print "pcre_error: PREG_RECURSION_LIMIT_ERROR!\n";
-            break;
-        case PREG_BAD_UTF8_ERROR:
-            print "pcre_error: PREG_BAD_UTF8_ERROR!\n";
-            break;
-        case PREG_BAD_UTF8_OFFSET_ERROR:
-            print "pcre_error: PREG_BAD_UTF8_OFFSET_ERROR!\n";
-            break;
+
+    /**
+     *
+     * Decode any regular expression errors found.
+     *
+     * @access private
+     * @return VOID
+     *
+     */
+    private function pcre_error_decode()
+    {
+        switch (preg_last_error()) {
+            case PREG_NO_ERROR:
+                print "pcre_error: PREG_NO_ERROR!\n";
+                break;
+            case PREG_INTERNAL_ERROR:
+                print "pcre_error: PREG_INTERNAL_ERROR!\n";
+                break;
+            case PREG_BACKTRACK_LIMIT_ERROR:
+                print "pcre_error: PREG_BACKTRACK_LIMIT_ERROR!\n";
+                break;
+            case PREG_RECURSION_LIMIT_ERROR:
+                print "pcre_error: PREG_RECURSION_LIMIT_ERROR!\n";
+                break;
+            case PREG_BAD_UTF8_ERROR:
+                print "pcre_error: PREG_BAD_UTF8_ERROR!\n";
+                break;
+            case PREG_BAD_UTF8_OFFSET_ERROR:
+                print "pcre_error: PREG_BAD_UTF8_OFFSET_ERROR!\n";
+                break;
+        }
     }
-}
 
     
     /**
@@ -181,7 +225,8 @@ class washout extends object
     * @access private
     * 
     */
-    private function parserExists($classname) { //bisection search here would be faster as $this->classes is already sorted alphabetically
+    private function parserExists($classname) {
+        //bisection search here would be faster as $this->classes is already sorted alphabetically
         if ($this->classes) { 
 	       foreach ($this->classes as $existingClassname) {
 	           if ($classname == $existingClassname) {
@@ -201,18 +246,46 @@ class washout extends object
     * 
     * @param string $filterCode the filter code for the filter that appears in the brackets
     * @param string $filterName the name of the Filter (after parse4 in the filename)
-    * @access public
+    * @access private
     * @return string The filter code parsed.
     *
     */
-
-    public function getHTML($filterCode, $filterName) {
-        if ($this->parserExists('parse4' . strtolower($filterName))) {
-            $objCurrentParser = $this->getObject('parse4' . strtolower($filterName), 'filters');
-            //replace the entire filter with whatever the parser class specifies.
-            return $objCurrentParser->parse(" " . $filterCode . " "); 
+    private function getHTML($filterCode, $filterName) {
+        $filterName = strtolower($filterName);
+        if ($this->shouldParse($filterName)) {
+            if ($this->parserExists('parse4' . $filterName)) {
+                $objCurrentParser = $this->getObject('parse4' . strtolower($filterName), 'filters');
+                //replace the entire filter with whatever the parser class specifies.
+                return $objCurrentParser->parse(" " . $filterCode . " ");
+            } else {
+                return $filterCode;
+            }
         } else {
             return $filterCode;
+        }
+    }
+
+    /**
+     *
+     * Evaluate whether a given filter should be parsed based on
+     * what was supplied in the $excluded parameter of the parseText
+     * method.
+     *
+     * @param string $filterName THe filter to evaluate in lower case
+     * @return boolean TRUE | FALSE
+     * @access private
+     * 
+     */
+    private function shouldParse($filterName)
+    {
+        if (isset($this->excluded)) {
+            if (!in_array($filterName, $this->excluded)) {
+                return TRUE;
+            } else {
+                return FALSE;
+            }
+        } else {
+            return TRUE;
         }
     }
 }
