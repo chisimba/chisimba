@@ -4,6 +4,7 @@ var userOffset = 0;
 var selectedTab = "A";
 var selectedGroupId;
 var win;
+var addwin;
 var editwin;
 var edituri;
 var myMask = new Ext.LoadMask(Ext.getBody(), {msg:"Please wait..."});
@@ -195,8 +196,8 @@ var addGroupButton = new Ext.Button({
     tooltip:'Add a new Group',
     iconCls: 'silk-add',
     handler: function (){
-	        	if(!win){
-		            win = new Ext.Window({
+	        	if(!addwin){
+		            addwin = new Ext.Window({
 		                
 		                layout:'fit',
 		                width:400,
@@ -207,7 +208,7 @@ var addGroupButton = new Ext.Button({
 		                
 		            });
 		        }
-		        win.show(this);
+		        addwin.show(this);
 		        
             }
 })
@@ -475,8 +476,8 @@ var addNewGroupPanel = new Ext.FormPanel({
 						name: 'groupname',
 						itemId: 'groupname',
 						allowBlank:false,
-						vtype: 'groupname',
-						invalidText:'This group is already taken'			
+						vtype: 'groupname'
+						//invalidText:'This group is already taken'			
 		        
 					}],
 					
@@ -508,20 +509,20 @@ fields: '["group_define_name"]'}});
 				            	failure:function(action){}
 								});
 
-						win.hide();
+						addwin.hide();
 					}
 				}
 			}]
 });
 
-var val2 = 0;
+var val2 = "0";
 Ext.apply(Ext.form.VTypes, {	
 
 	groupname : function(val, field){
 		if (field != "")
 		{	
 			groupAvailable(val);
-			return (val2 == '1');		
+			return (val2 == "1");		
 		}else{		
 			return false;
 		}
