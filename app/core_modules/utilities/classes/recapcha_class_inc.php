@@ -140,13 +140,10 @@ class recaptcha extends object
     */
     public function checkAnswer() 
     {
-        return recaptcha_check_answer ($this->publicKey,
-          $_SERVER["REMOTE_ADDR"],
-          $_POST["recaptcha_challenge_field"],
-          $_POST["recaptcha_response_field"]);
+        return recaptcha_check_answer ($this->publicKey, $_SERVER["REMOTE_ADDR"], $_POST["recaptcha_challenge_field"], $_POST["recaptcha_response_field"]);
     }
     
-    publicFunction hideEmail()
+    public Function hideEmail()
     {
     	
     }
