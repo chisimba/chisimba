@@ -78,7 +78,7 @@
   <!-- Twitter status update target -->
   <target name="tweet">
       <twitterupdate
-          username="chisimba_svn" password="password"
+          username="chisimba_svn" password="avoir2008"
           message="${twitter.status}" />
   </target>
   
@@ -172,10 +172,7 @@
         <exclude name="usrfiles/**"/>
         <!-- exclude the cron dir -->
         <exclude name="cron/**"/>
-      </fileset>
-      <phingcall target="tweet">
-            <property name="twitter.status" value="Performing Lintian check at ${build.time}" />
-    </phingcall>
+      </fileset> 
     </phplint>
   </target>
   
