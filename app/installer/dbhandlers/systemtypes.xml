@@ -95,7 +95,6 @@
             <module>assignment</module>
             <module>assignmentadmin</module>
             <module>blocks</module>
-            <module>blog</module>
             <module>calendar</module>
             <module>context</module>
             <module>contextadmin</module>
@@ -103,29 +102,21 @@
             <module>contextgroups</module>
             <module>contextpermissions</module>
             <module>filemanager</module>
-            <module>filters</module>
-            <module>internalmail</module>
             <module>essay</module>
             <module>essayadmin</module>
             <module>faq</module>
             <module>forum</module>
             <module>glossary</module>
             <module>gradebook</module>
-            <module>mathml</module>
             <module>mcqtests</module>
-            <module>pbl</module>
-            <module>pbladmin</module>
             <module>personalspace</module>
-            <module>podcast</module>
             <module>popupcalendar</module>
             <module>rubric</module>
-            <module>simplemap</module>
-            <module>timeline</module>
             <module>tutorials</module>
             <module>websearch</module>
             <module>wiki</module>
             <module>worksheet</module>
-            <module>youtube</module>
+            <module>eportfolio</module>
         </category>
 
         <category>
