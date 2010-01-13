@@ -147,6 +147,9 @@
   <target name="build" description="Generates .tgz and .zip file containing framework" depends="init, lint, apidocs, build-tgz, build-zip">
   </target>
   
+  <target name="buildminimal" description="Generates .tgz and .zip file containing framework" depends="init, lint, build-tgz, build-zip">
+  </target>
+  
   <!-- Perform lintian task on the code - HALT on Failure! -->
   <target name="lint" description="Performs a lintian check (syntax check) on all the code going into the archive(s)" depends="init, svnexport">
     <phplint haltonfailure="true">
@@ -221,7 +224,7 @@
   <!-- /target>
   -->
   
-  <target name="build-tgz" description="Generates .tgz file containing framework" depends="init,svnexport, lint, apidocs">
+  <target name="build-tgz" description="Generates .tgz file containing framework" depends="init, svnexport, lint">
     <tar destfile="${tarfile}" compression="gzip">
       <fileset dir="${build.dir}/app/"/>
     </tar>
@@ -230,7 +233,7 @@
     </phingcall>
   </target>
   
-  <target name="build-zip" description="Generates .zip file containing framework" depends="init, svnexport, lint, apidocs">
+  <target name="build-zip" description="Generates .zip file containing framework" depends="init, svnexport, lint">
     <zip destfile="${zipfile}">
       <fileset dir="${build.dir}/app/"/>
     </zip>
@@ -307,8 +310,8 @@
   <!-- Deploy targets - local first, then remotes -->
   <!-- Local build target -->
   <target name="deploy-local" description="Copies archives to local folder" depends="init, build">
-    <copy file="${tarfile}" todir="./final" overwrite="true"/>
-    <copy file="${zipfile}" todir="./final" overwrite="true"/>
+    <copy file="${build.dir}/${tarfile}" todir="./final" overwrite="true"/>
+    <copy file="${build.dir}/${zipfile}" todir="./final" overwrite="true"/>
     <!--copy file="${apidoczipfile}" todir="./final" overwrite="true"/>
     <copy file="${apidoctarfile}" todir="./final" overwrite="true"/>
     <copy file="${docdoctarfile}" todir="./final" overwrite="true"/>
