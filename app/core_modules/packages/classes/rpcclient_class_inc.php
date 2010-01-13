@@ -81,7 +81,7 @@ class rpcclient extends object
             $proxyArr = array();
             $this->proxy = array('proxy_host' => '', 'proxy_port' => '', 'proxy_user' => '', 'proxy_pass' => '', );
         }
-        if ((!empty($proxyArr) && $proxyArr['proxy_protocol'] != '') && $_SERVER['HTTP_HOST'] != 'localhost') {
+        if (!empty($proxyArr) && $proxyArr['proxy_protocol'] != '' || $proxyArr['proxy_host'] != '' && $_SERVER['HTTP_HOST'] != 'localhost') {
             if(!isset($proxyArr['proxy_user']))
             {
                 $proxyArr['proxy_user'] = '';
