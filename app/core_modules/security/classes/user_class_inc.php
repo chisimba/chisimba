@@ -70,7 +70,7 @@ class user extends dbTable
         $this->objGroups = $this->getObject('groupadminmodel','groupadmin');
         $this->imagePath = $this->objConfig->getsiteRootPath().'/user_images/';
         $this->imageUrl = $this->objConfig->getsiteRoot().'user_images/';
-        $this->imageUri = '/user_images/';
+        $this->imageUri = 'user_images/';
         $this->objPerms = $this->getObject('perms', 'permissions');
 
     }
@@ -450,7 +450,6 @@ class user extends dbTable
         // get the user that we are interested in...
         //$user = $this->objLuAdmin->getUsers(array('container' => 'auth', 'filter' => array('handle' => $username)));
 
-        //var_dump($user); die();
         $sql="select userid from tbl_users where username='$username'";
         $rs = $this->query($sql);
         if ($rs)
@@ -886,9 +885,9 @@ class user extends dbTable
         }
 
         if (file_exists($this->imagePath.$userId.'.jpg')){
-            return '<img src="'.$this->imagePath.$userId.'_small.jpg" '.$alt.'/>';
+            return '<img src="'.$this->imageUri.$userId.'_small.jpg" '.$alt.'/>';
         } else {
-            return '<img src="'.$this->imagePath.'default_small.jpg" '.$alt.'/>';
+            return '<img src="'.$this->imageUri.'default_small.jpg" '.$alt.'/>';
         }
     }
 
