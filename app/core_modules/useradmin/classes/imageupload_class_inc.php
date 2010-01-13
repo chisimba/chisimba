@@ -71,7 +71,7 @@ class imageupload extends object
         $path = $_SERVER ['PHP_SELF'];
         $path = str_replace("/index.php", "", $path);
         
-        if (file_exists($this->imagePath.$userId.".jpg")){
+        if (file_exists($this->imageUri.$userId.".jpg")){
             return($this->imageUri.$userId.".jpg");
         } elseif($this->grav_enabled == 'TRUE') {
             //Include gravatar option if nothing has been uploaded
