@@ -100,7 +100,7 @@ class groupops extends object
 	$params["query"] = ($this->getParam("query")) ? $this->getParam("query") : '';
 	$params["sort"] = ($this->getParam("sort")) ? $this->getParam("sort") : null;
 
-	$where = "";;
+	$where = "";
 	$filter = " LIMIT ".$start.', '.$limit;
 
 	if(is_array($params['search'])){
@@ -112,7 +112,7 @@ class groupops extends object
 
 		foreach($params['search'] as $field){
 			$cnt++;
-			$where .= $field.' LIKE "'.$params['query'].'%"';
+			$where .= $field.' LIKE "%'.$params['query'].'%"';
 			if($cnt < $max){
 				$where .= " OR ";
 			}
@@ -435,7 +435,7 @@ class groupops extends object
 
 		foreach($params['search'] as $field){
 			$cnt++;
-			$where .= $field.' LIKE "'.$params['query'].'%"';
+			$where .= $field.' LIKE "%'.$params['query'].'%"';
 			if($cnt < $max){
 				$where .= " OR ";
 			}
