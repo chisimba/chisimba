@@ -72,11 +72,11 @@ class imageupload extends object
         $path = str_replace("/index.php", "", $path);
         
         if (file_exists($this->imagePath.$userId.".jpg")){
-            return($path.$this->imageUri.$userId.".jpg");
+            return($this->imageUri.$userId.".jpg");
         } elseif($this->grav_enabled == 'TRUE') {
             //Include gravatar option if nothing has been uploaded
             $grav_email = md5($this->objUser->email());
-            $grav_default = $path.$this->imageUri."default.jpg"; //$this->imageUrl."default.jpg";
+            $grav_default = $this->imageUri."default.jpg"; //$this->imageUrl."default.jpg";
             $grav_rating = 'G';
             $grav_size = 130;
             $grav_border = "000000";        		
@@ -84,7 +84,7 @@ class imageupload extends object
             return $grav_url;
         }
         else {
-            return $path.$this->imageUri."default.jpg";
+            return $this->imageUri."default.jpg";
         }
     }
 
