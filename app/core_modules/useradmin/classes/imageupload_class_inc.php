@@ -26,7 +26,7 @@ class imageupload extends object
         $this->objUser=$this->getObject('user','security');
         $this->imagePath = $this->objConfig->getsiteRootPath().'/user_images/';
         $this->imageUrl = $this->objConfig->getsiteRoot().'user_images/';
-        $this->imageUri = '/user_images/';
+        $this->imageUri = 'user_images/';
         $this->objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
         $this->grav_enabled = $this->objSysConfig->getValue('enable_gravitar', 'useradmin');
     }
