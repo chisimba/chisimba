@@ -112,7 +112,7 @@ class groupops extends object
 
 		foreach($params['search'] as $field){
 			$cnt++;
-			$where .= $field.' LIKE "%'.$params['query'].'%"';
+			$where .= " lower(".$field.") LIKE lower('%".$params['query']."%')";
 			if($cnt < $max){
 				$where .= " OR ";
 			}
@@ -121,14 +121,10 @@ class groupops extends object
 		}
 
 
-		$sql = "SELECT pu.group_define_name, pu.group_id, ct.title
-				FROM tbl_perms_groups as pu
-				LEFT join tbl_context as ct
-				on pu.group_define_name = ct.contextcode
-				WHERE group_define_name NOT LIKE '%^%'".$where;
+		$sql = "SELECT pu.group_define_name, pu.group_id, ct.title FROM tbl_perms_groups as pu LEFT join tbl_context as ct on pu.group_define_name = ct.contextcode WHERE group_define_name NOT LIKE '%^%'".$where;
 
-		//error_log(var_export($sql.$filter, true));
-		$groups = $this->objDBContext->getArray($sql.$filter);
+		
+		$groups = $this->objDBContext->getArray($sql);
     	$totalCount = count($this->objDBContext->getArray($sql));
 
 		if($totalCount > 0)
@@ -159,17 +155,9 @@ class groupops extends object
     public function getJsonGroupUsers($groupId, $start=0, $limit=25)
     {
     	$filter = " LIMIT ".$start.', '.$limit;
-    	$sql = "SELECT gu.perm_user_id, pu.auth_user_id,
-				us.firstName, us.surname, us.username,
-				us.last_login, us.logins, us.emailAddress
-				from tbl_perms_groupusers as gu
-				INNER join tbl_perms_perm_users as pu
-				on gu.perm_user_id = pu.perm_user_id
-				INNER join tbl_users as us
-				on pu.auth_user_id = us.userId
-				WHERE group_id = ".$groupId."
-				ORDER BY us.surname ".$filter;
-
+    	$sql = "SELECT gu.perm_user_id, pu.auth_user_id, us.firstName, us.surname, us.username, us.last_login, us.logins, us.emailAddress from tbl_perms_groupusers as gu INNER join tbl_perms_perm_users as pu on gu.perm_user_id = pu.perm_user_id INNER join tbl_users as us on CAST(pu.auth_user_id AS CHAR(25)) = us.userId WHERE group_id = ".$groupId." ORDER BY us.surname ";
+	
+	error_log(var_export($sql, true));
     	$users = $this->objDBContext->getArray($sql);
     	$userCount = count($this->getUsersInGroup($groupId));
 
@@ -255,10 +243,10 @@ class groupops extends object
      */
     public function jsonCheckGroupAvailable($groupName){
     	    	
-    	$recordCount = $this->objUser->getArray("SELECT count(group_id) as cnt FROM tbl_perms_groups WHERE group_define_name=\"$groupName\"");
+    	$recordCount = $this->objUser->getArray("SELECT count(group_id) as cnt FROM tbl_perms_groups WHERE lower(group_define_name) = lower('".$groupName."')");
     	$extjs = (intval($recordCount[0]['cnt']) > 0) ? '0':'1';              
 		
-		return json_encode(array('success' => true, 'data' => $extjs));
+	return json_encode(array('success' => true, 'data' => $extjs));
     }
 
     /**
@@ -305,14 +293,7 @@ class groupops extends object
 			$sql = "UPDATE tbl_perms_groups SET group_define_name = '".$newgroupname."^".$pieces[1]."' WHERE group_define_name = '".$grp['group_define_name']."'";
 			$this->objDBContext->getArray($sql);
 		}
-
-
-
-
-
-
-
-		error_log(var_export($sql, true));
+        	//error_log(var_export($sql, true));
 		//$sql = "UPDATE tbl_perms_groups SET group_define_name = '".$newgroupname."' WHERE group_id = ".$id;
 		//$this->objDBContext->getArray($sql);
 	}
@@ -435,7 +416,7 @@ class groupops extends object
 
 		foreach($params['search'] as $field){
 			$cnt++;
-			$where .= $field.' LIKE "%'.$params['query'].'%"';
+			$where .= " lower(".$field.") LIKE lower('".$params['query']."%')";
 			if($cnt < $max){
 				$where .= " OR ";
 			}
@@ -445,13 +426,7 @@ class groupops extends object
 	}
 
     	$filter = " LIMIT $start , $limit";
-    	$sql = "SELECT pu.perm_user_id, us.firstName, us.surname, us.username,
-    			us.last_login, us.logins, us.emailAddress
-    			FROM tbl_users as us
-    			INNER join tbl_perms_perm_users as pu
-				on us.userId = pu.auth_user_id
-    			".$where."
-    			ORDER BY us.surname ".$filter;
+    	$sql = "SELECT pu.perm_user_id, us.firstName, us.surname, us.username, us.last_login, us.logins, us.emailAddress FROM tbl_users as us INNER join tbl_perms_perm_users as pu on us.userId = CAST(pu.auth_user_id AS CHAR(25)) ".$where." ORDER BY us.surname "/*.$filter*/;
 		error_log(var_export($sql, true));
     	$users = $this->objDBContext->getArray($sql);
     	$countSQL = "SELECT username FROM tbl_users";

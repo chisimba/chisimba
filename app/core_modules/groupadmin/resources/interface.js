@@ -233,6 +233,7 @@ var toolBar = new Ext.Toolbar({
 		            });
 		        }
 		        win.show(this);
+			userStore.load({params:{start:0, limit:25}});
 		        
             }
         }, '-',rmButton, 
