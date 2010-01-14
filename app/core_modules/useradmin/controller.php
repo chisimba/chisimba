@@ -81,7 +81,7 @@ class useradmin extends controller
 			case 'jsongetusers':
                 return $this->__jsongetusers();
 			case 'jsonsavenewuser':
-				return $this->__jsonsaveNewUser();
+				return $this->__jsonSaveNewUser();
 			case 'deleteuser':
 				return $this->__deleteuser();
 			case 'checkusername':

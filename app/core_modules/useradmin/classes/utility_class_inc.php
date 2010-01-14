@@ -44,7 +44,7 @@ $GLOBALS ['kewl_entry_point_run']) {
 class utility extends object {
 
 
-	public $objUserAdmin;
+    public $objUserAdmin;
     /**
      * Constructor
      *
@@ -52,113 +52,88 @@ class utility extends object {
      *
      */
     public function init() {
-
-	$this->objUserAdmin = $this->getObject('useradmin_model2','security');   
-	$this->objLanguage = $this->getObject('language','language');     
+      $this->objUserAdmin = $this->getObject('useradmin_model2','security');   
+      $this->objLanguage = $this->getObject('language','language');     
     }
 
 
 
 
-public function jsongetusers($start, $limit)
-	{
-		$params["start"] = ($this->getParam("start")) ? $this->getParam("start") : null;
-		$params["limit"] = ($this->getParam("limit")) ? $this->getParam("limit") : null;
-		$params["search"] = ($this->getParam("fields")) ? json_decode(stripslashes($this->getParam("fields"))) : null;
-		$params["query"] = ($this->getParam("query")) ? $this->getParam("query") : null;
-		$params["sort"] = ($this->getParam("sort")) ? $this->getParam("sort") : null;
-	
-		$where = "";		
-	
-		if(is_array($params['search'])){
-			$max = count($params['search']);
+    public function jsongetusers($start = 0, $limit = 25)
+{
+	$params["start"] = ($this->getParam("start")) ? $this->getParam("start") : null;
+	$params["limit"] = ($this->getParam("limit")) ? $this->getParam("limit") : null;
+	$params["search"] = ($this->getParam("fields")) ? json_decode(stripslashes($this->getParam("fields"))) : null;
+	$params["query"] = ($this->getParam("query")) ? $this->getParam("query") : null;
+	$params["sort"] = ($this->getParam("sort")) ? $this->getParam("sort") : null;
+
+	$where = "";		
+
+	if(is_array($params['search'])){
+		$max = count($params['search']);
+
+		$cnt = 0;
 		
-			$cnt = 0;
-		
-			foreach($params['search'] as $field){
-				$cnt++;
-			
-							
-				$where .= $field.' LIKE "'.$params['query'].'%"';
+		foreach($params['search'] as $field){
+		$cnt++;
+	
+		$where .= " lower(".$field.") LIKE lower('".$params['query']."%')";
 						
-				if($cnt < $max){
-					$where .= " OR ";
-				}
-			}
+		if($cnt < $max){
+			$where .= " OR ";
+		}
+		}
 		
-			$where = ' WHERE '.$where;
-		
+		$where = " WHERE ".$where;
+
 		}
 	
 		$arr = array();
 		
-			$filter = " LIMIT $start , ".$params["limit"];
-		    $userCount = count($this->objUserAdmin->getAll());
-			$var_users = $this->objUserAdmin->getAll($where." ORDER BY title ".$filter);
+		$filter = " LIMIT $start , ".$params["limit"];
+		$userCount = count($this->objUserAdmin->getAll());
+		$var_users = $this->objUserAdmin->getAll($where." ORDER BY title ");
 
-			if(count($var_users) > 0){
-				
-				$arr = array();
-				$users = array();
-				foreach($var_users as $user){
-						$arr = array();
-						$arr['id'] = $user['id'];
-						$arr['userid'] = $user['userid'];
-						$arr['staffnumber'] = $user['staffnumber'];
-						$arr['username'] = $user['username'];
-						$arr['title'] = $user['title'];
-						$arr['firstname'] = $user['firstname'];
-						$arr['surname'] = $user['surname'];
-						$arr['emailaddress'] = $user['emailaddress'];
+		if(count($var_users) > 0){
+			
+		$arr = array();
+		$users = array();
+		foreach($var_users as $user){
+			$arr = array();
+			$arr['id'] = $user['id'];
+			$arr['userid'] = $user['userid'];
+			$arr['staffnumber'] = $user['staffnumber'];
+			$arr['username'] = $user['username'];
+			$arr['title'] = $user['title'];
+			$arr['firstname'] = $user['firstname'];
+			$arr['surname'] = $user['surname'];
+			$arr['emailaddress'] = $user['emailaddress'];
 
-						if ($user['howcreated'] == 'LDAP') {
-						    $arr['howcreated'] = true;
-						} else {
-						    $arr['howcreated'] = false;
-						}
-						if ($user['isactive'] == '0') {
-						   $arr['isactive'] = false;
-						} else {
-						    $arr['isactive'] = true;
-						}
-
-						/*Prepare Delete Link
-						$this->loadclass('link','htmlelements');
-						$objIcon = $this->newObject('geticon', 'htmlelements');
-						$delLink = array(
-							'action' => 'deleteuser',
-							'id' => $user['id'],
-							'module' => 'useradmin',
-							'confirm' => 'yes'
-						);
-						$deletephrase = $this->objLanguage->languageText('delete_user_confirm', 'useradmin');
-						$conf = $objIcon->getDeleteIconWithConfirm('', $delLink, 'useradmin', $deletephrase);
-						$arr['delete'] = $conf;
-						//End of Prepared Delete Link
-
-						//Prepare Edit Link
-						$sid = $user['id'];
-						$editUserLink = new link();
-						$editUserLink->link("javascript:showForm('$sid')");
-						$objIcon->setIcon('edit');
-						$editUserLink->link=$objIcon->show();
-				        $arr['edit'] = $editUserLink->show();
-						//End of Prepared Edit Link*/
-
-				    	$users[] = $arr;
-					}	    	
-					return json_encode(array('usercount' => $userCount, 'users' =>  $users));
-				}
-				else {
-					$arr['usercount'] = "0";
-					$arr['users'] = array();
-					return json_encode($arr);
+			if ($user['howcreated'] == 'LDAP') {
+			    $arr['howcreated'] = true;
+			} else {
+			    $arr['howcreated'] = false;
 			}
+			if ($user['isactive'] == '0') {
+			   $arr['isactive'] = false;
+			} else {
+			    $arr['isactive'] = true;
+			}
+
+		 	$users[] = $arr;
+			}	    	
+			return json_encode(array('usercount' => $userCount, 'users' =>  $users));
+			}
+		else {
+			$arr['usercount'] = "0";
+			$arr['users'] = array();
+			return json_encode($arr);
+		}
 	}
 
 	public function jsonSaveNewUser()
     {
-		$userId = $this->objUserAdmin->generateUserId();
+	$userId = $this->objUserAdmin->generateUserId();
         $username = $this->getParam('useradmin_username');
         $password = $this->getParam('useradmin_password');
         $repeatpassword = $this->getParam('useradmin_repeatpassword');
@@ -167,12 +142,12 @@ public function jsongetusers($start, $limit)
         $surname = $this->getParam('useradmin_surname');
         $email = $this->getParam('useradmin_email');
         $sex = $this->getParam('useradmin_sex');
-		$cellnumber = $this->getParam('useradmin_cellnumber');
+	$cellnumber = $this->getParam('useradmin_cellnumber');
         $staffnumber = $this->getParam('useradmin_staffnumber');
         $accountstatus = $this->getParam('accountstatus');
         $country = $this->getParam('countryId');
        
-		$pkid = $this->objUserAdmin->addUser($userId, $username, $password, $title, $firstname, $surname, $email, $sex, $country, $cellnumber, $staffnumber, 'useradmin', $accountstatus);
+	$pkid = $this->objUserAdmin->addUser($userId, $username, $password, $title, $firstname, $surname, $email, $sex, $country, $cellnumber, $staffnumber, 'useradmin', $accountstatus);
        
      }
 
@@ -205,10 +180,10 @@ public function jsongetusers($start, $limit)
 		 	    }
 
 	public function jsonUpdateUserDetails()
-    {
+        {
         
         $id = $this->getParam('id');
-		error_log(var_export('id = '.$id, true));
+	//error_log(var_export('id = '.$id, true));
         $user = $this->isValidUser($id, 'userdetailsupdate');
         //$this->setVarByRef('user', $user);
         
