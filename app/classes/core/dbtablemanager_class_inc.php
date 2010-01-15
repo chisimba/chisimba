@@ -408,7 +408,7 @@ class dbTableManager extends object
         	             'primary' => TRUE,
 		                   );
 
-		$pname = 'pk' . rand(0,999);
+		$pname = 'pk' . rand(0,99999);
 
 		$this->createTableIndex($tableName, $pname, $primindex, TRUE);
         return TRUE;
