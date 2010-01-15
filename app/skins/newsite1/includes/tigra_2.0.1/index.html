@@ -1,0 +1,46 @@
+<html> 
+<head>
+	<title>JavaScript Menu - Demo #1</title>
+	<!-- styles for demo menu #1-->
+	<link rel="stylesheet" href="menu.css">
+</head>
+
+<body>
+
+<!-- comments begin -->
+<p style="margin-top:200px">Above you can see the same Tigra Menu configuration as on the product page at our website. This sample demonstrates:</p>
+<ul>
+	<li>Background image is applied to the root menu items (blue gradient repeated horizontally) via CSS property. Different image is specified to the rollover state of the item which creates the rollover effect (see menu.css)</li>
+	<li>Background image is applied to hover state of sub-menus (white arrow on the left) via CSS property (see menu.css)</li>
+	<li>Borders, fonts faces, font decorations etc. - all configured in CSS file for the menu levels independently (see menu.css)</li>
+	<li>Item sizes, item offsets within menu block and block offsets are configured for the menu level independently (see menu_tpl.js)</li>
+	<li>Properties omitted for the levels of the menu are inherited from the parent level (see menu_tpl.js)</li>
+</ul>
+<!-- comments end -->
+
+<!-- menu script itself. you should not modify this file -->
+<script language="JavaScript" src="menu.js"></script>
+<!-- items structure. menu hierarchy and links are stored there -->
+<script language="JavaScript" src="menu_items.js"></script>
+<!-- files with geometry and styles structures -->
+<script language="JavaScript" src="menu_tpl.js"></script>
+<script language="JavaScript">
+	<!--//
+	// Make sure the menu initialization is right above the closing </body> tag
+	// Moving it inside other tags will not affect the position of the menu on
+	// the page. If you need this feature please consider Tigra Menu GOLD.
+
+	// each menu gets two parameters (see demo files)
+	// 1. items structure
+	// 2. geometry structure
+
+	new menu (MENU_ITEMS, MENU_TPL);
+
+	// If you don't see the menu then check JavaScript console of the browser for the error messages
+	// "Variable is not defined" error indicates that there's syntax error in that variable's definition
+	// or the file with that variable isn't properly linked to the HTML document
+	//-->
+</script>
+
+</body>
+</html>

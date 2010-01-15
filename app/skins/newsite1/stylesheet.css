@@ -1,0 +1,633 @@
+/*sanord.com
+Set up the body to have a white background with a UWC image background
+that is fixed in position such that the content scrolls over it.
+*/
+body {
+	background-color: #fff;
+	color:#333;
+	background-image: url(images/page_bg_gradient.png);
+	background-repeat: repeat-x;
+	font:83%/1.5 arial,tahoma,verdana,sans-serif;
+}
+/*
+Fix up the fact that commons styles messes with the format of lists, something
+that should be fixed one day.
+*/
+
+li {
+    line-height: 1.4em;
+    padding-left: 10px;
+}
+ul
+{
+    list-style-type: square;
+    margin:0;
+    padding:0 20px;
+    z-index: -3;
+}
+ul ul
+{
+    list-style-type: circle;
+    margin:0;
+    padding:0 10px;
+    z-index: -3;
+}
+/*
+Set up the style for default link text, as well as link text
+for hover
+*/
+a:link, a:visited {
+	color: #F69916;
+}
+
+a:hover a:visited:hover {
+	color: #6E7E3D;
+}
+/* 
+Set up the header styles for the header and banner
+*/
+div#header {
+	background: transparent url() no-repeat top left;
+	height: 120px;
+	color: #fff;
+	padding: 0;
+}
+#headerwrapper {
+	background: transparent url();
+    background-repeat: repeat-x;
+	height: 120px;
+	margin: 0;
+	padding: 0;
+}
+div#header h1#sitename span {
+    /* The name of the site is in the image so don't display the text */
+    display: none;
+}
+div#header div#search {
+	position: absolute;
+	color:#8FBC8F;
+	float: right;
+	 top: 0px;
+	 right: 0px;
+	 width: 300px;
+}
+
+/** Footer settings **/
+#footer {
+    background: #e0ebf4 url("images/powered_by_chisimba.png") no-repeat center;
+    color:#999;
+}
+
+#footer p {margin:0}
+#footer a:link {color:#999}
+
+/** Menu settings **/
+#menu {
+	padding-bottom: 10px;
+}
+ul#menuList  li {
+	background-color: #EAEAEA;
+	padding: 2px;
+	background-image: none;
+
+	border-right: 3px solid	#8E8C8C;
+	border-bottom: 3px solid	#C7C7C7;
+	font-weight: bold;
+}
+ul#menuList  li:hover {
+	background-color: #fff;
+}
+/* Top Row*/
+ul#menuList  li a {
+	color: #577F9B;
+	text-decoration: none;
+	padding-right: 30px;
+}
+
+/* Items on menu*/
+ul#menuList  li li a {
+	color: #000;
+	text-decoration: none;
+	padding: 3px;
+}
+ul#menuList  li li a img{
+	border-style: none;
+	padding: 0;
+	margin: 0;
+}
+ul#menuList  li li a span{
+    margin-left: 27px;
+    margin-right: 0px;
+    display: block;
+}
+ul#menuList  li  li{
+	border-style: none;
+	width: 100%;
+	background: transparent;
+	color: #000;
+	font-weight: normal;
+	padding: 0;
+}
+ul#menuList  li  li:hover{
+	border-style: none;
+	background-color: #99A777;
+}
+ul#menuList  li  ul{
+	background-color: #fff;
+	border: 1px solid #666666;
+	margin-top: 4px;
+}
+/* Increase padding on the last right item*/
+ul#menuList  li  li.last a{
+    padding-right: 8px;
+}
+
+
+/* This sets the margin of the central content area within whtih 
+   the #left and #right must fit. */
+#threecolumn div#wrapper div#content{
+    margin: 0 250px 0 250px;
+}
+#threecolumn div#wrapper{
+    background: transparent;
+}
+
+#threecolumn div#content{
+    background: transparent;
+    background-image: url(images/bg_transp_60.png);
+}
+/* For a 3 column layout, set the width of the #left
+   div to be a few pixels less than the margins of the 
+   #wrapper and #content divs to create a bit of space
+   between them. */
+#threecolumn div#left{
+    float:left;
+    width:239px;
+    margin-left:-100%;
+    background: transparent;
+    background-image: url(images/bg_transp_60.png);
+}
+#threecolumn div#right{
+    float:left;
+    width:239px;
+    margin-left:-239px;
+    background: transparent;
+    background-image: url(images/bg_transp_60.png);
+}
+
+/* Two Column Layout */
+#twocolumn div#wrapper div#content{
+    margin: 0 0 0 250px
+}
+#twocolumn div#wrapper{
+    background: transparent;
+}
+#twocolumn div#content{
+    background: transparent;
+    background-image: url(images/bg_transp_60.png);
+}
+#twocolumn div#left{
+    float:left;
+    width:239px;
+    margin-left:-100%;
+    background: transparent;
+    background-image: url(images/bg_transp_90.png);
+}
+
+#twocolumn div#right{
+    display:none;
+}
+
+div#twocolumn, div#threecolumn {
+    margin-top: 10px;
+}
+
+#leftcontent, #rightcontent, #contentcontent {
+    margin: 0 20px 0 10px;
+}
+
+div#leftcontent, div#rightcontent {
+    margin-top:20px;
+
+}
+
+/* Tables */
+
+th.header, thead, td.heading, tr.heading, th {
+	background-color: #DCDCDC;
+}
+
+table.highlightrows tr:hover {
+	background-color: lightgrey;
+}
+
+.odd, td.odd, tr.odd{
+	background-color: #FFFFFF;
+}
+
+.even, td.even, tr.even{
+	background-color: #f3fafe;
+}
+
+td.widelink a {
+	display:block;
+}
+
+td.widelink a:link {
+	text-decoration: none;
+	color: #A52A2A;
+}
+td.widelink a:visited {
+	text-decoration: none;
+	color: #A52A2A;
+}
+td.widelink a:active {
+	text-decoration: none;
+	color: #A52A2A;
+}
+td.widelink a:hover {
+	text-decoration: underline;
+	color: red;
+}
+
+.menulink a:link {
+	text-decoration:none;
+	color: #A52A2A;
+}
+
+.menulink a:visited {
+	text-decoration:none;
+	color: #A52A2A;
+}
+.menulink a:active {
+	text-decoration:none;
+	color: #A52A2A;
+}
+.menulink a:hover {
+	text-decoration:none;
+	color: #00008B;
+}
+
+/* Tabbed box */
+
+.shadetabs{
+    padding: 3px 0;
+    margin-left: 0;
+    margin-top: 1px;
+    margin-bottom: 0;
+    font: bold 12px Verdana;
+    list-style-type: none;
+    text-align: left; /*set to left, center, or right to align the menu as desired*/
+}
+
+.shadetabs li{
+    display: inline;
+    list-style: none;
+    margin: 0;
+}
+
+.shadetabs li a{
+    text-decoration: none;
+    padding: 3px 7px;
+    margin-right: 3px;
+    border: 1px solid #778;
+    color: #2d2b2b;
+    background: white url(images/shade.gif) top left repeat-x;
+}
+
+.shadetabs li a:visited{
+    color: #2d2b2b;
+}
+
+.shadetabs li a:hover{
+    text-decoration: underline;
+    color: #2d2b2b;
+}
+
+.shadetabs li.selected{
+    position: relative;
+    top: 1px;
+}
+
+/*selected main tab style */
+.shadetabs li.selected a{
+    background-image: url(images/shadeactive.gif);
+    border-bottom-color: white;
+}
+
+/*selected main tab style */
+.shadetabs li.selected a:hover{
+    text-decoration: none;
+}
+
+/*style of tab content container*/
+.tabcontentstyle{
+    border: 1px solid gray;
+    margin-bottom: 1em;
+    padding: 10px;
+}
+
+.tabcontent{
+    display:none;
+}
+
+@media print {
+    .tabcontent {
+        display:block!important;
+    }
+}
+
+/* Feature Box */
+.featurebox {
+    color:#333;
+    padding: 15px 20px 20px; 
+    margin: 0 0 1.5em;
+    background: #f6f6f6 url("images/featurebox_bg.gif") no-repeat 100% 100%
+}
+.featurebox p, .featurebox h1, .featurebox h2, .featurebox h3, .featurebox h4, .featurebox h5, .featurebox h6 {
+    margin: 0 0 .3em;
+    border-bottom: 1px solid #c00;
+    color:#c00; 
+    background-color: transparent;
+}
+.featurebox p {
+    border:none;
+    margin: 0 0 1em;
+    color:#444
+}
+.featurebox a {
+    font-weight:bold; 
+    text-decoration:none;
+}
+.featurebox select {
+    width: 100%; 
+}
+
+
+
+
+
+
+/** BEGIN: Content Feature Box as used for the blocks that appear in the page body  **/
+.contentfeaturebox {
+	color: #333333;
+	padding: 15px 20px 20px;
+	border-top: 4px solid #FF6633;
+	margin: 0 0 1.5em;
+	background: /* url("images/featurebox_bg.gif") */ no-repeat 100% 100%;
+}
+
+.contentfeaturebox p, .featurebox h1, .featurebox h2, .featurebox h3, .featurebox h4, .featurebox h5, .featurebox h6 {
+	margin: 0 0 .3em ;
+	padding-left: 5px;
+	border-bottom: 1px solid #0033FF;
+	color: #6A7F3C;
+	background-color: transparent;
+}
+.contenttest {color: #003366}
+.contentfeaturebox p {
+	border:none;
+	margin: 0 0 1em;
+	color: #333333;
+}
+
+.featureboxcontent {
+	padding: 4px;
+}
+
+.featurebox .featureboxcontent select, .featurebox select {
+	width: 130px;
+}
+
+.contentfeaturebox a {
+	font-weight:bold;
+}
+
+.contentfeaturebox select {
+	width: 100%;
+}
+/** END: Content Feature Box as used for the blocks that appear in the page body **/
+
+
+/* Secondary Navigation */
+
+ul#nav-secondary li{
+    background-color:#009933;
+}
+
+#nav-secondary a, #nav-secondary a:link, #nav-secondary a:visited {
+    line-height:1.8;
+    padding: 5px 0 5px 23px; 
+    font: bold 86% arial, sans-serif; 
+    color:#6E7E3D; 
+    display:block; 
+    background-color:#fff;
+}
+
+#nav-secondary li a:hover {
+    color: #fff; 
+    background-color:#C5CDB5;
+    } 
+
+
+
+
+
+input {
+    border : 1px solid #ccc;
+    z-index: -3;
+    font-size: 11px;
+}
+
+select {
+    border : 1px solid #ccc;
+    z-index: -3;
+    font-size: 11px;
+}
+
+textarea {
+    border : 1px solid #ccc;
+    z-index: -3;
+    font-size: 11px;
+}
+
+#breadcrumbs {
+    color: #000000;
+    padding-left: 10px;
+    font-size: 80%;
+}
+
+#breadcrumbs a:link, #breadcrumbs a:visited{
+    color: #FF6600;
+}
+
+#leftcontent .featurebox, #rightcontent .featurebox {
+	margin: 0;
+    background: #fff url("images/blue_widget_bg.png") no-repeat top left;
+	border-bottom: 1px solid #99A777;
+	margin-bottom: 10px;
+	padding: 0px;
+	padding-top: 0px;
+    width: 220px;
+}
+
+
+#leftcontent .featurebox h3, #rightcontent .featurebox h3, 
+  .featurebox h4, #rightcontent .featurebox h4, #leftcontent 
+  .featurebox h5, #rightcontent .featurebox h5 {
+    margin-top: 0px;
+    margin-left: 0px;
+	margin-bottom: 0px;
+    margin-right: 0px;
+    border: none;
+    background: transparent;
+    padding-bottom: 5px;
+    padding-left: 2px;
+    padding-top: 2px;
+    width: 220px;
+    overflow: hidden;
+    color: navy;
+}
+
+h5.featureboxheader {
+    margin-top: -2px;
+    padding-top: 0px;
+}
+
+.icon a, a:visited {
+    color: navy;
+    text-decoration: none;
+}
+.icon a:hover, a:visited:hover {
+    color: red;
+    text-decoration: none;
+}
+
+.smallicon a, a:visited {
+    color: navy;
+    text-decoration: none;
+}
+.smallicon a:hover, a:visited:hover {
+    color: red;
+    text-decoration: none;
+}
+
+
+
+.featureboxheader a, a:visited {
+    color: navy;
+    text-decoration: none;
+}
+
+.featureboxheader a:hover, a:visited:hover {
+    color: red;
+    text-decoration: none;
+}
+
+.featureboxcontent {
+    overflow: hidden;
+}
+
+.featureboxcontent a, a:visited {
+    color: navy;
+    text-decoration: none;
+}
+
+.featureboxcontent a:hover, a:visited:hover {
+    color: red;
+    text-decoration: none;
+}
+
+.roundcorners {
+	padding-left: 4px;
+	padding-top: 4px;
+	padding-right: 4px;
+	padding-bottom: 4px;
+	background-color: #ECE9E9;
+}
+
+.smallicon {
+    font-size: 9pt;
+}
+
+
+body.cms li.sectionfolder {
+    background-image: none;
+    padding-left: 0px;
+    margin-left: 10px;
+}
+
+#java_menu{
+  float:left;
+  position:relative;
+  left:-290px;
+  top: -130px;
+  text-align:center;
+  font-size:17px;
+  width:500px;
+}
+
+/* menu icons / buttons*/
+
+.menuBtnOn {
+
+    color: #000;
+
+    font-size: 90%;
+
+    margin: 2px;
+
+    background: url("images/cms_button_bg.png");
+
+}
+
+
+
+.menuBtnOn a, .menuBtnOn a:link, .menuBtnOn a:visited {
+
+    font-family: arial-bold,arial,tahoma,verdana,sans-serif;
+
+    font-weight: bold;
+
+    color: #000;
+
+    display: block;
+
+    padding: 10px 15px 10px;
+
+    text-decoration: none;
+
+}
+
+.menuBtnOn:hover, .menuBtnOn a:hover, .menuBtnOn a:link:hover, .menuBtnOn a:visited:hover {
+    background: url("images/cms_button_bg.gif");
+}
+
+
+.menuBtn {
+
+    font-family: arial,tahoma,verdana,sans-serif;
+
+    font-size: 90%;
+
+    margin: 2px;
+
+    background: #f6f6f6;
+
+}
+
+
+
+.menuBtn a {
+
+    display: block;
+
+    padding: 10px 15px 10px;
+
+    text-decoration: none;
+
+}
+
+
+
+
