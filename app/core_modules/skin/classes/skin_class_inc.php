@@ -549,7 +549,7 @@ class skin extends object
 
         if (!$supressJQuery){
             // Add JQuery
-            $jquery = $this->getObject('jquery', 'htmlelements');
+            $jquery = $this->getObject('jquery', 'jquery');
             $jquery->setVersion($jQueryVersion);
             $str .= $jquery->show();
         }
