@@ -79,14 +79,16 @@ class phpMicroformats {
 	// prepare data
 		$data['fn'] = $data['name']; // TODO parse name, apply vcard scheme (?)
 
-	// encode vcard
+	    // encode vcard
     	$result .= '<div class="vcard">'."\n";
     	
 		// name
 		$result .= '<span class="fn">'.$data['fn'].'</span>'."\n";
 
 		// email
-		$result .= '<span>Email: <a class="fn email" href="mailto:'.$data['email'].'">'.$data['email'].'</a></span>'."\n";
+		if(isset($data['email'])) {
+		    $result .= '<span>Email: <a class="fn email" href="mailto:'.$data['email'].'">'.$data['email'].'</a></span>'."\n";
+		}
 	
 		// company / organization
 		if (isset($data['org'])) {
