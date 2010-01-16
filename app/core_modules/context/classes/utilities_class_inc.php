@@ -338,16 +338,13 @@ class utilities extends object {
      * Block to searh for context
      */
     public function searchBlock_()
-    {
-    	
-	//$script = $this->getJavaScriptFile('jquery/1.2.3/jquery-1.2.3.pack.js', 'htmlelements');
-	
-	$script = $this->getJavaScriptFile('jquery/jquery-ui-personalized-1.6rc6/jquery-1.3.1.js', 'htmlelements');
-	$script .= $this->getJavaScriptFile('jquery/jquery-ui-personalized-1.6rc6/jquery-ui-personalized-1.6rc6.js', 'htmlelements');
-	$script .= '<link type="text/css" href="'.$this->getResourceUri('jquery/jquery-ui-personalized-1.6rc6/theme/ui.all.css', 'htmlelements').'" rel="Stylesheet" />';
-	$script .= $this->getJavaScriptFile('jquery/jquery.autocomplete.js', 'htmlelements');
+    {	
+	$script = $this->getJavaScriptFile('jquery/jquery-ui-personalized-1.6rc6/jquery-1.3.1.js', 'jquery');
+	$script .= $this->getJavaScriptFile('jquery/jquery-ui-personalized-1.6rc6/jquery-ui-personalized-1.6rc6.js', 'jquery');
+	$script .= '<link type="text/css" href="'.$this->getResourceUri('jquery/jquery-ui-personalized-1.6rc6/theme/ui.all.css', 'jquery').'" rel="Stylesheet" />';
+	$script .= $this->getJavaScriptFile('jquery/jquery.autocomplete.js', 'jquery');
 	$this->appendArrayVar('headerParams', $script);
-	$str = '<link rel="stylesheet" href="'.$this->getResourceUri('jquery/jquery.autocomplete.css', 'htmlelements').'" type="text/css" />';
+	$str = '<link rel="stylesheet" href="'.$this->getResourceUri('jquery/jquery.autocomplete.css', 'jquery').'" type="text/css" />';
 	$this->appendArrayVar('headerParams', $str);
 	
 		$str = '<script type="text/javascript">
@@ -487,10 +484,10 @@ function getContexts()
     
     public function searchBlock__()
     {
-    	$script  = $this->getJavaScriptFile('jquery/1.2.3/jquery-1.2.3.pack.js', 'htmlelements');
-		$script .= $this->getJavaScriptFile('jquery/jquery.tablesorter.js', 'htmlelements');		
-		$script .= $this->getJavaScriptFile('jquery/plugins/tablesorter/pager/jquery.tablesorter.pager.js', 'htmlelements');
-		$script .= '<link rel="stylesheet" href="'.$this->getResourceUri('jquery/plugins/themes/blue/style.css', 'htmlelements').'" type="text/css" />';
+    	$script  = $this->getJavaScriptFile('jquery/1.2.3/jquery-1.2.3.pack.js', 'jquery');
+		$script .= $this->getJavaScriptFile('jquery/jquery.tablesorter.js', 'jquery');
+		$script .= $this->getJavaScriptFile('jquery/plugins/tablesorter/pager/jquery.tablesorter.pager.js', 'jquery');
+		$script .= '<link rel="stylesheet" href="'.$this->getResourceUri('jquery/plugins/themes/blue/style.css', 'jquery').'" type="text/css" />';
 		$script .= '<script type="text/javascript" id="js">
 						$(function() {
 								$("table")
@@ -501,11 +498,11 @@ function getContexts()
     	
 		$pagerDiv ='	<div id="pager" class="pager">
 			<form>
-				<img src="'.$this->getResourceUri('jquery/plugins/tablesorter/pager/icons/first.png', 'htmlelements').'" class="first"/>
-				<img src="'.$this->getResourceUri('jquery/plugins/tablesorter/pager/icons/prev.png', 'htmlelements').'" class="prev"/>
+				<img src="'.$this->getResourceUri('jquery/plugins/tablesorter/pager/icons/first.png', 'jquery').'" class="first"/>
+				<img src="'.$this->getResourceUri('jquery/plugins/tablesorter/pager/icons/prev.png', 'jquery').'" class="prev"/>
 				<input type="text" class="pagedisplay"/>
-				<img src="'.$this->getResourceUri('jquery/plugins/tablesorter/pager/icons/next.png', 'htmlelements').'" class="next"/>
-				<img src="'.$this->getResourceUri('jquery/plugins/tablesorter/pager/icons/last.png', 'htmlelements').'" class="last"/>
+				<img src="'.$this->getResourceUri('jquery/plugins/tablesorter/pager/icons/next.png', 'jquery').'" class="next"/>
+				<img src="'.$this->getResourceUri('jquery/plugins/tablesorter/pager/icons/last.png', 'jquery').'" class="last"/>
 				<select class="pagesize">
 					<option selected="selected"  value="10">10</option>
 					<option value="20">20</option>
