@@ -80,9 +80,15 @@ class jquery extends object
     public function show()
     {
         // Make the version generalisable
+        $packAr = array("1.2.2", "1.2.3");
+        if (in_array($this->version, $packAr)) {
+            $minType = "pack";
+        } else {
+            $minType = "min";
+        }
         $jQueryCode = $this->version
            . "/jquery-" . $this->version
-           . ".pack.js";
+           . ".$minType.js";
         $returnStr = $this->getJavascriptFile($jQueryCode,'jquery')
           ."\n";
         // Make it so that there is no prototype conflict. But you cannot use
