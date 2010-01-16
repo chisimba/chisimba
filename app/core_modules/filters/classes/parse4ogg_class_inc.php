@@ -54,7 +54,7 @@ $GLOBALS['kewl_entry_point_run'])
  * [ALERT: url=http://somesite.com]The text of the alert[/ALERT]
  *
  * This causes the text to be placed in a facebox alert using the alertbox
- * class in HTML elements. It needs the jQuery resources in HTMLelements.
+ * class in HTML elements. It needs the jQuery resources in the jquery module.
  *
  * @author Derek Keats
  *
