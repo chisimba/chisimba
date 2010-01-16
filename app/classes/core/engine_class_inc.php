@@ -355,7 +355,16 @@ class engine {
      *
      * @var array
      */
-    public $coremods = array ('api', 'blocks', 'config', 'context', 'contextadmin', 'contextgroups', 'contextpermissions', 'creativecommons', 'decisiontable', 'errors', 'files', 'filemanager', 'filters', 'groupadmin', 'help', 'htmlelements', 'language', 'logger', 'mail', 'modulecatalogue', 'navigation', 'outputplugins', 'permissions', 'postlogin', 'prelogin', 'redirect', 'packages', 'search', 'security', 'sitemap', 'skin', 'stories', 'storycategoryadmin', 'strings', 'sysconfig', 'systext', 'tagging', 'toolbar', 'tree', 'useradmin', 'userdetails', 'userregistration', 'utilities' );
+    public $coremods = array ('api', 'blocks', 'config', 'context', 
+        'contextadmin', 'contextgroups', 'contextpermissions',
+        'creativecommons', 'decisiontable', 'errors', 'files',
+        'filemanager', 'filters', 'groupadmin', 'help', 'htmlelements', 'jquery',
+        'language', 'logger', 'mail', 'modulecatalogue', 'navigation',
+        'outputplugins', 'permissions', 'postlogin', 'prelogin', 'redirect',
+        'packages', 'search', 'security', 'sitemap', 'skin', 'stories',
+        'storycategoryadmin', 'strings', 'sysconfig', 'systext', 'tagging',
+        'toolbar', 'tree', 'useradmin', 'userdetails', 'userregistration',
+        'utilities' );
 
     public $objMemcache = FALSE;
 
