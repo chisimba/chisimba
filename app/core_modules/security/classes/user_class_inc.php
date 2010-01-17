@@ -706,7 +706,8 @@ class user extends dbTable
     {
         $sql="SELECT isactive from tbl_users where userid='$userId'";
         $rows=$this->getArray($sql);
-        if (!empty($rows)&&($rows[0]['isActive']=='1')){
+        var_dump($rows); die();
+        if (!empty($rows)&&($rows[0]['isactive']=='1')){
             return TRUE;
         } else {
             return FALSE;
