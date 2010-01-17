@@ -384,7 +384,7 @@ class user extends dbTable
     {
         // Here we need to distinguish between the session var not being set,
         // and being set to FALSE or NULL
-        $isAdmin = $this->getSession('isAdmin','_default');
+        $isAdmin = $this->getSession('isadmin','_default');
         if ($isAdmin!='_default') {
             if ($isAdmin) {
                 return TRUE;
@@ -706,7 +706,7 @@ class user extends dbTable
     {
         $sql="SELECT isactive from tbl_users where userid='$userId'";
         $rows=$this->getArray($sql);
-        if (!empty($rows)&&($rows[0]['isActive']=='1')){
+        if (!empty($rows)&&($rows[0]['isactive']=='1')){
             return TRUE;
         } else {
             return FALSE;
@@ -723,7 +723,7 @@ class user extends dbTable
         $sql="SELECT howcreated from tbl_users where userid='$userId'";
         $return=$this->getArray($sql);
         if (isset($return[0])){
-            return $return[0]['howCreated'];
+            return $return[0]['howcreated'];
         } else {
             return FALSE;
         }
@@ -902,10 +902,7 @@ class user extends dbTable
     {
         $this->objPerms->outputRights();
         $right = $this->objPerms->checkRule(isAuthor);
-
         return $right;
-        //$objContextPermissions = $this->getObject('contextcondition','contextpermissions');
-        //return $objContextPermissions->hasContextPermission( 'isAuthor' );
     }
 
     /**
@@ -918,11 +915,7 @@ class user extends dbTable
     {
         $this->objPerms->outputRights();
         $right = $this->objPerms->checkRule(isEditor);
-
         return $right;
-
-        //$objContextPermissions = $this->getObject('contextcondition','contextpermissions');
-        //return $objContextPermissions->hasContextPermission( 'isEditor' );
     }
 
     /**
@@ -935,11 +928,7 @@ class user extends dbTable
     {
         $this->objPerms->outputRights();
         $right = $this->objPerms->checkRule(isReader);
-
         return $right;
-
-        //$objContextPermissions = $this->getObject('contextcondition','contextpermissions');
-        //return $objContextPermissions->hasContextPermission( 'isReader' );
     }
 
     /**
@@ -954,7 +943,6 @@ class user extends dbTable
         $grid = $this->objGroups->getId($contextCode.'^Lecturers');
         $userId = isset($userId) ? $userId : $this->userId();
         $ret = $this->objGroups->isGroupMember($userId, $grid);
-
         return $ret;
     }
 
@@ -984,11 +972,7 @@ class user extends dbTable
         $grid = $this->objGroups->getId($contextCode.'^Students');
         $userId = $this->userId();
         $ret = $this->objGroups->isGroupMember($userId, $grid);
-
         return $ret;
-
-        //$objContextPermissions = $this->getObject('contextcondition','contextpermissions');
-        //return $objContextPermissions->isContextMember( 'Students' );
     }
 
     /**
@@ -1002,12 +986,7 @@ class user extends dbTable
         $grid = $this->objGroups->getId($contextCode."^Guest");
         $userId = $this->userId();
         $ret = $this->objGroups->isGroupMember($userId, $grid);
-
         return $ret;
-
-
-        // $objContextPermissions = $this->getObject('contextcondition','contextpermissions');
-        // return $objContextPermissions->isContextMember( 'Guest' );
     }
 
     /**
@@ -1021,11 +1000,7 @@ class user extends dbTable
         $grid = $this->objGroups->getId('Lecturers');
         $userId = $this->userId();
         $ret = $this->objGroups->isGroupMember($userId, $grid);
-
         return $ret;
-
-        //$objContextPermissions = $this->getObject('contextcondition','contextpermissions');
-        //return $objContextPermissions->isMember( 'Lecturers' );
     }
 
     /**
@@ -1039,7 +1014,6 @@ class user extends dbTable
         $grid = $this->objGroups->getId('Students');
         $userId = $this->userId();
         $ret = $this->objGroups->isGroupMember($userId, $grid);
-
         return $ret;
     }
 
@@ -1054,10 +1028,7 @@ class user extends dbTable
         $grid = $this->objGroups->getId('Guest');
         $userId = $this->userId();
         $ret = $this->objGroups->isGroupMember($userId, $grid);
-
         return $ret;
-        //$objContextPermissions = $this->getObject('contextcondition','contextpermissions');
-        //return $objContextPermissions->isMember( 'Guest' );
     }
 
     public function getUserPic()
@@ -1094,7 +1065,6 @@ class user extends dbTable
         // delete the user
         //$this->delete('id', $user['id'], 'tbl_users');
         $adduser = $this->objLuAdmin->addUser($data);
-
         return;
     }
 }
