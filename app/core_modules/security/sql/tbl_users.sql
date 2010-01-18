@@ -12,7 +12,7 @@ $fields = array(
         'type' => 'text',
         'length' => 32
         ),
-    'userId' => array(
+    'userid' => array(
         'type' => 'text',
         'length' => 25,
 
@@ -28,7 +28,7 @@ $fields = array(
         'length' => 25,
 
         ),
-    'firstName' => array(
+    'firstname' => array(
         'type' => 'text',
         'length' => 50,
 
@@ -43,11 +43,11 @@ $fields = array(
         'length' => 100,
 
         ),
-    'creationDate' => array(
+    'creationdate' => array(
         'type' => 'date',
 
         ),
-    'emailAddress' => array(
+    'emailaddress' => array(
         'type' => 'text',
         'length' => 100,
 
@@ -79,12 +79,12 @@ $fields = array(
         'length' => 10,
 
         ),
-    'isActive' => array(
+    'isactive' => array(
         'type' => 'text',
         'length' => 10,
 
         ),
-    'howCreated' => array(
+    'howcreated' => array(
         'type' => 'text',
         'length' => 32,
          'notnull' => TRUE,
@@ -103,11 +103,11 @@ $fields = array(
 
 //create other indexes here...
 
-$name = 'userId';
+$name = 'userid';
 
 $indexes = array(
                 'fields' => array(
-                    'userId' => array()
+                    'userid' => array()
                 )
         );
 ?>

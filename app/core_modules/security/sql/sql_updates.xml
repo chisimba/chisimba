@@ -88,4 +88,49 @@
             </add>
         </data>
     </update>
+    <!-- update>
+        <table>tbl_users</table>
+        <version>3.036</version>
+        <description>lowercased fields</description>
+        <data>
+            <change>
+                <userid>
+                    <definition>
+                        <name>userid</name>
+                        <type>text</type>
+                    </definition>
+                </userid>
+                <firstname>
+                    <definition>
+                        <name>firstname</name>
+                        <type>text</type>
+                    </definition>
+                </firstname>
+                <creationdate>
+                    <definition>
+                        <name>creationdate</name>
+                        <type>date</type>
+                    </definition>
+                </creationdate>
+                <emailaddress>
+                    <definition>
+                        <name>emailaddress</name>
+                        <type>text</type>
+                    </definition>
+                </emailaddress>
+                <isactive>
+                    <definition>
+                        <name>isactive</name>
+                        <type>text</type>
+                    </definition>
+                </isactive>
+                <howcreated>
+                    <definition>
+                        <name>howcreated</name>
+                        <type>text</type>
+                    </definition>
+                </howcreated>
+            </change>
+        </data>
+    </update -->
 </updates>
