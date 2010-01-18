@@ -1,0 +1,10 @@
+.runway-noflash-message {
+    font-size: 120%;
+    line-height: 150%;
+    font-weight: bold;
+    text-align: center;
+    color: #a88;
+    margin: 2em;
+    padding: 2em;
+    border: 1px solid #ccc;
+}
