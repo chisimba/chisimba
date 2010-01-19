@@ -132,11 +132,11 @@ class parse4tweets extends object
                 $txt = str_replace($item, $replacement, $txt);
                 $counter++;
             }
+            $this->appendArrayVar('headerParams',
+              $this->jqTwit->wrapInScriptTags($this->script));
+            // Reset the script property to prevent it from accumulating.
+            $this->script="";
         }
-        $this->appendArrayVar('headerParams',
-          $this->jqTwit->wrapInScriptTags($this->script));
-        // Reset the script property to prevent it from accumulating.
-        $this->script="";
         return $txt;
     }
 
