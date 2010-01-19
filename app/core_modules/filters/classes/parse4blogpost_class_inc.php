@@ -230,8 +230,7 @@ class parse4blogpost extends object
     {
         $objWashout = $this->getObject('washout', 'utilities');
         // Avoid parsing the Ajax-based filters.
-        return $objWashout->parseText($val, TRUE,
-          array('blog', 'deltags','filepreview', 'tweets'));
+        return $objWashout->parseText($val, TRUE,array('blog', 'filepreview'));
     }
 }
 ?>
