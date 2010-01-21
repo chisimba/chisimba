@@ -82,6 +82,11 @@ class button extends abhtmlbase implements ifhtml
      */
     protected $isresetbutton;
     
+    /**
+    * @var string $iconclass Whether or not to use the sexybuttons interface elements.
+    */
+    public $sexyButtons = FALSE;
+    
 
     /**
     * Initialization method to set default values
@@ -110,6 +115,21 @@ class button extends abhtmlbase implements ifhtml
     public function setOnClick($onclick)
     {
         $this->onclick = $onclick;
+    }
+    
+    /**
+     * Method to set the iconclass for the sexy buttons
+     * Can be one of: ok, cancel, add, delete, download, download2, upload, search, find, first, prev, next, last, play, pause, 
+     *                rewind, forward, stop, reload, sync, save, email, print, heart, like, dislike, accept, decline, home, 
+     *                help, info, cut, copy, paste, erase, undo, redo, edit, calendar, user, settings, wrench, cart, wand
+     *
+     * @param string $onclick
+     * @return void
+     * @access public
+     */
+    public function setIconClass($iconclass)
+    {
+        $this->iconclass = $iconclass;
     }
 
     /**
@@ -160,13 +180,66 @@ class button extends abhtmlbase implements ifhtml
     {
         $this->isresetbutton = true;
     }
+    
+    public function show() {
+        if(strtolower($this->sexyButtons) == true) {
+            return $this->showSexy();
+        }
+        else {
+            return $this->showDefault();
+        }
+    }
 
+    
+    /**
+    * Method to render the button as an HTML string (sexybutton)
+    *
+    * @return string Returns the button's html
+    */
+    public function showSexy()
+    {
+        $str = '<button';
+        $str .= ' value="' . $this->value . '"';
+        //check if the buttons is a submit button or a normal button
+        if ($this->issubmitbutton) {
+            $str .= ' type="submit"';
+        } elseif ($this->isresetbutton) {
+            $str .= ' type="reset"';
+        } else {
+            $str .= ' type="button"';
+        }
+        if ($this->name) {
+            $str .= ' name="' . $this->name . '"';
+        }
+        if ($this->cssId) {
+            $str .= ' id="' . $this->cssId . '"';
+        }
+        if ($this->cssClass) {
+            $str .= ' class="sexybutton "';
+        }
+        if ($this->onclick) {
+            $str .= ' onclick="' . $this->onclick . '"';
+        }
+        if ($this->extra) {
+            $str .= ' '.$this->extra;
+        }
+        if(isset($iconclass)) {
+            $str .= '><span><span><span class="'.$this->iconclass.'">'.$this->value.'</span></span></span></button>';
+        }
+        else {
+            $str .= '><span><span>'.$this->value.'</span></span></button>';
+        }
+
+        return $str;
+    }
+    
+    
     /**
     * Method to render the button as an HTML string
     *
     * @return string Returns the button's html
     */
-    public function show()
+    public function showDefault()
     {
         $str = '<input';
         $str .= ' value="' . $this->value . '"';
