@@ -1,0 +1,361 @@
+/*
+ * Sexy Buttons
+ * 
+ * DESCRIPTION	
+ * 	Sexy, skinnable HTML/CSS buttons with icons.
+ * 
+ * PROJECT URL: 
+ * 	http://code.google.com/p/sexybuttons/
+ * 
+ * AUTHOR:
+ * 	Richard Davies
+ * 	http://www.richarddavies.us
+ * 	Richard@richarddavies.us
+ * 
+ * VERSION:
+ * 	1.0
+ * 
+ * LICENSE:
+ * 	Apache License 2.0  (http://www.apache.org/licenses/LICENSE-2.0)
+ * 	Creative Commons 3.0 Attribution  (http://creativecommons.org/licenses/by/3.0/)
+ * 
+ * CREDITS
+ * 	Inspired by, derived from, and thanks to:
+ * 	http://www.p51labs.com/simply-buttons-v2/
+ * 	http://www.oscaralexander.com/tutorials/how-to-make-sexy-buttons-with-css.html
+ * 	http://www.zurb.com/article/266/super-awesome-buttons-with-css3-and-rgba
+ * 	http://www.elctech.com/snippets/make-your-buttons-look-super-awesome
+ * 
+ * USAGE:
+ * 	Simply add class="sexybutton [skin]" to a <button> or <a> element and wrap the label text with double <span>s.
+ * 	You can optionally add a "silk" icon to the button text by using a third <span> with class to identify the icon.   
+ * 
+ * EXAMPLE: 
+ * 	<button id="btn1" class="sexybutton" name="btn1" type="submit" value="Submit">
+ * 		<span><span><span class="ok">Submit</span></span></span>
+ * 	</button>
+ */
+
+
+/* 
+ *	Generic styles for all Sexy Buttons
+ */
+
+.sexybutton {
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+	font: bold 13px "Helvetica Neue", Helvetica, Arial, clean, sans-serif;
+	text-decoration: none;
+	text-shadow: 1px 1px 2px rgba(0,0,0,0.20);
+	background: none;
+	border: none;
+	white-space: nowrap;
+	cursor: pointer;
+	user-select: none;
+	-moz-user-select: none;
+	
+	/* Fix extra width padding in IE */
+	_width: 0;
+	overflow: visible;
+}
+
+.sexybutton span {
+	display: block;						/* Prevents :active from working in IE--oh well! */
+	height: 24px;
+	padding-right: 12px;
+	background-repeat: no-repeat;
+	background-position: right top;
+}
+
+.sexybutton span span {
+	padding-right: 0;
+	padding-left: 12px;
+	line-height: 24px;
+	background-position: left top;
+}
+
+.sexybutton span span span {
+	padding-left: 21px;
+	background-image: none;
+	background-repeat: no-repeat;
+	background-position: left center;
+	/* IE6 still requires a PNG transparency fix */ 
+	/* _background-image: none;		Or just hide icons from the undeserving IE6 */
+	/* _padding-left: 0;					Or just hide icons from the undeserving IE6 */
+}
+
+.sexybutton span span span.after {
+	padding-left: 0px;
+	padding-right: 21px;
+	background-position: right center;
+	/* IE6 still requires a PNG transparency fix */ 
+	/* _padding-right: 0;					Or just hide icons from the undeserving IE6 */
+}
+
+.sexybutton:hover span {
+	background-position: right center;
+}
+
+.sexybutton:hover span span {
+	background-position: left center;
+}
+
+.sexybutton:active span {
+	background-position: right bottom;
+}
+
+.sexybutton:active span span {
+	background-position: left bottom;
+}
+
+.sexybutton:active span span span {
+	background-position: left center;
+}
+
+.sexybutton:active span span span.after {
+	background-position: right center;
+}
+
+.sexybutton img {
+	margin-right: 5px;
+	vertical-align: text-top;
+	/* IE6 Hack */
+	_margin-top: 4px;
+	_vertical-align: text-bottom;
+	/* IE6 still requires a PNG transparency fix */ 
+	/* _display: none;		Or just hide icons from the undeserving IE6 */
+}
+
+.sexybutton img.after {
+	margin-right: 0;
+	margin-left: 5px;
+	/* IE6 still requires a PNG transparency fix */ 
+	/* _margin-left: 0;		Or just hide icons from the undeserving IE6 */
+}
+
+.sexybutton.sexymedium	{ font-size: 15px; }
+.sexybutton.sexylarge	{ font-size: 18px; }
+
+
+/*
+ * Button Skins
+ * 
+ * Additional skins can be added below. The images/sexybuttons/skins/ButtonTemplate.psd can be used to create new skins.
+ * Prefix the skin name with "sexy" to avoid any potential conflicts with other class names. 
+ */
+
+/* Silver Button Skin (the default skin) */
+
+.sexybutton,
+.sexybutton.sexysilver {
+	color: #666;
+}
+	
+.sexybutton:hover,
+.sexybutton.sexysilver:hover {
+	color: #333;
+}
+	
+.sexybutton span,
+.sexybutton.sexysilver span {
+	background-image: url(images/sexybuttons/skins/silver/button_right.gif);
+}
+
+.sexybutton span span,
+.sexybutton.sexysilver span span {
+	background-image: url(images/sexybuttons/skins/silver/button_left.gif);
+}
+
+/* Orange Button Skin */
+
+.sexybutton.sexyorange,
+.sexybutton.sexyorange:hover {
+	color: white;
+}
+	
+.sexybutton.sexyorange span {
+	background-image: url(images/sexybuttons/skins/orange/button_right.gif);
+}
+
+.sexybutton.sexyorange span span {
+	background-image: url(images/sexybuttons/skins/orange/button_left.gif);
+}
+
+/* Yellow Button Skin */
+
+.sexybutton.sexyyellow,
+.sexybutton.sexyyellow:hover {
+	color: #994800;
+}
+	
+.sexybutton.sexyyellow span {
+	background-image: url(images/sexybuttons/skins/yellow/button_right.gif);
+}
+
+.sexybutton.sexyyellow span span {
+	background-image: url(images/sexybuttons/skins/yellow/button_left.gif);
+}
+
+
+/* 
+ * Simple Skin Buttons
+ */
+
+.sexybutton.sexysimple { 
+	position: relative; 
+	padding: 5px 10px 5px;
+	font: inherit;
+	font-size: 13px;
+	font-style: normal; 
+	font-weight: bold; 
+	color: #fff;
+	line-height: 1; 
+	background-image: url(images/sexybuttons/skins/simple/awesome-overlay-sprite.png);
+	background-repeat: repeat-x;
+	background-position: 0 0;
+	
+	/* Special effects */
+	text-shadow: 0 -1px 1px rgba(0,0,0,0.25), -2px 0 1px rgba(0,0,0,0.25); 
+	border-radius: 5px; 
+	-moz-border-radius: 5px; 
+	-webkit-border-radius: 5px; 
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,0.5); 
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+	
+	/* IE only stuff */
+	border-bottom: 1px solid transparent\9;
+	_background-image: none;
+	
+	/* Cross browser inline block hack - http://blog.mozilla.com/webdev/2009/02/20/cross-browser-inline-block/ */
+	display: -moz-inline-stack;
+	display: inline-block;
+	vertical-align: middle;
+	*display: inline !important;
+	position: relative;
+	
+	/* Force hasLayout in IE */
+	zoom: 1;
+	
+	/* Disable text selection (Firefox only)*/
+	-moz-user-select: none;
+}
+
+.sexybutton.sexysimple::selection {
+	background: transparent;
+}
+
+.sexybutton.sexysimple:hover {
+	background-position: 0 -50px; 
+	color: #fff;
+}
+
+.sexybutton.sexysimple:active { 
+	background-position: 0 100%; 
+	-moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.7); 
+	/* Unfortunately, Safari doesn't support inset yet */
+	-webkit-box-shadow: none;
+	
+	/* IE only stuff */
+	border-bottom: 0\9;
+	border-top: 1px solid #666\9;
+}
+
+.sexybutton.sexysimple span {
+	height: auto;
+	padding-left: 24px;
+	padding-right: 0;
+	background-position: left center;
+	background-repeat: no-repeat;
+	/* IE6 still requires a PNG transparency fix */ 
+	/* _padding-left: 0;		Or just hide icons from the undeserving IE6 */
+}
+
+.sexybutton.sexysimple span.after {
+	padding-left: 0;
+	padding-right: 24px;
+	background-position: right center;
+	/* IE6 still requires a PNG transparency fix */ 
+	/* _padding-right: 0;		Or just hide icons from the undeserving IE6 */
+}
+
+/* Simple button colors */
+.sexybutton.sexysimple					{ background-color: #333; }		/* Default */
+.sexybutton.sexysimple.sexyblack		{ background-color: #333; }
+.sexybutton.sexysimple.sexyred		{ background-color: #a90118; }
+.sexybutton.sexysimple.sexyorange	{ background-color: #ff8a00; }
+.sexybutton.sexysimple.sexyyellow	{ background-color: #ffb515; }
+.sexybutton.sexysimple.sexygreen		{ background-color: #59a901; }
+.sexybutton.sexysimple.sexyblue		{ background-color: #015ea9; }
+.sexybutton.sexysimple.sexyteal		{ background-color: #2daebf; }
+.sexybutton.sexysimple.sexymagenta	{ background-color: #a9014b; }
+.sexybutton.sexysimple.sexypurple	{ background-color: #9d01a9; }
+
+/* Simple button sizes */
+.sexybutton.sexysimple.sexysmall          { padding: 4px 7px 5px; font-size: 10px; }
+.sexybutton.sexysimple.sexysmall:active   { padding: 5px 7px 4px; }
+.sexybutton.sexysimple                    { /* default */ }
+.sexybutton.sexysimple:active             { padding: 6px 10px 4px; }
+.sexybutton.sexysimple.sexymedium         { /* default */ }
+.sexybutton.sexysimple.sexymedium:active  { padding: 6px 10px 4px; }
+.sexybutton.sexysimple.sexylarge          { padding: 8px 14px 8px; font-size: 14px; }
+.sexybutton.sexysimple.sexylarge:active   { padding: 9px 14px 7px; }
+.sexybutton.sexysimple.sexyxl             { padding: 8px 14px 8px; font-size: 16px; }
+.sexybutton.sexysimple.sexyxl:active      { padding: 9px 14px 7px; }
+.sexybutton.sexysimple.sexyxxl            { padding: 8px 14px 8px; font-size: 20px; }
+.sexybutton.sexysimple.sexyxxl:active     { padding: 9px 14px 7px; }
+.sexybutton.sexysimple.sexyxxxl           { padding: 8px 14px 8px; font-size: 26px; }
+.sexybutton.sexysimple.sexyxxxl:active    { padding: 9px 14px 7px; }
+
+
+/*
+ * Icon Definitions
+ */
+
+/* Silk Icons - http://www.famfamfam.com/lab/icons/silk/ */
+/* (Obviously not all Silk icons are defined here. Feel free to define any other icons that you may need.) */
+
+.sexybutton span.ok				{ background-image: url(images/sexybuttons/icons/silk/tick.png); }
+.sexybutton span.cancel			{ background-image: url(images/sexybuttons/icons/silk/cross.png); }
+.sexybutton span.add				{ background-image: url(images/sexybuttons/icons/silk/add.png); }
+.sexybutton span.delete			{ background-image: url(images/sexybuttons/icons/silk/delete.png); }
+.sexybutton span.download		{ background-image: url(images/sexybuttons/icons/silk/arrow_down.png); }
+.sexybutton span.download2		{ background-image: url(images/sexybuttons/icons/silk/package_down.png); }
+.sexybutton span.upload			{ background-image: url(images/sexybuttons/icons/silk/arrow_up.png); }
+.sexybutton span.search			{ background-image: url(images/sexybuttons/icons/silk/magnifier.png); }
+.sexybutton span.find			{ background-image: url(images/sexybuttons/icons/silk/find.png); }
+.sexybutton span.first			{ background-image: url(images/sexybuttons/icons/silk/resultset_first.png); }
+.sexybutton span.prev			{ background-image: url(images/sexybuttons/icons/silk/resultset_previous.png); }
+.sexybutton span.next			{ background-image: url(images/sexybuttons/icons/silk/resultset_next.png); }
+.sexybutton span.last			{ background-image: url(images/sexybuttons/icons/silk/resultset_last.png); }
+.sexybutton span.play			{ background-image: url(images/sexybuttons/icons/silk/play_blue.png); }
+.sexybutton span.pause			{ background-image: url(images/sexybuttons/icons/silk/pause_blue.png); }
+.sexybutton span.rewind			{ background-image: url(images/sexybuttons/icons/silk/rewind_blue.png); }
+.sexybutton span.forward		{ background-image: url(images/sexybuttons/icons/silk/forward_blue.png); }
+.sexybutton span.stop			{ background-image: url(images/sexybuttons/icons/silk/stop_blue.png); }
+.sexybutton span.reload			{ background-image: url(images/sexybuttons/icons/silk/reload.png); }
+.sexybutton span.sync			{ background-image: url(images/sexybuttons/icons/silk/arrow_refresh.png); }
+.sexybutton span.save			{ background-image: url(images/sexybuttons/icons/silk/disk.png); }
+.sexybutton span.email			{ background-image: url(images/sexybuttons/icons/silk/email.png); }
+.sexybutton span.print			{ background-image: url(images/sexybuttons/icons/silk/printer.png); }
+.sexybutton span.heart			{ background-image: url(images/sexybuttons/icons/silk/heart.png); }
+.sexybutton span.like			{ background-image: url(images/sexybuttons/icons/silk/thumb_up.png); }
+.sexybutton span.dislike		{ background-image: url(images/sexybuttons/icons/silk/thumb_down.png); }
+.sexybutton span.accept			{ background-image: url(images/sexybuttons/icons/silk/accept.png); }
+.sexybutton span.decline		{ background-image: url(images/sexybuttons/icons/silk/decline.png); }
+.sexybutton span.help			{ background-image: url(images/sexybuttons/icons/silk/help.png); }
+.sexybutton span.home			{ background-image: url(images/sexybuttons/icons/silk/house.png); }
+.sexybutton span.info			{ background-image: url(images/sexybuttons/icons/silk/information.png); }
+.sexybutton span.cut		    { background-image: url(images/sexybuttons/icons/silk/cut.png); }
+.sexybutton span.copy			{ background-image: url(images/sexybuttons/icons/silk/page_white_copy.png); }
+.sexybutton span.paste			{ background-image: url(images/sexybuttons/icons/silk/paste_plain.png); }
+.sexybutton span.erase			{ background-image: url(images/sexybuttons/icons/silk/erase.png); }
+.sexybutton span.undo			{ background-image: url(images/sexybuttons/icons/silk/arrow_undo.png); }
+.sexybutton span.redo			{ background-image: url(images/sexybuttons/icons/silk/arrow_redo.png); }
+.sexybutton span.edit			{ background-image: url(images/sexybuttons/icons/silk/pencil.png); }
+.sexybutton span.calendar		{ background-image: url(images/sexybuttons/icons/silk/date.png); }
+.sexybutton span.user			{ background-image: url(images/sexybuttons/icons/silk/user.png); }
+.sexybutton span.settings		{ background-image: url(images/sexybuttons/icons/silk/cog.png); }
+.sexybutton span.cart			{ background-image: url(images/sexybuttons/icons/silk/cart.png); }
+.sexybutton span.wand			{ background-image: url(images/sexybuttons/icons/silk/wand.png); }
+.sexybutton span.wrench			{ background-image: url(images/sexybuttons/icons/silk/wrench.png); }
