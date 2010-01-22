@@ -85,7 +85,7 @@ class button extends abhtmlbase implements ifhtml
     /**
     * @var string $iconclass Whether or not to use the sexybuttons interface elements.
     */
-    public $sexyButtons = FALSE;
+    public $sexyButtons = TRUE;
     
 
     /**
@@ -214,16 +214,14 @@ class button extends abhtmlbase implements ifhtml
         if ($this->cssId) {
             $str .= ' id="' . $this->cssId . '"';
         }
-        if ($this->cssClass) {
-            $str .= ' class="sexybutton "';
-        }
+        $str .= ' class="sexybutton "';
         if ($this->onclick) {
             $str .= ' onclick="' . $this->onclick . '"';
         }
         if ($this->extra) {
             $str .= ' '.$this->extra;
         }
-        if(isset($iconclass)) {
+        if(isset($this->iconclass)) {
             $str .= '><span><span><span class="'.$this->iconclass.'">'.$this->value.'</span></span></span></button>';
         }
         else {
