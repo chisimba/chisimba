@@ -232,7 +232,7 @@ class logdisplay extends object
             $str .= '<li>'.$objLink->show().'</li>';
         }
     $hasAccess = $this->objUser->isLecturer();
-    if($hasAccess){
+	if($hasAccess){
         $userId=$this->objUser->userId();
         $role='Lecturers';
         $objContextGroups = $this->getObject('managegroups','contextgroups');
@@ -326,10 +326,10 @@ class logdisplay extends object
     }else{
         $sql = $this->logShow->userLoggerDetails($userId,$contextCode, $module);
     }
-
-    $contexts=array();
+	$contexts=array();
     $key = 0;
     foreach($sql as $myContext){
+
         $contexts[$key]=$myContext['context'];
         $key = $key+1;
     }
