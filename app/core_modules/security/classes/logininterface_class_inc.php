@@ -142,11 +142,13 @@ class loginInterface extends object
 
             //--- Create a submit button
             $objButton = new button('submit',$this->objLanguage->languageText("word_login"));
+            // Add the login icon
+            $objButton->setIconClass("user");
             // Set the button type to submit
             $objButton->setToSubmit();
             // Add the button to the form
             $objFields->addContent($ldap.'<br />'.$rem.$box.$fb.$objButton->show().'<br/>');
-            //$objForm->addToForm();
+
 
 
             $helpText = strtoupper($this->objLanguage->languageText('word_help','system'));
