@@ -134,7 +134,7 @@ class engine {
      * Version Number of the software. (engine)
      *
      */
-    public $version = '3.1.3';
+    public $version = '3.1.4';
 
     /**
      * Template variable
@@ -357,14 +357,14 @@ class engine {
      */
     public $coremods = array ('api', 'blocks', 'config', 'context', 
         'contextadmin', 'contextgroups', 'contextpermissions',
-        'creativecommons', 'decisiontable', 'errors', 'files',
+        'creativecommons', 'decisiontable', 'errors', 'fckeditor', 'files',
         'filemanager', 'filters', 'groupadmin', 'help', 'htmlelements', 'jquery',
         'language', 'logger', 'mail', 'modulecatalogue', 'navigation',
         'outputplugins', 'permissions', 'postlogin', 'prelogin', 'redirect',
         'packages', 'search', 'security', 'sitemap', 'skin', 'stories',
         'storycategoryadmin', 'strings', 'sysconfig', 'systext', 'tagging',
-        'toolbar', 'tree', 'useradmin', 'userdetails', 'userregistration',
-        'utilities' );
+        'tinymce','toolbar', 'tree', 'useradmin', 'userdetails',
+        'userregistration', 'utilities' );
 
     public $objMemcache = FALSE;
 
