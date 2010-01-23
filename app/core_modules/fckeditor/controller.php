@@ -3,7 +3,7 @@
  *
  *  fckeditor limited functionality wrapper
  *
- *  Provides a holding point and some limited abstractions for the markfckeditor
+ *  Provides a holding point and some limited abstractions for the fckeditor
  *  WYSWYG editor. Has no end-user functionality and should not be
  *  added to a menu.
  *
@@ -72,7 +72,7 @@ class fckeditor extends controller
 
     /**
      *
-     * The standard dispatch method for the jquery module.
+     * The standard dispatch method for the fckeditor module.
      * This just redirects to the default module
      *
      */
