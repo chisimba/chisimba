@@ -410,7 +410,7 @@ class htmlarea extends object {
      */
     public function getJavaScripts() {
         $str = '
-                <script language="javascript" type="text/javascript" src="core_modules/htmlelements/resources/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+                <script language="javascript" type="text/javascript" src="core_modules/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
                 
                 
                 <script language="javascript" type="text/javascript">
