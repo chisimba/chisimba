@@ -111,7 +111,6 @@ class sidemenu extends object
             $menu .= $this->joinInterestGroup();
         }
         $menu .= '<p>'.$this->getMenuList($menus).'</p>';
-
         return $menu;
     }
 
@@ -131,8 +130,11 @@ class sidemenu extends object
         $menus = $this->checkPerm($menus);
 
         $this->objHead->str = $this->objUser->fullName();
-        $menu = $this->objHead->show();
-        $menu .= '<p align="center"><img src="'.$this->objUserPic->userpicture($this->objUser->userId() ).'" alt="User Image" /></p><br />';
+        $menu = "<div class=\"toolbar_menuuser\">" . $this->objHead->show();
+        $menu .= "<span class=\"toolbar_userimage\">"
+          . '<p align="center"><img src="'
+          . $this->objUserPic->userpicture($this->objUser->userId() )
+          .'" alt="User Image" /></p></span></div>';
 
         $menu .= $this->getMenuList($menus);
         return $menu;
