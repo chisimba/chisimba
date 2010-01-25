@@ -502,7 +502,10 @@ class skin extends object
         $query = new textinput('search');
         $query->size = 15;
         $this->objSButton = new button($this->objLanguage->languageText('word_go', 'system'));
-        $this->objSButton->setValue($this->objLanguage->languageText('word_go', 'system'));
+        // Add the search icon
+        $this->objSButton->setIconClass("search");
+        //$this->objSButton->setValue($this->objLanguage->languageText('mod_skin_find', 'skin'));
+        $this->objSButton->setValue('Find');
         $this->objSButton->setToSubmit();
         if ($compact) {
             $sform->addToForm($slabel->show().' '.$this->objSButton->show().'<br /> '.$query->show());
