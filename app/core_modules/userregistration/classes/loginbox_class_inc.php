@@ -150,8 +150,8 @@ class loginbox extends object
 			<div class="left right">	
 			<h2>Are you sure you want to Logout?</h2>		
 				
-				<button type="submit" id="logout" class="sexybutton sexysimple sexyxl sexyorange">Yes</button>
-				<button type="cancel" id="cancel" class="sexybutton sexysimple sexyxl sexyyellow">No</button>
+				<button type="submit" id="logout" class="sexybutton sexysimple sexyxl sexyblue">Yes</button>
+				<button type="cancel" id="cancel" class="sexybutton sexysimple sexyxl sexyteal">No</button>
 			</div>
 		</div>
 	</div> <!-- /login -->	
@@ -193,7 +193,7 @@ class loginbox extends object
         			<div class="clear"></div>
 					<!--input type="submit" name="submit" id="submit" value="Login" class="bt_login" /-->
 					<!--button value="Login" id="submit" type="submit" name="submit" class="sexybutton"><span><span><span class="user">Login</span></span></span></button-->
-					<button type="submit" id="submit" class="sexybutton sexysimple sexyxl sexyorange">Login</button>
+					<button type="submit" id="submit" class="sexybutton sexysimple sexyxl sexyblue">Login</button>
 
 					<a class="lost-pwd" href="#">Lost your password?</a>
 				</form>
@@ -215,7 +215,7 @@ class loginbox extends object
 					<input class="field" type="text" name="email" id="email" size="23" />
 					<label>A password will be e-mailed to you.</label>
 					<!--input type="submit" name="submit" value="Register" class="bt_register" /-->
-					<button type="submit" id="register" class="sexybutton sexysimple sexyxl sexyyellow">Register</button>
+					<button type="submit" id="register" class="sexybutton sexysimple sexyxl sexyteal">Register</button>
 				</form>
 			</div>
 		</div>
