@@ -42,7 +42,7 @@ class security extends controller {
     }
 
     function requiresLogin($action) {
-        $actions = array ('showlogin', 'login', 'logintwitter', 'error', 'needpassword', 'needpasswordconfirm', 'emailsent', 'generatenewcaptcha', 'oauthdisp', 'fbconnect' );
+        $actions = array ('showlogin','ajax_login', 'login', 'logintwitter', 'error', 'needpassword', 'needpasswordconfirm', 'emailsent', 'generatenewcaptcha', 'oauthdisp', 'fbconnect' );
 
         if (in_array ( $action, $actions )) {
             return FALSE;
@@ -165,6 +165,25 @@ class security extends controller {
                     }
                 }
                 break;
+                
+            case 'ajax_login':
+                $username = $this->getParam ( 'username', '' );
+                $password = $this->getParam ( 'password', '' );
+                $remember = $this->getParam( 'remember', 'off');
+                //error_log(var_dump($this->objUser->authenticateUser ( $username, $password, $remember ), true));
+                 if ($this->objUser->authenticateUser ( $username, $password, $remember )) {
+                     
+                    echo 'yes';     
+                 }else{
+                     echo "no";
+                 }
+                
+                
+                exit(0);
+                break;
+            case 'ajax_gotopostlogin':
+               $postlogin = $this->objConfig->getdefaultModuleName ();
+                return $this->nextAction ( NULL, NULL, $postlogin );
             case 'showlogin' :
             default :
                 return $this->showPreLoginModule ();
