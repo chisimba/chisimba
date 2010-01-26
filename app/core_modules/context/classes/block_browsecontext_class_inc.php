@@ -107,7 +107,9 @@ class block_browsecontext extends object
         $str3 = '<div id="browseallcontextcontent"></div>';
 		$isAdmin = ($this->objUser->isAdmin()) ? "true" : "false";
         $str .= $this->getJavaScriptFile('contextbrowser.js');        
-        
+        $fullUri = $this->uri(NULL);
+        $fullUri = explode("?",$fullUri);
+        $siteUri = $fullUri[0];
         $this->appendArrayVar('headerParams', '
         	<script type="text/javascript">
         	var pageSize = 500;
@@ -123,14 +125,14 @@ class block_browsecontext extends object
 			var uri = "'.str_replace('&amp;','&',$this->uri(array('module' => 'context', 'action' => 'jsonlistcontext'))).'"; 
         	var usercontexturi = "'.str_replace('&amp;','&',$this->uri(array('module' => 'context', 'action' => 'jsonusercontexts'))).'"; 
 			var othercontexturi = "'.str_replace('&amp;','&',$this->uri(array('module' => 'context', 'action' => 'jsonusercontexts'))).'"; 
-        		var baseuri = "'.$this->uri().'index.php";
+        		var baseuri = "'.$siteUri.'";
         		var isAdmin = '.$isAdmin.';
         		contextPrivateMessage="'.$this->objLanguage->code2Txt('mod_context_privatecontextexplanation', 'context', NULL, 'This is a closed [-context-] only accessible to members').'"; </script>');
 		
 		//Ext stuff		
 		$objExtJS = $this->getObject('extjs','htmlelements');
 		$objExtJS->show();
-		
+
 		$ext =$this->getJavaScriptFile('Ext.ux.grid.Search.js', 'context');		
 		$ext .=$this->getJavaScriptFile('usercontextslist.js', 'context');
 		$ext .=$this->getJavaScriptFile('othercontexts.js', 'context');
