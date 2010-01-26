@@ -28,6 +28,12 @@ require($objConfig->getsiteRootPath().'skins/_common/templates/skinpageheader2-0
     } else {
         echo '<body>';
     }
+    
+    
+    if (isset($login)){
+        echo $login;    
+    }
+    
     if (!isset($pageSuppressContainer)) {
         echo '<div id="container">';
     }
