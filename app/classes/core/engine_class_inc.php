@@ -134,7 +134,7 @@ class engine {
      * Version Number of the software. (engine)
      *
      */
-    public $version = '3.1.4';
+    public $version = '3.1.5';
 
     /**
      * Template variable
@@ -357,7 +357,7 @@ class engine {
      */
     public $coremods = array ('api', 'blocks', 'config', 'context', 
         'contextadmin', 'contextgroups', 'contextpermissions',
-        'creativecommons', 'decisiontable', 'errors', 'fckeditor', 'files',
+        'creativecommons', 'decisiontable', 'errors', 'ext', 'fckeditor', 'files',
         'filemanager', 'filters', 'groupadmin', 'help', 'htmlelements', 'jquery',
         'language', 'logger', 'mail', 'modulecatalogue', 'navigation',
         'outputplugins', 'permissions', 'postlogin', 'prelogin', 'redirect',
