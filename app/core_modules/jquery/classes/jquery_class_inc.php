@@ -443,6 +443,16 @@ class jquery extends object
           $this->getJavascriptFile($basePath . 'jquery.corner.js',
           'htmlelements'));
     }
+    
+    /**
+     * Method to load the tablesorter plugin, which allows sorting of tables
+     * by their <thead> elements
+     */
+    public function loadTablesorterPlugin() {
+        $basePath = 'plugins/tablesorter/';
+        $this->appendArrayVar('headerParams',
+            $this->getJavascriptFile($basePath . 'jquery.tablesorter.min.js'));
+    }
 
 }
 
