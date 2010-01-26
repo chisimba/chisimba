@@ -46,6 +46,8 @@ class skin extends object
         $this->browserInfo = $this->getObject('browser');
 
         $this->skinRoot = $this->objConfig->getskinRoot();
+        
+        
     }
 
     /**
@@ -461,6 +463,8 @@ class skin extends object
     */
     public function getPageTemplate()
     {
+        $objLogin = $this->getObject('loginbox', 'userregistration');
+        $this->setVar('login', $objLogin->show());
         if (file_exists($this->objConfig->getsiteRootPath().$this->skinRoot.$this->getSkin().'/templates/page/page_template.php')) {
             return $this->skinRoot.$this->getSkin().'/templates/page/page_template.php';
         } else {
@@ -534,6 +538,8 @@ class skin extends object
      */
     public function putJavaScript($mime='text/html', $headerParams=NULL, $bodyOnLoad=NULL)
     {
+        
+               
         if ($mime != 'application/xhtml+xml') {
             $mime = 'text/html';
         }
