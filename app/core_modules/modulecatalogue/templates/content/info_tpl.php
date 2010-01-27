@@ -110,7 +110,7 @@
     
     $this->loadClass('href', 'htmlelements');
     $instButton = new href($this->uri(array('action'=>'install','mod'=>$this->modname,'cat'=>$activeCat),'modulecatalogue'), $this->objLanguage->languageText('word_install'), NULL);
-                    $instButtonShow = $instButton->show();
+    $instButtonShow = $instButton->show();
     
     $objTblClass->startRow();
     $objTblClass->addCell($link2.$space.$link1.$link3.$space.$instButtonShow, "", NULL, 'center',NULL, 'colspan="2"');

@@ -139,6 +139,7 @@ $searchForm->displayType = 3;
 $srchStr = &new textinput('srchstr',$this->getParam('srchstr'),null,'21');
 $srchButton = &new button('search');
 $srchButton->setValue($this->objLanguage->languageText('word_search'));
+$srchButton->setIconClass("search");
 $srchButton->setToSubmit();
 $srchType = &new dropdown('srchtype');
 $srchType->addOption('name',$this->objLanguage->languageText('mod_modulecatalogue_modname','modulecatalogue'));

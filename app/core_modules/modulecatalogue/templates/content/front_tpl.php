@@ -64,6 +64,7 @@ if ($modules) {
         $batchButton->extra = "class='pseudobutton'";
         $batchChange = $batchButton->show();
         $batchButton = new button('formsub');
+        $batchButton->setIconClass("wrench");
         $batchButton->setValue($this->objLanguage->languageText('mod_modulecatalogue_uninstallselected','modulecatalogue'));
         $batchButton->extra=' onclick="if(confirm(\''.$this->objLanguage->languageText('mod_modulecatalogue_confirmbatchuninst','modulecatalogue').'\'))
                             {document.getElementById(\'form_batchform\').submit();}"';
@@ -75,6 +76,7 @@ if ($modules) {
         $batchButton->extra = "class='pseudobutton'";
         $batchChange = $batchButton->show();
         $batchButton = &new button('formsub');
+        $batchButton->setIconClass("wrench");
         $batchButton->setValue($this->objLanguage->languageText('mod_modulecatalogue_installselected','modulecatalogue'));
         $batchButton->setToSubmit();  //If you want to make the button a submit button
         $batchAction = $batchButton->show();
@@ -267,6 +269,7 @@ $searchForm = new form('searchform',$this->uri(array('action'=>'search','cat'=>'
 $searchForm->displayType = 3;
 $srchStr = new textinput('srchstr',$this->getParam('srchstr'),null,'21');
 $srchButton = new button('search');
+$srchButton->setIconClass("search");
 $srchButton->setValue($this->objLanguage->languageText('word_search'));
 $srchButton->setToSubmit();
 $srchType = new dropdown('srchtype');
