@@ -4,7 +4,7 @@
 
 
 	$objSysConfig  = $this->getObject('altconfig','config');
-	$objExtJS = $this->getObject('extjs','htmlelements');
+	$objExtJS = $this->getObject('extjs','ext');
 	$objExtJS->show();
 	//$ext =$this->getJavaScriptFile('ext-3.0-rc2/ext-all-debug.js', 'htmlelements');
 	$ext =$this->getJavaScriptFile('ColumnNodeUI.js', 'groupadmin');
