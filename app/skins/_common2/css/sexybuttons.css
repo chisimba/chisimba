@@ -315,9 +315,9 @@
 /* Silk Icons - http://www.famfamfam.com/lab/icons/silk/ */
 /* (Obviously not all Silk icons are defined here. Feel free to define any other icons that you may need.) */
 
-.sexybutton span.ok				{ background-image: url(images/sexybuttons/icons/silk/tick.png); }
+.sexybutton span.ok			{ background-image: url(images/sexybuttons/icons/silk/tick.png); }
 .sexybutton span.cancel			{ background-image: url(images/sexybuttons/icons/silk/cross.png); }
-.sexybutton span.add				{ background-image: url(images/sexybuttons/icons/silk/add.png); }
+.sexybutton span.add			{ background-image: url(images/sexybuttons/icons/silk/add.png); }
 .sexybutton span.delete			{ background-image: url(images/sexybuttons/icons/silk/delete.png); }
 .sexybutton span.download		{ background-image: url(images/sexybuttons/icons/silk/arrow_down.png); }
 .sexybutton span.download2		{ background-image: url(images/sexybuttons/icons/silk/package_down.png); }
