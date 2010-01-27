@@ -119,7 +119,7 @@ class parse4collectawidget extends object
     
     private function widgetize($term, $title, $width, $height){
         $widget = '<iframe style="border: medium none ; overflow: hidden; width: '.$width.'px; height: '.$height.'px;" 
-                  src="http://widget.collecta.com/widget.html?query='.$term.'&alias='.$title.'&
+                  src="http://widget.collecta.com/widget.html?query='.urlencode($term).'&alias='.$title.'&
                   headerimg=&stylesheet=&delay=" id="widgetframe" frameborder="0" scrolling="no">
                   </iframe>';
         

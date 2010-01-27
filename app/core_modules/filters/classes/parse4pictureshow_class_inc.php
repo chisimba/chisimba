@@ -146,9 +146,13 @@ class parse4pictureshow extends object
                     },
                     onSelect: function(index, id) {
                         var record = records[index];
-                        document.getElementById("selected-slide").innerHTML = record.title;
+                        document.getElementById("selected-slide").innerHTML = record.image;
+                        
                     },
                     onTitleClick: function(index, id) {
+                        var record = records[index];
+                        var image = record.image;
+                        // alert(image);
                     },
                     onSubtitleClick: function(index, id) {
                     },
@@ -169,7 +173,7 @@ class parse4pictureshow extends object
         $body = ' onload="onLoad();"';
         $this->setVar('bodyParams', $body);
         
-        return '<div id="the-widget" style="height: 400px;"></div>';
+        return '<div id="the-widget" style="height: 400px;"></div><span id="selected-slide"></span>';
     }
     
     /**
