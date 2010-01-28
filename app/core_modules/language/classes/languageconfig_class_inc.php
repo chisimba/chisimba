@@ -138,6 +138,13 @@ class languageConfig extends object
 
             //instantiate class
             $this->_siteConf = $this->getObject('altconfig','config');
+            $langcache = $this->_siteConf->getlangcache();
+            if(strtolower($langcache) === 'true') {
+                $langcache = true;
+            } 
+            else {
+                $langcache = false;
+            }
             $dsn = $this->_parseDSN(KEWL_DB_DSN);
             $this->lang = &Translation2::factory($driver, $dsn, $params);
             if (PEAR::isError($this->lang)) {
@@ -151,9 +158,9 @@ class languageConfig extends object
             // TODO: make the caching configuration options for language items configurable
             $cacheLiteOptions = array(
                 'cacheDir' => '/tmp/',
-                'caching'  => true,       // enable or disable caching
+                'caching'  => $langcache,       // enable or disable caching
                 'lifeTime' => 3600,       // in seconds
-                'cleaningFrequency' => 0, // never clean cached files (set 1 to clean at every request)
+                'cleaningFrequency' => 50, // never clean cached files (set 1 to clean at every request)
             );
             $this->lang->setOptions($cacheLiteOptions);
 
