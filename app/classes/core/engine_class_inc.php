@@ -355,7 +355,7 @@ class engine {
      *
      * @var array
      */
-    public $coremods = array ('api', 'blocks', 'config', 'context', 
+    public $coremods = array ('api', 'blocks', 'config', 'context',
         'contextadmin', 'contextgroups', 'contextpermissions',
         'creativecommons', 'decisiontable', 'errors', 'ext', 'fckeditor', 'files',
         'filemanager', 'filters', 'groupadmin', 'help', 'htmlelements', 'jquery',
@@ -1366,8 +1366,12 @@ class engine {
      * @param  $name  string The name of the reference variable
      * @param  $ref   mixed  A reference to the object to set the reference variable to
      */
-    public function setVarByRef($name, $ref) {
-        $this->_templateRefs [$name] = $ref;
+    public function setVarByRef($name, &$ref) {
+        if (is_object($ref)) {
+            $this->_templateRefs [$name] = $ref;
+        } else {
+            $this->_templateRefs [$name] =& $ref;
+        }
     }
 
     /**
