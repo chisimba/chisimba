@@ -110,17 +110,22 @@ class parse4collectawidget extends object
             } else {
                 $height = '300';
             }
-            $replacement = $this->widgetize($term, $title, $width, $height);
+            if (isset($this->objExpar->scroll)) {
+                $scroll = $this->objExpar->scroll;
+            } else {
+                $scroll = 'no';
+            }
+            $replacement = $this->widgetize($term, $title, $width, $height, $scroll);
             $txt = str_replace($replaceable, $replacement, $txt);
             $counter++;
         }
         return $txt;
     }
     
-    private function widgetize($term, $title, $width, $height){
+    private function widgetize($term, $title, $width, $height, $scroll){
         $widget = '<iframe style="border: medium none ; overflow: hidden; width: '.$width.'px; height: '.$height.'px;" 
                   src="http://widget.collecta.com/widget.html?query='.urlencode($term).'&alias='.$title.'&
-                  headerimg=&stylesheet=&delay=" id="widgetframe" frameborder="0" scrolling="no">
+                  headerimg=&stylesheet=&delay=" id="widgetframe" frameborder="0" scrolling="'.$scroll.'">
                   </iframe>';
         
         return $widget;
