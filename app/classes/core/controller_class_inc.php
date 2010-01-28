@@ -237,7 +237,7 @@ class controller extends access
      * @param  mixed  $ref  A reference to the object to set the reference variable to.
      * @return void
      */
-    public function setVarByRef($name, $ref) {
+    public function setVarByRef($name, &$ref) {
         $this->objEngine->setVarByRef($name, $ref);
     }
 
