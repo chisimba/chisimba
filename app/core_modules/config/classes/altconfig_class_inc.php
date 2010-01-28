@@ -1465,6 +1465,31 @@ class altconfig extends object {
 
         return $cache_ttl;
     }
+    
+    /**
+     * Gets language cache Setting
+     *
+     * @access public
+     * @return getenable langcache setting
+     */
+    public function getlangcache() {
+        if (! is_object ( $this->_root ))
+            $this->_root = &$this->readConfig ( '', 'XML' );
+            //Lets get the parent node section first
+        $Settings = & $this->_root->getItem ( "section", "Settings" );
+        //Now onto the directive node
+        $SettingsDirective = & $Settings->getItem ( "directive", "LANGCACHE" );
+        //var_dump($SettingsDirective);
+        if ($SettingsDirective == FALSE) {
+            $newsettings = array ("LANGCACHE" => "TRUE" );
+            $this->appendToConfig ( $newsettings );
+            return TRUE;
+        }
+        //finally unearth whats inside
+        $langcache = $SettingsDirective->getContent ();
+
+        return $langcache;
+    }
 
     /**
      * Gets enable proxy Setting
