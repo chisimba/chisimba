@@ -74,10 +74,60 @@ class block_contextmembers extends object
         $this->title = ucwords($this->objLanguage->code2Txt('mod_contextgroups_contextmembers','contextgroups'));
    }
    
+   public function show(){
+        $objExtJS = $this->getObject('extjs','ext');
+        $objModules = $this->getObject('modules', 'modulecatalogue');
+        
+		$objExtJS->show();
+		$this->setJSVars();
+		$ext =$this->getJavaScriptFile('lecturer.js', 'contextgroups');		
+		$ext .=$this->getJavaScriptFile('student.js', 'contextgroups');		
+		$ext .=$this->getJavaScriptFile('members.js', 'contextgroups');		
+		
+		$this->appendArrayVar('headerParams', $ext);
+		 
+		$link = new link ($this->uri(NULL, 'contextgroups'));
+        $link->link = $this->objLanguage->code2Txt('mod_contextgroups_toolbarname','contextgroups');        
+        $str = '<p>'.$link->show();       
+        if ($objModules->checkIfRegistered('userimport') && $this->objUser->isAdmin()) {
+            $link = new link ($this->uri(NULL, 'userimport'));
+            $link->link = $this->objLanguage->languageText('mod_contextgroups_importusers', 'contextgroups', 'Import Users');
+            
+            $str .= ' / '.$link->show();
+        }        
+        $str .= '</p>';
+		
+        return '<div id="memberbrowser"></div>				
+				<p>&nbsp;</p>'.$str;
+   }
+   
+   public function setJSVars(){
+       $objSysConfig  = $this->getObject('altconfig','config');
+        $this->appendArrayVar('headerParams', '
+        	<script type="text/javascript">
+        	var pageSize = 500;
+        	var lang = new Array();
+        	lang["mycontext"] =   "'.ucWords($this->objLanguage->code2Txt('phrase_mycourses', 'system', NULL, 'My [-contexts-]')).'";
+        	lang["contexts"] =   "'.ucWords($this->objLanguage->code2Txt('wordcontext', 'system', NULL, '[-contexts-]')).'";
+        	lang["context"] =   "'.ucWords($this->objLanguage->code2Txt('wordcontext', 'system', NULL, '[-context-]')).'";
+        	lang["othercontext"] =   "'.ucWords($this->objLanguage->code2Txt('phrase_othercourses', 'system', NULL, 'Other [-contexts-]')).'";
+        	lang["searchcontext"] =   "'.ucWords($this->objLanguage->code2Txt('phrase_allcourses', 'system', NULL, 'Search [-contexts-]')).'";
+        	lang["contextcode"] =   "'.ucWords($this->objLanguage->code2Txt('mod_context_contextcode', 'system', NULL, '[-contexts-] Code')).'";
+        	lang["lecturers"] =   "'.ucWords($this->objLanguage->code2Txt('word_lecturers', 'system', NULL, '[-authors-]')).'";
+        	lang["students"] =   "'.ucWords($this->objLanguage->code2Txt('word_students', 'system', NULL, '[-readonly-]')).'";
+        	var baseUri = "'.$objSysConfig->getsiteRoot().'index.php";
+			var uri = "'.str_replace('&amp;','&',$this->uri(array('module' => 'context', 'action' => 'jsonlistcontext'))).'"; 
+        	var usercontexturi = "'.str_replace('&amp;','&',$this->uri(array('module' => 'context', 'action' => 'jsonusercontexts'))).'"; 
+			var othercontexturi = "'.str_replace('&amp;','&',$this->uri(array('module' => 'context', 'action' => 'jsonusercontexts'))).'"; 
+        		
+        		
+        		contextPrivateMessage="'.$this->objLanguage->code2Txt('mod_context_privatecontextexplanation', 'context', NULL, 'This is a closed [-context-] only accessible to members').'"; </script>');
+   }
+   
    /**
     * Method to show the block
     */
-   public function show()
+   public function show_()
    {
         if ($this->contextCode == 'root' || $this->contextCode == '') {
             return '';

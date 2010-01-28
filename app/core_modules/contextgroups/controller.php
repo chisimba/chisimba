@@ -77,6 +77,8 @@ class contextgroups extends controller
         $this->objGroups = $this->getObject('groupAdminModel', 'groupadmin');
         $this->objGroupUsers = $this->getObject('groupusersdb', 'groupadmin');
         $this->objGroupsOps = $this->getObject('groupops', 'groupadmin');
+        
+        $this->objManageGroups = $this->getObject('managegroups', 'contextgroups');
 
         $this->objUser = $this->getObject('user', 'security');
         $this->userId = $this->objUser->userId();
@@ -111,6 +113,23 @@ class contextgroups extends controller
                 return $this->removeUserFromGroup($this->getParam('userid'), $this->getParam('group'));
             case 'removeallusers':
                 return $this->removeAllUsersFromGroup();
+                
+                
+            ///json stuff
+            case 'json_getlecturers':
+                $lecturers = $this->objManageGroups->contextUsers('Lecturers', $this->contextCode, array( 'tbl_users.userId', 'firstName', 'surname'));
+                //var_dump($lecturers);
+                echo json_encode(array('totalCount' => count($lecturers), 'lecturers' =>  $lecturers));
+                exit(0);
+                break;
+                
+             case 'json_getstudents':
+                $lecturers = $this->objManageGroups->contextUsers('Students', $this->contextCode, array( 'tbl_users.userId', 'firstName', 'surname'));
+                //var_dump($lecturers);
+                echo json_encode(array('totalCount' => count($lecturers), 'lecturers' =>  $lecturers));
+                exit(0);
+                break;
+                
         }
     }
 
