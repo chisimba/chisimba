@@ -118,9 +118,9 @@ class htmlarea extends object {
         //$this->setSiteRootPath($siteRoot);
         //$this->_objConfig =& $this->getObject('config', 'config');
         //$siteRootPath = $this->_objConfig->siteRootPath();
-        //$objConfig=$this->getObject('altconfig','config');
-        //$this->siteRoot=$objConfig->getsiteRoot();
-        $this->siteRoot=$this->getSiteRoot();
+        $objConfig=$this->getObject('altconfig','config');
+        $this->siteRoot=$objConfig->getsiteRoot();
+        //$this->siteRoot=$this->getSiteRoot();
 
         $this->context = $context;
         $this->toolbarSet = 'advanced';
