@@ -88,7 +88,7 @@ class htmlarea extends object {
 
     /**
      * this var stores the instance of ckeditor when its created
-     * @var <String> 
+     * @var <String>
      */
     var $editor;
 
@@ -114,12 +114,14 @@ class htmlarea extends object {
         $this->cols=$cols;
         $this->css='textarea';
         $this->templatePath = ''; //will load the default template path
-        //$this->_objConfig =& $this->getObject('config', 'config');
-        //$siteRootPath = $this->_objConfig->siteRootPath();
-        $objConfig=$this->getObject('altconfig','config');
-        $this->siteRoot=$objConfig->getsiteRoot();
         //$siteRootPath = "http://".$_SERVER['HTTP_HOST']."/nextgen/";
         //$this->setSiteRootPath($siteRoot);
+        //$this->_objConfig =& $this->getObject('config', 'config');
+        //$siteRootPath = $this->_objConfig->siteRootPath();
+        //$objConfig=$this->getObject('altconfig','config');
+        //$this->siteRoot=$objConfig->getsiteRoot();
+        $this->siteRoot=$this->getSiteRoot();
+
         $this->context = $context;
         $this->toolbarSet = 'advanced';
 
@@ -188,13 +190,12 @@ class htmlarea extends object {
     function show() {
         $base = '<script language="JavaScript" src="'.$this->getResourceUri('ckeditor/ckeditor.js','htmlelements').'" type="text/javascript"></script>';
         $baseajax = '<script language="JavaScript" src="'.$this->getResourceUri('ckeditor/_source/core/ajax.js','htmlelements').'" type="text/javascript"></script>';
-       
-        $initVars='
 
-       <script type="text/javascript">
-        var instancename=\''.$this->name.'\';
-        var  siteRootPath=\''.$this->siteRoot.'\';
-       </script>
+        $initVars='
+<script type="text/javascript">
+    var instancename=\''.$this->name.'\';
+    var siteRootPath=\''.$this->siteRoot.'\';
+</script>
       ';
 
         $this->appendArrayVar('headerParams', $initVars);
@@ -203,7 +204,7 @@ class htmlarea extends object {
 
         $this->editor.='<textarea name="'.$this->name.'">'.$this->value.'</textarea>';
         $this->editor.="
-       <script type=\"text/javascript\">
+        <script type=\"text/javascript\">
         CKEDITOR.replace( '$this->name',
 		{
 			filebrowserBrowseUrl : '$this->siteRoot?module=filemanager&action=fcklink&context=no&loadwindow=yes',
@@ -211,7 +212,7 @@ class htmlarea extends object {
 			filebrowserFlashBrowseUrl : '$this->siteRoot?module=filemanager&action=fckflash&context=yes&loadwindow=yes',
                         height:'".$this->height."', width:'".$this->width."',
                         toolbar:'".$this->toolbarSet."'
-                       
+
 		}
         );
        </script>
@@ -322,7 +323,7 @@ class htmlarea extends object {
         }
             catch (e) {}
     }
-    
+
     function copyFCKData(fckEditorInstance)
     {
         try
@@ -338,9 +339,9 @@ class htmlarea extends object {
             //oEditor.Focus();
         }
             catch (e) {}
-            
+
     }
-    
+
 </script>');
     }
 
@@ -411,10 +412,10 @@ class htmlarea extends object {
     public function getJavaScripts() {
         $str = '
                 <script language="javascript" type="text/javascript" src="core_modules/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
-                
-                
+
+
                 <script language="javascript" type="text/javascript">
-                
+
                     tinyMCE.init({
                         mode : "textareas",
                         theme : "'.$this->toolbarSet.'",
@@ -440,12 +441,12 @@ class htmlarea extends object {
                         theme_advanced_resize_horizontal : false,
                         theme_advanced_resizing : true
                     });
-                
+
                     function fileBrowserCallBack(field_name, url, type, win) {
                         // This is where you insert your custom filebrowser logic
                         //alert("Example of filebrowser callback: field_name: " + field_name + ", url: " + url + ", type: " + type);
                         mywindow = window.open ("'.$this->uri(array('action' => 'showmedia'), 'mediamanager').'",  "imagewindow","location=1,status=1,scrollbars=0,  width=200,height=200");  mywindow.moveTo(0,0);
-                        
+
                         //alert(mywindow.document.forms[0].hideme.value);
                         // Insert new URL, this would normaly be done in a popup
                         win.document.forms[0].elements[hide'.$this->name.'].value = "'.$this->uri(array('action' => 'list'), 'mediamanager').'";
@@ -454,6 +455,23 @@ class htmlarea extends object {
                     ';
         $this->appendArrayVar('headerParams', $str);
     //return $str;
+    }
+    /**
+    * Gets the site root (equivalent to:
+    *   $objConfig=$this->getObject('altconfig','config');
+    *   ... $objConfig->getsiteRoot());
+    * )
+    * Caters for server aliases, which the altconfig class does not cater for.
+    * @author Jeremy O'Connor
+    * @return string The site root
+    */
+    private function getSiteRoot()
+    {
+        $https = isset($_SERVER['HTTPS'])?$_SERVER['HTTPS']=='off'?FALSE:TRUE:FALSE;
+        $http_host = $_SERVER ['HTTP_HOST'];
+        $php_self = $_SERVER['PHP_SELF'];
+        $path = str_replace('index.php', '', $php_self);
+        return ($https?'https://':'http://').$http_host.$path;
     }
 }
 
