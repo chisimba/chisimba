@@ -70,7 +70,13 @@ if ($mode == 'selectfilewindow' || $mode == 'selectimagewindow' || $mode == 'fck
         {
             if (window.opener) {
                  //31.10.2009 davidwaf added the following  that uses CKeditor 3
-                window.opener.CKEDITOR.tools.callFunction(1, "'.htmlspecialchars_decode($this->uri(array('action'=>'file', 'id'=>$file['id'], 'filename'=>$file['filename'], 'type'=>'.'.$file['datatype']), 'filemanager', '', TRUE, FALSE, TRUE)).'"'.$widthHeight.') ;
+
+                 if (/Firefox[\/\s](\d+\.\d+)/.test(navigator.userAgent)){
+                      var uf = 2;
+                   }else{
+                      var uf = 1;
+                   }
+                window.opener.CKEDITOR.tools.callFunction(uf, "'.htmlspecialchars_decode($this->uri(array('action'=>'file', 'id'=>$file['id'], 'filename'=>$file['filename'], 'type'=>'.'.$file['datatype']), 'filemanager', '', TRUE, FALSE, TRUE)).'"'.$widthHeight.') ;
                 window.top.close() ;
                 window.top.opener.focus() ;
             }
