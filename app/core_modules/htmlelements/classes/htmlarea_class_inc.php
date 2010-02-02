@@ -184,6 +184,7 @@ class htmlarea extends object {
         $this->value=$value;
     }
 
+    
     /**
      * Method to display the WYSIWYG Editor
      */
@@ -202,15 +203,20 @@ class htmlarea extends object {
         $this->appendArrayVar('headerParams', $base);
         $this->appendArrayVar('headerParams', $baseajax);
 
-        $this->editor.='<textarea name="'.$this->name.'">'.$this->value.'</textarea>';
+        $rawvalue=$this->value;
+ 
+        $this->editor.='<textarea name="'.$this->name.'">'.$rawvalue.'</textarea>';
         $this->editor.="
         <script type=\"text/javascript\">
         CKEDITOR.replace( '$this->name',
 		{
-			filebrowserBrowseUrl : '$this->siteRoot?module=filemanager&action=fcklink&context=no&loadwindow=yes',
-			filebrowserImageBrowseUrl : '$this->siteRoot?module=filemanager&action=fckimage&context=no&loadwindow=yes',
+			filebrowserBrowseUrl : '$this->siteRoot?module=filemanager&action=fcklink&context=yes&loadwindow=yes',
+			filebrowserImageBrowseUrl : '$this->siteRoot?module=filemanager&action=fckimage&context=yes&loadwindow=yes&scrollbars=yes',
 			filebrowserFlashBrowseUrl : '$this->siteRoot?module=filemanager&action=fckflash&context=yes&loadwindow=yes',
                         height:'".$this->height."', width:'".$this->width."',
+                        filebrowserWindowWidth : '80%',
+                        filebrowserWindowHeight : '100%',
+
                         toolbar:'".$this->toolbarSet."'
 
 		}
