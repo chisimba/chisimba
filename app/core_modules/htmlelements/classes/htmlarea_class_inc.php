@@ -121,7 +121,7 @@ class htmlarea extends object {
         $objConfig=$this->getObject('altconfig','config');
         $this->siteRoot=$objConfig->getsiteRoot();
         //$this->siteRoot=$this->getSiteRoot();
-
+        $this->sitePath=$objConfig->getsitePath();
         $this->context = $context;
         $this->toolbarSet = 'advanced';
 
@@ -216,13 +216,14 @@ class htmlarea extends object {
                         height:'".$this->height."', width:'".$this->width."',
                         filebrowserWindowWidth : '80%',
                         filebrowserWindowHeight : '100%',
-
+                        contentsCss: '$this->sitePath/core_modules/htmlelements/resources/ckeditor/chisimba.css',
                         toolbar:'".$this->toolbarSet."'
 
 		}
         );
        </script>
             ";
+       
         return $this->editor;
     //return $this->showFCKEditor();
     }
