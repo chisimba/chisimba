@@ -15,8 +15,8 @@ CKEDITOR.editorConfig = function( config )
     config.resize_minWidth = 400;
     config.resize_maxWidth = '100%';
 
-    config.enterMode = CKEDITOR.ENTER_BR;
-    config.shiftEnterMode = CKEDITOR.ENTER_P;
+    //config.enterMode = CKEDITOR.ENTER_BR;
+    config.shiftEnterMode = CKEDITOR.ENTER_BR;
     config.toolbar_advanced =
     [
     ['Source','-','Save','NewPage','Preview','-','Templates'],
