@@ -155,7 +155,7 @@ class groupops extends object
     public function getJsonGroupUsers($groupId, $start=0, $limit=25)
     {
     	$filter = " LIMIT ".$start.', '.$limit;
-    	$sql = "SELECT gu.perm_user_id, pu.auth_user_id, us.firstName, us.surname, us.username, us.last_login, us.logins, us.emailAddress from tbl_perms_groupusers as gu INNER join tbl_perms_perm_users as pu on gu.perm_user_id = pu.perm_user_id INNER join tbl_users as us on CAST(pu.auth_user_id AS CHAR(25)) = us.userId WHERE group_id = ".$groupId." ORDER BY us.surname ";
+    	$sql = "SELECT gu.perm_user_id, pu.auth_user_id, us.firstName, us.surname, us.username, us.last_login, us.logins, us.emailAddress from tbl_perms_groupusers as gu INNER join tbl_perms_perm_users as pu on gu.perm_user_id = pu.perm_user_id INNER join tbl_users as us on CAST(pu.auth_user_id AS CHAR(25)) = us.userId WHERE group_id = ".$groupId." ORDER BY us.surname ".$filter;
 	
 	error_log(var_export($sql, true));
     	$users = $this->objDBContext->getArray($sql);
@@ -426,8 +426,9 @@ class groupops extends object
 	}
 
     	$filter = " LIMIT $start , $limit";
-    	$sql = "SELECT pu.perm_user_id, us.firstName, us.surname, us.username, us.last_login, us.logins, us.emailAddress FROM tbl_users as us INNER join tbl_perms_perm_users as pu on us.userId = CAST(pu.auth_user_id AS CHAR(25)) ".$where." ORDER BY us.surname "/*.$filter*/;
+    	$sql = "SELECT pu.perm_user_id, us.firstName, us.surname, us.username, us.last_login, us.logins, us.emailAddress FROM tbl_users as us INNER join tbl_perms_perm_users as pu on us.userId = CAST(pu.auth_user_id AS CHAR(25)) ".$where." ORDER BY us.surname ".$filter;
 		error_log(var_export($sql, true));
+		//die($sql);
     	$users = $this->objDBContext->getArray($sql);
     	$countSQL = "SELECT username FROM tbl_users";
     	$userCount = count($this->objDBContext->getArray($countSQL));
