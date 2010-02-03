@@ -92,7 +92,7 @@ class utility extends object {
 		
 		$filter = " LIMIT $start , ".$params["limit"];
 		$userCount = count($this->objUserAdmin->getAll());
-		$var_users = $this->objUserAdmin->getAll($where." ORDER BY title ");
+		$var_users = $this->objUserAdmin->getAll($where." ORDER BY title ".$filter);
 
 		if(count($var_users) > 0){
 			
