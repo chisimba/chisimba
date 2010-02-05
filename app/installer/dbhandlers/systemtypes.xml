@@ -48,6 +48,8 @@
             <module>utilities</module>
             <module>packages</module>
             <module>permissions</module>
+            <module>tagging</module>
+            <module>filemanager</module>
         </category>
 
         <category>

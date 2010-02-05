@@ -1,46 +1,23 @@
 <?php
 
-
-
-
-
 require_once INSTALL_DIR.'/step.inc';
-
 require_once 'xml2array_class_inc.php';
-
 require_once INSTALL_DIR.'/stepaction.inc';
-
 require_once INSTALL_DIR.'/html_form/html_form.inc';
-
 require_once INSTALL_DIR.'/dbhandlers/dbhandler.inc';
 
-
-
 /**
-
-* DatabaseCreate
-
-*
-
-* This step creates all the tables needed in the database.
-
-*
-
-* @author prince mbekwa
-
-* @version $version$ - 1.0
-
-* @package installer
-
-* @subpackage installer
-
-*/
-
+ * DatabaseCreate
+ *
+ * This step creates all the tables needed in the database.
+ *
+ * @author prince mbekwa
+ * @version $version$ - 1.0
+ * @package installer
+ * @subpackage installer
+ */
 class DatabaseCreate extends Step
-
 {
-
-
     /**
 
 	* Set up this step's actions
@@ -89,7 +66,7 @@ class DatabaseCreate extends Step
 
 *
 
-* Creates all the tables needed for the 5ive database. Takes the place of 'step_02.php'
+* Creates all the tables needed for the Chisimba database. Takes the place of 'step_02.php'
 
 *
 
@@ -122,7 +99,7 @@ class DbCreateAction extends StepAction
 
 	/**
 
-	* Initialise the 5ive system.
+	* Initialise the Chisimba system.
 
 	*
 
@@ -193,31 +170,21 @@ class DbCreateAction extends StepAction
     $this->_installDb32('core_modules/language/sql/tbl_language_modules.sql');
     $this->_installDb32('core_modules/toolbar/sql/tbl_menu_category.sql');
     $this->_installDb32('core_modules/sysconfig/sql/tbl_sysconfig_properties.sql');
-
-
     //we need tbl_groupadmin_groupuser as well.
     $this->_installDb32('core_modules/groupadmin/sql/tbl_groupadmin_groupuser.sql');
-//    $this->_installDb32('core_modules/groupadmin/sql/tbl_groupadmin_group_groupfk.sql');
     $this->_installDb32('core_modules/groupadmin/sql/tbl_groupadmin_group.sql');
 
     //tbl_permissions_acl
     $this->_installDb32('core_modules/permissions/sql/tbl_permissions_acl.sql');
-	$this->_installDb32('core_modules/permissions/sql/tbl_permissions_acl_description.sql');
-
-	//decision tables
-	//$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_action_rule.sql');
-	//$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_action.sql');
-	//$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_condition.sql');
-	//$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_conditiontype.sql');
-	//$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_decisiontable_action.sql');
-	//$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_decisiontable_rule.sql');
-	//$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_decisiontable.sql');
-	//$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_rule_condition.sql');
-	//$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_rule.sql');
-	$this->_installDb32('core_modules/tagging/sql/tbl_tags.sql');
-	//OK now lets dump in the default data from the xml files...
-	//get an array of the directories that we need to look through for the default files...
-	$defaults = array('security' => 'core_modules/security/sql/users.xml',
+    $this->_installDb32('core_modules/permissions/sql/tbl_permissions_acl_description.sql');
+    $this->_installDb32('core_modules/tagging/sql/tbl_tags.sql');
+    // Filemanager has loads of tables, so in the interest of brevity, we will glob them
+    foreach(glob('core_modules/filemanager/sql/*.sql') as $fsql) {
+        $this->_installDb32($fsql);
+    }
+    //OK now lets dump in the default data from the xml files...
+    //get an array of the directories that we need to look through for the default files...
+    $defaults = array('security' => 'core_modules/security/sql/users.xml',
 					  'modulecatalogue' => 'core_modules/modulecatalogue/sql/defaultdata.xml',
 					  'languagemodules' => 'core_modules/language/sql/langmodules.xml',
 					  'toolbar' => 'core_modules/toolbar/sql/defaultdata.xml',
@@ -277,7 +244,7 @@ class DbCreateAction extends StepAction
 	function firstRegister()
     {
     	$XPost = "";
-     	$url = "http://localhost/5ive/app/index.php?module=modulecatalogue&action=firsttimeregistration";
+     	$url = "http://localhost/Chisimba/app/index.php?module=modulecatalogue&action=firsttimeregistration";
 
      // initialize curl handle
      $ch = curl_init();
@@ -300,7 +267,7 @@ class DbCreateAction extends StepAction
 
 	/**
 
-	* Installs the database for 5ive systems
+	* Installs the database for Chisimba systems
 
 	*/
 
@@ -544,7 +511,7 @@ class DbCreateAction extends StepAction
 
 		// if this is an install setup type, or it was set that db tables should be
 
-		// created, the message is that 5ive will create tables.
+		// created, the message is that Chisimba will create tables.
 
 		if (($_SESSION['install_type'] == 'install') || (isset($_SESSION['create_db']) && $_SESSION['create_db'])) {
 
