@@ -80,7 +80,9 @@ class object
      */
     public $objConfig;
 
-    //public $objLu;
+    public $objLu;
+    public $objLuAdmin;
+    public $eventDispatcher;
 
     public $appid;
 
