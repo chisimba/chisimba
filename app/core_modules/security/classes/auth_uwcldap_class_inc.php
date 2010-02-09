@@ -108,6 +108,11 @@ class auth_uwcldap extends abauth implements ifauth {
 
         if (is_array ( $data ) || $this->objUser->valueExists ( 'userid', $info ['userid'] )) // if we already have this user
         {
+            // correct invalid userid from LDAP to match one in database
+            if (isset($data['userid'])){
+                $this->_record['userid']=$data['userid'];
+            }
+            // Send back password
             if (isset($data['pass'])){
                 return $data['pass'];
             } 
