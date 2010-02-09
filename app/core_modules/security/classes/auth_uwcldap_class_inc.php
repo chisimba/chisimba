@@ -70,7 +70,7 @@ class auth_uwcldap extends abauth implements ifauth {
         } else {
             // If the login succeeded we can get the info.
             $this->_record = $this->getInfo ( $ldapconn, $username );
-            $this->createUser ( $username );
+            $passwd=$this->createUser ( $username );
             ldap_close ( $ldapconn );
 
             $login = $this->objLu->login($username, '--LDAP--', $remember);
@@ -100,9 +100,17 @@ class auth_uwcldap extends abauth implements ifauth {
     function createUser($username) {
         $data = $this->objUser->lookupData ( $username );
         $info = $this->getUserDataAsArray ( $username );
-        //var_dump($data); var_dump($info); die();
+
+        // Check for invalid userid's
+        if ((is_numeric($username)) && (strlen($info['userid'])==8)){
+            $info['userid']=$username;
+        }
+
         if (is_array ( $data ) || $this->objUser->valueExists ( 'userid', $info ['userid'] )) // if we already have this user
         {
+            if (isset($data['pass'])){
+                return $data['pass'];
+            } 
             return TRUE;
         } else { // new user
             // Build up an array of the user's info
@@ -133,7 +141,7 @@ class auth_uwcldap extends abauth implements ifauth {
                 $this->objUser->addLecturer ( $id );
             }
 
-            return TRUE;
+            return $infopasswd;
         }
 
     }
@@ -226,9 +234,6 @@ class auth_uwcldap extends abauth implements ifauth {
             $results ['userid'] = $usernumber;
         }
 
-        if ((is_numeric($username)) && (strlen($usernumber)==8)){
-            $results['userid']=$username;
-        }
 
         $results ['title'] = '';
         $results ['logins'] = '0';
