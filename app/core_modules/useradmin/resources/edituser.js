@@ -135,7 +135,7 @@
 			frame:true,
 			title: 'Edit User',
 			bodyStyle:'padding:5px 5px 0',
-			width: 600,
+			width: "65%",
 			waitMsgTarget: true,
 			items: [{
 		        layout:'column',

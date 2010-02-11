@@ -14,7 +14,7 @@
 			frame:true,
 			title: 'Add User',
 			bodyStyle:'padding:5px 5px 0',
-			width: 600,
+			width: "65%",
 			items: [{
 		        layout:'column',
 		        items:[

@@ -70,7 +70,7 @@
 	        	if(!addwin){
 		            addwin = new Ext.Window({
 		            layout:'fit',
-					width:750,
+					width:"65%",
 					height:320,
 					closeAction:'hide',
 					plain: true,					
@@ -112,7 +112,7 @@
 			editwin = new Ext.Window({
 				
 				layout:'fit',
-				width:750,
+				width:"65%",
 				height:320,
 				closeAction:'hide',
 				plain: true,					
@@ -193,7 +193,7 @@
    var usergrid = new Ext.grid.EditorGridPanel({
         el: 'user-grid',
 		cm: cm,
-        width: 750,
+        width: "90%",
         height: 400,
 		frame: true,
 		title:'Browse Users',

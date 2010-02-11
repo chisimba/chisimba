@@ -245,6 +245,24 @@ Ext.countrydata.countries = [
 		['TC', 'Turks and Caicos Islands'],
 		['TV', 'Tuvalu'],
 		['PU', 'U.S. Miscellaneous Pacific Islands'],
-		['VI', 'U.S. Virgin Islands']
-       
-    ];
+		['VI', 'U.S. Virgin Islands'],
+		['UG', 'Uganda'],
+		['UA', 'Ukraine'],
+		['SU', 'Union of Soviet Socialist Republics'],
+		['AE', 'United Arab Emirates'],
+		['GB', 'United Kingdom'],
+		['US', 'United States'],
+		['UM', 'United States Minor Outlying Islands'],
+		['UY', 'Uruguay'],
+		['UZ', 'Uzbekistan'],
+		['VU', 'Vanuatu'],
+		['VA', 'Vatican'],
+		['VE', 'Venezuela'],
+		['VN', 'Vietnam'],
+		['WK', 'Wake Island'],
+		['WF', 'Wallis and Futuna'],
+		['EH', 'Western Sahara'],
+		['YE', 'Yemen'],
+		['ZM', 'Zambia'],
+		['ZW', 'Zimbabwe']
+      ];
