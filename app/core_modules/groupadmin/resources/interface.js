@@ -224,7 +224,7 @@ var toolBar = new Ext.Toolbar({
 		            win = new Ext.Window({
 		                
 		                layout:'fit',
-		                width:615,
+		                width:"60%",
 		                height:350,
 		                closeAction:'hide',
 		                plain: true,						
@@ -278,8 +278,8 @@ var groupsGrid = new Ext.grid.GridPanel({
     	cmargins: '10 10 10 10', // adjust top margin when collapsed
     	id: 'west-region-container',
     	layout: 'fit',
-		width:460,
-        height:300,
+		width:"45%",
+        height:"25%",
         store: alphaGroupStore,
         title:'Search Group',
         iconCls:'icon-grid',
@@ -300,7 +300,7 @@ var groupsGrid = new Ext.grid.GridPanel({
 	            //id: 'title', // id assigned so we can apply custom css (e.g. .x-grid-col-topic b { color:#333 })
 	            header: "Title",
 	            dataIndex: 'title',
-	            width: 280,
+	            width: 220,
 	            align: 'left',
 	            sortable: true
 	        },
@@ -347,8 +347,8 @@ var SiteAdminGrid = new Ext.grid.GridPanel({
     margins: '10 10 10 10',	 
 	tbar: toolBar,        
     bbar:pageNavigation,    
-    width:400,
-    height:300,   
+    width:"50%",
+    height:"30%",   
     store: abstractStore,    
     iconCls:'icon-grid',
     loadMask: true,
@@ -393,7 +393,7 @@ var SiteAdminGrid = new Ext.grid.GridPanel({
 });
 
 var myBorderPanel = new Ext.Panel({
-    width: 950,
+    width: "80%",
     height: 400,
     margins: '10 10 10 10',
     padding: '10 10 10 10',
