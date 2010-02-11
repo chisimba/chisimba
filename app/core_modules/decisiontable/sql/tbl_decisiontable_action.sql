@@ -3,7 +3,7 @@
 $tablename = 'tbl_decisiontable_action';
 
 //Options line for comments, encoding and character set
-$options = array('comment' => 'Table used to keep a list of actions.', 'collate' => 'utf8_general_ci', 'character_set' => 'utf8');
+$options = array('comment' => 'keeps a list of actions', 'collate' => 'utf8_general_ci', 'character_set' => 'utf8');
 
 // Fields
 $fields = array(

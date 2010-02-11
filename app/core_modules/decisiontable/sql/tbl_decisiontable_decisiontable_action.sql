@@ -4,7 +4,7 @@
 $tablename = 'tbl_decisiontable_decisiontable_action';
 
 //Options line for comments, encoding and character set
-$options = array('comment' => 'Bridge table used to keep a list of actions and decision tables.', 'collate' => 'utf8_general_ci', 'character_set' => 'utf8');
+$options = array('comment' => 'table used to keep a list of actions & decision tables', 'collate' => 'utf8_general_ci', 'character_set' => 'utf8');
 
 // Fields
 $fields = array(

@@ -3,7 +3,7 @@
 $tablename = 'tbl_decisiontable_conditiontype';
 
 //Options line for comments, encoding and character set
-$options = array('comment' => 'Table used to store condition type as used by the decisiontable', 'collate' => 'utf8_general_ci', 'character_set' => 'utf8');
+$options = array('comment' => 'Table used to store condition types', 'collate' => 'utf8_general_ci', 'character_set' => 'utf8');
 
 // Fields
 $fields = array(
