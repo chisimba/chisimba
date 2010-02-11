@@ -3,7 +3,7 @@
 $tablename = 'tbl_permissions_acl_description';
 
 //Options line for comments, encoding and character set
-$options = array('comment' => 'This table stores access control list acl description for debugging purposes', 'collate' => 'utf8_general_ci', 'character_set' => 'utf8');
+$options = array('comment' => 'This table stores acl description for debugging purposes', 'collate' => 'utf8_general_ci', 'character_set' => 'utf8');
 
 // Fields
 $fields = array(
