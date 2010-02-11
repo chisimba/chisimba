@@ -4,7 +4,7 @@
 $tablename = 'tbl_prelogin_blocks';
 
 //Options line for comments, encoding and character set
-$options = array('comment' => 'This table holds data pertaining to the blocks displayed on the prelogin page', 'collate' => 'utf8_general_ci', 'character_set' => 'utf8');
+$options = array('comment' => 'This table holds data pertaining to the prelogin blocks', 'collate' => 'utf8_general_ci', 'character_set' => 'utf8');
 
 // Fields
 $fields = array(
