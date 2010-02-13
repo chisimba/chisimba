@@ -1,7 +1,7 @@
 <?php
 	$objSysConfig  = $this->getObject('altconfig','config');
-	$objExtJS = $this->getObject('extjs','ext');
-	$objExtJS->show();
+	$objExtJS = $this->getObject('tabs','extjs');
+	$objExtJS->getExtjsResource();
 
 	$this->appendArrayVar('headerParams', '
         	<script type="text/javascript">
