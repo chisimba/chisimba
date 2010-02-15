@@ -130,8 +130,8 @@ class block_browsecontext extends object
         		contextPrivateMessage="'.$this->objLanguage->code2Txt('mod_context_privatecontextexplanation', 'context', NULL, 'This is a closed [-context-] only accessible to members').'"; </script>');
 		
 		//Ext stuff		
-		$objExtJS = $this->getObject('tabs','extjs');
-		$objExtJS->getExtjsResource();
+		$objExtJS = $this->getObject('extjs','ext');
+		$objExtJS->show();
 
 		$ext =$this->getJavaScriptFile('Ext.ux.grid.Search.js', 'context');		
 		$ext .=$this->getJavaScriptFile('usercontextslist.js', 'context');
