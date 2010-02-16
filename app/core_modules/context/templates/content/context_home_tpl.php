@@ -1,6 +1,7 @@
 <?php
 //Language items
-$browserError = $objLanguage->languageText('mod_poll_browserError', 'poll');
+$default='You are using an unsupported browser. Please switch to Mozilla FireFox available at ( http://getfirefox.com ). Currently the system functionality is limited. Thanks!';
+$browserError = $objLanguage->languageText('mod_poll_browserError', 'poll',$default);
 // Add JavaScript if User can update blocks
 if ($this->isValid('addblock')) {
     
