@@ -60,6 +60,8 @@ class dbfolder extends dbTable
         $this->objUser = $this->getObject('user', 'security');
         $this->objConfig = $this->getObject('altconfig', 'config');
         $this->objCleanUrl = $this->getObject('cleanurl');
+        $this->objContext = $this->getObject('dbcontext', 'context');
+        $this->contextCode = $this->objContext->getContextCode();
         
         $this->objLanguage = $this->getObject('language', 'language');
 
@@ -141,6 +143,14 @@ class dbfolder extends dbTable
     function getFolders($type, $id)
     {
         return $this->getAll(' WHERE folderpath LIKE \''.$type.'/'.$id.'/%\' ORDER BY folderlevel, folderpath');
+    }
+    /**
+     *
+     *
+     */
+    function getAllFolders($type, $id, $userId)
+    {
+        return $this->getAll(' WHERE folderpath LIKE \'users/'.$userId.'/%\' OR folderpath LIKE \''.$type.'/'.$id.'/%\' ORDER BY folderlevel, folderpath');
     }
     
     /**
@@ -523,9 +533,11 @@ class dbfolder extends dbTable
         $refArray = array();
 
         $refArray['/users/'.$this->objUser->userId()] =& $allFilesNode;
-
         $folders = $this->getUserFolders($this->objUser->userId());
-
+        if (!empty($this->contextCode)) {
+         $folders = $this->getAllFolders('context', $this->contextCode, $this->objUser->userId());
+         $refArray['/context/'.$this->contextCode] =& $allFilesNode;
+        }
         if (count($folders) > 0) {
             foreach ($folders as $folder)
             {
