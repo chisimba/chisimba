@@ -30,9 +30,6 @@
  * @link      http://avoir.uwc.ac.za
  * @see       core
  */
-//increase memory_limit - added 28.07.06 by nappleby
-ini_set ( 'memory_limit', '500M' );
-
 
 /* --------------------------- engine class ------------------------*/
 
