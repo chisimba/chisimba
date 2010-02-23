@@ -160,7 +160,7 @@ class languageConfig extends object
                 'cacheDir' => '/tmp/',
                 'caching'  => $langcache,       // enable or disable caching
                 'lifeTime' => 3600,       // in seconds
-                'cleaningFrequency' => 50, // never clean cached files (set 1 to clean at every request)
+                'cleaningFrequency' => 0, // never clean cached files (set 1 to clean at every request)
             );
             $this->lang->setOptions($cacheLiteOptions);
 
