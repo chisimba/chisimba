@@ -736,7 +736,8 @@ class groupAdminModel extends dbTable
      */
     public function getParent ( $subGroupId )
     {
-		$subgroups = FALSE;
+      		$subgroups = FALSE;
+      		$parentgroup = Null;
         $groups = $this->objLuAdmin->perm->getGroups(
             array(
                 'select' => 'all',
@@ -746,7 +747,7 @@ class groupAdminModel extends dbTable
             )
         );
 
-        foreach ($groups as $grps) {
+        foreach ($groups as $grps) {                                
                 $parentgroup = $grps["group_define_name"];
         }
 
