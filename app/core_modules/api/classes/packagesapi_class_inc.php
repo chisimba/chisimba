@@ -440,7 +440,7 @@ class packagesapi extends object
         //$objZip = $this->getObject('wzip', 'utilities');
         $filepath = $this->objConfig->getsiteRootPath().'core.zip';
         $path = $this->objConfig->getsiteRootPath().'classes/';
-
+        log_debug($path."  ".$filepath);
         //$zipfile = $objZip->addArchive($path, $filepath, $this->objConfig->getsiteRootPath());
         $zipfile = $this->makeZip($path, $filepath);
         $filetosend = file_get_contents($zipfile);
