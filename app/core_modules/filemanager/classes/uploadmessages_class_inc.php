@@ -302,8 +302,8 @@ class uploadmessages extends filemanagerobject
                 
                 $hiddenInput = new hiddeninput('listitems', $list);
                 $form->addToForm($hiddenInput->show());
-                
-                $button = new button ('submitform', 'Confirm Overwrite');
+                $overMsg = $this->objLanguage->languageText('mod_filemanager_overwriteconfirm', 'filemanager', 'Do you wish to overwrite?');
+                $button = new button ('submitform', $overMsg);
                 $button->setToSubmit();
                 $form->addToForm($button->show());
                 
