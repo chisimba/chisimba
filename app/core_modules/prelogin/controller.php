@@ -121,6 +121,9 @@ class prelogin extends controller {
                         return 'notadmin_tpl.php';
                     } else {
                         $title = $this->getParam('title');
+                        if($title == '') {
+                            $title = 'untitled';
+                        }
                         $side = $this->getParam('side');
                         $bType = ($this->getParam('type') == 'block')? $this->TRUE : $this->FALSE;
                         $content = htmlentities($this->getParam('content'),ENT_QUOTES);
