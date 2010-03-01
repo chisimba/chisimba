@@ -76,11 +76,18 @@ if (isset($showconfirmation) && $showconfirmation) {
 // Array to hold error messages
 $messages = array();
 
+// READONLY FLAG
+if ($user['pass']=='6b3d7dbdce9d4d04c78473e3df832f5d785c2593'){
+   $editFlag=" READONLY";
+} else {
+   $editFlag="";
+} 
+
 //Create Form Elements, as well detect associated problems
 
     $firstname = new textinput ('useradmin_firstname');
     $firstname->size = 30;
-    $firstname->extra = ' maxlength="50"';
+    $firstname->extra = $editFlag.' maxlength="50"';
     $firstname->value = $user['firstname'];
 
     if ($mode == 'addfixup') {
@@ -93,7 +100,7 @@ $messages = array();
 
     $surname = new textinput ('useradmin_surname');
     $surname->size = 30;
-    $surname->extra = ' maxlength="50"';
+    $surname->extra = $editFlag.' maxlength="50"';
     $surname->value = $user['surname'];
 
     if ($mode == 'addfixup') {
@@ -278,8 +285,8 @@ $table->startRow();
     $table->addCell($user['username']);
 $table->endRow();
 
-if (strtolower($user['howcreated']) != 'ldap') {
-
+//if (strtolower($user['howcreated']) != 'ldap') {
+if ($user['pass']!='6b3d7dbdce9d4d04c78473e3df832f5d785c2593'){
 
     // Password
     $table->startRow();
