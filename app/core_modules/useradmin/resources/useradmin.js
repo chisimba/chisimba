@@ -193,10 +193,10 @@
    var usergrid = new Ext.grid.EditorGridPanel({
         el: 'user-grid',
 		cm: cm,
-        width: "90%",
+        width: "100%",
         height: 400,
-		frame: true,
-		title:'Browse Users',
+	frame: true,
+	title:'Browse Users',
         store: userdata,
         trackMouseOver:false,
         disableSelection:true,
