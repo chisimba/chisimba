@@ -43,7 +43,7 @@ class postlogin extends controller
         // Method to set the layout template for the given action
         $this->setLayoutTemplate('contextlayout_tpl.php');
         
-        $this->appendArrayVar('headerParams', $this->getJavaScriptFile('jquery/jquery.livequery.js', 'jquery'));
+        $this->appendArrayVar('headerParams', $this->getJavaScriptFile('jquery.livequery.js', 'jquery'));
 
         /*
         * Convert the action into a method (alternative to
