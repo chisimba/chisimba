@@ -148,8 +148,8 @@ class context extends controller {
     public function dispatch($action) {
         // Method to set the layout template for the given action
         $this->setLayoutTemplate ( 'contextlayout_tpl.php' );
-        $this->appendArrayVar ( 'headerParams', $this->getJavaScriptFile ( 'jquery/jquery.livequery.js', 'jquery' ) );
-
+        $this->appendArrayVar ( 'headerParams', $this->getJavaScriptFile ( 'jquery.livequery.js', 'jquery' ) );
+// echo $this->getJavaScriptFile ( 'jquery.livequery.js', 'jquery' ); die();
         /*
          * Convert the action into a method (alternative to
          * using case selections)
