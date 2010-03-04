@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Engine object
  *
@@ -1951,6 +1950,7 @@ class engine {
         } elseif ($this->_dbabs === 'PDO') {
             $this->_objDb = NULL;
         }
+        //var_dump($this->convert(memory_get_peak_usage()));
     }
 
     public function __destruct() {
@@ -1959,6 +1959,11 @@ class engine {
         } elseif ($this->_dbabs === 'PDO') {
             $this->_objDb = NULL;
         }
+    }
+    
+    private function convert($size) {
+        $unit = array('b','kb','mb','gb','tb','pb');
+        return @round($size/pow(1024,($i=floor(log($size,1024)))),2).' '.$unit[$i];
     }
 }
 ?>
