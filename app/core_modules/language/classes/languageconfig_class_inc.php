@@ -157,6 +157,7 @@ class languageConfig extends object
             $this->lang =& $this->lang->getDecorator('CacheLiteFunction');
             // TODO: make the caching configuration options for language items configurable
             $cacheLiteOptions = array(
+                'memoryCaching' => false,
                 'cacheDir' => '/tmp/',
                 'caching'  => $langcache,       // enable or disable caching
                 'lifeTime' => 3600,       // in seconds
