@@ -1,4 +1,5 @@
 <?php
+ini_set('memory_limit', -1);
 /**
  * Engine object
  *
@@ -1950,7 +1951,7 @@ class engine {
         } elseif ($this->_dbabs === 'PDO') {
             $this->_objDb = NULL;
         }
-        //var_dump($this->convert(memory_get_peak_usage()));
+        var_dump($this->convert(memory_get_peak_usage()));
     }
 
     public function __destruct() {
