@@ -419,7 +419,7 @@ class manageGroups extends object
 				ON gr.group_id = gu.group_id
 				INNER JOIN tbl_perms_perm_users as us
 				ON gu.perm_user_id = us.perm_user_id
-				WHERE us.auth_user_id = ".$userId."
+				WHERE us.auth_user_id = '".$userId."'
 				AND gr.group_define_name LIKE '%^".$role."'";
         
         $recs = $this->_objDBContext->getArray($sql);
