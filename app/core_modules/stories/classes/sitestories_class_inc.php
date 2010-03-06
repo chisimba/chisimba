@@ -43,16 +43,16 @@ class sitestories extends dbTable {
     */
     function fetchStory($id) {
         $ar=$this->objDbStories->getRow('id', $id, 'tbl_stories');
-        $creatorId = $ar['creatorId'];
-        $isActive = stripslashes($ar['isActive']);
+        $creatorId = $ar['creatorid'];
+        $isActive = stripslashes($ar['isactive']);
         $title =stripslashes($ar['title']);
         $abstract = $this->objWashout->parseText(stripslashes($ar['abstract']));
         $mainText = $this->objWashout->parseText(
-                stripslashes($ar['mainText'])
+                stripslashes($ar['maintext'])
             );
-        $dateCreated = stripslashes($ar['dateCreated']);
-        $expirationDate = stripslashes($ar['expirationDate']);
-        $notificationDate = stripslashes($ar['notificationDate']);
+        $dateCreated = stripslashes($ar['datecreated']);
+        $expirationDate = stripslashes($ar['expirationdate']);
+        $notificationDate = stripslashes($ar['notificationdate']);
         //Add the heading
         $this->objH->type=3;
         $this->objH->str=$title;
@@ -85,8 +85,8 @@ class sitestories extends dbTable {
 
         return $ret;
 
-    } #function fetchStory
-
+    }
+    
     /**
     *
     * Method to fetch a story by story category
@@ -233,7 +233,7 @@ class sitestories extends dbTable {
                 foreach ($ar as $line) {
                     $lcode = $line['language'];
                     $id = $line['id'];
-                    $link = $this->uri(array('action' => 'viewstory',
+                    $link = $this->uri(array('action' => 'viewtranslation',
                       'language' => $lcode,
                       'id' => $id));
                     $language = "<a href=\"" . $link . "\" target=\"_blank\">"
@@ -247,9 +247,16 @@ class sitestories extends dbTable {
     } #function fetchCategory
 
 
-    function getTranslations(&$id)
+    function getTranslations($id)
     {
         $sql = "SELECT id, parentId, language FROM tbl_stories WHERE parentId='" . $id . "'";
+        return $this->objDbStories->getArray($sql);
+    }
+
+    function getTranslatedText($id, $language)
+    {
+        $sql = "SELECT title, abstract, maintext FROM tbl_stories WHERE parentId='"
+          . $id . "' AND language='" . $language . "'";
         return $this->objDbStories->getArray($sql);
     }
 

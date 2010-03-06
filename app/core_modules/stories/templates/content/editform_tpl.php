@@ -1,5 +1,5 @@
 <?php
-
+// Suppress forcing XHTML compatible
 $this->setVar('pageSuppressXML',true);
 
 //Insert a breadcrumb if they came from another module
@@ -9,8 +9,8 @@ if ( $comeFrom != NULL ) {
     //Make the aback link
     $bread = $this->uri(array(), $comeFrom);
     $links = array('<a href="' . $bread . '">'
-  . $comeFrom . '</a>', $this->objLanguage->languageText("word_edit",'stories'));
-  $objTl->addToBreadCrumbs($links);
+      . $comeFrom . '</a>', $this->objLanguage->languageText('word_edit','stories', 'Edit'));
+    $objTl->addToBreadCrumbs($links);
 }
 
 // Check if the text should be changed.
@@ -29,9 +29,6 @@ $expirationDate = date("Y-m-d H:i", mktime(0,0,0,date("m"),date("d")+1,date("Y")
 $objCat =  $this->getObject('dbstorycategory', 'storycategoryadmin');
 $filter = NULL;
 $car = $objCat->getAll($filter);
-
-//Get the save button
-$saveButton = $this->objButtons->putSaveButton();
 
 //Set the form title depending on what we are doing
 $action=$this->getParam('action', Null);
@@ -191,7 +188,6 @@ $objFmTable->endRow();
 
 //Add a row for the parentId
 $objFmTable->startRow();
-//$objFmTable->addCell($objLanguage->languageText("mod_stories_parentId").":&nbsp;", NULL, "top", "right");
 $objTextInput = new textinput('parentId', $parentId);
 $objTextInput->fldType = 'hidden';
 if ($parentId != 'base') {
@@ -204,10 +200,16 @@ $objFmTable->addCell($parentIdInput, NULL, "top", "left");
 $objFmTable->endRow();
 
 //Add a row for the make sticky
+$stick = 0;
+if (isset($isSticky)) {
+    if ($isSticky==1) {
+        $stick=1;
+    }
+}
 $objRadioElement = new radio('isSticky');
 $objRadioElement->addOption('1', $objLanguage->languageText("word_yes"));
 $objRadioElement->addOption('0', $objLanguage->languageText("word_no"));
-$objRadioElement->setSelected($isSticky);
+$objRadioElement->setSelected($stick);
 
 $objFmTable->startRow();
 $objFmTable->addCell($objLanguage->languageText("mod_stories_alwaysontop", "stories").":&nbsp;", NULL, "top", "right");
@@ -257,11 +259,17 @@ $objTextInput = new textinput('isActive', $isActive);
 if (!isset($isActive)) {
     $isActive = '1';
 }
-
+//Add a row for the make sticky
+$act = 0;
+if (isset($isActive)) {
+    if ($isActive==1) {
+        $act=1;
+    }
+}
 $objRadioElement = new radio('isActive');
 $objRadioElement->addOption('1', $objLanguage->languageText("word_yes"));
 $objRadioElement->addOption('0', $objLanguage->languageText("word_no"));
-$objRadioElement->setSelected($isActive);
+$objRadioElement->setSelected($act);
 
 
 $objFmTable2->addCell($objRadioElement->show(), NULL, "top", "center");
@@ -295,62 +303,29 @@ $objFmTable->addCell($storyLabel.":&nbsp;", NULL, "top", "left", NULL, "colspan=
 $objFmTable->endRow();
 $objFmTable->startRow();
 
-//See if there is a plain text input
-$inputType = $this->getParam('inputtype', NULL);
-
-if ($inputType == 'plaintext') {
-    //Make the link to switch to WYSWYG
-    $switchArray=array(
-      'action'=>$action,
-      'id'=>$this->getParam('id', NULL),
-      'comefrom'=>$this->getParam('comefrom', NULL),
-      'inputtype'=>'wyswyg');
-    $switchLink = $this->uri($switchArray);
-    $switchLink = "<br /><a href=\"" . $switchLink . "\">"
-      . $this->objLanguage->languageText('mod_stories_wyswyg', "stories")
-      . "</a>";
-    //Add the plain text input
-    $editor = $this->newObject('textarea', 'htmlelements');
-    $editor->setName('mainText');
-    $editor->value = $mainText;
-    $editor->cols = 80;
-    $editor->rows = 20;
-    $objFmTable->addCell($editor->show() . $switchLink, NULL, "top", "center", NULL, "colspan=\"2\"");
-    $objFmTable->endRow();
-} else {
-    //Make the link to switch to WYSWYG
-    $switchArray=array(
-      'action'=>$action,
-      'id'=>$this->getParam('id', NULL),
-      'comefrom'=>$this->getParam('comefrom', NULL),
-      'inputtype'=>'plaintext');
-    $switchLink = $this->uri($switchArray);
-    $switchLink = "<a href=\"" . $switchLink . "\">"
-      . $this->objLanguage->languageText('mod_stories_plaintext', "stories")
-      . "</a>";
-    //Add the WYSWYG editor
-    $editor = $this->newObject('htmlarea', 'htmlelements');
-    $editor->name = 'mainText';
-    $editor->height = '300px';
-    $editor->width = '550px';
-    //To set the basic toolbar
-    //$editor->setBasicToolBar();
-    $editor->setContent($mainText);
-    //$objFmTable->addCell($editor->show(). $switchLink, NULL, "top", "center", NULL, "colspan=\"2\"");
-    $objFmTable->addCell($editor->show(). $switchLink, NULL, "top", "center", NULL, "colspan=\"2\"");
-    $objFmTable->endRow();
-
-}
-
-$objFieldset->contents=$objFmTable->show();
-//Add the current table to the form
-$objForm->addToForm($objFieldset->show());
+//Add the WYSWYG editor
+$editor = $this->newObject('htmlarea', 'htmlelements');
+$editor->name = 'mainText';
+$editor->height = '300px';
+$editor->width = '550px';
+$editor->setContent($mainText);
+$objFmTable->addCell($editor->show(), NULL, "top", "center", NULL, "colspan=\"2\"");
+$objFmTable->endRow();
 
 //Add a save button
 $objButton = $this->newObject('button', 'htmlelements');
+$objButton->setIconClass("save");
 $objButton->button('save',$this->objLanguage->languageText('word_save'));
 $objButton->setToSubmit();
-$objForm->addToForm($objButton->show()."<br /><br /></div>");
+$button = $objButton->show();
+
+
+$objFieldset->contents=$objFmTable->show() . $button;
+//Add the current table to the form
+$objForm->addToForm($objFieldset->show());
+
+
+$objForm->addToForm("<br /><br /></div>");
 
 //Show the form
 echo $objForm->show();

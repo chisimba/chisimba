@@ -96,6 +96,12 @@ class stories extends controller
                 $objStories =  $this->getObject('sitestories');
                 $this->setVar('str', $objStories->fetchStory($id));
                 return 'dump_tpl.php';
+            case "viewtranslation":
+                $id = $this->getParam('id', NULL);
+                $postLanguage =  $this->getParam('language', NULL);
+                $objStories =  $this->getObject('sitestories');
+                $this->setVar('str', $objStories->fetchStory($id));
+                return 'dump_tpl.php';
             case "readmore":
                 return 'showstories_tpl.php';
             case "getfullstory":
