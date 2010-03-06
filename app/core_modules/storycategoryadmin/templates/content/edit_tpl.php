@@ -24,7 +24,8 @@ $objForm->setAction($formAction);
 //Set the displayType to 3 for freeform
 $objForm->displayType=3;
 // Create an instance of the css layout class
-$cssLayout =  $this->newObject('csslayout', 'htmlelements');// Set columns to 2
+$cssLayout =  $this->newObject('csslayout', 'htmlelements');
+// Set columns to 2
 $cssLayout->setNumColumns(2);
 
 //Set the content of the left side column
@@ -49,7 +50,7 @@ if ($mode=="edit") {
     $rep = array('category' => $category);
     $fieldsetLabel = $this->objLanguage->code2txt('mod_storycategory_editlabel', "storycategoryadmin", $rep);
 } else {
-    $fieldsetLabel = $this->objLanguage->code2Txt("mod_storycategory_addlabel", "storycategoryadmin");
+    $fieldsetLabel = $this->objLanguage->code2Txt("mod_storycategory_addlabel", "storycategoryadmin", $rep);
 }
 
 
@@ -115,7 +116,7 @@ $objForm->addToForm('<br/>'.$objElement->show()."&nbsp;".$objCancel->show());
 //Add the heading to the layer
 $this->objH = $this->getObject('htmlheading', 'htmlelements');
 $this->objH->type=1; //Heading <h1>
-$this->objH->str=$objLanguage->languageText("mod_storycategoryadmin_title", "storycategoryadmin");
+$this->objH->str=$objLanguage->code2txt("mod_storycategoryadmin_title", "storycategoryadmin");
 $rightSideColumn = $this->objH->show();
 
 $rightSideColumn .= $objForm->show();

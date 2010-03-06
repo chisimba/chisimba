@@ -87,10 +87,10 @@ if (isset($ar)) {
             $objConfirm =  $this->newObject('confirm','utilities');
             $rep = array('ITEM' => $line['category']);
             $objConfirm->setConfirm($objDelIcon->show(),
-            $delLink,$this->objLanguage->code2Txt("mod_storycategory_confirm", $rep));
+            $delLink,$this->objLanguage->code2Txt("mod_storycategory_confirm", "storycategoryadmin", $rep));
             $conf = $objConfirm->show();
-          if($allowAdmin){
-            $tableRow[]=$ed."&nbsp;".$conf;
+            if($allowAdmin){
+                $tableRow[]=$ed."&nbsp;".$conf;
             }
             //Add the row to the table for output
             $this->Table->addRow($tableRow, $oddOrEven);
