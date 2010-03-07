@@ -180,7 +180,7 @@ class getIcon extends object implements ifhtml
     {
         $this->setIcon('edit_sm');
         // Set title to be the word edit
-        $this->title = $this->_objLanguage->languagetext('word_edit');
+        $this->title = $this->_objLanguage->languagetext('word_edit', NULL, "Edit");
         $objLink = $this->newObject('link', 'htmlelements');
         $objLink->href=$url;
         $objLink->link=$this->show();
