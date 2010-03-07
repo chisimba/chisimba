@@ -238,16 +238,17 @@
             jQuery("#leftaddblock").hide();
             jQuery("#rightaddblock").hide();
             jQuery("#middleaddblock").hide();
-            jQuery("#editmodeswitchbutton").attr('value', turnEditingOn);
+            jQuery("#editmodeswitchbutton").text(turnEditingOn);
             jQuery(".blockoptions").hide();
             jQuery(".block").removeClass('highlightblock');
 
             inEditMode = false;
         } else {
+
             jQuery("#leftaddblock").show();
             jQuery("#rightaddblock").show();
             jQuery("#middleaddblock").show();
-            jQuery("#editmodeswitchbutton").attr('value', turnEditingOff);
+            jQuery("#editmodeswitchbutton").text(turnEditingOff);
             jQuery(".blockoptions").show();
             jQuery(".block").addClass('highlightblock');
             inEditMode = true;
