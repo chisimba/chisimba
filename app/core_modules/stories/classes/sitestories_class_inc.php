@@ -49,16 +49,16 @@ class sitestories extends dbTable {
         $abstract = $this->objWashout->parseText(stripslashes($ar['abstract']));
         $mainText = $this->objWashout->parseText(
                 stripslashes($ar['maintext'])
-            );
+          );
         $dateCreated = stripslashes($ar['datecreated']);
         $expirationDate = stripslashes($ar['expirationdate']);
         $notificationDate = stripslashes($ar['notificationdate']);
         //Add the heading
         $this->objH->type=3;
         $this->objH->str=$title;
-        $ret=$this->objH->show();
+        $ret= "<div class=\"storytitle\">". $this->objH->show() . "</div>";
         //Add the abstract
-        $ret.="<p class=\"minute\">".$abstract."</p>";
+        $ret.="<div class=\"abstract\"><p class=\"minute\">".$abstract."</p></div>";
         //Add the main text
         $ret.="<p>".$mainText;
         if ($this->objUser->isAdmin()) {
@@ -119,7 +119,7 @@ class sitestories extends dbTable {
         //Initialize counter
         $count=0;
         //Initialize the return string
-        $ret="";
+        $ret="<div class=\"allstories\">";
         //Instantiate the classe for checking expiration
         $objExp =  $this->getObject('dateandtime','utilities');
         //Get an instance of the language code
@@ -179,12 +179,14 @@ class sitestories extends dbTable {
                      // $creatorId, $title, $abstract, $id);
                 }
             }
+            //Add a div for the current story
+            $ret .= "<div class=\"currentstory\">";
             //Add the heading
             $this->objH->type=3;
             $this->objH->str=$title;
-            $ret .= $this->objH->show();
+            $ret .= "<div class=\"storytitle\">". $this->objH->show() . "</div>";
             //Add the abstract
-            $ret .= "<p class=\"minute\">".$abstract."</p>";
+            $ret .= "<div class=\"abstract\"><p class=\"minute\">".$abstract."</p></div>";
             //Add the main text
             $ret .= "<p>".$mainText;
             if ($this->objUser->isAdmin()) {
@@ -197,11 +199,30 @@ class sitestories extends dbTable {
             }
             $ret .= "</p>";
 
+
+            //Check for translations
+            $ar = $this->getTranslations($id);
+            if (count($ar) > 0 ) {
+                $ret .= "<br />" .
+                  $this->objLanguage->languageText("mod_stories_alsoavailable",'stories');
+                foreach ($ar as $line) {
+                    $lcode = $line['language'];
+                    $id = $line['id'];
+                    $link = $this->uri(array('action' => 'viewtranslation',
+                      'language' => $lcode,
+                      'id' => $id));
+                    $language = "<a href=\"" . $link . "\" target=\"_blank\">"
+                      . $objLcode->getLanguage($lcode) . "</a>";
+                    $ret .= "&nbsp;&nbsp;>>" . $language;
+                }
+            }
+
+            
             if ($showAuthor) {
                 //Add the author and date
-                $ret.="<p class=\"minute\">".$this->objLanguage->languageText("phrase_postedby");
+                $ret.="<div class=\"storyauthor\"><p class=\"minute\">".$this->objLanguage->languageText("phrase_postedby");
                 $ret.=" <b>".$this->objUser->fullname($creatorId)."</b> ".$this->objLanguage->languageText("word_on");
-                $ret.=" <b>".$dateCreated."</b>";
+                $ret.=" <b>".$dateCreated."</b></div>";
             }
 
             //Insert a comment link with view comments if the user is logged in
@@ -219,29 +240,9 @@ class sitestories extends dbTable {
                         $ret .= $objComment->addViewLink($ccLocation, $ccStr);
                     }
                 }
+                $ret .="</div";
             }
-
-            //Insert a horizontal rule
-            if ($elems>1 && $count != $elems) {
-                $ret.="</p><hr /><p>";
-            }
-            //Check for translations
-            $ar = $this->getTranslations($id);
-            if (count($ar) > 0 ) {
-                $ret .= "&nbsp;&nbsp;&nbsp;" .
-                  $this->objLanguage->languageText("mod_stories_alsoavailable",'stories');
-                foreach ($ar as $line) {
-                    $lcode = $line['language'];
-                    $id = $line['id'];
-                    $link = $this->uri(array('action' => 'viewtranslation',
-                      'language' => $lcode,
-                      'id' => $id));
-                    $language = "<a href=\"" . $link . "\" target=\"_blank\">"
-                      . $objLcode->getLanguage($lcode) . "</a>";
-                    $ret .= "&nbsp;&nbsp;>>" . $language;
-                }
-            }
-            $ret .= "</p>";
+            $ret .= "</p></div>";
         }
         return $ret;
     } #function fetchCategory

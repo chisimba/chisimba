@@ -52,12 +52,6 @@ class storyinterface extends object {
         $str = null;
         $str .= $tableStart;
 
-        /*
-        $paramArray = array('order' => 'id');
-        $str .= "<tr><td class=\"heading\"><a href=\""
-         . $this->uri($paramArray, "stories")
-         . "\">id</a></td>\n";*/
-
         $paramArray = array('order' => 'category');
         $str .= "<td class=\"heading\"><a href=\""
          . $this->uri($paramArray, "stories")
