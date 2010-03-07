@@ -183,26 +183,27 @@ class sitestories extends dbTable {
                      // $creatorId, $title, $abstract, $id);
                 }
             }
-            //Add a div for the current story
-            $ret .= "<div class=\"currentstory\">";
-            //Add the heading
-            $this->objH->type=3;
-            $this->objH->str=$title;
-            $ret .= "<div class=\"storytitle\">". $this->objH->show() . "</div>";
-            //Add the abstract
-            $ret .= "<div class=\"abstract\"><p class=\"minute\">".$abstract."</p></div>";
-            //Add the main text
-            $ret .= "<p>".$mainText;
+
+            // Edit icon
             if ($this->objUser->isAdmin()) {
                 $editArray = array(
                   'action' => 'edit',
                   'id' => $id,
                   'comefrom' => $curModule);
                 $objGetIcon = $this->newObject('geticon', 'htmlelements');
-                $ret .= "&nbsp;" . $objGetIcon->getEditIcon($this->uri($editArray, "stories"));
+                $ed = "&nbsp;&nbsp;" . $objGetIcon->getEditIcon($this->uri($editArray, "stories"));
             }
-            $ret .= "</p>";
 
+            //Add a div for the current story
+            $ret .= "<div class=\"currentstory\">";
+            //Add the heading
+            $this->objH->type=3;
+            $this->objH->str=$title . $ed;
+            $ret .= "<div class=\"storytitle\">". $this->objH->show() . "</div>";
+            //Add the abstract
+            $ret .= "<div class=\"abstract\"><p class=\"minute\">".$abstract."</p></div>";
+            //Add the main text
+            $ret .= "<p>".$mainText . "</p>";
 
             //Check for translations
             $ar = $this->getTranslations($id);
