@@ -70,7 +70,7 @@ $objForm->addToForm($objElement->show());
 $catLabel = new label($this->objLanguage->languageText("word_category"), "input_category");
 //Create an element for the input of category
 $objCat = new textinput ("category");
-$catMiss = 'Category may not be blank';
+$catMiss = $this->objLanguage->languageText('mod_storycategory_catmiss', "storycategoryadmin");
 $objForm->addRule('category', $catMiss, 'required');
 //Set the value of the element to $category
 if (isset($category)) {
@@ -81,7 +81,7 @@ if (isset($category)) {
 $titLabel = new label($this->objLanguage->languageText("word_title"), "input_title");
 //Create an element for the input of title
 $objTit = new textinput ("title");
-$titMiss = 'Title may not be blank';
+$titMiss = $this->objLanguage->languageText('mod_storycategory_titmiss', "storycategoryadmin");
 $objForm->addRule('title', $titMiss, 'required');
 //Set the width
 $objTit->size=70;
