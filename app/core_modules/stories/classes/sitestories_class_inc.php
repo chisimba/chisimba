@@ -183,7 +183,8 @@ class sitestories extends dbTable {
                      // $creatorId, $title, $abstract, $id);
                 }
             }
-
+            //Define $ed in case user is not admin
+            $ed="";
             // Edit icon
             if ($this->objUser->isAdmin()) {
                 $editArray = array(
