@@ -68,12 +68,16 @@ class sitestories extends dbTable {
             $ret .= "&nbsp;" . $objGetIcon->getEditIcon($this->uri($editArray, "stories"));
         }
         $ret .= "</p>";
+
+        //PUT THE DISQUS COMMENT CODE HERE
+
         //Add the author and date
         $ret.="<p class=\"minute\">".$this->objLanguage->languageText("phrase_postedby");
         $ret.=" <b>".$this->objUser->fullname($creatorId)."</b> ".$this->objLanguage->languageText("word_on");
         $ret.=" <b>".$dateCreated."</b></p>";
-        //Create an instance of the modulesadmin to check if registered
-        $this->objModule=$this->getObject('modules','modulecatalogue');
+
+        //DEPRECATED COMMENT CODE
+        /*$this->objModule=$this->getObject('modules','modulecatalogue');
         if ($this->objModule->checkIfRegistered('comment', 'comment')){
             //Create an instance of the comment link
             $objComment =  $this->getObject('commentinterface', 'comment');
@@ -81,7 +85,7 @@ class sitestories extends dbTable {
             $objComment->set('tableName', 'tbl_stories');
             $objComment->set('sourceId', $id);
             $ret .= $objComment->showAll();
-        }
+        }*/
 
         return $ret;
 
