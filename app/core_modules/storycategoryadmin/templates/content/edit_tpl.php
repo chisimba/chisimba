@@ -107,12 +107,14 @@ $objForm->addToForm($objFieldset->show());
 $this->loadClass('button', 'htmlelements');
 // Create a submit button
 $objElement = new button('submit');
+$objElement->setIconClass("save");
 // Set the button type to submit
 $objElement->setToSubmit();
 // Use the language object to add the word save
 $objElement->setValue(' '.$this->objLanguage->languageText("word_save").' ');
 // Create cancel button
 $objCancel = new button('cancel');
+$objCancel->setIconClass("cancel");
 $objCancel->setOnClick("window.location='".$this->uri(NULL)."';");
 $objCancel->setValue(' '.$this->objLanguage->languageText("mod_storycategoryadmin_cancel", "storycategoryadmin").' ');
 // Add the button to the form
