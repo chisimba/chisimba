@@ -50,7 +50,7 @@ if ($mode=="edit") {
     $rep = array('category' => $category);
     $fieldsetLabel = $this->objLanguage->code2txt('mod_storycategory_editlabel', "storycategoryadmin", $rep);
 } else {
-    $fieldsetLabel = $this->objLanguage->code2Txt("mod_storycategory_addlabel", "storycategoryadmin", $rep);
+    $fieldsetLabel = $this->objLanguage->code2txt("mod_storycategory_addlabel", "storycategoryadmin");
 }
 
 
@@ -70,6 +70,8 @@ $objForm->addToForm($objElement->show());
 $catLabel = new label($this->objLanguage->languageText("word_category"), "input_category");
 //Create an element for the input of category
 $objCat = new textinput ("category");
+$catMiss = 'Category may not be blank';
+$objForm->addRule('category', $catMiss, 'required');
 //Set the value of the element to $category
 if (isset($category)) {
     $objCat->setValue($category);
@@ -79,6 +81,8 @@ if (isset($category)) {
 $titLabel = new label($this->objLanguage->languageText("word_title"), "input_title");
 //Create an element for the input of title
 $objTit = new textinput ("title");
+$titMiss = 'Title may not be blank';
+$objForm->addRule('title', $titMiss, 'required');
 //Set the width
 $objTit->size=70;
 //Set the value of the element to $title
