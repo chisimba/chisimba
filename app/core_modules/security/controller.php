@@ -434,7 +434,8 @@ class security extends controller {
                 return $this->nextAction ( 'needpassword', array ('error' => 'details' ) );
             }
 
-            if ($userDetails ['howcreated'] == 'LDAP') {
+            // LDAP Check
+            if ($userDetails['pass']=='6b3d7dbdce9d4d04c78473e3df832f5d785c2593') {
                 return $this->nextAction ( 'needpassword', array ('error' => 'ldap' ) );
             } else {
                 $this->objUserModel->newPasswordRequest ( $userDetails ['id'] );
