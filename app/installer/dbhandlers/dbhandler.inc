@@ -103,6 +103,7 @@ class DbHandler extends dbHandlermanager
             //MDB2 has a factory method, so lets use it now...
             //echo $_SESSION['dsn'];
             $this->_globalObjDb = &MDB2::connect($_SESSION['dsn']);
+            $this->_globalObjDb->setCharset('utf8');
             //var_dump($this->_globalObjDb);
 
             if (PEAR::isError($this->_globalObjDb)) {
@@ -112,6 +113,7 @@ class DbHandler extends dbHandlermanager
                
             }
             $this->_globalObjDb->setOption('portability', MDB2_PORTABILITY_FIX_CASE); // ^ MDB2_PORTABILITY_EMPTY_TO_NULL);
+            $this->_globalObjDb->setCharset('utf8');
            // $this->_globalObjDb->setOption('quote_identifiers', true);
 			MDB2::loadFile('Date');
 			MDB2::loadFile('Iterator');
@@ -131,6 +133,7 @@ class DbHandler extends dbHandlermanager
 			}
 		    //MDB2 has a factory method, so lets use it now...
              $this->_globalObjDbManager = &MDB2_Schema::connect($_SESSION['dsn']);
+             //$this->_globalObjDbManager->setCharset('utf8');
              if (PEAR::isError($this->_globalObjDbManager)) {
              	echo $this->_globalObjDbManager->getMessage();
              	die();
@@ -216,6 +219,7 @@ class DbHandler extends dbHandlermanager
 
 		try {
 			$this->schema =& MDB2_Schema::factory($dsn, array('debug' => true, 'log_line_break' => '<br>'));
+			//$this->schema->setCharset('utf8');
 			$ret = $this->schema->db->CreateDatabase($db);
 
 			if (PEAR::isError($ret)) {
@@ -241,9 +245,22 @@ class DbHandler extends dbHandlermanager
 	public function createTables($tablename,$fields,$options)
 	{
 		try {
-
-			$ret = $this->dbmanager->createTable($tablename, $fields, $options);
-		
+            $puid = array(
+            	 'puid' => array(
+				                     'type'          => 'integer',
+				                     'length'        => 50,
+				                     'autoincrement' => TRUE,
+				                    ),
+				         );
+		    $fields  = array_merge($fields, $puid);
+            if($this->_db->phptype == 'mysql' || $this->_db->phptype == 'mysqli')
+            {
+        	    $this->_db->setOption('default_table_type', 'INNODB');
+        	    $toptions =  array('charset' => 'utf8', 'collate' => 'utf8_unicode_ci',);
+        	    $options = array_merge($toptions, $options);
+        	}
+			    $ret = $this->dbmanager->createTable($tablename, $fields, $options);
+		    
 			if ($ret==FALSE) {
 
 	        		throw new Exception('Error while creating table');
@@ -289,7 +306,8 @@ class DbHandler extends dbHandlermanager
      */
     public function createDb($db)
     {
-    	$ret = $this->dbmanager->createDb($db);
+        $options =  array('charset' => 'utf8', 'collate' => 'utf8_unicode_ci',);
+    	$ret = $this->dbmanager->createDb($db, $options);
     	return $ret;
     }
 
@@ -337,7 +355,7 @@ class DbHandler extends dbHandlermanager
 			$sql = 'SELECT version()';
 
 			$this->schema =&MDB2::factory($dsn, array('debug' => true, 'log_line_break' => '<br>'));
-
+            $this->schema->setCharset('utf8');
 	   		if (PEAR::isError($this->schema)) {
 	        	$error = $this->schema->getMessage() . ' ' . $this->schema->getUserInfo();
 	        	throw new Exception();
@@ -392,6 +410,7 @@ class DbHandler extends dbHandlermanager
 		$this->dsn = $dsn;
 
 		$schema =& MDB2_Schema::factory($dsn, array('debug' => true, 'log_line_break' => '<br>'));
+		//$schema->setCharset('utf8');
    		if (PEAR::isError($schema)) {
         	$error = $schema->getMessage() . ' ' . $schema->getUserInfo();
 			$this->errors[] = $$error.' when connecting to database.';

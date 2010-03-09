@@ -225,6 +225,8 @@ class dbHandlermanager
         if($this->_db->phptype == 'mysql' || $this->_db->phptype == 'mysqli')
         {
             $this->_db->setOption('default_table_type', 'INNODB');
+            $toptions =  array('charset' => 'utf8', 'collate' => 'utf8_unicode_ci',);
+        	$options = array_merge($toptions, $options);
             //do the table create.
             //we call on the actual MDB object, NOT the MDB::Schema object to do this.
             $this->_db->mgCreateTable($tableName, $fields, $options);
@@ -304,7 +306,8 @@ class dbHandlermanager
      */
     public function createDb($db)
     {
-    	$ret = $this->_db->mgCreateDatabase($db);
+        $options =  array('charset' => 'utf8', 'collate' => 'utf8_unicode_ci',);
+    	$ret = $this->_db->mgCreateDatabase($db, $options);
     	return $ret;
     }
 
