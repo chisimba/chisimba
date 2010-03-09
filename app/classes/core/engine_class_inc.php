@@ -609,6 +609,7 @@ class engine {
                 //set the options for portability!
                 $_globalObjDb->setOption ( 'portability', MDB2_PORTABILITY_FIX_CASE | MDB2_PORTABILITY_ALL );
                 $_globalObjDb->setOption ('quote_identifier', true);
+                $_globalObjDb->setCharset('utf8');
 
                 //Check for errors
                 if (PEAR::isError ( $_globalObjDb )) {
@@ -638,8 +639,10 @@ class engine {
                     $this->_objDb->setOption ( 'field_case', CASE_LOWER );
                     //oracle numRows() hack plus some extras
                     $this->_objDb->setOption ( 'portability', MDB2_PORTABILITY_NUMROWS | MDB2_PORTABILITY_FIX_CASE | MDB2_PORTABILITY_RTRIM | MDB2_PORTABILITY_ALL );
+                    $this->_objDb->setCharset('utf8');
                 } else {
                     $this->_objDb->setOption ( 'portability', MDB2_PORTABILITY_FIX_CASE | MDB2_PORTABILITY_ALL );
+                    $this->_objDb->setCharset('utf8');
                 }
                 // include the dbtable base class for future use
             } elseif ($this->_dbabs === 'PDO') {
@@ -650,10 +653,12 @@ class engine {
                 // dsn is in the form of 'mysql:host=localhost;dbname=test', $user, $pass
                 if ($this->_objDb === NULL) {
                     try {
-                        $this->_objDb = new PDO ( $this->dsn ['phptype'] . ":" . "host=" . $this->dsn ['hostspec'] . ";dbname=" . $this->dsn ['database'], $this->dsn ['username'], $this->dsn ['password'] );
+                        $this->_objDb = new PDO ( $this->dsn ['phptype'] . ":" . "host=" . $this->dsn ['hostspec'] . ";dbname=" . $this->dsn ['database'], $this->dsn ['username'], $this->dsn ['password'], array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8") );
                         $this->_objDb->setAttribute ( PDO::ATTR_EMULATE_PREPARES, true );
                         $this->_objDb->setAttribute ( PDO::ATTR_CASE, PDO::CASE_LOWER );
                         $this->_objDb->setAttribute ( PDO::ATTR_PERSISTENT, true );
+                        
+
                         if ($this->dsn ['phptype'] == 'pgsql') {
                             $this->_objDb->setAttribute ( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
                         }
