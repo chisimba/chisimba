@@ -14,7 +14,7 @@ class multisearchapi extends object
         $query = $params->getParam(0)->scalarval();
         $builtQuery = $this->objOps->buildQuery($query);
         $data = $this->objOps->doQuery($builtQuery);
-        $output = $this->objOps->formatQuery($data);
+        $output = $this->objOps->formatQuery($data, 'plaintext');
         $text = '';
         foreach ($output as $type => $html) {
             $text .= sprintf("--- %s ---\n", ucfirst($type));
