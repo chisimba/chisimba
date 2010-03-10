@@ -193,6 +193,14 @@ class xmlrpcapi extends object
      */
 	public $objMxitDictionary;
 
+    /**
+     * Instance of the multisearchapi class in the api module.
+     *
+     * @access public
+     * @var    object
+     */
+    public $objMultisearch;
+
 
     /**
      * init method
@@ -259,6 +267,8 @@ class xmlrpcapi extends object
 //			$this->objSecurityApi = $this->getObject('securityapi');
 //			// MXit Dictionary API
 //			$this->objMxitDictionary = $this->getObject('mxitdictionaryapi');
+            // Multi Search
+            $this->objMultisearch = $this->getObject('multisearchapi');
 
         }
         catch (customException $e)
@@ -964,6 +974,12 @@ class xmlrpcapi extends object
                                                                     array('string', 'string', 'string', 'string', 'string', 'string'),
                                                                     ),
                                                    'docstring' => 'Convert between various document formats using Open Office'),
+                            // Multi Search
+                            'multisearch.query' => array('function' => array($this->objMultisearch, 'query'),
+                                                      'signature' => array(
+                                                                          array('string', 'string'),
+                                                                          ),
+                                                    'docstring' => 'Performs a query using the multisearch module.'),
                             'im.add' => array('function' => array($this->objImAPI, 'addIm'),
                                                     'signature' => array(
                                                                           array('string', 'string', 'string'),
