@@ -17,8 +17,7 @@ class multisearchapi extends object
         $output = $this->objOps->formatQuery($data, 'plaintext');
         $text = '';
         foreach ($output as $type => $html) {
-            $text .= sprintf("--- %s ---\n", ucfirst($type));
-            $text .= htmlentities(strip_tags($html));
+            $text .= htmlentities($html);
         }
         $value = new XML_RPC_Value($text, 'string');
         $response = new XML_RPC_Response($value);
