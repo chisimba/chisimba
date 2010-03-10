@@ -18,7 +18,7 @@ class multisearchapi extends object
         $text = '';
         foreach ($output as $type => $html) {
             $text .= sprintf("--- %s ---\n", ucfirst($type));
-            $text .= strip_tags($html);
+            $text .= htmlentities(strip_tags($html));
         }
         $value = new XML_RPC_Value($text, 'string');
         $response = new XML_RPC_Response($value);
