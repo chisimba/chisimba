@@ -353,7 +353,7 @@ class engine {
      * @var array
      */
     public $coremods = array ('api', 'blocks', 'config', 'context',
-        'contextadmin', 'contextgroups', 'contextpermissions',
+        'contextadmin', 'ckeditor','contextgroups', 'contextpermissions',
         'creativecommons', 'decisiontable', 'errors', 'ext', 'fckeditor', 'files',
         'filemanager', 'filters', 'groupadmin', 'help', 'htmlelements', 'jquery',
         'language', 'logger', 'mail', 'modulecatalogue', 'navigation',
