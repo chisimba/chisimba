@@ -189,8 +189,8 @@ class htmlarea extends object {
      * Method to display the WYSIWYG Editor
      */
     function show() {
-        $base = '<script language="JavaScript" src="'.$this->getResourceUri('ckeditor/ckeditor.js','htmlelements').'" type="text/javascript"></script>';
-        $baseajax = '<script language="JavaScript" src="'.$this->getResourceUri('ckeditor/_source/core/ajax.js','htmlelements').'" type="text/javascript"></script>';
+        $base = '<script language="JavaScript" src="'.$this->getResourceUri('ckeditor/ckeditor.js','ckeditor').'" type="text/javascript"></script>';
+        $baseajax = '<script language="JavaScript" src="'.$this->getResourceUri('ckeditor/_source/core/ajax.js','ckeditor').'" type="text/javascript"></script>';
 
         $initVars='
 <script type="text/javascript">
