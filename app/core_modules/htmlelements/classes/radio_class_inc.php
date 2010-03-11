@@ -194,8 +194,8 @@ class radio extends abhtmlbase implements ifhtml
             $cssId = preg_replace('/(\/|\\\)/', '_', $cssId);
             
             $str .= ' id="' .$cssId. '"';
-    
-            if($this->selected===$opt){
+            
+            if($this->selected == $opt){
                 $str.=' checked="checked"';
             }
             if($this->extra){
@@ -248,7 +248,6 @@ class radio extends abhtmlbase implements ifhtml
             $cssId = preg_replace('/(\/|\\\)/', '_', $cssId);
             
             $str .= ' id="' .$cssId. '"';
-            
             if ($this->selected == $opt){
                 $str.=' checked="checked" ';
             }
