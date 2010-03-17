@@ -216,7 +216,7 @@ class htmlarea extends object {
                         height:'".$this->height."', width:'".$this->width."',
                         filebrowserWindowWidth : '80%',
                         filebrowserWindowHeight : '100%',
-                        contentsCss: '$this->sitePath/core_modules/htmlelements/resources/ckeditor/chisimba.css',
+                        contentsCss: '$this->sitePath/core_modules/ckeditor/resources/ckeditor/chisimba.css',
                         toolbar:'".$this->toolbarSet."'
 
 		}
