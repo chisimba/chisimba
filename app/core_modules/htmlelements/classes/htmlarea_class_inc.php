@@ -189,6 +189,9 @@ class htmlarea extends object {
      * Method to display the WYSIWYG Editor
      */
     function show() {
+     if ($this->fckVersion == '2.5.1') {
+      return $this->showFCKEditor($version = '2.5.1');
+     } else {
         $base = '<script language="JavaScript" src="'.$this->getResourceUri('ckeditor/ckeditor.js','ckeditor').'" type="text/javascript"></script>';
         $baseajax = '<script language="JavaScript" src="'.$this->getResourceUri('ckeditor/_source/core/ajax.js','ckeditor').'" type="text/javascript"></script>';
 
@@ -209,37 +212,33 @@ class htmlarea extends object {
         $this->editor.="
         <script type=\"text/javascript\">
         CKEDITOR.replace( '$this->name',
-		{
-			filebrowserBrowseUrl : '$this->siteRoot?module=filemanager&action=fcklink&context=yes&loadwindow=yes',
-			filebrowserImageBrowseUrl : '$this->siteRoot?module=filemanager&action=fckimage&context=yes&loadwindow=yes&scrollbars=yes',
-			filebrowserFlashBrowseUrl : '$this->siteRoot?module=filemanager&action=fckflash&context=yes&loadwindow=yes',
+       		{
+                     			filebrowserBrowseUrl : '$this->siteRoot?module=filemanager&action=fcklink&context=yes&loadwindow=yes',
+                     			filebrowserImageBrowseUrl : '$this->siteRoot?module=filemanager&action=fckimage&context=yes&loadwindow=yes&scrollbars=yes',
+	                     		filebrowserFlashBrowseUrl : '$this->siteRoot?module=filemanager&action=fckflash&context=yes&loadwindow=yes',
                         height:'".$this->height."', width:'".$this->width."',
                         filebrowserWindowWidth : '80%',
                         filebrowserWindowHeight : '100%',
                         contentsCss: '$this->sitePath/core_modules/ckeditor/resources/ckeditor/chisimba.css',
                         toolbar:'".$this->toolbarSet."'
-
-		}
+       		}
         );
        </script>
-            ";
-       
+            ";       
         return $this->editor;
-    //return $this->showFCKEditor();
+       } 
     }
 
     /**
      * Method to show the FCKEditor
      * @return string
      */
-    function showFCKEditor($version = '2.6.3') {
-        //jump to ckeditor, as some modules are still calling this method
-        return $this->show();
-        /*
+    function showFCKEditor($version = '2.5.1') {
+
         if ($this->fckVersion == '2.5.1') {
-            require_once($this->getResourcePath('fckeditor_2.5.1/fckeditor.php', 'htmlelements'));
+            require_once($this->getResourcePath('fckeditor_2.5.1/fckeditor.php', 'fckeditor'));
         } else {
-            require_once($this->getResourcePath('fckeditor/fckeditor_2.6.3/fckeditor_php5.php', 'htmlelements'));
+            require_once($this->getResourcePath('ckeditor/fckeditor_2.6.3/fckeditor_php5.php', 'ckeditor'));
         }
         $objConfig =  $this->newObject('altconfig', 'config');
 
@@ -254,9 +253,9 @@ class htmlarea extends object {
         }
 
         if ($this->fckVersion == '2.5.1') {
-            $sBasePath .= 'core_modules/htmlelements/resources/fckeditor_2.5.1/';
+            $sBasePath .= 'core_modules/fckeditor/fckeditor_2.5.1/';
         } else {
-            $sBasePath .= 'core_modules/htmlelements/resources/fckeditor/fckeditor_2.6.3/';
+            $sBasePath .= 'core_modules/fckeditor/fckeditor/fckeditor_2.6.3/';
         }
 
         $oFCKeditor = new FCKeditor($this->name) ;
@@ -301,10 +300,6 @@ class htmlarea extends object {
 
 
         return '<span onmouseover="wakeUpFireFoxFckeditor(\''.$this->name.'\');">'.$oFCKeditor->CreateHtml().'</span>';
-    // Addition for Testing Purposes
-    // <div id="content_'.$this->name.'"></div>
-         *
-         */
     }
 
     /**
