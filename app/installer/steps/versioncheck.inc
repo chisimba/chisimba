@@ -146,6 +146,8 @@ class PHPCheckAction extends StepAction
                                         'pgsql'=>Array('version'=>'', 'available' => true, 'message'=> ''),
 
                                         'imap'=>Array('version'=>'', 'available' => true, 'message'=> ''),
+                                        
+                                        'mbstring'=>Array('version'=>'', 'available' => true, 'message'=> ''),
 
                                         'SimpleXML'=>Array('version'=>'', 'available' => true, 'message'=> ''),
 
@@ -213,6 +215,24 @@ class PHPCheckAction extends StepAction
         } else {
 
             $this->required_settings['GD']['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';
+
+        }
+        
+        // check if mbstring is available
+
+        if (!function_exists('mb_get_info')) {
+
+            $this->required_settings['mbstring']['available'] = false;
+
+            $this->required_settings['mbstring']['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
+
+            $this->errors[] = '<span class="errors">You must have the mbstring extension installed to continue.</span>';
+
+            $this->success = false;
+
+        } else {
+
+            $this->required_settings['mbstring']['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';
 
         }
 
