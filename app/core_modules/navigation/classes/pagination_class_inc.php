@@ -110,7 +110,7 @@ class pagination extends object
         jQuery.ajax({
             type: "GET", 
             url: "index.php", 
-            data: "'.htmlentities($params).'&amp;page="+page_id,
+            data: "'.$params.'&page="+page_id,
             success: function(msg){
                 jQuery("#paginationresults_'.$this->id.'").html(msg);
             }
