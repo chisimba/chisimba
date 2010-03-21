@@ -46,8 +46,8 @@ if ($mode == 'selectfilewindow' || $mode == 'selectimagewindow' || $mode == 'fck
     if (count($restrictions) == 0) {
         $header->str .= ' (<a href="javascript:selectFile();">'.$this->objLanguage->languageText('mod_filemanager_selectfile', 'filemanager', 'Select File').'</a>) ';
     } else if (in_array(strtolower($file['datatype']), $restrictions)) {
-            $header->str .= ' (<a href="javascript:selectFile();">'.$this->objLanguage->languageText('mod_filemanager_selectfile', 'filemanager', 'Select File').'</a>) ';
-        }
+        $header->str .= ' (<a href="javascript:selectFile();">'.$this->objLanguage->languageText('mod_filemanager_selectfile', 'filemanager', 'Select File').'</a>) ';
+    }
 
     if ($mode == 'fckimage' || $mode == 'fckflash') {
         if (isset($file['width']) && isset($file['height'])) {
@@ -61,24 +61,41 @@ if ($mode == 'selectfilewindow' || $mode == 'selectimagewindow' || $mode == 'fck
 
     if ($mode == 'fckimage' || $mode == 'fckflash' || $mode == 'fcklink') {
 
-    //var_dump($file);
+        $selectParam="
+
+function getUrlParam(paramName)
+{
+  var reParam = new RegExp('(?:[\?&]|&amp;)' + paramName + '=([^&]+)', 'i') ;
+  var match = window.location.search.match(reParam) ;
+
+  return (match && match.length > 1) ? match[1] : '' ;
+}
+
+
+";
 
         $checkOpenerScript = '
         <script type="text/javascript">
         //<![CDATA[
+        '.$selectParam.'
+
         function selectFile()
         {
             if (window.opener) {
                  //31.10.2009 davidwaf added the following  that uses CKeditor 3
+                 try
+                 {
+                     window.opener.CKEDITOR.tools.callFunction(2, "'.htmlspecialchars_decode($this->uri(array('action'=>'file', 'id'=>$file['id'], 'filename'=>$file['filename'], 'type'=>'.'.$file['datatype']), 'filemanager', '', TRUE, FALSE, TRUE)).'"'.$widthHeight.') ;
+            
+                 }
+                catch(err)
+                {
+                         window.opener.CKEDITOR.tools.callFunction(1, "'.htmlspecialchars_decode($this->uri(array('action'=>'file', 'id'=>$file['id'], 'filename'=>$file['filename'], 'type'=>'.'.$file['datatype']), 'filemanager', '', TRUE, FALSE, TRUE)).'"'.$widthHeight.') ;
+             
+                }
 
-                 if (/Firefox[\/\s](\d+\.\d+)/.test(navigator.userAgent)){
-                      var uf = 2;
-                   }else{
-                      var uf = 1;
-                   }
-                window.opener.CKEDITOR.tools.callFunction(uf, "'.htmlspecialchars_decode($this->uri(array('action'=>'file', 'id'=>$file['id'], 'filename'=>$file['filename'], 'type'=>'.'.$file['datatype']), 'filemanager', '', TRUE, FALSE, TRUE)).'"'.$widthHeight.') ;
-                window.top.close() ;
-                window.top.opener.focus() ;
+                 window.top.close() ;
+                 window.top.opener.focus() ;
             }
         }
         //]]>
@@ -88,7 +105,7 @@ if ($mode == 'selectfilewindow' || $mode == 'selectimagewindow' || $mode == 'fck
         $this->appendArrayVar('headerParams', $checkOpenerScript);
 
     } else if ($mode == 'selectfilewindow') {
-            $checkOpenerScript = '
+        $checkOpenerScript = '
         <script type="text/javascript">
         function selectFile()
         {
@@ -109,19 +126,19 @@ if ($mode == 'selectfilewindow' || $mode == 'selectimagewindow' || $mode == 'fck
         </script>
                 ';
 
-            $this->appendArrayVar('headerParams', $checkOpenerScript);
+        $this->appendArrayVar('headerParams', $checkOpenerScript);
 
-        } else if ($mode == 'selectimagewindow') {
+    } else if ($mode == 'selectimagewindow') {
 
-                $objThumbnails = $this->getObject('thumbnails');
+        $objThumbnails = $this->getObject('thumbnails');
 
-                $checkOpenerScript = '
+        $checkOpenerScript = '
         <script type="text/javascript">
         function selectFile()
         {
             if (window.opener) {
                 window.opener.document.getElementById("imagepreview_'.$this->getParam('name').'").src = "'.$objThumbnails->getThumbnail($file['id'], $file['filename'], $file['path']).'";
-                //window.opener.document.getElementById("selectfile_'.$this->getParam('name').'").value = "'.htmlspecialchars_decode($file['filename']).'";
+                window.opener.document.getElementById("selectfile_'.$this->getParam('name').'").value = "'.htmlspecialchars_decode($file['filename']).'";
                 window.opener.document.getElementById("hidden_'.$this->getParam('name').'").value = "'.htmlspecialchars_decode($file['id']).'";
                 window.close();
                 window.opener.focus();
@@ -134,8 +151,8 @@ if ($mode == 'selectfilewindow' || $mode == 'selectimagewindow' || $mode == 'fck
         </script>
                 ';
 
-                $this->appendArrayVar('headerParams', $checkOpenerScript);
-            }
+        $this->appendArrayVar('headerParams', $checkOpenerScript);
+    }
 }
 
 if ($folderPermission) {
