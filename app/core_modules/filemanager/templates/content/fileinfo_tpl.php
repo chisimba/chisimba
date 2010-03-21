@@ -85,12 +85,12 @@ function getUrlParam(paramName)
                  //31.10.2009 davidwaf added the following  that uses CKeditor 3
                  try
                  {
-                     window.opener.CKEDITOR.tools.callFunction(2, "'.htmlspecialchars_decode($this->uri(array('action'=>'file', 'id'=>$file['id'], 'filename'=>$file['filename'], 'type'=>'.'.$file['datatype']), 'filemanager', '', TRUE, FALSE, TRUE)).'"'.$widthHeight.') ;
+                     window.opener.CKEDITOR.tools.callFunction(1, "'.htmlspecialchars_decode($this->uri(array('action'=>'file', 'id'=>$file['id'], 'filename'=>$file['filename'], 'type'=>'.'.$file['datatype']), 'filemanager', '', TRUE, FALSE, TRUE)).'"'.$widthHeight.') ;
             
                  }
                 catch(err)
                 {
-                         window.opener.CKEDITOR.tools.callFunction(1, "'.htmlspecialchars_decode($this->uri(array('action'=>'file', 'id'=>$file['id'], 'filename'=>$file['filename'], 'type'=>'.'.$file['datatype']), 'filemanager', '', TRUE, FALSE, TRUE)).'"'.$widthHeight.') ;
+                         window.opener.CKEDITOR.tools.callFunction(2, "'.htmlspecialchars_decode($this->uri(array('action'=>'file', 'id'=>$file['id'], 'filename'=>$file['filename'], 'type'=>'.'.$file['datatype']), 'filemanager', '', TRUE, FALSE, TRUE)).'"'.$widthHeight.') ;
              
                 }
 
