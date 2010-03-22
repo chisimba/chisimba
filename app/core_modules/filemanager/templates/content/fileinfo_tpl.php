@@ -61,20 +61,7 @@ if ($mode == 'selectfilewindow' || $mode == 'selectimagewindow' || $mode == 'fck
 
     if ($mode == 'fckimage' || $mode == 'fckflash' || $mode == 'fcklink') {
 
-        $selectParam="
-
-function getUrlParam(paramName)
-{
-  var reParam = new RegExp('(?:[\?&]|&amp;)' + paramName + '=([^&]+)', 'i') ;
-  var match = window.location.search.match(reParam) ;
-
-  return (match && match.length > 1) ? match[1] : '' ;
-}
-
-
-";
-
-        $checkOpenerScript = '
+              $checkOpenerScript = '
         <script type="text/javascript">
         //<![CDATA[
         '.$selectParam.'
@@ -90,7 +77,7 @@ function getUrlParam(paramName)
                  }
                 catch(err)
                 {
-                         window.opener.CKEDITOR.tools.callFunction(2, "'.htmlspecialchars_decode($this->uri(array('action'=>'file', 'id'=>$file['id'], 'filename'=>$file['filename'], 'type'=>'.'.$file['datatype']), 'filemanager', '', TRUE, FALSE, TRUE)).'"'.$widthHeight.') ;
+                     window.opener.CKEDITOR.tools.callFunction(2, "'.htmlspecialchars_decode($this->uri(array('action'=>'file', 'id'=>$file['id'], 'filename'=>$file['filename'], 'type'=>'.'.$file['datatype']), 'filemanager', '', TRUE, FALSE, TRUE)).'"'.$widthHeight.') ;
              
                 }
 
@@ -138,7 +125,6 @@ function getUrlParam(paramName)
         {
             if (window.opener) {
                 window.opener.document.getElementById("imagepreview_'.$this->getParam('name').'").src = "'.$objThumbnails->getThumbnail($file['id'], $file['filename'], $file['path']).'";
-                window.opener.document.getElementById("selectfile_'.$this->getParam('name').'").value = "'.htmlspecialchars_decode($file['filename']).'";
                 window.opener.document.getElementById("hidden_'.$this->getParam('name').'").value = "'.htmlspecialchars_decode($file['id']).'";
                 window.close();
                 window.opener.focus();
