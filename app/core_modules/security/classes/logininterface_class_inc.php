@@ -147,7 +147,9 @@ class loginInterface extends object
             // Set the button type to submit
             $objButton->setToSubmit();
             // Add the button to the form
-            $objFields->addContent($ldap.'<br />'.$rem.$box.$fb.$objButton->show().'<br/>');
+            $objFields->addContent($ldap . '<br />' . $rem .$box
+              . "<div class='loginbuttonwrap'>".$objButton->show()
+              .'</div>'.$fb);
 
 
 
