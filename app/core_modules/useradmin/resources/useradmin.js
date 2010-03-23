@@ -152,6 +152,11 @@
             width: 85,
             sortable: true
         },{
+            header: "User Id",
+            dataIndex: 'userid',
+            width: 85,
+            sortable: true
+        },{
             header: "Title",
             dataIndex: 'title',
             width: 70,
@@ -195,8 +200,8 @@
 		cm: cm,
         width: "100%",
         height: 400,
-	frame: true,
-	title:'Browse Users',
+		frame: true,
+		title:'Browse Users',
         store: userdata,
         trackMouseOver:false,
         disableSelection:true,
