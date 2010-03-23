@@ -453,7 +453,7 @@ class filemanager extends controller
 
 
         // To do: Build in Security on whether user can view file
-        if (file_exists($filePath)) {
+        if (file_exists($this->objConfig->getSiteRootPath().'/'.$filePath)) {
             //echo $filePath;
             header("Location:{$filePath}");
         } else {
