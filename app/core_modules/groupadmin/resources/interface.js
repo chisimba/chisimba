@@ -26,8 +26,10 @@ Ext.onReady(function(){
 		
        SiteAdminGrid.setVisible(true);
        selectedGroupId = record.data.id;
+	   gname = record.data.group_define_name;
        loadGroup(record.data.id, record.data.group_define_name, record.data.title);
-      
+	   editGroupButton.enable();
+	         
     });       
 
 });
@@ -190,6 +192,16 @@ var rmButton = new Ext.Button({
             }
         });
         
+var editGroupButton = new Ext.Button({
+	text:'Edit Group',
+    tooltip:'Edit a Group',
+	disabled:true,
+    iconCls: 'silk-pencil',
+    handler: function (){
+		//alert(gname);
+		showEditForm(selectedGroupId, gname)	        
+    }
+});
 
 var addGroupButton = new Ext.Button({
 	text:'Add Group',
@@ -211,7 +223,7 @@ var addGroupButton = new Ext.Button({
 		        addwin.show(this);
 		        
             }
-})
+});
 
 // The toolbar for the user grid
 var toolBar = new Ext.Toolbar({
@@ -264,10 +276,10 @@ var toolBar = new Ext.Toolbar({
 ////////////////////////////////
 //// Grids ////////////////////
 ////////////////////////////////
-function renderEdit(value, p, record)
+/*function renderEdit(value, p, record)
 	{
 		return String.format('<b><a href="javascript:showEditForm(\'{0}\',\'{1}\')"><img src="skins/_common/css/extjs/silk/fam/pencil.png" border="0" alt="Edit Group" title="Edit Group" /></a></b>',record.data.id, record.data.group_define_name);
-    }
+    }*/
 
 //the top level groups grid
 var groupsGrid = new Ext.grid.GridPanel({
@@ -286,7 +298,7 @@ var groupsGrid = new Ext.grid.GridPanel({
         loadMask: true,
 		sm: new Ext.grid.RowSelectionModel({singleSelect:true}),
         // grid columns  
-        tbar:[addGroupButton],         
+        tbar:[addGroupButton, editGroupButton],         
     	bbar: groupsPageNavigation,
         columns:[{
 	            //id: 'group_define_name', // id assigned so we can apply custom css (e.g. .x-grid-col-topic b { color:#333 })
@@ -302,14 +314,6 @@ var groupsGrid = new Ext.grid.GridPanel({
 	            dataIndex: 'title',
 	            width: 220,
 	            align: 'left',
-	            sortable: true
-	        },
-			{
-	            header: "Edit",
-	            dataIndex: 'group_define_name',
-	            width: 50,
-	            align: 'center',
-	            renderer: renderEdit,
 	            sortable: true
 	        }],
 	    	viewConfig: {
@@ -557,8 +561,10 @@ function showEditForm(groupid, groupname)
 										id: gid},
 								waitMsg:'Loading...',
 								success: function(action){
+								
 								},        	
 				            	failure:function(action){
+								
 								}
 							});
 }
