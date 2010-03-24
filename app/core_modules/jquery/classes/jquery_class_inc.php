@@ -13,7 +13,7 @@
 *
 * @category  Chisimba
 * @author  Tohir Solomons, Charl Mert
-* @package htmlelements
+* @package jquery
 * @copyright 2007 AVOIR
 * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
 *   Public License
@@ -280,18 +280,18 @@ class jquery extends object
         //The supplied js includer breaks:
         //$this->appendArrayVar('headerParams',
         // $this->getJavascriptFile($basePath.'jquery.jqGrid.js',
-        // 'htmlelements'));
+        // 'jquery'));
         //Manually including the minified files here
         
         //Made Changes to the loader, gave it a facebook smack, Baa!
         //$this->appendArrayVar('headerParams',
         //  $this->getJavascriptFile($basePath.'js/min/grid.base-min.js',
-        //  'htmlelements'));
+        //  'jquery'));
         $this->appendArrayVar('headerParams', 
           $this->getJavascriptFile($basePath.'js/grid.base.js', 'jquery'));
 
         //Edited delGridRow Behaviour to exclude modal window (using jquery box plugin instead: faster)
-        //$this->appendArrayVar('headerParams', $this->getJavascriptFile($basePath.'js/min/grid.formedit-min.js', 'htmlelements'));
+        //$this->appendArrayVar('headerParams', $this->getJavascriptFile($basePath.'js/min/grid.formedit-min.js', 'jquery'));
         $this->appendArrayVar('headerParams',
            $this->getJavascriptFile($basePath.'js/grid.formedit.js',
            'jquery'));
@@ -420,14 +420,14 @@ class jquery extends object
           .$this->getResourceUri($basePath . 'jquery.cluetip.css'
           . '">'));
         $this->appendArrayVar('headerParams', 
-          $this->getJavascriptFile($basePath.'lib/hoverIntent.js',
-          'htmlelements'));
+          $this->getJavascriptFile($basePath.'lib/jquery.hoverIntent.js',
+          'jquery'));
         $this->appendArrayVar('headerParams', 
           $this->getJavascriptFile($basePath . 'lib/jquery.bgiframe.min.js',
-          'htmlelements'));
+          'jquery'));
         $this->appendArrayVar('headerParams', 
           $this->getJavascriptFile($basePath . 'jquery.cluetip.js',
-          'htmlelements'));
+          'jquery'));
     }
 
     /**
@@ -441,7 +441,7 @@ class jquery extends object
         $basePath = 'plugins/corner/' . $version . '/';
         $this->appendArrayVar('headerParams', 
           $this->getJavascriptFile($basePath . 'jquery.corner.js',
-          'htmlelements'));
+          'jquery'));
     }
     
     /**
