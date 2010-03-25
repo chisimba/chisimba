@@ -22,7 +22,7 @@
  *
  * @category  Chisimba
  * @package   filemanager
- * @author    Tohir Solomons <tsolomons@uwc.ac.za>
+ * @author    Tohir Solomons <tsolomons@uwc.ac.za> enhanced by Paul Mungai <wandopm@gmail.com>
  * @copyright 2007 Tohir Solomons
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
  * @version   $Id: selectfile_class_inc.php 10221 2008-08-22 08:59:18Z tohir $
@@ -38,7 +38,7 @@
  *
  * @category  Chisimba
  * @package   filemanager
- * @author    Tohir Solomons <tsolomons@uwc.ac.za>
+ * @author    Tohir Solomons <tsolomons@uwc.ac.za> enhanced by Paul Mungai <wandopm@gmail.com>
  * @copyright 2007 Tohir Solomons
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
  * @version   Release: @package_version@
