@@ -66,7 +66,7 @@ $name = 'tbl_dynamicblocks_index';
 
 $indexes = array(
     'fields' => array(
-        'module' => array(),         
+        'module' => array()         
         )
     );
 
