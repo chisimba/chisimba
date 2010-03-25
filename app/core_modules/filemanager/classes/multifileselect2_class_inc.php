@@ -137,7 +137,7 @@ class multifileselect2 extends filemanagerobject
 deleteIcon = \''.$this->deleteIcon.'\';
 
 /* Method to remove an item from the multi files list */
-function removeMultiFile'.$name.'()
+function removeMultiFile'.$name.'(name)
 {
     // If user confirms removal
     if (confirm("Remove this file?")) {
@@ -149,7 +149,7 @@ function removeMultiFile'.$name.'()
         }
         
         // Prepare regex
-        var myReg = new RegExp('.$name.'+",", \'gi\');
+        var myReg = new RegExp(name+",", \'gi\');
         
         // Remove from list
         replacement = defaultVal.replace(myReg, "");
@@ -158,7 +158,7 @@ function removeMultiFile'.$name.'()
         jQuery(\'#hidden_headerscripts_'.$name.'\').attr(\'value\', replacement);
         
         // Remove from display
-        jQuery(\'span.multiitem_'.$name.'\').each(function (i) {
+        jQuery(\'span.multiitem_\'+name).each(function (i) {
             jQuery(this).html("");
         });
     }
@@ -191,7 +191,7 @@ function addToMultiList'.$name.'()
         jQuery(\'#hidden_headerscripts_'.$name.'\').attr(\'value\', defaultVal+newVal+\',\');
         
         // Generate Delete Portion
-        deleteStr = "<a href=\"javascript:removeMultiFile(\'"+newVal+"\');\">"+deleteIcon+"</a>";
+        deleteStr = "<a href=\"javascript:removeMultiFile'.$name.'(\'"+newVal+"\');\">"+deleteIcon+"</a>";
         
         // Prepare Item before adding to display list
         str = \'<span class="multiitem_\'+newVal+\'">\'+jQuery(\'#input_selectfile_temp_multiselect_'.$name.'\').attr(\'value\')+\' \'+deleteStr+\'<br /></span>\';
