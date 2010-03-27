@@ -237,7 +237,7 @@ class htmlarea extends object {
         if ($this->fckVersion == '2.5.1') {
             require_once($this->getResourcePath('fckeditor_2.5.1/fckeditor.php', 'fckeditor'));
         } else {
-            require_once($this->getResourcePath('ckeditor/fckeditor_2.6.3/fckeditor_php5.php', 'ckeditor'));
+            require_once($this->getResourcePath('fckeditor/fckeditor_2.6.3/fckeditor_php5.php', 'fckeditor'));
         }
         $objConfig =  $this->newObject('altconfig', 'config');
 
@@ -248,7 +248,7 @@ class htmlarea extends object {
         $sBasePath = preg_replace('/\/+/', '/', $sBasePath);
 
         if (substr($sBasePath, -1, 1) != '/') {
-            $sBasePath .= '/';
+            $sBasePath .= '/core_modules/fckeditor/resources/fckeditor/fckeditor_2.6.3/';
         }
 
         if ($this->fckVersion == '2.5.1') {
