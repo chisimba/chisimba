@@ -119,7 +119,9 @@ class blocks extends object {
                 $title = $objBlock->title;
                 if ($wrapStr) {
                     $objWrap = $this->getObject ( 'trimstr', 'strings' );
-                    $title = $objWrap->wrapString ( $title, $titleLength );
+                    if (!$title == FALSE) {
+                        $title = $objWrap->wrapString ( $title, $titleLength );
+                    }
                 }
 
                 if (isset ( $objBlock->blockType )) {
@@ -131,11 +133,12 @@ class blocks extends object {
                         if (isset ( $objBlock->defaultHidden ) && $objBlock->defaultHidden) {
                             $hidden = 'none';
                         }
-
                         if (! $showToggle && $hidden != 'default') {
                             $showToggle = TRUE;
                         }
-
+                        if ($title == FALSE) {
+                            $showTitle = FALSE;
+                        }
                         return $objFeatureBox->show ($title, $objBlock->show (), $block, $hidden, $showToggle, $showTitle, $cssClass, $cssId);
                     case "tabbedbox" :
                         // Put it all inside a tabbed box
@@ -145,23 +148,19 @@ class blocks extends object {
                         $objTab->addBoxContent ( $objBlock->show () );
                         return "<br />" . $objTab->show ();
                         break;
-
                     case "table" :
                         // Put it all inside a table
                         $myTable = $this->newObject ( 'htmltable', 'htmlelements' );
                         $myTable->border = '1';
                         $myTable->cellspacing = '0';
                         $myTable->cellpadding = '5';
-
                         $myTable->startHeaderRow ();
                         $myTable->addHeaderCell ( $title );
                         $myTable->endHeaderRow ();
-
                         $myTable->startRow ();
                         $myTable->addCell ( $objBlock->show () );
                         $myTable->endRow ();
                         return $myTable->show ();
-
                     case "wrapper" :
                         // Put it all inside wrappers
                         $this->Layer1 = $this->newObject ( 'layer', 'htmlelements' );
@@ -172,11 +171,9 @@ class blocks extends object {
                         $this->Layer2->addToStr ( $objBlock->show () );
                         $this->Layer1->addToStr ( $this->Layer2->show () );
                         return $this->Layer1->show ();
-
                     case "none" :
                         // Just display it - for wide blocks
                         return $objBlock->show ();
-
                     case "invisible" :
                         // Render boxes like login invisible when logged in
                         return NULL;
