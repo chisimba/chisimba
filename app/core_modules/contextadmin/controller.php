@@ -168,6 +168,7 @@ class contextadmin extends controller
         $mode = $this->getParam('mode');
         $contextCode = $this->getParam('contextcode');
         $title = $this->getParam('title');
+        $showcomment = $this->getParam('showcomment');
         $status = $this->getParam('status');
         $access = $this->getParam('access');
         $about = '';
@@ -175,7 +176,7 @@ class contextadmin extends controller
         if ($contextCode == '') {
             $result = FALSE;
         } else {
-            $result = $this->objContext->createContext($contextCode, $title, $status, $access, $about);
+            $result = $this->objContext->createContext($contextCode, $title, $status, $access, $about,'',$showcomment);
         }
         
         // If successfully created
@@ -191,7 +192,7 @@ class contextadmin extends controller
         
         } else { // Else fix up errors
         
-            $fixup = array ('contextcode'=>$contextCode, 'title'=>$title, 'status'=>$status, 'access'=>$access);
+            $fixup = array ('contextcode'=>$contextCode, 'title'=>$title, 'status'=>$status, 'showcomment'=>$showcomment, 'access'=>$access);
             $this->setSession('fixup', $fixup);
             
             return $this->nextAction('add', array('mode'=>'fixup'));
@@ -373,6 +374,7 @@ class contextadmin extends controller
         $contextCode = $this->getParam('editcontextcode');
         $title = $this->getParam('title');
         $status = $this->getParam('status');
+        $showcomment = $this->getParam('showcomment');
         $access = $this->getParam('access');
         $mode = $this->getParam('mode');
         
@@ -386,7 +388,7 @@ class contextadmin extends controller
             if ($context == FALSE) {
                 return $this->nextAction(NULL, array('message'=>'editnonexistingcontext'));
             } else {
-                $this->objContext->updateContext($contextCode, $title, $status, $access, $context['about']);
+                $this->objContext->updateContext($contextCode, $title, $status, $access, $context['about'], '', $showcomment);
                 
                 return $this->nextAction('step2', array('mode'=>'edit'));
             }

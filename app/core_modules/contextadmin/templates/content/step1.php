@@ -231,6 +231,32 @@ $table->addCell($status->show());
 $table->endRow();
 
 $table->startRow();
+$table->addCell('&nbsp;');
+$table->addCell('&nbsp;');
+$table->endRow();
+
+$showcomment = new dropdown ('showcomment');
+//$status->setBreakSpace('<br />');
+$showcomment->addOption('1', $this->objLanguage->languageText('word_yes', 'system', 'No')." ");
+$showcomment->addOption('0', $this->objLanguage->languageText('word_no', 'system', 'No')." ");
+
+if ($mode == 'add' && is_array($fixup)) {
+    $showcomment->setSelected($fixup['showcomment']);
+} else if ($mode == 'edit') {
+    $showcomment->setSelected($context['showcomment']);
+}
+
+$table->startRow();
+$table->addCell($this->objLanguage->languageText('mod_contextadmin_comment', 'contextadmin', 'Comment'));
+$table->addCell($showcomment->show()." *".$this->objLanguage->languageText('mod_contextadmin_comments', 'contextadmin', 'Enable or Disable users to post comments on page content'));
+$table->endRow();
+
+$table->startRow();
+$table->addCell('&nbsp;');
+$table->addCell('&nbsp;');
+$table->endRow();
+
+$table->startRow();
 $table->addCell($this->objLanguage->languageText('word_access', 'system', 'Access'));
 $table->addCell($access->show());
 $table->endRow();
