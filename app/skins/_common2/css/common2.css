@@ -53,6 +53,13 @@ input.light {
   margin-bottom:4px;    
 }
 
+.prioritylist{
+ 	background: #fff url('images/bg-forms-light.png') repeat-x;
+  margin-bottom:4px;  
+  border:1px solid #A5A5A5; 
+  backgorund-color:#D0D0D0  
+}
+
 input[type='submit'],
 input[type='reset'],
 input[type='button'] {
