@@ -22,4 +22,15 @@
             </add>
         </data>
     </update>
+    <update>
+        <table>tbl_context</table>
+        <version>1.701</version>
+        <description>Added showcomment Field</description>
+        <data>
+            <add>
+                <name>showcomment</name>
+                <type>integer</type>
+            </add>
+        </data>
+    </update>
 </updates>

@@ -131,10 +131,11 @@ class dbcontext extends dbTable {
      * @param string $status Status of the Context
      * @param string access Access Settings for the Context
      * @param string $about About the Context
+     * @param string $showcomment Enable or Disable Comments on course pages
      *
      * @return boolean Result of adding a context
      */
-    public function createContext($contextCode, $title, $status = 'Published', $access = 'Private', $about = NULL, $goals=FALSE) {
+    public function createContext($contextCode, $title, $status = 'Published', $access = 'Private', $about = NULL, $goals=FALSE, $showcomment='Y') {
         $contextCode = preg_replace ( '/\W*/', '', $contextCode );
         $contextCode = strtolower ( $contextCode );
 
@@ -148,7 +149,7 @@ class dbcontext extends dbTable {
             return FALSE;
         } else {
         // Insert Record
-            $result = $this->insert ( array ('contextcode' => $contextCode, 'title' => $title, 'menutext' => $title, 'access' => $access, 'status' => $status, 'about' => $about, 'userid' => $this->objUser->userId (), 'dateCreated' => date ( "Y-m-d" ), 'updated' => date ( "Y-m-d H:i:s" ), 'lastupdatedby' => $this->objUser->userId (), 'goals' => $goals ) );
+            $result = $this->insert ( array ('contextcode' => $contextCode, 'title' => $title, 'menutext' => $title, 'access' => $access, 'status' => $status, 'about' => $about, 'userid' => $this->objUser->userId (), 'dateCreated' => date ( "Y-m-d" ), 'updated' => date ( "Y-m-d H:i:s" ), 'lastupdatedby' => $this->objUser->userId (), 'goals' => $goals, 'showcomment' => $showcomment ) );
 
             // If Successful
             if ($result) {
@@ -176,10 +177,11 @@ class dbcontext extends dbTable {
      * @param string $status Status of the Context
      * @param string access Access Settings for the Context
      * @param string $about About the Context
+     * @param string $showcomment Enable or Disable Comments on course pages
      *
      * @return boolean Result of Update
      */
-    public function updateContext($contextCode, $title=FALSE, $status=FALSE, $access=FALSE, $about=FALSE, $goals=FALSE) {
+    public function updateContext($contextCode, $title=FALSE, $status=FALSE, $access=FALSE, $about=FALSE, $goals=FALSE, $showcomment='Y') {
         $fields = array();
 
         $fields['updated'] = date ( 'Y-m-d H:i:s' );
@@ -200,6 +202,9 @@ class dbcontext extends dbTable {
         }
         if ($goals !== FALSE) {
             $fields['goals'] = $goals;
+        }
+        if ($showcomment !==FALSE) {
+            $fields['showcomment'] = $showcomment;
         }
 
         $result = $this->update ( 'contextcode', $contextCode, $fields );
