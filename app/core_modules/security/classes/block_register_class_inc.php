@@ -98,15 +98,7 @@ class block_register extends object
                     if(empty($regModule)){
                         $regModule = 'userregistration';
                     }
-					
-					$objAlertBox = $this->getObject('alertbox', 'htmlelements');
-					
-                    $regLink = $this->newObject('link','htmlelements');
-                    $regLink->link = $this->objLanguage->languageText('word_register');
-                    $regLink->link($this->uri(array('action' => 'showregister'), $regModule));
-					
-					return  $objAlertBox->show($this->objLanguage->languageText('word_register'), $this->uri(array('action' => 'showregister'), $regModule));
-                    return $regLink->show();
+					return $this->getRegForm();					
                 }
             } else {
                 return NULL;
@@ -115,6 +107,75 @@ class block_register extends object
             throw customException($e->getMessage());
             exit();
         }
+    }
+    
+    
+    public function getRegForm(){
+        
+        $this->setScripts();
+		
+		$captchaLabel = $this->objLanguage->languageText('phrase_verifyrequest', 'security', 'Verify Request');
+		$objCaptcha = $this->getObject('captcha', 'utilities');
+        
+            $form = '
+                        <div id="demo" class=""ui-dialog-content ui-widget-content">
+                            <div id="dialog" title="'.$this->title.'">
+                                <div id="message"></div>
+                            	
+                            
+                            	<form id="dialog_form">
+                            	<p class="validateTips">All form fields are required.</p>
+                            	<fieldset>
+                            		<label for="name">'.$this->objLanguage->languageText('word_username', 'system').'</label>
+                            		<input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all" />
+                            		<label for="email">'.$this->objLanguage->languageText('word_email', 'system', 'Email').'</label>
+                            		<input type="text" name="email" id="email" value="" class="text ui-widget-content ui-corner-all" />
+                            		<label for="password">'.$this->objLanguage->languageText('word_password', 'system').'</label>
+                            		<input type="password" name="password" id="password" value="" class="text ui-widget-content ui-corner-all" /> 
+                            		<label for="request_captcha">'.$captchaLabel.'</label>
+                            		<div id="captchaDiv" style="padding-top:3px;padding-bottom:3px">
+                            		  '.$objCaptcha->show().'
+                            		</div>
+                            		<input type="text" name="request_captcha" id="request_captcha" value="" class="text ui-widget-content ui-corner-all" /> 
+                            		<a id="redraw">'.$this->objLanguage->languageText('word_redraw', 'security', 'Redraw').'</a>
+                            	</fieldset>
+                            	</form>
+                            </div>
+                        
+                        </div>
+                        
+                        <button id="create-user" >
+				           
+				               '. $this->objLanguage->languageText('word_register').'
+				           
+				         </button>
+    					       
+					        ';
+        
+        return $form;
+    }
+    
+    
+    /**
+     * Setting the init scripts
+     *
+     */
+    public function setScripts(){
+        $objSysConfig  = $this->getObject('altconfig','config');
+        //$this->setVar('SUPPRESS_PROTOTYPE', true);
+		 $this->setVar('SUPPRESS_JQUERY', true);
+		 //$this->appendArrayVar('headerParams',$css);
+		 $this->appendArrayVar('headerParams','<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>');
+		 $this->appendArrayVar('headerParams','<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>');
+		// $this->appendArrayVar('headerParams','<link rel="stylesheet" href="http://static.jquery.com/ui/css/demo-docs-theme/ui.theme.css" type="text/css" media="all" />');
+		 $this->appendArrayVar('headerParams','<link rel="stylesheet" href="http://jquery-ui.googlecode.com/svn/tags/latest/themes/base/jquery-ui.css" type="text/css" media="all" />');
+		 $this->appendArrayVar('headerParams',$this->getJavascriptFile('register.js', 'userregistration'));
+		 $str = '<script type="text/javascript">
+		  registrationUrl = "'.$this->uri(array('action'=>'register')).'";
+		  var baseUri = "'.$objSysConfig->getsiteRoot().'index.php";
+		 </script>';
+		 $this->appendArrayVar('headerParams',$str);
+					 
     }
 }
 ?>
