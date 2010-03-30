@@ -85,7 +85,7 @@ class loginbox extends object
          $this->isEnabled = $this->objSysConfig->getValue ( 'useloginpanel', 'userregistration' );
          
          if($this->isEnable()){
-            $this->setInits();
+           // $this->setInits();
          }
          
     }
@@ -108,7 +108,7 @@ class loginbox extends object
        $js .= '<script language="JavaScript" src="'.$this->getResourceUri('slide.js', 'userregistration').'" type="text/javascript"></script>';
 	
        $this->setVar('SUPPRESS_PROTOTYPE', true); //Can't stop prototype in the public space as this might impact blocks
-	   $this->setVar('SUPPRESS_JQUERY', true);
+	   //$this->setVar('SUPPRESS_JQUERY', true);
 			//$this->setVar('JQUERY_VERSION', '1.3.2');
 			
 	   	$this->appendArrayVar('headerParams', '
@@ -124,6 +124,7 @@ class loginbox extends object
 
     public function show()
     {
+        return;
        if($this->isEnable()){ 
            if($this->objUser->isLoggedIn()){
                return $this->getLogoutPanel();
@@ -134,8 +135,35 @@ class loginbox extends object
        
     }
     
+    public function getRegistrationBox(){
+        $str = "";
+        if($this->objAltConfig->getallowSelfRegister() == 'TRUE')
+        {
+            $str = '<div class="left right">			
+				<!-- Register Form -->
+				<form action="#" method="post">
+					<h2>Not a member yet? Sign Up!</h2>				
+					<label class="grey" for="signup">Full Name:</label>
+					<input class="field" type="text" name="signup" id="signup" value="" size="23" />
+					<label class="grey" for="email">Email:</label>
+					<input class="field" type="text" name="email" id="email" size="23" />
+					<label class="grey" for="password">Password:</label>
+					<input class="field" type="text" name="password" id="password" size="23" />
+					<label>A password will be e-mailed to you.</label>
+					<!--input type="submit" name="submit" value="Register" class="bt_register" /-->
+					<button type="submit" id="register" class="sexybutton sexysimple sexyxl sexyblue">Register</button>
+				</form>
+			</div>';
+        }
+        
+        return $str;
+    }
+    
     public function getLogoutPanel(){
         $name = $this->objUser->fullname();
+       
+       
+        
         $forms = '<!-- Panel -->
         
         
@@ -148,10 +176,10 @@ class loginbox extends object
 			</div>			
 			
 			<div class="left right">	
-			<h2>Are you sure you want to Logout?</h2>		
+			<h2>Are you sure you want to Sign Out?</h2>		
 				
-				<button type="submit" id="logout" class="sexybutton sexysimple sexyxl sexyblue">Yes</button>
-				<button type="cancel" id="cancel" class="sexybutton sexysimple sexyxl sexyteal">No</button>
+				<button type="submit" id="logout" class="sexybutton sexysimple sexyxl ">Yes</button>
+				<button type="cancel" id="cancel" class="sexybutton sexysimple sexyxl ">No</button>
 			</div>
 		</div>
 	</div> <!-- /login -->	
@@ -163,7 +191,7 @@ class loginbox extends object
 	        <li>Hello '.$name.'!</li>
 			<li class="sep">|</li>
 			<li id="toggle">
-				<a id="openl" class="open" href="#">Logout</a>
+				<a id="openl" class="open" href="#">Sign Out</a>
 				<a id="closel" style="display: none;" class="close" href="#">Close Panel</a>			
 			</li>
 	    	<li class="right">&nbsp;</li>
@@ -175,27 +203,61 @@ class loginbox extends object
         return $forms;
     }
     
+     public function fbConnect() {
+        $this->objMods = $this->getObject('modules', 'modulecatalogue');
+        $this->objDbSysconfig = $this->getObject('dbsysconfig', 'sysconfig');        
+        if($this->objMods->checkIfRegistered('facebookapps') ) {
+             $apikey = $this->objDbSysconfig->getValue('apikey', 'facebookapps');
+             $fb = "<script src=\"http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php\" type=\"text/javascript\"></script>
+             
+             <fb:login-button v=\"2\" size=\"medium\" onlogin=\"http://nitsckie.dyndns.org/jamiix_portal/index.php?module=security&action=fbconnect\">Login with Facebook</fb:login-button>
+             
+                   
+                    <script type=\"text/javascript\"> FB.init(\"$apikey\", \"xd_receiver.htm\", {\"debugLogLevel\":0, \"reloadIfSessionStateChanged\":true}); 
+                    </script>";
+             return $fb."<br />";
+        }
+        else {
+            return NULL;
+        }
+    }
+    
     public function getForms(){
+        $loginInterface = $this->getObject('logininterface', 'security');
+        $fb = $loginInterface->fbConnect();
+        $fb = ($fb != "") ? '<label>'.$fb.'</label>' : $fb;
+        
         $forms = '<!-- Panel -->
 <div id="toppanel">
 	<div id="panel">
 		<div class="content clearfix">
 			
+		<div class="left">
+				<h1>Jamiix Sign Up!</h1>
+				<h2>We can put some information about stuff here</h2>		
+				<p class="grey">You can put anything you want in this sliding panel: videos, audio, images, forms... The only limit is your imagination!</p>
+OR Sign In with Facebook:<p>
+			'.$this->fbConnect().'
+				<h2>Demo</h2>
+				<p class="grey">To view he screen cast of the click on the  <a href="http://web-kreation.com/index.php/tutorials/nice-clean-sliding-login-panel-built-with-jquery" title="Download">this link &raquo;</a></p>
+			</div>
+
+			
 			<div class="left">
 				<!-- Login Form -->
 				<form class="clearfix" action="#" method="post" id="login_form">
-					<h1>Member Login</h1>
-					<label class="grey" for="username">Username:</label>
+					<h2>Member Login</h2>
+					<label class="grey" for="username">Email:</label>
 					<input class="field" type="text" name="username" id="username" value="" size="23" />
 					<label class="grey" for="pwd">Password:</label>
 					<input class="field" type="password" name="password" id="password" size="23" />
 	            	<label><input name="remember" id="remember" type="checkbox" checked="checked" value="forever" /> &nbsp;Remember me</label>
-        			<div class="clear"></div>
-					<!--input type="submit" name="submit" id="submit" value="Login" class="bt_login" /-->
-					<!--button value="Login" id="submit" type="submit" name="submit" class="sexybutton"><span><span><span class="user">Login</span></span></span></button-->
+	            	'.$fb.'
+        			<div class="clear"></div>				
+        				
 					<button type="submit" id="submit" class="sexybutton sexysimple sexyxl sexyblue">Login</button>
 
-					<a class="lost-pwd" href="#">Lost your password?</a>
+					<label><a class="lost-pwd" href="#">Lost your password?</a></label>
 				</form>
 				
 			</div>
@@ -205,18 +267,10 @@ class loginbox extends object
 				<button value="Login" id="msgbox" type="submit" name="submit" class="sexybutton "><span><span><span class="hourglass">Validating....</span></span></span></button>
 			</div-->
 			
-			<div class="left right">			
-				<!-- Register Form -->
-				<form action="#" method="post">
-					<h1>Not a member yet? Sign Up!</h1>				
-					<label class="grey" for="signup">Username:</label>
-					<input class="field" type="text" name="signup" id="signup" value="" size="23" />
-					<label class="grey" for="email">Email:</label>
-					<input class="field" type="text" name="email" id="email" size="23" />
-					<label>A password will be e-mailed to you.</label>
-					<!--input type="submit" name="submit" value="Register" class="bt_register" /-->
-					<button type="submit" id="register" class="sexybutton sexysimple sexyxl sexyteal">Register</button>
-				</form>
+			'.$this->getRegistrationBox().'
+			
+			<div class="left right">
+			
 			</div>
 		</div>
 	</div> <!-- /login -->	
@@ -228,7 +282,7 @@ class loginbox extends object
 	        <li>Hello Guest!</li>
 			<li class="sep">|</li>
 			<li id="toggle">
-				<a id="open" class="open" href="#">Log In | Register</a>
+				<a id="open" class="open" href="#">Sign In | Register</a>
 				<a id="close" style="display: none;" class="close" href="#">Close Panel</a>			
 			</li>
 	    	<li class="right">&nbsp;</li>
@@ -240,30 +294,6 @@ class loginbox extends object
         return $forms;
     }
     
-    public function getJS(){
-        $js = '<script type="text/javascript">
-                $(document).ready(function() {
-	
-            	// Expand Panel
-            	$("#open").click(function(){
-            		$("div#panel").slideDown("slow");
-            	
-            	});	
-            	
-            	// Collapse Panel
-            	$("#close").click(function(){
-            		$("div#panel").slideUp("slow");	
-            	});		
-            	
-            	// Switch buttons from "Log In | Register" to "Close Panel" on click
-            	$("#toggle a").click(function () {
-            		$("#toggle a").toggle();
-            	});		
-            		
-        });
-        </script>';
-        
-        return $js;
-    }
+    
 }
 ?>

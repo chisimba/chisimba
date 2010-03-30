@@ -37,6 +37,7 @@ class userregistration extends controller
         $this->objUserAdmin = $this->getObject('useradmin_model2', 'security');
         $this->objUser = $this->getObject('user', 'security');
         $this->objUrl = $this->getObject('url', 'strings');
+        $this->objUtils = $this->getObject('utilities');
     }
     /**
      * Method to turn off login requirement for all actions in this module
@@ -62,8 +63,10 @@ class userregistration extends controller
             return $this->showDisabledMessage();
         } else {
             switch ($action) {
+                
                 case 'showregister':
                 default:
+                    return 'modal_tpl.php';
                     return $this->registrationHome();
                 case 'confirm':
                     $id = $this->getParam('newId');
@@ -74,6 +77,17 @@ class userregistration extends controller
                     return $this->nextAction('');
                 case 'register':
                     return $this->saveNewUser();
+                case 'ajax_register':
+                     error_log(var_export($_POST, true));
+                    //do the registration
+                    $results = $this->objUtils->doRegistration(
+                                            $this->getParam('username'),
+                                            $this->getParam('password'),
+                                            $this->getParam('request_captcha'),
+                                            $this->getParam('email'));
+                    echo json_encode($results);                  
+                    exit(0);
+                    break;
                 case 'detailssent':
                     return $this->detailsSent();
                 case 'invitefriend':
