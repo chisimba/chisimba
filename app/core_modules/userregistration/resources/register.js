@@ -48,6 +48,8 @@ $(document).ready(function() {
 		$("#dialog").dialog({
 			autoOpen: false,
 			height: 440,
+			show: 'slide',
+			hide: 'blind',
 			width: 350,
 			modal: true,
 			buttons: {
