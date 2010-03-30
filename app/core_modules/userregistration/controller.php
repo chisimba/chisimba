@@ -65,8 +65,7 @@ class userregistration extends controller
             switch ($action) {
                 
                 case 'showregister':
-                default:
-                    return 'modal_tpl.php';
+                default:                   
                     return $this->registrationHome();
                 case 'confirm':
                     $id = $this->getParam('newId');
