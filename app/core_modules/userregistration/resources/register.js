@@ -49,7 +49,7 @@ $(document).ready(function() {
 			autoOpen: false,
 			height: 440,
 			show: 'slide',
-			hide: 'blind',
+			hide: 'slide',
 			width: 350,
 			modal: true,
 			buttons: {
