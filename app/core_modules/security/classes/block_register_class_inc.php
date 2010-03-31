@@ -1,4 +1,4 @@
-<?php
+cd ..<?php
  /**
  * block_register class for Chisimba
  * 
@@ -98,7 +98,14 @@ class block_register extends object
                     if(empty($regModule)){
                         $regModule = 'userregistration';
                     }
-					return $this->getRegForm();					
+                    $registrationSize = $this->objSysConfig->getValue('registrationsize', 'userregistration');
+                    if(strtolower($registrationSize) == 'big1')
+                    {
+                       return $this->getBigForm($regModule); 
+                    }else{
+                        return $this->getRegForm();                   
+                    }
+								
                 }
             } else {
                 return NULL;
@@ -109,6 +116,16 @@ class block_register extends object
         }
     }
     
+    public function getBigForm($regModule){
+        $objAlertBox = $this->getObject('alertbox', 'htmlelements'); 
+	 	$regLink = $this->newObject('link','htmlelements'); 
+ 	    $regLink->link = $this->objLanguage->languageText('word_register'); 
+	 	$regLink->link($this->uri(array('action' => 'showregister'), $regModule)); 
+ 	    return  $objAlertBox->show(
+ 	                  $this->objLanguage->languageText('word_register'), 
+ 	                  $this->uri(array('action' => 'showregister'), $regModule)); 
+	 	return $regLink->show(); 
+    }
     
     public function getRegForm(){
         
