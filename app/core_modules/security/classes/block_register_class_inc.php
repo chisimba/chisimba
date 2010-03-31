@@ -99,7 +99,7 @@ class block_register extends object
                         $regModule = 'userregistration';
                     }
                     $registrationSize = $this->objSysConfig->getValue('registrationsize', 'userregistration');
-                    if(strtolower($registrationSize) == 'big1')
+                    if(strtolower($registrationSize) == 'big')
                     {
                        return $this->getBigForm($regModule); 
                     }else{
