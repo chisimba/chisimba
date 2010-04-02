@@ -57,7 +57,7 @@ input.light {
  	background: #fff url('images/bg-forms-light.png') repeat-x;
   margin-bottom:4px;  
   border:1px solid #A5A5A5; 
-  backgorund-color:#D0D0D0  
+  background-color:#D0D0D0
 }
 
 input[type='submit'],
@@ -194,7 +194,7 @@ table.overflowtable td.overflowcolumn {
 
 th {
     /*background-color:#CACDD2;*/	
-    border-rght: 1px solid black ;	
+    border-right: 1px solid black ;
     padding-left: 5px;
 	margin:10px;
 
@@ -304,7 +304,7 @@ h1#sitename {
 #formtable {
 	width:100%;
 	padding:5px;
-	align:left;
+	text-align: left;
 	}
 
 .note{
@@ -314,17 +314,17 @@ h1#sitename {
 	position:relative;
 	overflow:hidden;
 	cursor:move;
-	
 	font-family:Trebuchet MS,Tahoma,Myriad Pro,Arial,Verdana,sans-serif;
 	font-size:22px;
-	
 	/* Adding a CSS3 shadow below the note, in the browsers which support it: */
 	-moz-box-shadow:2px 2px 0 #DDDDDD;
 	-webkit-box-shadow:2px 2px 0 #DDDDDD;
 	box-shadow:2px 2px 0 #DDDDDD;
 }
 
-#fancy_ajax .note{	cursor:default; }
+#fancy_ajax .note{	
+    cursor:default;
+}
 
 /* Three styles for the notes: */
 
@@ -361,7 +361,6 @@ a.green-button,a.green-button:visited{
 	padding:6px 5px 4px;
 	text-align:center;
 	width:60px;
-	
 	text-shadow:1px 1px 1px #DDDDDD;
 	background:url(img/button_green.png) no-repeat left top;
 }
@@ -437,5 +436,7 @@ h3.popupTitle{
 	width:10px;
 }
 
-#note-submit{	margin:20px auto; }
+#note-submit{	
+    margin:20px auto;
+}
 
