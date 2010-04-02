@@ -1,4 +1,4 @@
-cd ..<?php
+<?php
  /**
  * block_register class for Chisimba
  * 
