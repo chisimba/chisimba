@@ -976,6 +976,8 @@ class modulesadmin extends dbTableManager
 
             $this->createTable($tablename, $fields, $options);
             if (isset($indexes)) {
+                $name = array_keys($indexes['fields']);
+                $name = $name[0];
                 $this->createTableIndex($tablename, $name, $indexes);
             }
             return TRUE;
