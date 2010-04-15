@@ -277,6 +277,97 @@ class parse4chiki extends object
     {
         return $this->getModuleLink("assignments");
     }
+    /**
+    *
+    * Method to return a the evri popover widget
+    * from http://www.evri.com/
+    *
+    * @access private
+    * @return string The parsed chiki for this method
+    *
+    */
+    private function __evripopver()
+    {
+        return '<!-- For more information on installing this code, visit:http://blog.evri.com/index.php/widget-wordpress/ -->
+<div class="evri-widget-launcher-popover" style="width:">
+<a href="http://www.evri.com/" title="Get content recommendations from Evri"> Content recommendations from <em> Evri </em> </a>
+</div>
+<script charset="utf-8" src="http://www.evri.com:80/widget/javascripts/contentRecommendation.1.js" type="text/javascript"></script>
+<script charset="utf-8" type="text/javascript">
+Evri.$(window).ready(function () {
+Evri.API.Environment.articleInIframe = true;
+var documentCSSSelector = \'body\';
+var contentCSSSelector = \'h1, p\';
+var widget = new Evri.Widget.ContentRecommendation();
+widget.popover();
+widget.placeInvocationPoints(documentCSSSelector, contentCSSSelector, {});
+});
+</script>
+';
+    }
+
+    /**
+    *
+    * Method to return a the evri popover widget
+    * from http://www.evri.com/
+    *
+    * @access private
+    * @return string The parsed chiki for this method
+    *
+    */
+    private function __evripost()
+    {
+        return '<!-- For more information on installing this code, visit:http://blog.evri.com/index.php/widget-wordpress/ -->
+<div id="evri-widget-launcher-gamera" style="width:">
+<a href="http://www.evri.com/" title="Get content recommendations from Evri"> Content recommendations from<em> Evri</em></a>
+</div>
+<script charset="utf-8" src="http://www.evri.com:80/widget/javascripts/Gamera.1.js" type="text/javascript"></script>
+<script charset="utf-8" type="text/javascript">
+Evri.$(window).ready(function () {
+Evri.API.Environment.articleInIframe = true;
+var g = new Evri.Widget.Gamera();
+g.ready(function(){
+g.renderIn(\'#evri-widget-launcher-gamera\');
+g.getGraphForCurrentPage(function(){
+g.spanHeight(300);
+});
+});
+});
+</script>
+';
+    }
+
+    /**
+    *
+    * Method to return a the evri sidebar widget
+    * from http://www.evri.com/
+    *
+    * @access private
+    * @return string The parsed chiki for this method
+    *
+    */
+    private function __evrisidebar()
+    {
+        return '<!-- For more information on installing this code, visit:http://blog.evri.com/index.php/widget-wordpress/ -->
+<center>
+<div class="evri-widget-launcher" style="width:160px">
+<a href="http://www.evri.com/" title="Get content recommendations from Evri"> Content recommendations from <em> Evri </em></a>
+</div>
+<script charset="utf-8" src="http://www.evri.com:80/widget/javascripts/jirafa.1.js" type="text/javascript"></script>
+<script charset="utf-8" type="text/javascript">
+Evri.$(window).ready(function () {
+Evri.API.Environment.articleInIframe = true;
+var options = {};
+var widget = new Evri.Widget.Jirafa(options);
+widget.render();
+widget.sendURI();
+});
+</script>
+</center>
+';
+    }
+
+    // ---------------------------END OF CHIKIS--------------------------
     
     /**
     *
