@@ -14,9 +14,8 @@ CKEDITOR.editorConfig = function( config )
     config.image_browseServer=true;
     config.resize_minWidth = 400;
     config.resize_maxWidth = '100%';
-
-  //  config.enterMode = CKEDITOR.ENTER_BR;
-    config.shiftEnterMode = CKEDITOR.ENTER_P;
+    config.protectedSource.push( /\[PROTECT\][\s\S]*?\[\/PROTECT\]/g );   // Filter for protecting code
+    config.shiftEnterMode = CKEDITOR.ENTER_BR;
     config.toolbar_advanced =
     [
     ['Source','-','Save','NewPage','Preview','-','Templates'],
