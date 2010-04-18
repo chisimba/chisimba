@@ -16,25 +16,28 @@ $h2->str = $this->objLanguage->languageText('mod_modulecatalogue_newupdates','mo
 $updateAll = $this->getObject('link','htmlelements');
 $updateAll->link($this->uri(array('action'=>'makepatch')));
 $updateAll->link = $this->objLanguage->languageText('mod_modulecatalogue_makepatch','modulecatalogue');
-$makePatch = $updateAll->show();
+$makePatch = "<span class='floatright'><div class='adminicon'></div>" . $updateAll->show() . "</span>";
 
 $updateAll->link($this->uri(array('action'=>'updatexml')));
 $updateAll->link = str_replace('[DATE]',date('Y/m/d',filemtime($this->objConfig->getsiteRootPath()."config/catalogue.xml")),$this->objLanguage->languageText('mod_modulecatalogue_updatexml','modulecatalogue'));
-$updateXML = $updateAll->show();
+$updateXML = "<span class='floatright'><div class='adminicon'></div>" . $updateAll->show() . "</span>";
 
 // update the system types from the server
 $this->loadClass('href', 'htmlelements');
 $syslinktxt = $this->objLanguage->languageText("mod_modulecatalogue_updatesystypes", "modulecatalogue")." (".$this->objLanguage->languageText('mod_modulecatalogue_lastupdated', 'modulecatalogue')." ".date('Y/m/d', filemtime('config/systemtypes.xml')).")";
 $updateSys = new href($this->uri(array('action'=>'updatesystypes')), $syslinktxt);
-$updateSys = $updateSys->show();
+$updateSys = "<span class='floatright'><div class='adminicon'></div>" . $updateSys->show() . "</span>";
 
 $updateAll->link($this->uri(array('action'=>'updateall')));
 $updateAll->link = $this->objLanguage->languageText('mod_modulecatalogue_updateall','modulecatalogue');
 
+$upLang = "<span class='floatright'><div class='adminicon'></div>" 
+  . $updateAll->show() . "</span>";
+
 $objTable = $this->getObject('htmltable','htmlelements');
 $objTable->startRow();
 $objTable->addCell($h2->show(),null,null,'left');
-$objTable->addCell($updateAll->show()."<br />$updateXML<br />$updateSys",null,null,'right');//<br/>$makePatch
+$objTable->addCell($upLang."<br />$updateXML<br />$updateSys",null,null,'right');//<br/>$makePatch
 $objTable->endRow();
 $tString = '';
 if (isset($output) && is_array($output)) {
@@ -108,11 +111,6 @@ if (isset($error)) {
 
 $updateAll->link($this->uri(array('action'=>'patchall')));
 $updateAll->link = $this->objLanguage->languageText('mod_modulecatalogue_patchall','modulecatalogue');
-$objT2 = $this->newObject('htmltable','htmlelements');
-$objT2->startRow();
-$objT2->addCell($updateAll->show(),null,null,'right');
-$objT2->endRow();
-
 $str = '';
 if (!empty($patchArray)) {
     foreach ($patchArray as $patch) {
@@ -125,10 +123,13 @@ if (!empty($patchArray)) {
         $pIcon->alt = $link->link;
         $link->link = $this->objLanguage->languageText('mod_modulecatalogue_applypatch','modulecatalogue');
         $time = date("d/m/y",filemtime($this->objModFile->findRegisterFile($patch['module_id'])));
-        $str .= '<b>'.$modIcon.ucwords($patch['module_id'])." version:</b> {$patch['new_version']} - $time {$pIcon->show()}{$link->show()}<br />
-            <b>{$this->objLanguage->languageText('mod_modulecatalogue_description','modulecatalogue')}:</b> {$patch['desc']}<hr />";
+        $str .= '<div class="moduleupdate"><b>'
+          . $modIcon.ucwords($patch['module_id'])
+          . " version:</b> {$patch['new_version']} - $time <div class='floatright'>{$pIcon->show()}{$link->show()}</div><br />"
+          . " <span class='modcatdesc'><b>{$this->objLanguage->languageText('mod_modulecatalogue_description','modulecatalogue')}:</b> {$patch['desc']}</span><br /></div>";
     }
-    $patchAll = $objT2->show();
+    $patchAll = "<span class='floatright'><div class='adminicon'></div>"
+      . $updateAll->show() . '</span>';
 } else {
     $str = $this->objLanguage->languageText('mod_modulecatalogue_noupdates','modulecatalogue');
     $patchAll = '';
@@ -161,23 +162,22 @@ $hTable->endRow();
 $searchForm->addToForm($hTable->show());
 
 $ins_path = $this->objConfig->getsiteRootPath().'installer/';
-if(file_exists($ins_path) && is_writable($ins_path))
-{
+if(file_exists($ins_path) && is_writable($ins_path)) {
     $err = '<div class="error">'.$this->objLanguage->languageText("mod_modulecatalogue_installererror","modulecatalogue").'</div>';
 }
 
 // Check for default admin password and issue warning to change it!
 $objSec = $this->getObject('user', 'security');
 $details = $objSec->lookupData('admin');
-if($details['pass'] === '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8')
-{
+if($details['pass'] === '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8') {
     if (!isset($err)) {
         $err = '';
     }
     $err = $err.'<div class="error">'.$this->objLanguage->languageText("mod_modulecatalogue_adminpasserr", "modulecatalogue").'</div>';
 }
 
-$content = $searchForm->show().$err.$tString.$objTable->show().$str.$patchAll;
+$content = $searchForm->show() . $err . $tString
+  . $objTable->show() . $str . $patchAll;
 echo $content;
 
 ?>
