@@ -211,7 +211,7 @@ jQuery('.homelink').bind('click', function() {
         // Logout is always last
         $this->menuItems['logout'] = array('text'=>$this->objLanguage->languageText('word_logout', 'system', 'Logout'), 'link'=>$this->uri(array('action'=>'logoff'), 'security'));
         
-        $str = '<ul class="glossytabs">';
+        $str = '<span class="glossymenu"><ul class="glossytabs">';
         
         foreach ($this->menuItems as $menuItem=>$menuInfo)
         {
@@ -230,7 +230,7 @@ jQuery('.homelink').bind('click', function() {
             $str .= '<li '.$css.'>'.$link->show().'</li>';
         }
         
-        $str .= '</ul>';
+        $str .= '</ul></span>';
         
         if ($this->contextCode != '') {
             $str .= $this->addContextLogoutJS();
