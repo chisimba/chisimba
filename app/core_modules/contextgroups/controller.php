@@ -77,7 +77,7 @@ class contextgroups extends controller
         $this->objGroups = $this->getObject('groupAdminModel', 'groupadmin');
         $this->objGroupUsers = $this->getObject('groupusersdb', 'groupadmin');
         $this->objGroupsOps = $this->getObject('groupops', 'groupadmin');
-        
+
         $this->objManageGroups = $this->getObject('managegroups', 'contextgroups');
 
         $this->objUser = $this->getObject('user', 'security');
@@ -113,8 +113,8 @@ class contextgroups extends controller
                 return $this->removeUserFromGroup($this->getParam('userid'), $this->getParam('group'));
             case 'removeallusers':
                 return $this->removeAllUsersFromGroup();
-                
-                
+
+
             ///json stuff
             case 'json_getlecturers':
                 $lecturers = $this->objManageGroups->contextUsers('Lecturers', $this->contextCode, array( 'tbl_users.userId', 'firstName', 'surname'));
@@ -122,14 +122,14 @@ class contextgroups extends controller
                 echo json_encode(array('totalCount' => count($lecturers), 'lecturers' =>  $lecturers));
                 exit(0);
                 break;
-                
+
              case 'json_getstudents':
                 $lecturers = $this->objManageGroups->contextUsers('Students', $this->contextCode, array( 'tbl_users.userId', 'firstName', 'surname'));
                 //var_dump($lecturers);
                 echo json_encode(array('totalCount' => count($lecturers), 'lecturers' =>  $lecturers));
                 exit(0);
                 break;
-                
+
         }
     }
 
@@ -166,8 +166,8 @@ class contextgroups extends controller
         $this->setVar('searchfor', $searchFor);
 
         $field = $this->getSession('field', 'firstName');
-        $course=$this->getSession('course','course');
-        $group=$this->getSession('group','group');
+        $course=$this->getSession('course','all');
+        $group=$this->getSession('group','all');
         $this->setVar('field', $field);
         $this->setVar('course', $course);
         $this->setVar('group', $group);
@@ -224,8 +224,8 @@ class contextgroups extends controller
         $field = $this->getSession('field', 'firstName');
 
          //Ehb-added-begin
-        $course=$this->getSession('course','course');
-        $group=$this->getSession('group','group');
+        $course=$this->getSession('course','all');
+        $group=$this->getSession('group','all');
            //Ehb-added-End
         $order = $this->getSession('order', 'firstName');
         $numResults = $this->getSession('numresults', 20);
