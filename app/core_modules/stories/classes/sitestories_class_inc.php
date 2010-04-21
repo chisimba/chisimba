@@ -228,7 +228,7 @@ class sitestories extends dbTable {
                 //Add the author and date
                 $ret.="<div class=\"storyauthor\"><p class=\"minute\">".$this->objLanguage->languageText("phrase_postedby");
                 $ret.=" <b>".$this->objUser->fullname($creatorId)."</b> ".$this->objLanguage->languageText("word_on");
-                $ret.=" <b>".$dateCreated."</b></div>";
+                $ret.=" <b>".$dateCreated."</b></p></div>";
             }
 
             //Insert a comment link with view comments if the user is logged in
@@ -246,10 +246,10 @@ class sitestories extends dbTable {
                         $ret .= $objComment->addViewLink($ccLocation, $ccStr);
                     }
                 }
-                $ret .="</div";
             }
-            $ret .= "</p></div>";
+            $ret .= "</div>";
         }
+        $ret .= "</div>";
         return $ret;
     } #function fetchCategory
 
