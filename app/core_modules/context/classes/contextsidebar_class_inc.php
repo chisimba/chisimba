@@ -165,7 +165,8 @@ class contextsidebar extends object
         $textinput = new textinput('search', $this->getParam('search'));
         
         $button = new button ('searchButton', ucwords($this->objLanguage->code2Txt('mod_context_searchcontext', 'context', NULL, 'Search [-context-]')));
-        $button->setToSubmit();
+        $button->setIconClass("search");
+		$button->setToSubmit();
         
         $form->addToForm('<p align="center">'.$textinput->show().'<br />'.$button->show().'</p>');
         
