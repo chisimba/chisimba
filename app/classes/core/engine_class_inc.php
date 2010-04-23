@@ -1,5 +1,4 @@
 <?php
-ini_set('memory_limit', -1);
 /**
  * Engine object
  *
@@ -131,7 +130,7 @@ class engine {
      * Version Number of the software. (engine)
      *
      */
-    public $version = '3.1.5';
+    public $version = '3.1.6';
 
     /**
      * Template variable
