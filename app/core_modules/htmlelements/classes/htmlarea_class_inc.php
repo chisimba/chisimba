@@ -208,7 +208,7 @@ class htmlarea extends object {
 
         $rawvalue=$this->value;
  
-        $this->editor.='<textarea name="'.$this->name.'">'.$rawvalue.'</textarea>';
+        $this->editor.='<textarea name="'.$this->name.'">'.htmlspecialchars($rawvalue).'</textarea>';
         $this->editor.="
         <script type=\"text/javascript\">
         CKEDITOR.replace( '$this->name',
