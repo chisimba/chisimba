@@ -127,10 +127,10 @@ class languagecode extends object
         try {
              $this->objConfig = $this->getObject('altconfig','config');
              $this->lan = $this->objConfig->getdefaultLanguage();
-             $neg = &new I18Nv2_Negotiator;
-             $this->objcountry = &new I18Nv2_Country("{$this->lan}", 'iso-8859-1');
-             $this->objentity = &new I18Nv2_DecoratedList_HtmlEntities($this->objcountry);
-             $this->objselect = &new I18Nv2_DecoratedList_HtmlSelect($this->objentity);
+             $neg = new I18Nv2_Negotiator;
+             $this->objcountry = new I18Nv2_Country("{$this->lan}", 'iso-8859-1');
+             $this->objentity = new I18Nv2_DecoratedList_HtmlEntities($this->objcountry);
+             $this->objselect = new I18Nv2_DecoratedList_HtmlSelect($this->objentity);
              $this->iso_639_2_tags = $neg->singleI18NLanguage();
         }
         catch(customException $e)
