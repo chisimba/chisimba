@@ -33,4 +33,17 @@
             </add>
         </data>
     </update>
+
+        <update>
+        <table>tbl_context</table>
+        <version>1.81</version>
+        <description>Added alerts Field</description>
+        <data>
+            <add>
+                <name>alerts</name>
+                <type>text</type>
+                <length>255</length>
+            </add>
+        </data>
+    </update>
 </updates>
