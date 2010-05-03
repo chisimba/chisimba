@@ -8,24 +8,25 @@ $this->loadClass('radio', 'htmlelements');
 $this->loadClass('label', 'htmlelements');
 $this->loadClass('dropdown', 'htmlelements');
 $this->loadClass('hiddeninput', 'htmlelements');
-
+$this->loadClass('checkbox', 'htmlelements');
+$this->loadClass('fieldset', 'htmlelements');
 $objIcon = $this->newObject('geticon', 'htmlelements');
 $objIcon->setIcon('loader');
 
 $contextexists=$this->objLanguage->code2Txt('mod_contextadmin_contextcodeexists', 'contextadmin');
 if ($mode == 'edit') {
     $fixup = NULL;
-    
+
     $formAction = 'updatecontext';
     $headerTitle = ucwords($this->objLanguage->code2Txt('mod_context_updatecontext', 'context', NULL, 'Update [-context-]')).': '.$context['title'];
-    
-    
-    
+
+
+
 } else {
     $formAction = 'savestep1';
     $headerTitle = $this->objLanguage->code2Txt('mod_contextadmin_createnewcontext', 'contextadmin', NULL, 'Create New [-Context-]');
     $fixup = $this->getSession('fixup', NULL);
-    
+
     $this->appendArrayVar('headerParams', '
     <script type="text/javascript">
         
@@ -191,6 +192,7 @@ $access->addOption('Public', '<strong>'.$this->objLanguage->languageText('word_p
 $access->addOption('Open', '<strong>'.$this->objLanguage->languageText('word_open', 'system', 'Open').'</strong> - <span class="caption">'.$this->objLanguage->code2Txt('mod_context_opencontextdescription', 'context', NULL, '[-context-] can be accessed by all users that are logged in').'</span>');
 $access->addOption('Private', '<strong>'.$this->objLanguage->languageText('word_private', 'system', 'Private').'</strong> - <span class="caption">'.$this->objLanguage->code2Txt('mod_context_privatecontextdescription', 'context', NULL, 'Only [-context-] members can enter the [-context-]').'<span class="caption">');
 
+
 if ($mode == 'add' && is_array($fixup)) {
     $access->setSelected($fixup['access']);
 } else if ($mode == 'add') {
@@ -261,9 +263,20 @@ $table->addCell($this->objLanguage->languageText('word_access', 'system', 'Acces
 $table->addCell($access->show());
 $table->endRow();
 
+$emailAlert = new checkbox('emailalertopt',$this->objLanguage->languageText('mod_contextadmin_emailalert', 'contextadmin', 'Email alerts'),true);  // this will checked
 
+$alerts=array();
+if($mode == 'edit'){
+ $alerts=explode("|", $context['alerts']);   
+}
 
-
+if(count($alerts) > 0){
+    $emailAlert->setChecked($alerts[0] == 'e');
+}
+$table->startRow();
+$table->addCell($this->objLanguage->languageText('mod_contextadmin_emailalert', 'contextadmin', 'Alerts'));
+$table->addCell($emailAlert->show());
+$table->endRow();
 
 $button = new button ('savecontext', $this->objLanguage->languageText('mod_contextadmin_gotonextstep', 'contextadmin', 'Go to Next Step'));
 $button->cssId = 'savebutton';
