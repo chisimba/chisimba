@@ -89,24 +89,23 @@ class context extends controller {
             $this->objContextBlocks = $this->getObject ( 'dbcontextblocks' );
             $this->objDynamicBlocks = $this->getObject ( 'dynamicblocks', 'blocks' );
 
-        //Load Module Catalogue Class
+            //Load Module Catalogue Class
             $this->objModuleCatalogue = $this->getObject('modules', 'modulecatalogue');
-			
-			$this->objContextGroups = $this->getObject('managegroups', 'contextgroups');
-			
-			if($this->objModuleCatalogue->checkIfRegistered('activitystreamer'))
-			{
-				$this->objActivityStreamer = $this->getObject('activityops', 'activitystreamer');
-				$this->eventDispatcher->addObserver ( array ($this->objActivityStreamer, 'postmade' ) );
-				$this->eventsEnabled = TRUE;
-			} else {
-				$this->eventsEnabled = FALSE;
-			}
+
+            $this->objContextGroups = $this->getObject('managegroups', 'contextgroups');
+
+            if($this->objModuleCatalogue->checkIfRegistered('activitystreamer')) {
+                $this->objActivityStreamer = $this->getObject('activityops', 'activitystreamer');
+                $this->eventDispatcher->addObserver ( array ($this->objActivityStreamer, 'postmade' ) );
+                $this->eventsEnabled = TRUE;
+            } else {
+                $this->eventsEnabled = FALSE;
+            }
 
         } catch ( customException $e ) {
             customException::cleanUp ();
 
-        //Load Module Catalogue Class
+            //Load Module Catalogue Class
             //$this->objModuleCatalogue = $this->getObject('modules', 'modulecatalogue');
 
         }
@@ -124,13 +123,13 @@ class context extends controller {
         }
     }
 
-     /**
+    /**
      * Method to override isValid to enable administrators to perform certain action
      *
      * @param $action Action to be taken
      * @return boolean
      */
-    public function isValid($action) {			
+    public function isValid($action) {
         if ($this->objUser->isAdmin () || $this->objContextGroups->isContextLecturer()) {
             return TRUE;
         } else {
@@ -153,12 +152,12 @@ class context extends controller {
         /*
          * Convert the action into a method (alternative to
          * using case selections)
-         */
+        */
         $method = $this->getMethod ( $action );
         /*
          * Return the template determined by the method resulting
          * from action
-         */
+        */
         return $this->$method ();
     }
 
@@ -211,7 +210,7 @@ class context extends controller {
         $this->_preventRootAccess ();
 
         $this->setLayoutTemplate ( NULL );
-        
+
         $leftBlocks = $this->objContextBlocks->getContextBlocks ( $this->contextCode, 'left' );
         $this->setVarByRef ( 'leftBlocksStr', $leftBlocks );
 
@@ -258,22 +257,21 @@ class context extends controller {
             return $this->nextAction ( 'join', array ('error' => 'nocontext' ) );
         } else {
             if ($this->objContext->joinContext ( $contextCode )) {
-            	//add to activity log
-            	if($this->eventsEnabled)
-            	{
-            		$message = $this->objUser->getsurname(). ' '.$this->objLanguage->languageText('mod_context_hasentered', 'context').' '.$this->objContext->getContextCode();
-            	 	$this->eventDispatcher->post($this->objActivityStreamer, "context", array('title'=> $message,
-    																				'link'=> $this->uri(array()),
-    																				'contextcode' => $this->objContext->getContextCode(),
-    																				'author' => $this->objUser->fullname(),
-    																				'description'=>$message));
-    																				
-    				$this->eventDispatcher->post($this->objActivityStreamer, "context", array('title'=> $message,
-    																				'link'=> $this->uri(array()),
-    																				'contextcode' => null,
-    																				'author' => $this->objUser->fullname(),
-    																				'description'=>$message));
-            	}
+                //add to activity log
+                if($this->eventsEnabled) {
+                    $message = $this->objUser->getsurname(). ' '.$this->objLanguage->languageText('mod_context_hasentered', 'context').' '.$this->objContext->getContextCode();
+                    $this->eventDispatcher->post($this->objActivityStreamer, "context", array('title'=> $message,
+                            'link'=> $this->uri(array()),
+                            'contextcode' => $this->objContext->getContextCode(),
+                            'author' => $this->objUser->fullname(),
+                            'description'=>$message));
+
+                    $this->eventDispatcher->post($this->objActivityStreamer, "context", array('title'=> $message,
+                            'link'=> $this->uri(array()),
+                            'contextcode' => null,
+                            'author' => $this->objUser->fullname(),
+                            'description'=>$message));
+                }
                 return $this->nextAction ( 'home' );
             } else {
                 return $this->nextAction ( 'join', array ('error' => 'unabletoenter' ) );
@@ -468,8 +466,23 @@ class context extends controller {
         $about = $this->getParam ( 'about' );
         $image = $this->getParam ( 'imageselect' );
 
+
+        $emailalert=$this->getParam('emailalertopt');
+       
+        $alerts='';
+        if($emailalert == 'on') {
+            $alerts.='e';
+        }
         if ($contextCode == $this->contextCode && $title != '') {
-            $result = $this->objContext->updateContext ( $contextCode, $title, $status, $access, $about );
+            $result = $this->objContext->updateContext (
+                    $contextCode,
+                    $title,
+                    $status,
+                    $access,
+                    $about,
+                    FALSE,
+                    'Y',
+                    $alerts );
 
             if ($image != '') {
                 $objContextImage = $this->getObject ( 'contextimage', 'context' );
@@ -517,7 +530,7 @@ class context extends controller {
      */
     protected function __ajaxgetcontexts() {
         $letter = $this->getParam ( 'letter' );
-        
+
         $contexts = $this->objContext->getContextStartingWith ( $letter );
 
         if (count ( $contexts ) == 0) {
@@ -530,20 +543,17 @@ class context extends controller {
             }
         }
     }
-   
+
     /**
      * Method to get user contexts via ajax
      */
-    protected function __ajaxgetusercontexts() 
-    {	        
+    protected function __ajaxgetusercontexts() {
         $objUserContext = $this->getObject('usercontext', 'context');
         $contexts =  $objUserContext->getUserContext($this->objUser->userId());
 
         $con = array();
-        if (count($contexts) > 0)
-        {            
-            foreach ($contexts as $context)
-            {
+        if (count($contexts) > 0) {
+            foreach ($contexts as $context) {
                 $con[] = $this->objContext->getContext($context);
             }
         }
@@ -556,175 +566,167 @@ class context extends controller {
             foreach ( $contexts as $context ) {
                 echo $objDisplayContext->formatContextDisplayBlock ( $context, FALSE, FALSE ) . '<br />';
             }
-        }        
-        
+        }
+
     }
-     /**
+    /**
      * Added by Paul Mungai
      * Method to list all user contexts
      * @access protected
      */
-    protected function __jsonusercontexts()
-    {    
-     $ctstart = $this->getParam('start');
-     if (empty($ctstart)){
-      $ctstart = 0;
-     } 
-     $ctlimit = $this->getParam('limit');
-     if (empty($ctlimit)){
-      $ctlimit = 500;
-     } 
-    	$objUserContext = $this->getObject('usercontext', 'context');
-    	$objDisplayContext = $this->getObject ( 'displaycontext', 'context' );
-    	$userContexts = $objUserContext->jsonUserCourses($this->objUser->userId(), $ctstart, $ctlimit);
-    	if ( count ( $userContexts ) > 0 ){
-      echo $objDisplayContext->jsonContextOutput( $userContexts );
-    	 exit(0);
-    	}
+    protected function __jsonusercontexts() {
+        $ctstart = $this->getParam('start');
+        if (empty($ctstart)) {
+            $ctstart = 0;
+        }
+        $ctlimit = $this->getParam('limit');
+        if (empty($ctlimit)) {
+            $ctlimit = 500;
+        }
+        $objUserContext = $this->getObject('usercontext', 'context');
+        $objDisplayContext = $this->getObject ( 'displaycontext', 'context' );
+        $userContexts = $objUserContext->jsonUserCourses($this->objUser->userId(), $ctstart, $ctlimit);
+        if ( count ( $userContexts ) > 0 ) {
+            echo $objDisplayContext->jsonContextOutput( $userContexts );
+            exit(0);
+        }
     }
-    
-     /**
+
+    /**
      * Method to get all contexts via ajax
      */
-    protected function __ajaxgetallcontexts() {    	
-       	$objUtils = $this->getObject('utilities');
-    	echo $objUtils->searchBlock();      
-       
+    protected function __ajaxgetallcontexts() {
+        $objUtils = $this->getObject('utilities');
+        echo $objUtils->searchBlock();
+
     }
-    
-    
+
+
     /**
      * Method to leave a context
      *
      * @access protected
      */
     protected function __searchcontext() {
-    	$objUtils = $this->getObject('utilities');
-    	$items = $objUtils->getContextList();
+        $objUtils = $this->getObject('utilities');
+        $items = $objUtils->getContextList();
 
-		$q = $this->getParam('q');
-		foreach ($items as $key=>$value) {
-			if (strpos(strtolower($key), $q) !== false) {
-				echo "$key|$value\n";
+        $q = $this->getParam('q');
+        foreach ($items as $key=>$value) {
+            if (strpos(strtolower($key), $q) !== false) {
+                echo "$key|$value\n";
 
-			}
-		}
-		exit(0);
+            }
+        }
+        exit(0);
     }
-    
-     /**
+
+    /**
      * Method to leave a context
      *
      * @access protected
      */
     protected function __searchusers() {
-    	$objUtils = $this->getObject('utilities');
-    	$items = $objUtils->getUserList();
+        $objUtils = $this->getObject('utilities');
+        $items = $objUtils->getUserList();
 
-		$q = $this->getParam('q');
-		foreach ($items as $key=>$value) {
-			if (strpos(strtolower($key), $q) !== false) {
-				echo "$key|$value\n";
+        $q = $this->getParam('q');
+        foreach ($items as $key=>$value) {
+            if (strpos(strtolower($key), $q) !== false) {
+                echo "$key|$value\n";
 
-			}
-		}
-		exit(0);
+            }
+        }
+        exit(0);
     }
-    
+
     /**
      * Method to leave a context
      *
      * @access protected
      */
     protected function __leavecontext() {
-    	
-    	if($this->eventsEnabled)
-    	{
-     		$message = $this->objUser->getsurname(). ' '.$this->objLanguage->languageText('mod_context_hasleft', 'context').' '.$this->objContext->getContextCode();
-    	 	$this->eventDispatcher->post($this->objActivityStreamer, "context", array('title'=> $message,
-																			'link'=> $this->uri(array()),
-																			'contextcode' => $this->objContext->getContextCode(),
-																			'author' => $this->objUser->fullname(),
-																			'description'=>$message));
-			$this->eventDispatcher->post($this->objActivityStreamer, "context", array('title'=> $message,
-																			'link'=> $this->uri(array()),
-																			'contextcode' => null,
-																			'author' => $this->objUser->fullname(),
-																			'description'=>$message));
-    	}
-    	$this->objContext->leaveContext ();
-    	//add to activity log
-            	
+
+        if($this->eventsEnabled) {
+            $message = $this->objUser->getsurname(). ' '.$this->objLanguage->languageText('mod_context_hasleft', 'context').' '.$this->objContext->getContextCode();
+            $this->eventDispatcher->post($this->objActivityStreamer, "context", array('title'=> $message,
+                    'link'=> $this->uri(array()),
+                    'contextcode' => $this->objContext->getContextCode(),
+                    'author' => $this->objUser->fullname(),
+                    'description'=>$message));
+            $this->eventDispatcher->post($this->objActivityStreamer, "context", array('title'=> $message,
+                    'link'=> $this->uri(array()),
+                    'contextcode' => null,
+                    'author' => $this->objUser->fullname(),
+                    'description'=>$message));
+        }
+        $this->objContext->leaveContext ();
+        //add to activity log
+
         return $this->nextAction ( NULL, NULL, '_default' );
     }
-    
-     /**
+
+    /**
      * Method to format a context
      *
      * @access protected
      */
-    protected function __ajaxgetselectedcontext()
-    {
-    	$objUtils = $this->getObject('utilities');
-    	echo $objUtils->formatSelectedContext($this->getParam('contextcode'));
-    	exit(0);
+    protected function __ajaxgetselectedcontext() {
+        $objUtils = $this->getObject('utilities');
+        echo $objUtils->formatSelectedContext($this->getParam('contextcode'));
+        exit(0);
     }
-    
+
     /**
      * Method to format the user context list
      *
      * @access protected
      */
-    protected function __ajaxgetselectedusercontext()
-    {
-    	$objUtils = $this->getObject('utilities');
-    	echo $objUtils->formatUserContext($this->getParam('username'));
-    	exit(0);
+    protected function __ajaxgetselectedusercontext() {
+        $objUtils = $this->getObject('utilities');
+        echo $objUtils->formatUserContext($this->getParam('username'));
+        exit(0);
     }
-    
+
     /**
      * Method to list all he context
      *
      * @access protected
      */
-    protected function __ajaxlistcontext()
-    {
-    	$objUtils = $this->getObject('utilities');
-    	echo $objUtils->listContexts();
-    	exit(0);
+    protected function __ajaxlistcontext() {
+        $objUtils = $this->getObject('utilities');
+        echo $objUtils->listContexts();
+        exit(0);
     }
-    
-     /**
+
+    /**
      * Method to list all the context
      *
      * @access protected
      */
-    protected function __jsonlistcontext()
-    {
-    	$objUtils = $this->getObject('utilities');
-    	echo $objUtils->jsonListContext($this->getParam('start'), $this->getParam('limit'));
-    	exit(0);
+    protected function __jsonlistcontext() {
+        $objUtils = $this->getObject('utilities');
+        echo $objUtils->jsonListContext($this->getParam('start'), $this->getParam('limit'));
+        exit(0);
     }
- 	/**
+    /**
      * Method to list all the context
      *
      * @access protected
      */
-	protected function __jsonlistallcontext()
-    {
-		$objUtils = $this->getObject('utilities');
-    	echo $objUtils->jsonListAllContext();
-    	exit(0);
+    protected function __jsonlistallcontext() {
+        $objUtils = $this->getObject('utilities');
+        echo $objUtils->jsonListAllContext();
+        exit(0);
     }
 
-	protected function __jsongetcontexts()
-	{
-		$objUtils = $this->getObject('utilities');
-    	echo $objUtils->getContext($this->getParam('start'), $this->getParam('limit'));
-    	exit(0);
-	}
+    protected function __jsongetcontexts() {
+        $objUtils = $this->getObject('utilities');
+        echo $objUtils->getContext($this->getParam('start'), $this->getParam('limit'));
+        exit(0);
+    }
 
-	
+
 }
 
 ?>
