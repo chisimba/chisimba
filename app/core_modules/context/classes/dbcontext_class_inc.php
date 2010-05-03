@@ -135,7 +135,15 @@ class dbcontext extends dbTable {
      *
      * @return boolean Result of adding a context
      */
-    public function createContext($contextCode, $title, $status = 'Published', $access = 'Private', $about = NULL, $goals=FALSE, $showcomment='Y') {
+    public function createContext(
+            $contextCode,
+            $title,
+            $status = 'Published',
+            $access = 'Private',
+            $about = NULL,
+            $goals=FALSE,
+            $showcomment='Y',
+            $alerts='') {
         $contextCode = preg_replace ( '/\W*/', '', $contextCode );
         $contextCode = strtolower ( $contextCode );
 
@@ -149,7 +157,20 @@ class dbcontext extends dbTable {
             return FALSE;
         } else {
         // Insert Record
-            $result = $this->insert ( array ('contextcode' => $contextCode, 'title' => $title, 'menutext' => $title, 'access' => $access, 'status' => $status, 'about' => $about, 'userid' => $this->objUser->userId (), 'dateCreated' => date ( "Y-m-d" ), 'updated' => date ( "Y-m-d H:i:s" ), 'lastupdatedby' => $this->objUser->userId (), 'goals' => $goals, 'showcomment' => $showcomment ) );
+            $result = $this->insert (
+                    array ('contextcode' => $contextCode,
+                        'title' => $title,
+                        'menutext' => $title,
+                        'access' => $access,
+                        'status' => $status,
+                        'about' => $about,
+                        'userid' => $this->objUser->userId (),
+                        'dateCreated' => date ( "Y-m-d" ),
+                        'updated' => date ( "Y-m-d H:i:s" ),
+                        'lastupdatedby' => $this->objUser->userId (),
+                        'goals' => $goals,
+                        'showcomment' => $showcomment ,
+                        'alerts'=>$alerts) );
 
             // If Successful
             if ($result) {
@@ -181,7 +202,15 @@ class dbcontext extends dbTable {
      *
      * @return boolean Result of Update
      */
-    public function updateContext($contextCode, $title=FALSE, $status=FALSE, $access=FALSE, $about=FALSE, $goals=FALSE, $showcomment='Y') {
+    public function updateContext(
+            $contextCode,
+            $title=FALSE,
+            $status=FALSE,
+            $access=FALSE,
+            $about=FALSE,
+            $goals=FALSE,
+            $showcomment='Y',
+            $alerts='') {
         $fields = array();
 
         $fields['updated'] = date ( 'Y-m-d H:i:s' );
@@ -206,6 +235,8 @@ class dbcontext extends dbTable {
         if ($showcomment !==FALSE) {
             $fields['showcomment'] = $showcomment;
         }
+
+        $fields['alerts']=$alerts;
 
         $result = $this->update ( 'contextcode', $contextCode, $fields );
 
