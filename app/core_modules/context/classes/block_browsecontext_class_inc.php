@@ -2,24 +2,24 @@
 
 /**
  * Context blocks
- * 
+ *
  * Chisimba Context blocks class
- * 
+ *
  * PHP version 5
- * 
- * This program is free software; you can redistribute it and/or modify 
- * it under the terms of the GNU General Public License as published by 
- * the Free Software Foundation; either version 2 of the License, or 
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * This program is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License 
- * along with this program; if not, write to the 
- * Free Software Foundation, Inc., 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
  * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- * 
+ *
  * @category  Chisimba
  * @package   context
  * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
@@ -38,8 +38,7 @@ if (!
  * @global entry point $GLOBALS['kewl_entry_point_run']
  * @name   $kewl_entry_point_run
  */
-$GLOBALS['kewl_entry_point_run'])
-{
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 // end security check
@@ -47,9 +46,9 @@ $GLOBALS['kewl_entry_point_run'])
 
 /**
  * Context blocks
- * 
+ *
  * Chisimba Context blocks class
- * 
+ *
  * @category  Chisimba
  * @package   context
  * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
@@ -59,44 +58,43 @@ $GLOBALS['kewl_entry_point_run'])
  * @link      http://avoir.uwc.ac.za
  * @see       core
  */
-class block_browsecontext extends object
-{
-    /**
-    * @var string $title The title of the block
-    */
+class block_browsecontext extends object {
+/**
+ * @var string $title The title of the block
+ */
     public $title;
-    
+
     /**
-    * @var object $objLanguage String to hold the language object
-    */
+     * @var object $objLanguage String to hold the language object
+     */
     private $objLanguage;
 
     /**
-    * Standard init function to instantiate language object
-    * and create title, etc
-    */
-    public function init()
-    {
+     * Standard init function to instantiate language object
+     * and create title, etc
+     */
+
+
+    public function init() {
         try {
             $this->objLanguage =  $this->getObject('language', 'language');
             $this->objUser =  $this->getObject('user', 'security');
-			$this->title = ucwords($this->objLanguage->code2Txt('mod_context_browseallcontexts', 'context', NULL, 'Browse All [-contexts-]'));
-            //$this->title = ucWords($this->objLanguage->code2Txt("mod_context_contexts",'context'));            
+            $this->title = ucwords($this->objLanguage->code2Txt('mod_context_browseallcontexts', 'context', NULL, 'Browse All [-contexts-]'));
+            //$this->title = ucWords($this->objLanguage->code2Txt("mod_context_contexts",'context'));
             $this->blockType = 'none';
             $this->loadClass('checkbox', 'htmlelements');
         } catch (customException $e) {
             customException::cleanUp();
         }
     }
-    
+
     /**
-    * Standard block show method. It uses the renderform
-    * class to render the login box
-    */
-    public function show()
-    {
-        //$objTab = $this->newObject('jqtabs', 'htmlelements');
-				
+     * Standard block show method. It uses the renderform
+     * class to render the login box
+     */
+    public function show() {
+    //$objTab = $this->newObject('jqtabs', 'htmlelements');
+
         $objTab = $this->newObject('tabpane', 'htmlelements');
         $objUtils = $this->getObject('utilities', 'context');
         $objSysConfig  = $this->getObject('altconfig','config');
@@ -105,11 +103,10 @@ class block_browsecontext extends object
         $str2 = '<div id="browseusercontextcontent"></div>';
         $str .= '<div id="browsecontextcontent"></div>';
         $str3 = '<div id="browseallcontextcontent"></div>';
-		$isAdmin = ($this->objUser->isAdmin()) ? "true" : "false";
-        $str .= $this->getJavaScriptFile('contextbrowser.js');        
-        $fullUri = $this->uri(NULL);
-        $fullUri = explode("?",$fullUri);
-        $siteUri = $fullUri[0];
+        $siteUri="";
+        $isAdmin = ($this->objUser->isAdmin()) ? "true" : "false";
+        $str .= $this->getJavaScriptFile('contextbrowser.js');
+
         $this->appendArrayVar('headerParams', '
         	<script type="text/javascript">
         	var pageSize = 500;
@@ -128,22 +125,24 @@ class block_browsecontext extends object
         		var baseuri = "'.$siteUri.'";
         		var isAdmin = '.$isAdmin.';
         		contextPrivateMessage="'.$this->objLanguage->code2Txt('mod_context_privatecontextexplanation', 'context', NULL, 'This is a closed [-context-] only accessible to members').'"; </script>');
-		
-		//Ext stuff		
-		$objExtJS = $this->getObject('extjs','ext');
-		$objExtJS->show();
 
-		$ext =$this->getJavaScriptFile('Ext.ux.grid.Search.js', 'context');		
-		$ext .=$this->getJavaScriptFile('usercontextslist.js', 'context');
-		$ext .=$this->getJavaScriptFile('othercontexts.js', 'context');
-		$ext .=$this->getJavaScriptFile('search.js', 'context');		
+        //Ext stuff
+        $objExtJS = $this->getObject('extjs','htmlelements');
+        $objExtJS->show();
+
+        $ext =$this->getJavaScriptFile('Ext.ux.grid.Search.js', 'context');
+
+        $ext .=$this->getJavaScriptFile('usercontextslist.js', 'context');
+        $ext .=$this->getJavaScriptFile('othercontexts.js', 'context');
+        $ext .=$this->getJavaScriptFile('search.js', 'context');
+
         $ext .=$this->getJavaScriptFile('extcontexbrowser.js', 'context');
-      
-        $this->appendArrayVar('headerParams', $ext);       
-		
-		return '<div id="contextbrowser"></div>				
+
+        $this->appendArrayVar('headerParams', $ext);
+
+        return '<div id="contextbrowser"></div>
 				<p>&nbsp;</p>';
-        
+
     }
 }
 ?>
