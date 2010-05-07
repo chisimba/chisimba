@@ -103,15 +103,18 @@ class featurebox extends object
      * @param string $content
      * @return string
      */
-    public function showContent($title = null, $content = null)
-    {
+    public function showContent($title = null, $content = null) {
 
-          $contentbox = '<div class="contentfeaturebox">';
-        $contentbox .= '    <h3>'.$title.'</h3>';
+        $contentbox = '<div class="contentfeaturebox">';
+        if ($title != null) {
+			$contentbox .= '<h3>'.$title.'</h3>';
+		} else {
+			$contentbox .= "<br />";
+		}
         $contentbox .= $content;
         $contentbox .= '</div>';
 
-          return $contentbox;
+        return $contentbox;
 
     }
     
