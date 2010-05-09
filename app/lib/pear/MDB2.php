@@ -485,10 +485,12 @@ class MDB2
             $dsninfo = array_merge($GLOBALS['_MDB2_dsninfo_default'], $dsninfo);
             $keys = array_keys($GLOBALS['_MDB2_databases']);
             for ($i=0, $j=count($keys); $i<$j; ++$i) {
-                $tmp_dsn = $GLOBALS['_MDB2_databases'][$keys[$i]]->getDSN('array');
-                if (count(array_diff($tmp_dsn, $dsninfo)) == 0) {
-                    MDB2::setOptions($GLOBALS['_MDB2_databases'][$keys[$i]], $options);
-                    return $GLOBALS['_MDB2_databases'][$keys[$i]];
+                if (isset($GLOBALS['_MDB2_databases'][$keys[$i]])) {
+                    $tmp_dsn = $GLOBALS['_MDB2_databases'][$keys[$i]]->getDSN('array');
+                    if (count(array_diff_assoc($tmp_dsn, $dsninfo)) == 0) {
+                        MDB2::setOptions($GLOBALS['_MDB2_databases'][$keys[$i]], $options);
+                        return $GLOBALS['_MDB2_databases'][$keys[$i]];
+                    }
                 }
             }
         } elseif (is_array($GLOBALS['_MDB2_databases']) && reset($GLOBALS['_MDB2_databases'])) {
@@ -537,7 +539,7 @@ class MDB2
      */
     function apiVersion()
     {
-        return '2.4.0';
+        return '2.4.1';
     }
 
     // }}}
@@ -1246,14 +1248,14 @@ class MDB2_Driver_Common extends PEAR
     /**
      * Database backend used in PHP (mysql, odbc etc.)
      * @var     string
-     * @access  protected
+     * @access  public
      */
     var $phptype;
 
     /**
      * Database used with regards to SQL syntax etc.
      * @var     string
-     * @access  protected
+     * @access  public
      */
     var $dbsyntax;
 
@@ -2449,7 +2451,7 @@ class MDB2_Driver_Common extends PEAR
     }
 
     // }}}
-    // {{{ function exec($query)
+    // {{{ function &exec($query)
 
     /**
      * Execute a manipulation query to the database and return the number of affected rows
@@ -2460,7 +2462,7 @@ class MDB2_Driver_Common extends PEAR
      *
      * @access  public
      */
-    function exec($query)
+    function &exec($query)
     {
         $offset = $this->offset;
         $limit = $this->limit;
@@ -2477,7 +2479,8 @@ class MDB2_Driver_Common extends PEAR
             return $result;
         }
 
-        return $this->_affectedRows($connection, $result);
+        $affectedRows = $this->_affectedRows($connection, $result);
+        return $affectedRows;
     }
 
     // }}}
@@ -4053,7 +4056,11 @@ class MDB2_Statement_Common
 
         $values = (array)$values;
         if (!empty($values)) {
-            $this->bindValueArray($values);
+            $err = $this->bindValueArray($values);
+            if (PEAR::isError($err)) {
+                return $this->db->raiseError(MDB2_ERROR, null, null,
+                                            'Binding Values failed with message: ' . $err->getMessage(), __FUNCTION__);
+            }
         }
         $result =& $this->_execute($result_class, $result_wrap_class);
         return $result;

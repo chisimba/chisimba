@@ -7,7 +7,7 @@
  * @package Log
  */
 
-/*
+/**
  * We require the PEAR DB class.  This is generally defined in the DB.php file,
  * but it's possible that the caller may have provided the DB class, or a
  * compatible wrapper (such as the one shipped with MDB2), so we first check
@@ -125,7 +125,7 @@ class Log_sql extends Log
         $this->_mask = Log::UPTO($level);
 
         /* Now that we have a table name, assign our SQL statement. */
-        if (!empty($this->_sql)) {
+        if (!empty($conf['sql'])) {
             $this->_sql = $conf['sql'];
         } else {
             $this->_sql = 'INSERT INTO ' . $this->_table .

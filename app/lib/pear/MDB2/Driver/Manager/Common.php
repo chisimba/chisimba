@@ -65,7 +65,7 @@ class MDB2_Driver_Manager_Common extends MDB2_Module_Common
     /**
      * Get declaration of a number of field in bulk
      *
-     * @param string $fields  a multidimensional associative array.
+     * @param array $fields  a multidimensional associative array.
      *      The first dimension determines the field name, while the second
      *      dimension is keyed with the name of the properties
      *      of the field being declared as array indexes. Currently, the types

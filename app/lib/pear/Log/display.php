@@ -22,25 +22,20 @@
 class Log_display extends Log
 {
     /**
-     * String to output before an error message
+     * String containing the format of a log line.
      * @var string
      * @access private
      */
-    var $_error_prepend = '';
+    var $_lineFormat = '<b>%3$s</b>: %4$s';
 
     /**
-     * String to output after an error message
+     * String containing the timestamp format.  It will be passed directly to
+     * strftime().  Note that the timestamp string will generated using the
+     * current locale.
      * @var string
      * @access private
      */
-    var $_error_append = '';
-
-    /**
-     * String used to represent a line break.
-     * @var string
-     * @access private
-     */
-    var $_linebreak = "<br />\n";
+    var $_timeFormat = '%b %d %H:%M:%S';
 
     /**
      * Constructs a new Log_display object.
@@ -58,20 +53,45 @@ class Log_display extends Log
         $this->_ident = $ident;
         $this->_mask = Log::UPTO($level);
 
+        /* Start by configuring the line format. */
+        if (!empty($conf['lineFormat'])) {
+            $this->_lineFormat = str_replace(array_keys($this->_formatMap),
+                                             array_values($this->_formatMap),
+                                             $conf['lineFormat']);
+        }
+
+        /* We may need to prepend a string to our line format. */
+        $prepend = null;
         if (isset($conf['error_prepend'])) {
-            $this->_error_prepend = $conf['error_prepend'];
+            $prepend = $conf['error_prepend'];
         } else {
-            $this->_error_prepend = ini_get('error_prepend_string');
+            $prepend = ini_get('error_prepend_string');
+        }
+        if (!empty($prepend)) {
+            $this->_lineFormat = $prepend . $this->_lineFormat;
         }
 
+        /* We may also need to append a string to our line format. */
+        $append = null;
         if (isset($conf['error_append'])) {
-            $this->_error_append = $conf['error_append'];
+            $append = $conf['error_append'];
         } else {
-            $this->_error_append = ini_get('error_append_string');
+            $append = ini_get('error_append_string');
+        }
+        if (!empty($append)) {
+            $this->_lineFormat .= $append;
         }
 
+        /* Lastly, the line ending sequence is also configurable. */
         if (isset($conf['linebreak'])) {
-            $this->_linebreak = $conf['linebreak'];
+            $this->_lineFormat .= $conf['linebreak'];
+        } else {
+            $this->_lineFormat .= "<br />\n";
+        }
+
+        /* The user can also change the time format. */
+        if (!empty($conf['timeFormat'])) {
+            $this->_timeFormat = $conf['timeFormat'];
         }
     }
 
@@ -127,10 +147,10 @@ class Log_display extends Log
         $message = $this->_extractMessage($message);
 
         /* Build and output the complete log line. */
-        echo $this->_error_prepend .
-             '<b>' . ucfirst($this->priorityToString($priority)) . '</b>: '.
-             nl2br(htmlspecialchars($message)) .
-             $this->_error_append . $this->_linebreak;
+        echo $this->_format($this->_lineFormat,
+                            strftime($this->_timeFormat),
+                            $priority,
+                            nl2br(htmlspecialchars($message)));
 
         /* Notify observers about this log message. */
         $this->_announce(array('priority' => $priority, 'message' => $message));

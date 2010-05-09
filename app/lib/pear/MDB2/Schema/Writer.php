@@ -2,12 +2,12 @@
 // +----------------------------------------------------------------------+
 // | PHP versions 4 and 5                                                 |
 // +----------------------------------------------------------------------+
-// | Copyright (c) 1998-2006 Manuel Lemos, Tomas V.V.Cox,                 |
-// | Stig. S. Bakken, Lukas Smith                                         |
+// | Copyright (c) 1998-2008 Manuel Lemos, Tomas V.V.Cox,                 |
+// | Stig. S. Bakken, Lukas Smith, Igor Feghali                           |
 // | All rights reserved.                                                 |
 // +----------------------------------------------------------------------+
-// | MDB2 is a merge of PEAR DB and Metabases that provides a unified DB  |
-// | API as well as database abstraction for PHP applications.            |
+// | MDB2_Schema enables users to maintain RDBMS independant schema files |
+// | in XML that can be used to manipulate both data and database schemas |
 // | This LICENSE is in the BSD license style.                            |
 // |                                                                      |
 // | Redistribution and use in source and binary forms, with or without   |
@@ -22,9 +22,9 @@
 // | documentation and/or other materials provided with the distribution. |
 // |                                                                      |
 // | Neither the name of Manuel Lemos, Tomas V.V.Cox, Stig. S. Bakken,    |
-// | Lukas Smith nor the names of his contributors may be used to endorse |
-// | or promote products derived from this software without specific prior|
-// | written permission.                                                  |
+// | Lukas Smith, Igor Feghali nor the names of his contributors may be   |
+// | used to endorse or promote products derived from this software       |
+// | without specific prior written permission.                           |
 // |                                                                      |
 // | THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS  |
 // | "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT    |
@@ -40,6 +40,7 @@
 // | POSSIBILITY OF SUCH DAMAGE.                                          |
 // +----------------------------------------------------------------------+
 // | Author: Lukas Smith <smith@pooteeweet.org>                           |
+// | Author: Igor Feghali <ifeghali@php.net>                              |
 // +----------------------------------------------------------------------+
 //
 // $Id$
@@ -269,6 +270,7 @@ class MDB2_Schema_Writer
         $buffer.= "<database>$eol$eol <name>".$database_definition['name']."</name>";
         $buffer.= "$eol <create>".$this->_dumpBoolean($database_definition['create'])."</create>";
         $buffer.= "$eol <overwrite>".$this->_dumpBoolean($database_definition['overwrite'])."</overwrite>$eol";
+        $buffer.= "$eol <charset>".$database_definition['charset']."</charset>$eol";
 
         if ($output) {
             call_user_func($output, $buffer);
@@ -286,7 +288,7 @@ class MDB2_Schema_Writer
                             if (empty($field['type'])) {
                                 return $this->raiseError(MDB2_SCHEMA_ERROR_VALIDATE, null, null,
                                     'it was not specified the type of the field "'.
-                                    $field_name.'" of the table "'.$table_name);
+                                    $field_name.'" of the table "'.$table_name.'"');
                             }
                             if (!empty($this->valid_types) && !array_key_exists($field['type'], $this->valid_types)) {
                                 return $this->raiseError(MDB2_SCHEMA_ERROR_UNSUPPORTED, null, null,
@@ -294,17 +296,6 @@ class MDB2_Schema_Writer
                             }
                             $buffer.= "$eol   <field>$eol    <name>$field_name</name>$eol    <type>";
                             $buffer.= $field['type']."</type>$eol";
-                            if (!empty($field['unsigned'])) {
-                                $buffer.= "    <unsigned>".$this->_dumpBoolean($field['unsigned'])."</unsigned>$eol";
-                            }
-                            if (!empty($field['length'])) {
-                                $buffer.= '    <length>'.$field['length']."</length>$eol";
-                            }
-                            if (!empty($field['notnull'])) {
-                                $buffer.= "    <notnull>".$this->_dumpBoolean($field['notnull'])."</notnull>$eol";
-                            } else {
-                                $buffer.= "    <notnull>false</notnull>$eol";
-                            }
                             if (!empty($field['fixed']) && $field['type'] === 'text') {
                                 $buffer.= "    <fixed>".$this->_dumpBoolean($field['fixed'])."</fixed>$eol";
                             }
@@ -313,8 +304,19 @@ class MDB2_Schema_Writer
                             ) {
                                 $buffer.= '    <default>'.$this->_escapeSpecialChars($field['default'])."</default>$eol";
                             }
+                            if (!empty($field['notnull'])) {
+                                $buffer.= "    <notnull>".$this->_dumpBoolean($field['notnull'])."</notnull>$eol";
+                            } else {
+                                $buffer.= "    <notnull>false</notnull>$eol";
+                            }
                             if (!empty($field['autoincrement'])) {
                                 $buffer.= "    <autoincrement>" . $field['autoincrement'] ."</autoincrement>$eol";
+                            }
+                            if (!empty($field['unsigned'])) {
+                                $buffer.= "    <unsigned>".$this->_dumpBoolean($field['unsigned'])."</unsigned>$eol";
+                            }
+                            if (!empty($field['length'])) {
+                                $buffer.= '    <length>'.$field['length']."</length>$eol";
                             }
                             $buffer.= "   </field>$eol";
                         }
@@ -322,6 +324,9 @@ class MDB2_Schema_Writer
 
                     if (!empty($table['indexes']) && is_array($table['indexes'])) {
                         foreach ($table['indexes'] as $index_name => $index) {
+                            if (strtolower($index_name) === 'primary') {
+                                $index_name = $table_name . '_pKey';
+                            }
                             $buffer.= "$eol   <index>$eol    <name>$index_name</name>$eol";
                             if (!empty($index['unique'])) {
                                 $buffer.= "    <unique>".$this->_dumpBoolean($index['unique'])."</unique>$eol";
@@ -341,6 +346,48 @@ class MDB2_Schema_Writer
                             $buffer.= "   </index>$eol";
                         }
                     }
+
+                    if (!empty($table['constraints']) && is_array($table['constraints'])) {
+                        foreach ($table['constraints'] as $constraint_name => $constraint) {
+                            $buffer.= "$eol   <foreign>$eol    <name>$constraint_name</name>$eol";
+                            if (empty($constraint['fields']) || !is_array($constraint['fields'])) {
+                                return $this->raiseError(MDB2_SCHEMA_ERROR_VALIDATE, null, null,
+                                    'it was not specified a field for the foreign key "'.
+                                    $constraint_name.'" of the table "'.$table_name.'"');
+                            }
+                            if (!is_array($constraint['references']) || empty($constraint['references']['table'])) {
+                                return $this->raiseError(MDB2_SCHEMA_ERROR_VALIDATE, null, null,
+                                    'it was not specified the referenced table of the foreign key "'.
+                                    $constraint_name.'" of the table "'.$table_name.'"');
+                            }
+                            if (!empty($constraint['match'])) {
+                                $buffer.= "    <match>".$constraint['match']."</match>$eol";
+                            }
+                            if (!empty($constraint['ondelete'])) {
+                                $buffer.= "    <ondelete>".$constraint['ondelete']."</ondelete>$eol";
+                            }
+                            if (!empty($constraint['onupdate'])) {
+                                $buffer.= "    <onupdate>".$constraint['onupdate']."</onupdate>$eol";
+                            }
+                            if (!empty($constraint['deferrable'])) {
+                                $buffer.= "    <deferrable>".$constraint['deferrable']."</deferrable>$eol";
+                            }
+                            if (!empty($constraint['initiallydeferred'])) {
+                                $buffer.= "    <initiallydeferred>".$constraint['initiallydeferred']."</initiallydeferred>$eol";
+                            }
+                            foreach ($constraint['fields'] as $field_name => $field) {
+                                $buffer.= "    <field>$field_name</field>$eol";
+                            }
+                            $buffer.= "    <references>$eol     <table>".$constraint['references']['table']."</table>$eol";
+                            foreach ($constraint['references']['fields'] as $field_name => $field) {
+                                $buffer.= "     <field>$field_name</field>$eol";
+                            }
+                            $buffer.= "    </references>$eol";
+
+                            $buffer.= "   </foreign>$eol";
+                        }
+                    }
+
                     $buffer.= "$eol  </declaration>$eol";
                 }
 

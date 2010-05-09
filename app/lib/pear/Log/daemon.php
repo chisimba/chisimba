@@ -1,5 +1,10 @@
 <?php
-// $Id$
+/**
+ * $Header$
+ *
+ * @version $Revision$
+ * @package Log
+ */
 
 /**
  * The Log_daemon class is a concrete implementation of the Log::

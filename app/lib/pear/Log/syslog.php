@@ -38,6 +38,15 @@ class Log_syslog extends Log
     var $_inherit = false;
 
     /**
+     * Maximum message length that will be sent to syslog().  If the handler 
+     * receives a message longer than this length limit, it will be split into 
+     * multiple syslog() calls.
+     * @var integer
+     * @access private
+     */
+    var $_maxLength = 500;
+
+    /**
      * Constructs a new syslog object.
      *
      * @param string $name     The syslog facility.
@@ -57,6 +66,9 @@ class Log_syslog extends Log
         if (isset($conf['inherit'])) {
             $this->_inherit = $conf['inherit'];
             $this->_opened = $this->_inherit;
+        }
+        if (isset($conf['maxLength'])) {
+            $this->_maxLength = $conf['maxLength'];
         }
 
         $this->_id = md5(microtime());
@@ -132,8 +144,16 @@ class Log_syslog extends Log
             $priority |= $this->_name;
         }
 
-        if (!syslog($priority, $message)) {
+        /* Split the string into parts based on our maximum length setting. */
+        $parts = str_split($message, $this->_maxLength);
+        if ($parts === false) {
             return false;
+        }
+
+        foreach ($parts as $part) {
+            if (!syslog($priority, $part)) {
+                return false;
+            }
         }
 
         $this->_announce(array('priority' => $priority, 'message' => $message));

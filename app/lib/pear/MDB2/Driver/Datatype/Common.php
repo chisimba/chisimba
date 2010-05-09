@@ -346,6 +346,7 @@ class MDB2_Driver_Datatype_Common extends MDB2_Module_Common
                 $parameter = array('type' => $type, 'name' => $name, 'field' => $field);
                 return call_user_func_array($db->options['datatype_map_callback'][$type], array(&$db, __FUNCTION__, $parameter));
             }
+            $field['type'] = $type;
         }
 
         if (!method_exists($this, "_get{$type}Declaration")) {
@@ -1485,6 +1486,7 @@ class MDB2_Driver_Datatype_Common extends MDB2_Module_Common
     function _quoteDecimal($value, $quote, $escape_wildcards)
     {
         $value = (string)$value;
+        $value = preg_replace('/[^\d\.,\-+eE]/', '', $value);
         if (preg_match('/[^.0-9]/', $value)) {
             if (strpos($value, ',')) {
                 // 1000,00

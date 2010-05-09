@@ -27,13 +27,13 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   Internationalization
- * @package    Translation2
- * @author     Lorenzo Alberton <l dot alberton at quipo dot it>
- * @copyright  2004-2006 Lorenzo Alberton
- * @license    http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Translation2
+ * @category  Internationalization
+ * @package   Translation2
+ * @author    Lorenzo Alberton <l.alberton@quipo.it>
+ * @copyright 2004-2008 Lorenzo Alberton
+ * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Translation2
  */
 
 /**
@@ -71,12 +71,12 @@ define('TRANSLATION2_ERROR_UNSUPPORTED',         -11);
  * for a multilingual site or application from a data source
  * (i.e. a db, an xml file or a gettext file).
  *
- * @category   Internationalization
- * @package    Translation2
- * @author     Lorenzo Alberton <l dot alberton at quipo dot it>
- * @copyright  2004-2006 Lorenzo Alberton
- * @license    http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @link       http://pear.php.net/package/Translation2
+ * @category  Internationalization
+ * @package   Translation2
+ * @author    Lorenzo Alberton <l.alberton@quipo.it>
+ * @copyright 2004-2008 Lorenzo Alberton
+ * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
+ * @link      http://pear.php.net/package/Translation2
  */
 class Translation2
 {
@@ -137,19 +137,20 @@ class Translation2
     /**
      * Return a Translation2 instance already initialized
      *
-     * @param string $storageDriver Type of the storage driver
+     * @param string $driver  Type of the storage driver
      * @param mixed  $options Additional options for the storage driver
      *                        (example: if you are using DB as the storage
      *                        driver, you have to pass the dsn string here)
-     * @param array  $params Array of parameters for the adapter class
-     *                      (i.e. you can set here the mappings between your
-     *                      table/field names and the ones used by this class)
+     * @param array  $params  Array of parameters for the adapter class
+     *                        (i.e. you can set here the mappings between your
+     *                        table/field names and the ones used by this class)
+     *
      * @return object Translation2 instance or PEAR_Error on failure
      * @static
      */
-    function & factory($driver, $options='', $params=array())
+    function & factory($driver, $options = '', $params = array())
     {
-        $tr =& new Translation2;
+        $tr = new Translation2;
         $tr->storage = Translation2::_storageFactory($driver, $options);
         if (PEAR::isError($tr->storage)) {
             return $tr->storage;
@@ -166,18 +167,19 @@ class Translation2
     /**
      * Return a storage driver based on $driver and $options
      *
-     * @param  string $driver  Type of storage class to return
-     * @param  string $options Optional parameters for the storage class
+     * @param string $driver  Type of storage class to return
+     * @param string $options Optional parameters for the storage class
+     *
      * @return object Object   Storage object
      * @static
      * @access private
      */
-    function & _storageFactory($driver, $options='')
+    function & _storageFactory($driver, $options = '')
     {
-        $storage_path = 'Translation2/Container/'.strtolower($driver).'.php';
+        $storage_path  = 'Translation2/Container/'.strtolower($driver).'.php';
         $storage_class = 'Translation2_Container_'.strtolower($driver);
-        require_once $storage_path;
-        $storage =& new $storage_class;
+        include_once $storage_path;
+        $storage = new $storage_class;
         $err = $storage->init($options);
         if (PEAR::isError($err)) {
             return $err;
@@ -191,7 +193,8 @@ class Translation2
     /**
      * Set some storage driver options
      *
-     * @param array $options
+     * @param array $options array of options
+     *
      * @return void
      * @access protected
      */
@@ -223,7 +226,9 @@ class Translation2
     /**
      * Parse options passed to the base class
      *
-     * @param  array
+     * @param array $array options
+     *
+     * @return void
      * @access private
      */
     function _parseOptions($array)
@@ -245,19 +250,20 @@ class Translation2
      * A decorator can be seen as a filter, i.e. something that can change
      * or handle the values of the objects/vars that pass through.
      *
-     * @param  string $decorator  Name of the decorator
+     * @param string $decorator Name of the decorator
+     *
      * @return object Decorator object reference
      */
     function & getDecorator($decorator)
     {
-        $decorator_path = 'Translation2/Decorator/'.$decorator.'.php';
+        $decorator_path  = 'Translation2/Decorator/'.$decorator.'.php';
         $decorator_class = 'Translation2_Decorator_'.$decorator;
-        require_once $decorator_path;
+        include_once $decorator_path;
         if (func_num_args() > 1) {
             $obj = func_get_arg(1);
-            $new_decorator =& new $decorator_class($obj);
+            $new_decorator = new $decorator_class($obj);
         } else {
-            $new_decorator =& new $decorator_class($this);
+            $new_decorator = new $decorator_class($this);
         }
         return $new_decorator;
     }
@@ -268,7 +274,9 @@ class Translation2
     /**
      * Set charset used to read/store the translations
      *
-     * @param string $charset
+     * @param string $charset character set (encoding)
+     *
+     * @return void|PEAR_Error
      */
     function setCharset($charset)
     {
@@ -287,6 +295,8 @@ class Translation2
      * Set the language that shall be used when retrieving strings.
      *
      * @param string $langID language code (for instance, 'en' or 'it')
+     *
+     * @return true|PEAR_Error
      */
     function setLang($langID)
     {
@@ -295,6 +305,7 @@ class Translation2
             return $res;
         }
         $this->lang = $res;
+        return true;
     }
 
     // }}}
@@ -306,11 +317,14 @@ class Translation2
      * Set the page (aka "group of strings") that shall be used when retrieving strings.
      * If you set it, you don't have to state it in each get() call.
      *
-     * @param string $langID
+     * @param string $pageID ID of the default page
+     *
+     * @return self
      */
-    function setPageID($pageID=null)
+    function setPageID($pageID = null)
     {
         $this->currentPageID = $pageID;
+        return $this;
     }
 
     // }}}
@@ -322,11 +336,12 @@ class Translation2
      * Get some extra information about the language (its full name,
      * the localized error text, ...)
      *
-     * @param string $langID
+     * @param string $langID language ID
      * @param string $format ['name', 'meta', 'error_text', 'array']
+     *
      * @return mixed [string | array], depending on $format
      */
-    function getLang($langID=null, $format='name')
+    function getLang($langID = null, $format = 'name')
     {
         if (is_null($langID)) {
             if (!isset($this->lang['id'])) {
@@ -359,9 +374,10 @@ class Translation2
      * the localized error text, their codes, ...)
      *
      * @param string $format ['ids', 'names', 'array']
-     * @return array
+     *
+     * @return array|PEAR_Error
      */
-    function getLangs($format='name')
+    function getLangs($format = 'name')
     {
         return $this->storage->getLangs($format);
     }
@@ -375,9 +391,11 @@ class Translation2
      * Set the replacement for the parameters in the string(s).
      * Parameter delimiters are customizable.
      *
-     * @param array $params
+     * @param array $params array of replacement parameters
+     *
+     * @return self
      */
-    function setParams($params=null)
+    function setParams($params = null)
     {
         if (empty($params)) {
             $this->params = array();
@@ -386,6 +404,7 @@ class Translation2
         } else {
             $this->params = array($params);
         }
+        return $this;
     }
 
     // }}}
@@ -393,7 +412,10 @@ class Translation2
 
     /**
      * Replace parameters in strings
-     * @param mixed $params
+     *
+     * @param mixed $strings strings where the replacements must occur
+     *
+     * @return mixed
      * @access protected
      */
     function _replaceParams($strings)
@@ -408,10 +430,10 @@ class Translation2
         } else {
             if (strpos($strings, $this->options['ParameterPrefix']) !== false) {
                 foreach ($this->params as $name => $value) {
-        		    $strings = str_replace($this->options['ParameterPrefix']
-        			            	       . $name . $this->options['ParameterPostfix'],
-        			                       $value,
-        			                       $strings);
+                    $strings = str_replace($this->options['ParameterPrefix']
+                                           . $name . $this->options['ParameterPostfix'],
+                                           $value,
+                                           $strings);
                 }
                 if ($this->options['ParameterAutoFree']) {
                     $this->params = array();
@@ -426,7 +448,10 @@ class Translation2
 
     /**
      * Replace empty strings with their stringID
-     * @param mixed $params
+     *
+     * @param array $strings array of strings to be replaced if empty
+     *
+     * @return array
      * @static
      */
     function replaceEmptyStringsWithKeys($strings)
@@ -448,13 +473,14 @@ class Translation2
     /**
      * Get translated string (as-is)
      *
-     * @param string $stringID
-     * @param string $pageID
-     * @param string $langID
+     * @param string $stringID    ID of the string to be translated
+     * @param string $pageID      ID of the page/group containing the string
+     * @param string $langID      ID of the language
      * @param string $defaultText Text to display when the string is empty
+     *
      * @return string|PEAR_Error
      */
-    function getRaw($stringID, $pageID=TRANSLATION2_DEFAULT_PAGEID, $langID=null, $defaultText='')
+    function getRaw($stringID, $pageID = TRANSLATION2_DEFAULT_PAGEID, $langID = null, $defaultText = '')
     {
         $pageID = ($pageID == TRANSLATION2_DEFAULT_PAGEID ? $this->currentPageID : $pageID);
         $str = $this->storage->getOne($stringID, $pageID, $langID);
@@ -475,14 +501,15 @@ class Translation2
      * If the string is empty, check the fallback language; if
      * the latter is empty too, then return the $defaultText.
      *
-     * @param string $stringID
-     * @param string $pageID
-     * @param string $langID
+     * @param string $stringID    ID of the string
+     * @param string $pageID      ID of the page/group containing the string
+     * @param string $langID      ID of the language
      * @param string $defaultText Text to display when the string is empty
      *               NB: This parameter is only used in the DefaultText decorator
+     *
      * @return string
      */
-    function get($stringID, $pageID=TRANSLATION2_DEFAULT_PAGEID, $langID=null, $defaultText='')
+    function get($stringID, $pageID = TRANSLATION2_DEFAULT_PAGEID, $langID = null, $defaultText = '')
     {
         $str = $this->getRaw($stringID, $pageID, $langID);
         if (PEAR::isError($str)) {
@@ -500,11 +527,12 @@ class Translation2
      * Fetch the page (aka "group of strings) from the container,
      * without applying any formatting and without replacing the parameters
      *
-     * @param string $pageID
-     * @param string $langID
+     * @param string $pageID ID of the page/group containing the string
+     * @param string $langID ID of the language
+     *
      * @return array
      */
-    function getRawPage($pageID=TRANSLATION2_DEFAULT_PAGEID, $langID=null)
+    function getRawPage($pageID = TRANSLATION2_DEFAULT_PAGEID, $langID = null)
     {
         $pageID = ($pageID == TRANSLATION2_DEFAULT_PAGEID ? $this->currentPageID : $pageID);
         return $this->storage->getPage($pageID, $langID);
@@ -519,11 +547,12 @@ class Translation2
      * Same as getRawPage, but resort to fallback language and
      * replace parameters when needed
      *
-     * @param string $pageID
-     * @param string $langID
+     * @param string $pageID ID of the page/group containing the string
+     * @param string $langID ID of the language
+     *
      * @return array
      */
-    function getPage($pageID=TRANSLATION2_DEFAULT_PAGEID, $langID=null)
+    function getPage($pageID = TRANSLATION2_DEFAULT_PAGEID, $langID = null)
     {
         $pageData = $this->getRawPage($pageID, $langID);
         return $this->_replaceParams($pageData);
@@ -538,10 +567,11 @@ class Translation2
      * @param string $string This is NOT the stringID, this is a real string.
      *               The method will search for its matching stringID, and then
      *               it will return the associate string in the selected language.
-     * @param string $pageID
+     * @param string $pageID ID of the page/group containing the string
+     *
      * @return string
      */
-    function getStringID($string, $pageID=TRANSLATION2_DEFAULT_PAGEID)
+    function getStringID($string, $pageID = TRANSLATION2_DEFAULT_PAGEID)
     {
         $pageID = ($pageID == TRANSLATION2_DEFAULT_PAGEID ? $this->currentPageID : $pageID);
         return $this->storage->getStringID($string, $pageID);
@@ -555,6 +585,7 @@ class Translation2
      *
      * This method is called automatically by PHP5
      *
+     * @return void
      * @access protected
      */
     function __clone()

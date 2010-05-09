@@ -80,7 +80,7 @@ class Config_Container_PHPArray {
             $this->_parseArray($datasrc, $obj->container);
         } else {
             if (!file_exists($datasrc)) {
-                return PEAR::raiseError("Datasource file does not exist.", null, PEAR_ERROR_RETURN);        
+                return PEAR::raiseError("Datasource file does not exist.", null, PEAR_ERROR_RETURN);
             } else {
                 include($datasrc);
                 if (!isset(${$this->options['name']}) || !is_array(${$this->options['name']})) {
@@ -159,14 +159,14 @@ class Config_Container_PHPArray {
                     $string .= $parentString."['#']";
                     foreach ($attributes as $attr => $val) {
                         $attrString .= $parentString."['@']"
-                                    ."['".$attr."'] = \"".addslashes($val)."\";\n";
+                                    ."['".$attr."'] = '".addcslashes($val, "\\'")."';\n";
                     }
                 } else {
                     $string .= $parentString;
                 }
                 $string .= ' = ';
                 if (is_string($obj->content)) {
-                    $string .= "\"".addslashes($obj->content)."\"";
+                    $string .= "'".addcslashes($obj->content, "\\'")."'";
                 } elseif (is_int($obj->content) || is_float($obj->content)) {
                     $string .= $obj->content;
                 } elseif (is_bool($obj->content)) {
@@ -182,7 +182,7 @@ class Config_Container_PHPArray {
                     $parentString = $this->_getParentString($obj);
                     foreach ($attributes as $attr => $val) {
                         $attrString .= $parentString."['@']"
-                                    ."['".$attr."'] = \"".addslashes($val)."\";\n";
+                                    ."['".$attr."'] = '".addcslashes($val, "\\'")."';\n";
                     }
                 }
                 $string .= $attrString;

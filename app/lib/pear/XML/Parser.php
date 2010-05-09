@@ -608,9 +608,9 @@ class XML_Parser extends PEAR
      * @param string  $msg   the error message
      * @param integer $ecode the error message code
      *
-     * @return XML_Parser_Error
+     * @return XML_Parser_Error reference to the error object
      **/
-    function raiseError($msg = null, $ecode = 0)
+    function &raiseError($msg = null, $ecode = 0)
     {
         $msg = !is_null($msg) ? $msg : $this->parser;
         $err = &new XML_Parser_Error($msg, $ecode);
