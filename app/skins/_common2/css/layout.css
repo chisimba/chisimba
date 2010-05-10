@@ -39,7 +39,7 @@ html, body {
 	/*border: gray 1px dotted;
 	margin: 0 210px 0 210px;*/
 	padding:5px;
-	overflow:hidden;
+	overflow:auto;
 }
 #right {
 	float: right;
