@@ -317,3 +317,10 @@ p.feed_render_description {
 		height : 300px; 
 		overflow : auto; 
 }
+
+#filemanager2-mainpanel{
+	margin-left: auto ;
+        margin-right: auto ;
+	border:1px solid #c3daf9;
+	overflow:auto;
+}
