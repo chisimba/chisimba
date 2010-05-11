@@ -108,6 +108,53 @@ class dbfolder extends dbTable
         }
     }
 
+
+    /**
+    * Method to check whether a folder is in the database record or not.
+    * If it is, update it to the database
+    * @param  string  $folder     Path to Folder
+    * @param  boolean $isFullPath Is it the full path of the folder, or just the part of usrfiles/
+    * @return string  Record Id
+    */
+    public function updateFolderIndex($oldPath,$newPath, $isFullPath=TRUE)
+    {
+        // Convert all backslashes to forward slashes
+        // Convert multiple forward slashes to single
+        $oldPath = preg_replace('/(\/|\\\)+/', '/', $oldPath);
+        $newPath = preg_replace('/(\/|\\\)+/', '/', $newPath);
+
+        // If it is the full path to the file
+        if ($isFullPath) {
+            // Remove the path upto userfiles
+            // Eg. removes /htdocs/chisima_framework/app/usrfiles/
+            $oldPath = preg_replace('/\\A(.)*?usrfiles\//', '', $oldPath);
+        }
+
+
+        // If it is the full path to the file
+        if ($isFullPath) {
+            // Remove the path upto userfiles
+            // Eg. removes /htdocs/chisima_framework/app/usrfiles/
+            $newPath = preg_replace('/\\A(.)*?usrfiles\//', '', $newPath);
+        }
+
+        // Remove the Slash at the end if there is one
+        $oldPath = preg_replace('/\/$/', '', $oldPath);
+        $newPath = preg_replace('/\/$/', '', $newPath);
+        if ($this->valueExists('folderpath', $oldPath)) {
+            return $this->updateFolderDetails($oldPath,$newPath);
+        }
+    }
+
+    /**
+    * Method to add a folder to the database records
+    * @param  string $folder Path to the folder
+    * @return string Record Id
+    */
+    private function updateFolderDetails($oldPath,$newPath)
+    {
+        return $this->update('folderpath',$oldPath,array('folderpath'=> $newPath, 'folderlevel'=>count(explode('/', $newPath))));
+    }
     /**
     * Method to add a folder to the database records
     * @param  string $folder Path to the folder
@@ -608,6 +655,33 @@ class dbfolder extends dbTable
         return $form->show();
     }
 
+    /**
+     * Short description for function
+     *
+     * Long description (if any) ...
+     *
+     * @param  unknown $id Parameter description (if any) ...
+     * @return mixed   Return description (if any) ...
+     * @access public
+     */
+    function renameFolder($id,$newName)
+    {
+        // Get Full Folder details
+        $folder = $this->getRow('id', $id);
+        $oldPath=$folder['folderpath'];
+        $level=$folder['folderlevel'];
+        $folderparts=explode("/", $oldPath);
+        $basepath="";
+        $index=0;
+        foreach ($folderparts as $folderpart){
+            if( $index < $level-1){
+            $basepath.=$folderpart.'/';
+            }
+            $index++;
+        }
+        $newPath=$basepath.'/'.$newName;
+        $this->updateFolderIndex($oldPath,$newPath);
+    }
     /**
      * Short description for function
      *
