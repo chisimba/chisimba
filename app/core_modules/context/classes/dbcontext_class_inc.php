@@ -462,7 +462,7 @@ class dbcontext extends dbTable {
     //return $this->getAll ( "WHERE access='Open' OR access='Public' ORDER BY menutext" );
         $objUserContext = $this->getObject('usercontext', 'context');
         // Get all user contents
-        $sql="WHERE access='Open' OR access='Public'  ORDER BY menutext" ;
+        $sql="WHERE access='Open' OR access='Public' AND status!='Unpublished'  ORDER BY menutext" ;
 
         $publicCourses=$this->getAll ($sql);
 
@@ -546,7 +546,7 @@ class dbcontext extends dbTable {
      * Context search method
      */
     public function getContextStartingWith($letter, $limit = 10, $page = 1) {
-        return $this->getAll ( " WHERE title LIKE '{$letter}%' and access != 'Private'  ORDER BY title  " );
+        return $this->getAll ( " WHERE title LIKE '{$letter}%' and access != 'Private' AND status!='Unpublished' ORDER BY title  " );
     }
 
     /**

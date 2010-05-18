@@ -748,7 +748,7 @@ function getContexts()
 			}
 		}
 		
-		$where = ' WHERE '.$where;
+		$where = ' AND ('.$where.')';
 		
 	}
 	
@@ -756,7 +756,7 @@ function getContexts()
 		
     	$filter = " LIMIT $start , $limit";
     	
-		$sql = "SELECT * FROM tbl_context ".$where." ORDER BY title ".$filter; 
+		$sql = "SELECT * FROM tbl_context  WHERE status != 'Unpublished'".$where." ORDER BY title ".$filter; 
 		//Debuging
 		error_log(var_export($_REQUEST, true));
 		//Debuging
@@ -790,7 +790,7 @@ function getContexts()
     	}else {
     		$arr['othercontextcount'] = "0";
 			$arr['courses'] = array();
-			var_dump($arr);			
+			//var_dump($arr);			
 	    	return json_encode($arr);
     	}
 		
@@ -811,8 +811,8 @@ function getContexts()
     	$start = (empty($start)) ? 0 : $start;
     	$limit = (empty($limit)) ? 25 : $limit;
     	
-    	$contexts = $this->objDBContext->getAll("ORDER BY updated DESC limit ".$start.", ".$limit);
-    	$all = $this->objDBContext->getArray("SELECT count( id ) as cnt FROM tbl_context");
+    	$contexts = $this->objDBContext->getAll("WHERE status != 'Unpublished' ORDER BY updated DESC limit ".$start.", ".$limit);
+    	$all = $this->objDBContext->getArray("SELECT count( id ) as cnt FROM tbl_context WHERE status != 'Unpublished'");
     	
     	$allCount = $all[0]['cnt'];
     	
