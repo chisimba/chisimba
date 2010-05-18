@@ -69,7 +69,11 @@ class parse4flickrshow extends object {
             
             foreach ($paramPairs as $pair) {
                 $tempPair = explode('=', trim($pair));
-                $this->flickrshow->$tempPair[0] = $tempPair[1];
+                if (isset($tempPair[1])) {
+                    $this->flickrshow->$tempPair[0] = $tempPair[1];
+                } else {
+                    return "Syntax Error near `$pair` in $str";
+                }
             }
             
             if ($this->flickrshow->photoset) {
