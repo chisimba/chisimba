@@ -288,8 +288,8 @@ class manageGroups extends object
         $userGroups =  $this->_objDBContext->getArray($sql);        
       
         //get the list of contexts
-        $arrcontextcodeRows = $this->_objDBContext->getArray('SELECT contextcode FROM tbl_context');
-        
+        $arrcontextcodeRows = $this->_objDBContext->getArray('SELECT contextcode FROM tbl_context WHERE status != \'Unpublished\'');
+         
         $arrcontextcodes = array();
         
         //check if this user is part of this context
@@ -331,7 +331,7 @@ class manageGroups extends object
         $userGroups =  $this->_objDBContext->getArray($sql);        
       
         //get the list of contexts
-        $arrcontextcodeRows = $this->_objDBContext->getArray('SELECT contextcode FROM tbl_context');
+        $arrcontextcodeRows = $this->_objDBContext->getArray('SELECT contextcode FROM tbl_context WHERE status != \'Unpublished\'');
         
         $arrcontextcodes = array();
         
