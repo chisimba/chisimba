@@ -656,7 +656,7 @@ class catalogueconfig extends object {
                 $sysTypes = $this->objConfig->getsiteRootPath()."config/systemtypes.xml";
                 $doc = simplexml_load_file($sysTypes);
                 $modules = $doc->xpath("//category[categoryname='$category']");
-                if (is_array($modules[0]->module)) {
+                if (isset($modules[0]->module)) {
                     foreach ($modules[0]->module as $mod) {
                         $moduleId = (string)$mod;
                         $mn = $cat->xpath("//module[module_id='$moduleId']/module_name");
