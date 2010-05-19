@@ -137,7 +137,7 @@ class parse4realtime extends object {
         $siteRoot=$this->_objConfig->getSiteRoot();
         $moduleUri=$this->_objConfig->getModuleURI();
         $codebase=$siteRoot."/".$moduleUri.'/realtime/resources/';
-        $imgLink='<img src="'.$siteRoot.'/'.$moduleUri.'/realtime/resources/images/realtime.png" width="200" height="80">';
+        $imgLink='<img src="'.$siteRoot.'/'.$moduleUri.'/realtime/resources/images/Virtual_Classroom_logo.png" width="200" height="80">';
 
         $objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
         $servletURL=$objSysConfig->getValue('SERVLETURL', 'realtime');
