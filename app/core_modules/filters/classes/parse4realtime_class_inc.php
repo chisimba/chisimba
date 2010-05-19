@@ -132,7 +132,7 @@ class parse4realtime extends object {
 
         $str = '';
 
-        $this->objRealtimeUtil= $this->getObject('realtimeutil');
+        $this->objRealtimeUtil= $this->getObject('realtimeutil','realtime');
         $this->objRealtimeUtil->generateJNLP();
         $siteRoot=$this->_objConfig->getSiteRoot();
         $moduleUri=$this->_objConfig->getModuleURI();
