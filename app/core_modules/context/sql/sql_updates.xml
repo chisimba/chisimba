@@ -36,7 +36,7 @@
 
         <update>
         <table>tbl_context</table>
-        <version>1.820</version>
+        <version>1.821</version>
         <description>Added alerts Field</description>
         <data>
             <add>
