@@ -87,7 +87,11 @@ $fields = array(
 	   ),
     'goals' => array(
         'type' => 'text'
-	)
+	),
+    'alerts' => array(
+        'type' => 'integer',
+        'length' => 255
+	   ),
     );
 
 $name = 'contextcode';
