@@ -265,13 +265,17 @@ class imageresize extends object
     /**
     * Method to save the image to the filesystem
     * @param string $file Name of the File
+    * @param boolean $appendExtension Append the image's existing file extension to $file.
     */
-    function store($file)
+    function store($file, $appendExtension = FALSE)
     {
-        if ($this->canCreateFromSouce) {
+        if ($appendExtension) {
+            $file .= $this->filetype == 'jpg' ? '.jpg' : '.png';
+        }
+        if ($this->filetype == 'jpg') {
             return @imagejpeg($this->image, $file);
         } else {
-            return @imagegif($this->image, $file); // Save as Gif if unable to create thumbnail, appears much clearer
+            return @imagepng($this->image, $file);
         }
     }
     
