@@ -278,7 +278,7 @@ class patch extends dbtable {
                                         throw new customException('error in patch data');
                                         break;
                                 }
-                                if(is_array($pData['change'])) {
+                                if(isset($pData['change']) && is_array($pData['change'])) {
                                     $field2change = array_keys($pData['change']);
                                     $existfields = $this->objModuleAdmin->listTblFields($update->table);
                                     foreach($field2change as $changes) {
