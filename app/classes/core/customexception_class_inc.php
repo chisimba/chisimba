@@ -100,10 +100,17 @@ class customException extends Exception
      * @return url 
      */
     public function dbDeath($msg) {
-    	$usrmsg    = urlencode($msg[0]);
-    	$devmsg    = urlencode($msg[1]);
-    	$this->uri = "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'] . "?module=errors&action=dberror&usrmsg=".$usrmsg."&devmsg=".$devmsg;
-    	header("Location: $this->uri");
+        if (strstr($msg[0], 'connect failed') === FALSE) {
+            $usrmsg    = urlencode($msg[0]);
+            $devmsg    = urlencode($msg[1]);
+            $this->uri = "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'] . "?module=errors&action=dberror&usrmsg=".$usrmsg."&devmsg=".$devmsg;
+            header("Location: $this->uri");
+        } else {
+            header('HTTP/1.1 500 Internal Server Error');
+            header('Content-Type: text/plain');
+            echo $msg[1];
+            exit(1);
+        }
     }
 
     public function dbNoConn($msg) {
