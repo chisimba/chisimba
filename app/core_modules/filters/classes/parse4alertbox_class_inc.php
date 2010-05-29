@@ -118,7 +118,7 @@ class parse4alertbox extends object
         //Match filters based on a wordpress style
         //Note the ? in the regex is important to enable the multiline
         //   feature, else it greedy
-        preg_match_all('/(\\[ALERT:)(.*?)\\](.*?)(\\[\\/ALERT\\])/iusm', $txt, $results);
+        preg_match_all('/(\\[ALERTBOX:)(.*?)\\](.*?)(\\[\\/ALERT\\])/iusm', $txt, $results);
         $counter = 0;
         foreach ($results[3] as $item) {
             //Parse for the parameters
