@@ -82,7 +82,7 @@ class alertbox extends object
     {
         $this->putJs();
 
-        $link .= '&amp;facebox=1';
+        //$link .= '&amp;facebox=1';
         
         $link = new link ($link);
         $link->link = $text;
