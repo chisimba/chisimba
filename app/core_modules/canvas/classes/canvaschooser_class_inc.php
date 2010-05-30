@@ -67,6 +67,14 @@ class canvaschooser extends controller
 
     /**
     *
+    * @var string $canvasType The type of the canvas to load
+    * @access private
+    * 
+    */
+    private $canvasType;
+
+    /**
+    *
     * Intialiser for the canvas chooser
     * @access public
     *
@@ -74,6 +82,8 @@ class canvaschooser extends controller
     public function init()
     {
         $this->canvas = FALSE;
+        $this->canvasType = $this->getParam('canvastype', FALSE);
+        $this->objUser = $this->getObject('user', 'security');
     }
 
     /**
@@ -88,24 +98,29 @@ class canvaschooser extends controller
      * @access public
      *
      */
-    public function getCanvas($validCanvases)
+    public function getCanvas($validCanvases, $skinBase)
     {
         if (!$this->canvas) {
             // Look first in the parameters
             $canvas = $this->getParam('canvas', FALSE);
             if ($canvas) {
-                $this->setCanvas($canvas);
+                if ($this->isValidCanvas($canvas, $validCanvases)) {
+                    $this->setCanvas($canvas);
+                    $ret = $skinBase . $canvas;
+                } else {
+                    $ret = "_default";
+                }
             } else {
-                $canvas = $this->guessCanvas();
+                $ret = $this->guessCanvas($skinBase);
             }
         } else {
-            $canvas = $this->canvas;
+            if ($this->isValidCanvas($this->canvas, $validCanvases)) {
+                $ret =  $skinBase . $this->canvas;
+            } else {
+                $ret =  $skinBase . "_default";
+            }
         }
-        if ($this->isValidCanvas($canvas, $validCanvases)) {
-            return $canvas;
-        } else {
-            return "_default";
-        }
+        return $ret;
     }
 
     /**
@@ -124,17 +139,61 @@ class canvaschooser extends controller
     }
 
     /**
+    *
+    * Guess what canvas should be presented based on circumstances.
+    *
+    * @return string The guessed canvas name
+    * @access private
+    *
+    */
+    private function guessCanvas($skinBase)
+    {
+        if ($this->canvasType) {
+            $retMethod = $this->canvasType;
+            return $this->$retMethod($skinBase);
+        } elseif ($ret = $this->user($skinBase)) {
+            return $ret;
+        } else {
+            // See if they have a user preference set
+            return $skinBase . "_default";
+        }
+    }
+
+    /**
      *
-     * Guess what canvas should be presented based on circumstances.
-     * Currently just returns default.
+     * Return the code needed to insert a user skin, based on a user
+     * set preference, or on querystring parameters such as
+     * canvastype=user&canvasdir=purple
      *
-     * @return string The guessed canvas name
-     * @access private
+     * @param string $skinBase The default skin base for the current canvas
+     * @return string/boolean The canvas base or FALSE
+     * @access public
      *
      */
-    private function guessCanvas()
+    public function user($skinBase)
     {
-        return "_default";
+        if ($this->objUser->isLoggedIn()) {
+            // Check for a canvasdir directory in the  querystring
+            if ($whatCanvas = $this->getParam('canvasdir', FALSE)) {
+                $canvasPref = $whatCanvas;
+            } else {
+                $objUserParams = $this->getObject("dbuserparamsadmin","userparamsadmin");
+                $canvasPref = $objUserParams->getValue("canvas");
+            }
+            return 'usrfiles/users/' . $this->objUser->userId() . '/canvases/' . $canvasPref . '/';
+        } else {
+            return FALSE;
+        }
+    }
+
+    public function module($skinBase)
+    {
+        die("NOT READY YET");
+    }
+
+    public function nodal($skinBase)
+    {
+        die("NOT READY YET");
     }
 
     /**
