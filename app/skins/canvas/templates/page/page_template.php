@@ -8,7 +8,8 @@ $validCanvases = array("_default", "red", "blue", "yellow");
 
 // Get what canvas we should be showing
 $objCanvas = $this->getObject('canvaschooser', 'canvas');
-$canvas = $objCanvas->getCanvas($validCanvases);
+$skinBase='skins/canvas/canvases/';
+$canvas = $objCanvas->getCanvas($validCanvases, $skinBase);
 
 // Get Header that goes into every skin.
 require($objConfig->getsiteRootPath().'skins/_common/templates/skinpageheader2-0.php');
@@ -38,7 +39,7 @@ require($objConfig->getsiteRootPath().'skins/_common/templates/skinpageheader2-0
     if (!isset($pageSuppressSkin)) {
        echo '
        <link rel="stylesheet" type="text/css" href="skins/canvas/stylesheet.css">
-       <link rel="stylesheet" type="text/css" href="skins/canvas/canvases/' . $canvas . '/stylesheet.css">
+       <link rel="stylesheet" type="text/css" href="' . $canvas . '/stylesheet.css">
         ';
     }
     ?>
