@@ -1,0 +1,33 @@
+/* 
+    Document   : stylesheet.css
+    Created on : 30 May 2010, 1:11:21 PM
+    Author     : dkeats
+    Description:
+        The red canvas for demonstrating canvases
+*/
+
+
+html, body {
+    background-image: none;
+    background: blue;
+}
+
+/*
+    The canvas elements
+*/
+
+.Canvas {
+    width: 1024px;
+}
+
+#Canvas_Content {
+
+}
+
+#Canvas_BeforeContainer {
+
+}
+
+#Canvas_AfterContainer {
+
+}
