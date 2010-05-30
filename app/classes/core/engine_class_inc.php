@@ -130,7 +130,7 @@ class engine {
      * Version Number of the software. (engine)
      *
      */
-    public $version = '3.1.6';
+    public $version = '3.1.7';
 
     /**
      * Template variable
@@ -351,7 +351,7 @@ class engine {
      *
      * @var array
      */
-    public $coremods = array ('api', 'blocks', 'config', 'context',
+    public $coremods = array ('api', 'blocks', 'canvas', 'config', 'context',
         'contextadmin', 'ckeditor','contextgroups', 'contextpermissions',
         'creativecommons', 'decisiontable', 'errors', 'ext', 'fckeditor', 'files',
         'filemanager', 'filters', 'groupadmin', 'help', 'htmlelements', 'jquery',
