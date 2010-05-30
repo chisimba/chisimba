@@ -1,89 +1,117 @@
 <?php
-// Get Header that goes into every skin
+// Add navigation back to top of page.
+define("PAGETOP", '<a name="pagetop"></a>');
+define("GOTOTOP", '<a href="#pagetop">Top</a>'); // @todo change this to an icon
+
+// Get Header that goes into every skin.
 require($objConfig->getsiteRootPath().'skins/_common/templates/skinpageheader2-0.php');
+
+// Render the head section of the page. Note that there can be no space or
+// blank lines between the PHP closing tag and the HTML head tag. It must be
+// exactly as below.
 ?><head>
-<title>
- <?php echo $pageTitle; ?>
-</title>
-<?php
- if (!isset($pageSuppressSkin)) {
-     echo '
+    <title>
+        <?php echo $pageTitle; ?>
+    </title>
+    <?php
+    // Get the skin version 2 base CSS for all skins.
+    if (!isset($pageSuppressSkin)) {
+        echo '
 
-     <link rel="stylesheet" type="text/css" href="skins/_common2/base.css">
-    ';
- }
+        <link rel="stylesheet" type="text/css" href="skins/_common2/base.css">
+        ';
+     }
 
- if (!isset($pageSuppressJavascript)) {
-    echo $objSkin->putJavaScript($mime, $headerParams, $bodyOnLoad);
- }
+     // Render the javascript unless it is suppressed.
+    if (!isset($pageSuppressJavascript)) {
+       echo $objSkin->putJavaScript($mime, $headerParams, $bodyOnLoad);
+    }
 
- if (!isset($pageSuppressSkin)) {
-     echo '
-     <link rel="stylesheet" type="text/css" href="skins/metallic/stylesheet.css">
-
-    ';
- }
-?>
+    // Render the CSS for the current skin unless it is suppressed.
+    if (!isset($pageSuppressSkin)) {
+       echo '
+       <link rel="stylesheet" type="text/css" href="skins/metallic/stylesheet.css">
+        ';
+    }
+    ?>
 </head>
 
+<?php
+// Render body parameters if they are set, otherwise render a plain body tag
+if (isset($bodyParams)) {
+    echo '<body '.$bodyParams.'>';
+} else {
+    echo '<body>';
+}
 
-<?php
-    if (isset($bodyParams)) {
-        echo '<body '.$bodyParams.'>';
-    } else {
-        echo '<body>';
+// Render the container unless it is suppressed.
+if (!isset($pageSuppressContainer)) {
+    echo '<div id="container">';
+}
+
+// Render the banner area unless it is suppressed
+if (!isset($pageSuppressBanner)) {
+    // Because the link to page top is in the footer, put the top here
+    // only if the footer is not suppressed.
+    if (!isset($suppressFooter)) {
+        echo PAGETOP;
     }
-    if (!isset($pageSuppressContainer)) {
-        echo '<div id="container">';
-    }
-    if (!isset($pageSuppressBanner)) {
-?>
-        <div id="header">
-            <h1 id="sitename">
-                <span>
-<?php
-        echo '<a href="'.$objConfig->getSiteRoot().'">'.$objConfig->getsiteName().'</a>';
-?>
-                </span>
-            </h1>
-<?php
+    ?>
+    <div id="header">
+        <h1 id="sitename">
+            <span>
+                <?php
+                echo '<a href="'.$objConfig->getSiteRoot().'">'.$objConfig->getsiteName().'</a>';
+                ?>
+            </span>
+        </h1>
+        <?php
         if (!isset($pageSuppressSearch)) {
             echo $objSkin->siteSearchBox();
         }
-
+        ?>
+    </div>
+    <?php
+}
 ?>
-        </div>
-	<div id="navigation">
-	<?php
-	if (!isset($pageSuppressToolbar)) {
-            echo $toolbar;
-        }
-		?>
-		<div>
 <?php
-    }
-    // get content
-    echo $this->getLayoutContent().'<br id="footerbr" />';
+if (!isset($pageSuppressToolbar)) {
+    echo "\n\n<div id='navigation'>\n\n" . $toolbar . "\n</div>\n\n";
+}
 
-    if (!isset($suppressFooter)) {
-        //$footerStr = "";
-        if (isset($footerStr)) {
-           $footerStr = $footerStr;
-        } else if ($objUser->isLoggedIn()) {
-            $this->loadClass('link', 'htmlelements');
-            $link = new link ($this->URI(array('action'=>'logoff'),'security'));
-            $link->link=$objLanguage->languageText("word_logout");
-            $str=$objLanguage->languageText("mod_context_loggedinas", 'context').' <strong>'.$objUser->fullname().'</strong>  ('.$link->show().')';
-            $footerStr= $str;
-        } else {
-            $footerStr = $objLanguage->languageText("mod_security_poweredby", 'security', 'Powered by Chisimba');
-        }
-        echo '<div id="footer">' . $footerStr . '</div>';
+// Render the laout content
+echo $this->getLayoutContent().'<br id="footerbr" />';
+
+// If the footer is not suppressed, render it out.
+if (!isset($suppressFooter)) {
+    // Add the footer string if it is set
+    if (isset($footerStr)) {
+       $footerStr = $footerStr;
+    } else if ($objUser->isLoggedIn()) {
+        $this->loadClass('link', 'htmlelements');
+        $link = new link ($this->URI(array('action'=>'logoff'),'security'));
+        $link->link=$objLanguage->languageText("word_logout");
+        $str=$objLanguage->languageText("mod_context_loggedinas", 'context').' <strong>'.$objUser->fullname().'</strong>  ('.$link->show().')';
+        $footerStr= $str;
+    } else {
+        $footerStr = $objLanguage->languageText("mod_security_poweredby", 'security', 'Powered by Chisimba');
     }
-    if (!isset($pageSuppressContainer)) {
-        echo '</div>';
+    // Do the rendering here.
+    echo '<div id="footer">' . $footerStr;
+    // Put in the link to the top of the page
+    if (!isset($pageSuppressBanner)) {
+        echo ' (' . GOTOTOP . ')';
     }
-    $this->putMessages();
+    echo '</div>';
+}
+// Render the container's closing div if the container is not suppressed
+if (!isset($pageSuppressContainer)) {
+    echo '</div>';
+}
+// Render any messages available.
+$this->putMessages();
+
+// Close up the body and HTML and finish up.
 ?>
-    </body>
+</body>
 </html>
