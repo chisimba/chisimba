@@ -6,10 +6,19 @@ define("GOTOTOP", '<a href="#pagetop">Top</a>'); // @todo change this to an icon
 // Define the valid canvases for this skin as an array.
 $validCanvases = array("_default", "red", "blue", "yellow");
 
-// Get what canvas we should be showing
+// Instantiate the canvas object.
 $objCanvas = $this->getObject('canvaschooser', 'canvas');
+
+// Set the skin base for the default.
 $skinBase='skins/canvas/canvases/';
-$canvas = $objCanvas->getCanvas($validCanvases, $skinBase);
+if (isset ($canvas)) {
+    $canvas = $skinBase . $canvas;
+} else {
+    // Get what canvas we should be showing
+    $canvas = $objCanvas->getCanvas($validCanvases, $skinBase);
+}
+
+
 
 // Get Header that goes into every skin.
 require($objConfig->getsiteRootPath().'skins/_common/templates/skinpageheader2-0.php');
