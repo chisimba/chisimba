@@ -147,6 +147,7 @@ class canvas extends controller
     {
         $str="<h1>Canvas for Chisimba</h1>This is a proof of concept case for a chisimba canvas.";
         $this->setVarByRef('str', $str);
+        $this->setVar('canvas', 'blue');
         $this->setPageTemplate('canvaspage_template.php');
         return "dump_tpl.php";
     }
