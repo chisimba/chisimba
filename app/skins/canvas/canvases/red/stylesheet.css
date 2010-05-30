@@ -12,3 +12,12 @@ html, body {
     background: red;
 }
 
+#threecolumn div#left {
+	float:right;
+}
+#threecolumn div#right {
+	float:right;
+}
+#twocolumn div#left {
+	float:right;
+}
