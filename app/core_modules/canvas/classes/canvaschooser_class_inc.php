@@ -151,7 +151,10 @@ class canvaschooser extends controller
         if ($this->canvasType) {
             $retMethod = $this->canvasType;
             return $this->$retMethod($skinBase);
+        // Get the user preference first
         } elseif ($ret = $this->user($skinBase)) {
+            return $ret;
+        } elseif ($ret = $this->site($skinBase)) {
             return $ret;
         } else {
             // See if they have a user preference set
@@ -180,9 +183,33 @@ class canvaschooser extends controller
                 $objUserParams = $this->getObject("dbuserparamsadmin","userparamsadmin");
                 $canvasPref = $objUserParams->getValue("canvas");
             }
+            $this->setSession('canvasType', 'user');
+            $this->setSession('canvas', $canvasPref);
             return 'usrfiles/users/' . $this->objUser->userId() . '/canvases/' . $canvasPref . '/';
         } else {
             return FALSE;
+        }
+    }
+
+    /**
+    *
+    * Return the code needed to insert a site skin, based on the site
+    * parameter set in the configuration settings for canvas
+    *
+    * @param string $skinBase The default skin base for the current canvas
+    * @return string/boolean The canvas base or FALSE
+    * @access public
+    *
+    */
+    public function site($skinBase)
+    {
+        // Check for preferred site canvas
+        $this->objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
+        $prefCanvas = $this->objSysConfig->getValue('canvas_preferredcanvas', 'canvas');
+        if ($prefCanvas == "FALSE") {
+            return FALSE;
+        } else {
+            return  $skinBase . $prefCanvas;
         }
     }
 

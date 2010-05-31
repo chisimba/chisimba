@@ -95,8 +95,8 @@ class canvas extends controller
         $this->objLanguage = $this->getObject('language', 'language');
         // Create the configuration object
         $this->objConfig = $this->getObject('config', 'config');
-        // Create an instance of the database class
-        //$this->objDbcanvas = & $this->getObject('dbcanvas', 'canvas');
+        // Create an instance of the master canvas class
+        $this->objMasterCanvas = & $this->getObject('mastercanvas', 'canvas');
         //Get the activity logger class
         $this->objLog=$this->newObject('logactivity', 'logger');
         // Log this module call
@@ -146,8 +146,18 @@ class canvas extends controller
     private function __view()
     {
         $str="<h1>Canvas for Chisimba</h1>This is a proof of concept case for a chisimba canvas.";
+        if ($this->objMasterCanvas->isCanvas()) {
+            $skin = $this->getSession('sourceSkin', 'unknown');
+            $canvasType = $this->getSession('canvasType', 'unknown');
+            $canvas = $this->getSession('canvas', 'unknown');
+            $str .= "<br /><span class='warning'>You are in a canvas.</span>"
+              . "<br />The skin <b>$skin</b> supports the Chisimba canvas."
+              . "The canvastype in use is <b>$canvasType</b>, and the canvas is <b>$canvas</b>.";
+        } else {
+            $str .= "<br /><span class='error'>You are NOT in a canvas.</span>";
+        }
         $this->setVarByRef('str', $str);
-        $this->setVar('canvas', 'blue');
+        $this->setVar('canvas', 'red');
         $this->setPageTemplate('canvaspage_template.php');
         return "dump_tpl.php";
     }

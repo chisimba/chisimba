@@ -68,6 +68,11 @@ class mastercanvas extends controller
         //Set the parent table here
     }
 
+    public function isCanvas()
+    {
+        return $this->getSession('isCanvas', FALSE);
+    }
+
     public function addContent($canvasArea, $contentHtml)
     {
         $this->$canvasArea = $contentHtml();
