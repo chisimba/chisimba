@@ -4,7 +4,7 @@ define("PAGETOP", '<a name="pagetop"></a>');
 define("GOTOTOP", '<a href="#pagetop">Top</a>'); // @todo change this to an icon
 
 // Define the valid canvases for this skin as an array.
-$validCanvases = array("_default", "red", "blue", "yellow");
+$validCanvases = array("_default","greyfloral", "red", "blue", "yellow");
 
 // Instantiate the canvas object.
 $objCanvas = $this->getObject('canvaschooser', 'canvas');

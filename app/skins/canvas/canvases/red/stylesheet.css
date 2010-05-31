@@ -8,8 +8,28 @@
 
 
 html, body {
-    background-image: none;
-    background: red;
+    background: url('images/bg.png');
+    background-repeat: repeat;
+    background-attachment: fixed;
+}
+
+/*
+    The canvas elements
+*/
+
+.Canvas {
+    width: 960px;
+}
+
+div#header div#search {
+    margin: 0;
+    margin: 10px;
+    padding: 10px;
+    color: gray;
+    width: 360px;
+    position: relative;
+    margin-top: -40px;
+    margin-left: 540px;
 }
 
 #threecolumn div#left {
