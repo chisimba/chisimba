@@ -21,6 +21,12 @@ html, body {
     width: 960px;
 }
 
+#container {
+    background: url('images/overlay50.png');
+    background-repeat: repeat;
+    border-color: grey;
+}
+
 
 div#header div#search {
     margin: 0;

@@ -1,0 +1,14 @@
+{
+    "name": "Yellow",
+    "description": "A simple, minimalist lemon yellow theme for demonstrating the use of the Chisimba canvas. It uses a simple background image, and takes the transparent images from the Metallic skin and changes them to a yellow tint.",
+    "downloadfrom":"http://www.chisimba.com/canvases/yellow.zip",
+    "preview": {
+        "thumb": "yellow_th.png",
+        "fullview":"yellow.png"
+    },
+    "author": {
+        "authorname":"Derek Keats",
+        "email":"derek@dkeats.com",
+        "url":"http://www.dkeats.com"
+    }
+}
