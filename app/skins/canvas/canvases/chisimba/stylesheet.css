@@ -1,0 +1,467 @@
+/*    This is the Chisimba skin for Chisimba. It is derrived from Metallic,
+    which isbased on the CAZPIX skin by Paul Scott. It uses the skin engine
+    version 2 for Chisimba.
+
+    Author: Derek Keats
+    License: GPL V2
+
+    #be792f Chisimba light brown
+    #5a3f1e Chisimba dark brown
+    #4c4d4f Grey
+    
+*/
+
+/*
+    The ovearll page, font and background
+*/
+html, body {
+    color: #5a3f1e;
+    background: silver url('images/bg.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+/*
+    Do the links and headings first so that other selectors can
+    have customized links and headings.
+*/
+a:link, a:visited {
+    color: #414054;
+    text-decoration: none;
+}
+a:hover, a.visited:hover {
+    color: #414054;
+    text-decoration: none;
+    background-color: #cdcdcd;
+}
+
+/*
+    The container is the outer area within the page
+*/
+#container {
+    background: url("images/overlay50.png") top left repeat;
+    border: solid 1px #be792f;
+}
+
+/*
+    The header div. The content of the header is actually in a H1 heading
+*/
+#header {
+    background: url("images/overlay-black.png") top left repeat;
+    border: solid 1px black;
+}
+
+#header a, a.visited {
+    color: #be792f;
+}
+
+#header a:hover, a.visited:hover {
+    color: #5a3f1e;
+    text-decoration: none;
+    background: transparent;
+}
+
+/*
+    This is the site name. Set it to display:none if you
+    use an image banner.
+*/
+h1#sitename {
+    padding: 0px;
+    position: absolute;
+    top: 42px;
+}
+/*  Put an image before the sitename */
+h1#sitename a:before {
+    content:url(images/orchid.png);
+    float: left;
+    margin-right: 10px;
+}
+
+/**
+    BEGIN: Content Feature Box as used for the blocks that
+    appear in the page body
+**/
+.contentfeaturebox {
+    background: url("images/overlay50.png") top left repeat;
+    border: solid #be792f 1px;
+}
+
+/*.contentfeaturebox .hover
+{
+
+        background-color: #f7f7f7;
+
+}*/
+
+.featurebox h1, .featurebox h2, .featurebox h3, .featurebox h4, .featurebox h5, .featurebox h6 {
+    border-bottom: 1px solid #0033FF;
+    color: #414054;
+    background: url("images/overlay25.png") top left repeat;
+    border: none;
+}
+
+/*
+The blog and some other content uses H3 within a contentfeaturebox.
+It is styled here to produce the top part of each blog post so that
+it is offset from the text content.
+*/
+.contentfeaturebox h3 {
+    background: url("images/overlay25.png") top left repeat;
+    border: solid #be792f 1px;
+
+}
+/*
+    The headder of the feature box,  that appears
+    above the content.
+*/
+.featureboxheader
+{
+    background: url("images/overlay-sm.png") top left repeat;
+}
+
+
+/*
+    Styles specifically related to improving the display of
+    the blog
+*/
+
+.blog-head-date {
+    color: gray;
+}
+
+/* The bottom part of each blog post with comments and tags, etc */
+.blog-item-base {
+    background: url('images/overlay25.png');
+    border: 1px groove #be792f;
+}
+
+#contentcontent{
+    margin-bottom:1px;
+    background: url("images/overlay-sm.png") top left repeat;
+    border: none;	
+}
+
+.featurebox,  body.help-popup {
+    background: url("images/overlay-brn-light.png") top left repeat;
+    border: 1px solid #be792f;
+}
+
+.toolbar_menuuser {
+    background: url("images/overlay-sm.png") top left repeat;
+    border: 1px solid  #be792f;
+}
+
+#nav-secondary {
+    background: url("images/overlay-brn-light.png") top left repeat;
+    border: 1px solid  #be792f;
+}
+
+/*
+    The content of the feature box,  below the
+    headder and the secondary nav menu should have
+    icons before the links
+
+.featureboxlink:before, #nav_secondary>li:before {
+    content:url(images/bullet.png);
+    vertical-align: middle;
+}
+*/
+.fblinkbefore {
+     background: url("images/bullet_grey.png") center left no-repeat;
+}
+
+fieldset {
+    background: url("images/overlay-sm.png") top left repeat;  
+    border:0.5px solid #be792f;
+}
+
+.tabcontentstyle {
+    background: url("images/overlay50.png") top left repeat;
+}
+
+fieldset .tabbox {
+    background: url("images/overlay25.png") top left repeat;
+    border:0.5px solid #be792f;
+}
+
+th {
+    background: url("images/overlay-sm.png") top left repeat;  
+    border: 1px solid  #93B3F9 transparent;
+    color: #000000;
+}
+
+th a {
+    color: #000000;
+}
+
+#tabpage1{
+     background: transparent url("images/overlay-sm.png") top left repeat; 
+}
+
+
+
+#footer {
+    background: url("images/overlay-black.png") top left repeat;
+    border: solid 1px black;
+    color: #be792f;
+}
+
+
+#breadcrumbs {
+    background: url("images/overlay-sm.png") top left repeat;  
+}
+
+
+#menu>ul>li {
+    border: 1px solid #be792f;
+}
+
+#menu>ul>li a:hover{
+    background: url("images/overlay-sm.png") top left repeat;
+}
+
+
+#menu li ul {
+    border: 1px solid #be792f;
+}
+
+
+
+#menu li ul li:hover a:hover{
+    background: url("images/overlay-sm.png") top left repeat;  
+}
+
+
+
+
+
+
+form.inplaceeditor-form { /* The form */
+   background-color: #be792f;
+}
+
+
+form.inplaceeditor-saving {
+	background: url(../_common/icons/loader.gif) bottom right no-repeat;
+}
+
+/*
+    Styles for odd/even table rows.
+*/
+td.odd {
+     background: url("images/overlay-sm.png") top left repeat;
+}
+
+td.even {
+     background: url("images/overlay50.png") top left repeat;
+}
+
+th.heading {
+    background: url("images/overlay70.png") top left repeat;
+}
+
+/************ For the stories module *********/
+/*
+    The featurebox that wraps around content
+    in stories on prelogin / postlogin
+*/
+
+#middleblocks .featurebox {
+    background: url("images/overlay-sm.png") top left repeat;
+}
+
+
+.storytitle h3 {
+    background: url("images/overlay25.png") top left repeat;
+    border: solid #be792f 1px;
+}
+.storyauthor {
+    background: url("images/overlay25.png") top left repeat;
+}
+
+.currentstory {
+    background: url("images/overlay25.png") top left repeat;
+    border: solid #be792f 1px;
+}
+
+.currentstory p {
+    line-height: 160%;
+}
+
+/** Warning text **/
+p.warning {
+    color: brown;
+}
+
+/** Wiki specific styles **/
+#ratingDiv {
+    background: url("images/overlay25.png") top left repeat;
+}
+
+#ratingTabnav1 {
+    background: url("images/overlay25.png") top left repeat;
+}
+
+#input_value {
+    background: url("images/overlay-sm.png") top left repeat;  
+}
+
+.WCHhider {
+    background: url("images/overlay-sm.png") top left repeat;
+}
+
+/** Discussion forum specific styles */
+
+.forumBlock legend {
+    background: url("images/overlay50.png") top left repeat;
+    border: solid #be792f 1px;
+}
+
+
+.newForumContainer {
+    background: transparent url("images/overlay-sm.png") top left repeat;
+    border: 1px solid #be792f;
+}
+
+.newForumTopic {
+    background:transparent url("images/overlay-brn-light.png") top left repeat;
+    
+}
+
+.newForumContent {
+    background: transparent;
+    border-top: 1px solid #be792f;
+}
+
+.allforums {
+    background: url("images/overlay-sm.png") top left repeat;
+}
+.allforums th {
+    border: 0;
+    border-bottom: solid 1px #be792f;
+}
+
+/** Twitter module blocks styles **/
+.query {
+  color: #085258;
+
+}
+.query .tweet_list li a {
+    color: #0C717A;
+}
+
+.query .tweet_list .tweet_even {
+    background: url("images/overlay50.png") top left repeat;
+}
+
+.query .tweet_list .tweet_odd {
+    background: url("images/overlay-sm.png") top left repeat;
+}
+
+#myLastTweet {
+  color: #085258;
+}
+
+/** Fix latest 10 blog block */
+#lastten p:before {
+    content:url(images/bullet.png);
+}
+
+
+/** Fix latest post for forum */
+/*@todo*/
+
+/** Fix up personal blocks **/
+
+.middleblock {
+    background: url("images/overlay25.png") top left repeat;
+    border: solid #be792f 1px;
+}
+
+/** Fix up some photogallery styles */
+
+#albums .album {
+    background: url("images/overlay25.png") top left repeat;
+}
+
+.imagethumb a {
+    background: url("images/overlay25.png") top left repeat;
+}
+
+.imagethumb a:visited {
+    background: url("images/overlay50.png") top left repeat;
+}
+/* The layer that the thumbs are displayed into */
+#main2 {
+    background: url("images/overlay-sm.png") top left repeat;
+}
+
+/**
+For the blog blocks displayed as a middle block
+**/
+.blogpreview {
+    background: url("images/overlay-sm.png") top left repeat;
+}
+
+
+/**
+Homepage styles
+**/
+#homepagestats {
+    background: url("images/overlay-sm.png") top left repeat;
+}
+
+/**
+Can we wrap standard forms so they can be styled?
+**/
+.standard_form {
+    background: url("images/overlay-sm.png") top left repeat;
+}
+
+/**
+Errors and warnings
+**/
+.warning:before {
+    content:url(images/warning-icon.png);
+}
+.error:before {
+    content:url(images/error-icon.png);
+}
+
+/**
+Skin chooser dropdown
+**/
+#input_skinlocation {
+    background: url("images/overlay-sm.png") top left repeat;
+}
+
+/**
+Creative commons file license selectors
+**/
+
+#input_creativecommons_fileupload1,
+#input_creativecommons_fileupload2,
+#input_creativecommons_fileupload3 {
+    background: url("images/overlay-sm.png") top left repeat;
+}
+
+/**
+File create folder
+**/
+form#form_createfolder{
+    background: url("images/overlay-sm.png") top left repeat;
+}
+
+/******   ALL RESETS FOR SPECIFIC SELECTORS ********/
+.colorbox h3 {
+    background: transparent;
+    margin:0;
+    border:0;
+    outline:0;
+    padding: 0;
+    margin-bottom:10px;
+    margin-top:10px;
+    border-radius: 0px;
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    -khtml-border-radius: 0px;
+}
