@@ -4,15 +4,25 @@ define("PAGETOP", '<a name="pagetop"></a>');
 define("GOTOTOP", '<a href="#pagetop">Top</a>'); // @todo change this to an icon
 
 // Define the valid canvases for this skin as an array.
-$validCanvases = array("_default","greyfloral", "red", "blue", "yellow");
+$validCanvases = array("_default", "chisimba", "greyfloral", "red", "blue", "yellow");
+
+// Settings that are needed so that canvase-aware code can function
+$this->setSession('isCanvas', TRUE);
+$this->setSession('sourceSkin', 'canvas');
+$this->setSession('layout', '_DEFAULT');
 
 // Instantiate the canvas object.
 $objCanvas = $this->getObject('canvaschooser', 'canvas');
 
+
 // Set the skin base for the default.
 $skinBase='skins/canvas/canvases/';
 if (isset ($canvas)) {
+    $this->setSession('canvasType', 'programmatic');
+    $this->setSession('canvas', $canvas);
     $canvas = $skinBase . $canvas;
+} elseif ($prefCanvas) {
+    //$canvas = $skinBase . $prefCanvas;
 } else {
     // Get what canvas we should be showing
     $canvas = $objCanvas->getCanvas($validCanvases, $skinBase);
