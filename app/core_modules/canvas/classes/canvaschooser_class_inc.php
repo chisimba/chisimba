@@ -182,10 +182,14 @@ class canvaschooser extends controller
             } else {
                 $objUserParams = $this->getObject("dbuserparamsadmin","userparamsadmin");
                 $canvasPref = $objUserParams->getValue("canvas");
+                if (!$canvasPref) {
+                    return FALSE;
+                } else {
+                    $this->setSession('canvasType', 'user');
+                    $this->setSession('canvas', $canvasPref);
+                    return 'usrfiles/users/' . $this->objUser->userId() . '/canvases/' . $canvasPref . '/';
+                }
             }
-            $this->setSession('canvasType', 'user');
-            $this->setSession('canvas', $canvasPref);
-            return 'usrfiles/users/' . $this->objUser->userId() . '/canvases/' . $canvasPref . '/';
         } else {
             return FALSE;
         }
