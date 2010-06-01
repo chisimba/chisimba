@@ -4,7 +4,7 @@ define("PAGETOP", '<a name="pagetop"></a>');
 define("GOTOTOP", '<a href="#pagetop">Top</a>'); // @todo change this to an icon
 
 // Define the valid canvases for this skin as an array.
-$validCanvases = array("_default", "chisimba", "greyfloral", "red", "blue", "yellow");
+$validCanvases = array("_default", "chisimba", "experim", "greyfloral", "red", "blue", "yellow");
 
 // Settings that are needed so that canvase-aware code can function
 $this->setSession('isCanvas', TRUE);
@@ -147,7 +147,7 @@ if (!isset($suppressFooter)) {
 }
 // Render the container's closing div if the container is not suppressed
 if (!isset($pageSuppressContainer)) {
-    echo "<div id='Canvas_AfterContainer'></div></div>\n</div>\n</div>";
+    echo "</div><div id='Canvas_AfterContainer'></div>\n</div>\n</div>";
 }
 
 

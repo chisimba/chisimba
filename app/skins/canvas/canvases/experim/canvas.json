@@ -1,0 +1,14 @@
+{
+    "name": "Experimental",
+    "description": "An experimental skin that will always be a work in progress.",
+    "downloadfrom":"http://www.chisimba.com/canvases/experim.zip",
+    "preview": {
+        "thumb": "experim_th.png",
+        "fullview":"experim.png"
+    },
+    "author": {
+        "authorname":"Derek Keats",
+        "email":"derek@dkeats.com",
+        "url":"http://www.dkeats.com"
+    }
+}
