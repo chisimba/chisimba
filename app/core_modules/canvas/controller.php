@@ -97,6 +97,8 @@ class canvas extends controller
         $this->objConfig = $this->getObject('config', 'config');
         // Create an instance of the master canvas class
         $this->objMasterCanvas = & $this->getObject('mastercanvas', 'canvas');
+        // Set the canvas for this module
+        $this->setVar('canvas', 'modcanvas');
         //Get the activity logger class
         $this->objLog=$this->newObject('logactivity', 'logger');
         // Log this module call
@@ -157,11 +159,23 @@ class canvas extends controller
             $str .= "<br /><span class='error'>You are NOT in a canvas.</span>";
         }
         $this->setVarByRef('str', $str);
-        $this->setVar('canvas', 'red');
         $this->setPageTemplate('canvaspage_template.php');
-        return "dump_tpl.php";
+        //return "dump_tpl.php";
+        return "main_tpl.php";
     }
     
+    /**
+    * 
+    * Method corresponding to the edit action. It sets the mode to 
+    * edit and returns the edit template.
+    * @access private
+    * 
+    */
+    private function __select()
+    {
+        return 'main_tpl.php';
+    }
+
     /**
     * 
     * Method corresponding to the edit action. It sets the mode to 
