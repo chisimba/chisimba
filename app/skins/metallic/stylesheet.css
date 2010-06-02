@@ -67,7 +67,7 @@ h1, h2, h3, h4, h5, h6 {
     -webkit-border-radius: 30px;
     -khtml-border-radius: 30px;
     margin: 25px;
-    padding: 10px;
+    padding: 6px;
     border: 2px solid #ffffff;
 }
 
@@ -128,7 +128,10 @@ h1#sitename {
     border-radius: 30px;
     -webkit-border-radius: 30px;
     -khtml-border-radius: 30px;
-    margin: 15px;
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-top: 15px;
+    margin-bottom: 5px;
     line-height: 130%;
 }
 
@@ -141,8 +144,8 @@ h1#sitename {
     border: none;
 }
 
-.contenttest {
-    color: #003366
+#content {
+    padding: 0px;
 }
 
 /*
@@ -229,7 +232,9 @@ div#header div#search {
 #left, #right {
     background: transparent;
     border: none;
+    margin-left: 0px;
 }
+
 #leftcontent {
 
 }
@@ -279,7 +284,10 @@ div#header div#search {
 }
 
 .featurebox,  body.help-popup {
-    margin: 5px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     background: url("images/overlay-sm.png") top left repeat;
     border: 1px solid  #fffff;
     -webkit-border-radius: 10px;
@@ -289,7 +297,10 @@ div#header div#search {
 }
 
 .toolbar_menuuser {
-    margin: 5px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     background: url("images/overlay-sm.png") top left repeat;
     border: 1px solid  #fffff;
     -webkit-border-radius: 10px;
@@ -307,7 +318,10 @@ div#header div#search {
 }
 
 #nav-secondary {
-    margin: 5px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     background: url("images/overlay-sm.png") top left repeat;
     border: none;
     padding: 10px;
@@ -895,6 +909,19 @@ fieldset.forumBlock legend {
   font-family: Arial, serif;
   font-size: 80%;
   color: #085258;
+}
+
+/** Twitter related tweets **/
+.related-tweets {
+
+}
+
+.rrt-body {
+    
+}
+
+.rrt-inner {
+    
 }
 
 /** Fix latest 10 blog block */
