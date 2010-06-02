@@ -56,6 +56,11 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 5px;
 }
 
+#Canvas_Content {
+    padding:0px;
+    margin: 25px;
+}
+
 /*
     The container is the outer area within the page
 */
@@ -66,7 +71,7 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 30px;
     -webkit-border-radius: 30px;
     -khtml-border-radius: 30px;
-    margin: 25px;
+    margin: 0px;
     padding: 6px;
     border: 2px solid #ffffff;
 }
