@@ -111,7 +111,7 @@ h1, h2, h3, h4, h5, h6 {
 h1#sitename {
     padding: 0px;
     position: absolute;
-    top: 36px;
+    top: 10px;
 }
 
 /**
@@ -227,7 +227,7 @@ div#header div#search {
     padding: 10px;
     position: absolute;
     color: gray;
-    top: 38px;
+    top: 11px;
     right: 30px;
     width: 360px;
 }
