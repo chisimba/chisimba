@@ -1537,6 +1537,8 @@ ul.htmlliststyle li:before {
 
 .canvasthumb img {
     margin-left: 5px;
+    margin-top: 2px;
+    margin-bottom: 2px;
 }
 
 /******   ALL RESETS FOR SPECIFIC SELECTORS ********/
