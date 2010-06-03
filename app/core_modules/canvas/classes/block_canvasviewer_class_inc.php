@@ -106,7 +106,7 @@ class block_canvasviewer extends object
         // Get the type of canvases
         $cType = $this->getParam('ctype', 'personal');
         // Get the viewer
-        $objViewer = $this->getObject('getcanvases', 'canvas');
+        $objViewer = $this->getObject('getcanv', 'canvas');
         $ret = $objViewer->getCanvases($cType);
         return $ret;
     }
