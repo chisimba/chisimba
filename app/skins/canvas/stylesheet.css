@@ -13,3 +13,17 @@
     
 */
 @import "../metallic/stylesheet.css";
+
+/*
+    This is the site name. Set it to display:none if you
+    use an image banner.
+*/
+h1#sitename {
+    padding: 0px;
+    position: absolute;
+    top: 38px;
+}
+
+div#header div#search {
+    margin-top: 30px;
+}
