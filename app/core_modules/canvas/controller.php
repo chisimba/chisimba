@@ -172,8 +172,24 @@ class canvas extends controller
     */
     private function __select()
     {
-        $this->setPageTemplate('canvaspage_template.php');
+        //$this->setPageTemplate('page_template.php');
         return "main_tpl.php";
+    }
+
+    private function __save()
+    {
+        $pname = $this->getParam('pname');
+        $ptag = $this->getParam('ptag');
+        $objDbUserparamsadmin = & $this->getObject("dbuserparamsadmin", "userparamsadmin");
+        $objDbUserparamsadmin->writeProperties($this->getParam('mode', 'edit'), $this->objUser->userId(), $pname, $ptag);
+        $this->nextAction(null,null,'canvas');
+    }
+
+    private function __ask()
+    {
+        $this->setvar('str', $this->objLanguage->languageText("mod_canvas_ask", "canvas"));
+        $this->setPageTemplate('page_template.php');
+        return "edit_tpl.php";
     }
     
     /**

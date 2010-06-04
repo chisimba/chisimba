@@ -347,7 +347,7 @@ class getcanv extends object
             $divTag = "<div class='canvasthumb'>";
             $divClose = "</div>";
             $canvasName = $jsonObj->name;
-            //$canvasName = $this->getChooserLink($canvas);
+            $canvasName = $this->getChooserLink($canvasName);
             $anchor = "<a href='" . $dirToOpen
               . $canvas . "/" . $jsonObj->preview->fullview . "' rel='facebox'>";
             $anchorClose = "</a>";
@@ -367,18 +367,17 @@ class getcanv extends object
     private function getChooserLink($canvas)
     {
         $ln = $this->uri(
-          array('action' => 'edit',
+          array('action' => 'ask',
             'key' => 'canvas',
-            'value' => $canvas,
-            'suppressall' => 'TRUE'),
-            'userparamsadmin');
+            'value' => $canvas),
+            'canvas');
         $objLink = new link($ln);
         $objLink->link = $canvas;
         $objLink->rel='facebox';
         return $objLink->show();
     }
 
-    private function chooseCanvas()
+    private function getEditLink()
     {
         
     }
