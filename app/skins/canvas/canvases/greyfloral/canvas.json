@@ -1,10 +1,10 @@
 {
-    "name": "Grey floral",
+    "name": "greyfloral",
     "description": "A simple, minimalist grey floral theme for demonstrating the use of the Chisimba canvas. It uses a simple background image, and a fixed width canvas.",
-    "downloadfrom":"http://www.chisimba.com/canvases/floralgrey.zip",
+    "downloadfrom":"http://www.chisimba.com/canvases/greyfloral.zip",
     "preview": {
-        "thumb": "floralgrey_th.png",
-        "fullview":"floralgrey.png"
+        "thumb": "greyfloral_th.png",
+        "fullview":"greyfloral.png"
     },
     "author": {
         "authorname":"Derek Keats",
