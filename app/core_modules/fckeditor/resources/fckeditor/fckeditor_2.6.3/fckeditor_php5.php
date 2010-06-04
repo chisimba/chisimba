@@ -130,7 +130,7 @@ class FCKeditor
     public function __construct( $instanceName )
     {
         $this->InstanceName	= $instanceName ;
-        $this->BasePath		= '/fckeditor/' ;
+        $this->BasePath		= 'core_modules/fckeditor/' ;
         $this->Width		= '100%' ;
         $this->Height		= '200' ;
         $this->ToolbarSet	= 'Default' ;
