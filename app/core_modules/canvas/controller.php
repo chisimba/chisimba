@@ -118,7 +118,7 @@ class canvas extends controller
     public function dispatch()
     {
         //Get action from query string and set default to view
-        $action=$this->getParam('action', 'view');
+        $action=$this->getParam('action', 'select');
         // retrieve the mode (edit/add/translate) from the querystring
         $mode = $this->getParam("mode", null);
         // retrieve the sort order from the querystring
@@ -159,86 +159,22 @@ class canvas extends controller
             $str .= "<br /><span class='error'>You are NOT in a canvas.</span>";
         }
         $this->setVarByRef('str', $str);
-        $this->setPageTemplate('canvaspage_template.php');
-        //return "dump_tpl.php";
-        return "main_tpl.php";
+        return "dump_tpl.php";
+        
     }
     
     /**
     * 
-    * Method corresponding to the edit action. It sets the mode to 
-    * edit and returns the edit template.
+    * Method corresponding to the select action. It allows you to view canvas
+    * thumbnails and select a personal or skin canvas.
     * @access private
     * 
     */
     private function __select()
     {
-        return 'main_tpl.php';
+        $this->setPageTemplate('canvaspage_template.php');
+        return "main_tpl.php";
     }
-
-    /**
-    * 
-    * Method corresponding to the edit action. It sets the mode to 
-    * edit and returns the edit template.
-    * @access private
-    * 
-    */
-    private function __edit()
-    {
-        $this->setvar('mode', "edit");
-        return 'editform_tpl.php';
-    }
-
-    /**
-    * 
-    * Method corresponding to the add action. It sets the mode to 
-    * add and returns the edit content template.
-    * @access private
-    * 
-    */
-    private function __add()
-    {
-        $this->setvar('mode', 'add');
-        return 'editform_tpl.php';
-    }
-    
-   
-    /**
-    * 
-    * Method corresponding to the save action. It gets the mode from 
-    * the querystring to and saves the data then sets nextAction to be 
-    * null, which returns the {yourmodulename} module in view mode. 
-    * 
-    * @access private
-    * 
-    */
-    private function __save()
-    {
-        $mode = $this->getParam("mode", NULL);
-        $this->objDbcanvas->save($mode);
-        return $this->nextAction(NULL);
-    }
-    
-    /**
-    * 
-    * Method corresponding to the delete action. It requires a 
-    * confirmation, and then delets the item, and then sets 
-    * nextAction to be null, which returns the {yourmodulename} module 
-    * in view mode. 
-    * 
-    * @access private
-    * 
-    */
-    private function __delete()
-    {
-        // retrieve the confirmation code from the querystring
-        $confirm=$this->getParam("confirm", "no");
-        if ($confirm=="yes") {
-            $this->deleteItem();
-            return $this->nextAction(NULL);
-        }
-    }
-    
     
     /**
     * 

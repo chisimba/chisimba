@@ -89,7 +89,10 @@ class canvaschooser extends controller
     /**
      *
      * Identify and return the name of the canvas we should be using
-     * to display our content.
+     * to display our content. Loosely speaking this implenents a chain
+     * of responsibility design pattern, calling guessCanvas() to estimate
+     * which canvas to display. New methods to render canvases, together
+     * with their circumstances should be added to guessCanvas().
      *
      * @param  string array $validCanvases An array of valid canvases sent by
      *  the skin that is being rendered. This is required for use of the
@@ -150,11 +153,11 @@ class canvaschooser extends controller
     {
         if ($this->canvasType) {
             $retMethod = $this->canvasType;
-            return $this->$retMethod($skinBase);
+            return $this->$_retMethod($skinBase);
         // Get the user preference first
-        } elseif ($ret = $this->user($skinBase)) {
+        } elseif ($ret = $this->_user($skinBase)) {
             return $ret;
-        } elseif ($ret = $this->site($skinBase)) {
+        } elseif ($ret = $this->_site($skinBase)) {
             return $ret;
         } else {
             // See if they have a user preference set
@@ -173,7 +176,7 @@ class canvaschooser extends controller
      * @access public
      *
      */
-    public function user($skinBase)
+    public function _user($skinBase)
     {
         if ($this->objUser->isLoggedIn()) {
             // Check for a canvasdir directory in the  querystring
@@ -205,7 +208,7 @@ class canvaschooser extends controller
     * @access public
     *
     */
-    public function site($skinBase)
+    public function _site($skinBase)
     {
         // Check for preferred site canvas
         $this->objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
@@ -217,12 +220,12 @@ class canvaschooser extends controller
         }
     }
 
-    public function module($skinBase)
+    public function _module($skinBase)
     {
         die("NOT READY YET");
     }
 
-    public function nodal($skinBase)
+    public function _nodal($skinBase)
     {
         die("NOT READY YET");
     }
