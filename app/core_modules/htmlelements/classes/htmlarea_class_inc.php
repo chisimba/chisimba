@@ -189,8 +189,8 @@ class htmlarea extends object {
      * Method to display the WYSIWYG Editor
      */
     function show() {
-     if ($this->fckVersion == '2.5.1') {
-      return $this->showFCKEditor($version = '2.5.1');
+     if (($this->fckVersion == '2.5.1') || ($this->fckVersion == '2.6.3')) {
+      return $this->showFCKEditor($this->fckVersion);
      } else {
         $base = '<script language="JavaScript" src="'.$this->getResourceUri('ckeditor/ckeditor.js','ckeditor').'" type="text/javascript"></script>';
         $baseajax = '<script language="JavaScript" src="'.$this->getResourceUri('ckeditor/_source/core/ajax.js','ckeditor').'" type="text/javascript"></script>';
