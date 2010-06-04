@@ -168,6 +168,7 @@ class canvas extends controller
     * Method corresponding to the select action. It allows you to view canvas
     * thumbnails and select a personal or skin canvas.
     * @access private
+     * @return string The populated template
     * 
     */
     private function __select()
@@ -176,6 +177,13 @@ class canvas extends controller
         return "main_tpl.php";
     }
 
+    /**
+     *
+     * Save method for saving a user's choice of personal canvas
+     * @access private
+     * @return void
+     *
+     */
     private function __save()
     {
         $pname = $this->getParam('pname');
@@ -185,6 +193,14 @@ class canvas extends controller
         $this->nextAction(null,null,'canvas');
     }
 
+    /**
+     *
+     * Present the form for adding a choice of personal canvas
+     *
+     * @return string Populated template
+     * @access private
+     *
+     */
     private function __ask()
     {
         $this->setvar('str', $this->objLanguage->languageText("mod_canvas_ask", "canvas"));
