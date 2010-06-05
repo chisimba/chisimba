@@ -203,9 +203,22 @@ class canvas extends controller
      */
     private function __ask()
     {
-        $this->setvar('str', $this->objLanguage->languageText("mod_canvas_ask", "canvas"));
+        $canvasType = $this->getParam('type', FALSE);
         $this->setPageTemplate('page_template.php');
-        return "edit_tpl.php";
+        switch ($canvasType) {
+            case 'personal':
+                $this->setvar('str', $this->objLanguage->languageText("mod_canvas_ask", "canvas"));
+                return "edit_tpl.php";
+                break;
+            case 'skin':
+                $objConfig = $this->getObject('dbsysconfig', 'sysconfig');
+                $canvas = $this->getParam('value', "_default");
+                $objConfig->changeParam('canvas_preferredcanvas', 'canvas', $canvas);
+                $this->setVar('str', $this->objLanguage->languageText("mod_canvas_skinset","canvas") . ": <b>" . $canvas . "</b>");
+                return "dump_tpl.php";
+                break;
+        }
+
     }
     
     /**

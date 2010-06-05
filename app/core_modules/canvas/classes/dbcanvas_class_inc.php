@@ -65,7 +65,13 @@ class dbcanvas extends dbtable
     */
     public function init()
     {
-        //Set the parent table here
+    }
+
+    public function saveSkinCanvas($canvas)
+    {
+        $objConfig = $this->getObject('dbsysconfig', 'sysconfig');
+        $objConfig->changeParam('canvas_preferredcanvas', 'canvas', $canvas);
+        return TRUE;
     }
 
 }
