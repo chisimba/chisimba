@@ -111,7 +111,7 @@ h1, h2, h3, h4, h5, h6 {
 h1#sitename {
     padding: 0px;
     position: absolute;
-    top: 10px;
+    top: 38px;
 }
 
 /**
@@ -227,7 +227,7 @@ div#header div#search {
     padding: 10px;
     position: absolute;
     color: gray;
-    top: 11px;
+    top: 34px;
     right: 30px;
     width: 360px;
 }
@@ -602,6 +602,10 @@ th.heading {
 */
 #middleblocks .featurebox {
     border: none;
+}
+
+.allstories {
+    backgroun: red;
 }
 
 .storytitle h3 {

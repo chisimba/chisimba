@@ -1,4 +1,12 @@
 <?php
+/*
+ * METALLIC
+ *
+ * This is the page template in the Metallic skin. Metallic is an attempt
+ * to cover a significant component of the look and feel of Chisimba so that
+ * it can serve as the basis for building other skins.
+ *
+ */
 // Add navigation back to top of page.
 define("PAGETOP", '<a name="pagetop"></a>');
 define("GOTOTOP", '<a href="#pagetop">Top</a>'); // @todo change this to an icon
@@ -44,9 +52,12 @@ if (isset($bodyParams)) {
     echo '<body>';
 }
 
-// Render the container unless it is suppressed.
+// Render the container & canvas elements unless it is suppressed.
 if (!isset($pageSuppressContainer)) {
-    echo '<div id="container">';
+    echo "<div class='Canvas' id='_default'>\n"
+      . "<div id='Canvas_Content'>\n"
+      . "<div id='Canvas_BeforeContainer'></div>"
+      . "<div id='container'>";
 }
 
 // Render the banner area unless it is suppressed
@@ -106,7 +117,7 @@ if (!isset($suppressFooter)) {
 }
 // Render the container's closing div if the container is not suppressed
 if (!isset($pageSuppressContainer)) {
-    echo '</div>';
+    echo "</div><div id='Canvas_AfterContainer'></div>\n</div>\n</div>";
 }
 // Render any messages available.
 $this->putMessages();
