@@ -1,0 +1,14 @@
+{
+    "name": "_DEFAULT",
+    "description": "A reproduceable canvas that simply implements the underlying skin.",
+    "downloadfrom":"http://www.chisimba.com/canvases/_DEFAULT.zip",
+    "preview": {
+        "thumb": "_DEFAULT_th.png",
+        "fullview":"DEFAULT.png"
+    },
+    "author": {
+        "authorname":"Derek Keats",
+        "email":"derek@dkeats.com",
+        "url":"http://www.dkeats.com"
+    }
+}
