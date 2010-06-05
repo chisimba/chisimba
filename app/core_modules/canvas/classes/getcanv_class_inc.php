@@ -115,8 +115,8 @@ class getcanv extends object
 
     /**
      *
-     * Load the alertbox facebox script into the page and add the jQuery to
-     * activate those links with rel=facebox.
+     * Load the greybox modal window script into the page and add the jQuery to
+     * activate those links with rel=gb_image[].
      *
      * @return boolean TRUE
      * @access private
@@ -131,7 +131,9 @@ class getcanv extends object
   $(\'a[rel*=facebox]\').facebox()
 })
 </script>');
-            return TRUE;
+            /*$objGreyboxLoader = & $this->getObject('greyboxloader', 'greybox');
+            $objGreyboxLoader->loadAll();
+            return TRUE;*/
         } catch(Exception $e) {
             throw customException($e->message());
             exit();
@@ -322,7 +324,7 @@ class getcanv extends object
             $canvasName = $jsonObj->name . "<br />";
             $canvasName = $this->getSkinChooserLink($canvas);
             $anchor = "<a href='" . $dirToOpen
-              . $canvas . "/" . $jsonObj->preview->fullview . "' rel='facebox'>";
+              . $canvas . "/" . $jsonObj->preview->fullview . "' rel='facebox'>"; //gb_imageset[personal_canvases]
             $anchorClose = "</a>";
             $imageLink = "<img src='" . $dirToOpen
               . $canvas ."/" . $jsonObj->preview->thumb . "' />";
@@ -349,7 +351,7 @@ class getcanv extends object
             $canvasName = $jsonObj->name;
             $canvasName = $this->getSkinChooserLink($canvasName, 'skin');
             $anchor = "<a href='" . $dirToOpen
-              . $canvas . "/" . $jsonObj->preview->fullview . "' rel='facebox'>";
+              . $canvas . "/" . $jsonObj->preview->fullview . "' rel='facebox'>"; //gb_imageset[skin_canvases]
             $anchorClose = "</a>";
             $imageLink = "<img src='" . $dirToOpen
               . $canvas ."/" . $jsonObj->preview->thumb . "' />";
@@ -374,7 +376,7 @@ class getcanv extends object
             'canvas');
         $objLink = new link($ln);
         $objLink->link = $canvas;
-        $objLink->rel='facebox';
+        $objLink->rel='facebox'; //gb_page_center[640, 480]
         return $objLink->show();
     }
 }
