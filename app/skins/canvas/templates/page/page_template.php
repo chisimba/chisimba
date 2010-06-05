@@ -1,10 +1,18 @@
 <?php
+/*
+ * CANVAS
+ *
+ * This is the page template in the Canvas skin, an attempt to develop a
+ * skin - canvas approach to Chisimba.
+ * 
+ */
+
 // Add navigation back to top of page.
 define("PAGETOP", '<a name="pagetop"></a>');
 define("GOTOTOP", '<a href="#pagetop">Top</a>'); // @todo change this to an icon
 
 // Define the valid canvases for this skin as an array.
-$validCanvases = array("_default", "aqua", "chisimba", "experim", "greyfloral", "modcanvas", "red", "blue", "yellow");
+$validCanvases = array("_default", "aqua", "beach", "chisimba", "experim", "greyfloral", "modcanvas", "red", "blue", "yellow");
 
 // Define the name of this skin.
 $skinName = "canvas";
@@ -78,7 +86,7 @@ if (isset($bodyParams)) {
 
 // --------------- BELONGS IN LAYOUT TEMPLATE
 
-// Render the container unless it is suppressed.
+// Render the container & canvas elements unless it is suppressed.
 if (!isset($pageSuppressContainer)) {
     echo "<div class='Canvas' id='_default'>\n"
       . "<div id='Canvas_Content'>\n"

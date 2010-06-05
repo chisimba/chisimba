@@ -196,8 +196,8 @@ Credits: Dynamic Drive CSS Library
 http://www.dynamicdrive.com/style/csslibrary/item/modern-bricks-menu/
 
 */
-    background: url("images/overlay-sm.png") top left repeat;
-}
+    /*background: url("images/overlay-sm.png") top left repeat;
+}*/
 
 #modernbricksmenu a:hover{
     background: url("images/overlay-sm.png") top left repeat;
