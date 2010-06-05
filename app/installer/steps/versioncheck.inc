@@ -305,12 +305,8 @@ class PHPCheckAction extends StepAction
         }
 
         // check dom
-        $version = null;
-        $encoding = null;
 
-        $dom = new DOMDocument($version,$encoding);
-
-        if (!is_object($dom)) {
+        if (!extension_loaded('dom')) {
 
             $this->required_settings['dom']['available'] = false;
 
