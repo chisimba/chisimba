@@ -61,6 +61,9 @@ h1, h2, h3, h4, h5, h6 {
     margin: 25px;
 }
 
+
+
+
 /*
     The container is the outer area within the page
 */
@@ -103,6 +106,7 @@ h1, h2, h3, h4, h5, h6 {
     text-decoration: none;
     background: transparent;
 }
+
 
 /*
     This is the site name. Set it to display:none if you
@@ -147,10 +151,6 @@ h1#sitename {
     color: #414054;
     background: url("images/overlay25.png") top left repeat;
     border: none;
-}
-
-#content {
-    padding: 0px;
 }
 
 /*
@@ -285,7 +285,7 @@ div#header div#search {
 #contentcontent{
     margin-bottom:1px;
     background: url("images/overlay-sm.png") top left repeat;
-    border: none;	
+    border: none;
 }
 
 .featurebox,  body.help-popup {
@@ -375,12 +375,12 @@ div#header div#search {
 }
 
 .featureboxlink {
-   
+
 }
 
 
 fieldset {
-    background: url("images/overlay-sm.png") top left repeat;  
+    background: url("images/overlay-sm.png") top left repeat;
     border: none;
     /*border: 1px solid #D8E9F6;*/
     border:0.5px solid #ffffff;
@@ -419,7 +419,7 @@ form {
 }
 
 th {
-    background: url("images/overlay-sm.png") top left repeat;  
+    background: url("images/overlay-sm.png") top left repeat;
     color: #000000;
     margin:10px;
 
@@ -434,13 +434,13 @@ th a {
 }
 
 #tabpage1{
-     background: transparent url("images/overlay-sm.png") top left repeat; 
+     background: transparent url("images/overlay-sm.png") top left repeat;
 }
 
 
 
 #footer {
-    background: url("images/overlay-sm.png") top left repeat;  
+    background: url("images/overlay-sm.png") top left repeat;
     border: 1px red;
     padding: 5px;
     margin-top: 5px;
@@ -464,7 +464,7 @@ th a {
     padding-left: 10px;
     padding-bottom:5px;
     margin-top: 45px;
-    background: url("images/overlay-sm.png") top left repeat;  
+    background: url("images/overlay-sm.png") top left repeat;
     border: none;
     height: 28px;
 }
@@ -486,7 +486,7 @@ th a {
     border-radius: 8px;
     -webkit-border-radius: 8px;
     -khtml-border-radius: 8px;
-    
+
 }
 /* The top bar with the mouse over */
 #menu>ul>li a:hover{
@@ -723,12 +723,12 @@ http://www.dynamicdrive.com/style/csslibrary/item/modern-bricks-menu/
     padding: 5px 10px;
     text-decoration: none;
     letter-spacing: 1px;
-    background: url("images/overlay-sm.png") top left repeat;  
+    background: url("images/overlay-sm.png") top left repeat;
     border: none;
 }
 
 #modernbricksmenu a:hover{
-    background: url("images/overlay-sm.png") top left repeat;  
+    background: url("images/overlay-sm.png") top left repeat;
     border: none;
     border-color: blue; /*Blue color theme*/
     color: blue;
@@ -736,7 +736,7 @@ http://www.dynamicdrive.com/style/csslibrary/item/modern-bricks-menu/
 
 #modernbricksmenu #current a{ /*currently selected tab*/
 	background: url("images/overlay50.png") top left repeat;
-	border: none; 
+	border: none;
 	border-radius-topleft: 5px;
 	-moz-border-radius-topleft: 5px;
         -webkit-border-top-left-radius: 5px;
@@ -757,7 +757,7 @@ http://www.dynamicdrive.com/style/csslibrary/item/modern-bricks-menu/
     width: 100%;
     height: 5px;
     line-height: 5px;
-    background: url("images/overlay-sm.png") top left repeat;  
+    background: url("images/overlay-sm.png") top left repeat;
     border: none;
 }
 
@@ -779,7 +779,7 @@ img.storyimage {
 }
 
 #input_value {
-    background: url("images/overlay-sm.png") top left repeat;  
+    background: url("images/overlay-sm.png") top left repeat;
     width: 160px;
     margin-top:-8px;
     margin-bottom:5px;
@@ -926,11 +926,11 @@ fieldset.forumBlock legend {
 }
 
 .rrt-body {
-    
+
 }
 
 .rrt-inner {
-    
+
 }
 
 /** Fix latest 10 blog block */
