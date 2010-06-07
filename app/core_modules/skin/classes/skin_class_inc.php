@@ -15,10 +15,19 @@ class skin extends object
     /**
      * Instance of the modules object in the modulecatalogue module.
      *
-     * @var object
+     * @var string object objModules
+     * @access public
+     *
      */
     protected $objModules;
 
+    /**
+     *
+     * The filename for the skin CSS file
+     *
+     * @var string $skinFile
+     * @Access public
+     */
     public $skinFile = 'stylesheet.css';
 
     public function init()
@@ -44,7 +53,6 @@ class skin extends object
 
         // Browser Detection Class
         $this->browserInfo = $this->getObject('browser');
-
         $this->skinRoot = $this->objConfig->getskinRoot();
         
         
@@ -77,7 +85,6 @@ class skin extends object
     public function getSkinUrl()
     {
         $this->validateSkinSession();
-
         return $this->objConfig->getskinRoot().$this->getSession('skin').'/';
     }
 
@@ -92,23 +99,21 @@ class skin extends object
     * @return String the current skins engine type.
     */
     public function getSkinEngine($skinPath = '')
-	{
-		if ($skinPath == '') {
-			$skinPath = $this->getSkinLocation();
-		}
-
-		//Load skin.conf
-		$skinConfigFile = $skinPath . 'skin.conf';
-
-		if (file_exists($skinConfigFile)) {
-			$skinData = $this->readConf($skinConfigFile);
-			$this->skinEngine = $skinData['SKIN_ENGINE'];
-			return $this->skinEngine;
-		} else {
-			//If new skin config file doesn't exist defaulting to old skin engine
-			return 'default';
-		}
-	}
+    {
+        if ($skinPath == '') {
+            $skinPath = $this->getSkinLocation();
+        }
+        //Load skin.conf
+        $skinConfigFile = $skinPath . 'skin.conf';
+        if (file_exists($skinConfigFile)) {
+            $skinData = $this->readConf($skinConfigFile);
+            $this->skinEngine = $skinData['SKIN_ENGINE'];
+            return $this->skinEngine;
+        } else {
+            //If new skin config file doesn't exist defaulting to old skin engine
+            return 'default';
+        }
+    }
 
     /**
     * Method to validate whether a skin session exists, or has been changed
@@ -120,42 +125,36 @@ class skin extends object
     */
     public function validateSkinSession()
     {
-		$objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
+        $objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
         // Check if skin exists, else set to default
         if ($this->getSession('skin') == '') {
             $this->setSession('skin', $this->objConfig->getdefaultSkin());
         }
 
-		//TODO: Optimize calls to validate skin session, should only have to be called once per page load
-		//      Currently being called up to 30 times per pageload
-		//var_dump('VALIDATING SKIN SESSION');
+        //TODO: Optimize calls to validate skin session, should only have to be called once per page load
+        //      Currently being called up to 30 times per pageload
+        //var_dump('VALIDATING SKIN SESSION');
 
         //Check for a change of skin
         if (isset($_POST['skinlocation']) && $_POST['skinlocation'] != '') {
-
             $mySkinLocation=$this->objConfig->getsiteRootPath().$this->skinRoot.$_POST['skinlocation'].'/';
-
-			$this->skinEngine = $this->getSkinEngine($mySkinLocation);
-
-			if ($this->skinEngine == 'default' || $this->skinEngine == '') {
-				//Test if stylesheet exists in the skinlocation
-				if (file_exists($mySkinLocation.$this->skinFile)) {
-					$this->setSession('skin', $_POST['skinlocation']);
-				} else {
-					$this->setSession('skin', $this->objConfig->getdefaultSkin());
-				}
-			} else if ($this->skinEngine == 'university') {
-
-				$this->skinFile = 'style.css';
-				//Test if stylesheet exists in the skinlocation
-				if (file_exists($mySkinLocation.$this->skinFile)) {
-					$this->setSession('skin', $_POST['skinlocation']);
-				} else {
-					$this->setSession('skin', $this->objConfig->getdefaultSkin());
-				}
-
-			}
-
+            $this->skinEngine = $this->getSkinEngine($mySkinLocation);
+            if ($this->skinEngine == 'default' || $this->skinEngine == '') {
+                //Test if stylesheet exists in the skinlocation
+                if (file_exists($mySkinLocation.$this->skinFile)) {
+                        $this->setSession('skin', $_POST['skinlocation']);
+                } else {
+                        $this->setSession('skin', $this->objConfig->getdefaultSkin());
+                }
+            } else if ($this->skinEngine == 'university') {
+                $this->skinFile = 'style.css';
+                //Test if stylesheet exists in the skinlocation
+                if (file_exists($mySkinLocation.$this->skinFile)) {
+                        $this->setSession('skin', $_POST['skinlocation']);
+                } else {
+                        $this->setSession('skin', $this->objConfig->getdefaultSkin());
+                }
+            }
         }
     }
 
@@ -189,24 +188,20 @@ class skin extends object
         $dirList=array();
         while (false !== ($file = readdir($dh))) { #see http://www.php.net/manual/en/function.readdir.php
             if ($file != '.' && $file != '..' && strtolower($file)!='cvs') {
-
                 if ( (is_dir($file) && file_exists($basedir.$file.'/'.$this->skinFile))
-                ||   (is_dir($file) && file_exists($basedir.$file.'/skin.conf')) ){
-
+                  ||   (is_dir($file) && file_exists($basedir.$file.'/skin.conf')) ){
                     $skinnameFile=$this->objConfig->getsiteRootPath().$this->skinRoot.$file.'/skinname.txt';
-					$skinConfigFile=$basedir.$file.'/skin.conf';
-
+                    $skinConfigFile=$basedir.$file.'/skin.conf';
                     if (file_exists($skinConfigFile)) {
-						$skinData = $this->readConf($skinConfigFile);
-						$dirList[$file] = $skinData['SKIN_NAME'];
-					} else if (file_exists($skinnameFile)) {
+                        $skinData = $this->readConf($skinConfigFile);
+                        $dirList[$file] = $skinData['SKIN_NAME'];
+                    } else if (file_exists($skinnameFile)) {
                         $ts=fopen($skinnameFile,'r');
                         $ts_content=fread($ts, filesize($skinnameFile));
                         $dirList[$file] = $ts_content;
                     } else {
                         $dirList[$file] = $file;
                     }
-
                 }
             }
         }
@@ -216,7 +211,6 @@ class skin extends object
         chdir($currentDir);
 
         // Sort Alphabetically
-
         asort($dirList);
 
         foreach ($dirList as $element=> $value) {
@@ -229,7 +223,6 @@ class skin extends object
         $objDropdown->cssClass = 'coursechooser';
         $objNewForm->addToForm($objDropdown->show());
         return $objNewForm->show();
-
     }
 
 
@@ -275,7 +268,7 @@ class skin extends object
         chdir($basedir);
         $dh=opendir($basedir);
         $dirList=array();
-		while (false !== ($file = readdir($dh))) { #see http://www.php.net/manual/en/function.readdir.php
+        while (false !== ($file = readdir($dh))) { #see http://www.php.net/manual/en/function.readdir.php
             if ($file != '.' && $file != '..' && strtolower($file)!='cvs') {
 
                 if ( (is_dir($file) && file_exists($basedir.$file.'/'.$this->skinFile))
