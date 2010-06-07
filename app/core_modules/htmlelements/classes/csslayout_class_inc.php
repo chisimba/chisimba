@@ -122,6 +122,16 @@ class csslayout extends object implements ifhtml
     public $skinEngine;
 
     /**
+    *
+    * The type of layout to produce. Valid types are:
+    *    standard - normal 2 column layout
+    *    canvas_stacked - the left and right columns are stacked within the canvas
+    *    canvas_below - the left and right columns appear below the middle one
+    *    canvas_slidein - the left and right columns slide in from the sides
+    *
+    */
+
+    /**
     * Constructor Method for the class
     *
     * This method sets the default number of columns
@@ -134,9 +144,9 @@ class csslayout extends object implements ifhtml
         $this->leftColumnContent = NULL;
         $this->rightColumnContent = NULL;
         $this->middleColumnContent = NULL;
-	
-		$this->objSkin = $this->getObject('skin', 'skin');
-		$this->skinEngine = $this->objSkin->getSkinEngine();
+        $this->isCanvasEnabled = TRUE;
+	$this->objSkin = $this->getObject('skin', 'skin');
+	$this->skinEngine = $this->objSkin->getSkinEngine();
     }
 
     /**
@@ -213,11 +223,10 @@ class csslayout extends object implements ifhtml
     */
     public function bodyOnLoadScript()
     {	
-		if ($this->skinEngine == 'default' || $this->skinEngine == '') {
-        return
-            'xAddEventListener(window, "resize", adjustLayout, false);'."\n"
-            .'adjustLayout();'."\n";
-		}
+        if ($this->skinEngine == 'default' || $this->skinEngine == '') {
+            return 'xAddEventListener(window, "resize", adjustLayout, false);'."\n"
+              .'adjustLayout();'."\n";
+        }
     }
 
     /**
@@ -259,10 +268,9 @@ class csslayout extends object implements ifhtml
         }
         // ]]>
         </script>';
-
-		if ($this->skinEngine == 'default' || $this->skinEngine == '') {
-        	return $fixLayoutScript;
-		}
+        if ($this->skinEngine == 'default' || $this->skinEngine == '') {
+            return $fixLayoutScript;
+        }
     }
 
     /**
@@ -304,10 +312,9 @@ class csslayout extends object implements ifhtml
         }
         // ]]>
         </script>';
-
-		if ($this->skinEngine == 'default' || $this->skinEngine == '') {
-	        return $fixLayoutScript;
-		}
+        if ($this->skinEngine == 'default' || $this->skinEngine == '') {
+            return $fixLayoutScript;
+        }
     }
 
     /**
@@ -318,188 +325,225 @@ class csslayout extends object implements ifhtml
     */
     public function show()
     {
-		if ($this->skinEngine == 'default' || $this->skinEngine == '') {
-			// Depending on the number of columns, load appropriate script to fix the column heights
-
-			$this->setVar('numColumns', $this->numColumns);
-
-			// Depending on the number of columns, use approprate css styles.
-			if ($this->skinVersion('2.0'))
-			{
-				if ($this->numColumns == 2) {
-					$result = '	<div id="threecolumn">
-						<div id="left">'.$this->leftColumnContent.'</div>									
-						<div id="content"> '. $this->middleColumnContent .'</div>
-						</div>';
-
-				} else {
-					// for a three column layout, first load the right column, then the middle column
-					$result = '	<div id="threecolumn">
-						<div id="left">'.$this->leftColumnContent.'</div>						
-						<div id="right">'.$this->rightColumnContent.'</div>			
-						<div id="content"> '. $this->middleColumnContent .'</div>
-
-						</div>';
-				}
-
-				$str = $result;
-
-				return $str;
-			}
-
-			if ($this->numColumns == 2) {
-				$this->putTwoColumnFixInHeader();
-			} else {
-				// else, load the three column javascript fix
-				$this->putThreeColumnFixInHeader();
-			}
-
-			// Send the number of columns to the page template
-			// Useful for modifications on that level
-			$this->setVar('numColumns', $this->numColumns);
-
-			// Depending on the number of columns, use approprate css styles.
-			if ($this->numColumns == 1) {
-				$result = '
-					<div id="onecolumn">
-					<div id="content">
-					<div id="contentcontent">
-					'.$this->middleColumnContent.'
-					</div>
-					</div>
-					</div>';
-			} else if ($this->numColumns == 2) {
-				$result = '
-					<div id="twocolumn">
-					<div id="wrapper">
-					<div id="content">
-					<div id="contentcontent">
-					'.$this->middleColumnContent.'
-					</div>
-					</div>
-					</div>';
-				$result .= '
-					<div id="left">
-					<div id="leftcontent">
-					'.$this->leftColumnContent.'
-					</div>
-					</div>
-					</div>';
-			} else {
-				// for a three column layout, first load the right column, then the middle column
-				$result = '
-					<div id="threecolumn">
-					<div id="wrapper">
-					<div id="content">
-					<div id="contentcontent">
-					'.$this->middleColumnContent.'
-					</div>
-					</div>
-					</div>';
-				$result .= '
-					<div id="left">
-					<div id="leftcontent">
-					'.$this->leftColumnContent.'
-					</div>
-					</div>';
-				$result .= '
-					<div id="right">
-					<div id="rightcontent">
-					'.$this->rightColumnContent.'
-					</div>
-					</div>
-					</div>';
-			}
-
-			$str = $result;
-		}
-
-		else if ($this->skinEngine == 'university') {
-			$this->setVar('numColumns', $this->numColumns);
-
-			// Depending on the number of columns, use approprate css styles.
-			if ($this->numColumns == 1) {
-				$result = '
- 					<div id="main">
-					<div id="onecolumn">
-
-					<div id="content">
-					  <div id="contentcontent">
-						'.$this->middleColumnContent.'
-					  </div>
-					</div>
-	
-					 <!--<div id="footer">
-						'.$this->footerContent.'
-					  </div>-->
-
-					</div>
-					</div>';
-			} else if ($this->numColumns == 2) {
-				$result = '
- 					<div id="main">
-					<div id="twocolumn">
-					<div id="wrapper">
-
-					  <div id="column_left">
-						'.$this->leftColumnContent.'
-					  </div>
-						
-					<div id="content">
-					  <div id="contentcontent">
-						'.$this->middleColumnContent.'
-					  </div>
-					</div>
-					  <!--<div id="footer">
-						'.$this->footerContent.'
-					  </div>-->
-
-					</div>
-					</div>
-					</div>';
-
-			} else {
-				// for a three column layout, first load the right column, then the middle column
-				$result = '
- 					<div id="main">
-					<div id="threecolumn">
-					<div id="wrapper">
+        // The first conditional selects the default skin engine. Not sure what
+        // University skin engine is all about. Added by dkeats because cmert saw
+        // fit not to document this code.
+        if ($this->skinEngine == 'default' || $this->skinEngine == '') {
+            // Depending on the number of columns, load appropriate script to fix the column heights.
+            $this->setVar('numColumns', $this->numColumns);
 
 
-					  <div id="column_left">
-						'.$this->leftColumnContent.'
-					  </div>
+            // Depending on the number of columns, use approprate css styles.
+            if ($this->skinVersion('2.0')) {
+                if ($this->numColumns == 1) {
+                    $result = '	<div id="content"> '. $this->middleColumnContent .'</div>';
+                } elseif ($this->numColumns == 2) {
+                    $leftCol = '<div id="left">'.$this->leftColumnContent.'</div>';
+                    $middleCol = '<div id="content"> '. $this->middleColumnContent .'</div>';
+                    $result = '	<div id="twocolumn">
+                      ' . $leftCol .'
+                      ' . $middleCol . '
+                      </div>
+                      ';
+                } elseif  ($this->numColumns == 3)  {
+                    // for a three column layout, first load the right column, then the middle column.
+                    $result = '	<div id="threecolumn">
+                        <div id="left">'.$this->leftColumnContent.'</div>
+                        <div id="right">'.$this->rightColumnContent.'</div>
+                        <div id="content"> '. $this->middleColumnContent .'</div>
+                        </div>';
+                }
+                return $result;
 
-					<div id="content">
-					<div id="contentcontent">
-						'.$this->middleColumnContent.'
-					</div>
-					</div>
-	
-					  <div id="column_right">
-						'.$this->rightColumnContent.'
-					  </div>
 
-					  <!--<div id="footer">
-						'.$this->footerContent.'
-					  </div>-->
+            // For canvas compatible skins
+            } elseif ($this->skinVersion('3.0')) {
+                    if ($this->numColumns == 1) {
+                        $result = '	<div id="content"> '. $this->middleColumnContent .'</div>';
+                        // Put the middle bit in region 2 for canvas enabled skins
+                        $result = $this->addBodyRegion($result, "Region2");
+                    } elseif ($this->numColumns == 2) {
+                        $leftCol = '<div id="left">'.$this->leftColumnContent.'</div>';
+                        // Put the left bit in region 1 for canvas enabled skins
+                        $leftCol = $this->addBodyRegion($leftCol, "Region1");
+                        $middleCol = '<div id="content"> '. $this->middleColumnContent .'</div>';
+                        // Put the middle bit in region 2 for canvas enabled skins
+                        $middleCol = $this->addBodyRegion($middleCol, "Region2");
+                        $result = '	<div id="twocolumn">
+                          ' . $leftCol . '
+                          ' . $middleCol . '
+                          </div>
+                          ';
+                    } elseif  ($this->numColumns == 3)  {
+                        // for a three column layout, first load the right column, then the middle column.
+                        $leftCol = '<div id="left">'.$this->leftColumnContent.'</div>';
+                        // Put the left bit in region 1 for canvas enabled skins
+                        $leftCol = $this->addBodyRegion($leftCol, "Region1");
+                        $middleCol = '<div id="content"> '. $this->middleColumnContent .'</div>';
+                        // Put the middle bit in region 2 for canvas enabled skins
+                        $middleCol = $this->addBodyRegion($middleCol, "Region2");
+                        $rightCol = '<div id="right">'.$this->rightColumnContent.'</div>';
+                        // Put the right bit in region 2 for canvas enabled skins
+                        $rightCol = $this->addBodyRegion($rightCol, "Region3");
+                        $result = '	<div id="threecolumn">
+                            ' . $leftCol . '
+                            ' . $rightCol . '
+                            ' . $middleCol . '
+                            </div>';
+                    }
+                return $result;
+            // Legacy skins
+            } else {
+                // Fix the column lengths.
+                if ($this->numColumns == 2) {
+                        $this->putTwoColumnFixInHeader();
+                } else {
+                        // else, load the three column javascript fix
+                        $this->putThreeColumnFixInHeader();
+                }
+                // Send the number of columns to the page template
+                // Useful for modifications on that level
+                $this->setVar('numColumns', $this->numColumns);
+                // Depending on the number of columns, use approprate css styles.
+                if ($this->numColumns == 1) {
+                    $result = '
+                        <div id="onecolumn">
+                        <div id="content">
+                        <div id="contentcontent">
+                        '.$this->middleColumnContent.'
+                        </div>
+                        </div>
+                        </div>';
+                } else if ($this->numColumns == 2) {
+                    $result = '
+                        <div id="twocolumn">
+                        <div id="wrapper">
+                        <div id="content">
+                        <div id="contentcontent">
+                        '.$this->middleColumnContent.'
+                        </div>
+                        </div>
+                        </div>';
+                    $result .= '
+                        <div id="left">
+                        <div id="leftcontent">
+                        '.$this->leftColumnContent.'
+                        </div>
+                        </div>
+                        </div>';
+                } else {
+                    // for a three column layout, first load the right column, then the middle column
+                    $result = '
+                        <div id="threecolumn">
+                        <div id="wrapper">
+                        <div id="content">
+                        <div id="contentcontent">
+                        '.$this->middleColumnContent.'
+                        </div>
+                        </div>
+                        </div>';
+                    $result .= '
+                        <div id="left">
+                        <div id="leftcontent">
+                        '.$this->leftColumnContent.'
+                        </div>
+                        </div>';
+                    $result .= '
+                        <div id="right">
+                        <div id="rightcontent">
+                        '.$this->rightColumnContent.'
+                        </div>
+                        </div>
+                        </div>';
+                }
+                $str = $result;
+            }
+        // Some madness added by Charl Mert that I will not try to figure out.
+        } else if ($this->skinEngine == 'university') {
+            $this->setVar('numColumns', $this->numColumns);
+            // Depending on the number of columns, use approprate css styles.
+            if ($this->numColumns == 1) {
+                $result = '
+                    <div id="main">
+                    <div id="onecolumn">
 
-					</div>
-					</div>
-					</div>';
+                    <div id="content">
+                      <div id="contentcontent">
+                            '.$this->middleColumnContent.'
+                      </div>
+                    </div>
 
-			}
+                     <!--<div id="footer">
+                            '.$this->footerContent.'
+                      </div>-->
 
-			$str = $result;
+                    </div>
+                    </div>';
+                } else if ($this->numColumns == 2) {
+                    $result = '
+                        <div id="main">
+                        <div id="twocolumn">
+                        <div id="wrapper">
 
-		}
+                          <div id="column_left">
+                                '.$this->leftColumnContent.'
+                          </div>
 
+                        <div id="content">
+                          <div id="contentcontent">
+                                '.$this->middleColumnContent.'
+                          </div>
+                        </div>
+                          <!--<div id="footer">
+                                '.$this->footerContent.'
+                          </div>-->
+
+                        </div>
+                        </div>
+                        </div>';
+                // One presumes this to be the version 2 skin. Dammit, why can't people
+                //    document their code? Simple courtesy towards another human being.
+                } else {
+                        // for a three column layout, first load the right column, then the middle column
+                        $result = '
+                            <div id="main">
+                            <div id="threecolumn">
+                            <div id="wrapper">
+
+
+                              <div id="column_left">
+                                    '.$this->leftColumnContent.'
+                              </div>
+
+                            <div id="content">
+                            <div id="contentcontent">
+                                    '.$this->middleColumnContent.'
+                            </div>
+                            </div>
+
+                              <div id="column_right">
+                                    '.$this->rightColumnContent.'
+                              </div>
+
+                              <!--<div id="footer">
+                                    '.$this->footerContent.'
+                              </div>-->
+
+                            </div>
+                            </div>
+                            </div>';
+
+                }
+
+                $str = $result;
+            }
         return $str;
     }
 
 
 
     /**
+    *
     * Method to load place a three column javascript fix into the header of a webpage
     * This method can also be used by other modules that just want to load the javascript fix - e.g. splash screen (prelogin)
     *
@@ -508,11 +552,11 @@ class csslayout extends object implements ifhtml
     */
     public function putThreeColumnFixInHeader()
     {
-		if ($this->skinEngine == 'default' || $this->skinEngine == '') {
-			$this->appendArrayVar('headerParams', $this->getJavascriptFile('x_minified.js','htmlelements'));
-			$this->appendArrayVar('headerParams', $this->fixThreeColumnLayoutJavascript());
-			$this->appendArrayVar('bodyOnLoad',$this->bodyOnLoadScript());
-		}
+        if ($this->skinEngine == 'default' || $this->skinEngine == '') {
+            $this->appendArrayVar('headerParams', $this->getJavascriptFile('x_minified.js','htmlelements'));
+            $this->appendArrayVar('headerParams', $this->fixThreeColumnLayoutJavascript());
+            $this->appendArrayVar('bodyOnLoad',$this->bodyOnLoadScript());
+        }
     }
 
     /**
@@ -521,41 +565,53 @@ class csslayout extends object implements ifhtml
     *
     * @return void
     * @access public
+    *
     */
     public function putTwoColumnFixInHeader()
     {
-		if ($this->skinEngine == 'default' || $this->skinEngine == '') {
-			$this->appendArrayVar('headerParams', $this->getJavascriptFile('x_minified.js','htmlelements'));
-			$this->appendArrayVar('headerParams', $this->fixTwoColumnLayoutJavascript());
-			$this->appendArrayVar('bodyOnLoad',$this->bodyOnLoadScript());
-		}
-    }
-    
-    public function skinVersion($version = null)
-    {
-    	if(empty($version))
-    	{
-    		return FALSE;
-    	}
-    	
-    	//get the skinname.txt in the skins folder
-    	$objSkin = $this->getObject('skin', 'skin');
-    	
-    	if(file_exists($objSkin->getSkinLocation().'/skinversion.txt'))
-    	{
-    		//get the version number
-    		 $file = $objSkin->getSkinLocation().'/skinversion.txt';
-    		 $contents =  trim(file_get_contents($file));
-    		 if($contents == $version)
-    		 {
-    		 	return TRUE;
-    		 } else {
-    		 	return FALSE;
-    		 }
-    	}
-    	
-    	return FALSE;
+        if ($this->skinEngine == 'default' || $this->skinEngine == '') {
+            $this->appendArrayVar('headerParams', $this->getJavascriptFile('x_minified.js','htmlelements'));
+            $this->appendArrayVar('headerParams', $this->fixTwoColumnLayoutJavascript());
+            $this->appendArrayVar('bodyOnLoad',$this->bodyOnLoadScript());
+        }
     }
 
+    /**
+    *
+    * Check for a version 2 skin
+    *
+    * @param string $version
+    * @return boolean TRUE|FALSE
+    * @access public
+    * 
+    */
+    public function skinVersion($version = null)
+    {
+        if(empty($version)) {
+            return FALSE;
+        }
+
+        //get the skinversion.txt in the skins folder
+        $objSkin = $this->getObject('skin', 'skin');
+        if(file_exists($objSkin->getSkinLocation().'/skinversion.txt')) {
+            //get the version number
+            $file = $objSkin->getSkinLocation().'/skinversion.txt';
+            $contents =  trim(file_get_contents($file));
+            if($contents == $version) {
+                return TRUE;
+            } else {
+                return FALSE;
+            }
+        }
+        return FALSE;
+    }
+
+
+    /******** CANVAS CODE **************************/
+
+    public function addBodyRegion($content, $region)
+    {
+        return "<div class='Canvas_Content_Body_$region'>\n$content\n</div>";
+    }
 }
 ?>
