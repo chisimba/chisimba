@@ -134,7 +134,7 @@ class languageConfig extends object
                 'string_text_col'    => '%s'  //'%s' will be replaced by the lang code
             );
             
-            $driver = 'MDB2';
+            $driver = 'PDO';
 
             //instantiate class
             $this->_siteConf = $this->getObject('altconfig','config');
