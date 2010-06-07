@@ -130,7 +130,7 @@ class FCKeditor
     public function __construct( $instanceName )
     {
         $this->InstanceName	= $instanceName ;
-        $this->BasePath		= 'core_modules/fckeditor/' ;
+        $this->BasePath		= 'core_modules/fckeditor/resources/fckeditor/fckeditor_2.6.3/' ;
         $this->Width		= '100%' ;
         $this->Height		= '200' ;
         $this->ToolbarSet	= 'Default' ;
@@ -155,6 +155,7 @@ class FCKeditor
      */
     public function CreateHtml()
     {
+        $this->BasePath	= 'core_modules/fckeditor/resources/fckeditor/fckeditor_2.6.3/' ;
         $HtmlValue = htmlspecialchars( $this->Value ) ;
 
         $Html = '' ;
