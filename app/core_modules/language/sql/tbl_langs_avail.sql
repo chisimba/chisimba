@@ -34,6 +34,10 @@ $fields = array(
         'length' => 100,
         'notnull' => TRUE
         ),
+    'encoding' => array(
+        'type' => 'text',
+        'length' => 255,
+        ),
     ' error_text' => array(
         'type' => 'text',
         'length' => 100,
