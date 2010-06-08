@@ -110,6 +110,9 @@ class LiveUser_Admin_Storage_PDO extends LiveUser_Admin_Storage_SQL
     function init(&$storageConf, $structure)
     {
         parent::init($storageConf, $structure);
+        if(is_array($this->dsn)) {
+            $this->dsn = $this->dsn ['phptype'] . ":" . "host=" . $this->dsn ['hostspec'] . ";dbname=" . $this->dsn ['database'], $this->dsn ['username'], $this->dsn ['password']
+        }
 
         if (!is_a($this->dbc, 'pdo') && !is_null($this->dsn)) {
             $login = $password = $extra = null;
