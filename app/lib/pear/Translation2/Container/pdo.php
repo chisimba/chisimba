@@ -199,7 +199,8 @@ class Translation2_Container_pdo extends Translation2_Container
         );
 
         ++$this->_queries;
-        $res = $this->db->query($query, null, MDB2_FETCHMODE_ASSOC);
+
+        $res = $this->db->query($query, null); //, null, MDB2_FETCHMODE_ASSOC);
         if (PEAR::isError($res)) {
             return $res;
         }
@@ -228,12 +229,12 @@ class Translation2_Container_pdo extends Translation2_Container
         }
         $lang_col = $this->_getLangCol($langID);
         $table    = $this->_getLangTable($langID);
-        
+        //var_dump($table);
         $query = sprintf('SELECT %s, %s FROM %s WHERE %s ',
-             $this->db->quoteIdentifier($this->options['string_id_col'], true),
-             $this->db->quoteIdentifier($lang_col, true),
-             $this->db->quoteIdentifier($table, true),
-             $this->db->quoteIdentifier($this->options['string_page_id_col'], true)
+             $this->options['string_id_col'],
+             $lang_col,
+             $table,
+             $this->options['string_page_id_col']
         );
 
         if (is_null($pageID)) {
@@ -247,7 +248,7 @@ class Translation2_Container_pdo extends Translation2_Container
         if (PEAR::isError($res)) {
             return $res;
         }
-
+var_dump($res);
         $strings = array();
         while (list($key, $value) = $res->fetchRow(MDB2_FETCHMODE_ORDERED)) {
             $strings[$key] = $value;
