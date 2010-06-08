@@ -248,7 +248,7 @@ class Translation2_Container_pdo extends Translation2_Container
         if (PEAR::isError($res)) {
             return $res;
         }
-var_dump($res);
+
         $strings = array();
         while (list($key, $value) = $res->fetchRow(MDB2_FETCHMODE_ORDERED)) {
             $strings[$key] = $value;
