@@ -92,6 +92,9 @@ $fields = array(
         'type' => 'integer',
         'length' => 255
 	   ),
+	'lastaccessed' => array(
+        'type' => 'timestamp'
+    )
     );
 
 $name = 'contextcode';

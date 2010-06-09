@@ -170,7 +170,8 @@ class dbcontext extends dbTable {
                         'lastupdatedby' => $this->objUser->userId (),
                         'goals' => $goals,
                         'showcomment' => $showcomment ,
-                        'alerts'=>$alerts) );
+                        'alerts'=>$alerts,
+						'lastaccessed' => date ( "Y-m-d H:i:s" )) );
 
             // If Successful
             if ($result) {
@@ -209,10 +210,11 @@ class dbcontext extends dbTable {
             $access=FALSE,
             $about=FALSE,
             $goals=FALSE,
-            $showcomment='Y',
-            $alerts='') {
+            $showcomment=FALSE,
+            $alerts='',
+			$lastaccessed=FALSE) {
         $fields = array();
-
+		
         $fields['updated'] = date ( 'Y-m-d H:i:s' );
         $fields['lastupdatedby'] = $this->objUser->userId ();
 
@@ -235,9 +237,12 @@ class dbcontext extends dbTable {
         if ($showcomment !==FALSE) {
             $fields['showcomment'] = $showcomment;
         }
+ 		if ($lastaccessed !==FALSE) {
+            $fields['lastaccessed'] = $lastaccessed;
+        }
 
         $fields['alerts']=$alerts;
-
+		
         $result = $this->update ( 'contextcode', $contextCode, $fields );
 
         if ($result) {
@@ -256,7 +261,7 @@ class dbcontext extends dbTable {
      * @access public
      */
     public function updateAbout($contextCode, $about) {
-        $result = $this->updateContext ( $contextCode, FALSE, FALSE, FALSE, $about, FALSE );
+        $result = $this->updateContext ( $contextCode, FALSE, FALSE, FALSE, $about, FALSE, FALSE);
 
         return $result;
     }
@@ -269,7 +274,20 @@ class dbcontext extends dbTable {
      * @access public
      */
     public function updateGoals($contextCode, $goals) {
-        $result = $this->updateContext ( $contextCode, FALSE, FALSE, FALSE, FALSE, $goals );
+        $result = $this->updateContext ( $contextCode, FALSE, FALSE, FALSE, FALSE, $goals, FALSE);
+
+        return $result;
+    }
+
+	 /**
+     * Method to update the goals text of a context
+     *
+     * @param  string $contextCode The context code
+     * @return boolean
+     * @access public
+     */
+    public function updateLastAccessed($contextCode) {
+        $result = $this->updateContext ( $contextCode, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, '', date ( 'Y-m-d H:i:s' ));
 
         return $result;
     }
@@ -305,9 +323,10 @@ class dbcontext extends dbTable {
                     }
                 }
             }
-
+			
             $this->setSession ( 'contextId', $line ['id'] );
             $this->setSession ( 'contextCode', $contextCode );
+			$results = $this->updateLastAccessed ( $contextCode );
             return TRUE;
         } else {
             return FALSE;

@@ -46,4 +46,16 @@
             </add>
         </data>
     </update>
+        
+        <update>
+        <table>tbl_context</table>
+        <version>1.824</version>
+        <description>Added lastaccessed Field</description>
+        <data>
+            <add>
+                <name>lastaccessed</name>
+                <type>timestamp</type>
+            </add>
+        </data>
+    </update>
 </updates>
