@@ -362,25 +362,76 @@ class engine {
         'tinymce','toolbar', 'tree', 'useradmin', 'userdetails',
         'userregistration', 'utilities' );
 
+    /**
+     * MemcacheD object
+     *
+     * @var boolean
+     */
     public $objMemcache = FALSE;
 
+    /**
+     * APC object
+     *
+     * @var boolean
+     */
     public $objAPC = FALSE;
 
+    /**
+     * Cache Time to live (TTL)
+     *
+     * @var integer
+     */
     protected $cacheTTL = 3600;
-
+    
+    /**
+     * LiveUser configuration object
+     *
+     * @var void
+     */
     protected $luConfig;
 
+    /**
+     * Event dispatcher object for events based framework
+     *
+     * @var void
+     */
     public $eventDispatcher;
 
+    /**
+     * LiveUser object
+     *
+     * @var void
+     */
     public $lu;
 
+    /**
+     * LiveUser Admin object
+     *
+     * @var void
+     */
     public $luAdmin;
 
+    /**
+     * Log temp storage property
+     *
+     * @var void
+     */
     public $enableLogging;
 
+    /**
+     * Global servername
+     *
+     * @var string
+     */
     public $_servername;
 
+    /**
+     * Global application ID (for this application)
+     *
+     * @var string
+     */
     public $appid;
+    
     /**
      * Constructor.
      * For use by application entry point script (usually /index.php)
@@ -503,11 +554,6 @@ class engine {
         $this->_objUser = $this->getObject ( 'user', 'security' );
         //the language elements module
         $this->_objLanguage = $this->getObject ( 'language', 'language' );
-
-        //check that the user is logged in and update the login
-        //if ($this->lu->isLoggedIn ()) {
-            //$this->_objUser->updateLogin ();
-        //}
 
         // other fields
         //set the messages array
@@ -720,6 +766,15 @@ class engine {
         return $this->_objDbManager;
     }
 
+    /**
+     * Method to return the LiveUser management object. Evaluates lazily,
+     * so class file is not included nor object instantiated
+     * until needed.
+     *
+     * @param  void
+     * @access public
+     * @return void
+     */
     public function getLU() {
         if ($this->lu == NULL || $this->luAdmin == NULL) {
             $this->configLu();
@@ -739,6 +794,13 @@ class engine {
         return;
     }
 
+    /**
+     * Method to handle the notification framework management object. 
+     *
+     * @param  $notification object
+     * @access public
+     * @return void
+     */
     public function authNotification(&$notification) {
         // log_debug($notification->getNotificationName ());
         if ($notification->getNotificationName () == 'onIdled') {
@@ -751,6 +813,15 @@ class engine {
         }
     }
 
+    /**
+     * Method to return the LiveUser Admin management object. Evaluates lazily,
+     * so class file is not included nor object instantiated
+     * until needed.
+     *
+     * @param  void
+     * @access public
+     * @return object
+     */
     public function getLuAdmin() {
         if ($this->luAdmin === null) {
             // and then the admin part
@@ -761,6 +832,13 @@ class engine {
         return $this->luAdmin;
     }
 
+    /**
+     * Method to return the LiveUser configuration object. 
+     *
+     * @param  void
+     * @access public
+     * @return object
+     */
     public function configLu() {
         // get the configs from sysconfig that we will be needing
             $this->objSysConfig = $this->getObject ( 'dbsysconfig', 'sysconfig' );
@@ -974,7 +1052,6 @@ class engine {
      * @access public
      * @param  string $dsn
      * @return void
-     * @TODO   get the port settings too!
      */
     public function parseDSN($dsn) {
         $parsed = NULL;
