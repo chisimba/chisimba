@@ -154,7 +154,7 @@ class languageConfig extends object
             // caching
             $this->lang =& $this->lang->getDecorator('CacheMemory');
             $this->lang->setOption('prefetch', true);
-            $this->lang =& $this->lang->getDecorator('CacheLiteFunction');
+            //$this->lang =& $this->lang->getDecorator('CacheLiteFunction');
             // TODO: make the caching configuration options for language items configurable
             $cacheLiteOptions = array(
                 'memoryCaching' => false,
@@ -163,7 +163,7 @@ class languageConfig extends object
                 'lifeTime' => 3600,       // in seconds
                 'cleaningFrequency' => 0, // never clean cached files (set 1 to clean at every request)
             );
-            $this->lang->setOptions($cacheLiteOptions);
+            //$this->lang->setOptions($cacheLiteOptions);
 
             // charsets
             $this->lang =& $this->lang->getDecorator('SpecialChars');
