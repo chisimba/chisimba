@@ -955,7 +955,7 @@ class engine {
             'storage' => array (
                 'MDB2' => array (
                     'connection' => $this->_objDb,
-                    'dsn' => KEWL_DB_DSN,
+                    'dsn' => $this->parseDSN(KEWL_DB_DSN),
                     'prefix' => 'tbl_perms_',
                     'tables' => array (),
                     'fields' => array ('application_id' => 'text',),
