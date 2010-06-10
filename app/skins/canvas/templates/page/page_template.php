@@ -43,7 +43,7 @@ if (isset ($canvas)) {
 
 
 // Get Header that goes into every skin.
-require($objConfig->getsiteRootPath().'skins/_common/templates/skinpageheader2-0.php');
+require($objConfig->getsiteRootPath().'skins/_common/templates/skinpageheader3-0.php');
 
 // Render the head section of the page. Note that there can be no space or
 // blank lines between the PHP closing tag and the HTML head tag. It must be
