@@ -95,13 +95,9 @@ if (!isset($pageLanguage)) {
 // Fix the buffer by changnig > to /> where necessaryfor better HTML compliance.
 ob_start("fix_code");
 
-// If we are doing HTML5, then print a HTML5 doctype otherwise do HTML 4.01 transitional.
-if (isset($html5)) {
-    print "<!DOCTYPE html>";
-} else {
-    $prolog_type = "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n<html lang=\"$pageLanguage\">\n";
-    header("Content-Type: $mime;charset=$charset");
-    header("Vary: Accept");
-    print $prolog_type;
-}
+// Print a HTML5 doctype and header
+header("Content-Type: $mime; charset=$charset");
+header("Vary: Accept");
+echo "<!DOCTYPE html>\n";
+echo "<html lang=\"$pageLanguage\">\n";
 ?>
