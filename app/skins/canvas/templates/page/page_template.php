@@ -88,7 +88,7 @@ if (isset($bodyParams)) {
 
 // Render the container & canvas elements unless it is suppressed.
 if (!isset($pageSuppressContainer)) {
-    echo "<div class='Canvas' id='_default'>\n"
+    echo "<div class='ChisimbaCanvas' id='_default'>\n"
       . "<div id='Canvas_Content'>\n"
       . "<div id='Canvas_BeforeContainer'></div>"
       . "<div id='container'>";
