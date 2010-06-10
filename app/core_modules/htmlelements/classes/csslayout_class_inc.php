@@ -230,6 +230,55 @@ class csslayout extends object implements ifhtml
     }
 
     /**
+     *
+     * Equalize column heights in the version 3 skins. The list of columns to
+     * equalize is provided either by (e.g. col1, col2, col3) or by common class
+     * as div.classcode.
+     *
+     * Added by Derek Keats for version 3 skins
+     *
+     * @param string $colList List of columns to equalize
+     * @return booleanb TRUE
+     *
+     */
+    private function equalizeColHeights($colList)
+    {
+        $fixLayoutScript ='
+          <script type="text/javascript">
+          // <![CDATA[
+            /**
+             * @projectDescription Simple Equal Columns
+             * @author Matt Hobbs
+             * @version 0.01
+             */
+            jQuery.fn.equalCols = function(){
+                //Array Sorter
+                var sortNumber = function(a,b){return b - a;};
+                var heights = [];
+
+                //Push each height into an array
+                jQuery(this).each(function(){
+                heights.push(jQuery(this).height());
+                });
+                heights.sort(sortNumber);
+                var maxHeight = heights[0];
+                return this.each(function(){
+                    //Set each column to the max height
+                    jQuery(this).css({\'height\': maxHeight});
+                });
+            };
+
+            jQuery(function(jQuery){
+                //Select the columns that need to be equal e.g
+                jQuery(\'' . $colList . '\').equalCols();
+            });
+          </script>
+        ';
+        $this->appendArrayVar('headerParams', $fixLayoutScript);
+        return TRUE;
+    }
+
+    /**
     * Method to return the JavaScript that fixes a two column css layout using javascript
     *
     * @access public
@@ -274,7 +323,8 @@ class csslayout extends object implements ifhtml
     }
 
     /**
-    * Method to return the JavaScript that fixes a three column css layout using javascript
+    * Method to return the JavaScript that fixes a three column css layout using
+    * javascript
     *
     * @access public
     * @return string  $fixLayoutScript the JavaScript that goes in the header
@@ -322,222 +372,278 @@ class csslayout extends object implements ifhtml
     * This method also places the appropriate javascript in the header
     *
     * @return string $result The rendered object in HTML code
+    * @access public
     */
     public function show()
     {
-        // The first conditional selects the default skin engine. Not sure what
-        // University skin engine is all about. Added by dkeats because cmert saw
-        // fit not to document this code.
-        if ($this->skinEngine == 'default' || $this->skinEngine == '') {
-            // Depending on the number of columns, load appropriate script to fix the column heights.
-            $this->setVar('numColumns', $this->numColumns);
+        $this->setVar('numColumns', $this->numColumns);
 
-
-            // Depending on the number of columns, use approprate css styles.
-            if ($this->skinVersion('2.0')) {
-                if ($this->numColumns == 1) {
-                    $result = '	<div id="content"> '. $this->middleColumnContent .'</div>';
-                } elseif ($this->numColumns == 2) {
-                    $leftCol = '<div id="left">'.$this->leftColumnContent.'</div>';
-                    $middleCol = '<div id="content"> '. $this->middleColumnContent .'</div>';
-                    $result = '	<div id="twocolumn">
-                      ' . $leftCol .'
-                      ' . $middleCol . '
-                      </div>
-                      ';
-                } elseif  ($this->numColumns == 3)  {
-                    // for a three column layout, first load the right column, then the middle column.
-                    $result = '	<div id="threecolumn">
-                        <div id="left">'.$this->leftColumnContent.'</div>
-                        <div id="right">'.$this->rightColumnContent.'</div>
-                        <div id="content"> '. $this->middleColumnContent .'</div>
-                        </div>';
-                }
-                return $result;
-
-
-            // For canvas compatible skins
-            } elseif ($this->skinVersion('3.0')) {
-                    if ($this->numColumns == 1) {
-                        $result = '	<div id="content"> '. $this->middleColumnContent .'</div>';
-                        // Put the middle bit in region 2 for canvas enabled skins
-                        $result = $this->addBodyRegion($result, "Region2");
-                    } elseif ($this->numColumns == 2) {
-                        $leftCol = '<div id="left">'.$this->leftColumnContent.'</div>';
-                        // Put the left bit in region 1 for canvas enabled skins
-                        $leftCol = $this->addBodyRegion($leftCol, "Region1");
-                        $middleCol = '<div id="content"> '. $this->middleColumnContent .'</div>';
-                        // Put the middle bit in region 2 for canvas enabled skins
-                        $middleCol = $this->addBodyRegion($middleCol, "Region2");
-                        $result = '	<div id="twocolumn">
-                          ' . $leftCol . '
-                          ' . $middleCol . '
-                          </div>
-                          ';
-                    } elseif  ($this->numColumns == 3)  {
-                        // for a three column layout, first load the right column, then the middle column.
-                        $leftCol = '<div id="left">'.$this->leftColumnContent.'</div>';
-                        // Put the left bit in region 1 for canvas enabled skins
-                        $leftCol = $this->addBodyRegion($leftCol, "Region1");
-                        $middleCol = '<div id="content"> '. $this->middleColumnContent .'</div>';
-                        // Put the middle bit in region 2 for canvas enabled skins
-                        $middleCol = $this->addBodyRegion($middleCol, "Region2");
-                        $rightCol = '<div id="right">'.$this->rightColumnContent.'</div>';
-                        // Put the right bit in region 2 for canvas enabled skins
-                        $rightCol = $this->addBodyRegion($rightCol, "Region3");
-                        $result = '	<div id="threecolumn">
-                            ' . $leftCol . '
-                            ' . $rightCol . '
-                            ' . $middleCol . '
-                            </div>';
-                    }
-                return $result;
-            // Legacy skins
-            } else {
-                // Fix the column lengths.
-                if ($this->numColumns == 2) {
-                        $this->putTwoColumnFixInHeader();
-                } else {
-                        // else, load the three column javascript fix
-                        $this->putThreeColumnFixInHeader();
-                }
-                // Send the number of columns to the page template
-                // Useful for modifications on that level
-                $this->setVar('numColumns', $this->numColumns);
-                // Depending on the number of columns, use approprate css styles.
-                if ($this->numColumns == 1) {
-                    $result = '
-                        <div id="onecolumn">
-                        <div id="content">
-                        <div id="contentcontent">
-                        '.$this->middleColumnContent.'
-                        </div>
-                        </div>
-                        </div>';
-                } else if ($this->numColumns == 2) {
-                    $result = '
-                        <div id="twocolumn">
-                        <div id="wrapper">
-                        <div id="content">
-                        <div id="contentcontent">
-                        '.$this->middleColumnContent.'
-                        </div>
-                        </div>
-                        </div>';
-                    $result .= '
-                        <div id="left">
-                        <div id="leftcontent">
-                        '.$this->leftColumnContent.'
-                        </div>
-                        </div>
-                        </div>';
-                } else {
-                    // for a three column layout, first load the right column, then the middle column
-                    $result = '
-                        <div id="threecolumn">
-                        <div id="wrapper">
-                        <div id="content">
-                        <div id="contentcontent">
-                        '.$this->middleColumnContent.'
-                        </div>
-                        </div>
-                        </div>';
-                    $result .= '
-                        <div id="left">
-                        <div id="leftcontent">
-                        '.$this->leftColumnContent.'
-                        </div>
-                        </div>';
-                    $result .= '
-                        <div id="right">
-                        <div id="rightcontent">
-                        '.$this->rightColumnContent.'
-                        </div>
-                        </div>
-                        </div>';
-                }
-                $str = $result;
-            }
-        // Some madness added by Charl Mert that I will not try to figure out.
+        if ($this->skinEngine == 'default' 
+         || $this->skinEngine == ''
+         || $this->skinEngine == 'html5' ) {
+            $methd = $this->getSkinVersion();
+            return $this->$methd();
+        // For the UWC skin engine
         } else if ($this->skinEngine == 'university') {
-            $this->setVar('numColumns', $this->numColumns);
-            // Depending on the number of columns, use approprate css styles.
-            if ($this->numColumns == 1) {
+            return $this->skinUniversity();
+        }
+    }
+
+    /**
+     *
+     * Get the skin version so that it can be turned into a method to call
+     *
+     * @return string The skin version
+     * @access Private
+     *
+     */
+    private function getSkinVersion()
+    {
+        if ($this->skinVersion('2.0')) {
+            return "skinTwo";
+        } elseif ($this->skinVersion('3.0')) {
+            return "skinThree";
+        } else {
+            return "skinDefault";
+        }
+    }
+
+    /**
+     *
+     * Method to return the contents prepared for the legacy skin. This is just
+     * copied from the old show method. Eventually it will need to be deprecated.
+     *
+     * @return string The formatted content
+     * @access Private
+     *
+     */
+    private function skinDefault()
+    {
+        // Fix the column lengths.
+        if ($this->numColumns == 2) {
+                $this->putTwoColumnFixInHeader();
+        } else {
+                // else, load the three column javascript fix
+                $this->putThreeColumnFixInHeader();
+        }
+        // Send the number of columns to the page template
+        // Useful for modifications on that level
+        $this->setVar('numColumns', $this->numColumns);
+        // Depending on the number of columns, use approprate css styles.
+        if ($this->numColumns == 1) {
+            $result = '
+                <div id="onecolumn">
+                <div id="content">
+                <div id="contentcontent">
+                '.$this->middleColumnContent.'
+                </div>
+                </div>
+                </div>';
+        } else if ($this->numColumns == 2) {
+            $result = '
+                <div id="twocolumn">
+                <div id="wrapper">
+                <div id="content">
+                <div id="contentcontent">
+                '.$this->middleColumnContent.'
+                </div>
+                </div>
+                </div>';
+            $result .= '
+                <div id="left">
+                <div id="leftcontent">
+                '.$this->leftColumnContent.'
+                </div>
+                </div>
+                </div>';
+        } else {
+            // for a three column layout, first load the right column, then the middle column
+            $result = '
+                <div id="threecolumn">
+                <div id="wrapper">
+                <div id="content">
+                <div id="contentcontent">
+                '.$this->middleColumnContent.'
+                </div>
+                </div>
+                </div>';
+            $result .= '
+                <div id="left">
+                <div id="leftcontent">
+                '.$this->leftColumnContent.'
+                </div>
+                </div>';
+            $result .= '
+                <div id="right">
+                <div id="rightcontent">
+                '.$this->rightColumnContent.'
+                </div>
+                </div>
+                </div>';
+        }
+        return $result;
+    }
+
+    /**
+     *
+     * Return the content formatted for version 2 skins
+     *
+     * @return string The formatted content
+     * @access Private
+     *
+     */
+    private function skinTwo()
+    {
+        if ($this->numColumns == 1) {
+            $result = '	<div id="content"> '. $this->middleColumnContent .'</div>';
+        } elseif ($this->numColumns == 2) {
+            $leftCol = '<div id="left">'.$this->leftColumnContent.'</div>';
+            $middleCol = '<div id="content"> '. $this->middleColumnContent .'</div>';
+            $result = '	<div id="twocolumn">
+              ' . $leftCol .'
+              ' . $middleCol . '
+              </div>
+              ';
+        } elseif  ($this->numColumns == 3)  {
+            // for a three column layout, first load the right column, then the middle column.
+            $result = '	<div id="threecolumn">
+                <div id="left">'.$this->leftColumnContent.'</div>
+                <div id="right">'.$this->rightColumnContent.'</div>
+                <div id="content"> '. $this->middleColumnContent .'</div>
+                </div>';
+        }
+        $this->equalizeColHeights('div.Canvas_Column');
+        return $result;
+    }
+
+    /**
+     *
+     * Return the content formatted for version 3 skins
+     *
+     * @return string The formatted content
+     * @access Private
+     *
+     */
+    private function skinThree()
+    {
+        if ($this->numColumns == 1) {
+            // Put the middle bit in region 2 for canvas enabled skins
+            $result = $this->addBodyRegion($this->middleColumnContent, "Region2");
+        } elseif ($this->numColumns == 2) {
+            // Put the left bit in region 1 for canvas enabled skins
+            $leftCol = $this->addBodyRegion($this->leftColumnContent, "Region1");
+            // Put the middle bit in region 2 for canvas enabled skins
+            $middleCol = $this->addBodyRegion($this->middleColumnContent, "Region2");
+            $result = '<div id="twocolumn">
+
+              ' . $leftCol . '
+              ' . $middleCol . '
+
+              </div>
+              ';
+        } elseif  ($this->numColumns == 3)  {
+            // Put the left bit in region 1 for canvas enabled skins
+            $leftCol = $this->addBodyRegion($this->leftColumnContent, "Region1");
+            // Put the middle bit in region 2 for canvas enabled skins
+            $middleCol = $this->addBodyRegion($this->middleColumnContent, "Region2");
+            // Put the right bit in region 2 for canvas enabled skins
+            $rightCol = $this->addBodyRegion($this->rightColumnContent, "Region3");
+            $result = '	<div id="threecolumn">
+                ' . $leftCol . '
+                ' . $rightCol . '
+                ' . $middleCol . '
+                </div>';
+        }
+        $this->equalizeColHeights('div.Canvas_Column');
+        return $result;
+    }
+
+     /**
+     *
+     * Return the content formatted forthe university skin (whatever that is)
+     * THis was added by Charl Mert but totally not documented.
+     *
+     * @return string The formatted content
+     * @access Private
+     *
+     */
+    private function skinUniversity()
+    {
+        // Depending on the number of columns, use approprate css styles.
+        if ($this->numColumns == 1) {
+        $result = '
+            <div id="main">
+            <div id="onecolumn">
+
+            <div id="content">
+              <div id="contentcontent">
+                    '.$this->middleColumnContent.'
+              </div>
+            </div>
+
+             <!--<div id="footer">
+                    '.$this->footerContent.'
+              </div>-->
+
+            </div>
+            </div>';
+        } else if ($this->numColumns == 2) {
+            $result = '
+                <div id="main">
+                <div id="twocolumn">
+                <div id="wrapper">
+
+                  <div id="column_left">
+                        '.$this->leftColumnContent.'
+                  </div>
+
+                <div id="content">
+                  <div id="contentcontent">
+                        '.$this->middleColumnContent.'
+                  </div>
+                </div>
+                  <!--<div id="footer">
+                        '.$this->footerContent.'
+                  </div>-->
+
+                </div>
+                </div>
+                </div>';
+        // One presumes this to be the version 2 skin. Dammit, why can't people
+        //    document their code? Simple courtesy towards another human being.
+        } else {
+                // for a three column layout, first load the right column, then the middle column
                 $result = '
                     <div id="main">
-                    <div id="onecolumn">
+                    <div id="threecolumn">
+                    <div id="wrapper">
+
+
+                      <div id="column_left">
+                            '.$this->leftColumnContent.'
+                      </div>
 
                     <div id="content">
-                      <div id="contentcontent">
+                    <div id="contentcontent">
                             '.$this->middleColumnContent.'
-                      </div>
+                    </div>
                     </div>
 
-                     <!--<div id="footer">
+                      <div id="column_right">
+                            '.$this->rightColumnContent.'
+                      </div>
+
+                      <!--<div id="footer">
                             '.$this->footerContent.'
                       </div>-->
 
                     </div>
+                    </div>
                     </div>';
-                } else if ($this->numColumns == 2) {
-                    $result = '
-                        <div id="main">
-                        <div id="twocolumn">
-                        <div id="wrapper">
 
-                          <div id="column_left">
-                                '.$this->leftColumnContent.'
-                          </div>
+        }
 
-                        <div id="content">
-                          <div id="contentcontent">
-                                '.$this->middleColumnContent.'
-                          </div>
-                        </div>
-                          <!--<div id="footer">
-                                '.$this->footerContent.'
-                          </div>-->
-
-                        </div>
-                        </div>
-                        </div>';
-                // One presumes this to be the version 2 skin. Dammit, why can't people
-                //    document their code? Simple courtesy towards another human being.
-                } else {
-                        // for a three column layout, first load the right column, then the middle column
-                        $result = '
-                            <div id="main">
-                            <div id="threecolumn">
-                            <div id="wrapper">
-
-
-                              <div id="column_left">
-                                    '.$this->leftColumnContent.'
-                              </div>
-
-                            <div id="content">
-                            <div id="contentcontent">
-                                    '.$this->middleColumnContent.'
-                            </div>
-                            </div>
-
-                              <div id="column_right">
-                                    '.$this->rightColumnContent.'
-                              </div>
-
-                              <!--<div id="footer">
-                                    '.$this->footerContent.'
-                              </div>-->
-
-                            </div>
-                            </div>
-                            </div>';
-
-                }
-
-                $str = $result;
-            }
-        return $str;
+        return $result;
     }
 
 
@@ -607,11 +713,18 @@ class csslayout extends object implements ifhtml
     }
 
 
-    /******** CANVAS CODE **************************/
-
+    /**
+     *
+     * Wrap the content in one of the three canvas body regions
+     *
+     * @param stromg $content The content to wrap
+     * @param string $region The region
+     * @return string the wrapped content
+     *
+     */
     public function addBodyRegion($content, $region)
     {
-        return "<div class='Canvas_Content_Body_$region'>\n$content\n</div>";
+        return "<div class='Canvas_Column' id='Canvas_Content_Body_$region'>\n$content\n</div>";
     }
 }
 ?>
