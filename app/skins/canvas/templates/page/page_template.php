@@ -40,8 +40,6 @@ if (isset ($canvas)) {
     $canvas = $objCanvas->getCanvas($validCanvases, $skinBase);
 }
 
-
-
 // Get Header that goes into every skin.
 require($objConfig->getsiteRootPath().'skins/_common/templates/skinpageheader3-0.php');
 
