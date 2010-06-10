@@ -200,6 +200,14 @@ class xmlrpcapi extends object
      * @var    object
      */
     public $objMultisearch;
+    
+    /**
+     * Instance of the twitterizerapi class in the api module.
+     *
+     * @access public
+     * @var    object
+     */
+    public $objTwitterizer;
 
 
     /**
@@ -269,6 +277,9 @@ class xmlrpcapi extends object
 //			$this->objMxitDictionary = $this->getObject('mxitdictionaryapi');
             // Multi Search
             $this->objMultisearch = $this->getObject('multisearchapi');
+            // Twitterizer
+            $this->objTwitterizer = $this->getObject('twitterizerapi');
+
 
         }
         catch (customException $e)
@@ -980,6 +991,13 @@ class xmlrpcapi extends object
                                                                           array('string', 'string'),
                                                                           ),
                                                     'docstring' => 'Performs a query using the multisearch module.'),
+                                                    
+                            'twitterizer.addTweet' => array('function' => array($this->objTwitterizer, 'addTweet'),
+                                                      'signature' => array(
+                                                                          array('string', 'string', 'string', 'string', 'string', 'string', 'string', 'string'),
+                                                                          ),
+                                                    'docstring' => 'Adds a tweet from twitter'),
+                                                    
                             'im.add' => array('function' => array($this->objImAPI, 'addIm'),
                                                     'signature' => array(
                                                                           array('string', 'string', 'string'),
