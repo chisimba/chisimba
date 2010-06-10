@@ -5,3 +5,40 @@
     Description:
         Leave this blank for consistency to implement the underlying skin as a canvas to enable selecting.
 */
+
+#onecolumn, #twocolumn, #threecolumn {
+    float:left;
+    width:100%;
+}
+
+.Canvas_Column {
+    margin-top: 0px;
+}
+
+#threecolumn {
+    background: transparent;
+    padding: 0px;
+}
+
+#Canvas_Content_Body_Region1 {
+    float:left;
+    width:220px;
+    padding:0px;
+}
+#threecolumn #Canvas_Content_Body_Region2 {
+    margin-left:220px;
+    margin-right: 220px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+#twocolumn #Canvas_Content_Body_Region2 {
+    margin-left:220px;
+    margin-top: 0px;
+}
+
+#Canvas_Content_Body_Region3 {
+    float:right;
+    width:220px;
+    margin-top: 0px;
+}
