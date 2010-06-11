@@ -33,11 +33,31 @@ div#header div#search {
     width:100%;
 }
 
+.ChisimbaCanvas {
+    width: auto;
+    padding:0px;
+}
+
+#Canvas_Content {
+    padding:0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 25px;
+}
+
+#Canvas_BeforeContainer {
+    height: 0px;
+}
+
+#container {
+    margin: 0px;
+}
+
 .Canvas_Column {
     margin-top: 0px;
 }
 
-#threecolumn {
+#twocolumn, #threecolumn {
     background: transparent;
     padding: 0px;
 }
@@ -56,19 +76,20 @@ div#header div#search {
     overflow: hidden;
 }
 
-#threecolumn #Canvas_Content_Body_Region2 {
-    margin-left:220px;
-    margin-right: 220px;
-    padding-right: 8px;
-}
-
-#twocolumn #Canvas_Content_Body_Region2 {
-    margin-left:220px;
-}
-
 #Canvas_Content_Body_Region3 {
     float:right;
     width:220px;
     margin-top: 0px;
     padding-top: 6px;
+}
+
+#threecolumn #Canvas_Content_Body_Region2 {
+
+    padding-right: 8px;
+    width:auto;
+}
+
+#twocolumn #Canvas_Content_Body_Region2 {
+    padding-right: 8px;
+    width:auto;
 }
