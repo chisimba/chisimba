@@ -20,7 +20,6 @@ html, body {
 .ChisimbaCanvas {
     width: 960px;
 }
-
 #container {
     background: url('images/overlay50.png');
     background-repeat: repeat;
