@@ -309,8 +309,6 @@ class CreateConfigsAction extends FiveStepAction
 
         ini_set ( 'memory_limit', - 1 );
 
-        error_reporting ( E_ALL & ~ E_NOTICE );
-
         define ( 'KEWL_SYSTEM_ROOT', dirname ( dirname ( realpath ( __FILE__ ) ) ) . '/' );
 
         $this->_addConfigVar ( 'KEWL_INSTITUTION_SHORTNAME', $_SESSION ['sys_owner'] );

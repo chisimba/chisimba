@@ -1,14 +1,4 @@
 <?php
-//echo ini_get('include_path');
-ini_set('error_reporting', 'E_ALL');
-    ini_set('display_errors', 'on');
-/**
-
-*
-
-*
-
-*/
 
 // Check for older PHP versions - added 15 Dec 2006 by jsc
 if (substr(PHP_VERSION,0,1) < '5'){
