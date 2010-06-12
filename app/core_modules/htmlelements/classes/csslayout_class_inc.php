@@ -230,55 +230,6 @@ class csslayout extends object implements ifhtml
     }
 
     /**
-     *
-     * Equalize column heights in the version 3 skins. The list of columns to
-     * equalize is provided either by (e.g. col1, col2, col3) or by common class
-     * as div.classcode.
-     *
-     * Added by Derek Keats for version 3 skins
-     *
-     * @param string $colList List of columns to equalize
-     * @return booleanb TRUE
-     *
-     */
-    private function equalizeColHeights($colList)
-    {
-        $fixLayoutScript ='
-          <script type="text/javascript">
-          // <![CDATA[
-            /**
-             * @projectDescription Simple Equal Columns
-             * @author Matt Hobbs
-             * @version 0.01
-             */
-            jQuery.fn.equalCols = function(){
-                //Array Sorter
-                var sortNumber = function(a,b){return b - a;};
-                var heights = [];
-
-                //Push each height into an array
-                jQuery(this).each(function(){
-                heights.push(jQuery(this).height());
-                });
-                heights.sort(sortNumber);
-                var maxHeight = heights[0];
-                return this.each(function(){
-                    //Set each column to the max height
-                    jQuery(this).css({\'height\': maxHeight});
-                });
-            };
-
-            jQuery(function(jQuery){
-                //Select the columns that need to be equal e.g
-                jQuery(\'' . $colList . '\').equalCols();
-            });
-          </script>
-        ';
-        $this->appendArrayVar('headerParams', $fixLayoutScript);
-        return TRUE;
-    }
-
-    /**
     * Method to return the JavaScript that fixes a two column css layout using javascript
     *
     * @access public
@@ -366,6 +317,95 @@ class csslayout extends object implements ifhtml
             return $fixLayoutScript;
         }
     }
+
+
+    /**
+    * Fix the column lengths for the three column css layout using
+    * javascript
+    *
+    * @access public
+    * @return boolean  TRUE|FALSE
+    */
+    public function fixThree()
+    {
+        $fixLayoutScript = '
+        <script type="text/javascript">
+        // <![CDATA[
+        function adjustLayout()
+        {
+            //Inhouse browser detection
+            var browser=navigator.appName;
+            var b_version=navigator.appVersion;
+            var version=parseFloat(b_version);
+             // Get natural heights
+            var cHeight = xHeight("Canvas_Content_Body_Region2");
+            var lHeight = xHeight("Canvas_Content_Body_Region1");
+            var rHeight = xHeight("Canvas_Content_Body_Region3");
+            // Find the maximum height
+            var maxHeight = Math.max(cHeight, Math.max(lHeight, rHeight));
+            // Assign maximum height to all columns
+            if ((browser!="Microsoft Internet Explorer")) {
+              xHeight("Canvas_Content_Body_Region2", maxHeight);
+              xHeight("Canvas_Content_Body_Region1", maxHeight);
+              xHeight("Canvas_Content_Body_Region3", maxHeight);
+            }
+        }
+        // ]]>
+        </script>';
+        if ($this->skinEngine == 'default' || $this->skinEngine == '') {
+            $this->appendArrayVar('headerParams', $this->getJavascriptFile('x_minified.js','htmlelements'));
+            $this->appendArrayVar('headerParams', $fixLayoutScript);
+            $this->appendArrayVar('bodyOnLoad',$this->bodyOnLoadScript());
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+    /**
+    * Fix the column lengths for the two column css layout using
+    * javascript
+    *
+    * @access public
+    * @return boolean  TRUE|FALSE
+    */
+    public function fixTwo()
+    {
+        $fixLayoutScript = '
+        <script type="text/javascript">
+        // <![CDATA[
+        function adjustLayout()
+        {
+            //Inhouse browser detection
+            var browser=navigator.appName;
+            var b_version=navigator.appVersion;
+            var version=parseFloat(b_version);
+             // Get natural heights
+            var cHeight = xHeight("Canvas_Content_Body_Region2");
+            var lHeight = xHeight("Canvas_Content_Body_Region1");
+            // Find the maximum height
+            var maxHeight = Math.max(cHeight, Math.max(lHeight, rHeight));
+            // Assign maximum height to all columns
+            if ((browser!="Microsoft Internet Explorer")) {
+              xHeight("Canvas_Content_Body_Region2", maxHeight);
+              xHeight("Canvas_Content_Body_Region1", maxHeight);
+            }
+        }
+        // ]]>
+        </script>';
+        if ($this->skinEngine == 'default' || $this->skinEngine == '') {
+            $this->appendArrayVar('headerParams', $this->getJavascriptFile('x_minified.js','htmlelements'));
+            $this->appendArrayVar('headerParams', $fixLayoutScript);
+            $this->appendArrayVar('bodyOnLoad',$this->bodyOnLoadScript());
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+
+
+
 
     /**
     * Show method - Method to display the layout
@@ -549,12 +589,16 @@ class csslayout extends object implements ifhtml
             // Put the right bit in region 2 for canvas enabled skins
             $rightCol = $this->addBodyRegion($this->rightColumnContent, "Region3");
             $result = '	<div id="threecolumn">
+
                 ' . $leftCol . '
                 ' . $rightCol . '
                 ' . $middleCol . '
+                    
                 </div>';
         }
-        $this->equalizeColHeights('div.Canvas_Column');
+        //$this->equalizeColHeights('div.Canvas_Column');
+        $this->fixThree();
+
         return $result;
     }
 

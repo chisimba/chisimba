@@ -32,24 +32,23 @@
  */
 
 /**
- * Alertbox
- *
- * This generates Facebook-style lightbox which can display images, divs, or entire remote pages.
- *
- * See: http://famspam.com/facebox
- *
- *
- * @author Tohir Solomons
- * @category  Chisimba
- * @package   htmlelements
- * @author    Tohir Solomons <tsolomons@uwc.ac.za>
- * @copyright 2007 AVOIR
- * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
- * @version   $Id$
- * @see       Color Picker by Matt Kruse - resources/ColorPicker2.js
- * @link      http://www.mattkruse.com/javascript/colorpicker/index.html
- * @link      http://avoir.uwc.ac.za
- */
+* Alertbox
+*
+* This generates Facebook-style lightbox which can display images, divs, or entire remote pages.
+*
+* See: http://famspam.com/facebox
+*
+*
+* @author Tohir Solomons
+* @category  Chisimba
+* @package   htmlelements
+* @author    Tohir Solomons <tsolomons@uwc.ac.za>
+* @copyright 2007 AVOIR
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+* @version   $Id$
+* @link      http://famspam.com/facebox/
+* @link      http://avoir.uwc.ac.za
+*/
 class alertbox extends object
 {
 
@@ -62,32 +61,36 @@ class alertbox extends object
     }
 
     /**
-    * Method to render the color picker as HTML code
+    * Method to render the Javascript into the page header
     *
-    * @return string The HTML code of the rendered textinput and colorpicker
+    * @return VOID
     * @access public
     */
     public function putJs()
     {
         $this->appendArrayVar('headerParams', $this->getJavaScriptFile('alertbox/facebox.js'));
-
         $this->appendArrayVar('headerParams', '<script type="text/javascript">
  jQuery(document).ready(function($) {
   $(\'a[rel*=facebox]\').facebox()
 })
 </script>');
     }
-    
+
+    /**
+     *
+     * Show a link such that it will open in a facebox modal window
+     *
+     * @param string $text The text for the link
+     * @param string $link The URL to open in facebox
+     * @return string The formatted link
+     *
+     */
     public function show($text, $link)
     {
         $this->putJs();
-
-        //$link .= '&amp;facebox=1';
-        
         $link = new link ($link);
         $link->link = $text;
         $link->extra = 'rel="facebox"';
-        
         return $link->show();
     }
 }
