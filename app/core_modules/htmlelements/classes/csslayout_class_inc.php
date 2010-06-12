@@ -552,7 +552,6 @@ class csslayout extends object implements ifhtml
                 <div id="content"> '. $this->middleColumnContent .'</div>
                 </div>';
         }
-        $this->equalizeColHeights('div.Canvas_Column');
         return $result;
     }
 
@@ -581,6 +580,7 @@ class csslayout extends object implements ifhtml
 
               </div>
               ';
+            $this->fixTwo();
         } elseif  ($this->numColumns == 3)  {
             // Put the left bit in region 1 for canvas enabled skins
             $leftCol = $this->addBodyRegion($this->leftColumnContent, "Region1");
@@ -595,10 +595,8 @@ class csslayout extends object implements ifhtml
                 ' . $middleCol . '
                     
                 </div>';
+            $this->fixThree();
         }
-        //$this->equalizeColHeights('div.Canvas_Column');
-        $this->fixThree();
-
         return $result;
     }
 
