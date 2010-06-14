@@ -610,9 +610,8 @@ body .cke_dialog
 	cursor: hand;
 }
 
-.cke_skin_office2003 .cke_dialog  #ImagePreviewBox
+.cke_skin_office2003 .cke_dialog  .ImagePreviewBox
 {
-	white-space : normal;
 	border : 2px ridge black;
 	overflow : scroll;
 	height : 160px;
@@ -620,7 +619,18 @@ body .cke_dialog
 	padding : 2px;
 	background-color : white;
 }
-.cke_skin_office2003 .cke_dialog  #ImagePreviewLoader
+
+.cke_skin_office2003 .cke_dialog .ImagePreviewBox table td {
+	white-space: normal;
+}
+
+/* Fix iframedialog's height doesn't stretch to 100% #4863.*/
+.cke_skin_office2003 .cke_browser_iequirks .cke_dialog_page_contents
+{
+	_position: absolute;
+}
+
+.cke_skin_office2003 .cke_dialog  .ImagePreviewLoader
 {
 	position: absolute;
 	white-space : normal;
@@ -635,7 +645,7 @@ body .cke_dialog
 	background-color : #e4e4e4;
 }
 
-.cke_skin_office2003 .cke_dialog  #FlashPreviewBox
+.cke_skin_office2003 .cke_dialog  .FlashPreviewBox
 {
 	white-space : normal;
 	border : 2px ridge black;

@@ -110,17 +110,24 @@ CKEDITOR.lang['sl'] =
 		unavailable		: '%1<span class="cke_accessibility">, nedosegljiv</span>'
 	},
 
+	contextmenu :
+	{
+		options : 'Context Menu Options' // MISSING
+	},
+
 	// Special char dialog.
 	specialChar		:
 	{
 		toolbar		: 'Vstavi posebni znak',
-		title		: 'Izberi posebni znak'
+		title		: 'Izberi posebni znak',
+		options : 'Special Character Options' // MISSING
 	},
 
 	// Link dialog.
 	link :
 	{
 		toolbar		: 'Vstavi/uredi povezavo',
+		other 		: '<drug>',
 		menu		: 'Uredi povezavo',
 		title		: 'Povezava',
 		info		: 'Podatki o povezavi',
@@ -180,6 +187,29 @@ CKEDITOR.lang['sl'] =
 		title		: 'Lastnosti zaznamka',
 		name		: 'Ime zaznamka',
 		errorName	: 'Prosim vnesite ime zaznamka'
+	},
+
+	// List style dialog
+	list:
+	{
+		numberedTitle		: 'Numbered List Properties', // MISSING
+		bulletedTitle		: 'Bulleted List Properties', // MISSING
+		type				: 'Type', // MISSING
+		start				: 'Start', // MISSING
+		circle				: 'Circle', // MISSING
+		disc				: 'Disc', // MISSING
+		square				: 'Square', // MISSING
+		none				: 'None', // MISSING
+		notset				: '<not set>', // MISSING
+		armenian			: 'Armenian numbering', // MISSING
+		georgian			: 'Georgian numbering (an, ban, gan, etc.)', // MISSING
+		lowerRoman			: 'Lower Roman (i, ii, iii, iv, v, etc.)', // MISSING
+		upperRoman			: 'Upper Roman (I, II, III, IV, V, etc.)', // MISSING
+		lowerAlpha			: 'Lower Alpha (a, b, c, d, e, etc.)', // MISSING
+		upperAlpha			: 'Upper Alpha (A, B, C, D, E, etc.)', // MISSING
+		lowerGreek			: 'Lower Greek (alpha, beta, gamma, etc.)', // MISSING
+		decimal				: 'Decimal (1, 2, 3, etc.)', // MISSING
+		decimalLeadingZero	: 'Decimal leading zero (01, 02, 03, etc.)' // MISSING
 	},
 
 	// Find And Replace Dialog
@@ -476,7 +506,8 @@ CKEDITOR.lang['sl'] =
 	smiley :
 	{
 		toolbar	: 'Smeško',
-		title	: 'Vstavi smeška'
+		title	: 'Vstavi smeška',
+		options : 'Smiley Options' // MISSING
 	},
 
 	elementsPath :
@@ -503,9 +534,9 @@ CKEDITOR.lang['sl'] =
 	clipboard :
 	{
 		title		: 'Prilepi',
-		cutError	: 'Varnostne nastavitve brskalnika ne dopuščajo samodejnega izrezovanja. Uporabite kombinacijo tipk na tipkovnici (Ctrl+X).',
-		copyError	: 'Varnostne nastavitve brskalnika ne dopuščajo samodejnega kopiranja. Uporabite kombinacijo tipk na tipkovnici (Ctrl+C).',
-		pasteMsg	: 'Prosim prilepite v sleči okvir s pomočjo tipkovnice (<STRONG>Ctrl+V</STRONG>) in pritisnite <STRONG>V redu</STRONG>.',
+		cutError	: 'Varnostne nastavitve brskalnika ne dopuščajo samodejnega izrezovanja. Uporabite kombinacijo tipk na tipkovnici (Ctrl/Cmd+X).',
+		copyError	: 'Varnostne nastavitve brskalnika ne dopuščajo samodejnega kopiranja. Uporabite kombinacijo tipk na tipkovnici (Ctrl/Cmd+C).',
+		pasteMsg	: 'Prosim prilepite v sleči okvir s pomočjo tipkovnice (<STRONG>Ctrl/Cmd+V</STRONG>) in pritisnite <STRONG>V redu</STRONG>.',
 		securityMsg	: 'Zaradi varnostnih nastavitev vašega brskalnika urejevalnik ne more neposredno dostopati do odložišča. Vsebino odložišča ponovno prilepite v to okno.',
 		pasteArea	: 'Paste Area' // MISSING
 	},
@@ -528,6 +559,7 @@ CKEDITOR.lang['sl'] =
 	{
 		button			: 'Predloge',
 		title			: 'Vsebinske predloge',
+		options : 'Template Options', // MISSING
 		insertOption	: 'Zamenjaj trenutno vsebino',
 		selectPromptMsg	: 'Izberite predlogo, ki jo želite odpreti v urejevalniku<br>(trenutna vsebina bo izgubljena):',
 		emptyListMsg	: '(Ni pripravljenih predlog)'
@@ -648,6 +680,7 @@ CKEDITOR.lang['sl'] =
 	scayt :
 	{
 		title			: 'Črkovanje med tipkanjem',
+		opera_title		: 'Not supported by Opera', // MISSING
 		enable			: 'Omogoči SCAYT',
 		disable			: 'Onemogoči SCAYT',
 		about			: 'O storitvi SCAYT',
@@ -659,9 +692,23 @@ CKEDITOR.lang['sl'] =
 		ignoreAll		: 'Prezri vse',
 		addWord			: 'Dodaj besedo',
 		emptyDic		: 'Ime slovarja ne more biti prazno.',
+
 		optionsTab		: 'Možnosti',
+		allCaps			: 'Ignore All-Caps Words', // MISSING
+		ignoreDomainNames : 'Ignore Domain Names', // MISSING
+		mixedCase		: 'Ignore Words with Mixed Case', // MISSING
+		mixedWithDigits	: 'Ignore Words with Numbers', // MISSING
+
 		languagesTab	: 'Jeziki',
+
 		dictionariesTab	: 'Slovarji',
+		dic_field_name	: 'Dictionary name', // MISSING
+		dic_create		: 'Create', // MISSING
+		dic_restore		: 'Restore', // MISSING
+		dic_delete		: 'Delete', // MISSING
+		dic_rename		: 'Rename', // MISSING
+		dic_info		: 'Initially the User Dictionary is stored in a Cookie. However, Cookies are limited in size. When the User Dictionary grows to a point where it cannot be stored in a Cookie, then the dictionary may be stored on our server. To store your personal dictionary on our server you should specify a name for your dictionary. If you already have a stored dictionary, please type it\'s name and click the Restore button.', // MISSING
+
 		aboutTab		: 'O storitvi'
 	},
 
@@ -689,6 +736,7 @@ CKEDITOR.lang['sl'] =
 	colordialog :
 	{
 		title		: 'Izberi barvo',
+		options	:	'Color Options', // MISSING
 		highlight	: 'Poudarjeno',
 		selected	: 'Izbrano',
 		clear		: 'Počisti'

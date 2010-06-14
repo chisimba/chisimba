@@ -110,17 +110,24 @@ CKEDITOR.lang['uk'] =
 		unavailable		: '%1<span class="cke_accessibility">, не доступне</span>'
 	},
 
+	contextmenu :
+	{
+		options : 'Context Menu Options' // MISSING
+	},
+
 	// Special char dialog.
 	specialChar		:
 	{
 		toolbar		: 'Вставити спеціальний символ',
-		title		: 'Оберіть спеціальний символ'
+		title		: 'Оберіть спеціальний символ',
+		options : 'Special Character Options' // MISSING
 	},
 
 	// Link dialog.
 	link :
 	{
 		toolbar		: 'Вставити/Редагувати посилання',
+		other 		: '<інший>',
 		menu		: 'Вставити посилання',
 		title		: 'Посилання',
 		info		: 'Інформація посилання',
@@ -180,6 +187,29 @@ CKEDITOR.lang['uk'] =
 		title		: 'Властивості якоря',
 		name		: 'Ім\'я якоря',
 		errorName	: 'Будь ласка, занесіть ім\'я якоря'
+	},
+
+	// List style dialog
+	list:
+	{
+		numberedTitle		: 'Numbered List Properties', // MISSING
+		bulletedTitle		: 'Bulleted List Properties', // MISSING
+		type				: 'Type', // MISSING
+		start				: 'Start', // MISSING
+		circle				: 'Circle', // MISSING
+		disc				: 'Disc', // MISSING
+		square				: 'Square', // MISSING
+		none				: 'None', // MISSING
+		notset				: '<not set>', // MISSING
+		armenian			: 'Armenian numbering', // MISSING
+		georgian			: 'Georgian numbering (an, ban, gan, etc.)', // MISSING
+		lowerRoman			: 'Lower Roman (i, ii, iii, iv, v, etc.)', // MISSING
+		upperRoman			: 'Upper Roman (I, II, III, IV, V, etc.)', // MISSING
+		lowerAlpha			: 'Lower Alpha (a, b, c, d, e, etc.)', // MISSING
+		upperAlpha			: 'Upper Alpha (A, B, C, D, E, etc.)', // MISSING
+		lowerGreek			: 'Lower Greek (alpha, beta, gamma, etc.)', // MISSING
+		decimal				: 'Decimal (1, 2, 3, etc.)', // MISSING
+		decimalLeadingZero	: 'Decimal leading zero (01, 02, 03, etc.)' // MISSING
 	},
 
 	// Find And Replace Dialog
@@ -476,7 +506,8 @@ CKEDITOR.lang['uk'] =
 	smiley :
 	{
 		toolbar	: 'Смайлик',
-		title	: 'Вставити смайлик'
+		title	: 'Вставити смайлик',
+		options : 'Smiley Options' // MISSING
 	},
 
 	elementsPath :
@@ -503,9 +534,9 @@ CKEDITOR.lang['uk'] =
 	clipboard :
 	{
 		title		: 'Вставити',
-		cutError	: 'Настройки безпеки вашого браузера не дозволяють редактору автоматично виконувати операції вирізування. Будь ласка, використовуйте клавіатуру для цього (Ctrl+X).',
-		copyError	: 'Настройки безпеки вашого браузера не дозволяють редактору автоматично виконувати операції копіювання. Будь ласка, використовуйте клавіатуру для цього (Ctrl+C).',
-		pasteMsg	: 'Будь ласка, вставте з буфера обміну в цю область, користуючись комбінацією клавіш (<STRONG>Ctrl+V</STRONG>) та натисніть <STRONG>OK</STRONG>.',
+		cutError	: 'Настройки безпеки вашого браузера не дозволяють редактору автоматично виконувати операції вирізування. Будь ласка, використовуйте клавіатуру для цього (Ctrl/Cmd+X).',
+		copyError	: 'Настройки безпеки вашого браузера не дозволяють редактору автоматично виконувати операції копіювання. Будь ласка, використовуйте клавіатуру для цього (Ctrl/Cmd+C).',
+		pasteMsg	: 'Будь ласка, вставте з буфера обміну в цю область, користуючись комбінацією клавіш (<STRONG>Ctrl/Cmd+V</STRONG>) та натисніть <STRONG>OK</STRONG>.',
 		securityMsg	: 'Редактор не може отримати прямий доступ до буферу обміну у зв\'язку з налаштуваннями вашого браузера. Вам потрібно вставити інформацію повторно в це вікно.',
 		pasteArea	: 'Paste Area' // MISSING
 	},
@@ -528,6 +559,7 @@ CKEDITOR.lang['uk'] =
 	{
 		button			: 'Шаблони',
 		title			: 'Шаблони змісту',
+		options : 'Template Options', // MISSING
 		insertOption	: 'Замінити поточний вміст',
 		selectPromptMsg	: 'Оберіть, будь ласка, шаблон для відкриття в редакторі<br>(поточний зміст буде втрачено):',
 		emptyListMsg	: '(Не визначено жодного шаблону)'
@@ -648,6 +680,7 @@ CKEDITOR.lang['uk'] =
 	scayt :
 	{
 		title			: 'Перефірка орфографії по мірі набору',
+		opera_title		: 'Not supported by Opera', // MISSING
 		enable			: 'Включити SCAYT',
 		disable			: 'Відключити SCAYT',
 		about			: 'Про SCAYT',
@@ -659,9 +692,23 @@ CKEDITOR.lang['uk'] =
 		ignoreAll		: 'Ігнорувати всі',
 		addWord			: 'Додати слово',
 		emptyDic		: 'Назва словника повинна бути заповнена.',
+
 		optionsTab		: 'Опції',
+		allCaps			: 'Ignore All-Caps Words', // MISSING
+		ignoreDomainNames : 'Ignore Domain Names', // MISSING
+		mixedCase		: 'Ignore Words with Mixed Case', // MISSING
+		mixedWithDigits	: 'Ignore Words with Numbers', // MISSING
+
 		languagesTab	: 'Мови',
+
 		dictionariesTab	: 'Словники',
+		dic_field_name	: 'Dictionary name', // MISSING
+		dic_create		: 'Create', // MISSING
+		dic_restore		: 'Restore', // MISSING
+		dic_delete		: 'Delete', // MISSING
+		dic_rename		: 'Rename', // MISSING
+		dic_info		: 'Initially the User Dictionary is stored in a Cookie. However, Cookies are limited in size. When the User Dictionary grows to a point where it cannot be stored in a Cookie, then the dictionary may be stored on our server. To store your personal dictionary on our server you should specify a name for your dictionary. If you already have a stored dictionary, please type it\'s name and click the Restore button.', // MISSING
+
 		aboutTab		: 'Про'
 	},
 
@@ -689,8 +736,9 @@ CKEDITOR.lang['uk'] =
 	colordialog :
 	{
 		title		: 'Select color', // MISSING
+		options	:	'Color Options', // MISSING
 		highlight	: 'Highlight', // MISSING
-		selected	: 'Selected', // MISSING
+		selected	: 'Selected Color', // MISSING
 		clear		: 'Clear' // MISSING
 	},
 

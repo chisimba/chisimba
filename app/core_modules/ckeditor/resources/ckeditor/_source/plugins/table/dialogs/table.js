@@ -43,6 +43,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					}
 					else if ( ranges.length > 0 )
 					{
+						// Webkit could report the following range on cell selection (#4948):
+						// <table><tr><td>[&nbsp;</td></tr></table>]
+						if ( CKEDITOR.env.webkit )
+							ranges[ 0 ].shrink( CKEDITOR.NODE_ELEMENT );
+
 						var rangeRoot = ranges[0].getCommonAncestor( true );
 						selectedTable = rangeRoot.getAscendant( 'table', true );
 					}
@@ -568,6 +573,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									{
 										if ( this.getValue() )
 											selectedTable.setAttribute( 'summary', this.getValue() );
+										else
+											selectedTable.removeAttribute( 'summary' );
 									}
 								}
 							]

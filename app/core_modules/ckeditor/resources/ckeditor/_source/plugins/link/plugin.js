@@ -65,6 +65,16 @@ CKEDITOR.plugins.add( 'link',
 					command.setState( CKEDITOR.TRISTATE_DISABLED );
 			} );
 
+		editor.on( 'doubleclick', function( evt )
+			{
+				var element = CKEDITOR.plugins.link.getSelectedLink( editor ) || evt.data.element;
+
+				if ( element.is( 'a' ) )
+					evt.data.dialog =  ( element.getAttribute( 'name' ) && !element.getAttribute( 'href' ) ) ? 'anchor' : 'link';
+				else if ( element.is( 'img' ) && element.getAttribute( '_cke_real_element_type' ) == 'anchor' )
+					evt.data.dialog = 'anchor';
+			});
+
 		// If the "menu" plugin is loaded, register the menu items.
 		if ( editor.addMenuItems )
 		{
@@ -107,7 +117,7 @@ CKEDITOR.plugins.add( 'link',
 
 					if ( !isAnchor )
 					{
-						if ( !( element = element.getAscendant( 'a', true ) ) )
+						if ( !( element = CKEDITOR.plugins.link.getSelectedLink( editor ) ) )
 							return null;
 
 						isAnchor = ( element.getAttribute( 'name' ) && !element.getAttribute( 'href' ) );
@@ -147,6 +157,35 @@ CKEDITOR.plugins.add( 'link',
 	requires : [ 'fakeobjects' ]
 } );
 
+CKEDITOR.plugins.link =
+{
+	/**
+	 *  Get the surrounding link element of current selection.
+	 * @param editor
+	 * @example CKEDITOR.plugins.link.getSelectedLink( editor );
+	 * @since 3.2.1
+	 * The following selection will all return the link element.
+	 *	 <pre>
+	 *  <a href="#">li^nk</a>
+	 *  <a href="#">[link]</a>
+	 *  text[<a href="#">link]</a>
+	 *  <a href="#">li[nk</a>]
+	 *  [<b><a href="#">li]nk</a></b>]
+	 *  [<a href="#"><b>li]nk</b></a>
+	 * </pre>
+	 */
+	getSelectedLink : function( editor )
+	{
+		var range;
+		try { range  = editor.getSelection().getRanges()[ 0 ]; }
+		catch( e ) { return null; }
+
+		range.shrink( CKEDITOR.SHRINK_TEXT );
+		var root = range.getCommonAncestor();
+		return root.getAscendant( 'a', true );
+	}
+};
+
 CKEDITOR.unlinkCommand = function(){};
 CKEDITOR.unlinkCommand.prototype =
 {
@@ -178,7 +217,9 @@ CKEDITOR.unlinkCommand.prototype =
 		selection.selectRanges( ranges );
 		editor.document.$.execCommand( 'unlink', false, null );
 		selection.selectBookmarks( bookmarks );
-	}
+	},
+
+	startDisabled : true
 };
 
 CKEDITOR.tools.extend( CKEDITOR.config,

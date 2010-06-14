@@ -71,9 +71,16 @@ if ( !CKEDITOR.env )
 
 			quirks : ( document.compatMode == 'BackCompat' ),
 
+			mobile : ( agent.indexOf( 'mobile' ) > -1 ),
+
 			isCustomDomain : function()
 			{
-				return this.ie && document.domain != window.location.hostname;
+				var domain = document.domain,
+					hostname = window.location.hostname;
+
+				return this.ie &&
+					domain != hostname &&
+					domain != ( '[' + hostname + ']' );	// IPv6 IP support (#5434)
 			}
 		};
 
@@ -176,12 +183,13 @@ if ( !CKEDITOR.env )
 		 *     alert( "Your browser is pretty cool!" );
 		 */
 		env.isCompatible =
+			!env.mobile && (
 			( env.ie && version >= 6 ) ||
 			( env.gecko && version >= 10801 ) ||
 			( env.opera && version >= 9.5 ) ||
 			( env.air && version >= 1 ) ||
 			( env.webkit && version >= 522 ) ||
-			false;
+			false );
 
 		// The CSS class to be appended on the main UI containers, making it
 		// easy to apply browser specific styles to it.

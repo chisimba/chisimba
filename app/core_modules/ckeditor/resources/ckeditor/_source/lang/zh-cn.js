@@ -110,17 +110,24 @@ CKEDITOR.lang['zh-cn'] =
 		unavailable		: '%1<span class="cke_accessibility">, 不可用</span>'
 	},
 
+	contextmenu :
+	{
+		options : 'Context Menu Options' // MISSING
+	},
+
 	// Special char dialog.
 	specialChar		:
 	{
 		toolbar		: '插入特殊符号',
-		title		: '选择特殊符号'
+		title		: '选择特殊符号',
+		options : 'Special Character Options' // MISSING
 	},
 
 	// Link dialog.
 	link :
 	{
 		toolbar		: '插入/编辑超链接',
+		other 		: '<其他>',
 		menu		: '编辑超链接',
 		title		: '超链接',
 		info		: '超链接信息',
@@ -180,6 +187,29 @@ CKEDITOR.lang['zh-cn'] =
 		title		: '锚点链接属性',
 		name		: '锚点名称',
 		errorName	: '请输入锚点名称'
+	},
+
+	// List style dialog
+	list:
+	{
+		numberedTitle		: 'Numbered List Properties', // MISSING
+		bulletedTitle		: 'Bulleted List Properties', // MISSING
+		type				: 'Type', // MISSING
+		start				: 'Start', // MISSING
+		circle				: 'Circle', // MISSING
+		disc				: 'Disc', // MISSING
+		square				: 'Square', // MISSING
+		none				: 'None', // MISSING
+		notset				: '<not set>', // MISSING
+		armenian			: 'Armenian numbering', // MISSING
+		georgian			: 'Georgian numbering (an, ban, gan, etc.)', // MISSING
+		lowerRoman			: 'Lower Roman (i, ii, iii, iv, v, etc.)', // MISSING
+		upperRoman			: 'Upper Roman (I, II, III, IV, V, etc.)', // MISSING
+		lowerAlpha			: 'Lower Alpha (a, b, c, d, e, etc.)', // MISSING
+		upperAlpha			: 'Upper Alpha (A, B, C, D, E, etc.)', // MISSING
+		lowerGreek			: 'Lower Greek (alpha, beta, gamma, etc.)', // MISSING
+		decimal				: 'Decimal (1, 2, 3, etc.)', // MISSING
+		decimalLeadingZero	: 'Decimal leading zero (01, 02, 03, etc.)' // MISSING
 	},
 
 	// Find And Replace Dialog
@@ -476,7 +506,8 @@ CKEDITOR.lang['zh-cn'] =
 	smiley :
 	{
 		toolbar	: '表情符',
-		title	: '插入表情图标'
+		title	: '插入表情图标',
+		options : 'Smiley Options' // MISSING
 	},
 
 	elementsPath :
@@ -503,9 +534,9 @@ CKEDITOR.lang['zh-cn'] =
 	clipboard :
 	{
 		title		: '粘贴',
-		cutError	: '您的浏览器安全设置不允许编辑器自动执行剪切操作，请使用键盘快捷键(Ctrl+X)来完成',
-		copyError	: '您的浏览器安全设置不允许编辑器自动执行复制操作，请使用键盘快捷键(Ctrl+C)来完成',
-		pasteMsg	: '请使用键盘快捷键(<STRONG>Ctrl+V</STRONG>)把内容粘贴到下面的方框里，再按 <STRONG>确定</STRONG>',
+		cutError	: '您的浏览器安全设置不允许编辑器自动执行剪切操作，请使用键盘快捷键(Ctrl/Cmd+X)来完成',
+		copyError	: '您的浏览器安全设置不允许编辑器自动执行复制操作，请使用键盘快捷键(Ctrl/Cmd+C)来完成',
+		pasteMsg	: '请使用键盘快捷键(<STRONG>Ctrl/Cmd+V</STRONG>)把内容粘贴到下面的方框里，再按 <STRONG>确定</STRONG>',
 		securityMsg	: '因为你的浏览器的安全设置原因，本编辑器不能直接访问你的剪贴板内容，你需要在本窗口重新粘贴一次',
 		pasteArea	: 'Paste Area' // MISSING
 	},
@@ -528,6 +559,7 @@ CKEDITOR.lang['zh-cn'] =
 	{
 		button			: '模板',
 		title			: '内容模板',
+		options : 'Template Options', // MISSING
 		insertOption	: '替换当前内容',
 		selectPromptMsg	: '请选择编辑器内容模板:',
 		emptyListMsg	: '(没有模板)'
@@ -648,6 +680,7 @@ CKEDITOR.lang['zh-cn'] =
 	scayt :
 	{
 		title			: '即时拼写检查',
+		opera_title		: 'Not supported by Opera', // MISSING
 		enable			: '启用即时拼写检查',
 		disable			: '禁用即时拼写检查',
 		about			: '关于即时拼写检查',
@@ -659,9 +692,23 @@ CKEDITOR.lang['zh-cn'] =
 		ignoreAll		: '全部忽略',
 		addWord			: '添加单词',
 		emptyDic		: '字典名不应为空.',
+
 		optionsTab		: '选项',
+		allCaps			: 'Ignore All-Caps Words', // MISSING
+		ignoreDomainNames : 'Ignore Domain Names', // MISSING
+		mixedCase		: 'Ignore Words with Mixed Case', // MISSING
+		mixedWithDigits	: 'Ignore Words with Numbers', // MISSING
+
 		languagesTab	: '语言',
+
 		dictionariesTab	: '字典',
+		dic_field_name	: 'Dictionary name', // MISSING
+		dic_create		: 'Create', // MISSING
+		dic_restore		: 'Restore', // MISSING
+		dic_delete		: 'Delete', // MISSING
+		dic_rename		: 'Rename', // MISSING
+		dic_info		: 'Initially the User Dictionary is stored in a Cookie. However, Cookies are limited in size. When the User Dictionary grows to a point where it cannot be stored in a Cookie, then the dictionary may be stored on our server. To store your personal dictionary on our server you should specify a name for your dictionary. If you already have a stored dictionary, please type it\'s name and click the Restore button.', // MISSING
+
 		aboutTab		: '关于'
 	},
 
@@ -689,8 +736,9 @@ CKEDITOR.lang['zh-cn'] =
 	colordialog :
 	{
 		title		: 'Select color', // MISSING
+		options	:	'Color Options', // MISSING
 		highlight	: 'Highlight', // MISSING
-		selected	: 'Selected', // MISSING
+		selected	: 'Selected Color', // MISSING
 		clear		: 'Clear' // MISSING
 	},
 

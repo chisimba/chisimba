@@ -925,7 +925,7 @@ CKEDITOR.dom.range = function( document )
 
 										siblingText = sibling.getText();
 
-										if ( !(/[^\s\ufeff]/).test( siblingText ) )	// Spaces + Zero Width No-Break Space (U+FEFF)
+										if ( (/[^\s\ufeff]/).test( siblingText ) )	// Spaces + Zero Width No-Break Space (U+FEFF)
 											sibling = null;
 										else
 										{
@@ -1084,7 +1084,7 @@ CKEDITOR.dom.range = function( document )
 
 										siblingText = sibling.getText();
 
-										if ( !(/[^\s\ufeff]/).test( siblingText ) )
+										if ( (/[^\s\ufeff]/).test( siblingText ) )
 											sibling = null;
 										else
 										{
@@ -1236,6 +1236,100 @@ CKEDITOR.dom.range = function( document )
 		},
 
 		/**
+		 *  Descrease the range to make sure that boundaries
+		 *  always anchor beside text nodes or innermost element.
+		 * @param {Number} mode  ( CKEDITOR.SHRINK_ELEMENT | CKEDITOR.SHRINK_TEXT ) The shrinking mode.
+		 */
+		shrink : function( mode, selectContents )
+		{
+			// Unable to shrink a collapsed range.
+			if ( !this.collapsed )
+			{
+				mode = mode || CKEDITOR.SHRINK_TEXT;
+
+				var walkerRange = this.clone();
+
+				var startContainer = this.startContainer,
+					endContainer = this.endContainer,
+					startOffset = this.startOffset,
+					endOffset = this.endOffset,
+					collapsed = this.collapsed;
+
+				// Whether the start/end boundary is moveable.
+				var moveStart = 1,
+						moveEnd = 1;
+
+				if ( startContainer && startContainer.type == CKEDITOR.NODE_TEXT )
+				{
+					if ( !startOffset )
+						walkerRange.setStartBefore( startContainer );
+					else if ( startOffset >= startContainer.getLength( ) )
+						walkerRange.setStartAfter( startContainer );
+					else
+					{
+						// Enlarge the range properly to avoid walker making
+						// DOM changes caused by triming the text nodes later.
+						walkerRange.setStartBefore( startContainer );
+						moveStart = 0;
+					}
+				}
+
+				if ( endContainer && endContainer.type == CKEDITOR.NODE_TEXT )
+				{
+					if ( !endOffset )
+						walkerRange.setEndBefore( endContainer );
+					else if ( endOffset >= endContainer.getLength( ) )
+						walkerRange.setEndAfter( endContainer );
+					else
+					{
+						walkerRange.setEndAfter( endContainer );
+						moveEnd = 0;
+					}
+				}
+
+				var walker = new CKEDITOR.dom.walker( walkerRange );
+
+				walker.evaluator = function( node )
+				{
+					return node.type == ( mode == CKEDITOR.SHRINK_ELEMENT ?
+						CKEDITOR.NODE_ELEMENT : CKEDITOR.NODE_TEXT );
+				};
+
+				var currentElement;
+				walker.guard = function( node, movingOut )
+				{
+					// Stop when we're shrink in element mode while encountering a text node.
+					if ( mode == CKEDITOR.SHRINK_ELEMENT && node.type == CKEDITOR.NODE_TEXT )
+						return false;
+
+					// Stop when we've already walked "through" an element.
+					if ( movingOut && node.equals( currentElement ) )
+						return false;
+
+					if ( !movingOut && node.type == CKEDITOR.NODE_ELEMENT )
+						currentElement = node;
+
+					return true;
+				};
+
+				if ( moveStart )
+				{
+					var textStart = walker[ mode == CKEDITOR.SHRINK_ELEMENT ? 'lastForward' : 'next']();
+					textStart && this.setStartAt( textStart, selectContents ? CKEDITOR.POSITION_AFTER_START : CKEDITOR.POSITION_BEFORE_START );
+				}
+
+				if ( moveEnd )
+				{
+					walker.reset();
+					var textEnd = walker[ mode == CKEDITOR.SHRINK_ELEMENT ? 'lastBackward' : 'previous']();
+					textEnd && this.setEndAt( textEnd, selectContents ? CKEDITOR.POSITION_BEFORE_END : CKEDITOR.POSITION_AFTER_END );
+				}
+
+				return !!( moveStart || moveEnd );
+			}
+		},
+
+		/**
 		 * Inserts a node at the start of the range. The range will be expanded
 		 * the contain the node.
 		 */
@@ -1288,6 +1382,11 @@ CKEDITOR.dom.range = function( document )
 			// we will not need this check for our use of this class so we can
 			// ignore it for now.
 
+			// Fixing invalid range start inside dtd empty elements.
+			if( startNode.type == CKEDITOR.NODE_ELEMENT
+				&& CKEDITOR.dtd.$empty[ startNode.getName() ] )
+				startNode = startNode.getParent(), startOffset = startNode.getIndex();
+
 			this.startContainer	= startNode;
 			this.startOffset	= startOffset;
 
@@ -1313,6 +1412,11 @@ CKEDITOR.dom.range = function( document )
 			// boundary, the range should be collapsed to the new end. It seams we
 			// will not need this check for our use of this class so we can ignore
 			// it for now.
+
+			// Fixing invalid range end inside dtd empty elements.
+			if( endNode.type == CKEDITOR.NODE_ELEMENT
+				&& CKEDITOR.dtd.$empty[ endNode.getName() ] )
+				endNode = endNode.getParent(), endOffset = endNode.getIndex() + 1;
 
 			this.endContainer	= endNode;
 			this.endOffset		= endOffset;
@@ -1623,6 +1727,10 @@ CKEDITOR.dom.range = function( document )
 		{
 			var isEditable;
 
+			// Empty elements are rejected.
+			if ( CKEDITOR.dtd.$empty[ el.getName() ] )
+				return false;
+
 			while ( el && el.type == CKEDITOR.NODE_ELEMENT )
 			{
 				isEditable = el.isEditable();
@@ -1681,8 +1789,15 @@ CKEDITOR.dom.range = function( document )
 		 */
 		getEnclosedNode : function()
 		{
-			var walkerRange = this.clone(),
-				walker = new CKEDITOR.dom.walker( walkerRange ),
+			var walkerRange = this.clone();
+
+			// Optimize and analyze the range to avoid DOM destructive nature of walker. (#
+			walkerRange.optimize();
+			if ( walkerRange.startContainer.type != CKEDITOR.NODE_ELEMENT
+					|| walkerRange.endContainer.type != CKEDITOR.NODE_ELEMENT )
+				return null;
+
+			var walker = new CKEDITOR.dom.walker( walkerRange ),
 				isNotBookmarks = CKEDITOR.dom.walker.bookmark( true ),
 				isNotWhitespaces = CKEDITOR.dom.walker.whitespaces( true ),
 				evaluator = function( node )
@@ -1733,3 +1848,6 @@ CKEDITOR.ENLARGE_LIST_ITEM_CONTENTS = 3;
 CKEDITOR.START = 1;
 CKEDITOR.END = 2;
 CKEDITOR.STARTEND = 3;
+
+CKEDITOR.SHRINK_ELEMENT = 1;
+CKEDITOR.SHRINK_TEXT = 2;

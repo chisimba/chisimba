@@ -86,6 +86,43 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		return retval;
 	}
 
+	function getFocusElementAfterDelCells( cellsToDelete ) {
+		var i = 0,
+			last = cellsToDelete.length - 1,
+			database = {},
+			cell,focusedCell,
+			tr;
+
+		while ( ( cell = cellsToDelete[ i++ ] ) )
+			CKEDITOR.dom.element.setMarker( database, cell, 'delete_cell', true );
+
+		// 1.first we check left or right side focusable cell row by row;
+		i = 0;
+		while ( ( cell = cellsToDelete[ i++ ] ) )
+		{
+			if ( ( focusedCell = cell.getPrevious() ) && !focusedCell.getCustomData( 'delete_cell' )
+			  || ( focusedCell = cell.getNext()     ) && !focusedCell.getCustomData( 'delete_cell' ) )
+			{
+				CKEDITOR.dom.element.clearAllMarkers( database );
+				return focusedCell;
+			}
+		}
+
+		CKEDITOR.dom.element.clearAllMarkers( database );
+
+		// 2. then we check the toppest row (outside the selection area square) focusable cell
+		tr = cellsToDelete[ 0 ].getParent();
+		if ( ( tr = tr.getPrevious() ) )
+			return tr.getLast();
+
+		// 3. last we check the lowerest  row focusable cell
+		tr = cellsToDelete[ last ].getParent();
+		if ( ( tr = tr.getNext() ) )
+			return tr.getChild( 0 );
+
+		return null;
+	}
+
 	function clearRow( $tr )
 	{
 		// Get the array of row's cells.
@@ -211,21 +248,65 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		}
 	}
 
+	function getFocusElementAfterDelCols( cells )
+	{
+		var cellIndexList = [],
+			table = cells[ 0 ] && cells[ 0 ].getAscendant( 'table' ),
+			i, length,
+			targetIndex, targetCell;
+
+		// get the cellIndex list of delete cells
+		for ( i = 0, length = cells.length; i < length; i++ )
+			cellIndexList.push( cells[i].$.cellIndex );
+
+		// get the focusable column index
+		cellIndexList.sort();
+		for ( i = 1, length = cellIndexList.length; i < length; i++ )
+		{
+			if ( cellIndexList[ i ] - cellIndexList[ i - 1 ] > 1 )
+			{
+				targetIndex = cellIndexList[ i - 1 ] + 1;
+				break;
+			}
+		}
+
+		if ( !targetIndex )
+			targetIndex = cellIndexList[ 0 ] > 0 ? ( cellIndexList[ 0 ] - 1 )
+							: ( cellIndexList[ cellIndexList.length - 1 ] + 1 );
+
+		// scan row by row to get the target cell
+		var rows = table.$.rows;
+		for ( i = 0, length = rows.length; i < length ; i++ )
+		{
+			targetCell = rows[ i ].cells[ targetIndex ];
+			if ( targetCell )
+				break;
+		}
+
+		return targetCell ?  new CKEDITOR.dom.element( targetCell ) :  table.getPrevious();
+	}
+
 	function deleteColumns( selectionOrCell )
 	{
 		if ( selectionOrCell instanceof CKEDITOR.dom.selection )
 		{
-			var colsToDelete = getSelectedCells( selectionOrCell );
-			for ( var i = colsToDelete.length ; i >= 0 ; i-- )
+			var colsToDelete = getSelectedCells( selectionOrCell ),
+				elementToFocus = getFocusElementAfterDelCols( colsToDelete );
+
+			for ( var i = colsToDelete.length - 1 ; i >= 0 ; i-- )
 			{
 				if ( colsToDelete[ i ] )
 					deleteColumns( colsToDelete[ i ] );
 			}
+
+			return elementToFocus;
 		}
 		else if ( selectionOrCell instanceof CKEDITOR.dom.element )
 		{
 			// Get the cell's table.
 			var table = selectionOrCell.getAscendant( 'table' );
+			if ( !table )
+				return null;
 
 			// Get the cell index.
 			var cellIndex = selectionOrCell.$.cellIndex;
@@ -251,6 +332,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					row.$.removeChild( row.$.cells[ cellIndex ] );
 			}
 		}
+
+		return null;
 	}
 
 	function insertCell( selection, insertBefore )
@@ -277,13 +360,22 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		if ( selectionOrCell instanceof CKEDITOR.dom.selection )
 		{
 			var cellsToDelete = getSelectedCells( selectionOrCell );
+			var table = cellsToDelete[ 0 ] && cellsToDelete[ 0 ].getAscendant( 'table' );
+			var cellToFocus   = getFocusElementAfterDelCells( cellsToDelete );
+
 			for ( var i = cellsToDelete.length - 1 ; i >= 0 ; i-- )
 				deleteCells( cellsToDelete[ i ] );
+
+			if ( cellToFocus )
+				placeCursorInCell( cellToFocus, true );
+			else if ( table )
+				table.remove();
 		}
 		else if ( selectionOrCell instanceof CKEDITOR.dom.element )
 		{
-			if ( selectionOrCell.getParent().getChildCount() == 1 )
-				selectionOrCell.getParent().remove();
+			var tr = selectionOrCell.getParent();
+			if ( tr.getChildCount() == 1 )
+				tr.remove();
 			else
 				selectionOrCell.remove();
 		}
@@ -680,9 +772,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						range.collapse();
 						selection.selectRanges( [ range ] );
 
-						// If the table's parent has only one child, remove it as well.
-						if ( table.getParent().getChildCount() == 1 )
-							table.getParent().remove();
+						// If the table's parent has only one child, remove it,except body,as well.( #5416 )
+						var parent = table.getParent();
+						if ( parent.getChildCount() == 1 && parent.getName() != 'body' )
+							parent.remove();
 						else
 							table.remove();
 					}
@@ -720,7 +813,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					exec : function( editor )
 					{
 						var selection = editor.getSelection();
-						deleteColumns( selection );
+						var element = deleteColumns( selection );
+						element &&  placeCursorInCell( element, true );
 					}
 				} );
 

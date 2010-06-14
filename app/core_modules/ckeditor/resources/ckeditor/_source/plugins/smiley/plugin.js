@@ -9,6 +9,7 @@ CKEDITOR.plugins.add( 'smiley',
 
 	init : function( editor )
 	{
+		editor.config.smiley_path = editor.config.smiley_path || ( this.path + 'images/' );
 		editor.addCommand( 'smiley', new CKEDITOR.dialogCommand( 'smiley' ) );
 		editor.ui.addButton( 'Smiley',
 			{
@@ -22,6 +23,7 @@ CKEDITOR.plugins.add( 'smiley',
 /**
  * The base path used to build the URL for the smiley images. It must end with
  * a slash.
+ * @name CKEDITOR.config.smiley_path
  * @type String
  * @default {@link CKEDITOR.basePath} + 'plugins/smiley/images/'
  * @example
@@ -29,9 +31,6 @@ CKEDITOR.plugins.add( 'smiley',
  * @example
  * config.smiley_path = '/images/smileys/';
  */
-CKEDITOR.config.smiley_path = CKEDITOR.basePath +
-	'_source/' +		// @Packager.RemoveLine
-	'plugins/smiley/images/';
 
 /**
  * The file names for the smileys to be displayed. These files must be
@@ -65,7 +64,7 @@ CKEDITOR.config.smiley_images = [
  * config.smiley_descriptions =
  *     [
  *         'smiley', 'sad', 'wink', 'laugh', 'frown', 'cheeky', 'blush', 'surprise',
- *         'indecision', 'angry', 'angle', 'cool', 'devil', 'crying', 'enlightened', 'no',
+ *         'indecision', 'angry', 'angel', 'cool', 'devil', 'crying', 'enlightened', 'no',
  *         'yes', 'heart', 'broken heart', 'kiss', 'mail'
  *     ];
  * @example
@@ -80,6 +79,6 @@ CKEDITOR.config.smiley_images = [
 CKEDITOR.config.smiley_descriptions =
 	[
 		'smiley', 'sad', 'wink', 'laugh', 'frown', 'cheeky', 'blush', 'surprise',
-		'indecision', 'angry', 'angle', 'cool', 'devil', 'crying', 'enlightened', 'no',
+		'indecision', 'angry', 'angel', 'cool', 'devil', 'crying', 'enlightened', 'no',
 		'yes', 'heart', 'broken heart', 'kiss', 'mail'
 	];

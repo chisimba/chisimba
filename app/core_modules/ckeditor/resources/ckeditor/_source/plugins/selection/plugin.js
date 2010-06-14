@@ -72,6 +72,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 	var selectAllCmd =
 	{
+		modes : { wysiwyg : 1, source : 1 },
 		exec : function( editor )
 		{
 			switch ( editor.mode )
@@ -80,7 +81,18 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					editor.document.$.execCommand( 'SelectAll', false, null );
 					break;
 				case 'source' :
-					// TODO
+					// Select the contents of the textarea
+					var textarea = editor.textarea.$ ;
+					if ( CKEDITOR.env.ie )
+					{
+						textarea.createTextRange().execCommand( 'SelectAll' ) ;
+					}
+					else
+					{
+						textarea.selectionStart = 0 ;
+						textarea.selectionEnd = textarea.value.length ;
+					}
+					textarea.focus() ;
 			}
 		},
 		canUndo : false
@@ -108,8 +120,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						// "onfocusin" is fired before "onfocus". It makes it
 						// possible to restore the selection before click
 						// events get executed.
-						body.on( 'focusin', function()
+						body.on( 'focusin', function( evt )
 							{
+								// If there are elements with layout they fire this event but
+								// it must be ignored to allow edit its contents #4682
+								if ( evt.data.$.srcElement.nodeName != 'BODY' )
+									return;
+
 								// If we have saved a range, restore it at this
 								// point.
 								if ( savedRange )
@@ -126,7 +143,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								}
 							});
 
-						editor.window.on( 'focus', function()
+						body.on( 'focus', function()
 							{
 								// Enable selections to be saved.
 								saveEnabled = true;
@@ -134,11 +151,26 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								saveSelection();
 							});
 
-						body.on( 'beforedeactivate', function()
+						body.on( 'beforedeactivate', function( evt )
 							{
+								// Ignore this event if it's caused by focus switch between
+								// internal editable control type elements, e.g. layouted paragraph. (#4682)
+								if ( evt.data.$.toElement )
+									return;
+
 								// Disable selections from being saved.
 								saveEnabled = false;
 							});
+
+						// IE before version 8 will leave cursor blinking inside the document after
+						// editor blurred unless we clean up the selection. (#4716)
+						if ( CKEDITOR.env.ie && CKEDITOR.env.version < 8 )
+						{
+							doc.getWindow().on( 'blur', function( evt )
+							{
+								editor.document.$.selection.empty();
+							});
+						}
 
 						// IE fires the "selectionchange" event when clicking
 						// inside a selection. We don't want to capture that.
@@ -177,7 +209,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							if ( saveEnabled )
 							{
 								var doc = editor.document,
-									sel = doc && doc.$.selection;
+									sel = editor.getSelection(),
+									nativeSel = sel && sel.getNative();
 
 								// There is a very specific case, when clicking
 								// inside a text selection. In that case, the
@@ -187,7 +220,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								// range at the very start of the document. In
 								// such situation we have to test the range, to
 								// be sure it's valid.
-								if ( testIt && sel && sel.type == 'None' )
+								if ( testIt && nativeSel && nativeSel.type == 'None' )
 								{
 									// The "InsertImage" command can be used to
 									// test whether the selection is good or not.
@@ -200,7 +233,16 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									}
 								}
 
-								savedRange = sel && sel.createRange();
+								// Avoid saving selection from within text input. (#5747)
+								var parentTag;
+								if ( nativeSel && nativeSel.type == 'Text'
+									&& ( parentTag = nativeSel.createRange().parentElement().nodeName.toLowerCase() )
+									&& parentTag in { input: 1, textarea : 1 } )
+								{
+									return;
+								}
+
+								savedRange = nativeSel && sel.getRanges()[ 0 ];
 
 								checkSelectionChangeTimeout.call( editor );
 							}
@@ -708,26 +750,34 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			if ( cache.selectedElement !== undefined )
 				return cache.selectedElement;
 
-			var node;
+			var self = this;
 
-			if ( this.getType() == CKEDITOR.SELECTION_ELEMENT )
-			{
-				var sel = this.getNative();
-
-				if ( CKEDITOR.env.ie )
+			var node = CKEDITOR.tools.tryThese(
+				// Is it native IE control type selection?
+				function()
 				{
-					try
+					return self.getNative().createRange().item( 0 );
+				},
+				// Figure it out by checking if there's a single enclosed
+				// node of the range.
+				function()
+				{
+					var range  = self.getRanges()[ 0 ],
+						enclosed,
+						selected;
+
+					// Check first any enclosed element, e.g. <ul>[<li><a href="#">item</a></li>]</ul>
+					for ( var i = 2; i && !( ( enclosed = range.getEnclosedNode() )
+						&& ( enclosed.type == CKEDITOR.NODE_ELEMENT )
+						&& styleObjectElements[ enclosed.getName() ]
+						&& ( selected = enclosed ) ); i-- )
 					{
-						node = sel.createRange().item(0);
+						// Then check any deep wrapped element, e.g. [<b><i><img /></i></b>]
+						range.shrink( CKEDITOR.SHRINK_ELEMENT );
 					}
-					catch(e) {}
-				}
-				else
-				{
-					var range = sel.getRangeAt( 0 );
-					node = range.startContainer.childNodes[ range.startOffset ];
-				}
-			}
+
+					return  selected.$;
+				});
 
 			return cache.selectedElement = ( node ? new CKEDITOR.dom.element( node ) : null );
 		},
@@ -819,6 +869,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					range = this.document.$.body.createTextRange();
 					range.moveToElementText( element.$ );
 					range.select();
+				}
+				finally
+				{
+					this.document.fire( 'selectionchange' );
 				}
 
 				this.reset();
@@ -970,6 +1024,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 {
 var notWhitespaces = CKEDITOR.dom.walker.whitespaces( true );
 var fillerTextRegex = /\ufeff|\u00a0/;
+var nonCells = { table:1,tbody:1,tr:1 };
 
 CKEDITOR.dom.range.prototype.select =
 	CKEDITOR.env.ie ?
@@ -979,6 +1034,14 @@ CKEDITOR.dom.range.prototype.select =
 			var collapsed = this.collapsed;
 			var isStartMarkerAlone;
 			var dummySpan;
+
+			// IE doesn't support selecting the entire table row/cell, move the selection into cells, e.g.
+			// <table><tbody><tr>[<td>cell</b></td>... => <table><tbody><tr><td>[cell</td>...
+			if ( this.startContainer.type == CKEDITOR.NODE_ELEMENT && this.startContainer.getName() in nonCells
+				|| this.endContainer.type == CKEDITOR.NODE_ELEMENT && this.endContainer.getName() in nonCells )
+			{
+				this.shrink( CKEDITOR.NODE_ELEMENT, true );
+			}
 
 			var bookmark = this.createBookmark();
 
@@ -1056,6 +1119,7 @@ CKEDITOR.dom.range.prototype.select =
 				else
 					ieRange.select();
 
+				this.moveToPosition( dummySpan, CKEDITOR.POSITION_BEFORE_START );
 				dummySpan.remove();
 			}
 			else
@@ -1064,6 +1128,8 @@ CKEDITOR.dom.range.prototype.select =
 				endNode.remove();
 				ieRange.select();
 			}
+
+			this.document.fire( 'selectionchange' );
 		}
 	:
 		function()
