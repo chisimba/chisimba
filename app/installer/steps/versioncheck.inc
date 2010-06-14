@@ -981,7 +981,7 @@ class PEARCheckAction extends StepAction
 
                                     '/usr/share/php',
 
-                                    'usr/share/pear',
+                                    '/usr/share/pear',
 
                                     '/usr/local/lib/php',
 
