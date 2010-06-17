@@ -77,7 +77,7 @@ CKEDITOR.editorConfig = function( config )
 
     config.toolbar_cms =
     [
-    ['Source','-','Save','Preview', 'Templates'],
+    ['Source','-','Preview', 'Templates'],
     ['Cut','Copy','Paste','PasteText','PasteWord','-','Print','SpellCheck'],
     ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
     ['Bold','Italic','Underline','StrikeThrough','-','Subscript','Superscript'],
@@ -93,7 +93,7 @@ CKEDITOR.editorConfig = function( config )
     config.toolbar_forms =
     [
     ['Source','-','Save','NewPage','Preview','-','Templates'],
-    ['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print', 'SpellChecker', 'Scayt'],
+    ['Cut','Copy','Paste','PasteText','PasteWord','-','Print', 'SpellChecker', 'Scayt'],
     ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
     ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField'],
     '/',
