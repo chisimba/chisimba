@@ -346,21 +346,12 @@ class engine {
 
     /**
      * Core modules array
-     * This is a hardcoded array of the absolute core modules. They cannot be deleted or removed
+     * This is a dynamically generated array of the absolute core modules. They cannot be deleted or removed
      * The core modules will live in a directory called core_modules in the app root
      *
      * @var array
      */
-    public $coremods = array ('api', 'blocks', 'canvas', 'config', 'context',
-        'contextadmin', 'ckeditor','contextgroups', 'contextpermissions',
-        'creativecommons', 'decisiontable', 'errors', 'ext', 'fckeditor', 'files',
-        'filemanager', 'filters', 'groupadmin', 'help', 'htmlelements', 'jquery',
-        'language', 'logger', 'mail', 'modulecatalogue', 'navigation',
-        'outputplugins', 'permissions', 'postlogin', 'prelogin', 'redirect',
-        'packages', 'search', 'security', 'sitemap', 'skin', 'stories',
-        'storycategoryadmin', 'strings', 'sysconfig', 'systext', 'tagging',
-        'tinymce','toolbar', 'tree', 'useradmin', 'userdetails',
-        'userregistration', 'utilities' );
+    public $coremods;
 
     /**
      * MemcacheD object
@@ -451,6 +442,10 @@ class engine {
         if (isset ( $_REQUEST [session_name ()] )) {
             $this->sessionStart ();
         }
+
+        // Populate the core modules array with the contents of the core_modules directory.
+        $this->coremods = array_map('basename', glob('core_modules/*'));
+
         /*
 		 * initialise member objects that *this object* is dependent on, and thus
 		 * must be created on every request
