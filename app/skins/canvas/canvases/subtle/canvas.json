@@ -1,0 +1,14 @@
+{
+    "name": "subtle",
+    "description": "A subtle canvas.",
+    "downloadfrom":"http://www.chisimba.com/canvases/subtle.zip",
+    "preview": {
+        "thumb": "subtle_th.png",
+        "fullview":"subtle.png"
+    },
+    "author": {
+        "authorname":"Derek Keats",
+        "email":"derek@dkeats.com",
+        "url":"http://www.dkeats.com"
+    }
+}

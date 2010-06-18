@@ -20,6 +20,9 @@ html, body {
 .ChisimbaCanvas {
     width: 960px;
     margin-top:25px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
 }
 
 #Canvas_Content {

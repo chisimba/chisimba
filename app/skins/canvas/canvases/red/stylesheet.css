@@ -19,6 +19,9 @@ html, body {
 
 .ChisimbaCanvas {
     width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
 }
 
 div#header div#search {

@@ -1,22 +1,20 @@
-/* 
+/*
     Document   : stylesheet.css
     Created on : 30 May 2010, 1:11:21 PM
     Author     : dkeats
     Description:
-        The red canvas for demonstrating canvases
+        Leave this blank for consistency to implement the underlying skin as a canvas to enable selecting.
 */
-
 
 html, body {
-    background: url('images/bg.png');
-    background-repeat: repeat;
-    background-attachment: fixed;
+    font-family: Verdana, Arial, sans-serif;
+    background-image: none;
+    background: #EFEFEF;
+    font-size: 12px;
+    color: #6B6B6B;
 }
 
-/*
-    The canvas elements
-*/
-
+/* Fixed width canvas */
 .ChisimbaCanvas {
     width: 960px;
     margin-left: auto;
@@ -25,12 +23,10 @@ html, body {
 }
 
 #container {
-    background: url('images/overlay50.png');
-    background-repeat: repeat;
-    border-color: grey;
+    background: url("images/gradient.png") top left repeat-y;
 }
 
-
+/* Locate the search box correctly */
 div#header div#search {
     margin: 0;
     margin: 10px;
