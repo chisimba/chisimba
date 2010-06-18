@@ -11,6 +11,9 @@
 define("PAGETOP", '<a name="pagetop"></a>');
 define("GOTOTOP", '<a href="#pagetop">Top</a>'); // @todo change this to an icon
 
+// Initialise some variables
+$prefCanvas=FALSE;
+
 // Define the valid canvases for this skin as an array.
 $validCanvases = array("_default", "aqua", "beach", "chisimba", "experim", "greyfloral", "modcanvas", "red", "blue", "yellow");
 
