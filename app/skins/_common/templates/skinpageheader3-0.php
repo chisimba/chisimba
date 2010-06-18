@@ -72,9 +72,6 @@ if (!isset($numColumns)) {
     $numColumns = 0;
 }
 
-// Create a variable to hold the Javascripts
- $javascripts =  $objSkin->putJavaScript($mime, $headerParams, $bodyOnLoad);
-
  // Set a variable holding the character set to UTF-8 unless it has already been set.
  if (!isset($charset)) {
      $charset = "utf-8";
@@ -84,6 +81,9 @@ if (!isset($numColumns)) {
 if (!isset($mime)) {
     $mime = "text/html";
 }
+
+// Create a variable to hold the Javascripts
+ $javascripts =  $objSkin->putJavaScript($mime, $headerParams, $bodyOnLoad);
 
 // Set up the variable for the page language.
 if (!isset($pageLanguage)) {
