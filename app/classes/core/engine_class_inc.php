@@ -444,7 +444,7 @@ class engine {
         }
 
         // Populate the core modules array with the contents of the core_modules directory.
-        $this->coremods = array_map('basename', glob('core_modules/*'));
+        $this->coremods = array_map('basename', glob('core_modules/*', GLOB_ONLYDIR));
 
         /*
 		 * initialise member objects that *this object* is dependent on, and thus
