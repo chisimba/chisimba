@@ -341,13 +341,15 @@ class csslayout extends object implements ifhtml
             var cHeight = xHeight("Canvas_Content_Body_Region2");
             var lHeight = xHeight("Canvas_Content_Body_Region1");
             var rHeight = xHeight("Canvas_Content_Body_Region3");
+            var bHeight = xHeight("Canvas_Content_Body");
             // Find the maximum height
-            var maxHeight = Math.max(cHeight, Math.max(lHeight, rHeight));
+            var maxHeight = Math.max(Math.max(cHeight, bHeight), Math.max(lHeight, rHeight));
             // Assign maximum height to all columns
             if ((browser!="Microsoft Internet Explorer")) {
               xHeight("Canvas_Content_Body_Region2", maxHeight);
               xHeight("Canvas_Content_Body_Region1", maxHeight);
               xHeight("Canvas_Content_Body_Region3", maxHeight);
+              xHeight("Canvas_Content_Body", maxHeight);
             }
         }
         // ]]>
@@ -383,12 +385,14 @@ class csslayout extends object implements ifhtml
              // Get natural heights
             var cHeight = xHeight("Canvas_Content_Body_Region2");
             var lHeight = xHeight("Canvas_Content_Body_Region1");
+            var bHeight = xHeight("Canvas_Content_Body");
             // Find the maximum height
-            var maxHeight = Math.max(cHeight, Math.max(lHeight, rHeight));
+            var maxHeight = Math.max(cHeight, Math.max(lHeight, bHeight));
             // Assign maximum height to all columns
             if ((browser!="Microsoft Internet Explorer")) {
               xHeight("Canvas_Content_Body_Region2", maxHeight);
               xHeight("Canvas_Content_Body_Region1", maxHeight);
+              xHeight("Canvas_Content_Body", maxHeight);
             }
         }
         // ]]>
