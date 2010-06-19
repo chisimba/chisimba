@@ -59,9 +59,12 @@ require($objConfig->getsiteRootPath().'skins/_common/templates/skinpageheader3-0
         ';
      }
 
-     // Render the javascript unless it is suppressed.
+    // Render the javascript unless it is suppressed.
     if (!isset($pageSuppressJavascript)) {
-       echo $objSkin->putJavaScript($mime, $headerParams, $bodyOnLoad);
+    //Load cruvy corners
+        $curvy = $this->getJavascriptFile('curvycorners-2.0.4/curvycorners.js', 'canvas');
+        echo $curvy;
+        echo $objSkin->putJavaScript($mime, $headerParams, $bodyOnLoad);
     }
 
     // Render the CSS for the current skin unless it is suppressed.

@@ -41,10 +41,14 @@ div#header div#search {
 #header {
     background: url("images/banner_bg.png") top left repeat-x;
     height: 111px;
-    margin-bottom: -62px;
+    margin-bottom: -12px;
     padding-left: 30px;
 }
 
 #menu {
     margin-left: 5px;
+}
+
+#navigation {
+    margin-top: -62px;
 }
