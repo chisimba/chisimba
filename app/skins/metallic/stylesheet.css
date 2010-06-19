@@ -301,13 +301,42 @@ it is offset from the text content.
 div#header div#search {
     margin: 0;
     margin: 10px;
-    padding: 10px;
     position: absolute;
     color: gray;
     top: 34px;
     right: 30px;
     width: 360px;
 }
+
+div#header div#search input#input_search {
+    width: 168px;
+    height: 23px;
+    margin-top: 5px;
+    margin-bottom: 0px;
+    border: 0px;
+    background: url(images/box-search.png) left top no-repeat;
+    padding-top:-5px;
+    padding-right: 20px;
+}
+
+div#header div#search label {
+    display: none;
+    margin-left: -9999px;
+    margin-top: -9999px;
+}
+input#input_search.text {
+    border: none;
+    margin:0px;
+    color: #444;
+    width: 156px;
+    padding-top: 2px;
+    padding-left: 10px;
+}
+
+div#header div#search button {
+    margin-left:-5px;
+}
+
 /*
     The left and right columns in 2 and 3 column layout.
 */
