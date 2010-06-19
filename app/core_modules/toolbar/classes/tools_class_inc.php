@@ -284,7 +284,9 @@ class tools extends object
             $nav = $this->makeBreadCrumbs ( $home, $module, $moduleInfo );
         }
 
-        return $nav;
+        return "<div class='Canvas_Content_Head_Breadcrumbs'>"
+          . "<div id='breadbefore'></div><div id='breadinternal'>"
+          . $nav . "</div><div id='breadafter'></div></div>";
     }
 
     /**
