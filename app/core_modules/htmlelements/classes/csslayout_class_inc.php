@@ -572,7 +572,11 @@ class csslayout extends object implements ifhtml
         if ($this->numColumns == 1) {
             // Put the middle bit in region 2 for canvas enabled skins
             $result = $this->addBodyRegion($this->middleColumnContent, "Region2");
-        } elseif ($this->numColumns == 2) {
+            $result = '<div id="onecolumn">
+                ' . $result . '
+              </div>
+              ';
+            } elseif ($this->numColumns == 2) {
             // Put the left bit in region 1 for canvas enabled skins
             $leftCol = $this->addBodyRegion($this->leftColumnContent, "Region1");
             // Put the middle bit in region 2 for canvas enabled skins
