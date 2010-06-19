@@ -34,6 +34,17 @@ div#header div#search {
     color: gray;
     width: 360px;
     position: relative;
-    margin-top: -28px;
-    margin-left: 540px;
+    margin-top: -34px;
+    margin-left: 590px;
+}
+
+#header {
+    background: url("images/banner_bg.png") top left repeat-x;
+    height: 111px;
+    margin-bottom: -62px;
+    padding-left: 30px;
+}
+
+#menu {
+    margin-left: 5px;
 }

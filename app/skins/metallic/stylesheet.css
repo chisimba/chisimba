@@ -998,16 +998,21 @@ fieldset.forumBlock legend {
 }
 
 /** Twitter related tweets **/
-.related-tweets {
 
+div.related-tweets {
+    background: transparent;
+    padding: 2px;
 }
 
-.rrt-body {
-
+div.rrt-inner ul{
+    background: transparent;
+    padding: 2px;
+    margin-left: 19px;
 }
 
-.rrt-inner {
-
+div.rrt-inner li {
+    background: transparent;
+    padding:2px;
 }
 
 /** Fix latest 10 blog block */
@@ -1640,4 +1645,14 @@ ul.htmlliststyle li:before {
 hr {
     color: #999999;
     height: 5px;
+}
+
+
+.myList {
+   list-style: none;
+   margin: 0;
+   padding: 0;
+}
+.myList li {
+   float: left;
 }
