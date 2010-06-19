@@ -1,0 +1,14 @@
+{
+    "name": "weave",
+    "description": "A simple, minimalist canvas with a weave image for a background. It was made for the tutorial on making skins and canvases.",
+    "downloadfrom":"http://www.chisimba.com/canvases/weave.zip",
+    "preview": {
+        "thumb": "weave_th.png",
+        "fullview":"weave.png"
+    },
+    "author": {
+        "authorname":"Derek Keats",
+        "email":"derek@dkeats.com",
+        "url":"http://www.dkeats.com"
+    }
+}

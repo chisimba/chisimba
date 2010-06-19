@@ -1,0 +1,14 @@
+{
+    "name": "lined",
+    "description": "A lined light blue personal skin made by Derek Keats only for demonstration purposes.",
+    "downloadfrom":"http://www.chisimba.com/canvases/lined.zip",
+    "preview": {
+        "thumb": "lined_th.png",
+        "fullview":"lined.png"
+    },
+    "author": {
+        "authorname":"Derek Keats",
+        "email":"derek@dkeats.com",
+        "url":"http://www.dkeats.com"
+    }
+}
