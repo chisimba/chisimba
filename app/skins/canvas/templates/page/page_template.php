@@ -103,33 +103,43 @@ if (!isset($pageSuppressBanner)) {
         echo PAGETOP;
     }
     ?>
-    <div id="header">
-        <h1 id="sitename">
-            <span>
-                <?php
-                echo '<a href="'.$objConfig->getSiteRoot().'">'.$objConfig->getsiteName().'</a>';
-                ?>
-            </span>
-        </h1>
+    <div class="Canvas_Content_Head_Before"></div>
+    <div class="Canvas_Content_Head">
+        <div class="Canvas_Content_Head_Header" id="header">
+            <h1 id="sitename">
+                <span>
+                    <?php
+                    echo '<a href="'.$objConfig->getSiteRoot().'">'.$objConfig->getsiteName().'</a>';
+                    ?>
+                </span>
+            </h1>
+            <?php
+            if (!isset($pageSuppressSearch)) {
+                echo $objSkin->siteSearchBox();
+            }
+            ?>
+        </div>
+
         <?php
-        if (!isset($pageSuppressSearch)) {
-            echo $objSkin->siteSearchBox();
-        }
-        ?>
-    </div>
-    <?php
 }
 
 if (!isset($pageSuppressToolbar)) {
     echo "\n\n<div id='navigation'>\n\n" . $toolbar . "\n</div>\n\n";
 }
 
-
-
-
+if (!isset($pageSuppressBanner)) {
+    ?>
+    </div>
+    <div class="Canvas_Content_Head_After"></div>
+    <?php
+}
 
 // Render the laout content as supplied from the layout template
-echo $this->getLayoutContent().'<br id="footerbr" />';
+echo "<div class='Canvas_Content_Body_Before'></div>\n"
+   . "<div id='Canvas_Content_Body'>\n"
+   . $this->getLayoutContent()
+   . "</div>\n<div class='Canvas_Content_Body_After'></div>\n"
+   .'<br id="footerbr" />';
 
 
 
@@ -151,16 +161,18 @@ if (!isset($suppressFooter)) {
         $footerStr = $objLanguage->languageText("mod_security_poweredby", 'security', 'Powered by Chisimba');
     }
     // Do the rendering here.
-    echo '<div id="footer">' . $footerStr;
+    echo "<div class='Canvas_Content_Footer_Before'></div>\n"
+      . "<div class='Canvas_Content_Footer'><div id='footer'>"
+      . $footerStr;
     // Put in the link to the top of the page
     if (!isset($pageSuppressBanner)) {
         echo ' (' . GOTOTOP . ')';
     }
-    echo '</div>';
+    echo "</div>\n</div>\n<div class='Canvas_Content_Footer_After'></div>";
 }
 // Render the container's closing div if the container is not suppressed
 if (!isset($pageSuppressContainer)) {
-    echo "</div><div id='Canvas_AfterContainer'></div>\n</div>\n</div>";
+    echo "</div><div class='Canvas_AfterContainer'></div>\n</div>\n</div>";
 }
 
 

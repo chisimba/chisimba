@@ -1,0 +1,118 @@
+/*
+    Document   : stylesheet.css
+    Created on : 30 May 2010, 1:11:21 PM
+    Author     : dkeats
+    Description:
+        Illustrative canvas showing the elements in different colours.
+*/
+
+html {
+    background-image: none;
+    background: gold;
+}
+
+body {
+    background-image: none;
+    background: grey;
+}
+
+h1#sitename {
+    top: 95px;
+}
+
+div#header div#search {
+    margin-top: 71px;
+}
+
+
+.ChisimbaCanvas {
+    background:red;
+}
+
+#CanvasContent {
+    background:red;
+}
+
+#Canvas_BeforeContainer {
+    height: 20px;
+    background:green;
+}
+
+#container {
+    margin: 20px;
+}
+
+.Canvas_Content_Head_Before {
+    height: 20px;
+    background:pink;
+}
+
+.Canvas_Content_Head {
+    background:purple;
+}
+
+.Canvas_Content_Head_Header {
+}
+
+.Canvas_Content_Head_Navigation {
+
+}
+
+.Canvas_Content_Head_BreadCrumbs {
+
+}
+
+.Canvas_Content_Head_After {
+    height: 20px;
+    background:orange;
+}
+
+.Canvas_Content_Body_Before {
+    padding: 30px;
+    background:silver;
+}
+
+
+
+#Canvas_Content_Body {
+    background-image: none;
+    padding: 30px;
+    background:DarkOliveGreen;
+}
+
+#Canvas_Content_Body_Region1 {
+    background: teal;
+}
+
+#Canvas_Content_Body_Region2 {
+    background: yellow;
+}
+
+#Canvas_Content_Body_Region3 {
+    background: lime;
+}
+
+.Canvas_Content_Body_After {
+    padding: 20px;
+    background:DarkGoldenRod;
+}
+
+.Canvas_Content_Footer_Before {
+    height: 20px;
+    background:orange;
+}
+
+.Canvas_Content_Footer {
+    background: maroon;
+}
+
+
+.Canvas_Content_Footer_After {
+    height: 20px;
+    background:cyan;
+}
+
+.Canvas_AfterContainer {
+    height: 20px;
+    background:blue;
+}
