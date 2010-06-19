@@ -67,7 +67,7 @@ a:hover, a.visited:hover {
 h1#sitename {
     padding: 0px;
     position: absolute;
-    top: 42px;
+    top: 30px;
 }
 /*  Put an image before the sitename */
 h1#sitename a:before {
