@@ -11,8 +11,37 @@
 define("PAGETOP", '<a name="pagetop"></a>');
 define("GOTOTOP", '<a href="#pagetop">Top</a>'); // @todo change this to an icon
 
+// Define the valid canvases for this skin as an array.
+$validCanvases = array("_default", "aqua", "beach", "chisimba", "experim", "greyfloral", "modcanvas", "red", "blue", "yellow");
+
+// Define the name of this skin.
+$skinName = "canvas";
+
+// Settings that are needed so that canvase-aware code can function
+$this->setSession('skinName', 'metallic');
+$this->setSession('isCanvas', TRUE);
+$this->setSession('sourceSkin', 'metallic');
+$this->setSession('layout', '_DEFAULT');
+
+// Instantiate the canvas object.
+$objCanvas = $this->getObject('canvaschooser', 'canvas');
+
+
+// Set the skin base for the default.
+$skinBase='skins/metallic/canvases/';
+if (isset ($canvas)) {
+    $this->setSession('canvasType', 'programmatic');
+    $this->setSession('canvas', $canvas);
+    $canvas = $skinBase . $canvas;
+} elseif ($prefCanvas) {
+    $canvas = $skinBase . $prefCanvas;
+} else {
+    // Get what canvas we should be showing
+    $canvas = $objCanvas->getCanvas($validCanvases, $skinBase);
+}
+
 // Get Header that goes into every skin.
-require($objConfig->getsiteRootPath().'skins/_common/templates/skinpageheader2-0.php');
+require($objConfig->getsiteRootPath().'skins/_common/templates/skinpageheader3-0.php');
 
 // Render the head section of the page. Note that there can be no space or
 // blank lines between the PHP closing tag and the HTML head tag. It must be
@@ -39,6 +68,7 @@ require($objConfig->getsiteRootPath().'skins/_common/templates/skinpageheader2-0
     if (!isset($pageSuppressSkin)) {
        echo '
        <link rel="stylesheet" type="text/css" href="skins/metallic/stylesheet.css">
+       <link rel="stylesheet" type="text/css" href="' . $canvas . '/stylesheet.css">
         ';
     }
     ?>
@@ -52,9 +82,11 @@ if (isset($bodyParams)) {
     echo '<body>';
 }
 
+// --------------- BELONGS IN LAYOUT TEMPLATE
+
 // Render the container & canvas elements unless it is suppressed.
 if (!isset($pageSuppressContainer)) {
-    echo "<div class='Canvas' id='_default'>\n"
+    echo "<div class='ChisimbaCanvas' id='_default'>\n"
       . "<div id='Canvas_Content'>\n"
       . "<div id='Canvas_BeforeContainer'></div>"
       . "<div id='container'>";
@@ -84,14 +116,22 @@ if (!isset($pageSuppressBanner)) {
     </div>
     <?php
 }
-?>
-<?php
+
 if (!isset($pageSuppressToolbar)) {
     echo "\n\n<div id='navigation'>\n\n" . $toolbar . "\n</div>\n\n";
 }
 
-// Render the laout content
+
+
+
+
+// Render the laout content as supplied from the layout template
 echo $this->getLayoutContent().'<br id="footerbr" />';
+
+
+
+
+
 
 // If the footer is not suppressed, render it out.
 if (!isset($suppressFooter)) {
@@ -119,6 +159,9 @@ if (!isset($suppressFooter)) {
 if (!isset($pageSuppressContainer)) {
     echo "</div><div id='Canvas_AfterContainer'></div>\n</div>\n</div>";
 }
+
+
+
 // Render any messages available.
 $this->putMessages();
 
