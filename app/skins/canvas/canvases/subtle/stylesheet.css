@@ -72,3 +72,38 @@ blockquote:before {
 blockquote p {
     display:inline;
 }
+
+#breadcrumbs {
+    background-image: none;
+    margin-left: -10px;
+    margin-bottom: 3px;
+}
+
+#breadbefore {
+    height: 32px;
+    width: 30px;
+    background: url("images/breadbefore.png") top left no-repeat;
+    float: left;
+
+}
+#breadinternal {
+    position: relative;
+    height: 32px;
+    background: url("images/breadinternal.png") top left repeat-x;
+    float: left;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 5px;
+}
+
+#breadafter {
+    height: 32px;
+    width: 30px;
+    background: url("images/breadafter.png") top left no-repeat;
+    float: left;
+}
+
+#menu {
+    
+    background: red;
+}
