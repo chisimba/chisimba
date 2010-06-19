@@ -1403,10 +1403,9 @@ A set of standard classes for use in content
 }
 
 /* Blog retweet button */
-.retweet span {
-    position: absolute;
-    right: 30px;
-    top: 10px;
+a.retweet {
+    position: relative;
+    top: 5px;
 }
 
 /*

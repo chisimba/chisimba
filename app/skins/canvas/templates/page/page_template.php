@@ -68,6 +68,11 @@ require($objConfig->getsiteRootPath().'skins/_common/templates/skinpageheader3-0
     // Render the javascript unless it is suppressed.
     if (!isset($pageSuppressJavascript)) {
     //Load cruvy corners
+?>
+<script type="text/javascript">
+var curvyCornersVerbose = false;
+</script>
+<?php
         $curvy = $this->getJavascriptFile('curvycorners-2.0.4/curvycorners.js', 'canvas');
         echo $curvy;
         echo $objSkin->putJavaScript($mime, $headerParams, $bodyOnLoad);
