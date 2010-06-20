@@ -345,9 +345,9 @@ class tools extends object
         $this->unsetSession ( 'modlink' );
         $this->unsetSession ( 'replaceBreadcrumbs' );
 
-        return "<div class='Canvas_Content_Head_Breadcrumbs'>"
-          . "<div id='breadbefore'></div><div id='breadinternal'>"
-          . $nav . "</div><div id='breadafter'></div></div>";
+        return "<div class='Canvas_Content_Head_Breadcrumbs_Before'></div>"
+          . "<div class='Canvas_Content_Head_Breadcrumbs'>" . $nav
+          . "</div><div class='Canvas_Content_Head_Breadcrumbs_After'></div>";
     }
 
     /**
