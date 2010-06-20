@@ -180,35 +180,20 @@ class skin extends object
         //loop through the folders and build an array of available skins
         $basedir=$this->objConfig->getsiteRootPath().$this->skinRoot;
 
-        // Get Current Working Directory
-        $currentDir = getcwd();
-
-        chdir($basedir);
-        $dh=opendir($basedir);
-        $dirList=array();
-        while (false !== ($file = readdir($dh))) { #see http://www.php.net/manual/en/function.readdir.php
-            if ($file != '.' && $file != '..' && strtolower($file)!='cvs') {
-                if ( (is_dir($file) && file_exists($basedir.$file.'/'.$this->skinFile))
-                  ||   (is_dir($file) && file_exists($basedir.$file.'/skin.conf')) ){
-                    $skinnameFile=$this->objConfig->getsiteRootPath().$this->skinRoot.$file.'/skinname.txt';
-                    $skinConfigFile=$basedir.$file.'/skin.conf';
-                    if (file_exists($skinConfigFile)) {
-                        $skinData = $this->readConf($skinConfigFile);
-                        $dirList[$file] = $skinData['SKIN_NAME'];
-                    } else if (file_exists($skinnameFile)) {
-                        $ts=fopen($skinnameFile,'r');
-                        $ts_content=fread($ts, filesize($skinnameFile));
-                        $dirList[$file] = $ts_content;
-                    } else {
-                        $dirList[$file] = $file;
-                    }
-                }
+        // Compile an array of the skin names.
+        $dirList = array();
+        $directories = glob($basedir.'*', GLOB_ONLYDIR);
+        foreach ($directories as $directory) {
+            $key = basename($directory);
+            if (file_exists($directory.'/skin.conf')) {
+                $conf = $this->readConf($directory.'/skin.conf');
+                $dirList[$key] = $conf['SKIN_NAME'];
+            } elseif (file_exists($directory.'/skinname.txt')) {
+                $dirList[$key] = file_get_contents($directory.'/skinname.txt');
+            } else {
+                $dirList[$key] = $key;
             }
         }
-        closedir($dh);
-
-        // Return to Current Working Directory
-        chdir($currentDir);
 
         // Sort Alphabetically
         asort($dirList);
