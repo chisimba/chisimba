@@ -15,7 +15,7 @@ define("GOTOTOP", '<a href="#pagetop">Top</a>'); // @todo change this to an icon
 $prefCanvas=FALSE;
 
 // Define the valid canvases for this skin as an array.
-$validCanvases = array("_default", "aqua", "beach", "chisimba", "experim", "greyfloral", "modcanvas", "red", "blue", "yellow");
+$validCanvases = array_map('basename', glob('skins/canvas/canvases/*', GLOB_ONLYDIR));
 
 // Define the name of this skin.
 $skinName = "canvas";
