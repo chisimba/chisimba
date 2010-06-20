@@ -73,20 +73,26 @@ blockquote p {
     display:inline;
 }
 
+/*
+
+Style the breadcrumbs with a gradient that has
+rounded corners
+
+*/
 #breadcrumbs {
     background-image: none;
     margin-left: -10px;
     margin-bottom: 3px;
 }
 
-#breadbefore {
+.Canvas_Content_Head_Breadcrumbs_Before {
     height: 32px;
     width: 30px;
     background: url("images/breadbefore.png") top left no-repeat;
     float: left;
 
 }
-#breadinternal {
+.Canvas_Content_Head_Breadcrumbs {
     position: relative;
     height: 32px;
     background: url("images/breadinternal.png") top left repeat-x;
@@ -96,14 +102,18 @@ blockquote p {
     padding-top: 5px;
 }
 
-#breadafter {
+.Canvas_Content_Head_Breadcrumbs_After {
     height: 32px;
     width: 30px;
     background: url("images/breadafter.png") top left no-repeat;
     float: left;
 }
 
-#menu {
-    
-    background: red;
+/*
+
+Style the menu
+
+*/
+#menu>ul>li {
+    background: url("images/breadinternal.png") top left repeat-x;
 }
