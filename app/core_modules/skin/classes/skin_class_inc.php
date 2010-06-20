@@ -183,13 +183,15 @@ class skin extends object
         // Compile an array of the skin names.
         $dirList = array();
         $directories = glob($basedir.'*', GLOB_ONLYDIR);
+
         foreach ($directories as $directory) {
             $key = basename($directory);
+
             if (file_exists($directory.'/skin.conf')) {
                 $conf = $this->readConf($directory.'/skin.conf');
                 $dirList[$key] = $conf['SKIN_NAME'];
             } elseif (file_exists($directory.'/skinname.txt')) {
-                $dirList[$key] = file_get_contents($directory.'/skinname.txt');
+                $dirList[$key] = trim(file_get_contents($directory.'/skinname.txt'));
             } else {
                 $dirList[$key] = $key;
             }
