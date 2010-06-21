@@ -1,27 +1,67 @@
 <?php
-/* -------------------- SKIN CLASS ----------------*/
+/**
+ *
+ * Class for manipulating skins in Chisimba
+ *
+ * This is effectively the skin 'engine' for Chisimba, and is used
+ * to render and alter skin properties, read and render templates,
+ * etc.
+ *
+ * PHP version 5
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ *
+ * @category  Chisimba
+ * @package   skin
+ * @author    Derek Keats <derek.keats@wits.ac.za>
+ * @author Tohir Solomons
+ * @author Charl Mert
+ * @copyright 2010 AVOIR
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   $Id$
+ * @link      http://avoir.uwc.ac.za
+ */
+// security check - must be included in all scripts
+if (!
+/**
+ * The $GLOBALS is an array used to control access to certain constants.
+ * Here it is used to check if the file is opening in engine, if not it
+ * stops the file from running.
+ *
+ * @global entry point $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ *
+ */
+$GLOBALS['kewl_entry_point_run'])
+{
+        die("You cannot view this page directly");
+}
+// end security check
 
 /**
-* Skin class for KEWL.NextGen/Chisimba (still needs work). This class
-* is based on the skin functionality of KEWL 1.2 and is fully
-* compatible with KEWL 1.2 skins.
+ * Class for manipulating skins in Chisimba
+ *
+ * This is effectively the skin 'engine' for Chisimba, and is used
+ * to render and alter skin properties, read and render templates,
+ * etc.
+ *
 * @author Derek Keats
 * @author Tohir Solomons
 * @author Charl Mert
 */
 class skin extends object
 {
-
-    /**
-     *
-     * Instance of the modules object in the modulecatalogue module.
-     *
-     * @var string object $objModules
-     * @access protected
-     *
-     */
-    protected $objModules;
-
     /**
     *
     * Instance of the skin chooser rendering object
@@ -44,41 +84,36 @@ class skin extends object
     /**
     *
     * Constructor for the class
+    * @access public
     *
     */
     public function init()
     {
-        $this->objModules = $this->getObject('modules', 'modulecatalogue');
         $this->objLanguage = $this->getObject('language', 'language');
-        $this->loadClass('form','htmlelements');
-        $this->loadClass('dropdown','htmlelements');
-        $this->loadClass('button','htmlelements');
         $this->objConfig = $this->getObject('altconfig','config');
         //Option to suppress XML
         $xmlflag=$this->objConfig->getNoXML();
         if (($xmlflag=='1')||($xmlflag==TRUE)||($xmlflag=='TRUE')){
             $this->setVar('pageSuppressXML',TRUE);
         }
-
         // Suppress chrome if output needs to be displayed inside facebox.
         if ($this->getParam('facebox')) {
             $this->setVar('pageSuppressContainer', TRUE);
             $this->setVar('pageSuppressBanner', TRUE);
             $this->setVar('suppressFooter', TRUE);
         }
-
         // Browser Detection Class
         $this->browserInfo = $this->getObject('browser');
-        $this->skinRoot = $this->objConfig->getskinRoot();
-
-        // Get the skinelements, the class into which the rendering has been refactored.
-        $this->objSkinChooser = $this->getObject('skinchooser', 'skin');
-        
+        $this->skinRoot = $this->objConfig->getskinRoot();      
     }
 
     /**
+    *
     * Method to get the name of the current skin
-    * @return current skin
+    *
+    * @return string current skin
+    * @access public
+    *
     */
     public function getSkin()
     {
@@ -87,18 +122,27 @@ class skin extends object
     }
 
     /**
+    *
     * Method to return the appropriate skin location
-    * @return the path of the skin
+    *
+    * @return string The path of the skin
+    * @access public
+    *
     */
     public function getSkinLocation()
     {
         $this->validateSkinSession();
-        return $this->objConfig->getsiteRootPath().$this->skinRoot.$this->getSession('skin').'/';
+        return $this->objConfig->getsiteRootPath()
+          .$this->skinRoot.$this->getSession('skin').'/';
     }
 
     /**
+    *
     * Method to return the appropriate skin location as a URL
-    * @return the path of the skin as a URL
+    *
+    * @return string The path of the skin as a URL
+    * @access public
+    *
     */
     public function getSkinUrl()
     {
@@ -177,20 +221,20 @@ class skin extends object
     }
 
     /**
-    * Method to include the stylesheet for the current skin
-    */
-    public function skinStartPage($headerParams=NULL)
-    {
-    }
-
-    /**
+    *
     * Method to return the dropdown skin chooser left here
     * for legacy reasons in case there is any code that calls
     * it.
+    *
+    * @return string A form with the skin chooser
+    * @access public
+    *
     */
     public function putSkinChooser()
     {
-        return $this->objSkinChooser->show();
+        // Get the skinelements, the class into which the rendering has been refactored.
+        $objSkinChooser = $this->getObject('skinchooser', 'skin');
+        return $objSkinChooser->show();
     }
 
     /**
