@@ -13,23 +13,39 @@ class skin extends object
 {
 
     /**
+     *
      * Instance of the modules object in the modulecatalogue module.
      *
-     * @var string object objModules
-     * @access public
+     * @var string object $objModules
+     * @access protected
      *
      */
     protected $objModules;
 
     /**
-     *
-     * The filename for the skin CSS file
-     *
-     * @var string $skinFile
-     * @Access public
-     */
+    *
+    * Instance of the skin chooser rendering object
+    *
+    * @var string object $objSkinChooser
+    * @access public
+    *
+    */
+    public $objSkinChooser;
+
+    /**
+    *
+    * The filename for the skin CSS file
+    *
+    * @var string $skinFile
+    * @Access public
+    */
     public $skinFile = 'stylesheet.css';
 
+    /**
+    *
+    * Constructor for the class
+    *
+    */
     public function init()
     {
         $this->objModules = $this->getObject('modules', 'modulecatalogue');
@@ -54,7 +70,9 @@ class skin extends object
         // Browser Detection Class
         $this->browserInfo = $this->getObject('browser');
         $this->skinRoot = $this->objConfig->getskinRoot();
-        
+
+        // Get the skinelements, the class into which the rendering has been refactored.
+        $this->objSkinChooser = $this->getObject('skinchooser', 'skin');
         
     }
 
@@ -166,50 +184,13 @@ class skin extends object
     }
 
     /**
-    * Method to return the dropdown skin chooser
-    * Works by building the string $ret into
-    * the script needed to produce the HTML
+    * Method to return the dropdown skin chooser left here
+    * for legacy reasons in case there is any code that calls
+    * it.
     */
     public function putSkinChooser()
     {
-        //replace withthe name of the current script
-        $script=$_SERVER['PHP_SELF'];
-        $objNewForm = new form('ignorecheck',$script);
-        $objDropdown = new dropdown('skinlocation');
-        $objDropdown->extra = "onchange =\"document.forms['ignorecheck'].submit();\"";
-        //loop through the folders and build an array of available skins
-        $basedir=$this->objConfig->getsiteRootPath().$this->skinRoot;
-
-        // Compile an array of the skin names.
-        $dirList = array();
-        $directories = glob($basedir.'*', GLOB_ONLYDIR);
-
-        foreach ($directories as $directory) {
-            $key = basename($directory);
-
-            if (file_exists($directory.'/skin.conf')) {
-                $conf = $this->readConf($directory.'/skin.conf');
-                $dirList[$key] = $conf['SKIN_NAME'];
-            } elseif (file_exists($directory.'/skinname.txt')) {
-                $dirList[$key] = trim(file_get_contents($directory.'/skinname.txt'));
-            } else {
-                $dirList[$key] = $key;
-            }
-        }
-
-        // Sort Alphabetically
-        asort($dirList);
-
-        foreach ($dirList as $element=> $value) {
-           $objDropdown->addOption($element,$value);
-        }
-        $objNewForm->addToForm($this->objLanguage->languageText('phrase_selectskin').":<br />\n");
-
-        // Set the current skin as the default selected skin
-        $objDropdown->setSelected($this->getSession('skin'));
-        $objDropdown->cssClass = 'coursechooser';
-        $objNewForm->addToForm($objDropdown->show());
-        return $objNewForm->show();
+        return $this->objSkinChooser->show();
     }
 
 
@@ -219,7 +200,7 @@ class skin extends object
     * @param  string  $filepath  path and filename of file.
     * @param  boolean $useDefine determine use of defined constants
     * @return array   $registerdata all the info from the register.conf file
-    */
+    
     public function readConf($filepath,$useDefine=FALSE) {
         try {
             if (file_exists($filepath)) {
@@ -240,13 +221,13 @@ class skin extends object
             throw new customException($e->getMessage());
             exit(0);
         }
-    }
+    }*/
 
 
     /**
     * Method to get the list of skins available
     * @return array List of available skins
-    */
+    
     public function getListofSkins()
     {
         $currentDir = getcwd();
@@ -284,7 +265,7 @@ class skin extends object
         chdir($currentDir);
 
         return $dirList;
-    }
+    }*/
 
     /**
     * Method to choose the skin for the current the session
@@ -613,21 +594,5 @@ class skin extends object
 
         return $str;
     }
-
-   /**
-    *
-    * Method to output site load.
-    *
-    * @return string The number of users currently logged into the site
-    * @access Public
-    * @author Jeremy O'Connor
-    */
-//    public function siteLoad()
-//    {
-//        $objDBLoggedInUsers = $this->getObject('dbloggedinusers');
-//        $count = $objDBLoggedInUsers->count();
-//        return "&nbsp;".($count == 1?$this->objLanguage->code2Txt('mod_skin_usersonline_singular','skin',array('COUNT'=>$count)):$this->objLanguage->code2Txt('mod_skin_usersonline_plural','skin',array('COUNT'=>$count)));
-//    }
-
-} # End of class
+}
 ?>

@@ -35,8 +35,8 @@ class block_skin extends object
     */
     function show()
     {
-        $objSkin = $this->getObject('skin', 'skin');
-        return $objSkin->putSkinChooser();
+        $objSkin = $this->getObject('skinchooser', 'skin');
+        return $objSkin->show();
     }
 }
 ?>
