@@ -6,9 +6,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <link rel="stylesheet" type="text/css" href="<?php echo $objSkin->getSkinUrl(); ?>kewl_css.php">
 <head>
-<?php
-$objSkin->skinStartPage(); 
-?>
 <body class="help-popup" onLoad="window.focus();">
 <?php echo $this->getLayoutContent(); ?>
 </body>
