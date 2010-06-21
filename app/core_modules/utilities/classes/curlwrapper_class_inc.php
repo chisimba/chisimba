@@ -201,7 +201,16 @@ class curlwrapper extends object
         }
     }
 
-    public function postCurl($url, $postargs) {
+    /**
+     * Performs an HTTP POST via CURL.
+     *
+     * @access public
+     * @param  string  $url          The URL to post to.
+     * @param  mixed   $postargs     The raw post data as a string or an associative array of arguments.
+     * @param  boolean $responseCode Return the HTTP Response Code instead of the body of the HTTP Response.
+     * @return string  Either the HTTP Response Code or the body of the HTTP response (default).
+     */
+    public function postCurl($url, $postargs, $responseCode=FALSE) {
         $this->userName = FALSE;
         $this->password = FALSE;
         $this->user_agent = 'Chisimba';
@@ -242,14 +251,18 @@ class curlwrapper extends object
         curl_setopt ($ch, CURLOPT_POSTFIELDS, $postargs);
 
         $response = curl_exec($ch);
-        $error = curl_error($ch);
+
+        if ($responseCode) {
+            $return = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        } elseif ($response != '') {
+            $return = $response;
+        } else {
+            $return = curl_error($ch);
+        }
+
         curl_close($ch);
-        if($response != '') {
-            return $response;
-        }
-        else {
-            return $error;
-        }
+
+        return $return;
     }
 
     public function process($url,$postargs=FALSE)
