@@ -193,80 +193,6 @@ class skin extends object
         return $this->objSkinChooser->show();
     }
 
-
-    /**
-    * Reads the 'skin.conf' file provided by the skin
-    * These are then returned as an associative array.
-    * @param  string  $filepath  path and filename of file.
-    * @param  boolean $useDefine determine use of defined constants
-    * @return array   $registerdata all the info from the register.conf file
-    
-    public function readConf($filepath,$useDefine=FALSE) {
-        try {
-            if (file_exists($filepath)) {
-                $registerdata=array();
-                $lines=file($filepath);
-                $cats = array();
-                foreach ($lines as $line) {
-                    preg_match('/([^:]+):(.*)/',$line,$params);
-                    $params[0] =isset($params[1])? trim($params[1]) : '';
-                    $params[1] =isset($params[2])? trim($params[2]) : '';
-                    $registerdata[$params[0]]=rtrim($params[1]);
-                } //    end of foreach
-                return ($registerdata);
-            } else {
-                return FALSE;
-            } // end of if
-        } catch (Exception $e) {
-            throw new customException($e->getMessage());
-            exit(0);
-        }
-    }*/
-
-
-    /**
-    * Method to get the list of skins available
-    * @return array List of available skins
-    
-    public function getListofSkins()
-    {
-        $currentDir = getcwd();
-        //loop through the folders and build an array of available skins
-        $basedir=$this->objConfig->getsiteRootPath().$this->skinRoot;
-        chdir($basedir);
-        $dh=opendir($basedir);
-        $dirList=array();
-        while (false !== ($file = readdir($dh))) { #see http://www.php.net/manual/en/function.readdir.php
-            if ($file != '.' && $file != '..' && strtolower($file)!='cvs') {
-
-                if ( (is_dir($file) && file_exists($basedir.$file.'/'.$this->skinFile))
-                ||   (is_dir($file) && file_exists($basedir.$file.'/skin.conf')) ){
-
-                    $skinnameFile=$this->objConfig->getsiteRootPath().$this->skinRoot.$file.'/skinname.txt';
-                    $skinConfigFile=$basedir.$file.'/skin.conf';
-
-                    if (file_exists($skinConfigFile)) {
-                        $skinData = $this->readConf($skinConfigFile);
-                        $dirList[$file] = $skinData['SKIN_NAME'];
-                    } else if (file_exists($skinnameFile)) {
-                        $ts=fopen($skinnameFile,'r');
-                        $ts_content=fread($ts, filesize($skinnameFile));
-                        $dirList[$file] = $ts_content;
-                    } else {
-                        $dirList[$file] = $file;
-                    }
-
-                }
-            }
-        }
-
-
-        closedir($dh);
-        chdir($currentDir);
-
-        return $dirList;
-    }*/
-
     /**
     * Method to choose the skin for the current the session
     */
@@ -322,73 +248,72 @@ class skin extends object
     *
     */
     public function putSkinCssLinks($theme="stylesheet")
-	{
-		$skinRoot = $this->skinRoot;
+    {
+        $skinRoot = $this->skinRoot;
+        $skinEngine = $this->getSkinEngine();
 
-		$skinEngine = $this->getSkinEngine();
+        //Determining which css to load based on current skin engine requirements
+        if (isset($skinEngine)) {
+            if ($skinEngine == 'default' || $skinEngine == '') {
+                $stylesheet = '
+                    <link rel="stylesheet" type="text/css" href="'.$skinRoot.'_common/common_styles.css" media="screen" />
+                    <link rel="stylesheet" type="text/css" href="'.$skinRoot.'_common/print.css" media="print" />
+                    <link rel="stylesheet" type="text/css" href="'.$skinRoot.'_common/forms.css" media="print" />
+                    <link rel="stylesheet" type="text/css" href="'.$skinRoot.'_common/forms-extra.css" media="print" />
+                    <link rel="stylesheet" type="text/css" href="'.$skinRoot.$this->getSkin().'/' . $theme . '.css" media="screen" />
+                    <link rel="stylesheet" type="text/css" href="'.$skinRoot.$this->getSkin().'/print.css" media="print" />
+                    ';
+                if (strtolower($this->browserInfo->getBrowser()) == 'msie') {
+                    $stylesheet .= '
+                        <!--[if lte IE 7]>
+                        <link rel="stylesheet" type="text/css" href="'.$this->skinRoot.'_common/ie6_or_less.css" />
+                        <![endif]-->';
+                }
+            } else if ($skinEngine == 'university') {
+                //UWC Portal / University Specific CSS Requirements
 
-		//Determining which css to load based on current skin engine requirements
-		if (isset($skinEngine)) {
-			if ($skinEngine == 'default' || $skinEngine == '') {
-				$stylesheet = '
-					<link rel="stylesheet" type="text/css" href="'.$skinRoot.'_common/common_styles.css" media="screen" />
-					<link rel="stylesheet" type="text/css" href="'.$skinRoot.'_common/print.css" media="print" />
-					<link rel="stylesheet" type="text/css" href="'.$skinRoot.'_common/forms.css" media="print" />
-					<link rel="stylesheet" type="text/css" href="'.$skinRoot.'_common/forms-extra.css" media="print" />
-					<link rel="stylesheet" type="text/css" href="'.$skinRoot.$this->getSkin().'/' . $theme . '.css" media="screen" />
-					<link rel="stylesheet" type="text/css" href="'.$skinRoot.$this->getSkin().'/print.css" media="print" />
-					';
-				if (strtolower($this->browserInfo->getBrowser()) == 'msie') {
-					$stylesheet .= '
-						<!--[if lte IE 7]>
-						<link rel="stylesheet" type="text/css" href="'.$this->skinRoot.'_common/ie6_or_less.css" />
-						<![endif]-->';
-				}
-			} else if ($skinEngine == 'university') {
-				//UWC Portal / University Specific CSS Requirements
+                //Generating temp chisimba stub on first load
+                $skinPath = $skinRoot.$this->getSkin();
 
-				//Generating temp chisimba stub on first load
-				$skinPath = $skinRoot.$this->getSkin();
-
-				//With Chisimba Standard Skinset
-				$stylesheet = '
-					<link rel="stylesheet" type="text/css" href="'.$skinRoot.$this->getSkin().'/reset.css" media="screen" />
-					<link rel="stylesheet" type="text/css" href="'.$skinRoot.'_common/common_styles.css" media="screen" />
-					<link rel="stylesheet" type="text/css" href="'.$skinRoot.'_common/print.css" media="print" />
-					<link rel="stylesheet" type="text/css" href="'.$skinRoot.'_common/forms.css" media="print" />
-					<link rel="stylesheet" type="text/css" href="'.$skinRoot.'_common/forms-extra.css" media="print" />
-					<!--[if IE 8]>
-						<link rel="stylesheet" type="text/css" href="'.$skinRoot.$this->getSkin().'/style_ie8.css" media="screen" />
-					<![endif]-->
-					<!--[if IE 7]>
-						<link rel="stylesheet" type="text/css" href="'.$skinRoot.$this->getSkin().'/style_ie7.css" media="screen" />
-					<![endif]-->
-					<!--[if lte IE 6]>
-						<link rel="stylesheet" type="text/css" href="'.$skinRoot.$this->getSkin().'/style_ie6.css" media="screen" />
-					<![endif]-->
-					<link rel="stylesheet" type="text/css" href="'.$skinRoot.$this->getSkin().'/style.css" media="screen" />
-					<link rel="stylesheet" type="text/css" href="'.$skinRoot.$this->getSkin().'/integration.css" media="screen" />
-					';
-			}
-		} else {
-			$stylesheet = '
-				<link rel="stylesheet" type="text/css" href="'.$skinRoot.'_common/common_styles.css" media="screen" />
-				<link rel="stylesheet" type="text/css" href="'.$skinRoot.'_common/print.css" media="print" />
-				<link rel="stylesheet" type="text/css" href="'.$skinRoot.'_common/forms.css" media="print" />
-				<link rel="stylesheet" type="text/css" href="'.$skinRoot.'_common/forms-extra.css" media="print" />
-				<link rel="stylesheet" type="text/css" href="'.$skinRoot.$this->getSkin().'/' . $theme . '.css" media="screen" />
-				<link rel="stylesheet" type="text/css" href="'.$skinRoot.$this->getSkin().'/print.css" media="print" />
-				';
-			if (strtolower($this->browserInfo->getBrowser()) == 'msie') {
-				$stylesheet .= '
-					<!--[if lte IE 7]>
-					<link rel="stylesheet" type="text/css" href="'.$this->skinRoot.'_common/ie6_or_less.css" />
-					<![endif]-->';
-			}
-		}
-		$result = $this->putMetaTags().$stylesheet;
-		return $result;
-	}
+                //With Chisimba Standard Skinset
+                $stylesheet = '
+                    <link rel="stylesheet" type="text/css" href="'.$skinRoot.$this->getSkin().'/reset.css" media="screen" />
+                    <link rel="stylesheet" type="text/css" href="'.$skinRoot.'_common/common_styles.css" media="screen" />
+                    <link rel="stylesheet" type="text/css" href="'.$skinRoot.'_common/print.css" media="print" />
+                    <link rel="stylesheet" type="text/css" href="'.$skinRoot.'_common/forms.css" media="print" />
+                    <link rel="stylesheet" type="text/css" href="'.$skinRoot.'_common/forms-extra.css" media="print" />
+                    <!--[if IE 8]>
+                            <link rel="stylesheet" type="text/css" href="'.$skinRoot.$this->getSkin().'/style_ie8.css" media="screen" />
+                    <![endif]-->
+                    <!--[if IE 7]>
+                            <link rel="stylesheet" type="text/css" href="'.$skinRoot.$this->getSkin().'/style_ie7.css" media="screen" />
+                    <![endif]-->
+                    <!--[if lte IE 6]>
+                            <link rel="stylesheet" type="text/css" href="'.$skinRoot.$this->getSkin().'/style_ie6.css" media="screen" />
+                    <![endif]-->
+                    <link rel="stylesheet" type="text/css" href="'.$skinRoot.$this->getSkin().'/style.css" media="screen" />
+                    <link rel="stylesheet" type="text/css" href="'.$skinRoot.$this->getSkin().'/integration.css" media="screen" />
+                    ';
+            }
+        } else {
+            $stylesheet = '
+                <link rel="stylesheet" type="text/css" href="'.$skinRoot.'_common/common_styles.css" media="screen" />
+                <link rel="stylesheet" type="text/css" href="'.$skinRoot.'_common/print.css" media="print" />
+                <link rel="stylesheet" type="text/css" href="'.$skinRoot.'_common/forms.css" media="print" />
+                <link rel="stylesheet" type="text/css" href="'.$skinRoot.'_common/forms-extra.css" media="print" />
+                <link rel="stylesheet" type="text/css" href="'.$skinRoot.$this->getSkin().'/' . $theme . '.css" media="screen" />
+                <link rel="stylesheet" type="text/css" href="'.$skinRoot.$this->getSkin().'/print.css" media="print" />
+                ';
+            if (strtolower($this->browserInfo->getBrowser()) == 'msie') {
+                $stylesheet .= '
+                    <!--[if lte IE 7]>
+                    <link rel="stylesheet" type="text/css" href="'.$this->skinRoot.'_common/ie6_or_less.css" />
+                    <![endif]-->';
+            }
+        }
+        $result = $this->putMetaTags().$stylesheet;
+        return $result;
+    }
 
 
     /**
@@ -459,34 +384,8 @@ class skin extends object
      */
     public function siteSearchBox($compact = FALSE)
     {
-        $this->loadClass('label', 'htmlelements');
-        $slabel = new label($this->objLanguage->languageText('phrase_sitesearch', 'search', 'Site Search') .':', 'input_search');
-        $this->loadClass('textinput', 'htmlelements');
-        $sform = new form('query', $this->uri(NULL,'search'));
-        //$sform->addRule('searchterm', $this->objLanguage->languageText("mod_blog_phrase_searchtermreq", "blog") , 'required');
-        $query = new textinput('search');
-        $query->size = 15;
-        $this->objSButton = new button($this->objLanguage->languageText('word_go', 'system'));
-        // Add the search icon
-        $this->objSButton->setIconClass("search");
-        //$this->objSButton->setValue($this->objLanguage->languageText('mod_skin_find', 'skin'));
-        $this->objSButton->setValue('Find');
-        $this->objSButton->setToSubmit();
-        if ($compact) {
-            $sform->addToForm($slabel->show().' '.$this->objSButton->show().'<br /> '.$query->show());
-        } else {
-            $sform->addToForm($slabel->show().' '.$query->show().' '.$this->objSButton->show());
-        }
-        $sform = '<div id="search">'.$sform->show().'</div>';
-        //Letus look at the configuration file file first
-        $objConfig = $this->getObject('altconfig','config');
-        //checking if configuration exist-By Emmanuel Natalis
-        if(strtoupper($objConfig->getenable_searchBox()) == 'TRUE' && $this->objModules->checkIfRegistered('search')) {
-            return $sform;
-        }
-        else {
-            return NULL;
-        }
+        $objSearchBox = $this->getObject('sitesearchbox', 'skin');
+        return $objSearchBox->show($compact);
     }
 
     /**
