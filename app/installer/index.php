@@ -6,6 +6,9 @@ if (substr(PHP_VERSION,0,1) < '5'){
     print "To run Chisimba, you will need to run PHP5.<br />\n";
     die;
 }
+$mepath = $_SERVER["SCRIPT_FILENAME"];
+$mepath = str_replace('installer/index.php', '', $mepath);
+ini_set ( 'include_path', ini_get ( 'include_path' ) . PATH_SEPARATOR . $mepath.'lib/pear/');
 
 //if (substr(PHP_VERSION,0,2) > '5.1'){
 //    print "We see this computer is currently running PHP".PHP_VERSION."<br />\n";

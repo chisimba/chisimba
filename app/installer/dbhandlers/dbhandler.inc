@@ -91,12 +91,15 @@ class DbHandler extends dbHandlermanager
 
 	public function __construct()
 	{
-
+	        $mepath = $_SERVER["SCRIPT_FILENAME"];
+	        $mepath = str_replace('installer/index.php', '', $mepath);
+	        
+            ini_set ( 'include_path', ini_get ( 'include_path' ) . PATH_SEPARATOR . $mepath.'lib/pear/');
 			$this->_objDbConfig = $_SESSION['dsn'];
 			// Connect to the database
 			if (!class_exists('MDB2.php', true)) {
 			
-			  require_once 'MDB2.php';
+			  require_once '../lib/pear/MDB2.php';
 
 			}
           
@@ -126,13 +129,15 @@ class DbHandler extends dbHandlermanager
             $this->_globalObjDb->setOption('portability',MDB2_PORTABILITY_FIX_CASE);
             $this->_globalObjDb->setOption('portability', MDB2_PORTABILITY_ALL);
 			$_SESSION['DbObj'] =  $this->_globalObjDb;
+			// echo ini_get('include_path'); die();
 			if (!class_exists('MDB2/Schema.php', true)) {
 			
-			  require_once'MDB2/Schema.php';
+			  require_once'../lib/pear/MDB2/Schema.php';
 
 			}
 		    //MDB2 has a factory method, so lets use it now...
-             $this->_globalObjDbManager = &MDB2_Schema::connect($_SESSION['dsn']);
+             $this->_globalObjDbManager = &MDB2_Schema::connect($this->_globalObjDb);
+             
              //$this->_globalObjDbManager->setCharset('utf8');
              if (PEAR::isError($this->_globalObjDbManager)) {
              	echo $this->_globalObjDbManager->getMessage();
