@@ -104,6 +104,21 @@ abstract class absendmail extends engine
     */
      protected $mailer;
 
+    /**
+     * Magic method as an alias to getValue.
+     */
+    public function __get($name)
+    {
+        return $this->getValue($name);
+    }
+
+    /**
+     * Magic method as an alias to setValue.
+     */
+    public function __set($name, $value)
+    {
+        return $this->setValue($name, $value);
+    }
 
     /**
     *
