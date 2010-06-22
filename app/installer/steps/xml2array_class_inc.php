@@ -214,7 +214,7 @@ function _xmlFileToArrayClose(& $topTag, & $includeTopTag, & $val, & $lowerCaseT
     {
         return false;
     }
-    if ($multipleData[$currTag]["multiple"])
+    if (@$multipleData[$currTag]["multiple"])
     {
         $tkeys = array_reverse(array_keys($multipleData));
         foreach ($tkeys as $tkey)

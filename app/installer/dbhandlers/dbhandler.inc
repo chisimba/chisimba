@@ -253,9 +253,9 @@ class DbHandler extends dbHandlermanager
 				                    ),
 				         );
 		    $fields  = array_merge($fields, $puid);
-            if($this->_db->phptype == 'mysql' || $this->_db->phptype == 'mysqli')
+            if($this->_globalObjDb->phptype == 'mysql' || $this->_globalObjDb->phptype == 'mysqli')
             {
-        	    $this->_db->setOption('default_table_type', 'INNODB');
+        	    $this->_globalObjDb->setOption('default_table_type', 'INNODB');
         	    $toptions =  array('charset' => 'utf8', 'collate' => 'utf8_unicode_ci',);
         	    $options = array_merge($toptions, $options);
         	}
@@ -440,7 +440,8 @@ class DbHandler extends dbHandlermanager
         if (empty($tablename)) {
             $tablename = $this->_tableName;
         }
-
+        $fieldnames = NULL;
+        $fieldValues = NULL;
         $comma = "";
         if (empty($fields['id'])) {
             $id = "init";

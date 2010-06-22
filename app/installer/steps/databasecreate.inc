@@ -215,11 +215,10 @@ class DbCreateAction extends StepAction
 			//get the table name
 			$toplevel = array_keys($arr);
 			$table = $toplevel[0];
-			//echo $table;
 			//now get the data
 			$data = $arr[$table];
 			//check if data is an array for more than 1 entry
-			if(is_array($data[0]))
+			if(@is_array($data[0]))
 			{
 				foreach($data as $entries)
 				{
