@@ -1,0 +1,92 @@
+diff -rupN PEAR_orig\MDB2\Driver\mysql.php PEAR\MDB2\Driver\mysql.php
+--- PEAR_orig\MDB2\Driver\mysql.php	Tue Aug 18 17:19:39 2009
++++ PEAR\MDB2\Driver\mysql.php	Tue Aug 18 17:49:13 2009
+@@ -921,7 +921,7 @@ class MDB2_Driver_mysql extends MDB2_Dri
+         }
+ 
+         $class_name = 'MDB2_Statement_'.$this->phptype;
+-        $obj =& new $class_name($this, $statement_name, $positions, $query, $types, $result_types, $is_manip, $limit, $offset);
++        $obj = new $class_name($this, $statement_name, $positions, $query, $types, $result_types, $is_manip, $limit, $offset);
+         $this->debug($query, __FUNCTION__, array('is_manip' => $is_manip, 'when' => 'post', 'result' => $obj));
+         return $obj;
+     }
+@@ -1476,4 +1476,4 @@ class MDB2_Statement_mysql extends MDB2_
+         return $result;
+     }
+ }
+-?>
+\ No newline at end of file
++?>
+diff -rupN PEAR_orig\MDB2.php PEAR\MDB2.php
+--- PEAR_orig\MDB2.php	Tue Aug 18 17:19:39 2009
++++ PEAR\MDB2.php	Tue Aug 18 17:54:29 2009
+@@ -387,7 +387,7 @@ class MDB2
+             return $err;
+         }
+ 
+-        $db =& new $class_name();
++        $db = new $class_name();
+         $db->setDSN($dsninfo);
+         $err = MDB2::setOptions($db, $options);
+         if (PEAR::isError($err)) {
+@@ -1882,7 +1882,7 @@ class MDB2_Driver_Common extends PEAR
+                     "unable to load module '$module' into property '$property'", __FUNCTION__);
+                 return $err;
+             }
+-            $this->{$property} =& new $class_name($this->db_index);
++            $this->{$property} = new $class_name($this->db_index);
+             $this->modules[$module] =& $this->{$property};
+             if ($version) {
+                 // this will be used in the connect method to determine if the module
+@@ -2538,13 +2538,13 @@ class MDB2_Driver_Common extends PEAR
+      *
+      * @access  protected
+      */
+-    function &_wrapResult($result, $types = array(), $result_class = true,
++    function &_wrapResult($result_resource, $types = array(), $result_class = true,
+         $result_wrap_class = false, $limit = null, $offset = null)
+     {
+         if ($types === true) {
+             if ($this->supports('result_introspection')) {
+                 $this->loadModule('Reverse', null, true);
+-                $tableInfo = $this->reverse->tableInfo($result);
++                $tableInfo = $this->reverse->tableInfo($result_resource);
+                 if (PEAR::isError($tableInfo)) {
+                     return $tableInfo;
+                 }
+@@ -2569,7 +2569,7 @@ class MDB2_Driver_Common extends PEAR
+                     'result class does not exist '.$class_name, __FUNCTION__);
+                 return $err;
+             }
+-            $result =& new $class_name($this, $result, $limit, $offset);
++            $result = new $class_name($this, $result_resource, $limit, $offset);
+             if (!MDB2::isResultCommon($result)) {
+                 $err =& $this->raiseError(MDB2_ERROR_NOT_FOUND, null, null,
+                     'result class is not extended from MDB2_Result_Common', __FUNCTION__);
+@@ -2592,8 +2592,9 @@ class MDB2_Driver_Common extends PEAR
+                     'result wrap class does not exist '.$result_wrap_class, __FUNCTION__);
+                 return $err;
+             }
+-            $result =& new $result_wrap_class($result, $this->fetchmode);
++            $result = new $result_wrap_class($result_resource, $this->fetchmode);
+         }
++
+         return $result;
+     }
+ 
+@@ -2937,7 +2938,7 @@ class MDB2_Driver_Common extends PEAR
+         }
+         $class_name = 'MDB2_Statement_'.$this->phptype;
+         $statement = null;
+-        $obj =& new $class_name($this, $statement, $positions, $query, $types, $result_types, $is_manip, $limit, $offset);
++        $obj = new $class_name($this, $statement, $positions, $query, $types, $result_types, $is_manip, $limit, $offset);
+         $this->debug($query, __FUNCTION__, array('is_manip' => $is_manip, 'when' => 'post', 'result' => $obj));
+         return $obj;
+     }
+@@ -4268,4 +4269,4 @@ function MDB2_defaultDebugOutput(&$db, $
+ }
+ 
+ // }}}
+-?>
+\ No newline at end of file
++?>

@@ -279,6 +279,7 @@ class MDB2_Schema extends PEAR
         $this->db->loadModule('Manager');
         $this->db->loadModule('Reverse');
         $this->db->loadModule('Function');
+        //var_dump($this->db); die();
         if (empty($this->options['valid_types'])) {
             $this->options['valid_types'] = $this->db->datatype->getValidTypes();
         }
