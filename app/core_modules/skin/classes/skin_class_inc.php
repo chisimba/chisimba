@@ -221,6 +221,38 @@ class skin extends object
     }
 
     /**
+     *
+     * Skin change method for use with Ajax
+     *
+     *
+     */
+    public function changeSkin()
+    {
+        if ($skinLocation = $this->getParam('skinlocation', FALSE)) {
+            $this->skinEngine = $this->getSkinEngine($mySkinLocation);
+            if ($this->skinEngine == 'default' || $this->skinEngine == '') {
+                //Test if stylesheet exists in the skinlocation
+                if (file_exists($mySkinLocation.$this->skinFile)) {
+                    $this->setSession('skin', $_POST['skinlocation']);
+                } else {
+                    $this->setSession('skin', $this->objConfig->getdefaultSkin());
+                }
+            } else if ($this->skinEngine == 'university') {
+                $this->skinFile = 'style.css';
+                //Test if stylesheet exists in the skinlocation
+                if (file_exists($mySkinLocation.$this->skinFile)) {
+                    $this->setSession('skin', $_POST['skinlocation']);
+                } else {
+                    $this->setSession('skin', $this->objConfig->getdefaultSkin());
+                }
+            }
+            return '200: OK';
+        } else {
+            return '999: noskinlocation';
+        }
+    }
+
+    /**
     *
     * Method to return the dropdown skin chooser left here
     * for legacy reasons in case there is any code that calls
@@ -271,12 +303,9 @@ class skin extends object
     {
         $logout=$this->objLanguage->languageText('word_logout','security','Logout');
         $objConfirm =& $this->getObject('confirm', 'utilities');
-
         $message = $this->objLanguage->languageText('phrase_confirmlogout','security');
         $extra = ' class="pseudobutton"';
-
         $objConfirm->setConfirm($logout, $this->uri(array('action' => 'logoff'), 'security') ,$message,$extra);
-
         return $objConfirm->show();
     }
 

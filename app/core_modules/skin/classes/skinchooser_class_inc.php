@@ -136,6 +136,29 @@ class skinchooser extends object
         return $objNewForm->show();
     }
 
+    public function showAjax()
+    {
+        $script = $this->uri(array('action' => 'ajaxsave'), 'skinselect');
+        $objNewForm = new form('ignorecheck',$script);
+        $objDropdown = new dropdown('skinlocation');
+        $objDropdown->extra = "onchange =\"document.forms['ignorecheck'].submit();\"";
+        $skins = array();
+        // Get all the skins as an array
+        $dirList = $this->getAllSkins();
+        // Sort the array of skins alphabetically
+        asort($dirList);
+        // Loop and add them to the dropdown
+        foreach ($dirList as $element=> $value) {
+           $objDropdown->addOption($element,$value);
+        }
+        $objNewForm->addToForm($this->objLanguage->languageText('phrase_selectskin').":<br />\n");
+        // Set the current skin as the default selected skin
+        $objDropdown->setSelected($this->getSession('skin'));
+        $objDropdown->cssClass = 'coursechooser';
+        $objNewForm->addToForm($objDropdown->show());
+        return $objNewForm->show();
+    }
+
     /**
     *
     * Get all the skins as an array by using glob with only directories
