@@ -889,7 +889,7 @@ class PEARCheckAction extends StepAction
 
         $tpl->set('required', $this->required_packages);
 
-        $tpl->set('checking', 'PEAR DataBase Abstraction Packages');
+        // $tpl->set('checking', 'PEAR DataBase Abstraction Packages');
 
         echo $tpl->fetch();
 

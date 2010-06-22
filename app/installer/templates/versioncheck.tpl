@@ -1,9 +1,9 @@
 
 <table cellspacing="0" class="install-table" width="50%">
 
-<tr>
+<!-- tr>
 		<td width="70%" align="left" style="border-bottom: 1px solid black;">
-		<?php echo $checking;?>
+		<?php // echo $checking;?>
 		</td>
 		<td width="20%" align="center" style="border-bottom: 1px solid black;">
 		Minumum Version
@@ -11,7 +11,7 @@
 		<td align="center" style="border-bottom: 1px solid black;">
 		Result
 		</td>
-</tr>
+</tr -->
 <?php
 foreach($required as $setting_name => $setting_details) {
 ?>
