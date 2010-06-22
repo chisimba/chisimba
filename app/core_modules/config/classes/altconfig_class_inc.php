@@ -120,6 +120,10 @@ class altconfig extends object {
      */
     public function __construct() {
         // instantiate object
+        $mepath = $_SERVER["SCRIPT_FILENAME"];
+        $mepath = str_replace('index.php', '', $mepath);
+        ini_set ( 'include_path', ini_get ( 'include_path' ) . PATH_SEPARATOR . $mepath.'lib/pear/');
+        
         try {
             if (! class_exists ( 'Config.php', true )) {
                 require_once 'Config.php';
