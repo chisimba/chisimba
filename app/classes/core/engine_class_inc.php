@@ -96,8 +96,10 @@ include ('lucene.php');
 
 /**
  * config object
+ *
+ * @deprecated now moved to constructor to avoid userland installation of Config
  */
-require_once ('Config.php');
+// require_once ('Config.php');
 
 /**
  * Error callback
@@ -736,9 +738,9 @@ class engine {
             $mdsn = KEWL_DB_DSN; //$this->_objDbConfig->getDsn();
             $this->mdsn = $this->parseDSN ( $mdsn );
             // Connect to the database
-            require_once $this->getPearResource ( 'MDB2/Schema.php' );
+            //require_once $this->getPearResource ( 'MDB2/Schema.php' );
             //MDB2 has a factory method, so lets use it now...
-            $_globalObjDbManager = &MDB2::connect ( $this->dsn );
+            //$_globalObjDbManager = &MDB2::connect ( $this->dsn );
 
             //Check for errors
             if (PEAR::isError ( $_globalObjDbManager )) {
@@ -754,7 +756,7 @@ class engine {
             // keep a copy as a field as well
             $this->_objDbManager = $_globalObjDbManager;
             // install the error handler with our custom callback on error
-            $this->_objDbManager->setErrorHandling ( PEAR_ERROR_CALLBACK, array ($this, '_pearErrorCallback' ) );
+            //$this->_objDbManager->setErrorHandling ( PEAR_ERROR_CALLBACK, array ($this, '_pearErrorCallback' ) );
 
         }
         //return the local copy

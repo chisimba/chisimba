@@ -47,11 +47,6 @@ $GLOBALS['kewl_entry_point_run']) {
  * Logging object
  */
 require_once "lib/logging.php";
-@
-        /**
-         * Alternative to var_dump()
-         */
-        include_once 'Var_Dump.php';
 
 /**
  * database table manager
