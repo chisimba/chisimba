@@ -106,6 +106,10 @@ abstract class absendmail extends engine
 
     /**
      * Magic method as an alias to getValue.
+     *
+     * @access public
+     * @param  string $name The name of the property to get.
+     * @return mixed  The value of the property.
      */
     public function __get($name)
     {
@@ -114,6 +118,11 @@ abstract class absendmail extends engine
 
     /**
      * Magic method as an alias to setValue.
+     *
+     * @access public
+     * @param  string  $name  The name of the property to set.
+     * @param  string  $value The new value of the property.
+     * @return boolean TRUE on success, FALSE on failure.
      */
     public function __set($name, $value)
     {
