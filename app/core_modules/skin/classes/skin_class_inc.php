@@ -442,58 +442,8 @@ class skin extends object
      */
     public function putJavaScript($mime='text/html', $headerParams=NULL, $bodyOnLoad=NULL)
     {
-        
-               
-        if ($mime != 'application/xhtml+xml') {
-            $mime = 'text/html';
-        }
-
-        $str = '';
-
-        $supressPrototype = $this->getVar('SUPPRESS_PROTOTYPE', false);
-        $supressJQuery = $this->getVar('SUPPRESS_JQUERY', false);
-        $jQueryVersion = $this->getVar('JQUERY_VERSION', '1.2.3');
-
-        if (!$supressPrototype){
-            // Add Scriptaculous
-            $scriptaculous = $this->getObject('scriptaculous', 'htmlelements');
-            $str .= $scriptaculous->show($mime);
-        }
-
-        if (!$supressJQuery){
-            // Add JQuery
-            $jquery = $this->getObject('jquery', 'jquery');
-            $jquery->setVersion($jQueryVersion);
-            $str .= $jquery->show();
-        }
-
-        // Get HeaderParams
-        if ($headerParams == NULL) {
-            $headerParams = $this->getVar('headerParams');
-        }
-
-        if (is_array($headerParams)) {
-            $headerParams = array_unique($headerParams);
-            foreach ($headerParams as $headerParam) {
-                $str .= $headerParam."\n\n";
-            }
-        }
-
-        // Get Body On Load
-        if ($bodyOnLoad == NULL) {
-            $bodyOnLoad = $this->getVar('bodyOnLoad');
-        }
-
-        if (is_array($bodyOnLoad)) {
-            $str .= '<script type="text/javascript">';
-            $str .= 'window.onload = function() {'."\n";
-            foreach ($bodyOnLoad as $bodyParam) {
-                $str .= '   '.$bodyParam."\n";
-            }
-            $str .= '}
-</script>'."\n\n";
-        }
-        return $str;
+        $objJs = $this->getObject('skinjavascript', 'skin');
+        return $objJs->loadAll($mime, $headerParams, $bodyOnLoad);
     }
 
 
@@ -534,7 +484,6 @@ class skin extends object
                 $str .= "<META name='description' content='$desc'>\n";
             }
         }
-
         return $str;
     }
 }
