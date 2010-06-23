@@ -141,7 +141,7 @@ class skinjavascript extends object
     * @access public
     *
     */
-    public function getHeaderParams($headerParams)
+    public function getHeaderParams($headerParams=NULL)
     {
         if ($headerParams == NULL) {
             $headerParams = $this->getVar('headerParams');
@@ -149,6 +149,7 @@ class skinjavascript extends object
 
         if (is_array($headerParams)) {
             $headerParams = array_unique($headerParams);
+            $ret ="";
             foreach ($headerParams as $headerParam) {
                 $ret .= $headerParam."\n\n";
             }
@@ -166,21 +167,25 @@ class skinjavascript extends object
     * @access public
     *
     */
-    public function getBodyParams()
+    public function getBodyParams($bodyOnLoad=NULL)
     {
         if ($bodyOnLoad == NULL) {
             $bodyOnLoad = $this->getVar('bodyOnLoad');
         }
 
         if (is_array($bodyOnLoad)) {
-            $str .= '<script type="text/javascript">';
-            $str .= 'window.onload = function() {'."\n";
+            $str = '<script type="text/javascript">'
+              . 'window.onload = function() {'."\n";
             foreach ($bodyOnLoad as $bodyParam) {
                 $str .= '   '.$bodyParam."\n";
             }
             $str .= '}
 </script>'."\n\n";
+            return $str;
+        } else {
+            return NULL;
         }
+        
     }
 }
 ?>
