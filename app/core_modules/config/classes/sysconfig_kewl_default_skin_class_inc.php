@@ -70,9 +70,9 @@ class sysconfig_kewl_default_skin extends object {
         $this->loadClass ( 'radio', 'htmlelements' );
 
         // Load the Skin Object
-        $objSkin = $this->getObject ( 'skin', 'skin' );
+        $objSkin = $this->getObject ( 'skinchooser', 'skin' );
 
-        $skinsList = $objSkin->getListofSkins ();
+        $skinsList = $objSkin->getAllSkins();
 
         // Input MUST be called 'pvalue'
         $objElement = new radio ( 'pvalue' );
