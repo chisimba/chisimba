@@ -54,19 +54,37 @@ $GLOBALS ['kewl_entry_point_run']) {
  *
  */
 class cookie extends object {
-    // Reserved session keys
+    /**
+     * Reserved session keys
+     * @access private
+     */
     private static $_reserved = array();
 
+    /**
+     * Constructor
+     * 
+     * @access public
+     */
     public function init() {
     }
 
-    // Alias for delete() function
+    /**
+     * Alias for delete() function
+     *
+     * @access public
+     * @seealso delete
+     */
     public function del($key)
     {
         $this->cookiedelete($key);
     }
    
-    // Delete a cookie
+    /**
+     * Delete a cookie
+     *
+     * @access public
+     * @param string key 
+     */
     public function cookiedelete($key)
     {
         $key = self::_scrubKey($key);
@@ -97,7 +115,12 @@ class cookie extends object {
         }
     }
 
-    // See if a cookie key exists
+    /**
+     * See if a cookie key exists
+     *
+     * @access public
+     * @param string key
+     */
     public function exists($key)
     {
         $key = self::_scrubKey($key);
@@ -113,7 +136,12 @@ class cookie extends object {
         return FALSE;
     }
    
-    // Get cookie information
+    /**
+     * Get cookie information
+     * 
+     * @access public
+     * @param string key
+     */
     public function get($key) {
         $key = self::_scrubKey($key);
         if (is_array($key)) {
@@ -130,13 +158,28 @@ class cookie extends object {
         }
     }
    
-    // Return the cookie array
+    /** 
+     * Return the cookie array
+     *
+     * @access public
+     */
     public function contents()
     {
         return $_COOKIE;
     }
    
-    // Set cookie information
+    /**
+     * Set cookie information
+     *
+     * @access public
+     * @param string key
+     * @param mixed value
+     * @param integer expire
+     * @param string path
+     * @param string domain
+     * @param boolean secure
+     * @param boolean httponly
+     */
     public function set( $key, $value, $expire = 0, $path = '', $domain = '', $secure = FALSE, $httponly = TRUE) {       
         // Make sure they aren't trying to set a reserved word
         if(!in_array($key, self::$_reserved)) {       
@@ -151,7 +194,13 @@ class cookie extends object {
         }
     }
    
-    // Converts strings to arrays (or vice versa if toString = true)
+    /**
+     * Converts strings to arrays (or vice versa if toString = true)
+     *
+     * @access private
+     * @param string key
+     * @param boolena toString
+     */
     private static function _scrubKey($key, $toString = FALSE) {
         if($toString) {
             // If $key is in array format, change it to string representation
