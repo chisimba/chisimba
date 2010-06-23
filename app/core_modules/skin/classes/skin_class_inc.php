@@ -230,6 +230,7 @@ class skin extends object
     {
         if ($skinLocation = $this->getParam('skinlocation', FALSE)) {
             $this->skinEngine = $this->getSkinEngine($mySkinLocation);
+            $mySkinLocation=$this->objConfig->getsiteRootPath().$this->skinRoot.$skinLocation.'/';
             if ($this->skinEngine == 'default' || $this->skinEngine == '') {
                 //Test if stylesheet exists in the skinlocation
                 if (file_exists($mySkinLocation.$this->skinFile)) {
