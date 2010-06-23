@@ -78,7 +78,6 @@
     </div> \
   </div>'
   }
-
   $.facebox.loading = function() {
     if ($('#facebox .loading').length == 1) return true
 

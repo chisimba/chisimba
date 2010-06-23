@@ -104,7 +104,7 @@ class htmlarea extends object {
     function init($name=null,$value=null,$rows=4,$cols=50,$context=false) {
         $this->sysConf = $this->getObject('dbsysconfig', 'sysconfig');
         //Loading the default FCK version from config
-        $this->fckVersion = $this->sysConf->getValue('FCKEDITOR_VERSION', 'fckeditor');
+        $this->fckVersion = $this->sysConf->getValue('FCKEDITOR_VERSION', 'htmlelements');
         $this->height = '400px';
         $this->width = '100%';
         $this->toolbarSet='Default';
