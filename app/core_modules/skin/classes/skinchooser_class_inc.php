@@ -149,9 +149,10 @@ class skinchooser extends object
     public function showAjax()
     {
         $script = $this->uri(array('action' => 'ajaxsave'), 'skinselect');
-        $objNewForm = new form('ignorecheck',$script);
+        $this->addAjaxToHead(urlencode($script));
+        $objNewForm = new form('selectskin',$script);
         $objDropdown = new dropdown('skinlocation');
-        $objDropdown->extra = "onchange =\"document.forms['ignorecheck'].submit();\"";
+        $objDropdown->extra = "onchange =\"document.forms['selectskin'].submit();\"";
         $skins = array();
         // Get all the skins as an array
         $dirList = $this->getAllSkins();
@@ -230,6 +231,5 @@ class skinchooser extends object
             exit(0);
         }
     }
-
 }
 ?>
