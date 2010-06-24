@@ -149,7 +149,6 @@ class skinchooser extends object
     public function showAjax()
     {
         $script = $this->uri(array('action' => 'ajaxsave'), 'skinselect');
-        $this->addAjaxToHead(urlencode($script));
         $objNewForm = new form('selectskin',$script);
         $objDropdown = new dropdown('skinlocation');
         $objDropdown->extra = "onchange =\"document.forms['selectskin'].submit();\"";
