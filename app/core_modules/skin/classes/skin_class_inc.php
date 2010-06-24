@@ -192,13 +192,12 @@ class skin extends object
         if ($this->getSession('skin') == '') {
             $this->setSession('skin', $this->objConfig->getdefaultSkin());
         }
-
         //TODO: Optimize calls to validate skin session, should only have to be called once per page load
         //      Currently being called up to 30 times per pageload
         //var_dump('VALIDATING SKIN SESSION');
 
         //Check for a change of skin
-        if (isset($_POST['skinlocation']) && $_POST['skinlocation'] != '') {
+/*        if (isset($_POST['skinlocation']) && $_POST['skinlocation'] != '') {
             $mySkinLocation=$this->objConfig->getsiteRootPath().$this->skinRoot.$_POST['skinlocation'].'/';
             $this->skinEngine = $this->getSkinEngine($mySkinLocation);
             if ($this->skinEngine == 'default' || $this->skinEngine == '') {
@@ -217,7 +216,7 @@ class skin extends object
                         $this->setSession('skin', $this->objConfig->getdefaultSkin());
                 }
             }
-        }
+        }*/
     }
 
     /**
@@ -234,9 +233,31 @@ class skin extends object
             if ($this->skinEngine == 'default' || $this->skinEngine == '') {
                 //Test if stylesheet exists in the skinlocation
                 if (file_exists($mySkinLocation.$this->skinFile)) {
-                    $this->setSession('skin', $_POST['skinlocation']);
+                    $this->setSession('skin', $skinLocation);
+                    $configFile = $mySkinLocation . 'settings.json';
+                    if(file_exists($configFile)) {
+                        $jsonRaw = file_get_contents($configFile);
+                        $jsonObj = json_decode($jsonRaw);
+                        $skinVersion = $jsonObj->skinVersion;
+                        $layoutType = $jsonObj->layoutType;
+                        $_SESSION['skinVersion'] = $skinVersion;
+                        $_SESSION['layoutType'] = $layoutType;
+                        $_SESSION['skinhassettings'] = TRUE;
+                    } elseif(file_exists($mySkinLocation . 'skinversion.txt')) {
+                        // Read the old skinversion.txt
+                        $file = $mySkinLocation . 'skinversion.txt';
+                        $skinVersion = trim(file_get_contents($file));
+                        $_SESSION['skinVersion'] = $skinVersion;
+                        $_SESSION['layoutType'] = FALSE;
+                        $_SESSION['skinhassettings'] = TRUE;
+                    } else {
+                        $_SESSION['skinVersion'] = '1.0';
+                        $_SESSION['layoutType'] = FALSE;
+                        $_SESSION['skinhassettings'] = TRUE;
+                    }
                 } else {
                     $this->setSession('skin', $this->objConfig->getdefaultSkin());
+                    
                 }
             } else if ($this->skinEngine == 'university') {
                 $this->skinFile = 'style.css';

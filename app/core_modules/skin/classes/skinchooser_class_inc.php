@@ -114,6 +114,7 @@ class skinchooser extends object
      */
     public function show()
     {
+        return $this->showAjax();/*
         //replace withthe name of the current script
         $script=$_SERVER['PHP_SELF'];
         $objNewForm = new form('ignorecheck',$script);
@@ -133,9 +134,18 @@ class skinchooser extends object
         $objDropdown->setSelected($this->getSession('skin'));
         $objDropdown->cssClass = 'coursechooser';
         $objNewForm->addToForm($objDropdown->show());
-        return $objNewForm->show();
+        return $objNewForm->show();*/
     }
 
+     /**
+     *
+     * Render the dropdown skin chooser so that it is processed
+     * by the skinselect module, for use with Ajax
+     *
+     * @return string Form with dropdown
+     * @access public
+     *
+     */
     public function showAjax()
     {
         $script = $this->uri(array('action' => 'ajaxsave'), 'skinselect');
