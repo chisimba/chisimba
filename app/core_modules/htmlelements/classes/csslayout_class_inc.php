@@ -123,6 +123,14 @@ class csslayout extends object implements ifhtml
 
     /**
     *
+    * An object for fixing the column lengths
+    *
+    * @var string $middleColumnContent
+    */
+    public $objFixlength;
+
+    /**
+    *
     * The type of layout to produce. Valid types are:
     *    standard - normal 2 column layout
     *    canvas_stacked - the left and right columns are stacked within the canvas
@@ -147,6 +155,35 @@ class csslayout extends object implements ifhtml
         $this->isCanvasEnabled = TRUE;
 	$this->objSkin = $this->getObject('skin', 'skin');
 	$this->skinEngine = $this->objSkin->getSkinEngine();
+        $this->objFixlength = $this->getObject('cssfixlength', 'htmlelements');
+        $this->loadSettings();
+    }
+
+    private function loadSettings()
+    {
+        if ($_SESSION['skinhassettings']) {
+            $this->skinVersion = $_SESSION['skinVersion'];
+            $this->layoutType = $_SESSION['layoutType'];
+            return TRUE;
+        } else {
+            $objSkin = $this->getObject('skin', 'skin');
+            $configFile = $objSkin->getSkinLocation().'/settings.json';
+            if(file_exists($configFile)) {
+                $jsonRaw = file_get_contents($configFile);
+                $jsonObj = json_decode($jsonRaw);
+                $this->skinVersion = $jsonObj->skinVersion;
+                $this->layoutType = $jsonObj->layoutType;
+            } else {
+                // Read the old skinversion.txt
+                $file = $objSkin->getSkinLocation().'/skinversion.txt';
+                $this->skinVersion = trim(file_get_contents($file));
+                $this->layoutType = "default";
+            }
+            $_SESSION['skinVersion'] = $this->skinVersion;
+            $_SESSION['layoutType'] = $this->layoutType;
+            $_SESSION['skinhassettings'] = TRUE;
+            return TRUE;
+        }
     }
 
     /**
@@ -214,203 +251,6 @@ class csslayout extends object implements ifhtml
         $this->footerContent = $content;
     }
 
-
-     /**
-    * Method to return the JavaScript that should run when the page loads
-    *
-    * @access public
-    * @return string The javascript that must be run
-    */
-    public function bodyOnLoadScript()
-    {	
-        if ($this->skinEngine == 'default' || $this->skinEngine == '') {
-            return 'xAddEventListener(window, "resize", adjustLayout, false);'."\n"
-              .'adjustLayout();'."\n";
-        }
-    }
-
-    /**
-    * Method to return the JavaScript that fixes a two column css layout using javascript
-    *
-    * @access public
-    * @return string $fixLayoutScript the JavaScript that goes in the header
-    */
-    public function fixTwoColumnLayoutJavascript()
-    {
-        $fixLayoutScript ='
-        <script type="text/javascript">
-        // <![CDATA[
-        function adjustLayout()
-        {
-            //Inhouse browser detection
-            var browser=navigator.appName;
-            var b_version=navigator.appVersion;
-            var version=parseFloat(b_version);
-
-            // Get natural heights
-            var cHeight = xHeight("contentcontent");
-            var lHeight = xHeight("leftcontent");
-            var rHeight = xHeight("rightcontent");
-
-            // Find the maximum height
-            var maxHeight =
-            Math.max(cHeight, Math.max(lHeight, rHeight));
-
-            // Assign maximum height to all columns
-            if ((browser!="Microsoft Internet Explorer")) {
-
-              xHeight("content", maxHeight);
-              xHeight("left", maxHeight);
-              xHeight("right", maxHeight);
-
-            }
-
-        }
-        // ]]>
-        </script>';
-        if ($this->skinEngine == 'default' || $this->skinEngine == '') {
-            return $fixLayoutScript;
-        }
-    }
-
-    /**
-    * Method to return the JavaScript that fixes a three column css layout using
-    * javascript
-    *
-    * @access public
-    * @return string  $fixLayoutScript the JavaScript that goes in the header
-    */
-    public function fixThreeColumnLayoutJavascript()
-    {
-        $fixLayoutScript = '
-        <script type="text/javascript">
-        // <![CDATA[
-        function adjustLayout()
-        {
-            //Inhouse browser detection
-            var browser=navigator.appName;
-            var b_version=navigator.appVersion;
-            var version=parseFloat(b_version);
-
-             // Get natural heights
-            var cHeight = xHeight("contentcontent");
-            var lHeight = xHeight("leftcontent");
-            var rHeight = xHeight("rightcontent");
-
-            // Find the maximum height
-            var maxHeight =
-            Math.max(cHeight, Math.max(lHeight, rHeight));
-
-            // Assign maximum height to all columns
-            if ((browser!="Microsoft Internet Explorer")) {
-
-              xHeight("content", maxHeight);
-              xHeight("left", maxHeight);
-              xHeight("right", maxHeight);
-
-            }
-
-        }
-        // ]]>
-        </script>';
-        if ($this->skinEngine == 'default' || $this->skinEngine == '') {
-            return $fixLayoutScript;
-        }
-    }
-
-
-    /**
-    * Fix the column lengths for the three column css layout using
-    * javascript
-    *
-    * @access public
-    * @return boolean  TRUE|FALSE
-    */
-    public function fixThree()
-    {
-        $fixLayoutScript = '
-        <script type="text/javascript">
-        // <![CDATA[
-        function adjustLayout()
-        {
-            //Inhouse browser detection
-            var browser=navigator.appName;
-            var b_version=navigator.appVersion;
-            var version=parseFloat(b_version);
-             // Get natural heights
-            var cHeight = xHeight("Canvas_Content_Body_Region2");
-            var lHeight = xHeight("Canvas_Content_Body_Region1");
-            var rHeight = xHeight("Canvas_Content_Body_Region3");
-            var bHeight = xHeight("Canvas_Content_Body");
-            // Find the maximum height
-            var maxHeight = Math.max(Math.max(cHeight, bHeight), Math.max(lHeight, rHeight));
-            // Assign maximum height to all columns
-            if ((browser!="Microsoft Internet Explorer")) {
-              xHeight("Canvas_Content_Body_Region2", maxHeight);
-              xHeight("Canvas_Content_Body_Region1", maxHeight);
-              xHeight("Canvas_Content_Body_Region3", maxHeight);
-              xHeight("Canvas_Content_Body", maxHeight);
-            }
-        }
-        // ]]>
-        </script>';
-        if ($this->skinEngine == 'default' || $this->skinEngine == '') {
-            $this->appendArrayVar('headerParams', $this->getJavascriptFile('x_minified.js','htmlelements'));
-            $this->appendArrayVar('headerParams', $fixLayoutScript);
-            $this->appendArrayVar('bodyOnLoad',$this->bodyOnLoadScript());
-            return TRUE;
-        } else {
-            return FALSE;
-        }
-    }
-
-    /**
-    * Fix the column lengths for the two column css layout using
-    * javascript
-    *
-    * @access public
-    * @return boolean  TRUE|FALSE
-    */
-    public function fixTwo()
-    {
-        $fixLayoutScript = '
-        <script type="text/javascript">
-        // <![CDATA[
-        function adjustLayout()
-        {
-            //Inhouse browser detection
-            var browser=navigator.appName;
-            var b_version=navigator.appVersion;
-            var version=parseFloat(b_version);
-             // Get natural heights
-            var cHeight = xHeight("Canvas_Content_Body_Region2");
-            var lHeight = xHeight("Canvas_Content_Body_Region1");
-            var bHeight = xHeight("Canvas_Content_Body");
-            // Find the maximum height
-            var maxHeight = Math.max(cHeight, Math.max(lHeight, bHeight));
-            // Assign maximum height to all columns
-            if ((browser!="Microsoft Internet Explorer")) {
-              xHeight("Canvas_Content_Body_Region2", maxHeight);
-              xHeight("Canvas_Content_Body_Region1", maxHeight);
-              xHeight("Canvas_Content_Body", maxHeight);
-            }
-        }
-        // ]]>
-        </script>';
-        if ($this->skinEngine == 'default' || $this->skinEngine == '') {
-            $this->appendArrayVar('headerParams', $this->getJavascriptFile('x_minified.js','htmlelements'));
-            $this->appendArrayVar('headerParams', $fixLayoutScript);
-            $this->appendArrayVar('bodyOnLoad',$this->bodyOnLoadScript());
-            return TRUE;
-        } else {
-            return FALSE;
-        }
-    }
-
-
-
-
-
     /**
     * Show method - Method to display the layout
     * This method also places the appropriate javascript in the header
@@ -420,6 +260,7 @@ class csslayout extends object implements ifhtml
     */
     public function show()
     {
+        
         $this->setVar('numColumns', $this->numColumns);
 
         if ($this->skinEngine == 'default' 
@@ -443,9 +284,9 @@ class csslayout extends object implements ifhtml
      */
     private function getSkinVersion()
     {
-        if ($this->skinVersion('2.0')) {
+        if ($this->skinVersion == '2.0') {
             return "skinTwo";
-        } elseif ($this->skinVersion('3.0')) {
+        } elseif ($this->skinVersion == '3.0') {
             return "skinThree";
         } else {
             return "skinDefault";
@@ -463,6 +304,7 @@ class csslayout extends object implements ifhtml
      */
     private function skinDefault()
     {
+        
         // Fix the column lengths.
         if ($this->numColumns == 2) {
                 $this->putTwoColumnFixInHeader();
@@ -548,6 +390,7 @@ class csslayout extends object implements ifhtml
               ' . $middleCol . '
               </div>
               ';
+             $this->objFixlength->fixTwoSkinTwo();
         } elseif  ($this->numColumns == 3)  {
             // for a three column layout, first load the right column, then the middle column.
             $result = '	<div id="threecolumn">
@@ -555,6 +398,7 @@ class csslayout extends object implements ifhtml
                 <div id="right">'.$this->rightColumnContent.'</div>
                 <div id="content"> '. $this->middleColumnContent .'</div>
                 </div>';
+             $this->objFixlength->fixThreeSkinTwo();
         }
         return $result;
     }
@@ -588,25 +432,136 @@ class csslayout extends object implements ifhtml
 
               </div>
               ';
-            $this->fixTwo();
+            $this->objFixlength->fixTwo();
         } elseif  ($this->numColumns == 3)  {
-            // Put the left bit in region 1 for canvas enabled skins
-            $leftCol = $this->addBodyRegion($this->leftColumnContent, "Region1");
-            // Put the middle bit in region 2 for canvas enabled skins
-            $middleCol = $this->addBodyRegion($this->middleColumnContent, "Region2");
-            // Put the right bit in region 2 for canvas enabled skins
-            $rightCol = $this->addBodyRegion($this->rightColumnContent, "Region3");
-            $result = '	<div id="threecolumn">
+            if (!isset($this->layoutCode)) {
+                $this->layoutCode = "_default";
+            }
 
-                ' . $leftCol . '
-                ' . $rightCol . '
-                ' . $middleCol . '
-                    
-                </div>';
-            $this->fixThree();
+            switch ($this->layoutCode) {
+                case "canvas_stacked31":
+                    $narrowCol = $this->addBodyRegion(
+                       $this->rightColumnContent
+                      . $this->leftColumnContent, "Region3"
+                    );
+                    $middleCol = $this->addBodyRegion($this->middleColumnContent, "Region2");
+                    $result = '<div id="twocolumn">
+
+                        ' . $narrowCol . '
+                        ' . $middleCol . '
+
+                        </div>
+                    ';
+                    $this->objFixlength->fixTwo();
+                    break;
+
+                case "canvas_stacked13":
+                    $narrowCol = $this->addBodyRegion(
+                       $this->leftColumnContent
+                      . $this->rightColumnContent, "Region3"
+                    );
+                    $middleCol = $this->addBodyRegion($this->middleColumnContent, "Region2");
+                    $result = '<div id="twocolumn">
+
+                        ' . $narrowCol . '
+                        ' . $middleCol . '
+
+                        </div>
+                    ';
+                    $this->objFixlength->fixTwo();
+                    break;
+
+
+                case "_default":
+                default:
+                    // Put the left bit in region 1 for canvas enabled skins
+                    $leftCol = $this->addBodyRegion($this->leftColumnContent, "Region1");
+                    // Put the middle bit in region 2 for canvas enabled skins
+                    $middleCol = $this->addBodyRegion($this->middleColumnContent, "Region2");
+                    // Put the right bit in region 2 for canvas enabled skins
+                    $rightCol = $this->addBodyRegion($this->rightColumnContent, "Region3");
+                    $result = '	<div id="threecolumn">
+
+                        ' . $leftCol . '
+                        ' . $rightCol . '
+                        ' . $middleCol . '
+
+                        </div>';
+                    $this->objFixlength->fixThree();
+                    break;
+            }
         }
         return $result;
     }
+
+    /**
+    *
+    * Method to load place a three column javascript fix into the header of a webpage
+    * This method can also be used by other modules that just want to load the javascript fix - e.g. splash screen (prelogin)
+    *
+    * @access public
+    * @return void
+    */
+    public function putThreeColumnFixInHeader()
+    {
+        if ($this->skinEngine == 'default' || $this->skinEngine == '') {
+            $this->appendArrayVar('headerParams', $this->getJavascriptFile('x_minified.js','htmlelements'));
+            $this->appendArrayVar('headerParams', $this->objFixlength->fixThreeColumnLayoutJavascript());
+            $this->appendArrayVar('bodyOnLoad',$this->objFixlength->bodyOnLoadScript());
+        }
+    }
+
+    /**
+    * Method to load place a two column javascript fix into the header of a webpage
+    * This method can also be used by other modules that just want to load the javascript fix - e.g. splash screen (prelogin)
+    *
+    * @return void
+    * @access public
+    *
+    */
+    public function putTwoColumnFixInHeader()
+    {
+        if ($this->skinEngine == 'default' || $this->skinEngine == '') {
+            $this->appendArrayVar('headerParams', $this->getJavascriptFile('x_minified.js','htmlelements'));
+            $this->appendArrayVar('headerParams', $this->objFixlength->fixTwoColumnLayoutJavascript());
+            $this->appendArrayVar('bodyOnLoad',$this->objFixlength->bodyOnLoadScript());
+        }
+    }
+
+    /**
+     *
+     * Wrap the content in one of the three canvas body regions as applicable
+     * to version 3+ skins with canvas support.
+     *
+     * @param stromg $content The content to wrap
+     * @param string $region The region
+     * @return string the wrapped content
+     *
+     */
+    public function addBodyRegion($content, $region)
+    {
+        return "<div class='Canvas_Column' id='Canvas_Content_Body_$region'>\n$content\n</div>";
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // NIC - can I remove this or put in a separate class?
+
+
+
+
+
+
 
      /**
      *
@@ -694,87 +649,6 @@ class csslayout extends object implements ifhtml
         }
 
         return $result;
-    }
-
-
-
-    /**
-    *
-    * Method to load place a three column javascript fix into the header of a webpage
-    * This method can also be used by other modules that just want to load the javascript fix - e.g. splash screen (prelogin)
-    *
-    * @access public
-    * @return void
-    */
-    public function putThreeColumnFixInHeader()
-    {
-        if ($this->skinEngine == 'default' || $this->skinEngine == '') {
-            $this->appendArrayVar('headerParams', $this->getJavascriptFile('x_minified.js','htmlelements'));
-            $this->appendArrayVar('headerParams', $this->fixThreeColumnLayoutJavascript());
-            $this->appendArrayVar('bodyOnLoad',$this->bodyOnLoadScript());
-        }
-    }
-
-    /**
-    * Method to load place a two column javascript fix into the header of a webpage
-    * This method can also be used by other modules that just want to load the javascript fix - e.g. splash screen (prelogin)
-    *
-    * @return void
-    * @access public
-    *
-    */
-    public function putTwoColumnFixInHeader()
-    {
-        if ($this->skinEngine == 'default' || $this->skinEngine == '') {
-            $this->appendArrayVar('headerParams', $this->getJavascriptFile('x_minified.js','htmlelements'));
-            $this->appendArrayVar('headerParams', $this->fixTwoColumnLayoutJavascript());
-            $this->appendArrayVar('bodyOnLoad',$this->bodyOnLoadScript());
-        }
-    }
-
-    /**
-    *
-    * Check for a version 2 skin
-    *
-    * @param string $version
-    * @return boolean TRUE|FALSE
-    * @access public
-    * 
-    */
-    public function skinVersion($version = null)
-    {
-        if(empty($version)) {
-            return FALSE;
-        }
-
-        //get the skinversion.txt in the skins folder
-        $objSkin = $this->getObject('skin', 'skin');
-        if(file_exists($objSkin->getSkinLocation().'/skinversion.txt')) {
-            //get the version number
-            $file = $objSkin->getSkinLocation().'/skinversion.txt';
-            $contents =  trim(file_get_contents($file));
-            if($contents == $version) {
-                return TRUE;
-            } else {
-                return FALSE;
-            }
-        }
-        return FALSE;
-    }
-
-
-    /**
-     *
-     * Wrap the content in one of the three canvas body regions
-     *
-     * @param stromg $content The content to wrap
-     * @param string $region The region
-     * @return string the wrapped content
-     *
-     */
-    public function addBodyRegion($content, $region)
-    {
-        return "<div class='Canvas_Column' id='Canvas_Content_Body_$region'>\n$content\n</div>";
     }
 }
 ?>
