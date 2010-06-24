@@ -564,7 +564,57 @@ class dbfolder extends dbTable
         
         return $breadcrumbStr;
     }
+    /**
+     * Short description for function
+     *
+     * Long description (if any) ...
+     *
+     * @param  string  $userId Parameter description (if any) ...
+     * @param  unknown $path   Parameter description (if any) ...
+     * @return string  Return description (if any) ...
+     * @access public
+     */
+    public function generateBreadcrumbsFromUserPath($userId, $path)
+    {
+        // users/1/archives/error_log/error_log
+        $userPath = 'users/'.$userId;
 
+        $regex = '/\\Ausers\/'.$userId.'\/';
+
+        $remainderPath = preg_replace($regex.'/', '', $path);
+
+        $homeLink = new link ($this->uri(NULL));
+        $homeLink->link = 'My Files';
+
+        $breadcrumbs = $homeLink->show();
+
+        $items = explode('/', $remainderPath);
+
+        $itemCount = count($items);
+
+        if ($itemCount > 0) {
+            $counter = 1;
+            foreach ($items as $item)
+            {
+                $userPath .= '/'.$item;
+
+                if ($counter == $itemCount) {
+                    $breadcrumbs .= ' &gt; '.$item;
+                } else {
+
+                    $itemLink = new link ($this->uri(array('action'=>'viewfolder', 'folder'=>$this->getFolderId($userPath))));
+                    $itemLink->link = $item;
+
+                    $breadcrumbs .= ' &gt; '.$itemLink->show();
+                }
+
+
+                $counter++;
+            }
+        }
+
+        return $breadcrumbs;
+    }
     /**
     * Method to show the folders of the current user as a tree drop down
     * @param  string $default Record Id of the Current Folder to highlight

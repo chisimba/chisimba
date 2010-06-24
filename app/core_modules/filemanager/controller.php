@@ -118,7 +118,8 @@ class filemanager extends controller
         $this->objFilePreview = $this->getObject('filepreview', 'filemanager');
         $this->objQuotas = $this->getObject('dbquotas', 'filemanager');
         $this->objSymlinks = $this->getObject('dbsymlinks', 'filemanager');
-        
+        $this->sysConf = $this->getObject('dbsysconfig', 'sysconfig');
+        $this->fckVersion = $this->sysConf->getValue('FCKEDITOR_VERSION', 'htmlelements');
         $this->objUploadMessages = $this->getObject('uploadmessages', 'filemanager');
         
         // Other Classes
@@ -469,7 +470,25 @@ class filemanager extends controller
     {
         $id = $this->getParam('id');
         $filename = $this->getParam('filename');
-        
+        if(($this->fckVersion == '2.5.1') || ($this->fckVersion == '2.6.3')){
+         $file = $this->objFiles->getFileInfo($id);
+
+         if ($file == FALSE) {
+             return $this->nextAction(NULL, array('error'=>'filedoesnotexist'));
+         }
+
+         if (array_key_exists('getid3info', $file)) {
+             unset ($file['getid3info']);
+         }
+
+         $this->setVarByRef('file', $file);
+
+         $tags = $this->objFileTags->getFileTags($id);
+         $this->setVarByRef('tags', $tags);
+
+         $this->objMenuTools->addToBreadCrumbs(array('File Information: '.$file['filename']));
+         return 'fileinfo2_tpl.php';
+        }else{
         $file = $this->objFiles->getFileInfo($id);
 
         if ($file == FALSE) {
@@ -534,6 +553,7 @@ class filemanager extends controller
         $objCopy->show();
         
         return 'fileinfo_tpl.php';
+        }
     }
     
     /**
@@ -1265,9 +1285,57 @@ class filemanager extends controller
      */
     private function __fckimage()
     {
+      if (($this->fckVersion == '2.5.1') || ($this->fckVersion == '2.6.3')) {
+        $restriction = array('gif', 'jpg', 'jpeg', 'png', 'bmp');
+        return $this->showFCKEditorInterface($restriction, 'fckimage');
+      }else{
         return $this->nextAction(NULL, array('mode'=>'fckimage', 'restriction'=>'jpg____gif____png____jpeg', 'loadwindow'=>'yes', 'url'=>$this->getParam('url')));
+      }
     }
-    
+    /**
+    * Method to show the FCKEditor Interface
+    * @param array $restriction List of FileTypes to Restrict to.
+    */
+    public function showFCKEditorInterface($restriction=array(), $action='fcklink')
+    {
+        if ($this->getParam('mode') == 'fileupload') {
+            $this->setVar('successMessage', $this->objUploadMessages->processSuccessMessages());
+            $this->setVar('errorMessage', $this->objUploadMessages->processErrorMessages());
+        }
+
+        $files = $this->objFiles->getUserFiles($this->objUser->userId(), NULL, $restriction, TRUE);
+
+        $this->setVarByRef('files', $files);
+
+        $this->setVar('modeAction', $action);
+
+        // Script to Close Window automatically if opener does not exist
+        $checkOpenerScript = '
+<script type="text/javascript">
+function checkWindowOpener()
+{
+    if (!window.opener) {
+        window.close();
+    }
+}
+</script>
+        ';
+
+        $this->appendArrayVar('headerParams', $checkOpenerScript);
+        $this->appendArrayVar('bodyOnLoad', 'checkWindowOpener();');
+        $this->appendArrayVar('bodyOnLoad', 'window.focus();');
+
+        $inputname = $this->getParam('name');
+        $this->setVarByRef('inputname', $inputname);
+
+        $defaultValue = $this->getParam('value');
+        $this->setVarByRef('defaultValue', $defaultValue);
+        //$this->setPageTemplate(NULL);
+        $this->setLayoutTemplate('filemanager2_layout_tpl.php');
+        $this->setVar('pageSuppressBanner', TRUE);
+        $this->setVar('suppressFooter', TRUE);
+        return 'fckeditor_showfilewindow_tpl.php';
+    }
     /**
      * Method to show the fckeditor interface for inserting flash movies
      *

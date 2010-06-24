@@ -30,28 +30,8 @@ $objFileIcon = $this->getObject('fileicons', 'files');
 $this->loadClass('link', 'htmlelements');
 $this->loadClass('hiddeninput', 'htmlelements');
 
-echo '
-<div style="position:absolute; bottom: 0px; baackground-color:#999933; z-index: 100; left: 0; height: 100px; margin-bottom: 20px;">';
-echo '<h1>Upload File</h1>';
 
-$this->objUpload->formaction = $this->uri(array('action'=>'selectfileuploads'));
-$this->objUpload->numInputs = 1;
-
-$mode = new hiddeninput('mode', $modeAction);
-$name = new hiddeninput('name', $this->getParam('name'));
-$context = new hiddeninput('context', $this->getParam('context'));
-$workgroup = new hiddeninput('workgroup', $this->getParam('workgroup'));
-$restrict = new hiddeninput('restrict', $this->getParam('restrict'));
-$value = new hiddeninput('value', $this->getParam('value'));
-
-
-$this->objUpload->formExtra = $mode->show().$name->show().$context->show().$workgroup->show().$value->show().$restrict->show();
-
-echo $this->objUpload->show();
-
-echo '</div>';
-
-echo '<div style="width: 30%; baackground-color:#FFFF00; top: 0; left: 0; position: absolute; overflow:auto; bottom: 120px;  z-index:1; padding-bottom: 100px;">';
+//echo '<div style="width: 100%; baackground-color:#FFFF00; top: 0; left: 0; position: absolute; overflow:auto; bottom: 120px;  z-index:1; padding-bottom: 100px;">';
 
 echo '<h1>List of Files</h1>';
 
@@ -145,12 +125,22 @@ function selectFile(file, id)
         ';
         
         $this->appendArrayVar('headerParams', $checkOpenerScript);
-        
-        
-}
+echo '<h1>Upload File</h1>';
 
+$this->objUpload->formaction = $this->uri(array('action'=>'selectfileuploads'));
+$this->objUpload->numInputs = 1;
+
+$mode = new hiddeninput('mode', $modeAction);
+$name = new hiddeninput('name', $this->getParam('name'));
+$context = new hiddeninput('context', $this->getParam('context'));
+$workgroup = new hiddeninput('workgroup', $this->getParam('workgroup'));
+$restrict = new hiddeninput('restrict', $this->getParam('restrict'));
+$value = new hiddeninput('value', $this->getParam('value'));
+
+
+$this->objUpload->formExtra = $mode->show().$name->show().$context->show().$workgroup->show().$value->show().$restrict->show();
+
+echo $this->objUpload->show();
+
+}
 ?>
-</div>
-<div style="width: 70%; baackground-color:#FF00FF;  overflow:auto; top: 0; left: 30%; bottom: 120px; position: absolute; z-index:1;" id="previewwindow" >
-<!-- <h1> Todo: Fix up IE</h1> -->
-</div>

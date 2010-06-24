@@ -46,7 +46,7 @@ if ($mode == 'selectfilewindow' || $mode == 'selectimagewindow' || $mode == 'fck
     if (count($restrictions) == 0) {
         $header->str .= ' (<a href="javascript:selectFile();">'.$this->objLanguage->languageText('mod_filemanager_selectfile', 'filemanager', 'Select File').'</a>) ';
     } else if (in_array(strtolower($file['datatype']), $restrictions)) {
-        $header->str .= ' (<a href="javascript:selectFile();">'.$this->objLanguage->languageText('mod_filemanager_selectfile', 'filemanager', 'Select File').'</a>) ';
+        $header->str .= ' (<a href="javascript:selectFile();">'.$this->objLanguage->languageText('mod_filemanager_selectfile', 'filemanager', 'Select File2').'</a>) ';
     }
 
     if ($mode == 'fckimage' || $mode == 'fckflash') {
