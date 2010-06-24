@@ -105,7 +105,7 @@ class block_browsecontext extends object {
         $str3 = '<div id="browseallcontextcontent"></div>';
         $siteUri="";
         $isAdmin = ($this->objUser->isAdmin()) ? "true" : "false";
-        $str4 = $this->getJavaScriptFile('contextbrowser.js');
+        $str .= $this->getJavaScriptFile('contextbrowser.js');
 
         $this->appendArrayVar('headerParams', '
         	<script type="text/javascript">
