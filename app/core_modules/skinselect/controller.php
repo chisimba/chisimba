@@ -134,8 +134,10 @@ class skinselect extends controller
     
     /**
     * 
-    * Ajax save the skin selection
+    * Ajax save the skin selection and redirect to the
+    * original URL
     *
+    * @return VOID
     * @access private
     * 
     */
