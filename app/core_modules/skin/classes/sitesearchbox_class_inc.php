@@ -86,6 +86,7 @@ class sitesearchbox extends object
     *
     * Intialiser for the skin chooser
     * @access public
+    * @return VOID
     *
     */
     public function init()

@@ -105,39 +105,6 @@ class skinchooser extends object
         $this->objLanguage = $this->getObject('language', 'language');
     }
 
-    /**
-     *
-     * Render the dropdown skin chooser
-     *
-     * @return string Form with dropdown
-     * @access public
-     *
-     */
-    public function show()
-    {
-        return $this->showAjax();/*
-        //replace withthe name of the current script
-        $script=$_SERVER['PHP_SELF'];
-        $objNewForm = new form('ignorecheck',$script);
-        $objDropdown = new dropdown('skinlocation');
-        $objDropdown->extra = "onchange =\"document.forms['ignorecheck'].submit();\"";
-        $skins = array();
-        // Get all the skins as an array
-        $dirList = $this->getAllSkins();
-        // Sort the array of skins alphabetically
-        asort($dirList);
-        // Loop and add them to the dropdown
-        foreach ($dirList as $element=> $value) {
-           $objDropdown->addOption($element,$value);
-        }
-        $objNewForm->addToForm($this->objLanguage->languageText('phrase_selectskin').":<br />\n");
-        // Set the current skin as the default selected skin
-        $objDropdown->setSelected($this->getSession('skin'));
-        $objDropdown->cssClass = 'coursechooser';
-        $objNewForm->addToForm($objDropdown->show());
-        return $objNewForm->show();*/
-    }
-
      /**
      *
      * Render the dropdown skin chooser so that it is processed
@@ -147,9 +114,9 @@ class skinchooser extends object
      * @access public
      *
      */
-    public function showAjax()
+    public function show()
     {
-        $script = $this->uri(array('action' => 'ajaxsave'), 'skinselect');
+        $script = $this->uri(array('action' => 'save'), 'skinselect');
         $objNewForm = new form('selectskin',$script);
         $objDropdown = new dropdown('skinlocation');
         $objDropdown->extra = "onchange =\"document.forms['selectskin'].submit();\"";
@@ -239,6 +206,15 @@ class skinchooser extends object
         }
     }
 
+    /**
+     *
+     * Build the current page URL so we can return here
+     * after changing skin.
+     *
+     * @return string The current page URL
+     * @access public
+     *
+     */
     public function curPageURL()
     {
         $pageURL = 'http';

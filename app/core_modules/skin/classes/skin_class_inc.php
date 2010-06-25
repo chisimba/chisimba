@@ -74,6 +74,14 @@ class skin extends object
 
     /**
     *
+    * @var string object Hold configuration reading object
+    * @access public
+    *
+    */
+    public $objConfig;
+
+    /**
+    *
     * The filename for the skin CSS file
     *
     * @var string $skinFile
@@ -85,6 +93,7 @@ class skin extends object
     *
     * Constructor for the class
     * @access public
+    * @return VOID
     *
     */
     public function init()
@@ -157,8 +166,9 @@ class skin extends object
     *
     * This is collected from the skin.conf so if none exists the default engine is
     * assumed.
-	*
+    *
     * @return String the current skins engine type.
+    * @access public
     */
     public function getSkinEngine($skinPath = '')
     {
@@ -178,12 +188,12 @@ class skin extends object
     }
 
     /**
-    * Method to validate whether a skin session exists, or has been changed
+    * Method to validate whether a skin session exists. If not, it creates the default
+    * skin session.
     *
-    * If skin has changed, first check if the stylesheet exists, then change.
-    * If no skin session exists or stylesheet doesn't exist, use the default skin.
-    * @param boolean $redirect Variable to dictate whether to redirect after a skin change
-    * Though this variable is defaulted to TRUE, it is in an if-statement requiring a $_POST method
+    * @access public
+    * @return VOID
+    *
     */
     public function validateSkinSession()
     {
@@ -192,39 +202,16 @@ class skin extends object
         if ($this->getSession('skin') == '') {
             $this->setSession('skin', $this->objConfig->getdefaultSkin());
         }
-        //TODO: Optimize calls to validate skin session, should only have to be called once per page load
-        //      Currently being called up to 30 times per pageload
-        //var_dump('VALIDATING SKIN SESSION');
-
-        //Check for a change of skin
-/*        if (isset($_POST['skinlocation']) && $_POST['skinlocation'] != '') {
-            $mySkinLocation=$this->objConfig->getsiteRootPath().$this->skinRoot.$_POST['skinlocation'].'/';
-            $this->skinEngine = $this->getSkinEngine($mySkinLocation);
-            if ($this->skinEngine == 'default' || $this->skinEngine == '') {
-                //Test if stylesheet exists in the skinlocation
-                if (file_exists($mySkinLocation.$this->skinFile)) {
-                        $this->setSession('skin', $_POST['skinlocation']);
-                } else {
-                        $this->setSession('skin', $this->objConfig->getdefaultSkin());
-                }
-            } else if ($this->skinEngine == 'university') {
-                $this->skinFile = 'style.css';
-                //Test if stylesheet exists in the skinlocation
-                if (file_exists($mySkinLocation.$this->skinFile)) {
-                        $this->setSession('skin', $_POST['skinlocation']);
-                } else {
-                        $this->setSession('skin', $this->objConfig->getdefaultSkin());
-                }
-            }
-        }*/
     }
 
     /**
-     *
-     * Skin change method for use with Ajax
-     *
-     *
-     */
+    *
+    * Skin change method that carries out the change of skin
+    *
+    * @access public
+    * @return VOID
+    *
+    */
     public function changeSkin()
     {
         if ($skinLocation = $this->getParam('skinlocation', FALSE)) {
@@ -268,9 +255,6 @@ class skin extends object
                     $this->setSession('skin', $this->objConfig->getdefaultSkin());
                 }
             }
-            return '200: OK';
-        } else {
-            return '999: noskinlocation';
         }
     }
 
@@ -293,6 +277,9 @@ class skin extends object
 
     /**
     * Method to choose the skin for the current the session
+    * 
+    *  @todo This is a legacy method. Check if it is actually used anywhere.
+    * @return VOID
     */
     public function chooseSkin()
     {
@@ -303,6 +290,9 @@ class skin extends object
 
     /**
     * Method to return the base URL for the banner image
+    *
+    * @todo This is a legacy method. Check if it is actually used anywhere.
+    *
     */
     public function bannerImageBase()
     {
@@ -312,6 +302,9 @@ class skin extends object
   /**
     * Method to return the skin location of the common icons folder as a URL
     * @return the path of the common skin as a URL
+   *
+   * @todo This is a legacy method. Check if it is actually used anywhere.
+   *
     */
     public function getCommonSkinUrl()
     {
@@ -320,6 +313,9 @@ class skin extends object
 
     /**
      * Method to put a logout link on the page
+     *
+     * @todo Refactor out. It does not belong here.
+     *
      */
     public function putLogout()
     {
@@ -336,6 +332,8 @@ class skin extends object
     /**
     *
     * Method to output CSS to the header based on browser
+     *
+     * @todo refactor out into its own class
     *
     * @param string $theme Parameter to hold the stylesheet to be loaded
     * @return string The list of CSS links formatted for inclusion in the page header
@@ -413,6 +411,11 @@ class skin extends object
 
     /**
     * Method to output simple CSS to the header based on browser
+     *
+     * @todo This is a legacy method. Check if it is actually used anywhere.
+     *
+     * @return string The CSS links rendered
+     * @access public
     */
     public function putSimpleSkinCssLinks()
     {
@@ -501,6 +504,9 @@ class skin extends object
    /**
     *
     * Method to output meta tags to the header (uses metaKeywords and metaDescriptions arrays)
+    *
+    * @todo This is a legacy method. Check if it is actually used anywhere. If so, refactor it out
+    * of skin.
     *
     * @return string The list of accumulated meta tags
     * @access Public
