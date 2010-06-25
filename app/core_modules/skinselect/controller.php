@@ -163,9 +163,9 @@ class skinselect extends controller
     {
         $objSkin = $this->getObject('skin', 'skin');
         $str = $objSkin->changeSkin();
-        $this->setVarByRef('str', $str);
-        $this->setPageTemplate('page_template.php');
-        return "dump_tpl.php";
+        $defaultUri = $this->uri(array());
+        $sourceUri = $this->getParam('returnUri', "NOTFOUNDHereEither");
+        header("Location: $sourceUri");
     }
     
     /**
@@ -245,7 +245,7 @@ class skinselect extends controller
         $action=$this->getParam('action','NULL');
         switch ($action)
         {
-            case 'view':
+            case 'ajaxsave':
                 return FALSE;
                 break;
             default:
