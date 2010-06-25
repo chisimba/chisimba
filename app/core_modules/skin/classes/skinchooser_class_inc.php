@@ -96,6 +96,7 @@ class skinchooser extends object
         $this->loadClass('form','htmlelements');
         $this->loadClass('dropdown','htmlelements');
         $this->loadClass('button','htmlelements');
+        $this->loadClass('textinput','htmlelements');
         // Load the config object to get the directory locations.
         $this->objConfig = $this->getObject('altconfig','config');
         // Get the location of the skin root directory.
@@ -153,6 +154,11 @@ class skinchooser extends object
         $objDropdown = new dropdown('skinlocation');
         $objDropdown->extra = "onchange =\"document.forms['selectskin'].submit();\"";
         $skins = array();
+
+        $curPage = $this->curPageURL();
+
+        $objSelf = new textinput('returnUri', $curPage);
+        $objSelf->fldType="hidden";
         // Get all the skins as an array
         $dirList = $this->getAllSkins();
         // Sort the array of skins alphabetically
@@ -166,6 +172,8 @@ class skinchooser extends object
         $objDropdown->setSelected($this->getSession('skin'));
         $objDropdown->cssClass = 'coursechooser';
         $objNewForm->addToForm($objDropdown->show());
+        $objNewForm->addToForm($objSelf->show());
+
         return $objNewForm->show();
     }
 
@@ -229,6 +237,21 @@ class skinchooser extends object
             throw new customException($e->getMessage());
             exit(0);
         }
+    }
+
+    public function curPageURL()
+    {
+        $pageURL = 'http';
+        if ($_SERVER["HTTPS"] == "on") {
+            $pageURL .= "s";
+        }
+        $pageURL .= "://";
+        if ($_SERVER["SERVER_PORT"] != "80") {
+            $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+        } else {
+            $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+        }
+        return $pageURL;
     }
 }
 ?>
