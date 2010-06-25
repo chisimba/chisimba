@@ -59,48 +59,24 @@ class skinselect extends controller
     
     /**
     * 
-    * @var string $objConfig String object property for holding the 
-    * configuration object
-    * @access public;
-    * 
-    */
-    public $objConfig;
-    
-    /**
-    * 
     * @var string $objLanguage String object property for holding the 
     * language object
     * @access public
     * 
     */
     public $objLanguage;
-    /**
-    *
-    * @var string $objLog String object property for holding the 
-    * logger object for logging user activity
-    * @access public
-    * 
-    */
-    public $objLog;
 
     /**
     * 
     * Intialiser for the skinselect controller
+    *
+    * @return VOID
     * @access public
     * 
     */
     public function init()
     {
-        $this->objUser = $this->getObject('user', 'security');
         $this->objLanguage = $this->getObject('language', 'language');
-        // Create the configuration object
-        $this->objConfig = $this->getObject('config', 'config');
-        // Create an instance of the database class
-        //$this->objDbskinselect = & $this->getObject('dbskinselect', 'skinselect');
-        //Get the activity logger class
-        $this->objLog=$this->newObject('logactivity', 'logger');
-        //Log this module call
-        $this->objLog->log();
     }
     
     
@@ -111,6 +87,9 @@ class skinselect extends controller
      * parameter of the  querystring and executes the appropriate method, 
      * returning its appropriate template. This template contains the code 
      * which renders the module output.
+     *
+     * @access public
+     * @return string object The method is executed
      * 
      */
     public function dispatch()
@@ -140,12 +119,13 @@ class skinselect extends controller
     * 
     * Method corresponding to the view action. It fetches the stories
     * into an array and passes it to a main_tpl content template.
+    *
+    * @return dump template with content.
     * @access private
     * 
     */
     private function __view()
     {
-        $str="<h1>WORKING HERE</h1>";
         $objSelector = $this->getObject('skinchooser', 'skin');
         $str .=  $objSelector->showAjax();
         $this->setVarByRef('str', $str);
@@ -159,12 +139,12 @@ class skinselect extends controller
     * @access private
     * 
     */
-    private function __ajaxsave()
+    private function __save()
     {
         $objSkin = $this->getObject('skin', 'skin');
         $str = $objSkin->changeSkin();
         $defaultUri = $this->uri(array());
-        $sourceUri = $this->getParam('returnUri', "NOTFOUNDHereEither");
+        $sourceUri = $this->getParam('returnUri', $defaultUri);
         header("Location: $sourceUri");
     }
     
@@ -245,7 +225,7 @@ class skinselect extends controller
         $action=$this->getParam('action','NULL');
         switch ($action)
         {
-            case 'ajaxsave':
+            case 'save':
                 return FALSE;
                 break;
             default:
