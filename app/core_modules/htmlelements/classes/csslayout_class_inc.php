@@ -420,7 +420,7 @@ class csslayout extends object implements ifhtml
                 ' . $result . '
               </div>
               ';
-            } elseif ($this->numColumns == 2) {
+        } elseif ($this->numColumns == 2) {
             // Put the left bit in region 1 for canvas enabled skins
             $leftCol = $this->addBodyRegion($this->leftColumnContent, "Region1");
             // Put the middle bit in region 2 for canvas enabled skins
@@ -432,7 +432,8 @@ class csslayout extends object implements ifhtml
 
               </div>
               ';
-            $this->objFixlength->fixTwo();
+            // Use fixThree even for two columns
+            $this->objFixlength->fixThree();
         } elseif  ($this->numColumns == 3)  {
             if (!isset($this->layoutCode)) {
                 $this->layoutCode = "_default";
