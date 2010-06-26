@@ -215,8 +215,8 @@ class skin extends object
     public function changeSkin()
     {
         if ($skinLocation = $this->getParam('skinlocation', FALSE)) {
-            $this->skinEngine = $this->getSkinEngine($mySkinLocation);
             $mySkinLocation=$this->objConfig->getsiteRootPath().$this->skinRoot.$skinLocation.'/';
+            $this->skinEngine = $this->getSkinEngine($mySkinLocation);
             if ($this->skinEngine == 'default' || $this->skinEngine == '') {
                 //Test if stylesheet exists in the skinlocation
                 if (file_exists($mySkinLocation.$this->skinFile)) {
