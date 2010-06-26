@@ -61,9 +61,6 @@ $GLOBALS['kewl_entry_point_run'])
 */
 class blockfilter extends object
 {
-
-    public $blockArray=FALSE;
-
     /**
     *
     * Intialiser for the dynamiccanvas database connector
@@ -72,35 +69,38 @@ class blockfilter extends object
     */
     public function init()
     {
+        // Get the data class for connecting to blocks.
         $this->objDbBlocks = $this->getObject('dbblocksdata', 'blocks');
+        // Get the main blocks class.
         $this->objBlock = $this->getObject('blocks', 'blocks');
-        $this->loadBlockData();
     }
 
-    public function loadBlockData()
+    /**
+    *
+    * Method to check if the block is valid or not.
+    *
+    * @param string $blockName The block name
+    * @param string $owningModule The module that owns the block
+    * @return boolean TRUE|FALSE
+    *
+    */
+    public function isValidBlock($blockName, $owningModule)
     {
-        $this->blockArray = $this->objDbBlocks->getBlocksNameByModule($this->moduleName);
-        if ($this->blockArray) {
+        if ($this->objBlock->blockExists($blockName, $owningModule)) {
             return TRUE;
         } else {
             return FALSE;
         }
     }
 
-    public function isValidBlock($blockName)
-    {
-        if ($this->blockArray) {
-            if (in_array($blockName, $this->blockArray)) {
-                return TRUE;
-            } else {
-                return FALSE;
-            }
-        } else {
-            return FALSE;
-        }
-    }
-
-
+    /**
+    *
+    * Parse the page content for blocks
+    *
+    * @param string $pageContent The content of the page from the output buffer
+    * @return string The parsed content
+    * 
+    */
     public function parse($pageContent)
     {
         $pageContent = stripslashes($pageContent);
@@ -109,10 +109,20 @@ class blockfilter extends object
 
         foreach ($results[0] as $item)
         {
-            $extracted = $results[1][$counter];
-            $blockName =strtolower($results[1][$counter]);
-            if ($this->isValidBlock($blockName)) {
-                $blockCode = $this->getBlock($blockName, $this->moduleName);
+            $extracted = strtolower($results[1][$counter]);
+            if (!strpos($extracted, ':')) {
+                $blockName = $extracted;
+                $owningModule = $this->moduleName;
+            } else {
+                $arSettings = explode(":",$extracted);
+                $owningModule = $arSettings[0];
+                $blockName = $arSettings[1];
+            }
+            
+            if ($this->isValidBlock($blockName, $owningModule)) {
+                $blockCode = $this->getBlock($blockName, $owningModule);
+            } else {
+                $blockCode = '<br /><div class="error">' . $item . '</div><br />';
             }
             $replacement = $blockCode;
             $pageContent = str_replace($item, $replacement, $pageContent);
@@ -121,6 +131,15 @@ class blockfilter extends object
         return $pageContent;
     }
 
+    /**
+    *
+    * Get the block and render it.
+    *
+    * @param string $blockName The block name
+    * @param string $owningModule The module that owns the block
+    * @return string The parsed content
+    *
+    */
     public function getBlock($blockName, $owningModule)
     {
         $blockContent = $this->objBlock->showBlock($blockName, $owningModule);
