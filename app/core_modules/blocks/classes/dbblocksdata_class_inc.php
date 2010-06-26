@@ -126,5 +126,23 @@ class dbblocksdata extends dbTable
                 return $ret;
             }
         }
+
+        /**
+         * Method to return an entries in blocks table
+         *
+         * @param string $blockName The name of the block
+         * @return array $entry An associative array of the blocks details
+         * @access public
+         */
+        public function getBlockByNameModule($blockName, $owningModule)
+        {
+            $entry = $this->getArray('SELECT * FROM tbl_module_blocks WHERE blockname = \''.$blockName.'\' AND moduleid = \''.$owningModule.'\'');
+
+            if (count($entry) == 0) {
+                return FALSE;
+            } else {
+                return $entry['0'];
+            }
+        }
 }
 ?>
