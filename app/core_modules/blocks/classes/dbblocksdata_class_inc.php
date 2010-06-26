@@ -117,7 +117,7 @@ class dbblocksdata extends dbTable
         * @param string $owningModule The module for which we are looking for blocks
         * @return string Associative array of the block data
         */
-        public function getBlocksByModule($owningModule)
+        public function getBlocksNameByModule($owningModule)
         {
             $ret = $this->getArray('SELECT blockname,id FROM tbl_module_blocks WHERE moduleid = \''.$owningModule.'\'');
             if (count($ret) == 0) {
