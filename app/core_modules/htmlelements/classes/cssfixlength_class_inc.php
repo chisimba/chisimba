@@ -63,6 +63,19 @@ require_once("ifhtml_class_inc.php");
  */
 class cssfixlength extends object
 {
+
+    /**
+     *
+     * skinEngine seems to be a fake concept introduced by Charl Mert for a
+     * specific site.
+     *
+     * @todo Remove this and deprecate it
+     *
+     * @var string Object
+     *
+     */
+    public $skinEngine;
+
     /**
     *
     * Constructor Method for the class
@@ -70,6 +83,7 @@ class cssfixlength extends object
     */
     public function init()
     {
+        $this->skinEngine = "";
     }
 
     /**

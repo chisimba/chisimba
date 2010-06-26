@@ -161,10 +161,12 @@ class csslayout extends object implements ifhtml
 
     private function loadSettings()
     {
-        if ($_SESSION['skinhassettings']) {
-            $this->skinVersion = $_SESSION['skinVersion'];
-            $this->layoutType = $_SESSION['layoutType'];
-            return TRUE;
+        if (isset ($_SESSION['skinhassettings'])) {
+            if ($_SESSION['skinhassettings']) {
+                $this->skinVersion = $_SESSION['skinVersion'];
+                $this->layoutType = $_SESSION['layoutType'];
+                return TRUE;
+            }
         } else {
             $objSkin = $this->getObject('skin', 'skin');
             $configFile = $objSkin->getSkinLocation().'/settings.json';
