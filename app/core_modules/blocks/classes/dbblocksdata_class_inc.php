@@ -34,11 +34,11 @@ class dbblocksdata extends dbTable
 	    */
         public function init()
         {
-        	try {         
+            try {
                 parent::init('tbl_module_blocks');
            } catch (Exception $e){
-       		    throw customException($e->getMessage());
-        	    exit();
+       		throw customException($e->getMessage());
+        	exit();
      	   }
         }
 
@@ -90,6 +90,41 @@ class dbblocksdata extends dbTable
                 return $entry['0'];
             }
         }
-}
 
+        /**
+        *
+        * Get an array of block info where the blocks belong to a particular
+        * module
+        *
+        * @param string $owningModule The module for which we are looking for blocks
+        * @return string Associative array of the block data
+        */
+        public function getBlocksByModule($owningModule)
+        {
+            $ret = $this->getArray('SELECT * FROM tbl_module_blocks WHERE moduleid = \''.$owningModule.'\'');
+            if (count($ret) == 0) {
+                return FALSE;
+            } else {
+                return $ret;
+            }
+        }
+
+        /**
+        *
+        * Get an array of block names and id only where the blocks belong to a
+        * particular module
+        *
+        * @param string $owningModule The module for which we are looking for blocks
+        * @return string Associative array of the block data
+        */
+        public function getBlocksByModule($owningModule)
+        {
+            $ret = $this->getArray('SELECT blockname,id FROM tbl_module_blocks WHERE moduleid = \''.$owningModule.'\'');
+            if (count($ret) == 0) {
+                return FALSE;
+            } else {
+                return $ret;
+            }
+        }
+}
 ?>
