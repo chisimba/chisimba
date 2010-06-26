@@ -22,8 +22,8 @@ $skinName = "canvas";
 
 // Settings that are needed so that canvase-aware code can function
 $this->setSession('skinName', 'canvas');
-$this->setSession('isCanvas', TRUE);
-$this->setSession('sourceSkin', 'canvas');
+//$this->setSession('isCanvas', TRUE);
+//$this->setSession('sourceSkin', 'canvas');
 $this->setSession('layout', '_DEFAULT');
 
 // Instantiate the canvas object.
