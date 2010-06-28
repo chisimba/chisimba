@@ -62,6 +62,14 @@ class skinchooser extends object
 {
     /**
     *
+    * @var object The cache object.
+    * @access public
+    *
+    */
+    public $objCache;
+
+    /**
+    *
     * @var string object Hold configuration reading object
     * @access public
     *
@@ -97,6 +105,8 @@ class skinchooser extends object
         $this->loadClass('dropdown','htmlelements');
         $this->loadClass('button','htmlelements');
         $this->loadClass('textinput','htmlelements');
+        // Load the cache object to cache the skin selector.
+        $this->objCache = $this->getObject('cache', 'cache');
         // Load the config object to get the directory locations.
         $this->objConfig = $this->getObject('altconfig','config');
         // Get the location of the skin root directory.
@@ -155,22 +165,39 @@ class skinchooser extends object
     */
     public function getAllSkins()
     {
-        //loop through the folders and build an array of available skins
-        $basedir=$this->objConfig->getsiteRootPath().$this->skinRoot;
-        // Compile an array of the skin names.
-        $dirList = array();
-        $directories = glob($basedir.'*', GLOB_ONLYDIR);
-        foreach ($directories as $directory) {
-            $key = basename($directory);
-            if (file_exists($directory.'/skin.conf')) {
-                $conf = $this->readConf($directory.'/skin.conf');
-                $dirList[$key] = $conf['SKIN_NAME'];
-            } elseif (file_exists($directory.'/skinname.txt')) {
-                $dirList[$key] = trim(file_get_contents($directory.'/skinname.txt'));
-            } else {
-                $dirList[$key] = $key;
-            }
+        // Check if the list of skins has been cached.
+        if ($this->objCache->skinlist) {
+            $skinSelector = json_decode($this->objCache->skinlist, true);
+            $dirList = $skinSelector['dirList'];
         }
+
+        // If an updated list of directories could not be retrieved from cache, regenerate.
+        if (!isset($dirList)) {
+            // Compile the path to the base directory of the skins.
+            $basedir = $this->objConfig->getsiteRootPath().$this->skinRoot;
+
+            // Compile an array of the skin names.
+            $dirList = array();
+            $directories = glob($basedir.'*', GLOB_ONLYDIR);
+
+            // Loop through the folders and build an array of available skins.
+            foreach ($directories as $directory) {
+                $key = basename($directory);
+
+                if (file_exists($directory.'/skin.conf')) {
+                    $conf = $this->readConf($directory.'/skin.conf');
+                    $dirList[$key] = $conf['SKIN_NAME'];
+                } elseif (file_exists($directory.'/skinname.txt')) {
+                    $dirList[$key] = trim(file_get_contents($directory.'/skinname.txt'));
+                } else {
+                    $dirList[$key] = $key;
+                }
+            }
+
+            // Attempt to cache this data for future use.
+            $this->objCache->skinSelector = json_encode(array('dirList' => $dirList));
+        }
+
         return $dirList;
     }
 
