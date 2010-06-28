@@ -72,15 +72,6 @@ class block_wrapper extends object {
     *
     */
     public $blockType;
-    
-    /**
-    *
-    * The type of bock to render
-    * 
-    * @var string $blockType
-    * 
-    */
-    public $blockType;
 
     /**
     * init method
