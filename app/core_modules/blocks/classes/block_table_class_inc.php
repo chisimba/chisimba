@@ -75,6 +75,7 @@ class block_table extends object {
      */
     public function init() {
         $this->title = "Type: table";
+        $this->blockType = 'table';
     }
 
     /**

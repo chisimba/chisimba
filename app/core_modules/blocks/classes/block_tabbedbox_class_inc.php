@@ -75,6 +75,7 @@ class block_tabbedbox extends object {
      */
     public function init() {
         $this->title = "Type: tabbedbox with a very long string  title";
+        $this->blockType = 'tabbedbox';
     }
 
     /**

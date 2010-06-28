@@ -75,6 +75,7 @@ class block_wrapper extends object {
      */
     public function init() {
         $this->title = "Type: wrapper";
+        $this->blockType = 'wrapper';
     }
 
     /**
