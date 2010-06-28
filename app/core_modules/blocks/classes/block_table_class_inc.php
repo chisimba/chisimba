@@ -64,6 +64,14 @@ class block_table extends object {
      * @access public
      */
     public $title;
+    /**
+    *
+    * The type of bock to render
+    *
+    * @var string $blockType
+    *
+    */
+    public $blockType;
 
     /**
      * init method

@@ -64,28 +64,45 @@ class block_wrapper extends object {
      * @access public
      */
     public $title;
+    /**
+    *
+    * The type of bock to render
+    *
+    * @var string $blockType
+    *
+    */
+    public $blockType;
+    
+    /**
+    *
+    * The type of bock to render
+    * 
+    * @var string $blockType
+    * 
+    */
+    public $blockType;
 
     /**
-     * init method
-     *
-     * Standard Chisimba init method
-     *
-     * @return void
-     * @access public
-     */
+    * init method
+    *
+    * Standard Chisimba init method
+    *
+    * @return void
+    * @access public
+    */
     public function init() {
         $this->title = "Type: wrapper";
         $this->blockType = 'wrapper';
     }
 
     /**
-     * Show method
-     *
-     * Standard Chisimba Show method
-     *
-     * @return string Return text
-     * @access public
-     */
+    * Show method
+    *
+    * Standard Chisimba Show method
+    *
+    * @return string Return text
+    * @access public
+    */
     public function show() {
         return "This is an example of a block rendered using type wrapper. It places the title in a dark outside layer, and the block output in a light inside layer.";
     }

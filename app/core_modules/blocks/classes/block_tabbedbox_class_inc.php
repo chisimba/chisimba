@@ -64,6 +64,14 @@ class block_tabbedbox extends object {
      * @access public
      */
     public $title;
+    /**
+    *
+    * The type of bock to render
+    *
+    * @var string $blockType
+    *
+    */
+    public $blockType;
 
     /**
      * init function
