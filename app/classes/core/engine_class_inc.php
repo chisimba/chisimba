@@ -460,6 +460,21 @@ class engine {
         $this->enableLogging = $this->_objDbConfig->getenable_logging ();
         // check for which db abstraction to use - MDB2 or PDO
         $this->_dbabs = $this->_objDbConfig->getenable_dbabs ();
+
+        // Ensure the site is being accessed at the correct location.
+        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+            $base = 'http://'.$_SERVER['HTTP_HOST'].strtok($_SERVER['REQUEST_URI'], '?');
+            $query = strtok('?');
+
+            if ($query === FALSE) {
+                if ($base != $this->_objDbConfig->getsiteRoot()) {
+                    header('Location: '.$this->_objDbConfig->getsiteRoot());
+                }
+            } elseif ($base != $this->_objDbConfig->getsiteRoot().'index.php') {
+                header('Location: '.$this->_objDbConfig->getsiteRoot().'index.php?'.$query, TRUE, 301);
+            }
+        }
+
         // check for memcache
         if (extension_loaded ( 'memcache' )) {
             require_once 'classes/core/chisimbacache_class_inc.php';
