@@ -167,12 +167,8 @@ class skinchooser extends object
     {
         // Check if the list of skins has been cached.
         if ($this->objCache->skinlist) {
-            $skinSelector = json_decode($this->objCache->skinlist, true);
-            $dirList = $skinSelector['dirList'];
-        }
-
-        // If an updated list of directories could not be retrieved from cache, regenerate.
-        if (!isset($dirList)) {
+            $dirList = json_decode($this->objCache->skinlist, true);
+        } else { // If an updated list of directories could not be retrieved from cache, regenerate.
             // Compile the path to the base directory of the skins.
             $basedir = $this->objConfig->getsiteRootPath().$this->skinRoot;
 
@@ -195,7 +191,7 @@ class skinchooser extends object
             }
 
             // Attempt to cache this data for future use.
-            $this->objCache->skinlist = json_encode(array('dirList' => $dirList));
+            $this->objCache->skinlist = json_encode($dirList);
         }
 
         return $dirList;
