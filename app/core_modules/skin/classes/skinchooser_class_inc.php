@@ -195,7 +195,7 @@ class skinchooser extends object
             }
 
             // Attempt to cache this data for future use.
-            $this->objCache->skinSelector = json_encode(array('dirList' => $dirList));
+            $this->objCache->skinlist = json_encode(array('dirList' => $dirList));
         }
 
         return $dirList;
