@@ -12,7 +12,6 @@ define("PAGETOP", '<a name="pagetop"></a>');
 define("GOTOTOP", '<a href="#pagetop">Top</a>'); // @todo change this to an icon
 
 // Define the valid canvases for this skin as an array.
-// Define the valid canvases for this skin as an array.
 $validCanvases = array_map('basename', glob('skins/metallic/canvases/*', GLOB_ONLYDIR));
 
 // Define the name of this skin.
