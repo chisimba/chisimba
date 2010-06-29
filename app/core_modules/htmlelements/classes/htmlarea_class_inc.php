@@ -189,6 +189,8 @@ class htmlarea extends object {
      * Method to display the WYSIWYG Editor
      */
     function show() {
+     if (empty($this->fckVersion))
+       $this->fckVersion = 'latest';
      if (($this->fckVersion == '2.5.1') || ($this->fckVersion == '2.6.3')) {
       return $this->showFCKEditor($this->fckVersion);
      } else {
