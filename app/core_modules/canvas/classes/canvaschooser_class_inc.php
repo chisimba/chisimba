@@ -188,8 +188,8 @@ class canvaschooser extends controller
                 if (!$canvasPref) {
                     return FALSE;
                 } else {
-                    $this->setSession('canvasType', 'user');
-                    $this->setSession('canvas', $canvasPref);
+                    $_SESSION['canvasType'] = 'user';
+                    $_SESSION['canvas'] = $canvasPref;
                     return 'usrfiles/users/' . $this->objUser->userId() . '/canvases/' . $canvasPref . '/';
                 }
             }

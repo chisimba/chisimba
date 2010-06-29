@@ -103,12 +103,19 @@ class block_canvasviewer extends object
      */
     public function show() 
     {
-        // Get the type of canvases
-        $cType = $this->getParam('ctype', 'personal');
-        // Get the viewer
-        $objViewer = $this->getObject('getcanv', 'canvas');
-        $ret = $objViewer->getCanvases($cType);
-        return $ret;
+        if (isset($_SESSION['isCanvas'])) {
+            if ($_SESSION['isCanvas'] == TRUE) {
+                // Get the type of canvases
+                $cType = $this->getParam('ctype', 'personal');
+                // Get the viewer
+                $objViewer = $this->getObject('getcanv', 'canvas');
+                $ret = $objViewer->getCanvases($cType);
+                return $ret;
+            }
+        }
+        return "<span class='warning'>"
+          . $this->objLanguage->languageText("mod_canvas_notenabled", "canvas")
+          . "</span>";
     }
 }
 ?>
