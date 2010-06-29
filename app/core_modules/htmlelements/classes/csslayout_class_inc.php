@@ -159,6 +159,13 @@ class csslayout extends object implements ifhtml
         $this->loadSettings();
     }
 
+    /**
+     *
+     * Method to load the skin settings
+     *
+     * @return boolean TRUE|FALSE
+     *
+     */
     private function loadSettings()
     {
         if (isset ($_SESSION['skinhassettings'])) {
@@ -169,7 +176,7 @@ class csslayout extends object implements ifhtml
             }
         } else {
             $objSkin = $this->getObject('skin', 'skin');
-            $configFile = $objSkin->getSkinLocation().'/settings.json';
+            $configFile = $objSkin->getSkinLocation().'settings.json';
             if(file_exists($configFile)) {
                 $jsonRaw = file_get_contents($configFile);
                 $jsonObj = json_decode($jsonRaw);
@@ -177,9 +184,14 @@ class csslayout extends object implements ifhtml
                 $this->layoutType = $jsonObj->layoutType;
             } else {
                 // Read the old skinversion.txt
-                $file = $objSkin->getSkinLocation().'/skinversion.txt';
-                $this->skinVersion = trim(file_get_contents($file));
-                $this->layoutType = "default";
+                $file = $objSkin->getSkinLocation().'skinversion.txt';
+                if(file_exists($file)) {
+                    $this->skinVersion = trim(file_get_contents($file));
+                    $this->layoutType = "default";
+                } else {
+                    $this->skinVersion = 1.0;
+                    $this->layoutType = "notapplicable";
+                }
             }
             $_SESSION['skinVersion'] = $this->skinVersion;
             $_SESSION['layoutType'] = $this->layoutType;
