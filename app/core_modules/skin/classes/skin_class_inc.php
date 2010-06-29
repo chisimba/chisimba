@@ -244,7 +244,6 @@ class skin extends object
                     }
                 } else {
                     $this->setSession('skin', $this->objConfig->getdefaultSkin());
-                    
                 }
             } else if ($this->skinEngine == 'university') {
                 $this->skinFile = 'style.css';
@@ -255,6 +254,9 @@ class skin extends object
                     $this->setSession('skin', $this->objConfig->getdefaultSkin());
                 }
             }
+        }
+        if ($_SESSION['skinVersion'] != '3.0') {
+            $_SESSION['isCanvas'] = FALSE;
         }
     }
 
