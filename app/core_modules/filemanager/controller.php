@@ -1309,7 +1309,11 @@ class filemanager extends controller
      */
     private function __fckimage()
     {
-      if (($this->fckVersion == '2.5.1') || ($this->fckVersion == '2.6.3')) {
+      if (empty($this->fckVersion))
+        $this->fckVersion = 'latest';
+      if (empty($this->sysEditor))
+        $this->fckVersion = 'ckeditor';
+      if (($this->fckVersion == '2.6.3') && $this->sysEditor == 'fckeditor' ) {
         $restriction = array('gif', 'jpg', 'jpeg', 'png', 'bmp');
         return $this->showFCKEditorInterface($restriction, 'fckimage');
       }else{
