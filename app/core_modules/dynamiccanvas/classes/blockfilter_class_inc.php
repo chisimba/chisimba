@@ -122,7 +122,7 @@ class blockfilter extends object
             if ($this->isValidBlock($blockName, $owningModule)) {
                 $blockCode = $this->getBlock($blockName, $owningModule);
             } else {
-                $blockCode = '<br /><div class="error">' . $item . '</div><br />';
+                $blockCode = '<div class="featurebox"><div class="error">' . $item . '</div></div>';
             }
             $replacement = $blockCode;
             $pageContent = str_replace($item, $replacement, $pageContent);
@@ -143,6 +143,8 @@ class blockfilter extends object
     public function getBlock($blockName, $owningModule)
     {
         $blockContent = $this->objBlock->showBlock($blockName, $owningModule);
+        //, NULL, 20, TRUE, TRUE, 'default', FALSE, 'featurebox', 'canvasblock'
+        // showBlock($block, $module, $blockType = NULL, $titleLength = 20, $wrapStr = TRUE, $showToggle = TRUE, $hidden = 'default', $showTitle = TRUE, $cssClass = 'featurebox', $cssId = '')
         return $blockContent;
     }
 }

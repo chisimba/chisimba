@@ -50,7 +50,7 @@ $GLOBALS['kewl_entry_point_run']) {
  * @copyright 2010 AVOIR
  *
  */
-class block_test3 extends object
+class block_thirdtest extends object
 {
     /**
      * The title of the block
@@ -68,7 +68,7 @@ class block_test3 extends object
      */
     public function init() 
     {
-        $this->title = "Test 2";
+        $this->title = "Test three";
     }
     /**
      * Standard block show method.

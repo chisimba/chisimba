@@ -11,15 +11,15 @@ $objFix->fixThree();
     </div>
     <div id="Canvas_Content_Body_Region3">
         {test2}
-        {test1}
         {security:login}
+        {blocks:wrapper}
+        {blocks:table}
+        {blocks:tabbedbox}
     </div>
     <div id="Canvas_Content_Body_Region2">
         {userdetails:userdetails}
         {nonexistentblock}
-        {test3}
-        {test3}
-        {test3}
+        {thirdtest}
     </div>
 </div>
 
