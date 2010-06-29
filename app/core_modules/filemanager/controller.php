@@ -509,7 +509,7 @@ class filemanager extends controller
 
          $this->objMenuTools->addToBreadCrumbs(array('File Information: '.$file['filename']));
 
-         return 'fileinfo2_tpl.php';
+         return 'fileinfo_tpl.php';
 
         } else {
 
