@@ -102,6 +102,16 @@ class filemanager extends controller
     public $debug = FALSE;
 
     /**
+     * @var string $fckVersion Which version of FCKEditor to load (2.5.1 vs 2.6.3)
+     */
+    public $fckVersion;
+
+    /**
+     * @var string $sysEditor Which Editor to load (fckeditor or ckeditor)
+     */
+    public $sysEditor;
+
+    /**
     * 
     * Intialiser for the filemanager2 controller
     * @access public
