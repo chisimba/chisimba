@@ -106,7 +106,7 @@ class skinchooser extends object
         $this->loadClass('button','htmlelements');
         $this->loadClass('textinput','htmlelements');
         // Load the cache object to cache the skin selector.
-        $this->objCache = $this->getObject('cache', 'cache');
+        $this->objCache = $this->getObject('cacheops', 'cache');
         // Load the config object to get the directory locations.
         $this->objConfig = $this->getObject('altconfig','config');
         // Get the location of the skin root directory.
