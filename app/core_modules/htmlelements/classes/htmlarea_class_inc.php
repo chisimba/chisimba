@@ -245,7 +245,7 @@ class htmlarea extends object {
      * @return string
      */
     function showFCKEditor($version = '2.6.3') {
-        if ($this->fckVersion == '2.5.1') {
+        if ($version == '2.5.1') {
             require_once($this->getResourcePath('fckeditor_2.5.1/fckeditor.php', 'fckeditor'));
         } else {
             require_once($this->getResourcePath('fckeditor/fckeditor_2.6.3/fckeditor_php5.php', 'fckeditor'));
@@ -262,7 +262,7 @@ class htmlarea extends object {
             $sBasePath .= '/core_modules/fckeditor/resources/fckeditor/fckeditor_2.6.3/';
         }
 
-        if ($this->fckVersion == '2.5.1') {
+        if ($version == '2.5.1') {
             $sBasePath .= 'core_modules/fckeditor/resources/fckeditor_2.5.1/';
         }
 
