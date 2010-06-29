@@ -129,7 +129,10 @@ class filemanager extends controller
         $this->objQuotas = $this->getObject('dbquotas', 'filemanager');
         $this->objSymlinks = $this->getObject('dbsymlinks', 'filemanager');
         $this->sysConf = $this->getObject('dbsysconfig', 'sysconfig');
+        //Loading the default FCK version from htmlelements
         $this->fckVersion = $this->sysConf->getValue('FCKEDITOR_VERSION', 'htmlelements');
+        //Loading the default editor type from htmlelements
+        $this->sysEditor = $this->sysConf->getValue('SYSTEM_EDITOR', 'htmlelements');
         $this->objUploadMessages = $this->getObject('uploadmessages', 'filemanager');
         
         // Other Classes
@@ -480,7 +483,15 @@ class filemanager extends controller
     {
         $id = $this->getParam('id');
         $filename = $this->getParam('filename');
-        if(($this->fckVersion == '2.5.1') || ($this->fckVersion == '2.6.3')){
+
+        if (empty($this->fckVersion))
+         $this->fckVersion = 'latest';
+
+        if (empty($this->sysEditor))
+         $this->fckVersion = 'ckeditor';
+
+        if (($this->fckVersion == '2.6.3') && $this->sysEditor == 'fckeditor' ) {
+
          $file = $this->objFiles->getFileInfo($id);
 
          if ($file == FALSE) {
@@ -497,8 +508,11 @@ class filemanager extends controller
          $this->setVarByRef('tags', $tags);
 
          $this->objMenuTools->addToBreadCrumbs(array('File Information: '.$file['filename']));
+
          return 'fileinfo2_tpl.php';
-        }else{
+
+        } else {
+
         $file = $this->objFiles->getFileInfo($id);
 
         if ($file == FALSE) {
