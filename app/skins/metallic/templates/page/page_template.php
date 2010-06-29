@@ -16,13 +16,14 @@ define("GOTOTOP", '<a href="#pagetop">Top</a>'); // @todo change this to an icon
 $validCanvases = array_map('basename', glob('skins/metallic/canvases/*', GLOB_ONLYDIR));
 
 // Define the name of this skin.
-$skinName = "canvas";
+$skinName = "metallic";
 
-// Settings that are needed so that canvase-aware code can function
+// Settings that are needed so that canvase-aware code can function.
 $this->setSession('skinName', 'metallic');
-$this->setSession('isCanvas', TRUE);
-$this->setSession('sourceSkin', 'metallic');
-$this->setSession('layout', '_DEFAULT');
+$_SESSION['skinName'] = 'metallic';
+$_SESSION['isCanvas'] = TRUE;
+$_SESSION['sourceSkin'] = 'metallic';
+$_SESSION['layout'] = '_DEFAULT';
 
 // Instantiate the canvas object.
 $objCanvas = $this->getObject('canvaschooser', 'canvas');
@@ -31,8 +32,8 @@ $objCanvas = $this->getObject('canvaschooser', 'canvas');
 // Set the skin base for the default.
 $skinBase='skins/metallic/canvases/';
 if (isset ($canvas)) {
-    $this->setSession('canvasType', 'programmatic');
-    $this->setSession('canvas', $canvas);
+    $_SESSION['canvasType'] = 'programmatic';
+    $_SESSION['canvas'] = $canvas;
     $canvas = $skinBase . $canvas;
 } elseif ($prefCanvas) {
     $canvas = $skinBase . $prefCanvas;
