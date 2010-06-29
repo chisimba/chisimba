@@ -1,7 +1,9 @@
 <?php
 
 require_once INSTALL_DIR.'/dbhandlers/dbhandlermanager.inc';
-
+$mepath = $_SERVER["SCRIPT_FILENAME"];
+$mepath = str_replace('installer/index.php', '', $mepath);
+ini_set ( 'include_path', ini_get ( 'include_path' ) . PATH_SEPARATOR . $mepath.'lib/pear/');
 
 /**
 

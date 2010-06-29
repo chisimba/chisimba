@@ -1,5 +1,7 @@
 <?php
-
+$mepath = $_SERVER["SCRIPT_FILENAME"];
+$mepath = str_replace('installer/index.php', '', $mepath);
+ini_set ( 'include_path', ini_get ( 'include_path' ) . PATH_SEPARATOR . $mepath.'lib/pear/');
 /**
 * Class to encapsulate management operations on [a] database(s).
 * It is highly recommended that you create a derived version
