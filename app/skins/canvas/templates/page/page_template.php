@@ -20,11 +20,12 @@ $validCanvases = array_map('basename', glob('skins/canvas/canvases/*', GLOB_ONLY
 // Define the name of this skin.
 $skinName = "canvas";
 
-// Settings that are needed so that canvase-aware code can function
+// Settings that are needed so that canvase-aware code can function.
 $this->setSession('skinName', 'canvas');
-//$this->setSession('isCanvas', TRUE);
-//$this->setSession('sourceSkin', 'canvas');
-$this->setSession('layout', '_DEFAULT');
+$_SESSION['skinName'] = 'canvas';
+$_SESSION['isCanvas'] = TRUE;
+$_SESSION['sourceSkin'] = 'canvas';
+$_SESSION['layout'] = '_DEFAULT';
 
 // Instantiate the canvas object.
 $objCanvas = $this->getObject('canvaschooser', 'canvas');
@@ -33,8 +34,8 @@ $objCanvas = $this->getObject('canvaschooser', 'canvas');
 // Set the skin base for the default.
 $skinBase='skins/canvas/canvases/';
 if (isset ($canvas)) {
-    $this->setSession('canvasType', 'programmatic');
-    $this->setSession('canvas', $canvas);
+    $_SESSION['canvasType'] = 'programmatic';
+    $_SESSION['canvas'] = $canvas;
     $canvas = $skinBase . $canvas;
 } elseif ($prefCanvas) {
     $canvas = $skinBase . $prefCanvas;
