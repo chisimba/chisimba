@@ -77,9 +77,14 @@ class htmlarea extends object {
     var $context;
 
     /**
-     * @var string $fck_version Which version of FCKEditor to load (2.5.1 vs 2.6.3)
+     * @var string $fckVersion Which version of FCKEditor to load (2.5.1 vs 2.6.3)
      */
     public $fckVersion;
+
+    /**
+     * @var string $sysEditor Which Editor to load (fckeditor or ckeditor)
+     */
+    public $sysEditor;
 
     /**
      * @var string $templatePath Path to fckeditor templates
@@ -103,8 +108,10 @@ class htmlarea extends object {
      */
     function init($name=null,$value=null,$rows=4,$cols=50,$context=false) {
         $this->sysConf = $this->getObject('dbsysconfig', 'sysconfig');
-        //Loading the default FCK version from config
+        //Loading the default FCK version from htmlelements
         $this->fckVersion = $this->sysConf->getValue('FCKEDITOR_VERSION', 'htmlelements');
+        //Loading the default editor type from htmlelements
+        $this->sysEditor = $this->sysConf->getValue('SYSTEM_EDITOR', 'htmlelements');
         $this->height = '400px';
         $this->width = '100%';
         $this->toolbarSet='Default';
@@ -191,7 +198,9 @@ class htmlarea extends object {
     function show() {
      if (empty($this->fckVersion))
        $this->fckVersion = 'latest';
-     if (($this->fckVersion == '2.5.1') || ($this->fckVersion == '2.6.3')) {
+     if (empty($this->sysEditor))
+       $this->fckVersion = 'ckeditor';
+     if (($this->fckVersion == '2.6.3') && $this->sysEditor == 'fckeditor' ) {
       return $this->showFCKEditor($this->fckVersion);
      } else {
         $base = '<script language="JavaScript" src="'.$this->getResourceUri('ckeditor/ckeditor.js','ckeditor').'" type="text/javascript"></script>';
@@ -235,7 +244,7 @@ class htmlarea extends object {
      * Method to show the FCKEditor
      * @return string
      */
-    function showFCKEditor($version = '2.5.1') {
+    function showFCKEditor($version = '2.6.3') {
         if ($this->fckVersion == '2.5.1') {
             require_once($this->getResourcePath('fckeditor_2.5.1/fckeditor.php', 'fckeditor'));
         } else {
