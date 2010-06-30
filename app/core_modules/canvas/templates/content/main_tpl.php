@@ -1,18 +1,27 @@
 <?php
-// Create an instance of the css layout class & set columns to 2
-$cssLayout =  $this->newObject('csslayout', 'htmlelements');
-$cssLayout->setNumColumns(2);
-
-$objBlock = $this->getObject('blocks', 'blocks');
-$leftColumn = $objBlock->showBlock('selecttype', 'canvas', NULL, 20, TRUE, FALSE);
-$wideColumn = $objBlock->showBlock('canvasviewer', 'canvas', NULL, 20, TRUE, FALSE);
-
-// Add Left column
-$cssLayout->setLeftColumnContent($leftColumn);
-
-// Add Right Column
-$cssLayout->setMiddleColumnContent($wideColumn);
-
-//Output the content to the page
-echo $cssLayout->show();
+ob_start();
+$objFix = $this->getObject('cssfixlength', 'htmlelements');
+$objFix->fixThree();
+?>
+<div id="twocolumn">
+    <div id="Canvas_Content_Body_Region1">
+        {
+            "display" : "block",
+            "module" : "canvas",
+            "block" : "selecttype"
+        }
+    </div>
+    <div id="Canvas_Content_Body_Region2">
+        {
+            "display" : "block",
+            "module" : "canvas",
+            "block" : "canvasviewer"
+        }
+    </div>
+</div>
+<?php
+// Get the contents for the layout template
+$pageContent = ob_get_contents();
+ob_end_clean();
+$this->setVar('pageContent', $pageContent);
 ?>

@@ -137,32 +137,7 @@ class canvas extends controller
     
     
     /*------------- BEGIN: Set of methods to replace case selection ------------*/
-
-    /**
-    * 
-    * Method corresponding to the view action. It fetches the stories
-    * into an array and passes it to a main_tpl content template.
-    * @access private
-    * 
-    */
-    private function __view()
-    {
-        $str="<h1>Canvas for Chisimba</h1>This is a proof of concept case for a chisimba canvas.";
-        if ($this->objMasterCanvas->isCanvas()) {
-            $skin = $this->getSession('sourceSkin', 'unknown');
-            $canvasType = $this->getSession('canvasType', 'unknown');
-            $canvas = $this->getSession('canvas', 'unknown');
-            $str .= "<br /><span class='warning'>You are in a canvas.</span>"
-              . "<br />The skin <b>$skin</b> supports the Chisimba canvas."
-              . "The canvastype in use is <b>$canvasType</b>, and the canvas is <b>$canvas</b>.";
-        } else {
-            $str .= "<br /><span class='error'>You are NOT in a canvas.</span>";
-        }
-        $this->setVarByRef('str', $str);
-        return "dump_tpl.php";
-        
-    }
-    
+  
     /**
     * 
     * Method corresponding to the select action. It allows you to view canvas
@@ -173,7 +148,7 @@ class canvas extends controller
     */
     private function __select()
     {
-        //$this->setPageTemplate('page_template.php');
+        $this->setLayoutTemplate('main_layout.php');
         return "main_tpl.php";
     }
 
