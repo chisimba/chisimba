@@ -115,7 +115,7 @@ class dynamiccanvas extends controller
     public function dispatch()
     {
         //Get action from query string and set default to view
-        $action=$this->getParam('action', 'view');
+        $action=$this->getParam('action', 'demo');
         // retrieve the mode (edit/add/translate) from the querystring
         $mode = $this->getParam("mode", null);
         // retrieve the sort order from the querystring
