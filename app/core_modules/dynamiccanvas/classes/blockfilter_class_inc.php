@@ -52,8 +52,20 @@ $GLOBALS['kewl_entry_point_run'])
 * Block filter
 *
 * The block filter allows for the insertion of blocks in dynamic canvas templates
-* using the pattern {block:blockname} or {wideblock:blockname}
-*
+* using the pattern 
+* {
+*    "display" : "block",
+*    "module" : "modulename",
+*    "block" : "blockname",
+*    "blocktype" : "blocktype",
+*    "titleLength" : "titlelength",
+*    "wrapStr" : 0|1,
+*    "showToggle" : 0|1,
+*    "hidden" : "value,
+*    "showTitle" : 0|1,
+*    "cssClass" : "cssClass",
+*    "cssId " : "cssId"
+* }
 *
 * @author Derek Keats
 * @package dynamiccanvas
@@ -61,6 +73,12 @@ $GLOBALS['kewl_entry_point_run'])
 */
 class blockfilter extends object
 {
+    /**
+    *
+    * @var string $objJson Object the decoded json object
+    *
+    */
+    private $objJson;
     /**
     *
     * Intialiser for the dynamiccanvas database connector
@@ -104,23 +122,32 @@ class blockfilter extends object
     public function parse($pageContent)
     {
         $pageContent = stripslashes($pageContent);
-        preg_match_all('/\\{(.*?)\\}/', $pageContent, $results, PREG_PATTERN_ORDER);
+        preg_match_all('/\\{(.*?)\\}/ism', $pageContent, $results, PREG_PATTERN_ORDER);
         $counter = 0;
-
+        // Loop over all the JSON blocks.
         foreach ($results[0] as $item)
         {
-            $extracted = strtolower($results[1][$counter]);
-            if (!strpos($extracted, ':')) {
-                $blockName = $extracted;
-                $owningModule = $this->moduleName;
-            } else {
-                $arSettings = explode(":",$extracted);
-                $owningModule = $arSettings[0];
-                $blockName = $arSettings[1];
-            }
-            
-            if ($this->isValidBlock($blockName, $owningModule)) {
-                $blockCode = $this->getBlock($blockName, $owningModule);
+            $jsonTxt = $item;
+            $this->objJson = json_decode($jsonTxt);
+            // Verify that we must display as a block
+            if (isset($this->objJson->display)) {
+                if ($this->objJson->display == 'block') {
+                    // Verify that there is a block and a module.
+                    if (isset($this->objJson->block) && isset($this->objJson->module)) {
+                        if ($this->isValidBlock($this->objJson->block, $this->objJson->module)) {
+                            // Parse the block
+                            $blockCode = $this->getBlock();
+                        } else {
+                            // It is not a valid block so wrapt it in an error
+                            $blockCode = '<div class="featurebox"><div class="error">' . $item . '</div></div>';
+                        }
+                    } else {
+                        // The JSON is not valid so wrapt it in an error
+                        $blockCode = '<div class="featurebox"><div class="error">' . $item . '</div></div>';
+                    }
+                } else {
+                    $blockCode = nl2br($item);
+                }
             } else {
                 $blockCode = '<div class="featurebox"><div class="error">' . $item . '</div></div>';
             }
@@ -133,18 +160,72 @@ class blockfilter extends object
 
     /**
     *
-    * Get the block and render it.
+    * Get the block and render it. Blocktypes can be NULL, tabbedbox, table,
+    * wrapper, none (for wideblocks), or invisible (for turning off blocks
+    * programmatically)
     *
     * @param string $blockName The block name
     * @param string $owningModule The module that owns the block
     * @return string The parsed content
     *
     */
-    public function getBlock($blockName, $owningModule)
+    public function getBlock()
     {
-        $blockContent = $this->objBlock->showBlock($blockName, $owningModule);
-        //, NULL, 20, TRUE, TRUE, 'default', FALSE, 'featurebox', 'canvasblock'
-        // showBlock($block, $module, $blockType = NULL, $titleLength = 20, $wrapStr = TRUE, $showToggle = TRUE, $hidden = 'default', $showTitle = TRUE, $cssClass = 'featurebox', $cssId = '')
+        // We don't need to check block and module, already done elsewhere.
+        $blockName = $this->objJson->block;
+        $owningModule = $this->objJson->module;
+        // Set the block type (see method comment or blocks_class in blocks module).
+        if (isset($this->objJson->blockType)) {
+            $blockType = $this->objJson->blockType;
+        } else {
+            $blockType = NULL;
+        }
+        // Set the title length, defaulting to 20. Only works if wrapStr=TRUE
+        if (isset($this->objJson->titleLength)) {
+            $titleLength = $this->objJson->titleLength;
+        } else {
+            $titleLength = 20;
+        }
+        // Set whether or not we wrap the title to title length.
+        if (isset($this->objJson->wrapStr)) {
+            $wrapStr = $this->objJson->wrapStr;
+        } else {
+            $wrapStr = TRUE;
+        }
+        // Set whether wes should display the toggle up/down, defaulting to TRUE.
+        if (isset($this->objJson->showToggle)) {
+            $showToggle = $this->objJson->showToggle;
+        } else {
+            $showToggle = TRUE;
+        }
+        // Set whether the contents are hidden (toggled up) by default.
+        if (isset($this->objJson->hidden)) {
+            $hidden = $this->objJson->hidden;
+        } else {
+            $hidden = 'default';
+        }
+        // Set whether the title is visible.
+        if (isset($this->objJson->showTitle)) {
+            $showTitle = $this->objJson->showTitle;
+        } else {
+            $showTitle = TRUE;
+        }
+        // Set the CSS class to use (normally featurebox).
+        if (isset($this->objJson->cssClass)) {
+            $cssClass = $this->objJson->cssClass;
+        } else {
+            $cssClass = 'featurebox';
+        }
+        // Set a custom cssId if required. Cannot think of a usecase!
+        if (isset($this->objJson->cssId)) {
+            $cssId = $this->objJson->cssId;
+        } else {
+            $cssId = '';
+        }
+        $blockContent = $this->objBlock->showBlock(
+          $blockName, $owningModule, $blockType,
+          $titleLength, $wrapStr, $showToggle,
+          $hidden, $showTitle, $cssClass, $cssId);
         return $blockContent;
     }
 }

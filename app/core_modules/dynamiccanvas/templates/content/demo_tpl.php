@@ -6,20 +6,67 @@ $objFix->fixThree();
 
 <div id="threecolumn">
     <div id="Canvas_Content_Body_Region1">
-        {test1}
-        {filemanager:userfiles}
+        {
+            "display" : "block",
+            "module" : "dynamiccanvas",
+            "block" : "test1"
+        }
+        {
+            "display" : "block",
+            "module" : "canvas",
+            "block" : "selecttype"
+        }
     </div>
     <div id="Canvas_Content_Body_Region3">
-        {test2}
-        {security:login}
-        {blocks:wrapper}
-        {blocks:table}
-        {blocks:tabbedbox}
+        {
+            "display" : "block",
+            "module" : "dynamiccanvas",
+            "block" : "test2"
+        }
+        {
+            "display" : "block",
+            "module" : "security",
+            "block" : "login"
+        }
+        {
+            "display" : "block",
+            "module" : "blocks",
+            "block" : "wrapper"
+        }
+        {
+            "display" : "block",
+            "module" : "blocks",
+            "block" : "table"
+        }
+        {
+            "display" : "block",
+            "module" : "filemanager",
+            "block" : "userfiles"
+        }
     </div>
     <div id="Canvas_Content_Body_Region2">
-        {userdetails:userdetails}
-        {nonexistentblock}
-        {thirdtest}
+        {
+            "display" : "block",
+            "module" : "userdetails",
+            "block" : "userdetails"
+        }
+        {
+            "display" : "block",
+            "module" : "dynamiccanvas",
+            "block" : "nonexistentblock"
+        }
+        {
+            "display" : "block",
+            "module" : "dynamiccanvas",
+            "block" : "thirdtest",
+            "showToggle" : 0
+
+        }
+        {
+            "display" : "block",
+            "module" : "canvas",
+            "block" : "canvasviewer"
+        }
     </div>
 </div>
 
