@@ -1,7 +1,8 @@
 /*
     This is the Metallic skin for Chisimba. It is based on the
-    CAZPIX skin by Paul Scott. It uses the skin engine version
-    2 for Chisimba.
+    CAZPIX skin by Paul Scott. It is a version 3.0 for Chisimba
+    and supports canvases. It does not support the old styles
+    any longer.
 
     Author: Derek Keats
     License: GPL V2
@@ -38,11 +39,6 @@ p {
     margin-right: 0px;
 }
 
-#onecolumn, #twocolumn, #threecolumn {
-    float:left;
-    width:100%;
-}
-
 .ChisimbaCanvas {
     width: auto;
     padding:0px;
@@ -61,17 +57,10 @@ p {
     height: 0px;
 }
 
-#container {
-    margin: 0px;
-}
+
 
 .Canvas_Column {
     margin-top: 0px;
-}
-
-#twocolumn, #threecolumn {
-    background: transparent;
-    padding: 0px;
 }
 
 #Canvas_Content_Body_Region1 {
@@ -90,6 +79,7 @@ p {
     padding-left: 8px;
     padding-top: 6px;
     overflow: hidden;
+    width:auto;
 }
 
 #Canvas_Content_Body_Region3 {
@@ -97,23 +87,12 @@ p {
     float:right;
     width:220px;
     margin-top: 3px;
+    margin-left: 6px;
     padding-bottom:4px;
     padding-top: 6px;
     padding-left: 6px;
     padding-right: 4px;
 }
-
-#threecolumn #Canvas_Content_Body_Region2 {
-
-    padding-right: 8px;
-    width:auto;
-}
-
-#twocolumn #Canvas_Content_Body_Region2 {
-    padding-right: 8px;
-    width:auto;
-}
-
 
 /*
     Do the links and headings first so that other selectors can
@@ -137,9 +116,6 @@ h1, h2, h3, h4, h5, h6 {
     padding:0px;
     margin: 25px;
 }
-
-
-
 
 /*
     The container is the outer area within the page
@@ -337,18 +313,6 @@ div#header div#search button {
     margin-left:-5px;
 }
 
-/*
-    The left and right columns in 2 and 3 column layout.
-*/
-#left, #right {
-    background: transparent;
-    border: none;
-    margin-left: 0px;
-}
-
-#leftcontent {
-
-}
 
 /*
     Styles specifically related to improving the display of
@@ -378,21 +342,7 @@ div#header div#search button {
     border: 1px groove white;
 }
 
-/*
-    The content areas of all three columns
-*/
-#leftcontent, #contentcontent, #rightcontent {
-    padding: 10px;
-    -moz-border-radius: 8px;
-    border-radius: 8px;
-    -webkit-border-radius: 8px;
-    -khtml-border-radius: 8px;
-}
-#contentcontent{
-    margin-bottom:1px;
-    background: url("images/overlay-sm.png") top left repeat;
-    border: none;
-}
+
 
 .featurebox,  body.help-popup {
     margin-left: 0px;
