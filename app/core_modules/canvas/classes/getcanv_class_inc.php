@@ -286,7 +286,7 @@ class getcanv extends object
         try {
             if ($this->objUser->isLoggedIn()) {
                 // Check for cached value
-                if ($this->canvasUri) {
+                if (isset($this->canvasUri)) {
                     $canvasUri = $this->canvasUri;
                 } else {
                     $canvasUri = 'usrfiles/users/' . $this->objUser->userId()
