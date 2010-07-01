@@ -59,6 +59,15 @@ class block_thirdtest extends object
      * @access public
      */
     public $title;
+
+    /**
+     * Expose the block for remote blocks
+     *
+     * @var string $expose
+     * @access public
+     */
+    public $expose;
+
     /**
      * Standard init function
      *
@@ -69,6 +78,7 @@ class block_thirdtest extends object
     public function init() 
     {
         $this->title = "Test three";
+        $this->expose = TRUE;
     }
     /**
      * Standard block show method.
