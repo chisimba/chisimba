@@ -34,7 +34,7 @@ if (isset ($canvas)) {
     $_SESSION['canvasType'] = 'programmatic';
     $_SESSION['canvas'] = $canvas;
     $canvas = $skinBase . $canvas;
-} elseif ($prefCanvas) {
+} elseif (isset($prefCanvas)) {
     $canvas = $skinBase . $prefCanvas;
 } else {
     // Get what canvas we should be showing
