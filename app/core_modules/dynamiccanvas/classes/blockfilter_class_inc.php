@@ -145,6 +145,9 @@ class blockfilter extends object
                         // The JSON is not valid so wrapt it in an error
                         $blockCode = '<div class="featurebox"><div class="error">' . $item . '</div></div>';
                     }
+                } elseif ($this->objJson->display == 'externalblock') {
+                    // Use counter to uniquely identify the div.
+                    $blockCode = $this->getExternalBlock($counter);
                 } else {
                     $blockCode = nl2br($item);
                 }
@@ -227,6 +230,66 @@ class blockfilter extends object
           $titleLength, $wrapStr, $showToggle,
           $hidden, $showTitle, $cssClass, $cssId);
         return $blockContent;
+    }
+
+    /**
+    *
+    * Get an external block and render it with Ajax code. Blocktypes can be
+    * NULL, tabbedbox, table, wrapper, none (for wideblocks), or invisible
+    * (for turning off blocks programmatically)
+    *
+    * @param string $blockName The block name
+    * @param string $owningModule The module that owns the block
+    * @return string The parsed content
+    *
+    */
+    public function getExternalBlock($counter)
+    {
+        // The layer to render the content into. Use counter to make it unique.
+        $layer = "<div id='externalblock_$counter'>Loading...</div>";
+        // The basic URL, with the parameter names shortened.
+        $url = $this->objJson->server
+          . "index.php?module=externalblocks&bn="
+          . $this->objJson->block
+          . "&om=" .$this->objJson->module;
+        // Set the block type (see method comment or blocks_class in blocks module).
+        if (isset($this->objJson->blockType)) {
+            $url .= "&bt=" . $this->objJson->blockType;
+        }
+        // Set the title length, defaulting to 20. Only works if wrapStr=TRUE
+        if (isset($this->objJson->titleLength)) {
+            $url .= "&tl=" . $this->objJson->titleLength;
+        }
+        // Set whether or not we wrap the title to title length.
+        if (isset($this->objJson->wrapStr)) {
+             $url .= "&ws=" . $this->objJson->wrapStr;
+        }
+        // Set whether wes should display the toggle up/down, defaulting to TRUE.
+        if (isset($this->objJson->showToggle)) {
+             $url .= "&stg=" . $this->objJson->showToggle;
+        }
+        // Set whether the contents are hidden (toggled up) by default.
+        if (isset($this->objJson->hidden)) {
+             $url .= "&hd=" . $this->objJson->hidden;
+        }
+        // Set whether the title is visible.
+        if (isset($this->objJson->showTitle)) {
+             $url .= "&st=" . $this->objJson->showTitle;
+        }
+        // Set the CSS class to use (normally featurebox).
+        if (isset($this->objJson->cssClass)) {
+             $url .= "&cls=" . $this->objJson->cssClass;
+        }
+        // Set a custom cssId if required. Cannot think of a usecase!
+        if (isset($this->objJson->cssId)) {
+             $url .= "&cid=" . $this->objJson->cssId;
+        }
+        // Render the ajax using jQuery.load
+        $script = "\n\n<script type=\"text/javascript\">\n"
+          . "// <![CDATA[\n"
+          . "jQuery('#externalblock_$counter').load('$url')\n"
+          . "// ]]>\n</script>\n\n";
+        return $layer . $script;
     }
 }
 ?>

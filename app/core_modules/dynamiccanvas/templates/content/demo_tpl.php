@@ -56,14 +56,15 @@ $objFix->fixThree();
             "block" : "nonexistentblock"
         }
         {
-            "display" : "block",
+            "display" : "externalblock",
+            "server" : "http://localhost/ch/",
             "module" : "dynamiccanvas",
             "block" : "thirdtest",
-            "showToggle" : 0
-
+            "showTitle":0
         }
         {
-            "display" : "block",
+            "display" : "externalblock",
+            "server" : "http://localhost/ch/",
             "module" : "canvas",
             "block" : "canvasviewer"
         }
