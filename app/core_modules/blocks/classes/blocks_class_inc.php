@@ -23,6 +23,7 @@
  * @category  Chisimba
  * @package   blocks
  * @author    Paul Scott <pscott@uwc.ac.za>
+ * @author    Derek Keats <derek@dkeats.com> Refactored for working with external blocks
  * @copyright 2007 Paul Scott
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
  * @version   $Id$
@@ -79,6 +80,7 @@ class blocks extends object {
         try {
             $this->objModule = $this->getObject ( 'modules', 'modulecatalogue' );
             $this->objConfig = $this->getObject ( 'altconfig', 'config' );
+            $this->objLanguage = $this->getObject('language', 'language');
         } catch ( customException $e ) {
             echo customException::cleanUp ( $e );
             die ();
@@ -109,88 +111,184 @@ class blocks extends object {
      *
      * @param string $blockType The type of block (e.g. tabbed box)
      */
-    public function showBlock($block, $module, $blockType = NULL, $titleLength = 20, $wrapStr = TRUE, $showToggle = TRUE, $hidden = 'default', $showTitle = TRUE, $cssClass = 'featurebox', $cssId = '') {
-        if ($this->objModule->checkIfRegistered ( $module, $module )) {
-            $blockfile = $this->objConfig->getModulePath () . $module . '/classes/block_' . $block . '_class_inc.php';
-            if ($this->blockExists ( $block, $module )) {
-                // Create an instance of the module's particular block
-                $objBlock = $this->getObject ( 'block_' . $block, $module );
-                // Get the title and wrap it
-                $title = $objBlock->title;
-                if ($wrapStr) {
-                    $objWrap = $this->getObject ( 'trimstr', 'strings' );
-                    if (!$title == FALSE) {
-                        $title = $objWrap->wrapString ( $title, $titleLength );
-                    }
-                }
-
-                if (isset ( $objBlock->blockType )) {
-                    $blockType = $objBlock->blockType;
-                }
-                switch ($blockType) {
-                    case NULL :
-                        $objFeatureBox = $this->newObject ( 'featurebox', 'navigation' );
-                        if (isset ( $objBlock->defaultHidden ) && $objBlock->defaultHidden) {
-                            $hidden = 'none';
-                        }
-                        if (! $showToggle && $hidden != 'default') {
-                            $showToggle = TRUE;
-                        }
-                        if ($title == FALSE) {
-                            $showTitle = FALSE;
-                        }
-                        return $objFeatureBox->show ($title, $objBlock->show (), $block, $hidden, $showToggle, $showTitle, $cssClass, $cssId);
-                    case "tabbedbox" :
-                        // Put it all inside a tabbed box
-                        // $this->loadClass('tabbedbox', 'htmlelements');
-                        $objTab = $this->newObject ( 'tabbedbox', 'htmlelements' );
-                        $objTab->addTabLabel ( $title );
-                        $objTab->addBoxContent ( $objBlock->show () );
-                        return "<br />" . $objTab->show ();
-                        break;
-                    case "table" :
-                        // Put it all inside a table
-                        $myTable = $this->newObject ( 'htmltable', 'htmlelements' );
-                        $myTable->border = '1';
-                        $myTable->cellspacing = '0';
-                        $myTable->cellpadding = '5';
-                        $myTable->startHeaderRow ();
-                        $myTable->addHeaderCell ( $title );
-                        $myTable->endHeaderRow ();
-                        $myTable->startRow ();
-                        $myTable->addCell ( $objBlock->show () );
-                        $myTable->endRow ();
-                        return $myTable->show ();
-                    case "wrapper" :
-                        // Put it all inside wrappers
-                        $this->Layer1 = $this->newObject ( 'layer', 'htmlelements' );
-                        $this->Layer1->cssClass = "wrapperDarkBkg";
-                        $this->Layer2 = $this->newObject ( 'layer', 'htmlelements' );
-                        $this->Layer2->cssClass = "wrapperLightBkg";
-                        $this->Layer1->addToStr ( $title );
-                        $this->Layer2->addToStr ( $objBlock->show () );
-                        $this->Layer1->addToStr ( $this->Layer2->show () );
-                        return $this->Layer1->show ();
-                    case "none" :
-                        // Just display it - for wide blocks
-                        return $objBlock->show ();
-                    case "invisible" :
-                        // Render boxes like login invisible when logged in
-                        return NULL;
-                }
-            } else {
-                return NULL;
-            }
+    public function showBlock($block, $module, $blockType = NULL, $titleLength = 20, $wrapStr = TRUE, $showToggle = TRUE, $hidden = 'default', $showTitle = TRUE, $cssClass = 'featurebox', $cssId = '')
+    {
+        if ($this->loadBlock($block, $module)) {
+            return $this->fetchBlock($block, $module, $blockType, $titleLength,
+              $wrapStr, $showToggle, $hidden, $showTitle, $cssClass, $cssId);
         } else {
             return NULL;
         }
     }
 
     /**
-     * Method to check that a block exists
+    *
+    *  Same as the showBlock method, but with extra security for showing external
+    *  blocks
+    *
+    * @param string $block The block to render
+    * @param string $module The module from which to retrieve the block
+    * @param string $blockType The blocktype
+    * @param string $titleLength The length to wrap the title
+    * @param boolean TRUE|FALSE $wrapStr Whether or not to wrap the title
+    * @param boolean TRUE|FALSE $showToggle Show the toggle button
+    * @param string $hidden Whether or not the block is hidden first
+    * @param boolean TRUE|FALSE  $showTitle Whether or not to show the title
+    * @param string $cssClass The CSS class to wrap the block into
+    * @param string $cssId The CSS ID for the block, if any
+    * @return string The rendered block
+    */
+    public function showBlockExternal($block, $module, $blockType = NULL,
+      $titleLength = 20, $wrapStr = TRUE, $showToggle = TRUE,
+      $hidden = 'default', $showTitle = TRUE, $cssClass = 'featurebox',
+      $cssId = '')
+    {
+        
+        $objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
+        $isAllowed = $objSysConfig->getValue('ALLOW_EXTERNAL_BLOCKS', 'blocks');
+        if ($isAllowed == 1) {
+            if ($this->loadBlock($block, $module)) {
+                if (isset($this->objBlock->expose)) {
+                    return $this->fetchBlock($block, $module, $blockType, $titleLength,
+                      $wrapStr, $showToggle, $hidden, $showTitle, $cssClass, $cssId);
+                } else {
+                    return '<div class="featurebox"><div class="error">'
+                      . $this->objLanguage->languageText('mod_blocks_notexposed',
+                        'blocks', 'The requested block is not exposed for external
+                            display on remote systems.')
+                      . '</div></div>';
+                }
+            } else {
+                return '<div class="featurebox"><div class="error">'
+                  . $this->objLanguage->languageText('mod_blocks_notfoundremote',
+                    'blocks', 'The requested block was not found in the
+                        module from which it was requested on the remote site.')
+                  . '</div></div>';
+            }
+        } else {
+            return '<div class="featurebox"><div class="error">'
+              . $this->objLanguage->languageText('mod_blocks_externaldisabled', 
+                'blocks', 'Provision of external blocks is disabled on
+                 the server from which you are requesting the block.')
+              . '</div></div>';
+        }
+    }
+
+     /**
      *
-     * @access public
+     *  Load the requested block class & instantiate as $this->objBlock
+     *
+     * @param string $block The block to render
+     * @param string $module The module from which to retrieve the block
+     * @return string The rendered block
+     *
      */
+    private function loadBlock($block, $module)
+    {
+        if ($this->objModule->checkIfRegistered ( $module, $module )) {
+            $blockfile = $this->objConfig->getModulePath () . $module . '/classes/block_' . $block . '_class_inc.php';
+            if ($this->blockExists ( $block, $module )) {
+                // Create an instance of the module's particular block
+                $this->objBlock = $this->getObject ( 'block_' . $block, $module );
+                return TRUE;
+            }
+        }
+        return FALSE;
+    }
+
+    /**
+    *
+    *  Fetch the rendered block
+    *
+    * @param string $block The block to render
+    * @param string $module The module from which to retrieve the block
+    * @param string $blockType The blocktype
+    * @param string $titleLength The length to wrap the title
+    * @param boolean TRUE|FALSE $wrapStr Whether or not to wrap the title
+    * @param boolean TRUE|FALSE $showToggle Show the toggle button
+    * @param string $hidden Whether or not the block is hidden first
+    * @param boolean TRUE|FALSE  $showTitle Whether or not to show the title
+    * @param string $cssClass The CSS class to wrap the block into
+    * @param string $cssId The CSS ID for the block, if any
+    * @return string The rendered block
+    */
+    private function fetchBlock($block, $module, $blockType = NULL, $titleLength = 20, $wrapStr = TRUE, $showToggle = TRUE, $hidden = 'default', $showTitle = TRUE, $cssClass = 'featurebox', $cssId = '')
+    {
+            // Get the title and wrap it
+            $title = $this->objBlock->title;
+            if ($wrapStr) {
+                $objWrap = $this->getObject ( 'trimstr', 'strings' );
+                if (!$title == FALSE) {
+                    $title = $objWrap->wrapString ( $title, $titleLength );
+                }
+            }
+
+            if (isset ( $this->objBlock->blockType )) {
+                $blockType = $this->objBlock->blockType;
+            }
+            switch ($blockType) {
+                case NULL :
+                    $objFeatureBox = $this->newObject ( 'featurebox', 'navigation' );
+                    if (isset ( $this->objBlock->defaultHidden ) && $objBlock->defaultHidden) {
+                        $hidden = 'none';
+                    }
+                    if (! $showToggle && $hidden != 'default') {
+                        $showToggle = TRUE;
+                    }
+                    if ($title == FALSE) {
+                        $showTitle = FALSE;
+                    }
+                    return $objFeatureBox->show ($title, $this->objBlock->show (), $block, $hidden, $showToggle, $showTitle, $cssClass, $cssId);
+                case "tabbedbox" :
+                    // Put it all inside a tabbed box
+                    // $this->loadClass('tabbedbox', 'htmlelements');
+                    $objTab = $this->newObject ( 'tabbedbox', 'htmlelements' );
+                    $objTab->addTabLabel ( $title );
+                    $objTab->addBoxContent ( $this->objBlock->show () );
+                    return "<br />" . $objTab->show ();
+                    break;
+                case "table" :
+                    // Put it all inside a table
+                    $myTable = $this->newObject ( 'htmltable', 'htmlelements' );
+                    $myTable->border = '1';
+                    $myTable->cellspacing = '0';
+                    $myTable->cellpadding = '5';
+                    $myTable->startHeaderRow ();
+                    $myTable->addHeaderCell ( $title );
+                    $myTable->endHeaderRow ();
+                    $myTable->startRow ();
+                    $myTable->addCell ( $this->objBlock->show () );
+                    $myTable->endRow ();
+                    return $myTable->show ();
+                case "wrapper" :
+                    // Put it all inside wrappers
+                    $this->Layer1 = $this->newObject ( 'layer', 'htmlelements' );
+                    $this->Layer1->cssClass = "wrapperDarkBkg";
+                    $this->Layer2 = $this->newObject ( 'layer', 'htmlelements' );
+                    $this->Layer2->cssClass = "wrapperLightBkg";
+                    $this->Layer1->addToStr ( $title );
+                    $this->Layer2->addToStr ( $this->objBlock->show () );
+                    $this->Layer1->addToStr ( $this->Layer2->show () );
+                    return $this->Layer1->show ();
+                case "none" :
+                    // Just display it - for wide blocks
+                    return $this->objBlock->show ();
+                case "invisible" :
+                    // Render boxes like login invisible when logged in
+                    return NULL;
+            }
+    }
+
+
+
+    /**
+    * Method to check that a block exists
+    *
+    * @param string $block The block to render
+    * @param string $module The module from which to retrieve the block
+    * @access public
+    * @return boolean TRUE|FALSE
+    */
     public function blockExists(&$block, &$module) {
         if ($this->isCoreBlock ( $block, $module ) || $this->isModuleBlock ( $block, $module )) {
             return TRUE;
@@ -200,10 +298,12 @@ class blocks extends object {
     }
 
     /**
-     * Method to check if a block is a core block
-     *
-     * @access public
-     */
+    * Method to check if a block is a core block
+    *
+    * @access public
+    * @return boolean TRUE|FALSE
+    *
+    */
     public function isCoreBlock(&$block, &$module) {
         $blockfile = $this->objConfig->getsiteRootPath () . "core_modules/" . $module . '/classes/block_' . $block . '_class_inc.php';
         if (file_exists ( $blockfile )) {
@@ -214,10 +314,11 @@ class blocks extends object {
     }
 
     /**
-     * Method to check that a particular block is a module block
-     *
-     * @access public
-     */
+    * Method to check that a particular block is a module block
+    *
+    * @access public
+    * @return boolean TRUE|FALSE
+    */
     public function isModuleBlock(&$block, &$module) {
         $blockfile = $this->objConfig->getModulePath () . $module . '/classes/block_' . $block . '_class_inc.php';
         if (file_exists ( $blockfile )) {
