@@ -430,22 +430,13 @@ class csslayout extends object implements ifhtml
         if ($this->numColumns == 1) {
             // Put the middle bit in region 2 for canvas enabled skins
             $result = $this->addBodyRegion($this->middleColumnContent, "Region2");
-            $result = '<div id="onecolumn">
-                ' . $result . '
-              </div>
-              ';
+            
         } elseif ($this->numColumns == 2) {
             // Put the left bit in region 1 for canvas enabled skins
             $leftCol = $this->addBodyRegion($this->leftColumnContent, "Region1");
             // Put the middle bit in region 2 for canvas enabled skins
             $middleCol = $this->addBodyRegion($this->middleColumnContent, "Region2");
-            $result = '<div id="twocolumn">
-
-              ' . $leftCol . '
-              ' . $middleCol . '
-
-              </div>
-              ';
+            $result = $leftCol . "\n" . $middleCol;
             // Use fixThree even for two columns
             $this->objFixlength->fixThree();
         } elseif  ($this->numColumns == 3)  {
@@ -460,13 +451,7 @@ class csslayout extends object implements ifhtml
                       . $this->leftColumnContent, "Region3"
                     );
                     $middleCol = $this->addBodyRegion($this->middleColumnContent, "Region2");
-                    $result = '<div id="twocolumn">
-
-                        ' . $narrowCol . '
-                        ' . $middleCol . '
-
-                        </div>
-                    ';
+                    $result = $narrowCol . "\n" . $middleCol;
                     $this->objFixlength->fixTwo();
                     break;
 
@@ -476,13 +461,7 @@ class csslayout extends object implements ifhtml
                       . $this->rightColumnContent, "Region3"
                     );
                     $middleCol = $this->addBodyRegion($this->middleColumnContent, "Region2");
-                    $result = '<div id="twocolumn">
-
-                        ' . $narrowCol . '
-                        ' . $middleCol . '
-
-                        </div>
-                    ';
+                    $result = $narrowCol . "\n" . $middleCol;
                     $this->objFixlength->fixTwo();
                     break;
 
@@ -495,13 +474,7 @@ class csslayout extends object implements ifhtml
                     $middleCol = $this->addBodyRegion($this->middleColumnContent, "Region2");
                     // Put the right bit in region 2 for canvas enabled skins
                     $rightCol = $this->addBodyRegion($this->rightColumnContent, "Region3");
-                    $result = '	<div id="threecolumn">
-
-                        ' . $leftCol . '
-                        ' . $rightCol . '
-                        ' . $middleCol . '
-
-                        </div>';
+                    $result = $leftCol . "\n" . $rightCol . "\n" . $middleCol;
                     $this->objFixlength->fixThree();
                     break;
             }
