@@ -194,7 +194,7 @@ class getcanv extends object
 
     private function getSkinCanvasesArray($curSkin) {
         $canvasDir = $this->objConfig->getSiteRootPath() . "skins/" . $curSkin . "/canvases/";
-        if ($handle = opendir($canvasDir)) {
+        if ($handle = @opendir($canvasDir)) {
             while (FALSE !== ($file = readdir($handle))) {
                 if ($file != "." && $file != ".." &&$file != ".svn") {
                     if (is_dir($canvasDir.$file)) {
@@ -223,7 +223,7 @@ class getcanv extends object
             if ($this->objUser->isLoggedIn()) {
                 $ret = array();
                 $canvasDir = $this->getPersonalCanvasDir();
-                if ($handle = opendir($canvasDir)) {
+                if ($handle = @opendir($canvasDir)) {
                     while (false !== ($file = readdir($handle))) {
                         if ($file != "." && $file != "..") {
                             if (is_dir($canvasDir.$file)) {
