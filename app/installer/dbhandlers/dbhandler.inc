@@ -101,7 +101,7 @@ class DbHandler extends dbHandlermanager
 			// Connect to the database
 			if (!class_exists('MDB2.php', true)) {
 			
-			  require_once '../lib/pear/MDB2.php';
+			  require_once 'MDB2.php';
 
 			}
           
@@ -134,7 +134,7 @@ class DbHandler extends dbHandlermanager
 			// echo ini_get('include_path'); die();
 			if (!class_exists('MDB2/Schema.php', true)) {
 			
-			  require_once'../lib/pear/MDB2/Schema.php';
+			  require_once'MDB2/Schema.php';
 
 			}
 		    //MDB2 has a factory method, so lets use it now...
