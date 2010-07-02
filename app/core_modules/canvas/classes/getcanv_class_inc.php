@@ -181,6 +181,14 @@ class getcanv extends object
         return $canvases;
     }
 
+    /**
+    *
+    * Get thecanvases in the skin as a string of display elements
+    *
+    * @return string The canvases in view mode
+    * @access private
+    *
+    */
     private function getSkin()
     {
         $this->curSkin = $this->getSession('skinName', FALSE);
@@ -192,6 +200,15 @@ class getcanv extends object
         return $canvases;
     }
 
+    /**
+    *
+    * Get all the canvases in the current skin as an array
+    *
+    * @param string $curSkin The skin code for the current skin
+    * @access privave
+    * @return string array An array of canvases in the current skin
+    *
+    */
     private function getSkinCanvasesArray($curSkin) {
         $canvasDir = $this->objConfig->getSiteRootPath() . "skins/" . $curSkin . "/canvases/";
         if ($handle = @opendir($canvasDir)) {
@@ -339,6 +356,14 @@ class getcanv extends object
         }
     }
 
+    /**
+    *
+    * Get a canvas for display and selection.
+    *
+    * @access private
+    * @return string The formatted canvas for view and selection
+    *
+    */
     private function getSkinCanvasView($canvas)
     {
         try {
@@ -366,6 +391,16 @@ class getcanv extends object
         }
     }
 
+    /**
+    *
+    * Get the link for the skin chooser
+    *
+    * @param string $canvas The canvas code
+    * @param $canvasType The type of canvas (personal, skin)
+    * @return string The formatted link
+    * @access private
+    *
+    */
     private function getSkinChooserLink($canvas, $canvasType='personal')
     {
         $ln = $this->uri(

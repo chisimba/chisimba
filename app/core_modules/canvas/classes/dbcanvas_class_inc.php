@@ -61,12 +61,21 @@ class dbcanvas extends dbtable
     *
     * Intialiser for the canvas database connector
     * @access public
+    * @return VOID
     *
     */
     public function init()
     {
     }
 
+    /**
+    *
+    * Save a skin canvas using dbsysconfig
+    *
+    * @param string $canvas The canvas code
+    * @return boolean TRUE
+    *
+    */
     public function saveSkinCanvas($canvas)
     {
         $objConfig = $this->getObject('dbsysconfig', 'sysconfig');

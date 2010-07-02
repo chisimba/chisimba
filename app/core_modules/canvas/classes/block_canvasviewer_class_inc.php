@@ -83,6 +83,8 @@ class block_canvasviewer extends object
      * Instantiate language and user objects and create title
      *
      * @return NULL
+     * @access public
+     *
      */
     public function init() 
     {
@@ -100,6 +102,7 @@ class block_canvasviewer extends object
      * Standard block show method.
      *
      * @return string $this->display block rendered
+     * @access public
      */
     public function show() 
     {
