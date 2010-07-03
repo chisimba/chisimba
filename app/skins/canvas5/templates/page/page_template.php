@@ -77,7 +77,7 @@ canvas {
 
      // Render the javascript unless it is suppressed.
     if (!isset($pageSuppressJavascript)) {
-       echo $objSkin->putJavaScript($mime, $headerParams, $bodyOnLoad);
+       echo $objSkin->putJavaScript($mime, $headerParams);
     }
 
     // Render the CSS for the current skin unless it is suppressed.
