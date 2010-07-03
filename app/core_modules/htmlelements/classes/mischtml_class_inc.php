@@ -75,10 +75,28 @@ class mischtml extends object
      * @param  string $type The MIME type of the script.
      * @return string The generated HTML.
      */
-    public function importScript($uri, $type='text/javascript') {
-        $uri  = htmlspecialchars($uri);
-        $type = htmlspecialchars($type);
+    public function importScript($uri, $type='text/javascript')
+    {
+        $uri  = htmlspecialchars($uri, ENT_QUOTES);
+        $type = htmlspecialchars($type, ENT_QUOTES);
         $html = "<script src='$uri' type='$type'></script>";
+
+        return $html;
+    }
+
+    /**
+     * Generates a meta element containing an inline alternative to HTTP request headers.
+     *
+     * @access public
+     * @param  string $name  The name of the HTTP request header field.
+     * @param  string $value The value of the header.
+     * @return string The generated HTML.
+     */
+    public function httpEquiv($name, $value)
+    {
+        $name  = htmlspecialchars($name, ENT_QUOTES);
+        $value = htmlspecialchars($value, ENT_QUOTES);
+        $html  = "<meta http-equiv='$name' value='$value'>";
 
         return $html;
     }
