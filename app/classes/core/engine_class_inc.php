@@ -1808,7 +1808,7 @@ class engine {
     public function putMessages() {
         $str = '';
         if ($this->_hasError) {
-            $str .= '<script language="JavaScript" type="text/javascript">' . 'alert("' . $this->javascript_escape ( $this->_errorMessage ) . '");' . '</script>';
+            $str .= '<script type="text/javascript">' . 'alert("' . $this->javascript_escape ( $this->_errorMessage ) . '");' . '</script>';
         }
         if (is_array ( $this->_messages )) {
             foreach ( $this->_messages as $msg ) {
