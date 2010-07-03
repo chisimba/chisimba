@@ -36,6 +36,7 @@ class block_stories extends object
         try {
             $this->objLanguage =  $this->getObject('language', 'language');
             $this->title = ucwords($this->objLanguage->code2Txt('word_stories', 'stories', NULL, '[-stories-]'));
+            $this->expose=TRUE;
         } catch (customException $e) {
             customException::cleanUp();
         }
