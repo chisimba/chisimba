@@ -59,6 +59,14 @@ $GLOBALS['kewl_entry_point_run'])
 class skinjavascript extends object
 {
     /**
+     * Instance of the mischtml class in htmlelements.
+     *
+     * @access protected
+     * @var    object
+     */
+    protected $objMiscHTML;
+
+    /**
     *
     * Intialiser for the skin chooser
     * @access public
@@ -66,6 +74,7 @@ class skinjavascript extends object
     */
     public function init()
     {
+        $this->objMiscHTML = $this->getObject('mischtml', 'htmlelements');
     }
 
     /**
@@ -85,6 +94,7 @@ class skinjavascript extends object
         $str = '';
         $str .= $this->getScriptaculous($mime);
         $str .= $this->getJQuery();
+        $str .= $this->getChromeFrame();
         $str .= $this->getHeaderParams($headerParams);
         $str .= $this->getBodyParams($bodyOnLoad);
         return $str;
@@ -130,6 +140,29 @@ class skinjavascript extends object
         } else {
             return NULL;
         }
+    }
+
+    /**
+     * Insert the Chrome Frame Metadata and JavaScript into the document head.
+     *
+     * @access protected
+     * @return string The necessary HTML5 markup.
+     * @see    http://www.chromium.org/developers/how-tos/chrome-frame-getting-started
+     */
+    public function getChromeFrame()
+    {
+        $suppress = $this->getVar('SUPPRESS_CHROME_FRAME', FALSE);
+
+        if (!$suppress) {
+            $html  = $this->objMiscHTML->httpEquiv('X-UA-Compatible', 'chrome=1');
+            $html .= $this->objMiscHTML->importScript('http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js');
+
+            $this->appendArrayVar('bodyOnLoad', 'CFInstall.check({mode:"overlay"});');
+        } else {
+            $html = '';
+        }
+
+        return $html;
     }
 
     /**
