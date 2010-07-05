@@ -274,7 +274,6 @@ class contextadmin extends controller {
             $mode = $this->getParam('mode');
 
             $this->objContext->updateGoals($contextCode, $goals);
-
             return $this->nextAction('step4', array('mode'=>$mode));
         }
     }
@@ -285,7 +284,7 @@ class contextadmin extends controller {
     private function __step4() {
         $contextCode = $this->getSession('contextCode');
 
-        $contextTitle = $this->objContext->getTitle($contextCode);
+        $contextTitle = $this->objContext->getTitle($contextCode,false);
 
         if ($contextTitle == FALSE) {
             return $this->nextAction(NULL);
