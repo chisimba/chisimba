@@ -161,57 +161,6 @@ class dynamiccanvas extends controller
         $this->setLayoutTemplate('demo_layout.php');
         return 'demo_tpl.php';
     }
-
-    /**
-    * 
-    * Method corresponding to the add action. It sets the mode to 
-    * add and returns the edit content template.
-    * @access private
-    * 
-    */
-    private function __add()
-    {
-        $this->setvar('mode', 'add');
-        return 'editform_tpl.php';
-    }
-    
-   
-    /**
-    * 
-    * Method corresponding to the save action. It gets the mode from 
-    * the querystring to and saves the data then sets nextAction to be 
-    * null, which returns the {yourmodulename} module in view mode. 
-    * 
-    * @access private
-    * 
-    */
-    private function __save()
-    {
-        $mode = $this->getParam("mode", NULL);
-        $this->objDbdynamiccanvas->save($mode);
-        return $this->nextAction(NULL);
-    }
-    
-    /**
-    * 
-    * Method corresponding to the delete action. It requires a 
-    * confirmation, and then delets the item, and then sets 
-    * nextAction to be null, which returns the {yourmodulename} module 
-    * in view mode. 
-    * 
-    * @access private
-    * 
-    */
-    private function __delete()
-    {
-        // retrieve the confirmation code from the querystring
-        $confirm=$this->getParam("confirm", "no");
-        if ($confirm=="yes") {
-            $this->deleteItem();
-            return $this->nextAction(NULL);
-        }
-    }
-    
     
     /**
     * 
@@ -287,16 +236,17 @@ class dynamiccanvas extends controller
     */
     public function requiresLogin()
     {
+        return FALSE;/*
         $action=$this->getParam('action','NULL');
         switch ($action)
         {
-            case 'view':
+            case NULL:
                 return FALSE;
                 break;
             default:
                 return TRUE;
                 break;
-        }
+        }*/
      }
 }
 ?>

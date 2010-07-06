@@ -16,6 +16,11 @@ $objFix->fixThree();
             "module" : "canvas",
             "block" : "selecttype"
         }
+        {
+            "display" : "block",
+            "module" : "codetesting",
+            "block" : "test1"
+        }
     </div>
     <div id="Canvas_Content_Body_Region3">
         {

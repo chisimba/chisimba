@@ -237,6 +237,16 @@ class blockfilter extends object
     * Get an external block and render it with Ajax code. Blocktypes can be
     * NULL, tabbedbox, table, wrapper, none (for wideblocks), or invisible
     * (for turning off blocks programmatically)
+    * bn = blockname
+    * om = owning module
+    * bt = blocktype
+    * tl = title length
+    * ws = wrap string
+    * stg = show toggle
+    * hd = hidden
+    * st = show title
+    * cls = CSS class
+    * cid = CSS id
     *
     * @param string $blockName The block name
     * @param string $owningModule The module that owns the block
@@ -290,6 +300,25 @@ class blockfilter extends object
           . "jQuery('#externalblock_$counter').load('$url')\n"
           . "// ]]>\n</script>\n\n";
         return $layer . $script;
+    }
+
+    /**
+     *
+     * Render the jQuery Embed script to embed the content via
+     * Ajax.
+     *
+     * @param string $cssClass The CSS class which holds the content
+     * @param strings $url The URL to render the block
+     * @return string The rendered script
+     */
+    public function renderEmbed($cssClass, $url)
+    {
+        // Render the ajax using jQuery.load
+        $script = "\n\n<script type=\"text/javascript\">\n"
+          . "// <![CDATA[\n"
+          . "jQuery('$cssClass').load('$url')\n"
+          . "// ]]>\n</script>\n\n";
+        return $script;
     }
 }
 ?>
