@@ -120,6 +120,7 @@ class cacheops extends object
         // Prepend the site name to the key.
         $key = $this->objAltConfig->getSiteName().$key;
 
+        // First check local cache then fall back to external cache.
         if (array_key_exists($key, $this->cache)) {
             $value = $this->cache[$key];
         } elseif ($this->memcache) {
@@ -148,7 +149,7 @@ class cacheops extends object
         // Update the local cache.
         $this->cache[$key] = $value;
 
-        // Update the foreign cache.
+        // Update the external cache.
         if ($this->memcache) {
             chisimbacache::getMem()->set($key, $value);
         } elseif ($this->apc) {
