@@ -21,9 +21,9 @@ $GLOBALS['kewl_entry_point_run'])
  */
 class chisimbacache extends Memcache
 {
-    static private $objMem     = NULL;
-    static private $objServers = array();
-    static private $objAPC     = NULL;
+    private static $objMem     = NULL;
+    private static $objServers = array();
+    private static $objAPC     = NULL;
     
     /**
      * Singleton method for memcache servers
@@ -33,16 +33,14 @@ class chisimbacache extends Memcache
      * @param array $servers
      * @return memcahed instance
      */
-    static function getMem() {
+    public static function getMem()
+    {
         $servers = self::getServers();
-        if(!empty($servers))
-        {
-            if(self::$objMem == NULL)
-            {
+        if (!empty($servers)) {
+            if (self::$objMem == NULL) {
                 self::$objMem = new Memcache;
                 // connect to the memcache server(s)
-                foreach($servers as $cache)
-                {
+                foreach($servers as $cache) {
                     self::$objMem->addServer($cache['ip'], (int)$cache['port']);
                 }        
             }
@@ -51,10 +49,10 @@ class chisimbacache extends Memcache
         return self::$objMem;
     }
     
-    public function getServers() {
+    public static function getServers()
+    {
         $filename = 'cache.config';
-        if(!file_exists($filename))
-        {
+        if (!file_exists($filename)) {
             touch($filename);
             chmod($filename, 0777);
         }
@@ -69,16 +67,14 @@ class chisimbacache extends Memcache
             }
         }
         fclose($handle);
-        if(empty($cache))
-        {
+        if (empty($cache)) {
             $cache    = array(
                          'ip'   => 'localhost', 
                          'port' => 11211,
                         );
             $cacherec = array($cache);
             $handle   = fopen($filename, 'wb');
-            foreach($cacherec as $rec)
-            {
+            foreach ($cacherec as $rec) {
                 fputcsv($handle, $rec);
             }
             fclose($handle);
@@ -86,4 +82,5 @@ class chisimbacache extends Memcache
         return $cache;
     }
 }
+
 ?>
