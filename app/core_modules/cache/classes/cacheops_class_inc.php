@@ -117,6 +117,9 @@ class cacheops extends object
      */
     public function __get($key)
     {
+        // Prepend the site name to the key.
+        $key = $this->objAltConfig->getSiteName().$key;
+
         if (array_key_exists($key, $this->cache)) {
             $value = $this->cache[$key];
         } elseif ($this->memcache) {
@@ -139,6 +142,9 @@ class cacheops extends object
      */
     public function __set($key, $value)
     {
+        // Prepend the site name to the key.
+        $key = $this->objAltConfig->getSiteName().$key;
+
         // Update the local cache.
         $this->cache[$key] = $value;
 
