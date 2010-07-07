@@ -125,7 +125,7 @@ class cacheops extends object
             $value = $this->cache[$key];
         } elseif ($this->memcache) {
             $value = chisimbacache::getMem()->get($key);
-            if ($value !== FALSE) {
+            if (is_string($value)) {
                 $value = unserialize($value);
             }
         } elseif ($this->apc) {
