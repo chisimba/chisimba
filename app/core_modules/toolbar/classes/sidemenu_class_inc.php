@@ -176,9 +176,9 @@ class sidemenu extends object
     {
         $objFeature = $this->newObject('featurebox', 'navigation');
         $head = NULL;
-        $head .= '<div class="vcard">'."\n";
+        //$head .= '<div class="vcard">'."\n";
         $head .= '<span class="fn">'.$this->objUser->fullName().'</span>'."\n";
-		$body  = '<p align="center"><img class="photo" src="'.$this->objUserPic->userpicture($this->objUser->userId() ).'" alt="'.$this->objUser->fullName().'" /></p>'."</div>\n";
+		$body  = '<p align="center"><img class="photo" src="'.$this->objUserPic->userpicture($this->objUser->userId() ).'" alt="'.$this->objUser->fullName().'" /></p>'."\n";
         
         return $objFeature->show($head, $body);
     }
