@@ -56,15 +56,9 @@ class chisimbacache extends Memcache
             touch($filename);
             chmod($filename, 0777);
         }
-        $handle = fopen($filename, "r");
-        while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-            $num = count($data);
-            for ($c=0; $c < $num; $c++) {
-                    $cache[] = array(
-                                'ip'   => $data[0], 
-                                'port' => $data[1],
-                               ); 
-            }
+        $handle = fopen($filename, 'r');
+        while (($data = fgetcsv($handle, 1000, ',')) !== FALSE) {
+            $cache[] = array('ip' => $data[0], 'port' => $data[1]); 
         }
         fclose($handle);
         if (empty($cache)) {
