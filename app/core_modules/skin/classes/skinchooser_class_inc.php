@@ -165,10 +165,8 @@ class skinchooser extends object
     */
     public function getAllSkins()
     {
-        // Check if the list of skins has been cached.
-        if ($this->objCache->skinlist) {
-            $dirList = json_decode($this->objCache->skinlist, true);
-        } else { // If an updated list of directories could not be retrieved from cache, regenerate.
+        // Check if the list of skins has been cached, otherwise regenerate.
+        if ($this->objCache->skinlist === FALSE) {
             // Compile the path to the base directory of the skins.
             $basedir = $this->objConfig->getsiteRootPath().$this->skinRoot;
 
@@ -191,10 +189,10 @@ class skinchooser extends object
             }
 
             // Attempt to cache this data for future use.
-            $this->objCache->skinlist = json_encode($dirList);
+            $this->objCache->skinlist = $dirList;
         }
 
-        return $dirList;
+        return $this->objCache->skinlist;
     }
 
     /**
