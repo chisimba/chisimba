@@ -125,6 +125,9 @@ class cacheops extends object
             $value = $this->cache[$key];
         } elseif ($this->memcache) {
             $value = chisimbacache::getMem()->get($key);
+            if ($value !== FALSE) {
+                $value = deserialize($value);
+            }
         } elseif ($this->apc) {
             $value = apc_fetch($key);
         } else {
@@ -151,6 +154,7 @@ class cacheops extends object
 
         // Update the external cache.
         if ($this->memcache) {
+            $value = serialize($value);
             chisimbacache::getMem()->set($key, $value);
         } elseif ($this->apc) {
             apc_store($key, $value);
