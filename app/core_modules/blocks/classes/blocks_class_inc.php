@@ -70,6 +70,18 @@ class blocks extends object {
      * @var object $objLanguage
      */
     public $objLanguage;
+     /**
+     * Property to hold the module object
+     *
+     * @var object $objModule
+     */
+    public $objModule;
+     /**
+     * Property to hold the config object
+     *
+     * @var object $objConfig
+     */
+    public $objConfig;
 
     /**
      * Constructor method
@@ -80,6 +92,7 @@ class blocks extends object {
         try {
             $this->objModule = $this->getObject ( 'modules', 'modulecatalogue' );
             $this->objConfig = $this->getObject ( 'altconfig', 'config' );
+            $this->objUser = $this->getObject ( 'user', 'security' );
             $this->objLanguage = $this->getObject('language', 'language');
         } catch ( customException $e ) {
             echo customException::cleanUp ( $e );
@@ -114,12 +127,127 @@ class blocks extends object {
     public function showBlock($block, $module, $blockType = NULL, $titleLength = 20, $wrapStr = TRUE, $showToggle = TRUE, $hidden = 'default', $showTitle = TRUE, $cssClass = 'featurebox', $cssId = '')
     {
         if ($this->loadBlock($block, $module)) {
-            return $this->fetchBlock($block, $module, $blockType, $titleLength,
-              $wrapStr, $showToggle, $hidden, $showTitle, $cssClass, $cssId);
+            if ($this->checkLoginRequirement()) {
+                if ($this->checkAdminRequirement()) {
+                    if ($this->checkGroupRequirement()) {
+                        return $this->fetchBlock($block, $module, $blockType, $titleLength,
+                          $wrapStr, $showToggle, $hidden, $showTitle, $cssClass, $cssId);
+                    } else {
+                        return '<div class="featurebox"><div class="warning">'
+                          . $this->objLanguage->languageText('mod_blocks_requiregroup',
+                          'blocks', 'This block requires the user to be a member of a particular group for it to display.')
+                          . '</div></div>';
+                    }
+                } else {
+                    return '<div class="featurebox"><div class="warning">'
+                      . $this->objLanguage->languageText('mod_blocks_requiresadmin',
+                      'blocks', 'This block requires the user to have admin rights for it to display.')
+                      . '</div></div>';
+                }
+            } else {
+                return '<div class="featurebox"><div class="warning">'
+                  . $this->objLanguage->languageText('mod_blocks_loginrequired',
+                  'blocks', 'This block requires the user to be logged in for it to display.')
+                  . '</div></div>';
+            }
         } else {
             return NULL;
         }
     }
+
+    /**
+     *
+     * Check if the block requires login. If the requiresLogin property
+     * of the block is set, it will require login, but also it caters
+     * for when requiresAdmin and requiresGroup are set but requiresLogin
+     * is not set. In the latter cases, login would still be required. This
+     * enables the first test to fail without needing to call the others.
+     *
+     * @return boolean TRUE|FALSE
+     * @access private
+     *
+     */
+    private function checkLoginRequirement()
+    {
+        if (isset($this->objBlock->requiresLogin) ||
+            isset($this->objBlock->requiresAdmin) ||
+            isset($this->objBlock->requiresGroup)) {
+            if ($this->objBlock->requiresLogin == TRUE ||
+                $this->objBlock->requiresAdmin == TRUE ||
+                $this->objBlock->requiresGroup != FALSE) {
+                if ($this->objUser->isLoggedin()) {
+                    return TRUE;
+                } else {
+                    return FALSE;
+                }
+            } else {
+                return TRUE;
+            }
+        } else {
+            return TRUE;
+        }
+    }
+
+    /**
+     *
+     * Check if the block requires the user to be an administrator
+     *
+     * @return boolean TRUE|FALSE
+     * @access private
+     *
+     */
+    private function checkAdminRequirement()
+    {
+        if (isset($this->objBlock->requiresAdmin)) {
+            if ($this->objBlock->requiresAdmin == TRUE) {
+                if ($this->objUser->isAdmin()) {
+                    return TRUE;
+                } else {
+                    return FALSE;
+                }
+            } else {
+                return TRUE;
+            }
+        } else {
+            return TRUE;
+        }
+    }
+
+    /**
+     * Check if the block is only available to a certain group or groups of
+     * users.
+     *
+     * @return boolean TRUE|FALSE
+     * @access private
+     * 
+     */
+    private function checkGroupRequirement()
+    {
+        if (isset($this->objBlock->requiresGroup)) {
+            $objGroup = $this->getObject('groupadminmodel', 'groupadmin');
+            if (is_array($this->objBlock->requiresGroup)) {
+                // @todo write this code
+                die("ARRAY OF GROUPS NOT READY");
+            } else {
+                // Check if the user is a member of the group
+                if ($this->objUser->isLoggedin()) {
+                    $userId = $this->objUser->userId();
+                    $groupName = $this->objBlock->requiresGroup;
+                    $groupId = $objGroup->getId($groupName);
+                    if ($objGroup->isGroupMember( $userId, $groupId )) {
+                        return TRUE;
+                    } else {
+                        return FALSE;
+                    }
+                } else {
+                    return FALSE;
+                }
+            }
+        } else {
+            return TRUE;
+        }
+    }
+
 
     /**
     *
@@ -137,6 +265,7 @@ class blocks extends object {
     * @param string $cssClass The CSS class to wrap the block into
     * @param string $cssId The CSS ID for the block, if any
     * @return string The rendered block
+    *
     */
     public function showBlockExternal($block, $module, $blockType = NULL,
       $titleLength = 20, $wrapStr = TRUE, $showToggle = TRUE,
