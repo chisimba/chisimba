@@ -16,11 +16,6 @@ $objFix->fixThree();
             "module" : "canvas",
             "block" : "selecttype"
         }
-        {
-            "display" : "block",
-            "module" : "codetesting",
-            "block" : "test1"
-        }
     </div>
     <div id="Canvas_Content_Body_Region3">
         {
@@ -61,21 +56,18 @@ $objFix->fixThree();
             "block" : "nonexistentblock"
         }
         {
-            "display" : "externalblock",
-            "server" : "http://localhost/ch/",
+            "display" : "block",
             "module" : "dynamiccanvas",
             "block" : "thirdtest",
             "showTitle":0
         }
         {
-            "display" : "externalblock",
-            "server" : "http://localhost/ch/",
+            "display" : "block",
             "module" : "canvas",
             "block" : "canvasviewer"
         }
     </div>
 </div>
-
 <?php
 // Get the contents for the layout template
 $pageContent = ob_get_contents();

@@ -81,24 +81,16 @@ class blockfilter extends object
     private $objJson;
     /**
     *
-    * @var string $objLanguage String object property for holding the
-    * language object
-    * @access public
-    *
-    */
-    public $objLanguage;
-    /**
-    *
     * Intialiser for the dynamiccanvas database connector
     * @access public
     *
     */
     public function init()
     {
+        // Get the data class for connecting to blocks.
+        //$this->objDbBlocks = $this->getObject('dbblocksdata', 'blocks');
         // Get the main blocks class.
-        $this->objBlockFilter = $this->newObject('blocks', 'blocks');
-        // The language object for error messages
-        $this->objLanguage = $this->getObject('language', 'language');
+        $this->objBlock = $this->getObject('blocks', 'blocks');
     }
 
     /**
@@ -112,7 +104,7 @@ class blockfilter extends object
     */
     public function isValidBlock($blockName, $owningModule)
     {
-        if ($this->objBlockFilter->blockExists($blockName, $owningModule)) {
+        if ($this->objBlock->blockExists($blockName, $owningModule)) {
             return TRUE;
         } else {
             return FALSE;
@@ -152,15 +144,12 @@ class blockfilter extends object
                                 $blockCode = $this->getBlock();
                             } else {
                                 // It is not a valid block so wrapt it in an error
-                                $blockCode = '<div class="featurebox"><div class="error">'
-                                  . $this->objLanguage->languageText("mod_dynamiccanvas_invalidblock", "dynamiccanvas", "Invalid block")
-                                  . '<br />'. $item . '</div></div>';
+                                $blockCode = '<div class="featurebox"><div class="error">mod_dynamiccanvas_invalidblock<br />'
+                                  . $item . '</div></div>';
                             }
                         } else {
                             // The JSON is not valid so wrap it in an error
-                            $blockCode = '<div class="featurebox"><div class="error">'
-                              . $this->objLanguage->languageText("mod_dynamiccanvas_invalidjson", "dynamiccanvas", "Invalid JSON block definition")
-                              . '<br />' . $item . '</div></div>';
+                            $blockCode = '<div class="featurebox"><div class="error">mod_dynamiccanvas_invalidjson<br />' . $item . '</div></div>';
                         }
                     } elseif ($this->objJson->display == 'externalblock') {
                         // Use counter to uniquely identify the div.
@@ -169,12 +158,10 @@ class blockfilter extends object
                         $blockCode = nl2br($item);
                     }
                 } else {
-                    $blockCode = '<div class="featurebox"><div class="error">'
-                      . $this->objLanguage->languageText("mod_dynamiccanvas_invaliddisplaynotset", "dynamiccanvas", "Block display method not set in JSON")
-                      . '<br />' . $item . '</div></div>';
+                    $blockCode = '<div class="featurebox"><div class="error">mod_dynamiccanvas_invaliddisplaynotset<br />' . $item . '</div></div>';
                 }
                 $replacement = $blockCode;
-                $tmp = "<h1>" . $counter . $this->objJson->block . "||" . $this->objJson->module . "</h1>";
+                //$tmp = "<h1>" . $counter . $this->objJson->block . "||" . $this->objJson->module . "</h1>";
                 $pageContent = str_replace($item, $replacement, $pageContent);
                 $counter++;
             }
@@ -246,7 +233,7 @@ class blockfilter extends object
         } else {
             $cssId = '';
         }
-        $blockContent = $this->objBlockFilter->showBlock(
+        $blockContent = $this->objBlock->showBlock(
           $blockName, $owningModule, $blockType,
           $titleLength, $wrapStr, $showToggle,
           $hidden, $showTitle, $cssClass, $cssId);

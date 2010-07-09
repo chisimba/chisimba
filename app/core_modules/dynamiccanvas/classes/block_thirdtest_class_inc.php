@@ -99,8 +99,7 @@ class block_thirdtest extends object
         sit non mauris. Morbi ut quisque commodo etiam at orci, at duis,
         lorem aptent augue pellentesque, diam ligula amet risus ducimus
         bibendum. Arcu eros turpis sed mattis libero consequat, urna laoreet
-        morbi erat, fusce nam. Magna velit cras.
-        ';
+        morbi erat, fusce nam. Magna velit cras.';
     }
 }
 ?>
