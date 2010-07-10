@@ -178,6 +178,9 @@ class washout extends object
         
         $class =  $this->getObject('parse4wikipediawords', 'filters');
         $txt = $class->parse($txt);
+
+        $class =  $this->getObject('parse4blocks', 'filters');
+        $txt = $class->parse($txt);
         
         $txt = $this->bbcode->parse4bbcode($txt);
         return $txt;
