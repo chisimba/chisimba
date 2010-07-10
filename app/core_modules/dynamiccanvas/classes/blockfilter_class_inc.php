@@ -315,12 +315,32 @@ class blockfilter extends object
         if (isset($this->objJson->cssId)) {
              $url .= "&cid=" . $this->objJson->cssId;
         }
+        //$url = urlencode($url);
+         
+        /*$catchUrl = $this->uri(array('action' => 'proxy',
+          'url' => $url), 'dynamiccanvas');
         // Render the ajax using jQuery.load
         $script = "\n\n<script type=\"text/javascript\">\n"
           . "// <![CDATA[\n"
-          . "jQuery('#externalblock_$counter').load('$url')\n"
+          . "jQuery('.externalblock_$counter').load('$catchUrl')\n"
           . "// ]]>\n</script>\n\n";
-        return $layer . $script;
+        //return htmlentities($layer . $script);
+        //return $layer . $script;*/
+        return $this->proxy($url);
+    }
+
+    /**
+    *
+    * Method to get the external blocks. This should be used as a proxy
+    * for Ajax, but I cannot seem to get it to work that way.
+    *
+    * @param string $url The URL to retrieve
+    * @return string The content from the URL
+    */
+    public function proxy($url)
+    {
+        $oCh = $this->getObject("curl", "utilities");
+        return $oCh->exec($url);
     }
 
     /**

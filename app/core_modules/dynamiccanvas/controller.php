@@ -135,19 +135,6 @@ class dynamiccanvas extends controller
     
     /*------------- BEGIN: Set of methods to replace case selection ------------*/
 
-    /**
-    * 
-    * Method corresponding to the view action. It fetches the stories
-    * into an array and passes it to a main_tpl content template.
-    * @access private
-    * 
-    */
-    private function __view()
-    {
-        $str="<h1>WORKING HERE</h1>" . $this->moduleName;
-        $this->setVarByRef('str', $str);
-        return "dump_tpl.php";
-    }
     
     /**
     * 
@@ -161,7 +148,20 @@ class dynamiccanvas extends controller
         $this->setLayoutTemplate('demo_layout.php');
         return 'demo_tpl.php';
     }
-    
+
+    private function __proxy()
+    {
+        $this->setPageTemplate('page_template.php');
+        $url = $this->getParam('url', FALSE);
+        if ($url) {
+            $url = urldecode($url);
+            $oCh = $this->getObject("curl", "utilities");
+            $str = $oCh->exec($url);           
+            $this->setVarByRef('str', $str);
+            return 'dump_tpl.php';
+        }
+    }
+
     /**
     * 
     * Method to return an error when the action is not a valid 
