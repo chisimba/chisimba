@@ -93,7 +93,7 @@ if (!isset($pageLanguage)) {
 }
 
 // Fix the buffer by changnig > to /> where necessaryfor better HTML compliance.
-ob_start("fix_code");
+//ob_start("fix_code");
 
 // Print a HTML5 doctype and header
 header("Content-Type: $mime; charset=$charset");

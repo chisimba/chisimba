@@ -1,21 +1,21 @@
 #facebox .b {
-  background:url(../alertbox/b.png);
+  background:url(../../_common/alertbox/b.png);
 }
 
 #facebox .tl {
-  background:url(../alertbox/tl.png);
+  background:url(../../_common/alertbox/tl.png);
 }
 
 #facebox .tr {
-  background:url(../alertbox/tr.png);
+  background:url(../../_common/alertbox/tr.png);
 }
 
 #facebox .bl {
-  background:url(../alertbox/bl.png);
+  background:url(../../_common/alertbox/bl.png);
 }
 
 #facebox .br {
-  background:url(../alertbox/br.png);
+  background:url(../../_common/alertbox/br.png);
 }
 
 #facebox {

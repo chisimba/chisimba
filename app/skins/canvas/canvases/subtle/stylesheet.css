@@ -22,6 +22,15 @@ html, body {
     display: block;
 }
 
+.Canvas_Content_Body {
+    float: left;
+    display:block;
+}
+
+.Canvas_Content_Body_Before{
+    clear:both;
+}
+
 #container {
     background: url("images/gradient.png") top left repeat-y;
 }
@@ -100,6 +109,7 @@ rounded corners
     padding-left: 0px;
     padding-right: 0px;
     padding-top: 5px;
+    display: block;
 }
 
 .Canvas_Content_Head_Breadcrumbs_After {
