@@ -264,7 +264,9 @@ class cssfixlength extends object
         if ($this->skinEngine == 'default' || $this->skinEngine == '') {
             $this->appendArrayVar('headerParams', $this->getJavascriptFile('x_minified.js','htmlelements'));
             $this->appendArrayVar('headerParams', $fixLayoutScript);
-            $this->appendArrayVar('bodyOnLoad',$this->bodyOnLoadScript);
+            if (isset($this->bodyOnLoadScript)) {
+                $this->appendArrayVar('bodyOnLoad',$this->bodyOnLoadScript);
+            }
             return TRUE;
         } else {
             return FALSE;
