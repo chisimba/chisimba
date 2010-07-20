@@ -60,6 +60,15 @@ class groupops extends object
      * @var    userDb
      */
     public $objUser;
+    
+    public $objMemcache = FALSE;
+
+    public $objAPC = FALSE;
+
+	protected $cacheTTL = 3600;
+
+	public $cachePrefix;
+
 
     /**
      * Method to initialize the group operations object.
@@ -78,6 +87,33 @@ class groupops extends object
 		$objIcon = $this->getObject('geticon', 'htmlelements');
 		$objIcon->setIcon('loader');
 		$this->loading = "";//$objIcon->show();
+		
+		$this->objDBConfig = $this->getObject('altconfig','config');
+        // check for memcache
+		if(extension_loaded('memcache')) {
+			require_once $this->objDBConfig->getSiteRootPath().'classes/core/chisimbacache_class_inc.php';
+			if($this->objDBConfig->getenable_memcache() == 'TRUE') {
+				$this->objMemcache = TRUE;
+			}
+			else {
+				$this->objMemcache = FALSE;
+			}
+			$this->cacheTTL = $this->objDBConfig->getcache_ttl();
+		}
+		// check for APC
+		if(extension_loaded('apc')) {
+			if($this->objDBConfig->getenable_apc() == 'TRUE') {
+				$this->objAPC = TRUE;
+			}
+			else {
+				$this->objAPC = FALSE;
+			}
+			$this->cacheTTL = $this->objDBConfig->getcache_ttl();
+		}
+
+        $this->_serverName = $this->objDBConfig->serverName();
+        // set up the cache prefix for this instance
+        $this->cachePrefix = $this->_serverName."_groupadmin_";
     }
 
     ///////////////////////////////
@@ -514,6 +550,7 @@ class groupops extends object
 				//var_dump($subGroups);
 				$str .='<div>
 								<h3 id="'.$groupId.'"><a href="#">'.$group['group_define_name'].'</a></h3>
+
 								<div style="height:175px;" id="tab_'.$groupId.'">
 									<div class="siteadminlist">';
 
@@ -653,8 +690,31 @@ class groupops extends object
 	*/
 	public function getFirstGroupId()
 	{
-		$groups = $this->objLuAdmin->perm->getGroups();
-		return $groups[0]['group_id'];
+	    if($this->objMemcache == TRUE) {
+    		if(chisimbacache::getMem()->get(md5($this->cachePrefix.getFirstGroupId))) {
+				$cache = chisimbacache::getMem()->get(md5($this->cachePrefix.getFirstGroupId));
+				$ret = unserialize($cache);
+		    }
+		    else {
+		        $groups = $this->objLuAdmin->perm->getGroups();
+		        $ret = $groups[0]['group_id'];
+		        chisimbacache::getMem()->set(md5($this->cachePrefix.getFirstGroupId), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
+		    }
+		}
+		elseif($this->objAPC == TRUE) {
+    		$ret = apc_fetch($this->cachePrefix.getFirstGroupId);
+    		if($ret == FALSE) {
+    		   $groups = $this->objLuAdmin->perm->getGroups();
+		       $ret = $groups[0]['group_id'];
+		       apc_store($this->cachePrefix.getFirstGroupId, $ret, $this->cacheTTL); 
+		   }
+	    }
+	    else {
+	        $groups = $this->objLuAdmin->perm->getGroups();
+		    $ret = $groups[0]['group_id'];
+	    }
+	    
+	    return $ret;	
 	}
 
 	/**
@@ -835,23 +895,103 @@ class groupops extends object
 
 
     public function getAllGroups() {
-        $groups = $this->objLuAdmin->getGroups();
-        return $groups;
+        if($this->objMemcache == TRUE) {
+    		if(chisimbacache::getMem()->get(md5($this->cachePrefix.getAllGroups))) {
+				$cache = chisimbacache::getMem()->get(md5($this->cachePrefix.getAllGroups));
+				$ret = unserialize($cache);
+		    }
+		    else {
+		        $ret = $this->objLuAdmin->perm->getGroups();
+		        chisimbacache::getMem()->set(md5($this->cachePrefix.getAllGroups), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
+		    }
+		}
+		elseif($this->objAPC == TRUE) {
+    		$ret = apc_fetch($this->cachePrefix.getAllGroups);
+    		if($ret == FALSE) {
+    		   $ret = $this->objLuAdmin->perm->getGroups();
+		       apc_store($this->cachePrefix.getAllGroups, $ret, $this->cacheTTL); 
+		   }
+	    }
+	    else {
+	        $ret = $this->objLuAdmin->getGroups();
+	    }
+	    
+	    return $ret;
     }
 
     public function getAllUsers() {
-        $users = $this->objLuAdmin->getUsers();
-        return $users;
+        if($this->objMemcache == TRUE) {
+    		if(chisimbacache::getMem()->get(md5($this->cachePrefix.getAllUsers))) {
+				$cache = chisimbacache::getMem()->get(md5($this->cachePrefix.getAllUsers));
+				$ret = unserialize($cache);
+		    }
+		    else {
+		        $ret = $this->objLuAdmin->getUsers();
+		        chisimbacache::getMem()->set(md5($this->cachePrefix.getAllUsers), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
+		    }
+		}
+		elseif($this->objAPC == TRUE) {
+    		$ret = apc_fetch($this->cachePrefix.getAllUsers);
+    		if($ret == FALSE) {
+    		   $ret = $this->objLuAdmin->getUsers();
+		       apc_store($this->cachePrefix.getAllUsers, $ret, $this->cacheTTL); 
+		   }
+	    }
+	    else {
+	        $ret = $this->objLuAdmin->getUsers();
+	    }
+	    
+	    return $ret;
     }
 
     public function getAllPermUsers() {
-        $users = $this->objLuAdmin->perm->getUsers();
-        return $users;
+        if($this->objMemcache == TRUE) {
+    		if(chisimbacache::getMem()->get(md5($this->cachePrefix.getAllPermUsers))) {
+				$cache = chisimbacache::getMem()->get(md5($this->cachePrefix.getAllPermUsers));
+				$ret = unserialize($cache);
+		    }
+		    else {
+		        $ret = $this->objLuAdmin->perm->getUsers();
+		        chisimbacache::getMem()->set(md5($this->cachePrefix.getAllPermUsers), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
+		    }
+		}
+		elseif($this->objAPC == TRUE) {
+    		$ret = apc_fetch($this->cachePrefix.getAllPermUsers);
+    		if($ret == FALSE) {
+    		   $ret = $this->objLuAdmin->perm->getUsers();
+		       apc_store($this->cachePrefix.getAllPermUsers, $ret, $this->cacheTTL); 
+		   }
+	    }
+	    else {
+	        $ret = $this->objLuAdmin->perm->getUsers();
+	    }
+	    
+	    return $ret;
     }
 
     public function getNonGrpUsers() {
-        $users = $this->objLuAdmin->getUsers(array('container' => 'auth'));
-        return $users;
+        if($this->objMemcache == TRUE) {
+    		if(chisimbacache::getMem()->get(md5($this->cachePrefix.getNonGrpUsers))) {
+				$cache = chisimbacache::getMem()->get(md5($this->cachePrefix.getNonGrpUsers));
+				$ret = unserialize($cache);
+		    }
+		    else {
+		        $ret = $this->objLuAdmin->getUsers(array('container' => 'auth'));
+		        chisimbacache::getMem()->set(md5($this->cachePrefix.getNonGrpUsers), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
+		    }
+		}
+		elseif($this->objAPC == TRUE) {
+    		$ret = apc_fetch($this->cachePrefix.getNonGrpUsers);
+    		if($ret == FALSE) {
+    		   $ret = $this->objLuAdmin->getUsers(array('container' => 'auth'));
+		       apc_store($this->cachePrefix.getNonGrpUsers, $ret, $this->cacheTTL); 
+		   }
+	    }
+	    else {
+	        $ret = $this->objLuAdmin->getUsers(array('container' => 'auth'));
+	    }
+	    
+	    return $ret;
     }
 
     public function getUserByUserId($userId) {
@@ -860,8 +1000,32 @@ class groupops extends object
                         'auth_user_id' => $userId,
                     )
                   );
-        $user = $this->objLuAdmin->perm->getUsers($params);
-        return $user[0];
+                  
+        if($this->objMemcache == TRUE) {
+    		if(chisimbacache::getMem()->get(md5($this->cachePrefix.getUserByUserId.$userId))) {
+				$cache = chisimbacache::getMem()->get(md5($this->cachePrefix.getUserByUserId.$userId));
+				$ret = unserialize($cache);
+		    }
+		    else {
+		        $user = $this->objLuAdmin->perm->getUsers($params);
+                $ret = $user[0];
+		        chisimbacache::getMem()->set(md5($this->cachePrefix.getUserByUserId.$userId), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
+		    }
+		}
+		elseif($this->objAPC == TRUE) {
+    		$ret = apc_fetch($this->cachePrefix.getUserByUserId.$userId);
+    		if($ret == FALSE) {
+    		   $user = $this->objLuAdmin->perm->getUsers($params);
+               $ret = $user[0];
+		       apc_store($this->cachePrefix.getUserByUserId.$userId, $ret, $this->cacheTTL); 
+		   }
+	    }
+	    else {
+	        $user = $this->objLuAdmin->perm->getUsers($params);
+            $ret = $user[0];
+	    }
+	    
+	    return $ret;
     }
 
     public function getUsersInGroup($groupid) {
@@ -870,9 +1034,29 @@ class groupops extends object
                 'group_id' => $groupid,
             )
         );
-        $usersGroup = $this->objLuAdmin->perm->getUsers($params);
-
-        return $usersGroup;
+        
+        if($this->objMemcache == TRUE) {
+    		if(chisimbacache::getMem()->get(md5($this->cachePrefix.getUsersInGroup.$groupid))) {
+				$cache = chisimbacache::getMem()->get(md5($this->cachePrefix.getUsersInGroup.$groupid));
+				$ret = unserialize($cache);
+		    }
+		    else {
+		        $ret = $this->objLuAdmin->perm->getUsers($params);
+		        chisimbacache::getMem()->set(md5($this->cachePrefix.getUsersInGroup.$groupid), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
+		    }
+		}
+		elseif($this->objAPC == TRUE) {
+    		$ret = apc_fetch($this->cachePrefix.getUsersInGroup.$groupid);
+    		if($ret == FALSE) {
+    		   $ret = $this->objLuAdmin->perm->getUsers($params);
+		       apc_store($this->cachePrefix.getUsersInGroup.$groupid, $ret, $this->cacheTTL); 
+		   }
+	    }
+	    else {
+	        $ret = $this->objLuAdmin->perm->getUsers($params);
+	    }
+	    
+	    return $ret;
     }
 
     public function layoutGroups($groups, $numperRow = 5) {
@@ -945,8 +1129,28 @@ class groupops extends object
     }
 
     public function getGroupInfo($groupid) {
-        $groups = $this->objLuAdmin->perm->getGroups(array('filters' => array('group_id' => $groupid)));
-        return $groups;
+        if($this->objMemcache == TRUE) {
+    		if(chisimbacache::getMem()->get(md5($this->cachePrefix.getGroupInfo.$groupid))) {
+				$cache = chisimbacache::getMem()->get(md5($this->cachePrefix.getGroupInfo.$groupid));
+				$ret = unserialize($cache);
+		    }
+		    else {
+		        $ret = $this->objLuAdmin->perm->getGroups(array('filters' => array('group_id' => $groupid)));
+		        chisimbacache::getMem()->set(md5($this->cachePrefix.getGroupInfo.$groupid), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
+		    }
+		}
+		elseif($this->objAPC == TRUE) {
+    		$ret = apc_fetch($this->cachePrefix.getGroupInfo.$groupid);
+    		if($ret == FALSE) {
+    		   $ret = $this->objLuAdmin->perm->getGroups(array('filters' => array('group_id' => $groupid)));
+		       apc_store($this->cachePrefix.getGroupInfo.$groupid, $ret, $this->cacheTTL); 
+		   }
+	    }
+	    else {
+	        $ret = $this->objLuAdmin->perm->getGroups(array('filters' => array('group_id' => $groupid)));
+	    }
+	    
+	    return $ret;
     }
 
     public function addUserForm($grpId) {
