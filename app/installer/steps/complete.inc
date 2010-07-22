@@ -25,7 +25,7 @@ class Complete extends Step
     */
     function Complete()
     {
-        $this->actions[] = & new CompleteAction(get_class($this));
+        $this->actions[] = new CompleteAction(get_class($this));
         $this->step_title = 'Complete';
         $this->title_logo = 'complete.gif';
         $this->can_cancel = false;
