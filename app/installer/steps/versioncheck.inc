@@ -56,7 +56,7 @@ class VersionCheck extends Step
         //Register PHP check actions
         $this->actions[] = new PHPCheckAction(get_class($this));
         //Register PEAR check actions
-        $this->actions[] =& new PEARCheckAction(get_class($this));
+        $this->actions[] = new PEARCheckAction(get_class($this));
 
         $this->step_title = 'System Requirements.';
 
