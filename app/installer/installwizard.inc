@@ -131,7 +131,7 @@ class InstallWizard extends Wizard
 
 	*/
 
-	protected function _startSession()
+	protected function _startSession($name=null)
 
 	{
 
