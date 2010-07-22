@@ -146,39 +146,20 @@ class Wizard
 
     var $complete = false;
 
-
+    /**
+    * Create the template object we're going to use
+    *
+    * @return void
+    * @access public
+    */
     public function __construct()
     {
-         if (isset($_REQUEST[session_name()])) {
+        if (isset($_REQUEST[session_name()])) {
             $this->_startSession();
         }
 
-    }
-
-
-    /**
-
-    * Create the template object we're going to use
-
-    *
-
-    * @return void
-
-    * @access public
-
-    */
-
-    public function Wizard()
-
-    {
-
         $this->template = new Template(dirname(__FILE__).'/templates/wizard.tpl');
-
-    }//end Wizard()
-
-
-
-
+    }
 
     /**
 

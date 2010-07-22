@@ -109,8 +109,6 @@ class InstallWizard extends Wizard
 
 		
 
-		$this->Wizard();
-
 		$this->template = new Template(dirname(__FILE__).'/templates/installer.tpl');
 
 	}//end InstallWizard()
