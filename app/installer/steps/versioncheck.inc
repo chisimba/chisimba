@@ -469,7 +469,7 @@ class PHPCheckAction extends StepAction
 
             }
             $_SESSION['allowed_db']['MDB2_Driver_mysql'] = TRUE;
-            $_SESSION['allowed_db']['MDB2_Driver_mysqli'] = TRUE;
+            // $_SESSION['allowed_db']['MDB2_Driver_mysqli'] = TRUE;
                                     	
             $this->required_settings['mysqlclient']['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';
 
@@ -611,8 +611,8 @@ class PEARCheckAction extends StepAction
 
     var $required_packages = Array(
 
-        // 'MDB2'             => Array('version'=>'2.0.2','available'=>false,'message' => ''),
-        // 'MDB2_Schema'   => Array('version'=> '0.4.3','available'=>false,'message'=>''),
+        'MDB2'             => Array('version'=>'2.0.2','available'=>false,'message' => ''),
+        'MDB2_Schema'   => Array('version'=> '0.4.3','available'=>false,'message'=>''),
         // 'Config'         => Array('version'=>'1.0.0','available'=>false,'message' => ''),
         // 'Log'         => Array('version'=>'1.0.0','available'=>false,'message' => ''),
         // 'XML_Util'         => Array('version'=>'1.1.4','available'=>false,'message' => '')
@@ -637,19 +637,19 @@ class PEARCheckAction extends StepAction
     {
 
         
-        /*$_SESSION['pear_path'] = isset($_POST['pear_path']) ? $_POST['pear_path'] : '';
+        $_SESSION['pear_path'] = isset($_POST['pear_path']) ? $_POST['pear_path'] : '';
 		$db = array();
         // check if the pear DB classes exist
          if($_SESSION['allowed_db']['MDB2_Driver_mysql']==TRUE) $db['MDB2_Driver_mysql'] = Array('version'=>'1.0.0','available'=>false,'message' => '');
          if($_SESSION['allowed_db']['MDB2_Driver_mysqli']==TRUE)$db['MDB2_Driver_mysqli']= Array('version'=>'1.0.0','available'=>false,'message' => '');
 		 if($_SESSION['allowed_db']['MDB2_Driver_pgsql']==TRUE)$db['MDB2_Driver_pgsql']= Array('version'=>'1.0.0','available'=>false,'message' => '');	
 		 $this->required_packages = array_merge($this->required_packages,$db);
-		 	*/
+		
         if ($_SESSION['pear_path'] == '') {
 
-            //$this->errors[] = 'Could not find the PEAR registry. You can still proceed with install, '.
+            $this->errors[] = 'Could not find the PEAR registry. You can still proceed with install, '.
 
-                //                'but you may encounter some errors.';
+                              'but you may encounter some errors.';
 
 
 
@@ -670,7 +670,7 @@ class PEARCheckAction extends StepAction
 
             }
 
-           /* @include_once 'MDB2/Schema.php';
+           @include_once 'MDB2/Schema.php';
 
             if (!class_exists('MDB2_Schema')) {
 
@@ -684,7 +684,7 @@ class PEARCheckAction extends StepAction
                 $this->required_packages['MDB2_Schema']['message'] =  '<img src="./extra/yellow_help_on.png" border="0" alt="Help" title="Help"  />';
 
             }
-*/
+
            
             @include_once 'Config.php';
 

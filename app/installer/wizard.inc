@@ -968,7 +968,7 @@ class Wizard
 
         $this->template->set('step_details', $step_details);
 
-        $this->template->set('enable_skip', $skip);
+		$this->template->set('enable_skip', FALSE); // $skip);
 
         $this->template->set('start', $start);
 
