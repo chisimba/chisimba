@@ -178,7 +178,9 @@
                     <input type="hidden" name="current_step" value="<?php echo $current_step;?>" />
                         
                     <div id="step_title">
-                    <img src="<?php echo $extras;?>/<?php echo $title_logo;?>" border="0"  alt="" />
+                    <?php if ($title_logo) : ?>
+                        <img src="<?php echo $extras;?>/<?php echo $title_logo;?>" border="0"  alt="" />
+                    <?php endif; ?>
                    </div>
                    <div id="install_details">
                     <?php echo $step_details ?>
