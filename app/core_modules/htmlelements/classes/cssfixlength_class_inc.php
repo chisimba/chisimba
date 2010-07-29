@@ -251,7 +251,7 @@ class cssfixlength extends object
             var lHeight = xHeight("left");
             var rHeight = xHeight("right");
             // Find the maximum height
-            var maxHeight = Math.max(cHeight, Math.max(lHeight, bHeight));
+            var maxHeight = Math.max(cHeight, Math.max(lHeight, rHeight));
             // Assign maximum height to all columns
             if ((browser!="Microsoft Internet Explorer")) {
               xHeight("content", maxHeight);
