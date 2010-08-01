@@ -6,10 +6,15 @@
         Leave this blank for consistency to implement the underlying skin as a canvas to enable selecting.
 */
 
-html, body {
+html {
+    background: url("images/bg-gradient.png") top left repeat-x;
+    background-color: #b5bdc8;
+}
+
+body {
     font-family: Verdana, Arial, sans-serif;
     background-image: none;
-    background: #EFEFEF;
+    background: transparent;
     font-size: 12px;
     color: #6B6B6B;
 }
