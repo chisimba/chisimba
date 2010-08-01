@@ -124,14 +124,18 @@ class blocks extends object {
      *
      * @param string $blockType The type of block (e.g. tabbed box)
      */
-    public function showBlock($block, $module, $blockType = NULL, $titleLength = 20, $wrapStr = TRUE, $showToggle = TRUE, $hidden = 'default', $showTitle = TRUE, $cssClass = 'featurebox', $cssId = '')
+    public function showBlock($block, $module, $blockType = NULL,
+      $titleLength = 20, $wrapStr = TRUE, $showToggle = TRUE,
+      $hidden = 'default', $showTitle = TRUE, $cssClass = 'featurebox',
+      $cssId = '', $configData=NULL)
     {
         if ($this->loadBlock($block, $module)) {
             if ($this->checkLoginRequirement()) {
                 if ($this->checkAdminRequirement()) {
                     if ($this->checkGroupRequirement()) {
-                        return $this->fetchBlock($block, $module, $blockType, $titleLength,
-                          $wrapStr, $showToggle, $hidden, $showTitle, $cssClass, $cssId);
+                        return $this->fetchBlock($block, $module, $blockType, 
+                          $titleLength, $wrapStr, $showToggle, $hidden,
+                          $showTitle, $cssClass, $cssId, $configData);
                     } else {
                         return '<div class="featurebox"><div class="warning">'
                           . $this->objLanguage->languageText('mod_blocks_requiregroup',
@@ -270,7 +274,7 @@ class blocks extends object {
     public function showBlockExternal($block, $module, $blockType = NULL,
       $titleLength = 20, $wrapStr = TRUE, $showToggle = TRUE,
       $hidden = 'default', $showTitle = TRUE, $cssClass = 'featurebox',
-      $cssId = '')
+      $cssId = '', $configData=NULL)
     {
         
         $objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
@@ -279,7 +283,8 @@ class blocks extends object {
             if ($this->loadBlock($block, $module)) {
                 if (isset($this->objBlock->expose)) {
                     return $this->fetchBlock($block, $module, $blockType, $titleLength,
-                      $wrapStr, $showToggle, $hidden, $showTitle, $cssClass, $cssId);
+                      $wrapStr, $showToggle, $hidden, $showTitle, $cssClass, $cssId,
+                      $configData);
                 } else {
                     return '<div class="featurebox"><div class="error">'
                       . $this->objLanguage->languageText('mod_blocks_notexposed',
@@ -341,8 +346,13 @@ class blocks extends object {
     * @param string $cssId The CSS ID for the block, if any
     * @return string The rendered block
     */
-    private function fetchBlock($block, $module, $blockType = NULL, $titleLength = 20, $wrapStr = TRUE, $showToggle = TRUE, $hidden = 'default', $showTitle = TRUE, $cssClass = 'featurebox', $cssId = '')
+    private function fetchBlock($block, $module, $blockType = NULL,
+      $titleLength = 20, $wrapStr = TRUE, $showToggle = TRUE,
+      $hidden = 'default', $showTitle = TRUE, $cssClass = 'featurebox',
+      $cssId = '', $configData=NULL)
     {
+            $this->objBlock->configData = $configData;
+            
             // Get the title and wrap it
             $title = $this->objBlock->title;
             if ($wrapStr) {
@@ -367,7 +377,8 @@ class blocks extends object {
                     if ($title == FALSE) {
                         $showTitle = FALSE;
                     }
-                    return $objFeatureBox->show ($title, $this->objBlock->show (), $block, $hidden, $showToggle, $showTitle, $cssClass, $cssId);
+                    return $objFeatureBox->show($title, $this->objBlock->show (),
+                      $block, $hidden, $showToggle, $showTitle, $cssClass, $cssId);
                 case "tabbedbox" :
                     // Put it all inside a tabbed box
                     // $this->loadClass('tabbedbox', 'htmlelements');
