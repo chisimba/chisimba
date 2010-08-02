@@ -76,7 +76,7 @@ var curvyCornersVerbose = false;
 <?php
         $curvy = $this->getJavascriptFile('curvycorners-2.0.4/curvycorners.js', 'canvas');
         echo $curvy;
-        echo $objSkin->putJavaScript($mime, $headerParams, $bodyOnLoad);
+        echo $objSkin->putJavaScript($mime, $headerParams);
     }
 
     // Render the CSS for the current skin unless it is suppressed.
