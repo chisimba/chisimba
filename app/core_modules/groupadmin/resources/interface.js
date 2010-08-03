@@ -7,6 +7,7 @@ var win;
 var addwin;
 var editwin;
 var edituri;
+var nodeId;
 var myMask = new Ext.LoadMask(Ext.getBody(), {msg:"Please wait..."});
 
 //the main function 
@@ -23,11 +24,11 @@ Ext.onReady(function(){
 
 	groupsGrid.getSelectionModel().on('rowselect', function(sm, ri, record)
 	{ 
-		
+	   
        SiteAdminGrid.setVisible(true);
        selectedGroupId = record.data.id;
 	   gname = record.data.group_define_name;
-       loadGroup(record.data.id, record.data.group_define_name, record.data.title);
+	   loadGroup(record.data.id, record.data.group_define_name, record.data.title);
 	   editGroupButton.enable();
 	         
     });       
@@ -71,7 +72,7 @@ var proxyGroupStore = new Ext.data.HttpProxy({
 alphaGroupStore.setDefaultSort('group_define_name', 'asc');
     
 var proxyStore = new Ext.data.HttpProxy({
-            url: baseUri+'?module=groupadmin&action=json_getgroupusers&groupid='
+            url: baseUri+'?module=groupadmin&action=json_getgroupusers'			
         });
         
 
@@ -198,7 +199,6 @@ var editGroupButton = new Ext.Button({
 	disabled:true,
     iconCls: 'silk-pencil',
     handler: function (){
-		//alert(gname);
 		showEditForm(selectedGroupId, gname)	        
     }
 });
@@ -248,15 +248,13 @@ var toolBar = new Ext.Toolbar({
 			userStore.load({params:{start:0, limit:25}});
 		        
             }
-        }, '-',rmButton, 
-        '-', 
+        },rmButton, 
         {
         	iconCls: 'blist',
         	text: 'Sub Groups',
         	menu: scrollMenu
         }]
 });
-
 
   var sm2 = new Ext.grid.CheckboxSelectionModel({
         listeners: {
@@ -290,8 +288,8 @@ var groupsGrid = new Ext.grid.GridPanel({
     	cmargins: '10 10 10 10', // adjust top margin when collapsed
     	id: 'west-region-container',
     	layout: 'fit',
-		width:"45%",
-        height:"25%",
+		width:"40%",
+        height:"30%",
         store: alphaGroupStore,
         title:'Search Group',
         iconCls:'icon-grid',
@@ -343,6 +341,7 @@ var groupsGrid = new Ext.grid.GridPanel({
 });
 
 var SiteAdminGrid = new Ext.grid.GridPanel({
+	id: 'siteadmingrid',
 	title:'Site Administrators',
 	region: 'center',
 	split:true,
@@ -351,7 +350,7 @@ var SiteAdminGrid = new Ext.grid.GridPanel({
     margins: '10 10 10 10',	 
 	tbar: toolBar,        
     bbar:pageNavigation,    
-    width:"50%",
+    width:"62%",
     height:"30%",   
     store: abstractStore,    
     iconCls:'icon-grid',
@@ -385,7 +384,7 @@ var SiteAdminGrid = new Ext.grid.GridPanel({
             header: "Last Logged In",
             dataIndex: 'lastloggedin',
             width: 100,            
-             align: 'right',
+            align: 'right',
             sortable: true
    		 }]),
     
@@ -393,11 +392,28 @@ var SiteAdminGrid = new Ext.grid.GridPanel({
         forceFit:true,
         emptyText: 'No Record found - Try the sub groups'
 
+    	},
+     plugins:[new Ext.ux.grid.Search({
+				 iconCls:'zoom'
+				 ,minChars:2
+				 ,position:'top'
+				 ,autoFocus:true
+				 ,disableIndexes:['lastloggedin']
+				 ,minCharsTipText:'Type at least 2 characters'
+			})],
+			listeners:{ 
+    		'beforeload': function(thisstore, options){
+    			//thisstore.setBaseParam('letter', selectedTab);
+				
+    		},    		
+    		'load': function(){
+    				//loadGroups(tabPanel, tab);	
+    			}
     	}
 });
 
 var myBorderPanel = new Ext.Panel({
-    width: "80%",
+    width: "90%",
     height: 400,
     margins: '10 10 10 10',
     padding: '10 10 10 10',
@@ -575,10 +591,11 @@ function showEditForm(groupid, groupname)
 //this function will be called when 
 //the group is selected in the groups grid
 function loadGroup(nodeId, groupname, grouptitle){
-	
 	//load the subgroups
+	var store = Ext.getCmp('siteadmingrid').getStore();
+	store.baseParams['groupid'] = nodeId;
+
 	subGroupStore.load({params:{start:0, limit:25, groupid: nodeId}});	
-	
 	SiteAdminGrid.setTitle(groupname+" - " +grouptitle);
 	SiteAdminGrid.render('groupusers');
 	proxyStore.setUrl(baseUri+'?module=groupadmin&action=json_getgroupusers&groupid='+nodeId);
