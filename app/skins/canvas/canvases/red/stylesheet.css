@@ -35,12 +35,9 @@ div#header div#search {
     margin-left: 650px;
 }
 
-#threecolumn div#left {
+#Canvas_Content_Body_Region3 {
 	float:right;
 }
-#threecolumn div#right {
-	float:right;
-}
-#twocolumn div#left {
+#Canvas_Content_Body_Region1 {
 	float:right;
 }

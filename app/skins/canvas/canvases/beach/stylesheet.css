@@ -13,14 +13,11 @@ html, body {
     background-attachment: fixed;
 }
 
-#threecolumn div#left {
-    float:left;
+#Canvas_Content_Body_Region3 {
+	float:left;
 }
-#threecolumn div#right {
-    float:left;
-}
-#twocolumn div#left {
-    float:left;
+#Canvas_Content_Body_Region1 {
+	float:left;
 }
 
 div#header div#search {
