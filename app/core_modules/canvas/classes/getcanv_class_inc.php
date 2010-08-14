@@ -347,13 +347,34 @@ class getcanv extends object
               . $canvas ."/" . $jsonObj->preview->thumb . "' />";
             $by = $this->objLanguage->languageText("word_by");
             $author = $by .": " . $jsonObj->author->authorname;
-            $downloadLink = $jsonObj->downloadfrom;
+            $downloadLink = $this->getDownLink($jsonObj->downloadfrom);
             // @TODO add the download link
-            return $divTag . $canvasName . $anchor . $imageLink . $anchorClose . $author . $divClose;
+            return $divTag . $canvasName . $anchor . $imageLink . $anchorClose . $author . $downloadLink . $divClose;
         } catch(Exception $e) {
             throw customException($e->message());
             exit();
         }
+    }
+
+    /**
+    *
+    * Create a download link from the contained URL
+    *
+    * @param string $ln The URL to download from
+    * @return string The formatted link
+    * @access private
+    *
+    */
+    private function getDownLink($ln)
+    {
+        if ($ln !== "_NULL") {
+            $downloadLinkImg = $this->objLanguage->languageText("mod_canvas_getit", "canvas", "Get it");
+            return ' <a href="' . $ln . '">' . $downloadLinkImg . '</a>';
+        } else {
+            return NULL;
+        }
+
+
     }
 
     /**
@@ -382,9 +403,9 @@ class getcanv extends object
               . $canvas ."/" . $jsonObj->preview->thumb . "' />";
             $by = $this->objLanguage->languageText("word_by");
             $author = $by .": " . $jsonObj->author->authorname;
-            $downloadLink = $jsonObj->downloadfrom;
+            $downloadLink = $this->getDownLink($jsonObj->downloadfrom);
             // @TODO add the download link
-            return $divTag . $canvasName . $anchor . $imageLink . $anchorClose . $author . $divClose;
+            return $divTag . $canvasName . $anchor . $imageLink . $anchorClose . $author . $downloadLink . $divClose;
         } catch(Exception $e) {
             throw customException($e->message());
             exit();
