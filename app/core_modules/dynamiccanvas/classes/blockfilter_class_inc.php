@@ -141,6 +141,7 @@ class blockfilter extends object
                 $jsonTxt=str_replace('<br />', "\n", $jsonTxt);
                 $jsonTxt=str_replace('&quot;', '"', $jsonTxt);
                 $jsonTxt = trim($jsonTxt);
+                //die($jsonTxt);
                 $this->objJson = json_decode($jsonTxt);
                 // Verify that we must display as a block
                 if (isset($this->objJson->display)) {
@@ -174,7 +175,7 @@ class blockfilter extends object
                       . '<br />' . $item . '</div></div>';
                 }
                 $replacement = $blockCode;
-                $tmp = "<h1>" . $counter . $this->objJson->block . "||" . $this->objJson->module . "</h1>";
+                //$tmp = "<h1>" . $counter . $this->objJson->block . "||" . $this->objJson->module . "</h1>";
                 $pageContent = str_replace($item, $replacement, $pageContent);
                 $counter++;
             }
@@ -246,12 +247,23 @@ class blockfilter extends object
         } else {
             $cssId = '';
         }
+        // Set a custom a configData value if required.
+        if (isset($this->objJson->configData)) {
+            $configData = $this->objJson->configData;
+        } else {
+            $configData = NULL;
+        }
+
+        $this->objBlockFilter->configData = $configData;
+
         $blockContent = $this->objBlockFilter->showBlock(
           $blockName, $owningModule, $blockType,
           $titleLength, $wrapStr, $showToggle,
-          $hidden, $showTitle, $cssClass, $cssId);
+          $hidden, $showTitle, $cssClass, $cssId,
+          $configData);
         return $blockContent;
     }
+
 
     /**
     *
