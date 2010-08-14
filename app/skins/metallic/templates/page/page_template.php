@@ -7,6 +7,8 @@
  * it can serve as the basis for building other skins.
  *
  */
+
+
 // Add navigation back to top of page.
 define("PAGETOP", '<a name="pagetop"></a>');
 define("GOTOTOP", '<a href="#pagetop">Top</a>'); // @todo change this to an icon
@@ -18,10 +20,10 @@ $validCanvases = array_map('basename', glob('skins/metallic/canvases/*', GLOB_ON
 $skinName = "metallic";
 
 // Settings that are needed so that canvase-aware code can function.
-$this->setSession('skinName', 'metallic');
-$_SESSION['skinName'] = 'metallic';
+$this->setSession('skinName', $skinName);
+$_SESSION['skinName'] = $skinName;
 $_SESSION['isCanvas'] = TRUE;
-$_SESSION['sourceSkin'] = 'metallic';
+$_SESSION['sourceSkin'] = $skinName;
 $_SESSION['layout'] = '_DEFAULT';
 
 // Instantiate the canvas object.
@@ -29,7 +31,7 @@ $objCanvas = $this->getObject('canvaschooser', 'canvas');
 
 
 // Set the skin base for the default.
-$skinBase='skins/metallic/canvases/';
+$skinBase='skins/' . $skinName . '/canvases/';
 if (isset ($canvas)) {
     $_SESSION['canvasType'] = 'programmatic';
     $_SESSION['canvas'] = $canvas;
@@ -76,7 +78,7 @@ var curvyCornersVerbose = false;
     // Render the CSS for the current skin unless it is suppressed.
     if (!isset($pageSuppressSkin)) {
        echo '
-       <link rel="stylesheet" type="text/css" href="skins/metallic/stylesheet.css">
+       <link rel="stylesheet" type="text/css" href="skins/' . $skinName . '/stylesheet.css">
        <link rel="stylesheet" type="text/css" href="' . $canvas . '/stylesheet.css">
         ';
     }
@@ -141,7 +143,7 @@ if (!isset($pageSuppressBanner)) {
 
 
 
-// Render the laout content as supplied from the layout template
+// Render the layout content as supplied from the layout template
 echo "<div class='Canvas_Content_Body_Before'></div>\n"
    . "<div id='Canvas_Content_Body'>\n"
    . $this->getLayoutContent()
@@ -177,11 +179,11 @@ if (!isset($suppressFooter)) {
     }
     echo "</div>\n<div class='Canvas_Content_Footer_After'></div>";
 }
+
 // Render the container's closing div if the container is not suppressed
 if (!isset($pageSuppressContainer)) {
     echo "</div></div><div class='Canvas_AfterContainer'></div>\n</div>\n</div>";
 }
-
 
 
 // Render any messages available.
