@@ -15,11 +15,13 @@ define("GOTOTOP", '<a href="#pagetop">Top</a>'); // @todo change this to an icon
 // Initialise some variables
 $prefCanvas=FALSE;
 
-// Define the valid canvases for this skin as an array.
-$validCanvases = array_map('basename', glob('skins/canvas/canvases/*', GLOB_ONLYDIR));
-
 // Define the name of this skin.
 $skinName = "canvas";
+
+// Define the valid canvases for this skin as an array.
+$validCanvases = array_map('basename', glob('skins/' . $skinName . '/canvases/*', GLOB_ONLYDIR));
+
+
 
 // Settings that are needed so that canvase-aware code can function.
 $this->setSession('skinName', 'canvas');
