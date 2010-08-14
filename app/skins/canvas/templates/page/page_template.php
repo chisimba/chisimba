@@ -3,7 +3,8 @@
  * CANVAS
  *
  * This is the page template in the Canvas skin, an attempt to develop a
- * skin - canvas approach to Chisimba.
+ * skin - canvas approach to Chisimba. You can consider this skin a proof
+ * of concept (POC) for the Chisimba canvas.
  * 
  */
 

@@ -1,0 +1,14 @@
+{
+    "name": "maths",
+    "description": "A canvas for the maths portal",
+    "downloadfrom":"_NULL",
+    "preview": {
+        "thumb": "maths_th.png",
+        "fullview":"maths.png"
+    },
+    "author": {
+        "authorname":"Derek Keats",
+        "email":"derek@dkeats.com",
+        "url":"http://www.dkeats.com"
+    }
+}

@@ -1,7 +1,7 @@
 {
     "name": "_default",
     "description": "A reproduceable canvas that simply implements the underlying skin. It should be present in a canvass to permit going back to the default skin, as well as to provide image representation of the default skin.",
-    "downloadfrom":"http://www.chisimba.com/canvases/_default.zip",
+    "downloadfrom":"_NULL",
     "preview": {
         "thumb": "_default_th.png",
         "fullview":"_default.png"
