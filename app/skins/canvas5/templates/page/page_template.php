@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
 <?php
 /*
  * CANVAS
@@ -16,13 +14,16 @@ define("GOTOTOP", '<a href="#pagetop">Top</a>'); // @todo change this to an icon
 // Define the valid canvases for this skin as an array.
 $validCanvases = array("_default", "aqua", "beach", "chisimba", "experim", "greyfloral", "modcanvas", "red", "blue", "yellow");
 
+// Initialise some variables
+$prefCanvas=FALSE;
+
 // Define the name of this skin.
-$skinName = "canvas";
+$skinName = "canvas5";
 
 // Settings that are needed so that canvase-aware code can function
-$this->setSession('skinName', 'canvas');
+$this->setSession('skinName', $skinName);
 $this->setSession('isCanvas', TRUE);
-$this->setSession('sourceSkin', 'canvas');
+$this->setSession('sourceSkin', $skinName);
 $this->setSession('layout', '_DEFAULT');
 
 // Instantiate the canvas object.
@@ -30,7 +31,7 @@ $objCanvas = $this->getObject('canvaschooser', 'canvas');
 
 
 // Set the skin base for the default.
-$skinBase='skins/canvas/canvases/';
+$skinBase='skins/' . $skinName . '/canvases/';
 if (isset ($canvas)) {
     $this->setSession('canvasType', 'programmatic');
     $this->setSession('canvas', $canvas);
@@ -41,8 +42,6 @@ if (isset ($canvas)) {
     // Get what canvas we should be showing
     $canvas = $objCanvas->getCanvas($validCanvases, $skinBase);
 }
-
-
 
 // Get Header that goes into every skin.
 require($objConfig->getsiteRootPath().'skins/_common/templates/skinpageheader2-0.php');
@@ -181,12 +180,7 @@ if (!isset($pageSuppressContainer)) {
 // Render any messages available.
 $this->putMessages();
 
-// Close up the body and HTML and finish up.
 ?>
-
-
-
-
 <script>
 var canvas = document.getElementsByTagName('canvas')[0],
     ctx = null,
