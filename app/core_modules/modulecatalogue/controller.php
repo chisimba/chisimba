@@ -446,7 +446,7 @@ class modulecatalogue extends controller {
                     $modname = $this->getParam ( 'mod' );
                     $ins = $this->getPatchObject ( $modname );
                     if (method_exists ( $ins, 'preinstall' )) {
-                        $ins->preinstall ();
+                        $ins->preinstall ($patchver);
                     }
                     if (($this->output = $this->objPatch->applyUpdates ( $modname )) === FALSE) {
                         $this->setVar ( 'error', str_replace ( '[MODULE]', $modname, $this->objLanguage->languageText ( 'mod_modulecatalogue_failed', 'modulecatalogue' ) ) );
@@ -456,7 +456,7 @@ class modulecatalogue extends controller {
                     // postinstall
                     $ins = $this->getPatchObject ( $modname );
                     if (method_exists ( $ins, 'postinstall' )) {
-                        $ins->postinstall ();
+                        $ins->postinstall ($patchver);
                     }
 
                     $this->setVar ( 'patchArray', $this->objPatch->checkModules () );
