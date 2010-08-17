@@ -287,27 +287,19 @@ class manageGroups extends object
         //get a list of groups this user belongs to
         $userGroups =  $this->_objDBContext->getArray($sql);        
       
-        //get the list of contexts
-        $arrcontextcodeRows = $this->_objDBContext->getArray('SELECT contextcode FROM tbl_context WHERE status != \'Unpublished\'');
-         
         $arrcontextcodes = array();
         
         //check if this user is part of this context
-        foreach($arrcontextcodeRows as $context)
+        foreach($userGroups as $ug)
         {
-        	foreach($userGroups as $ug)
-        	{
-        		$gn = $ug['group_define_name'];        		
+        	$gn = $ug['group_define_name'];        		
+        	//get everything before the ^ character
+        	$groupname = substr($gn,0,strpos($gn, '^'));
         		
-        		//get everything before the ^ character
-        		$groupname = substr($gn,0,strpos($gn, '^'));
-        		
-        		if($groupname == $context['contextcode']){
-        			$arrcontextcodes[] = $context['contextcode'];        		 
-        			break;
-        		}
+        	if($this->isContext($groupname)){
+        		$arrcontextcodes[] = $groupname;        		 
         	}
-        }
+        	}
         return $arrcontextcodes;
        
     }
@@ -329,32 +321,42 @@ class manageGroups extends object
         
         //get a list of groups this user belongs to
         $userGroups =  $this->_objDBContext->getArray($sql);        
-      
-        //get the list of contexts
-        $arrcontextcodeRows = $this->_objDBContext->getArray('SELECT contextcode FROM tbl_context WHERE status != \'Unpublished\'');
-        
+                     
         $arrcontextcodes = array();
         
         //check if this user is part of this context
-        foreach($arrcontextcodeRows as $context)
-        {
-        	foreach($userGroups as $ug)
-        	{
-        		$gn = $ug['group_define_name'];        		
+           	foreach($userGroups as $ug)
+            {
+                $gn = $ug['group_define_name'];        		
         		
-        		//get everything before the ^ character
-        		$groupname = substr($gn,0,strpos($gn, '^'));
+                //get everything before the ^ character
+                $groupname = substr($gn,0,strpos($gn, '^'));
         		
-        		if($groupname == $context['contextcode']){
-        			$arrcontextcodes[] = $context['contextcode'];
-        			break;
-        		}
-        	}
-        }
-        
+                if($this->isContext($groupname)){
+                    $arrcontextcodes[] = $groupname;
+                }
+             }        
         return $arrcontextcodes;
        
     }
+
+    /**
+    * Method to determine whether or not the group is a context.
+    * @param  string Groupname
+    * @return array  Boolean true if the .
+    */
+    function isContext($groupname){
+        $groupname == null ? $gname = 'Site Admin' : $gname = $groupname;
+        $sql = 'SELECT contextcode FROM tbl_context 
+                WHERE status != \'Unpublished\' and 
+                contextcode = \''.$gname.'\'';   
+        $arr = $this->_objDBContext->getArray($sql);
+        if(!empty($arr)){
+           return true;
+        }		
+        return false;
+    }
+	
 
     /**
     * Method to return all the contexts the user is a member of.
@@ -384,21 +386,16 @@ class manageGroups extends object
         if($this->_objUser->isAdmin()){
             return $arrcontextcodeRows;
         }
-        //$arrcontextcodes = array();
-        $arrContext = array();
-        // Now check for membership
-        foreach( $arrcontextcodeRows as $row ) {
-            // Corrosponding groupId
-            $groupId = $this->_objGroupAdmin->getLeafId(array($row['contextcode']));
-            // Check membership
-            $isMember = $this->_objGroupAdmin->isSubGroupMember($userId,$groupId);
-            // if member add to list
-            if( $isMember ) {
-                $arrContext[] = $row;
-            }
+        
+        $arrcontextcodes = array();
+        $arrContext = $this->usercontextcodes($userId);
+        foreach( $arrContext as $row ) {
+            $arrContext = array();
+            $arrContext['contextcode'] = $row;
+            $arrcontextcodes[] = $arrContext;
         }
         // Users context list
-        return $arrContext;
+        return $arrcontextcodes;
     }
 
    /**
