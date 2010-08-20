@@ -94,8 +94,18 @@ class dbcontextblocks extends dbTable {
 
                 // At the moment, only blocks are catered for, not yet dynamic blocks
                 if ($block [0] == 'block') {
-                    $blockStr = $objBlocks->showBlock ( $block [1], $block [2], NULL, 20, TRUE, FALSE );
-                    $str .= '<div id="' . $result ['id'] . '" class="block">' . $blockStr . '</div>';
+                    if ($block[2] == 'textblock') {
+                        $objTextBlock = $this->getObject('textblockbase', 'textblock');
+                        $objDBTextBlock = $this->getObject('dbtextblock', 'textblock');
+                        $rec = $objDBTextBlock->getAll("WHERE id = '{$block[1]}' OR blockid = '{$block[1]}'");
+                        $rec = current($rec);
+                        $objTextBlock->setData($rec['id']);
+                        $str .= $objTextBlock->show();
+ 
+                    } else {
+                        $blockStr = $objBlocks->showBlock ( $block [1], $block [2], NULL, 20, TRUE, FALSE );
+                        $str .= '<div id="' . $result ['id'] . '" class="block">' . $blockStr . '</div>';
+                    }
                 } else if ($block [0] == 'dynamicblock') {
                     $block = explode ( '|', $result ['block'] );
                     $blockStr = $objDynamicBlocks->showBlock ( $block [1] );
