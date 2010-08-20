@@ -134,6 +134,7 @@ class dbmoduleblocks extends dbTable
         }
         
         $filterStr = '';
+        $filter[] = "moduleid != 'textblock'";
         
         if (count($filter) > 0) {
             
