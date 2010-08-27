@@ -277,8 +277,8 @@ class displaycontext extends object {
         $courseInfoArray['title'] = $context ['title'];
         $lecturers = $this->objUserContext->getContextLecturers ( $context ['contextcode'] );
         if (count ( $lecturers ) > 0) {
-            $str = "";
-            $courseInfoArray['lecturertitle'] .= ucwords ( $this->objLanguage->code2Txt ( 'word_lecturers', 'system', NULL, '[-authors-]' ) ) ;
+            $str = "";            
+            $courseInfoArray['lecturertitle'] = ucwords ( $this->objLanguage->code2Txt ( 'word_lecturers', 'system', NULL, '[-authors-]' ) ) ;
             $divider = '';
 
             foreach ( $lecturers as $lecturer ) {
