@@ -1,0 +1,52 @@
+/*
+    These are eLearning enhancements for the the Metallic skin for
+    Chisimba. Please note that some eLearning enhancements are also
+    contained in that base skin, this is just for additional enhancements,
+    such as button styles, that are not in the base skin.
+
+    It uses the skin engine version 2 for Chisimba.
+
+    Author: Derek Keats
+    License: GPL V2
+
+*/
+
+
+@import "../metallic/stylesheet.css";
+
+
+/* eLearning button styles */
+
+ul .glossytabs {
+    color: #4a5ca8;
+}
+
+.glossytabs li{
+    margin-left: 4px;
+    padding-left: 10px;
+}
+
+.glossytabs li a{
+    color: #4a5ca8;
+    font-size: 110%;
+    font-weight: bold;
+}
+
+.glossytabs li a strong {
+    background: transparent url(images/nav-bg.gif) repeat-x scroll 0;
+    float: left;
+    display: block;
+    padding: 0px 16px 0px 16px; /*Padding of menu items*/
+    font-weight: bold;
+}
+
+.glossytabs li.current a strong {
+    color: #000;
+    background: transparent url(images/current-bg.gif) repeat-x scroll 0;
+    font-weight: bold;
+}
+
+.glossytabs li a:hover strong {
+    background: transparent url(images/hover-bg.gif) repeat-x scroll 0;
+    font-weight: bold;
+}
