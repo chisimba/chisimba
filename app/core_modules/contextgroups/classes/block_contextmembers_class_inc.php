@@ -81,7 +81,9 @@ class block_contextmembers extends object
 		$objExtJS->show();
 		$this->setJSVars();
 		$ext =$this->getJavaScriptFile('lecturer.js', 'contextgroups');		
-		$ext .=$this->getJavaScriptFile('student.js', 'contextgroups');		
+		$ext .=$this->getJavaScriptFile('Ext.ux.grid.Search.js', 'groupadmin');	
+		$ext .=$this->getJavaScriptFile('users.js', 'contextgroups');	
+		$ext .=$this->getJavaScriptFile('student.js', 'contextgroups');
 		$ext .=$this->getJavaScriptFile('members.js', 'contextgroups');		
 		
 		$this->appendArrayVar('headerParams', $ext);

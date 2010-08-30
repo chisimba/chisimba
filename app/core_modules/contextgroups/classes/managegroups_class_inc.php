@@ -433,7 +433,7 @@ class manageGroups extends object
         	return array();
         }
         return  $arrcontextcodes;
-        var_dump($recs);die;
+        //var_dump($recs);die;
         // Get all contextcodes      
         $arrcontextcodeRows = $this->_objDBContext->getArray("SELECT contextcode from tbl_context");
 

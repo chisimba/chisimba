@@ -1,3 +1,7 @@
+var myMask = new Ext.LoadMask(Ext.getBody(), {msg:"Please wait..."});
+var pageSize = 25;
+var userOffset = 0;
+
 Ext.onReady(function(){
 
     tabs.render();

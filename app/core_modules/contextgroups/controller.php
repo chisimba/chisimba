@@ -83,6 +83,7 @@ class contextgroups extends controller
         $this->objUser = $this->getObject('user', 'security');
         $this->userId = $this->objUser->userId();
         $this->objLanguage = $this->getObject('language', 'language');
+        $this->studentGroupId = $this->objGroups->getLeafId(array($this->objContext->getContextCode(), 'Students'));
     }
 
     /**
@@ -124,12 +125,23 @@ class contextgroups extends controller
                 break;
 
              case 'json_getstudents':
-                $lecturers = $this->objManageGroups->contextUsers('Students', $this->contextCode, array( 'tbl_users.userId', 'firstName', 'surname'));
-                //var_dump($lecturers);
-                echo json_encode(array('totalCount' => count($lecturers), 'lecturers' =>  $lecturers));
+             	if($this->getParam('start') != ""){
+             		echo $this->objGroupsOps->getJsonGroupUsers($this->studentGroupId, $this->getParam('start'), $this->getParam('limit'));
+             	}else{
+             		echo $this->objGroupsOps->getJsonGroupUsers($this->studentGroupId);
+             	}             	
                 exit(0);
                 break;
-
+                
+             case 'json_removestudents':             	
+             	echo $this->objGroupsOps->jsonRemoveUsers($this->studentGroupId, $this->getParam('ids'));
+            	exit(0);
+            	break;
+            	
+             case 'json_addstudents':
+            	echo $this->objGroupsOps->jsonAddUsers($this->studentGroupId, $this->getParam('ids'));
+            	exit(0);
+            	break;
         }
     }
 
@@ -159,7 +171,7 @@ class contextgroups extends controller
     private function groupsHome()
     {
         // Generate an array of users in the context, and send it to page template
-        $this->prepareContextUsersArray();
+        //$this->prepareContextUsersArray();
 
         // Default Values for Search
         $searchFor = $this->getSession('searchfor', '');
