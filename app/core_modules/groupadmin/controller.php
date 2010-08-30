@@ -1,12 +1,13 @@
 <?php
+
 // security check - must be included in all scripts
-if (! /**
- * Description for $GLOBALS
- * @global unknown $GLOBALS['kewl_entry_point_run']
- * @name   $kewl_entry_point_run
- */
-$GLOBALS ['kewl_entry_point_run']) {
-    die ( "You cannot view this page directly" );
+if (!/**
+         * Description for $GLOBALS
+         * @global unknown $GLOBALS['kewl_entry_point_run']
+         * @name   $kewl_entry_point_run
+         */
+        $GLOBALS ['kewl_entry_point_run']) {
+    die("You cannot view this page directly");
 }
 /**
  *
@@ -18,6 +19,7 @@ $GLOBALS ['kewl_entry_point_run']) {
  * @author     Jonathan Abrahams
  * @filesource
  */
+
 /**
  * Class to manage groups.
  *
@@ -27,6 +29,7 @@ $GLOBALS ['kewl_entry_point_run']) {
  * @author     Jonathan Abrahams
  */
 class groupadmin extends controller {
+
     /**
      *
      * @var groupAdminModel an object reference.
@@ -70,17 +73,17 @@ class groupadmin extends controller {
      * @return nothing
      */
     public function init() {
-        $this->objUser = $this->getObject ( 'user', 'security' );
-        $this->objLanguage = $this->getObject ( 'language', 'language' );
+        $this->objUser = $this->getObject('user', 'security');
+        $this->objLanguage = $this->getObject('language', 'language');
         // Get the activity logger class
-        $this->objLog = $this->newObject ( 'logactivity', 'logger' );
+        $this->objLog = $this->newObject('logactivity', 'logger');
         // Log this module call
-        $this->objLog->log ();
-        $this->objOps = $this->getObject ( 'groupops' );
-		$this->objGroups = $this->getObject('groupadminmodel');
-		$this->jQuery =$this->newObject('jquery', 'jquery');
-		$this->jQuery->loadLiveQueryPlugin();
-	}
+        $this->objLog->log();
+        $this->objOps = $this->getObject('groupops');
+        $this->objGroups = $this->getObject('groupadminmodel');
+        $this->jQuery = $this->newObject('jquery', 'jquery');
+        $this->jQuery->loadLiveQueryPlugin();
+    }
 
     /**
      * Method to handle the messages.
@@ -91,126 +94,123 @@ class groupadmin extends controller {
      */
     function dispatch($action) {
         // check that the current user has access to do this stuff.
-        $hasAccess = $this->objUser->isContextLecturer ();
-        $hasAccess |= $this->objUser->isAdmin ();
-        if (! $hasAccess) {
+        $hasAccess = $this->objUser->isContextLecturer();
+        $hasAccess |= $this->objUser->isAdmin();
+        if (!$hasAccess) {
             // This module is very sensitive, so get the intruder out asap, with no way to get back here!
-            throw new customException ( $this->objLanguage->languageText ( "mod_groupadmin_insufficientperms", "groupadmin" ) );
+            throw new customException($this->objLanguage->languageText("mod_groupadmin_insufficientperms", "groupadmin"));
         }
         switch ($action) {
             default :
-				//$this->setLayoutTemplate('main_layout_tpl.php');
-				return "main_tpl.php";
+                //$this->setLayoutTemplate('main_layout_tpl.php');
+                return "main_tpl.php";
                 // get a list of all the groups
-                $groups = $this->objOps->getAllGroups ();
+                $groups = $this->objOps->getAllGroups();
                 // formulate the groups list into something pretty
-                $grps = $this->objOps->layoutGroups ( $groups );
-                $this->setVarByRef ( 'grps', $grps );
+                $grps = $this->objOps->layoutGroups($groups);
+                $this->setVarByRef('grps', $grps);
 
                 return 'viewgrps_tpl.php';
 
 
-			case 'searchusers':
-				$items = $this->objOps->getSearchableUsers();
+            case 'searchusers':
+                $items = $this->objOps->getSearchableUsers();
 
-				$q = $this->getParam('q');
-				foreach ($items as $key=>$value) {
-					if (strpos(strtolower($key), $q) !== false) {
-						echo "$key|$value\n";
+                $q = $this->getParam('q');
+                foreach ($items as $key => $value) {
+                    if (strpos(strtolower($key), $q) !== false) {
+                        echo "$key|$value\n";
+                    }
+                }
+                exit(0);
 
-					}
-				}
-				exit(0);
-				
-			case 'ajaxgetmultipleusers':
-				echo $this->objOps->getUserList($this->getParam('groupid'));
-				exit(0);
+            case 'ajaxgetmultipleusers':
+                echo $this->objOps->getUserList($this->getParam('groupid'));
+                exit(0);
 
-			case 'ajaxadduser':
-				$userId = $this->objUser->getUserId($this->getParam('username'));
-				//echo $userId;
-				// get the permissions id for this user...
-				$permid = $this->objOps->getUserByUserId($userId);
-				$permid = $permid['perm_user_id'];
-				$groupId = $this->getParam('groupid');
-				$res = $this->objGroups->addGroupUser($groupId, $permid);
+            case 'ajaxadduser':
+                $userId = $this->objUser->getUserId($this->getParam('username'));
+                //echo $userId;
+                // get the permissions id for this user...
+                $permid = $this->objOps->getUserByUserId($userId);
+                $permid = $permid['perm_user_id'];
+                $groupId = $this->getParam('groupid');
+                $res = $this->objGroups->addGroupUser($groupId, $permid);
 
-				exit(0);
+                exit(0);
 
-			case 'ajaxremoveuser':
-				$userId = $this->getParam('userid');
-				$permid = $this->objOps->getUserByUserId($userId);
-				$permid = $permid['perm_user_id'];
-				$groupId = $this->getParam('groupid');
-				$res = $this->objGroups->deleteGroupUser($groupId, $permid);
-				var_dump($$res);
-				exit(0);
-				break;
-				
-			
+            case 'ajaxremoveuser':
+                $userId = $this->getParam('userid');
+                $permid = $this->objOps->getUserByUserId($userId);
+                $permid = $permid['perm_user_id'];
+                $groupId = $this->getParam('groupid');
+                $res = $this->objGroups->deleteGroupUser($groupId, $permid);
+                exit(0);
+                break;
 
-			case 'ajaxgetgroupname':
-				//echo 'here is the content for group..'.$this->getParam('groupid');
-				$details = $this->objOps->getGroupInfo($this->getParam('groupid'));
-				echo '<span class="subdued">Add to users to </span>'.$details[0]['group_define_name'];
-				exit(0);
 
-			case 'ajaxgetgroupcontent':
-				//echo 'here is the content for group..'.$this->getParam('groupid');
-				$groupId = $this->getParam('groupid');
-				$subGroups = $this->objGroups->getSubgroups($groupId);
-				
-				if($subGroups)
-				{
-					echo $this->objOps->doSubGroups($groupId, $subGroups);
-				} else {
-					echo $this->objOps->loadGroupContent($groupId);
-				}
-				//echo $this->objOps->loadGroupContent($groupId);
-				exit(0);
-				
-			case 'contextgroups':
-				$this->setLayoutTemplate('main_layout_tpl.php');
-				return 'contextgroups_tpl.php';
+
+            case 'ajaxgetgroupname':
+                //echo 'here is the content for group..'.$this->getParam('groupid');
+                $details = $this->objOps->getGroupInfo($this->getParam('groupid'));
+                echo '<span class="subdued">Add to users to </span>' . $details[0]['group_define_name'];
+                exit(0);
+
+            case 'ajaxgetgroupcontent':
+                //echo 'here is the content for group..'.$this->getParam('groupid');
+                $groupId = $this->getParam('groupid');
+                $subGroups = $this->objGroups->getSubgroups($groupId);
+
+                if ($subGroups) {
+                    echo $this->objOps->doSubGroups($groupId, $subGroups);
+                } else {
+                    echo $this->objOps->loadGroupContent($groupId);
+                }
+                //echo $this->objOps->loadGroupContent($groupId);
+                exit(0);
+
+            case 'contextgroups':
+                $this->setLayoutTemplate('main_layout_tpl.php');
+                return 'contextgroups_tpl.php';
 
             case 'editgrp' :
                 // get the group id
-                $grId = $this->getParam ( 'id', NULL );
-                $adduser = $this->getParam ( 'adduser', NULL );
+                $grId = $this->getParam('id', NULL);
+                $adduser = $this->getParam('adduser', NULL);
                 // get the group info
-                $grpInfo = $this->objOps->getGroupInfo ( $grId );
+                $grpInfo = $this->objOps->getGroupInfo($grId);
 
-                if( $this->getParam( 'button' ) == 'save' ) {
-                    $rightData = $this->getParam( 'rightList' );
+                if ($this->getParam('button') == 'save') {
+                    $rightData = $this->getParam('rightList');
                     $this->objOps->addUserToGroup($rightData, $grId);
-                } elseif ( $this->getParam( 'button' ) == 'cancel' ) {
+                } elseif ($this->getParam('button') == 'cancel') {
                     $this->nextAction(NULL);
                 }
                 // get the users IN the group already
-                $usersin = $this->objOps->getUsersInGroup ( $grId );
+                $usersin = $this->objOps->getUsersInGroup($grId);
                 // format them nicely
-                if (! empty ( $usersin )) {
-                    $usersin = $this->objOps->layoutUsers ( $usersin, $grId );
+                if (!empty($usersin)) {
+                    $usersin = $this->objOps->layoutUsers($usersin, $grId);
                 }
 
                 if ($adduser !== NULL) {
                     // get all the POTENTIAL users that are not in ANY Group
-                    $nongrpu = $this->objOps->getNonGrpUsers ();
+                    $nongrpu = $this->objOps->getNonGrpUsers();
                     // get all the users that are in groups, but not this one (yet)
-                    $permusers = $this->objOps->getAllPermUsers ();
+                    $permusers = $this->objOps->getAllPermUsers();
                     // clobber the nongrpusers and all other users together as the potentials for this grp
-                    $potusers = array_merge ( $nongrpu, $permusers );
-                    $this->setVarByRef ( 'potusers', $potusers );
-                    $this->setVarByRef ( 'adduser', TRUE );
+                    $potusers = array_merge($nongrpu, $permusers);
+                    $this->setVarByRef('potusers', $potusers);
+                    $this->setVarByRef('adduser', TRUE);
                 }
 
-                $this->setVarByRef ( 'groupinfo', $grpInfo );
-                $this->setVarByRef ( 'usersin', $usersin );
+                $this->setVarByRef('groupinfo', $grpInfo);
+                $this->setVarByRef('usersin', $usersin);
 
                 return 'usergroup_tpl.php';
 
             case 'addusertogrp' :
-                $grpId = $this->getParam ( 'grpid' );
+                $grpId = $this->getParam('grpid');
 
             case 'removeuser' :
                 $grid = $this->getParam('grid');
@@ -219,68 +219,66 @@ class groupadmin extends controller {
                 $this->objOps->removeUser($grid, $id);
                 $this->nextAction('editgrp', array('id' => $grid));
                 break;
-			///////////////////
-			/// JSON CALLS ////
-			///////////////////
+            ///////////////////
+            /// JSON CALLS ////
+            ///////////////////
             case 'json_getallgroups':
-            	echo $this->objOps->getJsonAllGroups();
-            	exit(0);
-            	break;
-            	
-            case 'json_getgroupusers':
-            	echo $this->objOps->getJsonGroupUsers($this->getParam('groupid'), $this->getParam('start'), $this->getParam('limit'));
-            	exit(0);
-            	break;
-            	
-            case 'json_getsubgroups':
-            	echo $this->objOps->getJsonSubGroups($this->getParam('groupid'));
-            	exit(0);
-            	break;
-            	
-            case 'json_removeusers':
-            	echo $this->objOps->jsonRemoveUsers($this->getParam('groupid'), $this->getParam('ids'));
-            	exit(0);
-            	break;
-            	
-            case 'json_allusers': 
-			   	echo $this->objOps->jsonGetAllUsers($this->getParam('groupid'), $this->getParam('start'), $this->getParam('limit'));            	      
-            	exit(0);
-            	break;
-            	
-            case 'json_addusers':
-            	echo $this->objOps->jsonAddUsers($this->getParam('groupid'), $this->getParam('ids'));
-            	exit(0);
-            	break; 
-			case 'json_getgroupsbysearch':
-				//error_log(var_export($_REQUEST, true));
-				echo $this->objOps->jsonGetGroups($this->getParam('start'), $this->getParam('limit'));
-    			exit(0);
-				break;
-				
-			case 'checkgroup':	
-				//error_log(var_export($_REQUEST, true));			
-				echo $this->objOps->jsonCheckGroupAvailable($this->getParam('groupname'));
-				exit(0);
-				break;
-				
-			case 'json_addgroup':
-				//error_log(var_export($_REQUEST, true));
-				echo $this->objOps->jsonAddGroup($this->getParam('groupname'));
-				exit(0);
-				break;
+                echo $this->objOps->getJsonAllGroups();
+                exit(0);
+                break;
 
-			case 'json_editgroup':
-				//error_log(var_export($_REQUEST, true));
-				echo $this->objOps->jsonEditGroup($this->getParam('id'), $this->getParam('groupname'), $this->getParam('oldgroupname'));
-				exit(0);
-				break;
-			
-			case 'json_getgroup':
-				//error_log(var_export($_REQUEST, true));
-				echo $this->objOps->jsonGetGroup($this->getParam('id'));
-				exit(0);
-				break;
+            case 'json_getgroupusers':
+                echo $this->objOps->getJsonGroupUsers($this->getParam('groupid'), $this->getParam('start'), $this->getParam('limit'));
+                exit(0);
+                break;
+
+            case 'json_getsubgroups':
+                echo $this->objOps->getJsonSubGroups($this->getParam('groupid'));
+                exit(0);
+                break;
+
+            case 'json_removeusers':
+                echo $this->objOps->jsonRemoveUsers($this->getParam('groupid'), $this->getParam('ids'));
+                exit(0);
+                break;
+
+            case 'json_allusers':
+                echo $this->objOps->jsonGetAllUsers($this->getParam('groupid'), $this->getParam('start'), $this->getParam('limit'));
+                exit(0);
+                break;
+
+            case 'json_addusers':
+                echo $this->objOps->jsonAddUsers($this->getParam('groupid'), $this->getParam('ids'));
+                exit(0);
+                break;
+            case 'json_getgroupsbysearch':
+                echo $this->objOps->jsonGetGroups($this->getParam('start'), $this->getParam('limit'));
+                exit(0);
+                break;
+
+            case 'checkgroup':
+                echo $this->objOps->jsonCheckGroupAvailable($this->getParam('groupname'));
+                exit(0);
+                break;
+
+            case 'json_addgroup':
+                echo $this->objOps->jsonAddGroup($this->getParam('groupname'));
+                exit(0);
+                break;
+
+            case 'json_editgroup':
+                echo $this->objOps->jsonEditGroup($this->getParam('id'), $this->getParam('groupname'), $this->getParam('oldgroupname'));
+                exit(0);
+                break;
+
+            case 'json_getgroup':
+                echo $this->objOps->jsonGetGroup($this->getParam('id'));
+                exit(0);
+                break;
         }
     }
-} //end of class
+
+}
+
+//end of class
 ?>
