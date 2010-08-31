@@ -171,6 +171,13 @@ class xmlrpcapi extends object
      * @access public
      */
     public $objSkype;
+    
+    /**
+     * Chisimba GeoRDF API
+     * @var    object
+     * @access public
+     */
+    public $objGeoRDF;
 
     /**
      * Chisimba Document Conversion API
@@ -267,6 +274,8 @@ class xmlrpcapi extends object
             $this->objPop = $this->getObject('popularityapi');
             // Skype API
             $this->objSkype = $this->getObject('skypeapi');
+            // GeoRDF API
+            $this->objGeoRDF = $this->getObject('geordfapi');
             // Document Conversion API
             $this->objDocConvert = $this->getObject('documentconversionapi');
             // IM API
@@ -957,6 +966,13 @@ class xmlrpcapi extends object
                                                                           array('string', 'string', 'string'),
                                                                           ),
                                                     'docstring' => 'Grabs a base64 encoded string from skype to save to users dir'),
+                                                    
+                            // geoRDF API
+                            'geordf.accept' => array('function' => array($this->objGeoRDF, 'accept'),
+                                                      'signature' => array(
+                                                                          array('string', 'string'),
+                                                                          ),
+                                                    'docstring' => 'Bangs a geordf stanza sent through the Python Skype API to the geodatabase table (PostGIS only)'),
 							// security module public method(s)
 
 							//'security.GetActiveUserCount' => array('function' => array($this->objSecurityApi, 'getActiveUsers'), 
