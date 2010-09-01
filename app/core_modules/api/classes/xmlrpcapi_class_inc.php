@@ -973,6 +973,13 @@ class xmlrpcapi extends object
                                                                           array('string', 'string'),
                                                                           ),
                                                     'docstring' => 'Bangs a geordf stanza sent through the Python Skype API to the geodatabase table (PostGIS only)'),
+                                                    
+                            'geordf.loaddata' => array('function' => array($this->objGeoRDF, 'acceptData'),
+                                                      'signature' => array(
+                                                                          array('string', 'string', 'string', 'string'),
+                                                                          ),
+                                                    'docstring' => 'Inserts a line of geo data sent through the Python Skype API to the geodatabase table (PostGIS only)'),
+                                                    
 							// security module public method(s)
 
 							//'security.GetActiveUserCount' => array('function' => array($this->objSecurityApi, 'getActiveUsers'), 

@@ -141,5 +141,85 @@ class geordfapi extends object
         // Ooops, couldn't open the file so return an error message.
         return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
     }
+    
+    /**
+     * Method to grab geo see:Also RDF data from a user via the python upload of the geonames SWS all-geonames.txt RDF file
+     * 
+     * @param Parameters coming from XML-RPC transaction object $params
+     * @return object of XML-RPC response object.
+     */
+    public function acceptData($params)
+    {
+        $param = $params->getParam(0);
+        if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+        }
+        // finally grok the actual message out of the xmlrpc message encoding
+        $msg = $param->scalarval();
+        
+        $user = $params->getParam(1);
+        if (!XML_RPC_Value::isValue($user)) {
+            log_debug($user);
+        }
+        // finally grok the actual username out of the xmlrpc message encoding
+        $user = $user->scalarval();
+        
+        $pass = $params->getParam(2);
+        if (!XML_RPC_Value::isValue($pass)) {
+            log_debug($pass);
+        }
+        // finally grok the actual username out of the xmlrpc message encoding
+        $pass = $pass->scalarval();
+        $auth = $this->objUser->authenticateUser($user, $pass);
+        if($auth != 1) {
+            $ret = "Login failure!";
+            $val = new XML_RPC_Value($ret, 'string');
+            return new XML_RPC_Response($val);
+        }
+        // messages are base64_encoded
+        $msg = base64_decode($msg);
+        // msg is tab separated string of data
+        $data = explode("\t", $msg);
+        // log_debug($data);
+        $userid = $this->objUser->getUserId($user);
+        
+        // map the data to the insert array
+        $insarr = array(
+            // 'id' => '',
+            'userid' => $userid,
+            'geonameid' => $data[0],
+            'name' => $data[1],
+            'asciiname' => $data[2],
+            'alternatenames' => $data[3],
+            'latitude' => $data[4],
+            'longitude' => $data[5],
+            'fclass' => $data[6],
+            'fcode' => $data[7],
+            'country' => $data[8],
+            'cc2' => $data[9],
+            'admin1' => $data[10],
+            'admin2' => $data[11],
+            'admin3' => $data[12],
+            'admin4' => $data[13],
+            'population' => $data[14],
+            'elevation' => $data[15],
+            'gtopo30' => $data[16],
+            'timezone' => $data[17],
+            'moddate' => $data[18],
+        );
+        // log_debug($insarr);
+        // insert the row to the database
+        if($this->dataCapable == TRUE) {
+            $this->objDbGeonames->insertGeoname($insarr);
+            $ret = "Success";
+            $val = new XML_RPC_Value($ret, 'string');
+            return new XML_RPC_Response($val);
+        }
+        else {
+            $ret = "This server is not yet capable of handling geo data. Please install the geonames module!";
+            $val = new XML_RPC_Value($ret, 'string');
+            return new XML_RPC_Response($val);
+        }
+    }
 }
 ?>
