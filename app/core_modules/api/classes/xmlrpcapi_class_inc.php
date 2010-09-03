@@ -980,6 +980,36 @@ class xmlrpcapi extends object
                                                                           ),
                                                     'docstring' => 'Inserts a line of geo data sent through the Python Skype API to the geodatabase table (PostGIS only)'),
                                                     
+                             'geordf.loadAdmin1data' => array('function' => array($this->objGeoRDF, 'acceptAdmin1Data'),
+                                                      'signature' => array(
+                                                                          array('string', 'string', 'string', 'string'),
+                                                                          ),
+                                                    'docstring' => 'Populates the Admin1Codes table for the geodatabase table (PostGIS only)'),
+                                                    
+                             'geordf.loadAdmin2data' => array('function' => array($this->objGeoRDF, 'acceptAdmin2Data'),
+                                                      'signature' => array(
+                                                                          array('string', 'string', 'string', 'string'),
+                                                                          ),
+                                                    'docstring' => 'Populates the Admin2Codes table for the geodatabase table (PostGIS only)'),
+                                                    
+                             'geordf.loadAdmin1Asciidata' => array('function' => array($this->objGeoRDF, 'acceptAdmin1AsciiData'),
+                                                      'signature' => array(
+                                                                          array('string', 'string', 'string', 'string'),
+                                                                          ),
+                                                    'docstring' => 'Populates the Admin1Codes ASCII code table for the geodatabase table (PostGIS only)'),
+                                                    
+                             'geordf.loadAltnamesdata' => array('function' => array($this->objGeoRDF, 'acceptAltNamesData'),
+                                                      'signature' => array(
+                                                                          array('string', 'string', 'string', 'string'),
+                                                                          ),
+                                                    'docstring' => 'Populates the Alternative names table for the geodatabase table (PostGIS only)'),
+                                                    
+                             'geordf.loadCountryInfodata' => array('function' => array($this->objGeoRDF, 'acceptCountryInfoData'),
+                                                      'signature' => array(
+                                                                          array('string', 'string', 'string', 'string'),
+                                                                          ),
+                                                    'docstring' => 'Populates the Country Info table for the geodatabase table (PostGIS only)'),
+                                                    
 							// security module public method(s)
 
 							//'security.GetActiveUserCount' => array('function' => array($this->objSecurityApi, 'getActiveUsers'), 
