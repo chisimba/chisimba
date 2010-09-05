@@ -523,5 +523,216 @@ class geordfapi extends object
         }
     }
     
+    public function acceptFeatureCodeData($params){
+        $param = $params->getParam(0);
+        if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+        }
+        // finally grok the actual message out of the xmlrpc message encoding
+        $msg = $param->scalarval();
+        
+        $user = $params->getParam(1);
+        if (!XML_RPC_Value::isValue($user)) {
+            log_debug($user);
+        }
+        // finally grok the actual username out of the xmlrpc message encoding
+        $user = $user->scalarval();
+        
+        $pass = $params->getParam(2);
+        if (!XML_RPC_Value::isValue($pass)) {
+            log_debug($pass);
+        }
+        // finally grok the actual username out of the xmlrpc message encoding
+        $pass = $pass->scalarval();
+        $auth = $this->objUser->authenticateUser($user, $pass);
+        if($auth != 1) {
+            $ret = "Login failure!";
+            $val = new XML_RPC_Value($ret, 'string');
+            return new XML_RPC_Response($val);
+        }
+        // messages are base64_encoded
+        $msg = base64_decode($msg);
+        // msg is tab separated string of data
+        $data = explode("\t", $msg);
+        $userid = $this->objUser->getUserId($user);
+        // map the data to the insert array
+        $insarr = array(
+            'userid' => $userid,
+            'code' => $data[0],
+            'name' => $data[1],
+            'description' => $data[2],
+        );
+        // insert the row to the database
+        if($this->dataCapable == TRUE) {
+            $this->objDbGeonames->insertFeatureCodeInfo($insarr);
+            $ret = "Success";
+            $val = new XML_RPC_Value($ret, 'string');
+            return new XML_RPC_Response($val);
+        }
+        else {
+            $ret = "This server is not yet capable of handling geo data. Please install the geonames module!";
+            $val = new XML_RPC_Value($ret, 'string');
+            return new XML_RPC_Response($val);
+        }
+    }
+    
+    public function acceptIsoLangCodeData($params){
+        $param = $params->getParam(0);
+        if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+        }
+        // finally grok the actual message out of the xmlrpc message encoding
+        $msg = $param->scalarval();
+        
+        $user = $params->getParam(1);
+        if (!XML_RPC_Value::isValue($user)) {
+            log_debug($user);
+        }
+        // finally grok the actual username out of the xmlrpc message encoding
+        $user = $user->scalarval();
+        
+        $pass = $params->getParam(2);
+        if (!XML_RPC_Value::isValue($pass)) {
+            log_debug($pass);
+        }
+        // finally grok the actual username out of the xmlrpc message encoding
+        $pass = $pass->scalarval();
+        $auth = $this->objUser->authenticateUser($user, $pass);
+        if($auth != 1) {
+            $ret = "Login failure!";
+            $val = new XML_RPC_Value($ret, 'string');
+            return new XML_RPC_Response($val);
+        }
+        // messages are base64_encoded
+        $msg = base64_decode($msg);
+        // msg is tab separated string of data
+        $data = explode("\t", $msg);
+        $userid = $this->objUser->getUserId($user);
+        // map the data to the insert array
+        $insarr = array(
+            'userid' => $userid,
+            'iso_639_3' => $data[0],
+            'iso_639_2' => $data[1],
+            'iso_639_1' => $data[2],
+            'language_name' => $data[3],
+        );
+        // insert the row to the database
+        if($this->dataCapable == TRUE) {
+            $this->objDbGeonames->insertIsoLangCodeInfo($insarr);
+            $ret = "Success";
+            $val = new XML_RPC_Value($ret, 'string');
+            return new XML_RPC_Response($val);
+        }
+        else {
+            $ret = "This server is not yet capable of handling geo data. Please install the geonames module!";
+            $val = new XML_RPC_Value($ret, 'string');
+            return new XML_RPC_Response($val);
+        }
+    }
+    
+    public function acceptTimeZoneData($params){
+        $param = $params->getParam(0);
+        if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+        }
+        // finally grok the actual message out of the xmlrpc message encoding
+        $msg = $param->scalarval();
+        
+        $user = $params->getParam(1);
+        if (!XML_RPC_Value::isValue($user)) {
+            log_debug($user);
+        }
+        // finally grok the actual username out of the xmlrpc message encoding
+        $user = $user->scalarval();
+        
+        $pass = $params->getParam(2);
+        if (!XML_RPC_Value::isValue($pass)) {
+            log_debug($pass);
+        }
+        // finally grok the actual username out of the xmlrpc message encoding
+        $pass = $pass->scalarval();
+        $auth = $this->objUser->authenticateUser($user, $pass);
+        if($auth != 1) {
+            $ret = "Login failure!";
+            $val = new XML_RPC_Value($ret, 'string');
+            return new XML_RPC_Response($val);
+        }
+        // messages are base64_encoded
+        $msg = base64_decode($msg);
+        // msg is tab separated string of data
+        $data = explode("\t", $msg);
+        $userid = $this->objUser->getUserId($user);
+        // map the data to the insert array
+        $insarr = array(
+            'userid' => $userid,
+            'timezoneid' => $data[0],
+            'gmt_offset' => $data[1],
+            'dst_offset' => $data[2],
+        );
+        // insert the row to the database
+        if($this->dataCapable == TRUE) {
+            $this->objDbGeonames->insertTimeZoneInfo($insarr);
+            $ret = "Success";
+            $val = new XML_RPC_Value($ret, 'string');
+            return new XML_RPC_Response($val);
+        }
+        else {
+            $ret = "This server is not yet capable of handling geo data. Please install the geonames module!";
+            $val = new XML_RPC_Value($ret, 'string');
+            return new XML_RPC_Response($val);
+        }
+    }
+    
+    public function acceptUserTagsData($params){
+        $param = $params->getParam(0);
+        if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+        }
+        // finally grok the actual message out of the xmlrpc message encoding
+        $msg = $param->scalarval();
+        
+        $user = $params->getParam(1);
+        if (!XML_RPC_Value::isValue($user)) {
+            log_debug($user);
+        }
+        // finally grok the actual username out of the xmlrpc message encoding
+        $user = $user->scalarval();
+        
+        $pass = $params->getParam(2);
+        if (!XML_RPC_Value::isValue($pass)) {
+            log_debug($pass);
+        }
+        // finally grok the actual username out of the xmlrpc message encoding
+        $pass = $pass->scalarval();
+        $auth = $this->objUser->authenticateUser($user, $pass);
+        if($auth != 1) {
+            $ret = "Login failure!";
+            $val = new XML_RPC_Value($ret, 'string');
+            return new XML_RPC_Response($val);
+        }
+        // messages are base64_encoded
+        $msg = base64_decode($msg);
+        // msg is tab separated string of data
+        $data = explode("\t", $msg);
+        $userid = $this->objUser->getUserId($user);
+        // map the data to the insert array
+        $insarr = array(
+            'userid' => $userid,
+            'geonameid' => $data[0],
+            'tag' => $data[1],
+        );
+        // insert the row to the database
+        if($this->dataCapable == TRUE) {
+            $this->objDbGeonames->insertUserTagsInfo($insarr);
+            $ret = "Success";
+            $val = new XML_RPC_Value($ret, 'string');
+            return new XML_RPC_Response($val);
+        }
+        else {
+            $ret = "This server is not yet capable of handling geo data. Please install the geonames module!";
+            $val = new XML_RPC_Value($ret, 'string');
+            return new XML_RPC_Response($val);
+        }
+    }
 }
 ?>

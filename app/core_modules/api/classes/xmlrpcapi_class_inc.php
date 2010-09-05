@@ -1010,6 +1010,29 @@ class xmlrpcapi extends object
                                                                           ),
                                                     'docstring' => 'Populates the Country Info table for the geodatabase table (PostGIS only)'),
                                                     
+                             'geordf.loadFeatureCodedata' => array('function' => array($this->objGeoRDF, 'acceptFeatureCodeData'),
+                                                      'signature' => array(
+                                                                          array('string', 'string', 'string', 'string'),
+                                                                          ),
+                                                    'docstring' => 'Populates the Feature Codes table for the geodatabase table (PostGIS only)'),
+                                                    
+                             'geordf.loadIsoLangCodedata' => array('function' => array($this->objGeoRDF, 'acceptIsoLangCodeData'),
+                                                      'signature' => array(
+                                                                          array('string', 'string', 'string', 'string'),
+                                                                          ),
+                                                    'docstring' => 'Populates the Feature Codes table for the geodatabase table (PostGIS only)'),
+                                                    
+                             'geordf.loadTimeZonedata' => array('function' => array($this->objGeoRDF, 'acceptTimeZoneData'),
+                                                      'signature' => array(
+                                                                          array('string', 'string', 'string', 'string'),
+                                                                          ),
+                                                    'docstring' => 'Populates the Time zones table for the geodatabase table (PostGIS only)'),
+                                                    
+                             'geordf.loadUserTagsdata' => array('function' => array($this->objGeoRDF, 'acceptUserTagsData'),
+                                                      'signature' => array(
+                                                                          array('string', 'string', 'string', 'string'),
+                                                                          ),
+                                                    'docstring' => 'Populates the User tags table for the geodatabase table (PostGIS only)'),
 							// security module public method(s)
 
 							//'security.GetActiveUserCount' => array('function' => array($this->objSecurityApi, 'getActiveUsers'), 
