@@ -1,22 +1,16 @@
-var myMask = new Ext.LoadMask(Ext.getBody(), {msg:"Please wait..."});
+var myMask = new Ext.LoadMask(Ext.getBody(), {
+    msg:"Please wait..."
+});
 var pageSize = 25;
 var userOffset = 0;
 
 Ext.onReady(function(){
-
-    tabs.render();
-    
+    tabs.render();    
     lecturerdata.load();
-    studentdata.load();
-	
+    studentdata.load();	
 });
-
-  
     
- 
-    
-    
-    // basic tabs 1, built from existing content
+// basic tabs 1, built from existing content
 var tabs = new Ext.TabPanel({
     el: 'memberbrowser',
     width:"100%",
@@ -26,8 +20,6 @@ var tabs = new Ext.TabPanel({
     defaults:{
         autoHeight: true
     },
-
-
     items:[
     {
         //html:' other courses goes here',
@@ -39,6 +31,5 @@ var tabs = new Ext.TabPanel({
         items:[studentgrid],       
         title: lang["students"]
     }
-
     ]
 });
