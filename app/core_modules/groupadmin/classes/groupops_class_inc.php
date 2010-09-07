@@ -200,7 +200,7 @@ class groupops extends object {
             $where .= ")";
         }
 
-        $sql = "SELECT gu.perm_user_id, pu.auth_user_id, us.firstname, us.surname, us.username, us.last_login, us.logins, us.emailAddress from tbl_perms_groupusers as gu INNER join tbl_perms_perm_users as pu on gu.perm_user_id = pu.perm_user_id INNER join tbl_users as us on pu.auth_user_id = us.userId WHERE group_id = " . $groupId . $where . " ORDER BY us.surname " . $filter;
+        $sql = "SELECT gu.perm_user_id, pu.auth_user_id, us.firstname, us.surname, us.username, us.last_login, us.logins, us.emailAddress, us.isActive from tbl_perms_groupusers as gu INNER join tbl_perms_perm_users as pu on gu.perm_user_id = pu.perm_user_id INNER join tbl_users as us on pu.auth_user_id = us.userId WHERE group_id = " . $groupId . $where . " ORDER BY us.surname " . $filter;
 
         $users = $this->objDBContext->getArray($sql);
         $userCount = count($this->getUsersInGroup($groupId));
@@ -219,6 +219,7 @@ class groupops extends object {
                 $arrUser['surname'] = $user['surname'];
                 $arrUser['lastloggedin'] = $user['last_login'];
                 $arrUser['emailaddress'] = $user['emailaddress'];
+                $arrUser['isactive'] = $user['isactive'];
                 $arrUsers[] = $arrUser;
             }
 
