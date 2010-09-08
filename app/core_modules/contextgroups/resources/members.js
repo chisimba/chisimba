@@ -30,6 +30,10 @@ var tabs = new Ext.TabPanel({
         //html:' other courses goes here',
         items:[studentgrid],       
         title: lang["students"]
+    },{
+        html:'Import users goes here',
+        //items:[studentgrid],       
+        title: 'Import Users'
     }
     ]
 });
