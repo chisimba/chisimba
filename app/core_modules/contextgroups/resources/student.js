@@ -155,10 +155,17 @@ var studentgrid = new Ext.grid.GridPanel({
             hidden: false,
             sortable: false
         }]),
-
+    plugins:[new Ext.ux.grid.Search({
+         iconCls:'zoom'
+         ,disableIndexes:['isactive']
+         ,minChars:2
+         ,autoFocus:true
+         ,position:'top'
+     })],
     // customize view config
     viewConfig: {
         forceFit:true,
+        emptyText: 'No '+lang["students"]+' found',
         enableRowBody:true,
         showPreview:false,
         getRowClass : function(record, rowIndex, p, store){
@@ -169,6 +176,7 @@ var studentgrid = new Ext.grid.GridPanel({
             return 'x-grid3-row-collapsed';
         }
     }
+
 });
 
 //method that removes users from a group

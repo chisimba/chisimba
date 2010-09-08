@@ -13,7 +13,7 @@ Ext.onReady(function(){
 // basic tabs 1, built from existing content
 var tabs = new Ext.TabPanel({
     el: 'memberbrowser',
-    width:"100%",
+    width: 350,
     activeTab: 0,
     plain:true,
     frame:true,
@@ -30,10 +30,10 @@ var tabs = new Ext.TabPanel({
         //html:' other courses goes here',
         items:[studentgrid],       
         title: lang["students"]
-    },{
+    }/*,{
         html:'Import users goes here',
         //items:[studentgrid],       
         title: 'Import Users'
-    }
+    }*/
     ]
 });

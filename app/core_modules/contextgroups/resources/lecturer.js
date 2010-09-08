@@ -159,6 +159,7 @@ var lecturergrid = new Ext.grid.GridPanel({
     // customize view config
     viewConfig: {
         forceFit:true,
+        emptyText: 'No '+lang["lecturers"]+' found',
         enableRowBody:true,
         showPreview:false,
         getRowClass : function(record, rowIndex, p, store){
@@ -168,5 +169,12 @@ var lecturergrid = new Ext.grid.GridPanel({
             }
             return 'x-grid3-row-collapsed';
         }
-    }
+    },
+    plugins:[new Ext.ux.grid.Search({
+         iconCls:'zoom'
+         ,disableIndexes:['isactive']
+         ,minChars:2
+         ,autoFocus:true
+         ,position:'top'
+ })]
 });

@@ -80,8 +80,8 @@ class block_contextmembers extends object
         
 		$objExtJS->show();
 		$this->setJSVars();
-		$ext =$this->getJavaScriptFile('lecturer.js', 'contextgroups');		
-		$ext .=$this->getJavaScriptFile('Ext.ux.grid.Search.js', 'groupadmin');	
+		$ext =$this->getJavaScriptFile('Ext.ux.grid.Search.js', 'groupadmin');
+		$ext .=$this->getJavaScriptFile('lecturer.js', 'contextgroups');		
 		$ext .=$this->getJavaScriptFile('users.js', 'contextgroups');	
 		$ext .=$this->getJavaScriptFile('student.js', 'contextgroups');
 		$ext .=$this->getJavaScriptFile('members.js', 'contextgroups');		
@@ -90,12 +90,13 @@ class block_contextmembers extends object
 		 
 		$link = new link ($this->uri(NULL, 'contextgroups'));
         $link->link = $this->objLanguage->code2Txt('mod_contextgroups_toolbarname','contextgroups');        
-        $str = '<p>'.$link->show();       
+        $str = '<p>'; 
+	//$str .= $link->show();       
         if ($objModules->checkIfRegistered('userimport') && $this->objUser->isAdmin()) {
             $link = new link ($this->uri(NULL, 'userimport'));
             $link->link = $this->objLanguage->languageText('mod_contextgroups_importusers', 'contextgroups', 'Import Users');
             
-            $str .= ' / '.$link->show();
+            $str .= $link->show();
         }        
         $str .= '</p>';
 		
@@ -186,7 +187,7 @@ class block_contextmembers extends object
             $link = new link ($this->uri(NULL, 'userimport'));
             $link->link = $this->objLanguage->languageText('mod_contextgroups_importusers', 'contextgroups', 'Import Users');
             
-            $str .= ' / '.$link->show();
+            $str .= ' /'.$link->show();
         }
         
         $str .= '</p>';
