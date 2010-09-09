@@ -426,15 +426,17 @@ class object
     * @access private
     * @author Charl Mert
     * @param  $contentType  string   Name of template to call, including file extension but excluding path
+    * @param  $showTemplate boolean
+    * @param  $encoding     string   The encoding to use. Defaults to UTF-8.
     * @return NULL
     */
-    public function setContentType($contentType = 'text/html', $showTemplate = false)
+    public function setContentType($contentType = 'text/html', $showTemplate = false, $encoding = 'UTF-8')
     {
         if (!$showTemplate){
             $this->setPageTemplate('');
             $this->setLayoutTemplate('');
         }
-        header("Content-type: $contentType");
+        header("Content-type: $contentType; charset=$encoding");
         return null;
     }
 
