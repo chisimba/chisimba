@@ -13,7 +13,7 @@ Ext.onReady(function(){
 // basic tabs 1, built from existing content
 var tabs = new Ext.TabPanel({
     el: 'memberbrowser',
-    width: 350,
+    width: 380,
     activeTab: 0,
     plain:true,
     frame:true,

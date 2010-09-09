@@ -150,6 +150,10 @@ class contextgroups extends controller {
                 echo $this->objGroupsOps->jsonAddUsers($this->lecturerGroupId, $this->getParam('ids'));
                 exit(0);
                 break;
+            case 'json_allusers':
+                echo $this->objGroupsOps->jsonGetAllUsers($this->getParam('groupid'), $this->getParam('start'), $this->getParam('limit'));
+                exit(0);
+                break;
         }
     }
 

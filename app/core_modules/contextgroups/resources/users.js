@@ -1,5 +1,5 @@
 var userDataProxy = new Ext.data.HttpProxy({
-    url: baseUri+'?module=groupadmin&action=json_allusers&start=0&limit=25'
+    url: baseUri+'?module=contextgroups&action=json_allusers&start=0&limit=25'
 });
 // create the Data Store
 var userStore = new Ext.data.JsonStore({
@@ -38,7 +38,7 @@ var userNavigation = new Ext.PagingToolbar({
     listeners:{
         beforechange: function(ptb, params){
             userOffset = params.start;
-            userDataProxy.setUrl(baseUri+'?module=groupadmin&action=json_allusers&limit='+params.limit+'&start='+params.start);
+            userDataProxy.setUrl(baseUri+'?module=contextgroups&action=json_allusers&limit='+params.limit+'&start='+params.start);
         }
     }
 });
