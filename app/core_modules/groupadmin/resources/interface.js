@@ -622,7 +622,8 @@ function loadSubgroupMenu(records){
 }
 
 function onSubGroupClick(item){	
-	proxyStore.setUrl(baseUri+'?module=groupadmin&action=json_getgroupusers&groupid='+item.getItemId());
+	proxyStore.setUrl(baseUri+'?module=groupadmin&action=json_getgroupusers');
+	abstractStore.baseParams['groupid'] = item.getItemId();
 	abstractStore.load({params:{start:0, limit:25}}); 
 	selectedGroupId = item.getItemId();
 }
