@@ -160,9 +160,10 @@ class skinjavascript extends object
      */
     public function getChromeFrame()
     {
+        $enable = $this->objSysConfig->getValue('chrome_frame', 'skin');
         $suppress = $this->getVar('SUPPRESS_CHROME_FRAME', FALSE);
 
-        if (!$suppress) {
+        if ($enable && !$suppress) {
             $html  = $this->objMiscHTML->httpEquiv('X-UA-Compatible', 'chrome=1');
             $html .= $this->objMiscHTML->importScript('http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js');
 
