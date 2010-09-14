@@ -67,6 +67,14 @@ class skinjavascript extends object
     protected $objMiscHTML;
 
     /**
+     * Instance of the dbsysconfig class of the sysconfig module.
+     *
+     * @access private
+     * @var    object
+     */
+    private $objSysConfig;
+
+    /**
     *
     * Intialiser for the skin chooser
     * @access public
@@ -75,6 +83,7 @@ class skinjavascript extends object
     public function init()
     {
         $this->objMiscHTML = $this->getObject('mischtml', 'htmlelements');
+        $this->objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
     }
 
     /**
