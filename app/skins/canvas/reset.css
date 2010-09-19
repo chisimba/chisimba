@@ -1,0 +1,17 @@
+body {
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+#container {
+    background: transparent;
+    border: none;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    -webkit-border-radius: 0px;
+    -khtml-border-radius: 0px;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+}

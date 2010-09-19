@@ -1,8 +1,12 @@
 /*
-    This is the Metallic skin for Chisimba. It is based on the
-    CAZPIX skin by Paul Scott. It is a version 3.0 for Chisimba
-    and supports canvases. It does not support the old styles
-    any longer.
+
+    This is the Canvas base skin for Chisimba.
+
+    It should serve as the base skin for all further Chisimba canvas skins,
+    unless its underlying styles are being replaced.
+
+    It is a version 3.0 for Chisimba and supports canvases. It does not
+    support the old styles any longer.
 
     Author: Derek Keats
     License: GPL V2
@@ -64,11 +68,14 @@ p {
     height: 0px;
 }
 
-
-
 .Canvas_Column {
     margin-top: 0px;
 }
+
+#Canvas_Content_Body{
+    margin-top: 0px;
+}
+
 
 #Canvas_Content_Body_Region1 {
     background: url("images/overlay-sm.png") top left repeat;
@@ -1545,4 +1552,10 @@ hr {
 
 .unreadmail {
     color: red;
+}
+
+
+.externalcontent {
+    border:1px solid #A2A2A2;
+    background: #F0F0F0;
 }

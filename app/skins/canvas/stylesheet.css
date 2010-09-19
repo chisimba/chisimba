@@ -12,7 +12,7 @@
     having to maintain it twice.
     
 */
-@import "../metallic/stylesheet.css";
+@import "../canvas/canvasbase.css";
 
 /*
     This is the site name. Set it to display:none if you
