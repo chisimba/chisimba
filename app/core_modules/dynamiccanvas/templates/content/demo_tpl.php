@@ -38,13 +38,13 @@ $objFix->fixThree();
             "module" : "blocks",
             "block" : "table"
         }
-        {
-            "display" : "block",
-            "module" : "filemanager",
-            "block" : "userfiles"
-        }
     </div>
     <div id="Canvas_Content_Body_Region2">
+        {
+            "display" : "block",
+            "module" : "canvas",
+            "block" : "canvasviewer"
+        }
         {
             "display" : "block",
             "module" : "userdetails",
@@ -65,6 +65,22 @@ $objFix->fixThree();
             "display" : "block",
             "module" : "canvas",
             "block" : "canvasviewer"
+        }
+        {
+            "display" : "block",
+            "module" : "dynamiccanvas",
+            "block" : "thirdtest",
+            "showTitle":0
+        }
+        {
+            "display" : "block",
+            "module" : "stories",
+            "block" : "stories",
+            "properties" : [
+                {
+                    "category" : "postlogin"
+                }
+            ]
         }
     </div>
 </div>
