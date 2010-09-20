@@ -812,8 +812,8 @@ function getContexts()
     	$start = (empty($start)) ? 0 : $start;
     	$limit = (empty($limit)) ? 25 : $limit;
     	
-    	$contexts = $this->objDBContext->getAll("WHERE status != 'Unpublished' ORDER BY updated DESC limit ".$start.", ".$limit);
-    	$all = $this->objDBContext->getArray("SELECT count( id ) as cnt FROM tbl_context WHERE status != 'Unpublished'");
+    	$contexts = $this->objDBContext->getAll("ORDER BY title limit ".$start.", ".$limit);
+    	$all = $this->objDBContext->getArray("SELECT count( id ) as cnt FROM tbl_context ORDER BY title");
     	
     	$allCount = $all[0]['cnt'];
     	
@@ -830,6 +830,7 @@ function getContexts()
     			$arr['author'] = htmlentities($this->objUser->fullname($context['userid']));
     			$arr['datecreated'] = $context['datecreated'];
     			$arr['lastupdated'] = $context['updated'];
+    			$arr['status'] = $context['status'];
     			$arr['expert'] = "";
     			
     			$courses[] = $arr;

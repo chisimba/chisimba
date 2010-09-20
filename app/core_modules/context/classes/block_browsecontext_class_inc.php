@@ -109,7 +109,7 @@ class block_browsecontext extends object {
 
         $this->appendArrayVar('headerParams', '
         	<script type="text/javascript">
-        	var pageSize = 500;
+        	var pageSize = 100;
         	var lang = new Array();
         	lang["mycontext"] =   "'.ucWords($this->objLanguage->code2Txt('phrase_mycourses', 'system', NULL, 'My [-contexts-]')).'";
         	lang["contexts"] =   "'.ucWords($this->objLanguage->code2Txt('wordcontext', 'system', NULL, '[-contexts-]')).'";

@@ -13,7 +13,7 @@ var contextdata = new Ext.data.JsonStore({
         totalProperty: 'totalCount',
         idProperty: 'contextcode',
         remoteSort: false,        
-        fields: ['contextcode', 'title', 'author', 'datecreated', 'lastupdated','excerpt' ],
+        fields: ['contextcode', 'title', 'author', 'datecreated', 'lastupdated','status','excerpt' ],
         proxy: new Ext.data.HttpProxy({        	 	
             	url: uri
         }),
@@ -30,8 +30,13 @@ var contextdata = new Ext.data.JsonStore({
 	 
     // pluggable renders
     function renderTopic(value, p, record){
+    	if (record.data.status == 'Unpublished'){
+			pub = '<span class="warning">[Unpublished]</span>';
+		}else{
+			pub = "";
+		}
         return String.format(
-        		'<b><a href="'+baseuri+'?module=context&action=joincontext&contextcode={1}">{0}</a></b>', value, record.data.contextcode);
+        		'<b><a href="'+baseuri+'?module=context&action=joincontext&contextcode={1}">{0}</a> {2} </b>', value, record.data.contextcode, pub);
                 /*'<b><a href="http://localhost/eteach/index.php?module=context&action=joincontext&contextcode={2}" target="_blank">{0}</a></b>
                 <a href="http://extjs.com/forum/forumdisplay.php?f={3}" target="_blank">{1} Forum</a>',
                 value, record.data.title, record.id, record.data.contextcode);*/
