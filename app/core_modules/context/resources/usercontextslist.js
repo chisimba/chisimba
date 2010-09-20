@@ -15,7 +15,7 @@ var usercontextdata = new Ext.data.JsonStore({
         totalProperty: 'contextcount',
         idProperty: 'code',
         remoteSort: false,        
-        fields: ['code', 'coursecode', 'title', 'lecturertitle', 'lecturers', 'accesstitle','access' ],
+        fields: ['code', 'coursecode', 'title', 'lecturertitle', 'lecturers', 'accesstitle','access', 'status' ],
         proxy: new Ext.data.HttpProxy({        	 	
             	url: usercontexturi
         }),
@@ -32,8 +32,15 @@ var usercontextdata = new Ext.data.JsonStore({
 	 
     // pluggable renders
     function renderTitle(value, p, record){
+    	if (record.data.status){
+    		if (record.data.status == 'Unpublished'){
+    			pub = '<span class="warning">[Unpublished]</span>';
+    		}else{
+    			pub = "";
+    		}
+    	}
         return String.format(
-        		'<b><a href="'+baseuri+'?module=context&action=joincontext&contextcode={1}">{0}</a></b>', value, record.data.code);
+        		'<b><a href="'+baseuri+'?module=context&action=joincontext&contextcode={1}">{0}</a></b> {2}', value, record.data.code, pub);
     }
 
     var usergrid = new Ext.grid.GridPanel({

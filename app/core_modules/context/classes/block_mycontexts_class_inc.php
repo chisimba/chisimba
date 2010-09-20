@@ -82,6 +82,7 @@ class block_mycontexts extends object
             $this->objUserContext = $this->getObject('usercontext', 'context');
             $this->objUser = $this->getObject('user', 'security');
             $this->objContext =  $this->getObject('dbcontext');
+            $this->objGroups =  $this->getObject('groupAdminModel', 'groupadmin');
             $this->title = ucWords($this->objLanguage->code2Txt('phrase_mycourses', 'system', NULL, 'My [-contexts-]'));
             
             // HTML Elements
@@ -113,9 +114,24 @@ class block_mycontexts extends object
             
             foreach ($contexts AS $contextCode)
             {
-                $contextDetails = $this->objContext->getContextDetails($contextCode);
-                
-                $contextArray[$contextDetails['title']] = $contextCode;
+               $contextDetails = $this->objContext->getContextDetails($contextCode);
+               //check if this course is unpublished
+               	
+               if($contextDetails["status"] == "Unpublished"){
+               		//if so check if this person is lecturer lecturer of the course
+               		$groupId = $this->objGroups->getLeafId(array($contextCode ,'Lecturers'));               		
+        			$ret = $this->objGroups->isGroupMember($this->objUser->userId(), $groupId);        			
+        			if ($ret){
+        				$contextArray[$contextDetails['title']] = $contextCode;
+        			}
+               }else{        		
+        			$contextArray[$contextDetails['title']] = $contextCode;
+               }
+        		
+        		
+            }
+            if(count($contextArray) < 1){
+            	 return $this->objLanguage->code2Txt('mod_context_youdonotbelongtocontexts', 'context', NULL, 'You do not belong to any [-contexts-]');
             }
             
             ksort($contextArray);

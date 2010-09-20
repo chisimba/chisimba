@@ -711,88 +711,89 @@ function getContexts()
 	public function getContext($start = 0, $limit = 25)
 	{
 	
-	$params["start"] = ($this->getParam("start")) ? $this->getParam("start") : null;
-	$params["limit"] = ($this->getParam("limit")) ? $this->getParam("limit") : null;
-	$params["search"] = ($this->getParam("fields")) ? json_decode(stripslashes($this->getParam("fields"))) : null;
-	$params["query"] = ($this->getParam("query")) ? $this->getParam("query") : null;
-	$params["sort"] = ($this->getParam("sort")) ? $this->getParam("sort") : null;
-	
-	$where = "";$limit = 25;
+		$params["start"] = ($this->getParam("start")) ? $this->getParam("start") : null;
+		$params["limit"] = ($this->getParam("limit")) ? $this->getParam("limit") : null;
+		$params["search"] = ($this->getParam("fields")) ? json_decode(stripslashes($this->getParam("fields"))) : null;
+		$params["query"] = ($this->getParam("query")) ? $this->getParam("query") : null;
+		$params["sort"] = ($this->getParam("sort")) ? $this->getParam("sort") : null;
 		
-	
-	if(is_array($params['search'])){
-		$max = count($params['search']);
+		$where = "";$limit = 25;			
 		
-		$cnt = 0;
-		
-		foreach($params['search'] as $field){
-			$cnt++;
+		//check if this is a search
+		if(is_array($params['search']))
+		{
+			$max = count($params['search']);
 			
-			/*if($field == "lecturers")
-			{
-				$sql = "SELECT * FROM tbl_context";
+			$cnt = 0;
+			
+			foreach($params['search'] as $field){
+				$cnt++;
 				
-				$minicontexts = $this->objDBContext->getArray($sql);
-				error_log(var_export($minicontexts, true));
-				foreach($minicontexts as $context){
-					$str = $this->objUserContext->getContextLecturers($context['contextcode']);
+				/*if($field == "lecturers")
+				{
+					$sql = "SELECT * FROM tbl_context";
 					
-				}
-				
-			}*/
-			
-			$where .= $field.' LIKE "'.$params['query'].'%"';
+					$minicontexts = $this->objDBContext->getArray($sql);
+					error_log(var_export($minicontexts, true));
+					foreach($minicontexts as $context){
+						$str = $this->objUserContext->getContextLecturers($context['contextcode']);
 						
-			if($cnt < $max){
-				$where .= " OR ";
+					}
+					
+				}*/
+				
+				$where .= $field.' LIKE "'.$params['query'].'%"';
+							
+				if($cnt < $max){
+					$where .= " OR ";
+				}
 			}
+			
+			$where = ' AND ('.$where.')';
+			
 		}
 		
-		$where = ' AND ('.$where.')';
-		
-	}
-	
-	$arr = array();
-		
-    	$filter = " LIMIT $start , $limit";
-    	
-		$sql = "SELECT * FROM tbl_context  WHERE status != 'Unpublished'".$where." ORDER BY title ".$filter; 
-		//Debuging
-		error_log(var_export($_REQUEST, true));
-		//Debuging
-    	$contexts = $this->objDBContext->getArray($sql);
-    	$countSQL = "SELECT DISTINCT(contextcode) FROM tbl_context";
-    	$contextCount = count($this->objDBContext->getArray($countSQL));
-    	$this->objUserContext = $this->getObject ( 'usercontext', 'context' );
-    	if(count($contexts>0)){
-    		
-    		$arr = array();
-    		$courses = array();
-	    	foreach($contexts as $context){
-					$arr = array();
-					$arr['contextcode'] = $context['contextcode'];
-					$arr['code'] = $context['contextcode'];
-					$arr['title'] = htmlentities($context['title']);
-					$lectures = $this->objUserContext->getContextLecturers($context['contextcode']);
-					$lecturesname = "";
-						foreach($lectures as $lecture)
-						{
-							$lecturesname .= $lecture['firstname']." ".$lecture['surname'].", ";	
-						}
-					$arr['lecturers'] = htmlentities(substr($lecturesname, 0, -2));
-					$arr['access'] =  $context['access'];			
-					$courses[] = $arr;
-	    	}	    	
-	    	//echo "<script>alert('Information updated')</script>";
-			return json_encode(array('othercontextcount' => $contextCount, 'courses' =>  $courses));
-	    			
-	    	return json_encode($arr);
-    	}else {
-    		$arr['othercontextcount'] = "0";
-			$arr['courses'] = array();
-			//var_dump($arr);			
-	    	return json_encode($arr);
-    	}
+		$arr = array();
+			
+	    	$filter = " LIMIT $start , $limit";
+	    	
+			$sql = "SELECT * FROM tbl_context  WHERE status != 'Unpublished'".$where." ORDER BY title ".$filter; 
+			//Debuging
+			error_log(var_export($_REQUEST, true));
+			//Debuging
+	    	$contexts = $this->objDBContext->getArray($sql);
+	    	$countSQL = "SELECT DISTINCT(contextcode) FROM tbl_context";
+	    	$contextCount = count($this->objDBContext->getArray($countSQL));
+	    	$this->objUserContext = $this->getObject ( 'usercontext', 'context' );
+	    	if(count($contexts>0)){
+	    		
+	    		$arr = array();
+	    		$courses = array();
+		    	foreach($contexts as $context){
+						$arr = array();
+						$arr['contextcode'] = $context['contextcode'];
+						$arr['code'] = $context['contextcode'];
+						$arr['title'] = htmlentities($context['title']);
+						$lectures = $this->objUserContext->getContextLecturers($context['contextcode']);
+						$lecturesname = "";
+							foreach($lectures as $lecture)
+							{
+								$lecturesname .= $lecture['firstname']." ".$lecture['surname'].", ";	
+							}
+						$arr['lecturers'] = htmlentities(substr($lecturesname, 0, -2));
+						$arr['access'] =  $context['access'];			
+						$courses[] = $arr;
+		    	}	    	
+		    	//echo "<script>alert('Information updated')</script>";
+				return json_encode(array('othercontextcount' => $contextCount, 'courses' =>  $courses));
+		    			
+		    	return json_encode($arr);
+	    	}else {
+	    		$arr['othercontextcount'] = "0";
+				$arr['courses'] = array();
+				//var_dump($arr);			
+		    	return json_encode($arr);
+	    	}
 		
 		
 	}

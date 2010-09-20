@@ -272,9 +272,10 @@ class displaycontext extends object {
         }
         $courseInfoArray = array();
         $title = $link->show ();
-        $courseInfoArray['code'] = $context ['contextcode'];
+        $courseInfoArray['code'] = $context ['contextcode'];        
         $courseInfoArray['coursecode'] = ucwords ( $this->objLanguage->code2Txt ( 'mod_context_contextcode', 'system', NULL, '[-context-] Code' ) ).' : ' . $context ['contextcode'];
         $courseInfoArray['title'] = $context ['title'];
+        $courseInfoArray['status'] = "none";
         $lecturers = $this->objUserContext->getContextLecturers ( $context ['contextcode'] );
         if (count ( $lecturers ) > 0) {
             $str = "";            
@@ -287,11 +288,18 @@ class displaycontext extends object {
 
                 if ($this->objUser->userId () == $lecturer ['userid']) {
                     $canEdit = TRUE;
+                    $courseInfoArray['status'] = $context['status'];
                 }
             }
             $courseInfoArray['lecturers'] = $str;
         }
-
+		
+        //do not show this course if the its unpublished and the user is not a lecturer
+        if($context['status'] == 'Unpublished' && $canEdit == FALSE)
+        {        	
+        	return false;
+        }
+        
         switch (strtolower ( $context ['access'] )) {
             case 'public' :
                 $access = $this->objLanguage->code2Txt ( 'mod_context_publiccontextexplanation', 'context', NULL, 'This is an open [-context-] that any user may enter' );
@@ -320,16 +328,20 @@ class displaycontext extends object {
     public function jsonContextOutput( $userContexts ) {
      	$objUserContext = $this->getObject('usercontext', 'context');
      	$countUserContexts = $objUserContext->getUserContext($this->objUser->userId());
-     	$activityCount = ( count ( $countUserContexts ) );
-      $str = '{"contextcount":"'.$activityCount.'","usercontexts":[';
-      $contextArray = array();
-    	 foreach( $userContexts as $userContext ){
-    	  $thisContext = $this->objContext->getContext( $userContext );
-
-       $contxtDetails = $this->jsonContextDisplayBlock( $thisContext );
-    			$contextArray[] = $contxtDetails;
+     	//$activityCount = ( count ( $countUserContexts ) );
+      	$str = '{"contextcount":"'.$activityCount.'","usercontexts":[';
+      	$contextArray = array();
+    	foreach( $userContexts as $userContext ){
+    		$thisContext = $this->objContext->getContext( $userContext );
+       		$contxtDetails = $this->jsonContextDisplayBlock( $thisContext );
+       		if(!$contxtDetails == false){
+       			$contextArray[] = $contxtDetails;
+       		}	    	
+    			
     	 }
-      return json_encode(array('contextcount' => $activityCount, 'usercourses' =>  $contextArray));
+    	 
+    	 $activityCount = ( count ($contextArray));
+    	 return json_encode(array('contextcount' => $activityCount, 'usercourses' =>  $contextArray));
     }
 }
 

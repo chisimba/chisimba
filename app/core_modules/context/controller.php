@@ -581,7 +581,7 @@ class context extends controller {
         }
         $ctlimit = $this->getParam('limit');
         if (empty($ctlimit)) {
-            $ctlimit = 500;
+            $ctlimit = 50;
         }
         $objUserContext = $this->getObject('usercontext', 'context');
         $objDisplayContext = $this->getObject ( 'displaycontext', 'context' );
