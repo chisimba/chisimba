@@ -308,7 +308,7 @@ class manageGroups extends object
     * @param  string UserId
     * @return array  List of all context codes the user is a member of.
     */
-    function usercontextcodeslimited($userId=NULL, $start, $limit)
+    function usercontextcodeslimited($userId=NULL, $start, $limit=50)
     {
         //sql to find the user's groups
         $sql = "SELECT gu.group_id, gr.group_define_name 
@@ -320,6 +320,7 @@ class manageGroups extends object
 				WHERE pu.auth_user_id = '".$userId."' LIMIT ".$start.",".$limit;
         
         //get a list of groups this user belongs to
+        //echo $sql;die;
         $userGroups =  $this->_objDBContext->getArray($sql);        
                      
         $arrcontextcodes = array();
@@ -335,7 +336,7 @@ class manageGroups extends object
                 if($this->isContext($groupname)){
                     $arrcontextcodes[] = $groupname;
                 }
-             }        
+             }        //var_dump($arrcontextcodes);
         return $arrcontextcodes;
        
     }
@@ -345,10 +346,10 @@ class manageGroups extends object
     * @param  string Groupname
     * @return array  Boolean true if the .
     */
-    function isContext($groupname){
+    function isContext($groupname){    	
         $groupname == null ? $gname = 'Site Admin' : $gname = $groupname;
         $sql = 'SELECT contextcode FROM tbl_context 
-                WHERE status != \'Unpublished\' and 
+                WHERE  
                 contextcode = \''.$gname.'\'';   
         $arr = $this->_objDBContext->getArray($sql);
         if(!empty($arr)){
