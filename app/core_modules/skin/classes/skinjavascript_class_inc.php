@@ -168,7 +168,6 @@ class skinjavascript extends object
             $html = $this->objMiscHTML->httpEquiv('X-UA-Compatible', 'chrome=1');
             if ($suppressJQuery) {
                 $html .= $this->objMiscHTML->importScript('http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js');
-
                 $this->appendArrayVar('bodyOnLoad', 'CFInstall.check({mode:"overlay"});');
             } else {
                 $html .= $this->getJavascriptFile('chromeframe.js', 'skin');
