@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 
  * File Manager
@@ -28,61 +29,56 @@
  * @version   $Id$
  * @link      http://avoir.uwc.ac.za
  */
- 
 // security check - must be included in all scripts
 if (!
-/**
- * The $GLOBALS is an array used to control access to certain constants.
- * Here it is used to check if the file is opening in engine, if not it
- * stops the file from running.
- * 
- * @global entry point $GLOBALS['kewl_entry_point_run']
- * @name   $kewl_entry_point_run
- *         
- */
-$GLOBALS['kewl_entry_point_run'])
-{
-        die("You cannot view this page directly");
+        /**
+         * The $GLOBALS is an array used to control access to certain constants.
+         * Here it is used to check if the file is opening in engine, if not it
+         * stops the file from running.
+         *
+         * @global entry point $GLOBALS['kewl_entry_point_run']
+         * @name   $kewl_entry_point_run
+         *
+         */
+        $GLOBALS['kewl_entry_point_run']) {
+    die("You cannot view this page directly");
 }
 // end security check
 
 /**
-* 
-* Controller class for Chisimba for the module filemanager2
-*
-* @author Tohir Solomons
-* @package filemanager2
-*
-*/
-class filemanager extends controller
-{
-    
+ *
+ * Controller class for Chisimba for the module filemanager2
+ *
+ * @author Tohir Solomons
+ * @package filemanager2
+ *
+ */
+class filemanager extends controller {
+
     /**
-    * 
-    * @var string $objConfig String object property for holding the 
-    * configuration object
-    * @access public;
-    * 
-    */
+     *
+     * @var string $objConfig String object property for holding the
+     * configuration object
+     * @access public;
+     *
+     */
     public $objConfig;
-    
     /**
-    * 
-    * @var string $objLanguage String object property for holding the 
-    * language object
-    * @access public
-    * 
-    */
+     *
+     * @var string $objLanguage String object property for holding the
+     * language object
+     * @access public
+     *
+     */
     public $objLanguage;
     /**
-    *
-    * @var string $objLog String object property for holding the 
-    * logger object for logging user activity
-    * @access public
-    * 
-    */
+     *
+     * @var string $objLog String object property for holding the
+     * logger object for logging user activity
+     * @access public
+     *
+     */
     public $objLog;
-
     /**
      * Object of the groupadminmodel class in the groupadmin module.
      *
@@ -90,7 +86,6 @@ class filemanager extends controller
      * @var object
      */
     protected $objGroup;
-
     /**
      * Object of the dbsysconfig class in the sysconfig module.
      *
@@ -98,27 +93,15 @@ class filemanager extends controller
      * @var object
      */
     protected $objSysConfig;
-    
     public $debug = FALSE;
 
     /**
-     * @var string $fckVersion Which version of FCKEditor to load (2.5.1 vs 2.6.3)
+     *
+     * Intialiser for the filemanager2 controller
+     * @access public
+     *
      */
-    public $fckVersion;
-
-    /**
-     * @var string $sysEditor Which Editor to load (fckeditor or ckeditor)
-     */
-    public $sysEditor;
-
-    /**
-    * 
-    * Intialiser for the filemanager2 controller
-    * @access public
-    * 
-    */
-    public function init()
-    {
+    public function init() {
         // File Manager Classes
         $this->objFiles = $this->getObject('dbfile', 'filemanager');
         $this->objFolders = $this->getObject('dbfolder', 'filemanager');
@@ -129,44 +112,41 @@ class filemanager extends controller
         $this->objQuotas = $this->getObject('dbquotas', 'filemanager');
         $this->objSymlinks = $this->getObject('dbsymlinks', 'filemanager');
         $this->sysConf = $this->getObject('dbsysconfig', 'sysconfig');
-        //Loading the default FCK version from htmlelements
         $this->fckVersion = $this->sysConf->getValue('FCKEDITOR_VERSION', 'htmlelements');
-        //Loading the default editor type from htmlelements
-        $this->sysEditor = $this->sysConf->getValue('SYSTEM_EDITOR', 'htmlelements');
         $this->objUploadMessages = $this->getObject('uploadmessages', 'filemanager');
-        
+
         // Other Classes
         $this->objConfig = $this->getObject('altconfig', 'config');
         $this->objUser = $this->getObject('user', 'security');
         $this->objGroup = $this->getObject('groupadminmodel', 'groupadmin');
         $this->objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
-        
+
         $this->objLanguage = $this->getObject('language', 'language');
         $this->objMenuTools = $this->getObject('tools', 'toolbar');
         $this->loadClass('link', 'htmlelements');
-        
-        
+
+
         $this->userId = $this->objUser->userId();
-        
+
         if ($this->userId != '') {
             // Setup User Folder
-            $folderpath = 'users/'.$this->userId;
-            
+            $folderpath = 'users/' . $this->userId;
+
             $folderId = $this->objFolders->getFolderId($folderpath);
-            
-            
-            
+
+
+
             if ($folderId == FALSE) {
                 $objIndexFileProcessor = $this->getObject('indexfileprocessor');
                 $list = $objIndexFileProcessor->indexUserFiles($this->objUser->userId());
             }
         }
-        
+
         $this->objContext = $this->getObject('dbcontext', 'context');
         $this->contextCode = $this->objContext->getContextCode();
         if ($this->contextCode != '') {
-            $folderpath = 'context/'.$this->contextCode;
-            
+            $folderpath = 'context/' . $this->contextCode;
+
             $folderId = $this->objFolders->getFolderId($folderpath);
             if ($folderId == FALSE) {
                 $objIndexFileProcessor = $this->getObject('indexfileprocessor');
@@ -174,7 +154,7 @@ class filemanager extends controller
             }
         }
     }
-    
+
     /**
      * Override the login object in the parent class
      *
@@ -182,15 +162,14 @@ class filemanager extends controller
      * @return bool
      * @access public
      */
-    public function requiresLogin($action)
-    {
+    public function requiresLogin($action) {
         if ($action == 'file') {
             return FALSE;
         } else {
             return TRUE;
         }
     }
-    
+
     /**
      * Method to override the nextAction function to include automatic inclusion
      * of mode and restriction
@@ -199,57 +178,55 @@ class filemanager extends controller
      * @param  array  $params Parameters to pass to action.
      * @return NULL
      */
-    public function nextAction($action, $params = array(), $module='filemanager')
-    {
+    public function nextAction($action, $params = array(), $module='filemanager') {
         // If parameters is NULL, convert to array
         if ($params == NULL) {
             $params = array();
         }
-        
+
         // Add Param for Mode
         if (is_array($params) && !array_key_exists('mode', $params) && $this->getParam('mode') != '') {
             $params['mode'] = $this->getParam('mode');
         }
-        
+
         // Add Param for Restriction
         if (is_array($params) && !array_key_exists('restriction', $params) && $this->getParam('restriction') != '') {
             $params['restriction'] = $this->getParam('restriction');
         }
-        
+
         // Add Param for Name - File/Image Select
         if (is_array($params) && !array_key_exists('name', $params) && $this->getParam('name') != '') {
             $params['name'] = $this->getParam('name');
         }
-        
+
         if (is_array($params) && !array_key_exists('context', $params) && $this->getParam('context') != '') {
             $params['context'] = $this->getParam('context');
         }
-        
+
         if (is_array($params) && !array_key_exists('workgroup', $params) && $this->getParam('workgroup') != '') {
             $params['workgroup'] = $this->getParam('workgroup');
         }
-        
+
         return parent::nextAction($action, $params, $module);
     }
-    
+
     /**
      * Method to override the uri function to include automatic inclusion
      * of mode and restriction
-    *
-    * @access  public
-    * @param   array  $params         Associative array of parameter values
-    * @param   string $module         Name of module to point to (blank for core actions)
-    * @param   string $mode           The URI mode to use, must be one of 'push', 'pop', or 'preserve'
-    * @param   string $omitServerName flag to produce relative URLs
-    * @param   bool   $javascriptCompatibility flag to produce javascript compatible URLs
-    * @returns string $uri the URL
-    */
-    public function uri($params = array(), $module = '', $mode = '', $omitServerName=FALSE, $javascriptCompatibility = FALSE, $omitExtraParams=FALSE)
-    {
+     *
+     * @access  public
+     * @param   array  $params         Associative array of parameter values
+     * @param   string $module         Name of module to point to (blank for core actions)
+     * @param   string $mode           The URI mode to use, must be one of 'push', 'pop', or 'preserve'
+     * @param   string $omitServerName flag to produce relative URLs
+     * @param   bool   $javascriptCompatibility flag to produce javascript compatible URLs
+     * @returns string $uri the URL
+     */
+    public function uri($params = array(), $module = '', $mode = '', $omitServerName=FALSE, $javascriptCompatibility = FALSE, $omitExtraParams=FALSE) {
         $objFileManagerObject = $this->getObject('filemanagerobject');
         return $objFileManagerObject->uri($params, $module, $mode, $omitServerName, $javascriptCompatibility, $omitExtraParams);
     }
-    
+
     /**
      * 
      * The standard dispatch method for the filemanager2 module.
@@ -259,20 +236,19 @@ class filemanager extends controller
      * which renders the module output.
      * 
      */
-    public function dispatch($action='home')
-    {
+    public function dispatch($action='home') {
         // Check to ensure the user has access to the file manager.
         if (!$this->userHasAccess()) {
             return 'access_denied_tpl.php';
         }
 
         $this->setLayoutTemplate('filemanager_layout_tpl.php');
-        
+
         // retrieve the mode (edit/add/translate) from the querystring
         $mode = $this->getParam("mode", null);
-        
+
         // hide banner and footer for certain modes
-        $suppressModes = array ('selectfilewindow', 'selectimagewindow', 'fckimage', 'fckflash', 'fcklink');
+        $suppressModes = array('selectfilewindow', 'selectimagewindow', 'fckimage', 'fckflash', 'fcklink');
         if (in_array($mode, $suppressModes)) {
             $this->setVar('pageSuppressBanner', TRUE);
             $this->setVar('pageSuppressToolbar', TRUE);
@@ -281,75 +257,71 @@ class filemanager extends controller
         } else {
             $this->setVar('mode', NULL);
         }
-        
+
         if ($this->getParam("restriction") == '') {
             $restrictions = array();
         } else {
             $restrictions = explode("_", strtolower($this->getParam("restriction")));
         }
-        
+
         $this->setVar('restrictions', $restrictions);
-        
+
         /*
-        * Convert the action into a method (alternative to 
-        * using case selections)
-        */
+         * Convert the action into a method (alternative to
+         * using case selections)
+         */
         $method = $this->__getMethod($action);
         /*
-        * Return the template determined by the method resulting 
-        * from action
-        */
+         * Return the template determined by the method resulting
+         * from action
+         */
         return $this->$method();
     }
-    
-    
+
     /**
-    * 
-    * Method to check if a given action is a valid method
-    * of this class preceded by double underscore (__). If it __action 
-    * is not a valid method it returns FALSE, if it is a valid method
-    * of this class it returns TRUE.
-    * 
-    * @access private
-    * @param string $action The action parameter passed byref
-    * @return boolean TRUE|FALSE
-    * 
-    */
-    function __validAction(& $action)
-    {
-        if (method_exists($this, "__".$action)) {
+     *
+     * Method to check if a given action is a valid method
+     * of this class preceded by double underscore (__). If it __action
+     * is not a valid method it returns FALSE, if it is a valid method
+     * of this class it returns TRUE.
+     *
+     * @access private
+     * @param string $action The action parameter passed byref
+     * @return boolean TRUE|FALSE
+     *
+     */
+    function __validAction(& $action) {
+        if (method_exists($this, "__" . $action)) {
             return TRUE;
         } else {
             return FALSE;
         }
     }
-    
+
     /**
-    * 
-    * Method to convert the action parameter into the name of 
-    * a method of this class.
-    * 
-    * @access private
-    * @param string $action The action parameter passed byref
-    * @return stromg the name of the method
-    * 
-    */
-    function __getMethod(& $action)
-    {
+     *
+     * Method to convert the action parameter into the name of
+     * a method of this class.
+     *
+     * @access private
+     * @param string $action The action parameter passed byref
+     * @return stromg the name of the method
+     *
+     */
+    function __getMethod(& $action) {
         if ($this->__validAction($action)) {
             return "__" . $action;
         } else {
             return "__home";
         }
     }
-    
+
     /**
      * Checks if the user should have access to the file manager.
      *
      * @return boolean True if the user has access, false otherwise.
      */
-    protected function userHasAccess()
-    {
+    protected function userHasAccess() {
         $limitedUsers = $this->objSysConfig->getValue('LIMITEDUSERS', 'filemanager');
         if ($limitedUsers) {
             $userId = $this->objUser->userId();
@@ -367,46 +339,58 @@ class filemanager extends controller
             return TRUE;
         }
     }
-    
-    /*------------- BEGIN: Set of methods to replace case selection ------------*/
+
+    /* ------------- BEGIN: Set of methods to replace case selection ------------ */
 
     /**
-    * Default Action for File manager module
-    * It shows the list of folders of a user
-    * @access private
-    */
-    private function __home()
-    {
+     * Default Action for File manager module
+     * It shows the list of folders of a user
+     * @access private
+     */
+    private function __home() {
+        $objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
+
+        $filemanagerVersion = $objSysConfig->getValue('FILEMANAGER_VERSION', 'filemanager');
+        if ($filemanagerVersion == 'filemanager2') {
+            return $this->nextAction('home', array("filebrowserWidth" => "80%"), "filemanager2");
+        }
         if ($this->getParam('value') != '' && $this->getParam('value') != 'undefined') {
-            return $this->nextAction('fileinfo', array('id'=>$this->getParam('value')));
+            //return $this->nextAction('fileinfo', array('id' => $this->getParam('value')));
         }
         // Get Folder Details
-        $folderpath = 'users/'.$this->objUser->userId();
+        $folderpath = 'users/' . $this->objUser->userId();
 
         $folderId = $this->objFolders->getFolderId($folderpath);
-        
+
+        if ($this->contextCode != '') {
+            $folderpath = 'context/' . $this->contextCode;
+
+            $folderId = $this->objFolders->getFolderId($folderpath);
+            if ($folderId == FALSE) {
+                $objIndexFileProcessor = $this->getObject('indexfileprocessor');
+                $list = $objIndexFileProcessor->indexFiles('context', $this->contextCode);
+            }
+        }
         return $this->__viewfolder($folderId);
     }
-    
-    
+
     /**
      * Method to view/download the actual file
      * This approach is used to allow files to be move around without
      * adjust links in content
      * @access private
      */
-    private function __file()
-    {
+    private function __file() {
         $id = $this->getParam('id');
         $filename = $this->getParam('filename');
-        
+
         $file = $this->objFiles->getFileInfo($id);
 
         if ($file == FALSE || $file['filename'] != $filename) {
-            die($this->objLanguage->languageText('mod_filemanager_norecordofsuchafile', 'filemanager', 'No Record of Such a File Exists').'.');
+            die($this->objLanguage->languageText('mod_filemanager_norecordofsuchafile', 'filemanager', 'No Record of Such a File Exists') . '.');
         }
 
-        $filePath = $this->objConfig->getcontentPath().$file['path'];
+        $filePath = $this->objConfig->getcontentPath() . $file['path'];
         $filePath = $this->objCleanUrl->cleanUpUrl($filePath);
 
         if ($file['category'] == 'images') {
@@ -414,9 +398,9 @@ class filemanager extends controller
             $objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
 
             if ($objSysConfig->getValue('FORCEMAXMODE', 'filemanager') == 'Y') {
-                $forceMaxFilePath = $this->objConfig->getcontentPath().'/filemanager_forcemax/'.$id.'.jpg';
-                $forceMaxFileBasePath = $this->objConfig->getcontentBasePath().'/filemanager_forcemax/'.$id.'.jpg';
-                $originalImage = $this->objConfig->getcontentBasePath().$file['path'];
+                $forceMaxFilePath = $this->objConfig->getcontentPath() . '/filemanager_forcemax/' . $id . '.jpg';
+                $forceMaxFileBasePath = $this->objConfig->getcontentBasePath() . '/filemanager_forcemax/' . $id . '.jpg';
+                $originalImage = $this->objConfig->getcontentBasePath() . $file['path'];
                 $originalImage = $this->objCleanUrl->cleanUpUrl($originalImage);
 
                 $forceMaxFilePath = $this->objCleanUrl->cleanUpUrl($forceMaxFilePath);
@@ -454,9 +438,8 @@ class filemanager extends controller
                         $imageResize->store($forceMaxFileBasePath);
 
                         $filePath = $forceMaxFilePath;
-
                     } else {
-                        $filePath = $this->objConfig->getcontentPath().$file['path'];
+                        $filePath = $this->objConfig->getcontentPath() . $file['path'];
                         $this->objCleanUrl->cleanUpUrl($filePath);
                     }
                 }
@@ -467,144 +450,131 @@ class filemanager extends controller
 
 
         // To do: Build in Security on whether user can view file
-        if (file_exists($this->objConfig->getSiteRootPath().'/'.$filePath)) {
+        if (file_exists($this->objConfig->getSiteRootPath() . '/' . $filePath)) {
             //echo $filePath;
             header("Location:{$filePath}");
         } else {
-            die ('File does not exist');
+            die('File does not exist');
         }
     }
-    
+
     /**
      * Method to view information about a file
      * @access private
      */
-    private function __fileinfo()
-    {
+    private function __fileinfo() {
         $id = $this->getParam('id');
         $filename = $this->getParam('filename');
+        if (($this->fckVersion == '2.5.1.x') || ($this->fckVersion == '2.6.3.x')) {
+            $file = $this->objFiles->getFileInfo($id);
 
-        if (empty($this->fckVersion))
-         $this->fckVersion = 'latest';
+            if ($file == FALSE) {
+                return $this->nextAction(NULL, array('error' => 'filedoesnotexist'));
+            }
 
-        if (empty($this->sysEditor))
-         $this->fckVersion = 'ckeditor';
+            if (array_key_exists('getid3info', $file)) {
+                unset($file['getid3info']);
+            }
 
-        if (($this->fckVersion == '2.6.3') && $this->sysEditor == 'fckeditor' ) {
+            $this->setVarByRef('file', $file);
 
-         $file = $this->objFiles->getFileInfo($id);
+            $tags = $this->objFileTags->getFileTags($id);
+            $this->setVarByRef('tags', $tags);
 
-         if ($file == FALSE) {
-             return $this->nextAction(NULL, array('error'=>'filedoesnotexist'));
-         }
-
-         if (array_key_exists('getid3info', $file)) {
-             unset ($file['getid3info']);
-         }
-
-         $this->setVarByRef('file', $file);
-
-         $tags = $this->objFileTags->getFileTags($id);
-         $this->setVarByRef('tags', $tags);
-
-         $this->objMenuTools->addToBreadCrumbs(array('File Information: '.$file['filename']));
-
-         return 'fileinfo_tpl.php';
-
+            $this->objMenuTools->addToBreadCrumbs(array('File Information: ' . $file['filename']));
+            return 'fileinfo2_tpl.php';
         } else {
+            $file = $this->objFiles->getFileInfo($id);
 
-        $file = $this->objFiles->getFileInfo($id);
+            if ($file == FALSE) {
+                return $this->nextAction(NULL, array('error' => 'filedoesnotexist'));
+            }
 
-        if ($file == FALSE) {
-            return $this->nextAction(NULL, array('error'=>'filedoesnotexist'));
-        }
+            if (array_key_exists('getid3info', $file)) {
+                unset($file['getid3info']);
+            }
 
-        if (array_key_exists('getid3info', $file)) {
-            unset ($file['getid3info']);
-        }
+            $this->setVarByRef('file', $file);
 
-        $this->setVarByRef('file', $file);
-        
-        $folderParts = explode('/', $file['filefolder']);
-        
-        if ($folderParts[0] == 'context' && $folderParts[1] != $this->contextCode) {
-            return $this->nextAction(NULL);
-        }
-        
-        $folderPermission = $this->objFolders->checkPermissionUploadFolder($folderParts[0], $folderParts[1]);
-        $this->setVar('folderPermission', $folderPermission);
+            $folderParts = explode('/', $file['filefolder']);
 
-        $tags = $this->objFileTags->getFileTags($id);
-        $this->setVarByRef('tags', $tags);
+            if ($folderParts[0] == 'context' && $folderParts[1] != $this->contextCode) {
+                return $this->nextAction(NULL);
+            }
 
-        $this->objMenuTools->addToBreadCrumbs(array('File Information: '.$file['filename']));
-        
-        //$this->setLayoutTemplate('filemanager_3collayout_tpl.php');
-        
-        $objFilePreview = $this->getObject('filepreview');
-        $preview = $objFilePreview->previewFile($file['id']);
-        
-        $this->setVarByRef('preview', $preview);
-        
-        if (trim($preview) == '') {
-            $right = '';
-        } else {
-            $right = '<h2>'.$this->objLanguage->languageText('mod_filemanager_embedcode', 'filemanager', 'Embed Code').'</h2>';
+            $folderPermission = $this->objFolders->checkPermissionUploadFolder($folderParts[0], $folderParts[1]);
+            $this->setVar('folderPermission', $folderPermission);
+
+            $tags = $this->objFileTags->getFileTags($id);
+            $this->setVarByRef('tags', $tags);
+
+            $this->objMenuTools->addToBreadCrumbs(array('File Information: ' . $file['filename']));
+
+            //$this->setLayoutTemplate('filemanager_3collayout_tpl.php');
+
+            $objFilePreview = $this->getObject('filepreview');
+            $preview = $objFilePreview->previewFile($file['id']);
+
+            $this->setVarByRef('preview', $preview);
+
+            if (trim($preview) == '') {
+                $right = '';
+            } else {
+                $right = '<h2>' . $this->objLanguage->languageText('mod_filemanager_embedcode', 'filemanager', 'Embed Code') . '</h2>';
+
+                $right .= '<p>' . $this->objLanguage->languageText('mod_filemanager_embedinstructions', 'filemanager', 'Copy this code and paste it into any text box to display this file.') . '</p>';
+
+                $value = htmlentities('[FILEPREVIEW id="' . $file['id'] . '" comment="' . $file['filename'] . '" /]');
+
+                $right .= '<form name="formtocopy">
             
-            $right .= '<p>'.$this->objLanguage->languageText('mod_filemanager_embedinstructions', 'filemanager', 'Copy this code and paste it into any text box to display this file.').'</p>';
-            
-            $value = htmlentities('[FILEPREVIEW id="'.$file['id'].'" comment="'.$file['filename'].'" /]');
-            
-            $right .= '<form name="formtocopy">
-            
-    <input name="texttocopy" readonly="readonly" style="width:70%" type="text" value="'.$value.'" />';
-            $right .= '
+    <input name="texttocopy" readonly="readonly" style="width:70%" type="text" value="' . $value . '" />';
+                $right .= '
     <br /><input type="button" onclick="javascript:copyToClipboard(document.formtocopy.texttocopy);" value="Copy to Clipboard" />
     </form>';
-        }
-        
-        
-        $this->setVarByRef('embedCode', $right);
-        
-        $fileBreadrumbs = $this->objFolders->generateBreadCrumbs($file['path'], TRUE).$file['filename'];
-        $this->setVarByRef('fileBreadrumbs', $fileBreadrumbs);
-        
-        // Get Folder Id of Item
-        $folderId = $this->objFolders->getFolderId(dirname($file['path']));
-        $this->setVarByRef('folderId', $folderId);
-        
-        $objCopy = $this->getObject('copytoclipboard', 'htmlelements');
-        $objCopy->show();
-        
-        return 'fileinfo_tpl.php';
+            }
+
+
+            $this->setVarByRef('embedCode', $right);
+            $this->setVarByRef('embedValue', $value);
+            $fileBreadrumbs = $this->objFolders->generateBreadCrumbs($file['path'], TRUE) . $file['filename'];
+            $this->setVarByRef('fileBreadrumbs', $fileBreadrumbs);
+
+            // Get Folder Id of Item
+            $folderId = $this->objFolders->getFolderId(dirname($file['path']));
+            $this->setVarByRef('folderId', $folderId);
+
+            $objCopy = $this->getObject('copytoclipboard', 'htmlelements');
+            $objCopy->show();
+
+            return 'fileinfo_tpl.php';
         }
     }
-    
+
     /**
      * Method to view a file which is actually a symlink
      * @access private
      */
-    private function __symlink()
-    {
+    private function __symlink() {
         $id = $this->getParam('id');
         $symLink = $this->objSymlinks->getSymlink($id);
-        
+
         if ($symLink == FALSE) {
-            return $this->nextAction(NULL, array('error'=>'filedoesnotexist'));
+            return $this->nextAction(NULL, array('error' => 'filedoesnotexist'));
         }
-        
+
         $file = $this->objFiles->getFileInfo($symLink['fileid']);
-        
+
         if ($file == FALSE) {
-            return $this->nextAction(NULL, array('error'=>'filedoesnotexist'));
+            return $this->nextAction(NULL, array('error' => 'filedoesnotexist'));
         }
-        
+
         $symLinkFolder = $this->objFolders->getFolder($symLink['folderid']);
         $this->setVarByRef('folderId', $symLink['folderid']);
-        
-        
+
+
         if (array_key_exists('getid3info', $file)) {
-            unset ($file['getid3info']);
+            unset($file['getid3info']);
         }
 
         $this->setVarByRef('file', $file);
@@ -612,72 +582,69 @@ class filemanager extends controller
         $tags = $this->objFileTags->getFileTags($id);
         $this->setVarByRef('tags', $tags);
 
-        $this->objMenuTools->addToBreadCrumbs(array('File Information: '.$file['filename']));
-        
+        $this->objMenuTools->addToBreadCrumbs(array('File Information: ' . $file['filename']));
+
         $folderParts = explode('/', $file['filefolder']);
-        
+
         //$quota = $this->objQuotas->getQuota($folder['folderpath']);
         //var_dump($quota);
-        
+
         if ($folderParts[0] == 'context' && $folderParts[1] != $this->contextCode) {
             return $this->nextAction(NULL);
         }
-        
+
         $folderPermission = $this->objFolders->checkPermissionUploadFolder($folderParts[0], $folderParts[1]);
         $this->setVar('folderPermission', $folderPermission);
-        
+
         $objFilePreview = $this->getObject('filepreview');
         $preview = $objFilePreview->previewFile($file['id']);
-        
+
         $this->setVarByRef('preview', $preview);
-        
+
         if (trim($preview) == '') {
             $right = '';
         } else {
-            $right = '<h2>'.$this->objLanguage->languageText('mod_filemanager_embedcode', 'filemanager', 'Embed Code').'</h2>';
-            
-            $right .= '<p>'.$this->objLanguage->languageText('mod_filemanager_embedinstructions', 'filemanager', 'Copy this code and paste it into any text box to display this file.').'</p>';
-            
-            $value = htmlentities('[FILEPREVIEW id="'.$file['id'].'" comment="'.$file['filename'].'" /]');
-            
+            $right = '<h2>' . $this->objLanguage->languageText('mod_filemanager_embedcode', 'filemanager', 'Embed Code') . '</h2>';
+
+            $right .= '<p>' . $this->objLanguage->languageText('mod_filemanager_embedinstructions', 'filemanager', 'Copy this code and paste it into any text box to display this file.') . '</p>';
+
+            $value = htmlentities('[FILEPREVIEW id="' . $file['id'] . '" comment="' . $file['filename'] . '" /]');
+
             $right .= '<form name="formtocopy">
             
-    <input name="texttocopy" readonly="readonly" style="width:70%" type="text" value="'.$value.'" />';
+    <input name="texttocopy" readonly="readonly" style="width:70%" type="text" value="' . $value . '" />';
             $right .= '
     <br /><input type="button" onclick="javascript:copyToClipboard(document.formtocopy.texttocopy);" value="Copy to Clipboard" />
     </form>';
         }
-        
-        
+
+
         $this->setVarByRef('embedCode', $right);
-        
-        $fileBreadrumbs = $this->objFolders->generateBreadCrumbs($symLinkFolder['folderpath'].'/'.$file['filename'], TRUE).$file['filename'];
+
+        $fileBreadrumbs = $this->objFolders->generateBreadCrumbs($symLinkFolder['folderpath'] . '/' . $file['filename'], TRUE) . $file['filename'];
         $this->setVarByRef('fileBreadrumbs', $fileBreadrumbs);
-        
+
         $objCopy = $this->getObject('copytoclipboard', 'htmlelements');
         $objCopy->show();
-        
+
         return 'fileinfo_tpl.php';
     }
-    
+
     /**
      * Underconstruction - method to return a preview of a file via ajax
      * @access private
      *
      */
-    private function __ajaxfilepreview()
-    {
+    private function __ajaxfilepreview() {
         $id = $this->getParam('id');
-        
     }
-    
+
     /**
      * Method to upload files to the server
      *
      * @access private
      */
-    private function __upload()
-    {
+    private function __upload() {
         $folder = $this->objFolders->getFolder($this->getParam('folder'));
 
         if ($folder != FALSE) {
@@ -694,23 +661,37 @@ class filemanager extends controller
 
         // Check if no files were provided
         if (count($results) == 1 && array_key_exists('nofileprovided', $results)) {
-            return $this->nextAction('uploadresults', array('error'=>'nofilesprovided'));
+            return $this->nextAction('uploadresults', array('error' => 'nofilesprovided'));
+        }
+        $overwrite = $this->objUploadMessages->processOverwriteMessages();
+        $index = 0;
+        $reason = "";
+        foreach ($results as $row) {
+            $reason = $row['reason'];
+            $index++;
+            if ($index > 0) {
+                break;
+            }
         }
 
+        if ($reason == 'needsoverwrite') {
+            $messages = $this->objUploadMessages->processMessageUrl($results);
+            $messages['folder'] = $this->getParam('folder');
+            return $this->nextAction('uploadresults', $messages);
+        }
         // Put Message into Array
-        $messages = $this->objUploadMessages->processMessageUrl($results);
-        $messages['folder'] = $this->getParam('folder');
-
-        return $this->nextAction('uploadresults', $messages);
+//        $messages = $this->objUploadMessages->processMessageUrl($results);
+        //      $messages['folder'] = $this->getParam('folder');
+        //      return $this->nextAction('uploadresults', $messages);
+        return $this->nextAction('viewfolder', array("folder" => $folder['id']));
     }
-    
+
     /**
      * Attempted ajax upload - doesnt work
      * To be relooked
      * @access private
      */
-    private function __ajaxupload()
-    {
+    private function __ajaxupload() {
         $folder = $this->objFolders->getFolder($this->getParam('folder'));
 
         if ($folder != FALSE) {
@@ -719,18 +700,19 @@ class filemanager extends controller
 
         // Upload Files
         $results = $this->objUpload->uploadFiles();
-        
+
         header("HTTP/1.0 200 OK");
-        
     }
-    
+
     /**
      * Method to display the results of file uploads to the user
      *
      * @access private
      */
-    private function __uploadresults()
-    {
+    private function __uploadresults() {
+        if ($this->objUploadMessages->processSuccessMessages()) {
+            return $this->nextAction('home', array());
+        }
         $this->setVar('successMessage', $this->objUploadMessages->processSuccessMessages());
         $this->setVar('errorMessage', $this->objUploadMessages->processErrorMessages());
 
@@ -738,16 +720,16 @@ class filemanager extends controller
 
         $this->objMenuTools->addToBreadCrumbs(array('Upload Results'));
 
+
         return 'list_uploadresults_tpl.php';
     }
-    
+
     /**
      * Method to fix temp files. These are files that require user intervention to be overwritten
      *
      * @access private
      */
-    private function __fixtempfiles()
-    {
+    private function __fixtempfiles() {
         // Create Array of Files that are affected
         $listItem = explode('__', $this->getParam('listitems'));
 
@@ -755,16 +737,14 @@ class filemanager extends controller
         $resultInfo = array();
 
         // Loop through each files
-        foreach ($listItem as $item)
-        {
+        foreach ($listItem as $item) {
             // Get the option user has decided - either delete temp or overwrite
             $option = $this->getParam($item);
 
             // Check that Option is Valid
             if ($item != '') {
                 // Take Action based on option
-                switch (trim($option))
-                {
+                switch (trim($option)) {
                     // Delete Temp File
                     case 'delete':
                         $this->objFiles->deleteTemporaryFile($item);
@@ -786,9 +766,8 @@ class filemanager extends controller
         $divider = '';
 
         if (count($resultInfo) > 0) {
-            foreach ($resultInfo as $item=>$action)
-            {
-                $result .= $divider.$item.'__'.$action;
+            foreach ($resultInfo as $item => $action) {
+                $result .= $divider . $item . '__' . $action;
                 $divider = '____';
             }
         }
@@ -796,16 +775,15 @@ class filemanager extends controller
         $nextAction = $this->getParam('nextaction');
         $nextParams = $this->getParam('nextparams');
 
-        return $this->nextAction('overwriteresults', array('result'=>$result, 'nextaction'=>$nextAction, 'nextparams'=>$nextParams));
+        return $this->nextAction('overwriteresults', array('result' => $result, 'nextaction' => $nextAction, 'nextparams' => $nextParams));
     }
-    
+
     /**
      * Method to display the results of file overwriting to the user
      *
      * @access private
      */
-    private function __overwriteresults()
-    {
+    private function __overwriteresults() {
         $results = $this->getParam('result');
 
         if ($results == '') {
@@ -815,39 +793,36 @@ class filemanager extends controller
             return 'overwriteresults_tpl.php';
         }
     }
-    
+
     /**
      * Method to delete multiple files
      * This step provides a form to request user confirmation
      *
      * @access private
      */
-    private function __multidelete()
-    {
+    private function __multidelete() {
         if (isset($_POST['symlinkcontext'])) {
             return $this->__symlinkcontext();
         }
         $this->objMenuTools->addToBreadCrumbs(array('Confirm Delete'));
         return 'multidelete_form_tpl.php';
     }
-    
-    
+
     /**
      * Method to delete multiple files, once user confirmation is given
      *
      * @access private
      */
-    private function __multideleteconfirm()
-    {
+    private function __multideleteconfirm() {
         // echo '<pre>';
         // print_r($_POST);
 
         if ($this->getParam('files') == NULL || !is_array($this->getParam('files')) || count($this->getParam('files')) == 0) {
-            
+
             if ($this->getParam('folder') != '') {
-                return $this->nextAction('viewfolder', array('message'=>'nofilesconfirmedfordelete', 'folder'=>$this->getParam('folder')));
+                return $this->nextAction('viewfolder', array('message' => 'nofilesconfirmedfordelete', 'folder' => $this->getParam('folder')));
             } else {
-                return $this->nextAction(NULL, array('message'=>'nofilesconfirmedfordelete', 'folder'=>$this->getParam('folder')));
+                return $this->nextAction(NULL, array('message' => 'nofilesconfirmedfordelete', 'folder' => $this->getParam('folder')));
             }
         } else {
             $files = $this->getParam('files');
@@ -864,8 +839,7 @@ class filemanager extends controller
             //keep the user connection alive, even if browser is closed!
             $callback = $objBackground->keepAlive();
 
-            foreach ($files as $file)
-            {
+            foreach ($files as $file) {
                 if (substr($file, 0, 8) == 'folder__') {
                     $folder = substr($file, 8);
                     $this->objFolders->deleteFolder($folder);
@@ -888,44 +862,42 @@ class filemanager extends controller
             //$call2 = $objBackground->setCallback("john.doe@tohir.co.za","Your Script","The really long running process that you requested is complete!");
 
             if ($this->getParam('folder') != '') {
-                return $this->nextAction('viewfolder', array('folder'=>$this->getParam('folder'), 'message'=>'filesdeleted', 'numfiles'=>$numFiles, 'numfolders'=>$numFolders));
+                return $this->nextAction('viewfolder', array('folder' => $this->getParam('folder'), 'message' => 'filesdeleted', 'numfiles' => $numFiles, 'numfolders' => $numFolders));
             } else {
-                return $this->nextAction(NULL, array('message'=>'filesdeleted'));
+                return $this->nextAction(NULL, array('message' => 'filesdeleted'));
             }
         }
     }
-    
+
     /**
      * Method to view the contents of a folder
      *
      * @access private
      */
-    private function __viewfolder($id=NULL)
-    {
+    private function __viewfolder($id=NULL) {
         if ($id == NULL) {
             $id = $this->getParam('folder');
         }
-        
-        // TODO: Check permission to enter folder
 
+        // TODO: Check permission to enter folder
         // Get Folder Details
         $folder = $this->objFolders->getFolder($id);
 
         if ($folder == FALSE) {
             return $this->nextAction(NULL);
         }
-        
+
         //var_dump($folder);
-        
+
         $folderParts = explode('/', $folder['folderpath']);
-        
+
         $quota = $this->objQuotas->getQuota($folder['folderpath']);
         //var_dump($quota);
-        
+
         if ($folderParts[0] == 'context' && $folderParts[1] != $this->contextCode) {
             return $this->nextAction(NULL);
         }
-        
+
         $folderPermission = $this->objFolders->checkPermissionUploadFolder($folderParts[0], $folderParts[1]);
 
         $this->setVarByRef('folder', $folder);
@@ -942,52 +914,49 @@ class filemanager extends controller
 
         $files = $this->objFiles->getFolderFiles($folder['folderpath']);
         $this->setVarByRef('files', $files);
-        
+
         $symlinks = $this->objSymlinks->getFolderSymlinks($id);
-        
-        
-        
+
         $this->setVarByRef('symlinks', $symlinks);
 
         $objPreviewFolder = $this->getObject('previewfolder');
         $objPreviewFolder->editPermission = $folderPermission;
-        $this->setVarByRef('table', $objPreviewFolder->previewContent($subfolders, $files, $symlinks, explode('____', $this->getParam('restriction'))));
+        $this->setVarByRef('table', $objPreviewFolder->previewContent($subfolders, $files, $this->getParam("mode"), $this->getParam("name"), $symlinks, explode('____', $this->getParam('restriction'))));
 
         $breadcrumbs = $this->objFolders->generateBreadCrumbs($folder['folderpath']);
         $this->setVarByRef('breadcrumbs', $breadcrumbs);
-        
+
         return 'showfolder.php';
     }
-    
+
     /**
      * Method to create a folder.
      *
      * @access private
      */
-    private function __createfolder()
-    {
+    private function __createfolder() {
         $parentId = $this->getParam('parentfolder', 'ROOT');
         $foldername = $this->getParam('foldername');
 
         // If no folder name is given, res
         if (trim($foldername) == '') {
-            return $this->nextAction('viewfolder', array('folder'=>$parentId, 'error'=>'nofoldernameprovided'));
+            return $this->nextAction('viewfolder', array('folder' => $parentId, 'error' => 'nofoldernameprovided'));
         }
 
         if (preg_match('/\\\|\/|\\||:|\\*|\\?|"|<|>/', $foldername)) {
-            return $this->nextAction('viewfolder', array('folder'=>$parentId, 'error'=>'illegalcharacters'));
+            return $this->nextAction('viewfolder', array('folder' => $parentId, 'error' => 'illegalcharacters'));
         }
-        
+
         // Replace spaces with underscores
         $foldername = str_replace(' ', '_', $foldername);
 
         if ($parentId == 'ROOT') {
-            $folderpath = 'users/'.$this->objUser->userId();
+            $folderpath = 'users/' . $this->objUser->userId();
         } else {
             $folder = $this->objFolders->getFolder($parentId);
 
             if ($folder == FALSE) {
-                return $this->nextAction(NULL, array('error'=>'couldnotfindparentfolder'));
+                return $this->nextAction(NULL, array('error' => 'couldnotfindparentfolder'));
             }
             $folderpath = $folder['folderpath'];
         }
@@ -995,27 +964,26 @@ class filemanager extends controller
 
         $this->objMkdir = $this->getObject('mkdir', 'files');
 
-        $path = $this->objConfig->getcontentBasePath().'/'.$folderpath.'/'.$foldername;
+        $path = $this->objConfig->getcontentBasePath() . '/' . $folderpath . '/' . $foldername;
 
         $result = $this->objMkdir->mkdirs($path);
 
         if ($result) {
             $folderId = $this->objFolders->indexFolder($path);
-            return $this->nextAction('viewfolder', array('folder'=>$folderId, 'message'=>'foldercreated'));
+            return $this->nextAction('viewfolder', array('folder' => $folderId, 'message' => 'foldercreated'));
         } else {
-            return $this->nextAction(NULL, array('error'=>'couldnotcreatefolder'));
+            return $this->nextAction(NULL, array('error' => 'couldnotcreatefolder'));
         }
     }
-    
+
     /**
      * Method to delete a folder
      *
      * @access private
      */
-    private function __deletefolder()
-    {
+    private function __deletefolder() {
         $id = $this->getParam('id');
-        
+
         // Get the Folder Path
         $folder = $this->objFolders->getFolderPath($id);
 
@@ -1036,7 +1004,7 @@ class filemanager extends controller
 
 
         if ($result == 'norecordoffolder') {
-            return $this->nextAction(NULL, array('error'=>'norecordoffolder'));
+            return $this->nextAction(NULL, array('error' => 'norecordoffolder'));
         }
 
         $resultmessage = $result ? 'folderdeleted' : 'couldnotdeletefolder';
@@ -1045,9 +1013,9 @@ class filemanager extends controller
         $parentId = $this->objFolders->getFolderId(dirname($folder));
 
         // Redirect to Parent Folder
-        return $this->nextAction('viewfolder', array('folder'=>$parentId, 'message'=>$resultmessage, 'ref'=>basename($folder)));
+        return $this->nextAction('viewfolder', array('folder' => $parentId, 'message' => $resultmessage, 'ref' => basename($folder)));
     }
-    
+
     /**
      * Method to create a symlink to a file
      * This presents a form to request user confirmation,
@@ -1055,138 +1023,129 @@ class filemanager extends controller
      *
      * @access private
      */
-    private function __symlinkcontext()
-    {
+    private function __symlinkcontext() {
         $this->objMenuTools->addToBreadCrumbs(array('Add to Course'));
         return 'symlinkcontext_tpl.php';
     }
-    
+
     /**
      * Method to create the symlinks
      *
      * @access private
      */
-    private function __symlinkconfirm()
-    {
+    private function __symlinkconfirm() {
         $files = $this->getParam('files');
         $folder = $this->getParam('parentfolder');
         $origFolder = $this->getParam('folder');
-        
+
         if (count($files) > 0) {
-            
-            foreach ($files as $file)
-            {
+
+            foreach ($files as $file) {
                 $this->objSymlinks->addSymlink($file, $folder);
             }
-            
-            return $this->nextAction('viewfolder', array('folder'=>$folder, 'message'=>'symlinksadded'));
+
+            return $this->nextAction('viewfolder', array('folder' => $folder, 'message' => 'symlinksadded'));
         } else {
-            return $this->nextAction('viewfolder', array('folder'=>$origFolder, 'message'=>'couldnotcreatesymlinks'));
+            return $this->nextAction('viewfolder', array('folder' => $origFolder, 'message' => 'couldnotcreatesymlinks'));
         }
     }
-    
+
     /**
      * Method to extract an archive, an index all files
      *
      * @access private
      */
-    private function __extractarchive()
-    {
+    private function __extractarchive() {
         $archiveFileId = $this->getParam('file');
-        
+
         $file = $this->objFiles->getFullFilePath($archiveFileId);
-        
+
         if ($this->debug) {
             echo 'Zip Files Detail';
             var_dump($file);
         }
 
         if ($file == FALSE) {
-            return $this->nextAction('viewfolder', array('folder'=>$this->getParam('parentfolder'), 'error'=>'couldnotfindarchive'));
+            return $this->nextAction('viewfolder', array('folder' => $this->getParam('parentfolder'), 'error' => 'couldnotfindarchive'));
         } else {
 
             $parentId = $this->getParam('parentfolder');
 
             if ($parentId == 'ROOT') {
-                $parentId = $this->objFolders->getFolderId('users/'.$this->objUser->userId());
+                $parentId = $this->objFolders->getFolderId('users/' . $this->objUser->userId());
             }
-            
+
             if ($this->debug) {
                 echo 'Posted Variables';
                 var_dump($_POST);
-                
+
                 echo 'Folder ID';
                 var_dump($parentId);
             }
-            
+
             $folder = $this->objFolders->getFolderPath($parentId);
             $fullFolderPath = $this->objFolders->getFullFolderPath($parentId);
 
             $folderParts = explode('/', $folder);
-            
+
             if ($this->debug) {
                 echo 'FolderParts';
                 var_dump($folder);
                 var_dump($folderParts);
             }
-            
-            // $objBackground = $this->newObject('background', 'utilities');
 
+            // $objBackground = $this->newObject('background', 'utilities');
             //check the users connection status,
             //only needs to be done once, then it becomes internal
             //$status = $objBackground->isUserConn();
-
             //keep the user connection alive, even if browser is closed!
             //$callback = $objBackground->keepAlive();
-            if(extension_loaded('zip') && function_exists('zip_open')) {
+            if (extension_loaded('zip') && function_exists('zip_open')) {
                 $this->extzip = TRUE;
             }
 
-            if($this->extzip == TRUE) {
+            if ($this->extzip == TRUE) {
                 $zip = new ZipArchive;
                 $zip->open($file);
-                if (! $zip->extractTo( $fullFolderPath )) {
-                     //log_debug($zip->error);
-                     $zip->close();
-                     //return FALSE;
-                }
-                else {
+                if (!$zip->extractTo($fullFolderPath)) {
+                    //log_debug($zip->error);
+                    $zip->close();
+                    //return FALSE;
+                } else {
                     $zip->close();
                     //return TRUE;
                 }
-            }
-            else {
+            } else {
                 $objZip = $this->newObject('wzip', 'utilities');
                 $objZip->unzip($file, $fullFolderPath);
             }
-            
+
             if ($this->debug) {
                 echo 'Full Folder Path';
                 var_dump($fullFolderPath);
             }
-            
+
             $objIndexFileProcessor = $this->getObject('indexfileprocessor');
             $objIndexFileProcessor->indexFolder($folderParts[0], $folderParts[1], $fullFolderPath, $this->objUser->userId());
-            
+
             //$call2 = $objBackground->setCallback("john.doe@tohir.co.za","Your Script","The really long running process that you requested is complete!");
-            
-            return $this->nextAction('viewfolder', array('folder'=>$parentId, 'message'=>'archiveextracted', 'archivefile'=>$archiveFileId));
+
+            return $this->nextAction('viewfolder', array('folder' => $parentId, 'message' => 'archiveextracted', 'archivefile' => $archiveFileId));
         }
     }
-    
+
     /**
      * Method to present a user with a form to update the details of a file
      *
      *
      */
-    private function __editfiledetails()
-    {
+    private function __editfiledetails() {
         $id = $this->getParam('id');
-        
+
         $file = $this->objFiles->getFile($id);
-        
+
         if ($file == FALSE) {
-            return $this->nextAction(NULL, array('error'=>'filedoesnotexist'));
+            return $this->nextAction(NULL, array('error' => 'filedoesnotexist'));
         } else {
             $this->setVarByRef('file', $file);
             $tags = $this->objFileTags->getFileTags($id);
@@ -1194,21 +1153,20 @@ class filemanager extends controller
             return 'editfiledetails_tpl.php';
         }
     }
-    
+
     /**
      * Method to update the details such as description, tags
      * and license of a file
      * @access private
      */
-    private function __updatefiledetails()
-    {
+    private function __updatefiledetails() {
         $id = $this->getParam('id');
         $description = $this->getParam('description');
         $license = $this->getParam('creativecommons');
         $keywords = $this->getParam('keywords');
 
         if ($id == '') {
-            return $this->nextAction(NULL, array('error'=>'filedoesnotexist'));
+            return $this->nextAction(NULL, array('error' => 'filedoesnotexist'));
         } else {
             $result = $this->objFiles->updateDescriptionLicense($id, $description, $license);
 
@@ -1216,35 +1174,32 @@ class filemanager extends controller
                 $this->objFileTags->addFileTags($id, $keywords);
             }
 
-            return $this->nextAction('fileinfo', array('id'=>$id, 'message'=>'filedetailsupdated'));
+            return $this->nextAction('fileinfo', array('id' => $id, 'message' => 'filedetailsupdated'));
         }
     }
-    
+
     /**
      * Method to display a tag cloud of the current user's files
      *
      *
      */
-    private function __tagcloud()
-    {
+    private function __tagcloud() {
         $tagCloudItems = $this->objFileTags->getTagCloudResults($this->objUser->userId());
         $this->setVarByRef('tagCloudItems', $tagCloudItems);
 
         return 'tagcloud_tpl.php';
     }
-    
-    
+
     /**
      * Method to view all files that match a certain tag
      *
      *
      */
-    private function __viewbytag()
-    {
+    private function __viewbytag() {
         $tag = $this->getParam('tag');
-        
+
         if (trim($tag) == '') {
-            return $this->nextAction('tagcloud', array('error'=>'notag'));
+            return $this->nextAction('tagcloud', array('error' => 'notag'));
         }
 
         $this->setVarByRef('tag', $tag);
@@ -1253,7 +1208,7 @@ class filemanager extends controller
         $this->setVarByRef('files', $files);
 
         if (count($files) == 0) {
-            return $this->nextAction('tagcloud', array('error'=>'nofileswithtag', 'tag'=>$tag));
+            return $this->nextAction('tagcloud', array('error' => 'nofileswithtag', 'tag' => $tag));
         }
 
         $this->setVarByRef('files', $files);
@@ -1264,17 +1219,15 @@ class filemanager extends controller
 
         return 'showfileswithtags_tpl.php';
     }
-    
-    
+
     /**
      * Method to get a thumbnail preview of a file
      *
      *
      */
-    private function __thumbnail()
-    {
+    private function __thumbnail() {
         $id = $this->getParam('id');
-        
+
         // Get the File Details of the File
         $file = $this->objFiles->getFile($id);
 
@@ -1291,41 +1244,37 @@ class filemanager extends controller
             // If thumbnail does not exist
             if ($thumb == FALSE) {
                 // Re/create it
-                $objThumbnail->createThumbailFromFile($this->objConfig->getcontentBasePath().'/'.$file['path'], $id);
+                $objThumbnail->createThumbailFromFile($this->objConfig->getcontentBasePath() . '/' . $file['path'], $id);
 
                 // Get Thumbnail
                 $thumb = $objThumbnail->getThumbnail($id, $file['filename']);
             }
 
             // Redirect to thumnail
-            header('Location:'.$thumb);
+            header('Location:' . $thumb);
         }
     }
-    
+
     /**
      * Method to show the fckeditor interface for inserting images
      *
      *
      */
-    private function __fckimage()
-    {
-      if (empty($this->fckVersion))
-        $this->fckVersion = 'latest';
-      if (empty($this->sysEditor))
-        $this->fckVersion = 'ckeditor';
-      if (($this->fckVersion == '2.6.3') && $this->sysEditor == 'fckeditor' ) {
-        $restriction = array('gif', 'jpg', 'jpeg', 'png', 'bmp');
-        return $this->showFCKEditorInterface($restriction, 'fckimage');
-      }else{
-        return $this->nextAction(NULL, array('mode'=>'fckimage', 'restriction'=>'jpg____gif____png____jpeg', 'loadwindow'=>'yes', 'url'=>$this->getParam('url')));
-      }
+    private function __fckimage() {
+
+        if (($this->fckVersion == '2.5.1') || ($this->fckVersion == '2.6.3')) {
+            $restriction = array('gif', 'jpg', 'jpeg', 'png', 'bmp');
+            return $this->showFCKEditorInterface($restriction, 'fckimage');
+        } else {
+            return $this->nextAction(NULL, array('mode' => 'fckimage', 'restriction' => 'jpg____gif____png____jpeg', 'loadwindow' => 'yes', 'url' => $this->getParam('url')));
+        }
     }
+
     /**
-    * Method to show the FCKEditor Interface
-    * @param array $restriction List of FileTypes to Restrict to.
-    */
-    public function showFCKEditorInterface($restriction=array(), $action='fcklink')
-    {
+     * Method to show the FCKEditor Interface
+     * @param array $restriction List of FileTypes to Restrict to.
+     */
+    public function showFCKEditorInterface($restriction=array(), $action='fcklink') {
         if ($this->getParam('mode') == 'fileupload') {
             $this->setVar('successMessage', $this->objUploadMessages->processSuccessMessages());
             $this->setVar('errorMessage', $this->objUploadMessages->processErrorMessages());
@@ -1364,144 +1313,133 @@ function checkWindowOpener()
         $this->setVar('suppressFooter', TRUE);
         return 'fckeditor_showfilewindow_tpl.php';
     }
+
     /**
      * Method to show the fckeditor interface for inserting flash movies
      *
      *
      */
-    private function __fckflash()
-    {
-        return $this->nextAction(NULL, array('mode'=>'fckflash', 'restriction'=>'swf', 'loadwindow'=>'yes'));
+    private function __fckflash() {
+        return $this->nextAction(NULL, array('mode' => 'fckflash', 'restriction' => 'swf', 'loadwindow' => 'yes'));
     }
-    
-    
+
     /**
      * Method to show the fckeditor interface to insert a link to a file in file manager
      *
      *
      */
-    private function __fcklink()
-    {
-        return $this->nextAction(NULL, array('mode'=>'fcklink', 'loadwindow'=>'yes'));
+    private function __fcklink() {
+        return $this->nextAction(NULL, array('mode' => 'fcklink', 'loadwindow' => 'yes'));
     }
-    
-    
+
     /**
      * Method to update the search index for all files in filemanager
      *
      *
      */
-    private function __indexsearchfiles()
-    {
+    private function __indexsearchfiles() {
         $this->objFiles->updateFileSearch();
-        return $this->nextAction(NULL, array('message'=>'searchindexupdated'));
+        return $this->nextAction(NULL, array('message' => 'searchindexupdated'));
     }
-    
-    
+
     /**
      *
      *
      *
      */
-   private  function __search()
-    {
+    private function __search() {
         return 'search_tpl.php';
     }
-    
+
     /**
      *
      *
      *
      */
-    private function __quotamanager()
-    {
+    private function __quotamanager() {
         return 'quotamanager_tpl.php';
     }
-    
+
     /**
      *
      *
      *
      */
-    private function __ajaxgetquotas()
-    {
+    private function __ajaxgetquotas() {
         $this->setLayoutTemplate(NULL);
         $this->setPageTemplate(NULL);
-        
+
         $searchType = $this->getParam('searchType');
         $searchField = $this->getParam('searchField');
         $searchFor = $this->getParam('searchFor');
         $orderBy = $this->getParam('orderBy');
-        
+
         if ($searchType == 'context') {
             $defaultQuota = $this->objQuotas->getDefaultContextQuota();
         } else {
             $searchType = 'user';
             $defaultQuota = $this->objQuotas->getDefaultUserQuota();
         }
-        
+
         $results = $this->objQuotas->getResults($searchType, $searchField, $searchFor, $orderBy);
         $this->setVarByRef('results', $results);
         $this->setVarByRef('searchType', $searchType);
         $this->setVarByRef('defaultQuota', $defaultQuota);
-        
+
         return 'quotaslist_tpl.php';
     }
-    
-    private function __editquota()
-    {
+
+    private function __editquota() {
         $id = $this->getParam('id');
-        
+
         $quota = $this->objQuotas->getQuotaFromId($id);
-        
+
         if ($quota == FALSE) {
-            return $this->nextAction('quotamanager', array('error'=>'unknownquota'));
+            return $this->nextAction('quotamanager', array('error' => 'unknownquota'));
         } else {
             $this->setVarByRef('quota', $quota);
             return 'editquota_tpl.php';
         }
     }
-    
-    private function __updatequota()
-    {
+
+    private function __updatequota() {
         // Get Values
         $id = $this->getParam('id');
         $quotatype = $this->getParam('quotatype');
         $customquota = $this->getParam('customquota');
-        
+
         // Are we setting default or custom value
         if ($quotatype == 'Y') {
             $this->objQuotas->setToUseDefaultQuota($id);
         } else {
             if ($customquota == '') {
-                return $this->nextAction('editquota', array('id'=>$id, 'error'=>'novalue'));
+                return $this->nextAction('editquota', array('id' => $id, 'error' => 'novalue'));
             }
-            
+
             if (!is_numeric($customquota)) {
-                return $this->nextAction('editquota', array('id'=>$id, 'error'=>'nonumber'));
+                return $this->nextAction('editquota', array('id' => $id, 'error' => 'nonumber'));
             } else {
                 $this->objQuotas->setToUseCustomQuota($id, $customquota);
             }
         }
-        
+
         // Get quota
         $quota = $this->objQuotas->getQuotaFromId($id);
-        
+
         // If quota doesn't exist, redirect
         if ($quota == FALSE) {
             return $this->nextAction('quotamanager');
         } else {
             // Do an approximate search to quota that was update
             if (substr($quota['path'], 0, 7) == 'context') {
-                return $this->nextAction('quotamanager', array('message'=>'quotatupdated', 'id'=>$quota['id'], 'searchType'=>'context', 'searchField_context'=>'contextcode', 'searchfor'=>substr($quota['path'], 8)));
+                return $this->nextAction('quotamanager', array('message' => 'quotatupdated', 'id' => $quota['id'], 'searchType' => 'context', 'searchField_context' => 'contextcode', 'searchfor' => substr($quota['path'], 8)));
             } else {
-                return $this->nextAction('quotamanager', array('message'=>'quotatupdated', 'id'=>$quota['id'], 'searchType'=>'users', 'searchField_user'=>'firstname', 'searchfor'=>$this->objUser->getFirstname(substr($quota['path'], 6))));
+                return $this->nextAction('quotamanager', array('message' => 'quotatupdated', 'id' => $quota['id'], 'searchType' => 'users', 'searchField_user' => 'firstname', 'searchfor' => $this->objUser->getFirstname(substr($quota['path'], 6))));
             }
         }
     }
-    
-    /*------------- END: Set of methods to replace case selection ------------*/
-    
 
+    /* ------------- END: Set of methods to replace case selection ------------ */
 }
+
 ?>

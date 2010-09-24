@@ -660,7 +660,7 @@ class upload extends filemanagerobject
                 if ($addToDatabaseAndIndex) {
 
                     // 1) Add to Database
-                    $fileId = $this->objFile->addFile($filename, $path, $file['size'], $file['type'], $subfolder, $version, $this->objUser->userId(), NULL, $this->getParam('creativecommons_'.$fileInputName, ''));
+                    $fileId = $this->objFile->addFile($filename, $path, $file['size'], $file['type'], $subfolder, $version, $this->objUser->userId(), $this->getParam('cite_'.$fileInputName, ''), $this->getParam('creativecommons_'.$fileInputName, ''));
 
                     // 2) Start Analysis of File
                     if ($subfolder == 'images' || $subfolder == 'audio' || $subfolder == 'video' || $subfolder == 'flash' || $originalsubfolder == 'images') {

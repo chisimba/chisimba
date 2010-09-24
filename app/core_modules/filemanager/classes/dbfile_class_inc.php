@@ -320,8 +320,8 @@ class dbfile extends dbTable
         
         $extra= array('basefolder'=>$folder[0].'/'.$folder[1]);
         
-        $objLucene = $this->getObject('indexdata', 'search');
-        $objLucene->luceneIndex($docId, $docDate, $url, $title, $contents, $teaser, $module, $userId, $tags, $license, $context, $workgroup, $permissions, $dateAvailable, $dateUnavailable, $extra);
+       // $objLucene = $this->getObject('indexdata', 'search');
+      //  $objLucene->luceneIndex($docId, $docDate, $url, $title, $contents, $teaser, $module, $userId, $tags, $license, $context, $workgroup, $permissions, $dateAvailable, $dateUnavailable, $extra);
     }
     
     /**
@@ -761,8 +761,8 @@ class dbfile extends dbTable
         $result = $this->delete('id', $fileId);
         
         if ($result) {
-            $objLucene = $this->getObject('indexdata', 'search');
-            $objLucene->removeIndex('filemanager_file_'.$fileId);
+           // $objLucene = $this->getObject('indexdata', 'search');
+           // $objLucene->removeIndex('filemanager_file_'.$fileId);
             $this->objQuota = $this->getObject('dbquotas');
             $this->objQuota->updateUsage($filePath);
         }

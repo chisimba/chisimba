@@ -96,7 +96,7 @@ class filesearch extends object
         
         
         // Add to Index
-        $objIndexData->luceneIndex($docId, $docDate, $url, $title, $contents, $teaser, $module, $userId, NULL, $license, NULL, NULL, 'useronly');
+       // $objIndexData->luceneIndex($docId, $docDate, $url, $title, $contents, $teaser, $module, $userId, NULL, $license, NULL, NULL, 'useronly');
     }
 
 

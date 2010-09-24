@@ -28,7 +28,6 @@
  * @see
  */
 
-
 /**
  * Class to present a preview of files
  *
@@ -41,13 +40,12 @@
  * @link      http://avoir.uwc.ac.za
  * @see
  */
-class filepreview extends object
-{
+class filepreview extends object {
+
     /**
-    * Constructor
-    */
-    function init()
-    {
+     * Constructor
+     */
+    function init() {
         $this->objFileParts = $this->getObject('fileparts', 'files');
         $this->objFiles = $this->getObject('dbfile');
         $this->objCleanurl = $this->getObject('cleanurl');
@@ -58,91 +56,113 @@ class filepreview extends object
     }
 
     /**
-    * Method to determine which sub folder a file should be placed in
-    *
-    * Note: This function is pretty hardcoded in determining the result
-    * More dynamic options are welcome.
-    *
-    * @param  string $name     Name of the File
-    * @param  string $mimetype Mimetype of the File
-    * @return string Sub Folder file must be placed in
-    */
-    function previewFile($fileId)
-    {
+     * Method to determine which sub folder a file should be placed in
+     *
+     * Note: This function is pretty hardcoded in determining the result
+     * More dynamic options are welcome.
+     *
+     * @param  string $name     Name of the File
+     * @param  string $mimetype Mimetype of the File
+     * @return string Sub Folder file must be placed in
+     */
+    function previewFile($fileId) {
         $preview = '';
-        
+
         $this->file = $this->objFiles->getFileInfo($fileId);
-        
+
         if ($this->file == FALSE) {
             return '';
         }
-        
-        $this->file['fullpath'] = $this->objConfig->getcontentBasePath().$this->file['path'];
-        $this->file['path'] = $this->objConfig->getcontentPath().$this->file['path'];
-        $this->file['fullurl'] = $this->objConfig->getsiteRoot().$this->file['path'];
+
+        $this->file['fullpath'] = $this->objConfig->getcontentBasePath() . $this->file['path'];
+        $this->file['path'] = $this->objConfig->getcontentPath() . $this->file['path'];
+        $this->file['fullurl'] = $this->objConfig->getsiteRoot() . $this->file['path'];
         // Fix Up - Try to get file using controller, instead of hard linking to file
         $this->file['path'] = $this->objCleanurl->cleanUpUrl($this->file['path']);
         $this->file['fullurl'] = $this->objCleanurl->cleanUpUrl($this->file['fullurl']);
         $this->file['fullpath'] = $this->objCleanurl->cleanUpUrl($this->file['fullpath']);
 
         // Restore Double Slash for http://
-        $this->file['fullurl'] = str_replace('http:/', 'http://', $this->file['fullurl']);
+        $protocol = "http";
+        if ($this->is_htpps) {
+            $protocol = "https";
+        }
+        $this->file['fullurl'] = str_replace($protocol . ':/', $protocol . '://', $this->file['fullurl']);
 
-        $this->file['linkname'] = $this->uri(array('action'=>'file', 'id'=>$this->file['id'], 'filename'=>$this->file['filename']), 'filemanager');
-        
+        $this->file['linkname'] = $this->uri(array('action' => 'file', 'id' => $this->file['id'], 'filename' => $this->file['filename']), 'filemanager');
+
         //var_dump($this->file);
-        
-        switch ($this->file['category'])
-        {
-            case 'images': $preview = $this->showImage(); break;
-            case 'obj3d': $preview = $this->show3dObject(); break;
-            case 'freemind': $preview = $this->showFreemind(); break;
-            case 'audio': $preview = $this->showAudio(); break;
-            case 'video': $preview = $this->showVideo(); break;
-            case 'flash': $preview = $this->showFlash(); break;
-            case 'scripts': $preview = $this->showScript(); break;
-            case 'documents': $preview = $this->showDocument(); break;
-            case 'archives': $preview = $this->showArchive(); break;
-            case 'fonts': $preview = $this->showFont(); break;
-            case 'timeline': $preview = $this->showTimeline(); break;
+
+        switch ($this->file['category']) {
+            case 'images': $preview = $this->showImage();
+                break;
+            case 'obj3d': $preview = $this->show3dObject();
+                break;
+            case 'freemind': $preview = $this->showFreemind();
+                break;
+            case 'audio': $preview = $this->showAudio();
+                break;
+            case 'video': $preview = $this->showVideo();
+                break;
+            case 'flash': $preview = $this->showFlash();
+                break;
+            case 'scripts': $preview = $this->showScript();
+                break;
+            case 'documents': $preview = $this->showDocument();
+                break;
+            case 'archives': $preview = $this->showArchive();
+                break;
+            case 'fonts': $preview = $this->showFont();
+                break;
+            case 'timeline': $preview = $this->showTimeline();
+                break;
         }
         return $preview;
     }
 
     /**
-    * Method to preview an image
-    */
-    function showImage()
-    {
+     * determines if we are using http or https
+     * @return <type> 
+     */
+    function is_https() {
+
+        return strtolower(substr($_SERVER["SERVER_PROTOCOL"], 0, 5)) == 'https' ? true : false;
+    }
+
+    /**
+     * Method to preview an image
+     */
+    function showImage() {
+
         // If Photoshop File, check for converted
         if ($this->file['datatype'] == 'psd') {
-            if (file_exists($this->objConfig->getcontentPath().'filemanager_thumbnails/standard_'.$this->file['id'].'.jpg')) {
-                return $this->objFileEmbed->embed($this->objConfig->getcontentPath().'filemanager_thumbnails/standard_'.$this->file['id'].'.jpg', 'image');
+            if (file_exists($this->objConfig->getcontentPath() . 'filemanager_thumbnails/standard_' . $this->file['id'] . '.jpg')) {
+                return $this->objFileEmbed->embed($this->objConfig->getcontentPath() . 'filemanager_thumbnails/standard_' . $this->file['id'] . '.jpg', 'image');
             } else {
                 $objImageResize = $this->getObject('imageresize', 'files');
                 $objImageResize->setImg($this->file['path']);
                 $objImageResize->resize(imagesx($objImageResize->image), imagesy($objImageResize->image), TRUE);
 
-                $img = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/standard_'.$this->file['id'].'.jpg';
+                $img = $this->objConfig->getcontentBasePath() . '/filemanager_thumbnails/standard_' . $this->file['id'] . '.jpg';
                 $objImageResize->store($img);
 
-                return $this->objFileEmbed->embed($this->objConfig->getcontentPath().'filemanager_thumbnails/standard_'.$this->file['id'].'.jpg', 'image');
+                return $this->objFileEmbed->embed($this->objConfig->getcontentPath() . 'filemanager_thumbnails/standard_' . $this->file['id'] . '.jpg', 'image');
             }
         } else if ($this->file['datatype'] == 'svg') {
             return $this->objFileEmbed->embed($this->file['linkname'], 'svg', '100%', 400);
         } else {
-            return $this->objFileEmbed->embed($this->file['linkname'], 'image');
+            $fileUrl = $this->objConfig->getSiteRoot() . '/' . $this->file['path'];
+
+            return $this->objFileEmbed->embed($fileUrl, 'image');
         }
         //width="270" height="270"'<img src="'.$this->file['linkname'].'"  />';//
     }
 
     /**
-    * Method to preview a 3d Object
-    */
-    function show3dObject()
-    {
-        switch ($this->file['datatype'])
-        {
+     * Method to preview a 3d Object
+     */
+    function show3dObject() {
+        switch ($this->file['datatype']) {
             // An exception is made for the obj 3d because of the way the applet works
             case 'obj': return $this->objFileEmbed->embed($this->file['path'], 'obj3d');
             case 'wrl': return $this->objFileEmbed->embed($this->file['linkname'], 'vrml');
@@ -151,26 +171,23 @@ class filepreview extends object
     }
 
     /**
-    * Method to preview a Freemind Map
-    */
-    function showFreemind()
-    {
+     * Method to preview a Freemind Map
+     */
+    function showFreemind() {
         return $this->objFileEmbed->embed($this->file['linkname'], 'freemind');
     }
 
     /**
-    * Method to preview an Audio File
-    */
-    function showAudio()
-    {
+     * Method to preview an Audio File
+     */
+    function showAudio() {
         return $this->objFileEmbed->embed($this->file['path'], 'audio');
     }
 
     /**
-    * Method to preview a Video
-    */
-    function showVideo()
-    {
+     * Method to preview a Video
+     */
+    function showVideo() {
         if (array_key_exists('width', $this->file) && $this->file['width'] != '') {
             $width = $this->file['width'] < 200 ? '200' : $this->file['width'];
         } else {
@@ -183,26 +200,24 @@ class filepreview extends object
             $height = '100%';
         }
 
-        switch ($this->file['datatype'])
-        {
+        switch ($this->file['datatype']) {
             case 'mov': return $this->objFileEmbed->embed($this->file['linkname'], 'quicktime', $width, $height);
             case '3gp': return $this->objFileEmbed->embed($this->file['linkname'], 'quicktime', $width, $height);
             case 'wmv': return $this->objFileEmbed->embed($this->file['linkname'], 'wmv', $width, $height);
             case 'avi': return $this->objFileEmbed->embed($this->file['linkname'], 'avi', $width, $height);
-            case 'flv': return $this->objFileEmbed->embed($this->file['fullurl'], 'flv', $width, $height+26);
-            case 'ogg': return $this->objFileEmbed->embed($this->file['fullurl'], 'ogg', $width, $height+12);
+            case 'flv': return $this->objFileEmbed->embed($this->file['fullurl'], 'flv', $width, $height + 26);
+            case 'ogg': return $this->objFileEmbed->embed($this->file['fullurl'], 'ogg', $width, $height + 12);
             case 'mpg':
-            case 'mpeg': return $this->objFileEmbed->embed($this->file['fullurl'], 'mpg', $width, $height+12);
-            case 'mp4': return $this->objFileEmbed->embed($this->file['fullurl'], 'mp4', $width, $height+12);
+            case 'mpeg': return $this->objFileEmbed->embed($this->file['fullurl'], 'mpg', $width, $height + 12);
+            case 'mp4': return $this->objFileEmbed->embed($this->file['fullurl'], 'mp4', $width, $height + 12);
             default: return $this->objFileEmbed->embed($this->file['linkname'], 'unknown');
         }
     }
 
     /**
-    * Method to preview a Flash file
-    */
-    function showFlash()
-    {
+     * Method to preview a Flash file
+     */
+    function showFlash() {
         if (array_key_exists('width', $this->file) && $this->file['width'] != '') {
             $width = $this->file['width'];
         } else {
@@ -219,30 +234,32 @@ class filepreview extends object
     }
 
     /**
-    * Method to preview a Script
-    */
-    function showScript()
-    {
+     * Method to preview a Script
+     */
+    function showScript() {
         // Get Extension
         $filetype = $this->objFileParts->getExtension($this->file['filename']);
 
         // Convert Extension to Language
-        switch ($filetype)
-        {
-            case 'phps': $filetype = 'php'; break;
-            case 'pl': $filetype = 'perl'; break;
-            case 'js': $filetype = 'javascript'; break;
-            case 'py': $filetype = 'python'; break;
+        switch ($filetype) {
+            case 'phps': $filetype = 'php';
+                break;
+            case 'pl': $filetype = 'perl';
+                break;
+            case 'js': $filetype = 'javascript';
+                break;
+            case 'py': $filetype = 'python';
+                break;
         }
 
         // Check if file has been rendered
-        if (file_exists($this->objConfig->getcontentPath().'filemanager_thumbnails/'.$this->file['id'].'.htm')) {
-            return '<div style="padding: 20px; overflow: auto;">'.file_get_contents($this->objConfig->getcontentPath().'filemanager_thumbnails/'.$this->file['id'].'.htm').'</div>';
+        if (file_exists($this->objConfig->getcontentPath() . 'filemanager_thumbnails/' . $this->file['id'] . '.htm')) {
+            return '<div style="padding: 20px; overflow: auto;">' . file_get_contents($this->objConfig->getcontentPath() . 'filemanager_thumbnails/' . $this->file['id'] . '.htm') . '</div>';
         } else {
             // Open File, Read Contents, Close
-            $handle = fopen ($this->file['path'], "r");
-            $contents = fread ($handle, filesize ($this->file['path']));
-            fclose ($handle);
+            $handle = fopen($this->file['path'], "r");
+            $contents = fread($handle, filesize($this->file['path']));
+            fclose($handle);
 
             $objGeshi = $this->getObject('geshiwrapper', 'utilities');
             $objGeshi->source = $contents;
@@ -253,11 +270,11 @@ class filepreview extends object
 
             $content = stripslashes($objGeshi->show());
 
-            $objCleaner = $this->newObject('htmlcleaner' , 'utilities');
+            $objCleaner = $this->newObject('htmlcleaner', 'utilities');
             $content = $objCleaner->cleanHtml($content);
 
             // Write to File to Prevent Server Straim
-            $filename = $this->objConfig->getcontentPath().'filemanager_thumbnails/'.$this->file['id'].'.htm';
+            $filename = $this->objConfig->getcontentPath() . 'filemanager_thumbnails/' . $this->file['id'] . '.htm';
             $handle = fopen($filename, 'w');
             fwrite($handle, $content);
             fclose($handle);
@@ -267,25 +284,24 @@ class filepreview extends object
     }
 
     /**
-    * Method to show a document
-    */
-    function showDocument()
-    {
-        switch($this->file['datatype']) {
+     * Method to show a document
+     */
+    function showDocument() {
+        switch ($this->file['datatype']) {
             case 'rss':
-                if (file_exists($this->objConfig->getcontentPath().'filemanager_thumbnails/'.$this->file['id'].'.htm')) {
-                    return file_get_contents($this->objConfig->getcontentPath().'filemanager_thumbnails/'.$this->file['id'].'.htm');
+                if (file_exists($this->objConfig->getcontentPath() . 'filemanager_thumbnails/' . $this->file['id'] . '.htm')) {
+                    return file_get_contents($this->objConfig->getcontentPath() . 'filemanager_thumbnails/' . $this->file['id'] . '.htm');
                     break;
                 } else {
                     // Open File, Read Contents, Close
-                    $handle = fopen ($this->file['path'], "r");
-                    $contents = fread ($handle, filesize ($this->file['path']));
-                    fclose ($handle);
+                    $handle = fopen($this->file['path'], "r");
+                    $contents = fread($handle, filesize($this->file['path']));
+                    fclose($handle);
 
                     $this->objFeed = $this->getObject('feeds', 'feed');
                     $feed = $this->objFeed->importString($contents);
 
-                    $link = new link ($feed->link());
+                    $link = new link($feed->link());
                     $link->link = $feed->title();
                     $link->title = $feed->description();
 
@@ -293,26 +309,25 @@ class filepreview extends object
                     $url = str_replace('&amp;', '&', $link->show());
                     $url = str_replace('&', '&amp;', $url);
 
-                    $content = '<h1>'.$url.'</h1>';
+                    $content = '<h1>' . $url . '</h1>';
 
-                    foreach ($feed->items as $item)
-                    {
-                        $link = new link ($item->link());
+                    foreach ($feed->items as $item) {
+                        $link = new link($item->link());
                         $link->link = $item->title();
 
                         // Some replacement to make it XHTML compliant
                         $url = str_replace('&amp;', '&', $link->show());
                         $url = str_replace('&', '&amp;', $url);
 
-                        $content .= '<p><strong>'.$url.'</strong><br />';
-                        $content .= $item->description().'</p>';
+                        $content .= '<p><strong>' . $url . '</strong><br />';
+                        $content .= $item->description() . '</p>';
                     }
 
-                    $objCleaner = $this->newObject('htmlcleaner' , 'utilities');
+                    $objCleaner = $this->newObject('htmlcleaner', 'utilities');
                     $content = $objCleaner->cleanHtml($content);
 
                     // Write to File to Prevent Server Straim
-                    $filename = $this->objConfig->getcontentPath().'filemanager_thumbnails/'.$this->file['id'].'.htm';
+                    $filename = $this->objConfig->getcontentPath() . 'filemanager_thumbnails/' . $this->file['id'] . '.htm';
                     $handle = fopen($filename, 'w');
                     fwrite($handle, $content);
                     fclose($handle);
@@ -323,32 +338,32 @@ class filepreview extends object
             case 'txt':
             case 'html':
             case 'htm':
-                return '<iframe src="'.$this->file['linkname'].'" width="99%" height="300"></iframe>';
+                return '<iframe src="' . $this->file['linkname'] . '" width="99%" height="300"></iframe>';
             case 'pdf':
                 // Check if registered
                 //Instantiate the modules class to check if simplemap is registered
-                $objModule = $this->getObject('modules','modulecatalogue');
+                $objModule = $this->getObject('modules', 'modulecatalogue');
                 //See if the simple map module is registered and set a param
                 $isRegistered = $objModule->checkIfRegistered('swftools');
-                if ($isRegistered){
+                if ($isRegistered) {
                     $objPDF2Flash = $this->getObject('pdf2flash', 'swftools');
-                    
-                    $fullFlashPath = $this->objConfig->getcontentBasePath().'filemanager_thumbnails/'.$this->file['id'].'.swf';
-                    $finalFlash = $this->objConfig->getcontentPath().'filemanager_thumbnails/'.$this->file['id'].'.swf';
-                    $htmlFileDestination = $this->objConfig->getcontentBasePath().'filemanager_thumbnails/'.$this->file['id'].'.htm';
-                    
+
+                    $fullFlashPath = $this->objConfig->getcontentBasePath() . 'filemanager_thumbnails/' . $this->file['id'] . '.swf';
+                    $finalFlash = $this->objConfig->getcontentPath() . 'filemanager_thumbnails/' . $this->file['id'] . '.swf';
+                    $htmlFileDestination = $this->objConfig->getcontentBasePath() . 'filemanager_thumbnails/' . $this->file['id'] . '.htm';
+
                     if (file_exists($htmlFileDestination) && file_exists($fullFlashPath)) {
                         //$destination = $this->objConfig->getcontentBasePath().'filemanager_thumbnails/'.$this->file['id'].'.htm';
                         return file_get_contents($htmlFileDestination);
                     } else {
-                    
+
                         if ($objPDF2Flash->convert2SWF($this->file['path'], $fullFlashPath)) {
-                            
-                            
-                            
+
+
+
                             $objPDF2Flash->generateHTMLWrapper($fullFlashPath, $finalFlash, $htmlFileDestination);
-                            
-                            
+
+
                             return file_get_contents($htmlFileDestination);
                         } else {
                             return NULL;
@@ -368,51 +383,50 @@ class filepreview extends object
             case 'odp':
             case 'sxi':
             case 'ppt':
-                
+
                 // Local path to file
-                $finalFlash = $this->objConfig->getcontentPath().'filemanager_thumbnails/'.$this->file['id'].'.swf';
-                
+                $finalFlash = $this->objConfig->getcontentPath() . 'filemanager_thumbnails/' . $this->file['id'] . '.swf';
+
                 // Full path to flash preview thumbnail file
-                $fullFlashPath = $this->objConfig->getcontentBasePath().'filemanager_thumbnails/'.$this->file['id'].'.swf';
-                
-                $htmlFileDestination = $this->objConfig->getcontentBasePath().'filemanager_thumbnails/'.$this->file['id'].'.htm';
-                
+                $fullFlashPath = $this->objConfig->getcontentBasePath() . 'filemanager_thumbnails/' . $this->file['id'] . '.swf';
+
+                $htmlFileDestination = $this->objConfig->getcontentBasePath() . 'filemanager_thumbnails/' . $this->file['id'] . '.htm';
+
                 // Check if preview exists already
                 if (file_exists($htmlFileDestination) && file_exists($fullFlashPath)) {
                     return file_get_contents($htmlFileDestination);
                 } else {
-                    
+
                     // Preview needs to be generated
                     // First step is to convert document to PDF
                     // Then we use swftools to convert PDF to Flash
-                    
                     // Check if registered
                     //Instantiate the modules class to check if documentconverter is registered
-                    $objModule = $this->getObject('modules','modulecatalogue');
-                    
+                    $objModule = $this->getObject('modules', 'modulecatalogue');
+
                     //See if the documentconverter module is registered and set a param
                     $isDocumentConverterRegistered = $objModule->checkIfRegistered('documentconverter');
                     $isSWFToolsRegistered = $objModule->checkIfRegistered('documentconverter');
-                    
-                    if ($isDocumentConverterRegistered && $isSWFToolsRegistered){
-                        
+
+                    if ($isDocumentConverterRegistered && $isSWFToolsRegistered) {
+
                         $objConvertDoc = $this->getObject('convertdoc', 'documentconverter');
-                        
-                        $pdfFile = $this->objConfig->getcontentBasePath().'filemanager_thumbnails/'.$this->file['id'].'.pdf';
-                        
+
+                        $pdfFile = $this->objConfig->getcontentBasePath() . 'filemanager_thumbnails/' . $this->file['id'] . '.pdf';
+
                         // If PDF does not already exist
                         if (!file_exists($pdfFile)) {
                             $objConvertDoc->convert($this->file['fullpath'], $pdfFile);
                         }
-                        
-                        
+
+
                         // Break if PDF is not generated
                         if (!file_exists($pdfFile)) {
                             return '';
                         }
-                        
+
                         $objPDF2Flash = $this->getObject('pdf2flash', 'swftools');
-                        
+
                         if (file_exists($fullFlashPath)) {
                             return $this->objFileEmbed->embed($finalFlash, 'flash', '100%', 700);
                         } else {
@@ -431,14 +445,12 @@ class filepreview extends object
             default:
                 return NULL;
         }
-
     }
 
     /**
-    * Method to Preview a Zip File
-    */
-    function showArchive()
-    {
+     * Method to Preview a Zip File
+     */
+    function showArchive() {
         if ($this->file['datatype'] == 'zip') {
             $objArchive = $this->getObject('archivehandler');
             return $objArchive->previewZip($this->file['path'], 'zip');
@@ -455,8 +467,7 @@ class filepreview extends object
      * @return string Return description (if any) ...
      * @access public
      */
-    function showFont()
-    {
+    function showFont() {
         return 'saffas';
     }
 
@@ -468,11 +479,12 @@ class filepreview extends object
      * @return object Return description (if any) ...
      * @access public
      */
-    function showTimeline()
-    {
-        $objTimeline =& $this->getObject('timelineparser', 'timeline');
+    function showTimeline() {
+        $objTimeline = & $this->getObject('timelineparser', 'timeline');
         $objTimeline->setTimelineUri($this->file['path']);
         return $objTimeline->show();
     }
+
 }
+
 ?>

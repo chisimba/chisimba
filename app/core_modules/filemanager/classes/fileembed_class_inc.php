@@ -78,7 +78,7 @@ class fileembed extends object
     * @param  int    $height Height of the Media File
     * @return string The media file embed code
     */
-    function embed($file, $type, $width=NULL, $height=NULL)
+    function embed($file, $type, $width="100%", $height="100%")
     {
         // For some reason, cleaning the URL messes things up. Turned off for so long
         // Please clean URLs yourself for the timebeing before calling this function
@@ -137,10 +137,12 @@ class fileembed extends object
     * Method to show an Image
     * @param string $file Path to the Image
     */
-    function showImage($file)
+    function showImage($file,$width='50%', $height='50%')
     {
-        return '<img src="'.$file.'" />';
-    }
+
+        return '<img src="'.$file.'" width="'.$width.'" height="'.$height.'" />';
+
+        }
 
     /**
     * Method to show a 3d Object

@@ -7,7 +7,7 @@ $this->loadClass('hiddeninput', 'htmlelements');
 $this->loadClass('button', 'htmlelements');
 $this->loadClass('htmlheading', 'htmlelements');
 
-$searchForm = new form('filesearch', $this->uri(array('action'=>'search')));
+$searchForm = new form('filesearch', $this->uri(array('action' => 'search')));
 $searchForm->method = 'GET';
 $hiddenInput = new hiddeninput('module', 'filemanager');
 $searchForm->addToForm($hiddenInput->show());
@@ -18,7 +18,7 @@ $searchForm->addToForm($hiddenInput->show());
 $textinput = new textinput('filequery', $this->getParam('filequery'));
 $searchForm->addToForm($textinput->show());
 
-$button = new button ('search', $this->objLanguage->languageText('word_search', 'system', 'Search'));
+$button = new button('search', $this->objLanguage->languageText('word_search', 'system', 'Search'));
 $button->setToSubmit();
 $searchForm->addToForm($button->show());
 
@@ -36,17 +36,17 @@ $header->str = $this->objLanguage->languageText('mod_filemanager_name', 'fileman
 
 $leftColumn = $header->show();
 
-$tagCloudLink = new link ($this->uri(array('action'=>'tagcloud')));
+$tagCloudLink = new link($this->uri(array('action' => 'tagcloud')));
 $tagCloudLink->link = 'Tag Cloud';
 
-$leftColumn .= $searchForm->show().'<ul><li>'.$tagCloudLink->show().'</li>';
+$leftColumn .= $searchForm->show() . '<ul><li>' . $tagCloudLink->show() . '</li>';
 
 if ($objUser->isAdmin()) {
-    
-    $quotaManager = new link ($this->uri(array('action'=>'quotamanager')));
+
+    $quotaManager = new link($this->uri(array('action' => 'quotamanager')));
     $quotaManager->link = $this->objLanguage->languageText('mod_filemanager_quotamanager', 'filemanager', 'Quota Manager');
-    
-    $leftColumn .= '<li>'.$quotaManager->show().'</li>';
+
+    $leftColumn .= '<li>' . $quotaManager->show() . '</li>';
 }
 
 $leftColumn .= '</ul>';
@@ -54,15 +54,15 @@ $leftColumn .= '</ul>';
 if (!isset($folderId)) {
     $folderId = '';
 }
+if ($this->contextCode != '' && $this->getParam('context') != 'no') {
+    $leftColumn .= '<div class="filemanagertree">' . $objFolders->getTree('context', $this->contextCode, 'dhtml', $folderId) . $objQuotas->getQuotaGraph('context/' . $this->contextCode) . '</div>';
+    $leftColumn .= '<br /><br /><br />';
+}
 
 //$leftColumn .= $objFolders->showUserFolders($folderId);
-$leftColumn .= '<div class="filemanagertree">'.$objFolders->getTree('users', $this->objUser->userId(), 'dhtml', $folderId).$objQuotas->getQuotaGraph('users/'.$this->objUser->userId()).'</div>';
+$leftColumn .= '<div class="filemanagertree">' . $objFolders->getTree('users', $this->objUser->userId(), 'dhtml', $folderId) . $objQuotas->getQuotaGraph('users/' . $this->objUser->userId()) . '</div>';
 
-$leftColumn .= '<br /><br /><br />';
 
-if ($this->contextCode != '' && $this->getParam('context') != 'no') {
-    $leftColumn .= '<div class="filemanagertree">'.$objFolders->getTree('context', $this->contextCode, 'dhtml', $folderId).$objQuotas->getQuotaGraph('context/'.$this->contextCode).'</div>';
-}
 
 
 
@@ -75,6 +75,4 @@ $cssLayout->setMiddleColumnContent($this->getContent());
 
 // Display the Layout
 echo $cssLayout->show();
-
-
 ?>
