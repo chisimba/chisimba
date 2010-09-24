@@ -18,6 +18,10 @@
 /*
     The ovearll page, font and background
 */
+html,body {
+    height: 100%;
+}
+
 html {
     color: #333333;
     font-family: Verdana, sans-serif;
