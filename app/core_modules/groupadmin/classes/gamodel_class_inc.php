@@ -83,7 +83,7 @@ $GLOBALS['kewl_entry_point_run']) {
  * @filesource
  */
 
-class groupAdminModel extends dbTable
+class gaModel extends dbTable
 {
 
     /**
