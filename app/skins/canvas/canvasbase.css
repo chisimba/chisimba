@@ -380,7 +380,7 @@ div#header div#search button {
     margin-right: 0px;
     margin-top: 5px;
     margin-bottom: 5px;
-    background: url("images/overlay-sm.png") top left repeat;
+    background: transparent url("images/overlay-sm.png") top left repeat;
     border: 1px solid  #fffff;
     -webkit-border-radius: 10px;
     -khtml-border-radius: 10px;
@@ -396,12 +396,16 @@ div#header div#search button {
     text-align: center;
 }
 
+.tabberlive .tabbertab {
+    background: transparent url("images/overlay-sm.png") top left repeat;
+}
+
 #nav-secondary {
     margin-left: 0px;
     margin-right: 0px;
     margin-top: 5px;
     margin-bottom: 5px;
-    background: url("images/overlay-sm.png") top left repeat;
+    background: transparent url("images/overlay-sm.png") top left repeat;
     border: none;
     padding: 10px;
     -moz-border-radius: 10px;
