@@ -12,11 +12,10 @@ $leftMenu = $this->newObject('adminmenu','toolbar');
 $rightMenu = $this->getObject('userLoginHistory','security');
 $tabpane = $this->newObject('tabpane', 'htmlelements');
 $objTable = $this->newObject('htmltable', 'htmlelements');
-$tab = $this->newObject('tabbedbox', 'htmlelements');
+//$tab = $this->newObject('tabbedbox', 'htmlelements');
 $cssLayout->setNumColumns(2);
 $cssLayout->setLeftColumnContent($leftMenu->show());
 $cssLayout->setMiddleColumnContent($this->getContent());
-
 
 echo $cssLayout->show();
 ?>

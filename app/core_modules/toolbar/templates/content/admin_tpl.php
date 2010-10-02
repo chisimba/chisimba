@@ -11,8 +11,8 @@ $this->setLayoutTemplate('admin_layout_tpl.php');
 
 // set up html elements
 $this->objLanguage = $this->getObject('language','language');
-$tab = $this->newObject('tabbedbox', 'htmlelements');
-$tabcontent = $this->newObject('tabcontent', 'htmlelements');
+$tab = $this->newObject('tabber', 'htmlelements');
+$tab->tabId = TRUE;
 $objIcon = $this->newObject('geticon', 'htmlelements');
 $objLink = $this->newObject('link', 'htmlelements');
 $objTable = $this->newObject('htmltable', 'htmlelements');
@@ -86,14 +86,9 @@ if(!empty($modules)){
             }
             
         }
-            $objTable->endRow();
-            $tab->tabbedbox();
-            $tab->addTabLabel($this->objLanguage->languageText('mod_toolbar_'.$category,'toolbar'));
-            $tab->addBoxContent($objTable->show());
-           
-            $tabcontent->addTab($this->objLanguage->languageText('mod_toolbar_'.$category,'toolbar'),$tab->show());
+        $objTable->endRow();
+        $tab->addTab(array('name'=> $this->objLanguage->languageText('mod_toolbar_'.$category,'toolbar'),'content' => $objTable->show()));
     }
 }
-$tabcontent->width = '90%';
-echo  $tabcontent->show();
+echo  $tab->show();
 ?>
