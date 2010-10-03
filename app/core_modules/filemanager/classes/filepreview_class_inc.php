@@ -84,8 +84,10 @@ class filepreview extends object {
 
         // Restore Double Slash for http://
         $protocol = "http";
-        if ($this->is_htpps) {
-            $protocol = "https";
+        if (isset($this->is_htpps)) {
+            if ($this->is_htpps) {
+                $protocol = "https";
+            }
         }
         $this->file['fullurl'] = str_replace($protocol . ':/', $protocol . '://', $this->file['fullurl']);
 
