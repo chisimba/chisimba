@@ -66,7 +66,7 @@ $middleColumn = '
 
 // Set up the breadcrumbs with admin on it
 $objTl = $this->getObject('tools', 'toolbar');
-$bread = $this->uri(array(), "admin");
+$bread = $this->uri(array(), "toolbar");
 $links = array('<a href="' . $bread . '">admin</a>');
 $objTl->insertBreadCrumb($links);
 
