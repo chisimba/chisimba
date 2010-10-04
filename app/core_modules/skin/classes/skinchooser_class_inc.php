@@ -177,17 +177,17 @@ class skinchooser extends object
             // Loop through the folders and build an array of available skins.
             foreach ($directories as $directory) {
                 $key = basename($directory);
-
-                if (file_exists($directory.'/skin.conf')) {
-                    $conf = $this->readConf($directory.'/skin.conf');
-                    $dirList[$key] = $conf['SKIN_NAME'];
-                } elseif (file_exists($directory.'/skinname.txt')) {
-                    $dirList[$key] = trim(file_get_contents($directory.'/skinname.txt'));
-                } else {
-                    $dirList[$key] = $key;
+                if ($key != "_common" && $key != "_common2") {
+                    if (file_exists($directory.'/skin.conf')) {
+                        $conf = $this->readConf($directory.'/skin.conf');
+                        $dirList[$key] = $conf['SKIN_NAME'];
+                    } elseif (file_exists($directory.'/skinname.txt')) {
+                        $dirList[$key] = trim(file_get_contents($directory.'/skinname.txt'));
+                    } else {
+                        $dirList[$key] = $key;
+                    }
                 }
             }
-
             // Attempt to cache this data for future use.
             $this->objCache->skinlist = $dirList;
         }
