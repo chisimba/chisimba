@@ -64,6 +64,12 @@ $middleColumn = '
     <div id="combo"></div>
 ';
 
+// Set up the breadcrumbs with admin on it
+$objTl = $this->getObject('tools', 'toolbar');
+$bread = $this->uri(array(), "admin");
+$links = array('<a href="' . $bread . '">admin</a>');
+$objTl->insertBreadCrumb($links);
+
 // Create an Instance of the CSS Layout
 $cssLayout = $this->newObject('csslayout', 'htmlelements');
 // Get the admin menu for the left menu
