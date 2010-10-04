@@ -67,7 +67,8 @@ $middleColumn = '
 // Set up the breadcrumbs with admin on it
 $objTl = $this->getObject('tools', 'toolbar');
 $bread = $this->uri(array(), "toolbar");
-$links = array('<a href="' . $bread . '">admin</a>');
+$admin = $this->objLanguage->languageText('mod_toolbar_siteadmin','toolbar');
+$links = array('<a href="' . $bread . '">' .$admin . '</a>');
 $objTl->insertBreadCrumb($links);
 
 // Create an Instance of the CSS Layout
