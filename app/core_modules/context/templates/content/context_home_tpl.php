@@ -147,43 +147,40 @@ if ($isRegistered) {
 
 $isRegistered = $objModule->checkIfRegistered('contextcontent');
 $utillink = "";
-/*if ($isRegistered && $this->isValid('addblock')) {
-    $trackerlink = "";
+$this->dbSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
+if ($this->dbSysConfig->getValue('SHOW_SHORTCUTS_BLOCK', 'context') == "TRUE") {
+    if ($isRegistered && $this->isValid('addblock')) {
+        $trackerlink = "";
 
-    $this->objAltConfig = $this->getObject('altconfig', 'config');
-    $siteRoot = $this->objAltConfig->getsiteRoot();
-    $moduleUri = $this->objAltConfig->getModuleURI();
-    $imgPath = $siteRoot . "/" . $moduleUri . '/contextcontent/resources/img/new.png';
+        $this->objAltConfig = $this->getObject('altconfig', 'config');
+        $siteRoot = $this->objAltConfig->getsiteRoot();
+        $moduleUri = $this->objAltConfig->getModuleURI();
+        $imgPath = "";
 
-    $imgPath = $siteRoot . "/" . $moduleUri . '/contextcontent/resources/img/tracker.png';
-    $trackerimg = '<img  class="trackerimg" src="' . $imgPath . '">';
-
-    $link = new link($this->uri(array('action' => 'viewcontextcontentusage'), 'contextcontent'));
-    $link->link = $trackerimg . '&nbsp;' . ucWords($this->objLanguage->code2Txt('mod_contextcontent_viewcontextcontentusage', 'contextcontent'));
-
-    $trackerlink .= '<br />' . $link->show() . '';
-    $link = new link($this->uri(array('action' => 'viewlogs'), 'contextcontent'));
-    $link->link = $trackerimg . '&nbsp;' . $this->objLanguage->languageText('mod_contextcontent_useractivitylogs', 'contextcontent');
+        $trackerlink .= '<br />' . $link->show() . '';
+        $link = new link($this->uri(array('action' => 'viewlogs'), 'contextcontent'));
+        $link->link = $trackerimg . '&nbsp;' . $this->objLanguage->languageText('mod_contextcontent_useractivitylogs', 'contextcontent',null,'User activity');
 
 
-    $trackerlink .= '<br />' . $link->show() . '';
+        $trackerlink .= '<br />' . $link->show() . '';
 
-    $objFeatureBox = $this->newObject('featurebox', 'navigation');
-    $content = $trackerlink;
-    $block = "shortcuts";
-    $hidden = 'default';
-    $showToggle = false;
-    $showTitle = true;
-    $cssClass = "featurebox";
-    $utillink = $objFeatureBox->show(
-                    $this->objLanguage->languageText('mod_contextcontent_shortcuts', 'contextcontent', 'Shortcuts'),
-                    $content,
-                    $block,
-                    $hidden,
-                    $showToggle,
-                    $showTitle,
-                    $cssClass, '');
-}*/
+        $objFeatureBox = $this->newObject('featurebox', 'navigation');
+        $content = $trackerlink;
+        $block = "shortcuts";
+        $hidden = 'default';
+        $showToggle = false;
+        $showTitle = true;
+        $cssClass = "featurebox";
+        $utillink = $objFeatureBox->show(
+                        $this->objLanguage->languageText('mod_contextcontent_shortcuts', 'contextcontent', 'Shortcuts'),
+                        $content,
+                        $block,
+                        $hidden,
+                        $showToggle,
+                        $showTitle,
+                        $cssClass, '');
+    }
+}
 $objCssLayout->leftColumnContent = '<ul id="nav-secondary">' . $instructorProfile . '</ul>' . $toolbar->show(); //setLeftColumnContent($toolbar->show());
 
 $objCssLayout->rightColumnContent = '';
