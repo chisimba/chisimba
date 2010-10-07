@@ -158,7 +158,7 @@ if ($this->dbSysConfig->getValue('SHOW_SHORTCUTS_BLOCK', 'context') == "TRUE") {
         $imgPath = "";
 
         $link = new link($this->uri(array('action' => 'viewlogs'), 'contextcontent'));
-        $link->link = $trackerimg . '&nbsp;' . $this->objLanguage->languageText('mod_contextcontent_useractivitylogs', 'contextcontent',null,'User activity');
+        $link->link = $trackerimg . '&nbsp;' . $this->objLanguage->languageText('mod_contextcontent_useractivitylogs', 'contextcontent','User activity');
 
 
         $trackerlink .= '<br />' . $link->show() . '';
