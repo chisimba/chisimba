@@ -114,7 +114,7 @@ do {
 $loDrops->setSelected(0);
 //Add dropdown to table with LO drop down list
 $table->startRow();
-$table->addCell('<div id="dropdown4lo">'.$loDrops->show()." ".$this->objLanguage->languageText("mod_contextadmin_addlo", "contextadmin").'</div>');
+$table->addCell('<div id="dropdown4lo">'.$loDrops->show()." ".$this->objLanguage->languageText("mod_contextadmin_addlo", "contextadmin","Select the number of outcomes you want to add").'</div>');
 $table->endRow();
 
 //Hidden textinput to store the the number of new outcomes
