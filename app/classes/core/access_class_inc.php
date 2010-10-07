@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Access Class.
  *
@@ -28,15 +29,14 @@
  * @link       http://avoir.uwc.ac.za
  * @see        core
  */
-
 // security check - must be included in all scripts
 if (!
-/**
- * Description for $GLOBALS
- * @global entry point $GLOBALS['kewl_entry_point_run']
- * @name   $kewl_entry_point_run
- */
-$GLOBALS['kewl_entry_point_run']) {
+        /**
+         * Description for $GLOBALS
+         * @global entry point $GLOBALS['kewl_entry_point_run']
+         * @name   $kewl_entry_point_run
+         */
+        $GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 // end security check
@@ -55,8 +55,11 @@ $GLOBALS['kewl_entry_point_run']) {
  * @link      http://avoir.uwc.ac.za
  * @see       core
  */
-class access extends object
-{
+class access extends object {
+
+    public $objContext;
+    public $objUser;
+
     /**
      * Constructor for the access class.
      *
@@ -65,6 +68,12 @@ class access extends object
      */
     public function __construct($objEngine, $moduleName) {
         parent::__construct($objEngine, $moduleName);
+        $this->objContext = $this->getObject("dbcontext", "context");
+        $this->objUser = $this->getObject('user', 'security');
+        $this->objLog = $this->getObject('useractivity', 'security');
+        $this->userid = $this->objUser->userid();
+        $this->objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
+        $this->logActivity = $this->objSysConfig->getValue('LOG_USER_ACTIVITY', 'security');
     }
 
     /**
@@ -77,30 +86,41 @@ class access extends object
      *
      * @return array The next action to be done
      */
-    public function dispatchControl( $module, $action ) {
+    public function dispatchControl($module, $action) {
         /*
-        // Extract isRegistered
-        extract( $this->getModuleInformation( 'decisiontable' ) );
-        // Safety net if the decision table module has not been registered.
-        if( !$isRegistered ) {
-            return $module->dispatch( $action );
+          // Extract isRegistered
+          extract( $this->getModuleInformation( 'decisiontable' ) );
+          // Safety net if the decision table module has not been registered.
+          if( !$isRegistered ) {
+          return $module->dispatch( $action );
+          }
+          // Get an instance of the decisiontable object.
+          $this->objDT = $this->getObject( 'decisiontable','decisiontable' );
+          // Create the decision table for the current module
+          $this->objDT->create( $this->moduleName );
+          // Collect information from the database.
+          $this->objDT->retrieve( $this->moduleName );
+          // Test the current action being requested, to determine if it requires access control.
+          if( $this->objDT->hasAction( $action ) ) {
+          // Is the action allowed?
+          if ( !$this->isValid( $action ) ) {
+          // redirect and indicate the user does not have sufficient access.
+          return $this->nextAction( 'noaction', array('modname' => $this->moduleName, 'actionname' => $action), 'redirect' );
+          }
+          }
+          // Action allowed continue.
+         */
+        if ($this->logActivity == 'true' || $this->logActivity == 'TRUE') {
+            $fields = array(
+                "userid" => $this->userid,
+                "module" => $this->moduleName,
+                "action" => $action,
+                "contextcode" => $this->objContext->getContextCode(),
+                "createdon" => strftime('%Y-%m-%d %H:%M:%S', mktime())
+            );
+
+            $this->objLog->log($fields);
         }
-        // Get an instance of the decisiontable object.
-        $this->objDT = $this->getObject( 'decisiontable','decisiontable' );
-        // Create the decision table for the current module
-        $this->objDT->create( $this->moduleName );
-        // Collect information from the database.
-        $this->objDT->retrieve( $this->moduleName );
-        // Test the current action being requested, to determine if it requires access control.
-        if( $this->objDT->hasAction( $action ) ) {
-            // Is the action allowed?
-            if ( !$this->isValid( $action ) ) {
-                // redirect and indicate the user does not have sufficient access.
-                return $this->nextAction( 'noaction', array('modname' => $this->moduleName, 'actionname' => $action), 'redirect' );
-            }
-        }
-        // Action allowed continue.
- */
         return $module->dispatch($action);
     }
 
@@ -112,7 +132,7 @@ class access extends object
      *
      * @return bool true|false True if action valid, otherwise False.
      */
-    public function isValid( $action, $default = TRUE ) {
+    public function isValid($action, $default = TRUE) {
         //return $this->objDT->isValid($action, $default);
         return TRUE;
     }
@@ -125,11 +145,11 @@ class access extends object
      * @return string $info
      */
     public function getModuleInformation($moduleName) {
-        $objModAdmin          = $this->getObject( 'modules', 'modulecatalogue' );
-        $array                = $objModAdmin->getArray('SELECT isadmin, dependscontext FROM tbl_modules WHERE module_id=\''.$moduleName.'\'');
-        $info                 = array();
-        $info['isRegistered'] = isset( $array[0] );
-        $info['isAdminMod']   = $info['isRegistered'] ? $array[0]['isadmin'] : NULL;
+        $objModAdmin = $this->getObject('modules', 'modulecatalogue');
+        $array = $objModAdmin->getArray('SELECT isadmin, dependscontext FROM tbl_modules WHERE module_id=\'' . $moduleName . '\'');
+        $info = array();
+        $info['isRegistered'] = isset($array[0]);
+        $info['isAdminMod'] = $info['isRegistered'] ? $array[0]['isadmin'] : NULL;
         $info['isContextMod'] = $info['isRegistered'] ? $array[0]['dependscontext'] : NULL;
         return $info;
     }
@@ -144,23 +164,23 @@ class access extends object
     public function getPermissions($moduleName) {
 
         // Extract isRegistered, isAdminMod, isContextMod
-        extract( $this->getModuleInformation( $moduleName ) );
+        extract($this->getModuleInformation($moduleName));
         // The module is not registered redirect with option to register.
-        if( !$isRegistered ){
-            return $this->nextAction( 'notregistered', array('modname' => $moduleName), 'redirect' );
+        if (!$isRegistered) {
+            return $this->nextAction('notregistered', array('modname' => $moduleName), 'redirect');
         }
         // The module is admin only, allow only admin users.
-        if( $isAdminMod ) {
+        if ($isAdminMod) {
             $objUser = $this->getObject('user', 'security');
-            if(!$objUser->isAdmin()){
-                return $this->nextAction( 'nopermission', array('modname' => $moduleName), 'redirect' );
+            if (!$objUser->isAdmin()) {
+                return $this->nextAction('nopermission', array('modname' => $moduleName), 'redirect');
             }
         }
         // The module depends on being in a context, redirect if not in a context.
-        if( $isContextMod ) {
-            $objContext = $this->getObject('dbcontext','context');
-            if(!$this->objContext->isInContext()){
-                return $this->nextAction( 'nocontext', array('modname' => $moduleName), 'redirect' );
+        if ($isContextMod) {
+            $objContext = $this->getObject('dbcontext', 'context');
+            if (!$this->objContext->isInContext()) {
+                return $this->nextAction('nocontext', array('modname' => $moduleName), 'redirect');
             }
         }
     }
@@ -170,5 +190,7 @@ class access extends object
         $areas = $this->luAdmin->perm->getAreas();
         return $areas;
     }
+
 }
+
 ?>
