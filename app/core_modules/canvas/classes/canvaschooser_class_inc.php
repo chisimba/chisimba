@@ -215,7 +215,7 @@ class canvaschooser extends controller
             if ($whatCanvas = $this->getParam('canvasdir', FALSE)) {
                 $canvasPref = $whatCanvas;
             } else {
-              //  $canvasPref = $this->objContext->getCanvasName();
+               $canvasPref = $this->objContext->getCanvasName();
                 if (!$canvasPref) {
                     return FALSE;
                 } else {
