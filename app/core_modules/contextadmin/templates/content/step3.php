@@ -131,7 +131,7 @@ $loTable->border = '0';
     //Add row with headings
     $loTable->startRow();
     $loTable->addCell(Null);
-    $loTable->addCell("<b>".$this->objLanguage->languageText("mod_contextadmin_lo", "contextadmin")."</b>", $width='60%', $valign="top", $align="left");
+    $loTable->addCell("<b>".$this->objLanguage->languageText("mod_contextadmin_lo", "contextadmin","Learning Outcomes")."</b>", $width='60%', $valign="top", $align="left");
     $loTable->addCell("<b>".$this->objLanguage->languageText("mod_contextadmin_select2delete", "contextadmin")."</b>", $width='40%', $valign="top", $align="left");
     $loTable->endRow();
 
