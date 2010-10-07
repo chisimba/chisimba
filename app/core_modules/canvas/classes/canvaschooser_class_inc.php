@@ -84,6 +84,7 @@ class canvaschooser extends controller
         $this->canvas = FALSE;
         $this->canvasType = $this->getParam('canvastype', FALSE);
         $this->objUser = $this->getObject('user', 'security');
+        $this->objContext = $this->getObject('dbcontext', 'context');
     }
 
     /**
@@ -191,6 +192,36 @@ class canvaschooser extends controller
                     $_SESSION['canvasType'] = 'user';
                     $_SESSION['canvas'] = $canvasPref;
                     return 'usrfiles/users/' . $this->objUser->userId() . '/canvases/' . $canvasPref . '/';
+                }
+            }
+        } else {
+            return FALSE;
+        }
+    }
+
+
+        /**
+     *
+     * Return the code needed to insert a user skin, based on a course
+     * spreference
+     * @param string $skinBase The default skin base for the current canvas
+     * @return string/boolean The canvas base or FALSE
+     * @access public
+     *
+     */
+    public function _context($skinBase) {
+        if ($this->objContext->isInContext()) {
+            // Check for a canvasdir directory in the  querystring
+            if ($whatCanvas = $this->getParam('canvasdir', FALSE)) {
+                $canvasPref = $whatCanvas;
+            } else {
+                $canvasPref = $this->objContext->getCanvasName();
+                if (!$canvasPref) {
+                    return FALSE;
+                } else {
+                    $this->setSession('canvasType', 'context');
+                    $this->setSession('canvas', $canvasPref);
+                    return 'usrfiles/context/' . $this->objContext->getContextCode() . '/canvases/' . $canvasPref . '/';
                 }
             }
         } else {
