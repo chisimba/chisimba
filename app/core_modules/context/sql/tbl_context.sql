@@ -92,6 +92,10 @@ $fields = array(
         'type' => 'integer',
         'length' => 255
 	   ),
+       'canvas' => array(
+        'type' => 'text',
+        'length' => 255
+	   ),
 	'lastaccessed' => array(
         'type' => 'timestamp'
     )

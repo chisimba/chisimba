@@ -30,18 +30,17 @@
  * @link      http://avoir.uwc.ac.za
  * @see       core
  */
-/* -------------------- dbTable class ----------------*/
+/* -------------------- dbTable class ---------------- */
 // security check - must be included in all scripts
-if (! /**
- * Description for $GLOBALS
- * @global entry point $GLOBALS['kewl_entry_point_run']
- * @name   $kewl_entry_point_run
- */
-$GLOBALS ['kewl_entry_point_run']) {
-    die ( "You cannot view this page directly" );
+if (!/**
+         * Description for $GLOBALS
+         * @global entry point $GLOBALS['kewl_entry_point_run']
+         * @name   $kewl_entry_point_run
+         */
+        $GLOBALS ['kewl_entry_point_run']) {
+    die("You cannot view this page directly");
 }
 // end security check
-
 
 /**
  * Context Object
@@ -59,19 +58,20 @@ $GLOBALS ['kewl_entry_point_run']) {
  * @see       core
  */
 class dbcontext extends dbTable {
-/**
- * The user Object
- *
- * @var object $objUser
- */
+
+    /**
+     * The user Object
+     *
+     * @var object $objUser
+     */
     public $objUser;
 
     /**
-     *Initialize by send the table name to be accessed
+     * Initialize by send the table name to be accessed
      */
     public function init() {
-        parent::init ( 'tbl_context' );
-        $this->objUser = $this->getObject ( 'user', 'security' );
+        parent::init('tbl_context');
+        $this->objUser = $this->getObject('user', 'security');
     }
 
     /**
@@ -83,7 +83,7 @@ class dbcontext extends dbTable {
      * @access public
      */
     public function getContextDetails($contextCode) {
-        return $this->getContext ( $contextCode );
+        return $this->getContext($contextCode);
     }
 
     /**
@@ -95,7 +95,7 @@ class dbcontext extends dbTable {
      * @access public
      */
     public function getContext($contextCode) {
-        return $this->getRow ( 'contextcode', $contextCode );
+        return $this->getRow('contextcode', $contextCode);
     }
 
     /**
@@ -108,13 +108,13 @@ class dbcontext extends dbTable {
      * @access public
      */
     public function getField($fieldname, $contextCode = NULL) {
-        if (! isset ( $contextCode )) {
-            $contextCode = $this->getContextCode ();
+        if (!isset($contextCode)) {
+            $contextCode = $this->getContextCode();
         }
 
-        $line = $this->getRow ( 'contextcode', $contextCode );
+        $line = $this->getRow('contextcode', $contextCode);
 
-        $fieldname = strtolower ( $fieldname );
+        $fieldname = strtolower($fieldname);
 
         if ($line [$fieldname]) {
             return $line [$fieldname];
@@ -136,54 +136,48 @@ class dbcontext extends dbTable {
      * @return boolean Result of adding a context
      */
     public function createContext(
-            $contextCode,
-            $title,
-            $status = 'Published',
-            $access = 'Private',
-            $about = NULL,
-            $goals=FALSE,
-            $showcomment='Y',
-            $alerts='') {
-        $contextCode = preg_replace ( '/\W*/', '', $contextCode );
-        $contextCode = strtolower ( $contextCode );
+    $contextCode, $title, $status = 'Published', $access = 'Private', $about = NULL, $goals=FALSE, $showcomment='Y', $alerts='', $canvas='') {
+        $contextCode = preg_replace('/\W*/', '', $contextCode);
+        $contextCode = strtolower($contextCode);
 
-        if (trim ( $title ) == '') {
+        if (trim($title) == '') {
             $title = $contextCode;
         }
 
         //check if there is an entry in the database
-        if ($this->valueExists ( 'contextcode', $contextCode )) {
-        // If Yes, do not create
+        if ($this->valueExists('contextcode', $contextCode)) {
+            // If Yes, do not create
             return FALSE;
         } else {
-        // Insert Record
-            $result = $this->insert (
-                    array ('contextcode' => $contextCode,
-                        'title' => $title,
-                        'menutext' => $title,
-                        'access' => $access,
-                        'status' => $status,
-                        'about' => $about,
-                        'userid' => $this->objUser->userId (),
-                        'dateCreated' => date ( "Y-m-d" ),
-                        'updated' => date ( "Y-m-d H:i:s" ),
-                        'lastupdatedby' => $this->objUser->userId (),
-                        'goals' => $goals,
-                        'showcomment' => $showcomment ,
-                        'alerts'=>$alerts,
-						'lastaccessed' => date ( "Y-m-d H:i:s" )) );
+            // Insert Record
+            $result = $this->insert(
+                            array('contextcode' => $contextCode,
+                                'title' => $title,
+                                'menutext' => $title,
+                                'access' => $access,
+                                'status' => $status,
+                                'about' => $about,
+                                'userid' => $this->objUser->userId(),
+                                'dateCreated' => date("Y-m-d"),
+                                'updated' => date("Y-m-d H:i:s"),
+                                'lastupdatedby' => $this->objUser->userId(),
+                                'goals' => $goals,
+                                'showcomment' => $showcomment,
+                                'alerts' => $alerts,
+                                'canvas' => $canvas,
+                                'lastaccessed' => date("Y-m-d H:i:s")));
 
             // If Successful
             if ($result) {
 
-                $this->_indexContext ( $contextCode );
+                $this->_indexContext($contextCode);
 
                 // Create Groups
-                $contextGroups = $this->getObject ( 'managegroups', 'contextgroups' );
-                $contextGroups->createGroups ( $contextCode, $title );
+                $contextGroups = $this->getObject('managegroups', 'contextgroups');
+                $contextGroups->createGroups($contextCode, $title);
 
                 // Join Context
-                $this->joinContext ( $contextCode );
+                $this->joinContext($contextCode);
             }
 
             // Return Result
@@ -204,19 +198,11 @@ class dbcontext extends dbTable {
      * @return boolean Result of Update
      */
     public function updateContext(
-            $contextCode,
-            $title=FALSE,
-            $status=FALSE,
-            $access=FALSE,
-            $about=FALSE,
-            $goals=FALSE,
-            $showcomment=FALSE,
-            $alerts='',
-			$lastaccessed=FALSE) {
+    $contextCode, $title=FALSE, $status=FALSE, $access=FALSE, $about=FALSE, $goals=FALSE, $showcomment=FALSE, $alerts='', $lastaccessed=FALSE, $canvas="") {
         $fields = array();
-		
-        $fields['updated'] = date ( 'Y-m-d H:i:s' );
-        $fields['lastupdatedby'] = $this->objUser->userId ();
+
+        $fields['updated'] = date('Y-m-d H:i:s');
+        $fields['lastupdatedby'] = $this->objUser->userId();
 
         if ($title !== FALSE) {
             $fields['title'] = $title;
@@ -234,19 +220,19 @@ class dbcontext extends dbTable {
         if ($goals !== FALSE) {
             $fields['goals'] = $goals;
         }
-        if ($showcomment !==FALSE) {
+        if ($showcomment !== FALSE) {
             $fields['showcomment'] = $showcomment;
         }
- 		if ($lastaccessed !==FALSE) {
+        if ($lastaccessed !== FALSE) {
             $fields['lastaccessed'] = $lastaccessed;
         }
 
-        $fields['alerts']=$alerts;
-		
-        $result = $this->update ( 'contextcode', $contextCode, $fields );
+        $fields['alerts'] = $alerts;
+        $fields['canvas'] = $canvas;
+        $result = $this->update('contextcode', $contextCode, $fields);
 
         if ($result) {
-            $this->_indexContext ( $contextCode );
+            $this->_indexContext($contextCode);
         }
 
         return $result;
@@ -261,10 +247,11 @@ class dbcontext extends dbTable {
      * @access public
      */
     public function updateAbout($contextCode, $about) {
-        $result = $this->updateContext ( $contextCode, FALSE, FALSE, FALSE, $about, FALSE, FALSE);
+        $result = $this->updateContext($contextCode, FALSE, FALSE, FALSE, $about, FALSE, FALSE);
 
         return $result;
     }
+
     /**
      * Method to update the goals text of a context
      *
@@ -274,12 +261,12 @@ class dbcontext extends dbTable {
      * @access public
      */
     public function updateGoals($contextCode, $goals) {
-        $result = $this->updateContext ( $contextCode, FALSE, FALSE, FALSE, FALSE, $goals, FALSE);
+        $result = $this->updateContext($contextCode, FALSE, FALSE, FALSE, FALSE, $goals, FALSE);
 
         return $result;
     }
 
-	 /**
+    /**
      * Method to update the goals text of a context
      *
      * @param  string $contextCode The context code
@@ -287,7 +274,7 @@ class dbcontext extends dbTable {
      * @access public
      */
     public function updateLastAccessed($contextCode) {
-        $result = $this->updateContext ( $contextCode, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, '', date ( 'Y-m-d H:i:s' ));
+        $result = $this->updateContext($contextCode, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, '', date('Y-m-d H:i:s'));
 
         return $result;
     }
@@ -300,33 +287,33 @@ class dbcontext extends dbTable {
      */
     public function joinContext($contextCode = '') {
         if ($contextCode == '') {
-            $contextCode = $this->getParam ( 'contextCode' );
+            $contextCode = $this->getParam('contextCode');
         }
 
-        if (! isset ( $contextCode )) {
-            $contextCode = $this->getParam ( 'context_dropdown' );
+        if (!isset($contextCode)) {
+            $contextCode = $this->getParam('context_dropdown');
         }
 
-        if (isset ( $contextCode )) {
-            $this->leaveContext ();
-            $line = $this->getRow ( 'contextCode', $contextCode );
+        if (isset($contextCode)) {
+            $this->leaveContext();
+            $line = $this->getRow('contextCode', $contextCode);
 
             if ($line == FALSE) {
                 return FALSE;
             }
 
             if ($line ['access'] == 'Private') {
-                $objUserContext = $this->getObject ( 'usercontext' );
-                if (! $objUserContext->isContextMember ( $this->objUser->userId (), $contextCode )) {
-                    if (! $this->objUser->isAdmin ()) {
+                $objUserContext = $this->getObject('usercontext');
+                if (!$objUserContext->isContextMember($this->objUser->userId(), $contextCode)) {
+                    if (!$this->objUser->isAdmin()) {
                         return FALSE;
                     }
                 }
             }
-			
-            $this->setSession ( 'contextId', $line ['id'] );
-            $this->setSession ( 'contextCode', $contextCode );
-			$results = $this->updateLastAccessed ( $contextCode );
+
+            $this->setSession('contextId', $line ['id']);
+            $this->setSession('contextCode', $contextCode);
+            $results = $this->updateLastAccessed($contextCode);
             return TRUE;
         } else {
             return FALSE;
@@ -339,21 +326,21 @@ class dbcontext extends dbTable {
      * @access public
      */
     public function leaveContext() {
-        $this->unsetSession ( 'contextCode' );
-        $this->unsetSession ( 'contextId' );
-        $this->unsetSession ( 'contextTitle' );
-        $this->unsetSession ( 'contextmenuText' );
-        $this->unsetSession ( 'contextabout' );
-        $this->unsetSession ( 'contextIsActive' );
-        $this->unsetSession ( 'contextIsClosed' );
-        $this->unsetSession ( 'contextDateCreated' );
-        $this->unsetSession ( 'contextCreatorId' );
+        $this->unsetSession('contextCode');
+        $this->unsetSession('contextId');
+        $this->unsetSession('contextTitle');
+        $this->unsetSession('contextmenuText');
+        $this->unsetSession('contextabout');
+        $this->unsetSession('contextIsActive');
+        $this->unsetSession('contextIsClosed');
+        $this->unsetSession('contextDateCreated');
+        $this->unsetSession('contextCreatorId');
 
         // Unset Workgroup Session If it Exists
-        $objModule = $this->getObject ( 'modules', 'modulecatalogue' );
-        if ($objModule->checkIfRegistered ( 'workgroup', 'workgroup' )) {
-            $objDbWorkgroup = $this->getObject ( 'dbWorkgroup', 'workgroup' );
-            $objDbWorkgroup->unsetWorkgroupId ();
+        $objModule = $this->getObject('modules', 'modulecatalogue');
+        if ($objModule->checkIfRegistered('workgroup', 'workgroup')) {
+            $objDbWorkgroup = $this->getObject('dbWorkgroup', 'workgroup');
+            $objDbWorkgroup->unsetWorkgroupId();
         }
     }
 
@@ -364,7 +351,7 @@ class dbcontext extends dbTable {
      * @return boolean
      */
     public function contextExists($contextCode) {
-        return $this->valueExists ( 'contextcode', $contextCode );
+        return $this->valueExists('contextcode', $contextCode);
     }
 
     /**
@@ -374,7 +361,7 @@ class dbcontext extends dbTable {
      * @access public
      */
     public function getContextCode() {
-        return $this->getSession ( 'contextCode' );
+        return $this->getSession('contextCode');
     }
 
     /**
@@ -384,7 +371,7 @@ class dbcontext extends dbTable {
      * @access public
      */
     public function getContextId() {
-        return $this->getSession ( 'contextId' );
+        return $this->getSession('contextId');
     }
 
     /**
@@ -394,14 +381,12 @@ class dbcontext extends dbTable {
      * @return context Title
      */
     public function getTitle($contextCode = NULL, $useSession = true) {
-        if (! isset ( $contextCode ) || $useSession) {
-            $contextCode = $this->getSession ( 'contextCode' );
+        if (!isset($contextCode) || $useSession) {
+            $contextCode = $this->getSession('contextCode');
         }
 
-        return $this->getField ( 'title', $contextCode );
+        return $this->getField('title', $contextCode);
     }
-
-
 
     /**
      * Method to get the MenuText
@@ -411,11 +396,11 @@ class dbcontext extends dbTable {
      * @access public
      */
     public function getMenuText($contextCode = NULL) {
-        if (! isset ( $contextCode )) {
-            $contextCode = $this->getSession ( 'contextCode' );
+        if (!isset($contextCode)) {
+            $contextCode = $this->getSession('contextCode');
         }
 
-        return $this->getField ( 'menutext', $contextCode );
+        return $this->getField('menutext', $contextCode);
     }
 
     /**
@@ -426,12 +411,13 @@ class dbcontext extends dbTable {
      * @access public
      */
     public function getAbout($contextCode = NULL) {
-        if (! isset ( $contextCode )) {
-            $contextCode = $this->getSession ( 'contextCode' );
+        if (!isset($contextCode)) {
+            $contextCode = $this->getSession('contextCode');
         }
 
-        return $this->getField ( 'about', $contextCode );
+        return $this->getField('about', $contextCode);
     }
+
     /**
      * Method to get the Goals
      *
@@ -440,11 +426,11 @@ class dbcontext extends dbTable {
      * @access public
      */
     public function getGoals($contextCode = NULL) {
-        if (! isset ( $contextCode )) {
-            $contextCode = $this->getSession ( 'contextCode' );
+        if (!isset($contextCode)) {
+            $contextCode = $this->getSession('contextCode');
         }
 
-        return $this->getField ( 'goals', $contextCode );
+        return $this->getField('goals', $contextCode);
     }
 
     /**
@@ -454,7 +440,7 @@ class dbcontext extends dbTable {
      * @return boolean
      */
     public function isInContext() {
-        if ($this->getContextCode ()) {
+        if ($this->getContextCode()) {
             return TRUE;
         } else {
             return FALSE;
@@ -468,7 +454,7 @@ class dbcontext extends dbTable {
      * @access public
      */
     public function getListOfContext() {
-        return $this->getAll ( ' ORDER BY title' );
+        return $this->getAll(' ORDER BY title');
     }
 
     /**
@@ -478,36 +464,34 @@ class dbcontext extends dbTable {
      * @access public
      */
     public function getListOfPublicContext() {
-    //return $this->getAll ( "WHERE access='Open' OR access='Public' ORDER BY menutext" );
+        //return $this->getAll ( "WHERE access='Open' OR access='Public' ORDER BY menutext" );
         $objUserContext = $this->getObject('usercontext', 'context');
         // Get all user contents
-        $sql="WHERE access='Open' OR access='Public' AND status!='Unpublished'  ORDER BY menutext" ;
+        $sql = "WHERE access='Open' OR access='Public' AND status!='Unpublished'  ORDER BY menutext";
 
-        $publicCourses=$this->getAll ($sql);
+        $publicCourses = $this->getAll($sql);
 
 
-        if($this->objUser->isLoggedIn()) {
-            $contexts= $objUserContext->getUserContext($this->objUser->userId());
+        if ($this->objUser->isLoggedIn()) {
+            $contexts = $objUserContext->getUserContext($this->objUser->userId());
             $tmp = array();
-            $row=0;
+            $row = 0;
             foreach ($contexts as $con) {
-                $data=$this->getContextDetails($con);
-                $tmp[$row] = array('contextcode'=>$con,'menutext'=>$data['title']);
+                $data = $this->getContextDetails($con);
+                $tmp[$row] = array('contextcode' => $con, 'menutext' => $data['title']);
                 $row++;
             }
             //then add public courese
             foreach ($publicCourses as $p) {
-                $data=$this->getContextDetails($p['contextcode']);
-                $tmp[$row] = array('contextcode'=>$p['contextcode'],'menutext'=>$data['title']);
+                $data = $this->getContextDetails($p['contextcode']);
+                $tmp[$row] = array('contextcode' => $p['contextcode'], 'menutext' => $data['title']);
                 $row++;
             }
 
             return $tmp;
-
-        }else {
+        } else {
             return $publicCourses;
         }
-
     }
 
     /**
@@ -518,25 +502,25 @@ class dbcontext extends dbTable {
      * @access public
      */
     public function deleteContext($contextCode) {
-        $result = $this->delete ( 'contextCode', $contextCode );
+        $result = $this->delete('contextCode', $contextCode);
 
         if ($result) {
-        //delete groups
-            $contextGroups = $this->getObject ( 'manageGroups', 'contextgroups' );
-            $contextGroups->deleteGroups ( $contextCode );
+            //delete groups
+            $contextGroups = $this->getObject('manageGroups', 'contextgroups');
+            $contextGroups->deleteGroups($contextCode);
         }
 
         // Remove from Search Results
-        $objIndexData = $this->getObject ( 'indexdata', 'search' );
-        $objIndexData->removeIndex ( 'context_contextcode_' . $contextCode );
+        $objIndexData = $this->getObject('indexdata', 'search');
+        $objIndexData->removeIndex('context_contextcode_' . $contextCode);
 
         // Clear List of Modules
-        $objContextModules = $this->getObject ( 'dbcontextmodules' );
-        $objContextModules->deleteModulesForContext ( $contextCode );
+        $objContextModules = $this->getObject('dbcontextmodules');
+        $objContextModules->deleteModulesForContext($contextCode);
 
         // Remove Context Blocks
-        $objContextBlocks = $this->getObject ( 'dbcontextblocks' );
-        $objContextBlocks->removeContextBlocks ( $contextCode );
+        $objContextBlocks = $this->getObject('dbcontextblocks');
+        $objContextBlocks->removeContextBlocks($contextCode);
 
         return $result;
     }
@@ -551,34 +535,42 @@ class dbcontext extends dbTable {
      * @access public
      */
     public function archiveContext($contextCode) {
-        return $this->deleteContext ( $contextCode );
+        return $this->deleteContext($contextCode);
     }
 
     /**
      * Method to search a context
      */
     public function searchContext($search) {
-        return $this->getAll ( " WHERE title LIKE '%{$search}%' OR contextcode LIKE '%{$search}%' OR about LIKE '%{$search}%' ORDER BY title" );
+        return $this->getAll(" WHERE title LIKE '%{$search}%' OR contextcode LIKE '%{$search}%' OR about LIKE '%{$search}%' ORDER BY title");
     }
 
     /**
      * Context search method
      */
     public function getContextStartingWith($letter, $limit = 10, $page = 1) {
-        return $this->getAll ( " WHERE title LIKE '{$letter}%' and access != 'Private' AND status!='Unpublished' ORDER BY title  " );
+        return $this->getAll(" WHERE title LIKE '{$letter}%' and access != 'Private' AND status!='Unpublished' ORDER BY title  ");
+    }
+
+    /**
+     * returns canvas name for this context
+     * @return <type> 
+     */
+    public function getCanvasName() {
+        return $this->getField("canvas");
     }
 
     /**
      * Method to index a context
      */
     private function _indexContext($contextCode) {
-        $context = $this->getContext ( $contextCode );
+        $context = $this->getContext($contextCode);
         if ($context != FALSE) {
-            $objIndexData = $this->getObject ( 'indexdata', 'search' );
+            $objIndexData = $this->getObject('indexdata', 'search');
 
             $docId = 'context_contextcode_' . $context ['contextcode'];
-            $docDate = date ( 'Y-m-d H:M:S' );
-            $url = $this->uri ( array ('action' => 'joincontext', 'contextcode' => $context ['contextcode'] ), 'context' );
+            $docDate = date('Y-m-d H:M:S');
+            $url = $this->uri(array('action' => 'joincontext', 'contextcode' => $context ['contextcode']), 'context');
             $title = $context ['title'];
             $contents = $context ['title'] . ' ' . $context ['about'];
             $teaser = $context ['about'];
@@ -588,19 +580,20 @@ class dbcontext extends dbTable {
             // Todo - Set permissions on entering course, e.g. iscontextmember.
             $permissions = NULL;
 
-            if (strtolower ( $context ['access'] ) == 'private') {
+            if (strtolower($context ['access']) == 'private') {
                 $permissions = 'iscontextmember';
             }
 
-            if (strtolower ( $context ['status'] ) == 'unpublished') {
+            if (strtolower($context ['status']) == 'unpublished') {
                 $permissions = 'iscontextlecturer';
             }
 
-            $extra = array ('status' => $context ['status'], 'access' => $context ['access'], 'contextcode' => $context ['contextcode'] );
+            $extra = array('status' => $context ['status'], 'access' => $context ['access'], 'contextcode' => $context ['contextcode']);
 
-            $objIndexData->luceneIndex ( $docId, $docDate, $url, $title, $contents, $teaser, $module, $userId, NULL, NULL, 'root', NULL, $permissions, NULL, NULL, $extra );
+            $objIndexData->luceneIndex($docId, $docDate, $url, $title, $contents, $teaser, $module, $userId, NULL, NULL, 'root', NULL, $permissions, NULL, NULL, $extra);
         }
     }
+
 }
 
 ?>

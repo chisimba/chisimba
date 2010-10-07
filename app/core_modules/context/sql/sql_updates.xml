@@ -10,7 +10,7 @@
                 <type>integer</type>
             </add>
         </data>
-    </update>    
+    </update>
     <update>
         <table>tbl_context</table>
         <version>1.551</version>
@@ -18,7 +18,7 @@
         <data>
             <add>
                 <name>goals</name>
-                <type>text</type>                
+                <type>text</type>
             </add>
         </data>
     </update>
@@ -34,7 +34,7 @@
         </data>
     </update>
 
-        <update>
+    <update>
         <table>tbl_context</table>
         <version>1.821</version>
         <description>Added alerts Field</description>
@@ -47,7 +47,7 @@
         </data>
     </update>
         
-        <update>
+    <update>
         <table>tbl_context</table>
         <version>1.824</version>
         <description>Added lastaccessed Field</description>
@@ -58,4 +58,20 @@
             </add>
         </data>
     </update>
+
+
+
+       <update>
+        <table>tbl_context</table>
+        <version>1.823</version>
+        <description>Added canvas Field</description>
+        <data>
+            <add>
+                <name>canvas</name>
+                <type>text</type>
+                <length>32</length>
+            </add>
+        </data>
+    </update>
+
 </updates>
