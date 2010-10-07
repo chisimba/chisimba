@@ -16,7 +16,11 @@ if ($this->getParam('message') != '' ) {
             $message = '';
             break;
         case 'contextupdated':
-            $title = $this->objContext->getTitle($this->getParam('contextcode'));
+            $contextcode = $this->getParam('contextcode', Null);
+            //Get Context Title
+            $title = $this->objContext->getTitle($contextcode);
+            if(empty($title))
+                $title = $this->objContext->getMenuText($contextcode);
             $message = $title.' '.$this->objLanguage->languageText('mod_contextadmin_successfullyupdated', 'contextadmin', 'has been successfully updated').'!';
             break;
         case 'contextdeleted':

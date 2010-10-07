@@ -10,6 +10,7 @@ $this->loadClass('dropdown', 'htmlelements');
 $this->loadClass('hiddeninput', 'htmlelements');
 $this->loadClass('checkbox', 'htmlelements');
 $this->loadClass('fieldset', 'htmlelements');
+$this->loadClass('link', 'htmlelements');
 $objIcon = $this->newObject('geticon', 'htmlelements');
 $objIcon->setIcon('loader');
 
@@ -174,6 +175,30 @@ if ($mode == 'add' && is_array($fixup)) {
 }
 
 $titleLabel = new label ($this->objLanguage->languageText('word_title', 'system', 'Title'), 'input_title');
+$objConfig=$this->getObject('altconfig','config');
+$skinName=$objConfig->getdefaultSkin();
+
+$validCanvases = array_map('basename', glob('usrfiles/context/'.$this->objContext->getContextCode().'/canvases/*', GLOB_ONLYDIR));
+
+
+$canvas = new dropdown ('canvas');
+//$status->setBreakSpace('<br />');
+
+$canvas->addOption('None','None');
+foreach($validCanvases as $validCanvas){
+    $canvas->addOption($validCanvas,$validCanvas);
+}
+
+//$canvas->size = 50;
+
+if ($mode == 'add' && is_array($fixup)) {
+    $canvas->setSelected($fixup['canvas']);
+} else if ($mode == 'edit') {
+    $canvas->setSelected($context['canvas']);
+}
+
+$canvasLabel = new label ($this->objLanguage->languageText('mod_contextadmin_theme', 'contextadmin', 'Theme'), 'input_canvas');
+
 
 $status = new dropdown ('status');
 //$status->setBreakSpace('<br />');
@@ -220,6 +245,16 @@ if ($mode == 'edit') {
 $table->startRow();
 $table->addCell($titleLabel->show());
 $table->addCell($title->show());
+$table->endRow();
+
+
+$uploadlink=new link($this->uri(array(),"filemanager"));
+$uploadlink->link='<strong>'.$this->objLanguage->languageText('mod_contextadmin_upload', 'contextadmin', 'Upload').'</strong>';
+
+$table->startRow();
+$table->addCell($canvasLabel->show());
+$table->addCell($canvas->show().$uploadlink->show());
+
 $table->endRow();
 
 $table->startRow();

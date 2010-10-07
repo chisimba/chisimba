@@ -38,6 +38,7 @@ echo '<br />'.$header->show();
 
 
 $objSelectImage = $this->getObject('selectimage', 'filemanager');
+
 $htmlEditor = $this->newObject('htmlarea', 'htmlelements');
 $htmlEditor->name = 'about';
 $htmlEditor->value = $context['about'];
@@ -75,7 +76,7 @@ function removeContextImage()
     
     $leftCol .= '<div id="contextexistingimage"><p>'.$this->objLanguage->code2Txt('mod_contextadmin_existingcontextimage', 'contextadmin', NULL, 'Existing [-context-] Image').':</p>';
     
-    $leftCol .= '<img src="'.$hasContextImage.'"><br />';
+    $leftCol .= '<img src="'.$hasContextImage.'" width="100" height="100"><br />';
     
     $removeButton = new button('removeimage', $this->objLanguage->languageText('mod_contextadmin_removeimage', 'contextadmin', 'Remove Image'));
     $removeButton->setOnClick('removeContextImage();');
