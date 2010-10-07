@@ -63,7 +63,7 @@
 
        <update>
         <table>tbl_context</table>
-        <version>1.823</version>
+        <version>1.833</version>
         <description>Added canvas Field</description>
         <data>
             <add>
