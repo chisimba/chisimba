@@ -161,7 +161,7 @@ if ($this->dbSysConfig->getValue('SHOW_SHORTCUTS_BLOCK', 'context') == "TRUE") {
         $link->link = $trackerimg . '&nbsp;' . $this->objLanguage->languageText('mod_contextcontent_useractivitylogs', 'contextcontent','User activity');
 
 
-        $trackerlink .= '<br />' . $link->show() . '';
+        $trackerlink .= $link->show() . '';
 
         $objFeatureBox = $this->newObject('featurebox', 'navigation');
         $content = $trackerlink;
