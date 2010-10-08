@@ -31,16 +31,15 @@
  */
 // security check - must be included in all scripts
 if (!
-/**
- * Description for $GLOBALS
- * @global entry point $GLOBALS['kewl_entry_point_run']
- * @name   $kewl_entry_point_run
- */
-$GLOBALS['kewl_entry_point_run']) {
+        /**
+         * Description for $GLOBALS
+         * @global entry point $GLOBALS['kewl_entry_point_run']
+         * @name   $kewl_entry_point_run
+         */
+        $GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 // end security check
-
 
 /**
  * Context Admin Controller
@@ -57,6 +56,7 @@ $GLOBALS['kewl_entry_point_run']) {
  * @see       core
  */
 class contextadmin extends controller {
+
     /**
      * The user Object
      *
@@ -99,7 +99,6 @@ class contextadmin extends controller {
         $this->objLanguage = $this->getObject('language', 'language');
     }
 
-
     /**
      * Standard Dispatch Function for Controller
      *
@@ -112,14 +111,14 @@ class contextadmin extends controller {
         $this->setLayoutTemplate('contextadmin_layout.php');
 
         /*
-        * Convert the action into a method (alternative to
-        * using case selections)
-        */
+         * Convert the action into a method (alternative to
+         * using case selections)
+         */
         $method = $this->getMethod($action);
         /*
-        * Return the template determined by the method resulting
-        * from action
-        */
+         * Return the template determined by the method resulting
+         * from action
+         */
         return $this->$method();
     }
 
@@ -135,7 +134,7 @@ class contextadmin extends controller {
      */
     private function getMethod(& $action) {
         if ($this->validAction($action)) {
-            return '__'.$action;
+            return '__' . $action;
         } else {
             return '__home';
         }
@@ -154,7 +153,7 @@ class contextadmin extends controller {
      *
      */
     private function validAction(& $action) {
-        if (method_exists($this, '__'.$action)) {
+        if (method_exists($this, '__' . $action)) {
             return TRUE;
         } else {
             return FALSE;
@@ -191,23 +190,23 @@ class contextadmin extends controller {
         $mode = $this->getParam('mode');
         $contextCode = $this->getParam('contextcode');
         $title = $this->getParam('title');
-        $canvas=$this->getParam('canvas');
+        $canvas = $this->getParam('canvas');
         $showcomment = $this->getParam('showcomment');
 
         $status = $this->getParam('status');
         $access = $this->getParam('access');
         $about = '';
 
-        $emailalert=$this->getParam('emailalertopt');
-        $alerts='';
-        if($emailalert == 'on') {
+        $emailalert = $this->getParam('emailalertopt');
+        $alerts = '';
+        if ($emailalert == 'on') {
             $alerts.='e';
         }
 
         if ($contextCode == '') {
             $result = FALSE;
         } else {
-            $result = $this->objContext->createContext($contextCode, $title, $status, $access, $about,'',$showcomment,$alerts,$canvas);
+            $result = $this->objContext->createContext($contextCode, $title, $status, $access, $about, '', $showcomment, $alerts, $canvas);
         }
 
         // If successfully created
@@ -219,15 +218,12 @@ class contextadmin extends controller {
             $objContextBlocks = $this->getObject('dbcontextblocks', 'context');
             $objContextBlocks->addBlock('block|aboutcontext|context', 'middle', $contextCode, 'context');
 
-            return $this->nextAction('step2', array('mode'=>'add','contextcode'=>$contextCode));
-
+            return $this->nextAction('step2', array('mode' => 'add', 'contextcode' => $contextCode));
         } else { // Else fix up errors
-
-            $fixup = array ('contextcode'=>$contextCode, 'title'=>$title, 'status'=>$status, 'showcomment'=>$showcomment, 'access'=>$access);
+            $fixup = array('contextcode' => $contextCode, 'title' => $title, 'status' => $status, 'showcomment' => $showcomment, 'access' => $access);
             $this->setSession('fixup', $fixup);
 
-            return $this->nextAction('add', array('mode'=>'fixup','contextcode'=>$contextCode));
-
+            return $this->nextAction('add', array('mode' => 'fixup', 'contextcode' => $contextCode));
         }
     }
 
@@ -270,9 +266,10 @@ class contextadmin extends controller {
 
             $this->objContext->updateAbout($contextCode, $about);
             $this->setSession('contextCode', $contextCode);
-            return $this->nextAction('step3', array('mode'=>$mode,'contextCode'=>$contextCode));
+            return $this->nextAction('step3', array('mode' => $mode, 'contextCode' => $contextCode));
         }
     }
+
     /**
      * Step 3 of Creating a Context - Adding Goals
      */
@@ -280,26 +277,26 @@ class contextadmin extends controller {
         if ($this->getParam('contextCode') != $this->getSession('contextCode')) {
             return $this->nextAction(NULL);
         } else {
-        //Get Mode
-        $mode = $this->getParam('mode');
-        //Fetch contextCode
-        $contextCode = $this->getSession('contextCode');
-        $context = $this->objContext->getContext($contextCode);
-        //Get context Learner Outcomes if its an edit
-        if ($mode=='edit') {
-            $contextLO = $this->objDBLearnerOutcomes->getContextOutcomes($contextCode);
-        } else {
-            $contextLO = "";
-        }
-        if ($context == FALSE) {
-            return $this->nextAction(NULL);
-        }       
-        $this->setVar('mode', $mode);
-        $this->setVar('contextCode', $contextCode);
-        $this->setVar('context', $context);
-        $this->setVar('contextLO', $contextLO);
-
-        return 'step3.php';
+            //Get Mode
+            $mode = $this->getParam('mode');
+            //Fetch contextCode
+            $contextCode = $this->getSession('contextCode');
+            $context = $this->objContext->getContext($contextCode);
+            //Get context Learner Outcomes if its an edit
+            if ($mode == 'edit') {
+                $contextLO = $this->objDBLearnerOutcomes->getContextOutcomes($contextCode);
+            } else {
+                $contextLO = "";
+            }
+            if ($context == FALSE) {
+                return $this->nextAction(NULL);
+            }
+            $this->setVar('mode', $mode);
+            $this->setVar('contextCode', $contextCode);
+            $this->setVar('context', $context);
+            $this->setVar('contextLO', $contextLO);
+            $this->setVar('outcomesCount', $this->getParam("outcomesCount", Null));
+            return 'step3.php';
         }
     }
 
@@ -312,48 +309,116 @@ class contextadmin extends controller {
         } else {
             $actionDelete = $this->getParam('deleteoutcomes', Null);
             $actionUpdate = $this->getParam('savecontext', Null);
-            //Update if not delete action and move to next step
-            if($actionDelete!=Null) {
+            $lodrops = $this->getParam('lodrops', Null);
+            $outCount = $this->getParam('outcount', Null);
+            $addFields = $this->getParam('addfields', Null);
+            $backPressed = $this->getParam('back', Null);
+            if ($backPressed == "Back") {
                 //Delete and go back to step 3
-                $contextCode = $this->getSession('contextCode'); 
+                $contextCode = $this->getSession('contextCode');
                 //Get number of outcomes
-                $lodrops = $this->getParam('lodrops',0);
-                $loEditdrops = $this->getParam('loEditCount',0);
+                $outCount = $this->getParam('loAddCount', 0);
+                $loEditdrops = $this->getParam('loEditCount', 0);
                 $mode = $this->getParam('mode');
-                //If edit, fetch the new values & update or delete if textinput is empty
-                if ($mode=='edit' && $loEditdrops>0){
-                    $getLO = $this->getLearnerOutcomes($loEditdrops, "edit", $contextCode);
+                //String to hold fetched LO's
+                $getAddLO = Null;
+                $getEditLO = Null;
+                //Add if there are new outcomes, add
+                if ($outCount > 0) {
+                    $getAddLO = $this->getLearnerOutcomes($outCount, "add", $contextCode);
                 }
-                //Add if there are new outcomes
-                if ($lodrops>0){
-                    $getLO = $this->getLearnerOutcomes($lodrops, "add", $contextCode);
-                    $addLO = $this->addLearnerOutcomes($contextCode, $getLO);
+                //If edit, fetch the new values & update or delete if textinput is empty
+                if ($mode == 'edit' && $loEditdrops > 0) {
+                    $getEditLO = $this->getLearnerOutcomes($loEditdrops, "edit", $contextCode);
+                }
+                //check If there are records to add/update
+                if (array($getAddLO)) {
+                    $addLO = $this->addLearnerOutcomes($contextCode, $getAddLO);
                 }
                 $goals = $this->getParam('goals');
                 $this->objContext->updateGoals($contextCode, $goals);
-                return $this->nextAction('step3', array('mode'=>$mode,'contextCode'=>$contextCode, 'messagesuccess'));
+                return $this->nextAction('step2', array('mode' => "edit", 'contextCode' => $contextCode));
+            }
+            //Update if not delete action and move to next step
+            if ($actionDelete != Null) {
+                //Delete and go back to step 3
+                $contextCode = $this->getSession('contextCode');
+                //Get number of outcomes
+                $outCount = $this->getParam('loAddCount', 0);
+                $loEditdrops = $this->getParam('loEditCount', 0);
+                $mode = $this->getParam('mode');
+                //String to hold fetched LO's
+                $getAddLO = Null;
+                $getEditLO = Null;
+                //Add if there are new outcomes, add
+                if ($outCount > 0) {
+                    $getAddLO = $this->getLearnerOutcomes($outCount, "add", $contextCode);
+                }
+                //If edit, fetch the new values & update or delete if textinput is empty
+                if ($mode == 'edit' && $loEditdrops > 0) {
+                    $getEditLO = $this->getLearnerOutcomes($loEditdrops, "edit", $contextCode);
+                }
+                //check If there are records to add/update
+                if (array($getAddLO)) {
+                    $addLO = $this->addLearnerOutcomes($contextCode, $getAddLO);
+                }
+                $goals = $this->getParam('goals');
+                $this->objContext->updateGoals($contextCode, $goals);
+                return $this->nextAction('step3', array('mode' => $mode, 'contextCode' => $contextCode, 'outcomesCount' => $lodrops, 'messagesuccess' => 'success'));
+            } else if ($addFields != Null) {
+                //Delete and go back to step 3
+                $contextCode = $this->getSession('contextCode');
+                //Get number of outcomes
+                //$lodrops = $this->getParam('lodrops', 0);
+                $loEditdrops = $this->getParam('loEditCount', 0);
+                $mode = $this->getParam('mode');
+                //String to hold fetched LO's
+                $getAddLO = Null;
+                $getEditLO = Null;
+                //Add if there are new outcomes, add
+                if ($outCount > 0) {
+                    $getAddLO = $this->getLearnerOutcomes($outCount, "add", $contextCode);
+                }
+                //If edit, fetch the new values & update or delete if textinput is empty
+                if ($mode == 'edit' && $loEditdrops > 0) {
+                    $getEditLO = $this->getLearnerOutcomes($loEditdrops, "edit", $contextCode);
+                }
+                //check If there are records to add/update
+                if (array($getAddLO)) {
+                    $addLO = $this->addLearnerOutcomes($contextCode, $getAddLO);
+                }
+                $goals = $this->getParam('goals');
+                $this->objContext->updateGoals($contextCode, $goals);
+                return $this->nextAction('step3', array('mode' => $mode, 'contextCode' => $contextCode, 'outcomesCount' => $lodrops, 'messagesuccess' => 'success'));
             } else {
-                $contextCode = $this->getSession('contextCode'); 
+                $contextCode = $this->getSession('contextCode');
                 //Get number of outcomes
-                $lodrops = $this->getParam('lodrops',0);
-                $loEditdrops = $this->getParam('loEditCount',0);
+                $outCount = $this->getParam('loAddCount', 0);
+                $loEditdrops = $this->getParam('loEditCount', 0);
                 $mode = $this->getParam('mode');
-                //If edit, fetch the new values & update or delete if textinput is empty
-                if ($mode=='edit' && $loEditdrops>0){
-                    $getLO = $this->getLearnerOutcomes($loEditdrops, "edit", $contextCode);
+
+                //String to hold fetched LO's
+                $getAddLO = Null;
+                $getEditLO = Null;
+                //Add if there are new outcomes, add
+                if ($outCount > 0) {
+                    $getAddLO = $this->getLearnerOutcomes($outCount, "add", $contextCode);
                 }
-//var_dump($lodrops);exit;
-                //Add if there are new outcomes
-                if ($lodrops>0){
-                    $getLO = $this->getLearnerOutcomes($lodrops, "add", $contextCode);
-                    $addLO = $this->addLearnerOutcomes($contextCode, $getLO);
+                //If edit, fetch the new values & update or delete if textinput is empty
+                if ($mode == 'edit' && $loEditdrops > 0) {
+                    $getEditLO = $this->getLearnerOutcomes($loEditdrops, "edit", $contextCode);
+                }
+                //check If there are records to add/update
+                if (array($getAddLO)) {
+                    $addLO = $this->addLearnerOutcomes($contextCode, $getAddLO);
                 }
                 $goals = $this->getParam('goals');
                 $this->objContext->updateGoals($contextCode, $goals);
-                return $this->nextAction('step4', array('mode'=>$mode,'contextcode'=>$contextCode));    
+                return $this->nextAction('step4', array('mode' => $mode, 'contextcode' => $contextCode));
             }
         }
     }
+
     /**
      * Method to get all the posted learner outcomes
      *
@@ -361,38 +426,45 @@ class contextadmin extends controller {
      * @param string $mode Add/Edit mode
      * @return array : The submitted learner outcomes
      */
-    private function getLearnerOutcomes($lodrops=Null, $mode="add", $contextCode){
+    private function getLearnerOutcomes($lodrops=Null, $mode="add", $contextCode) {
         $count = 1;
+
+        //Get all context Learner Outcomes and for each, get updated value
+        $contextLO = $this->objDBLearnerOutcomes->getContextOutcomes($contextCode);
+        $existingOutcomes = count($contextLO);
+        if ($existingOutcomes > 0) {
+            $count = $existingOutcomes + 1;
+            $lodrops = $existingOutcomes + $lodrops;
+        }
         //Array to store the outcomes
         $loArray = array();
-        if ($mode=="edit") {
-         //Get all context Learner Outcomes and for each, get updated value
-         $contextLO = $this->objDBLearnerOutcomes->getContextOutcomes($contextCode);
-         foreach ($contextLO as $thisLO){
-            //Get Textinput name on step 3 form for this outcome
-            $loTxtInput = $this->getParam($thisLO["id"]);
-            $learneroutcome = $this->getParam("update".$loTxtInput);
-            $delLO = $this->getParam("delete".$loTxtInput);
-            //If empty LO delete record, otherwise update with new value
-            if ($delLO=="on") {
-              $id = $this->objDBLearnerOutcomes->deleteSingle($thisLO["id"]);
-            } elseif(!empty($learneroutcome)) {
-              $id = $this->objDBLearnerOutcomes->updateSingle($thisLO["id"], $learneroutcome);
-                $loArray[] = $learneroutcome;
+        if ($mode != "edit") {
+            while ($count <= $lodrops) {
+                $learneroutcome = $this->getParam('learneroutcome_' . $count);
+                //Check to avoid storing empty record
+                if (!empty($learneroutcome)) {
+                    $loArray[] = $learneroutcome;
+                }
+                $count++;
             }
-         }
-        } else {
-         do {
-             $learneroutcome = $this->getParam('input_learneroutcome'.$count);
-             //Check to avoid storing empty record
-             if(!empty($learneroutcome)){
-                 $loArray[] = $learneroutcome;
-             }
-             $count ++;
-         } while($count <= $lodrops);
+        } else if ($mode == "edit") {
+            foreach ($contextLO as $thisLO) {
+                //Get Textinput name on step 3 form for this outcome
+                $loTxtInput = $this->getParam($thisLO["id"]);
+                $learneroutcome = $this->getParam("update" . $loTxtInput);
+                $delLO = $this->getParam("delete" . $loTxtInput);
+                //If empty LO delete record, otherwise update with new value
+                if ($delLO == "on") {
+                    $id = $this->objDBLearnerOutcomes->deleteSingle($thisLO["id"]);
+                } elseif (!empty($learneroutcome)) {
+                    $id = $this->objDBLearnerOutcomes->updateSingle($thisLO["id"], $learneroutcome);
+                    $loArray[] = $learneroutcome;
+                }
+            }
         }
         return $loArray;
     }
+
     /**
      * Method to get all the posted learner outcomes
      *
@@ -400,16 +472,17 @@ class contextadmin extends controller {
      * @param array $lodrops
      * @return array : The id's of submitted learner outcomes
      */
-    private function addLearnerOutcomes($contextcode, $loList){
+    private function addLearnerOutcomes($contextcode, $loList) {
         //Array to hold the Id's
         $arrId = array();
         //Insert each record to LO table
-        foreach($loList as $lo){
+        foreach ($loList as $lo) {
             $id = $this->objDBLearnerOutcomes->insertSingle($contextcode, $lo);
             $arrId[] = $id;
         }
         return $arrId;
     }
+
     /**
      * Step 4 - Selecting modules to be used in context
      */
@@ -417,7 +490,7 @@ class contextadmin extends controller {
         $contextCode = $this->getSession('contextCode');
         //Get Context Title
         $contextTitle = $this->objContext->getTitle($contextCode);
-        if(empty($contextTitle))
+        if (empty($contextTitle))
             $contextTitle = $this->objContext->getMenuText($contextCode);
         if ($contextTitle == FALSE) {
             return $this->nextAction(NULL);
@@ -460,11 +533,11 @@ class contextadmin extends controller {
             }
 
             if ($mode == 'add') {
-                return $this->nextAction(NULL, array('message'=>'contextsetup'), 'context');
+                return $this->nextAction(NULL, array('message' => 'contextsetup'), 'context');
             } else {
                 $this->setSession('contextcode', NULL);
                 $this->setSession('displayconfirmationmessage', TRUE);
-                return $this->nextAction(NULL, array('message'=>'contextupdated', 'contextcode'=>$contextCode));
+                return $this->nextAction(NULL, array('message' => 'contextupdated', 'contextcode' => $contextCode));
             }
         }
     }
@@ -494,33 +567,32 @@ class contextadmin extends controller {
     private function __updatecontext() {
         $contextCode = $this->getParam('editcontextcode');
         $title = $this->getParam('title');
-        $canvas=  $this->getParam('canvas');
+        $canvas = $this->getParam('canvas');
         $status = $this->getParam('status');
         $showcomment = $this->getParam('showcomment');
         $access = $this->getParam('access');
         $goals = $this->getParam('goals');
         $mode = $this->getParam('mode');
-        $emailalert=$this->getParam('emailalertopt');
-        $alerts='';
-        if($emailalert == 'on') {
+        $emailalert = $this->getParam('emailalertopt');
+        $alerts = '';
+        if ($emailalert == 'on') {
             $alerts.='e';
         }
         if ($contextCode != $this->getSession('contextCode')) {
             $newContext = $this->getSession('contextCode');
-            return $this->nextAction(NULL, array('message'=>'contextswitch', 'context1'=>$contextCode, 'context2'=>$newContext));
+            return $this->nextAction(NULL, array('message' => 'contextswitch', 'context1' => $contextCode, 'context2' => $newContext));
         } else {
 
             $context = $this->objContext->getContext($contextCode);
 
             if ($context == FALSE) {
-                return $this->nextAction(NULL, array('message'=>'editnonexistingcontext'));
+                return $this->nextAction(NULL, array('message' => 'editnonexistingcontext'));
             } else {
-                $this->objContext->updateContext($contextCode, $title, $status, $access, $context['about'],$goals, $showcomment,$alerts,$canvas);
+                $this->objContext->updateContext($contextCode, $title, $status, $access, $context['about'], $goals, $showcomment, $alerts, $canvas);
 
-                return $this->nextAction('step2', array('mode'=>'edit'));
+                return $this->nextAction('step2', array('mode' => 'edit'));
             }
         }
-
     }
 
     /**
@@ -532,7 +604,7 @@ class contextadmin extends controller {
         $context = $this->objContext->getContext($contextCode);
 
         if ($context == FALSE) {
-            return $this->nextAction(NULL, array('error'=>'deletenoneexistingcourse', 'context'=>$contextCode));
+            return $this->nextAction(NULL, array('error' => 'deletenoneexistingcourse', 'context' => $contextCode));
         } else {
             $this->setVarByRef('context', $context);
             $this->setSession('deletecontext', $context['contextcode']);
@@ -551,20 +623,20 @@ class contextadmin extends controller {
         $context = $this->objContext->getContext($contextCode);
 
         if ($context == FALSE) {
-            return $this->nextAction(NULL, array('error'=>'deletenoneexistingcourse', 'context'=>$contextCode));
+            return $this->nextAction(NULL, array('error' => 'deletenoneexistingcourse', 'context' => $contextCode));
         } else {
 
             if ($contextCode != $this->getSession('deletecontext')) {
-                return $this->nextAction(NULL, array('error'=>'incompletedelete', 'context'=>$contextCode));
+                return $this->nextAction(NULL, array('error' => 'incompletedelete', 'context' => $contextCode));
             }
 
             $deleteConfirm = $this->getParam('deleteconfirm', 'no');
             if ($deleteConfirm == 'yes') {
                 $result = $this->objContext->deleteContext($contextCode);
                 $result = $result ? 'y' : 'n';
-                return $this->nextAction(NULL, array('message'=>'contextdeleted', 'context'=>$contextCode, 'title'=>$context['title'], 'result'=>$result));
+                return $this->nextAction(NULL, array('message' => 'contextdeleted', 'context' => $contextCode, 'title' => $context['title'], 'result' => $result));
             } else {
-                return $this->nextAction(NULL, array('message'=>'deletecancelled', 'context'=>$contextCode));
+                return $this->nextAction(NULL, array('message' => 'deletecancelled', 'context' => $contextCode));
             }
         }
     }
@@ -578,7 +650,7 @@ class contextadmin extends controller {
 
         $code = $this->getParam('code');
 
-        switch(strtolower($code)) {
+        switch (strtolower($code)) {
             case NULL:
                 break;
             case 'root':
@@ -620,11 +692,11 @@ class contextadmin extends controller {
         $results = $this->objContext->getContextStartingWith($letter);
 
         if (count($results) == 0) {
-            $this->setVar('content', 'No search results for '.$letter);
+            $this->setVar('content', 'No search results for ' . $letter);
         } else {
             $this->setVarByRef('contexts', $results);
         }
-        $this->setVar('title', ucfirst($this->objLanguage->code2Txt('mod_contextadmin_contextsstartingwith', 'contextadmin', NULL, '[-contexts-] starting with')).' '.$letter);
+        $this->setVar('title', ucfirst($this->objLanguage->code2Txt('mod_contextadmin_contextsstartingwith', 'contextadmin', NULL, '[-contexts-] starting with')) . ' ' . $letter);
 
         return 'main.php';
     }
@@ -637,11 +709,11 @@ class contextadmin extends controller {
         $results = $this->objContext->searchContext($search);
 
         if (count($results) == 0) {
-            $this->setVar('content', $this->objLanguage->languageText('mod_contextadmin_nosearchresultsfor', 'contextadmin', 'No search results for').' '.$search);
+            $this->setVar('content', $this->objLanguage->languageText('mod_contextadmin_nosearchresultsfor', 'contextadmin', 'No search results for') . ' ' . $search);
         } else {
             $this->setVarByRef('contexts', $results);
         }
-        $this->setVar('title', $this->objLanguage->languageText('phrase_searchresultsfor', 'system', 'Search Results for').' <em>'.$search.'</em>');
+        $this->setVar('title', $this->objLanguage->languageText('phrase_searchresultsfor', 'system', 'Search Results for') . ' <em>' . $search . '</em>');
 
         return 'main.php';
     }
