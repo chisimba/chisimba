@@ -129,6 +129,7 @@ class blockfilter extends object
     */
     public function parse($pageContent)
     {
+        return $pageContent;
         $pageContent = stripslashes($pageContent);
         preg_match_all('/\\{(.*?)\\}/ism', $pageContent, $results, PREG_PATTERN_ORDER);
         $counter = 0;
