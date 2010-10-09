@@ -129,7 +129,6 @@ class blockfilter extends object
     */
     public function parse($pageContent)
     {
-        return $pageContent;
         $pageContent = stripslashes($pageContent);
         preg_match_all('/\\{(.*?)\\}/ism', $pageContent, $results, PREG_PATTERN_ORDER);
         $counter = 0;
@@ -143,41 +142,42 @@ class blockfilter extends object
                 $jsonTxt=str_replace('&quot;', '"', $jsonTxt);
                 $jsonTxt = trim($jsonTxt);
                 //die($jsonTxt);
-                $this->objJson = json_decode($jsonTxt);
-                // Verify that we must display as a block
-                if (isset($this->objJson->display)) {
-                    if ($this->objJson->display == 'block') {
-                        // Verify that there is a block and a module.
-                        if (isset($this->objJson->block) && isset($this->objJson->module)) {
-                            if ($this->isValidBlock($this->objJson->block, $this->objJson->module)) {
-                                // Parse the block
-                                $blockCode = $this->getBlock();
+                if ($this->objJson = json_decode($jsonTxt)) {
+                    // Verify that we must display as a block
+                    if (isset($this->objJson->display)) {
+                        if ($this->objJson->display == 'block') {
+                            // Verify that there is a block and a module.
+                            if (isset($this->objJson->block) && isset($this->objJson->module)) {
+                                if ($this->isValidBlock($this->objJson->block, $this->objJson->module)) {
+                                    // Parse the block
+                                    $blockCode = $this->getBlock();
+                                } else {
+                                    // It is not a valid block so wrapt it in an error
+                                    $blockCode = '<div class="featurebox"><div class="error">'
+                                      . $this->objLanguage->languageText("mod_dynamiccanvas_invalidblock", "dynamiccanvas", "Invalid block")
+                                      . '<br />'. $item . '</div></div>';
+                                }
                             } else {
-                                // It is not a valid block so wrapt it in an error
+                                // The JSON is not valid so wrap it in an error
                                 $blockCode = '<div class="featurebox"><div class="error">'
-                                  . $this->objLanguage->languageText("mod_dynamiccanvas_invalidblock", "dynamiccanvas", "Invalid block")
-                                  . '<br />'. $item . '</div></div>';
+                                  . $this->objLanguage->languageText("mod_dynamiccanvas_invalidjson", "dynamiccanvas", "Invalid JSON block definition")
+                                  . '<br />' . $item . '</div></div>';
                             }
+                        } elseif ($this->objJson->display == 'externalblock') {
+                            // Use counter to uniquely identify the div.
+                            $blockCode = $this->getExternalBlock($counter);
                         } else {
-                            // The JSON is not valid so wrap it in an error
-                            $blockCode = '<div class="featurebox"><div class="error">'
-                              . $this->objLanguage->languageText("mod_dynamiccanvas_invalidjson", "dynamiccanvas", "Invalid JSON block definition")
-                              . '<br />' . $item . '</div></div>';
+                            $blockCode = nl2br($item);
                         }
-                    } elseif ($this->objJson->display == 'externalblock') {
-                        // Use counter to uniquely identify the div.
-                        $blockCode = $this->getExternalBlock($counter);
                     } else {
-                        $blockCode = nl2br($item);
+                        $blockCode = '<div class="featurebox"><div class="error">'
+                          . $this->objLanguage->languageText("mod_dynamiccanvas_invaliddisplaynotset", "dynamiccanvas", "Block display method not set in JSON")
+                          . '<br />' . $item . '</div></div>';
                     }
-                } else {
-                    $blockCode = '<div class="featurebox"><div class="error">'
-                      . $this->objLanguage->languageText("mod_dynamiccanvas_invaliddisplaynotset", "dynamiccanvas", "Block display method not set in JSON")
-                      . '<br />' . $item . '</div></div>';
+                    $replacement = $blockCode;
+                    //$tmp = "<h1>" . $counter . $this->objJson->block . "||" . $this->objJson->module . "</h1>";
+                    $pageContent = str_replace($item, $replacement, $pageContent);
                 }
-                $replacement = $blockCode;
-                //$tmp = "<h1>" . $counter . $this->objJson->block . "||" . $this->objJson->module . "</h1>";
-                $pageContent = str_replace($item, $replacement, $pageContent);
                 $counter++;
             }
         }
