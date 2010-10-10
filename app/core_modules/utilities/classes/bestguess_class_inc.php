@@ -72,9 +72,10 @@ class bestguess extends object
 
     /**
     *
-    * Constructor for the CLASSNAME object
+    * Constructor for the bestguess class
     *
     * @access public
+    * @return VOID
     *
     */
     public function init()
@@ -83,6 +84,15 @@ class bestguess extends object
         $this->objUser = $this->getObject('user', 'security');
     }
 
+    /**
+    *
+    * Try our best to guess the User ID of the person who owns
+    * the page that we are on.
+    *
+    * @return string The username of the page owner
+    * @access public
+    *
+    */
     public function guessUserId()
     {
         // Get the userid from the querystring
@@ -151,49 +161,6 @@ class bestguess extends object
                 $un = $this->objUser->userName($uid);
             } else {
                 $un=FALSE;
-            }
-        }
-        return $un;
-    }
-
-
-    public function __guessUserName()
-    {
-        // Get the userid from the querystring
-        $uid = $this->getParam('userid', FALSE);
-        if ($uid) {
-            // If we find it just look it up
-            $un = $this->objUser->userName($uid);
-        // Otherwise try some other steps to get it
-        } else {
-            // See if username is in the querystring
-            $chk = $this->getParam('username', FALSE);
-            if ($chk) {
-                // If we found it return it
-                $un = $chk;
-            // Otherwise keep trying
-            } else {
-                // Get the module and see if we can deduce username from that
-                $curMod = $this->identifyModule();
-                switch ($curMod)
-                {
-                    case 'blog':
-                        //Find out whose blog we are in
-                        $objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
-                        $blogType= $objSysConfig->getValue('blog_action', 'blog');
-                        if ($blogType == "single user") {
-                            $uid = $objSysConfig->getValue('blog_singleuserid', 'blog');
-                            $un = $this->objUser->userName($uid);
-                        }
-                        break;
-                    default:
-                        if ($this->objUser->isLoggedIn()) {
-                            $un = $this->objUser->userName();
-                        } else {
-                            $un=FALSE;
-                        }
-                        break;
-                }
             }
         }
         return $un;
