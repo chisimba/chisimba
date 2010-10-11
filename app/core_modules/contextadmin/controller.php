@@ -313,7 +313,7 @@ class contextadmin extends controller {
             $outCount = $this->getParam('outcount', Null);
             $addFields = $this->getParam('addfields', Null);
             $backPressed = $this->getParam('back', Null);
-            if($backPressed=="Back"){
+            if ($backPressed == "Back") {
                 //Delete and go back to step 3
                 $contextCode = $this->getSession('contextCode');
                 //Get number of outcomes
@@ -403,7 +403,7 @@ class contextadmin extends controller {
                 //Add if there are new outcomes, add
                 if ($outCount > 0) {
                     $getAddLO = $this->getLearnerOutcomes($outCount, "add", $contextCode);
-                }                
+                }
                 //If edit, fetch the new values & update or delete if textinput is empty
                 if ($mode == 'edit' && $loEditdrops > 0) {
                     $getEditLO = $this->getLearnerOutcomes($loEditdrops, "edit", $contextCode);
@@ -433,7 +433,7 @@ class contextadmin extends controller {
         $contextLO = $this->objDBLearnerOutcomes->getContextOutcomes($contextCode);
         $existingOutcomes = count($contextLO);
         if ($existingOutcomes > 0) {
-            $count = $existingOutcomes+1;
+            $count = $existingOutcomes + 1;
             $lodrops = $existingOutcomes + $lodrops;
         }
         //Array to store the outcomes
@@ -475,10 +475,12 @@ class contextadmin extends controller {
     private function addLearnerOutcomes($contextcode, $loList) {
         //Array to hold the Id's
         $arrId = array();
-        //Insert each record to LO table
-        foreach ($loList as $lo) {
-            $id = $this->objDBLearnerOutcomes->insertSingle($contextcode, $lo);
-            $arrId[] = $id;
+        if (!empty($loList)) {
+            //Insert each record to LO table
+            foreach ($loList as $lo) {
+                $id = $this->objDBLearnerOutcomes->insertSingle($contextcode, $lo);
+                $arrId[] = $id;
+            }
         }
         return $arrId;
     }
