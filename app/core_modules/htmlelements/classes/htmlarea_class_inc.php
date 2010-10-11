@@ -196,22 +196,21 @@ class htmlarea extends object {
      * Method to display the WYSIWYG Editor
      */
     function show() {
-     if (empty($this->fckVersion))
-       $this->fckVersion = 'latest';
-     if (empty($this->sysEditor))
-       $this->fckVersion = 'ckeditor';
-     if (($this->fckVersion == '2.6.3') && $this->sysEditor == 'fckeditor' ) {
+    /* if (($this->fckVersion == '2.5.1') || ($this->fckVersion == '2.6.3')) {
       return $this->showFCKEditor($this->fckVersion);
      } else {
-        $base = '<script language="JavaScript" src="'.$this->getResourceUri('ckeditor/ckeditor.js','ckeditor').'" type="text/javascript"></script>';
+       */ $base = '<script language="JavaScript" src="'.$this->getResourceUri('ckeditor/ckeditor.js','ckeditor').'" type="text/javascript"></script>';
         $baseajax = '<script language="JavaScript" src="'.$this->getResourceUri('ckeditor/_source/core/ajax.js','ckeditor').'" type="text/javascript"></script>';
 
         $initVars='
+            <div class="ChisimbaCanvas_Editor_Before"></div>
+<div class="ChisimbaCanvas_Editor">
 <script type="text/javascript">
     var instancename=\''.$this->name.'\';
     var siteRootPath=\''.$this->siteRoot.'\';
 </script>
-      ';
+    </div>
+     <div class="ChisimbaCanvas_Editor_After"></div>';
 
         $this->appendArrayVar('headerParams', $initVars);
         $this->appendArrayVar('headerParams', $base);
@@ -230,6 +229,7 @@ class htmlarea extends object {
                         height:'".$this->height."', width:'".$this->width."',
                         filebrowserWindowWidth : '80%',
                         filebrowserWindowHeight : '100%',
+                      
                         contentsCss: '$this->sitePath/core_modules/ckeditor/resources/ckeditor/chisimba.css',
                         toolbar:'".$this->toolbarSet."'
        		}
@@ -237,7 +237,7 @@ class htmlarea extends object {
        </script>
             ";       
         return $this->editor;
-       }
+       //}
     }
 
     /**
@@ -384,7 +384,12 @@ class htmlarea extends object {
         $this->toolbarSet = 'DefaultWithoutSave';
     }
 
-
+ /**
+     * sets toolbar to be MCQ specific
+     */
+       function setMCQToolBar() {
+        $this->toolbarSet = 'mcq';
+    }
     /**
      * Method to toolbar set to CMS Specific
      */
