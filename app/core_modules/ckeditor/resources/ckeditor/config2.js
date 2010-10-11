@@ -14,8 +14,14 @@ CKEDITOR.editorConfig = function( config )
     config.image_browseServer=true;
     config.resize_minWidth = 400;
     config.resize_maxWidth = '100%';
+<<<<<<< .mine
+//config.protectedSource.push( /<\?[\s\S]*?\?>/g );
+  //  config.enterMode = CKEDITOR.ENTER_BR;
+    config.shiftEnterMode = CKEDITOR.ENTER_P;
+=======
     config.protectedSource.push( /\[PROTECT\][\s\S]*?\[\/PROTECT\]/g );   // Filter for protecting code
     config.shiftEnterMode = CKEDITOR.ENTER_BR;
+>>>>>>> .r17872
     config.toolbar_advanced =
     [
     ['Source','-','Save','NewPage','Preview','-','Templates'],
@@ -77,7 +83,7 @@ CKEDITOR.editorConfig = function( config )
 
     config.toolbar_cms =
     [
-    ['Source','-','Preview', 'Templates'],
+    ['Source','-','Save','Preview', 'Templates'],
     ['Cut','Copy','Paste','PasteText','PasteWord','-','Print','SpellCheck'],
     ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
     ['Bold','Italic','Underline','StrikeThrough','-','Subscript','Superscript'],
@@ -93,7 +99,7 @@ CKEDITOR.editorConfig = function( config )
     config.toolbar_forms =
     [
     ['Source','-','Save','NewPage','Preview','-','Templates'],
-    ['Cut','Copy','Paste','PasteText','PasteWord','-','Print', 'SpellChecker', 'Scayt'],
+    ['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print', 'SpellChecker', 'Scayt'],
     ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
     ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField'],
     '/',
@@ -109,12 +115,7 @@ CKEDITOR.editorConfig = function( config )
     ['Maximize', 'ShowBlocks','-','About']
     ];
 
-      config.toolbar_mcq =
-    [
-    ['Styles', 'Format'],
-    ['Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Image','Flash','contexttools','-', 'About']
 
-    ];
     config.toolbar_simple =
     [
     ['Styles', 'Format'],
