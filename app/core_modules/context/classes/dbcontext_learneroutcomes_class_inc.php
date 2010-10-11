@@ -47,11 +47,11 @@ class dbContext_learneroutcomes extends dbTable
      * @param string $contextcode The Context Code
      * @return array The learning outcomes
      */
-    function getContextOutcomes($contextCode) 
+    function getContextOutcomes($contextCode)
     {
         //Add old learner outcome(goals) to existing LO's
         $contextGoal = $this->objDBContext->getField('goals', $contextCode);
-        if($contextGoal!="deleted"){
+        if($contextGoal!="deleted" && $contextGoal!=Null && $contextGoal!=0){
             //Add goal to outcomes table
             $newLO = $this->insertSingle($contextCode, $contextGoal);
             //Remove goal from context table
