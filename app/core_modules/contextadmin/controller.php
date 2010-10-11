@@ -403,7 +403,7 @@ class contextadmin extends controller {
                 //Add if there are new outcomes, add
                 if ($outCount > 0) {
                     $getAddLO = $this->getLearnerOutcomes($outCount, "add", $contextCode);
-                }
+                }                
                 //If edit, fetch the new values & update or delete if textinput is empty
                 if ($mode == 'edit' && $loEditdrops > 0) {
                     $getEditLO = $this->getLearnerOutcomes($loEditdrops, "edit", $contextCode);
