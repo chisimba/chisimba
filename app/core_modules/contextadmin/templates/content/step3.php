@@ -109,7 +109,13 @@ if ($mode == 'edit' && (!empty($contextLO))) {
     $table->endRow();
     foreach ($contextLO as $thisLO) {
         //Create TextArea to hold the Learning outcome
-        $loTxtArea = new textarea($name = 'update_learneroutcome_' . $count, $value = $thisLO["learningoutcome"], $rows = 2, $cols = 100);
+        $editor = $this->newObject('htmlarea', 'htmlelements');
+        $editor->name = 'update_learneroutcome_' . $count;
+        $editor->height = '80px';
+        $editor->width = '750px';
+        $editor->setContent($thisLO["learningoutcome"]);
+        $editor->setMCQToolBar();
+        //$loTxtArea = new textarea($name = 'update_learneroutcome_' . $count, $value = $thisLO["learningoutcome"], $rows = 2, $cols = 100);
         //Checkbox to select LO to delete
         $deleteLO = new checkbox($name = 'delete_learneroutcome_' . $count, $label = NULL, $ischecked = false);
         //Hidden textinput to store the id of this LO
@@ -118,7 +124,7 @@ if ($mode == 'edit' && (!empty($contextLO))) {
         //Add Items to table
         $loTable->startRow();
         $loTable->addCell($count . ". ");
-        $loTable->addCell($loTxtArea->show() . $loHiddenTxtInput->show());
+        $loTable->addCell($editor->show() . $loHiddenTxtInput->show());
         $loTable->addCell($deleteLO->show());
         $loTable->endRow();
         $count++;
@@ -147,13 +153,19 @@ if ($outcomesCount != Null) {
     if ($outcomesCount > 0) {
         while ($newcount <= $outcomesCount) {
             //Create TextArea to hold the Learning outcome
-            $loTxtArea = new textarea($name = 'learneroutcome_' . $count, Null, $rows = 2, $cols = 100);
+            $editor = $this->newObject('htmlarea', 'htmlelements');
+            $editor->name = 'learneroutcome_' . $count;
+            $editor->height = '100px';
+            $editor->width = '750px';
+            $editor->setContent(Null);
+            $editor->setMCQToolBar();
+            //$loTxtArea = new textarea($name = 'learneroutcome_' . $count, Null, $rows = 2, $cols = 100);
             //Checkbox to select LO to delete
             $deleteLO = new checkbox($name = 'delete_learneroutcome_' . $count, $label = NULL, $ischecked = false);
             //Add Items to table
             $newLOTable->startRow();
             $newLOTable->addCell($count . ". ");
-            $newLOTable->addCell($loTxtArea->show(), $width = '40%', $valign = "top", $align = "left");
+            $newLOTable->addCell($editor->show(), $width = '60%', $valign = "top", $align = "left");
             $newLOTable->addCell($deleteLO->show(), $width = '40%', $valign = "top", $align = "left");
             $newLOTable->endRow();
             $checkcount = $count;

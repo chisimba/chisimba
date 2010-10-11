@@ -313,7 +313,7 @@ class contextadmin extends controller {
             $outCount = $this->getParam('outcount', Null);
             $addFields = $this->getParam('addfields', Null);
             $backPressed = $this->getParam('back', Null);
-            if ($backPressed == "Back") {
+            if($backPressed=="Back"){
                 //Delete and go back to step 3
                 $contextCode = $this->getSession('contextCode');
                 //Get number of outcomes
@@ -433,7 +433,7 @@ class contextadmin extends controller {
         $contextLO = $this->objDBLearnerOutcomes->getContextOutcomes($contextCode);
         $existingOutcomes = count($contextLO);
         if ($existingOutcomes > 0) {
-            $count = $existingOutcomes + 1;
+            $count = $existingOutcomes+1;
             $lodrops = $existingOutcomes + $lodrops;
         }
         //Array to store the outcomes
