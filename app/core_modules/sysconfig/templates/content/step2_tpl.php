@@ -1,4 +1,6 @@
 <?php
+
+$this->loadClass('link', 'htmlelements');
 //Set up the CSS Layout
 $cssLayout = $this->newObject('csslayout', 'htmlelements');
 $cssLayout->setNumColumns(2);
@@ -92,14 +94,17 @@ if($pmodule == '_site_'){
               'pmodule' => $pmodule,
               'confirm' => 'yes',
               'id' => $line['id']));
-
+           $edTitleLink =new link( $this->uri(array('action' => 'edit',
+                        'pmodule' => $pmodule,
+                        'id' => $line['id'])));
+            $edTitleLink->link=$line['pname'];
             //Get a confirm delete object
             $objConfirm = $this->newObject('confirm','utilities');
             $objConfirm->setConfirm($objDelIcon->show(), $delLink, $this->objLanguage->languageText("phrase_confirmdelete"));
 
             $objTable->startRow();
             // addCell($str, $width=null, $valign="top", $align=null, $class=null, $attrib=Null)
-            $objTable->addCell($line['pname'], "20%", NULL, NULL, $oddOrEven);
+            $objTable->addCell($edTitleLink->show(), "20%", NULL, NULL, $oddOrEven);
             $objTable->addCell($this->objLanguage->languageText($line['pdesc'],$line['pmodule']), "60%", NULL, NULL, $oddOrEven);
             $objTable->addCell(htmlentities($line['pvalue']), "20%", NULL, NULL, $oddOrEven);
             $objTable->addCell($objIcon->getEditIcon($edLink), "60%", NULL, "RIGHT", $oddOrEven);
