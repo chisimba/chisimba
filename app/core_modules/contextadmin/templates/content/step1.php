@@ -245,7 +245,7 @@ $table->addCell($title->show());
 $table->endRow();
 
 
-$uploadlink = new link($this->uri(array(), "filemanager"));
+$uploadlink = new link($this->uri(array("action"=>"uploadtheme")));
 $uploadlink->link = '<strong>' . $this->objLanguage->languageText('mod_contextadmin_upload', 'contextadmin', 'Upload') . '</strong>';
 
 if ($mode == 'edit') {

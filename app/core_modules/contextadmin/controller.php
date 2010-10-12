@@ -97,6 +97,7 @@ class contextadmin extends controller {
         $this->objDBLearnerOutcomes = $this->getObject('dbcontext_learneroutcomes', 'context');
         $this->objUserContext = $this->getObject('usercontext', 'context');
         $this->objLanguage = $this->getObject('language', 'language');
+        $this->objConfig = $this->getObject('altconfig', 'config');
     }
 
     /**
@@ -550,7 +551,7 @@ class contextadmin extends controller {
     private function __edit() {
         $contextCode = $this->getParam('contextcode');
         $context = $this->objContext->getContext($contextCode);
-
+        
         if ($context == FALSE) {
             return $this->nextAction(NULL);
         }
@@ -570,6 +571,7 @@ class contextadmin extends controller {
         $contextCode = $this->getParam('editcontextcode');
         $title = $this->getParam('title');
         $canvas = $this->getParam('canvas');
+        
         $status = $this->getParam('status');
         $showcomment = $this->getParam('showcomment');
         $access = $this->getParam('access');
@@ -590,7 +592,27 @@ class contextadmin extends controller {
             if ($context == FALSE) {
                 return $this->nextAction(NULL, array('message' => 'editnonexistingcontext'));
             } else {
-                $this->objContext->updateContext($contextCode, $title, $status, $access, $context['about'], $goals, $showcomment, $alerts, $canvas);
+                /**
+                 * $contextCode,
+            $title=FALSE,
+            $status=FALSE,
+            $access=FALSE,
+            $about=FALSE,
+            $goals=FALSE,
+            $showcomment=FALSE,
+            $alerts='',
+            $lastaccessed=FALSE,
+            $canvas=""
+                 */
+                $this->objContext->updateContext(
+                        $contextCode,
+                        $title,
+                        $status,
+                        $access,
+                        $context['about'],
+                        $goals,
+                        $showcomment,
+                        $alerts, null,$canvas);
 
                 return $this->nextAction('step2', array('mode' => 'edit'));
             }
@@ -718,6 +740,56 @@ class contextadmin extends controller {
         $this->setVar('title', $this->objLanguage->languageText('phrase_searchresultsfor', 'system', 'Search Results for') . ' <em>' . $search . '</em>');
 
         return 'main.php';
+    }
+
+    /**
+     * returns a template that allows uploading of themes
+     * @return <type>
+     */
+    public function __uploadtheme() {
+        return "uploadtheme_tpl.php";
+    }
+
+    /**
+     * handles a theme uploaded from filemanager
+     * @return <type> 
+     */
+    public function __saveuploadedtheme() {
+
+        $this->objContext = $this->getObject('dbcontext', 'context');
+        $this->contextCode = $this->objContext->getContextCode();
+        $objFileUpload = $this->getObject('uploadinput', 'filemanager');
+        $path = '/context/' . $this->contextCode . '/canvases';
+        $objFileUpload->customuploadpath = $path;
+        $objFileUpload->enableOverwriteIncrement = TRUE;
+        $results = $objFileUpload->handleUpload('fileupload');
+        $file = $_FILES[$objFileUpload->name];
+        $filename = $file['name'];
+
+        // Technically, FALSE can never be returned, this is just a precaution
+        // FALSE means there is no fileinput with that name
+        if ($results == FALSE) {
+            return $this->nextAction('view', array('id' => $this->getParam('id'), 'error' => 'unabletoupload'));
+        } else {
+            // If successfully Uploaded
+            if ($results['success']) {
+                $objZip = $this->newObject('wzip', 'utilities');
+                $objZip->unzip($this->objConfig->getcontentBasePath() . '/' . $path . '/' . $filename, $this->objConfig->getcontentBasePath() . '/' . $path );
+                return $this->nextAction('edit', array('contextcode' => $this->contextCode));
+            } else {
+                // If not successfully uploaded
+                return $this->nextAction('uploadtheme', array('error' => $results['reason']));
+            }
+        }
+    }
+
+    private function removeExtension($strName) {
+        $ext = strrchr($strName, '.');
+
+        if ($ext !== false) {
+            $strName = substr($strName, 0, -strlen($ext));
+        }
+        return $strName;
     }
 
 }
