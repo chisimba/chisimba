@@ -107,7 +107,7 @@ $button = new button('addfields', $addLOButton);
 $button->setToSubmit();
 //Add dropdown to table with LO drop down list
 $table->startRow();
-$table->addCell('<div id="dropdown4lo">' . $this->objLanguage->languageText("mod_contextadmin_addlo", "contextadmin") ." ". $loDrops->show() .'</div>');
+$table->addCell('<div id="dropdown4lo">' . $this->objLanguage->languageText("mod_contextadmin_addlo", "contextadmin", "Select the number of outcomes you want to add") ." ". $loDrops->show() .'</div>');
 $table->endRow();
 
 //Hidden textinput to store the the number of new outcomes
@@ -123,8 +123,8 @@ if ($outcomesCount > 1 || !empty($contextLO)) {
     //Add row with headings
     $loTable->startRow();
     $loTable->addCell(Null);
-    $loTable->addCell("<b>" . $this->objLanguage->languageText("mod_contextadmin_lo", "contextadmin") . "</b>", $width = '60%', $valign = "top", $align = "left");
-    $loTable->addCell("<b>" . $this->objLanguage->languageText("mod_contextadmin_select2delete", "contextadmin") . "</b>", $width = '40%', $valign = "top", $align = "left");
+    $loTable->addCell("<b>" . $this->objLanguage->languageText("mod_contextadmin_lo", "contextadmin", "Learning Outcomes") . "</b>", $width = '60%', $valign = "top", $align = "left");
+    $loTable->addCell("<b>" . $this->objLanguage->languageText("mod_contextadmin_select2delete", "contextadmin","Select to Delete") . "</b>", $width = '40%', $valign = "top", $align = "left");
     $loTable->endRow();
 }
 if ($mode == 'edit' && (!empty($contextLO))) {
