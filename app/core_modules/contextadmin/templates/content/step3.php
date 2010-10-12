@@ -11,7 +11,33 @@ if ($mode == 'edit') {
 } else {
     $noLO = 1;
 }
+//Get Context Code
+$contextCode = $this->getSession('contextCode');
+// objects that almost every template will use
+$objSysConfig = $this->getObject('altconfig', 'config');
+//Get the path to the site root
+$siteRootPath = $objConfig->getItem("KEWL_SITE_ROOT")."index.php?module=contextadmin&mode=edit&contextCode=".$contextCode."&messagesuccess=success&action=step3&addfields=addfields&outcomesCount=";
+/*
+ *     //var myindex  = dropdown.selectedIndex;
+    //var SelValue = dropdown.options[myindex].value;
+    var val = document.getElementById("lodrops");
+    alert(val);
+    var baseURL  = '.$siteRootPath.';
+    //top.location.href = baseURL;
+    window.location= baseURL;
+    return true;
 
+ */
+$this->appendArrayVar('headerParams', '<script language="JavaScript" type="text/javascript">
+function CreateInputs(dropdown)
+{
+    var baseURL  = "'.$siteRootPath.'";
+    var no = dropdown.value;
+    redirectPath = baseURL+no;
+    window.location= redirectPath;
+    return true;
+}
+</script>');
 
 $objIcon = $this->newObject('geticon', 'htmlelements');
 $objIcon->setIcon('loader');
@@ -21,8 +47,6 @@ $headerTitle = $context['title'] . ' - ' . $this->objLanguage->code2Txt('mod_con
 $formButton = $this->objLanguage->languageText('mod_contextadmin_gotonextstep', 'contextadmin', 'Go to Next Step');
 $deleteLOButton = $this->objLanguage->languageText('mod_contextadmin_deleteselected', 'contextadmin', 'Delete Selected');
 $addLOButton = $this->objLanguage->languageText('mod_contextadmin_addselected', 'contextadmin', 'Add Selected');
-
-
 
 $objStepMenu = $this->newObject('stepmenu', 'navigation');
 if ($mode == 'edit') {
@@ -68,7 +92,7 @@ $table->endRow();
 //Add dropdown to determine no of textinput boxes for LO's
 $loDrops = $this->newObject('dropdown', 'htmlelements');
 $loDrops->name = 'lodrops';
-//$loDrops->extra = "onchange='CreateInputs(this)'";
+$loDrops->extra = "onchange='CreateInputs(this)'";
 //Add options dynamically
 $howmany = 20;
 $count = 0;
@@ -83,7 +107,7 @@ $button = new button('addfields', $addLOButton);
 $button->setToSubmit();
 //Add dropdown to table with LO drop down list
 $table->startRow();
-$table->addCell('<div id="dropdown4lo">' . $this->objLanguage->languageText("mod_contextadmin_addlo", "contextadmin","Select the number of outcomes you want to add").':    &nbsp;&nbsp;' . $loDrops->show() . " " . $button->show() . '</div>');
+$table->addCell('<div id="dropdown4lo">' . $this->objLanguage->languageText("mod_contextadmin_addlo", "contextadmin") ." ". $loDrops->show() .'</div>');
 $table->endRow();
 
 //Hidden textinput to store the the number of new outcomes
@@ -99,8 +123,8 @@ if ($outcomesCount > 1 || !empty($contextLO)) {
     //Add row with headings
     $loTable->startRow();
     $loTable->addCell(Null);
-    $loTable->addCell("<b>" . $this->objLanguage->languageText("mod_contextadmin_lo", "contextadmin","Learning Outcomes") . "</b>", $width = '60%', $valign = "top", $align = "left");
-    $loTable->addCell("<b>" . $this->objLanguage->languageText("mod_contextadmin_select2delete", "contextadmin","Select to Delete") . "</b>", $width = '40%', $valign = "top", $align = "left");
+    $loTable->addCell("<b>" . $this->objLanguage->languageText("mod_contextadmin_lo", "contextadmin") . "</b>", $width = '60%', $valign = "top", $align = "left");
+    $loTable->addCell("<b>" . $this->objLanguage->languageText("mod_contextadmin_select2delete", "contextadmin") . "</b>", $width = '40%', $valign = "top", $align = "left");
     $loTable->endRow();
 }
 if ($mode == 'edit' && (!empty($contextLO))) {
