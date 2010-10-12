@@ -152,6 +152,13 @@ class filemanager extends controller {
                 $objIndexFileProcessor = $this->getObject('indexfileprocessor');
                 $list = $objIndexFileProcessor->indexFiles('context', $this->contextCode);
             }
+            //creater canvases folder, used for theming:
+            $this->objMkdir = $this->getObject('mkdir', 'files');
+            $path = $this->objConfig->getcontentBasePath() . '/' . $folderpath . '/canvases';
+            $result = $this->objMkdir->mkdirs($path);
+            if ($result) {
+                $folderId = $this->objFolders->indexFolder($path);
+            }
         }
     }
 
@@ -925,6 +932,8 @@ class filemanager extends controller {
 
         $breadcrumbs = $this->objFolders->generateBreadCrumbs($folder['folderpath']);
         $this->setVarByRef('breadcrumbs', $breadcrumbs);
+
+
 
         return 'showfolder.php';
     }

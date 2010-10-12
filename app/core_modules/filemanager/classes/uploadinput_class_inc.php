@@ -31,7 +31,6 @@
  * @link      http://avoir.uwc.ac.za
  * @see
  */
-
 /**
  * Class to Handle Single Process Uploads outside of File Manager
  *
@@ -48,88 +47,92 @@
  * @link      http://avoir.uwc.ac.za
  * @see       References to other sections (if any)...
  */
-
 $this->loadClass('filemanagerobject', 'filemanager');
-class uploadinput extends filemanagerobject
-{
+
+class uploadinput extends filemanagerobject {
+
     /**
      * @var string $name Name of the File Selector Input
      */
     public $name;
-    
     /**
      * @var array $restrictFileList Extensions to restrict the upload to
      */
     public $restrictFileList;
-    
     /**
      * @var boolean $enableOverwriteIncrement
      * If a file called myinfo.txt is uploaded, but one exists, new file will be called 'myinfo_1.txt'
      */
     public $enableOverwriteIncrement = FALSE;
-
     /**
      * @access private
      * @var object $objUser The user object.
      */
     private $objUser;
-    
+    /**
+     * upload path to o
+     * @var <type>
+     */
+    public $customuploadpath;
+
     /**
      * Constructor
      */
-    public function init()
-    {
+    public function init() {
         $this->name = 'fileupload';
         $this->loadClass('textinput', 'htmlelements');
         $this->loadClass('hiddeninput', 'htmlelements');
-        
+
         $this->objUser = $this->getObject('user', 'security');
     }
-    
+
     /**
      * Method to show the file input
      *
      * Remember to add $form->extra = 'enctype="multipart/form-data"'; to the form
      * @return string
      */
-    public function show()
-    {
+    public function show() {
         $input = new textinput($this->name);
         $input->fldType = 'file';
         $input->cssClass = '';
         $input->size = '50';
-        
+
         $objLanguage = $this->getObject('language', 'language');
-        
+
         $objFolder = $this->getObject('dbfolder');
-        $tree = $objFolder->getTree('users', $this->objUser->userId(), 'htmldropdown');
-        
+        $this->objContext = $this->getObject('dbcontext', 'context');
+        $this->contextCode = $this->objContext->getContextCode();
+        $tree = $objFolder->getTree('context', $this->objUser->userId(), 'htmldropdown');
+        if ($this->contextCode != '') {
+
+            $tree = $objFolder->getTree('context', $this->contextCode, 'htmldropdown');
+        }
         $objQuotas = $this->getObject('dbquotas');
         $maxFileSize = new hiddeninput('MAX_FILE_SIZE', $objQuotas->getRemainingSpaceUser($this->objUser->userId()));
-        
+
         $restrict = '';
         $restrictStr = '';
-        
+
         if (count($this->restrictFileList) > 0) {
             $divider = '';
             $comma = '';
-            foreach ($this->restrictFileList as $restriction)
-            {
-                $restrict .= $divider.$restriction;
-                $restrictStr .= $comma.$restriction;
+            foreach ($this->restrictFileList as $restriction) {
+                $restrict .= $divider . $restriction;
+                $restrictStr .= $comma . $restriction;
                 $divider = '___';
                 $comma = ', ';
             }
-            
-            $restrictInput = new hiddeninput('restrictions__'.$this->name, $restrict);
-            
+
+            $restrictInput = new hiddeninput('restrictions__' . $this->name, $restrict);
+
             $restrict = $restrictInput->show();
-            $restrictStr = ' ('.$restrictStr.')';
+            $restrictStr = ' (' . $restrictStr . ')';
         }
-        
-        return $maxFileSize->show().$input->show().$restrictStr.'<br /> '.$objLanguage->languageText('mod_filemanager_saveuploadfilein', 'filemanager', 'Save Uploaded File in').': '.$tree.$restrict;
+
+        return $maxFileSize->show() . $input->show() . $restrictStr . '<br /> ' . $objLanguage->languageText('mod_filemanager_saveuploadfilein', 'filemanager', 'Save Uploaded File in') . ': ' . $tree . $restrict;
     }
-    
+
     /**
      * Method to handle the upload
      *
@@ -139,33 +142,35 @@ class uploadinput extends filemanagerobject
      * @param string $name Name of the file input
      * @return array Details of the Upload
      */
-    public function handleUpload($name=null)
-    {
+    public function handleUpload($name=null) {
         if ($name === null) {
             $name = $this->name;
         }
 
         $objFolder = $this->getObject('dbfolder');
-        $uploadPath = $objFolder->getFolderPath($this->getParam('parentfolder'));
-        
+        if ($this->customuploadpath === null) {
+            $uploadPath = $objFolder->getFolderPath($this->getParam('parentfolder'));
+        } else {
+            $uploadPath = $this->customuploadpath;
+        }
+
         $objUpload = $this->getObject('upload');
         $objUpload->setUploadFolder($uploadPath);
         $objUpload->enableOverwriteIncrement = $this->enableOverwriteIncrement;
-        
-        $restrictions = $this->getParam('restrictions__'.$name);
-        
+
+        $restrictions = $this->getParam('restrictions__' . $name);
+
         if ($restrictions == '') {
             $restrictions = NULL;
         } else {
             $restrictions = explode('___', $restrictions);
         }
-        
+
         $fileUploadResultsArray = array();
-        
+
         return $objUpload->uploadFile($name, $restrictions, $fileUploadResultsArray);
     }
+
 }
-
-
 
 ?>
