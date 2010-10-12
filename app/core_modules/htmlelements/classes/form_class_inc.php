@@ -560,7 +560,7 @@ class form implements ifhtml
      *                         mimetype
      *                         compare
      */
-    public function addRule($mix, $errormsg, $valCmd)
+    public function addRule($mix, $errormsg, $valCmd, $customJS=NULL)
     {
         $this->hasRules=true;
         switch (strtolower($valCmd)) {
@@ -632,10 +632,15 @@ class form implements ifhtml
             case 'filename';
             case 'mimetype';
             case 'fieldexists':
-                $this->_fieldExists($mix);
+                $this->_valFieldExists($mix);
                 break;
             case 'fckmaxlength':
                 $this->_valFckMaxLength($mix,$errormsg);
+            case 'custom':
+                $this->_valCustom($mix, $errormsg, $customJS);
+                ;
+                break;
+
                 break;
 
         }
@@ -783,7 +788,7 @@ class form implements ifhtml
         $jmethod = 'valRequired(el.value)';
         $this->_addValidationScript($jmethod, $errormsg, $fieldname);
     }
-    
+
     /**
      * Method to check a datepicker field is not in the future
      *
@@ -854,7 +859,7 @@ class form implements ifhtml
         $this->_addValidationScript($jmethod, $errormsg, $field);
 
     }
-    
+
     /**
      * Method to check for numeric field
      *
@@ -867,7 +872,7 @@ class form implements ifhtml
         $this->_addValidationScript($jmethod, $errormsg, $field);
 
     }
-    
+
     /**
      * Method to check for non numeric field
      *
@@ -880,7 +885,7 @@ class form implements ifhtml
         $this->_addValidationScript($jmethod, $errormsg, $field);
 
     }
-    
+
     /**
      * Method to check a field contains a number
      * eg. a latitude field 128.57N
@@ -1013,11 +1018,27 @@ class form implements ifhtml
      * @param  $errormsg  string: the error message.
      * @access private
      */
-    private function _fieldExists($fieldname)
+    private function _valFieldExists($fieldname)
     {
-       $this->javascript .="
+       $this->javascript .= "
            if (document.getElementById('input_".$fieldname."')==undefined)
             return false;
+       ";
+    }
+    /**
+     * Method to check if a field exists
+     *
+     * @param  $fieldname string: name of the field
+     * @param  $errormsg  string: the error message.
+     * @access private
+     */
+    private function _valCustom($fieldname,$errorMessage, $customJS)
+    {
+       $this->javascript .= "
+           if (!{$customJS}('{$fieldname}')) {
+               alert('{$errorMessage}');
+               return false;
+           }
        ";
     }
 }
