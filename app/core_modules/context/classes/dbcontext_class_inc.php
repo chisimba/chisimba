@@ -229,6 +229,7 @@ class dbcontext extends dbTable {
 
         $fields['alerts'] = $alerts;
         $fields['canvas'] = $canvas;
+
         $result = $this->update('contextcode', $contextCode, $fields);
 
         if ($result) {
@@ -274,7 +275,7 @@ class dbcontext extends dbTable {
      * @access public
      */
     public function updateLastAccessed($contextCode) {
-        $result = $this->updateContext($contextCode, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, '', date('Y-m-d H:i:s'));
+        $result = $this->updateContext($contextCode, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, '', date('Y-m-d H:i:s'),  $this->getCanvasName());
 
         return $result;
     }
@@ -557,6 +558,7 @@ class dbcontext extends dbTable {
      * @return <type> 
      */
     public function getCanvasName() {
+
         return $this->getField("canvas");
     }
 

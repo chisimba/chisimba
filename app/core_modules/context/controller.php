@@ -661,8 +661,7 @@ class context extends controller {
                     'description'=>$message));
         }
         $this->objContext->leaveContext ();
-        //add to activity log
-
+ 
         return $this->nextAction ( NULL, NULL, '_default' );
     }
 
