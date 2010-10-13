@@ -248,7 +248,7 @@ class dbcontext extends dbTable {
      * @access public
      */
     public function updateAbout($contextCode, $about) {
-        $result = $this->updateContext($contextCode, FALSE, FALSE, FALSE, $about, FALSE, FALSE);
+        $result = $this->updateContext($contextCode, FALSE, FALSE, FALSE, $about, FALSE, FALSE,FALSE,FALSE, $this->getCanvasName());
 
         return $result;
     }
@@ -262,7 +262,7 @@ class dbcontext extends dbTable {
      * @access public
      */
     public function updateGoals($contextCode, $goals) {
-        $result = $this->updateContext($contextCode, FALSE, FALSE, FALSE, FALSE, $goals, FALSE);
+        $result = $this->updateContext($contextCode, FALSE, FALSE, FALSE, FALSE, $goals, FALSE,FALSE,FALSE,  $this->getCanvasName());
 
         return $result;
     }
