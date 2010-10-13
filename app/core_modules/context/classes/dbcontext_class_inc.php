@@ -275,7 +275,8 @@ class dbcontext extends dbTable {
      * @access public
      */
     public function updateLastAccessed($contextCode) {
-        $result = $this->updateContext($contextCode, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, '', date('Y-m-d H:i:s'),  $this->getCanvasName());
+     
+        $result = $this->updateContext($contextCode, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, '', date('Y-m-d H:i:s'), $this->getCanvasName());
 
         return $result;
     }
