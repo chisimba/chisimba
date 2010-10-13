@@ -571,7 +571,7 @@ class contextadmin extends controller {
         $contextCode = $this->getParam('editcontextcode');
         $title = $this->getParam('title');
         $canvas = $this->getParam('canvas');
-        
+       
         $status = $this->getParam('status');
         $showcomment = $this->getParam('showcomment');
         $access = $this->getParam('access');

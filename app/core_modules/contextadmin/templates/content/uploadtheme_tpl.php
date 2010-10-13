@@ -29,7 +29,7 @@ $form = new form('addpodcastbyupload', $this->uri(array('action'=>'saveuploadedt
 $form->extra = 'enctype="multipart/form-data"';
 
 $objUpload = $this->newObject('uploadinput', 'filemanager');
-
+$objUpload->showTargetDir=FALSE;
 $button = new button('submitform', $btnupload);
 $button->setToSubmit();;
 $form->addToForm($objUpload->show().'<br />'.$button->show());
