@@ -74,6 +74,11 @@ class uploadinput extends filemanagerobject {
      * @var <type>
      */
     public $customuploadpath;
+    /**
+     * flag to turn on/off display of target dir list
+     * @var <type>
+     */
+    public $showTargetDir = TRUE;
 
     /**
      * Constructor
@@ -103,10 +108,14 @@ class uploadinput extends filemanagerobject {
         $objFolder = $this->getObject('dbfolder');
         $this->objContext = $this->getObject('dbcontext', 'context');
         $this->contextCode = $this->objContext->getContextCode();
-        $tree = $objFolder->getTree('context', $this->objUser->userId(), 'htmldropdown');
-        if ($this->contextCode != '') {
-
-            $tree = $objFolder->getTree('context', $this->contextCode, 'htmldropdown');
+        $tree = "";
+        $targetDirLabel="";
+        if ($this->showTargetDir) {
+            $tree = $objFolder->getTree('context', $this->objUser->userId(), 'htmldropdown');
+            if ($this->contextCode != '') {
+                $tree = $objFolder->getTree('context', $this->contextCode, 'htmldropdown');
+            }
+           $targetDirLabel= $objLanguage->languageText('mod_filemanager_saveuploadfilein', 'filemanager', 'Save Uploaded File in').':';
         }
         $objQuotas = $this->getObject('dbquotas');
         $maxFileSize = new hiddeninput('MAX_FILE_SIZE', $objQuotas->getRemainingSpaceUser($this->objUser->userId()));
@@ -130,7 +139,7 @@ class uploadinput extends filemanagerobject {
             $restrictStr = ' (' . $restrictStr . ')';
         }
 
-        return $maxFileSize->show() . $input->show() . $restrictStr . '<br /> ' . $objLanguage->languageText('mod_filemanager_saveuploadfilein', 'filemanager', 'Save Uploaded File in') . ': ' . $tree . $restrict;
+        return $maxFileSize->show() . $input->show() . $restrictStr . '<br /> ' . $targetDirLabel . ' ' . $tree . $restrict;
     }
 
     /**
