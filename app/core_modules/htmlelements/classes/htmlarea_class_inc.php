@@ -1,12 +1,13 @@
 <?php
+
 // security check - must be included in all scripts
 if (!
-/**
- * Description for $GLOBALS
- * @global unknown $GLOBALS['kewl_entry_point_run']
- * @name   $kewl_entry_point_run
- */
-$GLOBALS['kewl_entry_point_run']) {
+        /**
+         * Description for $GLOBALS
+         * @global unknown $GLOBALS['kewl_entry_point_run']
+         * @name   $kewl_entry_point_run
+         */
+        $GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 
@@ -18,18 +19,18 @@ $GLOBALS['kewl_entry_point_run']) {
  * @author    Wesley Nitsckie
  * @copyright 2004, University of the Western Cape & AVOIR Project
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
- Public License
+  Public License
  * @version   $Id$
  * @link      http://avoir.uwc.ac.za
  * @todo      -c HTML Editor that will extend this object
  */
-
 //require_once("htmlbase_class_inc.php");
 class htmlarea extends object {
-/**
- *
- * @var string $siteRootPath: The path to the site
- */
+
+    /**
+     *
+     * @var string $siteRootPath: The path to the site
+     */
     var $siteRootPath;
     /**
      *
@@ -41,25 +42,21 @@ class htmlarea extends object {
      * @var string $rows: The number of rows the textare will have
      */
     var $rows;
-
     /**
      *
      * @var string $label: The label of the editor
      */
     var $label;
-
     /**
      *
      * @var string $cssClass: The style sheet class
      */
     var $cssClass;
-
     /**
      *
      * @var string $height: The height of the editor
      */
     var $height;
-
     /**
      *
      * @var string $width: The width of the editor
@@ -70,69 +67,67 @@ class htmlarea extends object {
      * @var string $toolbarSet: The toolbarSet of the editor : either Default or Basic
      */
     var $toolbarSet;
-
     /**
      * @var boolean $context Are we in a context aware mode.
      */
     var $context;
-
     /**
      * @var string $fckVersion Which version of FCKEditor to load (2.5.1 vs 2.6.3)
      */
     public $fckVersion;
-
     /**
      * @var string $sysEditor Which Editor to load (fckeditor or ckeditor)
      */
     public $sysEditor;
-
     /**
      * @var string $templatePath Path to fckeditor templates
      */
     public $templatePath;
-
     /**
      * this var stores the instance of ckeditor when its created
      * @var <String>
      */
     var $editor;
-
     /**
      * This var holds custom plugins
      * @var <type>
      */
     var $extraPlugins;
+    /**
+     * This enables/disables  in editor
+     * @var <type> 
+     */
+    var $disableSpellChecker;
 
     /**
      * Method to establish the default values
      */
-    function init($name=null,$value=null,$rows=4,$cols=50,$context=false) {
+    function init($name=null, $value=null, $rows=4, $cols=50, $context=false) {
         $this->sysConf = $this->getObject('dbsysconfig', 'sysconfig');
         //Loading the default FCK version from htmlelements
         $this->fckVersion = $this->sysConf->getValue('FCKEDITOR_VERSION', 'htmlelements');
         //Loading the default editor type from htmlelements
         $this->sysEditor = $this->sysConf->getValue('SYSTEM_EDITOR', 'htmlelements');
+        $this->disableSpellChecker = $this->sysConf->getValue('DISABLE_SPELLCHECKER', 'ckeditor', true);
         $this->height = '400px';
         $this->width = '100%';
-        $this->toolbarSet='Default';
-        $this->name=$name;
-        $this->value=$value;
-        $this->rows=$rows;
-        $this->cols=$cols;
-        $this->css='textarea';
+        $this->toolbarSet = 'Default';
+        $this->name = $name;
+        $this->value = $value;
+        $this->rows = $rows;
+        $this->cols = $cols;
+        $this->css = 'textarea';
         $this->templatePath = ''; //will load the default template path
         //$siteRootPath = "http://".$_SERVER['HTTP_HOST']."/nextgen/";
         //$this->setSiteRootPath($siteRoot);
         //$this->_objConfig =& $this->getObject('config', 'config');
         //$siteRootPath = $this->_objConfig->siteRootPath();
-        $objConfig=$this->getObject('altconfig','config');
-        $this->siteRoot=$objConfig->getsiteRoot();
+        $objConfig = $this->getObject('altconfig', 'config');
+        $this->siteRoot = $objConfig->getsiteRoot();
         //$this->siteRoot=$this->getSiteRoot();
-        $this->sitePath=$objConfig->getsitePath();
+        $this->sitePath = $objConfig->getsitePath();
         $this->context = $context;
         $this->toolbarSet = 'advanced';
-
-
     }
 
     /**
@@ -155,32 +150,35 @@ class htmlarea extends object {
     /**
      * sets the extra plugins to appear in tool bar
      */
-    function setExtraPlugins($plugins){
-        $this->extraPlugins="contexttools";
+    function setExtraPlugins($plugins) {
+        $this->extraPlugins = "contexttools";
     }
+
     /**
      * function to set the value of one of the properties of this class
      *
      * @var string $name: The name of the textare
      */
     function setName($name) {
-        $this->name=$name;
+        $this->name = $name;
     }
+
     /**
      * function to set the amount of rows
      * @var string $Rows: The number of rows of the textare
      *
      */
     function setRows($rows) {
-        $this->rows=$rows;
+        $this->rows = $rows;
     }
+
     /**
      * function to set the amount of cols
      * @var string $cols: The number of cols of the textare
      *
      */
     function setColumns($cols) {
-        $this->cols=$cols;
+        $this->cols = $cols;
     }
 
     /**
@@ -188,26 +186,27 @@ class htmlarea extends object {
      * @var string $content: The content of the textare
      */
     function setContent($value=null) {
-        $this->value=$value;
+        $this->value = $value;
     }
 
-    
     /**
      * Method to display the WYSIWYG Editor
      */
     function show() {
-    /* if (($this->fckVersion == '2.5.1') || ($this->fckVersion == '2.6.3')) {
-      return $this->showFCKEditor($this->fckVersion);
-     } else {
-       */ $base = '<script language="JavaScript" src="'.$this->getResourceUri('ckeditor/ckeditor.js','ckeditor').'" type="text/javascript"></script>';
-        $baseajax = '<script language="JavaScript" src="'.$this->getResourceUri('ckeditor/_source/core/ajax.js','ckeditor').'" type="text/javascript"></script>';
 
-        $initVars='
+
+        /* if (($this->fckVersion == '2.5.1') || ($this->fckVersion == '2.6.3')) {
+          return $this->showFCKEditor($this->fckVersion);
+          } else {
+         */ $base = '<script language="JavaScript" src="' . $this->getResourceUri('ckeditor/ckeditor.js', 'ckeditor') . '" type="text/javascript"></script>';
+        $baseajax = '<script language="JavaScript" src="' . $this->getResourceUri('ckeditor/_source/core/ajax.js', 'ckeditor') . '" type="text/javascript"></script>';
+
+        $initVars = '
             <div class="ChisimbaCanvas_Editor_Before"></div>
 <div class="ChisimbaCanvas_Editor">
 <script type="text/javascript">
-    var instancename=\''.$this->name.'\';
-    var siteRootPath=\''.$this->siteRoot.'\';
+    var instancename=\'' . $this->name . '\';
+    var siteRootPath=\'' . $this->siteRoot . '\';
 </script>
     </div>
      <div class="ChisimbaCanvas_Editor_After"></div>';
@@ -216,28 +215,33 @@ class htmlarea extends object {
         $this->appendArrayVar('headerParams', $base);
         $this->appendArrayVar('headerParams', $baseajax);
 
-        $rawvalue=$this->value;
- 
-        $this->editor='<textarea name="'.$this->name.'">'.htmlspecialchars($rawvalue).'</textarea>';
+        $rawvalue = $this->value;
+
+        $this->editor = '<textarea name="' . $this->name . '">' . htmlspecialchars($rawvalue) . '</textarea>';
         $this->editor.="
         <script type=\"text/javascript\">
+                var disablespellchecker=".$this->disableSpellChecker.";
+          
         CKEDITOR.replace( '$this->name',
        		{
                      			filebrowserBrowseUrl : '$this->siteRoot?module=filemanager&action=fcklink&context=yes&loadwindow=yes',
                      			filebrowserImageBrowseUrl : '$this->siteRoot?module=filemanager&action=fckimage&context=yes&loadwindow=yes&scrollbars=yes',
 	                     		filebrowserFlashBrowseUrl : '$this->siteRoot?module=filemanager&action=fckflash&context=yes&loadwindow=yes',
-                        height:'".$this->height."', width:'".$this->width."',
+                        height:'" . $this->height . "', width:'" . $this->width . "',
                         filebrowserWindowWidth : '80%',
                         filebrowserWindowHeight : '100%',
-                      
+                        disableNativeSpellChecker:disablespellchecker,
+                        scayt_autoStartup :!disablespellchecker,
                         contentsCss: '$this->sitePath/core_modules/ckeditor/resources/ckeditor/chisimba.css',
-                        toolbar:'".$this->toolbarSet."'
+                        toolbar:'" . $this->toolbarSet . "'
        		}
+
+
         );
        </script>
-            ";       
+            ";
         return $this->editor;
-       //}
+        //}
     }
 
     /**
@@ -250,7 +254,7 @@ class htmlarea extends object {
         } else {
             require_once($this->getResourcePath('fckeditor/fckeditor_2.6.3/fckeditor_php5.php', 'fckeditor'));
         }
-        $objConfig =  $this->newObject('altconfig', 'config');
+        $objConfig = $this->newObject('altconfig', 'config');
 
         $sitePath = pathinfo($_SERVER['PHP_SELF']);
         $sBasePath = $sitePath['dirname'];
@@ -266,14 +270,14 @@ class htmlarea extends object {
             $sBasePath .= 'core_modules/fckeditor/resources/fckeditor_2.5.1/';
         }
 
-        $oFCKeditor = new FCKeditor($this->name) ;
-        $oFCKeditor->BasePath = $sBasePath ;
-        $oFCKeditor->Width= $this->width ;
-        $oFCKeditor->Height=$this->height;
-        $oFCKeditor->ToolbarSet=$this->toolbarSet;
+        $oFCKeditor = new FCKeditor($this->name);
+        $oFCKeditor->BasePath = $sBasePath;
+        $oFCKeditor->Width = $this->width;
+        $oFCKeditor->Height = $this->height;
+        $oFCKeditor->ToolbarSet = $this->toolbarSet;
         //$oFCKeditor->SiteRoot=$objConfig->getsiteRoot();
 
-        $siteRootPath= str_replace('\\', '/', $sitePath['dirname']);
+        $siteRootPath = str_replace('\\', '/', $sitePath['dirname']);
         $siteRootPath = preg_replace('/\/+/', '/', $siteRootPath);
 
 
@@ -283,8 +287,8 @@ class htmlarea extends object {
 
         $oFCKeditor->SiteRoot = $siteRootPath;
 
-        $oFCKeditor->Config['SkinPath'] = $sBasePath . 'editor/skins/default/' ;
-        $oFCKeditor->Config['CustomConfigurationsPath'] = $sBasePath . 'chisimba_config.js'  ;
+        $oFCKeditor->Config['SkinPath'] = $sBasePath . 'editor/skins/default/';
+        $oFCKeditor->Config['CustomConfigurationsPath'] = $sBasePath . 'chisimba_config.js';
 
         // Only setting the template path if one specified else leaving the config '' will
         // continue default behaviour
@@ -302,8 +306,8 @@ class htmlarea extends object {
 
         $this->showFCKEditorWakeupJS();
 
-        return '<span onmouseover="wakeUpFireFoxFckeditor(\''.$this->name.'\');">'.$oFCKeditor->CreateHtml().'</span>';
-}
+        return '<span onmouseover="wakeUpFireFoxFckeditor(\'' . $this->name . '\');">' . $oFCKeditor->CreateHtml() . '</span>';
+    }
 
     /**
      * Method to load JS to fix FCKEditor refusing to focus
@@ -356,10 +360,10 @@ class htmlarea extends object {
      */
     function showTinyMCE() {
         $str = '';
-        $str =$this->getJavaScripts();
+        $str = $this->getJavaScripts();
         $str .='<form name="imgform"><input type="hidden" name="hiddentimg"/></form>';
-        $str .='<textarea id="'.$this->name.'" name="'.$this->name.'" rows="'.$this->rows.'" cols="'.$this->cols.'" style="width: 100%">'.$this->value.'</textarea>';
-        return   $str;
+        $str .='<textarea id="' . $this->name . '" name="' . $this->name . '" rows="' . $this->rows . '" cols="' . $this->cols . '" style="width: 100%">' . $this->value . '</textarea>';
+        return $str;
     }
 
     /**
@@ -384,12 +388,13 @@ class htmlarea extends object {
         $this->toolbarSet = 'DefaultWithoutSave';
     }
 
- /**
+    /**
      * sets toolbar to be MCQ specific
      */
-       function setMCQToolBar() {
+    function setMCQToolBar() {
         $this->toolbarSet = 'mcq';
     }
+
     /**
      * Method to toolbar set to CMS Specific
      */
@@ -411,8 +416,8 @@ class htmlarea extends object {
      * This file gets manipulated via the cmsadmin template manager
      */
     function loadCMSTemplates() {
-        $objConfig =  $this->newObject('altconfig', 'config');
-        $this->templatePath = $objConfig->getSitePath().$objConfig->getcontentPath().'cmstemplates/'.$this->fckVersion.'/fcktemplates.xml';
+        $objConfig = $this->newObject('altconfig', 'config');
+        $this->templatePath = $objConfig->getSitePath() . $objConfig->getcontentPath() . 'cmstemplates/' . $this->fckVersion . '/fcktemplates.xml';
     }
 
     /**
@@ -428,7 +433,7 @@ class htmlarea extends object {
 
                     tinyMCE.init({
                         mode : "textareas",
-                        theme : "'.$this->toolbarSet.'",
+                        theme : "' . $this->toolbarSet . '",
                         plugins : "style,layer,table,save,advhr,advimage,advlink,emotions,iespell,insertdatetime,preview,flash,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable",
                         theme_advanced_buttons1_add_before : "save,newdocument,separator",
                         theme_advanced_buttons1_add : "fontselect,fontsizeselect",
@@ -455,34 +460,35 @@ class htmlarea extends object {
                     function fileBrowserCallBack(field_name, url, type, win) {
                         // This is where you insert your custom filebrowser logic
                         //alert("Example of filebrowser callback: field_name: " + field_name + ", url: " + url + ", type: " + type);
-                        mywindow = window.open ("'.$this->uri(array('action' => 'showmedia'), 'mediamanager').'",  "imagewindow","location=1,status=1,scrollbars=0,  width=200,height=200");  mywindow.moveTo(0,0);
+                        mywindow = window.open ("' . $this->uri(array('action' => 'showmedia'), 'mediamanager') . '",  "imagewindow","location=1,status=1,scrollbars=0,  width=200,height=200");  mywindow.moveTo(0,0);
 
                         //alert(mywindow.document.forms[0].hideme.value);
                         // Insert new URL, this would normaly be done in a popup
-                        win.document.forms[0].elements[hide'.$this->name.'].value = "'.$this->uri(array('action' => 'list'), 'mediamanager').'";
+                        win.document.forms[0].elements[hide' . $this->name . '].value = "' . $this->uri(array('action' => 'list'), 'mediamanager') . '";
                     }
                 </script>
                     ';
         $this->appendArrayVar('headerParams', $str);
-    //return $str;
+        //return $str;
     }
+
     /**
-    * Gets the site root (equivalent to:
-    *   $objConfig=$this->getObject('altconfig','config');
-    *   ... $objConfig->getsiteRoot());
-    * )
-    * Caters for server aliases, which the altconfig class does not cater for.
-    * @author Jeremy O'Connor
-    * @return string The site root
-    */
-    private function getSiteRoot()
-    {
-        $https = isset($_SERVER['HTTPS'])?$_SERVER['HTTPS']=='off'?FALSE:TRUE:FALSE;
+     * Gets the site root (equivalent to:
+     *   $objConfig=$this->getObject('altconfig','config');
+     *   ... $objConfig->getsiteRoot());
+     * )
+     * Caters for server aliases, which the altconfig class does not cater for.
+     * @author Jeremy O'Connor
+     * @return string The site root
+     */
+    private function getSiteRoot() {
+        $https = isset($_SERVER['HTTPS']) ? $_SERVER['HTTPS'] == 'off' ? FALSE : TRUE : FALSE;
         $http_host = $_SERVER ['HTTP_HOST'];
         $php_self = $_SERVER['PHP_SELF'];
         $path = str_replace('index.php', '', $php_self);
-        return ($https?'https://':'http://').$http_host.$path;
+        return ($https ? 'https://' : 'http://') . $http_host . $path;
     }
+
 }
 
 ?>
