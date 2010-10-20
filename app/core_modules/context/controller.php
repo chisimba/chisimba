@@ -100,6 +100,11 @@ class context extends controller {
             } else {
                 $this->eventsEnabled = FALSE;
             }
+            $this->dbSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
+            $disableActivityStreamer = $this->dbSysConfig->getValue('DISABLE_ACTIVITYSTREAMER', 'context');
+            if ($disableActivityStreamer == 'TRUE' || $disableActivityStreamer == 'true') {
+                $this->eventsEnabled = FALSE;
+            }
         } catch (customException $e) {
             customException::cleanUp ();
 
@@ -255,6 +260,7 @@ class context extends controller {
         } else {
             if ($this->objContext->joinContext($contextCode)) {
                 //add to activity log
+
                 if ($this->eventsEnabled) {
                     $message = $this->objUser->getsurname() . ' ' . $this->objLanguage->languageText('mod_context_hasentered', 'context') . ' ' . $this->objContext->getContextCode();
                     $this->eventDispatcher->post($this->objActivityStreamer, "context", array('title' => $message,
