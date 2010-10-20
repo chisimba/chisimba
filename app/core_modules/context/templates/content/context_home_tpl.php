@@ -5,6 +5,7 @@ $objExtJS->show();
 //Language items
 $default = 'You are using an unsupported browser. Please switch to Mozilla FireFox available at ( http://getfirefox.com ). Currently the system functionality is limited. Thanks!';
 $browserError = $objLanguage->languageText('mod_poll_browserError', 'poll', $default);
+$objConfig = $this->getObject('altconfig', 'config');
 // Add JavaScript if User can update blocks
 if ($this->isValid('addblock')) {
 
@@ -34,9 +35,36 @@ if ($this->isValid('addblock')) {
 
         // ]]>
     </script>
+
+
 <?php
     echo $this->getJavaScriptFile('contextblocks.js');
 } // End Addition of JavaScript
+/*
+$whoIsOnlineJs='
+<SCRIPT language="JavaScript1.2">
+var base="'.$objConfig->getSiteRoot().'?module=livechat'.'";
+
+    function showWhoIsOnlineWin()
+    {
+        var win=window.open ("?module=livechat","Live chat","location=0,status=0,scrollbars=0,width=10,height=10,top=-1, left=-1");
+        win.blur();
+        win.opener.focus();
+    }
+
+
+</SCRIPT>
+';
+$this->appendArrayVar('headerParams',$whoIsOnlineJs);
+$objModule = $this->getObject('modules', 'modulecatalogue');
+
+//See if tcontextinstructor is registered, if so, then show
+$isRegistered = $objModule->checkIfRegistered('livechat');
+if ($isRegistered) {
+    $params = 'onload="javascript: showWhoIsOnlineWin()"';
+    $this->setVar("bodyParams", $params);
+   
+}*/
 
 $this->loadClass('dropdown', 'htmlelements');
 $this->loadClass('button', 'htmlelements');
@@ -137,7 +165,7 @@ $header->str = $objLanguage->languageText('mod_context_addablock', 'context', 'A
 
 $toolbar = $this->getObject('contextsidebar');
 $instructorProfile = "";
-$objModule = $this->getObject('modules', 'modulecatalogue');
+
 //See if tcontextinstructor is registered, if so, then show
 $isRegistered = $objModule->checkIfRegistered('contextinstructor');
 if ($isRegistered) {
@@ -148,7 +176,8 @@ if ($isRegistered) {
 $isRegistered = $objModule->checkIfRegistered('contextcontent');
 $utillink = "";
 $this->dbSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
-if ($this->dbSysConfig->getValue('SHOW_SHORTCUTS_BLOCK', 'context') == "TRUE") {
+$showAdminShortcutBlock=$this->dbSysConfig->getValue('SHOW_SHORTCUTS_BLOCK', 'context');
+if ($showAdminShortcutBlock == "TRUE" || $showAdminShortcutBlock == "true" || $showAdminShortcutBlock == "True") {
     if ($isRegistered && $this->isValid('addblock')) {
         $trackerlink = "";
 
@@ -158,13 +187,16 @@ if ($this->dbSysConfig->getValue('SHOW_SHORTCUTS_BLOCK', 'context') == "TRUE") {
         $imgPath = "";
 
         $link = new link($this->uri(array('action' => 'viewlogs'), 'contextcontent'));
-        $link->link = $trackerimg . '&nbsp;' . $this->objLanguage->languageText('mod_contextcontent_useractivitylogs', 'contextcontent','User activity');
+        $link->link = $this->objLanguage->languageText('mod_contextcontent_useractivitylogs', 'contextcontent', 'User activity');
 
 
         $trackerlink .= $link->show() . '';
+        $transferlink = new link($this->uri(array('action' => 'transfercontextusers')));
+        $transferlink->link =ucwords($this->objLanguage->code2Txt('mod_context_transferusers', 'context', NULL, 'Transfer users'));
+
 
         $objFeatureBox = $this->newObject('featurebox', 'navigation');
-        $content = $trackerlink;
+        $content = $transferlink->show();
         $block = "shortcuts";
         $hidden = 'default';
         $showToggle = false;
