@@ -30,16 +30,15 @@
  * @see       core
  */
 // security check - must be included in all scripts
-if (! /**
- * Description for $GLOBALS
- * @global entry point $GLOBALS['kewl_entry_point_run']
- * @name   $kewl_entry_point_run
- */
-$GLOBALS ['kewl_entry_point_run']) {
-    die ( "You cannot view this page directly" );
+if (!/**
+         * Description for $GLOBALS
+         * @global entry point $GLOBALS['kewl_entry_point_run']
+         * @name   $kewl_entry_point_run
+         */
+        $GLOBALS ['kewl_entry_point_run']) {
+    die("You cannot view this page directly");
 }
 // end security check
-
 
 /**
  * Context controller
@@ -56,13 +55,13 @@ $GLOBALS ['kewl_entry_point_run']) {
  * @see       core
  */
 class context extends controller {
+
     /**
      * Public context object
      *
      * @var object $objContext
      */
     public $objContext;
-
     /**
      * Current Context Code
      *
@@ -75,39 +74,37 @@ class context extends controller {
      */
     public function init() {
         try {
-            $this->objContext = $this->getObject ( 'dbcontext' );
+            $this->objContext = $this->getObject('dbcontext');
 
-            $this->contextCode = $this->objContext->getContextCode ();
-            $this->setVarByRef ( 'contextCode', $this->contextCode );
+            $this->contextCode = $this->objContext->getContextCode();
+            $this->setVarByRef('contextCode', $this->contextCode);
 
-            $this->contextTitle = $this->objContext->getTitle ();
-            $this->setVarByRef ( 'contextTitle', $this->contextTitle );
+            $this->contextTitle = $this->objContext->getTitle();
+            $this->setVarByRef('contextTitle', $this->contextTitle);
 
-            $this->objLanguage = $this->getObject ( 'language', 'language' );
-            $this->objUser = $this->getObject ( 'user', 'security' );
+            $this->objLanguage = $this->getObject('language', 'language');
+            $this->objUser = $this->getObject('user', 'security');
 
-            $this->objContextBlocks = $this->getObject ( 'dbcontextblocks' );
-            $this->objDynamicBlocks = $this->getObject ( 'dynamicblocks', 'blocks' );
+            $this->objContextBlocks = $this->getObject('dbcontextblocks');
+            $this->objDynamicBlocks = $this->getObject('dynamicblocks', 'blocks');
 
             //Load Module Catalogue Class
             $this->objModuleCatalogue = $this->getObject('modules', 'modulecatalogue');
 
             $this->objContextGroups = $this->getObject('managegroups', 'contextgroups');
 
-            if($this->objModuleCatalogue->checkIfRegistered('activitystreamer')) {
+            if ($this->objModuleCatalogue->checkIfRegistered('activitystreamer')) {
                 $this->objActivityStreamer = $this->getObject('activityops', 'activitystreamer');
-                $this->eventDispatcher->addObserver ( array ($this->objActivityStreamer, 'postmade' ) );
+                $this->eventDispatcher->addObserver(array($this->objActivityStreamer, 'postmade'));
                 $this->eventsEnabled = TRUE;
             } else {
                 $this->eventsEnabled = FALSE;
             }
-
-        } catch ( customException $e ) {
+        } catch (customException $e) {
             customException::cleanUp ();
 
             //Load Module Catalogue Class
             //$this->objModuleCatalogue = $this->getObject('modules', 'modulecatalogue');
-
         }
     }
 
@@ -115,8 +112,8 @@ class context extends controller {
      * Method to turn off login requirement for certain actions
      */
     public function requiresLogin($action) {
-        $requiresLogin = array ('controlpanel', 'manageplugins', 'updateplugins', 'renderblock', 'addblock', 'removeblock', 'moveblock', 'updatesettings', 'updatecontext' );
-        if (in_array ( $action, $requiresLogin )) {
+        $requiresLogin = array('controlpanel', 'manageplugins', 'updateplugins', 'renderblock', 'addblock', 'removeblock', 'moveblock', 'updatesettings', 'updatecontext');
+        if (in_array($action, $requiresLogin)) {
             return TRUE;
         } else {
             return FALSE;
@@ -130,7 +127,7 @@ class context extends controller {
      * @return boolean
      */
     public function isValid($action) {
-        if ($this->objUser->isAdmin () || $this->objContextGroups->isContextLecturer()) {
+        if ($this->objUser->isAdmin() || $this->objContextGroups->isContextLecturer()) {
             return TRUE;
         } else {
             return FALSE;
@@ -146,19 +143,19 @@ class context extends controller {
      */
     public function dispatch($action) {
         // Method to set the layout template for the given action
-        $this->setLayoutTemplate ( 'contextlayout_tpl.php' );
-        $this->appendArrayVar ( 'headerParams', $this->getJavaScriptFile ( 'jquery.livequery.js', 'jquery' ) );
+        $this->setLayoutTemplate('contextlayout_tpl.php');
+        $this->appendArrayVar('headerParams', $this->getJavaScriptFile('jquery.livequery.js', 'jquery'));
 // echo $this->getJavaScriptFile ( 'jquery.livequery.js', 'jquery' ); die();
         /*
          * Convert the action into a method (alternative to
          * using case selections)
-        */
-        $method = $this->getMethod ( $action );
+         */
+        $method = $this->getMethod($action);
         /*
          * Return the template determined by the method resulting
          * from action
-        */
-        return $this->$method ();
+         */
+        return $this->$method();
     }
 
     /**
@@ -171,7 +168,7 @@ class context extends controller {
      * @return string the name of the method
      */
     protected function getMethod(& $action) {
-        if ($this->validAction ( $action )) {
+        if ($this->validAction($action)) {
             return '__' . $action;
         } else {
             return '__home';
@@ -191,7 +188,7 @@ class context extends controller {
      *
      */
     protected function validAction($action) {
-        if (method_exists ( $this, '__' . $action )) {
+        if (method_exists($this, '__' . $action)) {
             return TRUE;
         } else {
             return FALSE;
@@ -204,37 +201,37 @@ class context extends controller {
      */
     protected function __home() {
         if ($this->contextCode == 'root') {
-            return $this->nextAction ( 'join' );
+            return $this->nextAction('join');
         }
 
-        $this->_preventRootAccess ();
+        $this->_preventRootAccess();
 
-        $this->setLayoutTemplate ( NULL );
+        $this->setLayoutTemplate(NULL);
 
-        $leftBlocks = $this->objContextBlocks->getContextBlocks ( $this->contextCode, 'left' );
-        $this->setVarByRef ( 'leftBlocksStr', $leftBlocks );
+        $leftBlocks = $this->objContextBlocks->getContextBlocks($this->contextCode, 'left');
+        $this->setVarByRef('leftBlocksStr', $leftBlocks);
 
-        $rightBlocks = $this->objContextBlocks->getContextBlocks ( $this->contextCode, 'right' );
-        $this->setVarByRef ( 'rightBlocksStr', $rightBlocks );
+        $rightBlocks = $this->objContextBlocks->getContextBlocks($this->contextCode, 'right');
+        $this->setVarByRef('rightBlocksStr', $rightBlocks);
 
-        $middleBlocks = $this->objContextBlocks->getContextBlocks ( $this->contextCode, 'middle' );
-        $this->setVarByRef ( 'middleBlocksStr', $middleBlocks );
+        $middleBlocks = $this->objContextBlocks->getContextBlocks($this->contextCode, 'middle');
+        $this->setVarByRef('middleBlocksStr', $middleBlocks);
 
-        $allContextBlocks = $this->objContextBlocks->getContextBlocksArray ( $this->contextCode );
-        $this->setVarByRef ( 'allContextBlocks', $allContextBlocks );
+        $allContextBlocks = $this->objContextBlocks->getContextBlocksArray($this->contextCode);
+        $this->setVarByRef('allContextBlocks', $allContextBlocks);
 
-        $smallDynamicBlocks = $this->objDynamicBlocks->getSmallContextBlocks ( $this->contextCode );
-        $this->setVarByRef ( 'smallDynamicBlocks', $smallDynamicBlocks );
+        $smallDynamicBlocks = $this->objDynamicBlocks->getSmallContextBlocks($this->contextCode);
+        $this->setVarByRef('smallDynamicBlocks', $smallDynamicBlocks);
 
-        $wideDynamicBlocks = $this->objDynamicBlocks->getWideContextBlocks ( $this->contextCode );
-        $this->setVarByRef ( 'wideDynamicBlocks', $wideDynamicBlocks );
+        $wideDynamicBlocks = $this->objDynamicBlocks->getWideContextBlocks($this->contextCode);
+        $this->setVarByRef('wideDynamicBlocks', $wideDynamicBlocks);
 
-        $objBlocks = $this->getObject ( 'dbmoduleblocks', 'modulecatalogue' );
-        $smallBlocks = $objBlocks->getBlocks ( 'normal', 'context|site' );
-        $this->setVarByRef ( 'smallBlocks', $smallBlocks );
+        $objBlocks = $this->getObject('dbmoduleblocks', 'modulecatalogue');
+        $smallBlocks = $objBlocks->getBlocks('normal', 'context|site');
+        $this->setVarByRef('smallBlocks', $smallBlocks);
 
-        $wideBlocks = $objBlocks->getBlocks ( 'wide', 'context|site' );
-        $this->setVarByRef ( 'wideBlocks', $wideBlocks );
+        $wideBlocks = $objBlocks->getBlocks('wide', 'context|site');
+        $this->setVarByRef('wideBlocks', $wideBlocks);
 
         return 'context_home_tpl.php';
     }
@@ -243,7 +240,7 @@ class context extends controller {
      * Method to show a list of contexts user can join
      */
     protected function __join() {
-        $this->setLayoutTemplate ( NULL );
+        $this->setLayoutTemplate(NULL);
         return 'needtojoin_tpl.php';
     }
 
@@ -251,30 +248,30 @@ class context extends controller {
      * Method to join a context
      */
     protected function __joincontext() {
-        $contextCode = $this->getParam ( 'contextcode' );
+        $contextCode = $this->getParam('contextcode');
 
         if ($contextCode == '') {
-            return $this->nextAction ( 'join', array ('error' => 'nocontext' ) );
+            return $this->nextAction('join', array('error' => 'nocontext'));
         } else {
-            if ($this->objContext->joinContext ( $contextCode )) {
+            if ($this->objContext->joinContext($contextCode)) {
                 //add to activity log
-                if($this->eventsEnabled) {
-                    $message = $this->objUser->getsurname(). ' '.$this->objLanguage->languageText('mod_context_hasentered', 'context').' '.$this->objContext->getContextCode();
-                    $this->eventDispatcher->post($this->objActivityStreamer, "context", array('title'=> $message,
-                            'link'=> $this->uri(array()),
-                            'contextcode' => $this->objContext->getContextCode(),
-                            'author' => $this->objUser->fullname(),
-                            'description'=>$message));
+                if ($this->eventsEnabled) {
+                    $message = $this->objUser->getsurname() . ' ' . $this->objLanguage->languageText('mod_context_hasentered', 'context') . ' ' . $this->objContext->getContextCode();
+                    $this->eventDispatcher->post($this->objActivityStreamer, "context", array('title' => $message,
+                        'link' => $this->uri(array()),
+                        'contextcode' => $this->objContext->getContextCode(),
+                        'author' => $this->objUser->fullname(),
+                        'description' => $message));
 
-                    $this->eventDispatcher->post($this->objActivityStreamer, "context", array('title'=> $message,
-                            'link'=> $this->uri(array()),
-                            'contextcode' => null,
-                            'author' => $this->objUser->fullname(),
-                            'description'=>$message));
+                    $this->eventDispatcher->post($this->objActivityStreamer, "context", array('title' => $message,
+                        'link' => $this->uri(array()),
+                        'contextcode' => null,
+                        'author' => $this->objUser->fullname(),
+                        'description' => $message));
                 }
-                return $this->nextAction ( 'home' );
+                return $this->nextAction('home');
             } else {
-                return $this->nextAction ( 'join', array ('error' => 'unabletoenter' ) );
+                return $this->nextAction('join', array('error' => 'unabletoenter'));
             }
         }
     }
@@ -283,16 +280,16 @@ class context extends controller {
      * Method to join a context
      */
     protected function __gotomodule() {
-        $contextCode = $this->getParam ( 'contextcode' );
-        $module = $this->getParam ( 'moduleid', 'context' );
+        $contextCode = $this->getParam('contextcode');
+        $module = $this->getParam('moduleid', 'context');
 
         if ($contextCode == '') {
-            return $this->nextAction ( 'join', array ('error' => 'nocontext' ) );
+            return $this->nextAction('join', array('error' => 'nocontext'));
         } else {
-            if ($this->objContext->joinContext ( $contextCode )) {
-                return $this->nextAction ( NULL, NULL, $module );
+            if ($this->objContext->joinContext($contextCode)) {
+                return $this->nextAction(NULL, NULL, $module);
             } else {
-                return $this->nextAction ( 'join', array ('error' => 'unabletoenter' ) );
+                return $this->nextAction('join', array('error' => 'unabletoenter'));
             }
         }
     }
@@ -302,7 +299,7 @@ class context extends controller {
      */
     private function _preventRootAccess() {
         if ($this->contextCode == 'root' || $this->contextCode == '') {
-            return $this->nextAction ( 'error', array ('error' => 'cantaccessrootcontrolpanel' ) );
+            return $this->nextAction('error', array('error' => 'cantaccessrootcontrolpanel'));
         }
     }
 
@@ -310,9 +307,9 @@ class context extends controller {
      * Method to show the context control panel
      */
     protected function __controlpanel() {
-        $this->_preventRootAccess ();
+        $this->_preventRootAccess();
 
-        $this->setLayoutTemplate ( 'contextlayout_tpl.php' );
+        $this->setLayoutTemplate('contextlayout_tpl.php');
 
         return 'controlpanel_tpl.php';
     }
@@ -321,16 +318,16 @@ class context extends controller {
      * Method to show the form for users to add/remove context plugins
      */
     protected function __manageplugins() {
-        $this->_preventRootAccess ();
+        $this->_preventRootAccess();
 
-        $objContextModules = $this->getObject ( 'dbcontextmodules' );
-        $objModules = $this->getObject ( 'modules', 'modulecatalogue' );
+        $objContextModules = $this->getObject('dbcontextmodules');
+        $objModules = $this->getObject('modules', 'modulecatalogue');
 
-        $contextModules = $objContextModules->getContextModules ( $this->contextCode );
-        $plugins = $objModules->getListContextPlugins ();
+        $contextModules = $objContextModules->getContextModules($this->contextCode);
+        $plugins = $objModules->getListContextPlugins();
 
-        $this->setVarByRef ( 'contextModules', $contextModules );
-        $this->setVarByRef ( 'plugins', $plugins );
+        $this->setVarByRef('contextModules', $contextModules);
+        $this->setVarByRef('plugins', $plugins);
 
         return 'manageplugins_tpl.php';
     }
@@ -339,46 +336,46 @@ class context extends controller {
      * Method to update the list of context plugins
      */
     protected function __updateplugins() {
-        $this->_preventRootAccess ();
+        $this->_preventRootAccess();
 
-        $plugins = $this->getParam ( 'plugins' );
+        $plugins = $this->getParam('plugins');
 
-        $objContextModules = $this->getObject ( 'dbcontextmodules' );
-        $objContextModules->deleteModulesForContext ( $this->contextCode );
+        $objContextModules = $this->getObject('dbcontextmodules');
+        $objContextModules->deleteModulesForContext($this->contextCode);
 
-        if (is_array ( $plugins ) && count ( $plugins ) > 0) {
-            foreach ( $plugins as $plugin ) {
-                $objContextModules->addModule ( $this->contextCode, $plugin );
+        if (is_array($plugins) && count($plugins) > 0) {
+            foreach ($plugins as $plugin) {
+                $objContextModules->addModule($this->contextCode, $plugin);
             }
         }
 
-        return $this->nextAction ( 'controlpanel', array ('message' => 'pluginsupdated' ) );
+        return $this->nextAction('controlpanel', array('message' => 'pluginsupdated'));
     }
 
     /**
      * Method to display error messages
      */
     protected function __error() {
-        return $this->nextAction ( NULL, NULL, '_default' );
+        return $this->nextAction(NULL, NULL, '_default');
     }
 
     /**
      * Method to render a block
      */
     protected function __renderblock() {
-        $blockId = $this->getParam ( 'blockid' );
-        $side = $this->getParam ( 'side' );
+        $blockId = $this->getParam('blockid');
+        $side = $this->getParam('side');
 
-        $block = explode ( '|', $blockId );
+        $block = explode('|', $blockId);
 
-        $blockId = $side . '___' . str_replace ( '|', '___', $blockId );
+        $blockId = $side . '___' . str_replace('|', '___', $blockId);
 
         if ($block [0] == 'block') {
-            $objBlocks = $this->getObject ( 'blocks', 'blocks' );
-            echo '<div id="' . $blockId . '" class="block highlightblock">' . $objBlocks->showBlock ( $block [1], $block [2], NULL, 20, TRUE, FALSE ) . '</div>';
+            $objBlocks = $this->getObject('blocks', 'blocks');
+            echo '<div id="' . $blockId . '" class="block highlightblock">' . $objBlocks->showBlock($block [1], $block [2], NULL, 20, TRUE, FALSE) . '</div>';
         }
         if ($block [0] == 'dynamicblock') {
-            echo '<div id="' . $blockId . '" class="block highlightblock">' . $this->objDynamicBlocks->showBlock ( $block [1] ) . '</div>';
+            echo '<div id="' . $blockId . '" class="block highlightblock">' . $this->objDynamicBlocks->showBlock($block [1]) . '</div>';
         } else {
             echo '';
         }
@@ -388,14 +385,14 @@ class context extends controller {
      * Method to add a block
      */
     protected function __addblock() {
-        $blockId = $this->getParam ( 'blockid' );
-        $side = $this->getParam ( 'side' );
+        $blockId = $this->getParam('blockid');
+        $side = $this->getParam('side');
 
-        $block = explode ( '|', $blockId );
+        $block = explode('|', $blockId);
 
         if ($block [0] == 'block' || $block [0] == 'dynamicblock') {
             // Add Block
-            $result = $this->objContextBlocks->addBlock ( $blockId, $side, $this->contextCode, $block [2] );
+            $result = $this->objContextBlocks->addBlock($blockId, $side, $this->contextCode, $block [2]);
 
             if ($result == FALSE) {
                 echo '';
@@ -411,9 +408,9 @@ class context extends controller {
      * Method to remove a context block
      */
     protected function __removeblock() {
-        $blockId = $this->getParam ( 'blockid' );
+        $blockId = $this->getParam('blockid');
 
-        $result = $this->objContextBlocks->removeBlock ( $blockId );
+        $result = $this->objContextBlocks->removeBlock($blockId);
 
         if ($result) {
             echo 'ok';
@@ -426,13 +423,13 @@ class context extends controller {
      * Method to move a context block
      */
     protected function __moveblock() {
-        $blockId = $this->getParam ( 'blockid' );
-        $direction = $this->getParam ( 'direction' );
+        $blockId = $this->getParam('blockid');
+        $direction = $this->getParam('direction');
 
         if ($direction == 'up') {
-            $result = $this->objContextBlocks->moveBlockUp ( $blockId, $this->contextCode );
+            $result = $this->objContextBlocks->moveBlockUp($blockId, $this->contextCode);
         } else {
-            $result = $this->objContextBlocks->moveBlockDown ( $blockId, $this->contextCode );
+            $result = $this->objContextBlocks->moveBlockDown($blockId, $this->contextCode);
         }
 
         if ($result) {
@@ -446,11 +443,11 @@ class context extends controller {
      * Method to show a form to update context settings
      */
     protected function __updatesettings() {
-        $context = $this->objContext->getContextDetails ( $this->contextCode );
-        $objContextForms = $this->getObject ( 'contextforms' );
+        $context = $this->objContext->getContextDetails($this->contextCode);
+        $objContextForms = $this->getObject('contextforms');
 
-        $form = $objContextForms->editContextForm ( $context );
-        $this->setVarByRef ( 'form', $form );
+        $form = $objContextForms->editContextForm($context);
+        $this->setVarByRef('form', $form);
 
         return 'editcontextsettings_tpl.php';
     }
@@ -459,40 +456,39 @@ class context extends controller {
      * Method to Update a Context Settings
      */
     protected function __updatecontext() {
-        $contextCode = $this->getParam ( 'contextcode' );
-        $title = $this->getParam ( 'title' );
-        $status = $this->getParam ( 'status' );
-        $access = $this->getParam ( 'access' );
-        $about = $this->getParam ( 'about' );
-        $image = $this->getParam ( 'imageselect' );
+        $contextCode = $this->getParam('contextcode');
+        $title = $this->getParam('title');
+        $status = $this->getParam('status');
+        $access = $this->getParam('access');
+        $about = $this->getParam('about');
+        $image = $this->getParam('imageselect');
 
 
-        $emailalert=$this->getParam('emailalertopt');
-       
-        $alerts='';
-        if($emailalert == 'on') {
+        $emailalert = $this->getParam('emailalertopt');
+
+        $alerts = '';
+        if ($emailalert == 'on') {
             $alerts.='e';
         }
         if ($contextCode == $this->contextCode && $title != '') {
-            $result = $this->objContext->updateContext (
-                    $contextCode,
-                    $title,
-                    $status,
-                    $access,
-                    $about,
-                    FALSE,
-                    'Y',
-                    $alerts );
+            $result = $this->objContext->updateContext(
+                            $contextCode,
+                            $title,
+                            $status,
+                            $access,
+                            $about,
+                            FALSE,
+                            'Y',
+                            $alerts);
 
             if ($image != '') {
-                $objContextImage = $this->getObject ( 'contextimage', 'context' );
-                $objContextImage->setContextImage ( $contextCode, $image );
+                $objContextImage = $this->getObject('contextimage', 'context');
+                $objContextImage->setContextImage($contextCode, $image);
             }
 
-            return $this->nextAction ( 'controlpanel' );
-
+            return $this->nextAction('controlpanel');
         } else {
-            return $this->nextAction ( 'updatesettings', array ('error' => 'inccompletefields' ) );
+            return $this->nextAction('updatesettings', array('error' => 'inccompletefields'));
         }
     }
 
@@ -500,13 +496,13 @@ class context extends controller {
      * Add Context Search
      */
     protected function __search() {
-        $search = $this->getParam ( 'search' );
+        $search = $this->getParam('search');
 
-        $objSearchResults = $this->getObject ( 'searchresults', 'search' );
-        $searchResults = $objSearchResults->displaySearchResults ( $search, NULL, $this->contextCode );
+        $objSearchResults = $this->getObject('searchresults', 'search');
+        $searchResults = $objSearchResults->displaySearchResults($search, NULL, $this->contextCode);
 
-        $this->setVarByRef ( 'searchResults', $searchResults );
-        $this->setVarByRef ( 'searchText', $search );
+        $this->setVarByRef('searchResults', $searchResults);
+        $this->setVarByRef('searchText', $search);
 
         return 'searchresults_tpl.php';
     }
@@ -517,29 +513,28 @@ class context extends controller {
      * @access protected
      */
     protected function __contextcreatedmessage() {
-        echo '<h3>' . $this->objLanguage->code2Txt ( 'mod_context_congratscontextcreated', 'context', NULL, 'Congratulations! Your [-context-] has been created' ) . '.</h3>
-        <p>' . $this->objLanguage->code2Txt ( 'mod_context_contextcreatedmessage1', 'context', NULL, 'This is the home page of your [-context-] You can modify the contents of the page, by clicking "Turn Editing On"' ) . '.
-        ' . $this->objLanguage->languageText ( 'mod_context_contextcreatedmessage2', 'context', 'This will allow you to add different types of content blocks to this page' ) . '.</p>
-        <p>' . $this->objLanguage->code2Txt ( 'mod_context_contextcreatedmessage3', 'context', NULL, 'To add [-readonlys-] to your [-context-], or to add/remove [-context-] plugins, go to the [-context-] control panel' ) . '.</p>
+        echo '<h3>' . $this->objLanguage->code2Txt('mod_context_congratscontextcreated', 'context', NULL, 'Congratulations! Your [-context-] has been created') . '.</h3>
+        <p>' . $this->objLanguage->code2Txt('mod_context_contextcreatedmessage1', 'context', NULL, 'This is the home page of your [-context-] You can modify the contents of the page, by clicking "Turn Editing On"') . '.
+        ' . $this->objLanguage->languageText('mod_context_contextcreatedmessage2', 'context', 'This will allow you to add different types of content blocks to this page') . '.</p>
+        <p>' . $this->objLanguage->code2Txt('mod_context_contextcreatedmessage3', 'context', NULL, 'To add [-readonlys-] to your [-context-], or to add/remove [-context-] plugins, go to the [-context-] control panel') . '.</p>
         ';
-
     }
 
     /**
      * Method to get contexts via ajax
      */
     protected function __ajaxgetcontexts() {
-        $letter = $this->getParam ( 'letter' );
+        $letter = $this->getParam('letter');
 
-        $contexts = $this->objContext->getContextStartingWith ( $letter );
+        $contexts = $this->objContext->getContextStartingWith($letter);
 
-        if (count ( $contexts ) == 0) {
+        if (count($contexts) == 0) {
 
         } else {
-            $objDisplayContext = $this->getObject ( 'displaycontext', 'context' );
+            $objDisplayContext = $this->getObject('displaycontext', 'context');
 
-            foreach ( $contexts as $context ) {
-                echo $objDisplayContext->formatContextDisplayBlock ( $context, FALSE, FALSE ) . '<br />';
+            foreach ($contexts as $context) {
+                echo $objDisplayContext->formatContextDisplayBlock($context, FALSE, FALSE) . '<br />';
             }
         }
     }
@@ -549,7 +544,7 @@ class context extends controller {
      */
     protected function __ajaxgetusercontexts() {
         $objUserContext = $this->getObject('usercontext', 'context');
-        $contexts =  $objUserContext->getUserContext($this->objUser->userId());
+        $contexts = $objUserContext->getUserContext($this->objUser->userId());
 
         $con = array();
         if (count($contexts) > 0) {
@@ -558,17 +553,17 @@ class context extends controller {
             }
         }
         $contexts = $con;
-        if (count ( $contexts ) == 0) {
+        if (count($contexts) == 0) {
 
         } else {
-            $objDisplayContext = $this->getObject ( 'displaycontext', 'context' );
+            $objDisplayContext = $this->getObject('displaycontext', 'context');
 
-            foreach ( $contexts as $context ) {
-                echo $objDisplayContext->formatContextDisplayBlock ( $context, FALSE, FALSE ) . '<br />';
+            foreach ($contexts as $context) {
+                echo $objDisplayContext->formatContextDisplayBlock($context, FALSE, FALSE) . '<br />';
             }
         }
-
     }
+
     /**
      * Added by Paul Mungai
      * Method to list all user contexts
@@ -584,10 +579,10 @@ class context extends controller {
             $ctlimit = 50;
         }
         $objUserContext = $this->getObject('usercontext', 'context');
-        $objDisplayContext = $this->getObject ( 'displaycontext', 'context' );
+        $objDisplayContext = $this->getObject('displaycontext', 'context');
         $userContexts = $objUserContext->jsonUserCourses($this->objUser->userId(), $ctstart, $ctlimit);
-        if ( count ( $userContexts ) > 0 ) {
-            echo $objDisplayContext->jsonContextOutput( $userContexts );
+        if (count($userContexts) > 0) {
+            echo $objDisplayContext->jsonContextOutput($userContexts);
             exit(0);
         }
     }
@@ -598,9 +593,7 @@ class context extends controller {
     protected function __ajaxgetallcontexts() {
         $objUtils = $this->getObject('utilities');
         echo $objUtils->searchBlock();
-
     }
-
 
     /**
      * Method to leave a context
@@ -612,10 +605,9 @@ class context extends controller {
         $items = $objUtils->getContextList();
 
         $q = $this->getParam('q');
-        foreach ($items as $key=>$value) {
+        foreach ($items as $key => $value) {
             if (strpos(strtolower($key), $q) !== false) {
                 echo "$key|$value\n";
-
             }
         }
         exit(0);
@@ -631,10 +623,9 @@ class context extends controller {
         $items = $objUtils->getUserList();
 
         $q = $this->getParam('q');
-        foreach ($items as $key=>$value) {
+        foreach ($items as $key => $value) {
             if (strpos(strtolower($key), $q) !== false) {
                 echo "$key|$value\n";
-
             }
         }
         exit(0);
@@ -647,22 +638,22 @@ class context extends controller {
      */
     protected function __leavecontext() {
 
-        if($this->eventsEnabled) {
-            $message = $this->objUser->getsurname(). ' '.$this->objLanguage->languageText('mod_context_hasleft', 'context').' '.$this->objContext->getContextCode();
-            $this->eventDispatcher->post($this->objActivityStreamer, "context", array('title'=> $message,
-                    'link'=> $this->uri(array()),
-                    'contextcode' => $this->objContext->getContextCode(),
-                    'author' => $this->objUser->fullname(),
-                    'description'=>$message));
-            $this->eventDispatcher->post($this->objActivityStreamer, "context", array('title'=> $message,
-                    'link'=> $this->uri(array()),
-                    'contextcode' => null,
-                    'author' => $this->objUser->fullname(),
-                    'description'=>$message));
+        if ($this->eventsEnabled) {
+            $message = $this->objUser->getsurname() . ' ' . $this->objLanguage->languageText('mod_context_hasleft', 'context') . ' ' . $this->objContext->getContextCode();
+            $this->eventDispatcher->post($this->objActivityStreamer, "context", array('title' => $message,
+                'link' => $this->uri(array()),
+                'contextcode' => $this->objContext->getContextCode(),
+                'author' => $this->objUser->fullname(),
+                'description' => $message));
+            $this->eventDispatcher->post($this->objActivityStreamer, "context", array('title' => $message,
+                'link' => $this->uri(array()),
+                'contextcode' => null,
+                'author' => $this->objUser->fullname(),
+                'description' => $message));
         }
-        $this->objContext->leaveContext ();
- 
-        return $this->nextAction ( NULL, NULL, '_default' );
+        $this->objContext->leaveContext();
+
+        return $this->nextAction(NULL, NULL, '_default');
     }
 
     /**
@@ -708,6 +699,7 @@ class context extends controller {
         echo $objUtils->jsonListContext($this->getParam('start'), $this->getParam('limit'));
         exit(0);
     }
+
     /**
      * Method to list all the context
      *
@@ -725,6 +717,29 @@ class context extends controller {
         exit(0);
     }
 
+    public function __transfercontextusers() {
+        $start = '0';
+        $limit = '100';
+        $this->objGroups = $this->getObject('managegroups', 'contextgroups');
+        $data = $this->objGroups->usercontextcodeslimited($this->objUser->userId(), $start, $limit);
+        $this->setVarByRef('data', $data);
+        return "transfercontextusers_tpl.php";
+    }
+
+    public function __savetransfercontextusers() {
+        $context1 = $this->getParam('context1');
+        $context2 = $this->getParam('context2');
+        if ($context1 == $context2) {
+            $message = ucwords($this->objLanguage->code2Txt('mod_context_transferfail', 'context', null, 'Transfer failed. You selected same [-context-] twice.'));
+            $this->setVarByRef("message", $message);
+            return "confirmusertransfer_tpl.php";
+        }
+        $objUtils = $this->getObject('utilities');
+        $objUtils->copyStudentsFromOneCourseToNext($context1, $context2);
+        $message = ucwords($this->objLanguage->code2Txt('mod_context_complete', 'context', null, 'Transfer complete.'));
+        $this->setVarByRef("message", $message);
+        return "confirmusertransfer_tpl.php";
+    }
 
 }
 
