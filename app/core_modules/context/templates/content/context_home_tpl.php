@@ -65,7 +65,7 @@ if ($isRegistered) {
     $this->setVar("bodyParams", $params);
    
 }*/
-
+$objModule = $this->getObject('modules', 'modulecatalogue');
 $this->loadClass('dropdown', 'htmlelements');
 $this->loadClass('button', 'htmlelements');
 $this->loadClass('htmlheading', 'htmlelements');
