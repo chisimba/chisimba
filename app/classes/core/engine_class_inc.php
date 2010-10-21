@@ -132,7 +132,7 @@ class engine {
      * Version Number of the software. (engine)
      *
      */
-    public $version = '3.1.8';
+    public $version = '3.1.9';
 
     /**
      * Template variable
@@ -814,7 +814,7 @@ class engine {
      * @return void
      */
     public function authNotification(&$notification) {
-        // log_debug($notification->getNotificationName ());
+         log_debug($notification->getNotificationName ());
         if ($notification->getNotificationName () == 'onIdled') {
             // log_debug ( "Session timed out..." );
             // $this->lu->logout();
@@ -822,6 +822,7 @@ class engine {
         if ($notification->getNotificationName () == 'onLogout') {
             // log_debug ( "User has signed off..." );
             // $this->lu->logout();
+           
         }
     }
 

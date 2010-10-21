@@ -59,6 +59,14 @@ class access extends object {
 
     public $objContext;
     public $objUser;
+    private $objLog;
+    private $userid;
+    private $objSysConfig;
+    private $logActivity;
+    private $preloginModule;
+    public $objConfig;
+    private $loggedInUsers;
+    private $logoutdestroy = true;
 
     /**
      * Constructor for the access class.
@@ -70,10 +78,19 @@ class access extends object {
         parent::__construct($objEngine, $moduleName);
         $this->objContext = $this->getObject("dbcontext", "context");
         $this->objUser = $this->getObject('user', 'security');
+        $this->loggedInUsers = $this->getObject("loggedinusers", "security");
         $this->objLog = $this->getObject('useractivity', 'security');
         $this->userid = $this->objUser->userid();
         $this->objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
         $this->logActivity = $this->objSysConfig->getValue('LOG_USER_ACTIVITY', 'security');
+        $this->objConfig = $this->getObject('altconfig', 'config');
+        $this->preloginModule = $this->objConfig->getPrelogin('KEWL_PRELOGIN_MODULE');
+        $xlogoutdestroy = $this->objConfig->getValue('auth_logoutdestroy', 'security', true);
+        if ($xlogoutdestroy == 'true' || $xlogoutdestroy == 'TRUE' || $xlogoutdestroy == 'True') {
+            $this->logoutdestroy = true;
+        } else {
+            $this->logoutdestroy = false;
+        }
     }
 
     /**
@@ -109,7 +126,14 @@ class access extends object {
           }
           }
           // Action allowed continue.
+         * 
          */
+        //if we hit prelogin module, logout, if logoutdestroy is false
+        if (!$this->logoutdestroy) {
+            if ($this->moduleName == $this->preloginModule) {
+                $this->loggedInUsers->doLogOut($this->userid);
+            }
+        }
         if ($this->logActivity == 'true' || $this->logActivity == 'TRUE') {
             $fields = array(
                 "userid" => $this->userid,
