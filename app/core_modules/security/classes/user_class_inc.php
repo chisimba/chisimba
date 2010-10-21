@@ -1,5 +1,6 @@
 <?php
- /**
+
+/**
  * User class
  *
  * User class for KEWL.NextGen. Provides login, logout, and basic user
@@ -30,58 +31,53 @@
  * @link      http://avoir.uwc.ac.za
  */
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run'])
-{
+if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 // end security check
 
 /**
-* User class for KEWL.NextGen. Provides login, logout, and basic user
-* related methods. This class provides the core of the user and permissions
-* management for KEWL.NextGen.
-* @author Derek Keats, James Scoble
-* @Copyright GNU GPL
-*/
-class user extends dbTable
-{
+ * User class for KEWL.NextGen. Provides login, logout, and basic user
+ * related methods. This class provides the core of the user and permissions
+ * management for KEWL.NextGen.
+ * @author Derek Keats, James Scoble
+ * @Copyright GNU GPL
+ */
+class user extends dbTable {
+
     public $objConfig;
     private $objLanguage;
     private $loggedInUsers;
     private $userLoginHistory;
     private $_record = NULL;
-
     private $imagePath;
     private $imageUrl;
     public $userData = NULL;
     public $objPerms;
 
     /**
-    * Constructor
-    */
-    public function init()
-    {
+     * Constructor
+     */
+    public function init() {
         parent::init('tbl_users');
-        $this->objConfig=$this->getObject('altconfig','config');
+        $this->objConfig = $this->getObject('altconfig', 'config');
         $this->objLanguage = $this->getObject('language', 'language');
         $this->loggedInUsers = $this->getObject('loggedInUsers');
         $this->userLoginHistory = $this->getObject('userLoginHistory');
         $this->objSkin = $this->getObject('skin', 'skin');
-        $this->objGroups = $this->getObject('groupadminmodel','groupadmin');
-        $this->imagePath = $this->objConfig->getsiteRootPath().'/user_images/';
-        $this->imageUrl = $this->objConfig->getsiteRoot().'user_images/';
+        $this->objGroups = $this->getObject('groupadminmodel', 'groupadmin');
+        $this->imagePath = $this->objConfig->getsiteRootPath() . '/user_images/';
+        $this->imageUrl = $this->objConfig->getsiteRoot() . 'user_images/';
         $this->imageUri = 'user_images/';
         $this->objPerms = $this->getObject('perms', 'permissions');
-
     }
 
     /**
-    * Get the desired login type.
-    * This method is currently not in use - 2007-10-11
-    * @return the login method to use, currently ldap or default
-    */
-    public function loginMethod()
-    {
+     * Get the desired login type.
+     * This method is currently not in use - 2007-10-11
+     * @return the login method to use, currently ldap or default
+     */
+    public function loginMethod() {
         // See if they want to login via LDAP
         if (isset($_POST['useLdap'])) {
             $useLdap = $_POST['useLdap'];
@@ -97,31 +93,29 @@ class user extends dbTable
     }
 
     /**
-    * Method to log a user into the site
-    * Can login via mySQL internal database or via LDAP
-    * Login via LDAP is selected from the form on the login
-    * page.
-    * @param $username The username to authenticate
-    * @param $password The password given which should be checked
-    * @return TRUE|FALSE Boolean value indicating success of authentication
-    */
-    public function authenticateUser($username, $password, $remember = NULL)
-    {
+     * Method to log a user into the site
+     * Can login via mySQL internal database or via LDAP
+     * Login via LDAP is selected from the form on the login
+     * page.
+     * @param $username The username to authenticate
+     * @param $password The password given which should be checked
+     * @return TRUE|FALSE Boolean value indicating success of authentication
+     */
+    public function authenticateUser($username, $password, $remember = NULL) {
         $username = trim($username);
         $this->objAuth = $this->getObject('authenticate');
-        $result = $this->objAuth->authenticateUser($username,$password, $remember);
+        $result = $this->objAuth->authenticateUser($username, $password, $remember);
 
         return $result;
     }
 
     /**
-    * Look up user's data.
-    * @param string $username
-    * @return array on success, FALSE on failure.
-    */
-    public function lookupData($username)
-    {
-        $sql="SELECT
+     * Look up user's data.
+     * @param string $username
+     * @return array on success, FALSE on failure.
+     */
+    public function lookupData($username) {
+        $sql = "SELECT
             tbl_users.username,
             tbl_users.userid,
             tbl_users.title,
@@ -136,47 +130,45 @@ class user extends dbTable
         FROM
             tbl_users
         WHERE
-            (username = '".addslashes($username)."')";
-        $array=$this->getArray($sql);
-        if (!empty($array))
-        {
+            (username = '" . addslashes($username) . "')";
+        $array = $this->getArray($sql);
+        if (!empty($array)) {
             return $array[0];
         } else {
             return FALSE;
         }
     }
 
-   /**
-   * Method to do the database login based on the passed
-   * values of username and password
-   *
-   * Depreciated 2007-10-11
-   *
-   * @param string $username The username supplied in the login
-   * @param string $password The password supplied in the login
-   * @return TRUE|FALSE Boolean indication of success of login
-   */
-    public function loginViaDatabase($username, $password)
-    {
-        $line=$this->lookupData($username);
+    /**
+     * Method to do the database login based on the passed
+     * values of username and password
+     *
+     * Depreciated 2007-10-11
+     *
+     * @param string $username The username supplied in the login
+     * @param string $password The password supplied in the login
+     * @return TRUE|FALSE Boolean indication of success of login
+     */
+    public function loginViaDatabase($username, $password) {
+        $line = $this->lookupData($username);
         if ($line) {
-            if ($line['isactive']=='0'){
-                DEFINE('STATUS','inactive');
+            if ($line['isactive'] == '0') {
+                DEFINE('STATUS', 'inactive');
                 return false;
             }
-            if ($line['pass']==sha1('--LDAP--')){
-                $objldap=$this->newObject('ldaplogin','security');
-                $info=$objldap->tryLogin($username,$password);
-                if (is_array($info)){
+            if ($line['pass'] == sha1('--LDAP--')) {
+                $objldap = $this->newObject('ldaplogin', 'security');
+                $info = $objldap->tryLogin($username, $password);
+                if (is_array($info)) {
                     $this->_record = $line;
                     return TRUE;
                 } else {
                     return FALSE;
                 }
             } else {
-                $password=sha1(trim($password));
+                $password = sha1(trim($password));
                 // if the login was successful
-                if ( strtolower($line['pass'])==strtolower($password) ){
+                if (strtolower($line['pass']) == strtolower($password)) {
                     $this->_record = $line;
                     return true;
                 }
@@ -186,12 +178,11 @@ class user extends dbTable
     }
 
     /**
-    * Method to store user information in a session
-    * User Information is stored in a session to prevent unnecessary database calls
-    */
-    private function storeUserSession()
-    {
-        $this->setSession('isLoggedIn',TRUE);
+     * Method to store user information in a session
+     * User Information is stored in a session to prevent unnecessary database calls
+     */
+    private function storeUserSession() {
+        $this->setSession('isLoggedIn', TRUE);
         // set the line as a stdClass, serialize and store in session to lower db calls
         $user = new stdClass();
         // add the user info to the class
@@ -214,27 +205,26 @@ class user extends dbTable
         $this->setSession('userprincipal', $user);
 
         $username = $this->_record['username'];
-        $this->setSession('username',$username);
+        $this->setSession('username', $username);
         $this->setSession('userid', $this->_record['userid']);
 
         //$this->setSession('password',$this->getParam('password', ''));
 
         $title = stripcslashes($this->_record['title']);
-        $this->setSession('title',$title);
+        $this->setSession('title', $title);
         $firstname = stripcslashes($this->_record['firstname']);
         $surname = stripcslashes($this->_record['surname']);
-        $this->setSession('name',$firstname.' '.$surname);
+        $this->setSession('name', $firstname . ' ' . $surname);
         $logins = $this->_record['logins'];
         $this->setSession('logins', $this->_record['logins']);
         $email = stripcslashes($this->_record['emailaddress']);
-        $this->setSession('email',$email);
+        $this->setSession('email', $email);
     }
 
     /**
-    * Method to Update the Session Details for the Current User
-    */
-    public function updateUserSession()
-    {
+     * Method to Update the Session Details for the Current User
+     */
+    public function updateUserSession() {
         if ($this->isLoggedIn()) { // check if logged in
             $record = $this->getRow('userid', $this->userId()); // Get Fresh Details
 
@@ -246,95 +236,90 @@ class user extends dbTable
     }
 
     /**
-    * Method to store User Information in a session upon authentication
-    */
-    public function storeInSession()
-    {
+     * Method to store User Information in a session upon authentication
+     */
+    public function storeInSession() {
         $this->storeUserSession();
 
         $logins = $this->_record['logins'];
-        $logins=$logins + 1;
+        $logins = $logins + 1;
         $this->userData->logins = $logins;
-        $this->setSession('logins',$logins);
+        $this->setSession('logins', $logins);
 
-        $this->setSession('context','lobby');
+        $this->setSession('context', 'lobby');
         // Update the login history table
         $this->userLoginHistory->addHistoryEntry($this->userId());
         // Update the users table with the new login count
-        $this->update('userid', $this->userId(), array('logins'=>$logins));
+        $this->update('userid', $this->userId(), array('logins' => $logins));
         // ---- Insert into the loggedinusers table
         $this->loggedInUsers->insertLogin($this->userId());
         //if ($this->userGroups->isAdministrator($userId)) {
-        if ((isset($this->_record['accesslevel']))&&($this->_record['accesslevel']=='1')) {
-            $this->setSession('isAdmin',TRUE);
+        if ((isset($this->_record['accesslevel'])) && ($this->_record['accesslevel'] == '1')) {
+            $this->setSession('isAdmin', TRUE);
         } else {
-            $this->setSession('isAdmin',FALSE);
+            $this->setSession('isAdmin', FALSE);
         }
-   }
+    }
 
     /**
-    * Method to do the LDAP login against an LDAP database
-    * Depreciated 2007-10-11
-    * @param string $username The username supplied in the login
-    * @param string $password The password supplied in the login
-    */
-    public function loginViaLdap($username, $password)
-    {
-        $objldap=$this->newObject('ldaplogin','security');
-        $info=$objldap->tryLogin($username,$password);
-        if (is_array($info)) // if LDAP has confirmed login
-        {
-            $data=$this->lookupData($username);
-            if (is_array($data) || $this->valueExists('userid',$info['userid']))// if we already have this user
-            {
-                $this->_record=$data;
+     * Method to do the LDAP login against an LDAP database
+     * Depreciated 2007-10-11
+     * @param string $username The username supplied in the login
+     * @param string $password The password supplied in the login
+     */
+    public function loginViaLdap($username, $password) {
+        $objldap = $this->newObject('ldaplogin', 'security');
+        $info = $objldap->tryLogin($username, $password);
+        if (is_array($info)) { // if LDAP has confirmed login
+            $data = $this->lookupData($username);
+            if (is_array($data) || $this->valueExists('userid', $info['userid'])) {// if we already have this user
+                $this->_record = $data;
             } else { // new user
                 // Build up an array of the user's info
-                if ($info['userid']==FALSE)
-                {
-                    $info['userid']=mt_rand(1000,9999).date('ymd');
-                    $info['sex']='';
-                    $info['accessLevel']='guests';
-                    $info['howCreated']='LDAP';
-                    $info['isactive']='1';
-                    $info['country']=$this->objConfig->getCountry();
+                if ($info['userid'] == FALSE) {
+                    $info['userid'] = mt_rand(1000, 9999) . date('ymd');
+                    $info['sex'] = '';
+                    $info['accessLevel'] = 'guests';
+                    $info['howCreated'] = 'LDAP';
+                    $info['isactive'] = '1';
+                    $info['country'] = $this->objConfig->getCountry();
                     // Instantiate the sqlusers class and call the adduser() function
                     // To create the new user on the KNG system.
-                    $tbl=$this->newObject('sqlusers','security');
-                    $id=$tbl->addUser($info);
+                    $tbl = $this->newObject('sqlusers', 'security');
+                    $id = $tbl->addUser($info);
                     // If LDAP confirms the user is an Academic,
                     // add as a site-lecturer in KNG groups.
-                    if ($objldap->isAcademic($username)){
+                    if ($objldap->isAcademic($username)) {
                         $this->addLecturer($id);
                     }
                 }
-                $this->_record=$info;
+                $this->_record = $info;
             }
-        return TRUE;
+            return TRUE;
         } else {
             return FALSE;
         }
     }
 
     /**
-    * Method to logout user from the site. The method deletes
-    * the user from the database table tbl_loggedinusers, destroys
-    * the session, and redirects the user to the index page,
-    * index.php. This method has no parameters. See comments on insertlogin.
-    */
-    public function logout()
-    {
-       $skin = $this->objSkin->getSkin();
-       $this->loggedInUsers->doLogout($this->userId());
-       // session_unset();
-       $this->objLu->logout();
-       $this->objSkin->setSession('skin', $skin);
+     * Method to logout user from the site. The method deletes
+     * the user from the database table tbl_loggedinusers, destroys
+     * the session, and redirects the user to the index page,
+     * index.php. This method has no parameters. See comments on insertlogin.
+     */
+    public function logout() {
+        $skin = $this->objSkin->getSkin();
+        $this->loggedInUsers->doLogout($this->userId());
+        // session_unset();
+        $this->objLu->logout();
+        $this->objSkin->setSession('skin', $skin);
+        
     }
 
     /**
-    * Method to update the curren't user's active timestamp in the
-    * tbl_loggedinusers table
-    */
+     * Method to update the curren't user's active timestamp in the
+     * tbl_loggedinusers table
+     */
     public function updateLogin() {
         $this->loggedInUsers->doUpdateLogin($this->userId());
         // also clear inactive users whilst updating this one
@@ -342,50 +327,47 @@ class user extends dbTable
     }
 
     /**
-    * Method to return the time logged in for the active user
-    */
+     * Method to return the time logged in for the active user
+     */
     public function myTimeOn() {
         return $this->loggedInUsers->getMyTimeOn($this->userId());
     }
 
     /**
-    * Method to add a new user to the Lecturer group
-    * @param string $id the Primary Key ID of the new user
-    */
-    public function addLecturer($id)
-    {
+     * Method to add a new user to the Lecturer group
+     * @param string $id the Primary Key ID of the new user
+     */
+    public function addLecturer($id) {
         $groupId = $this->objGroups->getId('Lecturers');
-        $this->objGroups->addGroupUser($groupId,$id);
+        $this->objGroups->addGroupUser($groupId, $id);
     }
 
     /**
-    * Property to return login status. It returns TRUE if the
-    * user is logged in and FALSE if not. This method has no
-    * parameters.
-    */
-    public function isLoggedIn()
-    {
+     * Property to return login status. It returns TRUE if the
+     * user is logged in and FALSE if not. This method has no
+     * parameters.
+     */
+    public function isLoggedIn() {
         return $this->objLu->isLoggedIn();
     }
-
 
     public function notExpired() {
         return TRUE;
     }
+
     /**
-    * This method determines if the user is an administrator of
-    * the website by checking the session values set when the user
-    * is logged in. The method returns
-    * TRUE if the user is an administrator or FALSE if the
-    * user is not an administrator. This method does not have
-    * any parameters.
-    */
-    public function isAdmin()
-    {
+     * This method determines if the user is an administrator of
+     * the website by checking the session values set when the user
+     * is logged in. The method returns
+     * TRUE if the user is an administrator or FALSE if the
+     * user is not an administrator. This method does not have
+     * any parameters.
+     */
+    public function isAdmin() {
         // Here we need to distinguish between the session var not being set,
         // and being set to FALSE or NULL
-        $isAdmin = $this->getSession('isadmin','_default');
-        if ($isAdmin!='_default') {
+        $isAdmin = $this->getSession('isadmin', '_default');
+        if ($isAdmin != '_default') {
             if ($isAdmin) {
                 return TRUE;
             } else {
@@ -394,7 +376,7 @@ class user extends dbTable
         }
         // Now we check the database
 
-        if (($this->lookupAdmin($this->userId()))||($this->inAdminGroup($this->userId()))) {
+        if (($this->lookupAdmin($this->userId())) || ($this->inAdminGroup($this->userId()))) {
 
             return TRUE;
         } else {
@@ -403,33 +385,30 @@ class user extends dbTable
     }
 
     /**
-    * This method looks in the database to see if the user is a site-admin or not.
-    * Don't confuse it with the isAdmin() function above, which checks session data.
-    * @author James Scoble
-    * @param string $userId
-    * @returns boolean TRUE or FALSE
-    */
-    public function lookupAdmin($userId)
-    {
+     * This method looks in the database to see if the user is a site-admin or not.
+     * Don't confuse it with the isAdmin() function above, which checks session data.
+     * @author James Scoble
+     * @param string $userId
+     * @returns boolean TRUE or FALSE
+     */
+    public function lookupAdmin($userId) {
         $user = $this->objLuAdmin->perm->getUsers(array('filters' => array('auth_user_id' => $userId)));
-        if(empty($user) || !isset($user) || $user[0]['perm_type'] < 5) {
+        if (empty($user) || !isset($user) || $user[0]['perm_type'] < 5) {
             return FALSE;
-        }
-        else {
+        } else {
             return TRUE;
         }
     }
 
     /**
-    * This method consults functions in the groupadmin module's classes to see if the user is a site-admin or not.
-    * Don't confuse it with the isAdmin() function above, which checks session data, or the lookupAdmin() function,
-    * which looks in the tbl_users table.
-    * @author James Scoble
-    * @param string $userId
-    * @returns boolean TRUE or FALSE
-    */
-    public function inAdminGroup($userId, $group='Site Admin')
-    {
+     * This method consults functions in the groupadmin module's classes to see if the user is a site-admin or not.
+     * Don't confuse it with the isAdmin() function above, which checks session data, or the lookupAdmin() function,
+     * which looks in the tbl_users table.
+     * @author James Scoble
+     * @param string $userId
+     * @returns boolean TRUE or FALSE
+     */
+    public function inAdminGroup($userId, $group='Site Admin') {
         $groupId = $this->objGroups->getId($group);
         $return = $this->objGroups->isGroupMember($userId, $groupId);
 
@@ -437,122 +416,108 @@ class user extends dbTable
     }
 
     /**
-    * This method returns the userId of a given user. It takes the username
-    * as a parameter, and looks up the userId from the database. This function
-    * should not be confused with the userId() function, which returns the userId
-    * of the current logged-in user.
-    * @author James Scoble
-    * @param string username
-    * @returns strin userId
-    */
-    public function getUserId($username)
-    {
+     * This method returns the userId of a given user. It takes the username
+     * as a parameter, and looks up the userId from the database. This function
+     * should not be confused with the userId() function, which returns the userId
+     * of the current logged-in user.
+     * @author James Scoble
+     * @param string username
+     * @returns strin userId
+     */
+    public function getUserId($username) {
         // get the user that we are interested in...
         //$user = $this->objLuAdmin->getUsers(array('container' => 'auth', 'filter' => array('handle' => $username)));
 
-        $sql="select userid from tbl_users where username='$username'";
+        $sql = "select userid from tbl_users where username='$username'";
         $rs = $this->query($sql);
-        if ($rs)
-        {
+        if ($rs) {
 
-        //    $line = $rs->fetchRow();
-         $ret=$rs[0]["userid"];
-        }
-        else
-        {
-            $ret=FALSE;
+            //    $line = $rs->fetchRow();
+            $ret = $rs[0]["userid"];
+        } else {
+            $ret = FALSE;
         }
         return $ret;
     }
 
     /**
-    * Returns the system-generated Primary Key for a given user's sql entry.
-    * This info is not usually need, but there might be exceptions
-    * @param strong $userId
-    * @returns string|FALSE
-    */
-    public function PKId($userId=NULL)
-    {
-        if ($userId==NULL)
-        {
-            $userId=$this->userId();
+     * Returns the system-generated Primary Key for a given user's sql entry.
+     * This info is not usually need, but there might be exceptions
+     * @param strong $userId
+     * @returns string|FALSE
+     */
+    public function PKId($userId=NULL) {
+        if ($userId == NULL) {
+            $userId = $this->userId();
         }
-        $sql="select id from tbl_users where userid='$userId'";
+        $sql = "select id from tbl_users where userid='$userId'";
         $rs = $this->query($sql);
-        if ($rs)
-        {
-            $ret=$rs[0]["id"];
-        }
-        else
-        {
-            $ret=FALSE;
+        if ($rs) {
+            $ret = $rs[0]["id"];
+        } else {
+            $ret = FALSE;
         }
         return $ret;
     }
 
-
     /**
-    * This method returns the userId from the PKId
-    * Added 11 August 2005
-    * @author James Scoble
-    * @parm string $PKId the primary key Id
-    * @returns string $userId the user Id
-    */
-    public function getItemFromPkId($PKId,$field='userid')
-    {
-        $data=$this->getRow('id', $PKId);
+     * This method returns the userId from the PKId
+     * Added 11 August 2005
+     * @author James Scoble
+     * @parm string $PKId the primary key Id
+     * @returns string $userId the user Id
+     */
+    public function getItemFromPkId($PKId, $field='userid') {
+        $data = $this->getRow('id', $PKId);
         return $data[$field];
     }
 
-
     /**
-    * This method returns the username of a given user. It takes
-    * the userId of a user as a parameter but defaults to the
-    * userId of the currently logged-in user if none is supplied.
-    * This replaces the lookup capabilities of the PEOPLE object of
-    * KEWL 1.2. It can thus be used to lookup the userName of another
-    * user.
-    * @modified 29 - 09 - 2006 Megan Watson - removed call to fetchRow()
-    * @param string $userId The numeric ID of a user, it defaults
-    * to the userId of the current user when $numID is NULL.
-    */
-    public function userName($userId=FALSE) //use FALSE as the default and evaluate
-    {
+     * This method returns the username of a given user. It takes
+     * the userId of a user as a parameter but defaults to the
+     * userId of the currently logged-in user if none is supplied.
+     * This replaces the lookup capabilities of the PEOPLE object of
+     * KEWL 1.2. It can thus be used to lookup the userName of another
+     * user.
+     * @modified 29 - 09 - 2006 Megan Watson - removed call to fetchRow()
+     * @param string $userId The numeric ID of a user, it defaults
+     * to the userId of the current user when $numID is NULL.
+     */
+    public function userName($userId=FALSE) { //use FALSE as the default and evaluate
         if (!$userId) {
-            $userName=$this->getSession('username');
+            $userName = $this->getSession('username');
             if ($userName) {
                 $ret = $userName;
             } else {
-                $ret =  $this->objLanguage->languageText("error_notloggedin");
+                $ret = $this->objLanguage->languageText("error_notloggedin");
             }
         } else {
             //look up third part numeric ID
-            $sql="SELECT username FROM tbl_users WHERE userid='$userId'";
+            $sql = "SELECT username FROM tbl_users WHERE userid='$userId'";
             $rs = $this->query($sql);
             if ($rs) {
-                $ret=$rs[0]["username"];
+                $ret = $rs[0]["username"];
             } else {
-                $ret=$this->objLanguage->languageText("error_datanotfound", 'security');
+                $ret = $this->objLanguage->languageText("error_datanotfound", 'security');
             }
         }
         return $ret;
     }
 
     /**
-    * This method returns the full name of a given user. It takes
-    * the userId of a user as a parameter but defaults to the
-    * userId of the currently logged-in user if none is supplied.
-    * This replaces the lookup capabilities of the PEOPLE object of
-    * KEWL 1.2. It can thus be used to lookup the userName of another
-    * user.
-    * @param string $userId The numeric ID of a user, it defaults
-    * to the userId of the current user by setting it to NULL as
-    * default.
-    */
-    public function fullname($userId=NULL) //use NULL as the default and evaluate
-    {
-        if ($userId==NULL) {
-            $fullname=$this->getSession('name');
+     * This method returns the full name of a given user. It takes
+     * the userId of a user as a parameter but defaults to the
+     * userId of the currently logged-in user if none is supplied.
+     * This replaces the lookup capabilities of the PEOPLE object of
+     * KEWL 1.2. It can thus be used to lookup the userName of another
+     * user.
+     * @param string $userId The numeric ID of a user, it defaults
+     * to the userId of the current user by setting it to NULL as
+     * default.
+     */
+    public function fullname($userId=NULL) { //use NULL as the default and evaluate
+        if ($userId == NULL) {
+            $fullname = $this->getSession('name');
             if ($fullname == NULL) {
                 $result = $this->objLanguage->languageText("error_notloggedin");
             } else {
@@ -562,85 +527,82 @@ class user extends dbTable
             //look up third part numeric ID
             $line = $this->getRow('userid', $userId);
             if ($line == FALSE) {
-                $result=$this->objLanguage->languageText("error_datanotfound", 'security');
+                $result = $this->objLanguage->languageText("error_datanotfound", 'security');
             } else {
-                $result=$line['firstname'].' '.$line['surname'];
+                $result = $line['firstname'] . ' ' . $line['surname'];
             }
         }
         return $result;
     }
 
     /**
-    * This method returns the surname of a given user. It takes
-    * the userId of a user as a parameter but defaults to the
-    * userId of the currently logged-in user if none is supplied.
-    *
-    * @param string $userId The numeric ID of a user, it defaults
-    * to the userId of the current user by setting it to NULL as
-    * default.
-    * @author Megan Watson - added functions from kinky
-    * @returns string $surname
-    */
-    public function getSurname($userId = null)
-    {
+     * This method returns the surname of a given user. It takes
+     * the userId of a user as a parameter but defaults to the
+     * userId of the currently logged-in user if none is supplied.
+     *
+     * @param string $userId The numeric ID of a user, it defaults
+     * to the userId of the current user by setting it to NULL as
+     * default.
+     * @author Megan Watson - added functions from kinky
+     * @returns string $surname
+     */
+    public function getSurname($userId = null) {
         if (!$userId) {
             $userId = $this->getSession('userid');
         }
         if ($userId == NULL) {
-           return $this->objLanguage->languageText("error_notloggedin_anon");
+            return $this->objLanguage->languageText("error_notloggedin_anon");
         } else {
-        	$sql = "SELECT surname FROM tbl_users WHERE userid='" . $userId . "'";
-        	$rs = $this->query($sql);
-        	if ($rs) {
+            $sql = "SELECT surname FROM tbl_users WHERE userid='" . $userId . "'";
+            $rs = $this->query($sql);
+            if ($rs) {
                 return $rs[0]["surname"];
-        	} else {
-           	    return FALSE;
-        	}
+            } else {
+                return FALSE;
+            }
         }
     }
 
     /**
-    * This method returns the first name of a given user. It takes
-    * the userId of a user as a parameter but defaults to the
-    * userId of the currently logged-in user if none is supplied.
-    *
-    * @param string $userId The numeric ID of a user, it defaults
-    * to the userId of the current user by setting it to NULL as
-    * default.
-    * @author Megan Watson - added functions from kinky
-    * @returns string $firstname
-    */
-    public function getFirstname($userId = NULL)
-    {
+     * This method returns the first name of a given user. It takes
+     * the userId of a user as a parameter but defaults to the
+     * userId of the currently logged-in user if none is supplied.
+     *
+     * @param string $userId The numeric ID of a user, it defaults
+     * to the userId of the current user by setting it to NULL as
+     * default.
+     * @author Megan Watson - added functions from kinky
+     * @returns string $firstname
+     */
+    public function getFirstname($userId = NULL) {
         if (!$userId) {
             $userId = $this->getSession('userid');
         }
         if ($userId == NULL) {
-           return $this->objLanguage->languageText("error_notloggedin_anon");
+            return $this->objLanguage->languageText("error_notloggedin_anon");
         } else {
             $sql = "SELECT firstname FROM tbl_users WHERE userid='" . $userId . "'";
             $rs = $this->query($sql);
-	        if ($rs) {
-	            return $rs[0]["firstname"];
-	        } else {
-	            return FALSE;
-	        }
+            if ($rs) {
+                return $rs[0]["firstname"];
+            } else {
+                return FALSE;
+            }
         }
     }
 
     /**
-    * This method returns the staff name of a given user. It takes
-    * the userId of a user as a parameter but defaults to the
-    * userId of the currently logged-in user if none is supplied.
-    *
-    * @param string $userId The numeric ID of a user, it defaults
-    * to the userId of the current user by setting it to NULL as
-    * default.
-    * @author Megan Watson - added functions from kinky
-    * @returns string $firstname
-    */
-    public function getStaffNumber($userId = NULL)
-    {
+     * This method returns the staff name of a given user. It takes
+     * the userId of a user as a parameter but defaults to the
+     * userId of the currently logged-in user if none is supplied.
+     *
+     * @param string $userId The numeric ID of a user, it defaults
+     * to the userId of the current user by setting it to NULL as
+     * default.
+     * @author Megan Watson - added functions from kinky
+     * @returns string $firstname
+     */
+    public function getStaffNumber($userId = NULL) {
         if (!$userId) {
             $userId = $this->getSession('userid');
         }
@@ -655,58 +617,54 @@ class user extends dbTable
     }
 
     /**
-    * This method returns the email address of a given user. It takes
-    * the userId of a user as a parameter but defaults to the
-    * userId of the currently logged-in user if none is supplied.
-    * This replaces the lookup capabilities of the PEOPLE object of
-    * KEWL 1.2. It can thus be used to lookup the userName of another
-    * user.
-    * @param string $userId The numeric ID of a user, it defaults
-    * to the userId of the current user by setting it to NULL as
-    * default.
-    */
-    public function email($userId=NULL)//use NULL as the default and evaluate
-    {
-        if (!$userId){
-            $email=$this->getSession('email');
+     * This method returns the email address of a given user. It takes
+     * the userId of a user as a parameter but defaults to the
+     * userId of the currently logged-in user if none is supplied.
+     * This replaces the lookup capabilities of the PEOPLE object of
+     * KEWL 1.2. It can thus be used to lookup the userName of another
+     * user.
+     * @param string $userId The numeric ID of a user, it defaults
+     * to the userId of the current user by setting it to NULL as
+     * default.
+     */
+    public function email($userId=NULL) {//use NULL as the default and evaluate
+        if (!$userId) {
+            $email = $this->getSession('email');
             if ($email) {
                 $ret = $email;
             } else {
                 $ret = $this->objLanguage->languageText("error_notloggedin");
             }
         } else {
-            $sql="SELECT emailaddress FROM tbl_users WHERE userid='$userId'";
+            $sql = "SELECT emailaddress FROM tbl_users WHERE userid='$userId'";
             $rs = $this->getArray($sql);
             if (count($rs) > 0) {
-                $ret=$rs[0]["emailaddress"];
+                $ret = $rs[0]["emailaddress"];
             } else {
-                $ret=$this->objLanguage->languageText("error_datanotfound", 'security');
+                $ret = $this->objLanguage->languageText("error_datanotfound", 'security');
             }
         }
         return $ret;
     }
 
     /**
-    * Return the numeric identifier of the user who
-    * is currently logged in
-    * This function has been simplified down now that it calls getSession
-    */
-    public function userId()
-    {
+     * Return the numeric identifier of the user who
+     * is currently logged in
+     * This function has been simplified down now that it calls getSession
+     */
+    public function userId() {
         return $this->getSession('userid');
     }
 
-
     /**
-    * Return whether or not the specified user is Active
-    * @param string $userId
-    * @returns TRUE|FALSE
-    */
-    public function isActive($userId)
-    {
-        $sql="SELECT isactive from tbl_users where userid='$userId'";
-        $rows=$this->getArray($sql);
-        if (!empty($rows)&&($rows[0]['isactive']=='1')){
+     * Return whether or not the specified user is Active
+     * @param string $userId
+     * @returns TRUE|FALSE
+     */
+    public function isActive($userId) {
+        $sql = "SELECT isactive from tbl_users where userid='$userId'";
+        $rows = $this->getArray($sql);
+        if (!empty($rows) && ($rows[0]['isactive'] == '1')) {
             return TRUE;
         } else {
             return FALSE;
@@ -714,15 +672,14 @@ class user extends dbTable
     }
 
     /**
-    * Return how the specified user account was created
-    * @param string $userId
-    * @returns string $howCreated
-    */
-    public function howCreated($userId)
-    {
-        $sql="SELECT howcreated from tbl_users where userid='$userId'";
-        $return=$this->getArray($sql);
-        if (isset($return[0])){
+     * Return how the specified user account was created
+     * @param string $userId
+     * @returns string $howCreated
+     */
+    public function howCreated($userId) {
+        $sql = "SELECT howcreated from tbl_users where userid='$userId'";
+        $return = $this->getArray($sql);
+        if (isset($return[0])) {
             return $return[0]['howcreated'];
         } else {
             return FALSE;
@@ -730,268 +687,250 @@ class user extends dbTable
     }
 
     /**
-    * Return the title of the user defaulting to the current user
-    *
-    * @param string $userId The numeric ID of a user, it defaults
-    * to the userId of the current user by setting it to NULL as
-    * default.
-    *
-    */
-    public function getTitle($userId=NULL)
-    {
+     * Return the title of the user defaulting to the current user
+     *
+     * @param string $userId The numeric ID of a user, it defaults
+     * to the userId of the current user by setting it to NULL as
+     * default.
+     *
+     */
+    public function getTitle($userId=NULL) {
         if (!$userId) {
-            $title=$this->getSession('title');
-            if ($title){
-                $ret=$title;
+            $title = $this->getSession('title');
+            if ($title) {
+                $ret = $title;
             } else {
                 $ret = FALSE; // Use false to avoid displaying Anonymous User (not logged in).
             }
         } else {
-            $sql="SELECT title FROM tbl_users WHERE userid='$userId'";
+            $sql = "SELECT title FROM tbl_users WHERE userid='$userId'";
             $rs = $this->query($sql);
             if ($rs) {
                 $line = $rs->fetchRow();
-                $ret=$line["title"];
+                $ret = $line["title"];
             } else {
-                   $ret=$this->objLanguage->languageText("error_datanotfound", 'security');
+                $ret = $this->objLanguage->languageText("error_datanotfound", 'security');
             }
-       }
-       return $ret;
+        }
+        return $ret;
     }
 
     /**
-    * Return the number of times a current user has logged
-    * into the site.
-    * @param string $userId The numeric ID of a user, it defaults
-    * to the userId of the current user by setting it to NULL as
-    * default.
-    */
-    public function logins($userId=NULL)
-    {
+     * Return the number of times a current user has logged
+     * into the site.
+     * @param string $userId The numeric ID of a user, it defaults
+     * to the userId of the current user by setting it to NULL as
+     * default.
+     */
+    public function logins($userId=NULL) {
         if (!$userId) {
-            $logins=$this->getSession('logins');
-            if ($logins){
-                $ret=$logins;
+            $logins = $this->getSession('logins');
+            if ($logins) {
+                $ret = $logins;
             } else {
                 $ret = $this->objLanguage->languageText("error_notloggedin");
             }
         } else {
-            $sql="SELECT logins FROM tbl_users WHERE userid='$userId'";
+            $sql = "SELECT logins FROM tbl_users WHERE userid='$userId'";
             $rs = $this->query($sql);
             if ($rs) {
                 $line = $rs->fetchRow();
-                $ret=$line["logins"];
+                $ret = $line["logins"];
             } else {
-                   $ret=$this->objLanguage->languageText("error_datanotfound", 'security');
+                $ret = $this->objLanguage->languageText("error_datanotfound", 'security');
             }
-       }
-       return $ret;
+        }
+        return $ret;
     }
 
     /**
-    * Return the last login date for the current user
-    */
-    public function getLastLoginDate($userId=NULL)
-    {
+     * Return the last login date for the current user
+     */
+    public function getLastLoginDate($userId=NULL) {
         if (!$userId) {
-            $userId=$this->userId();
+            $userId = $this->userId();
         }
         return $this->userLoginHistory->doGetLastLogin($userId);
     }
 
-
     /**
-    * Method to check whether the user has a custom image or not.
-    * @param string $userId User Id of the user
-    * @return boolean TRUE/FALSE
-    */
-    public function hasCustomImage($userId=NULL)
-    {
+     * Method to check whether the user has a custom image or not.
+     * @param string $userId User Id of the user
+     * @return boolean TRUE/FALSE
+     */
+    public function hasCustomImage($userId=NULL) {
         if (!$userId) {
-            $userId=$this->userId();
+            $userId = $this->userId();
         }
 
-        return file_exists($this->imagePath.$userId.'.jpg');
+        return file_exists($this->imagePath . $userId . '.jpg');
     }
 
     /**
-    * Method to return a path to the user's image
-    * @param string $userId User Id of the user
-    * @return string Image of User
-    */
-    public function getUserImage($userId=NULL, $forceRefresh=FALSE, $alt=NULL)
-    {
+     * Method to return a path to the user's image
+     * @param string $userId User Id of the user
+     * @return string Image of User
+     */
+    public function getUserImage($userId=NULL, $forceRefresh=FALSE, $alt=NULL) {
         if (!$userId) {
-            $userId=$this->userId();
+            $userId = $this->userId();
         }
 
         if ($forceRefresh) {
-            $forceRefresh = '?'.mktime();
+            $forceRefresh = '?' . mktime();
         }
 
         if ($alt == NULL) {
             $alt = 'User Image';
         } else {
-            $alt = ' alt="'.$alt.'" title="'.$alt.'" ';
+            $alt = ' alt="' . $alt . '" title="' . $alt . '" ';
         }
 
 
-        if (file_exists($this->imagePath.$userId.'.jpg')){
-            return '<img src="'.$this->imageUri.$userId.'.jpg'.$forceRefresh.'" alt="'.$alt.'" />';
+        if (file_exists($this->imagePath . $userId . '.jpg')) {
+            return '<img src="' . $this->imageUri . $userId . '.jpg' . $forceRefresh . '" alt="' . $alt . '" />';
         } else {
-            return '<img src="'.$this->imageUri.'default.jpg" alt="'.$alt.'" />';
+            return '<img src="' . $this->imageUri . 'default.jpg" alt="' . $alt . '" />';
         }
     }
 
     /**
-    * Method to return a path to the user's image
-    * @param string $userId User Id of the user
-    * @return string Image of User
-    */
-    public function getUserImageNoTags($userId=NULL, $forceRefresh=FALSE)
-    {
+     * Method to return a path to the user's image
+     * @param string $userId User Id of the user
+     * @return string Image of User
+     */
+    public function getUserImageNoTags($userId=NULL, $forceRefresh=FALSE) {
         if (!$userId) {
-            $userId=$this->userId();
+            $userId = $this->userId();
         }
 
         if ($forceRefresh) {
-            $forceRefresh = '?'.mktime();
+            $forceRefresh = '?' . mktime();
         }
 
-        if (file_exists($this->imagePath.$userId.'.jpg')){
-            return $this->imagePath.$userId.'.jpg'.$forceRefresh;
+        if (file_exists($this->imagePath . $userId . '.jpg')) {
+            return $this->imagePath . $userId . '.jpg' . $forceRefresh;
         } else {
-            return $this->imagePath.'default.jpg';
+            return $this->imagePath . 'default.jpg';
         }
     }
 
-
     /**
-    * Method to return a path to the small user's image
-    * @param string $userId User Id of the user
-    * @param string $alt Alt Text and Title for the Image
-    * @return string Small Image of User
-    */
-    public function getSmallUserImage($userId=NULL, $alt=NULL)
-    {
+     * Method to return a path to the small user's image
+     * @param string $userId User Id of the user
+     * @param string $alt Alt Text and Title for the Image
+     * @return string Small Image of User
+     */
+    public function getSmallUserImage($userId=NULL, $alt=NULL) {
         if (!$userId) {
-            $userId=$this->userId();
+            $userId = $this->userId();
         }
 
         if ($alt == NULL) {
             $alt = 'User Image';
         } else {
-            $alt = ' alt="'.$alt.'" title="'.$alt.'" ';
+            $alt = ' alt="' . $alt . '" title="' . $alt . '" ';
         }
 
-        if (file_exists($this->imagePath.$userId.'.jpg')){
-            return '<img src="'.$this->imageUri.$userId.'_small.jpg" '.$alt.'/>';
+        if (file_exists($this->imagePath . $userId . '.jpg')) {
+            return '<img src="' . $this->imageUri . $userId . '_small.jpg" ' . $alt . '/>';
         } else {
-            return '<img src="'.$this->imageUri.'default_small.jpg" '.$alt.'/>';
+            return '<img src="' . $this->imageUri . 'default_small.jpg" ' . $alt . '/>';
         }
     }
 
-
     /**
-    * Method to check if this user has context Author access
-    * @author Jonathan Abrahams
-    * @since 9 March 2005
-    * @return true|false Return true if this user has context Author access.
-    */
-    public function isContextAuthor()
-    {
+     * Method to check if this user has context Author access
+     * @author Jonathan Abrahams
+     * @since 9 March 2005
+     * @return true|false Return true if this user has context Author access.
+     */
+    public function isContextAuthor() {
         $this->objPerms->outputRights();
         $right = $this->objPerms->checkRule(isAuthor);
         return $right;
     }
 
     /**
-    * Method to check if this user has context Editor access
-    * @author Jonathan Abrahams
-    * @since 9 March 2005
-    * @return true|false Return true if this user has context Editor access.
-    */
-    public function isContextEditor()
-    {
+     * Method to check if this user has context Editor access
+     * @author Jonathan Abrahams
+     * @since 9 March 2005
+     * @return true|false Return true if this user has context Editor access.
+     */
+    public function isContextEditor() {
         $this->objPerms->outputRights();
         $right = $this->objPerms->checkRule(isEditor);
         return $right;
     }
 
     /**
-    * Method to check if this user has context Reader access
-    * @author Jonathan Abrahams
-    * @since 9 March 2005
-    * @return true|false Return true if this user is has context Readre access.
-    */
-    public function isContextReader()
-    {
+     * Method to check if this user has context Reader access
+     * @author Jonathan Abrahams
+     * @since 9 March 2005
+     * @return true|false Return true if this user is has context Readre access.
+     */
+    public function isContextReader() {
         $this->objPerms->outputRights();
         $right = $this->objPerms->checkRule(isReader);
         return $right;
     }
 
     /**
-    * Method to check if this user is a context Lecturer
-    * @author Jonathan Abrahams
-    * @param string $userId: The id of the user to check | current user if not given
-    * @param string $contextCode: The context to check | current context if not given
-    * @return true|false Return true if this user is a member of the context lecturers group.
-    */
-    public function isContextLecturer($userId = NULL, $contextCode = NULL)
-    {
-        $grid = $this->objGroups->getId($contextCode.'^Lecturers');
+     * Method to check if this user is a context Lecturer
+     * @author Jonathan Abrahams
+     * @param string $userId: The id of the user to check | current user if not given
+     * @param string $contextCode: The context to check | current context if not given
+     * @return true|false Return true if this user is a member of the context lecturers group.
+     */
+    public function isContextLecturer($userId = NULL, $contextCode = NULL) {
+        $grid = $this->objGroups->getId($contextCode . '^Lecturers');
         $userId = isset($userId) ? $userId : $this->userId();
         $ret = $this->objGroups->isGroupMember($userId, $grid);
         return $ret;
     }
 
     /**
-    * This method checks if a user
-    * is a cours administrator ie. eithere
-    * a lecturere are an administrator
-    */
-    public function isCourseAdmin($contextCode = NULL)
-    {
+     * This method checks if a user
+     * is a cours administrator ie. eithere
+     * a lecturere are an administrator
+     */
+    public function isCourseAdmin($contextCode = NULL) {
         return $this->isContextLecturer($this->userId(), $contextCode) || $this->IsAdmin();
     }
 
     /**
-    * Method to check if this user is a context Student
-    * @author Jonathan Abrahams
-    * @since 9 March 2005
-    * @return true|false Return true if this user is a member of the context Students group.
-    */
-    public function isContextStudent($contextCode = NULL)
-    {
-        $grid = $this->objGroups->getId($contextCode.'^Students');
+     * Method to check if this user is a context Student
+     * @author Jonathan Abrahams
+     * @since 9 March 2005
+     * @return true|false Return true if this user is a member of the context Students group.
+     */
+    public function isContextStudent($contextCode = NULL) {
+        $grid = $this->objGroups->getId($contextCode . '^Students');
         $userId = $this->userId();
         $ret = $this->objGroups->isGroupMember($userId, $grid);
         return $ret;
     }
 
     /**
-    * Method to check if this user is a context Lecturers
-    * @author Jonathan Abrahams
-    * @since 9 March 2005
-    * @return true|false Return true if this user is a member of the context Guest group.
-    */
-    public function isContextGuest($contextCode = NULL)
-    {
-        $grid = $this->objGroups->getId($contextCode."^Guest");
+     * Method to check if this user is a context Lecturers
+     * @author Jonathan Abrahams
+     * @since 9 March 2005
+     * @return true|false Return true if this user is a member of the context Guest group.
+     */
+    public function isContextGuest($contextCode = NULL) {
+        $grid = $this->objGroups->getId($contextCode . "^Guest");
         $userId = $this->userId();
         $ret = $this->objGroups->isGroupMember($userId, $grid);
         return $ret;
     }
 
     /**
-    * Method to check if this user is a site Lecturer
-    * @author Jonathan Abrahams
-    * @since 9 March 2005
-    * @return true|false Return true if this user is a member of the site lecturers group.
-    */
-    public function isLecturer()
-    {
+     * Method to check if this user is a site Lecturer
+     * @author Jonathan Abrahams
+     * @since 9 March 2005
+     * @return true|false Return true if this user is a member of the site lecturers group.
+     */
+    public function isLecturer() {
         $grid = $this->objGroups->getId('Lecturers');
         $userId = $this->userId();
         $ret = $this->objGroups->isGroupMember($userId, $grid);
@@ -999,13 +938,12 @@ class user extends dbTable
     }
 
     /**
-    * Method to check if this user is a site Student
-    * @author Jonathan Abrahams
-    * @since 9 March 2005
-    * @return true|false Return true if this user is a member of the site Students group.
-    */
-    public function isStudent()
-    {
+     * Method to check if this user is a site Student
+     * @author Jonathan Abrahams
+     * @since 9 March 2005
+     * @return true|false Return true if this user is a member of the site Students group.
+     */
+    public function isStudent() {
         $grid = $this->objGroups->getId('Students');
         $userId = $this->userId();
         $ret = $this->objGroups->isGroupMember($userId, $grid);
@@ -1013,54 +951,53 @@ class user extends dbTable
     }
 
     /**
-    * Method to check if this user is a site Lecturers
-    * @author Jonathan Abrahams
-    * @since 9 March 2005
-    * @return true|false Return true if this user is a member of the site Guest group.
-    */
-    public function isGuest()
-    {
+     * Method to check if this user is a site Lecturers
+     * @author Jonathan Abrahams
+     * @since 9 March 2005
+     * @return true|false Return true if this user is a member of the site Guest group.
+     */
+    public function isGuest() {
         $grid = $this->objGroups->getId('Guest');
         $userId = $this->userId();
         $ret = $this->objGroups->isGroupMember($userId, $grid);
         return $ret;
     }
 
-    public function getUserPic()
-      {
+    public function getUserPic() {
         $objUserPic = $this->getObject('imageupload', 'useradmin');
-        $objBox =  $this->newObjecT('featurebox', 'navigation');
-        $str = '<p align="center"><img src="'.$objUserPic->userpicture($this->userId() ).'" alt="User Image" /></p>';
+        $objBox = $this->newObjecT('featurebox', 'navigation');
+        $str = '<p align="center"><img src="' . $objUserPic->userpicture($this->userId()) . '" alt="User Image" /></p>';
         return $objBox->show($this->fullName(), $str);
-      }
+    }
 
-    public function getUserDetails($userId)
-    {
+    public function getUserDetails($userId) {
         return $this->getRow('userid', $userId);
     }
 
     public function migrateAdmin() {
         $user = $this->getUserDetails(1);
         $this->objUserModel = $this->getObject('useradmin_model2', 'security');
-        $data = array( 'auth_user_id' => $user['userid'],
-                       'handle' => $user['username'],
-                       'passwd' => $user['pass'],
-                       'title' => $user['title'],
-                       'firstname' => $user['firstname'],
-                       'surname' => $user['surname'],
-                       'emailAddress' => $user['emailaddress'],
-                       'sex' => $user['sex'],
-                       'country' => $user['country'],
-                       'cellnumber' => $user['cellnumber'],
-                       'staffnumber' => $user['staffnumber'],
-                       'howCreated' => $user['howcreated'],
-                       'is_active' => $user['isactive'],
-                       'id' => $user['id'],
+        $data = array('auth_user_id' => $user['userid'],
+            'handle' => $user['username'],
+            'passwd' => $user['pass'],
+            'title' => $user['title'],
+            'firstname' => $user['firstname'],
+            'surname' => $user['surname'],
+            'emailAddress' => $user['emailaddress'],
+            'sex' => $user['sex'],
+            'country' => $user['country'],
+            'cellnumber' => $user['cellnumber'],
+            'staffnumber' => $user['staffnumber'],
+            'howCreated' => $user['howcreated'],
+            'is_active' => $user['isactive'],
+            'id' => $user['id'],
         );
         // delete the user
         //$this->delete('id', $user['id'], 'tbl_users');
         $adduser = $this->objLuAdmin->addUser($data);
         return;
     }
+
 }
+
 ?>

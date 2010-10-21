@@ -408,6 +408,7 @@ class auth_ldap extends abauth implements ifauth {
      */
     public function isAcademic($username, $where = "ou=ACADEMIC") //,{$this->ldapWhere}")
     {
+     
         $test = $this->checkUser ( $username, $where );
         if (! $test) {
             return FALSE;

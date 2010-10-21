@@ -1,5 +1,6 @@
 <?php
- /**
+
+/**
  * Loggedinusers class
  *
  * This class keeps track of which users are logged into the system at any given time.
@@ -29,46 +30,51 @@
  * @link      http://avoir.uwc.ac.za
  */
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run'])
-{
+if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 // end security check
 
 /**
-* Logged in users table.
-*/
-class loggedInUsers extends dbTable
-{
+ * Logged in users table.
+ */
+class loggedInUsers extends dbTable {
+
     public $objConfig;
     private $systemTimeOut;
+    private $logoutdestroy = true;
 
-    public function init()
-    {
+    public function init() {
         parent::init('tbl_loggedinusers');
-        $this->objConfig=$this->getObject('altconfig','config');
-        $this->systemTimeOut=$this->objConfig->getsystemTimeout();
+        $this->objConfig = $this->getObject('altconfig', 'config');
+        $this->systemTimeOut = $this->objConfig->getsystemTimeout();
+        $xlogoutdestroy = $this->objConfig->getValue('auth_logoutdestroy', 'security', true);
+        if ($xlogoutdestroy == 'true' || $xlogoutdestroy == 'TRUE' || $xlogoutdestroy == 'True') {
+            $this->logoutdestroy = true;
+        } else {
+            $this->logoutdestroy = false;
+        }
     }
 
     /**
-    * Insert a record.
-    * @param string $userId The userId of the user logging in
-    */
+     * Insert a record.
+     * @param string $userId The userId of the user logging in
+     */
     public function insertLogin($userId) {
         // Delete old logins
-        $sql="DELETE FROM tbl_loggedinusers
+        $sql = "DELETE FROM tbl_loggedinusers
             WHERE
                 (userid = '$userId')
                 AND (((CURRENT_TIMESTAMP-whenlastactive)/100)>'{$this->systemTimeOut}')";
         $this->query($sql);
         // Update the tbl_loggedinusers table
-        $ipAddress=$_SERVER['REMOTE_ADDR'];
-        $sessionId=session_id();
-        $contextCode="lobby";
-        $theme="default";
-        $myDate=date('Y-m-d H:i:s');
-        $isInvisible='0';
-        $sql="
+        $ipAddress = $_SERVER['REMOTE_ADDR'];
+        $sessionId = session_id();
+        $contextCode = "lobby";
+        $theme = "default";
+        $myDate = date('Y-m-d H:i:s');
+        $isInvisible = '0';
+        $sql = "
             INSERT INTO tbl_loggedinusers (
                                 id,
                 userid,
@@ -81,7 +87,7 @@ class loggedInUsers extends dbTable
                 themeused
             )
             VALUES (
-                                '".date('YmdHis')."',
+                                '" . date('YmdHis') . "',
                 '$userId',
                 '$ipAddress',
                 '$sessionId',
@@ -94,104 +100,136 @@ class loggedInUsers extends dbTable
         $this->query($sql);
     }
 
-   /**
-   * Logout user from the site. The method deletes
-   * the user from the database table tbl_loggedinusers, destroys
-   * the session, and redirects the user to the index page,
-   * index.php.
-   * @param string $userId The userId of the logged in user
-   */
-   public function doLogout($userId) {
-        $sql="DELETE FROM tbl_loggedinusers
+    /**
+     * Logout user from the site. The method deletes
+     * the user from the database table tbl_loggedinusers, destroys
+     * the session, and redirects the user to the index page,
+     * index.php.
+     * @param string $userId The userId of the logged in user
+     */
+    public function doLogout($userId) {
+        $sql = "DELETE FROM tbl_loggedinusers
         WHERE
             userid='$userId'
-            AND sessionid ='".session_id()."'
+            AND sessionid ='" . session_id() . "'
         ";
+        if (!$this->logoutdestroy) {
+            $sql = "DELETE FROM tbl_loggedinusers
+        WHERE userid='$userId'";
+        }
+
         $this->query($sql);
-   }
+    }
 
     /**
-    * Update the current user's active timestamp.
-    */
-    public function doUpdateLogin($userId,$contextCode='lobby')
-    {
-           $sql="UPDATE tbl_loggedinusers
+     * Update the current user's active timestamp.
+     */
+    public function doUpdateLogin($userId, $contextCode='lobby') {
+        $sql = "UPDATE tbl_loggedinusers
         SET
               whenlastactive = CURRENT_TIMESTAMP,
             coursecode='$contextCode'
         WHERE
               userid='$userId'
-            AND sessionid ='".session_id()."'
+            AND sessionid ='" . session_id() . "'
         ";
         $this->query($sql);
-   }
+    }
 
     /**
      * Return the time logged in.
      */
-    public function getMyTimeOn($userId)
-    {
-        $sql="SELECT (whenlastactive - whenloggedin)/100 AS activetime FROM tbl_loggedinusers
+    public function getMyTimeOn($userId) {
+        $sql = "SELECT (whenlastactive - whenloggedin)/100 AS activetime FROM tbl_loggedinusers
         WHERE
             userid='$userId'
-            AND sessionid='".session_id()."'
+            AND sessionid='" . session_id() . "'
         ";
+        if (!$this->logoutdestroy) {
+            $sql = "SELECT TIMEDIFF(now(),whenloggedin) AS activetime FROM tbl_loggedinusers
+        WHERE userid='$userId'";
+            $results = $this->getArray($sql);
+            return $results[0]['activetime'];
+        }
         $results = $this->getArray($sql);
         if (!empty($results)) {
-            $timeActive=intval($results[0]['activetime']);
+            $timeActive = intval($results[0]['activetime']);
+        } else {
+            $timeActive = 0;
         }
-        else {
-            $timeActive=0;
-        }
-           return $timeActive;
-   }
+        return $timeActive;
+    }
 
     /**
-    * Count active users.
-    */
-    public function getActiveUserCount()
-    {
-        $sql="SELECT COUNT(id) AS usercount FROM tbl_loggedinusers";
+     * Return the time logged in.
+     */
+    public function getLogonTime($userId) {
+        $sql = "SELECT whenloggedin FROM tbl_loggedinusers
+        WHERE
+            userid='$userId'
+            AND sessionid='" . session_id() . "'
+        ";
+        if (!$this->logoutdestroy) {
+            $sql = "SELECT whenloggedin FROM tbl_loggedinusers
+        WHERE userid='$userId'";
+        }
         $results = $this->getArray($sql);
         if (!empty($results)) {
-            $activeUserCount=intval($results[0]['usercount']);
+            return $results[0]['whenloggedin'];
         }
-        else {
-            $activeUserCount=0;
+        return "0";
+    }
+
+    /**
+     * Count active users.
+     */
+    public function getActiveUserCount() {
+        $sql = "SELECT COUNT(id) AS usercount FROM tbl_loggedinusers";
+        $results = $this->getArray($sql);
+        if (!empty($results)) {
+            $activeUserCount = intval($results[0]['usercount']);
+        } else {
+            $activeUserCount = 0;
         }
         return $activeUserCount;
     }
 
     /**
-    * Return how long since the user was last active.
-    * @param string $userId
-    */
-    public function getInactiveTime($userId)
-    {
-        $sql="SELECT
+     * Return how long since the user was last active.
+     * @param string $userId
+     */
+    public function getInactiveTime($userId) {
+        $sql = "SELECT
             ((CURRENT_TIMESTAMP-whenlastactive)/100) AS inactivetime
         FROM
             tbl_loggedinusers
         WHERE
             userid='$userId'
-            AND sessionid='".session_id()."'
+            AND sessionid='" . session_id() . "'
         ";
+        if (!$this->logoutdestroy) {
+            $sql = "SELECT
+            ((CURRENT_TIMESTAMP-whenlastactive)/100) AS inactivetime
+        FROM
+            tbl_loggedinusers
+        WHERE
+            userid='$userId' 
+        ";
+        }
         $results = $this->getArray($sql);
         if (!empty($results)) {
-            $inactiveTime=intval($results[0]['inactivetime']);
-        }
-        else {
-            $inactiveTime=10+$this->systemTimeOut;
+            $inactiveTime = intval($results[0]['inactivetime']);
+        } else {
+            $inactiveTime = 10 + $this->systemTimeOut;
         }
         return $inactiveTime;
     }
 
     /**
-    * Method to clear inactive users
-    */
-    public function clearInactive()
-    {
-        $sql="DELETE FROM tbl_loggedinusers
+     * Method to clear inactive users
+     */
+    public function clearInactive() {
+        $sql = "DELETE FROM tbl_loggedinusers
         WHERE
             ((CURRENT_TIMESTAMP-whenlastactive)/100) > '{$this->systemTimeOut}'
         ";
@@ -199,35 +237,33 @@ class loggedInUsers extends dbTable
     }
 
     /**
-    * Method to check if a specified userId is online
-    * @param string $userId
-    * returns TRUE|FALSE
-    */
-    public function isUserOnline($userid)
-    {
-        $sql="SELECT COUNT(userid) AS count FROM tbl_loggedinusers WHERE userid='$userid'";
-          $results = $this->getArray($sql);
+     * Method to check if a specified userId is online
+     * @param string $userId
+     * returns TRUE|FALSE
+     */
+    public function isUserOnline($userid) {
+        $sql = "SELECT COUNT(userid) AS count FROM tbl_loggedinusers WHERE userid='$userid'";
+        $results = $this->getArray($sql);
         if (!empty($results)) {
-            if ($results[0]['count']>0) {
+            if ($results[0]['count'] > 0) {
                 return true;
             }
-        }
-        else {
+        } else {
             return false;
         }
     }
 
     /**
-    * Method to get a list of logged in users
-    * @param string $order Order Clause
-    * @return array List of Users Online
-    */
-    function getListOnlineUsers($order = 'WhenLastActive DESC')
-    {
-        $sql = 'SELECT DISTINCT tbl_users.userId, username, firstName, surname FROM tbl_loggedinusers INNER JOIN tbl_users ON (tbl_loggedinusers.userId = tbl_users.userId) ORDER BY '.$order;
+     * Method to get a list of logged in users
+     * @param string $order Order Clause
+     * @return array List of Users Online
+     */
+    function getListOnlineUsers($order = 'WhenLastActive DESC') {
+        $sql = 'SELECT DISTINCT tbl_users.userId, username, firstName, surname FROM tbl_loggedinusers INNER JOIN tbl_users ON (tbl_loggedinusers.userId = tbl_users.userId) ORDER BY ' . $order;
 
         return $this->getArray($sql);
     }
 
 }
+
 ?>
