@@ -130,7 +130,7 @@ class access extends object {
          */
         //if we hit prelogin module, logout, if logoutdestroy is false
         if (!$this->logoutdestroy) {
-            if ($this->moduleName == $this->preloginModule) {
+            if ($this->moduleName == $this->preloginModule && $action=='') {
                 $this->loggedInUsers->doLogOut($this->userid);
             }
         }
