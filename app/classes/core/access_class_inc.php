@@ -128,9 +128,13 @@ class access extends object {
           // Action allowed continue.
          * 
          */
-        //if we hit prelogin module, logout, if logoutdestroy is false
+        //if we hit prelogin module, logout, if logoutdestroy is false, else update
+        //last activity
         if (!$this->logoutdestroy) {
-            if ($this->moduleName == $this->preloginModule && $action=='') {
+            if ($this->objUser->isLoggedIn()) {
+                $this->loggedInUsers->doUpdateLogin($this->userid);
+            }
+            if ($this->moduleName == $this->preloginModule && $action == '') {
                 $this->loggedInUsers->doLogOut($this->userid);
             }
         }
