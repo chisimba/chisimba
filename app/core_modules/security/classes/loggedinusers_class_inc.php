@@ -169,7 +169,8 @@ class loggedInUsers extends dbTable {
         return $timeActive;
     }
 
-    /**
+
+        /**
      * Return the time logged in.
      */
     public function getLogonTime($userId) {
@@ -185,6 +186,25 @@ class loggedInUsers extends dbTable {
         $results = $this->getArray($sql);
         if (!empty($results)) {
             return $results[0]['whenloggedin'];
+        }
+        return "0";
+    }
+    /**
+     * Returns the time when user was last active.
+     */
+    public function getLastActiveTime($userId) {
+        $sql = "SELECT whenlastactive FROM tbl_loggedinusers
+        WHERE
+            userid='$userId'
+            AND sessionid='" . session_id() . "'
+        ";
+        if (!$this->logoutdestroy) {
+            $sql = "SELECT whenlastactive FROM tbl_loggedinusers
+        WHERE userid='$userId'";
+        }
+        $results = $this->getArray($sql);
+        if (!empty($results)) {
+            return $results[0]['whenlastactive'];
         }
         return "0";
     }
@@ -242,6 +262,7 @@ class loggedInUsers extends dbTable {
         WHERE
             ((CURRENT_TIMESTAMP-whenlastactive)/100) > '{$this->systemTimeOut}'
         ";
+            
         $this->query($sql);
     }
 
