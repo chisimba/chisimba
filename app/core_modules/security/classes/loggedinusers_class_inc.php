@@ -137,6 +137,11 @@ class loggedInUsers extends dbTable {
               userid='$userId'
             AND sessionid ='" . session_id() . "'
         ";
+
+        if (!$this->logoutdestroy) {
+        $sql = "UPDATE tbl_loggedinusers
+        SET whenlastactive = CURRENT_TIMESTAMP, coursecode='$contextCode' WHERE userid='$userId'";
+        }
         $this->query($sql);
     }
 
