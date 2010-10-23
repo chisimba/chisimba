@@ -16,7 +16,7 @@
 // | Authors: Dave Mertens <dmertens@zyprexia.com>                        |
 // +----------------------------------------------------------------------+
 //
-// $Id: Rc4.php,v 1.6 2003/10/04 16:39:32 zyprexia Exp $
+// $Id: Rc4.php 304005 2010-10-04 13:11:08Z clockwerx $
 
 
 /**
@@ -29,19 +29,19 @@
 * $message = "PEAR rulez!";
 *
 * $rc4 = new Crypt_RC4;
-* $rc4->key($key);
+* $rc4->setKey($key);
 * echo "Original message: $message <br>\n";
 * $rc4->crypt($message);
 * echo "Encrypted message: $message <br>\n";
 * $rc4->decrypt($message);
 * echo "Decrypted message: $message <br>\n";
 *
-* @version $Revision: 1.6 $
+* @version $Revision: 304005 $
 * @access public
 * @package Crypt
-* @author Dave Mertens <dmertens@zyprexia.com>
+* @author Dave Mertens <zyprexia@php.net>
  */
-class Crypt_RC4 {
+class Crypt_Rc4 {
 
     /**
     * Real programmers...
@@ -69,7 +69,7 @@ class Crypt_RC4 {
     * Constructor
     * Pass encryption key to key()
     *
-    * @see    key() 
+    * @see    setKey() 
     * @param  string key    - Key which will be used for encryption
     * @return void
     * @access public

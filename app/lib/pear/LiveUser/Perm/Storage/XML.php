@@ -117,7 +117,7 @@ class LiveUser_Perm_Storage_XML extends LiveUser_Perm_Storage
             $this->file = getenv('DOCUMENT_ROOT') . $this->file;
         }
 
-        $tree =& new XML_Tree($this->file);
+        $tree = new XML_Tree($this->file);
         $err =& $tree->getTreeFromFile();
         if (PEAR::isError($err)) {
             $this->stack->push(LIVEUSER_ERROR, 'exception', array(),

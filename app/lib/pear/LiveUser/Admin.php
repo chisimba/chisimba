@@ -149,6 +149,14 @@ class LiveUser_Admin
      var $_conf = null;
 
     /**
+     * Error stack
+     *
+     * @var    PEAR_ErrorStack
+     * @access private
+     */
+     var $stack = null;
+
+    /**
      * Error codes to message mapping array
      *
      * @var    array

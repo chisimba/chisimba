@@ -112,7 +112,7 @@ class LiveUser_Auth_XML extends LiveUser_Auth_Common
             $this->file = getenv('DOCUMENT_ROOT') . $this->file;
         }
 
-        $tree =& new XML_Tree($this->file);
+        $tree = new XML_Tree($this->file);
         $err =& $tree->getTreeFromFile();
         if (PEAR::isError($err)) {
             $this->stack->push(LIVEUSER_ERROR, 'exception', array(),
