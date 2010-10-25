@@ -31,12 +31,12 @@
  */
 // security check - must be included in all scripts
 if (!
-        /**
-         * Description for $GLOBALS
-         * @global unknown $GLOBALS['kewl_entry_point_run']
-         * @name   $kewl_entry_point_run
-         */
-        $GLOBALS['kewl_entry_point_run']) {
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 
@@ -200,7 +200,7 @@ class groupops extends object {
             $where .= ")";
         }
 
-        $sql = "SELECT gu.perm_user_id, pu.auth_user_id, us.firstname, us.surname, us.username, us.last_login, us.logins, us.emailAddress, us.isActive from tbl_perms_groupusers as gu INNER join tbl_perms_perm_users as pu on gu.perm_user_id = pu.perm_user_id INNER join tbl_users as us on pu.auth_user_id = us.userId WHERE group_id = " . $groupId . $where . " ORDER BY us.surname " . $filter;
+        $sql = "SELECT gu.perm_user_id, pu.auth_user_id, us.firstname, us.surname, us.username, us.staffnumber, us.last_login, us.logins, us.emailAddress, us.isActive from tbl_perms_groupusers as gu INNER join tbl_perms_perm_users as pu on gu.perm_user_id = pu.perm_user_id INNER join tbl_users as us on pu.auth_user_id = us.userId WHERE group_id = " . $groupId . $where . " ORDER BY us.surname " . $filter;
 
         $users = $this->objDBContext->getArray($sql);
         $userCount = count($this->getUsersInGroup($groupId));
@@ -213,8 +213,9 @@ class groupops extends object {
                 $user = $groupUser;
                 $arrUser = array();
                 $arrUser['id'] = $user['perm_user_id'];
-                $arrUser['userid'] = $user['username'];
+                $arrUser['userid'] = $user['auth_user_id'];
                 $arrUser['username'] = $user['username'];
+                $arrUser['staffnumber'] = $user['staffnumber'];
                 $arrUser['firstname'] = $user['firstname'];
                 $arrUser['surname'] = $user['surname'];
                 $arrUser['lastloggedin'] = $user['last_login'];
@@ -372,7 +373,7 @@ class groupops extends object {
                     //var_dump($keys);
                     $groupId = $keys[$cnt]; //array_keys($subGroups[0][$cnt]);
                     $arr[] = array('groupid' => $groupId,
-                        'name' => $this->formatGroupName($subgroup['group_define_name'])
+                            'name' => $this->formatGroupName($subgroup['group_define_name'])
                     );
                     $cnt++;
                 }
@@ -797,7 +798,7 @@ class groupops extends object {
 
 
       }
-     */
+    */
 
     /**
      * Method to generate a list
@@ -826,22 +827,6 @@ class groupops extends object {
     }
 
 ////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     public function getAllGroups() {
@@ -934,9 +919,9 @@ class groupops extends object {
 
     public function getUserByUserId($userId) {
         $params = array(
-            'filters' => array(
-                'auth_user_id' => $userId,
-            )
+                'filters' => array(
+                        'auth_user_id' => $userId,
+                )
         );
 
         if ($this->objMemcache == TRUE) {
@@ -965,9 +950,9 @@ class groupops extends object {
 
     public function getUsersInGroup($groupid) {
         $params = array(
-            'filters' => array(
-                'group_id' => $groupid,
-            )
+                'filters' => array(
+                        'group_id' => $groupid,
+                )
         );
 
         if ($this->objMemcache == TRUE) {
@@ -1094,6 +1079,8 @@ class groupops extends object {
         // Populate the selectboxes
         //$objData = &$this->getObject('data');
         $data = $this->getAllUsers();
+
+
         $currentUsers = $this->getUsersInGroup($grpId);
         foreach ($data as $i => $user) {
             foreach ($currentUsers as $currentUser) {
