@@ -1,6 +1,10 @@
 //the list of lecturer
 var win2;
 
+var proxyLecturerData = new Ext.data.HttpProxy({
+    url: baseUri+"?module=contextgroups&action=json_getlecturers"
+});
+
 var lecturerdata = new Ext.data.JsonStore({
     root: 'users',
     totalProperty: 'totalCount',
@@ -12,13 +16,11 @@ var lecturerdata = new Ext.data.JsonStore({
     'email',
     'isactive',
     'userid' ],
-    proxy: new Ext.data.HttpProxy({
-        url: baseUri+"?module=contextgroups&action=json_getlecturers"
-    }),
+    proxy: proxyLecturerData,
     listeners:{
         'loadexception': function(theO, theN, response){
-            alert(baseUri);
-            alert(response.responseText);
+        //alert(baseUri);
+        //alert(response.responseText);
         },
         'load': function(){
         //alert('load');
@@ -171,10 +173,10 @@ var lecturergrid = new Ext.grid.GridPanel({
         }
     },
     plugins:[new Ext.ux.grid.Search({
-         iconCls:'zoom'
-         ,disableIndexes:['isactive']
-         ,minChars:2
-         ,autoFocus:true
-         ,position:'top'
- })]
+        iconCls:'zoom',
+        disableIndexes:['isactive'],
+        minChars:2,
+        autoFocus:true,
+        position:'top'
+    })]
 });

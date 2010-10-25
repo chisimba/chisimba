@@ -14,14 +14,15 @@ var studentdata = new Ext.data.JsonStore({
     fields: ['username',
     'firstname',
     'surname',
+    'staffnumber',
     'email',
     'isactive',
     'userid' ],
     proxy: proxyStudentData,
     listeners:{
         'loadexception': function(theO, theN, response){
-            alert(baseUri);
-            alert(response.responseText);
+        //alert(baseUri);
+        //alert(response.responseText);
         },
         'load': function(){
         }
@@ -129,7 +130,7 @@ var studentgrid = new Ext.grid.GridPanel({
     cm: new Ext.grid.ColumnModel([
         sm2,{
             header: 'Student Number',
-            dataIndex: 'userid',
+            dataIndex: 'staffnumber',
             id:'firstname',
             width: 50,
             sortable: true
@@ -156,12 +157,16 @@ var studentgrid = new Ext.grid.GridPanel({
             sortable: false
         }]),
     plugins:[new Ext.ux.grid.Search({
-         iconCls:'zoom'
-         ,disableIndexes:['isactive']
-         ,minChars:2
-         ,autoFocus:true
-         ,position:'top'
-     })],
+        iconCls:'zoom'
+        ,
+        disableIndexes:['isactive']
+        ,
+        minChars:2
+        ,
+        autoFocus:true
+        ,
+        position:'top'
+    })],
     // customize view config
     viewConfig: {
         forceFit:true,
@@ -232,7 +237,7 @@ function doRemoveUsers(type)
             myMask.hide();
         },
         failure: function(xhr,params) {
-            alert('Failure!\n'+xhr.responseText);
+            //alert('Failure!\n'+xhr.responseText);
             myMask.hide();
         }
     });	
@@ -286,7 +291,7 @@ function doAddUsers(type){
             myMask.hide();
         },
         failure: function(xhr,params) {
-            alert('Failure!\n'+xhr.responseText);
+            //alert('Failure!\n'+xhr.responseText);
             myMask.hide();
         }
     });
