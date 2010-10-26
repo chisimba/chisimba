@@ -406,7 +406,7 @@ class DbNameAction extends FiveStepAction
 
 		ob_start();
 
-			check_box("create_db",1,isset($_SESSION['create_db'])?$_SESSION['create_db']:false);
+			check_box("create_db",1,isset($_SESSION['create_db'])?$_SESSION['create_db']:true);
 
 			$create_db = ob_get_contents();
 
