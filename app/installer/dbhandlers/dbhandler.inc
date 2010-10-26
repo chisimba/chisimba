@@ -106,17 +106,17 @@ class DbHandler extends dbHandlermanager
 			}
           
             //MDB2 has a factory method, so lets use it now...
-            //echo $_SESSION['dsn'];
+            // echo $_SESSION['dsn'];
             $this->_globalObjDb = &MDB2::connect($_SESSION['dsn']);
-            $this->_globalObjDb->setCharset('utf8');
+            
             //var_dump($this->_globalObjDb);
 
             if (PEAR::isError($this->_globalObjDb)) {
                 echo $this->_pearErrorCallback($this->_globalObjDb);
-                
                 die();
                
             }
+            $this->_globalObjDb->setCharset('utf8');
             $this->_globalObjDb->setOption('portability', MDB2_PORTABILITY_FIX_CASE); // ^ MDB2_PORTABILITY_EMPTY_TO_NULL);
             $this->_globalObjDb->setCharset('utf8');
            // $this->_globalObjDb->setOption('quote_identifiers', true);
@@ -168,7 +168,7 @@ class DbHandler extends dbHandlermanager
         //      but it will look decent and not confuse the crap out of users
         //      that being said, we should still go for just getMessage() in prod
 
-         return $msg = $error->getMessage() . ': ' . $error->getUserinfo();
+         return $msg = $error->getMessage()."! Please check your database username and password. Remember that the user you are trying to connect as should have sufficient privileges to create databases and tables, as well as drop tables.";
 
         //echo $msg."<br><br>";
     }
