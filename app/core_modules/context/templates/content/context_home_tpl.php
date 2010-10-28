@@ -186,16 +186,25 @@ if ($showAdminShortcutBlock == "TRUE" || $showAdminShortcutBlock == "true" || $s
         $moduleUri = $this->objAltConfig->getModuleURI();
         $imgPath = "";
 
-        $useractivitylink = new link($this->uri(array('action' => 'useractivity'), 'contextcontent'));
-        $useractivitylink->link = $this->objLanguage->code2Txt('mod_contextcontent_useractivitylogs', 'contextcontent', NULL,'User activity');
+        $useractivitylink = new link($this->uri(array('action' => 'selectuseractivitybymoduledates')));
+        $useractivitylink->link = $this->objLanguage->code2Txt('mod_context_useractivity', 'context', NULL, 'User activity');
 
+        $toolsactivitylink = new link($this->uri(array('action' => 'selecttoolsactivitydates')));
+        $toolsactivitylink->link = $this->objLanguage->code2Txt('mod_context_toolsactivity', 'context', NULL, 'Tools activity');
 
+        $allactivitylink = new link($this->uri(array('action' => 'selectcontextsactivitydates')));
+        $allactivitylink->link = $this->objLanguage->code2Txt('mod_context_allcoursesacitivity', 'context', NULL, 'All [-contexts-] activity');
+
+        $allcontextactivity="<br/>";
+        if($this->objUser->isAdmin()){
+           $allcontextactivity= $allactivitylink->show().'<br/>';
+        }
         $transferlink = new link($this->uri(array('action' => 'transfercontextusers')));
         $transferlink->link = ucwords($this->objLanguage->code2Txt('mod_context_batchcopy', 'context', NULL, 'Batch Copy [-readonly-]s'));
 
 
         $objFeatureBox = $this->newObject('featurebox', 'navigation');
-        $content =$useractivitylink->show().'<br/>'. $transferlink->show();
+        $content = $useractivitylink->show() . '<br/>' .$toolsactivitylink->show().'<br/>'.$allcontextactivity. $transferlink->show();
         $block = "shortcuts";
         $hidden = 'default';
         $showToggle = false;

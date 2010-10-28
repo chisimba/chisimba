@@ -117,7 +117,7 @@ class context extends controller {
      * Method to turn off login requirement for certain actions
      */
     public function requiresLogin($action) {
-        $requiresLogin = array('controlpanel', 'manageplugins', 'updateplugins', 'renderblock', 'addblock', 'removeblock', 'moveblock', 'updatesettings', 'updatecontext');
+        $requiresLogin = array('controlpanel', 'manageplugins', 'updateplugins', 'renderblock', 'addblock', 'removeblock', 'moveblock', 'updatesettings', 'updatecontext', 'viewuseractivitybyid', 'showuseractivitybymodule', 'selectuseractivitybymodulesdates');
         if (in_array($action, $requiresLogin)) {
             return TRUE;
         } else {
@@ -745,6 +745,105 @@ class context extends controller {
         $message = ucwords($this->objLanguage->code2Txt('mod_context_complete', 'context', null, 'Transfer complete.'));
         $this->setVarByRef("message", $message);
         return "confirmusertransfer_tpl.php";
+    }
+
+    /**
+     * for displaying user activity
+     * @return <type>
+     */
+    function __showuseractivitybymodule() {
+        $startDate = $this->getParam('startdate');
+        $endDate = $this->getParam('enddate');
+        $studentsonly = $this->getParam('studentsonly');
+        $module = $this->getParam('moduleid');
+        $objUserActivity = $this->getObject('dbuseractivity');
+
+        $groupOps = $this->getObject('groupops', 'groupadmin');
+        $objGroups = $this->getObject('groupadminmodel', 'groupadmin');
+        $contextGroupId = $objGroups->getId($this->contextCode . '^Students');
+        $usersInContext = $groupOps->getUsersInGroup($contextGroupId);
+
+        $data = $objUserActivity->getUserActivityByModule($startDate, $endDate, $module, $studentsonly, $usersInContext, $this->contextCode);
+        $this->setVarByRef("data", $data);
+        $this->setVarByRef("startdate", $startDate);
+        $this->setVarByRef("enddate", $endDate);
+        $this->setVarbyRef("modulename", $module);
+        return "useractivitybymodule_tpl.php";
+    }
+
+    /**
+     * for displaying user activity
+     * @return <type>
+     */
+    function __viewUserActivityById() {
+        $startDate = $this->getParam('startdate');
+        $endDate = $this->getParam('enddate');
+        $module = $this->getParam('moduleid');
+        $userid = $this->getParam('userid');
+        $objUserActivity = $this->getObject('dbuseractivity');
+        $data = $objUserActivity->getUserActivityById($startDate, $endDate, $module, $userid, $this->contextCode);
+        $this->setVarByRef("data", $data);
+        $this->setVarByRef("startdate", $startDate);
+        $this->setVarByRef("enddate", $endDate);
+        $this->setVarbyRef("modulename", $module);
+        $this->setVarbyRef("userid", $userid);
+        return "useractivitybyid_tpl.php";
+    }
+
+    /**
+     *  returns a date template
+     * @return <type>
+     */
+    function __selectUserActivityByModuleDates() {
+        $action = "showuseractivitybymodule";
+        $title = $this->objLanguage->languageText('mod_context_useractivity', 'context', 'User activity');
+        $this->setVarByRef("action", $action);
+        $this->setVarByRef("title", $title);
+        return "selectdates_tpl.php";
+    }
+
+    function __selecttoolsactivitydates() {
+        $action = "showtoolsactivity";
+        $title = $this->objLanguage->languageText('mod_context_toolsactivity', 'context', 'Tools activity');
+        $this->setVarByRef("action", $action);
+        $this->setVarByRef("title", $title);
+        return "selectdates_tpl.php";
+    }
+
+    function __showtoolsactivity() {
+        $startDate = $this->getParam('startdate');
+        $endDate = $this->getParam('enddate');
+
+        $objModules = $this->getObject('modules', 'modulecatalogue');
+        $plugins = $objModules->getListContextPlugins();
+
+        $objUserActivity = $this->getObject('dbuseractivity');
+        $data = $objUserActivity->getToolsActivity($startDate, $endDate, $this->contextCode,$plugins);
+        $this->setVarByRef("data", $data);
+        $this->setVarByRef("startdate", $startDate);
+        $this->setVarByRef("enddate", $endDate);
+        return "toolsactivity_tpl.php";
+    }
+
+    function __selectcontextsactivitydates() {
+        $action = "showcontextactivity";
+        $title = $this->objLanguage->code2Txt('mod_context_allcoursesacitivity', 'context', NULL, 'All [-contexts-] activity');
+        $this->setVarByRef("action", $action);
+        $this->setVarByRef("title", $title);
+        return "selectdates_tpl.php";
+    }
+
+    function __showcontextactivity() {
+        $startDate = $this->getParam('startdate');
+        $endDate = $this->getParam('enddate');
+        $contexts = $this->objContext->getListOfContext();
+
+        $objUserActivity = $this->getObject('dbuseractivity');
+        $data = $objUserActivity->getContextsActivity($startDate, $endDate, $contexts);
+        $this->setVarByRef("data", $data);
+        $this->setVarByRef("startdate", $startDate);
+        $this->setVarByRef("enddate", $endDate);
+        return "contextsactivity_tpl.php";
     }
 
 }
