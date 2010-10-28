@@ -757,13 +757,17 @@ class context extends controller {
         $studentsonly = $this->getParam('studentsonly');
         $module = $this->getParam('moduleid');
         $objUserActivity = $this->getObject('dbuseractivity');
+        $contextcode=  $this->getParam("contextcode");
+        if($contextcode == null){
+            $contextcode=$this->contextCode;
+        }
 
         $groupOps = $this->getObject('groupops', 'groupadmin');
         $objGroups = $this->getObject('groupadminmodel', 'groupadmin');
-        $contextGroupId = $objGroups->getId($this->contextCode . '^Students');
+        $contextGroupId = $objGroups->getId($contextcode . '^Students');
         $usersInContext = $groupOps->getUsersInGroup($contextGroupId);
 
-        $data = $objUserActivity->getUserActivityByModule($startDate, $endDate, $module, $studentsonly, $usersInContext, $this->contextCode);
+        $data = $objUserActivity->getUserActivityByModule($startDate, $endDate, $module, $studentsonly, $usersInContext, $contextcode);
         $this->setVarByRef("data", $data);
         $this->setVarByRef("startdate", $startDate);
         $this->setVarByRef("enddate", $endDate);
@@ -821,11 +825,15 @@ class context extends controller {
         if($contextcode == null){
             $contextcode=$this->contextCode;
         }
+        $context=  $this->objContext->getContext($contextcode);
         $objUserActivity = $this->getObject('dbuseractivity');
         $data = $objUserActivity->getToolsActivity($startDate, $endDate, $contextcode,$plugins);
         $this->setVarByRef("data", $data);
         $this->setVarByRef("startdate", $startDate);
         $this->setVarByRef("enddate", $endDate);
+        $this->setVarByRef("coursetitle",$context['title']);
+        $this->setVarByRef("contextcode",$context['contextcode']);
+
         return "toolsactivity_tpl.php";
     }
 

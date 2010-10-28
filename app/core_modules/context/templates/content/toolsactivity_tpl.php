@@ -5,9 +5,10 @@ $this->loadClass('htmlheading', 'htmlelements');
 $header = new htmlHeading();
 $header->type = "1";
 $header->cssClass = "useractivitytitle";
-$header->str = $this->objLanguage->languageText('mod_contextcontent_useractivity', 'contextcontent', 'User activity') . '&nbsp;-&nbsp;' . $this->objContext->getTitle().'&nbsp;('.$startdate.'&nbsp;-&nbsp;'.$enddate.')';
+$header->str = $this->objLanguage->languageText('mod_contextcontent_toolsactivity', 'contextcontent', 'Tools activity') . '&nbsp;-&nbsp;' . $coursetitle . '&nbsp;(' . $startdate . '&nbsp;-&nbsp;' . $enddate . ')';
 
-$homelink = new link($this->uri(array("action"=>"selecttoolsadates")));$homelink->link=$this->objLanguage->languageText("word_back", "system", "Back");
+$homelink = new link($this->uri(array("action" => "selecttoolsadates")));
+$homelink->link = $this->objLanguage->languageText("word_back", "system", "Back");
 $homelink->link = $this->objLanguage->languageText("word_back", "system", "Back");
 
 $exportLink = new link($this->uri(array("action" => "exportospreadsheet", "assignmentid" => $assignment['id'])));
@@ -16,7 +17,7 @@ $exportStr = '&nbsp;&nbsp;|&nbsp;&nbsp' . $exportLink->show();
 
 echo $header->show();
 
-echo '<br/>'.$homelink->show();
+echo '<br/>' . $homelink->show();
 
 $table = $this->getObject('htmltable', 'htmlelements');
 $table->startHeaderRow();
@@ -27,13 +28,14 @@ $table->addHeaderCell('Activity count');
 $table->endHeaderRow();
 $count = 1;
 foreach ($data as $row) {
-    $link=new link($this->uri(array(
-    "action"=>"showuseractivitybymodule",
-    "startdate"=>$startdate,
-    "enddate"=>$enddate,
-    "moduleid"=>$row['module_id'],
-    )));
-    $link->link=$row['module_id'];
+    $link = new link($this->uri(array(
+                        "action" => "showuseractivitybymodule",
+                        "startdate" => $startdate,
+                        "enddate" => $enddate,
+                        "moduleid" => $row['module_id'],
+                        "contextcode" => $contextcode
+                    )));
+    $link->link = $row['module_id'];
     $table->startRow();
     $table->addCell($count + ".");
     $table->addCell($link->show());
