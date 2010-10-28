@@ -132,7 +132,7 @@ class engine {
      * Version Number of the software. (engine)
      *
      */
-    public $version = '3.1.9';
+    public $version = '3.2.0';
 
     /**
      * Template variable
@@ -916,10 +916,11 @@ class engine {
                     'path'     => $cookiepath,
                     'domain'   => $cookiedomain,
                     'secure'   => $cookiesecure,
-                    'httponly' => false,
+                    'httponly' => true,
                 ),
                 'login' => array (
                     'force' => $loginforce,
+                    'regenid' => true,
                 ),
                 'logout' => array (
                     'destroy' => $logoutdestroy,
