@@ -100,6 +100,11 @@ class htmlarea extends object {
     var $disableSpellChecker;
 
     /**
+     * Time to auto save contents in editor
+     * @var <type> 
+     */
+    var $autoSaveTime;
+    /**
      * Method to establish the default values
      */
     function init($name=null, $value=null, $rows=4, $cols=50, $context=false) {
@@ -108,6 +113,7 @@ class htmlarea extends object {
         $this->fckVersion = $this->sysConf->getValue('FCKEDITOR_VERSION', 'htmlelements');
         //Loading the default editor type from htmlelements
         $this->sysEditor = $this->sysConf->getValue('SYSTEM_EDITOR', 'htmlelements');
+        $this->autoSaveTime = $this->sysConf->getValue('AUTOSAVE_TIME', 'htmlelements');
         $this->disableSpellChecker = $this->sysConf->getValue('DISABLE_SPELLCHECKER', 'ckeditor', true);
         $this->height = '400px';
         $this->width = '100%';
@@ -207,6 +213,23 @@ class htmlarea extends object {
 <script type="text/javascript">
     var instancename=\'' . $this->name . '\';
     var siteRootPath=\'' . $this->siteRoot . '\';
+    var editorIdleTime=0;
+    var autoSaveTime=\''.$this->autoSaveTime .'\';
+    setInterval( saveUnsavedContent, 60 * 1000);
+    function saveUnsavedContent(){
+    editorIdleTime++;
+    if(editorIdleTime == autoSaveTime){
+       var numberForms = document.forms.length;
+       var formIndex;
+       for (formIndex = 0; formIndex < numberForms; formIndex++)
+         {
+          var formname=document.forms[formIndex].name;
+          if(formname != "query"){
+          document.forms[formIndex].submit();
+         }
+       }
+     }
+    }
 </script>
     </div>
      <div class="ChisimbaCanvas_Editor_After"></div>';
