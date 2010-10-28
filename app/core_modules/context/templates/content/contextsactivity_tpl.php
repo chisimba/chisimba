@@ -26,16 +26,15 @@ $table->addHeaderCell('Activity count');
 $table->endHeaderRow();
 $count = 1;
 foreach ($data as $row) {
-    /*$link=new link($this->uri(array(
-    "action"=>"showuseractivitybymodule",
+    $link=new link($this->uri(array(
+    "action"=>"showtoolsactivity",
     "startdate"=>$startdate,
-    "enddate"=>$enddate,
-    "moduleid"=>$row['module'],
-    )));*/
-    $link->link=$row['module'];
+    "enddate"=>$enddate
+    )));
+    $link->link=$row['title'];
     $table->startRow();
     $table->addCell($count + ".");
-    $table->addCell($row['title']);
+    $table->addCell($link->show());
     $table->addCell($row['activitycount']);
     $table->endRow();
     $count++;

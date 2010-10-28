@@ -5,7 +5,7 @@ $this->loadClass('htmlheading', 'htmlelements');
 $header = new htmlHeading();
 $header->type = "1";
 $header->cssClass = "useractivitytitle";
-$header->str = $this->objLanguage->languageText('mod_contextcontent_useractivity', 'contextcontent', 'User activity') . '&nbsp;-&nbsp;' . $modulename.'&nbsp;('.$startdate.'&nbsp;-&nbsp;'.$enddate.')';
+$header->str = $this->objLanguage->languageText('mod_contextcontent_useractivity', 'contextcontent', 'User activity') . '&nbsp;-&nbsp;' . $this->objContext->getTitle().'&nbsp;('.$startdate.'&nbsp;-&nbsp;'.$enddate.')';
 
 $homelink = new link($this->uri(array("action"=>"selecttoolsadates")));$homelink->link=$this->objLanguage->languageText("word_back", "system", "Back");
 $homelink->link = $this->objLanguage->languageText("word_back", "system", "Back");

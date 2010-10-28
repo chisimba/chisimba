@@ -117,7 +117,7 @@ class context extends controller {
      * Method to turn off login requirement for certain actions
      */
     public function requiresLogin($action) {
-        $requiresLogin = array('controlpanel', 'manageplugins', 'updateplugins', 'renderblock', 'addblock', 'removeblock', 'moveblock', 'updatesettings', 'updatecontext', 'viewuseractivitybyid', 'showuseractivitybymodule', 'selectuseractivitybymodulesdates');
+        $requiresLogin = array('controlpanel', 'manageplugins', 'updateplugins', 'renderblock', 'addblock', 'removeblock', 'moveblock', 'updatesettings', 'updatecontext', 'viewuseractivitybyid', 'showuseractivitybymodule', 'selectuseractivitybymodulesdates','selectcontextactivitydates','selecttoolsactivitydates','showcontextactivity','showtoolsactivity');
         if (in_array($action, $requiresLogin)) {
             return TRUE;
         } else {
