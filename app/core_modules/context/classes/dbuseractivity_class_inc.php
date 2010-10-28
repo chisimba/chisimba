@@ -76,6 +76,7 @@ class dbuseractivity extends dbtable {
             $row = array();
             $row['activitycount'] = $data[0]['activitycount'];
             $row['contextcode'] = $context['contextcode'];
+            $row['owner']= '<a href="mailto:'.$this->objUser->email($context['userid']).'">'.$this->objUser->fullname($context['userid']).'</a>';
             $row['title'] = $context['title'];
             $results[] = $row;
         }

@@ -5,7 +5,7 @@ $this->loadClass('htmlheading', 'htmlelements');
 $header = new htmlHeading();
 $header->type = "1";
 $header->cssClass = "useractivitytitle";
-$header->str = $this->objLanguage->languageText('mod_contextcontent_useractivity', 'contextcontent', 'User activity') . '&nbsp;-&nbsp;' . $modulename.'&nbsp;('.$startdate.'&nbsp;-&nbsp;'.$enddate.')';
+$header->str = ucfirst($this->objLanguage->code2Txt('mod_contextcontent_contextactivity', 'contextcontent',NULL, '[-contexts-] activity')) . '&nbsp;-&nbsp;' . $modulename.'&nbsp;('.$startdate.'&nbsp;-&nbsp;'.$enddate.')';
 
 $homelink = new link($this->uri(array("action"=>"selecttoolsadates")));$homelink->link=$this->objLanguage->languageText("word_back", "system", "Back");
 $homelink->link = $this->objLanguage->languageText("word_back", "system", "Back");
@@ -21,6 +21,7 @@ $table = $this->getObject('htmltable', 'htmlelements');
 $table->startHeaderRow();
 $table->addHeaderCell('No');
 $table->addHeaderCell(ucfirst($this->objLanguage->code2Txt('word_context','system',NULL,'[-context-]')));
+$table->addHeaderCell('Owner');
 $table->addHeaderCell('Activity count');
 
 $table->endHeaderRow();
@@ -35,6 +36,7 @@ foreach ($data as $row) {
     $table->startRow();
     $table->addCell($count + ".");
     $table->addCell($link->show());
+    $table->addCell($row['owner']);
     $table->addCell($row['activitycount']);
     $table->endRow();
     $count++;
