@@ -41,30 +41,30 @@ if ($this->isValid('addblock')) {
     echo $this->getJavaScriptFile('contextblocks.js');
 } // End Addition of JavaScript
 /*
-$whoIsOnlineJs='
-<SCRIPT language="JavaScript1.2">
-var base="'.$objConfig->getSiteRoot().'?module=livechat'.'";
+  $whoIsOnlineJs='
+  <SCRIPT language="JavaScript1.2">
+  var base="'.$objConfig->getSiteRoot().'?module=livechat'.'";
 
-    function showWhoIsOnlineWin()
-    {
-        var win=window.open ("?module=livechat","Live chat","location=0,status=0,scrollbars=0,width=10,height=10,top=-1, left=-1");
-        win.blur();
-        win.opener.focus();
-    }
+  function showWhoIsOnlineWin()
+  {
+  var win=window.open ("?module=livechat","Live chat","location=0,status=0,scrollbars=0,width=10,height=10,top=-1, left=-1");
+  win.blur();
+  win.opener.focus();
+  }
 
 
-</SCRIPT>
-';
-$this->appendArrayVar('headerParams',$whoIsOnlineJs);
-$objModule = $this->getObject('modules', 'modulecatalogue');
+  </SCRIPT>
+  ';
+  $this->appendArrayVar('headerParams',$whoIsOnlineJs);
+  $objModule = $this->getObject('modules', 'modulecatalogue');
 
-//See if tcontextinstructor is registered, if so, then show
-$isRegistered = $objModule->checkIfRegistered('livechat');
-if ($isRegistered) {
-    $params = 'onload="javascript: showWhoIsOnlineWin()"';
-    $this->setVar("bodyParams", $params);
-   
-}*/
+  //See if tcontextinstructor is registered, if so, then show
+  $isRegistered = $objModule->checkIfRegistered('livechat');
+  if ($isRegistered) {
+  $params = 'onload="javascript: showWhoIsOnlineWin()"';
+  $this->setVar("bodyParams", $params);
+
+  } */
 $objModule = $this->getObject('modules', 'modulecatalogue');
 $this->loadClass('dropdown', 'htmlelements');
 $this->loadClass('button', 'htmlelements');
@@ -176,7 +176,7 @@ if ($isRegistered) {
 $isRegistered = $objModule->checkIfRegistered('contextcontent');
 $utillink = "";
 $this->dbSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
-$showAdminShortcutBlock=$this->dbSysConfig->getValue('SHOW_SHORTCUTS_BLOCK', 'context');
+$showAdminShortcutBlock = $this->dbSysConfig->getValue('SHOW_SHORTCUTS_BLOCK', 'context');
 if ($showAdminShortcutBlock == "TRUE" || $showAdminShortcutBlock == "true" || $showAdminShortcutBlock == "True") {
     if ($isRegistered && $this->isValid('addblock')) {
         $trackerlink = "";
@@ -186,17 +186,16 @@ if ($showAdminShortcutBlock == "TRUE" || $showAdminShortcutBlock == "true" || $s
         $moduleUri = $this->objAltConfig->getModuleURI();
         $imgPath = "";
 
-        $link = new link($this->uri(array('action' => 'viewlogs'), 'contextcontent'));
-        $link->link = $this->objLanguage->languageText('mod_contextcontent_useractivitylogs', 'contextcontent', 'User activity');
+        $useractivitylink = new link($this->uri(array('action' => 'useractivity'), 'contextcontent'));
+        $useractivitylink->link = $this->objLanguage->code2Txt('mod_contextcontent_useractivitylogs', 'contextcontent', NULL,'User activity');
 
 
-        $trackerlink .= $link->show() . '';
         $transferlink = new link($this->uri(array('action' => 'transfercontextusers')));
-        $transferlink->link =ucwords($this->objLanguage->code2Txt('mod_context_transferusers', 'context', NULL, 'Transfer users'));
+        $transferlink->link = ucwords($this->objLanguage->code2Txt('mod_context_batchcopy', 'context', NULL, 'Batch Copy [-readonly-]s'));
 
 
         $objFeatureBox = $this->newObject('featurebox', 'navigation');
-        $content = $transferlink->show();
+        $content =$useractivitylink->show().'<br/>'. $transferlink->show();
         $block = "shortcuts";
         $hidden = 'default';
         $showToggle = false;
