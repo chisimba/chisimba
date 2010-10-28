@@ -98,12 +98,17 @@ class htmlarea extends object {
      * @var <type> 
      */
     var $disableSpellChecker;
-
     /**
      * Time to auto save contents in editor
      * @var <type> 
      */
     var $autoSaveTime;
+    /**
+     * config to turn on/off auto save
+     * @var <type>
+     */
+    var $enableAutoSave;
+
     /**
      * Method to establish the default values
      */
@@ -114,6 +119,7 @@ class htmlarea extends object {
         //Loading the default editor type from htmlelements
         $this->sysEditor = $this->sysConf->getValue('SYSTEM_EDITOR', 'htmlelements');
         $this->autoSaveTime = $this->sysConf->getValue('AUTOSAVE_TIME', 'htmlelements');
+        $this->enableAutoSave = $this->sysConf->getValue('ENABLE_AUTOSAVE', 'htmlelements');
         $this->disableSpellChecker = $this->sysConf->getValue('DISABLE_SPELLCHECKER', 'ckeditor', true);
         $this->height = '400px';
         $this->width = '100%';
@@ -204,17 +210,24 @@ class htmlarea extends object {
         /* if (($this->fckVersion == '2.5.1') || ($this->fckVersion == '2.6.3')) {
           return $this->showFCKEditor($this->fckVersion);
           } else {
-         */ $base = '<script language="JavaScript" src="' . $this->getResourceUri('ckeditor/ckeditor.js', 'ckeditor') . '" type="text/javascript"></script>';
+         */
+        $base = '<script language="JavaScript" src="' . $this->getResourceUri('ckeditor/ckeditor.js', 'ckeditor') . '" type="text/javascript"></script>';
         $baseajax = '<script language="JavaScript" src="' . $this->getResourceUri('ckeditor/_source/core/ajax.js', 'ckeditor') . '" type="text/javascript"></script>';
-
+        $autosave = false;
+        if (strtoupper($this->enableAutoSave) == 'TRUE') {
+            $autosave = true;
+        }
         $initVars = '
             <div class="ChisimbaCanvas_Editor_Before"></div>
 <div class="ChisimbaCanvas_Editor">
 <script type="text/javascript">
     var instancename=\'' . $this->name . '\';
-    var siteRootPath=\'' . $this->siteRoot . '\';
+    var siteRootPath=\'' . $this->siteRoot . '\';';
+        if ($autosave) {
+            $initVars.='
+
     var editorIdleTime=0;
-    var autoSaveTime=\''.$this->autoSaveTime .'\';
+    var autoSaveTime=\'' . $this->autoSaveTime . '\';
     setInterval( saveUnsavedContent, 60 * 1000);
     function saveUnsavedContent(){
     editorIdleTime++;
@@ -226,10 +239,12 @@ class htmlarea extends object {
           var formname=document.forms[formIndex].name;
           if(formname != "query"){
           document.forms[formIndex].submit();
+          }
          }
-       }
      }
-    }
+    }';
+        }
+        $intVars.='
 </script>
     </div>
      <div class="ChisimbaCanvas_Editor_After"></div>';
@@ -243,7 +258,7 @@ class htmlarea extends object {
         $this->editor = '<textarea name="' . $this->name . '">' . htmlspecialchars($rawvalue) . '</textarea>';
         $this->editor.="
         <script type=\"text/javascript\">
-                var disablespellchecker=".$this->disableSpellChecker.";
+                var disablespellchecker=" . $this->disableSpellChecker . ";
           
         CKEDITOR.replace( '$this->name',
        		{
