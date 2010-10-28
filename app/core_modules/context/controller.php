@@ -817,8 +817,12 @@ class context extends controller {
         $objModules = $this->getObject('modules', 'modulecatalogue');
         $plugins = $objModules->getListContextPlugins();
 
+        $contextcode=  $this->getParam("contextcode");
+        if($contextcode == null){
+            $contextcode=$this->contextCode;
+        }
         $objUserActivity = $this->getObject('dbuseractivity');
-        $data = $objUserActivity->getToolsActivity($startDate, $endDate, $this->contextCode,$plugins);
+        $data = $objUserActivity->getToolsActivity($startDate, $endDate, $contextcode,$plugins);
         $this->setVarByRef("data", $data);
         $this->setVarByRef("startdate", $startDate);
         $this->setVarByRef("enddate", $endDate);

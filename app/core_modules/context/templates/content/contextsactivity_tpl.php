@@ -30,7 +30,8 @@ foreach ($data as $row) {
     $link=new link($this->uri(array(
     "action"=>"showtoolsactivity",
     "startdate"=>$startdate,
-    "enddate"=>$enddate
+    "enddate"=>$enddate,
+    "contextcode"=>$row['contextcode']
     )));
     $link->link=$row['title'];
     $table->startRow();
