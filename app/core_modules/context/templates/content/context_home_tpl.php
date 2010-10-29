@@ -6,10 +6,11 @@ $objExtJS->show();
 $default = 'You are using an unsupported browser. Please switch to Mozilla FireFox available at ( http://getfirefox.com ). Currently the system functionality is limited. Thanks!';
 $browserError = $objLanguage->languageText('mod_poll_browserError', 'poll', $default);
 $objConfig = $this->getObject('altconfig', 'config');
+$objIcon = $this->newObject('geticon', 'htmlelements');
 // Add JavaScript if User can update blocks
 if ($this->isValid('addblock')) {
 
-    $objIcon = $this->newObject('geticon', 'htmlelements');
+
     $objIcon->setIcon('up');
     $upIcon = $objIcon->show();
 
@@ -186,30 +187,35 @@ if ($showAdminShortcutBlock == "TRUE" || $showAdminShortcutBlock == "true" || $s
         $moduleUri = $this->objAltConfig->getModuleURI();
         $imgPath = "";
 
+        $objIcon->setIcon('plus');
+        $plusIcon = $objIcon->show();
         $useractivitylink = new link($this->uri(array('action' => 'selectuseractivitybymoduledates')));
-        $useractivitylink->link = ucfirst($this->objLanguage->code2Txt('mod_context_studentactivity', 'context', NULL, '[-readonly-] activity'));
+        $useractivitylink->link = $plusIcon . '&nbsp;' . ucfirst($this->objLanguage->code2Txt('mod_context_studentactivity', 'context', NULL, '[-readonly-] activity'));
 
         $toolsactivitylink = new link($this->uri(array('action' => 'selecttoolsactivitydates')));
-        $toolsactivitylink->link = $this->objLanguage->code2Txt('mod_context_toolsactivity', 'context', NULL, 'Tools activity').'<br/>';
+        $toolsactivitylink->link = $plusIcon . '&nbsp;' . $this->objLanguage->code2Txt('mod_context_toolsactivity', 'context', NULL, 'Tools activity') . '<br/>';
         $contentactivitylinkStr = "";
         if ($contextContentIsRegistered) {
-            $contentactivitylink = new link($this->uri(array('action' => 'viewcontextcontentusage'),'contextcontent'));
-            $contentactivitylink->link ='**'. ucfirst($this->objLanguage->code2Txt('mod_context_coursecontentacitivity', 'context', NULL, '[-context-] content activity')).'**';
-            $contentactivitylinkStr=$contentactivitylink->show().'<br/>';
+            $objIcon->setIcon('warning');
+            $warnIcon = $objIcon->show();
+            $contentactivitylink = new link($this->uri(array('action' => 'viewcontextcontentusage'), 'contextcontent'));
+            $contentactivitylink->link = $warnIcon . '&nbsp;' . ucfirst($this->objLanguage->code2Txt('mod_context_coursecontentacitivity', 'context', NULL, '[-context-] content activity'));
+            $contentactivitylinkStr = $contentactivitylink->show() . '<br/>';
         }
         $allactivitylink = new link($this->uri(array('action' => 'selectcontextsactivitydates')));
-        $allactivitylink->link = $this->objLanguage->code2Txt('mod_context_allcoursesacitivity', 'context', NULL, 'All [-contexts-] activity');
+        $allactivitylink->link = $plusIcon . '&nbsp;' . $this->objLanguage->code2Txt('mod_context_allcoursesacitivity', 'context', NULL, 'All [-contexts-] activity');
 
         $allcontextactivity = "";
         if ($this->objUser->isAdmin()) {
             $allcontextactivity = $allactivitylink->show() . '<br/>';
         }
         $transferlink = new link($this->uri(array('action' => 'transfercontextusers')));
-        $transferlink->link = ucwords($this->objLanguage->code2Txt('mod_context_batchcopy', 'context', NULL, 'Batch Copy [-readonly-]s'));
+        $transferlink->link = $plusIcon . '&nbsp;' . ucwords($this->objLanguage->code2Txt('mod_context_batchcopy', 'context', NULL, 'Batch Copy [-readonly-]s'));
 
 
         $objFeatureBox = $this->newObject('featurebox', 'navigation');
-        $content = $useractivitylink->show() . '<br/>' . $toolsactivitylink->show() . $allcontextactivity . $contentactivitylinkStr.$transferlink->show();
+        $content = $useractivitylink->show() . '<br/>' . $toolsactivitylink->show() . $allcontextactivity . $contentactivitylinkStr . $transferlink->show();
+
         $block = "shortcuts";
         $hidden = 'default';
         $showToggle = false;
