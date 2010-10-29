@@ -5,7 +5,7 @@ $this->loadClass('htmlheading', 'htmlelements');
 $header = new htmlHeading();
 $header->type = "1";
 $header->cssClass = "useractivitytitle";
-$header->str = ucfirst($this->objLanguage->code2Txt('mod_contextcontent_studentactivity', 'contextcontent', '[-readonly-] activity')) . '&nbsp;-&nbsp;' . $modulename.'&nbsp;('.$startdate.'&nbsp;-&nbsp;'.$enddate.')';
+$header->str = ucfirst($this->objLanguage->code2Txt('mod_contextcontent_studentactivity', 'contextcontent',NULL, '[-readonly-] activity')) . '&nbsp;-&nbsp;' . $modulename.'&nbsp;('.$startdate.'&nbsp;-&nbsp;'.$enddate.')';
 
 $homelink=new link($this->uri(array(
     "action"=>"showuseractivitybymodule",
