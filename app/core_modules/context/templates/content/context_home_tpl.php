@@ -173,12 +173,12 @@ if ($isRegistered) {
     $instructorProfile = $objContextInstructor->show();
 }
 
-$isRegistered = $objModule->checkIfRegistered('contextcontent');
+$contextContentIsRegistered = $objModule->checkIfRegistered('contextcontent');
 $utillink = "";
 $this->dbSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
 $showAdminShortcutBlock = $this->dbSysConfig->getValue('SHOW_SHORTCUTS_BLOCK', 'context');
 if ($showAdminShortcutBlock == "TRUE" || $showAdminShortcutBlock == "true" || $showAdminShortcutBlock == "True") {
-    if ($isRegistered && $this->isValid('addblock')) {
+    if ($this->isValid('addblock')) {
         $trackerlink = "";
 
         $this->objAltConfig = $this->getObject('altconfig', 'config');
@@ -187,24 +187,29 @@ if ($showAdminShortcutBlock == "TRUE" || $showAdminShortcutBlock == "true" || $s
         $imgPath = "";
 
         $useractivitylink = new link($this->uri(array('action' => 'selectuseractivitybymoduledates')));
-        $useractivitylink->link = $this->objLanguage->code2Txt('mod_context_useractivity', 'context', NULL, 'User activity');
+        $useractivitylink->link = ucfirst($this->objLanguage->code2Txt('mod_context_studentactivity', 'context', NULL, '[-readonly-] activity'));
 
         $toolsactivitylink = new link($this->uri(array('action' => 'selecttoolsactivitydates')));
-        $toolsactivitylink->link = $this->objLanguage->code2Txt('mod_context_toolsactivity', 'context', NULL, 'Tools activity');
-
+        $toolsactivitylink->link = $this->objLanguage->code2Txt('mod_context_toolsactivity', 'context', NULL, 'Tools activity').'<br/>';
+        $contentactivitylinkStr = "";
+        if ($contextContentIsRegistered) {
+            $contentactivitylink = new link($this->uri(array('action' => 'viewcontextcontentusage'),'contextcontent'));
+            $contentactivitylink->link ='**'. ucfirst($this->objLanguage->code2Txt('mod_context_coursecontentacitivity', 'context', NULL, '[-context-] content activity')).'**';
+            $contentactivitylinkStr=$contentactivitylink->show().'<br/>';
+        }
         $allactivitylink = new link($this->uri(array('action' => 'selectcontextsactivitydates')));
         $allactivitylink->link = $this->objLanguage->code2Txt('mod_context_allcoursesacitivity', 'context', NULL, 'All [-contexts-] activity');
 
-        $allcontextactivity="<br/>";
-        if($this->objUser->isAdmin()){
-           $allcontextactivity= $allactivitylink->show().'<br/>';
+        $allcontextactivity = "";
+        if ($this->objUser->isAdmin()) {
+            $allcontextactivity = $allactivitylink->show() . '<br/>';
         }
         $transferlink = new link($this->uri(array('action' => 'transfercontextusers')));
         $transferlink->link = ucwords($this->objLanguage->code2Txt('mod_context_batchcopy', 'context', NULL, 'Batch Copy [-readonly-]s'));
 
 
         $objFeatureBox = $this->newObject('featurebox', 'navigation');
-        $content = $useractivitylink->show() . '<br/>' .$toolsactivitylink->show().'<br/>'.$allcontextactivity. $transferlink->show();
+        $content = $useractivitylink->show() . '<br/>' . $toolsactivitylink->show() . $allcontextactivity . $contentactivitylinkStr.$transferlink->show();
         $block = "shortcuts";
         $hidden = 'default';
         $showToggle = false;
@@ -227,6 +232,7 @@ $objCssLayout->rightColumnContent = '';
 if ($this->isValid('addblock')) {
     $objCssLayout->rightColumnContent .= '<div id="editmode">' . $editOnButton->show() . '</div>';
 }
+;
 $objCssLayout->rightColumnContent .= $utillink;
 $objCssLayout->rightColumnContent .= '<div id="rightblocks">' . $rightBlocksStr . '</div>';
 

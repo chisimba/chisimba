@@ -5,7 +5,7 @@ $this->loadClass('htmlheading', 'htmlelements');
 $header = new htmlHeading();
 $header->type = "1";
 $header->cssClass = "useractivitytitle";
-$header->str = $this->objLanguage->languageText('mod_contextcontent_useractivity', 'contextcontent', 'User activity') . '&nbsp;-&nbsp;' . $modulename.'&nbsp;('.$startdate.'&nbsp;-&nbsp;'.$enddate.')';
+$header->str = ucfirst($this->objLanguage->code2Txt('mod_contextcontent_studentactivity', 'contextcontent', '[-readonly-] activity')) . '&nbsp;-&nbsp;' . $modulename.'&nbsp;('.$startdate.'&nbsp;-&nbsp;'.$enddate.')';
 
 $homelink=new link($this->uri(array(
     "action"=>"showuseractivitybymodule",
@@ -22,7 +22,7 @@ $exportStr = '&nbsp;&nbsp;|&nbsp;&nbsp' . $exportLink->show();
 
 echo $header->show();
 echo $this->objUser->fullname($userid);
-echo '<br/>'.$homelink->show();
+//echo '<br/>'.$homelink->show();
 
 $table = $this->getObject('htmltable', 'htmlelements');
 $table->startHeaderRow();
@@ -41,5 +41,5 @@ foreach ($data as $row) {
     $count++;
 }
 echo $table->show();
-echo $homelink->show();
+//echo $homelink->show();
 ?>

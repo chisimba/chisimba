@@ -15,7 +15,7 @@ $exportLink->link = $this->objLanguage->languageText('mod_assignment_export', 'a
 $exportStr = '&nbsp;&nbsp;|&nbsp;&nbsp' . $exportLink->show();
 
 echo $header->show();
-echo '<br/>'.$homelink->show();
+//echo '<br/>'.$homelink->show();
 
 $table = $this->getObject('htmltable', 'htmlelements');
 $table->startHeaderRow();
@@ -43,5 +43,5 @@ foreach ($data as $row) {
     $count++;
 }
 echo $table->show();
-echo $homelink->show();
+//echo $homelink->show();
 ?>
