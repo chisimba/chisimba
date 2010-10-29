@@ -44,7 +44,7 @@ $this->dbSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
 $showAdminShortcutBlock = $this->dbSysConfig->getValue('SHOW_SHORTCUTS_BLOCK', 'context');
 
 $utillink="";
-if (strtoupper($showAdminShortcutBlock == "TRUE")) {
+if (strtoupper($showAdminShortcutBlock) == "TRUE") {
     $objIcon->setIcon('plus');
     $plusIcon = $objIcon->show();
     $allactivitylink = new link($this->uri(array('action' => 'selectcontextsactivitydates'),'context'));
