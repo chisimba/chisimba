@@ -27,6 +27,7 @@ class postlogin extends controller
         $this->objContextBlocks = $this->getObject('dbcontextblocks', 'context');
         $this->objDynamicBlocks = $this->getObject('dynamicblocks', 'blocks');
         $this->objUser = $this->getObject('user', 'security');
+        $this->objLanguage=  $this->getObject('language','language');
         
         $this->contextCode = 'root';
     }
