@@ -68,8 +68,8 @@ class previewfolder extends filemanagerobject {
      * @return unknown Return description (if any) ...
      * @access public
      */
-    function previewContent($subFolders, $files, $mode, $name, $symlinks=array(), $restriction=array()) {
-        return $this->previewLongView($subFolders, $files, $symlinks, $restriction, $mode, $name);
+    function previewContent($subFolders, $files, $mode, $name, $symlinks=array(), $restriction=array(), $forceRestriction = FALSE) {
+        return $this->previewLongView($subFolders, $files, $symlinks, $restriction, $mode, $name, $forceRestriction);
     }
 
     /**
@@ -82,7 +82,7 @@ class previewfolder extends filemanagerobject {
      * @return object Return description (if any) ...
      * @access public
      */
-    function previewLongView($subFolders, $files, $symlinks, $restriction, $mode, $name) {
+    function previewLongView($subFolders, $files, $symlinks, $restriction, $mode, $name, $forceRestriction = FALSE) {
         $objTable = $this->newObject('htmltable', 'htmlelements');
 
         $objTable->startHeaderRow();
@@ -190,7 +190,7 @@ class previewfolder extends filemanagerobject {
                     } else if ($mode == 'selectfilewindow') {
                         $objTable->addCell($selectFileStr);
                     } else if ($mode == 'selectimagewindow') {
-                       
+
                         $objTable->addCell($selectImageStr);
                     } else {
                         $objTable->addCell($fileLink->show());
@@ -198,16 +198,24 @@ class previewfolder extends filemanagerobject {
                     $objTable->addCell($fileSize->formatsize($file['filesize']));
                     $objTable->endRow();
                 }
-                
+
             }
         }
 
         if ($hidden > 0 && count($restriction) > 0) {
-            $str = '
-<script type="text/javascript">
-
+            $str = '';
+            $str .= '<style type="text/css">
+tr.hidefile {display:none;}
+</style>';
+            $str .= $this->objLanguage->languageText('mod_filemanager_browsingfor', 'filemanager', 'Browsing for') . ': ';
+            $comma = '';
+            foreach ($restriction as $restrict) {
+                $str .= $comma . $restrict;
+                $comma = ', ';
+            }
+            if (!$forceRestriction) {
+                $str .= '<script type="text/javascript">
 var onOrOff = "off";
-
 function turnOnFiles(value)
 {
     if (onOrOff == \'off\') {
@@ -224,28 +232,15 @@ function turnOnFiles(value)
         onOrOff = "off";
     }
 }
-
-</script>
-            ' . '<style type="text/css">tr.hidefile {display:none;}</style>';
-
-            $str .= $this->objLanguage->languageText('mod_filemanager_browsingfor', 'filemanager', 'Browsing for') . ': ';
-            $comma = '';
-
-            foreach ($restriction as $restrict) {
-                $str .= $comma . $restrict;
-                $comma = ', ';
+</script>';
+                $str .= ' &nbsp; - ';
+                $this->loadClass('checkbox', 'htmlelements');
+                $this->loadClass('label', 'htmlelements');
+                $checkbox = new checkbox('showall');
+                $checkbox->extra = ' onclick="turnOnFiles();"';
+                $label = new label($this->objLanguage->languageText('mod_filemanager_showallfiles', 'filemanager', 'Show All Files'), $checkbox->cssId);
+                $str .= $checkbox->show() . $label->show();
             }
-
-            $str .= ' &nbsp; - ';
-
-            $this->loadClass('checkbox', 'htmlelements');
-            $this->loadClass('label', 'htmlelements');
-            $checkbox = new checkbox('showall');
-            $checkbox->extra = ' onclick="turnOnFiles();"';
-
-            $label = new label($this->objLanguage->languageText('mod_filemanager_showallfiles', 'filemanager', 'Show All Files'), $checkbox->cssId);
-
-            $str .= $checkbox->show() . $label->show();
         } else {
             $str = '';
         }

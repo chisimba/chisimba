@@ -1,26 +1,26 @@
 <?php
 
 /**
- * 
+ *
  * File Manager
- * 
+ *
  * File Manager
- * 
+ *
  * PHP version 5
- * 
- * This program is free software; you can redistribute it and/or modify 
- * it under the terms of the GNU General Public License as published by 
- * the Free Software Foundation; either version 2 of the License, or 
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * This program is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License 
- * along with this program; if not, write to the 
- * Free Software Foundation, Inc., 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
  * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- * 
+ *
  * @category  Chisimba
  * @package   helloforms
  * @author    Tohir Solomons tsolomons@uwc.ac.za
@@ -235,13 +235,13 @@ class filemanager extends controller {
     }
 
     /**
-     * 
+     *
      * The standard dispatch method for the filemanager2 module.
-     * The dispatch method uses methods determined from the action 
-     * parameter of the  querystring and executes the appropriate method, 
-     * returning its appropriate template. This template contains the code 
+     * The dispatch method uses methods determined from the action
+     * parameter of the  querystring and executes the appropriate method,
+     * returning its appropriate template. This template contains the code
      * which renders the module output.
-     * 
+     *
      */
     public function dispatch($action='home') {
         // Check to ensure the user has access to the file manager.
@@ -534,7 +534,7 @@ class filemanager extends controller {
                 $value = htmlentities('[FILEPREVIEW id="' . $file['id'] . '" comment="' . $file['filename'] . '" /]');
 
                 $right .= '<form name="formtocopy">
-            
+
     <input name="texttocopy" readonly="readonly" style="width:70%" type="text" value="' . $value . '" />';
                 $right .= '
     <br /><input type="button" onclick="javascript:copyToClipboard(document.formtocopy.texttocopy);" value="Copy to Clipboard" />
@@ -618,7 +618,7 @@ class filemanager extends controller {
             $value = htmlentities('[FILEPREVIEW id="' . $file['id'] . '" comment="' . $file['filename'] . '" /]');
 
             $right .= '<form name="formtocopy">
-            
+
     <input name="texttocopy" readonly="readonly" style="width:70%" type="text" value="' . $value . '" />';
             $right .= '
     <br /><input type="button" onclick="javascript:copyToClipboard(document.formtocopy.texttocopy);" value="Copy to Clipboard" />
@@ -928,7 +928,20 @@ class filemanager extends controller {
 
         $objPreviewFolder = $this->getObject('previewfolder');
         $objPreviewFolder->editPermission = $folderPermission;
-        $this->setVarByRef('table', $objPreviewFolder->previewContent($subfolders, $files, $this->getParam("mode"), $this->getParam("name"), $symlinks, explode('____', $this->getParam('restriction'))));
+        $this->setVarByRef(
+            'table',
+            $objPreviewFolder->previewContent(
+                $subfolders,
+                $files,
+                $this->getParam("mode"),
+                $this->getParam("name"),
+                $symlinks,
+                explode(
+                    '____',
+                    $this->getParam('restriction')),
+                ($this->getParam('forcerestrictions') == 'yes')
+            )
+        );
 
         $breadcrumbs = $this->objFolders->generateBreadCrumbs($folder['folderpath']);
         $this->setVarByRef('breadcrumbs', $breadcrumbs);

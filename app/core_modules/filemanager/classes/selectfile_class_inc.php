@@ -55,6 +55,11 @@ class selectfile extends filemanagerobject
     public $restrictFileList;
 
     /**
+    * @var bool $forceRestrictions Force restrictions in restrict file list
+    */
+    public $forceRestrictions;
+
+    /**
     * @var string $defaultFile Record Id of the Default File
     */
     public $defaultFile;
@@ -83,6 +88,7 @@ class selectfile extends filemanagerobject
     {
         $this->name = 'fileselect';
         $this->restrictFileList = array();
+        $this->forceRestrictions = FALSE;
 
         $this->defaultFile = '';
 
@@ -112,6 +118,16 @@ class selectfile extends filemanagerobject
     }
 
     /**
+    * Method to set forceRestrictions
+    * @access public
+    * @param bool $forceRestrictions Force restrictions in restrict file list
+    */
+    public function setForceRestrictions($forceRestrictions)
+    {
+        $this->forceRestrictions = $forceRestrictions;
+    }
+
+    /**
     * Method to return the JavaScript to clear an input
     * @return string
     */
@@ -124,7 +140,7 @@ function clearFileInputJS(name)
 {
     //jQuery(\'#input_selectfile_\'+name).value = \'\';
     //jQuery(\'#hidden_\'+name).value = \'\';
-    
+
     jQuery(\'#input_selectfile_\'+name).attr(\'value\', \'\');
     jQuery(\'#hidden_\'+name).attr(\'value\', \'\');
 }
@@ -172,6 +188,8 @@ function clearFileInputJS(name)
             }
         }
 
+        $forceRestrictions = $this->forceRestrictions?'yes':'no';
+
         $objPop = new windowpop;
 
 
@@ -188,7 +206,7 @@ function clearFileInputJS(name)
         }
 
 
-        $location = $this->uri(array('mode'=>'selectfilewindow', 'restriction'=>$ext, 'name'=>$this->name, 'context'=>$context, 'workgroup' => $workgroup), 'filemanager');
+        $location = $this->uri(array('mode'=>'selectfilewindow', 'restriction'=>$ext, 'forcerestrictions'=>$forceRestrictions, 'name'=>$this->name, 'context'=>$context, 'workgroup' => $workgroup), 'filemanager');
 
         // Couldnt do this via uri function due to embedded JS
         $location .= '&amp;value=\'+document.getElementById(\'hidden_'.$this->name.'\').value+\'&amp;';
