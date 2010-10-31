@@ -1,8 +1,9 @@
 <?php
+$objIcon = $this->newObject('geticon', 'htmlelements');
 // Add JavaScript if User can update blocks
 if ($objUser->isAdmin()) {
 
-    $objIcon = $this->newObject('geticon', 'htmlelements');
+
     $objIcon->setIcon('up');
     $upIcon = $objIcon->show();
 
