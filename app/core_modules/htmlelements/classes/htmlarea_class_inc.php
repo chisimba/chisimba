@@ -222,7 +222,9 @@ class htmlarea extends object {
 <div class="ChisimbaCanvas_Editor">
 <script type="text/javascript">
     var instancename=\'' . $this->name . '\';
-    var siteRootPath=\'' . $this->siteRoot . '\';';
+    var siteRootPath=\'' . $this->siteRoot . '\';
+
+</script>';
         if ($autosave) {
             $initVars.='
 
@@ -239,7 +241,7 @@ class htmlarea extends object {
           var formname=document.forms[formIndex].name;
           if(formname != "query"){
           document.forms[formIndex].submit();
-          }
+           }
          }
      }
     }';
