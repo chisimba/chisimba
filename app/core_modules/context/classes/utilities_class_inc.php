@@ -738,7 +738,7 @@ function getContexts()
                 $arr = array();
                 $arr['contextcode'] = $context['contextcode'];
                 $arr['code'] = $context['contextcode'];
-                $arr['title'] = htmlentities($context['title']).$studentCount;
+                $arr['title'] = htmlentities($context['title']) . $studentCount;
                 $lectures = $this->objUserContext->getContextLecturers($context['contextcode']);
                 $lecturesname = "";
                 foreach ($lectures as $lecture) {
@@ -769,10 +769,7 @@ function getContexts()
      * @return unknown
      */
     public function jsonListContext($start=0, $limit=25) {
-        $studentCount = "";
-        if (strtoupper($this->showStudentCount) == 'TRUE') {
-            $studentCount = '&nbsp;(' . count($this->objUserContext->getContextStudents($context ['contextcode'])) . ')';
-        }
+
         $start = (empty($start)) ? 0 : $start;
         $limit = (empty($limit)) ? 25 : $limit;
 
@@ -786,9 +783,13 @@ function getContexts()
 
         if ($contextCount > 0) {
             foreach ($contexts as $context) {
+                $studentCount = "";
+                if (strtoupper($this->showStudentCount) == 'TRUE') {
+                    $studentCount = '&nbsp;(' . count($this->objUserContext->getContextStudents($context ['contextcode'])) . ')';
+                }
                 $arr = array();
                 $arr['contextcode'] = $context['contextcode'];
-                $arr['title'] = htmlentities($context['title']).$studentCount;
+                $arr['title'] = htmlentities($context['title']) . $studentCount;
                 $arr['author'] = htmlentities($this->objUser->fullname($context['userid']));
                 $arr['datecreated'] = $context['datecreated'];
                 $arr['lastupdated'] = $context['updated'];
