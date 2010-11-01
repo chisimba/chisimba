@@ -222,6 +222,10 @@ class displaycontext extends object {
             $deleteLink->link = $objIcon->show();
 
             $editOptions .= ' ' . $deleteLink->show();
+            $studentCount = "";
+            if (strtoupper($this->showStudentCount) == 'TRUE') {
+                $studentCount = '&nbsp;(' . count($this->objUserContext->getContextStudents($context ['contextcode'])) . ')';
+            }
 
             $title = '<div style="float: right">' . $editOptions . '</div>';
         }
