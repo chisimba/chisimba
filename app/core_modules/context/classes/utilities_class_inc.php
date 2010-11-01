@@ -673,10 +673,7 @@ function getContexts()
     }
 
     public function getContext($start = 0, $limit = 25) {
-        $studentCount = "";
-        if (strtoupper($this->showStudentCount) == 'TRUE') {
-            $studentCount = '&nbsp;(' . count($this->objUserContext->getContextStudents($context ['contextcode'])) . ')';
-        }
+
         $params["start"] = ($this->getParam("start")) ? $this->getParam("start") : null;
         $params["limit"] = ($this->getParam("limit")) ? $this->getParam("limit") : null;
         $params["search"] = ($this->getParam("fields")) ? json_decode(stripslashes($this->getParam("fields"))) : null;
@@ -735,6 +732,10 @@ function getContexts()
             $arr = array();
             $courses = array();
             foreach ($contexts as $context) {
+                $studentCount = "";
+                if (strtoupper($this->showStudentCount) == 'TRUE') {
+                    $studentCount = '&nbsp;(' . count($this->objUserContext->getContextStudents($context ['contextcode'])) . ')';
+                }
                 $arr = array();
                 $arr['contextcode'] = $context['contextcode'];
                 $arr['code'] = $context['contextcode'];
