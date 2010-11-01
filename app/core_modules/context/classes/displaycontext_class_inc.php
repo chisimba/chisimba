@@ -90,7 +90,7 @@ class displaycontext extends object {
         $this->objLanguage = $this->getObject('language', 'language');
         $this->objDBContext = $this->getObject('dbcontext', 'context');
         $this->dbSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
-        $showStudentCount = $this->dbSysConfig->getValue('SHOW_STUDENT_COUNT', 'context');
+        $this->showStudentCount = $this->dbSysConfig->getValue('SHOW_STUDENT_COUNT', 'context');
 
         $objIcon = $this->getObject('geticon', 'htmlelements');
         $objIcon->setIcon('imagepreview');
@@ -275,7 +275,7 @@ class displaycontext extends object {
         $courseInfoArray['code'] = $context ['contextcode'];
         $courseInfoArray['coursecode'] = ucwords($this->objLanguage->code2Txt('mod_context_contextcode', 'system', NULL, '[-context-] Code')) . ' : ' . $context ['contextcode'];
         $studentCount = "";
-        if (strtoupper($showStudentCount) == 'TRUE') {
+        if (strtoupper($this->showStudentCount) == 'TRUE') {
             $studentCount = '&nbsp;(' . count($this->objUserContext->getContextStudents($context ['contextcode'])) . ')';
         }
         $courseInfoArray['title'] = $context ['title'] . $studentCount;
