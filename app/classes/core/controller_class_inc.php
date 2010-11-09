@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Controller object.
  *
@@ -28,16 +29,15 @@
  * @link      http://avoir.uwc.ac.za
  * @see       core
  */
-
 // -------------------- controller class ----------------
 // security check - must be included in all scripts
 if (!
-/**
- * Description for $GLOBALS
- * @global entry point $GLOBALS['kewl_entry_point_run']
- * @name   $kewl_entry_point_run
- */
-$GLOBALS['kewl_entry_point_run']) {
+        /**
+         * Description for $GLOBALS
+         * @global entry point $GLOBALS['kewl_entry_point_run']
+         * @name   $kewl_entry_point_run
+         */
+        $GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 // end security check
@@ -56,8 +56,8 @@ $GLOBALS['kewl_entry_point_run']) {
  * @link      http://avoir.uwc.ac.za
  * @see       core
  */
-class controller extends access
-{
+class controller extends access {
+
     /**
      * Public variable to hold the derived controller name
      *
@@ -65,20 +65,17 @@ class controller extends access
      * @access public
      */
     public $controllerName;
-
     /**
      * Description for public
      * @var    string
      * @access public
      */
     public $footerStr = NULL;
-
     /**
-    * @var	  object
-    * @access protected
-    */
+     * @var	  object
+     * @access protected
+     */
     protected $_objLanguage;
-
     public $objLu;
     public $appid;
 
@@ -89,22 +86,19 @@ class controller extends access
      * @param string $moduleName
      */
     public function __construct(&$objEngine, $moduleName) {
-    	$this->controllerName = get_class($this);
+        $this->controllerName = get_class($this);
         try {
-        	parent::__construct($objEngine, $moduleName);
-        	$version         = $objEngine->version;
-        	$this->objLu     = $objEngine->lu;
-        	$this->objLuAdmin     = $objEngine->luAdmin;
-        	$this->eventDispatcher = $objEngine->eventDispatcher;
-        	$this->appid = $objEngine->appid;
-        	$this->footerStr = '<center>Powered by <a href="http://avoir.uwc.ac.za/">Chisimba</a> version ' .$version . "</center>";
+            parent::__construct($objEngine, $moduleName);
+            $version = $objEngine->version;
+            $this->objLu = $objEngine->lu;
+            $this->objLuAdmin = $objEngine->luAdmin;
+            $this->eventDispatcher = $objEngine->eventDispatcher;
+            $this->appid = $objEngine->appid;
+            $this->footerStr = '<center>Powered by <a href="http://avoir.uwc.ac.za/">Chisimba</a> version ' . $version . "</center>";
+        } catch (customException $e) {
+            echo customException::cleanUp($e);
+            die();
         }
-        catch (customException $e)
-        {
-        	echo customException::cleanUp($e);
-        	die();
-        }
-
     }
 
     /**
@@ -113,41 +107,42 @@ class controller extends access
      *
      */
     public function init() {
+
     }
 
-	/**
-	* Method to return a language text element.
-	*
-    * @param  	string 	$itemName   The language code for the item to be looked up
-    * @param  	string 	$modulename The module name that owns the string
-    * @param 	bool	$default	Default text
-    *
-    * @return 	string	The language element
-	*/
-	protected function l($itemName,$modulename=NULL,$default = FALSE) {
-	  if (!defined('CHISIMBA_CONTROLLER_OBJLANGUAGE_CREATED')) {
-       	define('CHISIMBA_CONTROLLER_OBJLANGUAGE_CREATED',TRUE);
-        $this->_objLanguage = $this->getObject('language','language');
-	  }
-	   $module = is_NULL($modulename)?$this->moduleName:$modulename;
-	   return $this->_objLanguage->languageText($itemName, $module, $default);
-	}
+    /**
+     * Method to return a language text element.
+     *
+     * @param  	string 	$itemName   The language code for the item to be looked up
+     * @param  	string 	$modulename The module name that owns the string
+     * @param 	bool	$default	Default text
+     *
+     * @return 	string	The language element
+     */
+    protected function l($itemName, $modulename=NULL, $default = FALSE) {
+        if (!defined('CHISIMBA_CONTROLLER_OBJLANGUAGE_CREATED')) {
+            define('CHISIMBA_CONTROLLER_OBJLANGUAGE_CREATED', TRUE);
+            $this->_objLanguage = $this->getObject('language', 'language');
+        }
+        $module = is_NULL($modulename) ? $this->moduleName : $modulename;
+        return $this->_objLanguage->languageText($itemName, $module, $default);
+    }
 
-	public function dumpText($data) {
-		if (isset($data) && !is_array($data)) {
-   			return $data;
-		}
-		if (isset($data) && is_array($data)) {
-    		// Create an instance of the table object
-    		$objTable = $this->newObject('htmltable', 'htmlelements');
-    		// Turn on active rows
-    		$objTable->active_rows = TRUE;
-    		// Turn the array into a table
-    		$objTable->arrayToTable($data);
-    		// Show the table
-    		return $objTable->show();
-		}
-	}
+    public function dumpText($data) {
+        if (isset($data) && !is_array($data)) {
+            return $data;
+        }
+        if (isset($data) && is_array($data)) {
+            // Create an instance of the table object
+            $objTable = $this->newObject('htmltable', 'htmlelements');
+            // Turn on active rows
+            $objTable->active_rows = TRUE;
+            // Turn the array into a table
+            $objTable->arrayToTable($data);
+            // Show the table
+            return $objTable->show();
+        }
+    }
 
     /**
      * Method to return current page content.
@@ -282,8 +277,8 @@ class controller extends access
      */
     public function nextAction($action, $params = array(), $module=NULL) {
         // list($template, $_) = $this->_dispatch($action, $this->_moduleName);
-		$params['action'] = $action;
-		header('Location: '.html_entity_decode($this->uri($params,$module)));
+        $params['action'] = $action;
+        header('Location: ' . html_entity_decode($this->uri($params, $module)));
         return NULL;
     }
 
@@ -347,20 +342,17 @@ class controller extends access
             ob_start();
         }
         include $_magic__path; // was require
-        if(extension_loaded('apc'))
-		{
-			$this->objConfig = $this->getObject('altconfig', 'config');
-			// apc_compile_file($this->objConfig);
-			if($this->objConfig->getenable_apc() == 'TRUE')
-			{
-				apc_compile_file($_magic__path);
-				// apc_compile_file($_magic__tpl);
-			}
-			else {
-				$this->objAPC = FALSE;
-			}
-			$this->cacheTTL = $this->objConfig->getcache_ttl();
-		}
+        if (extension_loaded('apc')) {
+            $this->objConfig = $this->getObject('altconfig', 'config');
+            // apc_compile_file($this->objConfig);
+            if ($this->objConfig->getenable_apc() == 'TRUE') {
+                apc_compile_file($_magic__path);
+                // apc_compile_file($_magic__tpl);
+            } else {
+                $this->objAPC = FALSE;
+            }
+            $this->cacheTTL = $this->objConfig->getcache_ttl();
+        }
         if ($_magic__buffer) {
             $_magic__pageContent = ob_get_contents();
             ob_end_clean();
@@ -370,5 +362,27 @@ class controller extends access
             return NULL; // just to be explicit
         }
     }
+
+    /**
+     * Method to return a session value.
+     *
+     * @access public
+     * @param  $name    string The name of the session value
+     * @param  $default mixed  The value to return if the session value is unset (optional)
+     * @return mixed    the value of the parameter, or $default if unset
+     */
+    
+    public function getSession($name, $default = NULL) {
+        $val = $default;
+        foreach ($_SESSION as $key => $cval) {
+            $arrayKey = explode("~", $key);
+            if ($arrayKey[2] == $name) {
+                return $cval;
+            }
+        }
+        return $val;
+    }
+
 }
+
 ?>
