@@ -139,7 +139,7 @@ class loggedInUsers extends dbTable {
         ";
 
         if (!$this->logoutdestroy) {
-        $sql = "UPDATE tbl_loggedinusers
+            $sql = "UPDATE tbl_loggedinusers
         SET whenlastactive = CURRENT_TIMESTAMP, coursecode='$contextCode' WHERE userid='$userId'";
         }
         $this->query($sql);
@@ -169,8 +169,7 @@ class loggedInUsers extends dbTable {
         return $timeActive;
     }
 
-
-        /**
+    /**
      * Return the time logged in.
      */
     public function getLogonTime($userId) {
@@ -189,6 +188,7 @@ class loggedInUsers extends dbTable {
         }
         return "0";
     }
+
     /**
      * Returns the time when user was last active.
      */
@@ -262,7 +262,7 @@ class loggedInUsers extends dbTable {
         WHERE
             ((CURRENT_TIMESTAMP-whenlastactive)/100) > '{$this->systemTimeOut}'
         ";
-            
+
         $this->query($sql);
     }
 
@@ -290,6 +290,17 @@ class loggedInUsers extends dbTable {
      */
     function getListOnlineUsers($order = 'WhenLastActive DESC') {
         $sql = 'SELECT DISTINCT tbl_users.userId, username, firstName, surname FROM tbl_loggedinusers INNER JOIN tbl_users ON (tbl_loggedinusers.userId = tbl_users.userId) ORDER BY ' . $order;
+
+        return $this->getArray($sql);
+    }
+
+    /**
+     * returns a list of users who currently logged in the course
+     * @param <type> $contextCode
+     * @return <type> 
+     */
+    function getListOnlineUsersInCurrentContext($contextCode) {
+        $sql = 'SELECT DISTINCT tbl_users.userId, username, firstName, surname FROM tbl_loggedinusers INNER JOIN tbl_users ON (tbl_loggedinusers.userId = tbl_users.userId) where coursecode= "' . $contextCode . '" ORDER BY WhenLastActive DESC';
 
         return $this->getArray($sql);
     }
