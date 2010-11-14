@@ -132,7 +132,7 @@ class engine {
      * Version Number of the software. (engine)
      *
      */
-    public $version = '3.2.1';
+    public $version = '3.2.2';
 
     /**
      * Template variable

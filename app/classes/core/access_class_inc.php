@@ -67,6 +67,7 @@ class access extends object {
     public $objConfig;
     private $loggedInUsers;
     private $logoutdestroy = true;
+    private $modulesNotToLog;
 
     /**
      * Constructor for the access class.
@@ -86,11 +87,13 @@ class access extends object {
         $this->objConfig = $this->getObject('altconfig', 'config');
         $this->preloginModule = $this->objConfig->getPrelogin('KEWL_PRELOGIN_MODULE');
         $xlogoutdestroy = $this->objConfig->getValue('auth_logoutdestroy', 'security', true);
-        if ($xlogoutdestroy == 'true' || $xlogoutdestroy == 'TRUE' || $xlogoutdestroy == 'True') {
+        if (strtoupper($xlogoutdestroy) == 'TRUE') {
             $this->logoutdestroy = true;
         } else {
             $this->logoutdestroy = false;
         }
+        $modulesNotToLogStr = $this->objSysConfig->getValue('EXCLUDE_LOGGING', 'security');
+        $this->modulesNotToLog = explode(",", $modulesNotToLogStr);
     }
 
     /**
@@ -132,13 +135,18 @@ class access extends object {
         //last activity
         if (!$this->logoutdestroy) {
             if ($this->objUser->isLoggedIn()) {
-                $this->loggedInUsers->doUpdateLogin($this->userid);
+                $this->loggedInUsers->doUpdateLogin($this->userid, $this->objContext->getContextCode());
             }
             if ($this->moduleName == $this->preloginModule && $action == '') {
                 $this->loggedInUsers->doLogOut($this->userid);
             }
         }
-        if ($this->logActivity == 'true' || $this->logActivity == 'TRUE') {
+
+        $logThisModule = TRUE;
+        if (in_array($this->moduleName, $this->modulesNotToLog)) {
+            $logThisModule = FALSE;
+        }
+        if (strtoupper($this->logActivity) == 'TRUE' && $logThisModule) {
             $fields = array(
                 "userid" => $this->userid,
                 "module" => $this->moduleName,

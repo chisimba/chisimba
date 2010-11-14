@@ -372,7 +372,7 @@ class controller extends access {
      * @return mixed    the value of the parameter, or $default if unset
      */
     
-    public function getSession($name, $default = NULL) {
+  /*  public function getSession($name, $default = NULL) {
         $val = $default;
         foreach ($_SESSION as $key => $cval) {
             $arrayKey = explode("~", $key);
@@ -382,7 +382,7 @@ class controller extends access {
         }
         return $val;
     }
-
+*/
 }
 
 ?>
