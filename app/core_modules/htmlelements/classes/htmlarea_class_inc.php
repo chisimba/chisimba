@@ -246,7 +246,7 @@ class htmlarea extends object {
      }
     }';
         }
-        $intVars.='
+        $initVars.='
 </script>
     </div>
      <div class="ChisimbaCanvas_Editor_After"></div>';
