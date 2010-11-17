@@ -94,7 +94,6 @@ class patch extends dbtable {
                             }
                             $desc = $objXml->xpath("//update[version='{$codeVersion}']/description");
                             $description .= $desc[0];
-                            //echo $desc[0]."<br/>";var_dump($desc);die();
                         } else {
                             log_debug("WARNING: module {$module['module_id']} has an invalid sql_updates.xml document. Ignoring.");
                         }
