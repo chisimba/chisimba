@@ -93,7 +93,9 @@ class patch extends dbtable {
                                 throw new Exception($this->objLanguage->languageText('mod_modulecatalogue_badxml').' '.$updateFile);
                             }
                             $desc = $objXml->xpath("//update[version='{$codeVersion}']/description");
-                            $description .= $desc[0];
+                            if (isset($desc[0])) {
+                                $description .= $desc[0];
+                            }
                         } else {
                             log_debug("WARNING: module {$module['module_id']} has an invalid sql_updates.xml document. Ignoring.");
                         }
