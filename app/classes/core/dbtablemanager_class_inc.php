@@ -32,12 +32,12 @@
  */
 // security check - must be included in all scripts
 if (!
-/**
- * Description for $GLOBALS
- * @global entry point $GLOBALS['kewl_entry_point_run']
- * @name   $kewl_entry_point_run
- */
-$GLOBALS['kewl_entry_point_run']) {
+        /**
+         * Description for $GLOBALS
+         * @global entry point $GLOBALS['kewl_entry_point_run']
+         * @name   $kewl_entry_point_run
+         */
+        $GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 // end security check
@@ -64,6 +64,7 @@ require_once "lib/logging.php";
  * @see       core
  */
 class dbTableManager extends object {
+
     /**
      * The current table name that we are working with
      *
@@ -71,7 +72,6 @@ class dbTableManager extends object {
      * @var    string - default NULL
      */
     public $_tableName = NULL;
-
     /**
      * The current database that we are working with
      *
@@ -79,7 +79,6 @@ class dbTableManager extends object {
      * @var    string - default NULL
      */
     public $_dbName = NULL;
-
     /**
      * The global error callback for dbTable errors
      *
@@ -87,7 +86,6 @@ class dbTableManager extends object {
      * @var    string
      */
     public $_errorCallback;
-
     /**
      * The database config object
      *
@@ -95,7 +93,6 @@ class dbTableManager extends object {
      * @var    object
      */
     public $objDBConfig;
-
     /**
      * The db object
      *
@@ -103,7 +100,6 @@ class dbTableManager extends object {
      * @var    object
      */
     private $_dbmanager = NULL;
-
     /**
      * The non Schema DB Object
      * We are instantiating this again, in case of first time install
@@ -114,7 +110,6 @@ class dbTableManager extends object {
      * @var    object
      */
     private $_db = NULL;
-
     public $appid;
 
     /**
@@ -127,36 +122,34 @@ class dbTableManager extends object {
      * @param  callback $errorCallback The name of a custom error callback function (defaults to the global)
      * @return void
      */
-    public function init($dbName = NULL, $pearDbManager = NULL,
-            $errorCallback = "globalPearErrorCallback") {
+    public function init($dbName = NULL, $pearDbManager = NULL, $errorCallback = "globalPearErrorCallback") {
         $this->_errorCallback = $errorCallback;
         if ($pearDbManager == NULL) {
             $this->_dbmanager = $this->objEngine->getDbManagementObj();
-            $this->_db        = $this->objEngine->getDbObj();
+            $this->_db = $this->objEngine->getDbObj();
         } else {
             $this->_dbmanager = $pearDbManager;
-            $this->_db        = $pearDb;
+            $this->_db = $pearDb;
         }
 
         // check for PEAR Var_dump and initialise it,
         // otherwise just use regular PHP var_dump();
         if (class_exists('Var_Dump')) {
             $var_dump = array(
-                    'Var_Dump',
-                    'display',
+                'Var_Dump',
+                'display',
             );
         } else {
             $var_dump = 'var_dump';
         }
 
         // Load up the config object and get the servername
-        $this->objDBConfig = $this->getObject('altconfig','config');
+        $this->objDBConfig = $this->getObject('altconfig', 'config');
         $this->_serverName = $this->objDBConfig->serverName();
         $this->appid = $this->objEngine->appid;
 
         // instantiate the MDB2 Management module
         //$this->_db = $this->_db->loadModule('Manager');
-
         // call_user_func($var_dump, $this->_dbmanager);
     }
 
@@ -176,7 +169,6 @@ class dbTableManager extends object {
     public function parseDbDefFile($input_file, $variables = array(), $fail_on_invalid_names = TRUE) {
         return $this->_dbmanager->parseDatabaseDefinitionFile($input_file, $variables,
                 $fail_on_invalid_names, $structure = FALSE);
-
     }
 
     /**
@@ -224,11 +216,11 @@ class dbTableManager extends object {
             }
 
             $dump_config = array(
-                    'output_mode' => 'file',
-                    'output'      => $dumpfile,
+                'output_mode' => 'file',
+                'output' => $dumpfile,
             );
-            $definition           = $this->_dbmanager->getDefinitionFromDatabase();
-            $operation   = $this->_dbmanager->dumpDatabase($definition, $dump_config, $dump_what);
+            $definition = $this->_dbmanager->getDefinitionFromDatabase();
+            $operation = $this->_dbmanager->dumpDatabase($definition, $dump_config, $dump_what);
             if (PEAR::isError($operation)) {
                 die($operation->getMessage() . ' ' . $operation->getUserInfo());
             }
@@ -236,7 +228,9 @@ class dbTableManager extends object {
         }//if
 
         return FALSE;
-    }//func
+    }
+
+//func
 
     /**
      * Method to get the schema definition of a single table
@@ -246,10 +240,9 @@ class dbTableManager extends object {
      */
     public function getTableSchema($table) {
         $dbdef = $this->getDefFromDb();
-        if(array_key_exists($table, $dbdef['tables'])) {
+        if (array_key_exists($table, $dbdef['tables'])) {
             return $dbdef['tables'][$table];
-        }
-        else {
+        } else {
             return FALSE;
         }
     }
@@ -274,7 +267,7 @@ class dbTableManager extends object {
      */
     private function printQueries($db, $scope, $message) {
         if ($scope == 'query') {
-            return $message.$db->getOption('log_line_break');
+            return $message . $db->getOption('log_line_break');
         }
         MDB2_defaultDebugOutput($db, $scope, $message);
     }
@@ -309,16 +302,16 @@ class dbTableManager extends object {
      */
     public function createTable($tableName, $fields, $options) {
         $puid = array(
-                'puid' => array(
-                        'type'          => 'integer',
-                        'length'        => 50,
-                        'autoincrement' => TRUE,
-                ),
+            'puid' => array(
+                'type' => 'integer',
+                'length' => 50,
+                'autoincrement' => TRUE,
+            ),
         );
-        $fields  = array_merge($fields, $puid);
-        if($this->_db->phptype == 'mysql' || $this->_db->phptype == 'mysqli') {
+        $fields = array_merge($fields, $puid);
+        if ($this->_db->phptype == 'mysql' || $this->_db->phptype == 'mysqli') {
             $this->_db->setOption('default_table_type', 'INNODB');
-            $toptions =  array('charset' => 'utf8', 'collate' => 'utf8_unicode_ci',);
+            $toptions = array('charset' => 'utf8', 'collate' => 'utf8_unicode_ci',);
             $options = array_merge($toptions, $options);
             // do the table create.
             // we call on the actual MDB object, NOT the MDB::Schema object to do this.
@@ -338,14 +331,12 @@ class dbTableManager extends object {
             //catch(customException $e) {
             //	customException::cleanUp();
             //}
-        }
-        else {
+        } else {
             $this->_db->mgCreateTable($tableName, $fields, $options);
             // create the "primary" index
             $this->createPK($tableName);
             return TRUE;
         }
-
     }
 
     /**
@@ -360,7 +351,6 @@ class dbTableManager extends object {
         return $ret;
     }
 
-
     /**
      * Method to create an index on the table
      *
@@ -371,13 +361,12 @@ class dbTableManager extends object {
      * @return bool   TRUE on success | FALSE on failure
      */
     public function createTableIndex($tableName, $keyname, $index, $trunc = FALSE) {
-        if($trunc != FALSE) {
-            $this->_db->mgCreateIndex($tableName,$keyname,$index);
+        if ($trunc != FALSE) {
+            $this->_db->mgCreateIndex($tableName, $keyname, $index);
             return TRUE;
-        }
-        else {
-            $keyname = substr($keyname,1,3). rand(0,999);
-            $this->_db->mgCreateIndex($tableName,$keyname,$index);
+        } else {
+            $keyname = substr($keyname, 1, 3) . rand(0, 999);
+            $this->_db->mgCreateIndex($tableName, $keyname, $index);
             return TRUE;
         }
     }
@@ -392,17 +381,16 @@ class dbTableManager extends object {
      */
     public function createPK($tableName) {
         $primindex = array(
-                'fields'  => array(
-                        'id' => array('sorting' => 'ascending'),
-                ),
-                'primary' => TRUE,
+            'fields' => array(
+                'id' => array('sorting' => 'ascending'),
+            ),
+            'primary' => TRUE,
         );
 
-        $pname = 'pk' . rand(0,99999);
+        $pname = 'pk' . rand(0, 99999);
 
         $this->createTableIndex($tableName, $pname, $primindex, TRUE);
         return TRUE;
-
     }
 
     /**
@@ -697,16 +685,15 @@ class dbTableManager extends object {
      * @param <type> $changes
      * @return <type>
      */
-    private function  returnIfExistingKey($change,$fields,$changes) {
+    private function returnIfExistingKey($change, $fields, $changes) {
 
-        foreach ($change as $c=>$b) {
+        foreach ($change as $c => $b) {
+            foreach ($fields as $field) {
 
-            foreach($fields as $field) {
-                if($field == $c) {
+                if ($field == $c) {
                     return TRUE;
                 }
             }
-
         }
     }
 
@@ -800,40 +787,40 @@ class dbTableManager extends object {
      *
      * @return mixed   MDB2_OK on success, a MDB2 error on failure
      */
- 
-
     function alterTable($name, $changes, $check) {
+
         /**
          * check if there is already field with same name
          * If true, simply return
          */
-        $fields=$this->listTableFields($name);
+        $fields = $this->listTableFields($name);
 
-        foreach($changes as $change) {
-           if($this->returnIfExistingKey($change,$fields,$changes)){
-               return TRUE;
-           }
+        foreach ($changes as $change) {
+            if ($this->returnIfExistingKey($change, $fields, $changes)) {
+                return FALSE;
+            }
         }
         // If the change is an insert - insert the data, otherwise alter the table
-        if(isset($changes['insert'])) {
+        if (isset($changes['insert'])) {
             // insert data through db table
             $fields = $changes['insert'];
-            if($check) {
+            if ($check) {
                 $ret = TRUE;
-            }else {
+            } else {
                 dbtable::init($name, $this->_db);
                 $ret = dbtable::insert($fields, $name);
             }
-        }else {
+        } else {
             $ret = $this->_db->mgAlterTable($name, $changes, $check);
         }
-        if(PEAR::isError($ret)) {
+        if (PEAR::isError($ret)) {
             return $ret->getMessage();
-        }
-        else {
+        } else {
             // var_dump($ret);
             return $ret;
         }
     }
+
 }
+
 ?>
