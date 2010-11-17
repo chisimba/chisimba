@@ -788,16 +788,16 @@ class dbTableManager extends object {
      * @return mixed   MDB2_OK on success, a MDB2 error on failure
      */
     function alterTable($name, $changes, $check) {
-
         /**
          * check if there is already field with same name
          * If true, simply return
          */
+    
         $fields = $this->listTableFields($name);
-
+ 
         foreach ($changes as $change) {
             if ($this->returnIfExistingKey($change, $fields, $changes)) {
-                return FALSE;
+                return TRUE;
             }
         }
         // If the change is an insert - insert the data, otherwise alter the table
