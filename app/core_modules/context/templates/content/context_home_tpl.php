@@ -178,13 +178,12 @@ $contextContentIsRegistered = $objModule->checkIfRegistered('contextcontent');
 $utillink = "";
 $this->dbSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
 $showAdminShortcutBlock = $this->dbSysConfig->getValue('SHOW_SHORTCUTS_BLOCK', 'context');
-if ($showAdminShortcutBlock == "TRUE" || $showAdminShortcutBlock == "true" || $showAdminShortcutBlock == "True") {
+if ( $showAdminShortcutBlock == "TRUE" || $showAdminShortcutBlock == "true" || $showAdminShortcutBlock == "True") {
     if ($this->isValid('addblock')) {
         $trackerlink = "";
 
-        $this->objAltConfig = $this->getObject('altconfig', 'config');
-        $siteRoot = $this->objAltConfig->getsiteRoot();
-        $moduleUri = $this->objAltConfig->getModuleURI();
+        $siteRoot = $objConfig->getsiteRoot();
+        $moduleUri = $objConfig->getModuleURI();
         $imgPath = "";
 
         $objIcon->setIcon('plus');
@@ -238,7 +237,12 @@ $objCssLayout->rightColumnContent = '';
 if ($this->isValid('addblock')) {
     $objCssLayout->rightColumnContent .= '<div id="editmode">' . $editOnButton->show() . '</div>';
 }
-;
+
+$liveChatIsRegistered = $objModule->checkIfRegistered('livechat');
+if ($liveChatIsRegistered) {
+   $liveChatBlock=$this->getObject("block_livechat","livechat");
+   $utillink.=$liveChatBlock->show();
+}
 $objCssLayout->rightColumnContent .= $utillink;
 $objCssLayout->rightColumnContent .= '<div id="rightblocks">' . $rightBlocksStr . '</div>';
 
