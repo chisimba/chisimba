@@ -4,7 +4,10 @@
  * A button class using DOM extension
  *
  * This file contains the button class which is used to generate
- * HTML button elements for forms
+ * HTML button elements for forms. It was modified after the original
+ * HTMLelements button class by Derek Keats as part of the Chisimba
+ * hackathon 2010 11 29. Unlike HTMLelements, this class extends object
+ * and must be instantiated using $this->newObject('htmlbutton', 'htmldom')
  *
  *
  * PHP version 5
@@ -38,7 +41,10 @@ $GLOBALS['kewl_entry_point_run']) {
  * A button class using DOM extension
  *
  * This file contains the button class which is used to generate
- * HTML button elements for forms
+ * HTML button elements for forms. It was modified after the original
+ * HTMLelements button class by Derek Keats as part of the Chisimba
+ * hackathon 2010 11 29. Unlike HTMLelements, this class extends object
+ * and must be instantiated using $this->newObject('htmlbutton', 'htmldom')
  *
  * @category  Chisimba
  * @package   htmldom
@@ -51,10 +57,10 @@ $GLOBALS['kewl_entry_point_run']) {
  * @version   $Id: button_class_inc.php 16438 2010-01-22 15:38:42Z paulscott $
  * @link      http://avoir.uwc.ac.za
  * @example:
- *            $this->objButton=new button('buttonname');
- *            $this->objButton->setValue('Button Value');
- *            $this->objButton->setOnClick('alert(\'An onclick Event\')');
- *            $this->objButton->setToSubmit();  //If you want to make the button a submit button
+ *       $objButt = $this->newObject('htmlbutton', 'htmldom');
+ *       $objButt->setValue("cssId","what_a_long_id_hey");
+ *       $objButt->setValue('onclick','javascript:alert("Some alert");');
+ *       $str = $objButt->show("TEST SUCCESSFUL YAY YAY YIPPEE");
  */
 class htmlbutton extends object
 {
@@ -93,13 +99,64 @@ class htmlbutton extends object
     */
     public $sexyButtons = TRUE;
 
-    public $name;
-    public $value;
-    public $onclick;
-    public $extra;
-    public $cssId;
-    public $cssClass;
-    public $objDom;
+    /**
+     * Holds the name of the button, and is set using
+     * $this->setVar()
+     *
+     * @var string $name
+     * @access private
+     *
+     */
+    private $name;
+
+    /**
+     * Holds the value of the button, and is set using
+     * $this->setVar()
+     *
+     * @var string $name
+     * @access private
+     *
+     */
+    private $value;
+
+    /**
+     * Holds the unClick javascript event for the button, and is set using
+     * $this->setVar()
+     *
+     * @var string $name
+     * @access private
+     *
+     */
+    private $onclick;
+    
+    /**
+     * Holds the CSS id for the button, and is set using
+     * $this->setVar()
+     * 
+     * @var string $name
+     * @access private
+     * 
+     */
+    private $cssId;
+
+    /**
+     * Holds the CSS class for the button, and is set using
+     * $this->setVar(). Not used if sexybuttons is true.
+     *
+     * @var string $name
+     * @access private
+     *
+     */
+    private $cssClass;
+
+    /**
+     *
+     * Object to hold the dom document
+     *
+     * @var string Object $objDom
+     * @access private
+     */
+    private $objDom;
 
 
     /**
@@ -115,18 +172,29 @@ class htmlbutton extends object
         // Instantiate the built in PHP DOM extension and create DOM document.
         $this->objDom = new DOMDocument();
     }
-    
-    public function show($caption=null, $name=null, $value = null, $onclick = null) {
+
+    /**
+     *
+     * Standard show function to render the button using the DOM document
+     * object
+     *
+     *
+     * @param <type> $caption
+     * @param <type> $name
+     * @param <type> $value
+     * @param <type> $onclick
+     * @return <type>
+     */
+    public function show($caption=null) {
         if($this->sexyButtons == TRUE) {
             $button = $this->objDom->createElement('button');
             $button->setAttribute('class','sexybutton ');
             $button->setAttribute('value',$caption);
+            // The sexybutton needs to be inside two span tags
             $span1 = $this->objDom->createElement('span');
             $button->appendChild($span1);
-
             $span2 = $this->objDom->createElement('span');
             $span1->appendChild($span2);
-            
             $text = $this->objDom->createTextNode($caption);
             $span2->appendChild($text );
         } else {
@@ -144,20 +212,17 @@ class htmlbutton extends object
         } else {
             $button->setAttribute('type','submit');
         }
+        // If there is a name, then use it.
         if ($this->name) {
             $button->setAttribute('name',$this->name);
         }
+        // If a css id is set, then add it as an attribute
         if ($this->cssId) {
             $button->setAttribute('id',$this->cssId);
         }
-        if ($this->cssClass) {
-            $button->setAttribute('class',$this->cssClass);
-        }
+        // If there is an onclick event specified, add it as an attribute.
         if ($this->onclick) {
             $button->setAttribute('onclick',$this->onclick);
-        }
-        if ($this->extra) {
-            $button->setAttribute('extra',$this->extra);
         }
         $button = $this->objDom->appendChild($button);
         $ret = $this->objDom->saveHTML();
@@ -165,86 +230,28 @@ class htmlbutton extends object
         return $ret;
     }
 
+    /**
+     *
+     * A standard setter. The following params may be set here
+     * $onclick - A javascript that is executed on clicking the button
+     * $iconclass - The icon class to use (only relevant if using sexybuttons)
+     *      Can be one of: ok, cancel, add, delete, download, download2, upload,
+     *      search, find, first, prev, next, last, play, pause, rewind, forward,
+     *      stop, reload, sync, save, email, print, heart, like, dislike,
+     *      accept, decline, home, help, info, cut, copy, paste, erase, undo,
+     *      redo, edit, calendar, user, settings, wrench, cart, wand
+     * $cssClass - A CSS class to use in the button
+     * $cssId - A CSS id to use in the button
+     * $isresetbutton  - Set it to a reset button
+     * $issubmitbutton - Set it to a submit button
+     *
+     * @param string $param The name of the parameter to set
+     * @param string $value The value to set the parameter to
+     * @access public
+     */
     public function setValue($param, $value) {
         $this->$param = $value;
     }
-
-    /**
-     * Method to set the action for the onclick event
-     * for the button
-     *
-     * @param string $onclick
-     * @return void
-     * @access public
-     */
-    public function setOnClick($onclick)
-    {
-        $this->onclick = $onclick;
-    }
     
-    /**
-     * Method to set the iconclass for the sexy buttons
-     * Can be one of: ok, cancel, add, delete, download, download2, upload, search, find, first, prev, next, last, play, pause, 
-     *                rewind, forward, stop, reload, sync, save, email, print, heart, like, dislike, accept, decline, home, 
-     *                help, info, cut, copy, paste, erase, undo, redo, edit, calendar, user, settings, wrench, cart, wand
-     *
-     * @param string $onclick
-     * @return void
-     * @access public
-     */
-    public function setIconClass($iconclass)
-    {
-        $this->iconclass = $iconclass;
-    }
-
-    /**
-     * Method to set the cssClass private variable
-     * which determines the DOM class of the button as
-     * definied in the CSS
-     *
-     * @param string $cssClass the class
-     * @return void
-     * @access public
-     */
-    function setCSS($cssClass)
-    {
-        $this->cssClass = $cssClass;
-    }
-
-    /**
-     * Method to set the cssId private member
-     * which determines the DOM id of the button
-     *
-     * @param string $cssId the Id
-     * @return void
-     * @access public
-     */
-    public function setId($cssId)
-    {
-        $this->cssId = $cssId;
-    }
-
-    /**
-     * Method used to set the button as
-     * a submit button for a form
-     *
-     * @return void
-     * @access public
-     */
-    public function setToSubmit()
-    {
-        $this->issubmitbutton = true;
-    }
-
-    /**
-     * Sets the button type to reset.
-     *
-     * @access public
-     */
-    public function setToReset()
-    {
-        $this->isresetbutton = true;
-    }
 }
-
 ?>
