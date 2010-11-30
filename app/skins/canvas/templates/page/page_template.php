@@ -12,7 +12,7 @@
 define("PAGETOP", '<a name="pagetop"></a>');
 define("GOTOTOP", '<a href="#pagetop">Top</a>'); // @todo change this to an icon
 
-// Initialise some variables
+// Initialise the variable holding preferred canvas
 $prefCanvas=FALSE;
 
 // Define the name of this skin.
@@ -20,8 +20,6 @@ $skinName = "canvas";
 
 // Define the valid canvases for this skin as an array.
 $validCanvases = array_map('basename', glob('skins/' . $skinName . '/canvases/*', GLOB_ONLYDIR));
-
-
 
 // Settings that are needed so that canvase-aware code can function.
 $this->setSession('skinName', 'canvas');
@@ -35,7 +33,7 @@ $objCanvas = $this->getObject('canvaschooser', 'canvas');
 
 
 // Set the skin base for the default.
-$skinBase='skins/canvas/canvases/';
+$skinBase='skins/' . $skinName . '/canvases/';
 if (isset ($canvas)) {
     $_SESSION['canvasType'] = 'programmatic';
     $_SESSION['canvas'] = $canvas;
@@ -62,12 +60,11 @@ require($objConfig->getsiteRootPath().'skins/_common/templates/skinpageheader3-0
     if (!isset($pageSuppressSkin)) {
         echo '
 
-        <link rel="stylesheet" type="text/css" href="skins/_common2/base.css">
+        <link rel="stylesheet" type="text/css" href="skins/_common2/css/basecss.php">
+        
         ';
      }
-
-
-     
+   
 
     // Render the javascript unless it is suppressed.
     if (!isset($pageSuppressJavascript)) {
@@ -78,15 +75,17 @@ var curvyCornersVerbose = false;
 </script>
 <?php
         $curvy = $this->getJavascriptFile('curvycorners-2.0.4/curvycorners.js', 'canvas');
-        echo $curvy;
+        echo $curvy . "\n\n";
         echo $objSkin->putJavaScript($mime, $headerParams);
     }
 
     // Render the CSS for the current skin unless it is suppressed.
     if (!isset($pageSuppressSkin)) {
        echo '
+
        <link rel="stylesheet" type="text/css" href="skins/canvas/stylesheet.css">
        <link rel="stylesheet" type="text/css" href="' . $canvas . '/stylesheet.css">
+
         ';
     }
     ?>
