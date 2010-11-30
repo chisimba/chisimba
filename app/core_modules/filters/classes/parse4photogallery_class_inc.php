@@ -77,6 +77,11 @@ class parse4photogallery extends object
      */
     public function init()
     {
+        // Load scriptaclous since we can no longer guarantee it is there
+        $scriptaculous = $this->getObject('scriptaculous', 'htmlelements');
+        $this->appendArrayVar('headerParams', $scriptaculous->show('text/javascript'));
+
+
         // Get an instance of the language object
         $this->objLanguage = $this->getObject('language', 'language');
         // Get an instance of the params extractor
@@ -90,10 +95,12 @@ class parse4photogallery extends object
         if ($isRegistered){
             $this->dbimages =  $this->getObject('dbimages', 'photogallery');
             $this->_objUtils =  $this->getObject('utils',"photogallery");
-            $scripts = '<script type="text/javascript" src="'.$this->_objConfig->getModuleURI().'photogallery/resources/lightbox/js/prototype.js"></script>
+            $scripts = '
+<script type="text/javascript" src="'.$this->_objConfig->getModuleURI().'photogallery/resources/lightbox/js/prototype.js"></script>
 <script type="text/javascript" src="'.$this->_objConfig->getModuleURI().'photogallery/resources/lightbox/js/scriptaculous.js?load=effects"></script>
 <script type="text/javascript" src="'.$this->_objConfig->getModuleURI().'photogallery/resources/lightbox/js/lightbox.js"></script>
-<link rel="stylesheet" href="'.$this->_objConfig->getModuleURI().'photogallery/resources/lightbox/css/lightbox.css" type="text/css" media="screen" />';
+<link rel="stylesheet" href="'.$this->_objConfig->getModuleURI().'photogallery/resources/lightbox/css/lightbox.css" type="text/css" media="screen" />
+';
             $this->appendArrayVar('headerParams',$scripts);
         }
     }
