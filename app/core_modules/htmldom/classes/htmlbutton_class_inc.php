@@ -69,19 +69,19 @@ class htmlbutton extends object
     *
     * The javascript to be executed on submit, if any.
     *
-    * @access public
+    * @access private
     * @var string $onsubmit
     *
     */
-    public $onsubmit;
+    private $onsubmit;
 
     /**
     * Whether the button is a submit button or not.
     * @var boolean $issubmitbutton
-    * @access public
+    * @access private
     *
     */
-    public $issubmitbutton;
+    private $issubmitbutton;
 
     /**
      * If true, the button type should be set to "reset".
@@ -97,7 +97,7 @@ class htmlbutton extends object
      * @access public
      * 
     */
-    public $sexyButtons = TRUE;
+    private $sexyButtons = TRUE;
 
     /**
      * Holds the name of the button, and is set using
@@ -244,6 +244,7 @@ class htmlbutton extends object
      * $cssId - A CSS id to use in the button
      * $isresetbutton  - Set it to a reset button
      * $issubmitbutton - Set it to a submit button
+     * $sexyButtons - Boolean (TRUE|FALSE) whether or not to use sexybuttons
      *
      * @param string $param The name of the parameter to set
      * @param string $value The value to set the parameter to
