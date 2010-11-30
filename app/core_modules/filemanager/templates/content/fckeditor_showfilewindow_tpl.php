@@ -1,6 +1,4 @@
 <?php
-//$this->objScriptaculous =& $this->getObject('scriptaculous', 'ajaxwrapper');
-//$this->objScriptaculous->show();
 
 $this->setVar('bodyParams', ' class="popupwindow"');
 
@@ -31,14 +29,7 @@ $this->loadClass('link', 'htmlelements');
 $this->loadClass('hiddeninput', 'htmlelements');
 
 
-//echo '<div style="width: 100%; baackground-color:#FFFF00; top: 0; left: 0; position: absolute; overflow:auto; bottom: 120px;  z-index:1; padding-bottom: 100px;">';
-
 echo '<h1>List of Files</h1>';
-
-// $objTreeFilter =& $this->getObject('treefilter');
-// echo $objTreeFilter->showDropDown();
-
-//echo '<br /><br />';
 
 if (count($files) == 0) {
     echo ' '.$this->objLanguage->languageText('mod_filemanager_nomatch', 'filemanager', 'No files matching criteria found');

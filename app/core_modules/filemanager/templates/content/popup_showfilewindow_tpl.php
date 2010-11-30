@@ -1,6 +1,4 @@
 <?php
-//$this->objScriptaculous =& $this->getObject('scriptaculous', 'ajaxwrapper');
-//$this->objScriptaculous->show();
 
 $script = '
 <script type="text/javascript">
@@ -63,11 +61,6 @@ echo '</div>';
 echo '<div style="width: 30%; baackground-color:#FFFF00; top: 0; left: 0; position: absolute; overflow:auto; bottom: 120px;  z-index:1; padding-bottom: 100px;">';
 
 echo '<h1>List of Files</h1>';
-
-// $objTreeFilter =& $this->getObject('treefilter');
-// echo $objTreeFilter->showDropDown();
-
-//echo '<br /><br />';
 
 if (count($files) == 0) {
     if (count($restrictions) == 0) {
