@@ -9,8 +9,13 @@ define("CACHED_FILE", "cached.css");
 // Define the lifetime of the cached file in seconds
 //define("CACHE_LIFE", 604800);
 define("CACHE_LIFE", 0.0000001);
+// save the current directory so it can be restored
+$savedDir = getcwd();
+// The directory to look for CSS files
+$cssDir = "css/";
+// Change to the directory where the CSS files are located
 
-
+chdir($cssDir);
 if (file_exists(CACHED_FILE)) {
     $cacheTime = @filemtime(CACHED_FILE);
     if (!$cacheTime or (time() - $cacheTime >= CACHE_LIFE)){
@@ -30,7 +35,8 @@ if (file_exists(CACHED_FILE)) {
     require_once CACHED_FILE;
 }
 
-
+// restore path
+chdir($savedDir);
 
 /**
 * Generate the cache file
@@ -64,10 +70,12 @@ function generateCache()
     //load up all of the CSS files into an array
     $cssFiles = glob("*.css");
     $counter=1;
+    //$counter=1;
+    //foreach ($cssFiles as $cssFile) {
     foreach ($cssArray as $cssFile) {
         if (file_exists($cssFile)) {
             $css = file_get_contents($cssFile);
-            $css = optimize($css);
+            //$css = optimize($css);
             if ($counter == 1) {
                 // Create it or overwrite it the first time around
                 file_put_contents(CACHED_FILE, $css);
