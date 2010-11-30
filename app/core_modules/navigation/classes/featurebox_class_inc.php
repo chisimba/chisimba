@@ -65,9 +65,10 @@ class featurebox extends object
         if(!empty($id) && $showToggle)
         {
             $objIcon->setIcon('toggle');
-            $objIcon->extra = "style='vertical-align:middle'";
-            $toggle = "<a href=\"javascript:;\" onclick=\"Effect.toggle('".$id."','slide');\">".$objIcon->show()."</a>";
-            $title = "<a href=\"javascript:;\" onclick=\"Effect.toggle('".$id."','slide');\">".$title."</a>";
+            $objIcon->extra = "class='toggleIt' style='vertical-align:middle'";
+            $this->loadToggleScript();
+            $toggle = $objIcon->show();
+            $title = $title;
         }
 
 		if ($showTitle) {
@@ -135,6 +136,36 @@ class featurebox extends object
 
           return $contentbox;
 
+    }
+
+    /**
+     *
+     * Add the togle script to the page header.
+     *
+     * @access private
+     * @return VOID;
+     *
+     */
+    private function loadToggleScript()
+    {
+        $script = '
+<script type="text/javascript">
+jQuery(document).ready(function(){
+jQuery(\'.toggleIt\').unbind(\'click\').bind(\'click\',function(){
+var blockContent = jQuery(this).parent().parent().children(\'.featureboxcontent\');
+if(  blockContent.is(":hidden") == true )
+{
+blockContent.slideDown(\'slow\');
+}
+else
+{
+blockContent.slideUp(\'slow\');
+}
+});
+});
+</script>
+        ';
+        $this->appendArrayVar('headerParams', $script);
     }
 }
 ?>
