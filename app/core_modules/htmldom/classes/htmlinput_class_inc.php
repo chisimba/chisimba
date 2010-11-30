@@ -52,12 +52,20 @@ if (!
  * and must be instantiated using $this->newObject('htmlinput', 'htmldom')
  * Input class acts as an base class
  * for some commom objects
+ * Example
+ * $htmlInput = $this->getObject('htmlinput', 'htmldom');
+ * $htmlInput->setValue('name', 'toaster');
+ * $htmlInput->setValue('size', '10');
+ * $htmlInput->setValue('value', 'hello there!');
+ * $htmlInput->setValue('vtype', 'top');
+ * $htmlInput->show();
  *
  * @author Paul Mungai
  * @copyright 2010
  *
  */
 class htmlinput extends object {
+
     /**
      * Holds the size of the input element, and is set using
      * $this->setValue($param, $value)
@@ -138,8 +146,8 @@ class htmlinput extends object {
         }
         if ($this->size) {
             $input->setAttribute('size', $this->size);
-        } 
-        if ($this->value){
+        }
+        if ($this->value) {
             $input->setAttribute('value', $this->value);
         }
         if ($this->css) {
@@ -183,5 +191,7 @@ class htmlinput extends object {
     public function getValue($param) {
         return $this->$param;
     }
+
 }
+
 ?>
