@@ -41,12 +41,6 @@ if (!
         $GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
-// Include the HTML interface class
-
-/**
- * Description for require_once
- */
-require_once("ifhtml_class_inc.php");
 
 /**
  * Input class acts as an base class for some commom objects
@@ -63,7 +57,7 @@ require_once("ifhtml_class_inc.php");
  * @copyright 2010
  *
  */
-class htmlinput implements ifhtml {
+class htmlinput extends object {
     /**
      * Holds the size of the input element, and is set using
      * $this->setValue($param, $value)
