@@ -4,27 +4,13 @@
  * for version 1 & 2 skins). It sets up the page parameters so that they
  * can be used or rendered in the skin page template.
  *
+ * It should be loaded into the page templage of a canvas / skin using
+ * require($objConfig->getsiteRootPath().'skins/_common/templates/skinpageheader3-0.php');
+ *
  * This is adapted from skinpagedheader2-0.php by Derek Keats for use
  * with the Chisimba skin+canvas system.
  *
  */
-
-
-/**
- * 
- * Function to fix the buffer by changnig > to /> where necessary
- * for better HTML compliance.
- * 
- */
-function fix_code($buffer)
-{
-    return (preg_replace("!\s*/>!", ">", $buffer));
-}
-
-//-------------------------
-
-
-
 
 // Set the page title to the site name if it is not already set to something else.
 if (!isset($pageTitle)) {
@@ -91,9 +77,6 @@ if (!isset($pageLanguage)) {
     $languageCode =& $this->getObject('languagecode', 'language');
     $pageLanguage = $languageCode->getISO($languageClass->currentLanguage());
 }
-
-// Fix the buffer by changnig > to /> where necessaryfor better HTML compliance.
-//ob_start("fix_code");
 
 // Print a HTML5 doctype and header
 header("Content-Type: $mime; charset=$charset");
