@@ -101,7 +101,7 @@ class skinjavascript extends object
             $mime = 'text/html';
         }
         $str = '';
-        $str .= $this->getScriptaculous($mime);
+        //$str .= $this->getScriptaculous($mime);
         $str .= $this->getJQuery();
         $str .= $this->getChromeFrame();
         $str .= $this->getHeaderParams($headerParams);
