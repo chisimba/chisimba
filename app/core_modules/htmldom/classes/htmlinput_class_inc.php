@@ -25,7 +25,7 @@
  * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
  * @category  Chisimba
- * @package   htmlelements
+ * @package   htmldom
  * @author    Paul Mungai <paul.mungai@wits.ac.za>
  * @copyright 2010, University of the Western Cape & AVOIR Project
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
@@ -114,7 +114,7 @@ class htmlinput extends object {
 
     /**
      *
-     * Intialiser for the htmldom INPUT object
+     * Intialiser for the htmldom Input object
      *
      * @access public
      * @return void
