@@ -178,12 +178,10 @@ class htmlbutton extends object
      * Standard show function to render the button using the DOM document
      * object
      *
+     * @param string $caption The button caption
+     * @return string 
+     * @access public
      *
-     * @param <type> $caption
-     * @param <type> $name
-     * @param <type> $value
-     * @param <type> $onclick
-     * @return <type>
      */
     public function show($caption=null) {
         if($this->sexyButtons == TRUE) {
@@ -196,7 +194,7 @@ class htmlbutton extends object
             $span2 = $this->objDom->createElement('span');
             $span1->appendChild($span2);
             $text = $this->objDom->createTextNode($caption);
-            $span2->appendChild($text );
+            $span2->appendChild($text);
         } else {
             $button = $this->objDom->createElement('input');
             $button->setAttribute('value',$caption);
