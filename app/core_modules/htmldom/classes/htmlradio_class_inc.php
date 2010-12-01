@@ -33,7 +33,9 @@ if (!
  * @copyright 2010
  *
  */
-class htmlradio extends object {
+class htmlradio extends object
+{
+ 
 
     /**
      * Selected radio button
@@ -146,7 +148,6 @@ class htmlradio extends object {
     public function addOption($value, $label) {
         $this->options[$value] = $label;
     }
-
     /**
      * Method to show the option group
      */
