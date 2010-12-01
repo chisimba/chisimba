@@ -61,7 +61,7 @@ $GLOBALS['kewl_entry_point_run']) {
  class htmltextarea extends object
  {
     /**
-      * Holds the name of the button, and is set using $this->setValue()
+      * Holds the name of the textarea, and is set using $this->setValue()
       *
       * @var string $name
       * @access private
@@ -71,12 +71,14 @@ $GLOBALS['kewl_entry_point_run']) {
      /**
       *
       * @var string $cols: The number of columns the textarea will have
+      * @access private
       */
     private $cols;
 
     /**
       *
       * @var string $rows: The number of rows the textarea will have
+     *  @access private
       */
     private $rows;
 
@@ -108,7 +110,7 @@ $GLOBALS['kewl_entry_point_run']) {
 
     /**
       *
-      * Holds the CSS class for the button, and is set using $this->setValue().
+      * Holds the CSS class for the textarea, and is set using $this->setValue().
       * @var string $cssClass:
       * @access private
       */
@@ -116,7 +118,7 @@ $GLOBALS['kewl_entry_point_run']) {
 
     /**
       *
-      * Specifies that a text-area should be disabled, and is set using $this->setValue().
+      * Specifies that a textarea should be disabled, and is set using $this->setValue().
       * @var string $cssClass:
       * @access private
       */

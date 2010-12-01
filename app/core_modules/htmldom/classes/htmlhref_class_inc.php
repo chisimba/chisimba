@@ -34,7 +34,7 @@ if (!
 class htmlhref extends object {
 
     /**
-      * Holds the name of the button, and is set using $this->setValue()
+      * Holds the name of the htmlhref, and is set using $this->setValue()
       *
       * @var string $name
       * @access private

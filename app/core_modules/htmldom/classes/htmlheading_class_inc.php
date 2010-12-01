@@ -1,7 +1,10 @@
 <?php
 
 /**
-  /* Simple class for outputting '<a href' links>
+ * Class to create and display headings using the <Hn> tag where n=1 to 6
+ * This can be used to insert text into the appropriate heading, and can also
+ * specify the cssClass to use. It defaults to <H3>.
+ *
  *
  * PHP version 5
  *
@@ -14,10 +17,14 @@
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
  * @version   $Id: href_class_inc.php 11055 2008-10-25 16:25:24Z charlvn $
  * @link      http://avoir.uwc.ac.za
- * example    $str = $this->newObject("htmlhref", "htmldom");
- *            $str->setValue("link", "#");
- *            $str->setValue("text", "Click Here");
- *            $str->setValue("other", "id=testclick");
+ * @example   $str = $this->newObject("htmlheading", "htmldom");
+ *            $str->setValue("type", "h2");
+ *            $str->setValue("name", "myheading");
+ *            $str->setValue("str", "my name is");
+ *            $str->setValue("align", "center");
+ *            $str->setValue("cssClass", "myClass");
+ *            $str->setValue("cssId", "myID");
+ *            echo $str->getValue("cssId");
  *            $str = $str->show();
  */
 // security check - must be included in all scripts
@@ -34,22 +41,23 @@ if (!
 class htmlheading extends object {
 
     /**
-      * Holds the name of the button, and is set using $this->setValue()
+      * Holds the name of the heading, and is set using $this->setValue()
       *
       * @var string $name
       * @access private
       *
       */
     private $name;
-    /**
-     * Holds the href link
-     * @var    string
-     * @access private
-     */
-    private $type;
 
     /**
-      * Holds the CSS id for the textarea, and is set using $this->setValue().
+      * Holds the href link
+      * @var    string
+      * @access private
+      */
+    private $type="h3";
+
+    /**
+      * Holds the CSS id for the heading, and is set using $this->setValue().
       * Value is returned using $this->getValue();
       *
       * @var string $name
@@ -60,20 +68,20 @@ class htmlheading extends object {
 
     /**
       *
-      * Holds the CSS class for the button, and is set using $this->setValue().
+      * Holds the CSS class for the heading, and is set using $this->setValue().
       * @var string $cssClass:
       * @access private
       */
     private $cssClass;
 
     /**
-     * @var string $align How the header should align on the page
+     * @var string $align How the heading should align on the page
      *
      */
     private $align;
     /**
      *
-     * @var string $str The text to place between the header tags
+     * @var string $str The text to place between the heading tags
      */
     public $str;
 
@@ -88,7 +96,7 @@ class htmlheading extends object {
 
     /**
      *
-     * Intialiser for the htmldom <A> object
+     * Intialiser for the htmldom heading object
      *
      * @access public
      * @return void
