@@ -7,15 +7,13 @@ header('Content-type: text/css');
 // Define the filename of the cached file
 define("CACHED_FILE", "cached.css");
 // Define the lifetime of the cached file in seconds
-//define("CACHE_LIFE", 604800);
-define("CACHE_LIFE", 0.0000001);
-
+define("CACHE_LIFE", 604800);
 
 if (file_exists(CACHED_FILE)) {
     $cacheTime = @filemtime(CACHED_FILE);
+    $expires = "Expires: " . gmdate("D, d M Y H:i:s", $cacheTime + CACHE_LIFE) . " GMT";
+    header($expires);
     if (!$cacheTime or (time() - $cacheTime >= CACHE_LIFE)){
-        // The cache has expired
-        //die("The cache has expired");
         // Generate a cache
         generateCache();
         //require_once CACHED_FILE;
@@ -25,10 +23,13 @@ if (file_exists(CACHED_FILE)) {
         require_once "" . CACHED_FILE;
     }  
 } else {
+    $expires = "Expires: " . gmdate("D, d M Y H:i:s", time() + CACHE_LIFE) . " GMT";
+    header($expires);
     // It doesn't exist so create it & then include it
     generateCache();
     require_once CACHED_FILE;
 }
+
 
 
 
