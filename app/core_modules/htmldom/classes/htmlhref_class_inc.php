@@ -34,6 +34,14 @@ if (!
 class htmlhref extends object {
 
     /**
+      * Holds the name of the button, and is set using $this->setValue()
+      *
+      * @var string $name
+      * @access private
+      *
+      */
+    private $name;
+    /**
      * Holds the href link
      * @var    string
      * @access private
@@ -85,6 +93,9 @@ class htmlhref extends object {
     public function show() {
         $href = $this->objDom->createElement('a');
 
+        if($this->name) {
+            $href->setAttribute('name', $this->name);
+        }
         if ($this->link) {
             $href->setAttribute('href', $this->link);
         }
