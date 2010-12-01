@@ -4,7 +4,7 @@
  * Class to create and display headings using the <Hn> tag where n=1 to 6
  * This can be used to insert text into the appropriate heading, and can also
  * specify the cssClass to use. It defaults to <H3>.
- *
+ * This class uses the DOM extension
  *
  * PHP version 5
  *

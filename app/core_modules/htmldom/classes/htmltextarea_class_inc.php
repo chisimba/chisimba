@@ -1,8 +1,7 @@
 <?php
 /**
- * Class htmltextarea extends object
- *
- * Textarea class to use to make textarea inputs
+ * Class htmltextarea extends object. Textarea class to use to make textarea
+ * inputs. This class uses the DOM extension.
  *
  * PHP version 5
  *

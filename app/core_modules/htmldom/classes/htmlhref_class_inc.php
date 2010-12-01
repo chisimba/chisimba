@@ -1,7 +1,8 @@
 <?php
 
 /**
-  /* Simple class for outputting '<a href' links>
+ * Simple class for outputting '<a href' links>
+ * This class uses the DOM extension
  *
  * PHP version 5
  *
