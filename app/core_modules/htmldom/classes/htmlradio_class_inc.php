@@ -1,5 +1,6 @@
 <?php
-/* -------------------- security class extends module ----------------*/
+
+/* -------------------- security class extends module ---------------- */
 // security check - must be included in all scripts
 /**
  * Description for $GLOBALS
@@ -7,10 +8,10 @@
  * @name   $kewl_entry_point_run
  */
 if (!
-	
-	$GLOBALS['kewl_entry_point_run']) {
-		die("You cannot view this page directly");
-	}
+        $GLOBALS['kewl_entry_point_run']) {
+    die("You cannot view this page directly");
+}
+
 /**
  * Input class acts as an base class for some commom objects
  * eg. buttons , text ,radio buttons ,check boxes
@@ -22,27 +23,17 @@ if (!
  * Input class acts as an base class
  * for some commom objects
  * Example
-	 * $radiobutton = $this->getObject('htmlradio', 'htmldom');
-	 * $radiobutton->setValue('name', 'radioname');
-	 * $radiobutton->setValue('value', '1');
-	 * $radiobutton->setValue('type', 'radio');
-	 * $radiobutton->show();
+ * $radiobutton = $this->getObject('htmlradio', 'htmldom');
+ * $radiobutton->setValue('name', 'radioname');
+ * $radiobutton->setValue('value', '1');
+ * $radiobutton->setValue('type', 'radio');
+ * $radiobutton->show();
  *
  * @author Jerusha Wambui
  * @copyright 2010
  *
  */
-
-
-class htmlradio extends object
-{
-  
-    /**
-     * Array of radio buttons
-     * @var    array $options
-     * @access public
-     */
-    public $options = array();
+class htmlradio extends object {
 
     /**
      * Selected radio button
@@ -50,70 +41,67 @@ class htmlradio extends object
      * @access public 
      */
     public $selected;
-
     /**
      * String to hold a space
      * @var    string $breakSpace
      * @access public
      */
     public $breakSpace = '';
-
     /**
      * Holds the number of table columns
      * @var    integer $tableColumns
      * @access public
      */
     public $tableColumns = 3;
-    
     /**
-    * Class Constructor
-    * @param string $name : The name of the radio group
-    */
+     * Class Constructor
+     * @param string $name : The name of the radio group
+     */
     private $name;
-	 /**
-    * Class Constructor
-    * @param string $options : The number of options the radio group
-    */
+    /**
+     * Class Constructor
+     * @param string $options : The number of options the radio group
+     */
     private $options;
-	 /**
-    * Class Constructor
-    * @param string $label : The label of options the radio group
-    */
+    /**
+     * Class Constructor
+     * @param string $label : The label of options the radio group
+     */
     private $label;
-	 /**
-    * Class Constructor
-    * @param string $cssClass : The class of the radio button
-    */
+    /**
+     * Class Constructor
+     * @param string $cssClass : The class of the radio button
+     */
     private $cssClass;
-	/**
-	
-    * Class Constructor
-    * @param string $checked : set an option as checked in the radio group
-    */
+    /**
+
+     * Class Constructor
+     * @param string $checked : set an option as checked in the radio group
+     */
     private $checked;
-      /**
+    /**
      *
      * Object to hold the dom document
      *
      * @var string Object $objDom
      * @access private
      */
-	 
     private $objDom;
-	  /**
-    *
-    * Intialiser for the htmldom BUTTON object
-    *
-    * @access public
-    * @return void
-    *
-    */
-	public function init()
-    {
+
+    /**
+     *
+     * Intialiser for the htmldom BUTTON object
+     *
+     * @access public
+     * @return void
+     *
+     */
+    public function init() {
         // Instantiate the built in PHP DOM extension and create DOM document.
         $this->objDom = new DOMDocument();
     }
-	/**
+
+    /**
      *
      * Standard createRadio function to render the radio using the DOM document
      * object
@@ -124,49 +112,39 @@ class htmlradio extends object
      * @param <type> $type
      * @return <type>
      */
-	public function createRadio($caption=null) {
-	$radio = $this->objDom-> createElement ('input');
-	if ($this->name) {
-		$radio ->setAttribute('name', $this->name);
-		} 
-	if ($this->type) {
-		$radio -> setAttribute('type', $this->type);
-		}
-	if ($this->value) {
-		$radio ->setAttribute('value', $this->value);
-		}
-	if ($this->checked) {
-		$radio ->setAttribute('checked', $this->checked);
-		}
-	if ($this->cssClass) {
-		$radio ->setAttribute('class', $this->cssClass);
-		}
-	        // If there is an onclick event specified, add it as an attribute.
+    public function createRadio($caption=null) {
+        $radio = $this->objDom->createElement('input');
+        if ($this->name) {
+            $radio->setAttribute('name', $this->name);
+        }
+        if ($this->type) {
+            $radio->setAttribute('type', $this->type);
+        }
+        if ($this->value) {
+            $radio->setAttribute('value', $this->value);
+        }
+        if ($this->checked) {
+            $radio->setAttribute('checked', $this->checked);
+        }
+        if ($this->cssClass) {
+            $radio->setAttribute('class', $this->cssClass);
+        }
+        // If there is an onclick event specified, add it as an attribute.
         $radio = $this->objDom->appendChild($radio);
         $ret = $this->objDom->saveHTML();
         //die($ret);
         return $ret;
     }
-	/**
-    * Method that adds a options to 
-    * the radio group
-    * @param string $label : The label that goes with the option
-    * @param string $value : The value for a give option
-    
-    */
-    public function addOption($value,$label)
-    {
-        $this->options[$value] = $label;
-    }
-	     /**
-     * Method to show the option group
+
+    /**
+     * Method that adds a options to
+     * the radio group
+     * @param string $label : The label that goes with the option
+     * @param string $value : The value for a give option
+
      */
-    public function show() {
-        if (strtolower($this->breakSpace) == 'table') {
-            return $this->showTable();
-        } else {
-            return $this->showNormal();
-        }
+    public function addOption($value, $label) {
+        $this->options[$value] = $label;
     }
 
     /**
@@ -188,7 +166,8 @@ class htmlradio extends object
 
         $breakSpace = '';
         if (empty($this->options)) {
-            $this->options = 1;
+            $option = array(1,2);
+            $this->options = $option;
         }
 
         foreach ($this->options as $opt => $lbl) {
@@ -208,13 +187,13 @@ class htmlradio extends object
 
             $this->cssId = $cssId;
             //Create Radio Button for this option
-            $thisRadio  = $this->createRadio();
+            $thisRadio = $this->createRadio();
             //Create label for the option
             $label = new label($lbl, $cssId);
             $label = $label->show();
 
             $breakSpace = $this->breakSpace;
-            $str .= $thisRadio.$label;
+            $str .= $thisRadio . $label;
         }
 
         return $str;
@@ -249,12 +228,12 @@ class htmlradio extends object
 
             $this->cssId = $cssId;
             //Create Radio Button for this option
-            $thisRadio  = $this->createRadio();
+            $thisRadio = $this->createRadio();
             //Create label for the option
             $label = new label($lbl, $cssId);
             $label = $label->show();
 
-            $str = $thisRadio.$label;
+            $str = $thisRadio . $label;
 
             $table->addCell($str, $equalColumns . '%');
 
@@ -277,22 +256,21 @@ class htmlradio extends object
         return $table->show();
     }
 
-}
- /**
-     *
-     * A standard setter. The following params may be set here
-     * $size - Set the size of the input element
-     * $class - A CSS class to use in the input element
-     * $value - Set the value of the input element
-     * $type  - Set the vtype (Vertical Orientation) of the input element
-     *
-     *
-     * @param string $param The name of the parameter to set
-     * @param string $value The value to set the parameter to
-     * @access public
-     */
-    public function setValue($param, $value) {
-        $this->$param = $value;
+/**
+ *
+ * A standard setter. The following params may be set here
+ * $size - Set the size of the input element
+ * $class - A CSS class to use in the input element
+ * $value - Set the value of the input element
+ * $type  - Set the vtype (Vertical Orientation) of the input element
+ *
+ *
+ * @param string $param The name of the parameter to set
+ * @param string $value The value to set the parameter to
+ * @access public
+ */
+public function setValue($param, $value) {
+    $this->$param = $value;
     }
 
     /**
@@ -308,7 +286,6 @@ class htmlradio extends object
     public function getValue($param) {
         return $this->$param;
     }
+
 }
-	
-	
 ?>
