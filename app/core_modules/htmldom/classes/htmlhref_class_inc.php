@@ -14,7 +14,7 @@
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
  * @version   $Id: href_class_inc.php 11055 2008-10-25 16:25:24Z charlvn $
  * @link      http://avoir.uwc.ac.za
- * example    $str = $this->newObject("htmlhref", "htmldom");
+ * @example    $str = $this->newObject("htmlhref", "htmldom");
  *            $str->setValue("link", "#");
  *            $str->setValue("text", "Click Here");
  *            $str->setValue("other", "id=testclick");
