@@ -155,7 +155,26 @@ class htmlcalendar extends object {
 
     /**
      * Method to render the textinput and popup window
-     *
+     * Example
+     * $htmlInput = $this->getObject('htmlcalendar', 'htmldom');
+     * $htmlInput->setValue('name', 'toaster');
+     * $htmlInput->setValue('windowName', 'win');
+     * $htmlInput->setValue('mth', '02');
+     * $htmlInput->setValue('day', '23');
+     * $htmlInput->setValue('year', '2010');
+     * $htmlInput->setValue('id', 'caltext');
+     * $htmlInput->setValue('type', 'text');
+     * $htmlInput->show();
+     * 
+     * @param <type> $windowName
+     * @param <type> $name
+     * @param <type> $value
+     * @param <type> $css
+     * @param <type> $vtype
+     * @param <type> $id
+     * @param <type> $mth
+     * @param <type> $day
+     * @param <type> $year
      * @return string The html of the textinput with onclick calendar popup
      */
     public function show() {
@@ -182,25 +201,28 @@ class htmlcalendar extends object {
         if (empty($this->windowName)) {
             $this->windowName = "win";
         }
-
         //Create ahref dom object
         $ahref = $this->objDom->createElement('a');
+
         // Set the ahref attributes
         $ahref->setAttribute('href', '#');
-        $ahref->setAttribute('onclick', "window.open('core_modules/htmlelements/classes/cal.php','" . $this->windowName . "','width=350,height=200'); return false\");");
+        $ahref->setAttribute('onclick', "window.open('core_modules/htmlelements/classes/cal.php','" . $this->windowName . "','width=350,height=200'); return false");
 
         //Create image dom object
         $img = $this->objDom->createElement('img');
+
         // Set the image attributes
         $img->setAttribute('src', "core_modules/htmlelements/resources/images/schedule_ico.gif");
         //Add img as child to ahref
         $ahref->appendChild($img);
+
         //Append objects
         $this->objDom->appendChild($input);
         $this->objDom->appendChild($ahref);
         $ret = $this->objDom->saveHTML();
         return $ret;
     }
+
     /**
      *
      * A standard setter. The following params may be set here
@@ -239,5 +261,7 @@ class htmlcalendar extends object {
     public function getValue($param) {
         return $this->$param;
     }
+
 }
+
 ?>

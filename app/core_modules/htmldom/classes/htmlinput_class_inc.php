@@ -52,13 +52,6 @@ if (!
  * and must be instantiated using $this->newObject('htmlinput', 'htmldom')
  * Input class acts as an base class
  * for some commom objects
- * Example
- * $htmlInput = $this->getObject('htmlinput', 'htmldom');
- * $htmlInput->setValue('name', 'toaster');
- * $htmlInput->setValue('size', '10');
- * $htmlInput->setValue('value', 'hello there!');
- * $htmlInput->setValue('vtype', 'top');
- * $htmlInput->show();
  *
  * @author Paul Mungai
  * @copyright 2010
@@ -129,7 +122,13 @@ class htmlinput extends object {
      *
      * Standard show function to render the input using the DOM document
      * object
-     *
+     * Example
+     * $htmlInput = $this->getObject('htmlinput', 'htmldom');
+     * $htmlInput->setValue('name', 'toaster');
+     * $htmlInput->setValue('size', '10');
+     * $htmlInput->setValue('value', 'hello there!');
+     * $htmlInput->setValue('vtype', 'top');
+     * $htmlInput->show();
      *
      * @param <type> $size
      * @param <type> $name
