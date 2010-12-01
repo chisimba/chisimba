@@ -96,7 +96,7 @@ class htmlhref extends object {
         if($this->name) {
             $href->setAttribute('name', $this->name);
         }
-        if ($this->link) {
+        if($this->link) {
             $href->setAttribute('href', $this->link);
         }
         if($this->text) {
