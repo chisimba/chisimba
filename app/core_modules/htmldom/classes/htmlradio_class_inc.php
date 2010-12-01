@@ -33,9 +33,7 @@ if (!
  * @copyright 2010
  *
  */
-class htmlradio extends object
-{
- 
+class htmlradio extends object {
 
     /**
      * Selected radio button
@@ -64,7 +62,7 @@ class htmlradio extends object
      * Class Constructor
      * @param string $options : The number of options the radio group
      */
-    private $options;
+    private $options = array();
     /**
      * Class Constructor
      * @param string $label : The label of options the radio group
@@ -148,8 +146,20 @@ class htmlradio extends object
     public function addOption($value, $label) {
         $this->options[$value] = $label;
     }
+
     /**
      * Method to show the option group
+     * Example:
+     * $htmlInput = $this->getObject('htmlradio', 'htmldom');
+     * $htmlInput->setValue('name', 'toaster');
+     * $htmlInput->setValue('value', '1');
+     * $htmlInput->setValue('type', 'radio');
+     * $htmlInput->setValue('checked', 'checked');
+     * $htmlInput->setValue('cssClass', 'caltex');
+     * $htmlInput->setValue('label', 'Caltex');
+     * $htmlInput->addOption("1","Yes");
+     * $htmlInput->addOption("0","No");
+     * $htmlInput->show();
      */
     public function show() {
         if (strtolower($this->breakSpace) == 'table') {
@@ -166,9 +176,15 @@ class htmlradio extends object
         $str = '';
 
         $breakSpace = '';
+
+        //Add default option if none is supplied
         if (empty($this->options)) {
-            $option = array(1,2);
-            $this->options = $option;
+            $option = 1;
+            if ($this->label) {
+                $this->options[$option] = $this->label;
+            } else {
+                $this->options[$option] = " ";
+            }
         }
 
         foreach ($this->options as $opt => $lbl) {
@@ -212,6 +228,15 @@ class htmlradio extends object
 
         $equalColumns = (100 - (100 % $this->tableColumns)) / $this->tableColumns;
 
+        //Add default option if none is supplied
+        if (empty($this->options)) {
+            $option = 1;
+            if ($this->label) {
+                $this->options[$option] = $this->label;
+            } else {
+                $this->options[$option] = " ";
+            }
+        }
         foreach ($this->options as $opt => $lbl) {
             $counter++;
 
@@ -257,21 +282,21 @@ class htmlradio extends object
         return $table->show();
     }
 
-/**
- *
- * A standard setter. The following params may be set here
- * $size - Set the size of the input element
- * $class - A CSS class to use in the input element
- * $value - Set the value of the input element
- * $type  - Set the vtype (Vertical Orientation) of the input element
- *
- *
- * @param string $param The name of the parameter to set
- * @param string $value The value to set the parameter to
- * @access public
- */
-public function setValue($param, $value) {
-    $this->$param = $value;
+    /**
+     *
+     * A standard setter. The following params may be set here
+     * $size - Set the size of the input element
+     * $class - A CSS class to use in the input element
+     * $value - Set the value of the input element
+     * $type  - Set the vtype (Vertical Orientation) of the input element
+     *
+     *
+     * @param string $param The name of the parameter to set
+     * @param string $value The value to set the parameter to
+     * @access public
+     */
+    public function setValue($param, $value) {
+        $this->$param = $value;
     }
 
     /**
@@ -289,4 +314,5 @@ public function setValue($param, $value) {
     }
 
 }
+
 ?>
