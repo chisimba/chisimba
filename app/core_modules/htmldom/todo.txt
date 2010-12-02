@@ -13,8 +13,7 @@ selectbox_class_inc.php		[]
 form_class_inc.php		[There is a big opportunity to do this entirely as DOM]
 formtags_class_inc.php		[Does it need doing?]
 geticon_class_inc.php		[Derek]
-image_class_inc.php		[Nguni]
-link_class_inc.php		[Nguni]
+link_class_inc.php		[Nguni -- same as href. didn't finish it.]
 iframe_class_inc.php		[Michael]
 marquee_class_inc.php		[Michael]
 frameset_class_inc.php		[jerusha]
@@ -72,6 +71,7 @@ label_class_inc.php		[Paul M]
 radio_class_inc.php		[Jerusha]
 textarea_class_inc.php		[Nguni]
 textinput_class_inc.php		[Michael]
+image_class_inc.php		[Nguni]
 
 
 /**
