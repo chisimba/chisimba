@@ -148,7 +148,7 @@ class htmlcheckbox extends object {
      * @param <type> $type
      * @return <type>
      */
-    public function createCheckbox($caption=null) {
+    public function show($caption=null) {
         $checkbox = $this->objDom->createElement('input');
         // Set the input attributes
         if ($this->name) {
@@ -160,14 +160,14 @@ class htmlcheckbox extends object {
         if ($this->type) {
             $checkbox->setAttribute('type', $this->type);
         }
-		if ($this->label) {
-            $checkbox->setAttribute('label', $this->label);
+		if ($this->cssId) {
+            $checkbox->setAttribute('id', $this->cssId);
         }
 		if ($this->ischecked) {
-            $radio->setAttribute('checked', $this->checked);
+            $checkbox->setAttribute('checked', $this->ischecked);
         }
         if ($this->cssClass) {
-            $radio->setAttribute('class', $this->cssClass);
+            $checkbox->setAttribute('class', $this->cssClass);
         }
         $checkbox = $this->objDom->appendChild($checkbox);
         $ret = $this->objDom->saveHTML();
@@ -252,38 +252,6 @@ class htmlcheckbox extends object {
     public function getValue($param) {
         return $this->$param;
     }
-	/**
-  * Method to render the checkbox as HTML code
-  *
-  * @return string the HTML of the checkbox
-  * @access public
-  */
-  public function show()
-  {
-      $str='<input type="checkbox"';
-    if($this->name){
-        $str.=' name="'.$this->name.'"';
-    }
-    if($this->cssClass){
-        $str.=' class="'.$this->cssClass.'"';
-    }
-    if ($this->cssId) {
-            $str .= ' id="' . $this->cssId . '"';
-    }
-    if($this->ischecked){
-        $str.=' checked="checked" ';
-    }
-    if ($this->value) {
-         $str.= ' value="'.$this->value.'"';
-    }
-    if($this->extra){
-        $str.=' '.$this->extra;
-    }
-    $str.=' />';
-    //This position of the label will depend on the form's display type
-    //$str.=$this->label;
-    return $str;
-  }
 }
 
 ?>
