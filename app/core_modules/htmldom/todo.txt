@@ -6,7 +6,6 @@ frameset_class_inc.php		[]
 highlightlabels_class_inc.php	[]
 htmlarea_class_inc.php		[]
 htmltable_class_inc.php		[]
-iframe_class_inc.php		[]
 layer_class_inc.php		[]
 marquee_class_inc.php		[]
 selectbox_class_inc.php		[]
@@ -16,10 +15,10 @@ form_class_inc.php		[There is a big opportunity to do this entirely as DOM]
 formtags_class_inc.php		[Does it need doing?]
 geticon_class_inc.php		[Derek]
 image_class_inc.php		[Nguni]
-inputmasks_class_inc.php	[????????? -- Salman????????]
 link_class_inc.php		[Nguni]
-textinput_class_inc.php		[Michael]
+iframe_class_inc.php		[Michael]
 
+inputmasks_class_inc.php	[????????? -- Salman????????]
 colorpicker_class_inc.php	[??????]
 copytoclipboard_class_inc.php	[??????]
 cssfixlength_class_inc.php	[??????]
@@ -29,7 +28,6 @@ display_class_inc.php		[??????]
 domtt_class_inc.php		[??????]
 extjs_class_inc.php		[??????]
 firebug_class_inc.php		[??????]
-
 _important.txt
 mischtml_class_inc.php		[??????]
 mouseoverpopup_class_inc.php	[?????]
@@ -72,7 +70,7 @@ input_class_inc.php		[Paul M, Done]
 label_class_inc.php		[Paul M]
 radio_class_inc.php		[Jerusha]
 textarea_class_inc.php		[Nguni]
-
+textinput_class_inc.php		[Michael]
 
 
 /**
