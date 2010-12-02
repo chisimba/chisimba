@@ -10,7 +10,7 @@
  *
  *
  * @category  Chisimba
- * @package   htmlelements
+ * @package   htmldom
  * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
  * @author    Nguni Phakela
  * @copyright 2007 Wesley Nitsckie

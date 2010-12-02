@@ -19,8 +19,9 @@
  * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
  * @category  Chisimba
- * @package   htmlelements
- * @author Wesley Nitsckie <wnitsckie@uwc.ac.za>
+ * @package   htmldom
+ * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
+ * @autho     Nguni Phakela
  * @copyright 2004-2007, University of the Western Cape & AVOIR Project
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
  * @version   $Id: htmltextarea_class_inc.php 19909 2010-12-1 15:43:46 nguni52 $
