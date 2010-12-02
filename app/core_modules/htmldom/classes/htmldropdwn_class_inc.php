@@ -213,6 +213,8 @@ class htmldropdwn extends object {
     /**
      *
      * A standard setter. The following params may be set here
+     * $name - The name used in the select
+     * $size - The size of the select
      * $onchange - A javascript that is executed on changing the select option
      * $cssClass - A CSS class to use in the select
      * $cssId - A CSS id to use in the select
