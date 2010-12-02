@@ -42,14 +42,22 @@ if (!
  * Input class acts as an base class
  * for some commom objects
  * Example
+ * $htmlInput->setValue('name', 'toaster');
+ * $htmlInput->setValue('size', '10');
+ * $htmlInput->setValue('label', 'checkbox1');
+ * $htmlInput->setValue('value', 'hello there!');
+ * $htmlInput->setValue('ischecked', '');
+ * $str = $htmlInput->show();
  * $htmlInput = $this->getObject('htmlcheckbox', 'htmldom');
  * $htmlInput->setValue('name', 'toaster');
  * $htmlInput->setValue('size', '10');
+ * $htmlInput->setValue('label', 'checkbox1');
  * $htmlInput->setValue('value', 'hello there!');
- * $htmlInput->setValue('vtype', 'top');
- * $htmlInput->show();
- *
- * @author Jerusha Wambui
+ * $htmlInput->setValue('ischecked', 'checked');
+ * $str .= $htmlInput->show();
+ *@author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
+ * @author    Kariuki wa Njenga <jkariuki@uwc.ac.za>
+ * @author Jerusha Wambui<jerusha@uonbi.ac.ke>
  * @copyright 2010
  *
  */
@@ -140,7 +148,7 @@ class htmlcheckbox extends object {
      * @param <type> $type
      * @return <type>
      */
-    public function show($caption=null) {
+    public function createCheckbox($caption=null) {
         $checkbox = $this->objDom->createElement('input');
         // Set the input attributes
         if ($this->name) {
@@ -152,8 +160,11 @@ class htmlcheckbox extends object {
         if ($this->type) {
             $checkbox->setAttribute('type', $this->type);
         }
+		if ($this->label) {
+            $checkbox->setAttribute('label', $this->label);
+        }
 		if ($this->ischecked) {
-            $radio->setAttribute('checked', $this->false);
+            $radio->setAttribute('checked', $this->checked);
         }
         if ($this->cssClass) {
             $radio->setAttribute('class', $this->cssClass);
@@ -163,6 +174,54 @@ class htmlcheckbox extends object {
         return $ret;
     }
 
+	/**
+   * Method to set the text of
+   * the accompanying label
+   *
+   * @param string $label value to be displayed
+   * @return void
+   * @access public
+   */
+  public function setLabel($label)
+  {
+      $this->label=$label;
+  }
+
+  /**
+  * Method to set the css class of
+  * the element as defined in the
+  * main css document
+  *
+  * @param $cssClass string The css class to be associated with the checkbox
+  */
+  public function setCSS($cssClass)
+  {
+      $this->cssClass=$cssClass;
+  }
+
+  /**
+   * Method to set the DOM Id of the elements
+   *
+   * @param string $cssId the Id
+   * @return void
+   * @access public
+   */
+   public function setId($cssId)
+    {
+        $this->cssId = $cssId;
+    }
+
+  /**
+  * Method to set the checkbox to checked or unchecked
+  *
+  * @param $isChecked boolean toggles between checked and unchecked stated
+  * @return void
+  * @access public
+  */
+  public function setChecked($isChecked)
+  {
+      $this->ischecked=$isChecked;
+  }
     /**
      *
      * A standard setter. The following params may be set here
@@ -193,7 +252,38 @@ class htmlcheckbox extends object {
     public function getValue($param) {
         return $this->$param;
     }
-
+	/**
+  * Method to render the checkbox as HTML code
+  *
+  * @return string the HTML of the checkbox
+  * @access public
+  */
+  public function show()
+  {
+      $str='<input type="checkbox"';
+    if($this->name){
+        $str.=' name="'.$this->name.'"';
+    }
+    if($this->cssClass){
+        $str.=' class="'.$this->cssClass.'"';
+    }
+    if ($this->cssId) {
+            $str .= ' id="' . $this->cssId . '"';
+    }
+    if($this->ischecked){
+        $str.=' checked="checked" ';
+    }
+    if ($this->value) {
+         $str.= ' value="'.$this->value.'"';
+    }
+    if($this->extra){
+        $str.=' '.$this->extra;
+    }
+    $str.=' />';
+    //This position of the label will depend on the form's display type
+    //$str.=$this->label;
+    return $str;
+  }
 }
 
 ?>
