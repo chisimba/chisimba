@@ -2,13 +2,18 @@
 /**
  * Image class for Chisimba
  *
- * HTML control class to create image tags using the php dom class
- * The other attributes that were in image in htmlelements have since been
+ * This file contains the image class which is used to generate
+ * HTML image elements for forms. It was modified after the original
+ * HTMLelements image class by Nguni Phakela as part of the Chisimba
+ * hackathon 2010 12 02. Unlike HTMLelements, this class extends object
+ * and must be instantiated using $this->newObject('htmlimage', 'htmldom').The
+ * other attributes that were in image in htmlelements have since been
  * deprecated and these can be set using css. These are namely:
  * align
  * border
  * hspace
  * vspace
+ *
  *
  * PHP version 5
  *
@@ -114,7 +119,27 @@ class htmlimage extends object {
      * @var    unknown
      * @access private
      */
-    private $onclick;
+    private $onclick;/**
+     *
+     * Object to hold the dom document
+     *
+     * @var string Object $objDom
+     * @access private
+     */
+    private $objDom;
+
+
+    /**
+     *
+     * Intialiser for the htmldom object
+     *
+     * @access public
+     * @return void
+     *
+     */
+    public function init() {
+        $this->objDom = new DOMDocument;
+    }
 
     /**
      *
@@ -184,9 +209,9 @@ class htmlimage extends object {
     /**
      *
      * A standard setter. The following params may be set here
-     * $link - Specifies the destination of a link
-     * $text- The text that is displayed for the link
-     * $other - Any other attribute that is unknown that the user wants to set
+     * $width - Specifies the width of the image
+     * $height- Specifies the height of the image
+     * $src - Specifies the source of the image
      *
      * @param string $param The name of the parameter to set
      * @param string $value The value to set the parameter to
@@ -197,14 +222,15 @@ class htmlimage extends object {
     }
 
     /**
-      * A standard getter. The following params may be retrieved here
-      * $link - Specifies the destination of a link
-      * $text- The text that is displayed for the link
-      * $other - Any other attribute that is unknown that the user wants to set
-      *
-      * @param string $param The name of the parameter to set
-      * @access public
-      */
+     * A standard getter. The following params may be retrieved here
+     * A standard setter. The following params may be set here
+     * $width - Specifies the width of the image
+     * $height- Specifies the height of the image
+     * $src - Specifies the source of the image
+     *
+     * @param string $param The name of the parameter to set
+     * @access public
+     */
     public function getValue($param) {
         return $this->$param;
     }

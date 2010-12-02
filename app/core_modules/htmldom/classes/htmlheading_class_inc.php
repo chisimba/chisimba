@@ -4,7 +4,7 @@
  * Class to create and display headings using the <Hn> tag where n=1 to 6
  * This can be used to insert text into the appropriate heading, and can also
  * specify the cssClass to use. It defaults to <H3>.
- * This class uses the DOM extension
+ * This class uses the PHP DOM extension
  *
  * PHP version 5
  *
@@ -12,10 +12,10 @@
  * @category  Chisimba
  * @package   htmldom
  * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
- * @author    Nguni Phakela
+ * @author    Nguni Phakela <nonkululeko.phakela@wits.ac.za>
  * @copyright 2007 Wesley Nitsckie
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
- * @version   $Id: href_class_inc.php 11055 2008-10-25 16:25:24Z charlvn $
+ * @version   $Id: htmlheading_class_inc.php 11055 2008-10-25 16:25:24Z charlvn $
  * @link      http://avoir.uwc.ac.za
  * @example   $str = $this->newObject("htmlheading", "htmldom");
  *            $str->setValue("type", "h2");

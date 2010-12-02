@@ -3,6 +3,12 @@
  * Class htmltextarea extends object. Textarea class to use to make textarea
  * inputs. This class uses the DOM extension.
  *
+ * This file contains the textarea class which is used to generate
+ * HTML textarea elements for forms. It was modified after the original
+ * HTMLelements textarea class by Nguni Phakela as part of the Chisimba
+ * hackathon 2010 12 02. Unlike HTMLelements, this class extends object
+ * and must be instantiated using $this->newObject('htmltextarea', 'htmldom')
+ *
  * PHP version 5
  *
  * This program is free software; you can redistribute it and/or modify
@@ -21,7 +27,7 @@
  * @category  Chisimba
  * @package   htmldom
  * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
- * @autho     Nguni Phakela
+ * @autho     Nguni Phakela <nonkululeko.phakela@wits.ac.za>
  * @copyright 2004-2007, University of the Western Cape & AVOIR Project
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
  * @version   $Id: htmltextarea_class_inc.php 19909 2010-12-1 15:43:46 nguni52 $
@@ -226,6 +232,7 @@ $GLOBALS['kewl_entry_point_run']) {
     /**
      * A standard fetcher. The following params may be fetched here
      * $size - Fetch the size of the input element
+     * $id - Set a css id to use in the textarea element
      * $class - Fetch the CSS class to use in the input element
      * $value - Fetch the value of the input element
      *

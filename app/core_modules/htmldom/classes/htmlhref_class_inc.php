@@ -4,16 +4,22 @@
  * Simple class for outputting '<a href' links>
  * This class uses the DOM extension
  *
+ * This file contains the <a> class which is used to generate
+ * HTML <a> element for forms. It was modified after the original
+ * HTMLelements <a> class by Nguni Phakela as part of the Chisimba
+ * hackathon 2010 12 02. Unlike HTMLelements, this class extends object
+ * and must be instantiated using $this->newObject('htmlhref', 'htmldom').
+ *
  * PHP version 5
  *
  *
  * @category  Chisimba
  * @package   htmldom
  * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
- * @author    Nguni Phakela
+ * @author    Nguni Phakela <nonkululeko.phakela@wits.ac.za>
  * @copyright 2007 Wesley Nitsckie
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
- * @version   $Id: href_class_inc.php 11055 2008-10-25 16:25:24Z charlvn $
+ * @version   $Id: htmlhref_class_inc.php 11055 2008-10-25 16:25:24Z charlvn $
  * @link      http://avoir.uwc.ac.za
  * @example    $str = $this->newObject("htmlhref", "htmldom");
  *            $str->setValue("link", "#");
@@ -74,7 +80,7 @@ class htmlhref extends object {
 
     /**
      *
-     * Intialiser for the htmldom <A> object
+     * Intialiser for the htmldom object
      *
      * @access public
      * @return void
