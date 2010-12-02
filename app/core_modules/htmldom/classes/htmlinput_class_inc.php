@@ -104,7 +104,23 @@ class htmlinput extends object {
      *
      */
     private $css;
-
+    /**
+     * Holds the id value of the input element, and is set using
+     * $this->setValue($param, $value)
+     *
+     * @var string $id
+     * @access private
+     *
+     */
+    private $id;
+    /**
+     *
+     * Object to hold the dom document
+     *
+     * @var string Object $objDom
+     * @access private
+     */
+    private $objDom;
     /**
      *
      * Intialiser for the htmldom Input object
@@ -128,6 +144,7 @@ class htmlinput extends object {
      * $htmlInput->setValue('size', '10');
      * $htmlInput->setValue('value', 'hello there!');
      * $htmlInput->setValue('vtype', 'top');
+     * $htmlInput->setValue('id', 'toast');
      * $htmlInput->show();
      *
      * @param <type> $size
@@ -155,6 +172,9 @@ class htmlinput extends object {
         if ($this->vtype) {
             $input->setAttribute('vtype', $this->vtype);
         }
+        if ($this->id) {
+            $input->setAttribute('id', $this->id);
+        }
         $input = $this->objDom->appendChild($input);
         $ret = $this->objDom->saveHTML();
         return $ret;
@@ -167,6 +187,7 @@ class htmlinput extends object {
      * $class - A CSS class to use in the input element
      * $value - Set the value of the input element
      * $vtype  - Set the vtype (Vertical Orientation) of the input element
+     * $id - Set the id of the input element
      *
      *
      * @param string $param The name of the parameter to set
@@ -183,6 +204,7 @@ class htmlinput extends object {
      * $class - Fetch the CSS class to use in the input element
      * $value - Fetch the value of the input element
      * $vtype  - Fetch the vtype (Vertical Orientation) of the input element
+     * $id - Fetch the id of the input element
      *
      * @param string $param The name of the parameter to set
      * @access public
