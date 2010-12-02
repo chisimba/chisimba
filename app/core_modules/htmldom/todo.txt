@@ -16,7 +16,6 @@ link_class_inc.php		[Nguni -- same as href. didn't finish it.]
 iframe_class_inc.php		[Michael]
 marquee_class_inc.php		[Michael]
 frameset_class_inc.php		[jerusha]
-fieldset_class_inc.php		[Nguni]
 
 inputmasks_class_inc.php	[????????? -- Salman????????]
 colorpicker_class_inc.php	[??????]
@@ -72,7 +71,7 @@ radio_class_inc.php		[Jerusha, Done]
 textarea_class_inc.php		[Nguni]
 textinput_class_inc.php		[Michael]
 image_class_inc.php		[Nguni]
-
+fieldset_class_inc.php		[Nguni]
 
 /**
 * NOT USEFUL
