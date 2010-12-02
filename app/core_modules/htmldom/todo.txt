@@ -1,9 +1,6 @@
 abhtmlbase_class_inc.php	[No longer needed]
 ajaxsearch_class_inc.php	[No]
 alertbox_class_inc.php		[No]
-button_class_inc.php 		[Derek, done]
-calendar_class_inc.php		[Paul M, Done]
-checkbox_class_inc.php		[Jerusha]
 colorpicker_class_inc.php	[??????]
 copytoclipboard_class_inc.php	[??????]
 cssfixlength_class_inc.php	[??????]
@@ -12,7 +9,6 @@ datepicker_class_inc.php	[??????]
 display_class_inc.php		[??????]
 div_class_inc.php		[]
 domtt_class_inc.php		[??????]
-dropdown_class_inc.php		[Nguni]
 extjs_class_inc.php		[??????]
 fieldset_class_inc.php		[]
 fieldsetex_class_inc.php	[]
@@ -22,20 +18,16 @@ formtags_class_inc.php		[Does it need doing?]
 frames_class_inc.php		[]
 frameset_class_inc.php		[]
 geticon_class_inc.php		[Derek]
-hiddeninput_class_inc.php	[Replaced by textinput]
+
 highlightlabels_class_inc.php	[]
-href_class_inc.php		[Luci]
 htmlarea_class_inc.php		[]
 htmlbase_class_inc.php		[No longer needed]
-htmlheading_class_inc.php	[]
 htmltable_class_inc.php		[]
 ifhtml_class_inc.php		[No longer needed]
 iframe_class_inc.php		[]
 image_class_inc.php		[]
 _important.txt
-input_class_inc.php		[Paul M, Done]
 inputmasks_class_inc.php	[????????? -- Salman????????]
-label_class_inc.php		[Paul M]
 layer_class_inc.php		[]
 link_class_inc.php		[]
 marquee_class_inc.php		[]
@@ -43,7 +35,6 @@ mischtml_class_inc.php		[??????]
 mouseoverpopup_class_inc.php	[?????]
 multitabbedbox_class_inc.php	[?????]
 navbuttons_class_inc.php	[?????]
-radio_class_inc.php		[Jerusha]
 roundcorners_class_inc.php	[??????]
 scriptaculous_class_inc.php	[??????]
 selectbox_class_inc.php		[]
@@ -57,7 +48,6 @@ tabbedbox_class_inc.php		[??????]
 tabber_class_inc.php		[??????]
 tabcontent_class_inc.php	[??????]
 tabpane_class_inc.php		[??????]
-textarea_class_inc.php		[Nguni]
 textinput_class_inc.php		[Michael]
 tigramenu_class_inc.php		[??????]
 tigranode_class_inc.php		[??????]
@@ -66,3 +56,29 @@ timepicker_class_inc.php	[??????]
 tooltip_class_inc.php		[??????]
 validator_class_inc.php		[??????]
 windowpop_class_inc.php		[??????]
+
+
+
+/***************************************
+*   DONE
+*
+*
+*****************************************/
+button_class_inc.php 		[Derek, done]
+checkbox_class_inc.php		[Jerusha]
+calendar_class_inc.php		[Paul M, Done]
+dropdown_class_inc.php		[Nguni]
+href_class_inc.php		[Luci, Nguni]
+htmlheading_class_inc.php	[Nguni]
+input_class_inc.php		[Paul M, Done]
+label_class_inc.php		[Paul M]
+radio_class_inc.php		[Jerusha]
+textarea_class_inc.php		[Nguni]
+
+
+
+/**
+* NOT USEFUL
+*
+*/
+hiddeninput_class_inc.php	[Replaced by textinput]
