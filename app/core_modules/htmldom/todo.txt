@@ -3,8 +3,6 @@ highlightlabels_class_inc.php	[]
 htmlarea_class_inc.php		[]
 htmltable_class_inc.php		[]
 selectbox_class_inc.php		[]
-
-div_class_inc.php		[Paul M]
 form_class_inc.php		[There is a big opportunity to do this entirely as DOM]
 formtags_class_inc.php		[Does it need doing?]
 geticon_class_inc.php		[Derek]
@@ -70,6 +68,7 @@ textinput_class_inc.php		[Michael]
 image_class_inc.php		[Nguni]
 fieldset_class_inc.php		[Nguni]
 iframe_class_inc.php		[Michael]
+div_class_inc.php		[Paul M, Done]
 /**
 * NOT USEFUL
 *
