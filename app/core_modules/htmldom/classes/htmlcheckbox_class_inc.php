@@ -1,37 +1,26 @@
 <?php
 
 /**
- * Input class for Chisimba using the DOM Object
- *
  * Input class acts as an base class for some commom objects
+ * eg. buttons , text ,radio buttons ,check boxes
  * This file contains the input class which is used to generate
  * HTML input elements for forms. It was modified after the original
  * HTMLelements input class by Paul Mungai as part of the Chisimba
  * hackathon 2010 11 29. Unlike HTMLelements, this class extends object
  * and must be instantiated using $this->newObject('htmlinput', 'htmldom')
- * PHP version 5
+ * Input class acts as an base class
+ * for some commom objects
+ * Example
+ * $radiobutton = $this->getObject('htmlcheckbox', 'htmldom');
+ * $radiobutton->setValue('name', 'checkboxname');
+ * $radiobutton->setValue('value', '1');
+ * $radiobutton->setValue('type', 'checkbox');
+ * $radiobutton->show();
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the
- * Free Software Foundation, Inc.,
- * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * @author Jerusha Wambui
+ * @copyright 2010
  *
- * @category  Chisimba
- * @package   htmlelements
- * @author    Paul Mungai <paul.mungai@wits.ac.za>
- * @copyright 2010, University of the Western Cape & AVOIR Project
- * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
- * @link      http://avoir.uwc.ac.za
  */
-// security check - must be included in all scripts
 if (!
         /**
          * Description for $GLOBALS
@@ -53,14 +42,14 @@ if (!
  * Input class acts as an base class
  * for some commom objects
  * Example
- * $htmlInput = $this->getObject('htmlinput', 'htmldom');
+ * $htmlInput = $this->getObject('htmlcheckbox', 'htmldom');
  * $htmlInput->setValue('name', 'toaster');
  * $htmlInput->setValue('size', '10');
  * $htmlInput->setValue('value', 'hello there!');
  * $htmlInput->setValue('vtype', 'top');
  * $htmlInput->show();
  *
- * @author Paul Mungai
+ * @author Jerusha Wambui
  * @copyright 2010
  *
  */
@@ -96,10 +85,10 @@ class htmlcheckbox extends object {
      */
     private $name;
     /**
-     * Holds the vtype value of the input element, and is set using
+     * Holds the type value of the input element, and is set using
      * $this->setValue($param, $value)
      *
-     * @var string $vtype
+     * @var string $type
      * @access private
      *
      */
@@ -113,6 +102,28 @@ class htmlcheckbox extends object {
      * @return void
      *
      */
+	  /**
+     * Class Constructor
+     * @param string $cssClass : The class of the radio button
+     */
+   
+   
+    private $cssClass;
+    /**
+
+     * Class Constructor
+     * @param string $label : set an option as checked in the radio group
+     */
+    private $label;
+	  /**
+     *
+     * Object to hold the dom document
+     *
+     * @var string Object $objDom
+     * @access private
+     */
+    private $objDom;
+	
     public function init() {
         // Instantiate the built in PHP DOM extension and create DOM document.
         $this->objDom = new DOMDocument();
@@ -130,21 +141,24 @@ class htmlcheckbox extends object {
      * @return <type>
      */
     public function show($caption=null) {
-        $input = $this->objDom->createElement('input');
+        $checkbox = $this->objDom->createElement('input');
         // Set the input attributes
         if ($this->name) {
-            $input->setAttribute('name', $this->name);
+            $checkbox->setAttribute('name', $this->name);
         }
         if ($this->value) {
-            $input->setAttribute('value', $this->value);
+            $checkbox->setAttribute('value', $this->value);
         }
         if ($this->type) {
-            $input->setAttribute('type', $this->type);
+            $checkbox->setAttribute('type', $this->type);
         }
-		if ($this->checked) {
-            $input->setAttribute('checked', "checked");
+		if ($this->ischecked) {
+            $radio->setAttribute('checked', $this->false);
         }
-        $input = $this->objDom->appendChild($input);
+        if ($this->cssClass) {
+            $radio->setAttribute('class', $this->cssClass);
+        }
+        $checkbox = $this->objDom->appendChild($checkbox);
         $ret = $this->objDom->saveHTML();
         return $ret;
     }
