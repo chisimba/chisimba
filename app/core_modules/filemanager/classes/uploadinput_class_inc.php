@@ -47,6 +47,10 @@
  * @link      http://avoir.uwc.ac.za
  * @see       References to other sections (if any)...
  */
+
+define('TARGETDIRMODE_USER', 1);
+define('TARGETDIRMODE_CONTEXT', 2);
+
 $this->loadClass('filemanagerobject', 'filemanager');
 
 class uploadinput extends filemanagerobject {
@@ -79,7 +83,11 @@ class uploadinput extends filemanagerobject {
      * @var <type>
      */
     public $showTargetDir = TRUE;
-
+    /**
+     * Flag to set context or user target directory
+     * @var int
+     */
+    public $targetDirMode = TARGETDIRMODE_CONTEXT;
     /**
      * Constructor
      */
@@ -111,9 +119,12 @@ class uploadinput extends filemanagerobject {
         $tree = "";
         $targetDirLabel="";
         if ($this->showTargetDir) {
-            $tree = $objFolder->getTree('context', $this->objUser->userId(), 'htmldropdown');
-            if ($this->contextCode != '') {
+            if ($this->targetDirMode == TARGETDIRMODE_USER) {
+                $tree = $objFolder->getTree('users', $this->objUser->userId(), 'htmldropdown');
+            } else if ($this->targetDirMode == TARGETDIRMODE_CONTEXT && $this->contextCode != '') {
                 $tree = $objFolder->getTree('context', $this->contextCode, 'htmldropdown');
+            } else {
+                $tree = '';
             }
            $targetDirLabel= $objLanguage->languageText('mod_filemanager_saveuploadfilein', 'filemanager', 'Save Uploaded File in').':';
         }
