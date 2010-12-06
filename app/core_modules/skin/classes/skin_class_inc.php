@@ -178,7 +178,8 @@ class skin extends object
         //Load skin.conf
         $skinConfigFile = $skinPath . 'skin.conf';
         if (file_exists($skinConfigFile)) {
-            $skinData = $this->readConf($skinConfigFile);
+            $objSkinChooser = $this->getObject('skinchooser', 'skin');
+            $skinData = $objSkinChooser->readConf($skinConfigFile);
             $this->skinEngine = $skinData['SKIN_ENGINE'];
             return $this->skinEngine;
         } else {
