@@ -270,7 +270,8 @@ if(isset($stats))
 //print_r($extendedStats);
 // server pool stats
 
-$middleColumn .= '[IFRAME]'.$this->objConfig->getSiteRoot().$this->objConfig->getModuleUri().'cache/resources/apc.php[/IFRAME]';
+#$middleColumn .= '[IFRAME]'.$this->objConfig->getSiteRoot().$this->objConfig->getModuleUri().'cache/resources/apc.php[/IFRAME]';
+$middleColumn .= '[IFRAME]'.$this->objConfig->getSiteRoot().'core_modules/cache/resources/apc.php[/IFRAME]';
 
 $this->objWasher = $this->getObject('washout', 'utilities');
 $middleColumn = $this->objWasher->parseText($middleColumn);
