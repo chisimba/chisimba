@@ -674,10 +674,12 @@ class filemanager extends controller {
         $index = 0;
         $reason = "";
         foreach ($results as $row) {
-            $reason = $row['reason'];
-            $index++;
-            if ($index > 0) {
-                break;
+            if (array_key_exists("reason", $row)) {
+                $reason = $row['reason'];
+                $index++;
+                if ($index > 0) {
+                    break;
+                }
             }
         }
 
@@ -929,18 +931,18 @@ class filemanager extends controller {
         $objPreviewFolder = $this->getObject('previewfolder');
         $objPreviewFolder->editPermission = $folderPermission;
         $this->setVarByRef(
-            'table',
-            $objPreviewFolder->previewContent(
-                $subfolders,
-                $files,
-                $this->getParam("mode"),
-                $this->getParam("name"),
-                $symlinks,
-                explode(
-                    '____',
-                    $this->getParam('restriction')),
-                ($this->getParam('forcerestrictions') == 'yes')
-            )
+                'table',
+                $objPreviewFolder->previewContent(
+                        $subfolders,
+                        $files,
+                        $this->getParam("mode"),
+                        $this->getParam("name"),
+                        $symlinks,
+                        explode(
+                                '____',
+                                $this->getParam('restriction')),
+                        ($this->getParam('forcerestrictions') == 'yes')
+                )
         );
 
         $breadcrumbs = $this->objFolders->generateBreadCrumbs($folder['folderpath']);
