@@ -788,9 +788,9 @@ class user extends dbTable {
 
 
         if (file_exists($this->imagePath . $userId . '.jpg')) {
-            return '<img src="' . $this->imageUri . $userId . '.jpg' . $forceRefresh . '" alt="' . $alt . '" />';
+            return '<img class="full_user_image" src="' . $this->imageUri . $userId . '.jpg' . $forceRefresh . '" alt="' . $alt . '" />';
         } else {
-            return '<img src="' . $this->imageUri . 'default.jpg" alt="' . $alt . '" />';
+            return '<img class="full_user_image" src="' . $this->imageUri . 'default.jpg" alt="' . $alt . '" />';
         }
     }
 
@@ -833,9 +833,9 @@ class user extends dbTable {
         }
 
         if (file_exists($this->imagePath . $userId . '.jpg')) {
-            return '<img src="' . $this->imageUri . $userId . '_small.jpg" ' . $alt . '/>';
+            return '<img class="small_user_image"  src="' . $this->imageUri . $userId . '_small.jpg" ' . $alt . '/>';
         } else {
-            return '<img src="' . $this->imageUri . 'default_small.jpg" ' . $alt . '/>';
+            return '<img class="small_user_image" src="' . $this->imageUri . 'default_small.jpg" ' . $alt . '/>';
         }
     }
 
