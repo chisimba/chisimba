@@ -1620,6 +1620,10 @@ EXperimental for the Wall
     text-decoration:underline;
 }
 
+.wallposter {
+    font-weight: bold;
+}
+
 .small_user_image {
     float: left;
     height: 35px;
