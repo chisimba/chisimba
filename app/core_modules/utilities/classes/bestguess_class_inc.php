@@ -25,11 +25,11 @@
  * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
  * @category  Chisimba
- * @package   _MODULECODE
- * @author    _AUTHORNAME _EMAIL
+ * @package   utilities
+ * @author    Derek Keats <derek@dkeats.com>
  * @copyright 2007 AVOIR
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
- * @version   $Id: db_MODULECODE.php,v 1.2 2008-01-08 13:07:15 dkeats Exp $
+ * @version   $Id: bestguess_class_inc.php,v 1.2 2008-01-08 13:07:15 dkeats Exp $
  * @link      http://avoir.uwc.ac.za
  */
 
@@ -99,15 +99,22 @@ class bestguess extends object
         $uid = $this->getParam('userid', FALSE);
         if (!$uid) {
             // See if username is in the querystring
-            $chk = $this->getParam('userid', FALSE);
-            $getUid = $this->objUser->userId($chk);
+            $chk = $this->getParam('username', FALSE);
+            if ($chk) {
+                // It might be there but invalid, so still need to check.
+                $getUid = $this->objUser->getUserId($chk);
+            } else {
+                $getUid = FALSE;
+            }
+            // If we got it return it, otherwise see if we can deduce it from the module.
             if ($getUid) {
                 // If we found it return it
                 $uid = $getUid;
             // Otherwise keep trying
             } else {
-                // Get the module and see if we can deduce userId from that
+                // Get the module and see if we can deduce userId from that.
                 $curMod = $this->identifyModule();
+                
                 switch ($curMod)
                 {
                     case 'blog':
@@ -118,7 +125,16 @@ class bestguess extends object
                             $uid = $objSysConfig->getValue('blog_singleuserid', 'blog');
                         }
                         break;
-                        
+
+                    case 'wall':
+                        // We only get here if we haven't found it yet
+                        if ($this->objUser->isLoggedIn()) {
+                            $uid = $this->objUser->userId();
+                        } else {
+                            // If we don't find it return FALSE.
+                            $uid=FALSE;
+                        }
+
                     //case 'cms':
                         // Is it feasible to deduce a User from a CMS page?
                         //break;
