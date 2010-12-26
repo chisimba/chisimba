@@ -1631,3 +1631,17 @@ EXperimental for the Wall
     margin-right:5px;
     margin-bottom: 5px;
 }
+
+/** For the latest photogallery images */
+.pgthumbnail {
+    background-color: #000000;
+    height: 75px;
+    width: 100px;
+    float: left;
+    margin: 2px;
+    vertical-align: middle;
+}
+
+.pgthumbimage {
+    vertical-align: middle;
+}
