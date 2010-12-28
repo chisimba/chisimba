@@ -1642,6 +1642,49 @@ EXperimental for the Wall
     vertical-align: middle;
 }
 
+a.delpost {
+    float: right;
+}
+
+.delpost:hover {
+    background-color: yellow;
+    text-decoration: none;
+}
+
 .pgthumbimage {
     vertical-align: middle;
+}
+
+
+/** EXPERIMENTAL ***/
+
+.wall_comment_author a {
+    color: red;
+    text-decoration: none;
+}
+
+.wall_comment_when {
+    color: navy;
+}
+
+ol.wall_replies {
+    list-style:none;font-size:1.2em;
+}
+
+ol.wall_replies li{
+    position:relative;
+    padding:.7em 0 .6em 0;
+    border-bottom:1px dashed #000;
+    line-height:1.1em;
+    background-color:#D3E7F5;
+    height:45px;
+    color:#808080;
+    font-size:11px;
+}
+ol.wall_replies li:first-child {
+    border-top:1px dashed #000;
+}
+.wall_panel
+{
+    display:none;
 }
