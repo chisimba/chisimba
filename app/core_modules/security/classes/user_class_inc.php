@@ -781,7 +781,7 @@ class user extends dbTable {
         }
 
         if ($alt == NULL) {
-            $alt = 'User Image';
+            $alt = 'alt="User Image" ';
         } else {
             $alt = ' alt="' . $alt . '" title="' . $alt . '" ';
         }
@@ -827,7 +827,7 @@ class user extends dbTable {
         }
 
         if ($alt == NULL) {
-            $alt = 'User Image';
+            $alt = 'alt="User Image" ';
         } else {
             $alt = ' alt="' . $alt . '" title="' . $alt . '" ';
         }
