@@ -1724,6 +1724,9 @@ ol.wall_replies li:first-child {
     margin-top:2px;
 }
 
+a.wall_delcomment {
+    float: right;
+}
 
 
 
