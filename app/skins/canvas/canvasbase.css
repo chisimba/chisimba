@@ -24,7 +24,7 @@ html,body {
 
 html {
     color: #333333;
-    font-family: Verdana, sans-serif;
+    font-family: "lucida grande", tahoma, verdana, arial, sans-serif;  
     font-size: 10pt;
     line-height: 190%;
 }
@@ -32,7 +32,7 @@ html {
 body {
     background-color: #DEE2E7;
     color: #333333;
-    font-family: Verdana, sans-serif;
+    font-family: "lucida grande", tahoma, verdana, arial, sans-serif;  
     font-size: 10pt;
     line-height: 190%;
     background: url('images/bg.jpg');
@@ -1569,13 +1569,13 @@ hr {
 }
 
 /***
-EXperimental for the Wall
+Styles for the Chisimba wall module
 */
 .clear {
     clear:both;
 }
 #wrapper {
-    width:480px;
+    width:448px;
     margin:0 auto;
     text-align:left;
 }
@@ -1593,7 +1593,7 @@ EXperimental for the Wall
 }
 
 #shareBtn {
-    background:#5872A7;
+    background:#3b5998;
     float:right;
     color:#ffffff;
     font-weight:bold;
@@ -1605,9 +1605,18 @@ EXperimental for the Wall
     min-height:38px;height:auto!important;height:38px;_height:38px;
     margin-top:8px;
     margin-bottom:8px;
+    /*border-bottom:1px solid #B5B5B5;
+    padding-bottom:4px;*/
+    color: #666666;
+    font-size:13px;
+}
+
+.wall_post_info {
+    margin-top:8px;
+    margin-bottom:8px;
     border-bottom:1px solid #B5B5B5;
     padding-bottom:4px;
-    color:#808080;
+    color: #999999;
     font-size:13px;
 }
 
@@ -1632,16 +1641,6 @@ EXperimental for the Wall
     margin-bottom: 5px;
 }
 
-/** For the latest photogallery images */
-.pgthumbnail {
-    background-color: #000000;
-    height: 75px;
-    width: 100px;
-    float: left;
-    margin: 2px;
-    vertical-align: middle;
-}
-
 a.delpost {
     float: right;
 }
@@ -1656,35 +1655,82 @@ a.delpost {
 }
 
 
-/** EXPERIMENTAL ***/
+/** For the wall comments ***/
 
 .wall_comment_author a {
-    color: red;
+    color: #3b5998;
+    font-weight: bold;
     text-decoration: none;
 }
 
 .wall_comment_when {
-    color: navy;
+    color: #666666;
+}
+
+.wall_comment_button a {
+    color: #999999;
+}
+
+.wall_comments_top {
+    background: url('images/comment-top.png');
+    width: 395px;
+    height: 10px;
+    background-repeat: no-repeat;
+    margin: 0px;
+    margin-top: -10px;
+    margin-left: 35px;
+}
+
+.wall_comments_bottom {
+
 }
 
 ol.wall_replies {
-    list-style:none;font-size:1.2em;
+    list-style:none;
+    font-size:1.2em;
+    margin-top: 0px;
+    width: 390px;
 }
 
 ol.wall_replies li{
     position:relative;
-    padding:.7em 0 .6em 0;
-    border-bottom:1px dashed #000;
+    padding:5px;
+    margin-top: 0px;
+    margin-left: -5px;
+    border-bottom:1px solid #f7f7f7;
     line-height:1.1em;
-    background-color:#D3E7F5;
-    height:45px;
+    background-color: #edeff4;
     color:#808080;
     font-size:11px;
 }
 ol.wall_replies li:first-child {
-    border-top:1px dashed #000;
+    /*border-top:1px dashed #000;*/
 }
+
 .wall_panel
 {
+    padding-left: 35px;
     display:none;
+}
+
+.comment_submit {
+    background:#3b5998 ;
+    color:#ffffff;
+    font-weight:bold;
+    border:0;
+    padding:4px;
+    margin-top:2px;
+}
+
+
+
+
+/** For the latest photogallery images */
+.pgthumbnail {
+    background-color: #000000;
+    height: 75px;
+    width: 100px;
+    float: left;
+    margin: 2px;
+    vertical-align: middle;
 }
