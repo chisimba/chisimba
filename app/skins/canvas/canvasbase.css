@@ -1665,6 +1665,7 @@ a.delpost {
 
 .wall_comment_when {
     color: #666666;
+    padding-top: 8px;
 }
 
 .wall_comment_button a {
@@ -1710,6 +1711,7 @@ ol.wall_replies li:first-child {
 .wall_panel
 {
     padding-left: 35px;
+    margin-bottom: 20px;
     display:none;
 }
 
