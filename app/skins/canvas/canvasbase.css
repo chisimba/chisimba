@@ -1726,6 +1726,8 @@ ol.wall_replies li:first-child {
 
 a.wall_delcomment {
     float: right;
+    margin-left: 8px;
+    margin-bottom: 8px;
 }
 
 
