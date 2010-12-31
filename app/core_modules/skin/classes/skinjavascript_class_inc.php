@@ -123,7 +123,7 @@ class skinjavascript extends object
         $supressPrototype = $this->getVar('SUPPRESS_PROTOTYPE', false);
         if (!$supressPrototype){
             // Add Scriptaculous
-            $scriptaculous = $this->getObject('scriptaculous', 'htmlelements');
+            $scriptaculous = $this->getObject('scriptaculous', 'prototype');
             return $scriptaculous->show($mime);
         } else {
             return NULL;
