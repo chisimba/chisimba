@@ -195,6 +195,9 @@ class modulecatalogue extends controller {
             $this->objPOFile = $this->getObject ( 'pofile' );
             $this->objLog = $this->getObject ( 'logactivity', 'logger' );
             $this->objLog->log ();
+            // Load scriptaclous since we can no longer guarantee it is there
+            $scriptaculous = $this->getObject('scriptaculous', 'htmlelements');
+            $this->appendArrayVar('headerParams', $scriptaculous->show('text/javascript'));
         } catch ( customException $e ) {
             $this->errorCallback ( 'Caught exception: ' . $e->getMessage () );
             exit ();
