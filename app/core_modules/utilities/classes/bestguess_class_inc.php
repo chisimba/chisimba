@@ -134,6 +134,7 @@ class bestguess extends object
                             // If we don't find it return FALSE.
                             $uid=FALSE;
                         }
+                        break;
 
                     //case 'cms':
                         // Is it feasible to deduce a User from a CMS page?
