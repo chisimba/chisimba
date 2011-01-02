@@ -1574,7 +1574,7 @@ Styles for the Chisimba wall module
 .clear {
     clear:both;
 }
-#wrapper {
+#wall_wrapper {
     width:448px;
     margin:0 auto;
     text-align:left;
@@ -1618,6 +1618,10 @@ Styles for the Chisimba wall module
     padding-bottom:4px;
     color: #999999;
     font-size:13px;
+}
+
+.wallpostrow {
+    margin-top: 15px;
 }
 
 .msg a {
@@ -1683,7 +1687,7 @@ a.delpost {
 }
 
 .wall_comments_bottom {
-
+    height: 0px;
 }
 
 ol.wall_replies {
@@ -1707,6 +1711,9 @@ ol.wall_replies li{
 ol.wall_replies li:first-child {
     /*border-top:1px dashed #000;*/
 }
+ol.wall_replies li:last-child {
+    margin-bottom: -8px;
+}
 
 .wall_panel
 {
@@ -1716,7 +1723,7 @@ ol.wall_replies li:first-child {
 }
 
 .comment_submit {
-    background:#3b5998 ;
+    background:#3b5998;
     color:#ffffff;
     font-weight:bold;
     border:0;
@@ -1730,7 +1737,34 @@ a.wall_delcomment {
     margin-bottom: 8px;
 }
 
+.wall_comments_more {
+    position:relative;
+    padding: 2px;
+}
 
+.tb_comments_more {
+    width:100%;
+    padding-right:15px;
+}
+
+a.wall_comments_more,
+a.wall_comments_more:visited {
+    color: #eceff6;
+    background: #3b5998;
+}
+
+a.wall_comments_more:hover,
+a.wall_comments_more:visited:hover {
+    color: #eceff6;
+    background: red;
+}
+
+/** When you get older wall posts via ajax **/
+.wall_post_append {
+    background: #fff9d7;
+    margin-top: 10px;
+    padding-bottom: 20px;
+}
 
 /** For the latest photogallery images */
 .pgthumbnail {
