@@ -125,6 +125,26 @@ class parse4chiki extends object
     {
         return "<span class='warning'>Chiki test was successful!</span>";
     }
+    private function __remotewall()
+    {
+        $objModule = $this->getObject('modules','modulecatalogue');
+        if ($objModule->checkIfRegistered('oembed', 'oembed')) {
+            $oEmb = $this->getObject('jqoembed', 'oembed');
+            $oEmb->loadOembedPlugin();
+            $oEmb->getEmbedAppend();
+            $script = '
+                <script type=\'text/javascript\'>
+                    jQuery(function(){
+                        jQuery(".msg a").oembed(null, {
+                            embedMethod: "append",
+                            maxWidth: 480
+                        });
+                    });
+                </script>
+                ';
+            $this->appendArrayVar('headerParams', $script);
+        }
+    }
     /**
     *
     * Method to return the first name of the logged in user
