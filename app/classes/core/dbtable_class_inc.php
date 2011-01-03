@@ -471,8 +471,8 @@ class dbTable extends object
         		if($this->debug == TRUE) {
         			log_debug($stmt);
         		}
-    			$this->_db->setLimit($first, $count);
-        		$rs = $this->_db->exec($stmt);
+    			$this->_db->setLimit($count, $first);
+    		    $rs = $this->_queryAll($stmt);
         		if (PEAR::isError($rs)) {
             		$ret = FALSE;
         		} else {
@@ -484,8 +484,8 @@ class dbTable extends object
     	elseif($this->objAPC == TRUE) {
     		$ret = apc_fetch($this->cachePrefix.$stmt);
     		if($ret == FALSE) {
-    			$this->_db->setLimit($first, $count);
-        		$rs = $this->_db->exec($stmt);
+    			$this->_db->setLimit($count, $first);
+    		$rs = $this->_queryAll($stmt);
         		if (PEAR::isError($rs)) {
             		$ret = FALSE;
         		} else {
@@ -498,8 +498,8 @@ class dbTable extends object
     		if($this->debug == TRUE) {
     			log_debug($stmt);
     		}
-    		$this->_db->setLimit($first, $count);
-    		$rs = $this->_db->exec($stmt);
+    		$this->_db->setLimit($count, $first);
+    		$rs = $this->_queryAll($stmt);
     		if (PEAR::isError($rs)) {
     			$ret = FALSE;
     		} else {
@@ -1127,6 +1127,7 @@ class dbTable extends object
      * @access  public
      */
     private function _queryAll($query, $types = array()) {
+        $ret = NULL;
     	if($this->dbLayer === 'MDB2') {
     		$ret = $this->_db->queryAll($query, $types);
     		if (PEAR::isError($ret)) {
