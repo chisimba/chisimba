@@ -509,6 +509,63 @@ class dbTable extends object
 
        return $ret;
     }
+    
+    /**
+     * Method to structure and execute a subselect
+     * 
+     * Note: If your db server does not support subselects, this will not work, so please check first
+     *
+     * @example // sub-select query string 
+     *           $sql_ss = 'SELECT id FROM people WHERE id = 1 OR id = 2';
+     *           // the main query
+     *           $sql = 'SELECT * FROM people WHERE id IN (%s)';
+     *
+     * @param string $sql the primary sql query
+     * @param string $ss_sql The subselect query
+     * @return array $ret return values array
+     */
+     public function subSelect($sql, $ss_sql) {
+         $subselect = $this->_db->subSelect($ss_sql);
+         // update and print the main query
+         $stmt = sprintf($sql, $subselect);
+
+         if($this->objMemcache == TRUE) {
+    		if(chisimbacache::getMem()->get(md5($this->cachePrefix.$stmt))) {
+				$cache = chisimbacache::getMem()->get(md5($this->cachePrefix.$stmt));
+				$ret = unserialize($cache);
+			}
+			else {
+        		if($this->debug == TRUE) {
+        			log_debug($stmt);
+        		}
+    			$ret = $this->_queryAll($stmt, array());
+        		if (PEAR::isError($ret)) {
+            		$ret = FALSE;
+        		}
+        		chisimbacache::getMem()->set(md5($this->cachePrefix.$stmt), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
+			}
+    	}
+    	elseif($this->objAPC == TRUE) {
+    		$ret = apc_fetch($this->cachePrefix.$stmt);
+    		if($ret == FALSE) {
+    			$ret = $this->_queryAll($stmt, array());
+        		if (PEAR::isError($ret)) {
+            		$ret = FALSE;
+        		}
+    			apc_store($this->cachePrefix.$stmt, $ret, $this->cacheTTL);
+    		}
+    	}
+    	else {
+    		if($this->debug == TRUE) {
+    			log_debug($stmt);
+    		}
+    		$ret = $this->_queryAll($stmt, array());
+    		if (PEAR::isError($ret)) {
+    			$ret = FALSE;
+    		}
+    	}
+    	return $ret;
+     }
 
     /**
     * Method to fetch all items from the table.
