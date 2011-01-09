@@ -15,9 +15,9 @@ $checkOpenerScript = '
 
         function selectFile(path)
         {
-       
+
             if (window.opener) {
-                 
+
                  try
                  {
                    window.opener.CKEDITOR.tools.callFunction(1, path' . $widthHeight . ') ;
@@ -53,7 +53,7 @@ $checkOpenerScript = '
  function selectImageWindow(name,path, filename,fileid)
         {
             if (window.opener) {
-           
+
                 window.opener.document.getElementById("imagepreview_"+name).src = path;
                 window.opener.document.getElementById("hidden_"+name).value = fileid;
                 window.close();
@@ -76,7 +76,7 @@ if ($folderPermission2) {
     $fieldset->setLegend( $this->objLanguage->languageText('mod_filemanager_createafolder', 'filemanager', 'Create a Folder'));
     $fieldset->addContent($this->objFolders->showCreateFolderForm($folderId));
     echo $fieldset->show();
- 
+
 }
 if ($folder['folderlevel'] == 2) {
     $icon = '';
@@ -167,6 +167,6 @@ if ($folderPermission2) {
         echo $this->objUpload->show($folderId, ($quota['quota'] - $quota['quotausage']));
     }
 
-    
+
 }
 ?>
