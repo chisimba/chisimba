@@ -14,6 +14,9 @@ $objThumbnail = $this->getObject('thumbnails', 'filemanager');
 if (!isset($selectParam)) {
     $selectParam = '';
 }
+if (!isset($widthHeight)) {
+    $widthHeight = '';
+}
 $checkOpenerScript = '
         <script type="text/javascript">
         //<![CDATA[
