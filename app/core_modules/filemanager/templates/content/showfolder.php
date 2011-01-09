@@ -11,6 +11,9 @@ if (isset($file['path'])) {
 }
 $fileDownloadPath = $this->objCleanUrl->cleanUpUrl($fileDownloadPath);
 $objThumbnail = $this->getObject('thumbnails', 'filemanager');
+if (!isset($selectParam)) {
+    $selectParam = '';
+}
 $checkOpenerScript = '
         <script type="text/javascript">
         //<![CDATA[
