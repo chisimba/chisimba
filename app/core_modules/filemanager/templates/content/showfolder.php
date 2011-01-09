@@ -5,7 +5,10 @@ $this->loadClass('button', 'htmlelements');
 $this->loadClass('hiddeninput', 'htmlelements');
 
 $objIcon = $this->newObject('geticon', 'htmlelements');
-$fileDownloadPath = $this->objConfig->getcontentPath() . $file['path'];
+$fileDownloadPath = $this->objConfig->getcontentPath();
+if (isset($file['path'])) {
+    $fileDownloadPath .= $file['path'];
+}
 $fileDownloadPath = $this->objCleanUrl->cleanUpUrl($fileDownloadPath);
 $objThumbnail = $this->getObject('thumbnails', 'filemanager');
 $checkOpenerScript = '
