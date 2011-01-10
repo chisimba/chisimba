@@ -33,8 +33,7 @@ if ($objUser->isAdmin()) {
     echo $this->getJavaScriptFile('contextblocks.js', 'context');
 } // End Addition of JavaScript
 
-$params = 'onload="javascript: showWhoIsOnlineWin()"';
-$this->setVar("bodyParams", $params);
+
 $this->loadClass('dropdown', 'htmlelements');
 $this->loadClass('button', 'htmlelements');
 $this->loadClass('htmlheading', 'htmlelements');
