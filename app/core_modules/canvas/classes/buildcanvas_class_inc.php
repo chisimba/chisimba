@@ -207,8 +207,12 @@ class buildcanvas extends object
         $leftBlocks = $this->getSmallBlocks('left');
 
         // Make the content of the left column.
-        $userMenu  = $this->newObject('usermenu','toolbar');
-        $leftContent = $userMenu->show();
+        if ($this->objUser->isLoggedIn()) {
+            $userMenu  = $this->newObject('usermenu','toolbar');
+            $leftContent = $userMenu->show();
+        } else {
+            $leftContent = "";
+        }
         $leftContent .= '<div id="leftblocks">'. $this->leftBlocks . '</div>';
         $leftContent .= '<div id="leftaddblock">' . $this->getHeader() .$leftBlocks;
         $leftContent .= '<div id="lefttpreview"><div id="leftpreviewcontent"></div> '
