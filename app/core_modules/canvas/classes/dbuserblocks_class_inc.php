@@ -1,10 +1,12 @@
 <?php
 /**
  *
- * Dynamic canvas data access
+ * Dynamic canvas data access for user-level blocks
  *
  * Database accesss class for Chisimba for accessing dynamic blocks in
- * a dynamic canvas
+ * a dynamic canvas in which the person who owns the blocks is
+ * identified and used as the selector. Blocks are retrieved from
+ * tbl_MODULE_personalblocks.
  *
  * PHP version 5
  *
@@ -49,16 +51,18 @@ $GLOBALS['kewl_entry_point_run'])
 
 /**
 *
-* Dynamic canvas data access
-*
-* Database accesss class for Chisimba for accessing dynamic blocks in
-* a dynamic canvas
+ * Dynamic canvas data access for user-level blocks
+ *
+ * Database accesss class for Chisimba for accessing dynamic blocks in
+ * a dynamic canvas in which the person who owns the blocks is
+ * identified and used as the selector. Blocks are retrieved from
+ * tbl_MODULE_personalblocks.
 *
 * @author Derek Keats
 * @package canvas
 *
 */
-class dbdynamiccanvas extends dbtable
+class dbuserblocks extends dbtable
 {
    /**
     *
@@ -70,8 +74,10 @@ class dbdynamiccanvas extends dbtable
 
     /**
     *
-    * Intialiser for the dynamic canvas database connector
+    * Intialiser for the userblock model
+    * 
     * @access public
+    * @return VOID
     *
     */
     public function init()
@@ -79,18 +85,22 @@ class dbdynamiccanvas extends dbtable
         // Guess the module we are in so we can load its data connection
         $objGuess = $this->getObject('bestguess', 'utilities');
         $curMod = $objGuess->identifyModule();
-        $blockTable = "tbl_" . $curMod . "_blocks";
+        $blockTable = "tbl_" . $curMod . "_userblocks";
         parent::init($blockTable);
         $this->objUser = $this->getObject('user','security');
     }
 
 
     /**
+     *
      * Method to get a list of blocks used, and have them
      * rendered one time
-     * @param string $contextCode Context Code
+     *
+     * @param string $userId Userid of the owning user
      * @param string $side Side on which the blocks are on
-     * @param return array
+     * @return array
+     * @access public
+     * 
      */
     public function getUserBlocks($userId, $side)
     {
@@ -108,19 +118,10 @@ class dbdynamiccanvas extends dbtable
             foreach ($results as $result)
             {
                 $block = explode('|', $result['block']);
-
                 $blockId = $side.'___'.str_replace('|', '___', $result['block']);
-
                 // At the moment, only blocks are catered for, not yet dynamic blocks
                 if ($block[0] == 'block') {
-
-
-                    $blockStr = $objBlocks->showBlock($block[1], $block[2], NULL, 20, TRUE, FALSE);
-
-                    //$blockStr = preg_replace('/onchange\ *=\ *".*?"/i', '', $blockStr);
-                    //$blockStr = preg_replace('/type\ *=\ *"submit"/i', 'type="button"', $blockStr);
-                    //$blockStr = preg_replace('/href\ *=\ *".*?"/i', 'href="javascript:alert(\'Disabled\');"', $blockStr);
-
+                    $blockStr = $objBlocks->showBlock($block[1], $block[2], NULL, 20, TRUE, TRUE);
                     $str .= '<div id="'.$result['id'].'" class="block">'.$blockStr.'</div>';
                 } else if ($block[0] == 'dynamicblock') {
                     $block = explode('|', $result['block']);
@@ -128,51 +129,57 @@ class dbdynamiccanvas extends dbtable
                     $str .= '<div id="'.$result['id'].'" class="block">'.$blockStr.'</div>';
                 }
            }
-
            return $str;
         }
     }
 
     /**
-     * Method to get a list of blocks used in a context
-     * @param string $contextCode Context Code
+     *
+     * Method to get a list of blocks for a particular side they are on
+     *
+     * @param string $userId The user id of the owning user
      * @param string $side Side on which the blocks are on
-     * @param return array
+     * @return array
+     * @access public
+     *
      */
     public function getUserBlocksList($userId, $side)
     {
         return $this->getAll(' WHERE side=\''.$side.'\' AND userid=\''.$userId.'\' ORDER BY position');
     }
 
-
     /**
-     * Method to get a list of blocks used by a context
-     * @param string $contextCode
+     *
+     * Method to get a list of blocks used by a user
+     *
+     * @param string $userId The userid of the owning user
      * @return array List of Blocks
+     * @access public
+     * 
      */
     public function getUserBlocksArray($userId)
     {
         $results = $this->getAll(' WHERE userid=\''.$userId.'\' ');
-
         $array = array();
-
         if (count($results) > 0) {
             foreach ($results as $result)
             {
                 $array[] = $result['block'];
             }
         }
-
         return $array;
     }
 
 
     /**
-     * Method to add a block to a context
+     * Method to add a block to a user-level block page
+     *
      * @param string $block Block Id
      * @param string $side Side Block is On
-     * @param string $contextCode Context Code
+     * @param string $userId The user id of the owner
      * @param string $module Module Block is from
+     * @access public
+     * @return boolean The result of an insert
      *
      */
     public function addBlock($block, $side, $userId, $module)
@@ -192,9 +199,10 @@ class dbdynamiccanvas extends dbtable
      * This is used for ordering purposes
      *
      * @param string $side Side block will be added
-     * @param string $contextCode Context Code
-     *
-     * @return int
+     * @param string $userId The userid of the owner
+     * @return int The postion of the block on its side
+     * @access private
+     * 
      */
     private function getLastOrder($side, $userId)
     {
@@ -209,8 +217,13 @@ class dbdynamiccanvas extends dbtable
 
 
     /**
+     * 
      * Method to remove a block
+     *
      * @param string $id Block Id
+     * @return string Success/fail
+     * @access public
+     *
      */
     public function removeBlock($id)
     {
@@ -218,8 +231,13 @@ class dbdynamiccanvas extends dbtable
     }
 
     /**
-     * Method to remove a block
-     * @param string $id Block Id
+     *
+     * Method to remove all blocks by a userid
+     * 
+     * @param string $userId The user id of the owner
+     * @return string Success/fail
+     * @access public
+     *
      */
     public function removeUserBlocks($userId)
     {
@@ -230,7 +248,10 @@ class dbdynamiccanvas extends dbtable
      * Method to move a block up
      *
      * @param string $id Block Id
-     * @param string $contextCode Context Code - required to prevent malicious changes
+     * @param string $userId The user id of the owner
+     * @return boolean TRUE|FALSE
+     * @access public
+     * 
      */
     public function moveBlockUp($id, $userId)
     {
@@ -261,7 +282,10 @@ class dbdynamiccanvas extends dbtable
      * Method to move a block down
      *
      * @param string $id Block Id
-     * @param string $contextCode Context Code - required to prevent malicious changes
+     * @param string $userId The user id of the owner
+     * @return boolean TRUE|FALSE
+     * @access public
+     * 
      */
     public function moveBlockDown($id, $userId)
     {
@@ -291,11 +315,12 @@ class dbdynamiccanvas extends dbtable
     /**
      * Method to get the details of the previous block
      *
-     * @param string $contextCode Context Code - required to prevent malicious changes
+     * @param string $userId The userId of the owner
      * @param string $side Side Block is on
      * @param int $position Position of the Block
-     *
      * @return array
+     * @access private
+     * 
      */
     private function getPreviousBlock($userId, $side, $position)
     {
@@ -311,11 +336,11 @@ class dbdynamiccanvas extends dbtable
     /**
      * Method to get the details of the next block
      *
-     * @param string $contextCode Context Code - required to prevent malicious changes
+     * @param string $userId The userId of the owner
      * @param string $side Side Block is on
      * @param int $position Position of the Block
-     *
      * @return array
+     * @access private
      */
     private function getNextBlock($userId, $side, $position)
     {

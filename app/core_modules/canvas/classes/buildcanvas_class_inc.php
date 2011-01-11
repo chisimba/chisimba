@@ -4,7 +4,11 @@
  * Build a canvas from dyanmic blocks
  *
  * This class builds a dynamic canvas, which allows the user interface to
- * be constructed using the 'Turn editing on' approach.
+ * be constructed using the 'Turn editing on' approach. It allows for blocks
+ * to be user blocks or module blocks.
+ *
+ * @Todo Add page-level blocks support.
+ * @Todo do some refactoring.
  *
  * PHP version 5
  *
@@ -52,7 +56,8 @@ $GLOBALS['kewl_entry_point_run'])
  * Build a canvas from dyanmic blocks
  *
  * This class builds a dynamic canvas, which allows the user interface to
- * be constructed using the 'Turn editing on' approach.
+ * be constructed using the 'Turn editing on' approach. It allows for blocks
+ * to be user blocks or module blocks.
 *
 * @author Derek Keats
 * @package myprofile
@@ -144,29 +149,19 @@ class buildcanvas extends object
         // We are going to create a dynamic block based interface.
         $this->objContextBlocks = $this->getObject('dbcontextblocks', 'context');
         $this->objDynamicBlocks = $this->getObject('dynamicblocks', 'blocks');
-        $this->objPersonalSpaceBlocks = $this->getObject('dbdynamiccanvas', 'canvas');
+        
         // Load the livequery that works with blocks.
         $this->appendArrayVar('headerParams',
         $this->getJavaScriptFile('jquery.livequery.js', 'jquery'));
         // Guess the user whose profile we are on.
         $objGuessUser = $this->getObject('bestguess', 'utilities');
         $this->userId = $objGuessUser->guessUserId();
-        // Set a property to indicate if we are the profile owner or not
-        if ($this->userId !== $this->objUser->userId()) {
-            $this->isOwner = FALSE;
-        } else {
-            $this->isOwner = TRUE;
-        }
+
         // Load the various blocks and get the data we need
         $this->objBlocks = $this->getObject('dbmoduleblocks', 'modulecatalogue');
         // Get any wideblocks the user has.
         $this->wideDynamicBlocks = $this->objDynamicBlocks->getWideUserBlocks($this->userId);
         // Get any user small blocks that the user has.
-        $this->smallDynamicBlocks = $this->objDynamicBlocks->getSmallUserBlocks($this->userId);
-        // Get the userblocks
-        $this->middleBlocks = $this->objPersonalSpaceBlocks->getUserBlocks($this->userId, 'middle');
-        $this->rightBlocks = $this->objPersonalSpaceBlocks->getUserBlocks($this->userId, 'right');
-        $this->leftBlocks = $this->objPersonalSpaceBlocks->getUserBlocks($this->userId, 'left');
         $this->smallDynamicBlocks = $this->objDynamicBlocks->getSmallUserBlocks($this->userId);
         // Load other required HTML elements.
         $this->loadClass('dropdown', 'htmlelements');
@@ -192,8 +187,56 @@ class buildcanvas extends object
      * @access public
      *
      */
-    public function show()
+    public function show($blockType='personal')
     {
+        switch ($blockType) {
+            case 'personal':
+                return $this->showPersonal();
+                break;
+            case 'module':
+                return $this->showModule();
+                break;
+            case 'page':
+                return "Working here. This feature is not ready yet. Feel free to develop it.";
+                break;
+            default;
+                return NULL;
+        }
+
+    }
+
+    /**
+     *
+     * Show blocks for a page in which the person who owns the blocks is
+     * identified and used as the selector. Blocks are retrieved from
+     * tbl_MODULE_personalblocks.
+     *
+     * @return string The rendered blocks
+     * @access private
+     *
+     * @todo there is code repeated between personal and module. Refactor it.
+     *
+     */
+    private function showPersonal()
+    {
+        // Set a property to indicate if we are the profile owner or not.
+        if ($this->userId !== $this->objUser->userId()) {
+            $this->isOwner = FALSE;
+        } else {
+            $this->isOwner = TRUE;
+        }
+        // Show the user menu if they are logged in.
+        if ($this->objUser->isLoggedIn()) {
+            $userMenu  = $this->newObject('usermenu','toolbar');
+            $userMenu = $userMenu->show();
+        } else {
+            $userMenu = "";
+        }
+        // Get the userblocks
+        $this->objUserBlocks = $this->getObject('dbuserblocks', 'canvas');
+        $this->middleBlocks = $this->objUserBlocks->getUserBlocks($this->userId, 'middle');
+        $this->rightBlocks = $this->objUserBlocks->getUserBlocks($this->userId, 'right');
+        $this->leftBlocks = $this->objUserBlocks->getUserBlocks($this->userId, 'left');
         // Initialise the return string with two blank lines.
         $ret = "\n\n";
         // Add the script values to the return string.
@@ -207,12 +250,7 @@ class buildcanvas extends object
         $leftBlocks = $this->getSmallBlocks('left');
 
         // Make the content of the left column.
-        if ($this->objUser->isLoggedIn()) {
-            $userMenu  = $this->newObject('usermenu','toolbar');
-            $leftContent = $userMenu->show();
-        } else {
-            $leftContent = "";
-        }
+        $leftContent = $userMenu;
         $leftContent .= '<div id="leftblocks">'. $this->leftBlocks . '</div>';
         $leftContent .= '<div id="leftaddblock">' . $this->getHeader() .$leftBlocks;
         $leftContent .= '<div id="lefttpreview"><div id="leftpreviewcontent"></div> '
@@ -221,7 +259,7 @@ class buildcanvas extends object
         unset ($leftContent);
 
         // Make the content of the right column.
-        $rightContent = '<div id="editmode">' . $this->getEditOnButton() . '</div>';
+        $rightContent = $this->getEditOnButton();
         $rightContent  .= '<div id="rightblocks">' . $this->rightBlocks .'</div>';
         $rightContent .= '<div id="rightaddblock">' . $this->getHeader() . $rightBlocks;
         $rightContent .= '<div id="rightpreview"><div id="rightpreviewcontent"></div> '
@@ -237,6 +275,93 @@ class buildcanvas extends object
         $middleContent .= '</div>';
         $objCssLayout->setMiddleColumnContent($middleContent);
         return $this->getScriptValues() . $this->getContextBlocksJs() . $objCssLayout->show();
+    }
+
+    /**
+     *
+     * Show blocks for a module supporting page-level blocks. A module using
+     * page level blocks may have different blocks on each page. An example of
+     * a module using page-level blocks (but not this class to render them) is
+     * the news module. Blocks are indentified by page=PAGECODE or by some other
+     * unique parameter, or a hash on the URL.
+     *
+     * @return string The rendered blocks
+     * @access private
+     *
+     * @todo Implement this functionality
+     *
+     */
+    private function showPage()
+    {
+        $ret=NULL;
+        return $ret;
+    }
+
+    /**
+     *
+     * Show blocks for a module. A module using module-level blocks can have only
+     * one interface per module. Hence, it is not suitable for modules that have
+     * behaviours that depend on action, except where you build the action
+     * functionality using JSON blocks or old-fashioned Chisimba templates.
+     *
+     * @return string The rendered blocks
+     * @access private
+     *
+     * @todo there is code repeated between personal and module. Refactor it.
+     *
+     */
+    private function showModule()
+    {
+        // Get the module blocks
+        $this->objModBlocks = $this->getObject('dbmodblocks', 'canvas');
+        $this->middleBlocks = $this->objModBlocks->getModuleBlocks('middle');
+        $this->rightBlocks = $this->objModBlocks->getModuleBlocks('right');
+        $this->leftBlocks = $this->objModBlocks->getModuleBlocks('left');
+        // Initialise the return string with two blank lines.
+        $ret = "\n\n";
+        // Add the script values to the return string.
+        $ret .= $this->getScriptValues();
+        $ret .= "\n\n" . $this->getContextBlocksJs() . "\n\n";
+        // Set a 3-column layout.
+        $objCssLayout = $this->getObject('csslayout', 'htmlelements');
+        $objCssLayout->setNumColumns(3);
+        // Get the left and right blocks
+        $rightBlocks = $this->getSmallBlocks('right');
+        $leftBlocks = $this->getSmallBlocks('left');
+
+        // Make the content of the left column.
+        $leftContent = "";
+        $leftContent .= '<div id="leftblocks">'. $this->leftBlocks . '</div>';
+        $leftContent .= '<div id="leftaddblock">' . $this->getHeader() .$leftBlocks;
+        $leftContent .= '<div id="lefttpreview"><div id="leftpreviewcontent"></div> '
+          .$this->getLeftButton() .' </div></div>';
+        $objCssLayout->setLeftColumnContent($leftContent);
+        unset ($leftContent);
+
+        // Make the content of the right column.
+
+        if ($this->objUser->isAdmin()) {
+            $this->isOwner= TRUE; /////////// TEMPORARY ////////////////////////////////////////////////////
+        }
+
+
+        $rightContent = $this->getEditOnButton();
+        $rightContent  .= '<div id="rightblocks">' . $this->rightBlocks .'</div>';
+        $rightContent .= '<div id="rightaddblock">' . $this->getHeader() . $rightBlocks;
+        $rightContent .= '<div id="rightpreview"><div id="rightpreviewcontent"></div> '
+          . $this->getRightButton() . ' </div></div>';
+        $objCssLayout->setRightColumnContent($rightContent);
+        unset ($rightContent);
+
+
+        // Make the content of the middle column.
+        $middleContent = '<div id="middleblocks">'. $this->middleBlocks .'</div>';
+        $middleContent .= '<div id="middleaddblock">' . $this->getHeader() . $this->getWideBlocks();
+        $middleContent .= '<div id="middlepreview"><div id="middlepreviewcontent"></div> '. $this->getMiddleButton() .' </div>';
+        $middleContent .= '</div>';
+        $objCssLayout->setMiddleColumnContent($middleContent);
+        return $this->getScriptValues() . $this->getContextBlocksJs() . $objCssLayout->show();
+
     }
 
     /**
@@ -304,7 +429,7 @@ class buildcanvas extends object
        
         // Add Small Blocks.
         $objBlocks = $this->getObject('dbmoduleblocks', 'modulecatalogue');
-        $smallBlocks = $objBlocks->getBlocks('normal', 'site|user');
+        $smallBlocks = $objBlocks->getBlocks('normal', 'prelogin|site|user');
         foreach ($smallBlocks as $smallBlock) {
             $block = $this->newObject('block_' 
               . $smallBlock['blockname'], $smallBlock['moduleid']);
