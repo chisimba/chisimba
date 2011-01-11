@@ -205,6 +205,22 @@ class bestguess extends object
             return $objConfig->getdefaultModuleName();
         }
     }
+    /**
+    *
+    * Try our best to guess the pageid of the page we are on. Used by
+    * the page block system in canvas.
+    *
+    * @return string The modulecode
+    * @access public
+    *
+    */
+    public function guessPageId() {
+        $pageId = $this->getParam('pageid', NULL);
+        if ($pageId == NULL) {
+            $pageId = md5($_SERVER['REQUEST_URI']);
+        }
+        return $pageId;
+    }
 
 }
 ?>
