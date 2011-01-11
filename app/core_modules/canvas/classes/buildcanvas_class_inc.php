@@ -197,7 +197,9 @@ class buildcanvas extends object
                 return $this->showModule();
                 break;
             case 'page':
-                return "Working here. This feature is not ready yet. Feel free to develop it.";
+                $objBestGuess = $this->getObject('bestguess', 'utilities');
+                $pageId = $objBestGuess->guessPageId();
+                return $this->showPage($pageId);
                 break;
             default;
                 return NULL;
@@ -277,6 +279,8 @@ class buildcanvas extends object
         return $this->getScriptValues() . $this->getContextBlocksJs() . $objCssLayout->show();
     }
 
+
+
     /**
      *
      * Show blocks for a module supporting page-level blocks. A module using
@@ -291,10 +295,57 @@ class buildcanvas extends object
      * @todo Implement this functionality
      *
      */
-    private function showPage()
+    private function showPage($pageId)
     {
-        $ret=NULL;
-        return $ret;
+        // Get the module blocks
+        $this->objPageBlocks = $this->getObject('dbpageblocks', 'canvas');
+        $this->middleBlocks = $this->objPageBlocks->getPageBlocks($pageId,'middle');
+        $this->rightBlocks = $this->objPageBlocks->getPageBlocks($pageId, 'right');
+        $this->leftBlocks = $this->objPageBlocks->getPageBlocks($pageId, 'left');
+        // Initialise the return string with two blank lines.
+        $ret = "\n\n";
+        // Add the script values to the return string.
+        $ret .= $this->getScriptValues();
+        $ret .= "\n\n" . $this->getContextBlocksJs() . "\n\n";
+        // Set a 3-column layout.
+        $objCssLayout = $this->getObject('csslayout', 'htmlelements');
+        $objCssLayout->setNumColumns(3);
+        // Get the left and right blocks
+        $rightBlocks = $this->getSmallBlocks('right');
+        $leftBlocks = $this->getSmallBlocks('left');
+
+        // Make the content of the left column.
+        $leftContent = "";
+        $leftContent .= '<div id="leftblocks">'. $this->leftBlocks . '</div>';
+        $leftContent .= '<div id="leftaddblock">' . $this->getHeader() .$leftBlocks;
+        $leftContent .= '<div id="lefttpreview"><div id="leftpreviewcontent"></div> '
+          .$this->getLeftButton() .' </div></div>';
+        $objCssLayout->setLeftColumnContent($leftContent);
+        unset ($leftContent);
+
+        // Make the content of the right column.
+
+        if ($this->objUser->isAdmin()) {
+            $this->isOwner= TRUE; /////////// TEMPORARY ////////////////////////////////////////////////////
+        }
+
+
+        $rightContent = $this->getEditOnButton();
+        $rightContent  .= '<div id="rightblocks">' . $this->rightBlocks .'</div>';
+        $rightContent .= '<div id="rightaddblock">' . $this->getHeader() . $rightBlocks;
+        $rightContent .= '<div id="rightpreview"><div id="rightpreviewcontent"></div> '
+          . $this->getRightButton() . ' </div></div>';
+        $objCssLayout->setRightColumnContent($rightContent);
+        unset ($rightContent);
+
+
+        // Make the content of the middle column.
+        $middleContent = '<div id="middleblocks">'. $this->middleBlocks .'</div>';
+        $middleContent .= '<div id="middleaddblock">' . $this->getHeader() . $this->getWideBlocks();
+        $middleContent .= '<div id="middlepreview"><div id="middlepreviewcontent"></div> '. $this->getMiddleButton() .' </div>';
+        $middleContent .= '</div>';
+        $objCssLayout->setMiddleColumnContent($middleContent);
+        return $this->getScriptValues() . $this->getContextBlocksJs() . $objCssLayout->show();
     }
 
     /**
@@ -587,6 +638,7 @@ class buildcanvas extends object
     unableAddBlock = \'' . $this->objLanguage->languageText('mod_context_unableaddblock', 'context', 'Error - Unable to add block') . '\';
     turnEditingOn = \'' . $this->objLanguage->languageText('mod_context_turneditingon', 'context', 'Turn Editing On') . '\';
     turnEditingOff = \'' . $this->objLanguage->languageText('mod_context_turneditingoff', 'context', 'Turn Editing Off') . '\';
+    pageId = \'' . $objGuess->guessPageId() . '\';
     theModule = \'' . $curMod . '\';
 // ]]>
 </script>
@@ -604,7 +656,7 @@ class buildcanvas extends object
      */
     private function getContextBlocksJs()
     {
-        return $this->getJavaScriptFile('contextblocks.js', 'context');
+        return $this->getJavaScriptFile('canvasblocks.js', 'canvas');
     }
 
 }

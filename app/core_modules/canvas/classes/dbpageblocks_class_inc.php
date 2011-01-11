@@ -62,7 +62,7 @@ $GLOBALS['kewl_entry_point_run'])
 * @package canvas
 *
 */
-class dbmodblocks extends dbtable
+class dbpageblocks extends dbtable
 {
    /**
     *
@@ -85,7 +85,7 @@ class dbmodblocks extends dbtable
         // Guess the module we are in so we can load its data connection
         $objGuess = $this->getObject('bestguess', 'utilities');
         $curMod = $objGuess->identifyModule();
-        $blockTable = "tbl_" . $curMod . "_moduleblocks";
+        $blockTable = "tbl_" . $curMod . "_pageblocks";
         parent::init($blockTable);
         $this->objUser = $this->getObject('user','security');
     }
@@ -100,10 +100,9 @@ class dbmodblocks extends dbtable
      * @access public
      * 
      */
-    public function getModuleBlocks($side)
+    public function getPageBlocks($pageId, $side)
     {
-        $results = $this->getModuleBlocksList($side);
-
+        $results = $this->getPageBlocksList($pageId, $side);
         if (count($results) == 0) {
            return '';
         } else {
@@ -137,9 +136,11 @@ class dbmodblocks extends dbtable
      * @access public
      *
      */
-    public function getModuleBlocksList($side)
+    public function getPageBlocksList($pageId, $side)
     {
-        return $this->getAll(' WHERE side=\''.$side.'\' ORDER BY position');
+        return $this->getAll(' WHERE side=\'' 
+          . $side . '\' AND pageid=\''
+          . $pageId . '\' ORDER BY position');
     }
 
 
@@ -181,13 +182,15 @@ class dbmodblocks extends dbtable
      */
     public function addBlock($block, $side, $module)
     {
+        $pageId = $this->getParam('pageId', NULL);
         $userId = $this->objUser->userId();
         return $this->insert(array(
                 'userid' => $userId,
                 'block' => $block,
                 'side' => $side,
                 'module' => $module,
-                'position' => $this->getLastOrder($side)+1,
+                'pageid' => $pageId,
+                'position' => $this->getLastOrder($pageId, $side)+1,
                 'datelastupdated' => strftime('%Y-%m-%d %H:%M:%S', mktime()),
             ));
     }
@@ -201,9 +204,11 @@ class dbmodblocks extends dbtable
      * @access private
      * 
      */
-    private function getLastOrder($side)
+    private function getLastOrder($pageId, $side)
     {
-        $results = $this->getAll(' WHERE side=\''.$side.'\' ORDER BY position DESC LIMIT 1');
+        $results = $this->getAll(' WHERE side=\''.$side 
+          . '\' AND pageid=\'' .$pageId
+          . '\' ORDER BY position DESC LIMIT 1');
         if (count($results) == 0) {
             return 0;
         } else {
@@ -289,7 +294,11 @@ class dbmodblocks extends dbtable
      */
     private function getPreviousBlock($side, $position)
     {
-        $results = $this->getAll(' WHERE side=\''.$side.'\' AND position < '.$position.' ORDER BY position DESC LIMIT 1');
+        $pageId = $this->getParam('pageId', NULL);
+        $results = $this->getAll(' WHERE side=\'' . $side . '\' '
+                . 'AND pageid=\'' . $pageId . '\' '
+                . 'AND position < ' . $position
+                .' ORDER BY position DESC LIMIT 1');
         if (count($results) == 0) {
             return FALSE;
         } else {
@@ -309,7 +318,13 @@ class dbmodblocks extends dbtable
      */
     private function getNextBlock($side, $position)
     {
-        $results = $this->getAll(' WHERE side=\''.$side.'\' AND position > '.$position.' ORDER BY position LIMIT 1');
+        $pageId = $this->getParam('pageId', NULL);
+        //$results = $this->getAll(' WHERE side=\''.$side.'\' AND position > '.$position.' ORDER BY position LIMIT 1');
+        $sql = ' WHERE side=\'' . $side . '\' '
+        . 'AND pageid=\'' . $pageId . '\' '
+        . 'AND position > ' . $position
+        .' ORDER BY position DESC LIMIT 1';
+        $results = $this->getAll($sql);
         if (count($results) == 0) {
             return FALSE;
         } else {
