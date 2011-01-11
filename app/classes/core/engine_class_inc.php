@@ -95,6 +95,11 @@ include ('config/dbdetails_inc.php');
 include ('lucene.php');
 
 /**
+ * HTML Purifier
+ */
+require_once 'lib/HTMLPurifier.auto.php';
+
+/**
  * config object
  *
  * @deprecated now moved to constructor to avoid userland installation of Config
@@ -426,6 +431,13 @@ class engine {
     public $appid;
     
     /**
+     * HTML Purifier instance
+     *
+     * @var string
+     */
+    public $purifier;
+    
+    /**
      * Constructor.
      * For use by application entry point script (usually /index.php)
      *
@@ -566,6 +578,8 @@ class engine {
         $this->_objUser = $this->getObject ( 'user', 'security' );
         //the language elements module
         $this->_objLanguage = $this->getObject ( 'language', 'language' );
+        
+        $this->purifier = new HTMLPurifier();
 
         // other fields
         //set the messages array
@@ -1497,8 +1511,22 @@ class engine {
      * @return mixed    The value of the parameter, or $default if unset
      */
     public function getParam($name, $default = NULL) {
+        //echo $name;
+        
         $result = isset ( $_REQUEST [$name] ) ? is_string ( $_REQUEST [$name] ) ? trim ( $_REQUEST [$name] ) : $_REQUEST [$name] : $default;
-
+        if(is_array($result)) {
+            $result = $this->purifyArray($result, true);
+            //$result = filter_var_array($result, FILTER_SANITIZE_ENCODED); //FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW);
+        }
+        else {
+            //$result = nl2br($result);
+            if(!is_object($this->purifier)) {
+                $this->purifier = new HTMLPurifier();
+            }
+            $result = $this->purifier->purify( $result );
+            //$result = filter_var($result, FILTER_SANITIZE_ENCODED); //FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW);
+        }
+        //var_dump($result);
         return $this->install_gpc_stripslashes ( $result );
     }
 
@@ -1535,6 +1563,29 @@ class engine {
                 $var = stripslashes ( $var );
         }
         return $var;
+    }
+    
+    public function purifyArray($array, $strip_keys = false) {
+        $this->purifier = new HTMLPurifier();
+        if (is_string ( $array ))
+            return $this->purifier->purify ( $array );
+        $keys_to_replace = Array ();
+        foreach ( $array as $key => $value ) {
+            if (is_string ( $value )) {
+                $array [$key] = $this->purifier->purify ( $value );
+            } elseif (is_array ( $value )) {
+                $this->purifyArray ( $array [$key], $strip_keys );
+            }
+            if ($strip_keys && $key != ($stripped_key = $this->purifier->purify ( $key ))) {
+                $keys_to_replace [$key] = $stripped_key;
+            }
+        }
+        // now replace any of the keys that need purification
+        foreach ( $keys_to_replace as $from => $to ) {
+            $array [$to] = $array [$from];
+            unset ( $array [$from] );
+        }
+        return $array;
     }
 
     /**
