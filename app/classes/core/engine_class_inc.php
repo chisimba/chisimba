@@ -1511,22 +1511,18 @@ class engine {
      * @return mixed    The value of the parameter, or $default if unset
      */
     public function getParam($name, $default = NULL) {
-        //echo $name;
-        
         $result = isset ( $_REQUEST [$name] ) ? is_string ( $_REQUEST [$name] ) ? trim ( $_REQUEST [$name] ) : $_REQUEST [$name] : $default;
         if(is_array($result)) {
-            $result = $this->purifyArray($result, true);
+            //$result = $this->purifyArray($result, true);
             //$result = filter_var_array($result, FILTER_SANITIZE_ENCODED); //FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW);
         }
         else {
-            //$result = nl2br($result);
-            if(!is_object($this->purifier)) {
-                $this->purifier = new HTMLPurifier();
-            }
-            $result = $this->purifier->purify( $result );
+            //if(!is_object($this->purifier)) {
+            //    $this->purifier = new HTMLPurifier();
+            //}
+            //$result = $this->purifier->purify( $result );
             //$result = filter_var($result, FILTER_SANITIZE_ENCODED); //FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW);
         }
-        //var_dump($result);
         return $this->install_gpc_stripslashes ( $result );
     }
 
