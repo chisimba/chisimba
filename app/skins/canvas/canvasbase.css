@@ -1775,3 +1775,50 @@ a.wall_comments_more:visited:hover {
     margin: 2px;
     vertical-align: middle;
 }
+
+/** For the myprofile module, including friends block */
+
+.myprofile_friends_wrapper {
+
+}
+
+ul.myprofile_friends {
+    list-style:none;
+}
+
+ul.myprofile_friends li.myprofile_friend {
+    position: relative;
+    float: left;
+    width: 80px;
+    height: 160px;
+    margin: 5px;
+    background: transparent;
+    text-align: center;
+
+}
+
+ul.myprofile_friends li.myprofile_friend a,
+ul.myprofile_friends li.myprofile_friend a:visited{
+    color: #3b5998;
+    background: transparent;
+}
+
+.userimage_cropped {
+    width: 80px;
+    height: 100px;
+    overflow: hidden;
+    background: black;
+    text-align: center;
+    margin-bottom: -15px;
+}
+
+/** For the login block **/
+#input_password {
+    background: #F8F8F8;
+    border: 1px solid #D8D8D8;
+}
+
+#input_username {
+    background: #F8F8F8 ;
+    border: 1px solid #D8D8D8;
+}

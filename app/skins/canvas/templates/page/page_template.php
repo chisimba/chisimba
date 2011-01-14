@@ -46,7 +46,7 @@ if (isset ($canvas)) {
 }
 
 // Get Header that goes into every skin.
-require($objConfig->getsiteRootPath().'skins/_common/templates/skinpageheader3-0.php');
+require_once($objConfig->getsiteRootPath().'skins/_common/templates/skinpageheader3-0.php');
 
 // Render the head section of the page. Note that there can be no space or
 // blank lines between the PHP closing tag and the HTML head tag. It must be
@@ -76,7 +76,8 @@ var curvyCornersVerbose = false;
 <?php
         $curvy = $this->getJavascriptFile('curvycorners-2.0.4/curvycorners.js', 'canvas');
         echo $curvy . "\n\n";
-        echo $objSkin->putJavaScript($mime, $headerParams);
+        //echo $objSkin->putJavaScript($mime, $headerParams);
+        echo $objSkin->putJavaScript($mime, $headerParams, $bodyOnLoad);
     }
 
     // Render the CSS for the current skin unless it is suppressed.
