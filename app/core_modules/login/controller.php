@@ -91,7 +91,7 @@ class login extends controller
     */
     public function init()
     {
-        $this->loginSecurity = $this->getObject('loginops', 'security');
+        $this->loginSecurity = $this->getObject('loginsecurity', 'login');
 
         // Create an instance of the nonce object for checking retries
         $this->objNonce = $this->getObject('nonce', 'login');

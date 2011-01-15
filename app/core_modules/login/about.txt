@@ -1,0 +1,65 @@
+I just had a look at the login / security code.
+I don't think I have seen something so ghastly
+since at least three lifetimes ago during the
+great plague.
+
+The controller actually has 488 lines of code, and
+uses methods that - by virtue of being in the controller
+instead of being in a proper class - are not
+reusable at all.
+
+Different methods for authentication are all mixed up,
+and POST versus AJAX use completely different methods.
+
+This really needs to be refactored as a PROPER
+chain of responsibility design pattern, made into
+object oriented code, and significantly simplified.
+
+With a proper chain of responsibility, you would have
+an abstract class with base methods, and an interface
+class that all elements of the chain would implement.
+
+Each login method would have a class, and the method
+names would be exactly the same. They would have a
+consistent naming pattern, such as
+
+auth_ldap_class_inc.php
+auth_facebook_class_inc.php
+auth_database_class_inc.php
+auth_someweirdness_class_inc.php
+
+etc.
+
+You would probably have no more than 30 lines in the
+controller, and you would load a class based on the
+auth method.
+
+echo $this->authenticate($method, $username, $password, $remember);
+
+.
+.
+.
+
+private function authenticate($method, $username, $password, $remember)
+   $authClass = 'auth_' . method;
+   $objAuth = $this->getObject($authClass, 'security);
+   return $objAuth->doLogin($method, $username, $password, $remember);
+}
+
+something like that, with a bit more checking. Instead,
+this beautiful design pattern seems to have been implemented
+not unlike a patchwork quilt knit with a cricket bat and two
+chainsaws.
+
+I think this needs to be done for Chisimba 4. We can't have this
+kind of code in Chisimba 4.
+
+Use http://www.webdesignbeach.com/beachbar/ajax-fancy-captcha-jquery-plugin
+
+<div class="ajax-fc-container"></div>
+
+<script>
+jQuery(function() {
+ jQuery(".ajax-fc-container").captcha({formId: "myForm"});
+ });
+</script>
