@@ -103,8 +103,12 @@ class bestguess extends object
             if ($chk) {
                 // It might be there but invalid, so still need to check.
                 $getUid = $this->objUser->getUserId($chk);
+                if ($getUid == FALSE) {
+                    return FALSE;
+                }
             } else {
                 $getUid = FALSE;
+                // We should not go any further, return FALSE here.
             }
             // If we got it return it, otherwise see if we can deduce it from the module.
             if ($getUid) {
