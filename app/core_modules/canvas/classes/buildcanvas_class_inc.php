@@ -98,7 +98,7 @@ class buildcanvas extends object
      * @access private
      *
      */
-    private $userId;
+    private $userId = FALSE;
 
     /**
      *
@@ -189,6 +189,9 @@ class buildcanvas extends object
      */
     public function show($blockType='personal')
     {
+        if ($blockType == 'user') {
+            $blockType = 'personal';
+        }
         switch ($blockType) {
             case 'personal':
                 return $this->showPersonal();
@@ -598,7 +601,7 @@ class buildcanvas extends object
      */
     private function getEditOnButton()
     {
-        if ($this->isOwner) {
+        if ($this->isOwner ==  TRUE) {
             $editOnButton = new button (
               'editonbutton', $this->objLanguage->languageText(
                 'mod_context_turneditingon', 'context', 'Turn Editing On'
