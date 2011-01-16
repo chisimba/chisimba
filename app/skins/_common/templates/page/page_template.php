@@ -191,7 +191,7 @@ $pageTitle .= ($siteBreadcrumbs==''?'':' [ '.strip_tags($siteBreadcrumbs).' ] ')
 		        T("#mytweetbox").tweetBox({
 		            height: 40,
 		            width: 550,
-		            defaultContent: "Reading: " + $.trim(document.title),
+		            defaultContent: "Reading: " + jQuery.trim(document.title),
 		            label: "Tweet this post!"
 		        });
 		
