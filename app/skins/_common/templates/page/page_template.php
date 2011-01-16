@@ -84,6 +84,20 @@ $pageTitle .= ($siteBreadcrumbs==''?'':' [ '.strip_tags($siteBreadcrumbs).' ] ')
 ?>
         </title>
 <?php
+    // set up for Twitter @Anywhere as a global thing. Care has to be taken not to cripple offline installs
+    //sys-config object
+    $this->objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
+    if( strtolower($this->objSysConfig->getValue('enable_atanywhere', 'twitter')) == 'true' ) {
+        $apikey = $this->objSysConfig->getValue('mod_twitter_key', 'twitter');
+        echo '<script src="http://platform.twitter.com/anywhere.js?id='.$apikey.'&v=1"></script>';
+        // This will enable hovercards on all twitter names
+        echo '<script type="text/javascript">
+			      twttr.anywhere(function (twitter) {
+		              twitter.hovercards({ infer: true });
+		          });
+		      </script>';
+    }
+    
     if (!isset($pageSuppressSkin)) {
         echo $objSkin->putSkinCssLinks();
         if (!isset($pageSuppressToolbar)) {
@@ -143,6 +157,7 @@ $pageTitle .= ($siteBreadcrumbs==''?'':' [ '.strip_tags($siteBreadcrumbs).' ] ')
 
 <?php
     }
+    header("Content-type: text/html; charset=utf-8")
     // get content
     echo $this->getLayoutContent();
 
@@ -168,6 +183,20 @@ $pageTitle .= ($siteBreadcrumbs==''?'':' [ '.strip_tags($siteBreadcrumbs).' ] ')
     }
     $this->putMessages();
 ?>
-
+    <!-- This will put a tweet box in the "mytweetbox" HTML element. To use, simply create a mytweetbox div somewhere -->
+    <script type="text/javascript">
+		
+		    twttr.anywhere(function (T) {
+		
+		        T("#mytweetbox").tweetBox({
+		            height: 40,
+		            width: 550,
+		            defaultContent: "Reading: " + $.trim(document.title),
+		            label: "Tweet this post!"
+		        });
+		
+		    });
+		
+	</script>
     </body>
 </html>
