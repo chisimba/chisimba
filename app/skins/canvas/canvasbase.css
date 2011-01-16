@@ -1822,3 +1822,10 @@ ul.myprofile_friends li.myprofile_friend a:visited{
     background: #F8F8F8 ;
     border: 1px solid #D8D8D8;
 }
+
+/* The tweet button */
+.tweet_button {
+    float: right;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
