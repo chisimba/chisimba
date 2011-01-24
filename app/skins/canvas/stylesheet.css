@@ -103,3 +103,44 @@ div#header div#search {
     padding-right: 8px;
     width:auto;
 }
+
+
+/**** STYLES FOR SIMPLEBLOG *****/
+.simpleblog_post_title {
+    background: transparent;
+    margin-bottom: 10px;
+    font-size: xx-large;
+}
+
+#input_post_title {
+    width: 500px;
+    margin-left: 12px;
+}
+
+.simpleblog_post_content {
+    background: transparent;
+    margin-bottom: 5px;
+}
+
+.simpleblog_post_wrapper {
+    padding: 20px;
+    border: 1px solid white;
+    margin-bottom: 30px;
+}
+
+.simpleblog_editicon {
+    margin-right: 5px;
+}
+.simpleblog_delicon {
+    margin-left: 5px;
+}
+
+.simpleblog_edel {
+    float: right;
+}
+
+.simpleblog_post_footer {
+    border-top: 1px solid grey;
+    padding-top: 10px;
+    padding-bottom:10px;
+}

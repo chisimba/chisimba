@@ -1574,7 +1574,7 @@ Styles for the Chisimba wall module
 .clear {
     clear:both;
 }
-#wall_wrapper {
+.wall_wrapper {
     width:448px;
     margin:0 auto;
     text-align:left;
@@ -1584,7 +1584,7 @@ Styles for the Chisimba wall module
     border:1px solid #B5B5B5;
     padding:4px;
 }
-#wallpost {
+.wallpost {
     width:98%;
     height:70px;
     border-color:#7C7C7C #C3C3C3 #DDDDDD;
@@ -1592,7 +1592,7 @@ Styles for the Chisimba wall module
     border-width:1px;
 }
 
-#shareBtn {
+.shareBtn {
     background:#3b5998;
     float:right;
     color:#ffffff;
