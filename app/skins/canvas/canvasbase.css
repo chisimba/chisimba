@@ -1829,3 +1829,22 @@ ul.myprofile_friends li.myprofile_friend a:visited{
     margin-top: 10px;
     margin-bottom: 5px;
 }
+
+/** Stuff for simpleblog **/
+.simpleblog_view_wall, .hidewall a, .hidewall a:visited, .hidewall a:hover {
+    background:#3b5998;
+    color:#ffffff;
+    font-weight:bold;
+    border:0;
+    padding:4px;
+    padding-left: 12px;
+    padding-right: 12px;
+    margin-top:2px;
+
+}
+
+.simpleblog_wall_comments {
+    color: #3b5998;
+    text-decoration: none;
+    margin-left: 40px;
+}
