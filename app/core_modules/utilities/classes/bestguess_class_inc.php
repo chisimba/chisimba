@@ -130,6 +130,13 @@ class bestguess extends object
                         }
                         break;
 
+                    case 'simpleblog':
+                        $objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
+                        $defaultBlogType = strtolower($objSysConfig->getValue('simpleblog_defaulttype', 'simpleblog'));
+                        if ($defaultBlogType == 'personal')  {
+                            $uid = $objSysConfig->getValue('simpleblog_defaultblog', 'simpleblog');
+                        }
+
                     case 'wall':
                         // We only get here if we haven't found it yet
                         if ($this->objUser->isLoggedIn()) {
