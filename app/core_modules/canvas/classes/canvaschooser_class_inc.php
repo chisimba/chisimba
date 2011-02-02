@@ -241,13 +241,25 @@ class canvaschooser extends controller
     */
     public function _site($skinBase)
     {
+        //return FALSE;
         // Check for preferred site canvas
         $this->objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
+        /*
+         * 
+         * There is a bug here. It retains prefered canvas even when chaning skins.
+         * 
+         * 
+         */
         $prefCanvas = $this->objSysConfig->getValue('canvas_preferredcanvas', 'canvas');
-        if ($prefCanvas == "FALSE") {
+        if ($prefCanvas == "FALSE" || $prefCanvas == "") {
             return FALSE;
         } else {
-            return  $skinBase . $prefCanvas;
+            $ret = $skinBase . $prefCanvas;
+             if(file_exists($ret)) {
+                 return  $skinBase . $prefCanvas;
+             } else {
+                 return FALSE;
+             }
         }
     }
 
