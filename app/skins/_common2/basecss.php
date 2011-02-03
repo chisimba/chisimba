@@ -7,8 +7,8 @@ header('Content-type: text/css');
 // Define the filename of the cached file
 define("CACHED_FILE", "cached.css");
 // Define the lifetime of the cached file in seconds
-//define("CACHE_LIFE", 604800);
-define("CACHE_LIFE", 0.0000001);
+define("CACHE_LIFE", 604800);
+//define("CACHE_LIFE", 0.0000001);
 // save the current directory so it can be restored
 $savedDir = getcwd();
 // The directory to look for CSS files
