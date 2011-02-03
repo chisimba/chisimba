@@ -132,11 +132,13 @@ class dbcontext extends dbTable {
      * @param string access Access Settings for the Context
      * @param string $about About the Context
      * @param string $showcomment Enable or Disable Comments on course pages
+     * @param string $alerts Enable or Disable alerts
      *
      * @return boolean Result of adding a context
      */
     public function createContext(
-    $contextCode, $title, $status = 'Published', $access = 'Private', $about = NULL, $goals=FALSE, $showcomment='Y', $alerts='', $canvas='') {
+    $contextCode, $title, $status = 'Published', $access = 'Private', $about = NULL, $goals=FALSE, $showcomment='Y', $alerts = '', $canvas='') {
+
         $contextCode = preg_replace('/\W*/', '', $contextCode);
         $contextCode = strtolower($contextCode);
 
@@ -149,37 +151,37 @@ class dbcontext extends dbTable {
             // If Yes, do not create
             return FALSE;
         } else {
+            $data = array('contextcode' => $contextCode,
+                'title' => $title,
+                'menutext' => $title,
+                'access' => $access,
+                'alerts' => $alerts,
+                'status' => $status,
+                'about' => $about,
+                'userid' => $this->objUser->userId(),
+                'dateCreated' => date("Y-m-d"),
+                'updated' => date("Y-m-d H:i:s"),
+                'lastupdatedby' => $this->objUser->userId(),
+                'goals' => $goals,
+                'showcomment' => $showcomment,
+                'canvas' => $canvas,
+                'lastaccessed' => date("Y-m-d H:i:s"));
+
             // Insert Record
-            $result = $this->insert(
-                            array('contextcode' => $contextCode,
-                                'title' => $title,
-                                'menutext' => $title,
-                                'access' => $access,
-                                'status' => $status,
-                                'about' => $about,
-                                'userid' => $this->objUser->userId(),
-                                'dateCreated' => date("Y-m-d"),
-                                'updated' => date("Y-m-d H:i:s"),
-                                'lastupdatedby' => $this->objUser->userId(),
-                                'goals' => $goals,
-                                'showcomment' => $showcomment,
-                                'alerts' => $alerts,
-                                'canvas' => $canvas,
-                                'lastaccessed' => date("Y-m-d H:i:s")));
+            $result = $this->insert($data);
 
             // If Successful
             if ($result) {
-
                 $this->_indexContext($contextCode);
 
                 // Create Groups
                 $contextGroups = $this->getObject('managegroups', 'contextgroups');
                 $contextGroups->createGroups($contextCode, $title);
 
+
                 // Join Context
                 $this->joinContext($contextCode);
             }
-
             // Return Result
             return $result;
         }
@@ -248,7 +250,9 @@ class dbcontext extends dbTable {
      * @access public
      */
     public function updateAbout($contextCode, $about) {
-        $result = $this->updateContext($contextCode, FALSE, FALSE, FALSE, $about, FALSE, FALSE,FALSE,FALSE, $this->getCanvasName());
+        $fields = array();
+        $fields['about'] = $about;
+        $result = $this->update('contextcode', $contextCode, $fields);
 
         return $result;
     }
@@ -262,8 +266,9 @@ class dbcontext extends dbTable {
      * @access public
      */
     public function updateGoals($contextCode, $goals) {
-        $result = $this->updateContext($contextCode, FALSE, FALSE, FALSE, FALSE, $goals, FALSE,FALSE,FALSE,  $this->getCanvasName());
-
+        $fields = array();
+        $fields['goals'] = $goals;
+        $result = $this->update('contextcode', $contextCode, $fields);
         return $result;
     }
 
@@ -275,9 +280,9 @@ class dbcontext extends dbTable {
      * @access public
      */
     public function updateLastAccessed($contextCode) {
-     
-        $result = $this->updateContext($contextCode, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, '', date('Y-m-d H:i:s'), $this->getCanvasName());
-
+        $fields = array();
+        $fields['lastaccessed'] = date('Y-m-d H:i:s');
+        $result = $this->update('contextcode', $contextCode, $fields);
         return $result;
     }
 
@@ -578,6 +583,8 @@ class dbcontext extends dbTable {
             $contents = $context ['title'] . ' ' . $context ['about'];
             $teaser = $context ['about'];
             $userId = $context ['userid'];
+            $alerts = $context ['alerts'];
+            $canvas = $context ['canvas'];
             $module = 'context';
 
             // Todo - Set permissions on entering course, e.g. iscontextmember.
@@ -591,7 +598,7 @@ class dbcontext extends dbTable {
                 $permissions = 'iscontextlecturer';
             }
 
-            $extra = array('status' => $context ['status'], 'access' => $context ['access'], 'contextcode' => $context ['contextcode']);
+            $extra = array('status' => $context ['status'], 'access' => $context ['access'], 'contextcode' => $context ['contextcode'], 'alerts' =>$context ['alerts'], 'canvas' => $context ['canvas']);
 
             $objIndexData->luceneIndex($docId, $docDate, $url, $title, $contents, $teaser, $module, $userId, NULL, NULL, 'root', NULL, $permissions, NULL, NULL, $extra);
         }
