@@ -199,9 +199,11 @@ class contextadmin extends controller {
         $about = '';
 
         $emailalert = $this->getParam('emailalertopt');
-        $alerts = '';
+        $alerts = 0;
         if ($emailalert == 'on') {
-            $alerts.='e';
+            $alerts = '1';
+        } else {
+            $alerts = '0';
         }
 
         if ($contextCode == '') {
@@ -221,7 +223,7 @@ class contextadmin extends controller {
 
             return $this->nextAction('step2', array('mode' => 'add', 'contextcode' => $contextCode));
         } else { // Else fix up errors
-            $fixup = array('contextcode' => $contextCode, 'title' => $title, 'status' => $status, 'showcomment' => $showcomment, 'access' => $access);
+            $fixup = array('contextcode' => $contextCode, 'title' => $title, 'status' => $status, 'showcomment' => $showcomment, 'access' => $access, 'alerts' => $alerts);
             $this->setSession('fixup', $fixup);
 
             return $this->nextAction('add', array('mode' => 'fixup', 'contextcode' => $contextCode));
@@ -578,10 +580,13 @@ class contextadmin extends controller {
         $goals = $this->getParam('goals');
         $mode = $this->getParam('mode');
         $emailalert = $this->getParam('emailalertopt');
-        $alerts = '';
+        $alerts = '0';
         if ($emailalert == 'on') {
-            $alerts.='e';
+            $alerts = '1';
+        } else {
+            $alerts = '0';
         }
+
         if ($contextCode != $this->getSession('contextCode')) {
             $newContext = $this->getSession('contextCode');
             return $this->nextAction(NULL, array('message' => 'contextswitch', 'context1' => $contextCode, 'context2' => $newContext));

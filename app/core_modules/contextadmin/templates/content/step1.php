@@ -245,7 +245,7 @@ $table->addCell($title->show());
 $table->endRow();
 
 
-$uploadlink = new link($this->uri(array("action"=>"uploadtheme")));
+$uploadlink = new link($this->uri(array("action" => "uploadtheme")));
 $uploadlink->link = '<strong>' . $this->objLanguage->languageText('mod_contextadmin_upload', 'contextadmin', 'Upload') . '</strong>';
 
 if ($mode == 'edit') {
@@ -298,14 +298,14 @@ $table->endRow();
 
 $emailAlert = new checkbox('emailalertopt', $this->objLanguage->languageText('mod_contextadmin_emailalert', 'contextadmin', 'Email alerts'), true);  // this will checked
 
-$alerts = array();
-if ($mode == 'edit') {
-    $alerts = explode("|", $context['alerts']);
+if ($mode == 'add' && is_array($fixup)) {
+    $emailAlert->setChecked($fixup['alerts']);
+} elseif($mode == 'add') {
+    $emailAlert->setChecked('0');
+} else if ($mode == 'edit') {
+    $emailAlert->setChecked($context['alerts']);
 }
 
-if (count($alerts) > 0) {
-    $emailAlert->setChecked($alerts[0] == 'e');
-}
 $table->startRow();
 $table->addCell($this->objLanguage->languageText('mod_contextadmin_emailalert', 'contextadmin', 'Alerts'));
 $table->addCell($emailAlert->show());
