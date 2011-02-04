@@ -200,7 +200,7 @@ class dbcontext extends dbTable {
      * @return boolean Result of Update
      */
     public function updateContext(
-    $contextCode, $title=FALSE, $status=FALSE, $access=FALSE, $about=FALSE, $goals=FALSE, $showcomment=FALSE, $alerts='', $lastaccessed=FALSE, $canvas="") {
+    $contextCode, $title=FALSE, $status=FALSE, $access=FALSE, $about=FALSE, $goals=FALSE, $showcomment=FALSE, $alerts=FALSE, $lastaccessed=FALSE, $canvas=FALSE) {
         $fields = array();
 
         $fields['updated'] = date('Y-m-d H:i:s');
