@@ -228,9 +228,12 @@ class dbcontext extends dbTable {
         if ($lastaccessed !== FALSE) {
             $fields['lastaccessed'] = $lastaccessed;
         }
-
-        $fields['alerts'] = $alerts;
-        $fields['canvas'] = $canvas;
+        if ($alerts !== FALSE) {
+            $fields['alerts'] = $alerts;
+        }
+        if ($canvas !== FALSE) {
+            $fields['canvas'] = $canvas;
+        }
 
         $result = $this->update('contextcode', $contextCode, $fields);
 
@@ -598,7 +601,7 @@ class dbcontext extends dbTable {
                 $permissions = 'iscontextlecturer';
             }
 
-            $extra = array('status' => $context ['status'], 'access' => $context ['access'], 'contextcode' => $context ['contextcode'], 'alerts' =>$context ['alerts'], 'canvas' => $context ['canvas']);
+            $extra = array('status' => $context ['status'], 'access' => $context ['access'], 'contextcode' => $context ['contextcode'], 'alerts' => $context ['alerts'], 'canvas' => $context ['canvas']);
 
             $objIndexData->luceneIndex($docId, $docDate, $url, $title, $contents, $teaser, $module, $userId, NULL, NULL, 'root', NULL, $permissions, NULL, NULL, $extra);
         }
