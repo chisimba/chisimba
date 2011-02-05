@@ -405,7 +405,7 @@ div#header div#search button {
     margin-right: 0px;
     margin-top: 5px;
     margin-bottom: 5px;
-    background: transparent url("images/overlay-sm.png") top left repeat;
+    background: transparent;
     border: none;
     padding: 10px;
     -moz-border-radius: 10px;
@@ -416,11 +416,15 @@ div#header div#search button {
     line-height:100%;
 }
 
+#nav-secondary ul {
+    
+}
+
 #nav-secondary li{
-    padding-left: 5px;
+    padding-left: 15px;
     margin-bottom: 4px;
-    text-indent: -14px;
-    padding-left: 14px;
+    text-indent: -17px;
+    margin-left: -6px;
 }
 
 #nav-secondary li:before {
@@ -437,11 +441,6 @@ div#header div#search button {
     The content of the feature box,  below the
     headder and the secondary nav menu should have
     icons before the links
-
-.featureboxlink:before, #nav_secondary>li:before {
-    content:url(images/bullet.png);
-    vertical-align: middle;
-}
 */
 .fblinkbefore {
      background: url("images/bullet_grey.png") center left no-repeat;
@@ -453,7 +452,7 @@ div#header div#search button {
 }
 
 .featureboxlink {
-
+   
 }
 
 
