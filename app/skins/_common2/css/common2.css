@@ -440,3 +440,6 @@ h3.popupTitle{
     margin:20px auto;
 }
 
+.required_field {
+    color: red;
+}
