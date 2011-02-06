@@ -1,4 +1,4 @@
 <?php
-// Render the laout content as supplied from the layout template
+// Render the layout content as supplied from the layout template
 echo $this->getLayoutContent();
 ?>
