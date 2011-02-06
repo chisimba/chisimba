@@ -44,7 +44,7 @@ $header->str = $this->objLanguage->languageText('phrase_registeron', 'userregist
 
 echo '<div style="padding:10px;">'.$header->show();
 
-$required = '<span class="warning"> * '.$this->objLanguage->languageText('word_required', 'system', 'Required').'</span>';
+$required = '<span class="required_field"> * '.$this->objLanguage->languageText('word_required', 'system', 'Required').'</span>';
 
 $str = $this->objLanguage->languageText('mod_userregistration_firstneedtoregister', 'userregistration', 'In order to be able to access [[SITENAME]], you first need to register');
 
@@ -127,7 +127,7 @@ $table->addCell($titlesDropdown->show());
 $table->endRow();
 
 $firstname = new textinput('register_firstname');
-$firstnameLabel = new label($this->objLanguage->languageText('phrase_firstname', 'system').'&nbsp;', 'input_register_firstname');
+$firstnameLabel = new label($this->objLanguage->languageText('phrase_firstname', 'system', "First name").'&nbsp;', 'input_register_firstname');
 
 if ($mode == 'addfixup') {
     $firstname->value = $this->getParam('register_firstname');
@@ -301,7 +301,7 @@ if ($mode == 'addfixup' && count($messages) > 0) {
 }
 
 
-//echo $form->show();
+echo $form->show();
 
 echo '</div>';
 
