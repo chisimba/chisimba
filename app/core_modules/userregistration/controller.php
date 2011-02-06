@@ -131,6 +131,7 @@ class userregistration extends controller
      */
     protected function registrationHome() 
     {
+        $this->setPageTemplate('page_template.php');
         $userstring = $this->getParam('user');
         $this->setVar('userstring', $userstring);
         $this->setVar('mode', 'add');

@@ -22,6 +22,7 @@ function showResponse (originalRequest) {
 <?php
 // check if the site signup user string is set, if so, use it to populate the fields
 
+
 if(isset($userstring))
 {
     $userstring = base64_decode($userstring);
@@ -300,11 +301,8 @@ if ($mode == 'addfixup' && count($messages) > 0) {
 }
 
 
-echo $form->show();
+//echo $form->show();
 
 echo '</div>';
 
-// echo '<pre>';
-        // print_r($_POST);
-// echo '</pre>';
 ?>
