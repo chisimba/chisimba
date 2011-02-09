@@ -18,27 +18,35 @@ echo $header->show();
 $objPopupcal = $this->newObject('datepickajax', 'popupcalendar');
 $objTable = $this->getObject("htmltable", "htmlelements");
 
-$startLabel = $this->objLanguage->languageText('mod_contextcontent_startdate', 'contextcontent', "Start Date");
-$closeLabel = $this->objLanguage->languageText('mod_contextcontent_closedate', 'contextcontent', "Close Date");
+$startLabel = $this->objLanguage->languageText('mod_contextcontent_selectstartdate', 'contextcontent', "Start Date");
+$closeLabel = $this->objLanguage->languageText('mod_contextcontent_selectclosedate', 'contextcontent', "Close Date");
 $userOptLabel = $this->objLanguage->languageText('mod_contextcontent_onlystudents', 'contextcontent', "Show student activity only");
 $selectModuleLabel = $this->objLanguage->languageText('mod_contextcontent_selectmodule', 'contextcontent', "Select module");
 /* * ** start date & time *** */
 // Set start date of test
 $startField = $objPopupcal->show('startdate', 'yes', 'no', strftime('%Y-%m-%d %H:%M:%S', mktime()));
 $objLabel = new label($startLabel . ':', 'input_start');
-$objTable->addRow(array(
-    $objLabel->show(),
-    $startField
-));
+$objTable->startRow();
+$objTable->addCell($objLabel->show());
+$objTable->addCell($startField);
+$objTable->endRow();
+//$objTable->addRow(array(
+  //  $objLabel->show(),
+   // $startField
+//));
 // Set closing date of test
 
 $closeField = $objPopupcal->show('enddate', 'yes', 'no', strftime('%Y-%m-%d %H:%M:%S', mktime()));
 $objLabel = new label($closeLabel . ':', 'input_close');
-$objTable->addRow(array(
+/*$objTable->addRow(array(
     $objLabel->show(),
     $closeField
 ));
-
+*/
+$objTable->startRow();
+$objTable->addCell($objLabel->show());
+$objTable->addCell($closeField);
+$objTable->endRow();
 /*
   $objElement = new checkbox('studentsonly', '', true);  // this will checked
   $check = $objElement->show();

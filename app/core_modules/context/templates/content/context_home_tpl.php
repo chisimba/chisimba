@@ -221,7 +221,7 @@ if ( $showAdminShortcutBlock == "TRUE" || $showAdminShortcutBlock == "true" || $
         $showTitle = true;
         $cssClass = "featurebox";
         $utillink = $objFeatureBox->show(
-                        $this->objLanguage->languageText('mod_contextcontent_shortcuts', 'contextcontent', 'Shortcuts'),
+                        ucwords($this->objLanguage->code2Txt('mod_contextcontent_activityshortcuts', NULL,'contextcontent', '[-context-] Activities')),
                         $content,
                         $block,
                         $hidden,
