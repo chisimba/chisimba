@@ -96,7 +96,7 @@ class parse4mathml extends object
         if ($isRegistered){
             $this->objMathImg = $this->getObject('mathimg','mathml');
             // Search for all items in [MATH] Tags
-            $search = '/\[MATH\](.*)\[\/MATH\]/U';
+            $search = '/\[MATHML\](.*)\[\/MATHML\]/U';
             // Get All Matches
             preg_match_all($search, $str, $matches, PREG_PATTERN_ORDER);
             // Check whether there are matches
@@ -111,7 +111,7 @@ class parse4mathml extends object
                         $replace = $this->renderAsImage($match);
                     }
                     // Replace Text
-                    $str = preg_replace('/'.preg_quote('[MATH]'.$match.'[/MATH]','/').'/', $replace, $str);
+                    $str = preg_replace('/'.preg_quote('[MATHML]'.$match.'[/MATHML]','/').'/', $replace, $str);
                 }
             }
 
