@@ -103,44 +103,111 @@ div#header div#search {
     padding-right: 8px;
     width:auto;
 }
+/******************************
+ * Featuresuggest styles
+ *****************************/
+ul.suggestions{	list-style:none;}
 
-
-/**** STYLES FOR SIMPLEBLOG *****/
-.simpleblog_post_title {
-    background: transparent;
-    margin-bottom: 10px;
-    font-size: xx-large;
+.suggestions li{
+	background-color:#ffffff;
+	padding:10px;
+	margin-bottom:10px;
+	position:relative;
+	font-size:18px;
+	width:730px;
+	overflow-x:hidden;
+	word-wrap:break-word;
 }
 
-#input_post_title {
-    width: 500px;
-    margin-left: 12px;
+#suggest{
+	background-color:#ffffff;
+	padding:30px;
+	margin:60px 0 0;
 }
 
-.simpleblog_post_content {
-    background: transparent;
-    margin-bottom: 5px;
+.rounded,
+#suggest,
+.suggestions li{
+	-moz-border-radius-topleft:12px;
+	-moz-border-radius-bottomright:12px;
+
+	-webkit-border-top-left-radius:12px;
+	-webkit-border-bottom-right-radius:12px;
+	
+	border-top-left-radius:12px;
+	border-bottom-right-radius:12px;
 }
 
-.simpleblog_post_wrapper {
-    padding: 20px;
-    border: 1px solid white;
-    margin-bottom: 30px;
+#suggestionText{
+	background-color:#ffffff;
+	border:1px solid #333333;
+	color:#ffffff;
+	display:block;
+	float:left;
+	font-family:Corbel,'Myriad Pro',Arial,Helvetica,sans-serif;
+	font-size:18px;
+	margin-right:20px;
+	padding:4px 0 4px 14px;
+	text-shadow:1px 1px 0 white;
+	width:555px;
+	outline:none;
 }
 
-.simpleblog_editicon {
-    margin-right: 5px;
-}
-.simpleblog_delicon {
-    margin-left: 5px;
+#submitSuggestion{
+	width:95px;
+	height:31px;
+	background:url('images/submit_button.png') no-repeat;
+	text-transform:uppercase;
+	text-indent:-9999px;
+	overflow:hidden;
+	border:none;
+	cursor:pointer;
+	display:block;
+	margin:0 auto;
 }
 
-.simpleblog_edel {
-    float: right;
+#submitSuggestion:hover{
+	background-position:left -31px;
 }
 
-.simpleblog_post_footer {
-    border-top: 1px solid grey;
-    padding-top: 10px;
-    padding-bottom:10px;
+form.working #submitSuggestion{
+	background-position:left bottom;
 }
+
+.suggestions .text{
+    background-color: #ffffff;
+	line-height:1.4;
+	padding:0 70px;
+}
+
+.suggestions .rating{
+	bottom:12px;
+	color:#939393;
+	font-family:Arial,Helvetica,sans-serif;
+	font-size:18px;
+	position:absolute;
+	right:15px;
+}
+
+.vote{
+	float:left;
+}
+
+.vote span{
+	background:url('images/vote_arrows.png') no-repeat;
+	float:left;
+	height:26px;
+	margin-right:4px;
+	width:26px;
+	cursor:pointer;
+}
+
+.vote.inactive span{
+	opacity:0.5;
+	filter: alpha(opacity = 50);
+	cursor:default;
+}
+
+.vote .down	{ background-position:right top;}
+.vote.active .up:hover		{	background-position:left bottom;}
+.vote.active .down:hover	{	background-position:right bottom;}
