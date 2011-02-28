@@ -781,16 +781,16 @@ class user extends dbTable {
         }
 
         if ($alt == NULL) {
-            $alt = 'alt="User Image" ';
+            $alt = ' alt="User Image" ';
         } else {
             $alt = ' alt="' . $alt . '" title="' . $alt . '" ';
         }
 
 
         if (file_exists($this->imagePath . $userId . '.jpg')) {
-            return '<img class="full_user_image" src="' . $this->imageUri . $userId . '.jpg' . $forceRefresh . '" alt="' . $alt . '" />';
+            return '<img class="full_user_image" src="' . $this->imageUri . $userId . '.jpg' . $forceRefresh . '" ' . $alt . ' />';
         } else {
-            return '<img class="full_user_image" src="' . $this->imageUri . 'default.jpg" alt="' . $alt . '" />';
+            return '<img class="full_user_image" src="' . $this->imageUri . 'default.jpg" ' . $alt . ' />';
         }
     }
 
