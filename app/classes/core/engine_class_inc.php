@@ -475,8 +475,8 @@ class engine {
 
         // Ensure the site is being accessed at the correct location.
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-            $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http';
-            $base = $protocol.'://'.$_SERVER['HTTP_HOST'].strtok($_SERVER['REQUEST_URI'], '?');
+            $base = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http';
+            $base .= '://'.$_SERVER['HTTP_HOST'].strtok($_SERVER['REQUEST_URI'], '?');
             $query = strtok('?');
 
             if ($query === FALSE) {
