@@ -101,7 +101,7 @@ class skinjavascript extends object
             $mime = 'text/html';
         }
         $str = '';
-        //$str .= $this->getScriptaculous($mime);
+        $str .= $this->getScriptaculous($mime);
         $str .= $this->getJQuery();
         $str .= $this->getChromeFrame();
         $str .= $this->getHeaderParams($headerParams);
@@ -120,9 +120,9 @@ class skinjavascript extends object
     */
     public function getScriptaculous($mime)
     {
-        $supressPrototype = $this->getVar('SUPPRESS_PROTOTYPE', false);
-        if (!$supressPrototype){
-            // Add Scriptaculous
+        $enable = $this->getVar('ENABLE_PROTOTYPE', FALSE);
+
+        if ($enable) {
             $scriptaculous = $this->getObject('scriptaculous', 'prototype');
             return $scriptaculous->show($mime);
         } else {
@@ -232,7 +232,7 @@ class skinjavascript extends object
         } else {
             return NULL;
         }
-        
+
     }
 }
 ?>
