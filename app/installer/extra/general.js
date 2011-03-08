@@ -55,7 +55,7 @@ function rev_htmlspecialchars(str) {
 }// rev_htmlspecialchars()
 
  ///////////////////////////////////////////////////////
-// trims all white space from the start and end of 
+// trims all white space from the start and end of
 // the string
 String.prototype.trim = function() {
 	var str = this.toString();
@@ -65,7 +65,7 @@ String.prototype.trim = function() {
 }// end trim()
 
  ///////////////////////////////////////////////////////
-// sorts the array then removes any duplicates 
+// sorts the array then removes any duplicates
 // from it
 function array_unique(arr) {
 
@@ -85,7 +85,7 @@ function array_unique(arr) {
 }// end array_unique()
 
  ///////////////////////////////////////////////////////
-// takes an array and a value and removes the first 
+// takes an array and a value and removes the first
 // element in the array with that value
 function array_remove_element(arr, val, remove_all) {
 
@@ -238,7 +238,7 @@ function _number_format_thousand_separators(str, sep) {
 // prints an icon using transparency in IE
 // ensures that PNGs have transparent background in IE and Mozilla
 function sq_print_icon(path, width, height, alt) {
-	
+
 	if (document.all) {
 		// IE cant handle transparent PNGs
 		document.write ('<span style="height:'+height+'px;width:'+width+'px; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader (src=\''+path+'\', sizingMethod=\'scale\')" title="' + alt + '"></span>');
@@ -253,7 +253,10 @@ function sq_print_icon(path, width, height, alt) {
 // and a manual click they can click if something goes wrong
 function sq_redirect(url) {
 
-	window.location.replace('"' + url + '"');
+    // Commented out by J O'Connor 2011-03-08
+	//window.location.replace('"' + url + '"');
+	// Fixed bug J O'Connor 2011-03-08
+	window.location.replace(url);
 
 	document.write('<html>');
 	document.write('	<head>');
