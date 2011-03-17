@@ -254,9 +254,9 @@ function sq_print_icon(path, width, height, alt) {
 function sq_redirect(url) {
 
     // Commented out by J O'Connor 2011-03-08
-	//window.location.replace('"' + url + '"');
+	window.location.replace('"' + url + '"');
 	// Fixed bug J O'Connor 2011-03-08
-	window.location.replace(url);
+	//window.location.replace(url);
 
 	document.write('<html>');
 	document.write('	<head>');
