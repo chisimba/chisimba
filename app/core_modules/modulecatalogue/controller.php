@@ -849,7 +849,7 @@ class modulecatalogue extends controller {
                             break;
                         } */
                     }
-                    
+
                     log_debug("About to batch register: ");
                     //log_debug($modules);
                     // finally install all of the mods
@@ -1136,9 +1136,21 @@ class modulecatalogue extends controller {
      *
      * @param string sysType The type of system to install
      */
+    private $progress_fn = "progress";
+    private $progress_content = "";
+    private function update_progess($status)
+    {
+        $this->progress_content .= $status;
+        if (file_put_contents($this->progress_fn, $this->progress_content) === FALSE) {
+            //echo "Failure!";
+            //exit(0);
+        }
+    }
     private function firstRegister($sysType) {
         try {
             log_debug ( "Installing system, type: $sysType" );
+            //$this->update_progess("\n");
+            $this->update_progess("Installing system, type: $sysType\n");
             $root = $this->objConfig->getsiteRootPath ();
             if (! file_exists ( $root . 'config/config.xml' )) {
                 throw new customException ( "could not find config.xml! tried {$root}config/config.xml" );
@@ -1148,25 +1160,31 @@ class modulecatalogue extends controller {
             }
             $objXml = simplexml_load_file ( $root . 'installer/dbhandlers/systemtypes.xml' );
             log_debug ( 'Installing core modules' );
+            $this->update_progess("Installing core modules\n");
             $coreList = $objXml->xpath ( "//category[categoryname='Basic System Only']" );
             foreach ( $coreList [0]->module as $module ) {
+                $this->update_progess("$module...");
                 if (! $this->smartRegister ( trim ( $module ) )) {
                     throw new customException ( "Error installing module $module: {$this->objModuleAdmin->output} {$this->objModuleAdmin->getLastError()}" );
                 }
+                $this->update_progess("OK\n");
             }
             if ($sysType != "Basic System Only") {
                 log_debug ( 'Installing system specific modules' );
+                $this->update_progess("Installing system specific modules\n");
                 $specificList = $objXml->xpath ( "//category[categoryname='$sysType']" );
                 foreach ( $specificList [0]->module as $module ) {
+                    $this->update_progess("$module...");
                     if (! $this->smartRegister ( trim ( $module ) )) {
                         throw new customException ( "Error installing module $module: {$this->objModuleAdmin->output} {$this->objModuleAdmin->getLastError()}" );
                     }
+                    $this->update_progess("OK\n");
                 }
             }
             // Flag the first time registration as having been run
             $this->objSysConfig->insertParam ( 'firstreg_run', 'modulecatalogue', TRUE, 'mod_modulecatalogue_firstreg_run_desc' );
             log_debug ( 'first time registration performed, variable set. First time registration cannot be performed again unless system variable \'firstreg_run\' is unset.' );
-
+            $this->update_progess("Installation complete.\n");
         } catch ( customException $e ) {
             $this->errorCallback ( 'Caught exception: ' . $e->getMessage () );
             exit ();
@@ -1366,7 +1384,7 @@ class modulecatalogue extends controller {
                 return FALSE;
             }
         }
-         
+
     }
 }
 ?>
