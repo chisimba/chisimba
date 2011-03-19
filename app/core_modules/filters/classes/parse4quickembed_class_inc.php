@@ -130,7 +130,7 @@ class parse4quickembed extends object
     */
     private function getReplacement($oembedUrl)
     {
-        $this->setVar('JQUERY_VERSION', '1.3.1');
+        //$this->setVar('JQUERY_VERSION', '1.3.1');
         $oEmb = $this->getObject('jqoembed', 'oembed');
         $oEmb->loadOembedPlugin();
         $ret = $oEmb->getEmbedAppend();
