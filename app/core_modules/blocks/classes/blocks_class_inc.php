@@ -368,8 +368,10 @@ class blocks extends object {
             switch ($blockType) {
                 case NULL :
                     $objFeatureBox = $this->newObject ( 'featurebox', 'navigation' );
-                    if (isset ( $this->objBlock->defaultHidden ) && $objBlock->defaultHidden) {
-                        $hidden = 'none';
+                    if (isset ( $this->objBlock->defaultHidden )) {
+                        if ($this->objBlock->defaultHidden) {
+                            $hidden = 'none';
+                        }
                     }
                     if (! $showToggle && $hidden != 'default') {
                         $showToggle = TRUE;
