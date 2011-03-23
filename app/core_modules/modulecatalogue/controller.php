@@ -148,6 +148,8 @@ class modulecatalogue extends controller {
 
     protected $extzip = FALSE;
 
+    private $ajaxInstall = FALSE;
+
     /**
      * Standard initialisation function
      */
@@ -430,6 +432,7 @@ class modulecatalogue extends controller {
                     return $this->nextAction ( 'list' );
 
                 case 'firsttimeregistration' :
+                    $this->ajaxInstall = $this->getParam ( 'ajax', 'false' ) == 'true';
                     $this->objSysConfig = $this->getObject ( 'dbsysconfig', 'sysconfig' );
                     $sysType = $this->getParam ( 'sysType', 'Basic System Only' );
                     $check = $this->objSysConfig->getValue ( 'firstreg_run', 'modulecatalogue' );
@@ -1132,20 +1135,27 @@ class modulecatalogue extends controller {
     }
 
     /**
-     * This is a method to handle first-time registration of the basic modules
+     * This is a method to output status messages to the progress file during first-time registration. The progress file is read by the installer.
      *
-     * @param string sysType The type of system to install
+     * @param string status The status message
      */
     private $progress_fn = "progress";
     private $progress_content = "";
     private function update_progess($status)
     {
-        $this->progress_content .= $status;
-        if (file_put_contents($this->progress_fn, $this->progress_content) === FALSE) {
-            //echo "Failure!";
-            //exit(0);
+        if ($this->ajaxInstall) {
+            $this->progress_content .= $status;
+            if (file_put_contents($this->progress_fn, $this->progress_content) === FALSE) {
+                //echo "Failure!";
+                //exit(0);
+            }
         }
     }
+    /**
+     * This is a method to handle first-time registration of the basic modules
+     *
+     * @param string sysType The type of system to install
+     */
     private function firstRegister($sysType) {
         try {
             log_debug ( "Installing system, type: $sysType" );
