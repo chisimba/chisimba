@@ -253,10 +253,8 @@ function sq_print_icon(path, width, height, alt) {
 // and a manual click they can click if something goes wrong
 function sq_redirect(url) {
 
-    // Commented out by J O'Connor 2011-03-08
-	window.location.replace('"' + url + '"');
-	// Fixed bug J O'Connor 2011-03-08
-	//window.location.replace(url);
+    // Commented out by J O'Connor 2011-03-24
+	//window.location.replace('"' + url + '"');
 
 	document.write('<html>');
 	document.write('	<head>');
@@ -273,5 +271,9 @@ function sq_redirect(url) {
 	document.write('		Please wait while the final set ups are being completed. You will be redirected momentarily...');
 	document.write('	</body>');
 	document.write('</html>');
+
+    // Moved here by J O'Connor 2011-03-24
+	window.location.replace(url);
+	return;
 
 }//end sq_redirect()
