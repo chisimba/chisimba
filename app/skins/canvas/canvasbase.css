@@ -46,6 +46,7 @@ th,td {
     outline:0;
 }
 
+
 /* RESET paragraph tag */
 p {
     margin-top:14px;
@@ -96,7 +97,7 @@ p {
     margin-top: 0px;
     padding-left: 8px;
     padding-top: 6px;
-    overflow: hidden;
+    overflow: auto;
     width:auto;
 }
 
@@ -187,6 +188,7 @@ h1#sitename {
     padding: 0px;
     position: absolute;
     top: 38px;
+    font-size: x-large;
 }
 
 /**

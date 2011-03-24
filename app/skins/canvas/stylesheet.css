@@ -20,12 +20,10 @@
 */
 h1#sitename {
     padding: 0px;
-    position: absolute;
-    top: 38px;
 }
 
 div#header div#search { 
-    margin-top: 11px;
+    margin-top: 14px;
 }
 
 #onecolumn, #twocolumn, #threecolumn {
