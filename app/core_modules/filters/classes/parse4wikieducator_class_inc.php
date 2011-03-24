@@ -101,7 +101,7 @@ class parse4wikieducator extends object
             //Check if it is a valid link, if not return an error message
             if ($this->isWikipedia($str)) {
                 $link = "http://wikieducator.org/" . trim($topic);
-                $replacement = $this->getWikiContents($link);
+                $replacement = "<div class='externalcontent'" . $this->getWikiContents($link) . "</div>";
             } else {
                 $replacement = $this->errorMessage;
             }
