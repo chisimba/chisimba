@@ -82,6 +82,7 @@ $objFix->fixThree();
                 }
             ]
         }
+        <div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#appId=108543009171174&amp;xfbml=1"></script><fb:comments numposts="10" width="425" publish_feed="true"></fb:comments>
     </div>
 </div>
 <?php
