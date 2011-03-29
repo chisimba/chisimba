@@ -22,7 +22,7 @@
  * @copyright (C) 2011 AVOIR
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
  * @author Jeremy O'Connor
- * @version   $Id: engine_class_inc.php 20823 2011-03-02 14:09:29Z charlvn $
+ * @version   $Id$
  */
 
 $deleteprogressfile = isset($_GET['deleteprogressfile']) && $_GET['deleteprogressfile'] == 'true';
