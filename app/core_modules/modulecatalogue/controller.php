@@ -1134,17 +1134,32 @@ class modulecatalogue extends controller {
         }
     }
 
+     /**
+     * The filename of the progress file.
+     *
+     * @var string $progress_fn
+     */
+    private $progress_fn = "progress";
+
+     /**
+     * The content that is written to the progress file.
+     *
+     * @var string $progress_content
+     */
+    private $progress_content = "";
+
     /**
      * This is a method to output status messages to the progress file during first-time registration. The progress file is read by the installer.
      *
      * @param string status The status message
      */
-    private $progress_fn = "progress";
-    private $progress_content = "";
     private function update_progess($status)
     {
+        // Check if the install method is the AJAX method.
         if ($this->ajaxInstall) {
+            // Append the status message to the content.
             $this->progress_content .= $status;
+            // Write the content to the progress file.
             if (file_put_contents($this->progress_fn, $this->progress_content) === FALSE) {
                 //echo "Failure!";
                 //exit(0);
