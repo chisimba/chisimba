@@ -82,5 +82,7 @@ if (!isset($pageLanguage)) {
 header("Content-Type: $mime; charset=$charset");
 header("Vary: Accept");
 echo "<!DOCTYPE html>\n";
-echo "<html lang=\"$pageLanguage\">\n";
+echo "<html lang=\"$pageLanguage\" xmlns=\"http://www.w3.org/1999/xhtml\"
+xmlns:og=\"http://opengraphprotocol.org/schema/\"
+xmlns:fb=\"http://www.facebook.com/2008/fbml\">\n";
 ?>
