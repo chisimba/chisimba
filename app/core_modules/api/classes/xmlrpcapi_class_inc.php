@@ -262,6 +262,8 @@ class xmlrpcapi extends object
             $this->objForum = $this->getObject('forumapi');
             // Podcast API
             $this->objPodcasts = $this->getObject('podcastapi');
+            // ImageVault API
+            $this->objImageVault = $this->getObject('imagevaultapi');
             // XULtools API
             $this->objXULtools = $this->getObject('xultoolsapi');
             // User API
@@ -872,6 +874,12 @@ class xmlrpcapi extends object
                                                                           array('string', 'string')),
                                                       'docstring' => 'downloads a podcast from the path given'),
 
+                             // ImageVault API
+                             'imagevault.fileup' => array('function' => array($this->objImageVault, 'fileDrop'),
+                                                     'signature' => array(
+                                                                          array('string', 'string', 'string', 'string', 'string')),
+                                                      'docstring' => 'uploads a file to the server - takes uname, pass, filedata and filename as args'),
+                             
                              //User API
                             'user.trylogin' => array('function' => array($this->objUser, 'tryLogin'),
                                                       'signature' => array(
