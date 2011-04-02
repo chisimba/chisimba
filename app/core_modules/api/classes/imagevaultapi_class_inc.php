@@ -127,7 +127,11 @@ class imagevaultapi extends object
             file_put_contents($localfile, $file);
             log_debug("putting file in cloud");
             // upload to cloud files then remove "temp" file...
-            $this->objCloudfiles->uploadFile($filename, $localfile);
+            log_debug($this->objCloudfiles->uploadFile($filename, $localfile));
+            
+            // send a response
+            $val = new XML_RPC_Value("saved", 'string');
+            return new XML_RPC_Response($val);
         }
         else { 
             if(!file_exists($this->objConfig->getContentBasePath().'users/'.$userid."/"))
