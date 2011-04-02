@@ -87,10 +87,10 @@ class imagevaultapi extends object
             customException::cleanUp();
             exit;
         }
-        //if($this->objModuleCat->checkIfRegistered('rackspacecloudfiles')) {
+        if($this->objModuleCat->checkIfRegistered('rackspacecloudfiles')) {
             // pull up the rackspace api module
-            //$this->objCloudfiles = $this->getObject('cloudfilesops', 'rackspacecloudfiles');
-        //}
+            $this->objCloudfiles = $this->getObject('cloudfilesops', 'rackspacecloudfiles');
+        }
     }
 
     public function fileDrop($params)
