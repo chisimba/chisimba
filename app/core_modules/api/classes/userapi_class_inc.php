@@ -50,6 +50,7 @@ $GLOBALS['kewl_entry_point_run']) {
  * @category  Chisimba
  * @package   api
  * @author    Wesley Nitsckie
+ * @author    Paul Scott <pscott@uwc.ac.za>
  * @copyright 2008
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
  * @version   Release: @package_version@
@@ -72,11 +73,16 @@ class userapi extends object
         try{
 
             $this->objUser = $this->getObject('user', 'security');
+            $this->objModuleCat  = $this->getObject('modules', 'modulecatalogue');
         }
         catch (customException $e)
         {
             customException::cleanUp();
             exit;
+        }
+        if($this->objModuleCat->checkIfRegistered('rackspacecloudfiles')) {
+            // pull up the rackspace api module
+            $this->objCloudfiles = $this->getObject('cloudfilesops', 'rackspacecloudfiles');
         }
     }
 
@@ -89,8 +95,7 @@ class userapi extends object
     */
     public function tryLogin($params)
     {
-
-        try{
+        try {
             $param = $params->getParam(0);
             if (!XML_RPC_Value::isValue($param)) {
                 log_debug($param);
@@ -102,22 +107,35 @@ class userapi extends object
                 log_debug($param);
             }
             $password = $param->scalarval();
-            $objAuth = $this->getObject('user', 'security');
-
+            
             //Authenticate the user
+            $result = (int) $this->objUser->authenticateUser($username, $password);
             
-            //$username = 'aaa'; $password = 'dd';
-            $result = (int) $objAuth->authenticateUser($username, $password);
-            //var_dump($result);
-            //$res = ($result) ? "some" : "thing";
-            //var_dump($res);
-            //set the session if the the user is authenticated
-            //$this->setSession('isauthenticated', $result);
-            
-            $postStruct = new XML_RPC_Value($result, "int");
-        //var_dump($postStruct);        
-
-              return new XML_RPC_Response($postStruct);
+            if($result == 1) {
+                //check that the cloudfiles cdn is available 
+                if($this->objModuleCat->checkIfRegistered('rackspacecloudfiles')) {
+                    // get a list of containers
+                    $containerarr = $this->objCloudfiles->containerList();
+                    // check if userid is in the list
+                    if(!in_array($username, $containerarr)) {
+                        // optionally create a container for this user
+                        $this->objCloudfiles->createContainer($username);
+                        log_debug("created container for user $username");
+                        $postStruct = new XML_RPC_Value($result, "int");
+                        return new XML_RPC_Response($postStruct);
+                    }
+                    else {
+                        $postStruct = new XML_RPC_Value($result, "int");
+                        return new XML_RPC_Response($postStruct);
+                    }
+                }
+                $postStruct = new XML_RPC_Value($result, "int");
+                return new XML_RPC_Response($postStruct);
+            }
+            else { 
+                $postStruct = new XML_RPC_Value($result, "int");
+                return new XML_RPC_Response($postStruct);
+            }
         }
         catch (customException $e)
         {
@@ -261,6 +279,17 @@ class userapi extends object
         // check if the username is available
         if( $objUAModel->usernameAvailable($username) == TRUE && $objUAModel->emailAvailable($email) == TRUE && $objUAModel->useridAvailable($userid) == TRUE) {
             $res = $objUAModel->addUser($userid, $username, $password, $title, $firstname, $surname, $email, $sex, $c[0], $cellnumber, $staffnumber, $accountType='api', $accountstatus='1');
+            //check that the cloudfiles cdn is available 
+            if($this->objModuleCat->checkIfRegistered('rackspacecloudfiles')) {
+                // get a list of containers
+                $containerarr = $this->objCloudfiles->containerList();
+                // check if userid is in the list
+                if(!in_array($username, $containerarr)) {
+                    // optionally create a container for this user
+                    $this->objCloudfiles->createContainer($username);
+                    log_debug("created container for user $username");
+                }
+            }
             $val = new XML_RPC_Value($res, 'string');
         }
         else { 

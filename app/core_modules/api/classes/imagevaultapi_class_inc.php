@@ -80,12 +80,17 @@ class imagevaultapi extends object
             $this->objUser = $this->getObject('user', 'security');
             $this->objFiles = $this->getObject('dbfile', 'filemanager');
             $this->objFileIndexer = $this->getObject('indexfileprocessor', 'filemanager');
+            $this->objModuleCat  = $this->getObject('modules', 'modulecatalogue');
         }
         catch (customException $e)
         {
             customException::cleanUp();
             exit;
         }
+        //if($this->objModuleCat->checkIfRegistered('rackspacecloudfiles')) {
+            // pull up the rackspace api module
+            //$this->objCloudfiles = $this->getObject('cloudfilesops', 'rackspacecloudfiles');
+        //}
     }
 
     public function fileDrop($params)
