@@ -115,33 +115,48 @@ class imagevaultapi extends object
         $file = base64_decode($file);
 
         $userid = $this->objUser->getUserId($username);
-
-        if(!file_exists($this->objConfig->getContentBasePath().'users/'.$userid."/"))
-        {
-            @mkdir($this->objConfig->getContentBasePath().'users/'.$userid."/");
-            @chmod($this->objConfig->getContentBasePath().'users/'.$userid."/", 0777);
+        
+        // Rackspace Files case
+        if($this->objModuleCat->checkIfRegistered('rackspacecloudfiles')) {
+            $param = $params->getParam(3);
+            if (!XML_RPC_Value::isValue($param)) {
+                log_debug($param);
+            }
+            $filename = $param->scalarval();
+            $localfile = $this->objConfig->getContentBasePath().'users/'.$userid."/".$filename;
+            file_put_contents($localfile, $file);
+            log_debug("putting file in cloud");
+            // upload to cloud files then remove "temp" file...
+            $this->objCloudfiles->uploadFile($filename, $localfile);
         }
+        else { 
+            if(!file_exists($this->objConfig->getContentBasePath().'users/'.$userid."/"))
+            {
+                @mkdir($this->objConfig->getContentBasePath().'users/'.$userid."/");
+                @chmod($this->objConfig->getContentBasePath().'users/'.$userid."/", 0777);
+            }
 
-        $param = $params->getParam(3);
-        if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
+            $param = $params->getParam(3);
+            if (!XML_RPC_Value::isValue($param)) {
+                log_debug($param);
+            }
+            $filename = $param->scalarval();
+
+            $objOverwriteIncrement = $this->getObject('overwriteincrement', 'filemanager');
+            $filename = $objOverwriteIncrement->checkfile($filename, 'users/'.$userid);
+
+            $localfile = $this->objConfig->getContentBasePath().'users/'.$userid."/".$filename;
+            file_put_contents($localfile, $file);
+
+            $fmname = basename($filename);
+            $fmpath = 'users/'.$userid.'/'.$fmname;
+
+            // Add to users fileset
+            $fileId = $this->objFileIndexer->processIndexedFile($fmpath, $userid);
+
+            $val = new XML_RPC_Value("saved", 'string');
+            return new XML_RPC_Response($val);
         }
-        $filename = $param->scalarval();
-
-        $objOverwriteIncrement = $this->getObject('overwriteincrement', 'filemanager');
-        $filename = $objOverwriteIncrement->checkfile($filename, 'users/'.$userid);
-
-        $localfile = $this->objConfig->getContentBasePath().'users/'.$userid."/".$filename;
-        file_put_contents($localfile, $file);
-
-        $fmname = basename($filename);
-        $fmpath = 'users/'.$userid.'/'.$fmname;
-
-        // Add to users fileset
-        $fileId = $this->objFileIndexer->processIndexedFile($fmpath, $userid);
-
-        $val = new XML_RPC_Value("saved", 'string');
-        return new XML_RPC_Response($val);
     }
 
 }
