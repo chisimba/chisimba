@@ -126,13 +126,9 @@ class imagevaultapi extends object
             $localfile = $this->objConfig->getContentBasePath().'users/'.$userid."/".$filename;
             file_put_contents($localfile, $file);
             log_debug("putting file in cloud");
-            // select the users container
-            $container = $this->objCloudfiles->getContainer($username);
-            $object = $container->create_object($filename);
-            log_debug($object->load_from_filename($localfile));
-            // upload to cloud files then remove "temp" file...
-            //log_debug($this->objCloudfiles->uploadFile($filename, $localfile));
             
+            $this->objCloudfiles->uploadFile($filename, $localfile);
+            log_debug("File has been put");
             // send a response
             $val = new XML_RPC_Value("saved", 'string');
             return new XML_RPC_Response($val);
