@@ -120,7 +120,6 @@ class userapi extends object
                     if(!in_array($username, $containerarr)) {
                         // optionally create a container for this user
                         $this->objCloudfiles->createContainer($userid);
-                        log_debug("created container for user $username");
                         $postStruct = new XML_RPC_Value($result, "int");
                         return new XML_RPC_Response($postStruct);
                     }
