@@ -127,6 +127,8 @@ class imagevaultapi extends object
             file_put_contents($localfile, $file);
             $this->objCloudfiles->uploadFile($userid, $filename, $localfile);
             
+            // read the metadata and insert some stuff to the db for indexing
+            $this->objOps->insertImageData($userid, $localfile);
             // clean up the file from local
             unlink($localfile);
 
