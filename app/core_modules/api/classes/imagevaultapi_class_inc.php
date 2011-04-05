@@ -91,6 +91,10 @@ class imagevaultapi extends object
             // pull up the rackspace api module
             $this->objCloudfiles = $this->getObject('cloudfilesops', 'rackspacecloudfiles');
         }
+        if($this->objModuleCat->checkIfRegistered('imagevault')) {
+            // pull up the imagevault api module
+            $this->objOps = $this->getObject('imagevaultops', 'imagevault');
+        }
     }
 
     public function fileDrop($params)
@@ -128,6 +132,9 @@ class imagevaultapi extends object
             $this->objCloudfiles->uploadFile($userid, $filename, $localfile);
             
             // read the metadata and insert some stuff to the db for indexing
+            if($this->objModuleCat->checkIfRegistered('imagevault')) {
+                $this->objOps->insertImageData($userid, $localfile);       
+            }
             $this->objOps->insertImageData($userid, $localfile);
             // clean up the file from local
             unlink($localfile);
@@ -160,6 +167,7 @@ class imagevaultapi extends object
 
             // Add to users fileset
             $fileId = $this->objFileIndexer->processIndexedFile($fmpath, $userid);
+            $this->objOps->insertImageData($userid, $localfile);
 
             $val = new XML_RPC_Value("saved", 'string');
             return new XML_RPC_Response($val);
