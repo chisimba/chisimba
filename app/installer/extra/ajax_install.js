@@ -67,6 +67,7 @@ function UpdateProgress(deleteprogressfile_)
 function UpdateProgress_()
 {
     UpdateProgress(false);
+    timerId = window.setTimeout('UpdateProgress_()', 1000);
 }
 
 // Global variable for timer.
@@ -94,7 +95,7 @@ function ajax_install(register_url, register_url_params_, login_url_)
         onSuccess: function(transport){
             // If timerId is defined then stop the timer, and set timerId to null.
             if (timerId != null) {
-                window.clearInterval(timerId);
+                window.clearTimeout(timerId);
                 timerId = null;
             }
             //UpdateProgress_deleteprogressfile = true;
@@ -116,7 +117,7 @@ function ajax_install(register_url, register_url_params_, login_url_)
         onFailure: function(){
             // If timerId is defined then stop the timer, and set timerId to null.
             if (timerId != null) {
-                window.clearInterval(timerId);
+                window.clearTimeout(timerId);
                 timerId = null;
             }
             var response = '\nSomething went wrong...';
@@ -130,6 +131,6 @@ function ajax_install(register_url, register_url_params_, login_url_)
         }
     });
     // Create a timer to refresh the progress status every 1 second.
-    timerId = window.setInterval('UpdateProgress_()', 1000);
+    timerId = window.setTimeout('UpdateProgress_()', 1000);
     //return; //false;
 }
