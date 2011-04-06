@@ -48,7 +48,7 @@ function UpdateProgress(deleteprogressfile_)
             // Assign response to innerHTML of the 'output' div element.
             $('output').innerHTML = response;
             // Force div element to scroll to the last line.
-            $('output').scrollTop=$('output').scrollHeight; //-$('output').height
+            $('output').scrollTop=$('output').scrollHeight-$('output').clientHeight; //-$('output').height
         },
         // onFailure callback.
         onFailure: function(){
@@ -59,7 +59,7 @@ function UpdateProgress(deleteprogressfile_)
             // Append response to 'output' div element.
             $('output').innerHTML += response;
             // Force div element to scroll to the last line.
-            $('output').scrollTop=$('output').scrollHeight;
+            $('output').scrollTop=$('output').scrollHeight-$('output').clientHeight;
         }
     });
 }
@@ -107,7 +107,7 @@ function ajax_install(register_url, register_url_params_, login_url_)
             // Assign the message to the innerHTML of the 'output' div element.
             $('output').innerHTML = s;
             // Force div element to scroll to the last line.
-            $('output').scrollTop=$('output').scrollHeight;
+            $('output').scrollTop=$('output').scrollHeight-$('output').clientHeight;
             ///ajax_progress/
             // If login_url is defined then redirect to the application and log in.
             if (login_url !== null) {
@@ -127,7 +127,7 @@ function ajax_install(register_url, register_url_params_, login_url_)
             // Append the message to the innerHTML of the 'output' div element.
             $('output').innerHTML = s; //response
             // Force div element to scroll to the last line.
-            $('output').scrollTop=$('output').scrollHeight;
+            $('output').scrollTop=$('output').scrollHeight-$('output').clientHeight;
         }
     });
     // Create a timer to refresh the progress status every 1 second.
