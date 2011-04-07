@@ -94,6 +94,13 @@ class csslayout extends object implements ifhtml
     public $leftColumnContent;
 
     /**
+     * The layout Code to determine where to put the columns
+     *
+     * @var string $layoutCode
+     */
+    public $layoutType = FALSE;
+
+    /**
      * The contents of the right hand side column
      *
      * @var string $rightColumnContent
@@ -157,6 +164,9 @@ class csslayout extends object implements ifhtml
 	$this->skinEngine = $this->objSkin->getSkinEngine();
         $this->objFixlength = $this->getObject('cssfixlength', 'htmlelements');
         $this->loadSettings();
+        if (isset($_SESSION['layoutCode'])) {
+            $this->layoutCode = $_SESSION['layoutCode'];
+        }
     }
 
     /**
@@ -430,7 +440,6 @@ class csslayout extends object implements ifhtml
         if ($this->numColumns == 1) {
             // Put the middle bit in region 2 for canvas enabled skins
             $result = $this->addBodyRegion($this->middleColumnContent, "Region2");
-            
         } elseif ($this->numColumns == 2) {
             // Put the left bit in region 1 for canvas enabled skins
             $leftCol = $this->addBodyRegion($this->leftColumnContent, "Region1");
