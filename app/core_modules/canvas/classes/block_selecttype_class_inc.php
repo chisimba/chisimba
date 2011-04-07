@@ -119,9 +119,8 @@ class block_selecttype extends object
             $skinUri = $this->uri(array('action' => 'select', 'ctype' => 'skin'), 'canvas');
             $objLink = new link($skinUri);
             $objLink->link = $skinCan;
-            $ret .= "<br /" . $objLink->show();
+            $ret .= "<br />" . $objLink->show();
         }
-
         return $ret;
     }
 }
