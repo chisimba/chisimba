@@ -286,5 +286,25 @@ class canvaschooser extends controller
             return FALSE;
         }
     }
+
+    /**
+     *
+     * Extract the canvas name from the canvas file. Needed
+     * for skins that change the column layout.
+     *
+     * @param string $canvas The path to the canvas
+     * @return string the last part of the path, which is the canvase name or code
+     * 
+     */
+    public function getCanvasName($canvas)
+    {
+        if ($canvas !== NULL) {
+            $ar = explode('/', $canvas);
+            $ct = count($ar) -1;
+            return $ar[$ct];
+        } else {
+            return FALSE;
+        }
+    }
 }
 ?>
