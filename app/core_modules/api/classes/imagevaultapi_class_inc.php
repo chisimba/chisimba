@@ -127,6 +127,7 @@ class imagevaultapi extends object
                 log_debug($param);
             }
             $filename = $param->scalarval();
+            $filename = str_replace(" ", "_", $filename);
             $localfile = $this->objConfig->getContentBasePath().'users/'.$userid."/".$filename;
             file_put_contents($localfile, $file);
             $this->objCloudfiles->uploadFile($userid, $filename, $localfile);
