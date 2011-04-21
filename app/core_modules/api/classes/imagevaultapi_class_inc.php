@@ -136,7 +136,7 @@ class imagevaultapi extends object
             if($this->objModuleCat->checkIfRegistered('imagevault')) {
                 $this->objOps->insertImageData($userid, $localfile);       
             }
-            $this->objOps->insertImageData($userid, $localfile);
+            // $this->objOps->insertImageData($userid, $localfile);
             // clean up the file from local
             unlink($localfile);
 
