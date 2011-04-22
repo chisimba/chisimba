@@ -141,27 +141,27 @@ class htmlimage extends object {
         $this->objDom = new DOMDocument;
     }
 
-    /**
-     *
-     * Object to hold the dom document
-     *
-     * @var string Object $objDom
-     * @access private
-     */
-    private $objDom;
+    
+   
+  
+ 
 
 
-    /**
-     *
-     * Intialiser for the htmldom object
-     *
-     * @access public
-     * @return void
-     *
-     */
-    public function init() {
-        $this->objDom = new DOMDocument;
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * Method to show the image
