@@ -1,6 +1,7 @@
 <?php
 
 /**
+ *
  * csslayout_class_inc.php
  *
  * This file contains the csslayout class which is ued to help
@@ -41,6 +42,7 @@ require_once("ifhtml_class_inc.php");
 
 
 /**
+ *
  * CSS Layout Class
  *
  *
@@ -94,9 +96,9 @@ class csslayout extends object implements ifhtml
     public $leftColumnContent;
 
     /**
-     * The layout Code to determine where to put the columns
+     * The layout type to determine where to put the columns
      *
-     * @var string $layoutCode
+     * @var string $layoutType
      */
     public $layoutType = FALSE;
 
@@ -147,7 +149,7 @@ class csslayout extends object implements ifhtml
     */
 
     /**
-    * Constructor Method for the class
+    * Constructor method for the csslayout class
     *
     * This method sets the default number of columns
     * to two, and sets the content of all the columns
@@ -164,8 +166,8 @@ class csslayout extends object implements ifhtml
 	$this->skinEngine = $this->objSkin->getSkinEngine();
         $this->objFixlength = $this->getObject('cssfixlength', 'htmlelements');
         $this->loadSettings();
-        if (isset($_SESSION['layoutCode'])) {
-            $this->layoutCode = $_SESSION['layoutCode'];
+        if (isset($_SESSION['layoutType'])) {
+            $this->layoutType = $_SESSION['layoutType'];
         }
     }
 
@@ -328,7 +330,6 @@ class csslayout extends object implements ifhtml
      */
     private function skinDefault()
     {
-        
         // Fix the column lengths.
         if ($this->numColumns == 2) {
                 $this->putTwoColumnFixInHeader();
@@ -449,11 +450,7 @@ class csslayout extends object implements ifhtml
             // Use fixTwo for two columns
             $this->objFixlength->fixTwo();
         } elseif  ($this->numColumns == 3)  {
-            if (!isset($this->layoutCode)) {
-                $this->layoutCode = "_default";
-            }
-
-            switch ($this->layoutCode) {
+            switch ($this->layoutType) {
                 case "canvas_stacked31":
                     $narrowCol = $this->addBodyRegion(
                        $this->rightColumnContent
@@ -473,7 +470,6 @@ class csslayout extends object implements ifhtml
                     $result = $narrowCol . "\n" . $middleCol;
                     $this->objFixlength->fixTwo();
                     break;
-
 
                 case "_default":
                 default:
@@ -553,6 +549,7 @@ class csslayout extends object implements ifhtml
 
 
     // NIC - can I remove this or put in a separate class?
+    // Note Nic has left - no idea if it is used.
 
 
 
