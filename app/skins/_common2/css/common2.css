@@ -443,3 +443,7 @@ h3.popupTitle{
 .required_field {
     color: red;
 }
+
+#form_commentadd fieldset {
+    margin-bottom: 8px;
+}
