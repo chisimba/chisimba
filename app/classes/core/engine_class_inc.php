@@ -1219,6 +1219,15 @@ class engine {
         $this->_pageTemplate = $templateName;
     }
 
+    /**
+     * Method to grab a patch object.
+     *
+     * This method will look in the patches directory of a module and return any instructions to module catalogue
+     *
+     * @access public
+     * @param  string $name The name of the patch
+     * @return string $moduleName The name of the module to use
+     */
     public function getPatchObject($name, $moduleName = '') {
         $engine = $this;
         $objname = $name . "_installscripts";
@@ -1562,6 +1571,13 @@ class engine {
         return $var;
     }
 
+    /**
+     * Method to clean any abhorrent characters from arrays before insert.
+     *
+     * @access public
+     * @param  array $array The array to be cleaned
+     * @return string $strip_keys Whether or not to strip array keys
+     */
     public function purifyArray($array, $strip_keys = false) {
         $this->purifier = new HTMLPurifier();
         if (is_string ( $array ))
