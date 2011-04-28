@@ -215,6 +215,15 @@ class xmlrpcapi extends object
      * @var    object
      */
     public $objTwitterizer;
+    
+    /**
+     * Instance of the sahrisapi class in the api module.
+     *
+     * @access public
+     * @var    object
+     */
+    public $objSahris;
+
 
 
     /**
@@ -290,6 +299,9 @@ class xmlrpcapi extends object
             $this->objMultisearch = $this->getObject('multisearchapi');
             // Twitterizer
             $this->objTwitterizer = $this->getObject('twitterizerapi');
+            // SAHRA
+            $this->objSahris = $this->getObject('sahrisapi');
+
 
 
         }
