@@ -36,7 +36,6 @@
  * @see
  */
 
-
 /**
  * Class to Generate the Code to <embed> a Media Object in a Webpage
  *
@@ -57,35 +56,31 @@
  * @link      http://avoir.uwc.ac.za
  * @see
  */
-class fileembed extends object
-{
+class fileembed extends object {
 
     /**
-    * Constructor
-    */
-    function init()
-    {
+     * Constructor
+     */
+    function init() {
         $this->loadClass('link', 'htmlelements');
         $this->objCleanUrl = $this->getObject('cleanurl');
         $this->objConfig = $this->getObject('altconfig', 'config');
     }
 
     /**
-    * Method to generate the embed code for a media object
-    * @param  string $file   Full Path to the File
-    * @param  string $type   Type of Embed
-    * @param  int    $width  Width of the Media File
-    * @param  int    $height Height of the Media File
-    * @return string The media file embed code
-    */
-    function embed($file, $type, $width="100%", $height="100%")
-    {
+     * Method to generate the embed code for a media object
+     * @param  string $file   Full Path to the File
+     * @param  string $type   Type of Embed
+     * @param  int    $width  Width of the Media File
+     * @param  int    $height Height of the Media File
+     * @return string The media file embed code
+     */
+    function embed($file, $type, $width="100%", $height="100%") {
         // For some reason, cleaning the URL messes things up. Turned off for so long
         // Please clean URLs yourself for the timebeing before calling this function
         //$this->objCleanUrl->cleanUpUrl($file);
 
-        switch ($type)
-        {
+        switch ($type) {
             case 'link':
             default:
                 return $this->linkToFile($file);
@@ -122,110 +117,105 @@ class fileembed extends object
     }
 
     /**
-    * Method to provide a link to the file
-    * @param string $file Path to the File
-    */
-    function linkToFile($file)
-    {
-        $link = new link ($file);
+     * Method to provide a link to the file
+     * @param string $file Path to the File
+     */
+    function linkToFile($file) {
+        $link = new link($file);
         $link->link = basename($file);
 
         return $link->show();
     }
 
     /**
-    * Method to show an Image
-    * @param string $file Path to the Image
-    */
-    function showImage($file,$width='50%', $height='50%')
-    {
+     * Method to show an Image
+     * @param string $file Path to the Image
+     */
+    function showImage($file, $width=null, $height=null) {
 
-        return '<img src="'.$file.'" width="'.$width.'" height="'.$height.'" />';
-
+        if ($width != null && $height != null) {
+            return '<img src="' . $file . '" width="' . $width . '" height="' . $height . '" />';
+        } else {
+            return '<img src="' . $file . '"/>';
         }
+    }
 
     /**
-    * Method to show a 3d Object
-    * This uses David Wafula's 3d Object Viewer
-    * @param string $file Path to the Object
-    */
-    function showObj3d($file)
-    {
+     * Method to show a 3d Object
+     * This uses David Wafula's 3d Object Viewer
+     * @param string $file Path to the Object
+     */
+    function showObj3d($file) {
         // This does not work :-(  $file = $this->objConfig->getsiteRoot().'/'.$file;
         // The Applet needs a relative path to the file, hence this approach
-        $file = '../../../../'.$file;
+        $file = '../../../../' . $file;
 
         $file = $this->objCleanUrl->cleanUpUrl($file);
 
         return '<applet CODE="ObjLoad.class"  CODEBASE="core_modules/files/resources/obj3d" width="100%" height="400">
    <param name="type" value="application/x-java-applet;version=1.4" />
-   <param name="filename" value="'.$file.'" />
+   <param name="filename" value="' . $file . '" />
    </applet>';
     }
 
     /**
-    * Method to embed a VRML file
-    * @param string $file Path to the File
-    */
-    function showVRML($file)
-    {
+     * Method to embed a VRML file
+     * @param string $file Path to the File
+     */
+    function showVRML($file) {
         $width = '100%';
         $height = '400';
-        return '<embed src="'.$file.'" width="'.$width.'" height="'.$height.'" ></embed>';
+        return '<embed src="' . $file . '" width="' . $width . '" height="' . $height . '" ></embed>';
     }
 
     /**
-    * Method to embed a freemind map
-    * Note. This uses the flash version rather than the java applet.
-    * @param string $file Path to the File
-    */
-    function showFreemind($file)
-    {
+     * Method to embed a freemind map
+     * Note. This uses the flash version rather than the java applet.
+     * @param string $file Path to the File
+     */
+    function showFreemind($file) {
         $objFlashFreemind = $this->newObject('flashfreemind', 'files');
         $objFlashFreemind->setMindMap($file);
         return $objFlashFreemind->show();
     }
 
     /**
-    * Method to show the Sound Player Applet
-    * @param string $file Path to the File
-    */
-    function showSoundPlayer($file)
-    {
+     * Method to show the Sound Player Applet
+     * @param string $file Path to the File
+     */
+    function showSoundPlayer($file) {
         $objSoundPlayerBuilder = $this->newObject('buildsoundplayer', 'files');
         $objSoundPlayerBuilder->setSoundFile($file);
         return $objSoundPlayerBuilder->show();
     }
 
     /**
-    * Method to embed a flash object
-    * @param string $file   Path to the File
-    * @param string $width  Width of Object
-    * @param string $height Height of Object
-    */
-    function showFlash($file, $width='100%', $height='400')
-    {
-        return '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0" width="'.$width.'" height="'.$height.'">
-  <param name="movie" value="'.$file.'" />
+     * Method to embed a flash object
+     * @param string $file   Path to the File
+     * @param string $width  Width of Object
+     * @param string $height Height of Object
+     */
+    function showFlash($file, $width='100%', $height='400') {
+        return '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0" width="' . $width . '" height="' . $height . '">
+  <param name="movie" value="' . $file . '" />
   <param name="quality" value="high" />
-  <embed src="'.$file.'" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="'.$width.'" height="'.$height.'"></embed>
+  <embed src="' . $file . '" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="' . $width . '" height="' . $height . '"></embed>
 </object>';
     }
 
     /**
-    * Method to embed a Quicktime Object
-    * @param string $file   Path to the File
-    * @param string $width  Width of Object
-    * @param string $height Height of Object
-    */
-    function showQuicktime($file, $width='100%', $height='400')
-    {
-        $width = $width=='' ? '100%' : $width;
-        $height = $height=='' ? '400' : $height;
+     * Method to embed a Quicktime Object
+     * @param string $file   Path to the File
+     * @param string $width  Width of Object
+     * @param string $height Height of Object
+     */
+    function showQuicktime($file, $width='100%', $height='400') {
+        $width = $width == '' ? '100%' : $width;
+        $height = $height == '' ? '400' : $height;
 
         $replace = '<object classid="CLSID:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B"';
         $replace .= '        codebase="http://www.apple.com/qtactivex/qtplugin.cab" ';
-        $replace .= '        height="'.$height.'" width="'.$width.'"';
+        $replace .= '        height="' . $height . '" width="' . $width . '"';
         $replace .= '        id="quicktime" type="application/x-oleobject">';
         $replace .= "<param name=\"src\" value=\"{$file}\" />";
         $replace .= '<param name="autoplay" value="false" />';
@@ -233,7 +223,7 @@ class fileembed extends object
         $replace .= '<param name="controller" value="true" />';
         $replace .= '<param name="scale" value="aspect" />';
         $replace .= "\n<embed src=\"{$file}\" name=\"quicktime\" type=\"video/quicktime\" ";
-        $replace .= ' height="'.$height.'" width="'.$width.'" scale="aspect" ';
+        $replace .= ' height="' . $height . '" width="' . $width . '" scale="aspect" ';
         $replace .= ' autoplay="false" controller="true" loop="true" ';
         $replace .= ' pluginspage="http://quicktime.apple.com/">';
         $replace .= '</embed>';
@@ -243,15 +233,14 @@ class fileembed extends object
     }
 
     /**
-    * Method to show a WMV video
-    * @param string $file   Path to the File
-    * @param string $width  Width of Object
-    * @param string $height Height of Object
-    */
-    function showWMV($file, $width='100%', $height='400')
-    {
-        $width = $width=='' ? '100%' : $width;
-        $height = $height=='' ? '400' : $height;
+     * Method to show a WMV video
+     * @param string $file   Path to the File
+     * @param string $width  Width of Object
+     * @param string $height Height of Object
+     */
+    function showWMV($file, $width='100%', $height='400') {
+        $width = $width == '' ? '100%' : $width;
+        $height = $height == '' ? '400' : $height;
 
         $replace = '<object classid="CLSID:22D6f312-B0F6-11D0-94AB-0080C74C7E95"';
         $replace .= ' codebase="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=5,1,52,701" ';
@@ -277,38 +266,35 @@ class fileembed extends object
         return $replace;
     }
 
-
     /**
-    * Method to show a AVI video
-    * @param string $file   Path to the File
-    * @param string $width  Width of Object
-    * @param string $height Height of Object
-    */
-    function showAVI($file, $width='100%', $height='400')
-    {
-        $width = $width=='' ? '100%' : $width;
-        $height = $height=='' ? '400' : $height;
+     * Method to show a AVI video
+     * @param string $file   Path to the File
+     * @param string $width  Width of Object
+     * @param string $height Height of Object
+     */
+    function showAVI($file, $width='100%', $height='400') {
+        $width = $width == '' ? '100%' : $width;
+        $height = $height == '' ? '400' : $height;
 
-        $replace = '<object width="'.$width.'" height="'.$height.'">';
-        $replace .= '<param name="src" value="'.$file.'" />';
+        $replace = '<object width="' . $width . '" height="' . $height . '">';
+        $replace .= '<param name="src" value="' . $file . '" />';
         $replace .= '<param name="controller" value="1" />';
         $replace .= '<param name="autoplay" value="0" />';
-        $replace .= '<embed src="'.$file.'" width="'.$width.'" height="'.$height.'" controller="1" autoplay="0" pluginspage ="http://www.microsoft.com/Windows/MediaPlayer/" type="video/x-ms-wvx" > </embed>';
+        $replace .= '<embed src="' . $file . '" width="' . $width . '" height="' . $height . '" controller="1" autoplay="0" pluginspage ="http://www.microsoft.com/Windows/MediaPlayer/" type="video/x-ms-wvx" > </embed>';
         $replace .= '</object>';
 
         return $replace;
     }
 
     /**
-    * Method to show a FLV video
-    * @param string $file   Path to the File
-    * @param string $width  Width of Object
-    * @param string $height Height of Object
-    */
-    function showFLV($file, $width='100%', $height='400')
-    {
-        $width = $width=='' ? '100%' : $width;
-        $height = $height=='' ? '400' : $height;
+     * Method to show a FLV video
+     * @param string $file   Path to the File
+     * @param string $width  Width of Object
+     * @param string $height Height of Object
+     */
+    function showFLV($file, $width='100%', $height='400') {
+        $width = $width == '' ? '100%' : $width;
+        $height = $height == '' ? '400' : $height;
 
         $objBuildPlayer = $this->getObject('buildflowplayer', 'files');
         $objBuildPlayer->setMovieFile($file);
@@ -318,18 +304,17 @@ class fileembed extends object
     }
 
     /**
-    * Method to show a FLV video
-    * @param string $file   Path to the File
-    * @param string $width  Width of Object
-    * @param string $height Height of Object
-    */
-    function showOggVideo($file, $width='100%', $height='400')
-    {
+     * Method to show a FLV video
+     * @param string $file   Path to the File
+     * @param string $width  Width of Object
+     * @param string $height Height of Object
+     */
+    function showOggVideo($file, $width='100%', $height='400') {
         return '
 <applet code="com.fluendo.player.Cortado.class"
            archive="cortado-ovt-0.1.2.jar" codebase="core_modules/files/resources/cortado_ogg_player/"
-       width="'.$width.'" height="'.$height.'">
-     <param name="url" value="'.$file.'"/>
+       width="' . $width . '" height="' . $height . '">
+     <param name="url" value="' . $file . '"/>
      <param name="local" value="false"/>
      <param name="duration" value="232"/>
      <param name="keepAspect" value="true"/>
@@ -341,53 +326,49 @@ class fileembed extends object
     }
 
     /**
-    * Method to show a Scalable Vector Graphics (SVG) Image
-    * @param string $file   Path to the File
-    * @param string $width  Width of Object
-    * @param string $height Height of Object
-    */
-    function showSVG($file, $width='100%', $height='400')
-    {
-        return '<object data="'.$file.'" width="'.$width.'" height="'.$height.'"
+     * Method to show a Scalable Vector Graphics (SVG) Image
+     * @param string $file   Path to the File
+     * @param string $width  Width of Object
+     * @param string $height Height of Object
+     */
+    function showSVG($file, $width='100%', $height='400') {
+        return '<object data="' . $file . '" width="' . $width . '" height="' . $height . '"
 type="image/svg+xml"
 codebase="http://www.adobe.com/svg/viewer/install/" />';
     }
 
     /**
-    * Method to show a MPEG Moview
-    * @param string $file   Path to the File
-    * @param string $width  Width of Object
-    * @param string $height Height of Object
-    */
-    function showMPG($file, $width='100%', $height='400')
-    {
+     * Method to show a MPEG Moview
+     * @param string $file   Path to the File
+     * @param string $width  Width of Object
+     * @param string $height Height of Object
+     */
+    function showMPG($file, $width='100%', $height='400') {
 
-        return '<object ID="MediaPlayer" width="'.$width.'" height="'.$height.'"
+        return '<object ID="MediaPlayer" width="' . $width . '" height="' . $height . '"
 CLASSID="CLSID:22D6F312-B0F6-11D0-94AB-0080C74C7E95"
 STANDBY="Loading Windows Media Player components..."
 TYPE="application/x-oleobject">
-<param name="FileName" value="'.$file.'" />
-<embed TYPE="application/x-mplayer2" src="'.$file.'" name="MediaPlayer"
-width="'.$width.'" height="'.$height.'"></embed></object>';
-    }
-    
-    /**
-    * Method to show a MP4 Movie
-    * @param string $file   Path to the File
-    * @param string $width  Width of Object
-    * @param string $height Height of Object
-    */
-    function showMP4($file, $width='100%', $height='400')
-    {
-        return '<object CLASSID="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" 
-CODEBASE="http://www.apple.com/qtactivex/qtplugin.cab" WIDTH="'.$width.'" HEIGHT="'.$height.'" >
-<PARAM NAME="src" VALUE="'.$file.'" >
-<PARAM NAME="autoplay" VALUE="true" >
-<embed src="'.$file.'" TYPE="image/x-macpaint" 
-PLUGINSPAGE="http://www.apple.com/quicktime/download" WIDTH="'.$width.'" HEIGHT="'.$height.'" AUTOPLAY="false"></embed>
-</object>';
+<param name="FileName" value="' . $file . '" />
+<embed TYPE="application/x-mplayer2" src="' . $file . '" name="MediaPlayer"
+width="' . $width . '" height="' . $height . '"></embed></object>';
     }
 
+    /**
+     * Method to show a MP4 Movie
+     * @param string $file   Path to the File
+     * @param string $width  Width of Object
+     * @param string $height Height of Object
+     */
+    function showMP4($file, $width='100%', $height='400') {
+        return '<object CLASSID="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" 
+CODEBASE="http://www.apple.com/qtactivex/qtplugin.cab" WIDTH="' . $width . '" HEIGHT="' . $height . '" >
+<PARAM NAME="src" VALUE="' . $file . '" >
+<PARAM NAME="autoplay" VALUE="true" >
+<embed src="' . $file . '" TYPE="image/x-macpaint" 
+PLUGINSPAGE="http://www.apple.com/quicktime/download" WIDTH="' . $width . '" HEIGHT="' . $height . '" AUTOPLAY="false"></embed>
+</object>';
+    }
 
 }
 
