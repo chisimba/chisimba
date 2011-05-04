@@ -155,7 +155,7 @@ class filepreview extends object {
         } else {
             $fileUrl = $this->objConfig->getSiteRoot() . '/' . $this->file['path'];
 
-            return $this->objFileEmbed->embed($fileUrl, 'image');
+            return $this->objFileEmbed->embed($fileUrl, 'image',null,null);
         }
         //width="270" height="270"'<img src="'.$this->file['linkname'].'"  />';//
     }

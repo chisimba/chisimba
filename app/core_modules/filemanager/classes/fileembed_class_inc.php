@@ -133,11 +133,11 @@ class fileembed extends object {
      */
     function showImage($file, $width=null, $height=null) {
 
-        //if ($width != null && $height != null) {
-          //  return '<img src="' . $file . '" width="' . $width . '" height="' . $height . '" />';
-        //} else {
+        if ($width != null && $height != null) {
+            return '<img src="' . $file . '" width="' . $width . '" height="' . $height . '" />';
+       } else {
             return '<img src="' . $file . '"/>';
-       // }
+        }
     }
 
     /**
