@@ -69,6 +69,7 @@ class CompleteAction extends StepAction
 
         $tpl->set('login_url', $registerLink);
         // Pass variables for AJAX installer to template
+        $tpl->set('extra', './extra');
         $tpl->set('ajaxregister_url', $ajaxRegisterLink);
         $tpl->set('ajaxregister_url_params', $ajaxRegisterLinkParams);
         $tpl->set('ajaxlogin_url', $ajaxLoginLink);

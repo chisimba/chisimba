@@ -82,6 +82,12 @@
                 previous_off.src = "<?php echo $extras;?>/previous_off.gif";
                 previous_on = new Image();
                 previous_on.src = "<?php echo $extras;?>/previous_on.gif";
+
+                finish_off = new Image();
+                finish_off.src = "<?php echo $extras;?>/finish_off.png";
+                finish_on = new Image();
+                finish_on.src = "<?php echo $extras;?>/finish_on.png";
+
             }
 
             function over(imgName, input) {
