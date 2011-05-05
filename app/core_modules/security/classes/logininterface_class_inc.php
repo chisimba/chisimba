@@ -63,6 +63,7 @@ class loginInterface extends object
             $this->objLanguage = $this->getObject('language', 'language');
             //initialise config obect
             $this->objConfig = $this->getObject('altconfig','config');
+            $this->objSysConfig = $this->getObject ('dbsysconfig','sysconfig');
             $this->objHelp= $this->getObject('help','help');
 
         } catch (Exception $e) {
@@ -83,6 +84,10 @@ class loginInterface extends object
             }
             else {
                 $formAction = $this->objEngine->uri(array('action' => 'login'), 'security');
+            }
+            $useHTTPS=$this->objSysConfig->getValue('MOD_SECURITY_HTTPS', 'security');
+            if ($useHTTPS=='1'){
+                $formAction=str_replace("http:","https:",$formAction);
             }
             //Load up the various HTML classes
             $this->loadClass('button', 'htmlelements');

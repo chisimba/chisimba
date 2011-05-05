@@ -31,13 +31,18 @@ class auth_uwcldap extends abauth implements ifauth {
         //Instantiate the configuration object
         $this->objConfig = $this->getObject ( 'dbsysconfig', 'sysconfig' );
         $this->objUser = $this->getObject ( 'user', 'security' );
-        $this->ldapserver = $this->objConfig->getValue ( 'MOD_SECURITY_LDAPSERVER', 'security' );
+        $this->ldapserver1 = $this->objConfig->getValue ( 'MOD_SECURITY_LDAPSERVER', 'security' );
+        $this->ldapserver = $this->ldapserver1;
+        $this->ldapserver2 = $this->objConfig->getValue ( 'MOD_SECURITY_LDAPSERVER_2', 'security' );
         $this->ldapuservarname = $this->objConfig->getValue ( 'MOD_SECURITY_LDAPUSERVARNAME', 'security' );
         $this->ldapwhere = $this->objConfig->getValue ( 'MOD_SECURITY_LDAPWHERE', 'security' );
         if (strlen ( $this->ldapserver ) < 3) {
             $this->ldapserver = "192.102.9.68"; // hard-coded for now - will be changed later
             $this->ldapuservarname = 'generationqualifier';
             $this->ldapWhere = "o=UWC";
+        }
+        if (strlen ($this->ldapserver2) < 3){
+            $this->ldapserver2=$this->ldapserver;
         }
         // Have to call the parent to init the class properties for sessions
         parent::init ( 'tbl_users' );
@@ -158,11 +163,15 @@ class auth_uwcldap extends abauth implements ifauth {
      * @param string $where the LDAP "domain" to look in
      * @return string|bool - string if successful, FALSE if not
      */
-    public function checkUser($username) {
+    public function checkUser($username,$server=1) {
         $ldapconn = ldap_connect ( $this->ldapserver );
         $ldapbind = @ldap_bind ( $ldapconn );
         $where = $this->ldapWhere;
         if (! $ldapbind) {
+            if (($server==1)&&($this->ldapserver2!=$this->ldapserver1)){
+                $this->ldapserver=$this->ldapserver2;
+                return $this->checkUser($username,2);
+            }
             $this->setSession ( 'ldaperror', 'FAIL' );
             return FALSE;
         }
