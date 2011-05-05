@@ -239,7 +239,7 @@ class indexfileprocessor extends object
         // Clean up the Full Path to the File
         $savePath = $this->objCleanUrl->cleanUpUrl($savePath);
 
-        log_debug($savePath);
+        //log_debug($savePath);
 
         // Take filename, and create cleaned up version (no punctuation, etc.)
         $cleanFilename = $this->objCleanUrl->cleanFilename($filePath);
@@ -309,7 +309,7 @@ class indexfileprocessor extends object
                     }
                 }*/
         }
-        
+        //log_debug($fileId);
         return $fileId;
     }
 } // end class
