@@ -81,98 +81,108 @@ class sahrisapi extends object
             $this->objFiles = $this->getObject('dbfile', 'filemanager');
             $this->objFileIndexer = $this->getObject('indexfileprocessor', 'filemanager');
             $this->objModuleCat  = $this->getObject('modules', 'modulecatalogue');
+            $this->objDbColl     = $this->getObject('dbsahriscollections', 'sahriscollectionsman');
         }
         catch (customException $e)
         {
             customException::cleanUp();
             exit;
         }
-        if($this->objModuleCat->checkIfRegistered('rackspacecloudfiles')) {
-            // pull up the rackspace api module
-            $this->objCloudfiles = $this->getObject('cloudfilesops', 'rackspacecloudfiles');
-        }
-        if($this->objModuleCat->checkIfRegistered('imagevault')) {
-            // pull up the imagevault api module
-            $this->objOps = $this->getObject('imagevaultops', 'imagevault');
+        if($this->objModuleCat->checkIfRegistered('sahriscollectionsman')) {
+            // pull up the sahris ops api module
+            $this->objOps        = $this->getObject('sahriscollectionsops', 'sahriscollectionsman');
+            $this->objDbColl     = $this->getObject('dbsahriscollections', 'sahriscollectionsman');
         }
     }
+    
+    public function getCollNames() {
+        $list = $this->objDbColl->getCollectionNames();
+        $colls = NULL;
+        foreach($list as $item) {
+            $colls .= $item['collname']."|";
+        }
+        
+        $val = new XML_RPC_Value($colls, 'string');
+        // log_debug($val);
+        return new XML_RPC_Response($val);
+    }
 
-    public function fileDrop($params)
+    public function addCollRecord($params)
     {
         $param = $params->getParam(0);
         if (!XML_RPC_Value::isValue($param)) {
             log_debug($param);
         }
-        $username = $param->scalarval();
+        $coll = $param->scalarval();
+        $collid = $this->objDbColl->getCollByName($coll);
 
         $param = $params->getParam(1);
         if (!XML_RPC_Value::isValue($param)) {
             log_debug($param);
         }
-        $password = $param->scalarval();
-
+        $accno = $param->scalarval();
+        
         $param = $params->getParam(2);
+        if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+        }
+        $title = $param->scalarval();
+        
+        $param = $params->getParam(3);
+        if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+        }
+        $description = $param->scalarval();
+        
+        $param = $params->getParam(4);
+        if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+        }
+        $comment = $param->scalarval();
+
+        $param = $params->getParam(5);
         if (!XML_RPC_Value::isValue($param)) {
             log_debug($param);
         }
         $file = $param->scalarval();
         $file = base64_decode($file);
-
-        $userid = $this->objUser->getUserId($username);
         
-        // Rackspace Files case
-        if($this->objModuleCat->checkIfRegistered('rackspacecloudfiles')) {
-            $param = $params->getParam(3);
-            if (!XML_RPC_Value::isValue($param)) {
-                log_debug($param);
-            }
-            $filename = $param->scalarval();
-            $filename = str_replace(" ", "_", $filename);
-            $localfile = $this->objConfig->getContentBasePath().'users/'.$userid."/".$filename;
-            file_put_contents($localfile, $file);
-            $this->objCloudfiles->uploadFile($userid, $filename, $localfile);
-            
-            // read the metadata and insert some stuff to the db for indexing
-            if($this->objModuleCat->checkIfRegistered('imagevault')) {
-                $this->objOps->insertImageData($userid, $localfile);       
-            }
-            // $this->objOps->insertImageData($userid, $localfile);
-            // clean up the file from local
-            unlink($localfile);
-
-            // send a response
-            $val = new XML_RPC_Value("saved", 'string');
-            return new XML_RPC_Response($val);
+        $param = $params->getParam(6);
+        if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
         }
-        else { 
-            if(!file_exists($this->objConfig->getContentBasePath().'users/'.$userid."/"))
-            {
-                @mkdir($this->objConfig->getContentBasePath().'users/'.$userid."/");
-                @chmod($this->objConfig->getContentBasePath().'users/'.$userid."/", 0777);
-            }
-
-            $param = $params->getParam(3);
-            if (!XML_RPC_Value::isValue($param)) {
-                log_debug($param);
-            }
-            $filename = $param->scalarval();
-
-            $objOverwriteIncrement = $this->getObject('overwriteincrement', 'filemanager');
-            $filename = $objOverwriteIncrement->checkfile($filename, 'users/'.$userid);
-
-            $localfile = $this->objConfig->getContentBasePath().'users/'.$userid."/".$filename;
-            file_put_contents($localfile, $file);
-
-            $fmname = basename($filename);
-            $fmpath = 'users/'.$userid.'/'.$fmname;
-
-            // Add to users fileset
-            $fileId = $this->objFileIndexer->processIndexedFile($fmpath, $userid);
-            $this->objOps->insertImageData($userid, $localfile);
-
-            $val = new XML_RPC_Value("saved", 'string');
-            return new XML_RPC_Response($val);
+        $fname = $param->scalarval();
+        
+        $param = $params->getParam(7);
+        if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
         }
+        $username = $param->scalarval();
+       
+        $userid = $this->objUser->getUserId($username);
+        // log_debug($userid);
+        if(!file_exists($this->objConfig->getContentBasePath().'users/'.$userid."/"))
+        {
+            @mkdir($this->objConfig->getContentBasePath().'users/'.$userid."/");
+            @chmod($this->objConfig->getContentBasePath().'users/'.$userid."/", 0777);
+        }
+        
+        $objOverwriteIncrement = $this->getObject('overwriteincrement', 'filemanager');
+        $fname = $objOverwriteIncrement->checkfile($fname, 'users/'.$userid);
+        
+        $localfile = $this->objConfig->getContentBasePath().'users/'.$userid."/".$fname;
+        file_put_contents($localfile, $file);
+
+        $fmname = basename($fname);
+        $fmpath = 'users/'.$userid.'/'.$fmname;
+
+        // Add to users fileset
+        $fileId = $this->objFileIndexer->processIndexedFile($fmpath, $userid);
+        // now add the record to the sahris collections database
+        $insarr = array('userid' => $userid, 'accno' => $accno, 'collection' => $collid, 'title' => $title, 'description' => $description, 'media' => $fileId, 'comment' => $comment);
+        $res = $this->objDbColl->insertRecord($insarr);
+        $val = new XML_RPC_Value($res, 'string');
+        return new XML_RPC_Response($val);
     }
 
 }

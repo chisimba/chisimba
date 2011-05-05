@@ -1098,7 +1098,23 @@ class xmlrpcapi extends object
                                                     'signature' => array(
                                                                           array('string', 'string', 'string'),
                                                                           ),
-                                                    'docstring' => 'IM messages pushed through the python client'),),1, 0);
+                                                    'docstring' => 'IM messages pushed through the python client'),
+                            
+                            // SAHRIS functions
+                            // Collection Manager
+                            'sahris.getCollections' => array('function' => array($this->objSahris, 'getCollNames'),
+                                                    'signature' => array(
+                                                                          array('string'),
+                                                                          ),
+                                                    'docstring' => 'Get a list of SAHRIS collections'),
+                                                    
+                            'sahris.recordAdd' => array('function' => array($this->objSahris, 'addCollRecord'),
+                                                    'signature' => array(
+                                                                          array('string', 'string', 'string', 'string', 'string', 'string', 'string', 'string', 'string'),
+                                                                          ),
+                                                    'docstring' => 'Adds a record to the collections database'),
+                                                    
+                            ),1, 0);
 
 
 
