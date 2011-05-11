@@ -101,7 +101,7 @@ class loginInterface extends object
             // prepare the link for the oAuth providers 
             $box = $this->oauthDisp();
             $fb = $this->fbConnect();
-
+            
             // Create a Form object
             $objForm = new form('loginform', $formAction);
             $objFields = new fieldset();
@@ -200,12 +200,71 @@ class loginInterface extends object
         $this->objDbSysconfig = $this->getObject('dbsysconfig', 'sysconfig');
         $show = $this->objDbSysconfig->getValue('show_fbconnect_auth', 'security');
         if($this->objMods->checkIfRegistered('facebookapps') && strtolower($show) == 'true' ) {
+             include($this->getResourcePath('facebook.php', 'facebookapps'));
              $apikey = $this->objDbSysconfig->getValue('apikey', 'facebookapps');
-             $fb = "<script src=\"http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php\" type=\"text/javascript\"></script>
-                    <fb:login-button size=\"large\" autologoutlink=\"false\" background=\"white\" length=\"short\" onlogin='window.location=\"index.php?module=security&action=fbconnect\";'></fb:login-button> 
-                    <script type=\"text/javascript\"> FB.init(\"$apikey\", \"xd_receiver.htm\", {\"debugLogLevel\":0, \"reloadIfSessionStateChanged\":true}); 
-                    </script>";
-             return $fb."<br />";
+             $secret = $this->objDbSysconfig->getValue('apisecret', 'facebookapps');
+             $appId = $this->objDbSysconfig->getValue('apid', 'facebookapps');
+             // Create our Application instance (replace this with your appId and secret).
+             $facebook = new Facebook(array(
+                 'appId'  => $appId,
+                 'secret' => $secret,
+                 'cookie' => true,
+             ));
+                    
+             // We may or may not have this data based on a $_GET or $_COOKIE based session.
+             //
+             // If we get a session here, it means we found a correctly signed session using
+             // the Application Secret only Facebook and the Application know. We dont know
+             // if it is still valid until we make an API call using the session. A session
+             // can become invalid if it has already expired (should not be getting the
+             // session back in this case) or if the user logged out of Facebook.
+             $session = $facebook->getSession();
+
+             $me = NULL;
+             // Session based API call.
+             if ($session) {
+                 try {
+                     $uid = $facebook->getUser();
+                     $me = $facebook->api('/me');
+                 } catch (FacebookApiException $e) {
+                     log_debug($e);
+                 }
+             }
+                    
+             // login or logout url will be needed depending on current user state.
+             if ($me) {
+                 $logoutUrl = $facebook->getLogoutUrl();
+             } else {
+                 $loginUrl = $facebook->getLoginUrl();
+             }
+             $fbappid = $facebook->getAppId();
+             $jsess = json_encode($session);
+             $fb  = '<div id="fb-root"></div>';
+             $fb .= '<script>
+                         window.fbAsyncInit = function() {
+                             FB.init({
+                                 appId   : \''.$fbappid.'\',
+                                 session : '.$jsess.',
+                                 status  : true, 
+                                 cookie  : true, 
+                                 xfbml   : true 
+                             });
+
+                             // whenever the user logs in, we refresh the page
+                             FB.Event.subscribe(\'auth.login\', function() {
+                                 window.location.reload();
+                             });
+                         };
+
+                         (function() {
+                             var e = document.createElement(\'script\');
+                             e.src = document.location.protocol + \'//connect.facebook.net/en_US/all.js\';
+                             e.async = true;
+                             document.getElementById(\'fb-root\').appendChild(e);
+                         }());
+                     </script>';
+            $fb .= '<fb:login-button></fb:login-button>';
+            return $fb;
         }
         else {
             return NULL;
