@@ -120,11 +120,11 @@ class security extends controller {
                     if ($me) {
                         $logoutUrl = $facebook->getLogoutUrl();
                     } else {
-                        $loginUrl = $facebook->getLoginUrl();
+                        $loginUrl = $facebook->getLoginUrl(array('req_perms' => 'email,read_stream'));
                     }
                     
                     
-                    
+                    var_dump($me);
                     
 
                     $this->facebook = new Facebook($apikey, $secret);
