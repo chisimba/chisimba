@@ -312,6 +312,7 @@ class loginInterface extends object
              $fbappid = $facebook->getAppId();
              $jsess = json_encode($session);
              $reloadurl = $this->uri(array('module' => '_default'));
+             $onloginurl = $this->uri(array('module' => 'security', 'action' => 'fbconnect');
              $fb  = '<div id="fb-root"></div>';
              $fb .= '<script>
                          window.fbAsyncInit = function() {
@@ -336,7 +337,7 @@ class loginInterface extends object
                              document.getElementById(\'fb-root\').appendChild(e);
                          }());
                      </script>';
-            $fb .= '<fb:login-button autologoutlink="true"></fb:login-button>';
+            $fb .= '<fb:login-button autologoutlink="true" onlogin="window.location = \''.$onloginurl.'\'"></fb:login-button>';
             return $fb;
         }
         else {
