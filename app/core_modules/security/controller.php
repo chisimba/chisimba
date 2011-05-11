@@ -126,13 +126,8 @@ class security extends controller {
                     
                     var_dump($me);
                     
-
-                    $this->facebook = new Facebook($apikey, $secret);
-                    $uid = $this->facebook->get_loggedin_user();
-                    $user_details = $this->facebook->api_client->users_getInfo($uid, 'first_name, last_name, proxied_email, username, sex');
-                    $details = $user_details[0];
-                    $username = $details['username'];
-                    $p = explode("@", $details['proxied_email']);
+                    $username = $me['username'];
+                    $p = explode("@", $me['email']);
                     $password = $p[0];
                     if ($username == '' || $password == '') {
                         return $this->nextAction('error', array('message' => 'no_fbconnect'));
@@ -165,12 +160,12 @@ class security extends controller {
                         return $this->nextAction(NULL, NULL, $postlogin);
                     } else {
                         // login failure, so new user. Lets create him in the system now and then log him in.
-                        $userid = $details['uid'];
+                        $userid = $me['uid'];
                         $title = '';
-                        $firstname = $details['first_name'];
-                        $surname = $details['last_name'];
-                        $email = $details['proxied_email'];
-                        $sex = $details['sex'];
+                        $firstname = $me['first_name'];
+                        $surname = $me['last_name'];
+                        $email = $me['email'];
+                        $sex = $me['gender'];
                         if ($sex == 'male') {
                             $sex = 'M';
                         } else {

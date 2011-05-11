@@ -233,6 +233,78 @@ class loginInterface extends object
                     
              // login or logout url will be needed depending on current user state.
              if ($me) {
+                 // skip the nonsense and log in
+                 $username = $me['username'];
+                 $p = explode("@", $me['email']);
+                 $password = $p[0];
+                 if ($username == '' || $password == '') {
+                     return $this->nextAction('error', array('message' => 'no_fbconnect'));
+                 }
+                 // try the login
+                 $objUModel = $this->getObject('useradmin_model2', 'security');
+                 $objUser = $this->getObject('user', 'security');
+                 $login = $this->objUser->authenticateUser($username, $password, FALSE);
+                 if ($login) {
+                    if (!isset($_REQUEST [session_name ()])) {
+                        $this->objEngine->sessionStart();
+                    } else {
+                        session_regenerate_id ();
+                    }
+                    $this->objSkin->validateSkinSession();
+                    $url = $this->getSession('oldurl');
+                    $url ['passthroughlogin'] = 'true';
+                    if ($module != NULL) {
+                        $url ['module'] = $module;
+                    }
+                    if (is_array($url) && (isset($url ['module'])) && ($url ['module'] != 'splashscreen')) {
+                        if (isset($url ['action']) && ($url ['action'] != 'logoff')) {
+                            $act = $url ['action'];
+                        } else {
+                            $act = NULL;
+                        }
+                        return $this->nextAction($act, $url, $url ['module']);
+                    }
+                    $postlogin = $this->objConfig->getdefaultModuleName();
+                    return $this->nextAction(NULL, NULL, $postlogin);
+                } else {
+                    // login failure, so new user. Lets create him in the system now and then log him in.
+                    $userid = $me['uid'];
+                    $title = '';
+                    $firstname = $me['first_name'];
+                    $surname = $me['last_name'];
+                    $email = $me['email'];
+                    $sex = $me['gender'];
+                    if ($sex == 'male') {
+                        $sex = 'M';
+                    } else {
+                        $sex = 'F';
+                    }
+                    $country = '';
+                    $accountType = 'Facebook';
+                    $objUModel->addUser($userid, $username, $password, $title, $firstname, $surname, $email, $sex, $country, $cellnumber = '', $staffnumber = '', $accountType, '1');
+                    $this->objUser->authenticateUser($username, $password, FALSE);
+                    if (!isset($_REQUEST [session_name ()])) {
+                        $this->objEngine->sessionStart();
+                    } else {
+                        session_regenerate_id ();
+                    }
+                    $this->objSkin->validateSkinSession();
+                    $url = $this->getSession('oldurl');
+                    $url ['passthroughlogin'] = 'true';
+                    if ($module != NULL) {
+                        $url ['module'] = $module;
+                    }
+                    if (is_array($url) && (isset($url ['module'])) && ($url ['module'] != 'splashscreen')) {
+                        if (isset($url ['action']) && ($url ['action'] != 'logoff')) {
+                            $act = $url ['action'];
+                        } else {
+                            $act = NULL;
+                        }
+                        return $this->nextAction($act, $url, $url ['module']);
+                    }
+                    $postlogin = $this->objConfig->getdefaultModuleName();
+                    return $this->nextAction(NULL, NULL, $postlogin);
+                 }
                  $logoutUrl = $facebook->getLogoutUrl();
              } else {
                  $loginUrl = $facebook->getLoginUrl(array('req_perms' => 'email,read_stream'));
