@@ -122,10 +122,7 @@ class security extends controller {
                     } else {
                         $loginUrl = $facebook->getLoginUrl(array('req_perms' => 'email,read_stream'));
                     }
-                    
-                    
-                    var_dump($me);
-                    
+
                     $username = $me['username'];
                     $p = explode("@", $me['email']);
                     $password = $p[0];
@@ -136,6 +133,7 @@ class security extends controller {
                     $objUModel = $this->getObject('useradmin_model2', 'security');
                     $objUser = $this->getObject('user', 'security');
                     $login = $this->objUser->authenticateUser($username, $password, FALSE);
+                    
                     if ($login) {
                         if (!isset($_REQUEST [session_name ()])) {
                             $this->objEngine->sessionStart();
@@ -160,7 +158,7 @@ class security extends controller {
                         return $this->nextAction(NULL, NULL, $postlogin);
                     } else {
                         // login failure, so new user. Lets create him in the system now and then log him in.
-                        $userid = $me['uid'];
+                        $userid = $me['id'];
                         $title = '';
                         $firstname = $me['first_name'];
                         $surname = $me['last_name'];

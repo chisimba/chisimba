@@ -268,7 +268,7 @@ class loginInterface extends object
                     return $this->nextAction(NULL, NULL, $postlogin);
                 } else {
                     // login failure, so new user. Lets create him in the system now and then log him in.
-                    $userid = $me['uid'];
+                    $userid = $me['id'];
                     $title = '';
                     $firstname = $me['first_name'];
                     $surname = $me['last_name'];
