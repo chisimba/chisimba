@@ -311,6 +311,7 @@ class loginInterface extends object
              }
              $fbappid = $facebook->getAppId();
              $jsess = json_encode($session);
+             $reloadurl = $this->uri(array('module' => '_default'));
              $fb  = '<div id="fb-root"></div>';
              $fb .= '<script>
                          window.fbAsyncInit = function() {
@@ -324,7 +325,7 @@ class loginInterface extends object
 
                              // whenever the user logs in, we refresh the page
                              FB.Event.subscribe(\'auth.login\', function() {
-                                 window.location.reload();
+                                 window.location.('.$reloadurl.');
                              });
                          };
 

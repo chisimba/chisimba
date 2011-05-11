@@ -404,19 +404,24 @@ class security extends controller {
             $lo = $this->objLu->logout();
         }
         if ($fbshow == 'true') {
+            include($this->getResourcePath('facebook.php', 'facebookapps'));
             $apikey = $this->objDbSysconfig->getValue('apikey', 'facebookapps');
             $secret = $this->objDbSysconfig->getValue('apisecret', 'facebookapps');
-            include($this->getResourcePath('facebook.php', 'facebookapps'));
-            //$this->facebook = new Facebook($apikey, $secret);
-            //$this->facebook->clear_cookie_state();
-            //sleep(300);
+            $appId = $this->objDbSysconfig->getValue('apid', 'facebookapps');
+            // Create our Application instance (replace this with your appId and secret).
+            $facebook = new Facebook(array(
+                 'appId'  => $appId,
+                 'secret' => $secret,
+                 'cookie' => true,
+            ));
+            $session = $facebook->getSession();
             $lo = $this->objLu->logout();
         } else {
             $lo = $this->objLu->logout();
         }
-
         return $this->showPreLoginModule();
     }
+
 
     /**
      * Method to show the Pre Login Module
@@ -450,7 +455,6 @@ class security extends controller {
     function generateNewCaptcha() {
         $objCaptcha = $this->getObject('captcha', 'utilities');
         echo $objCaptcha->show();
-        //echo 'asffas';
     }
 
     function needPasswordConfirm() {
@@ -511,5 +515,4 @@ class security extends controller {
     }
 
 }
-
 ?>
