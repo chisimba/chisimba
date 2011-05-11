@@ -263,7 +263,7 @@ class loginInterface extends object
                              document.getElementById(\'fb-root\').appendChild(e);
                          }());
                      </script>';
-            $fb .= '<fb:login-button></fb:login-button>';
+            $fb .= '<fb:login-button autologoutlink="true"></fb:login-button>';
             return $fb;
         }
         else {
