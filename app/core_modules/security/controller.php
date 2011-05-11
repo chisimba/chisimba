@@ -123,7 +123,7 @@ class security extends controller {
                         $loginUrl = $facebook->getLoginUrl();
                     }
                     
-                    var_dump($session); die();
+                    
                     
                     
 

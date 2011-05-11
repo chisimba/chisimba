@@ -235,7 +235,7 @@ class loginInterface extends object
              if ($me) {
                  $logoutUrl = $facebook->getLogoutUrl();
              } else {
-                 $loginUrl = $facebook->getLoginUrl();
+                 $loginUrl = $facebook->getLoginUrl(array('req_perms' => 'email,read_stream'));
              }
              $fbappid = $facebook->getAppId();
              $jsess = json_encode($session);
