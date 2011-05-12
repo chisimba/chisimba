@@ -1139,7 +1139,7 @@ class modulecatalogue extends controller {
      *
      * @var string $progress_fn
      */
-    private $progress_fn = "progress";
+    private $progress_fn = "progress.xml";
 
      /**
      * The content that is written to the progress file.
@@ -1148,19 +1148,100 @@ class modulecatalogue extends controller {
      */
     private $progress_content = "";
 
-    /**
-     * This is a method to output status messages to the progress file during first-time registration. The progress file is read by the installer.
+     /**
+     * The current step.
      *
-     * @param string status The status message
+     * @var mixed $progress_step
+     */
+    private $progress_step = false;
+
+     /**
+     * The total number of steps.
+     *
+     * @var mixed $progress_totalSteps
+     */
+    private $progress_totalSteps = false;
+
+    /**
+     * Reset the current step.
+     *
+     */
+    private function reset_progess_step()
+    {
+        $this->progress_step = false;
+    }
+
+    /**
+     * Set the current step.
+     *
+     * @param integer $step The current step
+     */
+    private function set_progess_step($step)
+    {
+        $this->progress_step = $step;
+    }
+
+    /**
+     * Increment the current step.
+     *
+     */
+    private function increment_progess_step()
+    {
+        ++$this->progress_step;
+    }
+
+    /**
+     * Reset the total number of steps.
+     *
+     */
+    private function reset_progess_totalSteps()
+    {
+        $this->progress_totalSteps = false;
+    }
+
+    /**
+     * Set the total number of steps.
+     *
+     * @param integer $totalSteps The total number of steps
+     */
+    private function set_progess_totalSteps($totalSteps)
+    {
+        $this->progress_totalSteps = $totalSteps;
+    }
+
+    /**
+     * Output status messages to the progress file during first-time registration. The progress file is read by the installer.
+     *
+     * @param string $status The status message
      */
     private function update_progess($status)
     {
         // Check if the install method is the AJAX method.
         if ($this->ajaxInstall) {
+            if ($this->progress_totalSteps === false) {
+                $percentage = 0;
+            }
+            else {
+                if ($this->progress_step === false) {
+                    $percentage = 0;
+                }
+                else {
+                    $percentage = (int)($this->progress_step*100/$this->progress_totalSteps);
+                }
+            }
+
             // Append the status message to the content.
             $this->progress_content .= $status;
             // Write the content to the progress file.
-            if (file_put_contents($this->progress_fn, $this->progress_content) === FALSE) {
+            // xml:lang=\"EN\"
+            $contents = <<<EOT
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<data>
+    <percentage>{$percentage}</percentage>
+    <message>{$this->progress_content}</message>
+</data>
+EOT;
+            if (file_put_contents($this->progress_fn, $contents) === FALSE) {
                 //echo "Failure!";
                 //exit(0);
             }
@@ -1173,6 +1254,8 @@ class modulecatalogue extends controller {
      */
     private function firstRegister($sysType) {
         try {
+            $this->reset_progess_totalSteps();
+            $this->reset_progess_step();
             log_debug ( "Installing system, type: $sysType" );
             //$this->update_progess("\n");
             $this->update_progess("Installing system, type: $sysType\n");
@@ -1184,6 +1267,19 @@ class modulecatalogue extends controller {
                 throw new customException ( "could not find systemtypes.xml! tried {$root}installer/dbhandlers/default_modules.txt" );
             }
             $objXml = simplexml_load_file ( $root . 'installer/dbhandlers/systemtypes.xml' );
+            // Compute number of modules that will be installed.
+            // BEGIN >>
+            $total = 0;
+            $coreList = $objXml->xpath ( "//category[categoryname='Basic System Only']" );
+            $total += count($coreList [0]->module);
+            if ($sysType != "Basic System Only") {
+                $specificList = $objXml->xpath ( "//category[categoryname='$sysType']" );
+                $total += count($specificList [0]->module);
+            }
+            $this->set_progess_totalSteps($total);
+            // << END
+            // Set step to zero.
+            $this->set_progess_step(0);
             log_debug ( 'Installing core modules' );
             $this->update_progess("Installing core modules\n");
             $coreList = $objXml->xpath ( "//category[categoryname='Basic System Only']" );
@@ -1192,6 +1288,7 @@ class modulecatalogue extends controller {
                 if (! $this->smartRegister ( trim ( $module ) )) {
                     throw new customException ( "Error installing module $module: {$this->objModuleAdmin->output} {$this->objModuleAdmin->getLastError()}" );
                 }
+                $this->increment_progess_step();
                 $this->update_progess("OK\n");
             }
             if ($sysType != "Basic System Only") {
@@ -1203,6 +1300,7 @@ class modulecatalogue extends controller {
                     if (! $this->smartRegister ( trim ( $module ) )) {
                         throw new customException ( "Error installing module $module: {$this->objModuleAdmin->output} {$this->objModuleAdmin->getLastError()}" );
                     }
+                    $this->increment_progess_step();
                     $this->update_progess("OK\n");
                 }
             }
