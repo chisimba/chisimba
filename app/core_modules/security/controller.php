@@ -41,6 +41,7 @@ class security extends controller {
         $this->objConfig = $this->getObject('altconfig', 'config');
         $this->objEpiWrapper = $this->getObject('epiwrapper');
         $this->loggedInUsers = $this->getObject('loggedInUsers', 'security');
+        $this->objUi         = $this->getObject('logininterface', 'security');
     }
 
     function requiresLogin($action) {
@@ -82,120 +83,7 @@ class security extends controller {
                 echo $this->oauthDisp();
                 break;
             case 'fbconnect' :
-                $this->objMods = $this->getObject('modules', 'modulecatalogue');
-                $this->objDbSysconfig = $this->getObject('dbsysconfig', 'sysconfig');
-                if ($this->objMods->checkIfRegistered('facebookapps')) {
-                    include($this->getResourcePath('facebook.php', 'facebookapps'));
-                    $apikey = $this->objDbSysconfig->getValue('apikey', 'facebookapps');
-                    $secret = $this->objDbSysconfig->getValue('apisecret', 'facebookapps');
-                    $appId = $this->objDbSysconfig->getValue('apid', 'facebookapps');
-                    // Create our Application instance (replace this with your appId and secret).
-                    $facebook = new Facebook(array(
-                        'appId'  => $appId,
-                        'secret' => $secret,
-                        'cookie' => true,
-                    ));
-                    
-                    // We may or may not have this data based on a $_GET or $_COOKIE based session.
-                    //
-                    // If we get a session here, it means we found a correctly signed session using
-                    // the Application Secret only Facebook and the Application know. We dont know
-                    // if it is still valid until we make an API call using the session. A session
-                    // can become invalid if it has already expired (should not be getting the
-                    // session back in this case) or if the user logged out of Facebook.
-                    $session = $facebook->getSession();
-
-                    $me = NULL;
-                    // Session based API call.
-                    if ($session) {
-                        try {
-                            $uid = $facebook->getUser();
-                            $me = $facebook->api('/me');
-                        } catch (FacebookApiException $e) {
-                            log_debug($e);
-                        }
-                    }
-                    
-                    // login or logout url will be needed depending on current user state.
-                    if ($me) {
-                        $logoutUrl = $facebook->getLogoutUrl();
-                    } else {
-                        $loginUrl = $facebook->getLoginUrl(array('req_perms' => 'email,read_stream'));
-                    }
-
-                    $username = $me['username'];
-                    $p = explode("@", $me['email']);
-                    $password = $p[0];
-                    if ($username == '' || $password == '') {
-                        return $this->nextAction('error', array('message' => 'no_fbconnect'));
-                    }
-                    // try the login
-                    $objUModel = $this->getObject('useradmin_model2', 'security');
-                    $objUser = $this->getObject('user', 'security');
-                    $login = $this->objUser->authenticateUser($username, $password, FALSE);
-                    
-                    if ($login) {
-                        if (!isset($_REQUEST [session_name ()])) {
-                            $this->objEngine->sessionStart();
-                        } else {
-                            session_regenerate_id ();
-                        }
-                        $this->objSkin->validateSkinSession();
-                        $url = $this->getSession('oldurl');
-                        $url ['passthroughlogin'] = 'true';
-                        if ($module != NULL) {
-                            $url ['module'] = $module;
-                        }
-                        if (is_array($url) && (isset($url ['module'])) && ($url ['module'] != 'splashscreen')) {
-                            if (isset($url ['action']) && ($url ['action'] != 'logoff')) {
-                                $act = $url ['action'];
-                            } else {
-                                $act = NULL;
-                            }
-                            return $this->nextAction($act, $url, $url ['module']);
-                        }
-                        $postlogin = $this->objConfig->getdefaultModuleName();
-                        return $this->nextAction(NULL, NULL, $postlogin);
-                    } else {
-                        // login failure, so new user. Lets create him in the system now and then log him in.
-                        $userid = $me['id'];
-                        $title = '';
-                        $firstname = $me['first_name'];
-                        $surname = $me['last_name'];
-                        $email = $me['email'];
-                        $sex = $me['gender'];
-                        if ($sex == 'male') {
-                            $sex = 'M';
-                        } else {
-                            $sex = 'F';
-                        }
-                        $country = '';
-                        $accountType = 'Facebook';
-                        $objUModel->addUser($userid, $username, $password, $title, $firstname, $surname, $email, $sex, $country, $cellnumber = '', $staffnumber = '', $accountType, '1');
-                        $this->objUser->authenticateUser($username, $password, FALSE);
-                        if (!isset($_REQUEST [session_name ()])) {
-                            $this->objEngine->sessionStart();
-                        } else {
-                            session_regenerate_id ();
-                        }
-                        $this->objSkin->validateSkinSession();
-                        $url = $this->getSession('oldurl');
-                        $url ['passthroughlogin'] = 'true';
-                        if ($module != NULL) {
-                            $url ['module'] = $module;
-                        }
-                        if (is_array($url) && (isset($url ['module'])) && ($url ['module'] != 'splashscreen')) {
-                            if (isset($url ['action']) && ($url ['action'] != 'logoff')) {
-                                $act = $url ['action'];
-                            } else {
-                                $act = NULL;
-                            }
-                            return $this->nextAction($act, $url, $url ['module']);
-                        }
-                        $postlogin = $this->objConfig->getdefaultModuleName();
-                        return $this->nextAction(NULL, NULL, $postlogin);
-                    }
-                }
+                $this->objUi->fbConnect();
                 break;
 
             case 'ajax_login':
@@ -252,11 +140,6 @@ class security extends controller {
             } else {
                 session_regenerate_id ();
             }
-
-
-
-
-
             //Validate the current skin Session or set it if not present
             //Skin is also passed as a hidden input
             $this->objSkin->validateSkinSession();
@@ -403,22 +286,7 @@ class security extends controller {
             setcookie("oauth_token_secret", '', time() - 100);
             $lo = $this->objLu->logout();
         }
-        /*if ($fbshow == 'true') {
-            include($this->getResourcePath('facebook.php', 'facebookapps'));
-            $apikey = $this->objDbSysconfig->getValue('apikey', 'facebookapps');
-            $secret = $this->objDbSysconfig->getValue('apisecret', 'facebookapps');
-            $appId = $this->objDbSysconfig->getValue('apid', 'facebookapps');
-            // Create our Application instance (replace this with your appId and secret).
-            $facebook = new Facebook(array(
-                 'appId'  => $appId,
-                 'secret' => $secret,
-                 'cookie' => true,
-            ));
-            $session = $facebook->getSession();
-            $lo = $this->objLu->logout();
-        } else {
-            $lo = $this->objLu->logout();
-        }*/
+        
         $lo = $this->objLu->logout();
         return $this->showPreLoginModule();
     }
@@ -428,8 +296,13 @@ class security extends controller {
      * Method to show the Pre Login Module
      */
     function showPreLoginModule() {
+        $fbshow = $this->objDbSysconfig->getValue('show_fbconnect_auth', 'security');
+        if ($fbshow == 'true') {
+            $this->objSkin->validateSkinSession();
+            return $this->nextAction(NULL, NULL, $this->objConfig->getPrelogin('KEWL_PRELOGIN_MODULE'));
+        }
+
         // Validate the skin, checks if it exists or changed
-        $this->objSkin->validateSkinSession();
         $url = $_GET;
         if (is_array($url) && isset($url ['module']) && !in_array($url ['module'], array('security', '_default'))) {
             $this->setSession('oldurl', $url);
@@ -437,9 +310,9 @@ class security extends controller {
             return $this->nextAction('error', array('message' => 'needlogin'));
         }
         $this->loggedInUsers->doLogout($this->objUser->userid());
-
         return $this->nextAction(NULL, NULL, $this->objConfig->getPrelogin('KEWL_PRELOGIN_MODULE'));
     }
+
 
     function needPassword() {
         if ($this->objUser->isLoggedIn()) {
