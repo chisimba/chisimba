@@ -393,7 +393,7 @@ class security extends controller {
     function doLogoff() {
         $this->loggedInUsers->doLogout($this->objUser->userid());
         $show = $this->objDbSysconfig->getValue('show_twitter_auth', 'security');
-        $fbshow = $this->objDbSysconfig->getValue('show_fbconnect_auth', 'security');
+        //$fbshow = $this->objDbSysconfig->getValue('show_fbconnect_auth', 'security');
         if (strtolower($show) == 'true') {
             $this->consumer_key = $this->objDbSysconfig->getValue('twitter_consumer_key', 'security');
             $this->consumer_secret = $this->objDbSysconfig->getValue('twitter_consumer_secret', 'security');
@@ -403,7 +403,7 @@ class security extends controller {
             setcookie("oauth_token_secret", '', time() - 100);
             $lo = $this->objLu->logout();
         }
-        if ($fbshow == 'true') {
+        /*if ($fbshow == 'true') {
             include($this->getResourcePath('facebook.php', 'facebookapps'));
             $apikey = $this->objDbSysconfig->getValue('apikey', 'facebookapps');
             $secret = $this->objDbSysconfig->getValue('apisecret', 'facebookapps');
@@ -418,7 +418,8 @@ class security extends controller {
             $lo = $this->objLu->logout();
         } else {
             $lo = $this->objLu->logout();
-        }
+        }*/
+        $lo = $this->objLu->logout();
         return $this->showPreLoginModule();
     }
 
