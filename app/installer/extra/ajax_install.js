@@ -24,9 +24,28 @@
  * @version   $Id$
  */
 
+// Update the status div element.
+// @param string message The message
+function UpdateStatus(message)
+{
+    // Assign the message to the innerHTML of the 'status' div element.
+    $('status').innerHTML = '<pre>' + message + '</pre>';
+    // Force div element to scroll to the last line.
+    $('status').scrollTop=$('status').scrollHeight-$('status').clientHeight;
+}
+
+// Update the progress bar.
+// @param integer percentage The percentage
+function UpdateProgressBar(percentage)
+{
+    $('progress_bar').style.width = percentage + '%';
+}
+
 //var UpdateProgress_deleteprogressfile = false;
-// Global variable to store UpdateProgress()'s response.
-var UpdateProgress_response = '';
+// Global variable to store message.
+var UpdateProgress_message = false;
+// Global variable to store percentage.
+var UpdateProgress_percentage = false;
 // Execute an XML HTTP request to get the progress status.
 // param: deleteprogressfile_ boolean Indicator to specify whether to delete the progress file.
 function UpdateProgress(deleteprogressfile_)
@@ -41,25 +60,57 @@ function UpdateProgress(deleteprogressfile_)
         parameters: {deleteprogressfile: deleteprogressfile_?'true':'false'},
         // onSuccess callback.
         onSuccess: function(transport){
-            var response = transport.responseText || "no response text";
+            //var response = transport.responseText || "no response text";
+            // Get response XML
+            var response = transport.responseXML;
+            // Check if empty, and if so exit the function
+            if (!response) {
+                //alert('!response');
+                return;
+            }
+            // Get the 'message' tag
+            var el_message = response.getElementsByTagName("message");
+            //alert(el_status);
+            //alert(el_status.length);
+            // Check if zero length, and if so exit the function
+            if (el_message.length == 0) {
+                return;
+            }
+            else {
+                //Extract the contents
+                var message = el_message[0].textContent;
+            }
+            // Get the 'percentage' tag
+            var el_percentage = response.getElementsByTagName("percentage");
+            //alert(el_percentage);
+            //alert(el_percentage.length);
+            // Check if zero length, and if so exit the function
+            if (el_percentage.length == 0) {
+                return;
+            }
+            else {
+                //Extract the contents
+                var percentage = el_percentage[0].textContent;
+            }
             // Store response in global UpdateProgress_response variable.
-            UpdateProgress_response = response;
-            response = '<pre>' + response + '</pre>';
-            // Assign response to innerHTML of the 'output' div element.
-            $('output').innerHTML = response;
-            // Force div element to scroll to the last line.
-            $('output').scrollTop=$('output').scrollHeight-$('output').clientHeight; //-$('output').height
+            //UpdateProgress_response = response;
+            // Store message in global UpdateProgress_message variable.
+            UpdateProgress_message = message;
+            // Store percentage in global UpdateProgress_percentage variable.
+            UpdateProgress_percentage = percentage;
+            // Update status
+            UpdateStatus(message);
+            // Update progress bar
+            UpdateProgressBar(percentage);
         },
         // onFailure callback.
-        onFailure: function(){
-            var response = 'Something went wrong...';
-            // Store response in global UpdateProgress_response variable.
-            UpdateProgress_response = response;
-            response = '<pre>' + response + '</pre>';
-            // Append response to 'output' div element.
-            $('output').innerHTML += response;
-            // Force div element to scroll to the last line.
-            $('output').scrollTop=$('output').scrollHeight-$('output').clientHeight;
+        onFailure: function(transport){
+            var message = UpdateProgress_message + 'Something went wrong...'+'\nStatus:'+transport.status;
+            // Store message in global UpdateProgress_message variable.
+            UpdateProgress_message = message;
+            //UpdateProgress_percentage = percentage;
+            UpdateStatus(message);
+            //UpdateProgressBar(percentage);
         }
     });
 }
@@ -92,7 +143,9 @@ function ajax_install(register_url, register_url_params_, login_url_)
         method:'get',
         //parameters: encodeURI(register_url_params),
         parameters: register_url_params,
+        // onSuccess callback
         onSuccess: function(transport){
+            //var response = transport.responseText || "no response text";
             // If timerId is defined then stop the timer, and set timerId to null.
             if (timerId != null) {
                 window.clearTimeout(timerId);
@@ -101,33 +154,30 @@ function ajax_install(register_url, register_url_params_, login_url_)
             //UpdateProgress_deleteprogressfile = true;
             // Update the progress status one last time in case there have been changes to the progress status since UpdateProgress() was last triggered, and specify that the progress file should be deleted.
             UpdateProgress(true);
-            //var response = transport.responseText || "no response text";
             // Set up message.
-            var s = '<pre>' + UpdateProgress_response + "\nSuccess! " /* + response */ + ' Please wait while you are redirected...' + '</pre>';
-            // Assign the message to the innerHTML of the 'output' div element.
-            $('output').innerHTML = s;
-            // Force div element to scroll to the last line.
-            $('output').scrollTop=$('output').scrollHeight-$('output').clientHeight;
+            UpdateStatus(UpdateProgress_message + '\nSuccess!' /* + response */ + ' Please wait while you are redirected...');
             ///ajax_progress/
             // If login_url is defined then redirect to the application and log in.
             if (login_url !== null) {
                 window.location.replace(login_url); //?message='+encodeURI(response)
             }
         },
+        // onFailure callback
         onFailure: function(){
+            //var response = '\nSomething went wrong...';
             // If timerId is defined then stop the timer, and set timerId to null.
             if (timerId != null) {
                 window.clearTimeout(timerId);
                 timerId = null;
             }
-            var response = '\nSomething went wrong...';
-            //response
-            // Set up message.
-            var s = '<pre>' + UpdateProgress_response + response + '</pre>';
-            // Append the message to the innerHTML of the 'output' div element.
-            $('output').innerHTML = s; //response
-            // Force div element to scroll to the last line.
-            $('output').scrollTop=$('output').scrollHeight-$('output').clientHeight;
+            // Set up message
+            var message = UpdateProgress_message + 'Something went wrong...'+'\nStatus:'+transport.status;
+            // Store message in global UpdateProgress_message variable.
+            UpdateProgress_message = message;
+            //UpdateProgress_percentage = percentage;
+            // Update status
+            UpdateStatus(message);
+            //UpdateProgressBar(percentage);
         }
     });
     // Create a timer to refresh the progress status every 1 second.

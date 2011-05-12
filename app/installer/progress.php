@@ -31,15 +31,34 @@ $dir = dirname($_SERVER ['SCRIPT_FILENAME']);
 //echo "[$dir]\n";
 $dir = preg_replace('|/installer$|i', '', $dir);
 //echo "[$dir]\n";
-$filename = $dir . '/progress';
+$filename = $dir . '/progress.xml';
 //echo "[$filename]\n";
 
+header('Content-Type: text/xml');
+
+/**
+* Return XML packet with status set to passed in string.
+*
+* @param string $s Status string
+*/
+
+function xml($s)
+{
+    return <<<EOT
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<data>
+    <percentage>0</percentage>
+    <message>{$s}</message>
+</data>
+EOT;
+}
+
 if (!file_exists($filename)) {
-    echo "Please wait...";
+    echo xml("Please wait...");
 }
 else {
     if (($ret = file_get_contents($filename)) === FALSE)
-        echo "Failure!";
+        echo xml("Failure!");
     else
         echo $ret;
 }

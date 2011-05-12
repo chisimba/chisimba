@@ -6,10 +6,22 @@ Thank you for installing Chisimba. <a onclick="sq_redirect(this.href); return fa
 </p>
 <!--<a id="template_bottom">-->
 <div
-    id="output"
+    id="status"
     style="
         height: 200px;
         overflow: auto;
     "
 >
+</div>
+<div id="progress_bar_border" style="
+	border: 1px solid fuchsia;
+	background-color: white;
+	height: 10px;
+">
+    <div id="progress_bar" style="
+	background-color: gray;
+	width: 0px;
+	height: 10px;
+    ">
+    </div>
 </div>
