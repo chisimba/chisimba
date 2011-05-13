@@ -447,3 +447,17 @@ h3.popupTitle{
 #form_commentadd fieldset {
     margin-bottom: 8px;
 }
+
+/** Fix context control panel */
+ul.x-tab-strip li {
+    list-style-type: none;
+}
+.context_cp_right {
+    width: 45%;
+    margin-left: 40px;
+    float:left;
+}
+.context_cp_left {
+    width: 45%;
+    float:left;
+}
