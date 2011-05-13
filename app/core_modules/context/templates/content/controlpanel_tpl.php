@@ -37,7 +37,7 @@ foreach ($cpBlocks as $block)
 }
 
 if (count($left) > 0) {
-    echo '<div style="width: 45%; float:left;">';
+    echo '<div class="context_cp_left">';
     foreach ($left as $block)
     {
         echo $block;
@@ -46,7 +46,7 @@ if (count($left) > 0) {
 }
 
 if (count($right) > 0) {
-    echo '<div style="width: 45%; float:left; margin-left: 40px;">';
+    echo '<div class="context_cp_right">';
     foreach ($right as $block)
     {
         echo $block;
