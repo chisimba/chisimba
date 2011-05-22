@@ -1,0 +1,33 @@
+Source: Chisimba
+Maintainer: Paul Scott <pscott@uwc.ac.za>
+Uploaders: Paul Scott <pscott@uwc.ac.za>
+Section: web
+Priority: extra
+Standards-Version: 3.9.1
+Build-Depends: debhelper (>= 7)
+Homepage: http://www.chisimba.com/
+Vcs-Browser: https://trac.uwc.ac.za/chisimba/framework
+Vcs-Svn: https://cvs2.uwc.ac.za/chisimba/framework/trunk
+
+Package: chisimba
+Architecture: all
+Depends: libapache2-mod-php5,
+    php5-mysql, php5-mysqli, php5-pgsql, 
+    php5-mcrypt, php5-gd, php5-imap, php5-curl, php-pear
+    
+Recommends: apache2, mysql-client
+Suggests: mysql-server, www-browser
+Description: Web application framework
+ This package allows running a Chisimba framework instance.
+ .
+ Chisimba is a Web 2.0 enabled rapid application development framework for creating web applications that are platform independent, browser independent, and can use
+ a number of common databases. It is written in PHP5 using the model-view-controller architectural paradigm, implemented via a modular architecture. Over 200 modules
+ of functionality are already available and these can be used out of the box to create a content management system, a feature-rich e-learning platform, a group-based
+ collaboration platform, a blogging system that allows posting from mobile phones, and many other applications.
+
+ Chisimba modules are configured at install time from a simple text-based configuration file that contains common setting, and automates permissions and menu entries.
+ Most settings are configurable from a dynamic configuration editor, including menu entries, permissions, and even the type of site. The Chisimba module catalogue
+ includes some common configurations, allowing you to install an e-learning platform, a CMS, an organizational portal, or any of several other configurations from the
+ same codebase. Modules can also be installed individually or combined in different ways to create entirely new application types without any programming.
+ 
+ Chisimba is the Chichewa (Malawi) word for the framework used to build a traditional African house. 
