@@ -461,3 +461,9 @@ ul.x-tab-strip li {
     width: 45%;
     float:left;
 }
+
+/** Fixed bad code in News module **/
+.halfwidth_left {
+    width:50%;
+    float:left;
+}
