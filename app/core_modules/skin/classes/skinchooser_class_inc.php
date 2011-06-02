@@ -238,18 +238,29 @@ class skinchooser extends object
      */
     public function curPageURL()
     {
+        /*
         $pageURL = 'http';
         if (isset($_SERVER["HTTPS"])) {
             if ($_SERVER["HTTPS"] == "on") {
                 $pageURL .= "s";
             }
         }
+        */
+        $pageURL = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http';
         $pageURL .= "://";
+        $pageURL .= $_SERVER["SERVER_NAME"];
         if ($_SERVER["SERVER_PORT"] != "80") {
-            $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
-        } else {
-            $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+            $pageURL .= ":".$_SERVER["SERVER_PORT"];
         }
+        /*
+        else {
+            $pageURL .= $_SERVER["SERVER_NAME"];
+        }
+        */
+        $pageURL .= $_SERVER['SCRIPT_NAME'];
+        $pageURL .= isset($_SERVER['QUERY_STRING'])?('?'.$_SERVER['QUERY_STRING']):'';
+//        .$_SERVER["REQUEST_URI"]
+//        .$_SERVER["REQUEST_URI"]
         return $pageURL;
     }
 }
