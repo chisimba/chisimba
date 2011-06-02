@@ -476,11 +476,13 @@ class engine {
         // Ensure the site is being accessed at the correct location.
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $base = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http';
-            $base .= '://'.$_SERVER['HTTP_HOST'].strtok($_SERVER['REQUEST_URI'], '?');
-            $query = strtok('?');
+            //$base .= '://'.$_SERVER['HTTP_HOST'].strtok($_SERVER['REQUEST_URI'], '?');
+            //$query = strtok('?');
+            $base .= '://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'];
+            $query = isset($_SERVER['QUERY_STRING'])?$_SERVER['QUERY_STRING']:FALSE;
 
             if ($query === FALSE) {
-                if ($base != $this->_objDbConfig->getsiteRoot()) {
+                if ($base != $this->_objDbConfig->getsiteRoot().'index.php') {
                     header('Location: '.$this->_objDbConfig->getsiteRoot());
                 }
             } elseif ($base != $this->_objDbConfig->getsiteRoot().'index.php') {
