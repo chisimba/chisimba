@@ -22,7 +22,7 @@ if ($mode == 'edit') {
     $headerTitle = ucwords($this->objLanguage->code2Txt('mod_context_updatecontext', 'context', NULL, 'Update [-context-]')) . ': ' . $context['title'];
 } else {
     $formAction = 'savestep1';
-    $headerTitle = $this->objLanguage->code2Txt('mod_contextadmin_createnewcontext', 'contextadmin', NULL, 'Create New [-Context-]');
+    $headerTitle = $this->objLanguage->code2Txt('mod_contextadmin_createnewcontext', 'contextadmin', NULL, 'Create New [-context-]');
     $fixup = $this->getSession('fixup', NULL);
 
     $this->appendArrayVar('headerParams', '
@@ -128,7 +128,7 @@ if ($mode == 'edit') {
 }
 $objStepMenu->addStep(str_replace('[-num-]', 2, $this->objLanguage->code2Txt('mod_contextadmin_stepnumber', 'contextadmin', NULL, 'Step [-num-]')) . ' - ' . ucwords($this->objLanguage->code2Txt('mod_contextadmin_contextinformation', 'contextadmin', NULL, '[-context-] Information')), $this->objLanguage->code2Txt('mod_contextadmin_enterinfoaboutcontext', 'contextadmin', NULL, 'Enter more information about your [-context-] and select a [-context-] image'));
 
-$objStepMenu->addStep(str_replace('[-num-]', 3, $this->objLanguage->code2Txt('mod_contextadmin_stepnumber', 'contextadmin', NULL, 'Step [-num-]')) . ' - ' . ucwords($this->objLanguage->code2Txt('mod_contextadmin_courseoutcomes', 'contextadmin', NULL, 'Course Outcomes')), $this->objLanguage->code2Txt('mod_context_enteroutcomecontext', 'contextadmin', NULL, 'Enter the main Outcomes / Goals of the [-context-]'));
+$objStepMenu->addStep(str_replace('[-num-]', 3, $this->objLanguage->code2Txt('mod_contextadmin_stepnumber', 'contextadmin', NULL, 'Step [-num-]')) . ' - ' . ucwords($this->objLanguage->code2Txt('mod_contextadmin_courseoutcome', 'contextadmin', NULL, '[-context-] Outcomes')), $this->objLanguage->code2Txt('mod_context_enteroutcomecontext', 'contextadmin', NULL, 'Enter the main Outcomes / Goals of the [-context-]'));
 
 
 $objStepMenu->addStep(str_replace('[-num-]', 4, $this->objLanguage->code2Txt('mod_contextadmin_stepnumber', 'contextadmin', NULL, 'Step [-num-]')) . ' - ' . ucwords($this->objLanguage->code2Txt('mod_context_contextpluginsabs', 'context', array('plugins' => 'plugins'), '[-context-] [-plugins-]')), $this->objLanguage->code2Txt('mod_contextadmin_selectpluginsforcontextabs', 'contextadmin', array('plugins' => 'plugins'), 'Select the [-plugins-] you would like to use in this [-context-]'));
