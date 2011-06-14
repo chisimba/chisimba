@@ -235,4 +235,5 @@ Ext.onReady(function(){
     userdata.load({params:{start:0, limit:25}});
 	
 	// render it
-    usergrid.render();});
+    usergrid.render();
+});
