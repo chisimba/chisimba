@@ -1,7 +1,9 @@
 <?php
 $this->setVar('canvastype', 'context');
+/*
 $objExtJS = $this->getObject('extjs', 'ext');
 $objExtJS->show();
+*/
 //Language items
 $default = 'You are using an unsupported browser. Please switch to Mozilla FireFox available at ( http://getfirefox.com ). Currently the system functionality is limited. Thanks!';
 $browserError = $objLanguage->languageText('mod_poll_browserError', 'poll', $default);
