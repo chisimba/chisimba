@@ -81,12 +81,12 @@ class logdisplay extends object
             $objTable->css_class = 'sorttable';
             $objTable->row_attributes = 'name="row_'.$objTable->id.'"';
 
-            $objTable->startRow();
-            $objTable->addCell($lbModule, '60%', '','', 'heading');
-            $objTable->addCell($lbHits, '10%', '','', 'heading');
-            $objTable->addCell($lbUsers, '10%', '','', 'heading');
-            $objTable->addCell('', '20%', '','', 'heading');
-            $objTable->endRow();
+            $objTable->startHeaderRow();
+            $objTable->addHeaderCell($lbModule, '60%', '','', 'heading');
+            $objTable->addHeaderCell($lbHits, '10%', '','', 'heading');
+            $objTable->addHeaderCell($lbUsers, '10%', '','', 'heading');
+            $objTable->addHeaderCell('', '20%', '','', 'heading');
+            $objTable->endHeaderRow();
 
             foreach($data as $item){
                 $module = $item['module'];
