@@ -85,7 +85,7 @@ class block_elearnlogin extends object
             }
             $this->title = $this->objLanguage->languageText("word_login");
             $this->objSysConfig = $this->getObject ('dbsysconfig','sysconfig');
-            if ($this->objSysConfig->getValue('elearnlogin_default_visible', 'security') == 'true') {
+            if ($this->objSysConfig->getValue('elearnlogin_default_visible', 'security', 'false') == 'true') {
                 $this->defaultHidden = FALSE;
             }
         } catch (customException $e) {
