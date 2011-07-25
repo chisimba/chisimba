@@ -275,11 +275,18 @@ class context extends controller {
                         'author' => $this->objUser->fullname(),
                         'description' => $message));
                 }
-                $contextModule=$this->getParam('contextmodule');
+                $contextRedirectURI = $this->getParam('contextredirecturi', NULL);
+                if (!is_null($contextRedirectURI)) {
+                    $contextRedirectURI_ = urldecode($contextRedirectURI);
+                    header('Location: '.$contextRedirectURI_);
+                    return NULL;
+                }
+                //--
+                $contextModule=$this->getParam('contextmodule'); //--
                 if ($contextModule!=''){
                     $contextAction=$this->getParam('contextaction');
                     return $this->nextAction($contextAction,array('id'=>$this->getParam('contextdata')),$contextModule);
-                }
+                }//--
                 return $this->nextAction('home');
             } else {
                 return $this->nextAction('join', array('error' => 'unabletoenter'));
