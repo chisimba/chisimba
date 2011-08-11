@@ -127,16 +127,21 @@ class block_elearnlogin extends object
 
         $str .= '<hr />';
 
-        $header = new htmlheading();
-        $header->type = 5;
-        $header->str = $this->objLanguage->languageText('mod_security_forgotyourpassword', 'security', 'Forgot your password').'?';
+        if ($this->objSysConfig->getValue('elearnlogin_forgotpassword', 'security', 'true') === 'true') {
 
-        $str .= $header->show();
+            // JOC [[ Forgot your password OK
+            $header = new htmlheading();
+            $header->type = 5;
+            $header->str = $this->objLanguage->languageText('mod_security_forgotyourpassword', 'security', 'Forgot your password').'?';
 
-        $link = new link($this->uri(array('action'=>'needpassword')), 'security');
-        $link->link = $this->objLanguage->languageText('mod_security_helpmelogin', 'security', 'Yes, help me login');
+            $str .= $header->show();
 
-        $str .= '<p>'.$link->show().'</p>';
+            // JOC [[ Yes, help me login OK
+            $link = new link($this->uri(array('action'=>'needpassword')), 'security');
+            $link->link = $this->objLanguage->languageText('mod_security_helpmelogin', 'security', 'Yes, help me login');
+
+            $str .= '<p>'.$link->show().'</p>';
+        }
 
         return $str;
     }
