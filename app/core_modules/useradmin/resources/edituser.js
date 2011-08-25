@@ -2,7 +2,7 @@
  * Ext JS Library 3.0 RC2
  * Copyright(c) 2006-2009, Ext JS, LLC.
  * licensing@extjs.com
- * 
+ *
  * http://extjs.com/license
  * By Qhamani Fenama
  * qfenama@gmail.com/qfenama@uwc.ac.za
@@ -17,7 +17,7 @@
 	Ext.form.Field.prototype.msgTarget = 'side';
 
 	var bd = Ext.getBody();
-	
+
 	var val2;
 
 	Ext.apply(Ext.form.VTypes, {
@@ -34,16 +34,16 @@
 		username : function(val, field){
 			if (field != "")
 			{
-				userNameAvailable(val)
+				userNameAvailable(val);
 				return (val2 == '1');
 			}
 
 			return true;
 		},
-	
+
 		usernameText: 'Username is already taken'
 	});
-	
+
 	var titledata =  new Ext.data.ArrayStore({
 			id: 0,
 			fields: [
@@ -127,10 +127,10 @@
 		allowBlank:false,
 		width: 150
 	});
-	
+
 	var edituri;
 
-	var edituser = new Ext.FormPanel({ 
+	var edituser = new Ext.FormPanel({
 			standardSubmit: true,
 			frame:true,
 			title: 'Edit User',
@@ -160,14 +160,14 @@
 						fieldLabel: 'Identification Number',
 						name: 'useradmin_staffnumber'
 					},
-					{     
+					{
 						fieldLabel: 'Email Address',
 						name: 'useradmin_email',
 						allowBlank:false,
 						vtype: 'email',
 						invalidText : 'Provide a valid email address'
-					}, 
-					{     
+					},
+					{
 						fieldLabel: 'Cell Number',
 						name: 'useradmin_cellnumber'
 					}]
@@ -188,7 +188,7 @@
 							labelSeparator:'',
 							name: 'useradmin_sex',
 							boxLabel: 'Male',
-							inputValue: 'M'												
+							inputValue: 'M'
 						  },{
 							xtype: 'radio',
 							id : 'sex_F',
@@ -219,19 +219,19 @@
 							inputValue: '0',
 						}
 						]
-					  },{     
+					  },{
 						fieldLabel: 'Username',
 						readOnly: true,
 						name: 'useradmin_username',
-						allowBlank:false					
-					}, {     
+						allowBlank:false
+					}, {
 						fieldLabel: 'Password',
 						name: 'useradmin_password',
 						id: 'epass',
 						vtype: 'password',
 						inputType: 'password',
 						allowBlank: true
-					}, {     
+					}, {
 						fieldLabel: 'Confirm Password',
 						name: 'useradmin_repeatpassword',
 						vtype: 'password',
@@ -239,7 +239,7 @@
 						allowBlank: true,
 						initialPassField: 'epass'
 					}]
-		        }			
+		        }
 			]
 			}],
 
@@ -250,4 +250,4 @@
 					edituser.getForm().getEl().dom.action = edituri;
 					edituser.getForm().submit();
 				}}]
-});				
+});

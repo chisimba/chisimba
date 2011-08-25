@@ -144,12 +144,15 @@
 		           username: val
 		    },
 		    timeout: 180000,
-		    success: function(response) {
+		    success: function(response, opts) {
 			var jsonData = Ext.util.JSON.decode(response.responseText);
 		    val2 = jsonData.data;
 			},
-		    failure: function(xhr,params) {
-			return false;
-		    }
+            failure: function(response, opts) {
+                console.log('server-side failure with status code ' + response.status);
+            }
+		    //failure: function(xhr,params) {
+			//return false;
+		    //}
 		});
 }
