@@ -2,7 +2,7 @@
 /**
  * extjs_class_inc.php
  *
- * This class generates the styles and js scripts which is 
+ * This class generates the styles and js scripts which is
  * needed to run any ExtJS script
  *
  *
@@ -42,6 +42,9 @@ $GLOBALS['kewl_entry_point_run']){
 }
 
 
+define('EXT_JS_STANDARD', 0);
+define('EXT_JS_WITH_PROTOTYPE', 1);
+
 class extjs extends object {
 
     /**
@@ -60,33 +63,42 @@ class extjs extends object {
      * Method to show a textinput referencing variables which
      * dont exist.
      *
-     * @return string Return description (if any) ...
+     * @return void
      * @access public
      */
-    function show(){
+    function show($type=EXT_JS_STANDARD){
         //need the js
-        $extbase_js = '<script language="JavaScript" src="'.$this->getResourceUri('ext-3.0-rc2/adapter/ext/ext-base.js','ext').'" type="text/javascript"></script>';
+        switch ($type) {
+            case EXT_JS_STANDARD:
+                $extbase_js = '<script language="JavaScript" src="'.$this->getResourceUri('ext-3.0-rc2/adapter/ext/ext-base.js','ext').'" type="text/javascript"></script>';
+                break;
+            case EXT_JS_WITH_PROTOTYPE:
+                $extbase_js = '<script language="JavaScript" src="'.$this->getResourceUri('ext-3.0-rc2/adapter/prototype/ext-prototype-adapter.js','ext').'" type="text/javascript"></script>';
+                break;
+            default:
+                $extbase_js = '';
+        }
 		$extall_js = '<script language="JavaScript" src="'.$this->getResourceUri('ext-3.0-rc2/ext-all.js', 'ext').'" type="text/javascript"></script>';
-	
+
 		//need the css
-		
+
 		$extall_css = '<link rel="stylesheet" href="'.$this->getResourceUri('ext-3.0-rc2/resources/css/ext-all.css', 'ext').'" type="text/css" />';
 		$extall_css .= '<link rel="stylesheet" href="skins/_common/css/extjs/silk/silk.css" type="text/css" />';
 		$extall_css .= '<link rel="stylesheet" href="skins/_common/css/extjs/menus.css" type="text/css" />';
 		$extall_css .= '<link rel="stylesheet" href="skins/_common/css/extjs/buttons.css" type="text/css" />';
-	
+
 		//append them to the header
 		$this->appendArrayVar('headerParams', $extbase_js);
 		$this->appendArrayVar('headerParams', $extall_js);
-		$this->appendArrayVar('headerParams', $extall_css);		
-		
+		$this->appendArrayVar('headerParams', $extall_css);
+
 		if($this->theme != 'Blue')
 		{
-			$xtheme_css = '<link rel="stylesheet" href="skins/_common/css/extjs/themes/'.$this->theme.'/css/xtheme.css" type="text/css" />';		
+			$xtheme_css = '<link rel="stylesheet" href="skins/_common/css/extjs/themes/'.$this->theme.'/css/xtheme.css" type="text/css" />';
 			$this->appendArrayVar('headerParams', $xtheme_css);
 		}
-        
-		
+
+
     }
 }
 ?>
