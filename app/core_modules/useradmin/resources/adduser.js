@@ -133,7 +133,8 @@
 			}]
 		});
 
-	function userNameAvailable(val)
+	/*
+	function userNameAvailable_old(val)
 	{
 		Ext.Ajax.request({
 		    url: baseuri,
@@ -155,4 +156,35 @@
 			//return false;
 		    //}
 		});
+    }
+    */
+
+function userNameAvailable(val)
+{
+    new Ajax.Request(
+        baseuri,
+        {
+            asynchronous: false,
+            method:'post',
+            parameters: {
+		           module: 'useradmin',
+		           action: 'checkusername',
+		           username: val
+            },
+            onSuccess: function(transport) //, json
+            {
+    		    //val2 = json ? json.data : "no JSON object"; //Object.inspect
+                var response = transport.responseText;
+                if (!response) {
+                    return;
+                };
+    			var jsonData = Ext.util.JSON.decode(response); //response.responseText
+    		    val2 = jsonData.data;
+            },
+            onFailure: function(transport)
+            {
+                console.log('server-side failure with status code ' + transport.status);
+            }
+        }
+    );
 }
