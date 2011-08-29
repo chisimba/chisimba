@@ -101,12 +101,34 @@ class skinjavascript extends object
             $mime = 'text/html';
         }
         $str = '';
+        $str .= $this->getPrototype($mime);
         $str .= $this->getScriptaculous($mime);
         $str .= $this->getJQuery();
         $str .= $this->getChromeFrame();
         $str .= $this->getHeaderParams($headerParams);
         $str .= $this->getBodyParams($bodyOnLoad);
         return $str;
+    }
+
+    /**
+    *
+    * Insert the Prototype library into the page head
+    *
+    * @param string $mime Mimetype of Page
+    * @return string The rendered javascript
+    * @access public
+    *
+    */
+    public function getPrototype($mime)
+    {
+        $enable = $this->getVar('ENABLE_PROTOTYPE_ONLY', FALSE);
+
+        if ($enable) {
+            $prototype = $this->getObject('prototype', 'prototype');
+            return $prototype->show($mime);
+        } else {
+            return NULL;
+        }
     }
 
     /**
