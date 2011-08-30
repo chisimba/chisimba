@@ -18,7 +18,7 @@
  * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
  * @category  Chisimba
- * @package   UserAdmin 
+ * @package   UserAdmin
  * @author    Qhamani Fenama
  * @copyright 2009 AVOIR
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
@@ -52,8 +52,8 @@ class utility extends object {
      *
      */
     public function init() {
-      $this->objUserAdmin = $this->getObject('useradmin_model2','security');   
-      $this->objLanguage = $this->getObject('language','language');     
+      $this->objUserAdmin = $this->getObject('useradmin_model2','security');
+      $this->objLanguage = $this->getObject('language','language');
     }
 
 
@@ -67,35 +67,36 @@ class utility extends object {
 	$params["query"] = ($this->getParam("query")) ? $this->getParam("query") : null;
 	$params["sort"] = ($this->getParam("sort")) ? $this->getParam("sort") : null;
 
-	$where = "";		
+	$where = "";
 
 	if(is_array($params['search'])){
 		$max = count($params['search']);
 
 		$cnt = 0;
-		
+
 		foreach($params['search'] as $field){
 		$cnt++;
-	
+
 		$where .= " lower(".$field.") LIKE lower('".$params['query']."%')";
-						
+
 		if($cnt < $max){
 			$where .= " OR ";
 		}
 		}
-		
+
 		$where = " WHERE ".$where;
 
 		}
-	
+
 		$arr = array();
-		
+
 		$filter = " LIMIT $start , ".$params["limit"];
-		$userCount = count($this->objUserAdmin->getAll());
+		// JOC $userCount = count($this->objUserAdmin->getAll());
+        $userCount = $this->objUserAdmin->getRecordCount();
 		$var_users = $this->objUserAdmin->getAll($where." ORDER BY title ".$filter);
 
 		if(count($var_users) > 0){
-			
+
 		$arr = array();
 		$users = array();
 		foreach($var_users as $user){
@@ -121,7 +122,7 @@ class utility extends object {
 			}
 
 		 	$users[] = $arr;
-			}	    	
+			}
 			return json_encode(array('usercount' => $userCount, 'users' =>  $users));
 			}
 		else {
@@ -146,21 +147,21 @@ class utility extends object {
         $staffnumber = $this->getParam('useradmin_staffnumber');
         $accountstatus = $this->getParam('accountstatus');
         $country = $this->getParam('countryId');
-       
+
 	$pkid = $this->objUserAdmin->addUser($userId, $username, $password, $title, $firstname, $surname, $email, $sex, $country, $cellnumber, $staffnumber, 'useradmin', $accountstatus);
-       
+
      }
 
 	public function jsonUsertaken($username)
 	{
-		$extjs = '0';	
+		$extjs = '0';
 		$status = $this->objUserAdmin->userNameAvailable($username);
 		error_log(var_export('Status = '.$status, true));
 		if($status == 1 )
 		{
 			$extjs = '1';
 		}
-		
+
 		return json_encode(array('success' => true, 'data' => $extjs));
 	}
 
@@ -169,9 +170,9 @@ class utility extends object {
 					if ($id == '') {
 		 	            //return $this->nextAction(NULL, array('error'=>'noidgiven'));
 		 	        }
-		 	        
+
 		 	        $user = $this->objUserAdmin->getUserDetails($id);
-		 	        
+
 					if ($user == FALSE) {
 		 	            //return $this->nextAction(NULL, array('error'=>$errorcode));
 		 	        } else {
@@ -181,17 +182,17 @@ class utility extends object {
 
 	public function jsonUpdateUserDetails()
         {
-        
+
         $id = $this->getParam('id');
 	//error_log(var_export('id = '.$id, true));
         $user = $this->isValidUser($id, 'userdetailsupdate');
         //$this->setVarByRef('user', $user);
-        
+
         // Fix up proper redirection
         if (!$_POST) {
             return $this->nextAction(NULL);
         }
-        
+
         // Get Details from Form
         $password = $this->getParam('useradmin_password');
         $repeatpassword = $this->getParam('useradmin_repeatpassword');
@@ -206,7 +207,7 @@ class utility extends object {
         $username = $this->getParam('useradmin_username');
         $accounttype = $this->getParam('accounttype');
         $accountstatus = $this->getParam('accountstatus');
-        
+
         $userDetails = array(
             'password'=>$password,
             'repeatpassword'=>$repeatpassword,
@@ -217,19 +218,19 @@ class utility extends object {
             'sex'=>$sex,
             'country'=>$country
             );
-            
+
            $update = $this->objUserAdmin->updateUserDetails($id, $username, $firstname, $surname, $title, $email, $sex, $country, $cellnumber, $staffnumber, $password, $accounttype, $accountstatus);
     }
 
 
 	public function getSingleUser($id)
 	{
-		$where = " WHERE id = '".$id."'";		
-	
-		
+		$where = " WHERE id = '".$id."'";
+
+
 		$arr = array();
 		$singleuser = array();
-		
+
 		$users = $this->objUserAdmin->getAll($where);
 		$totalCount = count($users);
 		if(count($users) > 0){
