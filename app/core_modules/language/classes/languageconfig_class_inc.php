@@ -33,7 +33,7 @@
  * @link      http://avoir.uwc.ac.za
  * @see       
  */
-/* -------------------- LANGUAGE CONFIG CLASS ----------------*/
+/* -------------------- LANGUAGE CONFIG CLASS ---------------- */
 
 
 /**
@@ -53,14 +53,15 @@ define('TABLE_PREFIX', 'tbl_');
  * @author    Prince Mbekwa <pmbekwa@uwc.ac.za>
  *            
  */
-class languageConfig extends object
-{
+class languageConfig extends object {
+
     /**
      * Public variable to hold the new language config object
      * @access public
      * @var    string
      */
     public $lang;
+    public $langAdmin;
 
     /**
      * Public variable to hold the site config object
@@ -76,27 +77,24 @@ class languageConfig extends object
      * @var    string
      */
     public $_errorCallback;
-    
     public $objMemcache;
-    
     public $cacheTTL = 3600;
+    public $dblangAvail = null;
 
     /**
      * Constructor for the languageConf class.
      *
      */
-
-    public function init(){
+    public function init() {
+        $this->dblangAvail = $this->getObject('dblanguage_available');
         try {
-            if(extension_loaded('memcache'))
-            {
+            if (extension_loaded('memcache')) {
                 require_once 'classes/core/chisimbacache_class_inc.php';
                 $this->objMemcache = TRUE;
             }
             require_once ('Translation2.php'); //$this->getPearResource('Translation2.php');
-        }
-        catch (customException $e)
-        {
+            require_once ('Translation2/Admin.php');
+        } catch (customException $e) {
             customException::cleanUp();
             die();
         }
@@ -115,34 +113,44 @@ class languageConfig extends object
      * @return void
      * @access public
      */
-    public function setup()
-    {
-        
+    public function setup() {
+
+
         try {
+
+            $otherLangs = $this->dblangAvail->getLanguageList();
+
+            $entries = array();
+
+            $entries['en'] =  TABLE_PREFIX . 'en';
+            foreach ($otherLangs as $lang) {
+                $id = $lang['id'];
+                $entries[$id] = TABLE_PREFIX . $id;
+            }
+
+
             //Define table properties so that MDB2 knows about them
             $params = array(
-                'langs_avail_table' => TABLE_PREFIX.'langs_avail',
-                'lang_id_col'     => 'id',
-                'lang_name_col'   => 'name',
-                'lang_meta_col'   => 'meta',
+                'langs_avail_table' => TABLE_PREFIX . 'langs_avail',
+                'lang_id_col' => 'id',
+                'lang_name_col' => 'name',
+                'lang_meta_col' => 'meta',
                 'lang_errmsg_col' => 'error_text',
-                'strings_tables'  => array(
-                    'en' => TABLE_PREFIX.'en',
-                ),
-                'string_id_col'      => 'id',
+                'strings_tables' => $entries,
+                'string_id_col' => 'id',
                 'string_page_id_col' => 'pageID',
-                'string_text_col'    => '%s'  //'%s' will be replaced by the lang code
+                'string_text_col' => '%s'  //'%s' will be replaced by the lang code
             );
-            
+
+
             $driver = 'MDB2';
 
             //instantiate class
-            $this->_siteConf = $this->getObject('altconfig','config');
+            $this->_siteConf = $this->getObject('altconfig', 'config');
             $langcache = $this->_siteConf->getlangcache();
-            if(strtolower($langcache) === 'true') {
+            if (strtolower($langcache) === 'true') {
                 $langcache = true;
-            } 
-            else {
+            } else {
                 $langcache = false;
             }
             $dsn = $this->_parseDSN(KEWL_DB_DSN);
@@ -151,82 +159,83 @@ class languageConfig extends object
                 throw new customException($this->lang->getMessage());
             }
 
+
+            $this->langAdmin = & Translation2_Admin::factory($driver, $dsn, $params);
+
             // caching
-            $this->lang =& $this->lang->getDecorator('CacheMemory');
+            $this->lang = & $this->lang->getDecorator('CacheMemory');
             $this->lang->setOption('prefetch', true);
             //$this->lang =& $this->lang->getDecorator('CacheLiteFunction');
             // TODO: make the caching configuration options for language items configurable
             $cacheLiteOptions = array(
                 'memoryCaching' => false,
                 'cacheDir' => '/tmp/',
-                'caching'  => $langcache,       // enable or disable caching
-                'lifeTime' => 3600,       // in seconds
+                'caching' => $langcache, // enable or disable caching
+                'lifeTime' => 3600, // in seconds
                 'cleaningFrequency' => 0, // never clean cached files (set 1 to clean at every request)
             );
             //$this->lang->setOptions($cacheLiteOptions);
-
             // charsets
-            $this->lang =& $this->lang->getDecorator('SpecialChars');
+            $this->lang = & $this->lang->getDecorator('SpecialChars');
             // control the charset to use
             $this->lang->setOption('charset', 'UTF-8');
             // add a UTF-8 decorator to automatically decode UTF-8 strings
-            $this->lang =& $this->lang->getDecorator('UTF8');
+            $this->lang = & $this->lang->getDecorator('UTF8');
             // add a default text decorator to deal with empty strings
             $this->lang = & $this->lang->getDecorator('DefaultText');
-             //default value is true
+            //default value is true
             if (PEAR::isError($this->lang)) {
-                throw new customException( $this->lang->getMessage() );
+                throw new customException($this->lang->getMessage());
             }
-            if(!is_object($this->lang)) {
+            if (!is_object($this->lang)) {
                 throw new customException('Translation class not loaded');
             }
 
             // set primary language
             $this->lang->setLang("en");
-            
+
             // set the group of strings you want to fetch from
             $this->caller = $this->getParam('module');
-            if($this->caller == '') {
+            if ($this->caller == '') {
                 $page = 'system';
-            }
-            else {
+            } else {
                 $page = $this->caller;
             }
             // This needs to be dynamic, coming from the module that we are using currently
             $this->lang->setPageID($page);
             // add a Lang decorator to provide a fallback language
-            $this->lang =& $this->lang->getDecorator('Lang');
+            $this->lang = & $this->lang->getDecorator('Lang');
             $this->lang->setOption('fallbackLang', 'en');
-            
-            /*$this->lang->setOption('cacheDir', '/var/www/cache/');
-            $this->lang->setOption('lifeTime', 86400);
-            $this->lang->setOption('cleaningFrequency', 0); */
-            
+
+            /* $this->lang->setOption('cacheDir', '/var/www/cache/');
+              $this->lang->setOption('lifeTime', 86400);
+              $this->lang->setOption('cleaningFrequency', 0); */
+
             // replace the empty string with its stringID
 
             return $this->lang;
             //}
-        }catch (Exception $e){
-                    // Alterations by jsc on advice from paulscott
+        } catch (Exception $e) {
+            // Alterations by jsc on advice from paulscott
             //$this->errorCallback ('Caught exception: '.$e->getMessage());
-                        echo $e->getMessage();
+            echo $e->getMessage();
             exit();
-
         }
+    }
 
-
+    public function getLangAdmin() {
+        return $this->langAdmin;
     }
 
     /**
-    * The error callback function, defers to configured error handler
-    *
-    * @param  string $error
-    * @return void  
-    * @access public
-    */
-    public function errorCallback($exception)
-    {
-        $this->_errorCallback = new ErrorException($exception,1,1,'languageConfig_class_inc.php');
+     * The error callback function, defers to configured error handler
+     *
+     * @param  string $error
+     * @return void  
+     * @access public
+     */
+    public function errorCallback($exception) {
+        $this->_errorCallback = new ErrorException($exception, 1, 1, 'languageConfig_class_inc.php');
         return $this->_errorCallback;
     }
 
@@ -238,8 +247,7 @@ class languageConfig extends object
      * @return void   
      * @TODO   get the port settings too!
      */
-    private function _parseDSN($dsn)
-    {
+    private function _parseDSN($dsn) {
         $parsed = NULL;
         $arr = NULL;
         if (is_array($dsn)) {
@@ -255,10 +263,10 @@ class languageConfig extends object
             $dsn = null;
         }
         if (preg_match('|^(.+?)\((.*?)\)$|', $str, $arr)) {
-            $parsed['phptype']  = $arr[1];
+            $parsed['phptype'] = $arr[1];
             $parsed['phptype'] = !$arr[2] ? $arr[1] : $arr[2];
         } else {
-            $parsed['phptype']  = $str;
+            $parsed['phptype'] = $str;
             $parsed['phptype'] = $str;
         }
 
@@ -266,7 +274,7 @@ class languageConfig extends object
             return $parsed;
         }
         // Get (if found): username and password
-        if (($at = strrpos($dsn,'@')) !== false) {
+        if (($at = strrpos($dsn, '@')) !== false) {
             $str = substr($dsn, 0, $at);
             $dsn = substr($dsn, $at + 1);
             if (($pos = strpos($str, ':')) !== false) {
@@ -277,7 +285,7 @@ class languageConfig extends object
             }
         }
         //server
-        if (($col = strrpos($dsn,':')) !== false) {
+        if (($col = strrpos($dsn, ':')) !== false) {
             $strcol = substr($dsn, 0, $col);
             $dsn = substr($dsn, $col + 1);
             if (($pos = strpos($strcol, '+')) !== false) {
@@ -288,14 +296,16 @@ class languageConfig extends object
         }
 
         //now we are left with the port and databsource so we can just explode the string and clobber the arrays together
-        $pm = explode("/",$dsn);
+        $pm = explode("/", $dsn);
         $parsed['hostspec'] = $pm[0];
         $parsed['database'] = $pm[1];
         $dsn = NULL;
 
-        $parsed['hostspec'] = str_replace("+","/",$parsed['hostspec']);
+        $parsed['hostspec'] = str_replace("+", "/", $parsed['hostspec']);
 
         return $parsed;
     }
+
 }
+
 ?>
