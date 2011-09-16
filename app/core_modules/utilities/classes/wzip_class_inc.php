@@ -118,16 +118,16 @@ class wzip extends object{
             return $list;
         }
     }
-    
-    
+
+
     /**
      * zip extension zip create
      *
-     * @param zip filename $zipFN
-     * @param array of files to zip up $files
-     * @param remove path? $removepath
-     * @param move the files into the zip? $movefiles2zip
-     * @return zipfile
+     * @param string $zipFN zip filename
+     * @param array $files array of files to zip
+     * @param bool $removepath remove path?
+     * @param bool $movefiles2zip move the files into the zip?
+     * @return string zip filename
      */
     public function packFilesZip($zipFN, $files, $removepath=TRUE, $movefiles2zip=TRUE)
     {
@@ -135,27 +135,40 @@ class wzip extends object{
             throw new customException($this->objLanguage->languageText("mod_utilities_nozipext", "utilities"));
         }
         $zip = new ZipArchive();
-        if ($zip->open($zipFN, ZIPARCHIVE::CREATE)!==TRUE) {
+        if ($zip->open($zipFN, ZIPARCHIVE::CREATE) !== TRUE) {
             log_debug("Zip pack Error: cannot open <$zipFN>\n");
             throw new customException($this->objLanguage->languageText("mod_utilities_nozipcreate", "utilities"));
+        } else {
+            foreach ($files as $f) {
+                $localFN = $removepath ? basename($f) : $f;
+                $zip->addFile($f, $localFN);
+            }
+            $zip->close();
+            return $zipFN;
         }
-        foreach ($files as $f) {
-            $localFN = $removepath ? basename($f) : $f;
-            $zip->addFile($f, $localFN);
-        }
-        $zip->close();
-        return $zipFN;
     }
 
-    public function unPackFilesFromZip($zipfile, $dest)
+    /**
+     * zip extension unzip
+     *
+     * @param string $zipFN zip filename
+     * @param string $dest destination path
+     * @return bool status
+     */
+    public function unPackFilesFromZip($zipFN, $dest)
     {
-        $zip = new ZipArchive;
-        if ($zip->open($zipfile) === TRUE) {
+        if (!extension_loaded('zip')) {
+            throw new customException($this->objLanguage->languageText("mod_utilities_nozipext", "utilities"));
+        }
+        $zip = new ZipArchive();
+        if ($zip->open($zipFN) !== TRUE) {
+            return FALSE;
+            //log_debug("Zip unPack Error: cannot open <$zipFN>\n");
+            //throw new customException($this->objLanguage->languageText("mod_utilities_nozipopen", "utilities"));
+        } else {
             $zip->extractTo($dest);
             $zip->close();
             return TRUE;
-        } else {
-            return FALSE;
         }
     }
 }
