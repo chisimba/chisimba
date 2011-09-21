@@ -58,7 +58,7 @@ class filename extends object
     */
     public function makeFileName($s)
     {
-        return preg_replace('#[[:cntrl:]\\\/\:\*\?\"\<\>\|]#', '_', $s); //'\temp0_ \/:*?"<>|'
+        return preg_replace('#[[:cntrl:]\x80-\xFF]\\\/\:\*\?\"\<\>\|]#', '_', $s); //'\temp0_ \/:*?"<>|'
     }
 }
 ?>
