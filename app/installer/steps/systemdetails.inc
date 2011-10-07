@@ -295,14 +295,27 @@ class RootUserAction extends StepAction
 
             $_SESSION ['contentPath'] = $absContentPath;
 
-        } else {
-
-            $abspath = str_replace ( '\installer', "", $absContentPath );
-            $relContentPath = "usrfiles\\";
+        } else if (preg_match ( "/\\installer/i", $absContentPath)) {
+            $abspath = str_replace ( '\\installer\\index.php', '', $absContentPath );
+            $abspath = str_replace('\\', '/', $abspath);
+            $relContentPath = "usrfiles/";
 
             $_SESSION ['relContentPath'] = $relContentPath;
 
-            $absContentPath = $abspath . "\\" . $relContentRoot . "\\";
+            $absContentPath = $abspath . "/" . $relContentRoot . "/";
+            $contentPath = $absContentPath;
+
+            $_SESSION ['contentPath'] = $absContentPath;
+
+        } else {
+
+            $abspath = str_replace ( '\\installer\\index.php', '', $absContentPath );
+            $abspath = str_replace('\\', '/', $abspath);
+            $relContentPath = "usrfiles/";
+
+            $_SESSION ['relContentPath'] = $relContentPath;
+
+            $absContentPath = $abspath . "/" . $relContentRoot . "/";
             $contentPath = $absContentPath;
 
             $_SESSION ['contentPath'] = $absContentPath;
