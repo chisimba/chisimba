@@ -96,7 +96,6 @@
             <categoryname>e-Learning Management System</categoryname>
             <module>announcements</module>
             <module>assignment</module>
-            <module>assignmentadmin</module>
             <module>blocks</module>
             <module>calendar</module>
             <module>context</module>
