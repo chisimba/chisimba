@@ -26,7 +26,7 @@
  * @author    Jeremy O'Connor
  * @copyright (C) 2011 AVOIR
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
- * @version   $Id: mkdir_class_inc.php 11990 2008-12-29 22:29:00Z charlvn $
+ * @version   $Id$
  * @link      http://avoir.uwc.ac.za
  * @see       References to other sections (if any)...
  */
