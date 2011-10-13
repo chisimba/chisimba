@@ -25,7 +25,7 @@
  * @author    Paul Scott <pscott@uwc.ac.za>
  * @copyright 2010 AVOIR
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
- * @version   $Id: $
+ * @version   $Id$
  * @link      http://avoir.uwc.ac.za
  */
 

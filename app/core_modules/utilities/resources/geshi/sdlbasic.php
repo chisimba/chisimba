@@ -5,9 +5,9 @@
  * Author: Roberto Rossi 
  * Copyright: (c) 2005 Roberto Rossi (http://rsoftware.altervista.org)
  * Release Version: 1.0.7.12
- * CVS Revision Version: $Revision$
+ * CVS Revision Version: $Revision: 2181 $
  * Date Started: 2005/08/19
- * Date Modified: $Date$
+ * Date Modified: $Date: 2007-04-04 14:47:39 +0200 (Wed, 04 Apr 2007) $
  *
  * sdlBasic (http://sdlbasic.sf.net) language file for GeSHi.
  *

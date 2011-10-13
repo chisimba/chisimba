@@ -5,9 +5,9 @@
  * Author: Sean Hanna (smokingrope@gmail.com)
  * Copyright: (c) 2006 Sean Hanna 
  * Release Version: 1.0.7.12
- * CVS Revision Version: $Revision$
+ * CVS Revision Version: $Revision: 2181 $
  * Date Started: 03/15/2006
- * Last Modified: $Date$
+ * Last Modified: $Date: 2007-04-04 14:47:39 +0200 (Wed, 04 Apr 2007) $
  *
  * Microsoft Registry Editor Language File.
  *

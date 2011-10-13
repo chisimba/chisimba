@@ -5,9 +5,9 @@
  * Author: Cedric Arrabie (cedric.arrabie@univ-pau.fr)
  * Copyright: (C) 2006 Cetric Arrabie
  * Release Version: 1.0.7.12
- * CVS Revision Version: $Revision$
+ * CVS Revision Version: $Revision: 2181 $
  * Date Started: 2006/04/22
- * Last Modified: $Date$
+ * Last Modified: $Date: 2007-04-04 14:47:39 +0200 (Wed, 04 Apr 2007) $
  * 
  * Fortran language file for GeSHi.
  *

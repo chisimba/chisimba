@@ -29,7 +29,7 @@
  * @author    Derek Keats <derek@dkeats.com>
  * @copyright 2007 AVOIR
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
- * @version   $Id: bestguess_class_inc.php,v 1.2 2008-01-08 13:07:15 dkeats Exp $
+ * @version   $Id$
  * @link      http://avoir.uwc.ac.za
  */
 

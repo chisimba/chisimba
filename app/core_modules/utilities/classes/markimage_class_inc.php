@@ -15,7 +15,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
  * @copyright 2007 AVOIR
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
 Public License
- * @version   $Id: yaml_class_inc.php 2875 2007-08-14 09:18:25Z bvanrensburg $
+ * @version   $Id$
  * @link      http://avoir.uwc.ac.za
  */
 

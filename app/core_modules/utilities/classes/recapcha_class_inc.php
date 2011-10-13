@@ -30,7 +30,7 @@
  * @author    Derek Keats <derek@dkeats.com>
  * @copyright 2007 AVOIR
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
- * @version   $Id: twitterremote_class_inc.php 14230 2009-08-07 12:00:08Z paulscott $
+ * @version   $Id$
  * @link      http://avoir.uwc.ac.za
  */
 

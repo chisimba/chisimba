@@ -16,7 +16,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
  * @copyright 2004, 2011 University of the Western Cape & AVOIR Project
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
 Public License
- * @version $Id: wzip_class_inc.php 22490 2011-09-16 09:55:38Z joconnor $
+ * @version $Id$
  * @link      http://avoir.uwc.ac.za
  */
 

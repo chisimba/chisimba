@@ -14,7 +14,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
  * @author    Charl Mert <charl.mert@gmail.com>
  * @copyright GNU/GPL AVOIR/UWC 2009
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
- * @version   $Id: ping_class_inc.php 11847 2008-12-14 23:35:13Z cmert $
+ * @version   $Id$
  * @link      http://avoir.uwc.ac.za
  */
 

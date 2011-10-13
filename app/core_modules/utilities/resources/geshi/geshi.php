@@ -5,9 +5,9 @@
  * Author: Oracle (oracle.shinoda@gmail.com)
  * Copyright: (c) 2004 0racle
  * Release Version: 1.0.2
- * CVS Revision Version: $Revision$
+ * CVS Revision Version: $Revision: 2181 $
  * Date Started: 2004/05/20
- * Last Modified: $Date$
+ * Last Modified: $Date: 2007-04-04 14:47:39 +0200 (Wed, 04 Apr 2007) $
  *
  * The GeSHi class for Generic Syntax Highlighting. Please refer to the documentation
  * at http://qbnz.com/highlighter/documentation.php for more information about how to
