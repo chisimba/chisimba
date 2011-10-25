@@ -160,16 +160,16 @@
 /**
  * Require utility classes and functions for the consumer.
  */
-require_once "Auth/OpenID.php";
-require_once "Auth/OpenID/Message.php";
-require_once "Auth/OpenID/HMAC.php";
-require_once "Auth/OpenID/Association.php";
-require_once "Auth/OpenID/CryptUtil.php";
-require_once "Auth/OpenID/DiffieHellman.php";
-require_once "Auth/OpenID/KVForm.php";
-require_once "Auth/OpenID/Nonce.php";
-require_once "Auth/OpenID/Discover.php";
-require_once "Auth/OpenID/URINorm.php";
+require_once "../Auth/OpenID.php";
+require_once "../Auth/OpenID/Message.php";
+require_once "../Auth/OpenID/HMAC.php";
+require_once "../Auth/OpenID/Association.php";
+require_once "../Auth/OpenID/CryptUtil.php";
+require_once "../Auth/OpenID/DiffieHellman.php";
+require_once "../Auth/OpenID/KVForm.php";
+require_once "../Auth/OpenID/Nonce.php";
+require_once "../Auth/OpenID/Discover.php";
+require_once "../Auth/OpenID/URINorm.php";
 require_once "Auth/Yadis/Manager.php";
 require_once "Auth/Yadis/XRI.php";
 

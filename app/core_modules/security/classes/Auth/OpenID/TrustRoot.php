@@ -12,7 +12,7 @@
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache
  */
 
-require_once 'Auth/OpenID/Discover.php';
+require_once '../Auth/OpenID/Discover.php';
 
 /**
  * A regular expression that matches a domain ending in a top-level domains.
