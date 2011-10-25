@@ -41,11 +41,11 @@ class security extends controller {
         $this->objConfig = $this->getObject('altconfig', 'config');
         $this->objEpiWrapper = $this->getObject('epiwrapper');
         $this->loggedInUsers = $this->getObject('loggedInUsers', 'security');
-        $this->objUi         = $this->getObject('logininterface', 'security');
+        $this->objUi = $this->getObject('logininterface', 'security');
     }
 
     function requiresLogin($action) {
-        $actions = array('showlogin', 'ajax_login', 'login', 'logintwitter', 'error', 'needpassword', 'needpasswordconfirm', 'emailsent', 'generatenewcaptcha', 'oauthdisp', 'fbconnect');
+        $actions = array('showlogin', 'ajax_login', 'login', 'logintwitter', 'error', 'needpassword', 'needpasswordconfirm', 'emailsent', 'generatenewcaptcha', 'oauthdisp', 'fbconnect', 'openidlogin', 'openidconnect');
 
         if (in_array($action, $actions)) {
             return FALSE;
@@ -84,6 +84,14 @@ class security extends controller {
                 break;
             case 'fbconnect' :
                 $this->objUi->fbConnect();
+                break;
+
+            case 'openidconnect':
+                 $this->objUi->openIdConnect($this->getParam("auth_site"));
+               break;
+            case 'openidlogin':
+                $result = $this->objUi->openIdLogin();
+                return $this->nextAction(NULL, NULL, $result);
                 break;
 
             case 'ajax_login':
@@ -135,10 +143,10 @@ class security extends controller {
             // we hold off creating a new session until successful
             // (only is we didn't already have a session on the go,
             //  as if so it will already have been started in index.php)
-            if (!isset($_REQUEST [session_name ()])) {
+            if (!isset($_REQUEST [session_name()])) {
                 $this->objEngine->sessionStart();
             } else {
-                session_regenerate_id ();
+                session_regenerate_id();
             }
             //Validate the current skin Session or set it if not present
             //Skin is also passed as a hidden input
@@ -215,10 +223,10 @@ class security extends controller {
             $surname = $name[1];
 
             if ($this->objUser->authenticateUser($username, $password, $remember)) {
-                if (!isset($_REQUEST [session_name ()])) {
+                if (!isset($_REQUEST [session_name()])) {
                     $this->objEngine->sessionStart();
                 } else {
-                    session_regenerate_id ();
+                    session_regenerate_id();
                 }
                 $this->objSkin->validateSkinSession();
                 $url = $this->getSession('oldurl');
@@ -241,10 +249,10 @@ class security extends controller {
                 $objUAModel = $this->getObject('useradmin_model2', 'security');
                 $pk = $objUAModel->addUser($userid, $username, $password, $title, $firstname, $surname, $email, $sex, $country, '', '', 'twitter oauth', '1');
                 $this->objUser->authenticateUser($username, $password, $remember);
-                if (!isset($_REQUEST [session_name ()])) {
+                if (!isset($_REQUEST [session_name()])) {
                     $this->objEngine->sessionStart();
                 } else {
-                    session_regenerate_id ();
+                    session_regenerate_id();
                 }
                 $this->objSkin->validateSkinSession();
                 $url = $this->getSession('oldurl');
@@ -286,11 +294,10 @@ class security extends controller {
             setcookie("oauth_token_secret", '', time() - 100);
             $lo = $this->objLu->logout();
         }
-        
+
         $lo = $this->objLu->logout();
         return $this->showPreLoginModule();
     }
-
 
     /**
      * Method to show the Pre Login Module
@@ -312,7 +319,6 @@ class security extends controller {
         $this->loggedInUsers->doLogout($this->objUser->userid());
         return $this->nextAction(NULL, NULL, $this->objConfig->getPrelogin('KEWL_PRELOGIN_MODULE'));
     }
-
 
     function needPassword() {
         if ($this->objUser->isLoggedIn()) {
@@ -389,4 +395,5 @@ class security extends controller {
     }
 
 }
+
 ?>
