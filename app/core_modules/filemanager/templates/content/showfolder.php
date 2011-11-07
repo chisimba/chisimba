@@ -3,6 +3,9 @@
 $this->loadClass('form', 'htmlelements');
 $this->loadClass('button', 'htmlelements');
 $this->loadClass('hiddeninput', 'htmlelements');
+$this->loadClass('link', 'htmlelements');
+$this->loadClass('textinput', 'htmlelements');
+$this->loadClass('label', 'htmlelements');
 
 $objIcon = $this->newObject('geticon', 'htmlelements');
 $fileDownloadPath = $this->objConfig->getcontentPath();
@@ -87,13 +90,25 @@ if ($folderPermission2) {
     echo $fieldset->show();
 
 }
+
 if ($folder['folderlevel'] == 2) {
     $icon = '';
+    $linkRename = '';
     $folderpath = $breadcrumbs;
 } else if ($folderPermission) {
     $icon = $objIcon->getDeleteIconWithConfirm($folderId, array('action' => 'deletefolder', 'id' => $folderId), 'filemanager', $this->objLanguage->languageText('mod_filemanager_confirmdeletefolder', 'filemanager', 'Are you sure wou want to remove this folder?'));
+    //$objLinkRename = new link($this->uri(array('action' => 'renamefolder', 'folder'=>$folderId)));
+    //$objLinkRename->link = $this->objLanguage->languageText('mod_filemanager_rename', 'filemanager');
+    $linkRename = '<span id="renameButton" style="cursor: pointer; text-decoration: underline">'.$this->objLanguage->languageText('mod_filemanager_rename', 'filemanager').'</span><script type="text/javascript">
+document.getElementById(\'renameButton\').onclick = function() {
+    document.getElementById(\'renamefolder\').style.display = \'inline\';
+    adjustLayout();
+};
+</script>';
+    //$objLinkRename->show();
 } else {
     $icon = '';
+    $linkRename = '';
 }
 
 //echo '<p>'.$breadcrumbs.'</p>';
@@ -123,7 +138,24 @@ switch ($this->getParam('error')) {
         break;
 }
 
-echo '<h1>' . $folderpath . ' ' . $icon . '</h1>';
+echo '<table border="0"><tr><td valign="baseline"><h1>' . $folderpath . '</h1></td><td valign="baseline">' . $linkRename . ' ' . $icon.'</td></tr></table>';
+if ($folder['folderlevel'] != 2 && $folderPermission) {
+    $form = new form('formrenamefolder', $this->uri(array('action' => 'renamefolder')));
+    $objInputFolder = new hiddeninput('folder', $folderId);
+    $form->addToForm($objInputFolder->show());
+    $label = new label ($this->objLanguage->languageText('mod_filemanager_nameoffolder', 'filemanager').': ', 'input_foldername');
+    $textinput = new textinput('foldername', $folderpath);
+    $form->addToForm($label->show().$textinput->show());
+    $buttonSubmit = new button('renamefoldersubmit', $this->objLanguage->languageText('mod_filemanager_renamefolder', 'filemanager'));
+    $buttonSubmit->setToSubmit();
+    $buttonCancel = new button('renamefoldercancel', $this->objLanguage->languageText('word_cancel'), 'document.getElementById(\'renamefolder\').style.display = \'none\'; adjustLayout();');
+    $form->addToForm('&nbsp;'.$buttonSubmit->show().'&nbsp;'.$buttonCancel->show());
+    $fieldset=new fieldset();
+    $fieldset->setLegend( $this->objLanguage->languageText('mod_filemanager_renamefolder', 'filemanager'));
+    //$folderId
+    $fieldset->addContent($form->show());
+    echo '<span id="renamefolder" style="display: none;">'.$fieldset->show().'<br /></span>';
+}
 
 if ((count($files) > 0 || count($subfolders) > 0 || count($symlinks) > 0) && $folderPermission) {
     $form = new form('deletefiles', $this->uri(array('action' => 'multidelete')));

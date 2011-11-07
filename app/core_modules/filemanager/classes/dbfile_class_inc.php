@@ -70,8 +70,8 @@ class dbfile extends dbTable
         $this->objMediaFileInfo = $this->getObject('dbmediafileinfo');
         $this->objFileFolder = $this->getObject('filefolder');
         $this->objMimetypes = $this->getObject('mimetypes', 'files');
-        
-        
+
+
 
         $this->objLanguage = $this->getObject('language', 'language');
 
@@ -136,7 +136,7 @@ class dbfile extends dbTable
     {
         return $this->getPart('filename', $fileId);
     }
-    
+
     /**
     * Method to get the extension of a file
     * @access public
@@ -194,7 +194,7 @@ class dbfile extends dbTable
         if ($path == FALSE) {
             return FALSE;
         }
-        
+
         $path = $this->objConfig->getcontentPath().$path;
 
         $path = $this->objCleanUrl->cleanUpUrl($path);
@@ -211,11 +211,11 @@ class dbfile extends dbTable
     public function getFullFilePath($fileId)
     {
         $path = $this->getPart('path', $fileId);
-        
+
         if ($path == FALSE) {
             return FALSE;
         }
-        
+
         $path = $this->objConfig->getcontentBasePath().$path;
 
         $path = $this->objCleanUrl->cleanUpUrl($path);
@@ -245,7 +245,7 @@ class dbfile extends dbTable
 
         // Determine extension
         $datatype = $this->objFileParts->getExtension($filename);
-        
+
         $file = array(
                 'userid' => $userId,
                 'filename' => $filename,
@@ -265,18 +265,18 @@ class dbfile extends dbTable
                 'timecreated' => strftime('%H:%M:%S', mktime())
                 );
         $id =  $this->insert($file);
-        
+
         if ($id != FALSE) {
             $file['id'] = $id;
             $this->indexFile($file);
         }
-        
+
         $this->objQuota = $this->getObject('dbquotas');
         $this->objQuota->updateUsage($path);
-        
+
         return $id;
     }
-    
+
     /**
      * Method to add a file to the search index
      * @param array $file Array with File Details
@@ -291,13 +291,13 @@ class dbfile extends dbTable
         $teaser = $file['description'];
         $module = 'filemanager';
         $userId = $file['creatorid'];
-        
+
         $tags = NULL; // fix up
-        
+
         $license = $file['license'];
-        
+
         $folder = explode('/', $file['filefolder']);
-        
+
         switch ($folder[0])
         {
             case 'context':
@@ -313,17 +313,17 @@ class dbfile extends dbTable
                 $permissions='useronly';
                 break;
         }
-        
-        
+
+
         $dateAvailable=NULL;
         $dateUnavailable=NULL;
-        
+
         $extra= array('basefolder'=>$folder[0].'/'.$folder[1]);
-        
+
        // $objLucene = $this->getObject('indexdata', 'search');
       //  $objLucene->luceneIndex($docId, $docDate, $url, $title, $contents, $teaser, $module, $userId, $tags, $license, $context, $workgroup, $permissions, $dateAvailable, $dateUnavailable, $extra);
     }
-    
+
     /**
      *
      *
@@ -331,7 +331,7 @@ class dbfile extends dbTable
     public function updateFileSearch()
     {
         $files = $this->getAll();
-        
+
         if (count($files) > 0) {
             foreach ($files as $file)
             {
@@ -617,11 +617,11 @@ class dbfile extends dbTable
         if ($file['playtime'] != 0) {
             $seconds = $file['playtime'] % 60;
             $minutes = ($file['playtime'] - $seconds) / 60;
-            
+
             if ($seconds < 10) {
                 $seconds = '0'.$seconds;
             }
-            
+
             if ($minutes > 59) {
                 $hour = ($minutes - ($minutes % 60)) / 60;
                 $minutes = $minutes % 60;
@@ -747,26 +747,26 @@ class dbfile extends dbTable
         if (file_exists($fullFilePath)) {
             unlink($fullFilePath);
         }
-        
+
         $this->deletePreviewFiles($fileId);
-        
+
         $objFileTags = $this->getObject('dbfiletags');
-        
+
         $objSymlinks = $this->getObject('dbsymlinks', 'filemanager');
         $objSymlinks->deleteSymlinkFile($fileId);
-        
-        
+
+
         // Delete file record and Metadata
         $this->objMediaFileInfo->delete('fileid', $fileId);
         $result = $this->delete('id', $fileId);
-        
+
         if ($result) {
            // $objLucene = $this->getObject('indexdata', 'search');
            // $objLucene->removeIndex('filemanager_file_'.$fileId);
             $this->objQuota = $this->getObject('dbquotas');
             $this->objQuota->updateUsage($filePath);
         }
-        
+
         return $result;
     }
 
@@ -857,12 +857,12 @@ class dbfile extends dbTable
     public function updateDescriptionLicense($id, $description, $license)
     {
         $result = $this->update('id', $id, array('description'=>$description, 'license'=>$license));
-        
+
         if ($result) {
             $file = $this->getFile($id);
              $this->indexFile($file);
         }
-        
+
         return $result;
     }
 
@@ -934,14 +934,14 @@ class dbfile extends dbTable
     {
         return $this->getAllOpenFiles('images', array('gif', 'jpg', 'jpeg', 'png'));
     }
-    
+
     public function getPathFiles($type, $id)
     {
         $sql = " WHERE path LIKE '{$type}/{$id}/%' ";
         return $this->getAll($sql);
     }
-    
-    
+
+
     public function overwriteFile($id)
     {
         // Create Path to Temp File
@@ -964,19 +964,19 @@ class dbfile extends dbTable
 
             // Move Overwrite File
             rename($tempFilePath, $filePath);
-            
+
             // Todo: Reindex Metadata
             $this->deletePreviewFiles($id);
-            
+
             return 'overwrite';
         } else {
             $this->deleteTemporaryFile($id);
-            
+
             return 'cannotoverwrite';
         }
         break;
     }
-    
+
     /**
      * Method to delete preview files like thumbnails, etc.
      * @param string $fileId File Id
@@ -986,26 +986,51 @@ class dbfile extends dbTable
     {
         // Previews are in the following formats
         $availablePreviews = array('jpg', 'htm', 'pdf', 'swf', 'mp3', 'flv', 'txt');
-        
+
         // Check for each format and delete
         foreach ($availablePreviews as $format)
         {
             // Get thumbnail path
             $thumbnailPath = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/'.$fileId.'.'.$format;
             $thumbnailPath = $this->objCleanUrl->cleanUpUrl($thumbnailPath);
-            
+
             // Delete thumbnail if it exists
             if (file_exists($thumbnailPath)) {
                 unlink($thumbnailPath);
             }
         }
-        
+
         // Also delete temp file that may not have been overwritten
         $tempFilePath = $this->objConfig->getcontentBasePath().'/filemanager_tempfiles/'.$fileId;
-        
+
         if (file_exists($tempFilePath)) {
             unlink($tempFilePath);
         }
+    }
+    public function renameFolder($oldPath, $newPath)
+    {
+        $rs = $this->getAll("WHERE filefolder LIKE '{$oldPath}%' ORDER BY filefolder");
+        if (!empty($rs)) {
+            foreach ($rs as $rec){
+                $id = $rec['id'];
+                $path = $rec['path'];
+                $filefolder = $rec['filefolder'];
+                $newPath_ = preg_replace('|^('.$oldPath.')(.*)$|', "{$newPath}\${2}", $path);
+                $newFilefolder_ = preg_replace('|^('.$oldPath.')(.*)$|', "{$newPath}\${2}", $filefolder);
+                //trigger_error('dbfile::$newPath_:'.$newPath_);
+                //trigger_error('dbfile::$newFilefolder_:'.$newFilefolder_);
+                //continue;
+                $this->update(
+                    'id',
+                    $id,
+                    array(
+                        'path'=>$newPath_,
+                        'filefolder'=>$newFilefolder_
+                    )
+                );
+            }
+        }
+        return TRUE;
     }
 
 }

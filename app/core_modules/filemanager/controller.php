@@ -1463,6 +1463,26 @@ function checkWindowOpener()
         }
     }
 
+    private function __renamefolder()
+    {
+        //return NULL;
+        $folderId = $this->getParam('folder');
+        if (is_null($folderId)) {
+            return $this->__home();
+        }
+        $folderName = $this->getParam('foldername');
+        if (is_null($folderName) || $folderName == '') {
+            return $this->__home();
+        }
+        $result = $this->objFolders->renameFolder_($folderId, $folderName);
+        if ($result) {
+            return $this->__viewfolder($folderId);
+        } else {
+            return $this->__home();
+        }
+
+    }
+
     /* ------------- END: Set of methods to replace case selection ------------ */
 }
 
