@@ -8,6 +8,9 @@ $this->loadClass('textinput', 'htmlelements');
 $this->loadClass('label', 'htmlelements');
 
 $objIcon = $this->newObject('geticon', 'htmlelements');
+
+$this->appendArrayVar('headerParams', $this->getJavascriptFile('selectall.js', 'htmlelements'));
+
 $fileDownloadPath = $this->objConfig->getcontentPath();
 if (isset($file['path'])) {
     $fileDownloadPath .= $file['path'];
@@ -158,8 +161,19 @@ if ($folder['folderlevel'] != 2 && $folderPermission) {
 }
 
 if ((count($files) > 0 || count($subfolders) > 0 || count($symlinks) > 0) && $folderPermission) {
-    $form = new form('deletefiles', $this->uri(array('action' => 'multidelete')));
+    $form = new form('movedeletefiles', $this->uri(array('action' => 'multimovedelete')));
     $form->addToForm($table);
+
+    $folderPath_ = $this->objFolders->getFolderPath($folderId);
+    if ($folderPath_ !== FALSE) {
+        $folderParts = explode('/', $folderPath_);
+        $folderTree = $this->objFolders->getTree($folderParts[0], $folderParts[1], 'htmldropdown', $folderId);
+        $objButtonMove = new button('movefiles', $this->objLanguage->languageText('mod_filemanager_moveselecteditems', 'filemanager'));
+        $objButtonMove->setToSubmit();
+        $move = $this->objLanguage->languageText('mod_filemanager_moveto','filemanager').':&nbsp;'.$folderTree.'&nbsp;'.$objButtonMove->show().'&nbsp;';
+    } else {
+        $move = '';
+    }
 
     $button = new button('submitform', $this->objLanguage->languageText('mod_filemanager_deleteselecteditems', 'filemanager', 'Delete Selected Items'));
     $button->setToSubmit();
@@ -176,17 +190,17 @@ if ((count($files) > 0 || count($subfolders) > 0 || count($symlinks) > 0) && $fo
             $symlinkButton = new button('symlinkcontext', $this->objLanguage->code2Txt('mod_filemanager_attachtocontext', 'filemanager', NULL, 'Attach to [-context-]'));
             $symlinkButton->setToSubmit();
 
-            $symlink = ' &nbsp; ' . $symlinkButton->show();
+            $symlink = '&nbsp;'.$symlinkButton->show();
         }
     }
 
     $selectallbutton = new button('selectall', $this->objLanguage->languageText('phrase_selectall', 'system', 'Select All'));
-    $selectallbutton->setOnClick("javascript:SetAllCheckBoxes('deletefiles', 'files[]', true);");
+    $selectallbutton->setOnClick("javascript:SetAllCheckBoxes('movedeletefiles', 'files[]', true);");
 
     $deselectallbutton = new button('deselectall', $this->objLanguage->languageText('phrase_deselectall', 'system', 'Deselect all'));
-    $deselectallbutton->setOnClick("javascript:SetAllCheckBoxes('deletefiles', 'files[]', false);");
+    $deselectallbutton->setOnClick("javascript:SetAllCheckBoxes('movedeletefiles', 'files[]', false);");
 
-    $form->addToForm($button->show() . $symlink . ' &nbsp; &nbsp; ' . $selectallbutton->show() . ' ' . $deselectallbutton->show());
+    $form->addToForm($move.$button->show() . $symlink . '&nbsp;' . $selectallbutton->show() . '&nbsp;' . $deselectallbutton->show());
 
     $folderInput = new hiddeninput('folder', $folderId);
     $form->addToForm($folderInput->show());
@@ -199,7 +213,6 @@ if ((count($files) > 0 || count($subfolders) > 0 || count($symlinks) > 0) && $fo
 
 if ($folderPermission2) {
 
-    $this->appendArrayVar('headerParams', $this->getJavascriptFile('selectall.js', 'htmlelements'));
      echo '<h3>'.$this->objLanguage->languageText('phrase_uploadfiles', 'system', 'Upload Files').'</h3>';
 
     if ($quota['quotausage'] >= $quota['quota']) {

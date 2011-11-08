@@ -809,12 +809,35 @@ class filemanager extends controller {
      *
      * @access private
      */
-    private function __multidelete() {
-        if (isset($_POST['symlinkcontext'])) {
-            return $this->__symlinkcontext();
+    private function __multimovedelete() {
+        if (isset($_POST['movefiles'])) {
+            // Move files
+            $folderSourceId = $this->getParam('folder');
+            $folderDestId = $this->getParam('parentfolder');
+            $files = $this->getParam('files');
+            if (is_null($folderSourceId) || is_null($folderDestId) ) {
+                return $this->__home();
+            } else if (empty($files)) {
+                return $this->__viewfolder($folderSourceId);
+            }
+            $result = $this->objFolders->moveFiles($folderSourceId, $folderDestId, $files);
+            if ($result === FALSE) {
+                return $this->__home();
+            }
+            else {
+                return $this->__viewfolder($folderSourceId);
+            }
+            //return 'dump_tpl.php';
+        } else if (isset($_POST['submitform'])) {
+            // Delete files
+            if (isset($_POST['symlinkcontext'])) {
+                return $this->__symlinkcontext();
+            }
+            $this->objMenuTools->addToBreadCrumbs(array('Confirm Delete'));
+            return 'multidelete_form_tpl.php';
+        } else {
+            return $this->__home();
         }
-        $this->objMenuTools->addToBreadCrumbs(array('Confirm Delete'));
-        return 'multidelete_form_tpl.php';
     }
 
     /**
@@ -912,7 +935,7 @@ class filemanager extends controller {
         $this->setVarByRef('folder', $folder);
         $this->setVarByRef('quota', $quota);
 
-        $this->setVarByRef('folderpath', basename($folder['folderpath']));
+        $this->setVar('folderpath', basename($folder['folderpath']));
 
         $this->setVar('folderId', $id);
         $this->setVar('folderPermission', $folderPermission);

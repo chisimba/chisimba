@@ -971,7 +971,33 @@ class dbfolder extends dbTable
         return TRUE;
     }
 
-
+    /**
+    * Move files
+    *
+    * Moves files from one folder to another
+    *
+    * @param string $folderSourceId Source folder ID
+    * @param string $folderDestId Destination folder ID
+    * @param array $files Files to be moved
+    * @return bool Success or failure
+    */
+    public function moveFiles($folderSourceId, $folderDestId, $files)
+    {
+        if ($folderSourceId == $folderDestId) {
+            return TRUE;
+        }
+        //$sourceFolder=$this->getRow('id', $folderSourceId);
+        $destFolder=$this->getRow('id', $folderDestId);
+        //$sourcePath=$sourceFolder['folderpath'];
+        $destPath=$destFolder['folderpath'];
+        foreach ($files as $file) {
+            $result = $this->objFiles->moveFile($file, $destPath);
+            if ($result === FALSE) {
+                return FALSE;
+            }
+        }
+        return TRUE;
+    }
 
 }
 

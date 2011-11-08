@@ -1032,6 +1032,37 @@ class dbfile extends dbTable
         }
         return TRUE;
     }
+    /**
+    * Move file
+    *
+    * Moves files from one folder to another
+    *
+    * @param string $id File ID
+    * @param string $destFolder Destination path
+    * @return bool Success or failure
+    */
+    public function moveFile($id, $destPath)
+    {
+        $contentBasePath = $this->objConfig->getcontentBasePath();
+        $rec = $this->getRow('id', $id);
+        $fileName = $rec['filename'];
+        $fileFolder = $rec['filefolder'];
+        $filePathFull = $contentBasePath.$fileFolder.'/'.$fileName;
+        $destFilePath = $destPath.'/'.$fileName;
+        $destFilePathFull = $contentBasePath.$destFilePath;
+        $result = rename($filePathFull, $destFilePathFull);
+        if ($result === FALSE) {
+            return FALSE;
+        }
+        $this->update(
+            'id',
+            $id,
+            array(
+                'path'=>$destFilePath,
+                'filefolder'=>$destPath
+            )
+        );
+    }
 
 }
 
