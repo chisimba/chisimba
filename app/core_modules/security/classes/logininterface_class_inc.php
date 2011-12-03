@@ -145,13 +145,14 @@ class loginInterface extends object {
             $objButton->setToSubmit();
             // Add the button to the form
             //openid / google /yahoo login
-
+            $objAltConfig = $this->getObject('altconfig', 'config');
+            $siteRoot = $objAltConfig->getSiteRoot();
             $openidloginlink = new link($this->uri(array("action" => "openidconnect"), "security"));
             $openidloginlink->link = "Open ID Login";
 
             $OPENID_AUTH_PAGE = $siteRoot . '?module=security&action=openidconnect';
             
-             $objAltConfig = $this->getObject('altconfig', 'config');
+             
              $sitePath = $objAltConfig->getSitePath();
 
             $openidTD = '<a href="#">
