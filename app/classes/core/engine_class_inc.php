@@ -1078,70 +1078,14 @@ class engine {
     }
 
     /**
-     * Method to parse the DSN from a string style DSN to an array for portability reasons
+     * Method to parse the DSN from a string style DSN to an array for portability reasons. This simply manages memcache handling of the return value of the 'real' method, which is called parseDSN_().
      *
      * @access public
-     * @param  string $dsn
-     * @return void
+     * @param  string $dsn DSN as a string
+     * @return array Parsed DSN as an array
      */
     public function parseDSN($dsn) {
-        $parsed = NULL;
-        $arr = NULL;
-        if (is_array ( $dsn )) {
-            $dsn = array_merge ( $parsed, $dsn );
-            return $dsn;
-        }
-        //find the protocol
-        if (($pos = strpos ( $dsn, '://' )) !== false) {
-            $str = substr ( $dsn, 0, $pos );
-            $dsn = substr ( $dsn, $pos + 3 );
-        } else {
-            $str = $dsn;
-            $dsn = null;
-        }
-        if (preg_match ( '|^(.+?)\((.*?)\)$|', $str, $arr )) {
-            $parsed ['phptype'] = $arr [1];
-            $parsed ['phptype'] = ! $arr [2] ? $arr [1] : $arr [2];
-        } else {
-            $parsed ['phptype'] = $str;
-            $parsed ['phptype'] = $str;
-        }
-
-        if (! count ( $dsn )) {
-            return $parsed;
-        }
-        // Get (if found): username and password
-        if (($at = strrpos ( $dsn, '@' )) !== false) {
-            $str = substr ( $dsn, 0, $at );
-            $dsn = substr ( $dsn, $at + 1 );
-            if (($pos = strpos ( $str, ':' )) !== false) {
-                $parsed ['username'] = rawurldecode ( substr ( $str, 0, $pos ) );
-                $parsed ['password'] = rawurldecode ( substr ( $str, $pos + 1 ) );
-            } else {
-                $parsed ['username'] = rawurldecode ( $str );
-            }
-        }
-        //server
-        if (($col = strrpos ( $dsn, ':' )) !== false) {
-            $strcol = substr ( $dsn, 0, $col );
-            $dsn = substr ( $dsn, $col + 1 );
-            if (($pos = strpos ( $strcol, '+' )) !== false) {
-                $parsed ['hostspec'] = rawurldecode ( substr ( $strcol, 0, $pos ) );
-            } else {
-                $parsed ['hostspec'] = rawurldecode ( $strcol );
-            }
-        }
-        /*
-		 * now we are left with the port and databsource so we can just explode the string
-		 * and clobber the arrays together
-		 */
-        $pm = explode ( "/", $dsn );
-        $parsed ['hostspec'] = $pm [0];
-        $parsed ['database'] = $pm [1];
-        $dsn = NULL;
-
-        $parsed ['hostspec'] = str_replace ( "+", "/", $parsed ['hostspec'] );
-
+        $parsed = $this->parseDSN_($dsn);
         if ($this->objMemcache == TRUE) {
             if (chisimbacache::getMem ()->get ( 'dsn' )) {
                 $parsed = chisimbacache::getMem ()->get ( 'dsn' );
@@ -1151,7 +1095,75 @@ class engine {
                 chisimbacache::getMem ()->set ( 'dsn', serialize ( $parsed ), FALSE, $this->cacheTTL );
                 return $parsed;
             }
+        } else {
+            return $parsed;
         }
+    }
+
+    /**
+     * Method to parse the DSN from a string style DSN to an array for portability reasons. This is the 'real' method, which is called by parseDSN().
+     *
+     * @access public
+     * @param  string $dsn DSN as a string
+     * @return array Parsed DSN as an array
+     */
+    public function parseDSN_($dsn) {
+        //$parsed = NULL;
+        $parsed = array();
+        //$arr = NULL;
+        if (is_array ( $dsn )) {
+            //$dsn = array_merge ( $parsed, $dsn );
+            return $dsn;
+        }
+
+        // Find the 'phptype(dbsyntax)'
+        if (($pos = strpos ( $dsn, '://' )) !== false) {
+            $str = substr ( $dsn, 0, $pos );
+            $dsn = substr ( $dsn, $pos + 3 );
+        } else {
+            //return array();
+            $str = $dsn;
+            $dsn = '';
+        }
+        // Split 'phptype'/'dbsyntax'
+        if (preg_match ( '|^(.+?)\((.*?)\)$|', $str, $arr )) {
+            $parsed ['phptype'] = rawurldecode($arr[1]);
+            if (!empty($arr[2])) {
+                $parsed ['dbsyntax'] = rawurldecode($arr[2]);
+            }
+        } else {
+            $parsed ['phptype'] = rawurldecode($str);
+        }
+        if ($dsn == '') {
+            return $parsed;
+        }
+
+        // Find the 'username:password'
+        if (($pos = strrpos ( $dsn, '@' )) !== false) {
+            $str = substr ( $dsn, 0, $pos );
+            $dsn = substr ( $dsn, $pos + 1 );
+            if (($pos_inner = strpos ( $str, ':' )) !== false) {
+                $str_username = substr ( $str, 0, $pos_inner );
+                $str_password = substr ( $str, $pos_inner + 1 );
+                $parsed ['username'] = rawurldecode ( $str_username );
+                $parsed ['password'] = rawurldecode ( $str_password );
+            } else {
+                $parsed ['username'] = rawurldecode ( $str );
+            }
+        }
+
+        // Find the 'hostspec'('hostname[:port]')
+        if (($pos = strrpos ( $dsn, '/' )) !== false) {
+            $str_hostspec = substr ( $dsn, 0, $pos );
+            $str_database = substr ( $dsn, $pos + 1 );
+            $parsed ['hostspec'] = rawurldecode ( $str_hostspec );
+            $parsed ['database'] = rawurldecode($str_database);
+        } else {
+            $parsed ['hostspec'] = rawurldecode($dsn);
+        }
+        $parsed ['hostspec'] = str_replace ( "+", "/", $parsed ['hostspec'] );
+        trigger_error($parsed ['hostspec']);
+
         return $parsed;
     }
 
