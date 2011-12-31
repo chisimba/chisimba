@@ -64,7 +64,8 @@ $GLOBALS['kewl_entry_point_run'])
 *    "hidden" : "value,
 *    "showTitle" : 0|1,
 *    "cssClass" : "cssClass",
-*    "cssId " : "cssId"
+*    "cssId " : "cssId",
+*    "configData" : "param=value|param2=value2|param3=value3"
 * }
 *
 * @author Derek Keats
