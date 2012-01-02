@@ -95,6 +95,13 @@ class hiddeninput extends abhtmlbase implements ifhtml
         $str = '<input type="hidden" value="' . $this->value . '"';
         $str .= ' name="' . $this->name . '"';
         
+        if ($this->cssClass) {
+            $str .= ' class="' . $this->cssClass . '"';
+        }
+        if ($this->cssId) {
+            $str .= ' id="' . $this->cssId . '"';
+        }
+        
         if ($this->extra) {
             $str .= ' '.$this->extra;
         }
