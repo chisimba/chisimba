@@ -44,7 +44,7 @@ define('TABLE_PREFIX', 'tbl_');
 /**
  * The parseDSN function
  */
-require_once 'classes/core/parsedsn.php';
+//require_once 'classes/core/parsedsn.php';
 
 /**
  * Language Config class for chisimba. Provides language setup properties,
@@ -159,7 +159,7 @@ class languageConfig extends object {
                 $langcache = false;
             }
             //$dsn = $this->_parseDSN(KEWL_DB_DSN);
-            $dsn = parseDSN(KEWL_DB_DSN);
+            $dsn = engine::parseDSN_(KEWL_DB_DSN);
             $this->lang = &Translation2::factory($driver, $dsn, $params);
             if (PEAR::isError($this->lang)) {
                 echo '!';
