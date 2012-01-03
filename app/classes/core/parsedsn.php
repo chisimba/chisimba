@@ -26,7 +26,7 @@
  * @author    Jeremy O'Connor <joconnor@uwc.ac.za>
  * @copyright 2007, 2012 AVOIR
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
- * @version   $Id: languageconfig_class_inc.php 22414 2011-09-07 15:14:24Z davidwaf $
+ * @version   $Id$
  * @link      http://avoir.uwc.ac.za
  * @see
  */
