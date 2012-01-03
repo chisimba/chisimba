@@ -100,6 +100,11 @@ include ('lucene.php');
 require_once 'lib/HTMLPurifier.auto.php';
 
 /**
+ * The parseDSN function
+ */
+require_once 'classes/core/parsedsn.php';
+
+/**
  * config object
  *
  * @deprecated now moved to constructor to avoid userland installation of Config
@@ -670,8 +675,8 @@ class engine {
             if ($this->_dbabs === 'MDB2') {
                 // Connect to the database
                 require_once ('MDB2.php');
+                //trigger_error(var_export($this->dsn, TRUE));
                 $_globalObjDb = &MDB2::singleton ( $this->dsn );
-
                 //Check for errors on the factory method
                 if (PEAR::isError ( $_globalObjDb )) {
                     $this->_pearErrorCallback ( $_globalObjDb );
@@ -1078,14 +1083,14 @@ class engine {
     }
 
     /**
-     * Method to parse the DSN from a string style DSN to an array for portability reasons. This simply manages memcache handling of the return value of the 'real' method, which is called parseDSN_().
+     * Method to parse the DSN from a string style DSN to an array for portability reasons. This simply manages memcache handling of the return value of the 'real' function, which is a global scope function called parseDSN().
      *
      * @access public
      * @param  string $dsn DSN as a string
      * @return array Parsed DSN as an array
      */
     public function parseDSN($dsn) {
-        $parsed = $this->parseDSN_($dsn);
+        $parsed = parseDSN($dsn);
         if ($this->objMemcache == TRUE) {
             if (chisimbacache::getMem ()->get ( 'dsn' )) {
                 $parsed = chisimbacache::getMem ()->get ( 'dsn' );
@@ -1098,73 +1103,6 @@ class engine {
         } else {
             return $parsed;
         }
-    }
-
-    /**
-     * Method to parse the DSN from a string style DSN to an array for portability reasons. This is the 'real' method, which is called by parseDSN().
-     *
-     * @access public
-     * @param  string $dsn DSN as a string
-     * @return array Parsed DSN as an array
-     */
-    public function parseDSN_($dsn) {
-        //$parsed = NULL;
-        $parsed = array();
-        //$arr = NULL;
-        if (is_array ( $dsn )) {
-            //$dsn = array_merge ( $parsed, $dsn );
-            return $dsn;
-        }
-
-        // Find the 'phptype(dbsyntax)'
-        if (($pos = strpos ( $dsn, '://' )) !== false) {
-            $str = substr ( $dsn, 0, $pos );
-            $dsn = substr ( $dsn, $pos + 3 );
-        } else {
-            //return array();
-            $str = $dsn;
-            $dsn = '';
-        }
-        // Split 'phptype'/'dbsyntax'
-        if (preg_match ( '|^(.+?)\((.*?)\)$|', $str, $arr )) {
-            $parsed ['phptype'] = rawurldecode($arr[1]);
-            if (!empty($arr[2])) {
-                $parsed ['dbsyntax'] = rawurldecode($arr[2]);
-            }
-        } else {
-            $parsed ['phptype'] = rawurldecode($str);
-        }
-        if ($dsn == '') {
-            return $parsed;
-        }
-
-        // Find the 'username:password'
-        if (($pos = strrpos ( $dsn, '@' )) !== false) {
-            $str = substr ( $dsn, 0, $pos );
-            $dsn = substr ( $dsn, $pos + 1 );
-            if (($pos_inner = strpos ( $str, ':' )) !== false) {
-                $str_username = substr ( $str, 0, $pos_inner );
-                $str_password = substr ( $str, $pos_inner + 1 );
-                $parsed ['username'] = rawurldecode ( $str_username );
-                $parsed ['password'] = rawurldecode ( $str_password );
-            } else {
-                $parsed ['username'] = rawurldecode ( $str );
-            }
-        }
-
-        // Find the 'hostspec'('hostname[:port]')
-        if (($pos = strrpos ( $dsn, '/' )) !== false) {
-            $str_hostspec = substr ( $dsn, 0, $pos );
-            $str_database = substr ( $dsn, $pos + 1 );
-            $parsed ['hostspec'] = rawurldecode ( $str_hostspec );
-            $parsed ['database'] = rawurldecode($str_database);
-        } else {
-            $parsed ['hostspec'] = rawurldecode($dsn);
-        }
-        $parsed ['hostspec'] = str_replace ( "+", "/", $parsed ['hostspec'] );
-        trigger_error($parsed ['hostspec']);
-
-        return $parsed;
     }
 
     /**
