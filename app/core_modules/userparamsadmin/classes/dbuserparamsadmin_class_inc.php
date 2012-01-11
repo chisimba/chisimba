@@ -181,9 +181,9 @@ class dbuserparamsadmin extends object
 		try {
 			//define the main header setting
 			if (isset($config_container)) {
-				$Section =& new Config_Container("section", "Settings");
+				$Section = new Config_Container("section", "Settings");
 			}else{
-				$Section =& new Config_Container("section", "{$config_container}");
+				$Section = new Config_Container("section", "{$config_container}");
 			}
 			// create variables/values
 			if (is_array($settings)) {
