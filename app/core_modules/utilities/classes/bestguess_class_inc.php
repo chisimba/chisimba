@@ -206,14 +206,19 @@ class bestguess extends object
     {
         $objConfig = $this->getObject('altconfig', 'config');
         $curMod = $this->getParam("module", FALSE);
+        if ($this->objUser->isLoggedIn()) {
+            $moduleType = "POSTLOGIN";
+        } else {
+            $moduleType = "PRELOGIN";
+        }
         if ($curMod) {
             if ($curMod !== "_default") {
                 return $curMod;
             } else {
-                return $objConfig->getdefaultModuleName();
+                return $objConfig->getdefaultModuleName($moduleType);
             }
         } else {
-            return $objConfig->getdefaultModuleName();
+            return $objConfig->getdefaultModuleName($moduleType);
         }
     }
     /**
