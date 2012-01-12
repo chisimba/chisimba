@@ -1074,13 +1074,20 @@ class altconfig extends object {
      * @access public
      * @return name   of post-login module
      */
-    public function getdefaultModuleName() {
+    public function getdefaultModuleName($moduleType="POSTLOGIN") {
+        $moduleType = strtoupper($moduleType);
+        // Force it to default to postlogin
+        if ($moduleType !== "POSTLOGIN" && $moduleType !== "PRELOGIN") {
+            $moduleType="POSTLOGIN";
+        }
         if (! is_object ( $this->_root ))
             $this->_root = &$this->readConfig ( '', 'XML' );
             //Lets get the parent node section first
         $Settings = & $this->_root->getItem ( "section", "Settings" );
         //Now onto the directive node
-        $SettingsDirective = & $Settings->getItem ( "directive", "KEWL_POSTLOGIN_MODULE" );
+        $SettingsDirective = & $Settings->getItem (
+          "directive", "KEWL_" . $moduleType . "_MODULE" 
+        );
         //finally unearth whats inside
         $getdefaultModuleName = $SettingsDirective->getContent ();
         return $getdefaultModuleName;
