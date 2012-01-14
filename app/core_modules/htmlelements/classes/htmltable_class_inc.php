@@ -243,13 +243,14 @@ class htmlTable extends object implements ifhtml
     * Method to add a row to the table (uses corresponding internal method)
     *
     * @param array  $content        : The array of cell entries for the table
-    * @param string $cssClass       : optional CSS class from the skin (normally odd, even, heading)
+    * @param string $trClass       : optional CSS class from the skin (normally odd, even, heading)
     * @param string $row_attributes : any additional attributes that you want to pass to the TD tag
+     * @param string $trId       : optional CSS ID from the skin (normally odd, even, heading)
     */
-    public function addRow($content, $tdClass = null, $row_attributes = null)
+    public function addRow($content, $trClass = null, $row_attributes = null, $trId=NULL)
     {
         if ($this->_validateContent($content)) {
-            $this->content .= $this->_addRow($content, null, $tdClass, $row_attributes);
+            $this->content .= $this->_addRow($content, null, $trClass, $row_attributes, $trId);
         }
     }
 
@@ -319,15 +320,20 @@ class htmlTable extends object implements ifhtml
     /**
     * Method to start a row
     */
-    public function startRow($class = NULL)
+    public function startRow($class = NULL, $id=NULL)
     {
         $this->content .= "<tr";
         if (!is_null($class)) {
             $this->content .= " class=\"" . $class . "\"";
-        }
-        else if ($this->trClass) {
+        } else if ($this->trClass) {
             $this->content .= " class=\"" . $this->trClass . "\"";
         }
+        if (!is_null($id)) {
+            $this->content .= " id=\"" . $id . "\"";
+        } else if (isset($this->trId)) {
+            $this->content .= " id=\"" . $this->trId . "\"";
+        }
+        
         if ($this->row_attributes) {
             $this->content .= " " . $this->row_attributes;
         }
@@ -477,7 +483,7 @@ class htmlTable extends object implements ifhtml
     *                 ......PLEASE DO NOT MUCK ABOUT IN HERE...CONTACT DEREK FIRST
     *                 
     */
-    private function _addRow($content, $trClass = null, $tdClass=NULL, $row_attributes = null)
+    private function _addRow($content, $trClass = null, $tdClass=NULL, $row_attributes = null, $tdId=NULL)
     {
         if ($row_attributes) {
             $this->row_attributes=$row_attributes;
@@ -487,6 +493,9 @@ class htmlTable extends object implements ifhtml
         $this->tr_start = "<tr";
         if ($trClass) {
             $this->tr_start .= " class=\"" . $trClass . "\"";
+        }
+        if ($trId) {
+            $this->tr_start .= " id=\"" . $trId . "\"";
         }
         if ($this->row_attributes) {
             $this->tr_start .= " " . $this->row_attributes;
