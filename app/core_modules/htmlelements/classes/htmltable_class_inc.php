@@ -479,11 +479,9 @@ class htmlTable extends object implements ifhtml
     * @param  string  $tdClass        : optional CSS class from the skin (normally odd, even, heading)
     * @param  string  $row_attributes : any additional attributes that you want to pass to the TD tag
     * @return string  $row: the formatted table body with the new row added
-    *                 
-    *                 ......PLEASE DO NOT MUCK ABOUT IN HERE...CONTACT DEREK FIRST
-    *                 
+    *       
     */
-    private function _addRow($content, $trClass = null, $tdClass=NULL, $row_attributes = null, $tdId=NULL)
+    private function _addRow($content, $trClass = null, $tdClass=NULL, $row_attributes = null, $trId=NULL)
     {
         if ($row_attributes) {
             $this->row_attributes=$row_attributes;
