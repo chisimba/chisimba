@@ -504,6 +504,36 @@ class skin extends object
     }
 
 
+
+
+
+    //------------------------------------- EXPERIMENTAL
+
+
+
+    /**
+     * Method to return the common JavaScript that is used and needs to go into the page templates
+     * This loads Prototype and JavaScript into the page templates
+     *
+     * @param string $mime Mimetype of Page - Either text/html or application/xhtml+xml
+     * @param array $headerParams List of items that needs to go into the header of the page
+     * @param array $bodyOnLoad List of items that needs to go into the bodyOnLoad section of the page
+     */
+    public function putWithinBodyScripts($afterBodyScripts=NULL)
+    {
+        $objJs = $this->getObject('skinjavascript', 'skin');
+        //return "TESTING";
+        return $objJs->afterBodyScripts($afterBodyScripts);
+    }
+
+
+
+
+
+
+
+
+
    /**
     *
     * Method to output meta tags to the header (uses metaKeywords and metaDescriptions arrays)
