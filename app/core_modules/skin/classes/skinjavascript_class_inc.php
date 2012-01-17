@@ -163,10 +163,10 @@ class skinjavascript extends object
     public function getJQuery()
     {
         $supressJQuery = $this->getVar('SUPPRESS_JQUERY', false);
-        //$jQueryVersion = $this->getVar('JQUERY_VERSION', '1.4.2');
+        $jQueryVersion = $this->getVar('JQUERY_VERSION', '1.6.4');
         if (!$supressJQuery){
             $jquery = $this->getObject('jquery', 'jquery');
-            //$jquery->setVersion($jQueryVersion);
+            $jquery->setVersion($jQueryVersion);
             return $jquery->show();
         } else {
             return NULL;
@@ -251,6 +251,52 @@ class skinjavascript extends object
             $str .= '}
 </script>'."\n\n";
             return $str;
+        } else {
+            return NULL;
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//WORKING HERE
+
+
+
+    /**
+     *
+     * Insert after body tag scripts - scripts that need to appear
+     * within the page after the <body> tag.
+     *
+     * @param string $afterBodyScripts An array of scripts
+     * @return string  The script tags rendered
+     *
+     */
+    public function afterBodyScripts($afterBodyScripts=NULL)
+    {
+        print_r($this->getVar('headerParams')); die();
+        if ($afterBodyScripts == NULL) {
+            $afterBodyScripts = $this->getVar('afterBodyScripts');
+        }
+        if (is_array($afterBodyScripts)) {
+            $afterBodyScripts = array_unique($afterBodyScripts);
+            $ret ="\n";
+            foreach ($afterBodyScripts as $afterBodyScript) {
+                $ret .= $afterBodyScript . "\n";
+            }
+            return $ret;
         } else {
             return NULL;
         }
