@@ -49,7 +49,7 @@ class jquery extends object
     public function init()
     { 
         //Default jQuery version (Global)
-        $this->version = '1.4.2';
+        $this->version = '1.6.4';
     }
 
     /**
