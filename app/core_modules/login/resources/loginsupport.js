@@ -18,6 +18,14 @@
  *
  */
 jQuery(function() {
+    
+    // Show the login block as a drop down, roll up
+    jQuery('.LOGIN_DROP').live("click", function(){
+        jQuery('#LOGIN_BLOCK').toggle('slow', function() {
+            // Animation complete, add a red border
+            //jQuery('#LOGIN_BLOCK').css("border", "1px dashed red")
+        });
+    });
 
     // Set the initial value of remember to off
     jQuery("#input_remember").val('off');

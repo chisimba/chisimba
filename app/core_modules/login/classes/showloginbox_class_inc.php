@@ -104,7 +104,6 @@ class showloginbox extends object
             $this->objLanguage = $this->getObject('language', 'language');
             $this->objConfig = $this->getObject('altconfig','config');
             $this->objHelp= $this->getObject('help','help');
-
             // Load the various HTML classes used to build the form elements.
             $this->loadClass('button', 'htmlelements');
             $this->loadClass('textinput', 'htmlelements');
@@ -113,23 +112,18 @@ class showloginbox extends object
             $this->loadClass('label','htmlelements');
             $this->loadClass('fieldset','htmlelements');
             $this->loadClass ('hiddeninput', 'htmlelements');
-
             // Guess the module we are in
             $objGuess = $this->getObject('bestguess', 'utilities');
             $curMod = $objGuess->identifyModule();
             if ($curMod == 'prelogin' || $curMod == 'security') {
                 $curMod = '_default';
             }
-
             // Set the jQuery version to the latest functional
             $this->setVar('JQUERY_VERSION', '1.4.2');
-            
             // Load the various JS values for use by the script
             $this->getScriptValues($curMod);
             // Load the jQuery helper script
             $this->loadHelperScript();
-
-
         } catch (Exception $e) {
             customException::cleanUp();
         }
@@ -198,7 +192,7 @@ class showloginbox extends object
 
     /**
      *
-     * Render the login box
+     * Render a login box
      *
      * @param string $module The module we are in or will go to
      * @param boolean $ajaxLogin Whether or not to do ajax login
@@ -221,29 +215,18 @@ class showloginbox extends object
                 // We want an ajax login.
                 $formAction = 'javascript:void(0);';
             }
-
-            // Create an alert box ------------------------------------------------------------_NEEDED???
-            $objBox = $this->newObject('alertbox', 'htmlelements');
-
-            // Prepare the link for the oAuth providers
-            $box = $this->oauthDisp();
-            $fb = $this->fbConnect();
-
             // Create a Form object.
             $objForm = new form('loginform', $formAction);
             $objFields = new fieldset();
             $objFields->setLegend(' ');
-
             //--Create an element for the username
             $objInput = new textinput('username', '', 'text','15');
             $objInput->extra = 'maxlength="255"';
             $objInput->setCss('required minlength(2)');
             $objLabel = new label($this->objLanguage->languageText('word_username').': ', 'input_username');
-
             //Add the username box to the form
             $objFields->addContent($objLabel->show().'<br />');
             $objFields->addContent($objInput->show().'<br />');
-
             //--- Create an element for the password
             $objInput = new textinput('password', '', 'password', '15');
             $objInput->extra = 'maxlength="255"';
@@ -259,7 +242,6 @@ class showloginbox extends object
             $ldap = '';
             $objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
             $showLDAPCheckBox=$objSysConfig->getValue('show_ldap_checkbox', 'security');
-
             // Get a nonce
             $objNonce = $this->getObject('nonce', 'login');
             $nonce = $objNonce->storeNonce();
@@ -267,7 +249,6 @@ class showloginbox extends object
             $objNonce = new hiddeninput ( 'nonce', $nonce );
             $objNonce->extra = ' id=\'nonce\'';
             $nonce = $objNonce->show();
-
             //----------------------------------------------------------------------------------------Checking this is a violation of the principle of chain of responsiblity @todo fix it
             if ($this->objConfig->getuseLDAP() && $showLDAPCheckBox == 'true') {
                 $ldap .= $objElement->label.' '.$objElement->show();
@@ -278,7 +259,6 @@ class showloginbox extends object
             $objRElement->setCSS("transparentbgnb noborder");
             $objRElement->label=$this->objLanguage->languageText("phrase_rememberme", "security");
             $rem = $objRElement->label.' '.$objRElement->show() . "<br />";
-
             //--- Create a submit button
             $objButton = new button('submit',$this->objLanguage->languageText("word_login"));
             // Add the login icon
@@ -288,12 +268,9 @@ class showloginbox extends object
             // Give the button an ID for jQuery to grab.
             $objButton->setId('loginButton');
             // Add the button to the form ----------------------------------------------------------- Note LDAP breaks the COR pattern
-            $objFields->addContent($ldap . '<br />' . $nonce . $rem . $box
+            $objFields->addContent($ldap . '<br />' . $nonce . $rem 
               . "<div class='loginbuttonwrap'>".$objButton->show()
-              .'</div>'.$fb);
-
-
-
+              .'</div>');
             $helpText = strtoupper($this->objLanguage->languageText('word_help','system'));
             $helpIcon = $this->objHelp->show('register', 'useradmin', $helpText);
             $resetLink = new Link($this->uri(array('action'=>'needpassword'),'security'));
@@ -302,55 +279,39 @@ class showloginbox extends object
             $p = '<br/>'.$resetLink->show().'<br />'.$helpIcon;
             $objFields->addContent($p);
             $objForm->addToForm($objFields->show());
-
             return '<div id="login_block_wrapper">' 
               .  $objForm->show() . '</div>';
         } catch (Exception $e) {
             customException::cleanUp();
         }
     }
-
-
-//COPPIED NOT YET USED
-    public function oauthDisp() {
-        // displays a set of oAuth providers
-        $this->objDbSysconfig = $this->getObject('dbsysconfig', 'sysconfig');
-        $show = $this->objDbSysconfig->getValue('show_twitter_auth', 'security');
-        if(strtolower($show) == 'true') {
-            $objIcon = $this->getObject('geticon', 'htmlelements');
-            $objIcon->alt = "Sign in with Twitter";//--------------------------------------------------------_HARD CODED ENGLISH
-            $this->consumer_key = $this->objDbSysconfig->getValue('twitter_consumer_key', 'security');
-            $this->consumer_secret = $this->objDbSysconfig->getValue('twitter_consumer_secret', 'security');
-            // create a link to log in with twitter
-            $this->objEpiWrapper = $this->getObject ( 'epiwrapper' );
-            $twitterObj = new EpiTwitter($this->consumer_key, $this->consumer_secret);
-            $twiticon = $objIcon->getLinkedIcon($twitterObj->getAuthenticateUrl(), 'Sign-in-with-Twitter-lighter', 'png');
-            $twitter = $twiticon;
-            return $twitter.'<br />';
+    
+    /**
+     *
+     * Render a login box that can be used with jQuery to create
+     * a dropdown login.
+     * 
+     * @param string $module The from which it is being accessed, if any
+     * @param boolean $ajaxLogin Whether it should use ajax login or not
+     * @return string  The rendered login box
+     * @access public
+     * 
+     */
+    public function renderLoginAsDropdown($module = NULL, $ajaxLogin=FALSE)
+    {
+        $objUser = $this->getObject('user', 'security');
+        if($objUser->isLoggedIn()) {
+            $lia = $this->objLanguage->languageText("mod_login_loggedinas","login", "Logged in as");
+            $ret = $lia .": <em>" . $objUser->fullName() . "</em>";
+        } else {
+            $lWord = $this->objLanguage->languageText("word_login");
+            $ret = "<a href=\"javascript:void(0);\" class=\"LOGIN_DROP\">$lWord</a>";
+            $ret .="<div id='LOGIN_BLOCK' style='display: none'>";
+            $ret .= $this->renderLoginBox($module, $ajaxLogin);
+            $ret .= "</div>";
         }
-        else {
-            return NULL;
-        }
+        return $ret;
     }
-
-//COPPIED NOT YET USED
-    public function fbConnect() {
-        $this->objMods = $this->getObject('modules', 'modulecatalogue');
-        $this->objDbSysconfig = $this->getObject('dbsysconfig', 'sysconfig');
-        $show = $this->objDbSysconfig->getValue('show_fbconnect_auth', 'security');
-        if($this->objMods->checkIfRegistered('facebookapps') && strtolower($show) == 'true' ) {
-             $apikey = $this->objDbSysconfig->getValue('apikey', 'facebookapps');
-             $fb = "<script src=\"http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php\" type=\"text/javascript\"></script>
-                    <fb:login-button size=\"large\" autologoutlink=\"false\" background=\"white\" length=\"short\" onlogin='window.location=\"index.php?module=security&action=fbconnect\";'></fb:login-button>
-                    <script type=\"text/javascript\"> FB.init(\"$apikey\", \"xd_receiver.htm\", {\"debugLogLevel\":0, \"reloadIfSessionStateChanged\":true});
-                    </script>";
-             return $fb."<br />";
-        }
-        else {
-            return NULL;
-        }
-    }
-
 
     /**
      *
@@ -378,15 +339,11 @@ class showloginbox extends object
      */
     private function getScriptValues($curMod='_default')
     {
-
         $loadingImage='<img src="skins/_common/icons/loading_bar.gif" alt=""Loading..." />';
-        $captcha = "NEED TO FIND A CAPTCHA";
-        $captcha = str_replace("'", "\'", $captcha);
         $ret = '<script type="text/javascript">
             // <![CDATA[
                 loadingImage = \'' . $loadingImage . '\';
                 theModule = \'' . $curMod . '\';
-                captcha = \'' . $captcha . '\';
                 failedMsg = \'' . $this->objLanguage->languageText('phrase_invalid_login', 'security', "Lobvni failed") . '\';
             // ]]>
             '
@@ -394,6 +351,5 @@ class showloginbox extends object
         ';
         return $this->appendArrayVar('headerParams', $ret);
     }
-
 }
 ?>

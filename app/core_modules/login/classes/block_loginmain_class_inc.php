@@ -77,9 +77,15 @@ class block_loginmain extends object
      */
     public function show() 
     {
-        return 'This is the new login module for Chisimba. 
-            Once the code is complete, all of this stuff 
-            will go away.';
+        $oD = $this->getObject('showloginbox', 'login');
+        $ret = $oD->renderLoginAsDropdown('login', TRUE);
+        $ret .= '<br /><br />
+                Use the login dropdown above to test the 
+                login functionality of the login dropdown.
+                This is the new login module for Chisimba. 
+                Once the code is complete, all of this stuff 
+                will go away.';
+        return $ret;
     }
 }
 ?>
