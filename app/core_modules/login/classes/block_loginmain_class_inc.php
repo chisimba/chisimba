@@ -77,8 +77,8 @@ class block_loginmain extends object
      */
     public function show() 
     {
-        $oD = $this->getObject('showloginbox', 'login');
-        $ret = $oD->renderLoginAsDropdown('login', TRUE);
+        $objDDLogin = $this->getObject('showloginbox', 'login');
+        $ret = $objDDLogin->renderLoginAsDropdown('login', TRUE);
         $ret .= '<br /><br />
                 Use the login dropdown above to test the 
                 login functionality of the login dropdown.
