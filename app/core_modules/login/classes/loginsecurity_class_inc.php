@@ -146,6 +146,8 @@ class loginsecurity extends object
         $value = stripslashes($value);
         $value = strip_tags($value);
         $value = str_replace("'", NULL, $value);
+        $value = str_replace("SELECT", NULL, $value);
+        $value = str_replace("INSERT", NULL, $value);
         return $value;
     }
 

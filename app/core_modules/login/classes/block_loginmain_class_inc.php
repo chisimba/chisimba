@@ -77,7 +77,9 @@ class block_loginmain extends object
      */
     public function show() 
     {
-        return "With the new Chisimba dynamic canvas, it is better to render output as either wide or narrow blocks. Then use JSON templates to generate the rendered output. In this way, your module can use any block from any other module in addition to your own. In addition, your module will be able to render blocks to other sites, or as web widgets for use in other systems. Change this file to create your block but please don't be naughty and forget to edit the comment blocks. ALL OF THEM.";
+        return 'This is the new login module for Chisimba. 
+            Once the code is complete, all of this stuff 
+            will go away.';
     }
 }
 ?>
