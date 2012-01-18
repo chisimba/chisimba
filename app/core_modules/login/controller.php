@@ -172,7 +172,6 @@ class login extends controller
                     $username = $this->loginSecurity->getUsername();
                     $password = $this->loginSecurity->getPassword();
                     $remember = $this->loginSecurity->getVariable('remember', "off");
-                    //die($username . '----'.$password.'----'.$remember);
                     if ($this->objUser->authenticateUser($username, $password, $remember)) {
                         $this->objNonce->deleteNonce($nonce);
                         echo 'yes';
