@@ -212,6 +212,7 @@ class filepreview extends object {
             case 'mpg':
             case 'mpeg': return $this->objFileEmbed->embed($this->file['fullurl'], 'mpg', $width, $height + 12);
             case 'mp4': return $this->objFileEmbed->embed($this->file['fullurl'], 'mp4', $width, $height + 12);
+            case 'webm': return $this->objFileEmbed->embed($this->file['fullurl'], 'webm', $width, $height + 12);
             default: return $this->objFileEmbed->embed($this->file['linkname'], 'unknown');
         }
     }

@@ -113,7 +113,28 @@ class fileembed extends object {
                 return $this->showOggVideo($file, $width, $height);
             case 'svg':
                 return $this->showSVG($file, $width, $height);
+            case 'webm':
+                return $this->showWebm($file, $width, $height);
         }
+    }
+    
+    /**
+     *
+     * Embed a WEBM video using HTML5 code
+     * 
+     * @param string $file The file URL to embed
+     * @param integer $width The width of the video
+     * @param integer $height The height of the video
+     * @return string The rendered video HTML5 tags
+     * @access public
+     */
+    public function showWebm($file, $width, $height)
+    {
+        $ret = "\n\n<video width=\"$width\" height=\"$height\" controls=\"controls\">\n";
+        $ret .= "<source src=\"$file\"  type=\"video/webm\"></source>\n";
+        $ret .= " Your browser does not support the video tag.";
+        $ret .= "</video>";
+        return $ret;
     }
 
     /**
