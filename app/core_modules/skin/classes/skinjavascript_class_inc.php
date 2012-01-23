@@ -163,10 +163,8 @@ class skinjavascript extends object
     public function getJQuery()
     {
         $supressJQuery = $this->getVar('SUPPRESS_JQUERY', false);
-        $jQueryVersion = $this->getVar('JQUERY_VERSION', '1.6.4');
         if (!$supressJQuery){
             $jquery = $this->getObject('jquery', 'jquery');
-            $jquery->setVersion($jQueryVersion);
             return $jquery->show();
         } else {
             return NULL;
