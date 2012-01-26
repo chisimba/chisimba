@@ -32,7 +32,7 @@ class urlutils extends object
     
     /**
      *
-     * Get the current page URL. Not that this makes some
+     * Get the current page URL. Note that this makes some
      * assumptions about the way Chisimba servers are
      * configured.
      * 
@@ -56,6 +56,21 @@ class urlutils extends object
             . $_SERVER["REQUEST_URI"];
         }
         return $pageURL;
+    }
+    
+    /**
+     * 
+     * Get the whole query string
+     * 
+     * @return string The full Querystring
+     * @access public
+     * 
+     */
+    public function getQueryString()
+    {
+        //return $_SERVER['QUERY_STRING'];
+        die($_SERVER['QUERY_STRING']);
+        
     }
 }
 ?>
