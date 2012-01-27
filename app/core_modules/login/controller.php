@@ -208,6 +208,7 @@ class login extends controller
     private function __ajaxlogin()
     {
         $nonce = $this->objLoginSecurity->getVariable('nonce', FALSE);
+        $msg = "it_should_not_be_possible_to_see_this";
         if ($nonce) {
             // Check the nonce to see if it exists
             $tries = $this->objNonce->getTries($nonce);
