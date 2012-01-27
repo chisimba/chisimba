@@ -233,9 +233,17 @@ class bestguess extends object
     public function guessPageId() {
         $pageId = $this->getParam('pageid', NULL);
         if ($pageId == NULL) {
-            $pageId = md5($_SERVER['REQUEST_URI']);
+            $objUri = $this->getObject('urlutils','utilities');
+            $pageId = $objUri->curPageURL();
+            // If we have no index.php or module= then guess the page
+            if (!strstr($pageId, 'index.php') 
+              || !strstr($pageId, 'module=')) {
+                // Try to work out the default module
+                $mod = $this->identifyModule();
+                $pageId = $this->uri(array(),$mod);
+            }
+            return md5($pageId);
         }
-        return $pageId;
     }
 
 }
