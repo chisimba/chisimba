@@ -88,7 +88,28 @@ class serializevars extends dbtable
     {
         $ret = "\n\n<script type='text/javascript'>\n";
         foreach ($arrayVars as $key=>$value) {
-            $ret .= $key . " = '" . $this->objLanguage->languageText($value, $callingModule) . "';\n";
+            $ret .= "    var " . $key . " = '" . $this->objLanguage->languageText($value, $callingModule) . "';\n";
+        }
+        $ret .= "</script>\n\n";
+        $this->appendArrayVar('headerParams', $ret);
+        return TRUE;
+    }
+    
+    /**
+     *
+     * Serialize language elements so they are available to 
+     * Javascript. It does this by creating an 
+     *  
+     * @param string array $arrayVars an array of key value pairs
+     * @access private
+     * @return TRUE
+     * 
+     */
+    public function varsToJs($arrayVars)
+    {
+        $ret = "\n\n<script type='text/javascript'>\n";
+        foreach ($arrayVars as $key=>$value) {
+            $ret .= "var " . $key . " = '" . $value . "';\n";
         }
         $ret .= "</script>\n\n";
         $this->appendArrayVar('headerParams', $ret);
