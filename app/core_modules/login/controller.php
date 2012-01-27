@@ -208,7 +208,8 @@ class login extends controller
     private function __ajaxlogin()
     {
         $nonce = $this->objLoginSecurity->getVariable('nonce', FALSE);
-        $msg = "it_should_not_be_possible_to_see_this";
+        $msg = NULL;
+        //"it_should_not_be_possible_to_see_this";
         if ($nonce) {
             // Check the nonce to see if it exists
             $tries = $this->objNonce->getTries($nonce);
@@ -309,7 +310,7 @@ class login extends controller
      */
     public function __loginboxajax()
     {
-        $loginBox = $this->getObject('showloginbox', 'login');
+        $loginBox = $this->getObject('showlogin', 'login');
         echo $loginBox->renderLoginBox();
         die();
     }
@@ -325,7 +326,7 @@ class login extends controller
      */
     public function __getcapajax()
     {
-        $loginBox = $this->getObject('showloginbox', 'login');
+        $loginBox = $this->getObject('showlogin', 'login');
         echo $loginBox->renderProveHuman();
         die();
     }

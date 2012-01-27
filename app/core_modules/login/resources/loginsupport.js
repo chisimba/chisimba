@@ -45,8 +45,6 @@ jQuery(function() {
             url: "index.php?module=login&theModule="+theModule+"&action=ajaxlogin&nonce="+nonce,
             data: mydata,
             success: function(ret) {
-                //alert(ret);
-                var failure;
                 var errMsg;
                 alert(ret);
                 switch(ret) {
