@@ -60,6 +60,13 @@ $GLOBALS['kewl_entry_point_run'])
 */
 class loginsecurity extends object
 {
+    /**
+    *
+    * @var string object Holds the language object
+    * @access public
+    * 
+    */
+    public $objLanguage;
 
     /**
     *
@@ -76,12 +83,13 @@ class loginsecurity extends object
         $qs = $_SERVER['QUERY_STRING'];
         // Disallow loging in via the querystring.
         if (strpos($qs,"username=") || strpos($qs,"password=")) {
-            $objLanguage = $this->getObject('language', 'language');
-            $er = $objLanguage->languageText(
-              "mod_security_noqslogin", "security",
+            $this->objLanguage = $this->getObject('language', 'language');
+            $er = $this->objLanguage->languageText(
+              "mod_login_noqslogin", "login",
               "Logging into this site with the username and password in the URL is prohibited."
             );
             throw new  customException($er);
+            exit();
         }
     }
 
@@ -143,13 +151,31 @@ class loginsecurity extends object
      */
     public function sanitize($value)
     {
+        if (strlen($value) > 255) {
+              $er = $this->objLanguage->languageText(
+              "mod_login_uptoolong", "login",
+              "Attempt to use illegal username or password");
+            throw customException($er);
+            exit();
+        }
+        // Array of illegal contents of fields
+        $illegalTerms = array("SELECT", "SHOW TABLES", "SHOW DATABASES",
+          "INSERT", "DELETE", "JAVASCRIPT");
         $value = stripslashes($value);
         $value = strip_tags($value);
+        foreach($illegalTerms as $term) {
+            $valueTest = strtoupper($value);
+            if (strstr($valueTest, $term)) {
+                $er = $this->objLanguage->languageText(
+                  "mod_login_badwords", "login",
+                  "SQL or SCRIPT injection detected in the input")
+                  . ": $term";
+                throw customException($er);
+                exit();
+            }
+        }
         $value = str_replace("'", NULL, $value);
-        $value = str_replace("SELECT", NULL, $value);
-        $value = str_replace("INSERT", NULL, $value);
         return $value;
     }
-
 }
 ?>

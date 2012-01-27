@@ -96,7 +96,7 @@ class block_ajaxlogin extends object
             if($this->objUser->isLoggedIn()) {
                 $this->blockType="invisible";
             } else {
-                $this->title = $this->objLanguage->languageText("word_login");
+                $this->title = $this->objLanguage->languageText("word_login") . '(ajax)';
             }
         } catch (customException $e) {
             customException::cleanUp();
@@ -121,7 +121,7 @@ class block_ajaxlogin extends object
                 $objGuess = $this->getObject('bestguess', 'utilities');
                 $curMod = $objGuess->identifyModule();
                 // Get the login box.
-                $objLogin =  $this->getObject('showloginbox', 'login');
+                $objLogin =  $this->getObject('showlogin', 'login');
                 // Show an ajax login box, retaining the current module.
                 return $objLogin->show($curMod, TRUE);
             }

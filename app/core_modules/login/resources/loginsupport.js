@@ -47,9 +47,24 @@ jQuery(function() {
             success: function(ret) {
                 //alert(ret);
                 var failure;
+                var errMsg;
+                alert(ret);
                 switch(ret) {
                     case "yes":
                         window.location = 'index.php?module='+theModule;
+                        break;
+                    // All below are failures
+                    case "accountinactive":
+                        errMsg = "The account is inactive";
+                        break;
+                    case "wrongpassword":
+                        errMsg = "Incorrect password";
+                        break;
+                    case "noldap":
+                        errMsg = "LDAP directory connection failed";
+                        break;
+                    case "noaccount":
+                        errMsg = "User does not exist";
                         break;
                         
                     case "no":
@@ -81,12 +96,13 @@ jQuery(function() {
                         break;
 
                     default:
-                        failure='&nbsp;&nbsp;<div class=\'error\'>Unknown error.</div>';
+                        failure='&nbsp;&nbsp;<div class=\'error\'>'+errMsg+'</div>';
                         jQuery("#login_block_wrapper").html(tmp);
                         jQuery('.error').remove();
                         jQuery("#login_block_wrapper").append(failure);
                         break;
                 }
+
             }
         });
     });

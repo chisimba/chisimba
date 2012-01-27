@@ -60,7 +60,7 @@ $GLOBALS['kewl_entry_point_run'])
 * @package login
 *
 */
-class showloginbox extends object
+class showlogin extends object
 {
 
 
@@ -118,8 +118,6 @@ class showloginbox extends object
             if ($curMod == 'prelogin' || $curMod == 'security') {
                 $curMod = '_default';
             }
-            // Set the jQuery version to the latest functional
-            $this->setVar('JQUERY_VERSION', '1.4.2');
             // Load the various JS values for use by the script
             $this->getScriptValues($curMod);
             // Load the jQuery helper script
@@ -209,7 +207,7 @@ class showloginbox extends object
                 if($module != NULL) {
                     $formAction = $this->uri(array('action' => 'login', 'mod' => $module), 'security');
                 } else {
-                    $formAction = $this->uri(array('action' => 'login'), 'security');
+                    $formAction = $this->uri(array('action' => 'login'), 'login');
                 }
             } else {
                 // We want an ajax login.
@@ -324,7 +322,9 @@ class showloginbox extends object
      */
     private function loadHelperScript()
     {
-        $this->appendArrayVar('headerParams', $this->getJavaScriptFile('loginsupport.js', 'login'));
+        $this->appendArrayVar('headerParams', 
+          $this->getJavaScriptFile('loginsupport.js', 
+          'login'));
     }
 
     /**
@@ -344,7 +344,7 @@ class showloginbox extends object
             // <![CDATA[
                 loadingImage = \'' . $loadingImage . '\';
                 theModule = \'' . $curMod . '\';
-                failedMsg = \'' . $this->objLanguage->languageText('phrase_invalid_login', 'security', "Lobvni failed") . '\';
+                failedMsg = \'' . $this->objLanguage->languageText('phrase_invalid_login', 'security', "Login failed") . '\';
             // ]]>
             '
         . '</script>
