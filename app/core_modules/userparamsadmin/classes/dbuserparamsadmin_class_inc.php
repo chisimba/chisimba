@@ -205,7 +205,7 @@ class dbuserparamsadmin extends object
 		}
 	}
 
-	/**
+    /**
      * Method to parse config options.
      * For use when reading configuration options
      *
@@ -218,35 +218,45 @@ class dbuserparamsadmin extends object
      * @return boolean True/False result.
      *
      */
-	public function readConfig($config=false,$property='PHPArray')
-	{
-		try {
-			// read configuration data and get reference to root
-			$path = $this->objConfig->getcontentBasePath();
-			$path .=  "users/";
-			$path .= $this->uid .'/';
-			if (!file_exists($path.'userconfig_properties.ini')) {
-				$values = array(
-				'Google API key'=>'',
-				'ICQ number'=>'',
-				'Yahoo ID'=>'',
-				'Skype ID'=>'',
-				'MSN ID' =>''
-				);
-				$result = $this->file->mkdirs($path);
-				if ($result==true) {
-					$result = $this->createConfig('Settings',$values,$path,'userconfig_properties.ini');
-				}
-			}
-			$this->_root =& $this->objConf->parseConfig("{$path}".'userconfig_properties.ini','IniFile');
-			if (PEAR::isError($this->_root)) {
-				throw new customException($this->objLanguage->languageText("mod_userparamsadmin_cannotreadfile", "userparamsadmin"));
-			}
-			return $this->_root;
-		} catch (customException $e)  {
-			customException::cleanUp();
-		}
-	}
+    public function readConfig($config=false,$property='PHPArray')
+    {
+        try {
+            // read configuration data and get reference to root
+            $path = $this->objConfig->getcontentBasePath();
+            $path .=  "users/";
+            $path .= $this->uid .'/';
+            if (!file_exists($path.'userconfig_properties.ini')) {
+                $values = array(
+                'Google API key'=>'',
+                'ICQ number'=>'',
+                'Yahoo ID'=>'',
+                'Skype ID'=>'',
+                'MSN ID' =>''
+                );
+                if ($this->objUser->isLoggedIn()) {
+                    if ($this->objUser->userId() == $this->uid || $this->objUser->isAdmin()) {
+                        $result = $this->file->mkdirs($path);
+                        if ($result==true) {
+                            $result = $this->createConfig('Settings',$values,$path,'userconfig_properties.ini');
+                        }
+                    } else {
+                        throw new  customException("STOPPING...error in dbuserparamsadmin_class");
+                        exit();
+                    }
+                } else {
+                    throw new  customException("STOPPING...error in dbuserparamsadmin_class");
+                    exit();
+                }
+            }
+            $this->_root =& $this->objConf->parseConfig("{$path}".'userconfig_properties.ini','IniFile');
+            if (PEAR::isError($this->_root)) {
+                    throw new customException($this->objLanguage->languageText("mod_userparamsadmin_cannotreadfile", "userparamsadmin"));
+            }
+            return $this->_root;
+        } catch (customException $e)  {
+                customException::cleanUp();
+        }
+    }
 
 	/**
      * Method to write sysconfig Properties options.
