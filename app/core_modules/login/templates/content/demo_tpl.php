@@ -5,11 +5,11 @@ $objFix->fixTwo();
 ?>
 <div id="twocolumn">
     <div id="Canvas_Content_Body_Region1">
-        {
+        [
             "display" : "block",
             "module" : "login",
             "block" : "ajaxlogin"
-        }
+        ]
         <br /><br />
         This interface is for developer testing only. 
         If you see some funny stuff above this text, ignore it

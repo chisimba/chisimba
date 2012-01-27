@@ -55,34 +55,47 @@ jQuery(function() {
                         break;
                     // All below are failures
                     case "accountinactive":
-                        errMsg = "The account is inactive";
+                        failure='&nbsp;&nbsp;<div class=\'error\'>'+accountinactive+'</div>';
+                        jQuery("#login_block_wrapper").html(tmp);
+                        jQuery('.error').remove();
+                        jQuery("#login_block_wrapper").append(failure);
                         break;
                     case "wrongpassword":
-                        errMsg = "Incorrect password";
+                        failure='&nbsp;&nbsp;<div class=\'error\'>'+wrongpassword+'</div>';
+                        jQuery("#login_block_wrapper").html(tmp);
+                        jQuery('.error').remove();
+                        jQuery("#login_block_wrapper").append(failure);
                         break;
                     case "noldap":
-                        errMsg = "LDAP directory connection failed";
+                        failure='&nbsp;&nbsp;<div class=\'error\'>'+noldap+'</div>';
+                        jQuery("#login_block_wrapper").html(tmp);
+                        jQuery('.error').remove();
+                        jQuery("#login_block_wrapper").append(failure);
                         break;
                     case "noaccount":
-                        errMsg = "User does not exist";
+                        
+                        failure='&nbsp;&nbsp;<div class=\'error\'>'+noaccount+'</div>';
+                        jQuery("#login_block_wrapper").html(tmp);
+                        jQuery('.error').remove();
+                        jQuery("#login_block_wrapper").append(failure);
                         break;
                         
                     case "no":
-                        failure='&nbsp;&nbsp;<div class=\'error\'>'+failedMsg+'</div>';
+                        failure='&nbsp;&nbsp;<div class=\'error\'>'+lino+'</div>';
                         jQuery("#login_block_wrapper").html(tmp);
                         jQuery('.error').remove();
                         jQuery("#login_block_wrapper").append(failure);
                         break;
 
                     case "nononceindb":
-                        failure='&nbsp;&nbsp;<div class=\'error\'>Illegal login attempt - type 1</div>';
+                        failure='&nbsp;&nbsp;<div class=\'error\'>'+nononceindb+'</div>';
                         jQuery("#login_block_wrapper").html(tmp);
                         jQuery('.error').remove();
                         jQuery("#login_block_wrapper").append(failure);
                         break;
 
                     case  "noncemissing":
-                        failure='&nbsp;&nbsp;<div class=\'error\'>Illegal login attempt - type 2</div>';
+                        failure='&nbsp;&nbsp;<div class=\'error\'>'+noncemissing+'</div>';
                         jQuery("#login_block_wrapper").html(tmp);
                         jQuery('.error').remove();
                         jQuery("#login_block_wrapper").append(failure);
@@ -96,7 +109,7 @@ jQuery(function() {
                         break;
 
                     default:
-                        failure='&nbsp;&nbsp;<div class=\'error\'>'+errMsg+'</div>';
+                        failure='&nbsp;&nbsp;<div class=\'error\'>'+lino+'</div>';
                         jQuery("#login_block_wrapper").html(tmp);
                         jQuery('.error').remove();
                         jQuery("#login_block_wrapper").append(failure);

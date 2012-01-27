@@ -123,6 +123,8 @@ class login extends controller
         $this->objSkin = $this->getObject('skin', 'skin');
         // Create the configuration object.
         $this->objConfig = $this->getObject('config', 'config');
+        // Load the language items to javascript.
+        $this->jsLanguage();
         // Get the activity logger class.
         $this->objLog=$this->newObject('logactivity', 'logger');
         // Log this module call.
@@ -140,17 +142,17 @@ class login extends controller
     private function jsLanguage()
     {
         // Serialize language items to Javascript
-        $arrayVars['yes'] = "mod_login_li_yes";
+        $arrayVars['liyes'] = "mod_login_li_yes";
         $arrayVars['accountinactive'] = "mod_login_li_accountinactive";
         $arrayVars['wrongpassword'] = "mod_login_li_wrongpassword";
         $arrayVars['noldap'] = "mod_login_li_noldap";
         $arrayVars['noaccount'] = "mod_login_li_noaccount";
-        $arrayVars['no'] = "mod_login_li_no";
+        $arrayVars['lino'] = "mod_login_li_no";
         $arrayVars['nononceindb'] = "mod_login_li_nononceindb";
         $arrayVars['noncemissing'] = "mod_login_li_noncemissing";
         $arrayVars['loginsdisabled'] = "mod_login_li_loginsdisabled";
         $objSerialize = $this->getObject('serializevars', 'utilities');
-        $objSerialize->languagetojs($arrayVars, 'oer');
+        $objSerialize->languagetojs($arrayVars, 'login');
     }
     
     
@@ -205,8 +207,6 @@ class login extends controller
     */
     private function __ajaxlogin()
     {
-        // Load the language items to javascript.
-        $this->jsLanguage();
         $nonce = $this->objLoginSecurity->getVariable('nonce', FALSE);
         if ($nonce) {
             // Check the nonce to see if it exists
