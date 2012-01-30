@@ -30,7 +30,7 @@ class prototype extends object
     * @param string $mimetype Mime type of page
     * @return string prototype JavaScript
     */
-    public function show($mimetype)
+    public function show($mimetype=FALSE)
     {
         //$usingXHTML = $mimetype == 'application/xhtml+xml';
 
