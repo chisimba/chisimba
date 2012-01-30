@@ -58,7 +58,7 @@ $GLOBALS['kewl_entry_point_run'])
 * @package canvas
 *
 */
-class loginsecurity extends object
+class sanitize extends object
 {
     /**
     *
