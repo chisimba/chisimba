@@ -58,7 +58,7 @@ $GLOBALS['kewl_entry_point_run'])
 * @package canvas
 *
 */
-class sanitize extends object
+class sanitizevars extends object
 {
     /**
     *
@@ -74,8 +74,7 @@ class sanitize extends object
     * @access public
     * 
     */
-    public $arrayBanned=array("SELECT", "SHOW TABLES", "SHOW DATABASES",
-          "INSERT", "DELETE", "JAVASCRIPT", "DROP");
+    public $arrayBanned;
 
     /**
     *
@@ -89,7 +88,9 @@ class sanitize extends object
     */
     public function init()
     {
-        $this->objLanguage = $this->getObject('languagetext', 'language');
+        $this->objLanguage = $this->getObject('language', 'language');
+        $this->arrayBanned = array('SELECT', 'SHOW TABLES', 'SHOW DATABASES',
+          'INSERT', 'DELETE', 'JAVASCRIPT', 'DROP');
     }
     
     /**
@@ -212,24 +213,27 @@ class sanitize extends object
      * @access public
      *
      */
-    public function sanitize($value, $arrayBanned=FALSE, $stripQuotes=TRUE)
+    public function sanitize($strValue, $arrayBanned=FALSE, $stripQuotes=TRUE)
     {
-        if (!$arrayBanned) {
+        if (!$arrayBanned==FALSE) {
             $arrayBanned = $this->arrayBanned;
+            var_dump($arrayBanned);die('-----------------');
         }
-        $value = stripslashes($value);
-        $value = strip_tags($value);
-        foreach($arrayBanned as $term) {
-            $valueTest = strtoupper($value);
-            if (strstr($valueTest, $term)) {
-                str_ireplace($term, 'XXXXXX', $value);
+        if ($strValue !=="" && $strValue !== NULL) {
+            $strValue = stripslashes($strValue);
+            $strValue = strip_tags($strValue);
+            foreach($this->arrayBanned as $term) {
+                $valueTest = strtoupper($strValue);
+                if (strstr($valueTest, $term)) {
+                    str_ireplace($term, 'XXXXXX', $strValue);
+                }
+            }
+            if ($stripQuotes == TRUE) {
+                $strValue = str_replace("'", NULL, $strValue);
+                $strValue = str_replace('"', NULL, $strValue);
             }
         }
-        if ($stripQuotes == TRUE) {
-            $value = str_replace("'", NULL, $value);
-            $value = str_replace('"', NULL, $value);
-        }
-        return $value;
+        return $strValue;
     }
 }
 ?>
