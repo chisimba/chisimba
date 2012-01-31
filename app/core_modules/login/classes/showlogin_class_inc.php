@@ -118,10 +118,6 @@ class showlogin extends object
             if ($curMod == 'prelogin' || $curMod == 'security') {
                 $curMod = '_default';
             }
-            // Load the various JS values for use by the script
-            $this->getScriptValues($curMod);
-            // Load the jQuery helper script
-            $this->loadHelperScript();
         } catch (Exception $e) {
             customException::cleanUp();
         }
@@ -139,15 +135,41 @@ class showlogin extends object
      * @access public
      * 
      */
-    public function show($module = NULL, $ajaxLogin=FALSE)
+    public function show($module = NULL, 
+      $ajaxLogin=FALSE, 
+      $loginType='renderLoginBox', 
+      $loadScripts=TRUE)
     {
+        if ($loadScripts) {
+            $this->loadAllScripts();
+        }
         // Create an instance of the nonce object for checking retries
         $this->objNonce = $this->getObject('nonce', 'login');
         if ($this->objNonce->checkEnabledBySession()) {
-            return $this->renderLoginBox($module, $ajaxLogin);
+            return $this->$loginType($module, $ajaxLogin);
         } else {
             return $this->renderProveHuman();
         }
+    }
+    
+    /**
+     * 
+     * Load the helper scripts. It is separate as when the login dropdown 
+     * is used in a page template, it cannot be loaded, so must be loaded
+     * in the controller or elsewhere.
+     * 
+     * @access public
+     * @return void
+     * 
+     */
+    public function loadAllScripts()
+    {
+        // Load the various JS values for use by the script
+        $this->getScriptValues('oer');
+        // Load the jQuery helper script
+        $this->loadHelperScript();
+        // Serialize the language elements for JS
+        $this->jsLanguage();
     }
 
     /**
@@ -350,6 +372,30 @@ class showlogin extends object
         . '</script>
         ';
         return $this->appendArrayVar('headerParams', $ret);
+    }
+    
+    /**
+     * 
+     * Serialize the error messages to Javascript
+     * 
+     * @return void
+     * @access private
+     * 
+     */
+    private function jsLanguage()
+    {
+        // Serialize language items to Javascript
+        $arrayVars['liyes'] = "mod_login_li_yes";
+        $arrayVars['accountinactive'] = "mod_login_li_accountinactive";
+        $arrayVars['wrongpassword'] = "mod_login_li_wrongpassword";
+        $arrayVars['noldap'] = "mod_login_li_noldap";
+        $arrayVars['noaccount'] = "mod_login_li_noaccount";
+        $arrayVars['lino'] = "mod_login_li_no";
+        $arrayVars['nononceindb'] = "mod_login_li_nononceindb";
+        $arrayVars['noncemissing'] = "mod_login_li_noncemissing";
+        $arrayVars['loginsdisabled'] = "mod_login_li_loginsdisabled";
+        $objSerialize = $this->getObject('serializevars', 'utilities');
+        $objSerialize->languagetojs($arrayVars, 'login');
     }
 }
 ?>

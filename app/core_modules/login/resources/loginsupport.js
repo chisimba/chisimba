@@ -21,9 +21,8 @@ jQuery(function() {
     
     // Show the login block as a drop down, roll up
     jQuery('.LOGIN_DROP').live("click", function(){
-        jQuery('#LOGIN_BLOCK').toggle('slow', function() {
-            // Animation complete, add a red border
-            //jQuery('#LOGIN_BLOCK').css("border", "1px dashed red")
+        jQuery('#LOGIN_BLOCK').slideToggle('slow', function() {
+            // Anything else we want to do?
         });
     });
 

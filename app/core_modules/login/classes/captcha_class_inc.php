@@ -112,7 +112,7 @@ class captcha extends object
                 return 'ok';
             } else {
                 // Captcha verification is wrong.
-                return 'notok';// . $this->getParam('captcha', "NOTSET") . "--" . $_SESSION['cap_code'];
+                return 'notok'  . $this->getParam('captcha', "NOTSET") . "--" . $_SESSION['cap_code'];
             }
         } else {
             return 'notok';

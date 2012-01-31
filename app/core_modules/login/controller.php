@@ -124,7 +124,7 @@ class login extends controller
         // Create the configuration object.
         $this->objConfig = $this->getObject('config', 'config');
         // Load the language items to javascript.
-        $this->jsLanguage();
+        //$this->jsLanguage();
         // Get the activity logger class.
         $this->objLog=$this->newObject('logactivity', 'logger');
         // Log this module call.
