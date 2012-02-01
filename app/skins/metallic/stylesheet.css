@@ -1267,21 +1267,21 @@ Userparamsadmin
 /**
 Errors and warnings
 **/
-.warning {
+div.warning, span.warning {
     color: blue;
 }
-.warning:before {
+div.warning:before, span.warning:before {
     content:url(images/warning-icon.png);
     margin-right: 8px;
     vertical-align: top;
     float: left;
 
 }
-.error {
+div.error, span.error {
     color: red;
     margin-bottom: 20px;
 }
-.error:before {
+div.error:before, div.error:before {
     content:url(images/error-icon.png);
     margin-right: 8px;
     vertical-align: top;
@@ -1545,4 +1545,37 @@ hr {
 
 .unreadmail {
     color: red;
+}
+
+.infonote {
+    margin-top: 12px;
+}
+
+.infonote:before {
+    content:url(images/icons/info.png);
+    margin-top: 7px;
+    margin-right: 8px;
+    vertical-align: top;
+    float: left;
+}
+
+.phone:before {
+    content:url(images/icons/phone_sm.png);
+    position: relative;
+    margin-left: 5px;
+}
+
+label.error {
+    color: #F04C3E;
+}
+
+label.error:before {
+    content:url(images/error-icon_sm.png);
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+input.error {
+    background: #FFDEAD;
+    color: #F04C3E;
 }
