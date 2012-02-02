@@ -166,19 +166,20 @@ class contextforms extends object {
         $table->addCell($access->show());
         $table->endRow();
 
-        $emailAlert = new checkbox('emailalertopt',$this->objLanguage->languageText('mod_contextadmin_emailalert', 'contextadmin', 'Email alerts'),true);  // this will checked
-        
-        $alerts=array();
-
         $alerts=explode("|", $context['alerts']);
+        $emailAlert = new checkbox('emailalertopt',$this->objLanguage->languageText('mod_contextadmin_emailalert', 'contextadmin', 'Email alerts'),$alerts[0] == 'e' || $alerts[0] == '1');  // this will checked
+
+        //$alerts=array();
 
 
-        $emailchecked=$alerts[0] == 'e';
-        $emailAlert->setChecked(FALSE);
-        if($emailchecked) {
-           
-            $emailAlert->setChecked($emailchecked);
-        }
+
+
+        //$emailchecked=;
+        //$emailAlert->setChecked(FALSE);
+        //if($emailchecked) {
+
+        //    $emailAlert->setChecked($emailchecked);
+        //}
         $table->startRow();
         $table->addCell($this->objLanguage->languageText('mod_contextadmin_emailalert', 'contextadmin', 'Alerts'));
         $table->addCell($emailAlert->show());
