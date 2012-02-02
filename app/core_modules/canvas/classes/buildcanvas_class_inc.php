@@ -149,7 +149,6 @@ class buildcanvas extends object
         // We are going to create a dynamic block based interface.
         $this->objContextBlocks = $this->getObject('dbcontextblocks', 'context');
         $this->objDynamicBlocks = $this->getObject('dynamicblocks', 'blocks');
-        
         // Load the livequery that works with blocks.
         $this->appendArrayVar('headerParams',
         $this->getJavaScriptFile('jquery.livequery.js', 'jquery'));
@@ -253,7 +252,6 @@ class buildcanvas extends object
         // Get the left and right blocks
         $rightBlocks = $this->getSmallBlocks('right');
         $leftBlocks = $this->getSmallBlocks('left');
-
         // Make the content of the left column.
         $leftContent = $userMenu;
         $leftContent .= '<div id="leftblocks">'. $this->leftBlocks . '</div>';
@@ -262,7 +260,6 @@ class buildcanvas extends object
           .$this->getLeftButton() .' </div></div>';
         $objCssLayout->setLeftColumnContent($leftContent);
         unset ($leftContent);
-
         // Make the content of the right column.
         $rightContent = $this->getEditOnButton();
         $rightContent  .= '<div id="rightblocks">' . $this->rightBlocks .'</div>';
@@ -271,8 +268,6 @@ class buildcanvas extends object
           . $this->getRightButton() . ' </div></div>';
         $objCssLayout->setRightColumnContent($rightContent);
         unset ($rightContent);
-
-
         // Make the content of the middle column.
         $middleContent = '<div id="middleblocks">'. $this->middleBlocks .'</div>';
         $middleContent .= '<div id="middleaddblock">' . $this->getHeader() . $this->getWideBlocks();
@@ -489,7 +484,9 @@ class buildcanvas extends object
               . $smallBlock['blockname'], $smallBlock['moduleid']);
             $title = $block->title;
             if ($title == '') {
-                $title = $smallBlock['blockname'] .'|' . $smallBlock['moduleid'];
+                $title = $smallBlock['blockname'] .' (' . $smallBlock['moduleid'] . ')';
+            } else {
+                $title = $title . " (" . $smallBlock['moduleid'] . ")";
             }
             $smallBlockOptions['block|' . $smallBlock['blockname'] . '|'
               . $smallBlock['moduleid']] = htmlentities($title);
@@ -531,7 +528,10 @@ class buildcanvas extends object
             $title = $block->title;
 
             if ($title == '') {
-                $title = $wideBlock['blockname'].'|'.$wideBlock['moduleid'];
+                $title = $wideBlock['blockname'] .' (' 
+                  .$wideBlock['moduleid'] . ')';
+            }  else {
+                $title = $title . " (" . $wideBlock['moduleid'] . ")";
             }
 
             $wideBlockOptions['block|'.$wideBlock['blockname'].'|'.$wideBlock['moduleid']] = htmlentities($title);
