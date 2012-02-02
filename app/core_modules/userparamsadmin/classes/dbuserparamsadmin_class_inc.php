@@ -233,14 +233,14 @@ class dbuserparamsadmin extends object
                 'Skype ID'=>'',
                 'MSN ID' =>''
                 );
-                //if ($this->objUser->isLoggedIn()) {
-                    //if ($this->objUser->userId() == $this->uid || $this->objUser->isAdmin()) {
+                if ($this->objUser->isLoggedIn()) {
+                    if ($this->objUser->userId() == $this->uid || $this->objUser->isAdmin()) {
                         $result = $this->file->mkdirs($path);
                         if ($result==true) {
                             $result = $this->createConfig('Settings',$values,$path,'userconfig_properties.ini');
                         }
-                    //}
-                //} 
+                    }
+                } 
             }
             $this->_root =& $this->objConf->parseConfig("{$path}".'userconfig_properties.ini','IniFile');
             if (PEAR::isError($this->_root)) {
