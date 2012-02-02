@@ -482,12 +482,13 @@ class context extends controller {
         $image = $this->getParam('imageselect');
 
 
-        $emailalert = $this->getParam('emailalertopt');
+        //$emailalert =
 
-        $alerts = '';
-        if ($emailalert == 'on') {
-            $alerts.='e';
-        }
+        //$alerts = '';
+        //if ($emailalert == 'on') {
+            //$alerts.='e';
+        //}
+        $alerts = $this->getParam('emailalertopt') == 'on'?'1':'0';
         if ($contextCode == $this->contextCode && $title != '') {
             $result = $this->objContext->updateContext(
                             $contextCode,
