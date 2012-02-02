@@ -239,14 +239,8 @@ class dbuserparamsadmin extends object
                         if ($result==true) {
                             $result = $this->createConfig('Settings',$values,$path,'userconfig_properties.ini');
                         }
-                    } else {
-                        throw new  customException("STOPPING...error in dbuserparamsadmin_class");
-                        exit();
                     }
-                } else {
-                    throw new  customException("STOPPING...error in dbuserparamsadmin_class");
-                    exit();
-                }
+                } 
             }
             $this->_root =& $this->objConf->parseConfig("{$path}".'userconfig_properties.ini','IniFile');
             if (PEAR::isError($this->_root)) {
