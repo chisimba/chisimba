@@ -66,6 +66,12 @@ class htmlTable extends object implements ifhtml
     public $id;
     /**
     *
+    * @var string $cssId: the ID tag from the CSS added for consistency
+    * 
+    */
+    public $cssId;
+    /**
+    *
     * @var stiong $caption: The table caption, uses styles
     *             defined for caption in the CSS
     */
@@ -451,6 +457,9 @@ class htmlTable extends object implements ifhtml
         } //deprecated
         if ($this->cssClass) {
             $ts .= " class=\"" . $this->cssClass . "\"";
+        }
+        if ($this->cssId) {
+            $ts .= " id=\"" . $this->cssId . "\"";
         }
         if ($this->attributes) {
             $ts .= ' '.$this->attributes;
