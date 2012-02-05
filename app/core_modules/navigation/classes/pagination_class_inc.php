@@ -121,7 +121,7 @@ class pagination extends object
     // Create pagination element
     jQuery("#pagination_'.$this->id.'").pagination('.$this->numPageLinks.', {
         items_per_page: 1,
-        num_edge_entries: 2,
+        num_edge_entries: 0,
         num_display_entries: 10,
         current_page: '.$this->currentPage.',
         callback: loadPaginationResults_'.$this->id.'
