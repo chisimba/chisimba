@@ -91,7 +91,7 @@ class pagination extends object
         $this->addJS();
         
         $str = '<div id="paginationresults_'.$this->id.'">...</div>';
-        $str .= '<div id="pagination_'.$this->id.'" class="pagination"></div><br style="clear:both;" />';
+        $str .= '<div id="pagination_' . $this->id.'" class="pagination"></div><br style="clear:both;" />';
         
         // Cater for extra parameters
         $params = "module={$this->module}&action={$this->action}";
@@ -101,6 +101,7 @@ class pagination extends object
                 $params .= "&{$extraParam}={$extraValue}";
             }
         }
+        
         
         $str .= '
 <script language="JavaScript" type="text/javascript" >
@@ -128,6 +129,7 @@ class pagination extends object
     
     // Load First Page
     loadPaginationResults_'.$this->id.'('.$this->currentPage.');
+        //alert("' . $this->currentPage . '");
 
 </script>
 ';
