@@ -276,7 +276,7 @@ class context extends controller {
                         'description' => $message));
                 }
                 $contextRedirectURI = $this->getParam('contextredirecturi', NULL);
-                if (!is_null($contextRedirectURI)) {
+                if ((!is_null($contextRedirectURI))&&(strlen($contextRedirectURI)>1)) {
                     $contextRedirectURI_ = urldecode($contextRedirectURI);
                     header('Location: '.$contextRedirectURI_);
                     return NULL;
