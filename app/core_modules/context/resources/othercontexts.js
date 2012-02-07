@@ -2,7 +2,7 @@
  * Ext JS Library 3.0 RC2
  * Copyright(c) 2006-2009, Ext JS, LLC.
  * licensing@extjs.com
- * 
+ *
  * http://extjs.com/license
  * By Paul Mungai
  * Searching Plugin: Qhamani Fenama
@@ -13,25 +13,25 @@ var proxyContextStore = new Ext.data.HttpProxy({
             url:baseuri+'?module=context&action=jsongetcontexts&limt=25&start=0'
         });
 
-   
+
 var othercontextdata = new Ext.data.JsonStore({
         root: 'courses',
         totalProperty: 'othercontextcount',
         idProperty: 'code',
-        remoteSort: false,        
+        remoteSort: false,
         fields: ['code', 'contextcode', 'title', 'lecturertitle', 'lecturers', 'accesstitle','access' ],
         proxy:proxyContextStore,
-        listeners:{ 
+        listeners:{
     		'loadexception': function(theO, theN, response){
     			//alert(response.responseText);
     		},
     		'load': function(){
-    				//alert('load');	
+    				//alert('load');
     			}
     	}
 	});
 	 othercontextdata.setDefaultSort('title', 'asc');
-	 
+
     // pluggable renders
     function renderTitle(value, p, record){
         return String.format(
@@ -41,7 +41,7 @@ var othercontextdata = new Ext.data.JsonStore({
     var othergrid = new Ext.grid.GridPanel({
         //el:'courses-grid',
         width:"100%",
-      
+
         height:400,
        // title:'My Courses',
         store: othercontextdata,
@@ -49,7 +49,7 @@ var othercontextdata = new Ext.data.JsonStore({
         disableSelection:true,
         loadMask: true,
 		emptyText:'No Courses Found',
-		
+
         // grid columns
         columns:[
         {
@@ -85,11 +85,12 @@ var othercontextdata = new Ext.data.JsonStore({
                 return 'x-grid3-row-collapsed';
             }
         },
-		    	
+
 		plugins:[new Ext.ux.grid.Search({
 				 iconCls:'zoom'
 				 //,readonlyIndexes:['lecturers']
-				 ,disableIndexes:['lecturers']
+				 //--,disableIndexes:['lecturers']
+				 //--,disableIndexes:[]
 				 ,minChars:1
 				 ,autoFocus:true
 				 // ,menuStyle:'radio'
@@ -102,7 +103,7 @@ var othercontextdata = new Ext.data.JsonStore({
             displayInfo: true,
             displayMsg: lang['contexts']+' {0} - {1} of {2}',
             emptyMsg: "No '+lang['contexts']+' to display"
-            
+
         })
     });
     /*

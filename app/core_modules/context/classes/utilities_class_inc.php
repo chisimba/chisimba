@@ -347,11 +347,11 @@ $().ready(function() {
 	function formatItem(row) {
 		return row[0] + " (<strong>username: " + row[1] + "</strong>)";
 	}
-	
+
 	function formatContextItem(row) {
 		return row[0] + " (<strong>' . $this->objLanguage->code2Txt('phrase_othercourses', 'system', NULL, '[-context-]') . ' Code: " + row[1] + "</strong>)";
 	}
-	
+
 	function formatResult(row) {
 		//return row[0].replace(/(<.+?>)/gi, \'\');
 		return row[0];
@@ -369,8 +369,8 @@ $(":text, textarea").result(findValueCallback).next().click(function() {
 		matchContains: true,
 		formatItem: formatItem,
 		formatResult: formatResult,
-		
-	}).result(function (evt, data, formatted) {				
+
+	}).result(function (evt, data, formatted) {
 					$("#usersearch_selected").val(data[1]);
 					});
 
@@ -380,11 +380,11 @@ $("#contextsearch").autocomplete(\'index.php?module=context&action=searchcontext
 		matchContains: true,
 		formatItem: formatContextItem,
 		formatResult: formatResult,
-		
-	}).result(function (evt, data, formatted) {				
+
+	}).result(function (evt, data, formatted) {
 					$("#contextsearch_selected").val(data[1]);
 					});
-					
+
 	$("#clear").click(function() {
 		$(":input").unautocomplete();
 	});
@@ -407,17 +407,17 @@ function changeOptions(){
 }
 
 function submitSearchForm(frm)
-{	
+{
 	username = frm.usersearch_selected.value;
-	
+
 	if(username)
 	{
 		getUserContext(username);
 	}
-	
+
 	frm.usersearch_selected.value = "";
 	frm.usersearch.value = "";
-	
+
 }
 
 function submitContextSearchForm(frm)
@@ -426,9 +426,9 @@ function submitContextSearchForm(frm)
 	if(contextCode)
 	{
 		getContext(contextCode);
-		
+
 	}
-	
+
 	frm.contextsearch_selected.value = "";
 	frm.contextsearch.value = "";
 }
@@ -443,7 +443,7 @@ function getContexts()
         $input = '<div style="padding:10px;border:0px dashed black;" >
 			<form id="searchform" name="searchform" autocomplete="off">
 				<p>
-					
+
 					<table>
 						<tr>
 							<td>Search by user</td>
@@ -452,7 +452,7 @@ function getContexts()
 						</tr>
 						<tr>
 							<td>' . $this->objLanguage->code2Txt('phrase_othercourses', 'system', NULL, 'Search by [-context-]') . '</td>
-							<td><input type="text" id="contextsearch"><input type="hidden" name="contextsearch_selected" id="contextsearch_selected">	
+							<td><input type="text" id="contextsearch"><input type="hidden" name="contextsearch_selected" id="contextsearch_selected">
 							&nbsp;
 							<input id="searchbutton" type="button" onclick="submitContextSearchForm(this.form)" value="Search" /></td>
 						</tr>
@@ -583,7 +583,7 @@ function getContexts()
 								<th>Creator</th>
 								<th>Date Created</th>
 								<th>Last Updated</th>
-								<th>&nbsp;</th>					
+								<th>&nbsp;</th>
 							</tr>
 						</thead>
 						<tfoot>
@@ -593,7 +593,7 @@ function getContexts()
 								<th>Creator</th>
 								<th>Date Created</th>
 								<th>Last Updated</th>
-								<th>&nbsp;</th>	
+								<th>&nbsp;</th>
 
 							</tr>
 						</tfoot><tbody>';
@@ -673,91 +673,136 @@ function getContexts()
     }
 
     public function getContext($start = 0, $limit = 25) {
-
-        $params["start"] = ($this->getParam("start")) ? $this->getParam("start") : null;
-        $params["limit"] = ($this->getParam("limit")) ? $this->getParam("limit") : null;
         $params["search"] = ($this->getParam("fields")) ? json_decode(stripslashes($this->getParam("fields"))) : null;
         $params["query"] = ($this->getParam("query")) ? $this->getParam("query") : null;
         $params["sort"] = ($this->getParam("sort")) ? $this->getParam("sort") : null;
+        $params["start"] = ($this->getParam("start")) ? $this->getParam("start") : null;
+        $params["limit"] = ($this->getParam("limit")) ? $this->getParam("limit") : null;
 
-        $where = "";
-        $limit = 25;
-
-        //check if this is a search
-        if (is_array($params['search'])) {
-            $max = count($params['search']);
-
-            $cnt = 0;
-
+        $searchLecturers = FALSE;
+        //$searchLecturersString = NULL;
+        if (is_array($params['search']) && !empty($params['search'])) {
             foreach ($params['search'] as $field) {
-                $cnt++;
-
-                /* if($field == "lecturers")
-                  {
-                  $sql = "SELECT * FROM tbl_context";
-
-                  $minicontexts = $this->objDBContext->getArray($sql);
-                  error_log(var_export($minicontexts, true));
-                  foreach($minicontexts as $context){
-                  $str = $this->objUserContext->getContextLecturers($context['contextcode']);
-
-                  }
-
-                  } */
-
-                $where .= $field . ' LIKE "' . $params['query'] . '%"';
-
-                if ($cnt < $max) {
-                    $where .= " OR ";
+                if ($field == "lecturers") {
+                    //$searchLecturers = TRUE;
+                    $searchLecturers = $params['query'];
+                    continue;
                 }
             }
-
-            $where = ' AND (' . $where . ')';
         }
 
-        $arr = array();
+        $where = "";
+        //
+        //check if this is a search
+        if (is_array($params['search']) && !empty($params['search'])) {
+            //$max = count($params['search']);
+            //$cnt = 0;
+            $or = '';
+            foreach ($params['search'] as $field) {
+                //$cnt++;
+                /*
+                if($field == "lecturers")
+                    {
+                    $sql = "SELECT * FROM tbl_context";
+                    $minicontexts = $this->objDBContext->getArray($sql);
+                    error_log(var_export($minicontexts, true));
+                    foreach($minicontexts as $context){
+                    $str = $this->objUserContext->getContextLecturers($context['contextcode']);
+                    }
+                }
+                */
+                if ($field == "lecturers") {
+                    continue;
+                } else {
+                    $where .= $or . $field . ' LIKE "' . $params['query'] . '%"';
+                    $or = " OR ";
+                }
+                //if ($cnt < $max) {
+                //}
+            }
+            if ($where != '') {
+                $where = ' AND (' . $where . ')';
+            }
 
-        $filter = " LIMIT $start , $limit";
+        }
 
-        $sql = "SELECT * FROM tbl_context  WHERE status != 'Unpublished'" . $where . " ORDER BY title " . $filter;
-        //Debuging
-        error_log(var_export($_REQUEST, true));
-        //Debuging
-        $contexts = $this->objDBContext->getArray($sql);
-        $countSQL = "SELECT DISTINCT(contextcode) FROM tbl_context";
-        $contextCount = count($this->objDBContext->getArray($countSQL));
+        if ($searchLecturers === FALSE || $where != '') {
+            $sql = "SELECT * FROM tbl_context  WHERE (status != 'Unpublished'){$where} ORDER BY title LIMIT {$start}, 25";
+            //Debuging
+            error_log(var_export($_REQUEST, true));
+            //Debuging
+            $contexts = $this->objDBContext->getArray($sql);
+        } else {
+            $contexts = array();
+        }
+        if ($searchLecturers !== FALSE) {
+            $sql = "SELECT * FROM tbl_context  WHERE (status != 'Unpublished') ORDER BY title LIMIT {$start}, 25";
+            $contextsLecturers = $this->objDBContext->getArray($sql);
+        }
+        $countSQL = "SELECT COUNT(DISTINCT(contextcode)) AS cnt FROM tbl_context";
+        $arrCountDistinct = $this->objDBContext->getArray($countSQL);
+        $contextCount = $arrCountDistinct[0]['cnt']; //count();
         $this->objUserContext = $this->getObject('usercontext', 'context');
-        if (count($contexts > 0)) {
-
-            $arr = array();
-            $courses = array();
+        if ($searchLecturers !== FALSE && !empty($contextsLecturers)) {
+            foreach ($contextsLecturers as $context) {
+                $lecturers = $this->objUserContext->getContextLecturers($context['contextcode']);
+                $lecturersnames = "";
+                $separator = '';
+                foreach ($lecturers as $lecturer) {
+                    $lecturersnames .= $separator . $lecturer['firstname'] . " " . $lecturer['surname'];
+                    $separator = "|";
+                }
+                if ($searchLecturers !== FALSE && (stripos($lecturersnames, $searchLecturers) !== FALSE || $searchLecturers == '')) {
+                    $contexts[] = $context;
+                }
+            }
+        }
+        if (!empty($contexts)) {
+            $tempArr = array();
+            foreach ($contexts as $context){
+                $tempArr[$context['title']] = $context;
+            }
+            ksort($tempArr);
+            $contexts = array();
+            $i = 0;
+            foreach ($tempArr as $context){
+                $contexts[] = $context;
+                ++$i;
+                if ($i == 25) {
+                    break;
+                }
+            }
+        }
+        $courses = array();
+        if (!empty($contexts)) {
+            //$arr = array();
             foreach ($contexts as $context) {
-                $studentCount = "";
                 if (strtoupper($this->showStudentCount) == 'TRUE') {
-                    $studentCount = '&nbsp;(' . count($this->objUserContext->getContextStudents($context ['contextcode'])) . ')';
+                    $studentCount = '&nbsp;(' . count($this->objUserContext->getContextStudents($context['contextcode'])) . ')';
+                } else {
+                    $studentCount = "";
                 }
                 $arr = array();
                 $arr['contextcode'] = $context['contextcode'];
                 $arr['code'] = $context['contextcode'];
                 $arr['title'] = htmlentities($context['title']) . $studentCount;
-                $lectures = $this->objUserContext->getContextLecturers($context['contextcode']);
-                $lecturesname = "";
-                foreach ($lectures as $lecture) {
-                    $lecturesname .= $lecture['firstname'] . " " . $lecture['surname'] . ", ";
+                $lecturers = $this->objUserContext->getContextLecturers($context['contextcode']);
+                $lecturersnames = "";
+                $comma = '';
+                foreach ($lecturers as $lecturer) {
+                    $lecturersnames .= $comma . $lecturer['firstname'] . " " . $lecturer['surname'];
+                    $comma = ", ";
                 }
-                $arr['lecturers'] = htmlentities(substr($lecturesname, 0, -2));
+                $arr['lecturers'] = htmlentities($lecturersnames);
                 $arr['access'] = $context['access'];
                 $courses[] = $arr;
             }
             //echo "<script>alert('Information updated')</script>";
             return json_encode(array('othercontextcount' => $contextCount, 'courses' => $courses));
-
-            return json_encode($arr);
+            return json_encode($arr); //?
         } else {
-            $arr['othercontextcount'] = "0";
-            $arr['courses'] = array();
             //var_dump($arr);
-            return json_encode($arr);
+            return json_encode(array('othercontextcount'=>"0", 'courses'=>array()));
         }
     }
 
