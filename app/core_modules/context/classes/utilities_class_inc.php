@@ -679,6 +679,8 @@ function getContexts()
         $params["start"] = ($this->getParam("start")) ? $this->getParam("start") : null;
         $params["limit"] = ($this->getParam("limit")) ? $this->getParam("limit") : null;
 
+        trigger_error(var_export($params, true));
+
         $searchLecturers = FALSE;
         //$searchLecturersString = NULL;
         if (is_array($params['search']) && !empty($params['search'])) {
@@ -738,6 +740,8 @@ function getContexts()
         if ($searchLecturers !== FALSE) {
             $sql = "SELECT * FROM tbl_context  WHERE (status != 'Unpublished') ORDER BY title LIMIT {$start}, 25";
             $contextsLecturers = $this->objDBContext->getArray($sql);
+        } else {
+            $contextsLecturers = array();
         }
         $countSQL = "SELECT COUNT(DISTINCT(contextcode)) AS cnt FROM tbl_context";
         $arrCountDistinct = $this->objDBContext->getArray($countSQL);
