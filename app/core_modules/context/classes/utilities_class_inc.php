@@ -756,6 +756,9 @@ function getContexts()
                     $lecturersnames .= $separator . $lecturer['firstname'] . " " . $lecturer['surname'];
                     $separator = "|";
                 }
+                if ($context['contextcode'] == 'jera01') {
+                    trigger_error(($pos = stripos($context['contextcode'], 'jera01'))?$pos:'F');
+                }
                 if (stripos($context['contextcode'], 'jera01') !== FALSE) {
                     trigger_error($lecturersnames);
                     trigger_error($params['query']);
