@@ -687,8 +687,8 @@ function getContexts()
             foreach ($params['search'] as $field) {
                 if ($field == "lecturers") {
                     //$searchLecturers = TRUE;
-                    $searchLecturers = $params['query'];
-                    continue;
+                    $searchLecturers = TRUE;
+                    break;
                 }
             }
         }
@@ -756,7 +756,12 @@ function getContexts()
                     $lecturersnames .= $separator . $lecturer['firstname'] . " " . $lecturer['surname'];
                     $separator = "|";
                 }
-                if ($searchLecturers !== FALSE && (stripos($lecturersnames, $searchLecturers) !== FALSE || $searchLecturers == '')) {
+                if (stripos($context['contextcode'], 'jera01') !== FALSE) {
+                    trigger_error($lecturersnames);
+                    trigger_error($params['query']);
+                    trigger_error(($pos = stripos($lecturersnames, $params['query']))?$pos:'F');
+                }
+                if ($searchLecturers !== FALSE && (stripos($lecturersnames, $params['query']) !== FALSE || $params['query'] == '')) {
                     $contexts[] = $context;
                 }
             }
