@@ -731,14 +731,14 @@ function getContexts()
         if ($searchLecturers === FALSE || $where != '') {
             $sql = "SELECT * FROM tbl_context  WHERE (status != 'Unpublished'){$where} ORDER BY title LIMIT {$start}, 25";
             //Debuging
-            error_log(var_export($_REQUEST, true));
+            //error_log(var_export($_REQUEST, true));
             //Debuging
             $contexts = $this->objDBContext->getArray($sql);
         } else {
             $contexts = array();
         }
         if ($searchLecturers !== FALSE) {
-            $sql = "SELECT * FROM tbl_context  WHERE (status != 'Unpublished') ORDER BY title LIMIT {$start}, 25";
+            $sql = "SELECT * FROM tbl_context  WHERE (status != 'Unpublished') ORDER BY title";
             $contextsLecturers = $this->objDBContext->getArray($sql);
         } else {
             $contextsLecturers = array();
@@ -755,14 +755,6 @@ function getContexts()
                 foreach ($lecturers as $lecturer) {
                     $lecturersnames .= $separator . $lecturer['firstname'] . " " . $lecturer['surname'];
                     $separator = "|";
-                }
-                if ($context['contextcode'] == 'jera01') {
-                    trigger_error(($pos = stripos($context['contextcode'], 'jera01'))?$pos:'F');
-                }
-                if (stripos($context['contextcode'], 'jera01') !== FALSE) {
-                    trigger_error($lecturersnames);
-                    trigger_error($params['query']);
-                    trigger_error(($pos = stripos($lecturersnames, $params['query']))?$pos:'F');
                 }
                 if ($searchLecturers !== FALSE && (stripos($lecturersnames, $params['query']) !== FALSE || $params['query'] == '')) {
                     $contexts[] = $context;
