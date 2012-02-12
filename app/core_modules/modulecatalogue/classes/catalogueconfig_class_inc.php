@@ -667,7 +667,11 @@ class catalogueconfig extends object {
                                 $cat = simplexml_load_file($path);
                                 $mn = $cat->xpath("//module[module_id='$moduleId']/module_name");
                             }
-                            $types[$moduleId] = ucwords($this->objLanguage->abstractText((string)$mn[0]));
+                            if (isset($mn[0])) {
+                                $types[$moduleId] = ucwords($this->objLanguage->abstractText((string)$mn[0]));
+                            } else {
+                                $types[$moduleId] = NULL;
+                            }
                         }
                     }
                 }
