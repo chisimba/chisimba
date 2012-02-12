@@ -74,6 +74,7 @@ class sahrisapi extends object
      */
     public function init()
     {
+        return true;
         try {
             $this->objConfig = $this->getObject('altconfig', 'config');
             $this->objLanguage = $this->getObject('language', 'language');
@@ -81,7 +82,6 @@ class sahrisapi extends object
             $this->objFiles = $this->getObject('dbfile', 'filemanager');
             $this->objFileIndexer = $this->getObject('indexfileprocessor', 'filemanager');
             $this->objModuleCat  = $this->getObject('modules', 'modulecatalogue');
-            $this->objDbColl     = $this->getObject('dbsahriscollections', 'sahriscollectionsman');
         }
         catch (customException $e)
         {
@@ -96,6 +96,7 @@ class sahrisapi extends object
     }
     
     public function getCollNames() {
+        return true;
         $list = $this->objDbColl->getCollectionNames();
         $colls = NULL;
         foreach($list as $item) {
