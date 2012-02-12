@@ -696,7 +696,7 @@ class catalogueconfig extends object {
         $lSkins = NULL;
         foreach(glob('*') as $s)
         {
-            if($s = NULL)
+            if($s == NULL)
             {
                 continue;
             }
