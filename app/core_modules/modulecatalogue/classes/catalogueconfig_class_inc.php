@@ -657,16 +657,18 @@ class catalogueconfig extends object {
                 $doc = simplexml_load_file($sysTypes);
                 $modules = $doc->xpath("//category[categoryname='$category']");
                 if (isset($modules[0]->module)) {
-                    foreach ($modules[0]->module as $mod) {
-                        $moduleId = (string)$mod;
-                        $mn = $cat->xpath("//module[module_id='$moduleId']/module_name");
-                        if (!$mn && (file_exists($this->objConfig->getModulePath().$moduleId) || file_exists($this->objConfig->getsiteRootPath()."core_modules/$moduleId"))) {
-                            log_debug("Could not find $moduleId in the catalogue. Rewriting catalogue.");
-                            $this->writeCatalogue();
-                            $cat = simplexml_load_file($path);
+                    if (count($modules[0]->module) > 0) {
+                        foreach ($modules[0]->module as $mod) {
+                            $moduleId = (string)$mod;
                             $mn = $cat->xpath("//module[module_id='$moduleId']/module_name");
+                            if (!$mn && (file_exists($this->objConfig->getModulePath().$moduleId) || file_exists($this->objConfig->getsiteRootPath()."core_modules/$moduleId"))) {
+                                log_debug("Could not find $moduleId in the catalogue. Rewriting catalogue.");
+                                $this->writeCatalogue();
+                                $cat = simplexml_load_file($path);
+                                $mn = $cat->xpath("//module[module_id='$moduleId']/module_name");
+                            }
+                            $types[$moduleId] = ucwords($this->objLanguage->abstractText((string)$mn[0]));
                         }
-                        $types[$moduleId] = ucwords($this->objLanguage->abstractText((string)$mn[0]));
                     }
                 }
             }
