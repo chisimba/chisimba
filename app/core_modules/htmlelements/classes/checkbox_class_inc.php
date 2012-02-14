@@ -188,7 +188,8 @@ class checkbox  extends abhtmlbase implements ifhtml
     }
     $str.=' />';
     //This position of the label will depend on the form's display type
-    //$str.=$this->label;
+    $str.=$this->label;
+    
     return $str;
   }
 }
