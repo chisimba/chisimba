@@ -66,55 +66,27 @@ class InstallWizard extends Wizard
 	*/
 
 	public function InstallWizard()
-
 	{
-
-		$GLOBALS['SQ_INSTALL'] = true;
-
-			
-
-		$this->steps = Array('start',
-
-							 'licence',
-
-							 'installdirectory',
-
-							 'systemdetails',
-
-							 'versioncheck',
-						
-							 'databasedetails',
-
-							 'databasename',
-
-							 'createconfigs',
-
-							 'databasecreate',
-
-							 'complete'
-
-							 );
-
-		
-
-		$this->protected_steps = Array('databasedetails',
-
-										'databasename',
-
-										'systemsetup',
-
-										'databasecreate',
-
-										);
-
-		
-
-		$this->template = new Template(dirname(__FILE__).'/templates/installer.tpl');
-
-	}//end InstallWizard()
-
-	
-
+            $GLOBALS['SQ_INSTALL'] = true;
+            $this->steps = Array('start',
+                'licence',
+                'installdirectory',
+                'systemdetails',
+                'versioncheck',
+                'databasedetails',
+                'databasename',
+                'createconfigs',
+                'databasecreate',
+                'complete'
+            );
+            $this->protected_steps = Array('databasedetails',
+                'databasename',
+                'systemsetup',
+                'databasecreate',
+            );
+            $this->template = new Template(dirname(__FILE__)
+              .'/templates/installer.tpl');
+	} //end InstallWizard()
 	
 
 	/**
