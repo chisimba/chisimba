@@ -147,6 +147,7 @@ class image implements ifhtml
     public function show()
     {
         $this->_buildImage();
+        //echo htmlentities($this->imageTag);
         return $this->imageTag;
     }
 
@@ -160,12 +161,7 @@ class image implements ifhtml
         if ($this->width && $this->height) {
             $this->imageTag .= " width=\"" . $this->width . "\"";
             $this->imageTag .= " height=\"" . $this->height . "\"";
-        } /*else {
-            $this->imageTag .= " ".$this->_getImageSize();
-        } */
-        if ($this->height) {
-
-        }
+        } 
         if ($this->align) {
             $this->imageTag .= " align=\"" . $this->align . "\"";
         }
@@ -176,7 +172,6 @@ class image implements ifhtml
             $this->imageTag .= " border=\"" . $this->border . "\"";
         }
         $this->imageTag .= " />";
-
     }
 
     /**
@@ -188,7 +183,8 @@ class image implements ifhtml
     private function _getImageSize()
     {
         $image_size = getimagesize ($this->src);
-        return $image_size['3']; //the formatted witdth and height tag
+        // The formatted witdth and height tag.
+        return $image_size['3']; 
     }
 }
 ?>
