@@ -14,5 +14,11 @@ $leftMenu = $this->newObject('contextsidebar','context');
 $cssLayout->setLeftColumnContent($leftMenu->show());
 $cssLayout->setMiddleColumnContent($this->getContent());
 
-echo $cssLayout->show();
+ $objModule = $this->getObject('modules', 'modulecatalogue');
+$isRegistered = $objModule->checkIfRegistered('oer');
+if ($isRegistered) {
+    echo '<div id="onecolumn">' . $cssLayout->show() . '</div>';
+} else {
+    echo $cssLayout->show();
+}
 ?>
