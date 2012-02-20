@@ -48,12 +48,17 @@ class loggedInUsers extends dbTable {
         parent::init('tbl_loggedinusers');
         $this->objConfig = $this->getObject('altconfig', 'config');
         $this->systemTimeOut = $this->objConfig->getsystemTimeout();
-        $xlogoutdestroy = $this->objConfig->getValue('auth_logoutdestroy', 'security', true);
+        //==$this->objSysConfig = $this->getObject ('dbsysconfig','sysconfig');
+        // Because of a circular reference via dbsysconfig_class_inc.php and user_class_inc.php, the above class cannot be instantiated. So, $xlogoutdestroy is therefore hardcoded to true.
+        $xlogoutdestroy = 'true'; //==$this->objSysConfig->getValue('auth_logoutdestroy', 'security', 'true');
+        //$this->objConfig->getValue('auth_logoutdestroy', 'security', true);
+        //trigger_error('$xlogoutdestroy::'.($xlogoutdestroy?'T':'F'));
         if ($xlogoutdestroy == 'true' || $xlogoutdestroy == 'TRUE' || $xlogoutdestroy == 'True') {
             $this->logoutdestroy = true;
         } else {
             $this->logoutdestroy = false;
         }
+        //trigger_error('$this->logoutdestroy::'."$this->logoutdestroy");
     }
 
     /**
@@ -242,7 +247,7 @@ class loggedInUsers extends dbTable {
         FROM
             tbl_loggedinusers
         WHERE
-            userid='$userId' 
+            userid='$userId'
         ";
         }
         $results = $this->getArray($sql);
@@ -297,7 +302,7 @@ class loggedInUsers extends dbTable {
     /**
      * returns a list of users who currently logged in the course
      * @param <type> $contextCode
-     * @return <type> 
+     * @return <type>
      */
     function getListOnlineUsersInCurrentContext($contextCode) {
         $sql = 'SELECT DISTINCT tbl_users.userId, username, firstName, surname FROM tbl_loggedinusers INNER JOIN tbl_users ON (tbl_loggedinusers.userId = tbl_users.userId) where coursecode= "' . $contextCode . '" ORDER BY WhenLastActive DESC';
