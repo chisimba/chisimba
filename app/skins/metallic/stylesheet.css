@@ -1581,7 +1581,8 @@ input.error {
 }
 
 div.stable, div.unset, div.pre-alpha, 
-div.alpha, div.beta, div.deprecated {
+div.alpha, div.beta, div.deprecated, 
+div.marked_for_removal, div.invisible {
     padding: 10px;
     border-radius: 10px;
     -moz-border-radius: 10px;
@@ -1607,4 +1608,19 @@ div.beta {
 div.deprecated {
     background: #ffffff;
     color: #999999;
+}
+
+div.marked_for_removal {
+    background: #0033FF;
+    color: white;
+}
+
+div.invisible {
+    background: #DB00DC;
+    color: white;
+}
+
+.sb_desc{
+    margin-top: 8px;
+    margin-bottom: 23px;
 }
