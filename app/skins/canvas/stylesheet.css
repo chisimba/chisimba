@@ -303,3 +303,8 @@ div.invisible {
     background: #DB00DC;
     color: white;
 }
+
+.sb_desc{
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
