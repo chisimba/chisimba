@@ -172,10 +172,10 @@ class loginInterface extends object {
                 $title=$this->objLanguage->languageText('mod_security_openidlogin','security');
                 
                 $openIdForm = new form('openlogiidnform', $this->uri(array("action"=>"openidconnect","auth_site"=>"openid")));
-                $objInput = new textinput('openIDField', '', 'text', '45');
+                $objInput = new textinput('openIDField', '', 'text', '30');
                 $objInput->extra = 'maxlength="255"';    
                 $openIDImg='<img src="'.$sitePath.'/core_modules/security/resources/openid/images/openid_icon32_2.png" alt="" name="but_openid" width="32" height="64" border="0" id="but_openid2" align="top" onload="" />';
-                $openIdForm->addToForm($openIDImg.$objInput->show());
+                $openIdForm->addToForm($objInput->show());
                 $openIdButton = new button('submit', $this->objLanguage->languageText("mod_security_openidlogin",'security'));
                 // Add the login icon
                 $openIdButton->setIconClass("user");
@@ -185,7 +185,7 @@ class loginInterface extends object {
                 
                 $openIdFields = new fieldset();
                 $openIdFields->setLegend($title);
-                $openIdFields->addContent(  $googleTD . $yahooTD.'<hr/><br/>'.$openIdForm->show());
+                $openIdFields->addContent(  $googleTD . $yahooTD.$openIDImg.'<hr/><br/>'.$openIdForm->show());
 
                 $openidlink=$openIdFields->show();
                 
