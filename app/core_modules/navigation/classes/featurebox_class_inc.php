@@ -41,15 +41,18 @@ class featurebox extends object
      * @access publc
      * @return string
      */
-    public function show($title = null, $content = null, $id = null, $hidden = 'default', $showToggle = TRUE, $showTitle = TRUE, $cssClass = 'featurebox', $cssId = '')
+    public function show($title = null, $content = null, $id = null, 
+      $hidden = 'default', $showToggle = TRUE, 
+      $showTitle = TRUE, $cssClass = 'featurebox', 
+      $cssId = '')
     {
-        $objIcon = $this->newObject('geticon', 'htmlelements');
 
-		if (trim($cssId) != '') {
- 	       $sidebar = '<div class="'.$cssClass.'" id="'.$cssId.'"  >';
-		} else {
-		   $sidebar = '<div class="'.$cssClass.'" id="'.$cssId.'"  >';
-		}
+        $objIcon = $this->newObject('geticon', 'htmlelements');
+        if (trim($cssId) != '') {
+            $sidebar = '<div class="' . $cssClass . '" id="' . $cssId . '"  >';
+        } else {
+            $sidebar = '<div class="' . $cssClass . '" id="' . $cssId . '"  >';
+        }
 
         $toggle = '';
           
@@ -60,7 +63,7 @@ class featurebox extends object
                         <div class="featureboxtopborder"></div>
                         <div class="featureboxtopright"></div>
                         
-                     </div>';
+</div>';
 
         if(!empty($id) && $showToggle)
         {
@@ -71,9 +74,10 @@ class featurebox extends object
             $title = $title;
         }
 
-		if ($showTitle) {
-        	$sidebar .= '   <h5 class="featureboxheader">'.$toggle.'  '.$title.'</h5>';
-		} 
+        if ($showTitle) {
+            $sidebar .= '   <h5 class="featureboxheader">' .$toggle 
+              .'  '.$title.'</h5>';
+        } 
 
         $sidebar .= '<div class="featureboxcontent"';
         if($id != NULL){
@@ -93,8 +97,7 @@ class featurebox extends object
                     </div>';
 
         $sidebar .= '</div>';
-          return $sidebar;
-
+        return $sidebar;
     }
 
     /**
@@ -108,15 +111,13 @@ class featurebox extends object
 
         $contentbox = '<div class="contentfeaturebox">';
         if ($title != null) {
-			$contentbox .= '<h3>'.$title.'</h3>';
-		} else {
-			$contentbox .= "<br />";
-		}
+            $contentbox .= '<h3>' . $title . '</h3>';
+        } else {
+            $contentbox .= "<br />";
+        }
         $contentbox .= $content;
         $contentbox .= '</div>';
-
         return $contentbox;
-
     }
     
     /**
@@ -128,14 +129,11 @@ class featurebox extends object
      */
     public function showComment($title = null, $content = null)
     {
-
-          $contentbox = '<div class="contentfeaturebox">';
-        $contentbox .= '    <h3>'.$title.'</h3>';
+        $contentbox = '<div class="contentfeaturebox">';
+        $contentbox .= '    <h3>' . $title . '</h3>';
         $contentbox .= $content;
         $contentbox .= '</div>';
-
-          return $contentbox;
-
+        return $contentbox;
     }
 
     /**
