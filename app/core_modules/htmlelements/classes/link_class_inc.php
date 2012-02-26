@@ -197,8 +197,6 @@ class link extends abhtmlbase implements ifhtml
                 $ret.='#'.$this->anchor;
             }
             $ret .= "\" ";
-        } else if (!isset($this->cssId) && !isset($this->name)) {
-            die ("Missing URL in HTMLELEMENTS link class"); //MULTILINGUALIZE
         }
         if ($this->name) {
             $ret .= " name=\"" . $this->name . "\" ";
