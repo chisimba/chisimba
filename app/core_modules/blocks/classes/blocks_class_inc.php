@@ -355,13 +355,38 @@ class blocks extends object {
             
             // Get the title and wrap it
             $title = $this->objBlock->title;
+            // You can override the parameters by setting object properties
+            if (isset($this->objBlock->showTitle)) {
+                $showTitle = $this->objBlock->showTitle;
+            }
+            if (isset($this->objBlock->titleLength)) {
+                $titleLength = $this->objBlock->titleLength;
+            }
+            if (isset($this->objBlock->wrapStr)) {
+                $wrapStr = $this->objBlock->wrapStr;
+            }
+            if (isset($this->objBlock->showToggle)) {
+                $showToggle = $this->objBlock->showToggle;
+            }
+            if (isset($this->objBlock->hidden)) {
+                $hidden = $this->objBlock->hidden;
+            }
+            if (isset($this->objBlock->cssClass)) {
+                $cssClass = $this->objBlock->cssClass;
+            }
+            if (isset($this->objBlock->cssId)) {
+                $cssId = $this->objBlock->cssId;
+            }
+            if (isset($this->objBlock->configData)) {
+                $configData = $this->objBlock->configData;
+            }
+            
             if ($wrapStr) {
                 $objWrap = $this->getObject ( 'trimstr', 'strings' );
                 if (!$title == FALSE) {
                     $title = $objWrap->wrapString ( $title, $titleLength );
                 }
             }
-
             if (isset ( $this->objBlock->blockType )) {
                 $blockType = $this->objBlock->blockType;
             }
@@ -383,7 +408,6 @@ class blocks extends object {
                       $block, $hidden, $showToggle, $showTitle, $cssClass, $cssId);
                 case "tabbedbox" :
                     // Put it all inside a tabbed box
-                    // $this->loadClass('tabbedbox', 'htmlelements');
                     $objTab = $this->newObject ( 'tabbedbox', 'htmlelements' );
                     $objTab->addTabLabel ( $title );
                     $objTab->addBoxContent ( $this->objBlock->show () );
