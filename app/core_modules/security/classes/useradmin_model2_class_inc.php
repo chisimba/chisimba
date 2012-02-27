@@ -177,13 +177,15 @@ class useradmin_model2 extends dbtable
         mkdir($path.$userid, 0777);
         touch($path.$userid."/info.txt");
         $folderId = $this->objFolders->indexFolder($path.$userid);
-//var_dump($folderId);
+        //var_dump($folderId);
         $folder = $this->objFolders->getFolder($folderId);
-//var_dump($folder);
+        //var_dump($folder);
         $folderParts = explode('/', $folder['folderpath']);
-//var_dump($folderParts);
+         //var_dump($folderParts);
         $quota = $this->objQuotas->getQuota($folder['folderpath']);
-//var_dump($quota);
+         //var_dump($quota);
+        //Send the user an email
+        $this->sendRegistrationMessage($id, $password);
 
         return $id;
     }
