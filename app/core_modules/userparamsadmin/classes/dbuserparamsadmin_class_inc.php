@@ -244,7 +244,7 @@ class dbuserparamsadmin extends object
             }
             $this->_root =& $this->objConf->parseConfig("{$path}".'userconfig_properties.ini','IniFile');
             if (PEAR::isError($this->_root)) {
-                    throw new customException($this->objLanguage->languageText("mod_userparamsadmin_cannotreadfile", "userparamsadmin"));
+                    throw new customException("Line 247: " . $this->objLanguage->languageText("mod_userparamsadmin_cannotreadfile", "userparamsadmin"));
             }
             return $this->_root;
         } catch (customException $e)  {
