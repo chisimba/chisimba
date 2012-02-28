@@ -252,7 +252,7 @@ class dbuserparamsadmin extends object
         }
     }
 
-	/**
+    /**
      * Method to write sysconfig Properties options.
      * For use when writing sysconfig Properties options
      *
@@ -279,16 +279,16 @@ class dbuserparamsadmin extends object
 			// if edit use update
 			if ($mode=="edit") {
 				$this->setItem($pname,$ptag);
-			}#if
+			}
 			// if add use insert
 			if ($mode=="add") {
 				$this->insert = array(
-				$pname => $ptag,
+				  $pname => $ptag,
 				);
 				$this->writeConfig($this->insert);
 			}
 			if ($this->objConf != TRUE) {
-				throw new customException($this->objLanguage->languageText("mod_userparamsadmin_cannotreadfile", "userparamsadmin"));
+				throw new customException("Line 291: " . $this->objLanguage->languageText("mod_userparamsadmin_cannotreadfile", "userparamsadmin"));
 			}else{
 				return TRUE;
 			}
