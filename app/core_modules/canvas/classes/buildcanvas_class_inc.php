@@ -621,7 +621,16 @@ class buildcanvas extends object
         }
     }
     
-    private function getSwitchButton($value)
+    /**
+     *
+     * Create the turn editing on/off button
+     * 
+     * @param string $value The label for the button
+     * @return string The rendered button
+     * @access Public
+     * 
+     */
+    public function getSwitchButton($value)
     {
         $ret = '<div id="modeswitch_wrapper" class="editing_off">'
           . '<a href="javascript:void(null);" onclick="switchEditMode();"'
