@@ -155,11 +155,6 @@ if ($this->isValid('addblock')) {
 
     $button = new button('addrightblock', $objLanguage->languageText('mod_prelogin_addblock', 'prelogin', 'Add Block'));
     $button->cssId = 'rightbutton';
-
-
-    $editOnButton = new button('editonbutton', $objLanguage->languageText('mod_context_turneditingon', 'context', 'Turn Editing On'));
-    $editOnButton->cssId = 'editmodeswitchbutton';
-    $editOnButton->setOnClick("switchEditMode();");
     
     $value = $objLanguage->languageText('mod_context_turneditingon', 
       'context', 'Turn Editing On');
