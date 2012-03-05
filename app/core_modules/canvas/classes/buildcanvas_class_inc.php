@@ -602,15 +602,6 @@ class buildcanvas extends object
     private function getEditOnButton()
     {
         if ($this->isOwner ==  TRUE) {
-            $editOnButton = new button (
-              'editonbutton', $this->objLanguage->languageText(
-                'mod_context_turneditingon', 'context', 'Turn Editing On'
-               )
-            );
-            $editOnButton->cssId = 'editmodeswitchbutton';
-            $editOnButton->cssClass ='notasexybutton';
-            $editOnButton->setOnClick("switchEditMode();");
-            $edBut = $editOnButton->show();
             $value = $this->objLanguage->languageText(
               'mod_context_turneditingon', 'context', 
               'Turn Editing On');
