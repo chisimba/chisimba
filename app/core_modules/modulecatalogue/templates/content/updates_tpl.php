@@ -162,6 +162,7 @@ $hTable->endRow();
 $searchForm->addToForm($hTable->show());
 
 $ins_path = $this->objConfig->getsiteRootPath().'installer/';
+$err='';
 if(file_exists($ins_path) && is_writable($ins_path)) {
     $err = '<div class="error">'.$this->objLanguage->languageText("mod_modulecatalogue_installererror","modulecatalogue").'</div>';
 }
@@ -170,9 +171,6 @@ if(file_exists($ins_path) && is_writable($ins_path)) {
 $objSec = $this->getObject('user', 'security');
 $details = $objSec->lookupData('admin');
 if($details['pass'] === '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8') {
-    if (!isset($err)) {
-        $err = '';
-    }
     $err = $err.'<div class="error">'.$this->objLanguage->languageText("mod_modulecatalogue_adminpasserr", "modulecatalogue").'</div>';
 }
 
