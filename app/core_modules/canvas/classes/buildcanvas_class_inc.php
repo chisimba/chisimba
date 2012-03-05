@@ -608,12 +608,25 @@ class buildcanvas extends object
                )
             );
             $editOnButton->cssId = 'editmodeswitchbutton';
+            $editOnButton->cssClass ='notasexybutton';
             $editOnButton->setOnClick("switchEditMode();");
-            return '<div id="editmode">'.$editOnButton->show().'</div>';
+            $edBut = $editOnButton->show();
+            $value = $this->objLanguage->languageText(
+              'mod_context_turneditingon', 'context', 
+              'Turn Editing On');
+            $edBut = $this->getSwitchButton($value);
+            return '<div id="editmode">'. $edBut .'</div>';
         } else {
             return NULL;
         }
-
+    }
+    
+    private function getSwitchButton($value)
+    {
+        $ret = '<div id="modeswitch_wrapper" class="editing_off">'
+          . '<a href="javascript:void(null);" onclick="switchEditMode();"'
+          . ' id="editmodeswitchbutton">' . $value .'</a></div>';
+        return $ret;
     }
 
     /**

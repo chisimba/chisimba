@@ -184,16 +184,18 @@
             jQuery("#rightaddblock").hide();
             jQuery("#middleaddblock").hide();
             jQuery("#editmodeswitchbutton").text(turnEditingOn);
+            jQuery("#modeswitch_wrapper").removeClass("editing_off");
+            jQuery("#modeswitch_wrapper").addClass("editing_off");
             jQuery(".blockoptions").hide();
             jQuery(".block").removeClass('highlightblock');
-
             inEditMode = false;
         } else {
-
             jQuery("#leftaddblock").show();
             jQuery("#rightaddblock").show();
             jQuery("#middleaddblock").show();
             jQuery("#editmodeswitchbutton").text(turnEditingOff);
+            jQuery("#modeswitch_wrapper").removeClass("editing_off");
+            jQuery("#modeswitch_wrapper").addClass("editing_on");
             jQuery(".blockoptions").show();
             jQuery(".block").addClass('highlightblock');
             inEditMode = true;
