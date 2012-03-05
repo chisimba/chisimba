@@ -160,6 +160,11 @@ if ($this->isValid('addblock')) {
     $editOnButton = new button('editonbutton', $objLanguage->languageText('mod_context_turneditingon', 'context', 'Turn Editing On'));
     $editOnButton->cssId = 'editmodeswitchbutton';
     $editOnButton->setOnClick("switchEditMode();");
+    
+    $value = $objLanguage->languageText('mod_context_turneditingon', 
+      'context', 'Turn Editing On');
+    $objEdBut = $this->getObject('buildcanvas', 'canvas');
+    $editBut = $objEdBut->getSwitchButton($value);
 }
 
 $header = new htmlheading();
@@ -237,7 +242,8 @@ $objCssLayout->leftColumnContent = '<ul id="nav-secondary">' . $instructorProfil
 $objCssLayout->rightColumnContent = '';
 
 if ($this->isValid('addblock')) {
-    $objCssLayout->rightColumnContent .= '<div id="editmode">' . $editOnButton->show() . '</div>';
+    $objCssLayout->rightColumnContent .= '<div id="editmode">' 
+      . $editBut . '</div>';
 }
 
 $liveChatIsRegistered = $objModule->checkIfRegistered('livechat');
