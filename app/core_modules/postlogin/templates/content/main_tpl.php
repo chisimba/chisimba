@@ -121,9 +121,10 @@ if ($objUser->isAdmin()) {
     $leftButton = $button->show();
 
 
-    $editOnButton = new button('editonbutton', $objLanguage->languageText('mod_context_turneditingon', 'context', 'Turn Editing On'));
-    $editOnButton->cssId = 'editmodeswitchbutton';
-    $editOnButton->setOnClick("switchEditMode();");
+    $value = $objLanguage->languageText('mod_context_turneditingon', 
+      'context', 'Turn Editing On');
+    $objEdBut = $this->getObject('buildcanvas', 'canvas');
+    $editBut = $objEdBut->getSwitchButton($value);
 }
 
 $header = new htmlheading();
@@ -157,7 +158,7 @@ if ($objUser->isAdmin()) {
 $objCssLayout->rightColumnContent = '';
 
 if ($objUser->isAdmin()) {
-    $objCssLayout->rightColumnContent .= '<div id="editmode">' . $editOnButton->show().$utillink . '</div>';
+    $objCssLayout->rightColumnContent .= '<div id="editmode">' . $editBut . $utillink . '</div>';
 }
 $objCssLayout->rightColumnContent .= '<div id="rightblocks">' . $rightBlocksStr . '</div>';
 
