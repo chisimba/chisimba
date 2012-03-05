@@ -467,3 +467,287 @@ ul.x-tab-strip li {
     width:50%;
     float:left;
 }
+
+/***
+Styles for the Chisimba wall module
+*/
+.clear {
+    clear:both;
+}
+.wall_wrapper {
+    width:448px;
+    margin:0 auto;
+    text-align:left;
+}
+#updateBox {
+    background-color:#F2F2F2;
+    border:1px solid #B5B5B5;
+    padding:4px;
+}
+.wallpost {
+    width:98%;
+    height:70px;
+    border-color:#7C7C7C #C3C3C3 #DDDDDD;
+    border-style:solid;
+    border-width:1px;
+}
+
+.shareBtn {
+    background:#3b5998;
+    float:right;
+    color:#ffffff;
+    font-weight:bold;
+    border:0;
+    padding:4px;
+    margin-top:2px;
+}
+.msg {
+    min-height:38px;height:auto!important;height:38px;_height:38px;
+    margin-top:8px;
+    margin-bottom:8px;
+    /*border-bottom:1px solid #B5B5B5;
+    padding-bottom:4px;*/
+    color: #666666;
+    font-size:13px;
+}
+
+.wall_post_info {
+    margin-top:8px;
+    margin-bottom:8px;
+    border-bottom:1px solid #B5B5B5;
+    padding-bottom:4px;
+    color: #999999;
+    font-size:13px;
+}
+
+.wallpostrow {
+    margin-top: 15px;
+}
+
+.msg a {
+    color:#3B5998;
+    text-decoration:none;
+}
+
+.msg a:hover {
+    text-decoration:underline;
+}
+
+.wallposter {
+    font-weight: bold;
+}
+
+.small_user_image {
+    float: left;
+    height: 35px;
+    width: 35px;
+    margin-right:5px;
+    margin-bottom: 5px;
+}
+
+a.delpost {
+    float: right;
+}
+
+.delpost:hover {
+    background-color: yellow;
+    text-decoration: none;
+}
+
+.pgthumbimage {
+    vertical-align: middle;
+}
+
+
+/** For the wall comments ***/
+
+.wall_comment_author a {
+    color: #3b5998;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.wall_comment_when {
+    color: #666666;
+    padding-top: 8px;
+}
+
+.wall_comment_button a {
+    color: #999999;
+}
+
+.wall_comments_top {
+    background: url('images/comment-top.png');
+    width: 395px;
+    height: 10px;
+    background-repeat: no-repeat;
+    margin: 0px;
+    margin-top: -10px;
+    margin-left: 35px;
+}
+
+.wall_comments_bottom {
+    height: 0px;
+}
+
+ol.wall_replies {
+    list-style:none;
+    font-size:1.2em;
+    margin-top: 0px;
+    width: 390px;
+}
+
+ol.wall_replies li{
+    position:relative;
+    padding:5px;
+    margin-top: 0px;
+    margin-left: -5px;
+    border-bottom:1px solid #f7f7f7;
+    line-height:1.1em;
+    background-color: #edeff4;
+    color:#808080;
+    font-size:11px;
+}
+ol.wall_replies li:first-child {
+    /*border-top:1px dashed #000;*/
+}
+ol.wall_replies li:last-child {
+    margin-bottom: -8px;
+}
+
+.wall_panel
+{
+    padding-left: 35px;
+    margin-bottom: 20px;
+    display:none;
+}
+
+.comment_submit {
+    background:#3b5998;
+    color:#ffffff;
+    font-weight:bold;
+    border:0;
+    padding:4px;
+    margin-top:2px;
+}
+
+a.wall_delcomment {
+    float: right;
+    margin-left: 8px;
+    margin-bottom: 8px;
+}
+
+.wall_comments_more {
+    position:relative;
+    padding: 2px;
+}
+
+.tb_comments_more {
+    width:100%;
+    padding-right:15px;
+}
+
+a.wall_comments_more,
+a.wall_comments_more:visited {
+    color: #eceff6;
+    background: #3b5998;
+}
+
+a.wall_comments_more:hover,
+a.wall_comments_more:visited:hover {
+    color: #eceff6;
+    background: red;
+}
+
+/** When you get older wall posts via ajax **/
+.wall_post_append {
+    background: #fff9d7;
+    margin-top: 10px;
+    padding-bottom: 20px;
+}
+
+/** Other styles **/
+ol.timeline{
+    list-style:none;
+    font-size:1.2em;
+}
+ol.timeline li {
+    display:none;position:relative;
+    padding:.7em 0 .6em 0;
+    border-bottom:1px dashed #000;
+    line-height:1.1em;
+    background-color:#D3E7F5;
+    height:55px;
+    width:499px;
+}
+ol.timeline li:first-child {
+    border-top:1px dashed #000;
+}
+/** -- END WALL MODULE STYLES **/
+
+/** The canvas turn editing on/off button */
+#modeswitch_wrapper {
+    
+}
+.editing_on, .editing_off {
+    padding-left: 2px;
+    padding-right: 2px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+}
+.editing_on {
+    background-color: #F90;
+}
+.editing_off {
+    background-color: #98abc7;
+}
+
+/** Creative commons license dropdowns **/
+
+option.copyright {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/copyright.gif');
+    background-repeat: no-repeat; 
+}
+option.by {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by.gif');
+    background-repeat: no-repeat;
+}
+option.by-sa {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by-sa.gif');
+    background-repeat: no-repeat;
+}
+option.by-nd {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by-nd.gif');
+    background-repeat: no-repeat;
+}
+option.by-nc {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by-nc.gif');
+    background-repeat: no-repeat;
+}
+option.by-nc-sa {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by-nc-sa.gif');
+    background-repeat: no-repeat;
+}
+option.by-nc-nd {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by-nc-nd.gif');
+    background-repeat: no-repeat;
+}
+option.gnu-fdl {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/gnu-fdl.gif');
+    background-repeat: no-repeat;
+}
+option.by-sa_gnu-fdl {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by-sa_gnu-fdl.gif');
+    background-repeat: no-repeat;
+}
