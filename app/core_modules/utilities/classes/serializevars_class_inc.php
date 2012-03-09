@@ -115,6 +115,41 @@ class serializevars extends dbtable
         $this->appendArrayVar('headerParams', $ret);
         return TRUE;
     }
+    
+    /**
+     *
+     * Method to set up a php array to be available in javascript
+     * 
+     * @access public
+     * @param string $name The javascript variable name
+     * @param array $array The php array to sent to njavascript
+     * @param boolean $keepKeys TRUE to keep the PHP array keys
+     * @return TRUE
+     */
+    public function arrayFromPhpToJs($name, $array, $keepKeys = FALSE)
+    {
+        $str = "\n\n<script type='text/javascript'>\n";
+        $str .= "var " . $name . " = [ \n";
+        if (!$keepKeys)
+        {
+            foreach($array as $key => $value)
+            {
+                $str .= "'" . $value . "',\n"; 
+            }
+            $str .= "];\n";
+        }
+        else
+        {
+            foreach($array as $key => $value)
+            {
+                $str .= "{ label: '" . $value . "', value: '" . $key . "' },\n";
+            }
+            $str .= "];\n";
+        }
+        $str .= "</script>\n\n";
 
+        $this->appendArrayVar('headerParams', $str);
+        return TRUE;
+    }
 }
 ?>
