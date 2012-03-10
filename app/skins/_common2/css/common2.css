@@ -1,6 +1,6 @@
 
 body{
-	font: 80% "Trebuchet MS", "Lucida Sans Unicode", Tahoma, sans-serif;
+    font: 80% "Trebuchet MS", "Lucida Sans Unicode", Tahoma, sans-serif;
     font:68%/1.5 arial,tahoma,verdana,sans-serif;
    /* margin: 0;
     padding: 0;*/	
@@ -703,6 +703,48 @@ ol.timeline li:first-child {
 .editing_off {
     background-color: #98abc7;
 }
+
+/** For the module list **/
+div.stable, div.unset, div.pre-alpha, 
+div.alpha, div.beta, div.deprecated, 
+div.marked_for_removal, div.invisible {
+    padding: 10px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+}
+div.stable {
+    background: #00FF00;
+}
+div.unset {
+    background: #f00;
+    color: white;
+}
+div.pre-alpha {
+    background: #D3E7F5;
+}
+div.alpha {
+    background: #e3a345;
+}
+div.beta {
+    background: #FFFFCC;
+}
+div.deprecated {
+    background: #ffffff;
+    color: #999999;
+}
+
+div.marked_for_removal {
+    background: #0033FF;
+    color: white;
+}
+
+div.invisible {
+    background: #DB00DC;
+    color: white;
+}
+
 
 /** Creative commons license dropdowns **/
 
