@@ -85,11 +85,58 @@ class jqdialogue extends object
     protected $close;
 
     /**
+     * ID for multiple dialogues on one page.
+     *
+     * @access protected
+     * @var string $cssId
+     */
+    protected $cssId;
+
+    /**
+     * jQuery dialogue options.
+     *
+     * @access protected
+     * @var array $options
+     */
+    protected $options;
+
+    /**
      * Constructor to initialise instance variables.
      */
     public function init()
     {
+        $this->cssId = 'jqdialogue';
+        $this->options = array(
+            'bgiframe:true',
+            'buttons:{"Ok":function(){jQuery(this).dialog("close");}}',
+            'height:"auto"',
+            'modal:true',
+            'width:"auto"',
+        );
+
         $this->objSkin = $this->getObject('skin', 'skin');
+    }
+
+    /**
+     * Sets the id of the dialogue.
+     *
+     * @access public
+     * @param string $title The new title of the dialogue.
+     */
+    public function setCssId($cssId)
+    {
+        $this->cssId = $cssId;
+    }
+
+    /**
+     * Adds an option to the dialogue.
+     *
+     * @access public
+     * @param string $option An option to add to the dialogue.
+     */
+    public function addOption($option)
+    {
+        $this->options[] = $option;
     }
 
     /**
@@ -146,22 +193,16 @@ class jqdialogue extends object
 
         $options = array();
 
-        $options[] = 'bgiframe:true';
-        $options[] = 'buttons:{"Ok":function(){jQuery(this).dialog("close");}}';
-        $options[] = 'height:"auto"';
-        $options[] = 'modal:true';
-        $options[] = 'width:"auto"';
-
         if ($this->close) {
             $options[] = 'close:function(event,ui){'.$this->close.'}';
         }
 
-        $optionsCode = implode(',', $options);
+        $optionsCode = implode(',', $this->options);
 
-        $script = '<script type="text/javascript">jQuery(function(){jQuery("#jqdialogue").dialog({'.$optionsCode.'});});</script>';
+        $script = '<script type="text/javascript">jQuery(function(){jQuery("#'.$this->cssId.'").dialog({'.$optionsCode.'});});</script>';
         $this->appendArrayVar('headerParams', $script);
 
-        $html = '<div id="jqdialogue" title="'.htmlspecialchars($this->title).'">'.$this->content.'</div>';
+        $html = '<div id="'.$this->cssId.'" title="'.htmlspecialchars($this->title).'">'.$this->content.'</div>';
 
         return $html;
     }
