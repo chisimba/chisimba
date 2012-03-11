@@ -180,7 +180,7 @@ class object
      * @param  string $module default to _MODULE_ if unset
      * @return set    engine session property
      */
-    public function setSession($name, $value,$module = '_MODULE_') {
+    public function setSession($name, $value, $module = '_MODULE_') {
         if ($module == '_MODULE_'){
             $key = $this->moduleName."~".$name;
         } else {
@@ -374,7 +374,7 @@ class object
 	 */
 	public function getJavascriptFile($javascriptFile,$moduleName='') {
 		if(empty($moduleName)){
-			$moduleName = $this->moduleName;
+                    $moduleName = $this->moduleName;
 		}
 		return $this->objEngine->getJavascriptFile($javascriptFile,$moduleName);
 
@@ -440,10 +440,25 @@ class object
         return null;
     }
 
+    /**
+     * 
+     * Instantiate the Live User object
+     * @return void
+     * @access public
+     * 
+     */
     public function getLu() {
         $this->objLu = $this->objEngine->getLu();
     }
 
+    /**
+     *
+     * Convert an object to string and return its properties.
+     * 
+     * @return string the Converted object with a list of its properties
+     * @access public
+     * 
+     */
     public function toString() {
         $objectvars = get_object_vars($this);
         foreach($objectvars as $key => $value)
