@@ -88,6 +88,16 @@ class showlogin extends object
      * 
      */
     public $objConfig;
+    
+    /**
+     *
+     * The module we are in
+     * 
+     * @var string $curMod The current module 
+     * @access Private
+     * 
+     */
+    private $curMod;
 
     /**
     *
@@ -118,6 +128,8 @@ class showlogin extends object
             if ($curMod == 'prelogin' || $curMod == 'security') {
                 $curMod = '_default';
             }
+            $this->curMod = $curMod;
+            $this->objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
         } catch (Exception $e) {
             customException::cleanUp();
         }
@@ -165,7 +177,7 @@ class showlogin extends object
     public function loadAllScripts()
     {
         // Load the various JS values for use by the script
-        $this->getScriptValues('oer');
+        $this->getScriptValues();
         // Load the jQuery helper script
         $this->loadHelperScript();
         // Serialize the language elements for JS
@@ -223,6 +235,8 @@ class showlogin extends object
     public function renderLoginBox($module = NULL, $ajaxLogin=FALSE)
     {
         try {
+            // Determine if we need to use https
+            $useHTTPS = $this->objSysConfig->getValue('MOD_SECURITY_HTTPS', 'security');
             // Set the formaction depending on whether it is going to use ajax or not.
             if (!$ajaxLogin) {
                 // Set the action for the login form depending on if there is a module or not.
@@ -230,6 +244,9 @@ class showlogin extends object
                     $formAction = $this->uri(array('action' => 'login', 'mod' => $module), 'security');
                 } else {
                     $formAction = $this->uri(array('action' => 'login'), 'login');
+                }
+                if ($useHTTPS == '1' || $useHTTPS == 'TRUE') {
+                    $formAction = str_replace("http:", "https:", $formAction);
                 }
             } else {
                 // We want an ajax login.
@@ -272,13 +289,12 @@ class showlogin extends object
             //----------------------------------------------------------------------------------------Checking this is a violation of the principle of chain of responsiblity @todo fix it
             if ($this->objConfig->getuseLDAP() && $showLDAPCheckBox == 'true') {
                 $ldap .= $objElement->label.' '.$objElement->show();
-
             }
             //--- Create an element for the remember me checkbox
             $objRElement = new checkbox("remember");
             $objRElement->setCSS("transparentbgnb noborder");
             $objRElement->label=$this->objLanguage->languageText("phrase_rememberme", "security");
-            $rem = $objRElement->label.' '.$objRElement->show() . "<br />";
+            $rem = $objRElement->show() . "<br />";
             //--- Create a submit button
             $objButton = new button('submit',$this->objLanguage->languageText("word_login"));
             // Add the login icon
@@ -359,13 +375,13 @@ class showlogin extends object
      * @return VOID
      *
      */
-    private function getScriptValues($curMod='_default')
+    private function getScriptValues()
     {
         $loadingImage='<img src="skins/_common/icons/loading_bar.gif" alt=""Loading..." />';
         $ret = '<script type="text/javascript">
             // <![CDATA[
                 loadingImage = \'' . $loadingImage . '\';
-                theModule = \'' . $curMod . '\';
+                theModule = \'' . $this->curMod . '\';
                 failedMsg = \'' . $this->objLanguage->languageText('phrase_invalid_login', 'security', "Login failed") . '\';
             // ]]>
             '

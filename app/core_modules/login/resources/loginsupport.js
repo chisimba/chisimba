@@ -45,7 +45,7 @@ jQuery(function() {
             data: mydata,
             success: function(ret) {
                 var errMsg;
-                alert(ret);
+                //alert(ret);
                 switch(ret) {
                     case "yes":
                         window.location = 'index.php?module='+theModule;
@@ -70,7 +70,6 @@ jQuery(function() {
                         jQuery("#login_block_wrapper").append(failure);
                         break;
                     case "noaccount":
-                        
                         failure='&nbsp;&nbsp;<div class=\'error\'>'+noaccount+'</div>';
                         jQuery("#login_block_wrapper").html(tmp);
                         jQuery('.error').remove();

@@ -207,18 +207,19 @@ class login extends controller
     */
     private function __ajaxlogin()
     {
+        $okLogin = FALSE;
         $nonce = $this->objLoginSecurity->getVariable('nonce', FALSE);
         $msg = NULL;
-        //"it_should_not_be_possible_to_see_this";
         if ($nonce) {
             // Check the nonce to see if it exists
             $tries = $this->objNonce->getTries($nonce);
             if ($tries) {
-                if ($tries <= 3) {
-                    $username = $this->objLoginSecurity->getUsername();
-                    $password = $this->objLoginSecurity->getPassword();
-                    $remember = $this->objLoginSecurity->getVariable('remember', "off");
-                    if ($this->objUser->authenticateUser($username, $password, $remember)) {
+                $username = $this->objLoginSecurity->getUsername();
+                $password = $this->objLoginSecurity->getPassword();
+                $remember = $this->objLoginSecurity->getVariable('remember', "off");
+                $okLogin = $this->objUser->authenticateUser($username, $password, $remember);
+                if ($tries <= 3 || $okLogin == TRUE) {
+                    if ($okLogin) {
                         $this->objNonce->deleteNonce($nonce);
                         // Set up the session as per the security module.
                         if (!isset($_REQUEST [session_name()])) {

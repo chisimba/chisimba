@@ -81,9 +81,9 @@ class loginsecurity extends object
     public function init()
     {
         $qs = $_SERVER['QUERY_STRING'];
+        $this->objLanguage = $this->getObject('language', 'language');
         // Disallow loging in via the querystring.
         if (strpos($qs,"username=") || strpos($qs,"password=")) {
-            $this->objLanguage = $this->getObject('language', 'language');
             $er = $this->objLanguage->languageText(
               "mod_login_noqslogin", "login",
               "Logging into this site with the username and password in the URL is prohibited."
@@ -149,7 +149,7 @@ class loginsecurity extends object
      * @access public
      *
      */
-    public function sanitize($value)
+    public function sanitize($value, $isAjax=FALSE)
     {
         if (strlen($value) > 255) {
               $er = $this->objLanguage->languageText(
@@ -166,12 +166,15 @@ class loginsecurity extends object
         foreach($illegalTerms as $term) {
             $valueTest = strtoupper($value);
             if (strstr($valueTest, $term)) {
-                $er = $this->objLanguage->languageText(
-                  "mod_login_badwords", "login",
-                  "SQL or SCRIPT injection detected in the input")
-                  . ": $term";
-                throw customException($er);
-                exit();
+                if ($isAjax) {
+                    die('badwords');
+                } else {
+                    $er = $this->objLanguage->languageText(
+                      "mod_login_badwords", "login",
+                      "Illegal content detected in the input")
+                      . ": $term";
+                    throw new customException($er);
+                }
             }
         }
         $value = str_replace("'", NULL, $value);
