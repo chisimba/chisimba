@@ -191,10 +191,8 @@ class jqdialogue extends object
         $this->appendArrayVar('headerParams', $this->getJavascriptFile('api/ui/dialog/ui.dialog.js', 'jquery'));
         $this->appendArrayVar('headerParams', '<link rel="stylesheet" type="text/css" href="'.$this->getResourceUri('api/ui/theme/ui.all.css', 'jquery').'">');
 
-        $options = array();
-
         if ($this->close) {
-            $options[] = 'close:function(event,ui){'.$this->close.'}';
+            $this->options[] = 'close:function(event,ui){'.$this->close.'}';
         }
 
         $optionsCode = implode(',', $this->options);
