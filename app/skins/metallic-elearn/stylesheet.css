@@ -50,3 +50,25 @@ ul .glossytabs {
     background: transparent url(images/hover-bg.gif) repeat-x scroll 0;
     font-weight: bold;
 }
+
+/** Splashscreen **/
+
+.splashscreenwrapper {
+    margin: auto;
+    background: transparent;
+}
+
+.splashscreen {
+    background: transparent url('../../packages/splashnostalgia/resources/screens/Chalkboard.png') no-repeat top center;
+    width:496px;
+    height: 435px;
+    padding: 0px;
+    margin: auto;
+}
+
+.splashcontents {
+    margin: auto;
+    padding-left: 66px;
+    padding-right: 66px;
+    padding-top: 60px;
+}
