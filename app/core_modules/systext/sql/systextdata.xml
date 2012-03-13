@@ -44,10 +44,10 @@
         <creatorId>1</creatorId>
         <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_system>
-    <!-- New system type -->
+    <!-- New system type - eLearningSchools -->
     <tbl_systext_system>
         <id>init_8</id>
-        <systemType>school</systemType>
+        <systemType>eLearningSchools</systemType>
         <creatorId>1</creatorId>
         <dateCreated>2012-03-01 00:00:00</dateCreated>
     </tbl_systext_system>
@@ -151,6 +151,49 @@
         <textinfo>plugins</textinfo>
         <creatorId>1</creatorId>
         <dateCreated>2006-01-01 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_text>    
+    <!-- New system type - eLearningSchools -->
+    <tbl_systext_text>
+        <id>init_15</id>
+        <textinfo>level</textinfo>
+        <creatorId>1</creatorId>
+        <dateCreated>2012-03-01 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_text>
+    <tbl_systext_text>
+        <id>init_16</id>
+        <textinfo>levels</textinfo>
+        <creatorId>1</creatorId>
+        <dateCreated>2012-03-01 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_text>    
+    <tbl_systext_text>
+        <id>init_17</id>
+        <textinfo>subject</textinfo>
+        <creatorId>1</creatorId>
+        <dateCreated>2012-03-01 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_text>
+    <tbl_systext_text>
+        <id>init_18</id>
+        <textinfo>subjects</textinfo>
+        <creatorId>1</creatorId>
+        <dateCreated>2012-03-01 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_text>    
+    <tbl_systext_text>
+        <id>init_19</id>
+        <textinfo>grouping</textinfo>
+        <creatorId>1</creatorId>
+        <dateCreated>2012-03-01 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_text>
+    <tbl_systext_text>
+        <id>init_20</id>
+        <textinfo>groupings</textinfo>
+        <creatorId>1</creatorId>
+        <dateCreated>2012-03-01 00:00:00</dateCreated>
         <canDelete>N</canDelete>
     </tbl_systext_text>    
     
@@ -667,7 +710,7 @@
         <dateCreated>2006-01-01 00:00:00</dateCreated>
         <canDelete>N</canDelete>
     </tbl_systext_abstract>
-    <!-- New system type -->
+    <!-- New system type - eLearningSchools -->
     <tbl_systext_abstract>
         <id>init_63</id>
         <systemId>init_8</systemId>
@@ -736,6 +779,60 @@
         <systemId>init_8</systemId>
         <textId>init_8</textId>
         <abstract>students</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>2012-03-12 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_71</id>
+        <systemId>init_8</systemId>
+        <textId>init_15</textId>
+        <abstract>grade</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>2012-03-12 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_72</id>
+        <systemId>init_8</systemId>
+        <textId>init_16</textId>
+        <abstract>grades</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>2012-03-12 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_73</id>
+        <systemId>init_8</systemId>
+        <textId>init_17</textId>
+        <abstract>subject</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>2012-03-12 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_74</id>
+        <systemId>init_8</systemId>
+        <textId>init_18</textId>
+        <abstract>subjects</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>2012-03-12 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_75</id>
+        <systemId>init_8</systemId>
+        <textId>init_19</textId>
+        <abstract>class</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>2012-03-12 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_76</id>
+        <systemId>init_8</systemId>
+        <textId>init_20</textId>
+        <abstract>classes</abstract>
         <creatorId>1</creatorId>
         <dateCreated>2012-03-12 00:00:00</dateCreated>
         <canDelete>N</canDelete>
