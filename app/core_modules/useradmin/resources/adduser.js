@@ -101,8 +101,8 @@
 						fieldLabel: 'Username',
 						name: 'useradmin_username',
 						vtype: 'username',
-						allowBlank:false
-
+						allowBlank:false,
+                                                validationEvent: blur
 					}, {
 						fieldLabel: 'Password',
 						name: 'useradmin_password',
@@ -167,9 +167,9 @@ function userNameAvailable(val)
             asynchronous: false,
             method:'post',
             parameters: {
-		           module: 'useradmin',
-		           action: 'checkusername',
-		           username: val
+                module: 'useradmin',
+                action: 'checkusername',
+                username: val
             },
             onSuccess: function(transport) //, json
             {
@@ -178,8 +178,8 @@ function userNameAvailable(val)
                 if (!response) {
                     return;
                 };
-    			var jsonData = Ext.util.JSON.decode(response); //response.responseText
-    		    val2 = jsonData.data;
+                var jsonData = Ext.util.JSON.decode(response); //response.responseText
+    		val2 = jsonData.data;
             },
             onFailure: function(transport)
             {

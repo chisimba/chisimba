@@ -32,13 +32,8 @@
 		passwordText : 'Passwords do not match',
 
 		username : function(val, field){
-			if (field != "")
-			{
-				userNameAvailable(val);
-				return (val2 == '1');
-			}
-
-			return true;
+                            userNameAvailable(val);
+                            return (val2 == '1');
 		},
 
 		usernameText: 'Username is already taken'
@@ -209,14 +204,14 @@
 							labelSeparator:'',
 							name: 'accountstatus',
 							boxLabel: 'Active',
-							inputValue: '1',
+							inputValue: '1'
 						  },{
 							xtype: 'radio',
 							id : 'active_0',
 							labelSeparator:'',
 							name: 'accountstatus',
 							boxLabel: 'InActive',
-							inputValue: '0',
+							inputValue: '0'
 						}
 						]
 					  },{
