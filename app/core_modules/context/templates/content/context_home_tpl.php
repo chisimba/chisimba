@@ -103,9 +103,9 @@ if ($this->isValid('addblock')) {
         //parse some abstractions
         $title = $this->objLanguage->abstractText($title);
         if ($title == '') {
-            $title = $smallBlock['blockname'] . '|' . $smallBlock['moduleid'];
+            $title = $smallBlock['blockname'] . ' | ';
         }
-
+        $title .= " (" . $smallBlock['moduleid'] . ")";
         $smallBlockOptions['block|' . $smallBlock['blockname'] . '|' . $smallBlock['moduleid']] = htmlentities($title);
     }
     // Sort Alphabetically
@@ -138,9 +138,9 @@ if ($this->isValid('addblock')) {
         $title = $block->title;
 
         if ($title == '') {
-            $title = $wideBlock['blockname'] . '|' . $wideBlock['moduleid'];
+            $title = $wideBlock['blockname'] . ' | ';
         }
-
+        $title .= " (" . $wideBlock['moduleid'] . ")";
         $wideBlockOptions['block|' . $wideBlock['blockname'] . '|' . $wideBlock['moduleid']] = htmlentities($title);
     }
 
