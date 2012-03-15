@@ -23,7 +23,7 @@ require_once($this->getResourcePath('class.phpmailer.php', 'mail'));
 //Get the abstract and interface classes
 
 /**
- * sendmail abstract 
+ * sendmail abstract
  */
 require_once("absendmail_class_inc.php");
 
@@ -58,7 +58,7 @@ require_once("ifsendmail_class_inc.php");
 * @package   mail
 * @copyright AVOIR
 * @licence   GNU/GPL
-*            
+*
 */
 class email extends absendmail implements ifsendmail
 {
@@ -136,6 +136,7 @@ class email extends absendmail implements ifsendmail
         $this->objBaseMail->mailer = $this->mailer;
         //Add the addresses to the mailer
         if (is_array($this->to)) {
+            //trigger_error('email:$this->to:'.var_export($this->to, TRUE));
             foreach($this->to as $addresses)
             {
                 $this->objBaseMail->AddAddress($addresses);
@@ -168,6 +169,7 @@ class email extends absendmail implements ifsendmail
         if ($this->objBaseMail->send()) {
             return TRUE;
         } else {
+            trigger_error($this->objBaseMail->ErrorInfo);
             return FALSE;
         }
     }
@@ -190,7 +192,7 @@ class email extends absendmail implements ifsendmail
      *
      * @param string $bmProperty The property to set
      * @param string $value      THe value to be set
-     *                           
+     *
      */
     public function setBaseMailerProperty($bmProperty, $value)
     {
@@ -215,6 +217,26 @@ class email extends absendmail implements ifsendmail
     public function clearAddresses()
     {
         $this->objBaseMail->ClearAddresses();
+    }
+
+    /**
+     *
+     * Method to clear CCs
+     *
+     */
+    public function clearCCs()
+    {
+        $this->objBaseMail->ClearCCs();
+    }
+
+    /**
+     *
+     * Method to clear BCCs
+     *
+     */
+    public function clearBCCs()
+    {
+        $this->objBaseMail->ClearBCCs();
     }
 }
 ?>
