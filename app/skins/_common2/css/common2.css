@@ -813,3 +813,7 @@ a.contexttitle {
     font-size: larger;
     padding-left: 5px;
 }
+
+#form_searchform #input_search {
+    width: 120px;
+}
