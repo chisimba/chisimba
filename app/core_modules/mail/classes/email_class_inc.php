@@ -137,7 +137,6 @@ class email extends absendmail implements ifsendmail
         //Add the addresses to the mailer
         $this->objBaseMail->ClearAddresses();
         if (is_array($this->to)) {
-            //trigger_error('email:$this->to:'.var_export($this->to, TRUE));
             foreach($this->to as $addresses)
             {
                 $this->objBaseMail->AddAddress($addresses);
