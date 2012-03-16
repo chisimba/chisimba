@@ -8,7 +8,7 @@ $header->str = ucwords($title);
 
 echo $header->show();
 
-//if ($this->getParam('message') != '' && $this->getSession('displayconfirmationmessage', FALSE)) {
+
 if ($this->getParam('message') != '' ) {
     switch ($this->getParam('message'))
     {
