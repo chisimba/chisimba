@@ -793,3 +793,23 @@ option.by-sa_gnu-fdl {
     background-image: url('../_common/icons/creativecommons_v3/by-sa_gnu-fdl.gif');
     background-repeat: no-repeat;
 }
+
+.roundcorners_small {
+     border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+}
+
+.roundcorners_large {
+     border-radius: 25px;
+    -moz-border-radius: 25px;
+    -webkit-border-radius: 25px;
+    -khtml-border-radius: 25px;
+}
+
+a.contexttitle {
+    color: #003366;
+    font-size: larger;
+    padding-left: 5px;
+}
