@@ -135,6 +135,7 @@ class email extends absendmail implements ifsendmail
         $this->objBaseMail->AltBody = $this->altBody;
         $this->objBaseMail->mailer = $this->mailer;
         //Add the addresses to the mailer
+        $this->objBaseMail->ClearAddresses();
         if (is_array($this->to)) {
             //trigger_error('email:$this->to:'.var_export($this->to, TRUE));
             foreach($this->to as $addresses)
@@ -146,6 +147,7 @@ class email extends absendmail implements ifsendmail
             $this->objBaseMail->AddAddress($this->to);
         }
         //Add the CC addresses to the mailer
+        $this->objBaseMail->ClearCCs();
         if (isset($this->cc)) {
             if (is_array($this->cc)) {
                 foreach ($this->cc as $address) {
@@ -156,7 +158,8 @@ class email extends absendmail implements ifsendmail
             }
         }
         //Add the BCC addresses to the mailer
-        if (isset($this->bc)) {
+        $this->objBaseMail->ClearBCCs();
+        if (isset($this->bcc)) {
             if (is_array($this->bcc)) {
                 foreach ($this->bcc as $address) {
                     $this->objBaseMail->AddBCC($address);
