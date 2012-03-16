@@ -114,12 +114,13 @@ class displaycontext extends object {
      *                                        if context is private and user is not a member
      * @return string
      */
-    public function formatContextDisplayBlock($context, $showEditDeleteLinks = TRUE, $includeFeatureBox = TRUE, $disablePrivateAccess = FALSE) {
+    public function formatContextDisplayBlock($context, 
+      $showEditDeleteLinks = TRUE, $includeFeatureBox = TRUE, 
+      $disablePrivateAccess = FALSE) {
+        
         $canEdit = FALSE;
-
         // Flag on whether to show link for private courses
         $showLink = $disablePrivateAccess;
-
         if (!$disablePrivateAccess) {
             // If admin, show link
             $access = $this->objDBContext->getField('access', $context ['contextcode']);
@@ -131,37 +132,45 @@ class displaycontext extends object {
             }
         }
 
+        $titleLink = $context ['title'];
         if ($showLink) {
-            $link = new link($this->uri(array('action' => 'joincontext', 'contextcode' => $context ['contextcode'])));
-            $link->link = $context ['title'];
+            $link = new link($this->uri(array('action' => 'joincontext', 
+              'contextcode' => $context ['contextcode'])));
+            $link->link = $titleLink;
         } else {
             $link = new link('javascript:contextPrivate();');
-            $link->link = $context ['title'];
+            $link->link = $titleLink;
         }
-
+        $link->cssClass = "contexttitle";
         // Add Permissions
         $str = '';
 
         // Get Context Image
         $contextImage = $this->objContextImage->getContextImage($context ['contextcode']);
-
         // Show if it has an image
         if ($contextImage == FALSE) {
             $contextImage = $this->noImage;
         } else {
-            $contextImage = '<img src="' . $contextImage . '" />';
+            $contextImage = '<img class="roundcorners_small" src="' . $contextImage . '" />';
         }
-
         if ($showLink) {
-            $contextImageLink = new link($this->uri(array('action' => 'joincontext', 'contextcode' => $context ['contextcode'])));
+            $contextImageLink = new link(
+              $this->uri(array('action' => 'joincontext', 
+              'contextcode' => $context ['contextcode'])));
         } else {
             $contextImageLink = new link('javascript:contextPrivate();');
         }
         $contextImageLink->link = $contextImage;
+        // Get the about text and shorten it.
+        $objShorter = $this->getObject('trimstr', 'strings');
+        $about = $objShorter->strTrim($context ['about'], $len = 450, TRUE);
+        $str = "<table><tr><td valign='top'>" . $contextImageLink->show() 
+          . "</td><td valign='top'>" . $about . "</td></tr></table>";
 
-        $str = '';
-
-        $str .= '<p><strong>' . ucwords($this->objLanguage->code2Txt('mod_context_contextcode', 'system', NULL, '[-context-] Code')) . '</strong>: ' . $context ['contextcode'] . '</p>';
+        $str .= '<p><strong>' 
+          . ucwords($this->objLanguage->code2Txt('mod_context_contextcode', 
+          'system', NULL, '[-context-] Code')) . '</strong>: ' 
+          . $context ['contextcode'] . '</p>';
 
         $lecturers = $this->objUserContext->getContextLecturers($context ['contextcode']);
         if (count($lecturers) > 0) {
@@ -244,7 +253,9 @@ class displaycontext extends object {
     }
 
     /**
-     * Method to display the information of a context
+     * Method to display the information of a context FFS--- what is the point
+     * of writing comments like this.. obviously it is a method... but what on earth
+     * does "display the information of a context" mean in any known earth language?
      *
      * @param array $context
      * @return array
@@ -331,6 +342,7 @@ class displaycontext extends object {
      * Method to display the user context for json
      * @param array $jsonContext
      * @return array
+     * @access public
      */
     public function jsonContextOutput($userContexts) {
         $objUserContext = $this->getObject('usercontext', 'context');
