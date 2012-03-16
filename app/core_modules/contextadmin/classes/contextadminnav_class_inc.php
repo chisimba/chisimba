@@ -120,7 +120,8 @@ class contextadminnav extends object
         $button = new button ('searchbutton', $this->objLanguage->languageText('word_search', 'system', 'Search'));
         $button->setToSubmit();
         
-        $form->addToForm($module->show().$action->show().$textinput->show().'<br />'.$button->show());
+        $form->addToForm($module->show().$action->show().$textinput->show() 
+          . $button->show());
         
         $str .= $form->show();
         
