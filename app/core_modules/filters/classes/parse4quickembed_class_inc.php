@@ -55,9 +55,9 @@ $GLOBALS['kewl_entry_point_run'])
  *
  * Class to parse a string (e.g. page content) that contains a wordpress
  * style OEMBED plugin in the format
- *   [oembed:http://oembedUrl]
+ *   [quickembed:http://oembedUrl]
  * for example
- *   [oembed:http://polldaddy.com/oembed?url=http://answers.polldaddy.com/...
+ *   [quickembed:http://polldaddy.com/oembed?url=http://answers.polldaddy.com/...
        poll/2431815/&format=xml]
  *
  * @author Derek Keats
@@ -97,6 +97,7 @@ class parse4quickembed extends object
     */
     public function parse($str)
     {
+        //return "<span class='warning'>OEMBED FILTER DISABLED DUE TO INCOMPATIBLE JQUERY VERSION.<br />We are working on finding a way to fix this.</span>";
         //Check if the oembed module is installed
         $objModule = $this->getObject('modules','modulecatalogue');
         if ($objModule->checkIfRegistered('oembed', 'oembed')) {
@@ -136,6 +137,7 @@ class parse4quickembed extends object
         $ret = $oEmb->getEmbedAppend();
         $ret .= '<div><a href="' . $oembedUrl . '" class="oembed">Loading...</a></div>';
         return $ret;
+        //return htmlentities($ret);
     }
 }
 ?>
