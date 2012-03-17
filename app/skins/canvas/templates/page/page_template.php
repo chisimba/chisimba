@@ -84,7 +84,7 @@ var curvyCornersVerbose = false;
     if (!isset($pageSuppressSkin)) {
        echo '
 
-       <link rel="stylesheet" type="text/css" href="skins/canvas/stylesheet.css">
+       <link rel="stylesheet" type="text/css" href="skins/' . $skinName . '/stylesheet.css">
        <link rel="stylesheet" type="text/css" href="' . $canvas . '/stylesheet.css">
 
         ';

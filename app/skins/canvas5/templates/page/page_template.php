@@ -82,7 +82,7 @@ canvas {
     // Render the CSS for the current skin unless it is suppressed.
     if (!isset($pageSuppressSkin)) {
        echo '
-       <link rel="stylesheet" type="text/css" href="skins/canvas5/stylesheet.css">
+       <link rel="stylesheet" type="text/css" href="skins/' . $skinName . '/stylesheet.css">
        <link rel="stylesheet" type="text/css" href="' . $canvas . '/stylesheet.css">
         ';
     }
