@@ -1,7 +1,13 @@
+@import "../canvas/stylesheet.css";
+@import "../canvas/reset.css";
+@import "main.css";
+@import "css_not_touching.css";
 body {
+        background-image: none;
 	background-color: #fff;
 	color:#333;
-	font:83%/1.5 arial,tahoma,verdana,sans-serif
+	font:83%/1.5;
+        font-family: Verdana, sans-serif;
 }
 
 li {line-height: 1.4em;padding-left: 25px;background: url("images/sprites.gif") no-repeat 0 0}
