@@ -117,7 +117,7 @@ class context extends controller {
      * Method to turn off login requirement for certain actions
      */
     public function requiresLogin($action) {
-        $requiresLogin = array('controlpanel', 'manageplugins', 'updateplugins', 'renderblock', 'addblock', 'removeblock', 'moveblock', 'updatesettings', 'updatecontext', 'viewuseractivitybyid', 'showuseractivitybymodule', 'selectuseractivitybymodulesdates','selectcontextactivitydates','selecttoolsactivitydates','showcontextactivity','showtoolsactivity');
+        $requiresLogin = array('controlpanel', 'manageplugins', 'updateplugins', 'renderblock', 'addblock', 'removeblock', 'moveblock', 'updatesettings', 'updatecontext', 'viewuseractivitybyid', 'showuseractivitybymodule', 'selectuseractivitybymodulesdates','selectcontextactivitydates','selecttoolsactivitydates','showcontextactivity','showtoolsactivity', 'joincontextrequirelogin');
         if (in_array($action, $requiresLogin)) {
             return TRUE;
         } else {
@@ -250,6 +250,13 @@ class context extends controller {
     }
 
     /**
+     * Method to join a context requiring a login
+     */
+    protected function __joincontextrequirelogin() {
+        return $this->__joincontext();
+    }
+
+    /**
      * Method to join a context
      */
     protected function __joincontext() {
@@ -276,7 +283,7 @@ class context extends controller {
                         'description' => $message));
                 }
                 $contextRedirectURI = $this->getParam('contextredirecturi', NULL);
-                if ((!is_null($contextRedirectURI))&&(strlen($contextRedirectURI)>1)) {
+                if ((!is_null($contextRedirectURI))&&(strlen($contextRedirectURI)>0)) {
                     $contextRedirectURI_ = urldecode($contextRedirectURI);
                     header('Location: '.$contextRedirectURI_);
                     return NULL;
@@ -286,7 +293,7 @@ class context extends controller {
                 if ($contextModule!=''){
                     $contextAction=$this->getParam('contextaction');
                     return $this->nextAction($contextAction,array('id'=>$this->getParam('contextdata')),$contextModule);
-                }//--
+                } //--
                 return $this->nextAction('home');
             } else {
                 return $this->nextAction('join', array('error' => 'unabletoenter'));
