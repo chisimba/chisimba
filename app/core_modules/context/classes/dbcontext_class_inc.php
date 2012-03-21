@@ -71,6 +71,7 @@ class dbcontext extends dbTable {
      */
     public function init() {
         parent::init('tbl_context');
+        $this->table = 'tbl_context';
         $this->objUser = $this->getObject('user', 'security');
     }
 
