@@ -313,7 +313,7 @@ class user extends dbTable {
         // session_unset();
         $this->objLu->logout();
         $this->objSkin->setSession('skin', $skin);
-        
+
     }
 
     /**
@@ -706,8 +706,9 @@ class user extends dbTable {
             $sql = "SELECT title FROM tbl_users WHERE userid='$userId'";
             $rs = $this->query($sql);
             if ($rs) {
-                $line = $rs->fetchRow();
-                $ret = $line["title"];
+                //$ret = $rs[0]["userid"];
+                //$line = $rs->fetchRow();
+                $ret = $rs[0]["title"];
             } else {
                 $ret = $this->objLanguage->languageText("error_datanotfound", 'security');
             }
@@ -734,8 +735,8 @@ class user extends dbTable {
             $sql = "SELECT logins FROM tbl_users WHERE userid='$userId'";
             $rs = $this->query($sql);
             if ($rs) {
-                $line = $rs->fetchRow();
-                $ret = $line["logins"];
+                //$line = $rs->fetchRow();
+                $ret = $rs[0]["logins"];
             } else {
                 $ret = $this->objLanguage->languageText("error_datanotfound", 'security');
             }
