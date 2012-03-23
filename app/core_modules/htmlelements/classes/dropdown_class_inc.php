@@ -275,9 +275,29 @@ class dropdown extends abhtmlbase implements ifhtml
    *By Emmanuel Natalis
    *  var $script - script to be called on the onchange effect
    */
-function addOnchange($scrpt)
-{
-   $this->onchangeScript=" onchange=\"".$scrpt."\"";
-}
+    function addOnchange($scrpt)
+    {
+        $this->onchangeScript=" onchange=\"".$scrpt."\"";
+    }
+    
+    /**
+     *
+     * Method to add options from an array
+     * 
+     * @access public
+     * @param array $options The array of aoptions to add
+     * @return VOID 
+     */
+    public function addFromArray(array $options = array())
+    {
+        if ($options)
+        {
+            foreach ($options as $label => $value)
+            {
+                $this->options[$label] = $value;
+                $this->extras[$label] = '';
+            }
+        }
+    }
 }
 ?>
