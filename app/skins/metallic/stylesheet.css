@@ -1148,13 +1148,7 @@ For the blog blocks displayed as a middle block
 }
 
 /**
-
 CMS styles to be fixed up for this skin
-
-NOTE=======
-THIS IS DEBUGGING CODE. IF YOU USE THIS SKIN WITH CMS
-DELETE THIS
-
 **/
 
 #cmscontent {
@@ -1163,30 +1157,64 @@ DELETE THIS
 }
 
 #cmsnavigation {
-    border: 10px solid red;
+    border: none;
+    background: transparent;
+    padding: 0px;
 }
 
 #superfishmenu {
-    border: 10px solid blue;
+    border: none;
+    padding: 0px;
 
+}
+
+#superfishmenu a, #superfishmenu a:visited {
+    background-image: none;
+    padding: 4px;
+    line-height: normal;
+    border: none;
+    background-color: #D3E7F5;
+    border-bottom: 1px solid silver;
+}
+
+#superfishmenu a:hover, #superfishmenu a:visited:hover {
+    background-color:  #FFCC66;
+}
+
+#superfishmenu a:active, #superfishmenu a:visited:active {
+    background-color:  #F6921E;
 }
 
 .sf-with-ul {
-    border: 10px solid green;
+    background-image: none;
     position: static;
-        z-index:99;
-}
-
-.sf-with-ul a {
-    border: 10px solid yellow;
+    z-index:99;
+    padding: 0px;
 }
 
 .sf-sub-indicator {
-    border: 10px solid pink;
+    border: none;
 }
 
 #leftmenu{
 	float:left;
+}
+
+.CMS-frontpage-item {
+    background-color: red;
+    background: url("images/overlay25.png") top left repeat;
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-top: 8px;
+    border: solid white 1px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 2px;
+    padding-bottom: 10px;
+    border-radius: 30px;
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -khtml-border-radius: 30px;
 }
 
 /*
