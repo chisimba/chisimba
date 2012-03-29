@@ -126,7 +126,6 @@ class loggedInUsers extends dbTable {
             $sql = "DELETE FROM tbl_loggedinusers
         WHERE userid='$userId'";
         }
-
         $this->query($sql);
     }
 

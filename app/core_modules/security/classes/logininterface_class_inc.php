@@ -135,7 +135,7 @@ class loginInterface extends object {
             $objRElement = new checkbox("remember");
             $objRElement->setCSS("transparentbgnb noborder");
             $objRElement->label = $this->objLanguage->languageText("phrase_rememberme", "security");
-            $rem = $objRElement->label . ' ' . $objRElement->show() . "<br />";
+            $rem = $objRElement->show() . "<br />";
 
             //--- Create a submit button
             $objButton = new button('submit', $this->objLanguage->languageText("word_login"));
@@ -195,13 +195,12 @@ class loginInterface extends object {
                     . '</div>' . $fb);
 
 
-
-            $helpText = strtoupper($this->objLanguage->languageText('word_help', 'system'));
-            $helpIcon = $this->objHelp->show('register', 'useradmin', $helpText);
+            $notice = $this->objLanguage->languageText('mod_security_forgotpassword');
+            $helpText = strtoupper($this->objLanguage->languageText('mod_security_helpmelogin', 'security', 'Yes, please help me to login'));
             $resetLink = new Link($this->uri(array('action' => 'needpassword'), 'security'));
-            $resetLink->link = $this->objLanguage->languageText('mod_security_forgotpassword');
+            $resetLink->link = $helpText;
             // the help link
-            $p = '<br/>' . $resetLink->show() . '<br />' . $helpIcon;
+            $p = '<br />' . $notice . '<br/>' . $resetLink->show() . '<br />';
             $objFields->addContent($p);
             $objForm->addToForm($objFields->show());
 

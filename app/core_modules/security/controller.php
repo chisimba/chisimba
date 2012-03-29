@@ -123,12 +123,10 @@ class security extends controller {
      * @return string Name of template to display
      */
     function doLogin($module = NULL) {
-        //$username = $this->getParam('username', '');
-        //$password = $this->getParam('password', '');
         // Put in some sanity checking for the stoned hippies
-        $objUnfuck = $this->getObject('loginsecurity', 'login');
-        $username = $objUnfuck->getUserName();
-        $password = $objUnfuck->getPassword();
+        $objUnF = $this->getObject('loginsecurity', 'login');
+        $username = $objUnF->getUserName();
+        $password = $objUnF->getPassword();
         
         $remember = $this->getParam('remember', 'off');
         if (strlen($username) > 255 || strlen($password) > 255) {
