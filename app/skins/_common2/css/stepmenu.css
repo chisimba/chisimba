@@ -7,7 +7,7 @@
     list-style:none;
     float:left;
     background-color:#EBEBEB;
-    background-image: url(../stepmenu/navBtn.gif);
+    background-image: url(../../_common/stepmenu/navBtn.gif);
     background-repeat: no-repeat;
     background-position: right top;
     margin: 0;
@@ -17,17 +17,17 @@
 
 #stepmenu li.current{
     background-color:#C36615;
-    background-image: url(../stepmenu/navCurrentBtn.gif);
+    background-image: url(../../_common/stepmenu/navCurrentBtn.gif);
 }
 
 #stepmenu li.lastdone{
     background-color:#7C8437;
-    background-image: url(../stepmenu/navLastDoneBtn.gif);
+    background-image: url(../../_common/stepmenu/navLastDoneBtn.gif);
 }
 
 #stepmenu li.done{
     background-color:#7C8437;
-    background-image: url(../stepmenu/navDoneBtn.gif);
+    background-image: url(../../_common/stepmenu/navDoneBtn.gif);
 }
 
 #stepmenu li a, #stepmenu li a:link, #stepmenu li a:visited, #stepmenu li a:hover, #stepmenu li a:active {
