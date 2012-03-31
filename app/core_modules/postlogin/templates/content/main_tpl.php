@@ -78,16 +78,28 @@ if ($objUser->isAdmin()) {
     $leftBlocksDropDown->addOption('', $objLanguage->languageText('phrase_selectone', 'context', 'Select One') . '...');
 
     foreach ($smallDynamicBlocks as $smallBlock) {
-        $rightBlocksDropDown->addOption('dynamicblock|' . $smallBlock['id'] . '|' . $smallBlock['module'], htmlentities($smallBlock['title']));
-        $leftBlocksDropDown->addOption('dynamicblock|' . $smallBlock['id'] . '|' . $smallBlock['module'], htmlentities($smallBlock['title']));
+        $title = htmlentities(trim($smallBlock['title']));
+        if ($title !== "" && $title !== NULL) {
+            $title .= "(" . $smallBlock['module'] . ")";
+        }
+        $rightBlocksDropDown->addOption('dynamicblock|' 
+          . $smallBlock['id'] . '|' . $smallBlock['module'], $title);
+        $leftBlocksDropDown->addOption('dynamicblock|' . $smallBlock['id'] 
+          . '|' . $smallBlock['module'], $title);
     }
 
     foreach ($smallBlocks as $smallBlock) {
-        $block = $this->newObject('block_' . $smallBlock['blockname'], $smallBlock['moduleid']);
-        $title = $block->title;
-
-        $rightBlocksDropDown->addOption('block|' . $smallBlock['blockname'] . '|' . $smallBlock['moduleid'], htmlentities($title));
-        $leftBlocksDropDown->addOption('block|' . $smallBlock['blockname'] . '|' . $smallBlock['moduleid'], htmlentities($title));
+        $block = $this->newObject('block_' . $smallBlock['blockname'], 
+          $smallBlock['moduleid']);
+        $moduleId = $smallBlock['moduleid'];
+        $title = trim($block->title);
+        if ($title !== "" && $title !== NULL) {
+            $title .= "(" . $smallBlock['moduleid'] . ")";
+        }
+        $rightBlocksDropDown->addOption('block|' . $smallBlock['blockname'] 
+          . '|' . $smallBlock['moduleid'], htmlentities($title));
+        $leftBlocksDropDown->addOption('block|' . $smallBlock['blockname'] 
+          . '|' . $smallBlock['moduleid'], htmlentities($title));
     }
 
 
@@ -99,14 +111,22 @@ if ($objUser->isAdmin()) {
     $wideBlocksDropDown->addOption('', $objLanguage->languageText('phrase_selectone', 'context', 'Select One') . '...');
 
     foreach ($wideDynamicBlocks as $wideBlock) {
-        $wideBlocksDropDown->addOption('dynamicblock|' . $wideBlock['id'] . '|' . $wideBlock['module'], htmlentities($wideBlock['title']));
+        $title = htmlentities($wideBlock['title']);
+        if ($title !== "" && $title !==  NULL) {
+            $title .= "(" . $wideBlock['module'] . ")";
+        }
+        $wideBlocksDropDown->addOption('dynamicblock|' 
+          . $wideBlock['id'] . '|' . $wideBlock['module'], 
+          $title);
     }
 
     foreach ($wideBlocks as $wideBlock) {
         $block = $this->newObject('block_' . $wideBlock['blockname'], $wideBlock['moduleid']);
-        $title = $block->title;
-
-        $wideBlocksDropDown->addOption('block|' . $wideBlock['blockname'] . '|' . $wideBlock['moduleid'], htmlentities($title));
+        $title = htmlentities($block->title);
+        if ($title !== "" && $title !== NULL) {
+            $title .= "(" . $wideBlock['moduleid'] . ")";
+        }
+        $wideBlocksDropDown->addOption('block|' . $wideBlock['blockname'] . '|' . $wideBlock['moduleid'], $title);
     }
 
 
