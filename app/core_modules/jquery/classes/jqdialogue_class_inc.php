@@ -107,11 +107,11 @@ class jqdialogue extends object
     {
         $this->cssId = 'jqdialogue';
         $this->options = array(
-            'bgiframe:true',
-            'buttons:{"Ok":function(){jQuery(this).dialog("close");}}',
-            'height:"auto"',
-            'modal:true',
-            'width:"auto"',
+            'bgiframe' => 'true',
+            'buttons' => '{"Ok":function(){jQuery(this).dialog("close");}}',
+            'height' => '"auto"',
+            'modal' => 'true',
+            'width' => '"auto"',
         );
 
         $this->objSkin = $this->getObject('skin', 'skin');
@@ -133,10 +133,11 @@ class jqdialogue extends object
      *
      * @access public
      * @param string $option An option to add to the dialogue.
+     * @param string $value The value of the option.
      */
-    public function addOption($option)
+    public function addOption($option, $value)
     {
-        $this->options[] = $option;
+        $this->options[$option] = $value;
     }
 
     /**
@@ -192,10 +193,14 @@ class jqdialogue extends object
         $this->appendArrayVar('headerParams', '<link rel="stylesheet" type="text/css" href="'.$this->getResourceUri('api/ui/theme/ui.all.css', 'jquery').'">');
 
         if ($this->close) {
-            $this->options[] = 'close:function(event,ui){'.$this->close.'}';
+            $this->options['close'] = 'function(event,ui){'.$this->close.'}';
         }
-
-        $optionsCode = implode(',', $this->options);
+        $temp = array();
+        foreach ($this->options as $option => $value)
+        {
+            $temp[] = $option . ': ' . $value;
+        }
+        $optionsCode = implode(',', $temp);
 
         $script = '<script type="text/javascript">jQuery(function(){jQuery("#'.$this->cssId.'").dialog({'.$optionsCode.'});});</script>';
         $this->appendArrayVar('headerParams', $script);

@@ -185,6 +185,10 @@
 	border: 4px solid #a6c9e2;
 	position: relative;
 }
+.ui-dialog-overlay {
+        background: #fcfdfd url(images/79c9ec_40x100_textures_02_glass_75.png) 0 bottom repeat-x;
+        opacity: 0.6;
+}
 .ui-resizable-handle {
 	position: absolute;
 	font-size: 0.1px;
