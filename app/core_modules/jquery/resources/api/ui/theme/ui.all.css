@@ -186,8 +186,11 @@
 	position: relative;
 }
 .ui-dialog-overlay {
-        background: #fcfdfd url(images/79c9ec_40x100_textures_02_glass_75.png) 0 bottom repeat-x;
-        opacity: 0.6;
+        background: url(images/diagonals.png) 0 bottom repeat-x;
+        background-position:top left;
+        background-repeat:repeat;
+        background-attachment:fixed;
+        opacity: 0.3;
 }
 .ui-resizable-handle {
 	position: absolute;

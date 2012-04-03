@@ -141,6 +141,17 @@ class jqdialogue extends object
     }
 
     /**
+     * Removes an option from the dialogue.
+     *
+     * @access public
+     * @param string $option An option to remove from the dialogue.
+     */
+    public function removeOption($option)
+    {
+        unset($this->options[$option]);
+    }
+
+    /**
      * Sets the title of the dialogue.
      *
      * @access public
