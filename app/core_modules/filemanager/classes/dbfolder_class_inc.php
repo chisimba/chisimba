@@ -999,6 +999,14 @@ class dbfolder extends dbTable
         return TRUE;
     }
 
+     /**
+     * This updates the access field of the supplied fileid
+     * @param type $fileId The id of the file while access is to be changed
+     * @param type $access Access vlaue. Can be public, private_all or private_selected
+     */
+    function setFolderAccess($folderId, $access) {
+        $this->update("id", $folderId, array("access" => $access));
+    }
 }
 
 ?>

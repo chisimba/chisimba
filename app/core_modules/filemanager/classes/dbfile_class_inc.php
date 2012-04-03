@@ -30,7 +30,6 @@
  * @see
  */
 
-
 /**
  * Class to handle interaction with table tbl_files
  *
@@ -45,20 +44,18 @@
  * @link      http://avoir.uwc.ac.za
  * @see
  */
-class dbfile extends dbTable
-{
+class dbfile extends dbTable {
 
     /**
-    * @var    array   $currentFile Record of Current File working on
-    * @access private
-    */
+     * @var    array   $currentFile Record of Current File working on
+     * @access private
+     */
     private $currentFile;
 
     /**
-    * Constructor
-    */
-    public function init()
-    {
+     * Constructor
+     */
+    public function init() {
         parent::init('tbl_files');
         $this->objUser = $this->getObject('user', 'security');
 
@@ -80,13 +77,12 @@ class dbfile extends dbTable
     }
 
     /**
-    * Method to get the record containing file details
-    * @access Public
-    * @param  string $fileId
-    * @return array  Details of the File
-    */
-    public function getFile($fileId)
-    {
+     * Method to get the record containing file details
+     * @access Public
+     * @param  string $fileId
+     * @return array  Details of the File
+     */
+    public function getFile($fileId) {
         // The current file is stored in a private variable to prevent possible unnecessary db queries
         if ($this->currentFile != '' && $this->currentFile['id'] == $fileId) {
             return $this->currentFile;
@@ -99,18 +95,16 @@ class dbfile extends dbTable
 
             return $file;
         }
-
     }
 
     /**
-    * Method to get a single piece of information from a file
-    * @access private
-    * @param  string  $part   Piece to get
-    * @param  string  $fileId Record Id of the File
-    * @return mixed
-    */
-    private function getPart($part, $fileId)
-    {
+     * Method to get a single piece of information from a file
+     * @access private
+     * @param  string  $part   Piece to get
+     * @param  string  $fileId Record Id of the File
+     * @return mixed
+     */
+    private function getPart($part, $fileId) {
         $file = $this->getFile($fileId);
 
         if ($file == FALSE) {
@@ -122,80 +116,73 @@ class dbfile extends dbTable
             } else {
                 return FALSE;
             }
-
         }
     }
 
     /**
-    * Method to get the filename of a file
-    * @access public
-    * @param  string $fileId Record Id of the File
-    * @return string File Name
-    */
-    public function getFileName($fileId)
-    {
+     * Method to get the filename of a file
+     * @access public
+     * @param  string $fileId Record Id of the File
+     * @return string File Name
+     */
+    public function getFileName($fileId) {
         return $this->getPart('filename', $fileId);
     }
 
     /**
-    * Method to get the extension of a file
-    * @access public
-    * @param  string $fileId Record Id of the File
-    * @return string File Name
-    */
-    public function getType($fileId)
-    {
+     * Method to get the extension of a file
+     * @access public
+     * @param  string $fileId Record Id of the File
+     * @return string File Name
+     */
+    public function getType($fileId) {
         return $this->getPart('datatype', $fileId);
     }
 
     /**
-    * Method to get the size of a file
-    * @access public
-    * @param  string $fileId Record Id of the File
-    * @return int    File Size
-    */
-    public function getFileSize($fileId)
-    {
+     * Method to get the size of a file
+     * @access public
+     * @param  string $fileId Record Id of the File
+     * @return int    File Size
+     */
+    public function getFileSize($fileId) {
         return $this->getPart('filesize', $fileId);
     }
 
     /**
-    * Method to get the version number of a file
-    * @access public
-    * @param  string $fileId Record Id of the File
-    * @return int    File Version
-    */
-    public function getFileVersion($fileId)
-    {
+     * Method to get the version number of a file
+     * @access public
+     * @param  string $fileId Record Id of the File
+     * @return int    File Version
+     */
+    public function getFileVersion($fileId) {
         return $this->getPart('version', $fileId);
     }
 
     /**
-    * Method to get the mimetype of a file
-    * @access public
-    * @param  string $fileId Record Id of the File
-    * @return string Mime Type
-    */
-    public function getFileMimetype($fileId)
-    {
+     * Method to get the mimetype of a file
+     * @access public
+     * @param  string $fileId Record Id of the File
+     * @return string Mime Type
+     */
+    public function getFileMimetype($fileId) {
         return $this->getPart('mimetype', $fileId);
     }
 
     /**
-    * Method to get the local path to a file
-    * @access public
-    * @param  string $fileId Record Id of the File
-    * @return string Local Path to File
-    */
-    public function getFilePath($fileId)
-    {
+     * Method to get the local path to a file
+     * @access public
+     * @param  string $fileId Record Id of the File
+     * @return string Local Path to File
+     */
+    public function getFilePath($fileId) {
         $path = $this->getPart('path', $fileId);
 
         if ($path == FALSE) {
             return FALSE;
         }
 
-        $path = $this->objConfig->getcontentPath().$path;
+        $path = $this->objConfig->getcontentPath() . $path;
 
         $path = $this->objCleanUrl->cleanUpUrl($path);
 
@@ -203,20 +190,19 @@ class dbfile extends dbTable
     }
 
     /**
-    * Method to get the absolute path to a file
-    * @access public
-    * @param  string $fileId Record Id of the File
-    * @return string Path to File
-    */
-    public function getFullFilePath($fileId)
-    {
+     * Method to get the absolute path to a file
+     * @access public
+     * @param  string $fileId Record Id of the File
+     * @return string Path to File
+     */
+    public function getFullFilePath($fileId) {
         $path = $this->getPart('path', $fileId);
 
         if ($path == FALSE) {
             return FALSE;
         }
 
-        $path = $this->objConfig->getcontentBasePath().$path;
+        $path = $this->objConfig->getcontentBasePath() . $path;
 
         $path = $this->objCleanUrl->cleanUpUrl($path);
 
@@ -224,20 +210,19 @@ class dbfile extends dbTable
     }
 
     /**
-    * Method to add a file
-    * @param  string $filename    Name of the File
-    * @param  string $path        Path of the File
-    * @param  int    $filesize    Size of the File
-    * @param  string $mimetype    Mimetype of the File
-    * @param  string $category    Subfolder/Category file is stored in
-    * @param  string $version     Version of the file
-    * @param  string $userId      User to whom the file belongs to
-    * @param  string $description Description of the file
-    * @param  string $license     License of the file
-    * @return string Record Id of the File
-    */
-    public function addFile($filename, $path, $filesize, $mimetype, $category, $version=1, $userId=NULL, $description=NULL, $license=NULL)
-    {
+     * Method to add a file
+     * @param  string $filename    Name of the File
+     * @param  string $path        Path of the File
+     * @param  int    $filesize    Size of the File
+     * @param  string $mimetype    Mimetype of the File
+     * @param  string $category    Subfolder/Category file is stored in
+     * @param  string $version     Version of the file
+     * @param  string $userId      User to whom the file belongs to
+     * @param  string $description Description of the file
+     * @param  string $license     License of the file
+     * @return string Record Id of the File
+     */
+    public function addFile($filename, $path, $filesize, $mimetype, $category, $version = 1, $userId = NULL, $description = NULL, $license = NULL) {
         // Assume User is Logged in User if not provided
         if ($userId == NULL) {
             $userId = $this->objUser->userId();
@@ -247,24 +232,24 @@ class dbfile extends dbTable
         $datatype = $this->objFileParts->getExtension($filename);
 
         $file = array(
-                'userid' => $userId,
-                'filename' => $filename,
-                'datatype' => $datatype,
-                'path' => $path,
-                'filefolder'=>dirname($path),
-                'description' => $description,
-                'version' => $version,
-                'filesize' => $filesize,
-                'mimetype' => $mimetype,
-                'category' => $category,
-                'license' => $license,
-                'moduleuploaded' => $this->getParam('module'),
-                'creatorid' => $userId,
-                'modifierid' => $userId,
-                'datecreated' => strftime('%Y-%m-%d', mktime()),
-                'timecreated' => strftime('%H:%M:%S', mktime())
-                );
-        $id =  $this->insert($file);
+            'userid' => $userId,
+            'filename' => $filename,
+            'datatype' => $datatype,
+            'path' => $path,
+            'filefolder' => dirname($path),
+            'description' => $description,
+            'version' => $version,
+            'filesize' => $filesize,
+            'mimetype' => $mimetype,
+            'category' => $category,
+            'license' => $license,
+            'moduleuploaded' => $this->getParam('module'),
+            'creatorid' => $userId,
+            'modifierid' => $userId,
+            'datecreated' => strftime('%Y-%m-%d', mktime()),
+            'timecreated' => strftime('%H:%M:%S', mktime())
+        );
+        $id = $this->insert($file);
 
         if ($id != FALSE) {
             $file['id'] = $id;
@@ -281,11 +266,10 @@ class dbfile extends dbTable
      * Method to add a file to the search index
      * @param array $file Array with File Details
      */
-    private function indexFile($file)
-    {
-        $docId = 'filemanager_file_'.$file['id'];
+    private function indexFile($file) {
+        $docId = 'filemanager_file_' . $file['id'];
         $docDate = $file['datecreated'];
-        $url = $this->uri(array('action'=>'fileinfo', 'id'=>$file['id']), 'filemanager');
+        $url = $this->uri(array('action' => 'fileinfo', 'id' => $file['id']), 'filemanager');
         $title = $file['filename'];
         $contents = $file['description'];
         $teaser = $file['description'];
@@ -298,63 +282,59 @@ class dbfile extends dbTable
 
         $folder = explode('/', $file['filefolder']);
 
-        switch ($folder[0])
-        {
+        switch ($folder[0]) {
             case 'context':
                 // check
-                $context=$folder[1];
-                $workgroup='noworkgroup';
-                $permissions='contextonly';
+                $context = $folder[1];
+                $workgroup = 'noworkgroup';
+                $permissions = 'contextonly';
                 break;
             case 'users':
             default:
-                $context='nocontext';
-                $workgroup='noworkgroup';
-                $permissions='useronly';
+                $context = 'nocontext';
+                $workgroup = 'noworkgroup';
+                $permissions = 'useronly';
                 break;
         }
 
 
-        $dateAvailable=NULL;
-        $dateUnavailable=NULL;
+        $dateAvailable = NULL;
+        $dateUnavailable = NULL;
 
-        $extra= array('basefolder'=>$folder[0].'/'.$folder[1]);
+        $extra = array('basefolder' => $folder[0] . '/' . $folder[1]);
 
-       // $objLucene = $this->getObject('indexdata', 'search');
-      //  $objLucene->luceneIndex($docId, $docDate, $url, $title, $contents, $teaser, $module, $userId, $tags, $license, $context, $workgroup, $permissions, $dateAvailable, $dateUnavailable, $extra);
+        // $objLucene = $this->getObject('indexdata', 'search');
+        //  $objLucene->luceneIndex($docId, $docDate, $url, $title, $contents, $teaser, $module, $userId, $tags, $license, $context, $workgroup, $permissions, $dateAvailable, $dateUnavailable, $extra);
     }
 
     /**
      *
      *
      */
-    public function updateFileSearch()
-    {
+    public function updateFileSearch() {
         $files = $this->getAll();
 
         if (count($files) > 0) {
-            foreach ($files as $file)
-            {
+            foreach ($files as $file) {
                 $this->indexFile($file);
             }
         }
     }
 
     /**
-    * Method to get All the Files of a User
-    * @param  string  $userId            User Id of the User
-    * @param  string  $category          Optional Category Filter
-    * @param  array   $restrictfiletype  Optional File Type Restriction
-    * @param  boolean $latestVersionOnly List Latest Version Only or All Version
-    * @return array   List of Files
-    */
-    public function getUserFiles($userId, $category=NULL, $restrictfiletype=NULL, $latestVersionOnly=FALSE)
-    {
-        $where = ' WHERE userid=\''.$userId.'\'';
+     * Method to get All the Files of a User
+     * @param  string  $userId            User Id of the User
+     * @param  string  $category          Optional Category Filter
+     * @param  array   $restrictfiletype  Optional File Type Restriction
+     * @param  boolean $latestVersionOnly List Latest Version Only or All Version
+     * @return array   List of Files
+     */
+    public function getUserFiles($userId, $category = NULL, $restrictfiletype = NULL, $latestVersionOnly = FALSE) {
+        $where = ' WHERE userid=\'' . $userId . '\'';
 
 
         if ($category != NULL) {
-            $where .= ' AND category=\''.$category.'\'';
+            $where .= ' AND category=\'' . $category . '\'';
         }
 
         if ($restrictfiletype != NULL && is_array($restrictfiletype) && count($restrictfiletype) > 0) {
@@ -362,9 +342,8 @@ class dbfile extends dbTable
             $where .= ' AND (';
             $or = '';
 
-            foreach ($restrictfiletype as $type)
-            {
-                $where .= $or.'datatype = \''.$type.'\' ';
+            foreach ($restrictfiletype as $type) {
+                $where .= $or . 'datatype = \'' . $type . '\' ';
                 $or = ' OR ';
             }
 
@@ -380,82 +359,74 @@ class dbfile extends dbTable
     }
 
     /**
-    * Method to get the total number of files for a user
-    *
-    * @todo   This is not perfect yet. Has to ignore archives files
-    * @param  string $userId User ID of the User
-    * @return int    Number of Files
-    */
-    public function getNumFiles($userId)
-    {
-        return $this->getRecordCount(' WHERE userid=\''.$userId.'\' AND category != \'temp\'');
+     * Method to get the total number of files for a user
+     *
+     * @todo   This is not perfect yet. Has to ignore archives files
+     * @param  string $userId User ID of the User
+     * @return int    Number of Files
+     */
+    public function getNumFiles($userId) {
+        return $this->getRecordCount(' WHERE userid=\'' . $userId . '\' AND category != \'temp\'');
     }
 
     /**
-    * Method to get the total number of unique files for a user, exclude overwrites
-    *
-    * @todo   This is not perfect yet. Has to ignore archives files
-    * @param  string $userId User ID of the User
-    * @return int    Number of Files
-    */
-    public function getNumUniqueFiles($userId)
-    {
-        $sql = 'SELECT filename FROM tbl_files WHERE userid=\''.$userId.'\' AND category != \'temp\'';
+     * Method to get the total number of unique files for a user, exclude overwrites
+     *
+     * @todo   This is not perfect yet. Has to ignore archives files
+     * @param  string $userId User ID of the User
+     * @return int    Number of Files
+     */
+    public function getNumUniqueFiles($userId) {
+        $sql = 'SELECT filename FROM tbl_files WHERE userid=\'' . $userId . '\' AND category != \'temp\'';
         $result = $this->getArray($sql);
         return count($result);
     }
 
     /**
-    * Method to get the categories of files that have been uploaded
-    *
-    * @param  string $userId User ID of the User
-    * @return array  List of Categories
-    */
-    public function getUserCategories($userId)
-    {
-        $sql = 'SELECT category FROM tbl_files WHERE userid = \''.$userId.'\' AND category != \'temp\' GROUP BY category ORDER BY category';
+     * Method to get the categories of files that have been uploaded
+     *
+     * @param  string $userId User ID of the User
+     * @return array  List of Categories
+     */
+    public function getUserCategories($userId) {
+        $sql = 'SELECT category FROM tbl_files WHERE userid = \'' . $userId . '\' AND category != \'temp\' GROUP BY category ORDER BY category';
 
         return $this->getArray($sql);
     }
 
     /**
-    * An alternative way to get information about a file by providing the path
-    *
-    * @param  string $path Path of the File
-    * @return array  Details of the File
-    */
-    public function getFileDetailsFromPath($path)
-    {
+     * An alternative way to get information about a file by providing the path
+     *
+     * @param  string $path Path of the File
+     * @return array  Details of the File
+     */
+    public function getFileDetailsFromPath($path) {
         return $this->getRow('path', $path);
     }
 
     /**
-    * Method to delete a temporary file
-    * @param string $id Record Id of the Original File
-    */
-    public function deleteTemporaryFile($id)
-    {
-        $tempFilePath = $this->objConfig->getcontentBasePath().'/filemanager_tempfiles/'.$id;
+     * Method to delete a temporary file
+     * @param string $id Record Id of the Original File
+     */
+    public function deleteTemporaryFile($id) {
+        $tempFilePath = $this->objConfig->getcontentBasePath() . '/filemanager_tempfiles/' . $id;
 
         if (file_exists($tempFilePath)) {
             unlink($tempFilePath);
         }
-
     }
 
     /**
-    * Method to delete a temporary file by providing the path to the file
-    * THis function deletes the record as well as the file
-    * @param string $path Path to File
-    */
-    public function deleteTemporaryFileInfo($path)
-    {
+     * Method to delete a temporary file by providing the path to the file
+     * THis function deletes the record as well as the file
+     * @param string $path Path to File
+     */
+    public function deleteTemporaryFileInfo($path) {
         // Get List of File(s) - Note: User Id is stored in path, hence not required
-        $list = $this->getAll(' WHERE path="'.$path.'"');
+        $list = $this->getAll(' WHERE path="' . $path . '"');
 
         // Loop through list
-        foreach ($list as $item)
-        {
+        foreach ($list as $item) {
             if ($item['category'] == 'temp') { // Security Measure to prevent files from being deleted using this method
                 // Delete File Info
                 $this->delete('id', $item['id']);
@@ -463,9 +434,8 @@ class dbfile extends dbTable
                 $this->objMediaFileInfo->delete('fileid', $item['id']);
 
                 // Todo: Delete Temp Document File Info
-
                 // Delete Thumbnail
-                $thumbnail = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/'.$item['id'].'.jpg';
+                $thumbnail = $this->objConfig->getcontentBasePath() . '/filemanager_thumbnails/' . $item['id'] . '.jpg';
 
                 if (file_exists($thumbnail)) {
                     unlink($thumbnail);
@@ -477,25 +447,23 @@ class dbfile extends dbTable
     }
 
     /**
-    * Method to get a list of temporary files for a user
-    * @param  string $userId Record Id of the User
-    * @return array  List of Files
-    */
-    public function getTemporaryFiles($userId)
-    {
-        return $this->getAll('WHERE category = \'temp\' AND userid =\''.$userId.'\'');
+     * Method to get a list of temporary files for a user
+     * @param  string $userId Record Id of the User
+     * @return array  List of Files
+     */
+    public function getTemporaryFiles($userId) {
+        return $this->getAll('WHERE category = \'temp\' AND userid =\'' . $userId . '\'');
     }
 
     /**
-    * Method to get the latest version of a file
-    * It ignores previous versions, as well as temporary files
-    * @param  string $filename Name of the File
-    * @param  string $userId   User to whom the file belongs
-    * @return array  details of the file
-    */
-    public function getOriginalFile($filename, $userId)
-    {
-        $result = $this->getAll('WHERE filename=\''.$filename.'\' AND category != \'temp\' AND userid =\''.$userId.'\' ORDER BY version DESC');
+     * Method to get the latest version of a file
+     * It ignores previous versions, as well as temporary files
+     * @param  string $filename Name of the File
+     * @param  string $userId   User to whom the file belongs
+     * @return array  details of the file
+     */
+    public function getOriginalFile($filename, $userId) {
+        $result = $this->getAll('WHERE filename=\'' . $filename . '\' AND category != \'temp\' AND userid =\'' . $userId . '\' ORDER BY version DESC');
         if (count($result) > 0) {
             return $result[0];
         } else {
@@ -504,15 +472,14 @@ class dbfile extends dbTable
     }
 
     /**
-    * Method to get information about a file
-    * This function not only gets information about a file,
-    * but also looks for details in the metadata tables
-    * The results are merged into one.
-    * @param  string $fileId Record Id of the File
-    * @return array  Details of the File
-    */
-    public function getFileInfo($fileId)
-    {
+     * Method to get information about a file
+     * This function not only gets information about a file,
+     * but also looks for details in the metadata tables
+     * The results are merged into one.
+     * @param  string $fileId Record Id of the File
+     * @return array  Details of the File
+     */
+    public function getFileInfo($fileId) {
         $file = $this->getFile($fileId);
 
         if ($file == FALSE) {
@@ -535,13 +502,12 @@ class dbfile extends dbTable
     }
 
     /**
-    * Method to get information about a file
-    * and return the result in table display format
-    * @param  string $fileId Record Id of the File
-    * @return string Information about the file in a table format
-    */
-    public function getFileInfoTable($fileId)
-    {
+     * Method to get information about a file
+     * and return the result in table display format
+     * @param  string $fileId Record Id of the File
+     * @return string Information about the file in a table format
+     */
+    public function getFileInfoTable($fileId) {
         $file = $this->getFileInfo($fileId);
 
         if ($file == FALSE) {
@@ -553,9 +519,9 @@ class dbfile extends dbTable
         $objTable = $this->newObject('htmltable', 'htmlelements');
 
         $objTable->startRow();
-        $objTable->addCell('<strong>'.$this->objLanguage->languageText('phrase_filetype', 'system', 'File Type').'</strong>', '25%');
+        $objTable->addCell('<strong>' . $this->objLanguage->languageText('phrase_filetype', 'system', 'File Type') . '</strong>', '25%');
         $objTable->addCell($file['datatype'], '25%');
-        $objTable->addCell('<strong>'.$this->objLanguage->languageText('phrase_filesize', 'system', 'File Size').'</strong>', '25%');
+        $objTable->addCell('<strong>' . $this->objLanguage->languageText('phrase_filesize', 'system', 'File Size') . '</strong>', '25%');
         $objTable->addCell($objFileSize->formatsize($file['filesize']), '25%');
         $objTable->endRow();
 
@@ -569,15 +535,15 @@ class dbfile extends dbTable
         $licenseDisplay->icontype = 'small';
         $objTable->addCell($licenseDisplay->show($file['license']), '25%');
 
-        $objTable->addCell('<strong>'.$this->objLanguage->languageText('phrase_filecategory', 'system', 'File Category').'</strong>', '25%');
+        $objTable->addCell('<strong>' . $this->objLanguage->languageText('phrase_filecategory', 'system', 'File Category') . '</strong>', '25%');
         $objTable->addCell(ucwords($file['category']), '25%');
         $objTable->endRow();
 
         $objTable->startRow();
-        $objTable->addCell('<strong>'.$this->objLanguage->languageText('phrase_mimetype', 'system', 'Mime Type').'</strong>', '25%');
-        $objTable->addCell($file['mimetype'].'&nbsp;', '25%');
-        $objTable->addCell('<strong>'.$this->objLanguage->languageText('phrase_dateuploaded', 'system', 'Date Uploaded').'</strong>', '25%');
-        $objTable->addCell(ucwords($file['datecreated'].' '.$file['timecreated']), '25%');
+        $objTable->addCell('<strong>' . $this->objLanguage->languageText('phrase_mimetype', 'system', 'Mime Type') . '</strong>', '25%');
+        $objTable->addCell($file['mimetype'] . '&nbsp;', '25%');
+        $objTable->addCell('<strong>' . $this->objLanguage->languageText('phrase_dateuploaded', 'system', 'Date Uploaded') . '</strong>', '25%');
+        $objTable->addCell(ucwords($file['datecreated'] . ' ' . $file['timecreated']), '25%');
         $objTable->endRow();
 
 
@@ -585,13 +551,12 @@ class dbfile extends dbTable
     }
 
     /**
-    * Method to get media information about a file
-    * and return the result in table display format
-    * @param  string $fileId Record Id of the File
-    * @return string Information about the file in a table format
-    */
-    public function getFileMediaInfoTable($fileId)
-    {
+     * Method to get media information about a file
+     * and return the result in table display format
+     * @param  string $fileId Record Id of the File
+     * @return string Information about the file in a table format
+     */
+    public function getFileMediaInfoTable($fileId) {
         $file = $this->getFileInfo($fileId);
 
         if ($file == FALSE) {
@@ -607,11 +572,11 @@ class dbfile extends dbTable
         $mediaInfoArray = array();
 
         if ($file['width'] != 0) {
-            $mediaInfoArray['info_width'] = $file['width'].' px';
+            $mediaInfoArray['info_width'] = $file['width'] . ' px';
         }
 
         if ($file['height'] != 0) {
-            $mediaInfoArray['info_height'] = $file['height'].' px';
+            $mediaInfoArray['info_height'] = $file['height'] . ' px';
         }
 
         if ($file['playtime'] != 0) {
@@ -619,15 +584,15 @@ class dbfile extends dbTable
             $minutes = ($file['playtime'] - $seconds) / 60;
 
             if ($seconds < 10) {
-                $seconds = '0'.$seconds;
+                $seconds = '0' . $seconds;
             }
 
             if ($minutes > 59) {
                 $hour = ($minutes - ($minutes % 60)) / 60;
                 $minutes = $minutes % 60;
-                $str = $hour.':'.$minutes.':'.$seconds;
+                $str = $hour . ':' . $minutes . ':' . $seconds;
             } else {
-                $str = $minutes.':'.$seconds;
+                $str = $minutes . ':' . $seconds;
             }
             $mediaInfoArray['info_playtime'] = $str;
         }
@@ -669,9 +634,8 @@ class dbfile extends dbTable
 
             $count = 0;
 
-            foreach ($mediaInfoArray as $item=>$value)
-            {
-                $objTable->addCell('<strong>'.$this->objLanguage->languageText('mod_filemanager_'.$item, 'filemanager').'</strong>', '25%');
+            foreach ($mediaInfoArray as $item => $value) {
+                $objTable->addCell('<strong>' . $this->objLanguage->languageText('mod_filemanager_' . $item, 'filemanager') . '</strong>', '25%');
                 $objTable->addCell($value, '25%');
                 $count++;
 
@@ -683,7 +647,6 @@ class dbfile extends dbTable
                         $rowStarted = TRUE;
                     }
                 }
-
             }
 
             if ($rowStarted) {
@@ -696,9 +659,7 @@ class dbfile extends dbTable
 
             return $objTable->show();
         }
-
     }
-
 
     /**
      * Method to delete a file
@@ -707,8 +668,7 @@ class dbfile extends dbTable
      * @param  Boolean $includeArchives Flag on whether to include files extracted from archive if archive
      * @return boolean
      */
-    public function deleteFile($fileId, $includeArchives=FALSE)
-    {
+    public function deleteFile($fileId, $includeArchives = FALSE) {
         $file = $this->getFile($fileId);
 
         if ($file == FALSE) {
@@ -716,11 +676,10 @@ class dbfile extends dbTable
         }
 
         if ($includeArchives) {
-            $otherFiles = $this->getAll('WHERE filename=\''.$file['filename'].'\' AND userid=\''.$file['userid'].'\' AND id != \''.$fileId.'\'');
+            $otherFiles = $this->getAll('WHERE filename=\'' . $file['filename'] . '\' AND userid=\'' . $file['userid'] . '\' AND id != \'' . $fileId . '\'');
 
             if (count($otherFiles) > 0) {
-                foreach ($otherFiles as $otherfile)
-                {
+                foreach ($otherFiles as $otherfile) {
                     $this->removeFile($otherfile['id'], $otherfile['path']);
                 }
             }
@@ -736,10 +695,9 @@ class dbfile extends dbTable
      * @param  string  $filePath Path to file
      * @return boolean
      */
-    private function removeFile($fileId, $filePath)
-    {
+    private function removeFile($fileId, $filePath) {
         // Get Path to File
-        $fullFilePath = $this->objConfig->getcontentPath().$filePath;
+        $fullFilePath = $this->objConfig->getcontentPath() . $filePath;
         $filePath = $this->objCleanUrl->cleanUpUrl($filePath);
         $fullFilePath = $this->objCleanUrl->cleanUpUrl($fullFilePath);
 
@@ -761,8 +719,8 @@ class dbfile extends dbTable
         $result = $this->delete('id', $fileId);
 
         if ($result) {
-           // $objLucene = $this->getObject('indexdata', 'search');
-           // $objLucene->removeIndex('filemanager_file_'.$fileId);
+            // $objLucene = $this->getObject('indexdata', 'search');
+            // $objLucene->removeIndex('filemanager_file_'.$fileId);
             $this->objQuota = $this->getObject('dbquotas');
             $this->objQuota->updateUsage($filePath);
         }
@@ -771,13 +729,12 @@ class dbfile extends dbTable
     }
 
     /**
-    * Method to Change the Mimetype of a File
-    * @param  string  $fileId,  Record Id of the File
-    * @param  string  $mimetype New mimetype of the File
-    * @return boolean Result of Update
-    */
-    public function updateMimeType($fileId, $mimetype)
-    {
+     * Method to Change the Mimetype of a File
+     * @param  string  $fileId,  Record Id of the File
+     * @param  string  $mimetype New mimetype of the File
+     * @return boolean Result of Update
+     */
+    public function updateMimeType($fileId, $mimetype) {
         // First Check that mimetype is valid and not empty
         if ($mimetype != '' && $this->objMimetypes->isValidMimeType($mimetype)) {
 
@@ -791,8 +748,7 @@ class dbfile extends dbTable
                 $category = $this->objFileFolder->getFileFolder($filename, $mimetype);
 
                 // Update Database
-                return $this->update('id', $fileId, array('mimetype'=>$mimetype, 'category'=>$category));
-
+                return $this->update('id', $fileId, array('mimetype' => $mimetype, 'category' => $category));
             } else { // Return False
                 return FALSE;
             }
@@ -802,80 +758,74 @@ class dbfile extends dbTable
     }
 
     /**
-    * Added function to move a file to another category
-    * @param  string  $fileId   Record Id of the File
-    * @param  string  $category Name of New Category
-    * @return boolean Result of the Move
-    */
-    public function updateFileCategory($fileId, $category)
-    {
-        return $this->update('id', $fileId, array('category'=>$category));
+     * Added function to move a file to another category
+     * @param  string  $fileId   Record Id of the File
+     * @param  string  $category Name of New Category
+     * @return boolean Result of the Move
+     */
+    public function updateFileCategory($fileId, $category) {
+        return $this->update('id', $fileId, array('category' => $category));
     }
 
-
     /**
-    * Method to update the paths of files that do not have the filefolder item set
-    * This is due to a patch added
-    */
-    public function updateFilePath()
-    {
+     * Method to update the paths of files that do not have the filefolder item set
+     * This is due to a patch added
+     */
+    public function updateFilePath() {
         $files = $this->getAll(' WHERE filefolder IS NULL OR filefolder=\'\'');
 
         if (count($files) > 0) {
             foreach ($files as $file) {
-                $this->update('id', $file['id'], array('filefolder'=>dirname($file['path'])));
+                $this->update('id', $file['id'], array('filefolder' => dirname($file['path'])));
             }
         }
     }
 
     /**
-    * Method to get all files in a particular folder
-    * @param  string $folder folderpath
-    * @return array
-    */
-    public function getFolderFiles($folder)
-    {
-        return $this->getAll(' WHERE filefolder=\''.$folder.'\' ORDER BY filename');
-    }
-    /**
-    * Method to get a file in a particular folder
-    * @param  string $folder folderpath
-    * @param  string $filename file name
-    * @return array
-    */
-    public function getFileFolder($filename, $folder)
-    {
-        return $this->getAll(' WHERE filefolder=\''.$folder.'\' AND filename = \''.$filename.'\'');
+     * Method to get all files in a particular folder
+     * @param  string $folder folderpath
+     * @return array
+     */
+    public function getFolderFiles($folder) {
+        return $this->getAll(' WHERE filefolder=\'' . $folder . '\' ORDER BY filename');
     }
 
     /**
-    * Method to update the license and description of a file
-    * @param string $id Record Id of the File
-    * @param string $description Description of the File
-    * @param string $license License of the File
-    */
-    public function updateDescriptionLicense($id, $description, $license)
-    {
-        $result = $this->update('id', $id, array('description'=>$description, 'license'=>$license));
+     * Method to get a file in a particular folder
+     * @param  string $folder folderpath
+     * @param  string $filename file name
+     * @return array
+     */
+    public function getFileFolder($filename, $folder) {
+        return $this->getAll(' WHERE filefolder=\'' . $folder . '\' AND filename = \'' . $filename . '\'');
+    }
+
+    /**
+     * Method to update the license and description of a file
+     * @param string $id Record Id of the File
+     * @param string $description Description of the File
+     * @param string $license License of the File
+     */
+    public function updateDescriptionLicense($id, $description, $license) {
+        $result = $this->update('id', $id, array('description' => $description, 'license' => $license));
 
         if ($result) {
             $file = $this->getFile($id);
-             $this->indexFile($file);
+            $this->indexFile($file);
         }
 
         return $result;
     }
 
     /**
-    * Method to get the list of Open Files for a Site
-    *
-    * At the moment, it treats open files as those that are not copyrighted.
-    * @param string/array $category List of Category(s) files should come from. Either array or string
-    * @param string/array $fileTypes List of Filetype(s) files should come from. Either array or string
-    * @return array;
-    */
-    public function getAllOpenFiles($category=NULL, $fileTypes=NULL)
-    {
+     * Method to get the list of Open Files for a Site
+     *
+     * At the moment, it treats open files as those that are not copyrighted.
+     * @param string/array $category List of Category(s) files should come from. Either array or string
+     * @param string/array $fileTypes List of Filetype(s) files should come from. Either array or string
+     * @return array;
+     */
+    public function getAllOpenFiles($category = NULL, $fileTypes = NULL) {
         $categoryWhere = '';
 
         if ($category != NULL) {
@@ -883,15 +833,14 @@ class dbfile extends dbTable
                 $categoryWhere = ' AND ( ';
                 $divider = '';
 
-                foreach ($category as $item)
-                {
-                    $categoryWhere .= $divider.' category=\''.$item.'\' ';
+                foreach ($category as $item) {
+                    $categoryWhere .= $divider . ' category=\'' . $item . '\' ';
                     $divider = ' OR ';
                 }
 
                 $categoryWhere .= ' ) ';
             } else {
-                $categoryWhere = ' AND category=\''.$category.'\'';
+                $categoryWhere = ' AND category=\'' . $category . '\'';
             }
         }
 
@@ -902,50 +851,44 @@ class dbfile extends dbTable
                 $fileTypesWhere = ' AND ( ';
                 $divider = '';
 
-                foreach ($fileTypes as $item)
-                {
-                    $fileTypesWhere .= $divider.' datatype=\''.$item.'\' ';
+                foreach ($fileTypes as $item) {
+                    $fileTypesWhere .= $divider . ' datatype=\'' . $item . '\' ';
                     $divider = ' OR ';
                 }
 
                 $fileTypesWhere .= ' ) ';
             } else {
-                $fileTypesWhere = ' AND datatype=\''.$category.'\'';
+                $fileTypesWhere = ' AND datatype=\'' . $category . '\'';
             }
         }
 
-        return $this->getAll('WHERE license != \'copyright\' '.$categoryWhere.' '.$fileTypesWhere);
+        return $this->getAll('WHERE license != \'copyright\' ' . $categoryWhere . ' ' . $fileTypesWhere);
     }
 
     /**
-    * Method to get all the open site images
-    * @return array
-    */
-    public function getAllOpenImages()
-    {
+     * Method to get all the open site images
+     * @return array
+     */
+    public function getAllOpenImages() {
         return $this->getAllOpenFiles('images');
     }
 
     /**
-    * Method to get all the open site images that can display in a web browser
-    * @return array
-    */
-    public function getAllOpenWebImages()
-    {
+     * Method to get all the open site images that can display in a web browser
+     * @return array
+     */
+    public function getAllOpenWebImages() {
         return $this->getAllOpenFiles('images', array('gif', 'jpg', 'jpeg', 'png'));
     }
 
-    public function getPathFiles($type, $id)
-    {
+    public function getPathFiles($type, $id) {
         $sql = " WHERE path LIKE '{$type}/{$id}/%' ";
         return $this->getAll($sql);
     }
 
-
-    public function overwriteFile($id)
-    {
+    public function overwriteFile($id) {
         // Create Path to Temp File
-        $tempFilePath = $this->objConfig->getcontentBasePath().'/filemanager_tempfiles/'.$id;
+        $tempFilePath = $this->objConfig->getcontentBasePath() . '/filemanager_tempfiles/' . $id;
 
         // Get File Record
         $fileInfo = $this->getFileInfo($id);
@@ -955,7 +898,7 @@ class dbfile extends dbTable
         if ($fileInfo != FALSE && file_exists($tempFilePath)) {
 
             // Generate Path to Existing File
-            $filePath = $this->objConfig->getcontentBasePath().$fileInfo['path'];
+            $filePath = $this->objConfig->getcontentBasePath() . $fileInfo['path'];
 
             // Delete Existing File if it exists
             if (file_exists($filePath)) {
@@ -982,16 +925,14 @@ class dbfile extends dbTable
      * @param string $fileId File Id
      * @return void
      */
-    private function deletePreviewFiles($fileId)
-    {
+    private function deletePreviewFiles($fileId) {
         // Previews are in the following formats
         $availablePreviews = array('jpg', 'htm', 'pdf', 'swf', 'mp3', 'flv', 'txt');
 
         // Check for each format and delete
-        foreach ($availablePreviews as $format)
-        {
+        foreach ($availablePreviews as $format) {
             // Get thumbnail path
-            $thumbnailPath = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/'.$fileId.'.'.$format;
+            $thumbnailPath = $this->objConfig->getcontentBasePath() . '/filemanager_thumbnails/' . $fileId . '.' . $format;
             $thumbnailPath = $this->objCleanUrl->cleanUpUrl($thumbnailPath);
 
             // Delete thumbnail if it exists
@@ -1001,68 +942,66 @@ class dbfile extends dbTable
         }
 
         // Also delete temp file that may not have been overwritten
-        $tempFilePath = $this->objConfig->getcontentBasePath().'/filemanager_tempfiles/'.$fileId;
+        $tempFilePath = $this->objConfig->getcontentBasePath() . '/filemanager_tempfiles/' . $fileId;
 
         if (file_exists($tempFilePath)) {
             unlink($tempFilePath);
         }
     }
-    public function renameFolder($oldPath, $newPath)
-    {
+
+    public function renameFolder($oldPath, $newPath) {
         $rs = $this->getAll("WHERE filefolder LIKE '{$oldPath}%' ORDER BY filefolder");
         if (!empty($rs)) {
-            foreach ($rs as $rec){
+            foreach ($rs as $rec) {
                 $id = $rec['id'];
                 $path = $rec['path'];
                 $filefolder = $rec['filefolder'];
-                $newPath_ = preg_replace('|^('.$oldPath.')(.*)$|', "{$newPath}\${2}", $path);
-                $newFilefolder_ = preg_replace('|^('.$oldPath.')(.*)$|', "{$newPath}\${2}", $filefolder);
+                $newPath_ = preg_replace('|^(' . $oldPath . ')(.*)$|', "{$newPath}\${2}", $path);
+                $newFilefolder_ = preg_replace('|^(' . $oldPath . ')(.*)$|', "{$newPath}\${2}", $filefolder);
                 //trigger_error('dbfile::$newPath_:'.$newPath_);
                 //trigger_error('dbfile::$newFilefolder_:'.$newFilefolder_);
                 //continue;
                 $this->update(
-                    'id',
-                    $id,
-                    array(
-                        'path'=>$newPath_,
-                        'filefolder'=>$newFilefolder_
-                    )
+                        'id', $id, array(
+                    'path' => $newPath_,
+                    'filefolder' => $newFilefolder_
+                        )
                 );
             }
         }
         return TRUE;
     }
+
     /**
-    * Move file
-    *
-    * Moves files from one folder to another
-    *
-    * @param string $id File ID
-    * @param string $destFolder Destination path
-    * @return bool Success or failure
-    */
-    public function moveFile($id, $destPath)
-    {
+     * Move file
+     *
+     * Moves files from one folder to another
+     *
+     * @param string $id File ID
+     * @param string $destFolder Destination path
+     * @return bool Success or failure
+     */
+    public function moveFile($id, $destPath) {
         $contentBasePath = $this->objConfig->getcontentBasePath();
         $rec = $this->getRow('id', $id);
         $fileName = $rec['filename'];
         $fileFolder = $rec['filefolder'];
-        $filePathFull = $contentBasePath.$fileFolder.'/'.$fileName;
-        $destFilePath = $destPath.'/'.$fileName;
-        $destFilePathFull = $contentBasePath.$destFilePath;
+        $filePathFull = $contentBasePath . $fileFolder . '/' . $fileName;
+        $destFilePath = $destPath . '/' . $fileName;
+        $destFilePathFull = $contentBasePath . $destFilePath;
         $result = rename($filePathFull, $destFilePathFull);
         if ($result === FALSE) {
             return FALSE;
         }
         $this->update(
-            'id',
-            $id,
-            array(
-                'path'=>$destFilePath,
-                'filefolder'=>$destPath
-            )
+                'id', $id, array(
+            'path' => $destFilePath,
+            'filefolder' => $destPath
+                )
         );
     }
+
+   
 
 }
 

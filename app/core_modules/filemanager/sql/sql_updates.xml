@@ -11,4 +11,16 @@
             </add>
         </data>
     </update>
+    <update>
+        <table>tbl_files_folders</table>
+        <version>1.029</version>
+        <description>added column for access</description>
+        <data>
+            <add>
+                <name>access</name>
+                <type>text</type>
+                <length>20</length>
+            </add>
+        </data>
+    </update>
 </updates>

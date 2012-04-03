@@ -3,8 +3,7 @@
 /**
  *
  * File Manager
- *
- * File Manager
+
  *
  * PHP version 5
  *
@@ -22,7 +21,7 @@
  * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
  * @category  Chisimba
- * @package   helloforms
+ * @package   filemanager
  * @author    Tohir Solomons tsolomons@uwc.ac.za
  * @copyright 2007 AVOIR
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
@@ -63,6 +62,7 @@ class filemanager extends controller {
      *
      */
     public $objConfig;
+
     /**
      *
      * @var string $objLanguage String object property for holding the
@@ -71,6 +71,7 @@ class filemanager extends controller {
      *
      */
     public $objLanguage;
+
     /**
      *
      * @var string $objLog String object property for holding the
@@ -79,6 +80,7 @@ class filemanager extends controller {
      *
      */
     public $objLog;
+
     /**
      * Object of the groupadminmodel class in the groupadmin module.
      *
@@ -86,6 +88,7 @@ class filemanager extends controller {
      * @var object
      */
     protected $objGroup;
+
     /**
      * Object of the dbsysconfig class in the sysconfig module.
      *
@@ -185,7 +188,7 @@ class filemanager extends controller {
      * @param  array  $params Parameters to pass to action.
      * @return NULL
      */
-    public function nextAction($action, $params = array(), $module='filemanager') {
+    public function nextAction($action, $params = array(), $module = 'filemanager') {
         // If parameters is NULL, convert to array
         if ($params == NULL) {
             $params = array();
@@ -229,7 +232,7 @@ class filemanager extends controller {
      * @param   bool   $javascriptCompatibility flag to produce javascript compatible URLs
      * @returns string $uri the URL
      */
-    public function uri($params = array(), $module = '', $mode = '', $omitServerName=FALSE, $javascriptCompatibility = FALSE, $omitExtraParams=FALSE) {
+    public function uri($params = array(), $module = '', $mode = '', $omitServerName = FALSE, $javascriptCompatibility = FALSE, $omitExtraParams = FALSE) {
         $objFileManagerObject = $this->getObject('filemanagerobject');
         return $objFileManagerObject->uri($params, $module, $mode, $omitServerName, $javascriptCompatibility, $omitExtraParams);
     }
@@ -243,7 +246,7 @@ class filemanager extends controller {
      * which renders the module output.
      *
      */
-    public function dispatch($action='home') {
+    public function dispatch($action = 'home') {
         // Check to ensure the user has access to the file manager.
         if (!$this->userHasAccess()) {
             return 'access_denied_tpl.php';
@@ -815,7 +818,7 @@ class filemanager extends controller {
             $folderSourceId = $this->getParam('folder');
             $folderDestId = $this->getParam('parentfolder');
             $files = $this->getParam('files');
-            if (is_null($folderSourceId) || is_null($folderDestId) ) {
+            if (is_null($folderSourceId) || is_null($folderDestId)) {
                 return $this->__home();
             } else if (empty($files)) {
                 return $this->__viewfolder($folderSourceId);
@@ -823,8 +826,7 @@ class filemanager extends controller {
             $result = $this->objFolders->moveFiles($folderSourceId, $folderDestId, $files);
             if ($result === FALSE) {
                 return $this->__home();
-            }
-            else {
+            } else {
                 return $this->__viewfolder($folderSourceId);
             }
             //return 'dump_tpl.php';
@@ -906,7 +908,7 @@ class filemanager extends controller {
      *
      * @access private
      */
-    private function __viewfolder($id=NULL) {
+    private function __viewfolder($id = NULL) {
         if ($id == NULL) {
             $id = $this->getParam('folder');
         }
@@ -954,17 +956,9 @@ class filemanager extends controller {
         $objPreviewFolder = $this->getObject('previewfolder');
         $objPreviewFolder->editPermission = $folderPermission;
         $this->setVarByRef(
-                'table',
-                $objPreviewFolder->previewContent(
-                        $subfolders,
-                        $files,
-                        $this->getParam("mode"),
-                        $this->getParam("name"),
-                        $symlinks,
-                        explode(
-                                '____',
-                                $this->getParam('restriction')),
-                        ($this->getParam('forcerestrictions') == 'yes')
+                'table', $objPreviewFolder->previewContent(
+                        $subfolders, $files, $this->getParam("mode"), $this->getParam("name"), $symlinks, explode(
+                                '____', $this->getParam('restriction')), ($this->getParam('forcerestrictions') == 'yes')
                 )
         );
 
@@ -1321,7 +1315,7 @@ class filemanager extends controller {
      * Method to show the FCKEditor Interface
      * @param array $restriction List of FileTypes to Restrict to.
      */
-    public function showFCKEditorInterface($restriction=array(), $action='fcklink') {
+    public function showFCKEditorInterface($restriction = array(), $action = 'fcklink') {
         if ($this->getParam('mode') == 'fileupload') {
             $this->setVar('successMessage', $this->objUploadMessages->processSuccessMessages());
             $this->setVar('errorMessage', $this->objUploadMessages->processErrorMessages());
@@ -1486,8 +1480,7 @@ function checkWindowOpener()
         }
     }
 
-    private function __renamefolder()
-    {
+    private function __renamefolder() {
         //return NULL;
         $folderId = $this->getParam('folder');
         if (is_null($folderId)) {
@@ -1503,7 +1496,30 @@ function checkWindowOpener()
         } else {
             return $this->__home();
         }
+    }
 
+    /**
+     * This apply access controls to a file: public, private all logged in or private
+     *  to selected groups
+     */
+    function __setfolderaccess() {
+        $objFolderAccess = $this->getObject("folderaccess", "filemanager");
+        $access = $this->getParam("access_radio");
+        $folderId = $this->getParam("id");
+        $objFolderAccess->setAccess($folderId, $access);
+        return $this->nextAction("viewfolder", array("folder" => $folderId));
+    }
+
+    /**
+     * This is called when a secure file has to be downloaded
+     * @return type 
+     */
+    function __downloadsecurefile() {
+        $filepath = $this->getParam("path");
+        $filename=  $this->getParam("filename");
+        $objFolderAccess = $this->getObject("folderaccess", "filemanager");
+       
+        return $objFolderAccess->downloadFile($filepath, $filename);
     }
 
     /* ------------- END: Set of methods to replace case selection ------------ */

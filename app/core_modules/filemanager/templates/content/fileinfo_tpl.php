@@ -22,8 +22,14 @@ $header = new htmlheading();
 $header->type = 1;
 $header->str = $objFileIcons->getFileIcon($file['filename']) . ' ' . str_replace('_', ' ', htmlentities($file['filename']));
 
+
 $fileDownloadPath = $this->objConfig->getcontentPath() . $file['path'];
 $fileDownloadPath = $this->objCleanUrl->cleanUpUrl($fileDownloadPath);
+
+$folder=$this->objFolders->getFolder($folderId);
+if($folder['access'] == 'private_all' || $folder['access'] == 'private_selected'){
+    $fileDownloadPath=$this->uri(array("action"=>"downloadsecurefile","path"=>$file['path'],"filename"=>$file['filename']));
+}
 
 $objIcon->setIcon('download');
 $link = new link($fileDownloadPath);
@@ -31,7 +37,7 @@ $link2 = new link($fileDownloadPath);
 
 $link->link = $objIcon->show();
 $link2->link = $this->objLanguage->languageText('phrase_downloadfile', 'filemanager', 'Download File');
-$copyToClipBoardJS='
+$copyToClipBoardJS = '
     
   <script type="text/javascript">
   function copyToClipboard(text) {
@@ -173,16 +179,16 @@ $tabContent->width = '90%';
 if ($preview != '') {
 
     if ($file['category'] == 'images') {
-       // $this->appendArrayVar('headerParams', $this->getJavaScriptFile('jquery.imagefit_0.2.js', 'jquery'));
-       // $this->appendArrayVar('bodyOnLoad', "jQuery('#filemanagerimagepreview').imagefit();");
+        // $this->appendArrayVar('headerParams', $this->getJavaScriptFile('jquery.imagefit_0.2.js', 'jquery'));
+        // $this->appendArrayVar('bodyOnLoad', "jQuery('#filemanagerimagepreview').imagefit();");
 
         $preview = '<div id="filemanagerimagepreview">' . $preview . '</div>';
     }
 
-    $objWashout=$this->getObject('washout','utilities');
-    
-    $preview=$objWashout->parseText($embedValue);
-   
+    $objWashout = $this->getObject('washout', 'utilities');
+
+    $preview = $objWashout->parseText($embedValue);
+
     $previewContent = '<h2>' . $this->objLanguage->languageText('mod_filemanager_filepreview', 'filemanager', 'File Preview') . '</h2>' . $preview;
 
 
@@ -207,7 +213,7 @@ if (array_key_exists('width', $file)) {
     $fileInfoContent .= '<br /><h2>' . $mediaInfo . '</h2>' . $this->objFiles->getFileMediaInfoTable($file['id']);
 }
 
-//$tabContent->addTab($fileInfo, $fileInfoContent);
+
 $tabContent->addTab(array('name' => $fileInfo, 'content' => $fileInfoContent));
 
 
