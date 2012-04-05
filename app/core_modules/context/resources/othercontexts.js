@@ -87,13 +87,15 @@ var othercontextdata = new Ext.data.JsonStore({
         },
 
 		plugins:[new Ext.ux.grid.Search({
-				 iconCls:'zoom'
+        		 //Commented out by JOC on 2012-04-05:
+				 //--iconCls:'zoom'
 				 //,readonlyIndexes:['lecturers']
 				 //--,disableIndexes:['lecturers']
 				 //--,disableIndexes:[]
-				 ,minChars:1
-				 ,autoFocus:true
+				 minChars:1,
+				 autoFocus:true,
 				 // ,menuStyle:'radio'
+				 checkIndexes:['contextcode', 'title']
 		 })],
 
         // paging bar on the bottom

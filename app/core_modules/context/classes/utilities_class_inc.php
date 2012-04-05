@@ -716,7 +716,7 @@ function getContexts()
                 if ($field == "lecturers") {
                     continue;
                 } else {
-                    $where .= $or . $field . ' LIKE "' . $params['query'] . '%"';
+                    $where .= $or . $field . ' LIKE \'' . $params['query'] . '%\'';
                     $or = " OR ";
                 }
                 //if ($cnt < $max) {
