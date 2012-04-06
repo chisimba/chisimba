@@ -932,3 +932,27 @@ a.contexttitle {
     margin-bottom: 10px;
 }
 /**   end of pagenotes styles ***/
+
+.redtxt {
+    color: red;
+}
+
+.bluetxt {
+    color: blue;
+}
+
+.greentxt {
+    color: green;
+}
+
+.orangetxt {
+    color: orange;
+}
+
+.blacktxt {
+    color: #000000;
+}
+
+.whitetxt {
+    color: #FFFFFF;
+}
