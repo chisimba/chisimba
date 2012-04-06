@@ -1302,6 +1302,16 @@ Errors and warnings
     vertical-align: top;
     float: left;
 }
+.success {
+    color: green;
+    margin-bottom: 20px;
+}
+.success:before {
+    content:url(images/success-icon.png);
+    margin-right: 8px;
+    vertical-align: top;
+    float: left;
+}
 
 /**
 Limit characters - for example in Twitter box
