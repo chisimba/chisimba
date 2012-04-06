@@ -199,9 +199,12 @@ class jqdialogue extends object
         $this->objSkin->setVar('SUPPRESS_PROTOTYPE', true);
         $this->objSkin->setVar('JQUERY_VERSION', '1.2.6');
 
-        $this->appendArrayVar('headerParams', $this->getJavascriptFile('api/ui/ui.core.js', 'jquery'));
-        $this->appendArrayVar('headerParams', $this->getJavascriptFile('api/ui/dialog/ui.dialog.js', 'jquery'));
-        $this->appendArrayVar('headerParams', '<link rel="stylesheet" type="text/css" href="'.$this->getResourceUri('api/ui/theme/ui.all.css', 'jquery').'">');
+//        $this->appendArrayVar('headerParams', $this->getJavascriptFile('api/ui/ui.core.js', 'jquery'));
+//        $this->appendArrayVar('headerParams', $this->getJavascriptFile('api/ui/dialog/ui.dialog.js', 'jquery'));
+//        $this->appendArrayVar('headerParams', '<link rel="stylesheet" type="text/css" href="'.$this->getResourceUri('api/ui/theme/ui.all.css', 'jquery').'">');
+        $this->appendArrayVar('headerParams', $this->getJavascriptFile('jquery-ui-1.8.18/js/jquery-1.7.1.min.js', 'jquery'));
+        $this->appendArrayVar('headerParams', $this->getJavascriptFile('jquery-ui-1.8.18/js/jquery-ui-1.8.18.custom.min.js', 'jquery'));
+        $this->appendArrayVar('headerParams', '<link rel="stylesheet" type="text/css" href="'.$this->getResourceUri('jquery-ui-1.8.18/css/cupertino/jquery-ui-1.8.18.custom.css', 'jquery').'">');
 
         if ($this->close) {
             $this->options['close'] = 'function(event,ui){'.$this->close.'}';
