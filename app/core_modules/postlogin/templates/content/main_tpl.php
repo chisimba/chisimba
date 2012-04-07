@@ -43,11 +43,11 @@ $objCssLayout->setNumColumns(3);
 $this->dbSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
 $showAdminShortcutBlock = $this->dbSysConfig->getValue('SHOW_SHORTCUTS_BLOCK', 'context');
 
-$utillink="";
+$utillink = "";
 if (strtoupper($showAdminShortcutBlock) == "TRUE") {
     $objIcon->setIcon('plus');
     $plusIcon = $objIcon->show();
-    $allactivitylink = new link($this->uri(array('action' => 'selectcontextsactivitydates'),'context'));
+    $allactivitylink = new link($this->uri(array('action' => 'selectcontextsactivitydates'), 'context'));
     $allactivitylink->link = $plusIcon . '&nbsp;' . $this->objLanguage->code2Txt('mod_context_allcoursesacitivity', 'context', NULL, 'All [-contexts-] activity');
     $objFeatureBox = $this->newObject('featurebox', 'navigation');
     $content = $allactivitylink->show();
@@ -82,24 +82,24 @@ if ($objUser->isAdmin()) {
         if ($title !== "" && $title !== NULL) {
             $title .= "(" . $smallBlock['module'] . ")";
         }
-        $rightBlocksDropDown->addOption('dynamicblock|' 
-          . $smallBlock['id'] . '|' . $smallBlock['module'], $title);
-        $leftBlocksDropDown->addOption('dynamicblock|' . $smallBlock['id'] 
-          . '|' . $smallBlock['module'], $title);
+        $rightBlocksDropDown->addOption('dynamicblock|'
+                . $smallBlock['id'] . '|' . $smallBlock['module'], $title);
+        $leftBlocksDropDown->addOption('dynamicblock|' . $smallBlock['id']
+                . '|' . $smallBlock['module'], $title);
     }
 
     foreach ($smallBlocks as $smallBlock) {
-        $block = $this->newObject('block_' . $smallBlock['blockname'], 
-          $smallBlock['moduleid']);
+        $block = $this->newObject('block_' . $smallBlock['blockname'],
+                        $smallBlock['moduleid']);
         $moduleId = $smallBlock['moduleid'];
         $title = trim($block->title);
         if ($title !== "" && $title !== NULL) {
             $title .= "(" . $smallBlock['moduleid'] . ")";
         }
-        $rightBlocksDropDown->addOption('block|' . $smallBlock['blockname'] 
-          . '|' . $smallBlock['moduleid'], htmlentities($title));
-        $leftBlocksDropDown->addOption('block|' . $smallBlock['blockname'] 
-          . '|' . $smallBlock['moduleid'], htmlentities($title));
+        $rightBlocksDropDown->addOption('block|' . $smallBlock['blockname']
+                . '|' . $smallBlock['moduleid'], htmlentities($title));
+        $leftBlocksDropDown->addOption('block|' . $smallBlock['blockname']
+                . '|' . $smallBlock['moduleid'], htmlentities($title));
     }
 
     $wideBlocksDropDown = new dropdown('middleblocks');
@@ -108,12 +108,12 @@ if ($objUser->isAdmin()) {
 
     foreach ($wideDynamicBlocks as $wideBlock) {
         $title = htmlentities($wideBlock['title']);
-        if ($title !== "" && $title !==  NULL) {
+        if ($title !== "" && $title !== NULL) {
             $title .= "(" . $wideBlock['module'] . ")";
         }
-        $wideBlocksDropDown->addOption('dynamicblock|' 
-          . $wideBlock['id'] . '|' . $wideBlock['module'], 
-          $title);
+        $wideBlocksDropDown->addOption('dynamicblock|'
+                . $wideBlock['id'] . '|' . $wideBlock['module'],
+                $title);
     }
 
     foreach ($wideBlocks as $wideBlock) {
@@ -124,32 +124,29 @@ if ($objUser->isAdmin()) {
         }
         $wideBlocksDropDown->addOption('block|' . $wideBlock['blockname'] . '|' . $wideBlock['moduleid'], $title);
     }
-
-    foreach ($contentSmallBlocks as $contentSmallBlock) {
-        /*$block = $this->newObject('block_' . $wideBlock['blockname'], $wideBlock['moduleid']);
-        $title = $block->title;
-
-        $wideBlocksDropDown->addOption('block|' . $wideBlock['blockname'] . '|' . $wideBlock['moduleid'], htmlentities($title));*/
-    }
     //Content Wide Blocks
-    /*$contentWdBlks = "";
-    foreach ($contentWideBlocks as $contentWideBlock) {
-        $contentWdBlks .= $this->objBlocks->showBlock($contentWideBlock["id"],"contentblocks");
-    }*/
+    /* $contentWdBlks = "";
+      foreach ($contentWideBlocks as $contentWideBlock) {
+      $contentWdBlks .= $this->objBlocks->showBlock($contentWideBlock["id"],"contentblocks");
+      } */
     //Add content wideblocks to options
-    foreach ($contentWideBlocks as $contentWideBlock) {
-        $block = $this->objBlocks->showBlock($contentWideBlock["id"],"contentblocks");
-        $wideBlocksDropDown->addOption('block|' . $contentWideBlock["id"] . '|' . "contentblocks", htmlentities($contentWideBlock["title"]));
+    if (!empty($contentWideBlocks)) {
+        foreach ($contentWideBlocks as $contentWideBlock) {
+            $block = $this->objBlocks->showBlock($contentWideBlock["id"], "contentblocks");
+            $wideBlocksDropDown->addOption('block|' . $contentWideBlock["id"] . '|' . "contentblocks", htmlentities($contentWideBlock["title"]));
+        }
     }
     //Add content sideblocks to options
-    foreach ($contentSmallBlocks as $contentSmallBlock) {
-        $block = $this->objBlocks->showBlock($contentSmallBlock["id"],"contentblocks");
-        $rightBlocksDropDown->addOption('block|' . $contentSmallBlock["id"] . '|' . "contentblocks", htmlentities($contentSmallBlock["title"]));
-        $leftBlocksDropDown->addOption('block|' . $contentSmallBlock["id"] . '|' . "contentblocks", htmlentities($contentSmallBlock["title"]));
+    if (!empty($contentSmallBlocks)) {
+        foreach ($contentSmallBlocks as $contentSmallBlock) {
+            $block = $this->objBlocks->showBlock($contentSmallBlock["id"], "contentblocks");
+            $rightBlocksDropDown->addOption('block|' . $contentSmallBlock["id"] . '|' . "contentblocks", htmlentities($contentSmallBlock["title"]));
+            $leftBlocksDropDown->addOption('block|' . $contentSmallBlock["id"] . '|' . "contentblocks", htmlentities($contentSmallBlock["title"]));
+        }
     }
     $rightBlocks = $rightBlocksDropDown->show();
     $leftBlocks = $leftBlocksDropDown->show();
-    
+
     $button = new button('addrightblock', $objLanguage->languageText('mod_prelogin_addblock', 'system', 'Add Block'));
     $button->cssId = 'rightbutton';
 
@@ -161,8 +158,8 @@ if ($objUser->isAdmin()) {
     $leftButton = $button->show();
 
 
-    $value = $objLanguage->languageText('mod_context_turneditingon', 
-      'context', 'Turn Editing On');
+    $value = $objLanguage->languageText('mod_context_turneditingon',
+                    'context', 'Turn Editing On');
     $objEdBut = $this->getObject('buildcanvas', 'canvas');
     $editBut = $objEdBut->getSwitchButton($value);
 }
