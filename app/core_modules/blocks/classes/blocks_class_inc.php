@@ -93,7 +93,12 @@ class blocks extends object {
             $this->objConfig = $this->getObject('altconfig', 'config');
             $this->objUser = $this->getObject('user', 'security');
             $this->objLanguage = $this->getObject('language', 'language');
+            //Check if contentblocks is installed
+            $this->cbExists = $this->objModule->checkIfRegistered("contentblocks");
+            if($this->cbExists){
             $this->objTxtBlockBase = $this->getObject("contentblockbase", "contentblocks");
+            }
+
         } catch (customException $e) {
             echo customException::cleanUp($e);
             die ();
@@ -324,7 +329,7 @@ class blocks extends object {
             if (isset($block)) {
                 //split to check if text or wideblock
                 //$blockArr = split("[0-9]", $block);
-                if ($module == "contentblocks") {
+                if ($module == "contentblocks" && $this->cbExists) {
                     // fetch contentblock data                    
                     $dataArr = $this->objTxtBlockBase->setDataArr($block);
                     $this->block = $dataArr;
