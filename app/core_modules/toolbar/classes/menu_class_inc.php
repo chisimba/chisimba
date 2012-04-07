@@ -52,6 +52,7 @@ class menu extends object
         $this->objDbConMod = $this->getObject('dbcontextmodules','context');
         $this->contextCode = $this->objContext->getContextCode();
         $this->context = FALSE; $this->im = FALSE;
+        $this->objUserId = $this->objUser->userId();
         // First check if the user is in a context
         if(!empty($this->contextCode)){
             $this->context = TRUE;
@@ -72,6 +73,8 @@ class menu extends object
 
         if($this->objUser->isAdmin()){
             $access = 1;
+        } else if ($this->objUser->isLecturer()) {
+            $access = 3;
         }
 
         // get category and module data
@@ -285,6 +288,7 @@ class menu extends object
 
         // get slide out menus
         $modules = $this->menuBar();
+        
         $menu = $this->buildMenu($modules);
 
         if(!$menu) {

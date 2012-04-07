@@ -50,6 +50,12 @@ class dbmenu extends dbtable {
         if ($access == 2) { // non-admin users
             $sqlFilter .= ' AND adminonly != 1';
         }
+        //For context permissions
+        if ($access == 3) { // for context lecturers or site admin's only
+            if ($context) {
+            $sqlFilter .= "AND (adminonly != 1 or permissions LIKE '%Lecturer%' or permissions LIKE '%Site Admin%')";
+            }
+        }
         if (! $context) {
             $sqlFilter .= ' AND dependscontext != 1';
         }
