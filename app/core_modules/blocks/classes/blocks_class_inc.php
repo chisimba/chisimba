@@ -95,10 +95,9 @@ class blocks extends object {
             $this->objLanguage = $this->getObject('language', 'language');
             //Check if contentblocks is installed
             $this->cbExists = $this->objModule->checkIfRegistered("contentblocks");
-            if($this->cbExists){
-            $this->objTxtBlockBase = $this->getObject("contentblockbase", "contentblocks");
+            if ($this->cbExists) {
+                $this->objTxtBlockBase = $this->getObject("contentblockbase", "contentblocks");
             }
-
         } catch (customException $e) {
             echo customException::cleanUp($e);
             die ();
@@ -128,18 +127,22 @@ class blocks extends object {
      *
      * @param string $blockType The type of block (e.g. tabbed box)
      */
-    public function showBlock($block, $module, $blockType = NULL, $titleLength = 20, $wrapStr = TRUE, $showToggle = TRUE, $hidden = 'default', $showTitle = TRUE, $cssClass = 'featurebox', $cssId = '', $configData=NULL) {        
+    public function showBlock($block, $module, $blockType = NULL, $titleLength = 20, $wrapStr = TRUE, $showToggle = TRUE, $hidden = 'default', $showTitle = TRUE, $cssClass = 'featurebox', $cssId = '', $configData=NULL) {
         if ($this->loadBlock($block, $module)) {
             if ($this->checkLoginRequirement()) {
                 if ($this->checkAdminRequirement()) {
                     if ($this->checkGroupRequirement()) {
                         $blockArr = array();
-                        if (isset($block)) {                            
+                        if (isset($block)) {
                             //split to check if text or wideblock
                             //$blockArr = split("[0-9]", $block);
-                            if ($module == "contentblocks") {                                
-                                if (isset($this->block)) {
+                            if ($module == "contentblocks") {
+                                if (is_array($this->block)) {
                                     return $this->fetchTextBlock($block, $module, $this->block, $blockType,
+                                            $titleLength, $wrapStr, $showToggle, $hidden,
+                                            $showTitle, $cssClass, $cssId, $configData);
+                                } else if ($this->block == "class") {
+                                    return $this->fetchBlock($block, $module, $blockType,
                                             $titleLength, $wrapStr, $showToggle, $hidden,
                                             $showTitle, $cssClass, $cssId, $configData);
                                 } else {
@@ -325,16 +328,28 @@ class blocks extends object {
      *
      */
     private function loadBlock($block, $module) {
-        if ($this->objModule->checkIfRegistered($module, $module)) {            
+        if ($this->objModule->checkIfRegistered($module, $module)) {
             if (isset($block)) {
                 //split to check if text or wideblock
                 //$blockArr = split("[0-9]", $block);
                 if ($module == "contentblocks" && $this->cbExists) {
                     // fetch contentblock data                    
                     $dataArr = $this->objTxtBlockBase->setDataArr($block);
-                    $this->block = $dataArr;
-                    return TRUE;
-                } else {                    
+                    if ($dataArr["title"] != $block) {
+                        $this->block = $dataArr;
+                        return TRUE;
+                    } else {
+                        $this->block = "class";
+                        $blockfile = $this->objConfig->getModulePath() . $module . '/classes/block_' . $block . '_class_inc.php';
+                        if ($this->blockExists($block, $module)) {
+                            // Create an instance of the module's particular block
+                            $this->objBlock = $this->getObject('block_' . $block, $module);
+                            return TRUE;
+                        } else {
+                            return FALSE;
+                        }
+                    }
+                } else {
                     $blockfile = $this->objConfig->getModulePath() . $module . '/classes/block_' . $block . '_class_inc.php';
                     if ($this->blockExists($block, $module)) {
                         // Create an instance of the module's particular block
@@ -367,7 +382,7 @@ class blocks extends object {
      */
     private function fetchBlock($block, $module, $blockType = NULL, $titleLength = 20, $wrapStr = TRUE, $showToggle = TRUE, $hidden = 'default', $showTitle = TRUE, $cssClass = 'featurebox', $cssId = '', $configData=NULL) {
         $this->objBlock->configData = $configData;
-        
+
         if ($block == "content_text" || $block == "content_widetext") {
             return NULL;
         } else {
@@ -495,9 +510,11 @@ class blocks extends object {
                 }
                 if (isset($blockDataArr["blockContents"])) {
                     $blockContents = $blockDataArr["blockContents"];
+                    $blockContent = $blockContents;
                 } else {
                     $blockContents = "";
                 }
+
                 if (isset($blockDataArr["cssClass"])) {
                     $cssClass = $blockDataArr["cssClass"];
                 }
@@ -516,6 +533,7 @@ class blocks extends object {
                         $title = $objWrap->wrapString($title, $titleLength);
                     }
                 }
+
                 switch ($blockType) {
                     case NULL :
                         $objFeatureBox = $this->newObject('featurebox', 'navigation');
@@ -530,6 +548,7 @@ class blocks extends object {
                         if ($title == FALSE) {
                             $showTitle = FALSE;
                         }
+
                         return $objFeatureBox->show($title, $blockContents,
                                 $block, $hidden, $showToggle, $showTitle, $cssClass, $cssId);
                     case "tabbedbox" :
