@@ -298,6 +298,11 @@ class menu extends object
         // get breadcrumbs
         $crumbs=$this->tools->navigation();
 
+        $bookmark = $this->tools->addBookmark();
+        if($bookmark){
+            $iconList[] = $bookmark;
+        }
+
         $im = $this->tools->addIM();
         if($im){
             $iconList[] = $im;
@@ -342,30 +347,33 @@ class menu extends object
         $params = $this->tools->params;
 
         if(!empty($params)){
-            foreach($params as $key => $item){
-                // append new parameter
-                switch($key){
-                    case 'headerParams':
-                        if(!is_array($headerParams) || empty($headerParams)){
-                            $headerParams = array();
-                            $headerParams[] = $item;
+            foreach($params as $param){
+                foreach ($param as $key => $item)
+                {
+                    // append new parameter
+                    switch($key){
+                        case 'headerParams':
+                            if(!is_array($headerParams) || empty($headerParams)){
+                                $headerParams = array();
+                                $headerParams[] = $item;
+                                break;
+                            }
+                            if (!in_array($item, $headerParams)){
+                                $headerParams[] = $item;
+                            }
                             break;
-                        }
-                        if (!in_array($item, $headerParams)){
-                            $headerParams[] = $item;
-                        }
-                        break;
 
-                    case 'bodyOnLoad':
-                        if(!is_array($bodyOnLoad) || empty($bodyOnLoad)){
-                            $bodyOnLoad = array();
-                            $bodyOnLoad[] = $item;
+                        case 'bodyOnLoad':
+                            if(!is_array($bodyOnLoad) || empty($bodyOnLoad)){
+                                $bodyOnLoad = array();
+                                $bodyOnLoad[] = $item;
+                                break;
+                            }
+                            if (!in_array($item, $bodyOnLoad)){
+                                $bodyOnLoad[] = $item;
+                            }
                             break;
-                        }
-                        if (!in_array($item, $bodyOnLoad)){
-                            $bodyOnLoad[] = $item;
-                        }
-                        break;
+                    }
                 }
             }
         }

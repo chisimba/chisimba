@@ -101,6 +101,14 @@ class jqdialogue extends object
     protected $options;
 
     /**
+     * jQuery dialogue script.
+     *
+     * @access protected
+     * @var array $script
+     */
+    public $script;
+
+    /**
      * Constructor to initialise instance variables.
      */
     public function init()
@@ -108,7 +116,7 @@ class jqdialogue extends object
         $this->cssId = 'jqdialogue';
         $this->options = array(
             'bgiframe' => 'true',
-            'buttons' => '{"Ok":function(){jQuery(this).dialog("close");}}',
+            'buttons' => '{"Ok": function(){jQuery(this).dialog("close");}}',
             'height' => '"auto"',
             'modal' => 'true',
             'width' => '"auto"',
@@ -197,12 +205,7 @@ class jqdialogue extends object
         }
 
         $this->objSkin->setVar('SUPPRESS_PROTOTYPE', true);
-        $this->objSkin->setVar('JQUERY_VERSION', '1.2.6');
 
-//        $this->appendArrayVar('headerParams', $this->getJavascriptFile('api/ui/ui.core.js', 'jquery'));
-//        $this->appendArrayVar('headerParams', $this->getJavascriptFile('api/ui/dialog/ui.dialog.js', 'jquery'));
-//        $this->appendArrayVar('headerParams', '<link rel="stylesheet" type="text/css" href="'.$this->getResourceUri('api/ui/theme/ui.all.css', 'jquery').'">');
-        $this->appendArrayVar('headerParams', $this->getJavascriptFile('jquery-ui-1.8.18/js/jquery-1.7.1.min.js', 'jquery'));
         $this->appendArrayVar('headerParams', $this->getJavascriptFile('jquery-ui-1.8.18/js/jquery-ui-1.8.18.custom.min.js', 'jquery'));
         $this->appendArrayVar('headerParams', '<link rel="stylesheet" type="text/css" href="'.$this->getResourceUri('jquery-ui-1.8.18/css/cupertino/jquery-ui-1.8.18.custom.css', 'jquery').'">');
 
@@ -216,8 +219,8 @@ class jqdialogue extends object
         }
         $optionsCode = implode(',', $temp);
 
-        $script = '<script type="text/javascript">jQuery(function(){jQuery("#'.$this->cssId.'").dialog({'.$optionsCode.'});});</script>';
-        $this->appendArrayVar('headerParams', $script);
+        $this->script = '<script type="text/javascript">jQuery(function(){jQuery("#'.$this->cssId.'").dialog({'.$optionsCode.'});});</script>';
+        $this->appendArrayVar('headerParams', $this->script);
 
         $html = '<div id="'.$this->cssId.'" title="'.htmlspecialchars($this->title).'">'.$this->content.'</div>';
 

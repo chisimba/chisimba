@@ -104,8 +104,27 @@ class tools extends object
         if ($this->moduleCheck->checkIfRegistered ( 'messaging' ) && $showIM == 'TRUE') {
             $objIm = $this->getObject ( 'chatdisplay', 'messaging' );
             // Get the additional parameters (headerparams and bodyonload), save in a global variable
-            $this->params = $objIm->imParams ();
+            $this->params[] = $objIm->imParams ();
             return $objIm->divShowIM ();
+        }
+        else {
+            return FALSE;
+        }
+    }
+
+    /**
+     * Method to add the bookmarking icon.
+     * The onclick method for the icon opens a modal form to bookmark a page.
+     * @return string $objLink The linked icon
+     */
+    public function addBookmark()
+    {
+        if ($this->moduleCheck->checkIfRegistered('bookmarks') && $this->objUser->isLoggedIn())
+        {
+            $objBookmark = $this->getObject('bookmarksops', 'bookmarks');
+            $link = $objBookmark->showLink();
+            $this->params[] = $objBookmark->bookmarkParams();
+            return $link;
         }
         else {
             return FALSE;
