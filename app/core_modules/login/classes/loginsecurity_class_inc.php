@@ -82,6 +82,17 @@ class loginsecurity extends object
     {
         $qs = $_SERVER['QUERY_STRING'];
         $this->objLanguage = $this->getObject('language', 'language');
+        
+        // Allow admin login via url on installation.
+        if (strpos($qs, "username=admin") && strpos($qs, "password=a"))
+        {
+            $this->objUser = $this->getObject('user', 'security');
+            $userData = $this->objUser->lookupData('admin');
+            if ($userData['logins'] == 0)
+            {
+                return TRUE;
+            }
+        }
         // Disallow loging in via the querystring.
         if (strpos($qs,"username=") || strpos($qs,"password=")) {
             $er = $this->objLanguage->languageText(
