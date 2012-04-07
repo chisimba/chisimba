@@ -102,10 +102,6 @@ if ($objUser->isAdmin()) {
           . '|' . $smallBlock['moduleid'], htmlentities($title));
     }
 
-
-    $rightBlocks = $rightBlocksDropDown->show();
-    $leftBlocks = $leftBlocksDropDown->show();
-
     $wideBlocksDropDown = new dropdown('middleblocks');
     $wideBlocksDropDown->cssId = 'ddmiddleblocks';
     $wideBlocksDropDown->addOption('', $objLanguage->languageText('phrase_selectone', 'context', 'Select One') . '...');
@@ -129,7 +125,31 @@ if ($objUser->isAdmin()) {
         $wideBlocksDropDown->addOption('block|' . $wideBlock['blockname'] . '|' . $wideBlock['moduleid'], $title);
     }
 
+    foreach ($contentSmallBlocks as $contentSmallBlock) {
+        /*$block = $this->newObject('block_' . $wideBlock['blockname'], $wideBlock['moduleid']);
+        $title = $block->title;
 
+        $wideBlocksDropDown->addOption('block|' . $wideBlock['blockname'] . '|' . $wideBlock['moduleid'], htmlentities($title));*/
+    }
+    //Content Wide Blocks
+    /*$contentWdBlks = "";
+    foreach ($contentWideBlocks as $contentWideBlock) {
+        $contentWdBlks .= $this->objBlocks->showBlock($contentWideBlock["id"],"contentblocks");
+    }*/
+    //Add content wideblocks to options
+    foreach ($contentWideBlocks as $contentWideBlock) {
+        $block = $this->objBlocks->showBlock($contentWideBlock["id"],"contentblocks");
+        $wideBlocksDropDown->addOption('block|' . $contentWideBlock["id"] . '|' . "contentblocks", htmlentities($contentWideBlock["title"]));
+    }
+    //Add content sideblocks to options
+    foreach ($contentSmallBlocks as $contentSmallBlock) {
+        $block = $this->objBlocks->showBlock($contentSmallBlock["id"],"contentblocks");
+        $rightBlocksDropDown->addOption('block|' . $contentSmallBlock["id"] . '|' . "contentblocks", htmlentities($contentSmallBlock["title"]));
+        $leftBlocksDropDown->addOption('block|' . $contentSmallBlock["id"] . '|' . "contentblocks", htmlentities($contentSmallBlock["title"]));
+    }
+    $rightBlocks = $rightBlocksDropDown->show();
+    $leftBlocks = $leftBlocksDropDown->show();
+    
     $button = new button('addrightblock', $objLanguage->languageText('mod_prelogin_addblock', 'system', 'Add Block'));
     $button->cssId = 'rightbutton';
 

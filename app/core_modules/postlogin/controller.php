@@ -25,7 +25,10 @@ class postlogin extends controller
         $this->objModule = $this->getObject('modules', 'modulecatalogue');
         
         $this->objContextBlocks = $this->getObject('dbcontextblocks', 'context');
+        $this->objBlocksContent = $this->getObject('dbcontentblocks', 'contentblocks');
         $this->objDynamicBlocks = $this->getObject('dynamicblocks', 'blocks');
+        $this->objBlocks = $this->getObject('blocks', 'blocks');
+
         $this->objUser = $this->getObject('user', 'security');
         $this->objLanguage=  $this->getObject('language','language');
         
@@ -125,6 +128,13 @@ class postlogin extends controller
         
         $wideBlocks = $objBlocks->getBlocks('wide', 'site|user|postlogin');
         $this->setVarByRef('wideBlocks', $wideBlocks);
+
+        $contentSmallBlocks = $this->objBlocksContent->getBlocksArr('content_text');
+        $this->setVarByRef('contentSmallBlocks', $contentSmallBlocks);
+
+        $contentWideBlocks = $this->objBlocksContent->getBlocksArr('content_widetext');
+        $this->setVarByRef('contentWideBlocks', $contentWideBlocks);
+        
         
         return 'main_tpl.php';
     }
