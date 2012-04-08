@@ -136,7 +136,7 @@ class blocks extends object {
                         if (isset($block)) {
                             //split to check if text or wideblock
                             //$blockArr = split("[0-9]", $block);
-                            if ($module == "contentblocks") {
+                            if ($this->cbExists && $module == "contentblocks") {
                                 if (is_array($this->block)) {
                                     return $this->fetchTextBlock($block, $module, $this->block, $blockType,
                                             $titleLength, $wrapStr, $showToggle, $hidden,
