@@ -78,3 +78,15 @@ a.contexttitle {
     font-size: larger;
     padding-left: 5px;
 }
+
+.createforum #input_description, .createforum #input_name{
+    width: 400px;
+}
+
+.createforum table {
+    width: 750px;
+}
+
+.createforum table td {
+    padding: 3px;
+}
