@@ -14,6 +14,9 @@ $Header = $this->getObject('htmlheading', 'htmlelements');
 $Header->type = 1;
 $Header->cssClass = 'error';
 
+$showOtherStuff = TRUE;
+
+
 // Determine the error mesasge to display
 switch ($this->getParam('message')) {
     case 'loginrequired':
@@ -52,53 +55,46 @@ switch ($this->getParam('message')) {
         $Header->str = $this->objLanguage->languageText('mod_security_no_fbconnect', 'security');
         $smallText = $this->objLanguage->languageText('mod_security_no_fbconnectmsg', 'security');
         break;
-
     case 'no_openidconnect':
         $msg = $this->getParam('msg');
         $Header->str = $this->objLanguage->languageText('mod_security_no_openidconnect', 'security');
         $smallText = $this->objLanguage->languageText('mod_security_' . $msg, 'security');
         break;
+    case 'firsttimelogin':
+        $Header->str = $this->objLanguage->languageText('mod_security_ftli', 'security');
+        $smallText = $this->objLanguage->languageText('mod_security_ftliinstr', 'security');
+        $showOtherStuff = FALSE;
+        break;
     default:
         $Header->str = $this->objLanguage->languageText('mod_security_unknownerror', 'security');
         $smallText = $this->objLanguage->languageText('mod_security_errormessage', 'security');
 }
-
 //Load up the text output with the error messages
-$middleContent = stripslashes($Header->show()) . "\n<p>" . $smallText . "<br />\n";
+$middleContent = stripslashes($Header->show()) . "\n<p><span class='warning'>" . $smallText . "</span></p>\n";
 
-
-// Email link
-$middleContent .=' ' . $this->objLanguage->languageText('mod_security_emailsysadmin', 'security');
-
-$sysAdminEmail = new link('mailto:' . $this->objConfig->getsiteEmail());
-$sysAdminEmail->link = $this->objConfig->getsiteEmail();
-
-$middleContent .= ' (' . $sysAdminEmail->show() . '). </p>';
-
-// Other links
-$newPasswordLink = new link($this->uri(array('action' => 'needpassword')));
-$newPasswordLink->link = $this->objLanguage->languageText('mod_security_requestnewpassword', 'security');
-
-//$registerModule=$this->objConfig->getValue('REGISTRATION_MODULE') or $registerModule='userregistration';
-
-$objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
-$registerModule = $objSysConfig->getValue('REGISTRATION_MODULE', 'security');
-$registerModule = !empty($registerModule) ? $registerModule : 'userregistration';
-
-$registerLink = new link($this->uri(array('action' => 'showregister'), $registerModule));
-$registerLink->link = $this->objLanguage->languageText('word_register');
-
-$backHomeLink = new link($this->uri(NULL, $this->objConfig->getValue('KEWL_PRELOGIN_MODULE')));
-$backHomeLink->link = $this->objLanguage->languageText('phrasebacktohomepage', 'security');
-
-$canRegister = ($this->objConfig->getItem('KEWL_ALLOW_SELFREGISTER') != strtoupper('FALSE'));
-if ($this->getParam('message') == 'wrongpassword') {
-    $middleContent .= $newPasswordLink->show() . ' / ';
-} else if ($canRegister) {
-    $middleContent .= $registerLink->show() . ' / ';
+if ($showOtherStuff) {
+    // Email link
+    $middleContent .='<p>' . $this->objLanguage->languageText('mod_security_emailsysadmin', 'security');
+    $sysAdminEmail = new link('mailto:' . $this->objConfig->getsiteEmail());
+    $sysAdminEmail->link = $this->objConfig->getsiteEmail();
+    $middleContent .= ' (' . $sysAdminEmail->show() . '). </p>';
+    // Other links
+    $newPasswordLink = new link($this->uri(array('action' => 'needpassword')));
+    $newPasswordLink->link = $this->objLanguage->languageText('mod_security_requestnewpassword', 'security');
+    $objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
+    $registerModule = $objSysConfig->getValue('REGISTRATION_MODULE', 'security');
+    $registerModule = !empty($registerModule) ? $registerModule : 'userregistration';
+    $registerLink = new link($this->uri(array('action' => 'showregister'), $registerModule));
+    $registerLink->link = $this->objLanguage->languageText('word_register');
+    $backHomeLink = new link($this->uri(NULL, $this->objConfig->getValue('KEWL_PRELOGIN_MODULE')));
+    $backHomeLink->link = $this->objLanguage->languageText('phrasebacktohomepage', 'security');
+    $canRegister = ($this->objConfig->getItem('KEWL_ALLOW_SELFREGISTER') != strtoupper('FALSE'));
+    if ($this->getParam('message') == 'wrongpassword') {
+        $middleContent .= $newPasswordLink->show() . ' / ';
+    } else if ($canRegister) {
+        $middleContent .= $registerLink->show() . ' / ';
+    }
+    $middleContent .= $backHomeLink->show();
 }
-
-$middleContent .= $backHomeLink->show();
-
 echo $middleContent;
 ?>

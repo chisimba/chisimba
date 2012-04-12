@@ -198,6 +198,14 @@ class security extends controller {
         }
     }
 
+    /**
+     *
+     * Login via twitter
+     * 
+     * @param string $module The module to go to after login
+     * @return VOID (execute next action)
+     * 
+     */
     public function doTwitterLogin($module = NULL) {
         // grab the consumer secret and key from sysconfig quickly
         try {
@@ -281,10 +289,14 @@ class security extends controller {
     }
 
     /**
+     * 
      * Logoff method, handle logoff logic.
+     * 
      * @return string Name of template to display
+     * @access public
+     * 
      */
-    function doLogoff() {
+    public function doLogoff() {
         $this->loggedInUsers->doLogout($this->objUser->userid());
         $show = $this->objDbSysconfig->getValue('show_twitter_auth', 'security');
         //$fbshow = $this->objDbSysconfig->getValue('show_fbconnect_auth', 'security');
@@ -303,9 +315,13 @@ class security extends controller {
     }
 
     /**
-     * Method to show the Pre Login Module
+     * Show the Pre Login Module
+     * 
+     * @return VOID (Execute the next action)
+     * @access public
+     * 
      */
-    function showPreLoginModule() {
+    public function showPreLoginModule() {
         $fbshow = $this->objDbSysconfig->getValue('show_fbconnect_auth', 'security');
         if ($fbshow == 'true') {
             $this->objSkin->validateSkinSession();
@@ -323,7 +339,15 @@ class security extends controller {
         return $this->nextAction(NULL, NULL, $this->objConfig->getPrelogin('KEWL_PRELOGIN_MODULE'));
     }
 
-    function needPassword() {
+    /**
+     *
+     * Send a forgotten password template
+     * 
+     * @return string Template
+     * @access public
+     * 
+     */
+    public function needPassword() {
         if ($this->objUser->isLoggedIn()) {
             $postlogin = $this->objConfig->getdefaultModuleName();
             return $this->nextAction(NULL, NULL, $postlogin);
@@ -335,12 +359,27 @@ class security extends controller {
         }
     }
 
-    function generateNewCaptcha() {
+    /**
+     * 
+     * Generate a new captcha and echo it for Ajax methods
+     * @access public
+     * @return VOID
+     * 
+     */
+    public function generateNewCaptcha() {
         $objCaptcha = $this->getObject('captcha', 'utilities');
         echo $objCaptcha->show();
     }
 
-    function needPasswordConfirm() {
+    /**
+     *
+     * Confirmation message for need password
+     * 
+     * @return string Template
+     * @access public
+     * 
+     */
+    public function needPasswordConfirm() {
         if ($this->objUser->isLoggedIn()) {
             $postlogin = $this->objConfig->getdefaultModuleName();
             return $this->nextAction(NULL, NULL, $postlogin);
@@ -370,7 +409,15 @@ class security extends controller {
         }
     }
 
-    function emailSent() {
+    /**
+     *
+     * Report after sending email
+     * 
+     * @return string Template
+     * @access public 
+     * 
+     */
+    public function emailSent() {
         if ($this->getSession('passwordrequest') == '') {
             return $this->nextAction(NULL, NULL, '_default');
         }
@@ -386,7 +433,15 @@ class security extends controller {
         }
     }
 
-    function errorMessages() {
+    /**
+     *
+     * Process error messages associated with login
+     * 
+     * @return string Template
+     * @access public
+     * 
+     */
+    public function errorMessages() {
         if ($this->objUser->isLoggedIn()) {
             $postlogin = $this->objConfig->getdefaultModuleName();
             return $this->nextAction(NULL, NULL, $postlogin);
