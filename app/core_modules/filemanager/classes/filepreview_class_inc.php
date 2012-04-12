@@ -94,7 +94,6 @@ class filepreview extends object {
         $this->file['linkname'] = $this->uri(array('action' => 'file', 'id' => $this->file['id'], 'filename' => $this->file['filename']), 'filemanager');
 
         //var_dump($this->file);
-
         switch ($this->file['category']) {
             case 'images': $preview = $this->showImage();
                 break;
@@ -199,21 +198,32 @@ class filepreview extends object {
         if (array_key_exists('height', $this->file) && $this->file['height'] != '') {
             $height = $this->file['height'] < 200 ? '200' : $this->file['height'];
         } else {
-            $height = '100%';
+            $height = '400';
         }
 
         switch ($this->file['datatype']) {
-            case 'mov': return $this->objFileEmbed->embed($this->file['linkname'], 'quicktime', $width, $height);
-            case '3gp': return $this->objFileEmbed->embed($this->file['linkname'], 'quicktime', $width, $height);
-            case 'wmv': return $this->objFileEmbed->embed($this->file['linkname'], 'wmv', $width, $height);
-            case 'avi': return $this->objFileEmbed->embed($this->file['linkname'], 'avi', $width, $height);
-            case 'flv': return $this->objFileEmbed->embed($this->file['fullurl'], 'flv', $width, $height + 26);
-            case 'ogg': return $this->objFileEmbed->embed($this->file['fullurl'], 'ogg', $width, $height + 12);
+            case 'mov': 
+                return $this->objFileEmbed->embed($this->file['linkname'], 'quicktime', $width, $height);
+            case '3gp': 
+                return $this->objFileEmbed->embed($this->file['linkname'], 'quicktime', $width, $height);
+            case 'wmv': 
+                return $this->objFileEmbed->embed($this->file['linkname'], 'wmv', $width, $height);
+            case 'avi': 
+                return $this->objFileEmbed->embed($this->file['linkname'], 'avi', $width, $height);
+            case 'flv': 
+                return $this->objFileEmbed->embed($this->file['fullurl'], 'flv', $width, $height + 26);
+            case 'ogg': 
+            case 'ogv': 
+                return $this->objFileEmbed->embed($this->file['fullurl'], 'ogg', $width, $height + 12);
             case 'mpg':
-            case 'mpeg': return $this->objFileEmbed->embed($this->file['fullurl'], 'mpg', $width, $height + 12);
-            case 'mp4': return $this->objFileEmbed->embed($this->file['fullurl'], 'mp4', $width, $height + 12);
-            case 'webm': return $this->objFileEmbed->embed($this->file['fullurl'], 'webm', $width, $height + 12);
-            default: return $this->objFileEmbed->embed($this->file['linkname'], 'unknown');
+            case 'mpeg': 
+                return $this->objFileEmbed->embed($this->file['fullurl'], 'mpg', $width, $height + 12);
+            case 'mp4': 
+                return $this->objFileEmbed->embed($this->file['fullurl'], 'mp4', $width, $height + 12);
+            case 'webm': 
+                return $this->objFileEmbed->embed($this->file['fullurl'], 'webm', $width, $height + 12);
+            default: 
+                return $this->objFileEmbed->embed($this->file['linkname'], 'unknown');
         }
     }
 

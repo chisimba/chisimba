@@ -110,6 +110,7 @@ class fileembed extends object {
             case 'flv':
                 return $this->showFLV($file, $width, $height);
             case 'ogg':
+            case 'ogv':
                 return $this->showOggVideo($file, $width, $height);
             case 'svg':
                 return $this->showSVG($file, $width, $height);
@@ -313,7 +314,7 @@ class fileembed extends object {
      * @param string $width  Width of Object
      * @param string $height Height of Object
      */
-    function showFLV($file, $width='100%', $height='400') {
+    public function old______showFLV($file, $width='100%', $height='400') {
         $width = $width == '' ? '100%' : $width;
         $height = $height == '' ? '400' : $height;
 
@@ -323,27 +324,60 @@ class fileembed extends object {
         $objBuildPlayer->height = $height;
         return $objBuildPlayer->show();
     }
+    
+    public function showFLV($file, $width='100%', $height='400') {
+        if (!strstr($width, "%")) {
+            $width = $width . "px";
+        }
+        if (!strstr($height, "%")) {
+            $height = $height . "px";
+        }
+        $js = $this->getJavaScriptFile('flowplayer3/flowplayer-3.2.8.min.js',
+          'files');
+        $flowPlayer = $this->getResourceUri('flowplayer3/flowplayer-3.2.9.swf',
+          'files');
+        $this->appendArrayVar('headerParams', $js);
+        $videoId = md5($file);
+        $ret = '
+            
+                <a  
+			 href="' . $file . '"
+			 style="display:block;width:' . $width . ';height:' . $height . '"  
+			 id="' . $videoId . '"> 
+		</a>
+                <script>
+			flowplayer("' . $videoId . '", "' . $flowPlayer . '");
+		</script>
 
+            ';
+        return $ret;
+        
+        
+    }
+    
+    
     /**
-     * Method to show a FLV video
+     * Show a FLV video
      * @param string $file   Path to the File
      * @param string $width  Width of Object
      * @param string $height Height of Object
+     * @access public 
+     * @return string The rendered video
      */
-    function showOggVideo($file, $width='100%', $height='400') {
-        return '
-<applet code="com.fluendo.player.Cortado.class"
-           archive="cortado-ovt-0.1.2.jar" codebase="core_modules/files/resources/cortado_ogg_player/"
-       width="' . $width . '" height="' . $height . '">
-     <param name="url" value="' . $file . '"/>
-     <param name="local" value="false"/>
-     <param name="duration" value="232"/>
-     <param name="keepAspect" value="true"/>
-     <param name="video" value="true"/>
-     <param name="audio" value="true"/>
-     <param name="bufferSize" value="200"/>
-     <param name="showStatus" value="show"/>
-   </applet>';
+    public function showOggVideo($file, $width='100%', $height='400') {
+        //die($width . " / " . $height);
+        $css = '<link href="' . $this->getResourceUri('video-js/video-js.css',
+          'files') . '" rel="stylesheet">';
+        $js = $this->getJavaScriptFile('video-js/video.min.js',
+          'files');
+        $load = "\n\n$css\n$js\n\n";
+        $this->appendArrayVar('headerParams', $load);
+        $videoId = md5($file);
+        return '<video id="' . $videoId . '" class="video-js vjs-default-skin" controls
+  preload="auto" width="' . $width . '" height="' . $height . '" poster="' . $file . '.png"
+  data-setup="{}">
+  <source src="' . $file . '" type="application/ogg">
+</video>';
     }
 
     /**
@@ -387,8 +421,7 @@ width="' . $width . '" height="' . $height . '"></embed></object>';
      * 
      */  
     public function showMP4($file, $width='100%', $height='400') 
-    {
-      
+    {   
         $css = '<link href="' . $this->getResourceUri('video-js/video-js.css',
           'files') . '" rel="stylesheet">';
         $js = $this->getJavaScriptFile('video-js/video.min.js',
