@@ -376,19 +376,32 @@ width="' . $width . '" height="' . $height . '"></embed></object>';
     }
 
     /**
-     * Method to show a MP4 Movie
-     * @param string $file   Path to the File
+     * 
+     * Show a MP4 Movie
+     * 
+     * @param string $file   URL path to the File
      * @param string $width  Width of Object
      * @param string $height Height of Object
-     */
-    function showMP4($file, $width='100%', $height='400') {
-        return '<object CLASSID="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" 
-CODEBASE="http://www.apple.com/qtactivex/qtplugin.cab" WIDTH="' . $width . '" HEIGHT="' . $height . '" >
-<PARAM NAME="src" VALUE="' . $file . '" >
-<PARAM NAME="autoplay" VALUE="true" >
-<embed src="' . $file . '" TYPE="image/x-macpaint" 
-PLUGINSPAGE="http://www.apple.com/quicktime/download" WIDTH="' . $width . '" HEIGHT="' . $height . '" AUTOPLAY="false"></embed>
-</object>';
+     * @access public
+     * @return string The rendered video
+     * 
+     */  
+    public function showMP4($file, $width='100%', $height='400') 
+    {
+      
+        $css = '<link href="' . $this->getResourceUri('video-js/video-js.css',
+          'files') . '" rel="stylesheet">';
+        $js = $this->getJavaScriptFile('video-js/video.min.js',
+          'files');
+        $load = "\n\n$css\n$js\n\n";
+        $this->appendArrayVar('headerParams', $load);
+        
+        $videoId = md5($file);
+        return '<video id="' . $videoId . '" class="video-js vjs-default-skin" controls
+  preload="auto" width="' . $width . '" height="' . $height . '" poster="' . $file . '.png"
+  data-setup="{}">
+  <source src="' . $file . '" type="video/mp4">
+</video>';
     }
 
 }
