@@ -296,7 +296,7 @@ $table->addCell($this->objLanguage->languageText('word_access', 'system', 'Acces
 $table->addCell($access->show());
 $table->endRow();
 
-$emailAlert = new checkbox('emailalertopt', $this->objLanguage->languageText('mod_contextadmin_emailalert', 'contextadmin', 'Email alerts'), true);  // this will checked
+$emailAlert = new checkbox('emailalertopt', $this->objLanguage->languageText('mod_contextadmin_emailalertwhat', 'contextadmin', 'Send email alerts'), true);  // this will checked
 
 if ($mode == 'add' && is_array($fixup)) {
     $emailAlert->setChecked($fixup['alerts']);
