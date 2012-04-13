@@ -91,7 +91,7 @@ if ($this->isValid('addblock')) {
 
     // Add Small Dynamic Blocks
     foreach ($smallDynamicBlocks as $smallBlock) {
-        $smallBlockOptions['dynamicblock|' . $smallBlock['id'] . '|' . $smallBlock['module']] = htmlentities($smallBlock['title']);
+        $smallBlockOptions['dynamicblock|' . $smallBlock['id'] . '|' . $smallBlock['module']] = htmlentities($smallBlock['title']) . " (" . $smallBlock['module'] .")";
     }
 
 
