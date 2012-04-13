@@ -1,0 +1,39 @@
+[Version]
+1.8.0
+
+[Core]
+mouse         ***NEW***   
+position      ***NEW***  
+widget        ***NEW***
+
+[Interactions]
+draggable
+droppable
+resizable
+selectable
+sortable
+
+[Widgets]
+accordion
+autocomplete  ***NEW***
+button        ***NEW***
+datepicker
+dialog
+progressbar
+slider
+tabs
+
+[Effects]
+blind
+bounce
+clip
+drop
+explode
+fade          ***NEW***
+fold
+highlight
+pulsate
+scale
+shake
+slide
+transfer

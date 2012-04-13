@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugins>
+    
+    <plugin name="tooltip">
+        <description>
+            Display a customized tooltip instead of the default one for every
+            selected element.
+        </description>
+        <version ver="1.3.0">
+            <file>jquery.tooltip.min.js</file>
+            <css>jquery.tooltip.css</css>
+            <min_core_version>1.2.2</min_core_version>
+            <dependencies>
+                <depends>bgiframe</depends>
+                <depends>delegate</depends>
+                <depends>dimensions</depends>
+            </dependencies>
+        </version>
+    </plugin>
+    
+    <plugin name="bgiframe">
+        <description>
+            The background iframe (bgiframe) plugin provides a very small, quick
+            and easy way to fix select form element z-index issue in Internet
+            Explorer 6 so you don't have to worry about it. No matter the size,
+            borders or position the bgiframe plugin can fix it. 
+        </description>
+        <version ver="2.1.2">
+            <file>jquery.bgiframe.min.js</file>
+            <min_core_version>1.2.1</min_core_version>
+        </version>
+    </plugin>
+
+    <plugin name="delegate">
+        <description>
+            This is a jquery plugin which handles event delegation.
+        </description>
+        <version ver="1.0.0">
+            <file>jquery.delegate.js</file>
+            <min_core_version>1.2.1</min_core_version>
+            <deprecated_from>1.4.2</deprecated_from>
+        </version>
+    </plugin>
+    
+    <plugin name="dimensions">
+        <description>
+            Dimensions extends jQuery to provide cross-browser methods for getting
+            the position, inner width and height, outer width and height, and more.
+        </description>
+        <version ver="1.2.0">
+            <file>jquery.dimensions.js</file>
+            <min_core_version>1.2.1</min_core_version>
+            <deprecated_from>1.2.6</deprecated_from>
+        </version>
+    </plugin>
+    
+    <plugin name="validate">
+        <description>
+            This jQuery plugin makes simple clientside form validation trivial,
+            while offering lots of option for customization. That makes a good
+            choice if you’re building something new from scratch, but also when
+            you’re trying to integrate it into an existing application with lots
+            of existing markup. The plugin comes bundled with a useful set of
+            validation methods, including URL and email validation, while providing
+            an API to write your own methods. All bundled methods come with default
+            error messages in english and translations into 36 locales.
+        </description>
+        <version ver="1.9.0">
+            <file>jquery.validate.min.js</file>
+            <min_core_version>1.3.2</min_core_version>
+        </version>
+    </plugin>
+
+    <plugin name="form">
+        <description>
+            The jQuery Form Plugin allows you to easily and unobtrusively upgrade
+            HTML forms to use AJAX. The main methods, ajaxForm and ajaxSubmit, gather
+            information from the form element to determine how to manage the submit
+            process. Both of these methods support numerous options which allows you
+            to have full control over how the data is submitted. Submitting a form
+            with AJAX doesn't get any easier than this!
+        </description>
+        <version ver="3.0.8">
+            <file>jquery.form.js</file>
+            <min_core_version>1.3.2</min_core_version>
+        </version>
+    </plugin>
+    
+    <plugin name="corner">
+        <description>
+            It's important to understand that this corner plugin is pulling off
+            its magic by adding more elements to the page. Specifically, it adds
+            div "strips" to the item to be cornered and sets a solid background
+            color on these strips in order to hide the actual corners of the real item.
+        </description>
+        <version ver="2.1.2">
+            <file>jquery.corner.js</file>
+            <min_core_version>1.3.2</min_core_version>
+        </version>
+    </plugin>
+    
+    <plugin name="flexigrid">
+        <description>
+            Lightweight but rich data grid with resizable columns and a scrolling
+            data to match the headers, plus an ability to connect to an xml based
+            data source using Ajax to load the content.
+        </description>
+        <version ver="1.1.0">
+            <file>flexigrid.pack.js</file>
+            <css>flexigrid.pack.css</css>
+            <min_core_version>1.3.2</min_core_version>
+        </version>
+    </plugin>
+
+    <plugin name="imagefit">
+        <description>
+            A jQuery plugin which scales images to fit their parent container.
+            It is reliant on support for the CSS property max-width to prevent
+            images from being enlarged beyond their native resolution. 
+        </description>
+        <version ver="0.2.0">
+            <file>jquery.imagefit.js</file>
+            <min_core_version>1.2.1</min_core_version>
+        </version>
+    </plugin>
+
+    <plugin name="livequery">
+        <description>
+            Live Query utilizes the power of jQuery selectors by binding events
+            or firing callbacks for matched elements auto-magically, even after
+            the page has been loaded and the DOM updated. 
+        </description>
+        <version ver="1.1.1">
+            <file>jquery.livequery.min.js</file>
+            <min_core_version>1.3.0</min_core_version>
+        </version>
+    </plugin>
+
+    <plugin name="pngfix">
+        <description>
+            This plugin will fix the missing PNG-Transparency in Windows Internet Explorer 5.5 and 6. 
+        </description>
+        <version ver="1.2.0">
+            <file>jquery.pngFix.pack.js</file>
+            <min_core_version>1.3.0</min_core_version>
+        </version>
+    </plugin>
+
+    <plugin name="oembed">
+        <description>
+            A simple jQuery plugin that uses OEmbed API to help displaying embedded 
+            content (such as photos or videos) in your website. 
+        </description>
+        <version ver="1.1.0">
+            <file>jquery.oembed.min.js</file>
+            <min_core_version>1.3.0</min_core_version>
+        </version>
+    </plugin>
+
+    <plugin name="flash">
+        <description>
+            A very lightweight jquery plugin that allows you to easily embed all
+            sorts of flash content in a cross-browser compatible way without requiring
+            a bulky dedicated library like swfobject.
+        </description>
+        <version ver="1.3.1">
+            <file>jquery.flash.min.js</file>
+            <min_core_version>1.2.1</min_core_version>
+        </version>
+    </plugin>
+
+</plugins>

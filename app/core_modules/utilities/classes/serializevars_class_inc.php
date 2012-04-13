@@ -113,7 +113,7 @@ class serializevars extends dbtable
         }
         $ret .= "</script>\n\n";
         $this->appendArrayVar('headerParams', $ret);
-        return TRUE;
+        return $ret;
     }
     
     /**
