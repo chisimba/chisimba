@@ -70,32 +70,6 @@ class jquerycore extends controller
     
     /**
     * 
-    * @var string $objConfig String object property for holding the 
-    * configuration object
-    * @access public;
-    * 
-    */
-    public $objConfig;
-    
-    /**
-    * 
-    * @var string $objLanguage String object property for holding the 
-    * language object
-    * @access public
-    * 
-    */
-    public $objLanguage;
-    /**
-    *
-    * @var string $objLog String object property for holding the 
-    * logger object for logging user activity
-    * @access public
-    * 
-    */
-    public $objLog;
-
-    /**
-    * 
     * Intialiser for the jquerycore controller
     * @access public
     * 
@@ -116,7 +90,7 @@ class jquerycore extends controller
      */
     public function dispatch()
     {
-        $location=$this->uri(array(), "_default");
+        $location = $this->uri(array(), "_default");
         header("Location:$location");
     }
 }

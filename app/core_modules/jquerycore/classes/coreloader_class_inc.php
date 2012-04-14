@@ -140,9 +140,6 @@ class coreloader extends object
      */
     public function init()
     {
-        // TESTING ONLY
-        $this->objConfig = $this->getObject('altconfig', 'config');
-        
         $this->getUiDeps();
         $this->getPluginDeps();
         $this->setDefaultCoreVersion();
@@ -196,9 +193,7 @@ class coreloader extends object
      */
     public function setDefaultCoreVersion()
     {
-        // Live path
-        // $path = 'core_modules/jquerycore/resources/core/';
-        $path = $this->objConfig->getModuleURI() . 'jquerycore/resources/core/';
+        $path = 'core_modules/jquerycore/resources/core/';
         if (is_dir($path))
         {
             if ($dh = opendir($path))
@@ -243,7 +238,7 @@ class coreloader extends object
                 $uiArray[$key] = $ui;
             }
         }
-        
+
         if (!empty($uiArray))
         {
             ksort($uiArray);            
@@ -285,9 +280,7 @@ class coreloader extends object
      */
     public function setTheme($theme)
     {
-        // Live path
-        // $path = 'core_modules/jquerycore/resources/core/';
-        $path = $this->objConfig->getModuleURI() . 'jquerycore/resources/ui/themes/';
+        $path = 'core_modules/jquerycore/resources/core/';
 
         if (!empty($theme) && is_string($theme))
         {
@@ -442,6 +435,7 @@ class coreloader extends object
                     if ($currentCore < $core)
                     {
                         $this->core = (string) $xmlPlugin->version->min_core_version;
+                        $this->setHighestUserInterfaceVersion();
                         $currentCore = str_replace('.', '', $this->core);
                     }
                     if (array_key_exists('deprecated_from', (array) $xmlPlugin->version))
@@ -489,7 +483,8 @@ class coreloader extends object
         $string .= $this->loadUi();
         $string .= $this->loadTheme();
         $string .= $plugins;
-        $this->appendArrayVar('headerParams', $string);
+
+        return $string;
     }
 }
 ?>

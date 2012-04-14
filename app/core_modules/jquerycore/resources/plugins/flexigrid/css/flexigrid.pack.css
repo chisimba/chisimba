@@ -33,6 +33,9 @@
 .flexigrid div.fbutton span{float:left;display:block;padding:3px}
 .flexigrid div.fbutton:hover,.flexigrid div.fbutton.fbOver{border:1px solid #ccc;padding:0}
 .flexigrid div.fbutton:hover div,.flexigrid div.fbutton.fbOver div{border-left:1px solid #fff;border-top:1px solid #fff;border-right:1px solid #eee;border-bottom:1px solid #eee;padding:0 2px}
+.flexigrid div.fbutton .add {background: url("images/add.png") no-repeat scroll left center transparent;}
+.flexigrid div.fbutton .edit {background: url("images/edit.png") no-repeat scroll left center transparent;}
+.flexigrid div.fbutton .delete {background: url("images/delete.png") no-repeat scroll left center transparent;}
 .flexigrid div.hDiv{background:#fafafa url(images/fhbg.gif) repeat-x bottom;position:relative;border:1px solid #ccc;border-bottom:0;overflow:hidden}
 .flexigrid div.hDiv table{border-right:1px solid #fff}
 .flexigrid div.cDrag{float:left;position:absolute;z-index:2;overflow:visible}

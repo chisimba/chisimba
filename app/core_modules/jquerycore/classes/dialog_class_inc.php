@@ -138,9 +138,9 @@ class dialog extends object
      * Variable to hold the height option
      * 
      * @access protected
-     * @var integer
+     * @var mixed
      */
-    protected $height = "\"auto\"";
+    protected $height = 'auto';
 
     /**
      * 
@@ -246,9 +246,9 @@ class dialog extends object
      * Variable to hold the width option
      * 
      * @access protected
-     * @var integer
+     * @var mixed
      */
-    protected $width = "\"auto\"";
+    protected $width = 'auto';
 
     /**
      * 
@@ -452,12 +452,12 @@ class dialog extends object
      * Method to set the dialog hieght option.
      * 
      * @access public
-     * @param string $hieght The hieght of the dialog - default is "auto"
+     * @param mixed $hieght The hieght of the dialog - default is "auto"
      * @return VOID
      */
     public function setHeight($height)
     {
-        if (!empty($height) && is_string($height));
+        if (!empty($height) && (is_numeric($height) || $height == 'auto'));
         {
             $this->height = $height;
         }
@@ -644,12 +644,12 @@ class dialog extends object
      * Method to set the dialog width option.
      * 
      * @access public
-     * @param integer $width The width of the dialog
+     * @param mixed $width The width of the dialog
      * @return VOID
      */
     public function setWidth($width)
     {
-        if (!empty($width) && is_numeric($width));
+        if (!empty($width) && (is_numeric($width) || $width == 'auto'));
         {
             $this->width = $width;
         }
@@ -721,7 +721,7 @@ class dialog extends object
     
     /**
      *
-     * Method to generate the tooltip javascript and add it to the page
+     * Method to generate the dialog javascript and add it to the page
      * 
      * @access public
      * @return VOID 
@@ -766,7 +766,8 @@ class dialog extends object
         }
         if (isset($this->height))
         {
-            $script .= ",height: $this->height";
+            $height = is_numeric($this->height) ? $this->height : '"' . $this->height .'"';
+            $script .= ",height: $height";
         }
         if (isset($this->hide))
         {
@@ -814,7 +815,8 @@ class dialog extends object
         }
         if (isset($this->width))
         {
-            $script .= ",width: $this->width";
+            $width = is_numeric($this->width) ? $this->width : '"' . $this->width .'"';
+            $script .= ",width: $width";
         }
         if (isset($this->zindex))
         {
