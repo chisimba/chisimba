@@ -444,8 +444,15 @@ class modulecatalogue extends controller {
                         log_debug ( 'First time registration has already been performed on this system. Aborting' );
                     }
 
-                    $url = array ('username' => 'admin', 'password' => 'a', 'mod' => 'modulecatalogue' );
-                    return $this->nextAction ( 'login', $url, 'security' );
+                    if (!$this->ajaxInstall)
+                    {
+                        $url = array ('username' => 'admin', 'password' => 'a', 'mod' => 'modulecatalogue' );
+                        return $this->nextAction ( 'login', $url, 'security' );
+                    }
+                    else
+                    {
+                        die();
+                    }
 
                 case 'update' :
                     $patchver = $this->getParam ( 'patchver' );

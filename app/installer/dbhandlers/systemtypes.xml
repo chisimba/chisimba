@@ -51,6 +51,7 @@
             <module>permissions</module>
             <module>tagging</module>
             <module>filemanager</module>
+            <module>jquerycore</module>
         </category>
 
         <category>
