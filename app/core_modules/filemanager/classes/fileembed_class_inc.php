@@ -424,7 +424,7 @@ width="' . $width . '" height="' . $height . '"></embed></object>';
     {   
         $css = '<link href="' . $this->getResourceUri('video-js/video-js.css',
           'files') . '" rel="stylesheet">';
-        $js = $this->getJavaScriptFile('video-js/video.min.js',
+        $js = $this->getJavaScriptFile('video-js/video.js',
           'files');
         $load = "\n\n$css\n$js\n\n";
         $this->appendArrayVar('headerParams', $load);
