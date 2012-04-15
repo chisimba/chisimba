@@ -64,7 +64,7 @@ var VideoJS = function(id, addOptions, ready){
 _V_ = VideoJS,
 
 // CDN Version. Used to target right flash swf.
-CDN_VERSION = "3.2";
+CDN_VERSION = "GENERATED_CDN_VSN";
 
 VideoJS.players = {};
 
@@ -75,7 +75,8 @@ VideoJS.options = {
   // techOrder: ["flash","html5"],
 
   html5: {},
-  flash: { swf: "http://vjs.zencdn.net/c/video-js.swf" },
+  flash: { swf: "core_modules/files/resources/video-js/video-js.swf" },
+  //flash: { swf: "http://vjs.zencdn.net/c/video-js.swf" },
 
   // Default of web browser is 300x150. Should rely on source width/height.
   width: "auto",
