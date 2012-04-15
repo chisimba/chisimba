@@ -167,6 +167,10 @@ class tooltip extends object
      */
     public function init()
     {
+        $loadedPlugins = $this->getSession('plugins', array(), 'skin');
+        $loadedPlugins[] = 'tooltip';
+        $uniquePlugins = array_unique($loadedPlugins);
+        $this->setSession('plugins', $uniquePlugins, 'skin');
     }
     
     /**

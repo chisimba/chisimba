@@ -227,6 +227,10 @@ class flexigrid extends object
      */
     public function init()
     {
+        $loadedPlugins = $this->getSession('plugins', array(), 'skin');
+        $loadedPlugins[] = 'flexigrid';
+        $uniquePlugins = array_unique($loadedPlugins);
+        $this->setSession('plugins', $uniquePlugins, 'skin');
     }
     
     /**

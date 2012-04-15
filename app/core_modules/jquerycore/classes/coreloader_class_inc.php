@@ -280,7 +280,7 @@ class coreloader extends object
      */
     public function setTheme($theme)
     {
-        $path = 'core_modules/jquerycore/resources/core/';
+        $path = 'core_modules/jquerycore/resources/ui/themes/';
 
         if (!empty($theme) && is_string($theme))
         {
@@ -377,8 +377,12 @@ class coreloader extends object
      */
     private function loadUi()
     {
-        $uiFile = 'ui/javascript/' . $this->ui . '/jquery-ui.min.js';
-        $string = $this->getJavascriptFile($uiFile) . "\n";
+        $string = '';
+        if (!empty($this->ui))
+        {
+            $uiFile = 'ui/javascript/' . $this->ui . '/jquery-ui.min.js';
+            $string = $this->getJavascriptFile($uiFile) . "\n";
+        }
         return $string;
     }
     
@@ -390,6 +394,7 @@ class coreloader extends object
      */
     private function loadTheme()
     {
+
         $themeFile = 'ui/themes/' . $this->theme . '/jquery.ui.all.css';
         $string = '<link rel="stylesheet" type="text/css" href="'.$this->getResourceUri($themeFile).'" />' . "\n";
         return $string;
@@ -425,7 +430,8 @@ class coreloader extends object
     {
         $string = '';
         $currentCore = str_replace('.', '', $this->core);
-        foreach ($this->plugins as $plugin)
+        $plugins = array_unique($this->plugins);
+        foreach ($plugins as $plugin)
         {
             foreach ($this->objPluginDeps as $xmlPlugin)
             {
