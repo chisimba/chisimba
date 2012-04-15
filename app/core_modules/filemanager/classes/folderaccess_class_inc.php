@@ -44,6 +44,10 @@ class folderaccess extends object {
         $this->secureFolder = $this->sysConf->getValue('SECUREFODLER', 'filemanager');
         $this->objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
         $this->objConfig = $this->getObject('altconfig', 'config');
+
+        $this->objUser = $this->getObject('user', 'security');
+        $this->objGroupOps = $this->getObject('groupops', 'groupadmin');
+        $this->objGroupAdminModel = $this->getObject('groupadminmodel', 'groupadmin');
     }
 
     /**
@@ -81,7 +85,78 @@ class folderaccess extends object {
         $form->addToForm($hiddeninput->show());
 
         $form->addToForm($fieldset->show());
-        $form->addToForm($applyButton->show() . '&nbsp;' . $buttonCancel->show());
+        $form->addToForm($applyButton->show()); // . '&nbsp;' . $buttonCancel->show());
+        return $form->show();
+    }
+
+    /**
+     * this creates a form that allows a user to set the access control on
+     * a folder/ file 
+     */
+    function createFileAccessControlForm($id) {
+        $dbFile = $this->getObject("dbfile", "filemanager");
+        $file = $dbFile->getFile($id);
+        $form = new form('accessform', $this->uri(array('action' => 'setfileaccess')));
+        $publicTxt = $this->objLanguage->languageText('mod_filemanager_public', 'filemanager');
+        $privateAllTxt = $this->objLanguage->languageText('mod_filemanager_private_all', 'filemanager');
+        $legend = $this->objLanguage->languageText('mod_filemanager_setaccess', 'filemanager');
+
+        $objElement = new radio('access_radio');
+
+        $objElement->addOption('private_all', $privateAllTxt . '<br/>');
+        //$objElement->addOption('private_selected', $privateSelected . '<br/>');
+        $objElement->addOption('public', $publicTxt . '<br/>');
+        $access = $file['access'] == NULL ? 'public' : $file['access'];
+        $objElement->setSelected($access);
+
+        $fieldset = new fieldset();
+        $fieldset->setLegend($legend);
+        $fieldset->addContent($objElement->show());
+
+        $applyButton = new button('apply', $this->objLanguage->languageText('mod_filemanager_apply', 'filemanager'));
+        $applyButton->setToSubmit();
+
+
+        $hiddeninput = new hiddeninput('id', $id);
+        $form->addToForm($hiddeninput->show());
+
+        $form->addToForm($fieldset->show());
+        $form->addToForm($applyButton->show()); // . '&nbsp;' . $buttonCancel->show());
+        return $form->show();
+    }
+
+    /**
+     * this creates the visibility control field
+     * @param type $id
+     * @return type 
+     */
+    function createFileVisibilityForm($id) {
+        $dbFile = $this->getObject("dbfile", "filemanager");
+        $file = $dbFile->getFile($id);
+        $form = new form('visibilityform', $this->uri(array('action' => 'setfilevisibility')));
+        $visibleTxt = $this->objLanguage->languageText('mod_filemanager_visible', 'filemanager');
+        $hiddenTxt = $this->objLanguage->languageText('mod_filemanager_hidden', 'filemanager');
+        $legend = $this->objLanguage->languageText('mod_filemanager_visibility', 'filemanager');
+
+        $objElement = new radio('access_radio');
+
+        $objElement->addOption('visible', $visibleTxt . '<br/>');
+        $objElement->addOption('hidden', $hiddenTxt . '<br/>');
+        $access = $file['visibility'] == NULL ? 'visible' : $file['visibility'];
+        $objElement->setSelected($access);
+
+        $fieldset = new fieldset();
+        $fieldset->setLegend($legend);
+        $fieldset->addContent($objElement->show());
+
+        $applyButton = new button('apply', $this->objLanguage->languageText('mod_filemanager_apply', 'filemanager'));
+        $applyButton->setToSubmit();
+
+        $hiddeninput = new hiddeninput('id', $id);
+        $form->addToForm($hiddeninput->show());
+
+        $form->addToForm($fieldset->show());
+        $form->addToForm($applyButton->show()); // . '&nbsp;' . $buttonCancel->show());
         return $form->show();
     }
 
@@ -124,12 +199,41 @@ class folderaccess extends object {
                 rename($sourceFilePathFull, $destFilePathFull);
             }
         }
-        
-        
     }
-    
-    
-    
+
+    /**
+     * sets the access 
+     * @param type $folderId
+     * @param type $access 
+     */
+    public function setFileAccess($fileId, $access) {
+        $dbFile = $this->getObject("dbfile", "filemanager");
+        $dbFile->setFileAccess($fileId, $access);
+
+        $file = $dbFile->getFile($fileId);
+        $contentBasePath = $this->objConfig->getcontentBasePath();
+        $objMkDir = $this->getObject('mkdir', 'files');
+
+        //for private all, we move the folder to the private section
+
+        if ($access == 'private_all') {
+            $destFolder = $this->secureFolder . '/' . $file['filefolder'];
+            $objMkDir->mkdirs($destFolder);
+            @chmod($destFolder, 0777);
+            $filePathFull = $contentBasePath . '/' . $file['path'];
+            $destFilePathFull = $this->secureFolder . '/' . $file['path'];
+            rename($filePathFull, $destFilePathFull);
+        }
+        if ($access == 'public') {
+            $destFolder = $contentBasePath . '/' . $file['filefolder'];
+            $objMkDir->mkdirs($destFolder);
+            @chmod($destFolder, 0777);
+            $destFilePathFull = $contentBasePath . '/' . $file['path'];
+            $sourceFilePathFull = $this->secureFolder . '/' . $file['path'];
+            rename($sourceFilePathFull, $destFilePathFull);
+        }
+    }
+
     /**
      * allows the user to donwload the selected file
      * @param <type> $filename
@@ -138,8 +242,27 @@ class folderaccess extends object {
 
         //check if user has access to the parent folder before accessing it
 
+        $parts = explode('/', $filepath);
+        switch ($parts[0]) {
+
+            case 'context': // this is a context folder, so we must check if this user has access to the context first
+                $contextCode = $parts[1];
+
+                $userId = $this->objUser->userid();
+                /* $groupId = $this->objGroupAdminModel->getId($contextCode);
+                  if (!$this->objGroupOps->isGroupMember($groupId, $userId)) {
+                  die("I'm sorry, you may not download that file.");
+                  } */
+
+                $objUserContext = $this->getObject('usercontext', 'context');
+                if (!$objUserContext->isContextMember($userId, $contextCode)) {
+                    die("I'm sorry, you may not download that file.");
+                }
+                break;
+        }
+
         $baseDir = $this->secureFolder;
-        
+
         // Detect missing filename
         if (!$filename && !$filepath)
             die("I'm sorry, you must specify a file name to download.");
@@ -177,7 +300,6 @@ class folderaccess extends object {
         // Send the file contents.
         readfile($file);
     }
-
 
 }
 

@@ -31,6 +31,11 @@ if($folder['access'] == 'private_all' || $folder['access'] == 'private_selected'
     $fileDownloadPath=$this->uri(array("action"=>"downloadsecurefile","path"=>$file['path'],"filename"=>$file['filename']));
 }
 
+if($file['access'] == 'private_all' || $file['access'] == 'private_selected'){
+    $fileDownloadPath=$this->uri(array("action"=>"downloadsecurefile","path"=>$file['path'],"filename"=>$file['filename']));
+}
+
+
 $objIcon->setIcon('download');
 $link = new link($fileDownloadPath);
 $link2 = new link($fileDownloadPath);
@@ -215,6 +220,8 @@ if (array_key_exists('width', $file)) {
 
 
 $tabContent->addTab(array('name' => $fileInfo, 'content' => $fileInfoContent));
+$fileAccess=$this->getObject("folderaccess","filemanager");
+$tabContent->addTab(array('name' => "Access", 'content' => $fileAccess->createFileAccessControlForm($file['id']).'<br/>'.$fileAccess->createFileVisibilityForm($file['id'])));
 
 
 echo $tabContent->show();

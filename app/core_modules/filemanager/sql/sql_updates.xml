@@ -23,4 +23,47 @@
             </add>
         </data>
     </update>
+
+
+    <update>
+        <table>tbl_files_folders</table>
+        <version>1.036</version>
+        <description>added column for visibility</description>
+        <data>
+            <add>
+                <name>visibility</name>
+                <type>text</type>
+                <length>7</length>
+            </add>
+        </data>
+    </update>
+
+
+
+    <update>
+        <table>tbl_files</table>
+        <version>1.036</version>
+        <description>added column for visibility</description>
+        <data>
+            <add>
+                <name>visibility</name>
+                <type>text</type>
+                <length>7</length>
+            </add>
+        </data>
+    </update>
+    
+    
+     <update>
+        <table>tbl_files</table>
+        <version>1.039</version>
+        <description>added column for access</description>
+        <data>
+            <add>
+                <name>access</name>
+                <type>text</type>
+                <length>20</length>
+            </add>
+        </data>
+    </update>
 </updates>

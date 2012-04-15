@@ -1511,14 +1511,39 @@ function checkWindowOpener()
     }
 
     /**
+     * This apply access controls to a file: public, private all logged in or private
+     *  to selected groups
+     */
+    function __setfileaccess() {
+        $objFolderAccess = $this->getObject("folderaccess", "filemanager");
+        $access = $this->getParam("access_radio");
+        $fileId = $this->getParam("id");
+        $objFolderAccess->setFileAccess($fileId, $access);
+        return $this->nextAction("fileinfo", array("id" => $fileId));
+    }
+
+    /**
+     * this sets the folder visibilty. This typically is visible/hidden. A hidden
+     * folder is only visible to the creator
+     * @return type 
+     */
+    function __setfilevisibility() {
+        $dbFile= $this->getObject("dbfile", "filemanager");
+        $access = $this->getParam("access_radio");
+        $fileId = $this->getParam("id");
+        $dbFile->setFileVisibility($fileId, $access);
+        return $this->nextAction("fileinfo", array("id" => $fileId));
+    }
+
+    /**
      * This is called when a secure file has to be downloaded
      * @return type 
      */
     function __downloadsecurefile() {
         $filepath = $this->getParam("path");
-        $filename=  $this->getParam("filename");
+        $filename = $this->getParam("filename");
         $objFolderAccess = $this->getObject("folderaccess", "filemanager");
-       
+
         return $objFolderAccess->downloadFile($filepath, $filename);
     }
 

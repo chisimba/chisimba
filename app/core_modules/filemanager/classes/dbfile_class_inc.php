@@ -800,6 +800,7 @@ class dbfile extends dbTable {
         return $this->getAll(' WHERE filefolder=\'' . $folder . '\' AND filename = \'' . $filename . '\'');
     }
 
+    
     /**
      * Method to update the license and description of a file
      * @param string $id Record Id of the File
@@ -1001,7 +1002,26 @@ class dbfile extends dbTable {
         );
     }
 
-   
+    /**
+     * This updates the access field of the supplied fileid
+     * @param type $fileId The id of the file while access is to be changed
+     * @param type $access Access vlaue. Can be public, private_all or private_selected
+     */
+    function setFileAccess($fileId, $access) {
+        
+        $this->update("id", $fileId, array("access" => $access));
+    }
+
+    /**
+     * Updates a folder visibility by setting the mode to hidden or visibile.
+     * A hidden folder is only accessible to the creator
+     * @param type $folderId
+     * @param type $access 
+     */
+    function setFileVisibility($fileId, $access) {
+        $this->update("id", $fileId, array("visibility" => $access));
+    }
+ 
 
 }
 

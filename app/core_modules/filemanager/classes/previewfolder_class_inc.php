@@ -52,6 +52,7 @@ class previewfolder extends filemanagerobject {
         $this->objFileIcons = $this->getObject('fileicons', 'files');
         $this->objLanguage = $this->getObject('language', 'language');
         $this->objAltConfig = $this->getObject("altconfig", "config");
+        $this->objUser = $this->getObject("user", "security");
         $this->loadClass('link', 'htmlelements');
         $this->loadClass('label', 'htmlelements');
         $this->loadClass('checkbox', 'htmlelements');
@@ -68,7 +69,7 @@ class previewfolder extends filemanagerobject {
      * @return unknown Return description (if any) ...
      * @access public
      */
-    function previewContent($subFolders, $files, $mode, $name, $symlinks=array(), $restriction=array(), $forceRestriction = FALSE) {
+    function previewContent($subFolders, $files, $mode, $name, $symlinks = array(), $restriction = array(), $forceRestriction = FALSE) {
         return $this->previewLongView($subFolders, $files, $symlinks, $restriction, $mode, $name, $forceRestriction);
     }
 
@@ -84,7 +85,7 @@ class previewfolder extends filemanagerobject {
      */
     function previewLongView($subFolders, $files, $symlinks, $restriction, $mode, $name, $forceRestriction = FALSE) {
         $objTable = $this->newObject('htmltable', 'htmlelements');
-
+        $objIcon = $this->newObject('geticon', 'htmlelements');
         $objTable->startHeaderRow();
         if ($this->editPermission) {
             $objTable->addHeaderCell('&nbsp;', '20');
@@ -113,6 +114,7 @@ class previewfolder extends filemanagerobject {
                 $folderIcon = $this->objFileIcons->getExtensionIcon('folder');
 
                 foreach ($subFolders as $folder) {
+
                     $objTable->startRow();
 
                     if ($this->editPermission) {
@@ -126,8 +128,18 @@ class previewfolder extends filemanagerobject {
                     $objTable->addCell($folderIcon);
 
                     $folderLink = new link($this->uri(array('action' => 'viewfolder', 'folder' => $folder['id'])));
+
+
+                    $extTitle = '';
+                 
+                    if ($folder['access'] == 'private_all') {
+                        $objIcon->setIcon('info');
+                        $extTitle=$objIcon->show();
+                    }
+
                     $folderLink->title = basename($folder['folderpath']);
-                    $folderLink->link = substr(basename($folder['folderpath']), 0, 70) . '...';
+                    $folderLink->link = substr(basename($folder['folderpath']), 0, 70) . '...'.$extTitle;
+
                     $objTable->addCell($folderLink->show());
                     $objTable->addCell('<em>' . $this->objLanguage->languageText('word_folder', 'system', 'Folder') . '</em>');
                     $objTable->endRow();
@@ -142,6 +154,18 @@ class previewfolder extends filemanagerobject {
                 //var_dump($files);
                 $fileSize = new formatfilesize();
                 foreach ($files as $file) {
+                    $visibility = $file['visibility'];
+                    $showFile = true;
+                    if ($visibility == 'hidden') {
+                        if ($file['creatorid'] == $this->objUser->userid()) {
+                            $showFile = true;
+                        } else {
+                            $showFile = false;
+                        }
+                    }
+                    if (!$showFile) {
+                        continue;
+                    }
                     if (count($restriction) > 0) {
                         if (!in_array(strtolower($file['datatype']), $restriction)) {
                             $objTable->startRow('hidefile');
@@ -177,12 +201,19 @@ class previewfolder extends filemanagerobject {
                         $fileLink = new link($this->uri(array('action' => 'fileinfo', 'id' => $file['id'])));
                     }
 
-                    $fileLink->link = basename($file['filename']);
+                    $linkTitle = '';
+                    if ($file['access'] == 'private_all') {
+                        $objIcon->setIcon('info');
+                        $linkTitle = basename($file['filename']) . $objIcon->show();
+                    } else {
+                        $linkTitle = basename($file['filename']);
+                    }
 
-                    $filepath= $this->objAltConfig->getSiteRoot() . '/usrfiles/' . $file['path'];
-                    $selectStr = '<a href=\'javascript:selectFile("' .$filepath . '");\'>' . basename($file['filename']) . '</a>';
+                    $fileLink->link = $linkTitle;
+                    $filepath = $this->objAltConfig->getSiteRoot() . '/usrfiles/' . $file['path'];
+                    $selectStr = '<a href=\'javascript:selectFile("' . $filepath . '");\'>' . basename($file['filename']) . '</a>';
                     $selectFileStr = '<a href=\'javascript:selectFileWindow("' . $name . '","' . $file['filename'] . '","' . $file['id'] . '");\'>' . basename($file['filename']) . '</a>';
-                    $selectImageStr = '<a href=\'javascript:selectImageWindow("'.$name.'", "' . $filepath . '","' . $file['filename'] . '","' . $file['id'] . '");\'>' . basename($file['filename']) . '</a>';
+                    $selectImageStr = '<a href=\'javascript:selectImageWindow("' . $name . '", "' . $filepath . '","' . $file['filename'] . '","' . $file['id'] . '");\'>' . basename($file['filename']) . '</a>';
 
                     if ($mode == 'fckimage' || $mode == 'fckflash' || $mode == 'fcklink') {
 
@@ -198,7 +229,6 @@ class previewfolder extends filemanagerobject {
                     $objTable->addCell($fileSize->formatsize($file['filesize']));
                     $objTable->endRow();
                 }
-
             }
         }
 

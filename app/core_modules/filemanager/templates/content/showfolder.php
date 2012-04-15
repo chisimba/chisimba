@@ -92,7 +92,7 @@ if ($folderPermission2) {
     $fieldset->addContent($this->objFolders->showCreateFolderForm($folderId));
     echo $fieldset->show();
 }
-$accessLink="";
+$accessLink = "";
 if ($folder['folderlevel'] == 2) {
     $icon = '';
     $linkRename = '';
@@ -107,9 +107,9 @@ document.getElementById(\'renameButton\').onclick = function() {
     adjustLayout();
 };
 </script>&nbsp;|&nbsp;';
-    
-$accessLink = '<span id="accessButton" style="cursor: pointer; text-decoration: underline">' . $this->objLanguage->languageText('mod_filemanager_access', 'filemanager') . 
-'</span>
+
+    $accessLink = '<span id="accessButton" style="cursor: pointer; text-decoration: underline">' . $this->objLanguage->languageText('mod_filemanager_access', 'filemanager') .
+            '</span>
 <script type="text/javascript">
     document.getElementById(\'accessButton\').onclick = function() {
     document.getElementById(\'accessfolder\').style.display = \'inline\';
@@ -120,22 +120,22 @@ $accessLink = '<span id="accessButton" style="cursor: pointer; text-decoration: 
 } else {
     $icon = '';
     $linkRename = '&nbsp;|&nbsp;';
-    $accessLink='&nbsp;|&nbsp;';
+    $accessLink = '&nbsp;|&nbsp;';
 }
 
-//echo '<p>'.$breadcrumbs.'</p>';
+$folderContent = "";
 
 switch ($this->getParam('message')) {
     default:
         break;
     case 'foldercreated':
-        echo '<span class="confirm">' . $this->objLanguage->languageText('mod_filemanager_folderhasbeencreated', 'filemanager', 'Folder has been created') . ' </span>';
+        $folderContent.= '<span class="confirm">' . $this->objLanguage->languageText('mod_filemanager_folderhasbeencreated', 'filemanager', 'Folder has been created') . ' </span>';
         break;
     case 'filesdeleted':
-        echo '<span class="confirm">' . $this->getParam('numfiles') . ' ' . $this->objLanguage->languageText('mod_filemanager_fileshavebeendeleted', 'filemanager', 'File(s) have been deleted') . ' </span>';
+        $folderContent.= '<span class="confirm">' . $this->getParam('numfiles') . ' ' . $this->objLanguage->languageText('mod_filemanager_fileshavebeendeleted', 'filemanager', 'File(s) have been deleted') . ' </span>';
         break;
     case 'folderdeleted':
-        echo '<span class="confirm"><strong>' . $this->getParam('ref') . '</strong> ' . $this->objLanguage->languageText('mod_filemanager_folderhasbeendeleted', 'filemanager', 'folder has been deleted') . ' </span>';
+        $folderContent.= '<span class="confirm"><strong>' . $this->getParam('ref') . '</strong> ' . $this->objLanguage->languageText('mod_filemanager_folderhasbeendeleted', 'filemanager', 'folder has been deleted') . ' </span>';
         break;
 }
 
@@ -143,14 +143,15 @@ switch ($this->getParam('error')) {
     default:
         break;
     case 'nofoldernameprovided':
-        echo '<span class="error">' . $this->objLanguage->languageText('mod_filemanager_folderwasnotcreatednoname', 'filemanager', 'Folder was not created. No name provided') . '</span>';
+        $folderContent.= '<span class="error">' . $this->objLanguage->languageText('mod_filemanager_folderwasnotcreatednoname', 'filemanager', 'Folder was not created. No name provided') . '</span>';
         break;
     case 'illegalcharacters':
-        echo '<span class="error">' . $this->objLanguage->languageText('mod_filemanager_folderwasnotcreatedillegalchars', 'filemanager', 'Folder was not created. Folders cannot contain any of the following characters') . ': \ / : * ? &quot; &lt; &gt; |</span>';
+        $folderContent.= '<span class="error">' . $this->objLanguage->languageText('mod_filemanager_folderwasnotcreatedillegalchars', 'filemanager', 'Folder was not created. Folders cannot contain any of the following characters') . ': \ / : * ? &quot; &lt; &gt; |</span>';
         break;
 }
 
-echo '<table border="0"><tr><td valign="baseline"><h1>' . $folderpath . '</h1></td><td valign="baseline">' . $linkRename .$accessLink.$icon.'</td></tr></table>';
+echo '<h1>' . $folderpath . '</h1>';
+$folderActions = ""; // $fieldset->show(); //'<table border="0"><tr><td valign="baseline"></td><td valign="baseline">' . $linkRename . $accessLink . $icon . '</td></tr></table>';
 if ($folder['folderlevel'] != 2 && $folderPermission) {
     $form = new form('formrenamefolder', $this->uri(array('action' => 'renamefolder')));
     $objInputFolder = new hiddeninput('folder', $folderId);
@@ -161,15 +162,25 @@ if ($folder['folderlevel'] != 2 && $folderPermission) {
     $buttonSubmit = new button('renamefoldersubmit', $this->objLanguage->languageText('mod_filemanager_renamefolder', 'filemanager'));
     $buttonSubmit->setToSubmit();
     $buttonCancel = new button('renamefoldercancel', $this->objLanguage->languageText('word_cancel'), 'document.getElementById(\'renamefolder\').style.display = \'none\'; adjustLayout();');
-    $form->addToForm('&nbsp;' . $buttonSubmit->show() . '&nbsp;' . $buttonCancel->show());
+    $form->addToForm('&nbsp;' . $buttonSubmit->show());// . '&nbsp;' . $buttonCancel->show());
+    
+    
     $fieldset = new fieldset();
     $fieldset->setLegend($this->objLanguage->languageText('mod_filemanager_renamefolder', 'filemanager'));
     //$folderId
     $fieldset->addContent($form->show());
-    echo '<span id="renamefolder" style="display: none;">' . $fieldset->show() . '<br /></span>';
+    
+    $folderActions.= '<span id="renamefolder" style="display: xnone;">' . $fieldset->show() . '<br /></span>';
     $objAccess = $this->getObject("folderaccess", "filemanager");
     $accessContent = $objAccess->createAccessControlForm($folder['id']);
-    echo '<span id="accessfolder" style="display: none;">' . $accessContent . '<br /></span>';
+    $folderActions.= '<span id="accessfolder" style="display: xnone;">' . $accessContent . '<br /></span>';
+
+   
+    
+    $fieldset = new fieldset();
+    $fieldset->setLegend($this->objLanguage->languageText('mod_filemanager_deletefolder', 'filemanager', 'Delete Folder'));
+    $fieldset->addContent( $icon);
+    $folderActions.=$fieldset->show();
 }
 
 if ((count($files) > 0 || count($subfolders) > 0 || count($symlinks) > 0) && $folderPermission) {
@@ -217,20 +228,27 @@ if ((count($files) > 0 || count($subfolders) > 0 || count($symlinks) > 0) && $fo
     $folderInput = new hiddeninput('folder', $folderId);
     $form->addToForm($folderInput->show());
 
-    echo $form->show();
+    $folderContent.= $form->show();
 } else {
-    echo $table;
+    $folderContent.= $table;
 }
 
 
 if ($folderPermission2) {
 
-    echo '<h3>' . $this->objLanguage->languageText('phrase_uploadfiles', 'system', 'Upload Files') . '</h3>';
+    $folderContent.= '<h3>' . $this->objLanguage->languageText('phrase_uploadfiles', 'system', 'Upload Files') . '</h3>';
 
     if ($quota['quotausage'] >= $quota['quota']) {
-        echo '<p class="warning">' . $this->objLanguage->languageText('mod_filemanager_quotaexceeded', 'filemanager', 'Allocated Quota Exceeded. First delete some files and then try to upload again.') . '</p>';
+        $folderContent.= '<p class="warning">' . $this->objLanguage->languageText('mod_filemanager_quotaexceeded', 'filemanager', 'Allocated Quota Exceeded. First delete some files and then try to upload again.') . '</p>';
     } else {
-        echo $this->objUpload->show($folderId, ($quota['quota'] - $quota['quotausage']));
+        $folderContent.= $this->objUpload->show($folderId, ($quota['quota'] - $quota['quotausage']));
     }
 }
+
+$tabContent = $this->newObject('tabber', 'htmlelements');
+$tabContent->width = '90%';
+$tabContent->addTab(array('name' => $this->objLanguage->languageText('mod_filemanager_folderiew', 'filemanager', 'View Folder'), 'content' => $folderContent));
+$tabContent->addTab(array('name' => $this->objLanguage->languageText('mod_filemanager_actionview', 'filemanager', 'Folder Actions'), 'content' => $folderActions));
+
+echo $tabContent->show();
 ?>
