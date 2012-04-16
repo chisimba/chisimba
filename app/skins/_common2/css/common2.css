@@ -956,3 +956,36 @@ a.contexttitle {
 .whitetxt {
     color: #FFFFFF;
 }
+
+/** Chat stuff in the messaging module **/
+#chatDiv {
+    background: none;
+    height: 300px;
+    border: 1px solid black;
+    padding: 10px;
+    overflow: auto;
+    cursor: default;
+}
+.chat_user {
+    color: black;
+    font-weight: bolder;
+}
+
+.chat_date {
+    color: red;
+}
+.chat_input {
+    width: 100%;
+}
+
+.chat_input {
+    width: 100%;
+}
+
+.chat_buttons {
+    padding-left: 20px;
+}
+
+.chat_buttons button {
+    margin-bottom: 6px;
+}
