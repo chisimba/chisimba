@@ -60,7 +60,6 @@ class folderaccess extends object {
         $form = new form('accessform', $this->uri(array('action' => 'setfolderaccess')));
         $publicTxt = $this->objLanguage->languageText('mod_filemanager_public', 'filemanager');
         $privateAllTxt = $this->objLanguage->languageText('mod_filemanager_private_all', 'filemanager');
-        $privateSelected = $this->objLanguage->languageText('mod_filemanager_private_selected', 'filemanager');
         $legend = $this->objLanguage->languageText('mod_filemanager_setaccess', 'filemanager');
 
         $objElement = new radio('access_radio');
@@ -71,21 +70,20 @@ class folderaccess extends object {
         $access = $folder['access'] == NULL ? 'public' : $folder['access'];
         $objElement->setSelected($access);
 
-        $fieldset = new fieldset();
-        $fieldset->setLegend($legend);
-        $fieldset->addContent($objElement->show());
 
         $applyButton = new button('apply', $this->objLanguage->languageText('mod_filemanager_apply', 'filemanager'));
         $applyButton->setToSubmit();
 
-        $buttonCancel = new button('renamefoldercancel', $this->objLanguage->languageText('word_cancel'), 'document.getElementById(\'accessfolder\').style.display = \'none\'; adjustLayout();');
 
+        
+        $fieldset = new fieldset();
+        $fieldset->setLegend($legend);
+        $fieldset->addContent($objElement->show().'<br/>'.'<div class="warning">'.$this->objLanguage->languageText('mod_filemanager_accesswarning','filemanager').'</div><br/>'.$applyButton->show());
 
         $hiddeninput = new hiddeninput('id', $id);
         $form->addToForm($hiddeninput->show());
 
         $form->addToForm($fieldset->show());
-        $form->addToForm($applyButton->show()); // . '&nbsp;' . $buttonCancel->show());
         return $form->show();
     }
 

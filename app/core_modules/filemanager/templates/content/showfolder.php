@@ -161,8 +161,7 @@ if ($folder['folderlevel'] != 2 && $folderPermission) {
     $form->addToForm($label->show() . $textinput->show());
     $buttonSubmit = new button('renamefoldersubmit', $this->objLanguage->languageText('mod_filemanager_renamefolder', 'filemanager'));
     $buttonSubmit->setToSubmit();
-    $buttonCancel = new button('renamefoldercancel', $this->objLanguage->languageText('word_cancel'), 'document.getElementById(\'renamefolder\').style.display = \'none\'; adjustLayout();');
-    $form->addToForm('&nbsp;' . $buttonSubmit->show());// . '&nbsp;' . $buttonCancel->show());
+    $form->addToForm('&nbsp;' . $buttonSubmit->show().'<br/><div class="warning">'.$this->objLanguage->languageText('mod_filemanager_renamewarning','filemanager').'</div>');// . '&nbsp;' . $buttonCancel->show());
     
     
     $fieldset = new fieldset();
@@ -179,7 +178,7 @@ if ($folder['folderlevel'] != 2 && $folderPermission) {
     
     $fieldset = new fieldset();
     $fieldset->setLegend($this->objLanguage->languageText('mod_filemanager_deletefolder', 'filemanager', 'Delete Folder'));
-    $fieldset->addContent( $icon);
+    $fieldset->addContent( '<br/><div class="warning">'.$this->objLanguage->languageText('mod_filemanager_deletewarning','filemanager').'</div><br/>'.$icon);
     $folderActions.=$fieldset->show();
 }
 

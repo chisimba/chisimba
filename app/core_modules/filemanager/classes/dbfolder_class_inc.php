@@ -660,7 +660,7 @@ class dbfolder extends dbTable {
         $label = new label('Create a subfolder in: ', 'input_parentfolder');
 
 
-        $form->addToForm($label->show() . $this->getTree($folderParts[0], $folderParts[1], 'htmldropdown', $folderId));
+        $form->addToForm($label->show() .'<br/>' .$this->getTree($folderParts[0], $folderParts[1], 'htmldropdown', $folderId));
 
         // $objInputMasks = $this->getObject('inputmasks', 'htmlelements');
         // echo $objInputMasks->show();
@@ -670,12 +670,12 @@ class dbfolder extends dbTable {
 
         $label = new label('Name of Folder: ', 'input_foldername');
 
-        $form->addToForm(' &nbsp; ' . $label->show() . $textinput->show());
+        $form->addToForm('<br/>' . $label->show() .'<br/>'. $textinput->show().'&nbsp;');
 
         $button = new button('create', 'Create Folder');
         $button->setToSubmit();
 
-        $form->addToForm(' ' . $button->show());
+        $form->addToForm('<br/>' . $button->show());
 
         return $form->show();
     }
