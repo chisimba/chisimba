@@ -170,12 +170,10 @@ class windowPop implements ifhtml
         $this->scrollbars = "no";
         $this->status = "no";
         $this->toolbar = "no";
-        $this->js = "<script type=\"text/javascript\">\n"
-         . "function openWindow(theURL,winName,features) { \n"
-         . "  newwindow=window.open(theURL,winName,features);\n 
-              if (window.focus) {newwindow.focus()}\n
-    //return false;\n 
-         } \n</script>";
+        $this->js = "<script type=\"text/javascript\">"
+         . "function openWindow(theURL,winName,features){"
+         . "newwindow=window.open(theURL,winName,features);"
+         . "if(window.focus){newwindow.focus()}}</script>";
     }
 
     /**
@@ -229,14 +227,14 @@ class windowPop implements ifhtml
         if ($this->linkType=='button') {
             
             if (preg_match('/<.+?>/', $this->linktext)) {
-                return $this->putJs()."<button onclick=\"javascript:openWindow('"
-         . $this->location . "','" . $this->window_name . "','" . $this->features . "')\">"
-         . $this->linktext . "</button>";
+                return $this->putJs()."<button type=\"button\" class=\"sexybutton\" onclick=\"javascript:openWindow('"
+         . $this->location . "','" . $this->window_name . "','" . $this->features . "')\"><span><span>"
+         . $this->linktext . "</span></span></button>";
             } else {
-                return $this->putJs()."<input type=\"button\" class=\"button\"  onclick=\"javascript:openWindow('"
-         . $this->location . "','" . $this->window_name . "','" . $this->features . "')\" value=\""
-         . $this->linktext . "\" />";
-            }
+                return $this->putJs()."<button type=\"button\" class=\"sexybutton\" onclick=\"javascript:openWindow('"
+         . $this->location . "','" . $this->window_name . "','" . $this->features . "')\"><span><span>"
+         . $this->linktext . "</span></span></button>";
+        }
 
             
         } else {
