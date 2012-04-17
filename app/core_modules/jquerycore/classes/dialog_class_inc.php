@@ -828,8 +828,7 @@ class dialog extends object
         }
         if (isset($this->close))
         {
-            $close = addslashes($this->close);
-            $script .= ",close: function(event, ui){" . $close . "}";
+            $script .= ",close: function(event, ui){" . $this->close . "}";
         }
         $script .= "});});</script>";  
         $this->script = $script;

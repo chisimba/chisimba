@@ -171,13 +171,15 @@ class groupAdminModel extends dbTable {
      * Method to get all the groups( no hierarchy ).
      *
      * @access public
-     * @param  array       $fields ( optional ) Default fields are unique ID and group name.
      * @param  string      $filter ( optional ) a SQL WHERE clause.
      * @return array|false Group rows as an array of associate arrays, or FALSE on failure
      */
-    public function getGroups( $fields = array( "id", "name" ), $filter = null ) {
-        if(isset($fields) && !empty($fields)) {
-            $groups = $this->objLuAdmin->perm->getGroups(array('filters' => array('group_define_name' => $fields['name'], 'group_id' => $fields['id'])));
+    public function getGroups( $filter = NULL) {
+        if(isset($filter) && !empty($filter)) {
+            $sql = "SELECT group_define_name, group_id FROM tbl_perms_groups $filter";
+            parent::init('tbl_perms_groups ');
+            $groups = $this->getArray($sql, 'tbl_perms_groups')  ;
+            return $groups;
         }
         else {
             $groups = $this->objLuAdmin->perm->getGroups();
@@ -573,7 +575,18 @@ class groupAdminModel extends dbTable {
      * @return array  The list of unique ID for groups as an array.
      */
     public function getUserGroups( $userId ) {
+        $permId = $this->getPermUserId($userId);
 
+        parent::init('tbl_perms_groupusers ');
+        
+        $sql = "SELECT * FROM tbl_perms_groupusers AS u";
+        $sql .= " LEFT JOIN tbl_perms_groups AS g";
+        $sql .= " ON u.group_id = g.group_id";
+        $sql .= " WHERE u.perm_user_id = '$permId'";
+        
+        $groups = $this->getArray($sql, 'tbl_perms_groupusers');        
+        
+        return $groups;
     }
 
     /**
