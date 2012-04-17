@@ -101,33 +101,31 @@ class userbizcard extends object
         }
         
         $objHeading = new htmlheading();
-        $objHeading->str = '&#160;'.$this->userArray['title'].' '.$this->userArray['firstname'].' '.$this->userArray['surname'];
+        $objHeading->str = $this->userArray['title'].' '.$this->userArray['firstname'].' '.$this->userArray['surname'];
         $objHeading->type = 1;
         $heading = $objHeading->show();
         
         $objTable = new htmltable();        
-        $objTable->width = '500px';
-        $objTable->cssClass = 'userbizcard';
+        $objTable->width = '100%';
+        $objTable->cellpadding = '4';
         $objTable->startRow();
         $objTable->addCell($image, '25%', 'center', 'center', 'userbizcardleft', 'rowspan="6"');
-        $objTable->endRow();
-        $objTable->startRow();
         $objTable->addCell($heading, '', '', '', 'heading', 'colspan="2"');
         $objTable->endRow();
         $objTable->startRow();
-        $objTable->addCell('&#160;&#160;<strong>'.ucfirst(strtolower($emailLabel)).':</strong>', '25%', '', '', 'heading', '');
+        $objTable->addCell('<strong>'.ucfirst(strtolower($emailLabel)).':</strong>', '25%', '', '', 'heading', '');
         $objTable->addCell($this->userArray['emailaddress'], '', '', '', 'heading', '');
         $objTable->endRow();
         $objTable->startRow();
-        $objTable->addCell('&#160;&#160;<strong>'.$mobileLabel.':</strong>', '', '', '', 'heading', '');
+        $objTable->addCell('<strong>'.$mobileLabel.':</strong>', '', '', '', 'heading', '');
         $objTable->addCell($this->userArray['cellnumber'], '', '', '', 'heading', '');
         $objTable->endRow();
         $objTable->startRow();
-        $objTable->addCell('&#160;&#160;<strong>'.$countryLabel.':</strong>', '', '', '', 'heading', '');
+        $objTable->addCell('<strong>'.$countryLabel.':</strong>', '', '', '', 'heading', '');
         $objTable->addCell($this->objCountries->getCountryName($this->userArray['country']).' '.$this->objCountries->getCountryFlag($this->userArray['country']), '', '', '', 'heading', '');
         $objTable->endRow();
         $objTable->startRow();
-        $objTable->addCell('&#160;&#160;<strong>'.$genderLabel.':</strong>', '', '', '', 'heading', '');
+        $objTable->addCell('<strong>'.$genderLabel.':</strong>', '', '', '', 'heading', '');
         $objTable->addCell($gender, '', '', '', 'heading', '');
         $objTable->endRow();
         $string = $objTable->show();
@@ -137,19 +135,13 @@ class userbizcard extends object
         $content = $objLayer->show();    
     
         $objLayer = new layer();
-        $objLayer->cssClass = 'floatlangdir';
-        $objLayer->width = '380px';
+        $objLayer->width = '500px';
+        $objLayer->border = '2px solid black';
         $objLayer->addToStr($content);
         $content = $objLayer ->show();
             
-        $objLayer = new layer();
-        $objLayer->width = '500px';
-        $objLayer->border = '1px solid black';
-        $objLayer->addToStr($content.'<div style="clear:both;"></div>');
-        
-        $result = $objLayer->show();
+        $result = $content;
     
-        $result .= '<br class="clearfloatlangdir" />';        
         return $result;
     }
 
