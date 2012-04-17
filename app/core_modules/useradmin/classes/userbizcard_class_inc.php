@@ -113,7 +113,7 @@ class userbizcard extends object
         $objTable->addCell($heading, '', '', '', 'heading', 'colspan="2"');
         $objTable->endRow();
         $objTable->startRow();
-        $objTable->addCell('<strong>'.ucfirst(strtolower($emailLabel)).':</strong>', '25%', '', '', 'heading', '');
+        $objTable->addCell('<strong>'.ucfirst(strtolower($emailLabel)).':</strong>', '30%', '', '', 'heading', '');
         $objTable->addCell($this->userArray['emailaddress'], '', '', '', 'heading', '');
         $objTable->endRow();
         $objTable->startRow();
