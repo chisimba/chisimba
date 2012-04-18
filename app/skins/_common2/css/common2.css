@@ -989,3 +989,26 @@ a.contexttitle {
 .chat_buttons button {
     margin-bottom: 6px;
 }
+
+/** Fluid video **/
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px;
+    height: 0;
+    overflow: hidden;
+    background:none;
+    border:none;
+    margin-right: 8px;
+}
+
+.video-container iframe,  
+.video-container object,  
+.video-container embed {
+    
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
