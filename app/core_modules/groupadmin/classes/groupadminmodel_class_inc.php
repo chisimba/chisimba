@@ -384,20 +384,20 @@ class groupAdminModel extends dbTable {
         //for now is to do a direct query to find the top level groups .ie
         //groups that dont contain the ^ character
         $sql = "SELECT group_define_name, group_id FROM tbl_perms_groups
-    				WHERE group_define_name not like '%^%'". 
+    				WHERE group_define_name not like '%^%'".
                 $hasFilters;
         //var_dump($sql);
         //$groups = $this->objLuAdmin->perm->getGroups($params);
-        parent::init('tbl_perms_groups ');
+        //parent::init('tbl_perms_groups ');
         $groups = $this->getArray($sql, 'tbl_perms_groups')  ;
         return $groups;
 
         //please uncomment the code below if a better solution is
         //find other than direct sql
         /*
-      var_dump($groups); 
+      var_dump($groups);
             var_dump($sql); die;
-      
+
         $grps = NULL;
         foreach($groups as $grp) {
             if(!array_key_exists(1, explode('^', $grp['group_define_name']))) {
@@ -788,7 +788,7 @@ class groupAdminModel extends dbTable {
     */
     public function getPermUserId($userId) {
         $sql = 'SELECT perm_user_id FROM tbl_perms_perm_users WHERE auth_user_id = \''.$userId.'\'';
-        parent::init('tbl_perms_perm_users');
+        //parent::init('tbl_perms_perm_users');
         $res = $this->getArray($sql);
         return $res[0]['perm_user_id'];
     }
