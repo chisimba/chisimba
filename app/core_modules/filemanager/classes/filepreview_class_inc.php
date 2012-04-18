@@ -126,7 +126,6 @@ class filepreview extends object {
      * @return <type> 
      */
     function is_https() {
-
         return strtolower(substr($_SERVER["SERVER_PROTOCOL"], 0, 5)) == 'https' ? true : false;
     }
 

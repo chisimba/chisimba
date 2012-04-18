@@ -422,6 +422,9 @@ width="' . $width . '" height="' . $height . '"></embed></object>';
      */  
     public function showMP4($file, $width='100%', $height='400') 
     {   
+        return '<div class="video-container">' . $this->showFLV($file, $width, $height) . '</div>';
+        
+        
         $css = '<link href="' . $this->getResourceUri('video-js/video-js.css',
           'files') . '" rel="stylesheet">';
         $js = $this->getJavaScriptFile('video-js/video.js',
@@ -430,11 +433,11 @@ width="' . $width . '" height="' . $height . '"></embed></object>';
         $this->appendArrayVar('headerParams', $load);
         
         $videoId = md5($file);
-        return '<video id="' . $videoId . '" class="video-js vjs-default-skin" controls
+        return '<div class="video-container"><video id="' . $videoId . '" class="video-js vjs-default-skin" controls
   preload="auto" width="' . $width . '" height="' . $height . '" poster="' . $file . '.png"
   data-setup="{}">
   <source src="' . $file . '" type="video/mp4">
-</video>';
+</video></div>';
     }
 
 }

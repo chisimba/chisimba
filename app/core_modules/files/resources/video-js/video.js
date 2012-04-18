@@ -93,45 +93,6 @@ VideoJS.options = {
     "bigPlayButton": {},
     "controlBar": {}
   }
-
-  // components: [
-  //   "poster",
-  //   "loadingSpinner",
-  //   "bigPlayButton",
-  //   { name: "controlBar", options: {
-  //     components: [
-  //       "playToggle",
-  //       "fullscreenToggle",
-  //       "currentTimeDisplay",
-  //       "timeDivider",
-  //       "durationDisplay",
-  //       "remainingTimeDisplay",
-  //       { name: "progressControl", options: {
-  //         components: [
-  //           { name: "seekBar", options: {
-  //             components: [
-  //               "loadProgressBar",
-  //               "playProgressBar",
-  //               "seekHandle"
-  //             ]}
-  //           }
-  //         ]}
-  //       },
-  //       { name: "volumeControl", options: {
-  //         components: [
-  //           { name: "volumeBar", options: {
-  //             components: [
-  //               "volumeLevel",
-  //               "volumeHandle"
-  //             ]}
-  //           }
-  //         ]}
-  //       },
-  //       "muteToggle"
-  //     ]
-  //   }},
-  //   "subtitlesDisplay"/*, "replay"*/
-  // ]
 };
 
 // Set CDN Version of swf
@@ -3718,7 +3679,6 @@ _V_.flash.getEmbedCode = function(swf, flashVars, params, attributes){
     // Default to 100% width/height
     width: "100%",
     height: "100%"
-
   }, attributes);
 
   // Create Attributes string
