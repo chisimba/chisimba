@@ -346,7 +346,7 @@ class fileembed extends object {
 			 id="' . $videoId . '"> 
 		</a>
                 <script>
-			flowplayer("' . $videoId . '", "' . $flowPlayer . '");
+			flowplayer("' . $videoId . '", "' . $flowPlayer . '").ipad();
 		</script>
 
             ';
@@ -434,7 +434,7 @@ width="' . $width . '" height="' . $height . '"></embed></object>';
         
         $videoId = md5($file);
         return '<div class="video-container"><video id="' . $videoId . '" class="video-js vjs-default-skin" controls
-  preload="auto" width="' . $width . '" height="' . $height . '" poster="' . $file . '.png"
+  preload="auto"  poster="' . $file . '.png"
   data-setup="{}">
   <source src="' . $file . '" type="video/mp4">
 </video></div>';
