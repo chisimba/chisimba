@@ -388,8 +388,8 @@ class groupAdminModel extends dbTable {
                 $hasFilters;
         //var_dump($sql);
         //$groups = $this->objLuAdmin->perm->getGroups($params);
-        //parent::init('tbl_perms_groups ');
-        $groups = $this->getArray($sql, 'tbl_perms_groups')  ;
+        parent::init('tbl_perms_groups');
+        $groups = $this->getArray($sql); //, 'tbl_perms_groups'
         return $groups;
 
         //please uncomment the code below if a better solution is
@@ -578,14 +578,14 @@ class groupAdminModel extends dbTable {
         $permId = $this->getPermUserId($userId);
 
         parent::init('tbl_perms_groupusers ');
-        
+
         $sql = "SELECT * FROM tbl_perms_groupusers AS u";
         $sql .= " LEFT JOIN tbl_perms_groups AS g";
         $sql .= " ON u.group_id = g.group_id";
         $sql .= " WHERE u.perm_user_id = '$permId'";
-        
-        $groups = $this->getArray($sql, 'tbl_perms_groupusers');        
-        
+
+        $groups = $this->getArray($sql, 'tbl_perms_groupusers');
+
         return $groups;
     }
 
@@ -788,7 +788,7 @@ class groupAdminModel extends dbTable {
     */
     public function getPermUserId($userId) {
         $sql = 'SELECT perm_user_id FROM tbl_perms_perm_users WHERE auth_user_id = \''.$userId.'\'';
-        //parent::init('tbl_perms_perm_users');
+        parent::init('tbl_perms_perm_users');
         $res = $this->getArray($sql);
         return $res[0]['perm_user_id'];
     }
