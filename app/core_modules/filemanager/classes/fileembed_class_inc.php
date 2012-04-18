@@ -425,8 +425,9 @@ width="' . $width . '" height="' . $height . '"></embed></object>';
      */  
     public function showMP4($file, $width='100%', $height='400') 
     {   
+        // Use flowplayer to play it.
         return '<div class="video-container">' . $this->showFLV($file, $width, $height) . '</div>';
-        
+        /**
         
         $css = '<link href="' . $this->getResourceUri('video-js/video-js.css',
           'files') . '" rel="stylesheet">';
@@ -440,7 +441,7 @@ width="' . $width . '" height="' . $height . '"></embed></object>';
   preload="auto"  poster="' . $file . '.png"
   data-setup="{}">
   <source src="' . $file . '" type="video/mp4">
-</video></div>';
+</video></div>';*/
     }
 
 }
