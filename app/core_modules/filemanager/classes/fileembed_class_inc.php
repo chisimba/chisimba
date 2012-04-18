@@ -334,9 +334,12 @@ class fileembed extends object {
         }
         $js = $this->getJavaScriptFile('flowplayer3/flowplayer-3.2.8.min.js',
           'files');
+        $js2 = $this->getJavaScriptFile('flowplayer3/flowplayer.ipad-3.2.8.min.js',
+          'files');
         $flowPlayer = $this->getResourceUri('flowplayer3/flowplayer-3.2.9.swf',
           'files');
         $this->appendArrayVar('headerParams', $js);
+        $this->appendArrayVar('headerParams', $js2);
         $videoId = md5($file);
         $ret = '
             
