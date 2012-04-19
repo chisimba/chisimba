@@ -288,6 +288,15 @@ class dialog extends object
 
     /**
      * 
+     * Variable to hold the beforeClose event
+     * 
+     * @access protected
+     * @var string
+     */
+    protected $beforeClose;
+
+    /**
+     * 
      * Variable to hold the script string
      * 
      * @access public
@@ -705,6 +714,22 @@ class dialog extends object
     
     /**
      *
+     * Method to set the dialog before close event.
+     * 
+     * @access public
+     * @param integer $beforeClose The callback function for the before close event
+     * @return VOID
+     */
+    public function setBeforeClose($beforeClose)
+    {
+        if (!empty($beforeClose ) && is_string($beforeClose ));
+        {
+            $this->beforeClose  = $beforeClose ;
+        }
+    }
+    
+    /**
+     *
      * Method to set the dialog content.
      * 
      * @access public
@@ -825,6 +850,10 @@ class dialog extends object
         if (isset($this->open))
         {
             $script .= ",open: function(event, ui){" . $this->open . "}";
+        }
+        if (isset($this->beforeClose))
+        {
+            $script .= ",beforeClose: function(event, ui){" . $this->beforeClose . "}";
         }
         if (isset($this->close))
         {
