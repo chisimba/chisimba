@@ -114,10 +114,10 @@ class displaycontext extends object {
      *                                        if context is private and user is not a member
      * @return string
      */
-    public function formatContextDisplayBlock($context, 
-      $showEditDeleteLinks = TRUE, $includeFeatureBox = TRUE, 
+    public function formatContextDisplayBlock($context,
+      $showEditDeleteLinks = TRUE, $includeFeatureBox = TRUE,
       $disablePrivateAccess = FALSE) {
-        
+
         $canEdit = FALSE;
         // Flag on whether to show link for private courses
         $showLink = $disablePrivateAccess;
@@ -134,7 +134,7 @@ class displaycontext extends object {
 
         $titleLink = $context ['title'];
         if ($showLink) {
-            $link = new link($this->uri(array('action' => 'joincontext', 
+            $link = new link($this->uri(array('action' => 'joincontext',
               'contextcode' => $context ['contextcode'])));
             $link->link = $titleLink;
         } else {
@@ -155,7 +155,7 @@ class displaycontext extends object {
         }
         if ($showLink) {
             $contextImageLink = new link(
-              $this->uri(array('action' => 'joincontext', 
+              $this->uri(array('action' => 'joincontext',
               'contextcode' => $context ['contextcode'])));
         } else {
             $contextImageLink = new link('javascript:contextPrivate();');
@@ -164,12 +164,12 @@ class displaycontext extends object {
         // Get the about text and shorten it.
         $objShorter = $this->getObject('trimstr', 'strings');
         $about = $objShorter->strTrim($context ['about'], $len = 450, TRUE);
-        $str = "<table><tr><td valign='top'>" . $contextImageLink->show() 
+        $str = "<table><tr><td valign='top'>" . $contextImageLink->show()
           . "</td><td valign='top'>" . $about . "</td></tr></table>";
 
-        $str .= '<p><strong>' 
-          . ucwords($this->objLanguage->code2Txt('mod_context_contextcode', 
-          'system', NULL, '[-context-] Code')) . '</strong>: ' 
+        $str .= '<p><strong>'
+          . ucwords($this->objLanguage->code2Txt('mod_context_contextcode',
+          'system', NULL, '[-context-] Code')) . '</strong>: '
           . $context ['contextcode'] . '</p>';
 
         $lecturers = $this->objUserContext->getContextLecturers($context ['contextcode']);
@@ -271,9 +271,9 @@ class displaycontext extends object {
             // If admin, show link
             $access = $this->objDBContext->getField('access', $context ['contextcode']);
             if ($this->objUser->isAdmin() ||
-                    in_array($context ['contextcode'], $this->userContexts) ||
-                    $access == 'Public' ||
-                    $access == 'Open') {
+                in_array($context ['contextcode'], $this->userContexts) ||
+                   $access == 'Public' ||
+                   $access == 'Open') {
                 $showLink = TRUE;
             }
         }

@@ -160,7 +160,7 @@ class dbcontext extends dbTable {
                 'status' => $status,
                 'about' => $about,
                 'userid' => $this->objUser->userId(),
-                'dateCreated' => date("Y-m-d"),
+                'dateCreated' => date("Y-m-d H:i:s"),
                 'updated' => date("Y-m-d H:i:s"),
                 'lastupdatedby' => $this->objUser->userId(),
                 'goals' => $goals,
@@ -468,6 +468,18 @@ class dbcontext extends dbTable {
         return $this->getAll(' ORDER BY title');
     }
 
+    public function getArrayOfPublicContexts()
+    {
+        $sql = "WHERE access='Public' AND status!='Unpublished' ORDER BY datecreated, menutext LIMIT 6";
+        return $this->getAll($sql);
+    }
+
+    public function getArrayOfOpenContexts()
+    {
+        $sql = "WHERE access='Open' AND status!='Unpublished' ORDER BY  datecreated, menutext LIMIT 6";
+        return $this->getAll($sql);
+    }
+
     /**
      * Method to return a list of public courses
      *
@@ -565,7 +577,7 @@ class dbcontext extends dbTable {
 
     /**
      * returns canvas name for this context
-     * @return <type> 
+     * @return <type>
      */
     public function getCanvasName() {
 
