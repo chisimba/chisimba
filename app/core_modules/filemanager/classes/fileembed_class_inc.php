@@ -450,6 +450,17 @@ width="' . $width . '" height="' . $height . '"></embed></object>';
         return $this-> showWithFlowPlayer($file);
     }
 
+    /**
+     *
+     * Embed a PDF file
+     *
+     * @param string $file   URL path to the File
+     * @param string $width  Width of Object
+     * @param string $height Height of Object
+     * @access public
+     * @return string The rendered PDF
+     *
+     */
     public function showPDF($file, $width="100%", $height="500")
     {
         return "<div class='pdf_wrapper'>"
