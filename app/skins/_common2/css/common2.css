@@ -3,19 +3,19 @@ body{
     font: 80% "Trebuchet MS", "Lucida Sans Unicode", Tahoma, sans-serif;
     font:68%/1.5 arial,tahoma,verdana,sans-serif;
    /* margin: 0;
-    padding: 0;*/	
+    padding: 0;*/
 }
 
 /************** A styles *************/
 a:link,
 a:visited {
-  
+
   text-decoration: none;
 }
 
 a:hover,
 a:active {
-  
+
 }
 
 a:hover {
@@ -31,7 +31,7 @@ strong {
   font-weight: bold;
 }
 
-hr { 
+hr {
   padding-left: 10px
 }
 
@@ -45,18 +45,18 @@ textarea {
   border-bottom: solid 1px #e3e3e3;
   color: #333;
   background: #f3f3f3 url('images/bg-forms.png') left top repeat-x;
-  margin-bottom:4px;    
+  margin-bottom:4px;
 }
 
 input.light {
   background: #fff url('images/bg-forms-light.png') repeat-x;
-  margin-bottom:4px;    
+  margin-bottom:4px;
 }
 
 .prioritylist{
  	background: #fff url('images/bg-forms-light.png') repeat-x;
-  margin-bottom:4px;  
-  border:1px solid #A5A5A5; 
+  margin-bottom:4px;
+  border:1px solid #A5A5A5;
   background-color:#D0D0D0
 }
 
@@ -82,10 +82,10 @@ td {
   text-align: left;
 }
 */
-fieldset{	
-	
+fieldset{
+
 }
-	
+
 label {
 font-weight: bold;
 /*display: block;
@@ -180,7 +180,7 @@ input.error, input.inputerror { background-color: red; color: white; }
 
 
 /***********************************************************************************************
-*Table Styles 
+*Table Styles
 ***********************************************************************************************/
 table.overflowtable {
     table-layout:fixed;
@@ -193,7 +193,7 @@ table.overflowtable td.overflowcolumn {
 
 
 th {
-    /*background-color:#CACDD2;*/	
+    /*background-color:#CACDD2;*/
     border-right: 1px solid black ;
     padding-left: 5px;
 	margin:10px;
@@ -207,7 +207,7 @@ td {
 
 th a {
     color: #c4ebe3;
-	 
+
 }
 
 
@@ -244,10 +244,10 @@ div.quotaup {
 
 
 #nav-secondary{
-    margin: 5px; 	
+    margin: 5px;
     /*border: 1px dashed ;*/
     padding: 10px;
-	
+
 }
 #nav-secondary li{
 	padding-left: 15px;
@@ -261,7 +261,7 @@ div.quotaup {
 
 .featurebox{
 	margin: 5px;
-    
+
     /*border: 1px dashed;*/
 	padding:2px;
 	overflow:hidden;
@@ -290,7 +290,7 @@ div.quotaup {
     /*border: 1px solid #D8E9F6;*/
    /*border:0.5px solid #93B3F9;
     padding: 5px;
-	
+
 
 }*/
 
@@ -322,7 +322,7 @@ h1#sitename {
 	box-shadow:2px 2px 0 #DDDDDD;
 }
 
-#fancy_ajax .note{	
+#fancy_ajax .note{
     cursor:default;
 }
 
@@ -330,17 +330,17 @@ h1#sitename {
 
 .yellow{
 	background-color:#FDFB8C;
-	border:1px solid #DEDC65;	
+	border:1px solid #DEDC65;
 }
 
 .blue{
 	background-color:#A6E3FC;
-	border:1px solid #75C5E7;	
+	border:1px solid #75C5E7;
 }
 
 .green{
 	background-color:#A5F88B;
-	border:1px solid #98E775;	
+	border:1px solid #98E775;
 }
 
 /* Each note has a data span, which holds its ID */
@@ -436,7 +436,7 @@ h3.popupTitle{
 	width:10px;
 }
 
-#note-submit{	
+#note-submit{
     margin:20px auto;
 }
 
@@ -687,7 +687,7 @@ ol.timeline li:first-child {
 
 /** The canvas turn editing on/off button */
 #modeswitch_wrapper {
-    
+
 }
 .editing_on, .editing_off {
     padding-left: 2px;
@@ -705,8 +705,8 @@ ol.timeline li:first-child {
 }
 
 /** For the module list **/
-div.stable, div.unset, div.pre-alpha, 
-div.alpha, div.beta, div.deprecated, 
+div.stable, div.unset, div.pre-alpha,
+div.alpha, div.beta, div.deprecated,
 div.marked_for_removal, div.invisible {
     padding: 10px;
     border-radius: 10px;
@@ -751,7 +751,7 @@ div.invisible {
 option.copyright {
     padding-left:90px;
     background-image: url('../_common/icons/creativecommons_v3/copyright.gif');
-    background-repeat: no-repeat; 
+    background-repeat: no-repeat;
 }
 option.by {
     padding-left:90px;
@@ -911,17 +911,17 @@ a.contexttitle {
 
 .annotator_comment {
     line-height: 14px;
-    position: absolute; 
+    position: absolute;
     margin-right: 10px;
-    background-color: #ffaaaa; 
-    border: 1px solid red; 
-    font-size: 8pt; 
+    background-color: #ffaaaa;
+    border: 1px solid red;
+    font-size: 8pt;
     width: 200px
 }
 
 .comment_line {
-    position: absolute; 
-    border-top: 1px dashed red; 
+    position: absolute;
+    border-top: 1px dashed red;
     height: 1px;
 }
 
@@ -992,7 +992,7 @@ a.contexttitle {
 
 .ImagePreview{
     max-height: 100px !important;
-    max-width: 100px !important;    
+    max-width: 100px !important;
 }
 
 .ImagePreviewArea{
@@ -1000,7 +1000,7 @@ a.contexttitle {
     height:100px !important;
     line-height:100px !important;
     vertical-align:center !important;
-    text-align:center !important;    
+    text-align:center !important;
 }
 
 /** Fluid video **/
@@ -1015,10 +1015,11 @@ a.contexttitle {
     margin-right: 8px;
 }
 
-.video-container iframe,  
-.video-container object,  
+.video-container iframe,
+.video-container object,
+.video-container video,  
 .video-container embed {
-    
+
 	position: absolute;
 	top: 0;
 	left: 0;
