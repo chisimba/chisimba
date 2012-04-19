@@ -67,6 +67,7 @@ class contextimage extends object {
         $this->objConfig = $this->getObject ( 'altconfig', 'config' );
         $this->objMkdir = $this->getObject ( 'mkdir', 'files' );
         $this->objCleanUrl = $this->getObject ( 'cleanurl', 'filemanager' );
+        $this->objFileParts = $this->getObject('fileparts', 'files');
     }
 
     /**
@@ -75,15 +76,20 @@ class contextimage extends object {
      * @param string $contextCode Context Code
      * @return string Path to Image - Still needs html img tags added
      */
-    public function getContextImage($contextCode) {
-        $image = $this->objConfig->getcontentPath () . '/contextimage/' . $contextCode . '.jpg';
-
-        if (file_exists ( $image )) {
-            return $this->objCleanUrl->cleanUpUrl ( $image );
-        } else {
+    public function getContextImage($contextCode)
+    {
+        if (file_exists ($this->objConfig->getcontentPath () . '/contextimage/' . $contextCode . '.jpg'))
+        {
+            return $this->objCleanUrl->cleanUpUrl ($this->objConfig->getcontentPath () . '/contextimage/' . $contextCode . '.jpg');
+        }
+        elseif (file_exists ($this->objConfig->getcontentPath () . '/contextimage/' . $contextCode . '.png'))
+        {
+            return $this->objCleanUrl->cleanUpUrl ($this->objConfig->getcontentPath () . '/contextimage/' . $contextCode . '.png');
+        }
+        else
+        {
             return FALSE;
         }
-
     }
 
     /**
@@ -102,8 +108,10 @@ class contextimage extends object {
         } else {
             $image = $this->objThumbnails->getThumbnail ( $fileId, $filename );
 
+            $extension = $this->objFileParts->getExtension($image);
+            
             if ($image != FALSE) {
-                $destination = $this->objConfig->getcontentPath () . '/contextimage/' . $contextCode . '.jpg';
+                $destination = $this->objConfig->getcontentPath () . '/contextimage/' . $contextCode . '.' . $extension;
 
                 if (file_exists ( $destination )) {
                     $canCopy = unlink ( $destination );
@@ -124,12 +132,18 @@ class contextimage extends object {
      * @param string $contextCode Context Code
      * @return boolean Whether the image has been successfully removed or not
      */
-    public function removeContextImage($contextCode) {
-        $destination = $this->objConfig->getcontentPath () . '/contextimage/' . $contextCode . '.jpg';
-
-        if (file_exists ( $destination )) {
-            return unlink ( $destination );
-        } else {
+    public function removeContextImage($contextCode)
+    {
+        if (file_exists ($this->objConfig->getcontentPath () . '/contextimage/' . $contextCode . '.jpg'))
+        {
+            return unlink ($this->objConfig->getcontentPath () . '/contextimage/' . $contextCode . '.jpg');
+        }
+        elseif (file_exists ($this->objConfig->getcontentPath () . '/contextimage/' . $contextCode . '.png'))
+        {
+            return unlink ($this->objConfig->getcontentPath () . '/contextimage/' . $contextCode . '.png');
+        }
+        else
+        {
             return TRUE;
         }
     }
@@ -150,7 +164,5 @@ class contextimage extends object {
 
         return $result;
     }
-
 }
-
 ?>
