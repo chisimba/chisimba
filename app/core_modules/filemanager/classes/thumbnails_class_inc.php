@@ -87,11 +87,20 @@ class thumbnails extends object
     public function createThumbailFromFile($filepath, $fileId)
     {
         // Do a check if a thumbnail exists. No need to overwrite
-        $thumb = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/'.$fileId.'.jpg';
-        $thumb = $this->objCleanUrl->cleanUpUrl($thumb);
+        $thumbJpg = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/'.$fileId.'.jpg';
+        $thumbJpg = $this->objCleanUrl->cleanUpUrl($thumbJpg);
+        $thumbPng = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/'.$fileId.'.png';
+        $thumbPng = $this->objCleanUrl->cleanUpUrl($thumbPng);        
         
         // Dont do anything if thumb exists.
-        if (file_exists($thumb)) {
+        if (file_exists($thumbJpg))
+        {
+            $ext = 'jpg';
+            return TRUE;
+        }
+        elseif (file_exists($thumbPng))
+        {
+            $ext = 'png';
             return TRUE;
         }
         
@@ -113,10 +122,27 @@ class thumbnails extends object
         // Determine filename for file
         // If thumbnail can be created, give it a unique file name
         // Else resort to [ext].jpg - prevents clutter, other files with same type can reference this one file
-        if ($this->objImageResize->canCreateFromSouce) {
-            $img = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/'.$fileId.'.jpg';
-        } else {
-            $img = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/'.$this->objImageResize->filetype.'.jpg';
+        if ($this->objImageResize->canCreateFromSouce)
+        {
+            if ($ext == 'jpg')
+            {
+                $img = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/'.$fileId.'.jpg';
+            }
+            else
+            {
+                $img = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/'.$fileId.'.png';
+            }
+        }
+        else
+        {
+            if ($ext == 'jpg')
+            {
+                $img = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/'.$this->objImageResize->filetype.'.jpg';
+            }
+            else
+            {
+                $img = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/'.$this->objImageResize->filetype.'.png';
+            }
         }
         
         // Save File
@@ -143,30 +169,44 @@ class thumbnails extends object
         }
         
         // Check if thumbnail exist
-        if (file_exists($this->objConfig->getcontentPath().'/filemanager_thumbnails/'.$fileId.'.jpg')) {
+        if (file_exists($this->objConfig->getcontentPath().'/filemanager_thumbnails/'.$fileId.'.jpg'))
+        {
             $url = $this->objConfig->getcontentPath().'/filemanager_thumbnails/'.$fileId.'.jpg';
             $url = $this->objCleanUrl->cleanUpUrl($url);
             return $url;
         } 
+        elseif (file_exists($this->objConfig->getcontentPath().'/filemanager_thumbnails/'.$fileId.'.png'))
+        {
+            $url = $this->objConfig->getcontentPath().'/filemanager_thumbnails/'.$fileId.'.png';
+            $url = $this->objCleanUrl->cleanUpUrl($url);
+            return $url;
+        } 
         
-        if ($filename == NULL) {
+        if ($filename == NULL)
+        {
             return FALSE;
-        } else {
+        }
+        else
+        {
             $extension = $this->objFileParts->getExtension($filename);
             
-            if (file_exists($this->objConfig->getcontentPath().'/filemanager_thumbnails/'.$extension.'.jpg')){
+            if (file_exists($this->objConfig->getcontentPath().'/filemanager_thumbnails/'.$extension.'.jpg'))
+            {
                 $url = $this->objConfig->getcontentPath().'/filemanager_thumbnails/'.$extension.'.jpg';
                 $url = $this->objCleanUrl->cleanUpUrl($url);
                 return $url;
-            } else {
+            }
+            elseif (file_exists($this->objConfig->getcontentPath().'/filemanager_thumbnails/'.$extension.'.png'))
+            {
+                $url = $this->objConfig->getcontentPath().'/filemanager_thumbnails/'.$extension.'.png';
+                $url = $this->objCleanUrl->cleanUpUrl($url);
+                return $url;
+            }
+            else
+            {
                 return FALSE;
             }
         }
     }
-
-
-
-
 }
-
 ?>
