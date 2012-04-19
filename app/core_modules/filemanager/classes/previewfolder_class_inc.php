@@ -131,14 +131,14 @@ class previewfolder extends filemanagerobject {
 
 
                     $extTitle = '';
-                 
+
                     if ($folder['access'] == 'private_all') {
                         $objIcon->setIcon('info');
-                        $extTitle=$objIcon->show();
+                        $extTitle = $objIcon->show();
                     }
 
                     $folderLink->title = basename($folder['folderpath']);
-                    $folderLink->link = substr(basename($folder['folderpath']), 0, 70) . '...'.$extTitle;
+                    $folderLink->link = substr(basename($folder['folderpath']), 0, 70) . '...' . $extTitle;
 
                     $objTable->addCell($folderLink->show());
                     $objTable->addCell('<em>' . $this->objLanguage->languageText('word_folder', 'system', 'Folder') . '</em>');
@@ -154,7 +154,10 @@ class previewfolder extends filemanagerobject {
                 //var_dump($files);
                 $fileSize = new formatfilesize();
                 foreach ($files as $file) {
-                    $visibility = $file['visibility'];
+                    $visibility = null;
+                    if (key_exists("visibility", $file)) {
+                        $visibility = $file['visibility'];
+                    }
                     $showFile = true;
                     if ($visibility == 'hidden') {
                         if ($file['creatorid'] == $this->objUser->userid()) {
@@ -202,7 +205,13 @@ class previewfolder extends filemanagerobject {
                     }
 
                     $linkTitle = '';
-                    if ($file['access'] == 'private_all') {
+
+                    $access = null;
+                    if (key_exists("access", $file)) {
+                        $access = $file['access'];
+                    }
+
+                    if ($access == 'private_all') {
                         $objIcon->setIcon('info');
                         $linkTitle = basename($file['filename']) . $objIcon->show();
                     } else {
