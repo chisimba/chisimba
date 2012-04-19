@@ -57,6 +57,12 @@
  * @see
  */
 class fileembed extends object {
+    /**
+    *
+    * @var object $objLanguage The language object
+    *
+    */
+    private $objLanguage;
 
     /**
      * Constructor
@@ -65,6 +71,7 @@ class fileembed extends object {
         $this->loadClass('link', 'htmlelements');
         $this->objCleanUrl = $this->getObject('cleanurl');
         $this->objConfig = $this->getObject('altconfig', 'config');
+        $this->objLanguage = $this->getObject('language', 'language');
     }
 
     /**
@@ -116,13 +123,15 @@ class fileembed extends object {
                 return $this->showSVG($file, $width, $height);
             case 'webm':
                 return $this->showWebm($file, $width, $height);
+            case 'pdf':
+                return $this->showPDF($file, $width, $height);
         }
     }
-    
+
     /**
      *
      * Embed a WEBM video using HTML5 code
-     * 
+     *
      * @param string $file The file URL to embed
      * @param integer $width The width of the video
      * @param integer $height The height of the video
@@ -133,7 +142,8 @@ class fileembed extends object {
     {
         $ret = "\n\n<video width=\"$width\" height=\"$height\" controls=\"controls\">\n";
         $ret .= "<source src=\"$file\"  type=\"video/webm\"></source>\n";
-        $ret .= " Your browser does not support the video tag.";
+        $ret .= $this->objLanguage->languageText("mod_files_err_nohtmk5", 'files',
+           "Your browser does not support the HTMK5 VIDEO tag.");
         $ret .= "</video>";
         return $ret;
     }
@@ -145,7 +155,6 @@ class fileembed extends object {
     function linkToFile($file) {
         $link = new link($file);
         $link->link = basename($file);
-
         return $link->show();
     }
 
@@ -154,10 +163,9 @@ class fileembed extends object {
      * @param string $file Path to the Image
      */
     function showImage($file, $width=null, $height=null) {
-
         if ($width != null && $height != null) {
             return '<img src="' . $file . '" width="' . $width . '" height="' . $height . '" />';
-       } else {
+        } else {
             return '<img src="' . $file . '"/>';
         }
     }
@@ -324,47 +332,13 @@ class fileembed extends object {
         $objBuildPlayer->height = $height;
         return $objBuildPlayer->show();
     }
-    
-    public function showFLV($file, $width='100%', $height='400') {
-        if (!strstr($width, "%")) {
-            $width = $width . "px";
-        }
-        if (!strstr($height, "%")) {
-            $height = $height . "px";
-        }
-        $js = $this->getJavaScriptFile('flowplayer3/flowplayer-3.2.8.min.js',
-          'files');
-        $js2 = $this->getJavaScriptFile('flowplayer3/flowplayer.ipad-3.2.8.min.js',
-          'files');
-        $flowPlayer = $this->getResourceUri('flowplayer3/flowplayer-3.2.9.swf',
-          'files');
-        $this->appendArrayVar('headerParams', $js);
-        $this->appendArrayVar('headerParams', $js2);
-        $videoId = md5($file);
-        $ret = '
-            
-                <a  
-			 href="' . $file . '"
-			 style="display:block;width:' . $width . ';height:' . $height . '"  
-			 id="' . $videoId . '"> 
-		</a>
-                <script>
-			flowplayer("' . $videoId . '", "' . $flowPlayer . '").ipad();
-		</script>
 
-            ';
-        return $ret;
-        
-        
-    }
-    
-    
     /**
-     * Show a FLV video
+     * Show a OGG video
      * @param string $file   Path to the File
      * @param string $width  Width of Object
      * @param string $height Height of Object
-     * @access public 
+     * @access public
      * @return string The rendered video
      */
     public function showOggVideo($file, $width='100%', $height='400') {
@@ -385,14 +359,20 @@ class fileembed extends object {
 
     /**
      * Method to show a Scalable Vector Graphics (SVG) Image
+     * NOTE: Width and height are kept for legacy reasons,  but
+     * they are not used as they do not work as expected. Rather
+     * render the SVG in a fluid div.
+     *
      * @param string $file   Path to the File
      * @param string $width  Width of Object
      * @param string $height Height of Object
+     * @access public
+     * @return string The rendered SVG
+     *
      */
-    function showSVG($file, $width='100%', $height='400') {
-        return '<object data="' . $file . '" width="' . $width . '" height="' . $height . '"
-type="image/svg+xml"
-codebase="http://www.adobe.com/svg/viewer/install/" />';
+    function showSVG($file, $width=NULL, $height=NULL) {
+        return '<object data="' . $file
+          . '" type="image/svg+xml"></object>';
     }
 
     /**
@@ -412,38 +392,69 @@ TYPE="application/x-oleobject">
 width="' . $width . '" height="' . $height . '"></embed></object>';
     }
 
+
     /**
-     * 
-     * Show a MP4 Movie
-     * 
+     *
+     * Show a FLV flash video. Note that width and height are here for
+     * legacy reasons, they are not needed since we have implemented this
+     * as a fluid div, and the video will resize to available space or
+     * can be styled using the CSS Fluid video settings. See common2.css
+     * in the core _common2 skin.
+     *
      * @param string $file   URL path to the File
      * @param string $width  Width of Object
      * @param string $height Height of Object
      * @access public
      * @return string The rendered video
-     * 
-     */  
-    public function showMP4($file, $width='100%', $height='400') 
-    {   
-        // Use flowplayer to play it.
-        return '<div class="video-container">' . $this->showFLV($file, $width, $height) . '</div>';
-        /**
-        
-        $css = '<link href="' . $this->getResourceUri('video-js/video-js.css',
-          'files') . '" rel="stylesheet">';
-        $js = $this->getJavaScriptFile('video-js/video.js',
-          'files');
-        $load = "\n\n$css\n$js\n\n";
-        $this->appendArrayVar('headerParams', $load);
-        
-        $videoId = md5($file);
-        return '<div class="video-container"><video id="' . $videoId . '" class="video-js vjs-default-skin" controls
-  preload="auto"  poster="' . $file . '.png"
-  data-setup="{}">
-  <source src="' . $file . '" type="video/mp4">
-</video></div>';*/
+     *
+     */
+    public function showFLV($file, $width=FALSE, $height=FALSE) {
+        $objFlow = $this->getObject('flowplayer', 'files');
+        return $objFlow->show($file);
     }
 
-}
+    /**
+     *
+     * Show an MP4 or Flash video with the standard settings using
+     * FlowPlayer.
+     *
+     * @param string $file The full URL for the file to play
+     * @return string The rendered player with the video
+     * @access public
+     *
+     */
+    public function showWithFlowPlayer($file)
+    {
+        $objFlow = $this->getObject('flowplayer', 'files');
+        return $objFlow->show($file);
+    }
 
+    /**
+     *
+     * Show a MP4 Movie. Note that width and height are here for
+     * legacy reasons, they are not needed since we have implemented this
+     * as a fluid div, and the video will resize to available space or
+     * can be styled using the CSS Fluid video settings. See common2.css
+     * in the core _common2 skin.
+     *
+     * @param string $file   URL path to the File
+     * @param string $width  Width of Object
+     * @param string $height Height of Object
+     * @access public
+     * @return string The rendered video
+     *
+     */
+    public function showMP4($file, $width='100%', $height='auto')
+    {
+        // Use flowplayer to play it.
+        return $this-> showWithFlowPlayer($file);
+    }
+
+    public function showPDF($file, $width="100%", $height="500")
+    {
+        return "<div class='pdf_wrapper'>"
+          . "<embed src='$file' width='$width' height='$height'>"
+          . "</embed></div>";
+    }
+}
 ?>

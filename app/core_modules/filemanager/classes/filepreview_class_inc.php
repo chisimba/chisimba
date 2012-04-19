@@ -123,7 +123,7 @@ class filepreview extends object {
 
     /**
      * determines if we are using http or https
-     * @return <type> 
+     * @return <type>
      */
     function is_https() {
         return strtolower(substr($_SERVER["SERVER_PROTOCOL"], 0, 5)) == 'https' ? true : false;
@@ -153,7 +153,7 @@ class filepreview extends object {
         } else {
             $fileUrl = $this->objConfig->getSiteRoot() . '/' . $this->file['path'];
 
-            return $this->objFileEmbed->embed($fileUrl, 'image',null,null);
+            return $this->objFileEmbed->embed($fileUrl, 'image', null, null);
         }
         //width="270" height="270"'<img src="'.$this->file['linkname'].'"  />';//
     }
@@ -201,27 +201,27 @@ class filepreview extends object {
         }
 
         switch ($this->file['datatype']) {
-            case 'mov': 
+            case 'mov':
                 return $this->objFileEmbed->embed($this->file['linkname'], 'quicktime', $width, $height);
-            case '3gp': 
+            case '3gp':
                 return $this->objFileEmbed->embed($this->file['linkname'], 'quicktime', $width, $height);
-            case 'wmv': 
+            case 'wmv':
                 return $this->objFileEmbed->embed($this->file['linkname'], 'wmv', $width, $height);
-            case 'avi': 
+            case 'avi':
                 return $this->objFileEmbed->embed($this->file['linkname'], 'avi', $width, $height);
-            case 'flv': 
+            case 'flv':
                 return $this->objFileEmbed->embed($this->file['fullurl'], 'flv', $width, $height + 26);
-            case 'ogg': 
-            case 'ogv': 
+            case 'ogg':
+            case 'ogv':
                 return $this->objFileEmbed->embed($this->file['fullurl'], 'ogg', $width, $height + 12);
             case 'mpg':
-            case 'mpeg': 
+            case 'mpeg':
                 return $this->objFileEmbed->embed($this->file['fullurl'], 'mpg', $width, $height + 12);
-            case 'mp4': 
+            case 'mp4':
                 return $this->objFileEmbed->embed($this->file['fullurl'], 'mp4', $width, $height + 12);
-            case 'webm': 
+            case 'webm':
                 return $this->objFileEmbed->embed($this->file['fullurl'], 'webm', $width, $height + 12);
-            default: 
+            default:
                 return $this->objFileEmbed->embed($this->file['linkname'], 'unknown');
         }
     }
@@ -368,14 +368,8 @@ class filepreview extends object {
                         //$destination = $this->objConfig->getcontentBasePath().'filemanager_thumbnails/'.$this->file['id'].'.htm';
                         return file_get_contents($htmlFileDestination);
                     } else {
-
                         if ($objPDF2Flash->convert2SWF($this->file['path'], $fullFlashPath)) {
-
-
-
                             $objPDF2Flash->generateHTMLWrapper($fullFlashPath, $finalFlash, $htmlFileDestination);
-
-
                             return file_get_contents($htmlFileDestination);
                         } else {
                             return NULL;
@@ -430,15 +424,11 @@ class filepreview extends object {
                         if (!file_exists($pdfFile)) {
                             $objConvertDoc->convert($this->file['fullpath'], $pdfFile);
                         }
-
-
                         // Break if PDF is not generated
                         if (!file_exists($pdfFile)) {
                             return '';
                         }
-
                         $objPDF2Flash = $this->getObject('pdf2flash', 'swftools');
-
                         if (file_exists($fullFlashPath)) {
                             return $this->objFileEmbed->embed($finalFlash, 'flash', '100%', 700);
                         } else {
