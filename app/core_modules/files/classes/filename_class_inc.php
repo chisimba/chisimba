@@ -34,27 +34,21 @@
 class filename extends object
 {
     /**
-    *
-    * @var object $objLanguage The language object
-    *
-    */
-    private $objLanguage;
-
-    /**
     * Init method.
     *
     */
     public function init()
     {
-        $this->objLanguage = $this->getObject('language', 'language');
     }
 
     /**
+    * 
     * Make a valid Windows/Linux filename from a string.
     *
     * @access Public
     * @param string $s String
     * @return string Filename
+    * 
     */
     public function makeFileName($s)
     {

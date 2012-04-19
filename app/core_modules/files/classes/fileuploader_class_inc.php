@@ -218,9 +218,5 @@ class fileuploader extends object
         }
         
     }
-    
-
 }
-
-
 ?>
