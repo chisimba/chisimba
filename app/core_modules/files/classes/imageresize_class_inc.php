@@ -72,6 +72,11 @@ class imageresize extends object
     var $image = '';
     
     /**
+    * @var string $filetype File type of the image
+    */
+    var $filetype;
+    
+    /**
     * @var string $temp Variable to Hold the resized image
     */
     var $temp = '';
@@ -205,14 +210,25 @@ class imageresize extends object
         }
         
         // Create Thumbnail Image
-        $this->temp = imagecreatetruecolor($width,$height);
+        $this->temp = imagecreatetruecolor($width, $height);
         
-        // Setup Interlacing, Progessive JPG
-        imageinterlace($this->temp, 1);
-        
-        // Fill with White
-        $bgc = imagecolorallocate ($this->temp, 255, 255, 255);
-        imagefilledrectangle ($this->temp, 0, 0, $width, $height, $bgc); 
+        if ($this->filetype == 'gif' || $this->filetype == 'png')
+        {
+            // set transparent for png and gif
+            imagealphablending($this->temp , false);
+            imagesavealpha($this->temp , true);
+            $transparent = imagecolorallocatealpha($this->temp, 255, 255, 255, 127);
+            imagefilledrectangle ($this->temp, 0, 0, $width, $height, $transparent);
+        }
+        else
+        {
+            // Setup Interlacing, Progessive JPG
+            imageinterlace($this->temp, 1);
+
+            // Fill with White
+            $bgc = imagecolorallocate ($this->temp, 255, 255, 255);
+            imagefilledrectangle ($this->temp, 0, 0, $width, $height, $bgc); 
+        }
         
         // Check whether Thumnail image can be used
         if ($this->canCreateFromSouce) {
@@ -249,7 +265,14 @@ class imageresize extends object
     function show()
     {
         $this->_sendHeader();
-        imagejpeg($this->image);
+        if ($this->filetype == 'gif' || $this->filetype == 'png')
+        {
+            imagepng($this->image);
+        }
+        else
+        {
+            imagejpeg($this->image);
+        }
         
         return;
     }
@@ -259,7 +282,14 @@ class imageresize extends object
     * @access private
     */
     function _sendHeader(){
-        header('Content-Type: image/jpeg');
+        if ($this->filetype == 'gif' || $this->filetype == 'png')
+        {
+            header('Content-Type: image/png');
+        }
+        else
+        {
+            header('Content-Type: image/jpeg');
+        }
     }
     
     /**
@@ -272,10 +302,10 @@ class imageresize extends object
         if ($appendExtension) {
             $file .= $this->filetype == 'jpg' ? '.jpg' : '.png';
         }
-        if ($this->filetype == 'jpg') {
-            return @imagejpeg($this->image, $file);
-        } else {
+        if ($this->filetype == 'gif' || $this->filetype == 'png') {
             return @imagepng($this->image, $file);
+        } else {
+            return @imagejpeg($this->image, $file);
         }
     }
     
