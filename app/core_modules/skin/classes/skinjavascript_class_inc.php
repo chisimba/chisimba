@@ -164,8 +164,20 @@ class skinjavascript extends object
     {
         $supressJQuery = $this->getVar('SUPPRESS_JQUERY', false);
         if (!$supressJQuery){
-            $jquery = $this->getObject('jquery', 'jquery');
-            return $jquery->show();
+//            $jquery = $this->getObject('jquery', 'jquery');
+//            return $jquery->show();
+            $sysconfig = $this->getObject('dbsysconfig', 'sysconfig');
+            $core = $sysconfig->getValue('JQUERY_CORE', 'jquerycore');
+            $theme = $sysconfig->getValue('UI_THEME', 'jquerycore');
+            $plugins = $this->getSession('plugins', array());
+            $jquery = $this->getObject ('coreloader', 'jquerycore');            
+            $jquery->setCoreVersion($core);
+            $jquery->setTheme($theme);
+            if (!empty($plugins))
+            {
+                $jquery->setPlugins($plugins);
+            }
+            return $jquery->load();
         } else {
             return NULL;
         }
