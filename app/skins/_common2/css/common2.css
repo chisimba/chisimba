@@ -1017,7 +1017,6 @@ a.contexttitle {
 
 .video-container iframe,
 .video-container object,
-.video-container video,  
 .video-container embed {
 
 	position: absolute;
@@ -1025,4 +1024,57 @@ a.contexttitle {
 	left: 0;
 	width: 100%;
 	height: 100%;
+}
+
+.video-container video {
+  width: 100%    !important;
+  height: auto   !important;
+}
+
+
+/** For most recent context blocks **/
+
+.context_recent {
+    width: 100%;
+    height: auto;
+}
+
+.context_recent_context {
+    position: relative;
+    float: left;
+    max-width: 220px;
+    min-height: 175px;
+    margin: 8px;
+    padding: 5px;
+    border-radius: 12px;
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    -khtml-border-radius: 12px;
+    background: -webkit-gradient(linear, left top, left bottom,
+        color-stop(0%, white), color-stop(65%, white),
+        color-stop(100%, #f7f7f7));
+    background: -moz-linear-gradient(top, white 0%, white 55%, #D5E4F3 130%);
+    -moz-box-shadow: 3px 3px 4px #000;
+	-webkit-box-shadow: 3px 3px 4px #000;
+	box-shadow: 3px 3px 4px #000;
+	/* For IE 8 */
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000')";
+	/* For IE 5.5 - 7 */
+	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000');
+}
+
+.context_recent_context img {
+    position: relative;
+    margin-right: 5px;
+    float: left;
+}
+
+.context_recent_title {
+    font-size: 150%;
+}
+
+.context_creationdate {
+    font-size: 125%;
+    font-weight: 200;
+    color: #1c64d1;
 }
