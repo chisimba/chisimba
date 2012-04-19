@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * A block for userdetails.
+ * A left block for userdetails.
  *
  * A left block for userdetails. Provides an interface for users to update their details, as well as modify their user parameters (forthcoming feature).
  *
@@ -40,7 +40,7 @@ $GLOBALS['kewl_entry_point_run']) {
 
 /**
  * 
- * A block for userdetails.
+ * A left block for userdetails.
  *
  * A left block for userdetails. Provides an interface for users to update their details, as well as modify their user parameters (forthcoming feature).
  *
@@ -50,7 +50,7 @@ $GLOBALS['kewl_entry_point_run']) {
  * @copyright 2011 AVOIR
  *
  */
-class block_userdetails extends object
+class block_userdetailsleft extends object
 {
     /**
      * The title of the block
@@ -70,9 +70,9 @@ class block_userdetails extends object
     public function init() 
     {
         $this->objLanguage = $this->getObject('language', 'language');
-        $this->objOps = $this->getObject('userdetailsops', 'userdetails');
-        
-        $titleLabel = $this->objLanguage->languageText('mod_userdetails_name', 'userdetails', 'ERROR: mod_userdetails_name');        
+        $this->objUserMenu = $this->getObject('usermenu', 'toolbar');
+
+        $titleLabel = $this->objLanguage->languageText('word_menu', 'system', 'ERROR: word_menu');        
         $this->title = $titleLabel;
     }
     /**
@@ -82,7 +82,7 @@ class block_userdetails extends object
      */
     public function show() 
     {
-        return $this->objOps->showBlock();
+        return $this->objUserMenu->show();
     }
 }
 ?>

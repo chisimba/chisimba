@@ -1,9 +1,9 @@
 <?php
 /**
  *
- * A block for userdetails.
+ * A middle block for userdetails.
  *
- * A left block for userdetails. Provides an interface for users to update their details, as well as modify their user parameters (forthcoming feature).
+ * A middle block for userdetails. Provides an interface for users to update their details, as well as modify their user parameters (forthcoming feature).
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,9 +40,9 @@ $GLOBALS['kewl_entry_point_run']) {
 
 /**
  * 
- * A block for userdetails.
+ * A middle block for userdetails.
  *
- * A left block for userdetails. Provides an interface for users to update their details, as well as modify their user parameters (forthcoming feature).
+ * A middle block for userdetails. Provides an interface for users to update their details, as well as modify their user parameters (forthcoming feature).
  *
  * @category  Chisimba
  * @author    Kevin Cyster kcyster@gmail.com
@@ -50,7 +50,7 @@ $GLOBALS['kewl_entry_point_run']) {
  * @copyright 2011 AVOIR
  *
  */
-class block_userdetails extends object
+class block_userdetailsmiddle extends object
 {
     /**
      * The title of the block
@@ -59,7 +59,7 @@ class block_userdetails extends object
      * @access public
      */
     public $title;
-    
+
     /**
      * Standard init function
      *
@@ -71,8 +71,8 @@ class block_userdetails extends object
     {
         $this->objLanguage = $this->getObject('language', 'language');
         $this->objOps = $this->getObject('userdetailsops', 'userdetails');
-        
-        $titleLabel = $this->objLanguage->languageText('mod_userdetails_name', 'userdetails', 'ERROR: mod_userdetails_name');        
+
+        $titleLabel = $this->objLanguage->languageText('phrase_userdetails', 'system', 'ERROR: phrase_userdetails');        
         $this->title = $titleLabel;
     }
     /**
@@ -82,7 +82,7 @@ class block_userdetails extends object
      */
     public function show() 
     {
-        return $this->objOps->showBlock();
+        return $this->objOps->showMain();
     }
 }
 ?>

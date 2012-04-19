@@ -1,9 +1,9 @@
 <?php
 /**
  *
- * A block for userdetails.
+ * A right block for userdetails.
  *
- * A left block for userdetails. Provides an interface for users to update their details, as well as modify their user parameters (forthcoming feature).
+ * A right block for userdetails. Provides an interface for users to update their details, as well as modify their user parameters (forthcoming feature).
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
  * @version    0.001
  * @package    userdetails
  * @author     Kevin Cyster kcyster@gmail.com
- * @copyright  2011 AVOIR
+ * @copyright  2010 AVOIR
  * @license    http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
  * @link       http://www.chisimba.com
  * 
@@ -40,17 +40,18 @@ $GLOBALS['kewl_entry_point_run']) {
 
 /**
  * 
- * A block for userdetails.
+ * A right block for userdetails.
  *
- * A left block for userdetails. Provides an interface for users to update their details, as well as modify their user parameters (forthcoming feature).
+ * A right block for userdetails. Provides an interface for users to update their details, as well as modify their user parameters (forthcoming feature).
  *
  * @category  Chisimba
- * @author    Kevin Cyster kcyster@gmail.com
+ * @package    userdetails
+ * @author     Kevin Cyster kcyster@gmail.com
  * @version   0.001
- * @copyright 2011 AVOIR
+ * @copyright 2010 AVOIR
  *
  */
-class block_userdetails extends object
+class block_userdetailsgrades extends object
 {
     /**
      * The title of the block
@@ -59,7 +60,6 @@ class block_userdetails extends object
      * @access public
      */
     public $title;
-    
     /**
      * Standard init function
      *
@@ -72,8 +72,8 @@ class block_userdetails extends object
         $this->objLanguage = $this->getObject('language', 'language');
         $this->objOps = $this->getObject('userdetailsops', 'userdetails');
         
-        $titleLabel = $this->objLanguage->languageText('mod_userdetails_name', 'userdetails', 'ERROR: mod_userdetails_name');        
-        $this->title = $titleLabel;
+        $titleLabel = $this->objLanguage->code2Txt('mod_grades_grade', 'grades', NULL, 'ERROR: mod_grades_grade');        
+        $this->title = ucfirst($titleLabel);
     }
     /**
      * Standard block show method.
@@ -82,7 +82,7 @@ class block_userdetails extends object
      */
     public function show() 
     {
-        return $this->objOps->showBlock();
+        return $this->objOps->showGrades();
     }
 }
 ?>
