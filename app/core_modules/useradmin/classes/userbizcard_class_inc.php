@@ -51,6 +51,7 @@ class userbizcard extends object
         $this->loadClass('htmlheading', 'htmlelements');
         $this->loadClass('layer', 'htmlelements');
         $this->loadClass('htmltable', 'htmlelements');
+        $this->loadClass('fieldset', 'htmlelements');
     }
     
     /**
@@ -82,7 +83,7 @@ class userbizcard extends object
         
 
         $image = $this->objUser->getUserImage($this->userArray['userid'], TRUE);
-                
+
         if ($this->showResetImage) {
             if ($this->objUser->hasCustomImage($this->userArray['userid'])) {
                 $resetimageform = new form('updateimage', $this->uri(array('action'=>$this->resetAction), $this->resetModule));
@@ -110,7 +111,6 @@ class userbizcard extends object
         $objTable->cellpadding = '4';
         $objTable->startRow();
         $objTable->addCell($image, '25%', 'center', 'center', 'userbizcardleft', 'rowspan="6"');
-        $objTable->addCell($heading, '', '', '', 'heading', 'colspan="2"');
         $objTable->endRow();
         $objTable->startRow();
         $objTable->addCell('<strong>'.ucfirst(strtolower($emailLabel)).':</strong>', '30%', '', '', 'heading', '');
@@ -130,19 +130,13 @@ class userbizcard extends object
         $objTable->endRow();
         $string = $objTable->show();
         
-        $objLayer = new layer();
-        $objLayer->addToStr($string);
-        $content = $objLayer->show();    
-    
-        $objLayer = new layer();
-        $objLayer->width = '500px';
-        $objLayer->border = '2px solid black';
-        $objLayer->addToStr($content);
-        $content = $objLayer ->show();
-            
-        $result = $content;
-    
-        return $result;
+        $objFieldset = new fieldset();
+        $objFieldset->legend = $heading;
+        $objFieldset->contents =  $string;
+        $objFieldset->width = '500px';
+        $fieldset = $objFieldset->show();
+
+        return $fieldset;
     }
 
 }

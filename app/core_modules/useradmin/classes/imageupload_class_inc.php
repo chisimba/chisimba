@@ -52,11 +52,12 @@ class imageupload extends object
             $dirObj=$this->getObject('dircreate','utilities');
             $dirObj->makeFolder('user_images');
             $objResize=$this->getObject('imageresize', 'files');
-            $objResize->setImg($tmp_name);
-            
+            $objResize->setImg($tmp_name);            
             if ($objResize->canCreateFromSouce) {
                 $objResize->resize($redim, $redim);
-                $objResize->store($this->imagePath.$userId.$extra.'.jpg');
+                $extension = substr($name, -3);
+                $ext = ($extension == 'gif' || $extension == 'png') ? 'png' : 'jpg';
+                $objResize->store($this->imagePath.$userId.$extra.$ext);
             }
         }
     }
@@ -71,7 +72,12 @@ class imageupload extends object
         $path = $_SERVER ['PHP_SELF'];
         $path = str_replace("/index.php", "", $path);
         
-        if (file_exists($this->imageUri.$userId.".jpg")){
+        if (file_exists($this->imageUri.$userId.".png"))
+        {
+            return($this->imageUri.$userId.".png");
+        }
+        elseif (file_exists($this->imageUri.$userId.".jpg"))
+        {
             return($this->imageUri.$userId.".jpg");
         } elseif($this->grav_enabled == 'TRUE') {
             //Include gravatar option if nothing has been uploaded
@@ -93,9 +99,16 @@ class imageupload extends object
     */
     public function smallUserPicture($userId)
     {
-        if (file_exists($this->imagePath.$userId."_small.jpg")){
+        if (file_exists($this->imagePath.$userId."_small.png"))
+        {
+            return($this->imageUri.$userId."_small.png");
+        }
+        elseif (file_exists($this->imagePath.$userId."_small.jpg"))
+        {
             return($this->imageUri.$userId."_small.jpg");
-        } else {
+        }
+        else
+        {
             return ($this->imageUri."default_small.jpg");
         }
     }
@@ -108,6 +121,9 @@ class imageupload extends object
     {
         if (file_exists($this->imagePath.$userId.".jpg")){
             @unlink($this->imagePath.$userId.".jpg");
+        }
+        if (file_exists($this->imagePath.$userId.".png")){
+            @unlink($this->imagePath.$userId.".png");
         }
     }
 
