@@ -990,6 +990,19 @@ a.contexttitle {
     margin-bottom: 6px;
 }
 
+.ImagePreview{
+    max-height: 100px !important;
+    max-width: 100px !important;    
+}
+
+.ImagePreviewArea{
+    width:100px !important;
+    height:100px !important;
+    line-height:100px !important;
+    vertical-align:center !important;
+    text-align:center !important;    
+}
+
 /** Fluid video **/
 .video-container {
     position: relative;
