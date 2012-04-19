@@ -142,7 +142,7 @@ class engine {
      * Version Number of the software. (engine)
      *
      */
-    public $version = '3.3.1';
+    public $version = '3.3.2';
 
     /**
      * Template variable
@@ -2089,6 +2089,10 @@ class engine {
      * @return string               Template name returned from dispatch method
      */
     private function _dispatchToModule($module, $action) {
+        $str = md5($_SERVER['SCRIPT_NAME']);
+        $sessionkey = substr($str, 0, 5) . '~';
+        $session = $sessionkey . 'skin~plugins';
+        $this->unsetSession($session);
         if ($module) {
             $tpl = $this->_enableAccessControl ? // with module access control
             $module->dispatchControl ( $module, $action ) : // without module access control
