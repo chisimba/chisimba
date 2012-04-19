@@ -194,12 +194,12 @@ function clearFileInputJS(name)
             $this->objIcon->setIcon('imagepreview');
             $this->objIcon->alt = 'Image Preview';
             $this->objIcon->title = 'Image Preview';
-            $this->objIcon->extra = ' id="imagepreview_' . $this->name . '"';
+            $this->objIcon->extra = ' id="imagepreview_' . $this->name . '" class="ImagePreview"';
             $previewImg = $this->objIcon->show();
         } else {
             $img = $this->objThumbnails->getThumbnail($defaultId, $file['filename'], $defaultPath);
 
-            $previewImg = '<img src="' . $img . '" id="imagepreview_' . $this->name . '" />';
+            $previewImg = '<img src="' . $img . '" id="imagepreview_' . $this->name . '" class="ImagePreview"/>';
         }
 
         $textinput = new textinput('selectfile_' . $this->name, $defaultName);
@@ -213,7 +213,7 @@ function clearFileInputJS(name)
         // $subModal = $objSubModalWindow->show('Select', $location, 'button');
         // return $input->show().$textinput->show().' &nbsp; '.$subModal.$button->show();
 
-        return $input->show() . '<div style="width:100px; height:100px;line-height:100px;vertical-align:center;text-align:center;">' . $previewImg . '</div><br /><div>' . $objPop->show() . ' ' . $button->show() . '</div>';
+        return $input->show() . '<div class="ImagePreviewArea">' . $previewImg . '</div><br /><div>' . $objPop->show() . ' ' . $button->show() . '</div>';
         //$textinput->show()
     }
 
