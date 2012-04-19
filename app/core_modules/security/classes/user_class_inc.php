@@ -764,7 +764,7 @@ class user extends dbTable {
             $userId = $this->userId();
         }
 
-        return file_exists($this->imagePath . $userId . '.jpg');
+        return (file_exists($this->imagePath . $userId . '.jpg') || file_exists($this->imagePath . $userId . '.png'));
     }
 
     /**
@@ -788,10 +788,17 @@ class user extends dbTable {
         }
 
 
-        if (file_exists($this->imagePath . $userId . '.jpg')) {
-            return '<img class="full_user_image" src="' . $this->imageUri . $userId . '.jpg' . $forceRefresh . '" ' . $alt . ' />';
-        } else {
-            return '<img class="full_user_image" src="' . $this->imageUri . 'default.jpg" ' . $alt . ' />';
+        if (file_exists($this->imagePath . $userId . '.png'))
+        {
+            return '<img class="full_user_image" src="' . $this->imageUri . $userId . '.png' . $forceRefresh . '"' . $alt . '/>';
+        }
+        elseif (file_exists($this->imagePath . $userId . '.jpg'))
+        {
+            return '<img class="full_user_image" src="' . $this->imageUri . $userId . '.jpg' . $forceRefresh . '"' . $alt . '/>';
+        }
+        else
+        {
+            return '<img class="full_user_image" src="' . $this->imageUri . 'default.jpg"' . $alt . '/>';
         }
     }
 
@@ -809,9 +816,16 @@ class user extends dbTable {
             $forceRefresh = '?' . mktime();
         }
 
-        if (file_exists($this->imagePath . $userId . '.jpg')) {
+        if (file_exists($this->imagePath . $userId . '.png'))
+        {
+            return $this->imagePath . $userId . '.png' . $forceRefresh;
+        }
+        elseif (file_exists($this->imagePath . $userId . '.jpg'))
+        {
             return $this->imagePath . $userId . '.jpg' . $forceRefresh;
-        } else {
+        }
+        else
+        {
             return $this->imagePath . 'default.jpg';
         }
     }
@@ -833,10 +847,17 @@ class user extends dbTable {
             $alt = ' alt="' . $alt . '" title="' . $alt . '" ';
         }
 
-        if (file_exists($this->imagePath . $userId . '.jpg')) {
-            return '<img class="small_user_image"  src="' . $this->imageUri . $userId . '_small.jpg" ' . $alt . '/>';
-        } else {
-            return '<img class="small_user_image" src="' . $this->imageUri . 'default_small.jpg" ' . $alt . '/>';
+        if (file_exists($this->imagePath . $userId . '.png'))
+        {
+            return '<img class="full_user_image" src="' . $this->imageUri . $userId . '_small.png"' . $alt . '/>';
+        }
+        elseif (file_exists($this->imagePath . $userId . '.jpg'))
+        {
+            return '<img class="full_user_image" src="' . $this->imageUri . $userId . '_small.jpg"' . $alt . '/>';
+        }
+        else
+        {
+            return '<img class="small_user_image" src="' . $this->imageUri . 'default_small.jpg"' . $alt . '/>';
         }
     }
 

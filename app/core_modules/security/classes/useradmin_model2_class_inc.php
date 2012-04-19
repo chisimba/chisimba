@@ -90,18 +90,25 @@ class useradmin_model2 extends dbtable
     */
     public function removeUserImage($userid)
     {
-        $image = $this->objConfig->getsiteRootPath().'/user_images/'.$userid.'.jpg';
+        $image = $this->objConfig->getsiteRootPath().'/user_images/'.$userid.'.png';
+        if (file_exists($image)) {
+            unlink($image);
+        }
 
+        $image = $this->objConfig->getsiteRootPath().'/user_images/'.$userid.'_small.png';
+        if (file_exists($image)) {
+            unlink($image);
+        }
+
+        $image = $this->objConfig->getsiteRootPath().'/user_images/'.$userid.'.jpg';
         if (file_exists($image)) {
             unlink($image);
         }
 
         $image = $this->objConfig->getsiteRootPath().'/user_images/'.$userid.'_small.jpg';
-
         if (file_exists($image)) {
             unlink($image);
         }
-
         return;
     }
 
