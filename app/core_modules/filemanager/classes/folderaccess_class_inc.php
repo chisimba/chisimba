@@ -67,7 +67,13 @@ class folderaccess extends object {
         $objElement->addOption('private_all', $privateAllTxt . '<br/>');
         //$objElement->addOption('private_selected', $privateSelected . '<br/>');
         $objElement->addOption('public', $publicTxt . '<br/>');
-        $access = $folder['access'] == NULL ? 'public' : $folder['access'];
+
+        $accessVal = null;
+
+        if (key_exists("access", $folder)) {
+            $accessVal = $folder['access'];
+        }
+        $access = $accessVal == NULL ? 'public' : $folder['access'];
         $objElement->setSelected($access);
 
 
@@ -75,10 +81,10 @@ class folderaccess extends object {
         $applyButton->setToSubmit();
 
 
-        
+
         $fieldset = new fieldset();
         $fieldset->setLegend($legend);
-        $fieldset->addContent($objElement->show().'<br/>'.'<div class="warning">'.$this->objLanguage->languageText('mod_filemanager_accesswarning','filemanager').'</div><br/>'.$applyButton->show());
+        $fieldset->addContent($objElement->show() . '<br/>' . '<div class="warning">' . $this->objLanguage->languageText('mod_filemanager_accesswarning', 'filemanager') . '</div><br/>' . $applyButton->show());
 
         $hiddeninput = new hiddeninput('id', $id);
         $form->addToForm($hiddeninput->show());

@@ -232,7 +232,12 @@ class dbfolder extends dbTable {
         if (count($folders) > 0) {
             foreach ($folders as $folder) {
                 $extTitle = '';
-                if ($folder['access'] == 'private_all') {
+                
+                $access=null;
+                if(key_exists("access", $folder)){
+                    $access=$folder['access'];
+                }
+                if ($access == 'private_all') {
                     $objIcon->setIcon('info');
                     $extTitle = $objIcon->show();
                 }
