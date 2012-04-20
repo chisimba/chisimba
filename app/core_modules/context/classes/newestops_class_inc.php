@@ -144,6 +144,9 @@ class newestops extends object
             case 'MostRecentActive':
                 $contexts = $this->objDb->getArrayOfMostRecentlyActiveContexts($numOfItems);
                 break;
+            case 'MostActive':
+                $contexts = $this->objDb->getArrayOfMostActiveContexts($numOfItems);
+                break;
             default:
                 return NULL; // replace with error message
                 break;
@@ -180,7 +183,8 @@ class newestops extends object
                     $contextImage = '<img class="roundcorners_small" src="' . $contextImage . '" />';
                 }
                 $title = $objShorter->strTrim($context['title'], 25, TRUE);
-                if ($contextType == 'MostRecentActive') {
+                if ($contextType == 'MostRecentActive' ||
+                  $contextType == 'MostActive') {
                     $creationDate = $context['lastaccessed'];
                     if ($creationDate == NULL || $creationDate == "") {
                         $creationDate = $context['datecreated'];
@@ -244,7 +248,7 @@ class newestops extends object
      * @param string $contextCode The context to check
      * @return boolean TRUE|FALSE
      * @access private
-     * 
+     *
      */
     private function allowedAccess($contextCode)
     {

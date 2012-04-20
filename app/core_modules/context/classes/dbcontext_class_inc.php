@@ -524,6 +524,16 @@ class dbcontext extends dbTable {
         return $this->getAll($sql);
     }
 
+    public function getArrayOfMostActiveContexts($numOfRecords=6)
+    {
+        $sql = 'SELECT *, count(a.id ) FROM `tbl_activity` AS a '
+          . ' LEFT JOIN `tbl_context` AS c ON a.contextcode=c.contextcode '
+          . ' WHERE a.module = \'context\' '
+          . ' AND a.contextcode IS NOT NULL '
+          . ' GROUP BY a.contextcode LIMIT ' . $numOfRecords;
+        return $this->getArray($sql);
+    }
+
     /**
      * Method to return a list of public courses
      *
