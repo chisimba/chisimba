@@ -84,6 +84,7 @@ class skinjavascript extends object
     {
         $this->objMiscHTML = $this->getObject('mischtml', 'htmlelements');
         $this->objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
+        $this->objModules = $this->getObject('modules', 'modulecatalogue');
     }
 
     /**
@@ -164,21 +165,29 @@ class skinjavascript extends object
     {
         $supressJQuery = $this->getVar('SUPPRESS_JQUERY', false);
         if (!$supressJQuery){
-//            $jquery = $this->getObject('jquery', 'jquery');
-//            return $jquery->show();
-            $sysconfig = $this->getObject('dbsysconfig', 'sysconfig');
-            $core = $sysconfig->getValue('JQUERY_CORE', 'jquerycore');
-            $theme = $sysconfig->getValue('UI_THEME', 'jquerycore');
-            $plugins = $this->getSession('plugins', array());
-            $jquery = $this->getObject ('coreloader', 'jquerycore');            
-            $jquery->setCoreVersion($core);
-            $jquery->setTheme($theme);
-            if (!empty($plugins))
+            if ($this->objModules->checkIfRegistered('jquerycore'))
             {
-                $jquery->setPlugins($plugins);
+                $jquery = $this->getObject('jquery', 'jquery');
+                $core = $sysconfig->getValue('JQUERY_CORE', 'jquerycore', '1.5.2');
+                $theme = $sysconfig->getValue('UI_THEME', 'jquerycore', 'base');
+                $plugins = $this->getSession('plugins', array());
+                $jquery = $this->getObject ('coreloader', 'jquerycore');            
+                $jquery->setCoreVersion($core);
+                $jquery->setTheme($theme);
+                if (!empty($plugins))
+                {
+                    $jquery->setPlugins($plugins);
+                }
+                return $jquery->load();
             }
-            return $jquery->load();
-        } else {
+            else
+            {
+                return $jquery->show();
+                $sysconfig = $this->getObject('dbsysconfig', 'sysconfig');
+            }            
+        }
+        else
+        {
             return NULL;
         }
     }
