@@ -1042,8 +1042,9 @@ a.contexttitle {
 .context_recent_context {
     position: relative;
     float: left;
-    max-width: 220px;
-    min-height: 175px;
+    width: 220px;
+    height: 190px;
+    overflow: hidden;
     margin: 8px;
     padding: 5px;
     border-radius: 12px;
