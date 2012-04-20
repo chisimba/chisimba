@@ -59,4 +59,9 @@
         <version>1.9</version>
         <description>Added new system type</description>
     </update>
+    <update>
+        <table>tbl_systext_system</table>
+        <version>1.91</version>
+        <description>Added new abstraction</description>
+    </update>
 </updates>

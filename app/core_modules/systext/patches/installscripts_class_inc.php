@@ -79,6 +79,8 @@ class systext_installscripts extends dbtable
         $this->objUser = $this->getObject('user', 'security');
         $this->userId = $this->objUser->PKId();
         $this->facet = $this->getObject('systext_facet', 'systext');
+        $this->objConfig = $this->getObject('altconfig', 'config');
+        $this->objModules = $this->getObject('modules', 'modulecatalogue');
     }
 
     /**
@@ -90,31 +92,68 @@ class systext_installscripts extends dbtable
      */
     public function postinstall($version)
     {
-        if ($version == '1.9')
+        // remove data added with earlier patch method
+        $types = $this->facet->listSystemTypes();
+        foreach ($types as $type)
         {
-            $systemId = $this->facet->addSystemType('eLearningSchools', $this->userId);
-            $this->facet->addAbstractText($systemId, 'init_1', 'course', $this->userId);
-            $this->facet->addAbstractText($systemId, 'init_2', 'courses', $this->userId);
-            $this->facet->addAbstractText($systemId, 'init_3', 'educator', $this->userId);
-            $this->facet->addAbstractText($systemId, 'init_4', 'educators', $this->userId);
-            $this->facet->addAbstractText($systemId, 'init_5', 'school', $this->userId);
-            $this->facet->addAbstractText($systemId, 'init_6', 'schools', $this->userId);
-            $this->facet->addAbstractText($systemId, 'init_7', 'student', $this->userId);
-            $this->facet->addAbstractText($systemId, 'init_8', 'students', $this->userId);
-            $textArray = array();
-            $textArray['level'] = 'grade';
-            $textArray['levels'] = 'grades';
-            $textArray['subject'] = 'subject';
-            $textArray['subjects'] = 'subjects';
-            $textArray['grouping'] = 'class';
-            $textArray['groupings'] = 'classes';
-            foreach ($textArray as $text => $abstract)
+            $init = stripos($type['id'], 'init_');
+            if ($init === FALSE)
             {
-                $textId = $this->facet->addTextItem($text, $this->userId);
-                $this->facet->addAbstractText($systemId, $textId, $abstract, $this->userId);
+                $this->facet->deleteSystemType($type['id']);
+                $abstracts = $this->facet->listAbstractText($type['id']);
+                foreach ($abstracts as $abstract)
+                {
+                    $init = stripos($abstract['id'], 'init');
+                    if ($init === FALSE)
+                    {
+                        $this->facet->deleteAbstractText($abstract['id']);
+                    }
+                }
             }
         }
+        $texts = $this->facet->listTextItems();
+        foreach ($texts as $text)
+        {
+            $init = stripos($text['id'], 'init_');
+            if ($init === FALSE)
+            {
+                $this->facet->deleteTextItem($text['id']);
+            }
+        }
+        
+        switch ($version)        
+        {
+            case '1.900':
+                $patchFile = $this->objConfig->getSiteRootPath() . 'core_modules/systext/sql/patch-1.900.xml';
+                ini_set('max_execution_time','600');
+                $objXml = simplexml_load_file($patchFile);
+                
+                foreach ($objXml as $table => $row)
+                {                
+                    $sqlArray = array();
+                    foreach ($row as $field => $value)
+                    {
+                        $sqlArray[$field] = $value;
+                    }
+                    $result = $this->objModules->insert($sqlArray, $table);
+                }
+                break;
+            case '1.910':
+                $patchFile = $this->objConfig->getSiteRootPath() . 'core_modules/systext/sql/patch-1.910.xml';
+                ini_set('max_execution_time','600');
+                $objXml = simplexml_load_file($patchFile);
+                
+                foreach ($objXml as $table => $row)
+                {                
+                    $sqlArray = array();
+                    foreach ($row as $field => $value)
+                    {
+                        $sqlArray[$field] = $value;
+                    }
+                    $result = $this->objModules->insert($sqlArray, $table);
+                }
+                break;
+        }
     }
-
 }
 ?>

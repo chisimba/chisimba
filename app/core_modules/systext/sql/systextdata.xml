@@ -196,6 +196,34 @@
         <dateCreated>2012-03-01 00:00:00</dateCreated>
         <canDelete>N</canDelete>
     </tbl_systext_text>    
+    <tbl_systext_text>
+        <id>init_21</id>
+        <textinfo>chapter</textinfo>
+        <creatorId>1</creatorId>
+        <dateCreated>2012-03-01 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_text>    
+    <tbl_systext_text>
+        <id>init_22</id>
+        <textinfo>chapters</textinfo>
+        <creatorId>1</creatorId>
+        <dateCreated>2012-03-01 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_text>    
+    <tbl_systext_text>
+        <id>init_23</id>
+        <textinfo>strand</textinfo>
+        <creatorId>1</creatorId>
+        <dateCreated>2012-03-01 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_text>    
+    <tbl_systext_text>
+        <id>init_24</id>
+        <textinfo>strands</textinfo>
+        <creatorId>1</creatorId>
+        <dateCreated>2012-03-01 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_text>    
     
   <!-- Table tbl_systext_abstract -->
 
@@ -833,6 +861,78 @@
         <systemId>init_8</systemId>
         <textId>init_20</textId>
         <abstract>classes</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>2012-03-12 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_77</id>
+        <systemId>init_1</systemId>
+        <textId>init_21</textId>
+        <abstract>chapter</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>2012-03-12 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_78</id>
+        <systemId>init_1</systemId>
+        <textId>init_22</textId>
+        <abstract>chapters</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>2012-03-12 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_79</id>
+        <systemId>init_2</systemId>
+        <textId>init_21</textId>
+        <abstract>chapter</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>2012-03-12 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_80</id>
+        <systemId>init_2</systemId>
+        <textId>init_22</textId>
+        <abstract>chapter</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>2012-03-12 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_81</id>
+        <systemId>init_8</systemId>
+        <textId>init_21</textId>
+        <abstract>topic</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>2012-03-12 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_82</id>
+        <systemId>init_8</systemId>
+        <textId>init_22</textId>
+        <abstract>topics</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>2012-03-12 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_83</id>
+        <systemId>init_8</systemId>
+        <textId>init_23</textId>
+        <abstract>knowledge strand</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>2012-03-12 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_84</id>
+        <systemId>init_8</systemId>
+        <textId>init_24</textId>
+        <abstract>knowledge strands</abstract>
         <creatorId>1</creatorId>
         <dateCreated>2012-03-12 00:00:00</dateCreated>
         <canDelete>N</canDelete>
