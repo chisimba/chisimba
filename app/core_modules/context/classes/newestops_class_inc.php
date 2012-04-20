@@ -102,7 +102,9 @@ class newestops extends object
 
 
     /**
-    * Constructor
+    * Constructor, loads common objects
+    * @access public
+    * @return void
     */
     public function init()
     {
@@ -235,6 +237,15 @@ class newestops extends object
         return $link->show();
     }
 
+    /**
+     *
+     * Evaluate whether the person is allowed access to a private context
+     *
+     * @param string $contextCode The context to check
+     * @return boolean TRUE|FALSE
+     * @access private
+     * 
+     */
     private function allowedAccess($contextCode)
     {
         if (!$this->accessArrayBuilt) {

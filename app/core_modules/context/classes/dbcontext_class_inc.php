@@ -468,24 +468,56 @@ class dbcontext extends dbTable {
         return $this->getAll(' ORDER BY title');
     }
 
+    /**
+     * Method to return an array of Recently Active Contexts
+     *
+     * @param integer $numOfRecords The number of records to return
+     * @return array
+     * @access public
+     *
+     */
     public function getArrayOfMostRecentlyActiveContexts($numOfRecords=6)
     {
         $sql = "WHERE status!='Unpublished' ORDER BY lastaccessed DESC, menutext ASC LIMIT {$numOfRecords}";
         return $this->getAll($sql);
     }
 
+    /**
+     * Method to return an array of Public Contexts
+     *
+     * @param integer $numOfRecords The number of records to return
+     * @return array
+     * @access public
+     *
+     */
     public function getArrayOfPublicContexts($numOfRecords=6)
     {
         $sql = "WHERE access='Public' AND status!='Unpublished' ORDER BY datecreated, menutext LIMIT {$numOfRecords}";
         return $this->getAll($sql);
     }
 
+    /**
+     * Method to return an array of Open Contexts
+     *
+     * @param integer $numOfRecords The number of records to return
+     * @return array
+     * @access public
+     *
+     */
     public function getArrayOfOpenContexts($numOfRecords=6)
     {
         $sql = "WHERE access='Open' AND status!='Unpublished' ORDER BY  datecreated, menutext LIMIT {$numOfRecords}";
         return $this->getAll($sql);
     }
 
+    /**
+     * Method to return an array of Private Contexts
+     *
+     * @param integer $numOfRecords The number of records to return
+     * @return array
+     * @access public
+     *
+     */
     public function getArrayOfPrivateContexts($numOfRecords=6)
     {
         $sql = "WHERE access='Private' AND status!='Unpublished' ORDER BY  datecreated, menutext LIMIT {$numOfRecords}";
