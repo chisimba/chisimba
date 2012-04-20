@@ -468,15 +468,27 @@ class dbcontext extends dbTable {
         return $this->getAll(' ORDER BY title');
     }
 
-    public function getArrayOfPublicContexts()
+    public function getArrayOfMostRecentlyActiveContexts($numOfRecords=6)
     {
-        $sql = "WHERE access='Public' AND status!='Unpublished' ORDER BY datecreated, menutext LIMIT 6";
+        $sql = "WHERE status!='Unpublished' ORDER BY lastaccessed DESC, menutext ASC LIMIT {$numOfRecords}";
         return $this->getAll($sql);
     }
 
-    public function getArrayOfOpenContexts()
+    public function getArrayOfPublicContexts($numOfRecords=6)
     {
-        $sql = "WHERE access='Open' AND status!='Unpublished' ORDER BY  datecreated, menutext LIMIT 6";
+        $sql = "WHERE access='Public' AND status!='Unpublished' ORDER BY datecreated, menutext LIMIT {$numOfRecords}";
+        return $this->getAll($sql);
+    }
+
+    public function getArrayOfOpenContexts($numOfRecords=6)
+    {
+        $sql = "WHERE access='Open' AND status!='Unpublished' ORDER BY  datecreated, menutext LIMIT {$numOfRecords}";
+        return $this->getAll($sql);
+    }
+
+    public function getArrayOfPrivateContexts($numOfRecords=6)
+    {
+        $sql = "WHERE access='Private' AND status!='Unpublished' ORDER BY  datecreated, menutext LIMIT {$numOfRecords}";
         return $this->getAll($sql);
     }
 

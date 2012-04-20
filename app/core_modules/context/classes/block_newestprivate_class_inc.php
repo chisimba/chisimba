@@ -60,8 +60,9 @@ die("You cannot view this page directly");
 * @link      http://avoir.uwc.ac.za
 * @see       core
 */
-class block_newestpublic extends object
+class block_newestprivate extends object
 {
+
     /**
     * @var object $objLanguage : The Language Object
     */
@@ -74,7 +75,7 @@ class block_newestpublic extends object
     public function init()
     {
         $this->objLanguage = $this->getObject('language', 'language');
-        $this->title = ucwords($this->objLanguage->code2Txt('mod_context_newestpublic', 'context', NULL, 'Newest public [-contexts-]'));
+        $this->title = ucwords($this->objLanguage->code2Txt('mod_context_newestprivate', 'context', NULL, 'Newest private [-contexts-] (require membership)'));
         $this->wrapStr = FALSE;
     }
 
@@ -84,7 +85,7 @@ class block_newestpublic extends object
     public function show()
     {
         $objNewest = $this->getObject('newestops', 'context');
-        return $objNewest->fetchBlock('Public', 6);
+        return $objNewest->fetchBlock('Private', 6);
     }
 }
 ?>

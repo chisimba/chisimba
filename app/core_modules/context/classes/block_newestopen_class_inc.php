@@ -63,31 +63,16 @@ die("You cannot view this page directly");
 class block_newestopen extends object
 {
     /**
-    * @var object $objContext : The Context Object
-    */
-    public $objContext;
-
-    /**
     * @var object $objLanguage : The Language Object
     */
     public $objLanguage;
-    /**
-     * The user Object
-     *
-     * @var object $objUser
-     */
-    public $objUser;
-
 
     /**
     * Constructor
     */
     public function init()
     {
-        $this->loadClass('link', 'htmlelements');
-        $this->objDb = $this->getObject('dbcontext');
         $this->objLanguage = $this->getObject('language', 'language');
-        $this->objUser = $this->getObject('user', 'security');
         $this->title = ucwords($this->objLanguage->code2Txt('mod_context_newestopen', 'context', NULL, 'Newest open [-contexts-]'));
         $this->wrapStr = FALSE;
     }
@@ -97,37 +82,8 @@ class block_newestopen extends object
      */
     public function show()
     {
-        $objContextImage = $this->getObject('contextimage', 'context');
-        $objShorter = $this->getObject('trimstr', 'strings');
-        $publicContexts = $this->objDb->getArrayOfOpenContexts();
-        $objTranslatedDate = $this->getObject('translatedatedifference', 'utilities');
-        $ret = NULL;
-        foreach ($publicContexts as $context) {
-            $contextCode = $context['contextcode'];
-            $contextImage = $objContextImage->getContextImage($contextCode);
-            // Show if it has an image
-            if ($contextImage == FALSE) {
-                $contextImage = $this->noImage;
-            } else {
-                $contextImage = '<img class="roundcorners_small" src="' . $contextImage . '" />';
-            }
-            $title = $objShorter->strTrim($context['title'], 30, TRUE);
-            $creationDate = $context['datecreated'];
-            $creationDate = $objTranslatedDate->getDifference($creationDate);
-            // Get the about text and shorten it.
-            $about = $objShorter->strTrim($context ['about'], 120, TRUE);
-            if ($this->objUser->isLoggedIn()) {
-                $link = new link($this->uri(array('action' => 'joincontext',
-                'contextcode' => $contextCode)));
-                $link->link = $title;
-                $title = $link->show();
-            }
-            $ret .= "<div class='context_recent_context'>{$contextImage} "
-              . "<span class='context_recent_title'>" . $title
-              . "</span><br /><span class='context_about'>{$about}</span><br />"
-              . "<span class='context_creationdate'>{$creationDate}</span></div>";
-        }
-        return "<div class='context_recent'>{$ret}</div>";
+        $objNewest = $this->getObject('newestops', 'context');
+        return $objNewest->fetchBlock('Open', 6);
     }
 }
 ?>

@@ -117,12 +117,12 @@ class displaycontext extends object {
     public function formatContextDisplayBlock($context,
       $showEditDeleteLinks = TRUE, $includeFeatureBox = TRUE,
       $disablePrivateAccess = FALSE) {
-
+        // Initialize the variable.
         $canEdit = FALSE;
-        // Flag on whether to show link for private courses
+        // Flag on whether to show link for private courses.
         $showLink = $disablePrivateAccess;
         if (!$disablePrivateAccess) {
-            // If admin, show link
+            // If admin, show link.
             $access = $this->objDBContext->getField('access', $context ['contextcode']);
             if ($this->objUser->isAdmin() ||
                     in_array($context ['contextcode'], $this->userContexts) ||

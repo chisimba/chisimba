@@ -1,9 +1,9 @@
 <?php
 
 /**
-* The newest fully public contexts
+* The most recently active contexts
 *
-* Shows the newest public contexts, with the context image and a link
+* Shows the most recently active contexts, with the context image and a link
 * to choose and enter the context.
 *
 * PHP version 5
@@ -46,9 +46,9 @@ die("You cannot view this page directly");
 
 /**
 *
-* The newest fully public contexts
+* The most recently active contexts
 *
-* Shows the newest public contexts, with the context image and a link
+* Shows the most recently active contexts, with the context image and a link
 * to choose and enter the context.
 *
 * @category  Chisimba
@@ -60,7 +60,7 @@ die("You cannot view this page directly");
 * @link      http://avoir.uwc.ac.za
 * @see       core
 */
-class block_newestpublic extends object
+class block_newestactivity extends object
 {
     /**
     * @var object $objLanguage : The Language Object
@@ -74,7 +74,7 @@ class block_newestpublic extends object
     public function init()
     {
         $this->objLanguage = $this->getObject('language', 'language');
-        $this->title = ucwords($this->objLanguage->code2Txt('mod_context_newestpublic', 'context', NULL, 'Newest public [-contexts-]'));
+        $this->title = ucwords($this->objLanguage->code2Txt('mod_context_recentlactive', 'context', NULL, 'Most recently active [-contexts-]'));
         $this->wrapStr = FALSE;
     }
 
@@ -84,7 +84,7 @@ class block_newestpublic extends object
     public function show()
     {
         $objNewest = $this->getObject('newestops', 'context');
-        return $objNewest->fetchBlock('Public', 6);
+        return $objNewest->fetchBlock('MostRecentActive', 6);
     }
 }
 ?>
