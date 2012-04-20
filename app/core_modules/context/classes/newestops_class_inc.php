@@ -194,13 +194,16 @@ class newestops extends object
                         if ($mustBeMember) {
                             if ($this->allowedAccess($contextCode)) {
                                 $title = $this->linkItem($contextCode, $title);
+                                $contextImage = $this->linkItem($contextCode, $contextImage);
                             }
                         } else {
                             $title = $this->linkItem($contextCode, $title);
+                            $contextImage = $this->linkItem($contextCode, $contextImage);
                         }
                     }
                 } else {
                     $title = $this->linkItem($contextCode, $title);
+                    $contextImage = $this->linkItem($contextCode, $contextImage);
                 }
                 $ret .= "<div class='context_recent_context'>{$contextImage} "
                 . "<span class='context_recent_title'>" . $title
