@@ -167,9 +167,9 @@ class skinjavascript extends object
         if (!$supressJQuery){
             if ($this->objModules->checkIfRegistered('jquerycore'))
             {
-                $jquery = $this->getObject('jquery', 'jquery');
-                $core = $sysconfig->getValue('JQUERY_CORE', 'jquerycore', '1.5.2');
-                $theme = $sysconfig->getValue('UI_THEME', 'jquerycore', 'base');
+                $sysconfig = $this->getObject('dbsysconfig', 'sysconfig');
+                $core = $sysconfig->getValue('JQUERY_CORE', 'jquerycore');
+                $theme = $sysconfig->getValue('UI_THEME', 'jquerycore');
                 $plugins = $this->getSession('plugins', array());
                 $jquery = $this->getObject ('coreloader', 'jquerycore');            
                 $jquery->setCoreVersion($core);
@@ -182,12 +182,10 @@ class skinjavascript extends object
             }
             else
             {
+                $jquery = $this->getObject('jquery', 'jquery');
                 return $jquery->show();
-                $sysconfig = $this->getObject('dbsysconfig', 'sysconfig');
-            }            
-        }
-        else
-        {
+            }
+        } else {
             return NULL;
         }
     }
@@ -276,24 +274,7 @@ class skinjavascript extends object
 
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //WORKING HERE
-
-
-
     /**
      *
      * Insert after body tag scripts - scripts that need to appear
