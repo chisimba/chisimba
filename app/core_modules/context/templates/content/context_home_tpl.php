@@ -152,7 +152,21 @@ if ($this->isValid('addblock')) {
         $wideBlocksDropDown->addOption($block, $title);
     }
 
-
+//Add content wideblocks to options
+    if (!empty($contentWideBlocks)) {
+        foreach ($contentWideBlocks as $contentWideBlock) {
+            $block = $this->objBlocks->showBlock($contentWideBlock["id"], "contentblocks");
+            $wideBlocksDropDown->addOption('block|' . $contentWideBlock["id"] . '|' . "contentblocks", htmlentities($contentWideBlock["title"]) . '(contentblocks)');
+        }
+    }
+    //Add content sideblocks to options
+    if (!empty($contentSmallBlocks)) {
+        foreach ($contentSmallBlocks as $contentSmallBlock) {
+            $block = $this->objBlocks->showBlock($contentSmallBlock["id"], "contentblocks");
+            $rightBlocksDropDown->addOption('block|' . $contentSmallBlock["id"] . '|' . "contentblocks", htmlentities($contentSmallBlock["title"]) . '(contentblocks)');
+            $leftBlocksDropDown->addOption('block|' . $contentSmallBlock["id"] . '|' . "contentblocks", htmlentities($contentSmallBlock["title"]) . '(contentblocks)');
+        }
+    }
     $button = new button('addrightblock', $objLanguage->languageText('mod_prelogin_addblock', 'prelogin', 'Add Block'));
     $button->cssId = 'rightbutton';
     

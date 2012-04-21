@@ -62,6 +62,7 @@ class context extends controller {
      * @var object $objContext
      */
     public $objContext;
+
     /**
      * Current Context Code
      *
@@ -73,7 +74,7 @@ class context extends controller {
      * Constructor
      */
     public function init() {
-        try {
+        try {            
             $this->objContext = $this->getObject('dbcontext');
 
             $this->contextCode = $this->objContext->getContextCode();
@@ -87,6 +88,7 @@ class context extends controller {
 
             $this->objContextBlocks = $this->getObject('dbcontextblocks');
             $this->objDynamicBlocks = $this->getObject('dynamicblocks', 'blocks');
+            $this->objBlocks = $this->getObject('blocks', 'blocks');
 
             //Load Module Catalogue Class
             $this->objModuleCatalogue = $this->getObject('modules', 'modulecatalogue');
@@ -100,13 +102,20 @@ class context extends controller {
             } else {
                 $this->eventsEnabled = FALSE;
             }
+
+            //Check if contentblocks is installed
+            $this->cbExists = $this->objModuleCatalogue->checkIfRegistered("contentblocks");
+            if ($this->cbExists) {
+                $this->objBlocksContent = $this->getObject('dbcontentblocks', 'contentblocks');
+            }
+
             $this->dbSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
             $disableActivityStreamer = $this->dbSysConfig->getValue('DISABLE_ACTIVITYSTREAMER', 'context');
             if ($disableActivityStreamer == 'TRUE' || $disableActivityStreamer == 'true') {
                 $this->eventsEnabled = FALSE;
             }
         } catch (customException $e) {
-            customException::cleanUp ();
+            customException::cleanUp();
 
             //Load Module Catalogue Class
             //$this->objModuleCatalogue = $this->getObject('modules', 'modulecatalogue');
@@ -117,7 +126,7 @@ class context extends controller {
      * Method to turn off login requirement for certain actions
      */
     public function requiresLogin($action) {
-        $requiresLogin = array('controlpanel', 'manageplugins', 'updateplugins', 'renderblock', 'addblock', 'removeblock', 'moveblock', 'updatesettings', 'updatecontext', 'viewuseractivitybyid', 'showuseractivitybymodule', 'selectuseractivitybymodulesdates','selectcontextactivitydates','selecttoolsactivitydates','showcontextactivity','showtoolsactivity', 'joincontextrequirelogin');
+        $requiresLogin = array('controlpanel', 'manageplugins', 'updateplugins', 'renderblock', 'addblock', 'removeblock', 'moveblock', 'updatesettings', 'updatecontext', 'viewuseractivitybyid', 'showuseractivitybymodule', 'selectuseractivitybymodulesdates', 'selectcontextactivitydates', 'selecttoolsactivitydates', 'showcontextactivity', 'showtoolsactivity', 'joincontextrequirelogin');
         if (in_array($action, $requiresLogin)) {
             return TRUE;
         } else {
@@ -237,6 +246,16 @@ class context extends controller {
 
         $wideBlocks = $objBlocks->getBlocks('wide', 'context|site');
         $this->setVarByRef('wideBlocks', $wideBlocks);
+        
+        $contentSmallBlocks = "";
+        $contentWideBlocks = "";
+        if ($this->cbExists) {
+            $contentSmallBlocks = $this->objBlocksContent->getBlocksArr('content_text');
+            $this->setVarByRef('contentSmallBlocks', $contentSmallBlocks);
+
+            $contentWideBlocks = $this->objBlocksContent->getBlocksArr('content_widetext');
+            $this->setVarByRef('contentWideBlocks', $contentWideBlocks);
+        }
 
         return 'context_home_tpl.php';
     }
@@ -283,16 +302,16 @@ class context extends controller {
                         'description' => $message));
                 }
                 $contextRedirectURI = $this->getParam('contextredirecturi', NULL);
-                if ((!is_null($contextRedirectURI))&&(strlen($contextRedirectURI)>0)) {
+                if ((!is_null($contextRedirectURI)) && (strlen($contextRedirectURI) > 0)) {
                     $contextRedirectURI_ = urldecode($contextRedirectURI);
-                    header('Location: '.$contextRedirectURI_);
+                    header('Location: ' . $contextRedirectURI_);
                     return NULL;
                 }
                 //--
-                $contextModule=$this->getParam('contextmodule'); //--
-                if ($contextModule!=''){
-                    $contextAction=$this->getParam('contextaction');
-                    return $this->nextAction($contextAction,array('id'=>$this->getParam('contextdata')),$contextModule);
+                $contextModule = $this->getParam('contextmodule'); //--
+                if ($contextModule != '') {
+                    $contextAction = $this->getParam('contextaction');
+                    return $this->nextAction($contextAction, array('id' => $this->getParam('contextdata')), $contextModule);
                 } //--
                 return $this->nextAction('home');
             } else {
@@ -490,22 +509,14 @@ class context extends controller {
 
 
         //$emailalert =
-
         //$alerts = '';
         //if ($emailalert == 'on') {
-            //$alerts.='e';
+        //$alerts.='e';
         //}
-        $alerts = $this->getParam('emailalertopt') == 'on'?'1':'0';
+        $alerts = $this->getParam('emailalertopt') == 'on' ? '1' : '0';
         if ($contextCode == $this->contextCode && $title != '') {
             $result = $this->objContext->updateContext(
-                            $contextCode,
-                            $title,
-                            $status,
-                            $access,
-                            $about,
-                            FALSE,
-                            'Y',
-                            $alerts);
+                    $contextCode, $title, $status, $access, $about, FALSE, 'Y', $alerts);
 
             if ($image != '') {
                 $objContextImage = $this->getObject('contextimage', 'context');
@@ -555,7 +566,7 @@ class context extends controller {
         $contexts = $this->objContext->getContextStartingWith($letter);
 
         if (count($contexts) == 0) {
-
+            
         } else {
             $objDisplayContext = $this->getObject('displaycontext', 'context');
 
@@ -580,7 +591,7 @@ class context extends controller {
         }
         $contexts = $con;
         if (count($contexts) == 0) {
-
+            
         } else {
             $objDisplayContext = $this->getObject('displaycontext', 'context');
 
@@ -777,9 +788,9 @@ class context extends controller {
         $studentsonly = $this->getParam('studentsonly');
         $module = $this->getParam('moduleid');
         $objUserActivity = $this->getObject('dbuseractivity');
-        $contextcode=  $this->getParam("contextcode");
-        if($contextcode == null){
-            $contextcode=$this->contextCode;
+        $contextcode = $this->getParam("contextcode");
+        if ($contextcode == null) {
+            $contextcode = $this->contextCode;
         }
 
         $groupOps = $this->getObject('groupops', 'groupadmin');
@@ -841,18 +852,18 @@ class context extends controller {
         $objModules = $this->getObject('modules', 'modulecatalogue');
         $plugins = $objModules->getListContextPlugins();
 
-        $contextcode=  $this->getParam("contextcode");
-        if($contextcode == null){
-            $contextcode=$this->contextCode;
+        $contextcode = $this->getParam("contextcode");
+        if ($contextcode == null) {
+            $contextcode = $this->contextCode;
         }
-        $context=  $this->objContext->getContext($contextcode);
+        $context = $this->objContext->getContext($contextcode);
         $objUserActivity = $this->getObject('dbuseractivity');
-        $data = $objUserActivity->getToolsActivity($startDate, $endDate, $contextcode,$plugins);
+        $data = $objUserActivity->getToolsActivity($startDate, $endDate, $contextcode, $plugins);
         $this->setVarByRef("data", $data);
         $this->setVarByRef("startdate", $startDate);
         $this->setVarByRef("enddate", $endDate);
-        $this->setVarByRef("coursetitle",$context['title']);
-        $this->setVarByRef("contextcode",$context['contextcode']);
+        $this->setVarByRef("coursetitle", $context['title']);
+        $this->setVarByRef("contextcode", $context['contextcode']);
 
         return "toolsactivity_tpl.php";
     }
