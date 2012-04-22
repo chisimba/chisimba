@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  * Build a canvas from dyanmic blocks
@@ -33,38 +34,35 @@
  * @version   CVS: $Id: dbmyprofile.php,v 1.1 2007-11-25 09:13:27 dkeats Exp $
  * @link      http://avoir.uwc.ac.za
  */
-
 // security check - must be included in all scripts
 if (!
-/**
- * The $GLOBALS is an array used to control access to certain constants.
- * Here it is used to check if the file is opening in engine, if not it
- * stops the file from running.
- *
- * @global entry point $GLOBALS['kewl_entry_point_run']
- * @name   $kewl_entry_point_run
- *
- */
-$GLOBALS['kewl_entry_point_run'])
-{
-        die("You cannot view this page directly");
+        /**
+         * The $GLOBALS is an array used to control access to certain constants.
+         * Here it is used to check if the file is opening in engine, if not it
+         * stops the file from running.
+         *
+         * @global entry point $GLOBALS['kewl_entry_point_run']
+         * @name   $kewl_entry_point_run
+         *
+         */
+        $GLOBALS['kewl_entry_point_run']) {
+    die("You cannot view this page directly");
 }
 // end security check
 
 /**
-*
+ *
  * Build a canvas from dyanmic blocks
  *
  * This class builds a dynamic canvas, which allows the user interface to
  * be constructed using the 'Turn editing on' approach. It allows for blocks
  * to be user blocks or module blocks.
-*
-* @author Derek Keats
-* @package myprofile
-*
-*/
-class buildcanvas extends object
-{
+ *
+ * @author Derek Keats
+ * @package myprofile
+ *
+ */
+class buildcanvas extends object {
 
     /**
      *
@@ -73,8 +71,7 @@ class buildcanvas extends object
      * @access private
      * 
      */
-    
-    private $smallBlocksDropDown=NULL;
+    private $smallBlocksDropDown = NULL;
 
     /**
      *
@@ -133,15 +130,14 @@ class buildcanvas extends object
     private $isOwner;
 
     /**
-    *
-    * Intialiser for the canvas builder
-    *
-    * @access public
-    * @return VOID
-    *
-    */
-    public function init()
-    {
+     *
+     * Intialiser for the canvas builder
+     *
+     * @access public
+     * @return VOID
+     *
+     */
+    public function init() {
         // Instantiate the language object.
         $this->objLanguage = $this->getObject('language', 'language');
         // Instantiate the user object.
@@ -150,8 +146,7 @@ class buildcanvas extends object
         $this->objContextBlocks = $this->getObject('dbcontextblocks', 'context');
         $this->objDynamicBlocks = $this->getObject('dynamicblocks', 'blocks');
         // Load the livequery that works with blocks.
-        $this->appendArrayVar('headerParams',
-        $this->getJavaScriptFile('jquery.livequery.js', 'jquery'));
+        $this->appendArrayVar('headerParams', $this->getJavaScriptFile('jquery.livequery.js', 'jquery'));
         // Guess the user whose profile we are on.
         $objGuessUser = $this->getObject('bestguess', 'utilities');
         $this->userId = $objGuessUser->guessUserId();
@@ -162,6 +157,13 @@ class buildcanvas extends object
         $this->wideDynamicBlocks = $this->objDynamicBlocks->getWideUserBlocks($this->userId);
         // Get any user small blocks that the user has.
         $this->smallDynamicBlocks = $this->objDynamicBlocks->getSmallUserBlocks($this->userId);
+        // Create an instance of the module object
+        $this->objModule = $this->getObject('modules', 'modulecatalogue');
+        //Check if contentblocks is installed
+        $this->cbExists = $this->objModule->checkIfRegistered("contentblocks");
+        if ($this->cbExists) {
+            $this->objBlocksContent = $this->getObject('dbcontentblocks', 'contentblocks');
+        }
         // Load other required HTML elements.
         $this->loadClass('dropdown', 'htmlelements');
         $this->loadClass('button', 'htmlelements');
@@ -174,7 +176,7 @@ class buildcanvas extends object
         $this->downIcon = $objIcon->show();
         $objIcon->setIcon('delete');
         $this->deleteIcon = $objIcon->show();
-        unset ($objIcon);
+        unset($objIcon);
     }
 
     /**
@@ -186,8 +188,7 @@ class buildcanvas extends object
      * @access public
      *
      */
-    public function show($blockType='personal')
-    {
+    public function show($blockType = 'personal') {
         if ($blockType == 'user') {
             $blockType = 'personal';
         }
@@ -206,7 +207,6 @@ class buildcanvas extends object
             default;
                 return NULL;
         }
-
     }
 
     /**
@@ -221,8 +221,7 @@ class buildcanvas extends object
      * @todo there is code repeated between personal and module. Refactor it.
      *
      */
-    private function showPersonal()
-    {
+    private function showPersonal() {
         // Set a property to indicate if we are the profile owner or not.
         if ($this->userId !== $this->objUser->userId()) {
             $this->isOwner = FALSE;
@@ -231,7 +230,7 @@ class buildcanvas extends object
         }
         // Show the user menu if they are logged in.
         if ($this->objUser->isLoggedIn()) {
-            $userMenu  = $this->newObject('usermenu','toolbar');
+            $userMenu = $this->newObject('usermenu', 'toolbar');
             $userMenu = $userMenu->show();
         } else {
             $userMenu = "";
@@ -254,30 +253,28 @@ class buildcanvas extends object
         $leftBlocks = $this->getSmallBlocks('left');
         // Make the content of the left column.
         $leftContent = $userMenu;
-        $leftContent .= '<div id="leftblocks">'. $this->leftBlocks . '</div>';
-        $leftContent .= '<div id="leftaddblock">' . $this->getHeader() .$leftBlocks;
+        $leftContent .= '<div id="leftblocks">' . $this->leftBlocks . '</div>';
+        $leftContent .= '<div id="leftaddblock">' . $this->getHeader() . $leftBlocks;
         $leftContent .= '<div id="lefttpreview"><div id="leftpreviewcontent"></div> '
-          .$this->getLeftButton() .' </div></div>';
+                . $this->getLeftButton() . ' </div></div>';
         $objCssLayout->setLeftColumnContent($leftContent);
-        unset ($leftContent);
+        unset($leftContent);
         // Make the content of the right column.
         $rightContent = $this->getEditOnButton();
-        $rightContent  .= '<div id="rightblocks">' . $this->rightBlocks .'</div>';
+        $rightContent .= '<div id="rightblocks">' . $this->rightBlocks . '</div>';
         $rightContent .= '<div id="rightaddblock">' . $this->getHeader() . $rightBlocks;
         $rightContent .= '<div id="rightpreview"><div id="rightpreviewcontent"></div> '
-          . $this->getRightButton() . ' </div></div>';
+                . $this->getRightButton() . ' </div></div>';
         $objCssLayout->setRightColumnContent($rightContent);
-        unset ($rightContent);
+        unset($rightContent);
         // Make the content of the middle column.
-        $middleContent = '<div id="middleblocks">'. $this->middleBlocks .'</div>';
+        $middleContent = '<div id="middleblocks">' . $this->middleBlocks . '</div>';
         $middleContent .= '<div id="middleaddblock">' . $this->getHeader() . $this->getWideBlocks();
-        $middleContent .= '<div id="middlepreview"><div id="middlepreviewcontent"></div> '. $this->getMiddleButton() .' </div>';
+        $middleContent .= '<div id="middlepreview"><div id="middlepreviewcontent"></div> ' . $this->getMiddleButton() . ' </div>';
         $middleContent .= '</div>';
         $objCssLayout->setMiddleColumnContent($middleContent);
         return $this->getScriptValues() . $this->getContextBlocksJs() . $objCssLayout->show();
     }
-
-
 
     /**
      *
@@ -293,11 +290,10 @@ class buildcanvas extends object
      * @todo Implement this functionality
      *
      */
-    private function showPage($pageId)
-    {
+    private function showPage($pageId) {
         // Get the module blocks
         $this->objPageBlocks = $this->getObject('dbpageblocks', 'canvas');
-        $this->middleBlocks = $this->objPageBlocks->getPageBlocks($pageId,'middle');
+        $this->middleBlocks = $this->objPageBlocks->getPageBlocks($pageId, 'middle');
         $this->rightBlocks = $this->objPageBlocks->getPageBlocks($pageId, 'right');
         $this->leftBlocks = $this->objPageBlocks->getPageBlocks($pageId, 'left');
         // Initialise the return string with two blank lines.
@@ -314,33 +310,33 @@ class buildcanvas extends object
 
         // Make the content of the left column.
         $leftContent = "";
-        $leftContent .= '<div id="leftblocks">'. $this->leftBlocks . '</div>';
-        $leftContent .= '<div id="leftaddblock">' . $this->getHeader() .$leftBlocks;
+        $leftContent .= '<div id="leftblocks">' . $this->leftBlocks . '</div>';
+        $leftContent .= '<div id="leftaddblock">' . $this->getHeader() . $leftBlocks;
         $leftContent .= '<div id="lefttpreview"><div id="leftpreviewcontent"></div> '
-          .$this->getLeftButton() .' </div></div>';
+                . $this->getLeftButton() . ' </div></div>';
         $objCssLayout->setLeftColumnContent($leftContent);
-        unset ($leftContent);
+        unset($leftContent);
 
         // Make the content of the right column.
 
         if ($this->objUser->isAdmin()) {
-            $this->isOwner= TRUE; /////////// TEMPORARY ////////////////////////////////////////////////////
+            $this->isOwner = TRUE; /////////// TEMPORARY ////////////////////////////////////////////////////
         }
 
 
         $rightContent = $this->getEditOnButton();
-        $rightContent  .= '<div id="rightblocks">' . $this->rightBlocks .'</div>';
+        $rightContent .= '<div id="rightblocks">' . $this->rightBlocks . '</div>';
         $rightContent .= '<div id="rightaddblock">' . $this->getHeader() . $rightBlocks;
         $rightContent .= '<div id="rightpreview"><div id="rightpreviewcontent"></div> '
-          . $this->getRightButton() . ' </div></div>';
+                . $this->getRightButton() . ' </div></div>';
         $objCssLayout->setRightColumnContent($rightContent);
-        unset ($rightContent);
+        unset($rightContent);
 
 
         // Make the content of the middle column.
-        $middleContent = '<div id="middleblocks">'. $this->middleBlocks .'</div>';
+        $middleContent = '<div id="middleblocks">' . $this->middleBlocks . '</div>';
         $middleContent .= '<div id="middleaddblock">' . $this->getHeader() . $this->getWideBlocks();
-        $middleContent .= '<div id="middlepreview"><div id="middlepreviewcontent"></div> '. $this->getMiddleButton() .' </div>';
+        $middleContent .= '<div id="middlepreview"><div id="middlepreviewcontent"></div> ' . $this->getMiddleButton() . ' </div>';
         $middleContent .= '</div>';
         $objCssLayout->setMiddleColumnContent($middleContent);
         return $this->getScriptValues() . $this->getContextBlocksJs() . $objCssLayout->show();
@@ -359,8 +355,7 @@ class buildcanvas extends object
      * @todo there is code repeated between personal and module. Refactor it.
      *
      */
-    private function showModule()
-    {
+    private function showModule() {
         // Get the module blocks
         $this->objModBlocks = $this->getObject('dbmodblocks', 'canvas');
         $this->middleBlocks = $this->objModBlocks->getModuleBlocks('middle');
@@ -380,37 +375,36 @@ class buildcanvas extends object
 
         // Make the content of the left column.
         $leftContent = "";
-        $leftContent .= '<div id="leftblocks">'. $this->leftBlocks . '</div>';
-        $leftContent .= '<div id="leftaddblock">' . $this->getHeader() .$leftBlocks;
+        $leftContent .= '<div id="leftblocks">' . $this->leftBlocks . '</div>';
+        $leftContent .= '<div id="leftaddblock">' . $this->getHeader() . $leftBlocks;
         $leftContent .= '<div id="lefttpreview"><div id="leftpreviewcontent"></div> '
-          .$this->getLeftButton() .' </div></div>';
+                . $this->getLeftButton() . ' </div></div>';
         $objCssLayout->setLeftColumnContent($leftContent);
-        unset ($leftContent);
+        unset($leftContent);
 
         // Make the content of the right column.
 
         if ($this->objUser->isAdmin()) {
-            $this->isOwner= TRUE; /////////// TEMPORARY ////////////////////////////////////////////////////
+            $this->isOwner = TRUE; /////////// TEMPORARY ////////////////////////////////////////////////////
         }
 
 
         $rightContent = $this->getEditOnButton();
-        $rightContent  .= '<div id="rightblocks">' . $this->rightBlocks .'</div>';
+        $rightContent .= '<div id="rightblocks">' . $this->rightBlocks . '</div>';
         $rightContent .= '<div id="rightaddblock">' . $this->getHeader() . $rightBlocks;
         $rightContent .= '<div id="rightpreview"><div id="rightpreviewcontent"></div> '
-          . $this->getRightButton() . ' </div></div>';
+                . $this->getRightButton() . ' </div></div>';
         $objCssLayout->setRightColumnContent($rightContent);
-        unset ($rightContent);
+        unset($rightContent);
 
 
         // Make the content of the middle column.
-        $middleContent = '<div id="middleblocks">'. $this->middleBlocks .'</div>';
+        $middleContent = '<div id="middleblocks">' . $this->middleBlocks . '</div>';
         $middleContent .= '<div id="middleaddblock">' . $this->getHeader() . $this->getWideBlocks();
-        $middleContent .= '<div id="middlepreview"><div id="middlepreviewcontent"></div> '. $this->getMiddleButton() .' </div>';
+        $middleContent .= '<div id="middlepreview"><div id="middlepreviewcontent"></div> ' . $this->getMiddleButton() . ' </div>';
         $middleContent .= '</div>';
         $objCssLayout->setMiddleColumnContent($middleContent);
         return $this->getScriptValues() . $this->getContextBlocksJs() . $objCssLayout->show();
-
     }
 
     /**
@@ -422,8 +416,7 @@ class buildcanvas extends object
      * @access private
      *
      */
-    private function getHeader()
-    {
+    private function getHeader() {
         $header = new htmlheading();
         $header->type = 3;
         $header->str = $this->objLanguage->languageText('mod_context_addablock', 'context', 'Add a Block');
@@ -441,21 +434,20 @@ class buildcanvas extends object
      * @access public
      *
      */
-    public function getSmallBlocks($position='right')
-    {
+    public function getSmallBlocks($position = 'right') {
         // Note that it uses a class property to avoid having to repeat it twice.
         switch ($position) {
             case 'right':
-                if ($this->smallBlocksDropDown== NULL) {
-                    $this->smallBlocksDropDown = new dropdown ('rightblocks');
+                if ($this->smallBlocksDropDown == NULL) {
+                    $this->smallBlocksDropDown = new dropdown('rightblocks');
                 } else {
                     $this->smallBlocksDropDown->name = 'rightblocks';
                 }
                 $this->smallBlocksDropDown->cssId = 'ddrightblocks';
                 break;
             case 'left':
-                if ($this->smallBlocksDropDown== NULL) {
-                    $this->smallBlocksDropDown = new dropdown ('leftblocks');
+                if ($this->smallBlocksDropDown == NULL) {
+                    $this->smallBlocksDropDown = new dropdown('leftblocks');
                 } else {
                     $this->smallBlocksDropDown->name = 'leftblocks';
                 }
@@ -465,38 +457,50 @@ class buildcanvas extends object
 
         // Get the right or left blocks dropdown
         $this->smallBlocksDropDown->addOption(
-          '', $this->objLanguage->languageText(
-          'phrase_selectone', 'context', 'Select One')
-          .'...');
+                '', $this->objLanguage->languageText(
+                        'phrase_selectone', 'context', 'Select One')
+                . '...');
         // Create array for sorting
         $smallBlockOptions = array();
         // Add Small Dynamic Blocks
         foreach ($this->smallDynamicBlocks as $smallBlock) {
             $smallBlockOptions['dynamicblock|' . $smallBlock['id'] . '|'
-              . $smallBlock['module']] = htmlentities($smallBlock['title']);
+                    . $smallBlock['module']] = htmlentities($smallBlock['title']);
         }
-       
+
         // Add Small Blocks.
         $objBlocks = $this->getObject('dbmoduleblocks', 'modulecatalogue');
         $smallBlocks = $objBlocks->getBlocks('normal', 'prelogin|site|user');
         foreach ($smallBlocks as $smallBlock) {
-            $block = $this->newObject('block_' 
-              . $smallBlock['blockname'], $smallBlock['moduleid']);
+            $block = $this->newObject('block_'
+                    . $smallBlock['blockname'], $smallBlock['moduleid']);
             $title = $block->title;
             if ($title == '') {
-                $title = $smallBlock['blockname'] .' (' . $smallBlock['moduleid'] . ')';
+                $title = $smallBlock['blockname'] . ' (' . $smallBlock['moduleid'] . ')';
             } else {
                 $title = $title . " (" . $smallBlock['moduleid'] . ")";
             }
             $smallBlockOptions['block|' . $smallBlock['blockname'] . '|'
-              . $smallBlock['moduleid']] = htmlentities($title);
+                    . $smallBlock['moduleid']] = htmlentities($title);
             // Sort Alphabetically
             asort($smallBlockOptions);
             // Add Small Blocks
-            foreach ($smallBlockOptions as $block=>$title) {
+            foreach ($smallBlockOptions as $block => $title) {
                 $this->smallBlocksDropDown->addOption($block, $title);
             }
         }
+        //Add content blocks if any
+        $contentSmallBlocks = "";
+        if ($this->cbExists) {
+            $contentSmallBlocks = $this->objBlocksContent->getBlocksArr('content_text');
+            //Add content sideblocks to options
+            if (!empty($contentSmallBlocks)) {
+                foreach ($contentSmallBlocks as $contentSmallBlock) {
+                    $this->smallBlocksDropDown->addOption('block|' . $contentSmallBlock["id"] . '|' . "contentblocks", htmlentities($contentSmallBlock["title"]) . '(contentblocks)');
+                }
+            }
+        }
+
         return $this->smallBlocksDropDown->show();
     }
 
@@ -509,40 +513,51 @@ class buildcanvas extends object
      * @access public
      *
      */
-    public function getWideBlocks()
-    {
+    public function getWideBlocks() {
         // Create array for sorting
         $wideBlockOptions = array();
 
-        $wideBlocksDropDown = new dropdown ('middleblocks');
+        $wideBlocksDropDown = new dropdown('middleblocks');
         $wideBlocksDropDown->cssId = 'ddmiddleblocks';
-        $wideBlocksDropDown->addOption('', $this->objLanguage->languageText('phrase_selectone', 'context', 'Select One').'...');
+        $wideBlocksDropDown->addOption('', $this->objLanguage->languageText('phrase_selectone', 'context', 'Select One') . '...');
 
         foreach ($this->wideDynamicBlocks as $wideBlock) {
-            $smallBlockOptions['dynamicblock|'.$wideBlock['id'].'|'.$wideBlock['module']] = htmlentities($wideBlock['title']);
+            $smallBlockOptions['dynamicblock|' . $wideBlock['id'] . '|' . $wideBlock['module']] = htmlentities($wideBlock['title']);
         }
         $wideBlocks = $this->objBlocks->getBlocks('wide', 'site|user');
         foreach ($wideBlocks as $wideBlock) {
             $block = $this->newObject('block_'
-              . $wideBlock['blockname'], $wideBlock['moduleid']);
+                    . $wideBlock['blockname'], $wideBlock['moduleid']);
             $title = $block->title;
 
             if ($title == '') {
-                $title = $wideBlock['blockname'] .' (' 
-                  .$wideBlock['moduleid'] . ')';
-            }  else {
+                $title = $wideBlock['blockname'] . ' ('
+                        . $wideBlock['moduleid'] . ')';
+            } else {
                 $title = $title . " (" . $wideBlock['moduleid'] . ")";
             }
 
-            $wideBlockOptions['block|'.$wideBlock['blockname'].'|'.$wideBlock['moduleid']] = htmlentities($title);
+            $wideBlockOptions['block|' . $wideBlock['blockname'] . '|' . $wideBlock['moduleid']] = htmlentities($title);
         }
         // Sort Alphabetically
         asort($wideBlockOptions);
 
         // Add wide Blocks
-        foreach ($wideBlockOptions as $block=>$title){
+        foreach ($wideBlockOptions as $block => $title) {
             $wideBlocksDropDown->addOption($block, $title);
         }
+                //Add content blocks if any
+        $contentWideBlocks = "";
+        if ($this->cbExists) {
+            $contentWideBlocks = $this->objBlocksContent->getBlocksArr('content_widetext');
+            //Add content sideblocks to options
+            if (!empty($contentWideBlocks)) {
+                foreach ($contentWideBlocks as $contentWideBlock) {
+                    $wideBlocksDropDown->addOption('block|' . $contentWideBlock["id"] . '|' . "contentblocks", htmlentities($contentWideBlock["title"]) . '(contentblocks)');
+                }
+            }
+        }
+
         return $wideBlocksDropDown->show();
     }
 
@@ -554,14 +569,13 @@ class buildcanvas extends object
      * @access private
      *
      */
-    private function getLeftButton()
-    {
-        $button = new button ('addleftblock', $this->objLanguage->languageText('mod_prelogin_addblock', 'system', 'Add Block'));
+    private function getLeftButton() {
+        $button = new button('addleftblock', $this->objLanguage->languageText('mod_prelogin_addblock', 'system', 'Add Block'));
         $button->cssId = 'leftbutton';
         return $button->show();
     }
 
-     /**
+    /**
      *
      * Render the right 'add block' button
      *
@@ -569,9 +583,8 @@ class buildcanvas extends object
      * @access private
      *
      */
-    private function getRightButton()
-    {
-        $button = new button ('addrightblock', $this->objLanguage->languageText('mod_prelogin_addblock', 'system', 'Add Block'));
+    private function getRightButton() {
+        $button = new button('addrightblock', $this->objLanguage->languageText('mod_prelogin_addblock', 'system', 'Add Block'));
         $button->cssId = 'rightbutton';
         return $button->show();
     }
@@ -584,9 +597,8 @@ class buildcanvas extends object
      * @access private
      *
      */
-    private function getMiddleButton()
-    {
-        $button = new button ('addmiddleblock', $this->objLanguage->languageText('mod_prelogin_addblock', 'system', 'Add Block'));
+    private function getMiddleButton() {
+        $button = new button('addmiddleblock', $this->objLanguage->languageText('mod_prelogin_addblock', 'system', 'Add Block'));
         $button->cssId = 'middlebutton';
         return $button->show();
     }
@@ -599,19 +611,17 @@ class buildcanvas extends object
      * @access private
      *
      */
-    private function getEditOnButton()
-    {
-        if ($this->isOwner ==  TRUE) {
+    private function getEditOnButton() {
+        if ($this->isOwner == TRUE) {
             $value = $this->objLanguage->languageText(
-              'mod_context_turneditingon', 'context', 
-              'Turn Editing On');
+                    'mod_context_turneditingon', 'context', 'Turn Editing On');
             $edBut = $this->getSwitchButton($value);
-            return '<div id="editmode">'. $edBut .'</div>';
+            return '<div id="editmode">' . $edBut . '</div>';
         } else {
             return NULL;
         }
     }
-    
+
     /**
      *
      * Create the turn editing on/off button
@@ -621,11 +631,10 @@ class buildcanvas extends object
      * @access Public
      * 
      */
-    public function getSwitchButton($value)
-    {
+    public function getSwitchButton($value) {
         $ret = '<div id="modeswitch_wrapper" class="editing_off">'
-          . '<a href="javascript:void(null);" onclick="switchEditMode();"'
-          . ' id="editmodeswitchbutton">' . $value .'</a></div>';
+                . '<a href="javascript:void(null);" onclick="switchEditMode();"'
+                . ' id="editmodeswitchbutton">' . $value . '</a></div>';
         return $ret;
     }
 
@@ -637,8 +646,7 @@ class buildcanvas extends object
      * @access private
      * 
      */
-    private function getScriptValues()
-    {
+    private function getScriptValues() {
         // Guess the module we are in
         $objGuess = $this->getObject('bestguess', 'utilities');
         $curMod = $objGuess->identifyModule();
@@ -670,10 +678,10 @@ class buildcanvas extends object
      * @access private
      *
      */
-    private function getContextBlocksJs()
-    {
+    private function getContextBlocksJs() {
         return $this->getJavaScriptFile('canvasblocks.js', 'canvas');
     }
 
 }
+
 ?>
