@@ -1,18 +1,18 @@
 <?php
+
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']){
+if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 
 /**
-* Class for retrieving the block information for display on the prelogin page
-*
-* @author Nic Appleby
-* @copyright GNU/GPL 2006 UWC
-* @version $Id
-* @package splashscreen
-*/
-
+ * Class for retrieving the block information for display on the prelogin page
+ *
+ * @author Nic Appleby
+ * @copyright GNU/GPL 2006 UWC
+ * @version $Id
+ * @package splashscreen
+ */
 class preloginBlocks extends dbTable {
 
     public $objUser;
@@ -26,7 +26,7 @@ class preloginBlocks extends dbTable {
     public function init() {
         try {
             parent::init('tbl_prelogin_blocks');
-            $this->objUser = $this->getObject('user','security');
+            $this->objUser = $this->getObject('user', 'security');
             if ($this->dbType == "pgsql") {
                 $this->TRUE = 't';
                 $this->FALSE = 'f';
@@ -74,20 +74,19 @@ class preloginBlocks extends dbTable {
      * @param boolean $vis the visibility of the block
      * @return TRUE|error
      */
-    public function updateVisibility($id,$vis) {
+    public function updateVisibility($id, $vis) {
         try {
-            return $this->update('id',$id,array('visible'=>$vis,'datelastupdated'=>$this->now(),'updatedby'=>$this->objUser->userId()));
+            return $this->update('id', $id, array('visible' => $vis, 'datelastupdated' => $this->now(), 'updatedby' => $this->objUser->userId()));
         } catch (customException $e) {
             customException::cleanUp();
         }
     }
 
     /**
-    * Function to get the next available position on a navbar
-    * @param boolean $left left or right navbar
-    * @return int the next available position
-    **/
-
+     * Function to get the next available position on a navbar
+     * @param boolean $left left or right navbar
+     * @return int the next available position
+     * */
     private function getNextPos($column) {
         try {
             $ret = $this->getArray("SELECT MAX(position) FROM tbl_prelogin_blocks WHERE side = '{$column}'");
@@ -125,65 +124,105 @@ class preloginBlocks extends dbTable {
      * @param array $arrData the data that has changed
      * @return TRUE|error
      */
-    public function updateBlock($id,$arrData) {
+    public function updateBlock($id, $arrData) {
         try {
             $arrData['visible'] = $this->TRUE;
             $arrData['datelastupdated'] = $this->now();
             $arrData['updatedby'] = $this->objUser->userId();
-            return $this->update('id',$id,$arrData);
+            return $this->update('id', $id, $arrData);
         } catch (customException $e) {
             customException::cleanUp();
         }
     }
 
     /**
-    * Fuction to move a record up in the list by swapping the position value with the record above
-    * @param string $id the id of the record to move
-    */
+     * Method to show a Block
+     *
+     * @param str $id Record Id of the Block
+     * @return str Block
+     */
+    public function getBlock($id) {
+        $block = $this->getRow('id', $id);
+        if ($block == FALSE) {
+            return FALSE;
+        } else {
+            return $block;
+        }
+    }
 
+    /**
+     * Method to update a record in the table - specific to content blocks
+     *
+     * @param string $id the id of the record in question
+     * @param array $arrData the data that has changed
+     * @return TRUE|error
+     */
+    public function updateContentBlock($id, $arrData) {
+        try {
+            $blockData = $this->getBlock($id);
+            if ($blockData) {                
+                $arrData['datelastupdated'] = $this->now();
+                $arrData['updatedby'] = $this->objUser->userId();
+                return $this->update('id', $id, $arrData);
+            } else {
+                $arrData['id'] = $id;
+                $arrData['datelastupdated'] = $this->now();
+                $arrData['updatedby'] = $this->objUser->userId();
+                $arrData['position'] = $this->getNextPos($arrData['side']);
+                return $this->insert($arrData);
+            }
+        } catch (customException $e) {
+            customException::cleanUp();
+        }
+    }
+
+    /**
+     * Fuction to move a record up in the list by swapping the position value with the record above
+     * @param string $id the id of the record to move
+     */
     function moveRecUp($id) {
         try {
-            $rec = $this->getRow('id',$id);
+            $rec = $this->getRow('id', $id);
             if ($rec['position'] > 1) {
                 $sql = "SELECT MAX(position) AS above FROM tbl_prelogin_blocks WHERE side = '{$rec['side']}' AND position < '{$rec['position']}'";
                 $pPos = $this->getArray($sql);
                 $pPos = current($pPos);
-                if ($pPos['above']!=null) {
+                if ($pPos['above'] != null) {
                     $previous = $this->getAll("WHERE side = '{$rec['side']}' AND position = '{$pPos['above']}'");
                     $previous = current($previous);
                     $previous['position'] = $rec['position'];
                     $rec['position'] = $pPos['above'];
-                    $this->update('id',$id,$rec);
-                    $this->update('id',$previous['id'],$previous);
+                    $this->update('id', $id, $rec);
+                    $this->update('id', $previous['id'], $previous);
                 }
-
-            }
-        } catch (customException $e) {
-                customException::cleanUp();
-            }
-    }
-
-    /**
-    * Fuction to move a record down in the list by swapping the position value with the record below
-    * @param string $id the id of the record to move
-    */
-
-    function moveRecDown($id) {
-        try {
-            $rec = $this->getRow('id',$id);
-            $pPos = $this->getArray("SELECT min(position) AS below FROM tbl_prelogin_blocks WHERE side = '{$rec['side']}' AND position > '{$rec['position']}'");
-            $pPos = current($pPos);
-            if ($pPos['below']!=null) {
-                $next = $this->getAll("WHERE side = '{$rec['side']}' AND position = '{$pPos['below']}'");
-                $next = current($next);
-                $next['position'] = $rec['position'];
-                $rec['position'] = $pPos['below'];
-                $this->update('id',$id,$rec);
-                $this->update('id',$next['id'],$next);
             }
         } catch (customException $e) {
             customException::cleanUp();
         }
     }
+
+    /**
+     * Fuction to move a record down in the list by swapping the position value with the record below
+     * @param string $id the id of the record to move
+     */
+    function moveRecDown($id) {
+        try {
+            $rec = $this->getRow('id', $id);
+            $pPos = $this->getArray("SELECT min(position) AS below FROM tbl_prelogin_blocks WHERE side = '{$rec['side']}' AND position > '{$rec['position']}'");
+            $pPos = current($pPos);
+            if ($pPos['below'] != null) {
+                $next = $this->getAll("WHERE side = '{$rec['side']}' AND position = '{$pPos['below']}'");
+                $next = current($next);
+                $next['position'] = $rec['position'];
+                $rec['position'] = $pPos['below'];
+                $this->update('id', $id, $rec);
+                $this->update('id', $next['id'], $next);
+            }
+        } catch (customException $e) {
+            customException::cleanUp();
+        }
+    }
+
 }
+
 ?>

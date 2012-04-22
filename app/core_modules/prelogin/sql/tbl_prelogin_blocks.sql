@@ -10,7 +10,7 @@ $options = array('comment' => 'This table holds data pertaining to the prelogin 
 $fields = array(
     'id' => array(
         'type' => 'text',
-        'length' => 32
+        'length' => 35
         ),
     'title' => array(
         'type' => 'text',
