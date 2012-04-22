@@ -1,49 +1,52 @@
 <?php
-/*Template for prelogin*/
 
-/************ LEFT COLUMN **************/
+/* Template for prelogin */
+
+/* * ********** LEFT COLUMN ************* */
 $leftContent = NULL;
 $leftBlocks = $this->objPLBlocks->getVisibleBlocks('left');
 if (isset($leftBlocks)) {
     if (is_array($leftBlocks)) {
         foreach ($leftBlocks as $block) {
-            if ($block['isblock']== $this->TRUE) {
-                    $leftContent .= $this->objBlocks->showBlock($block['blockname'], $block['blockmodule']);
+            if ($block['isblock'] == $this->TRUE) {
+                $leftContent .= $this->objBlocks->showBlock($block['blockname'], $block['blockmodule']);
             } else {
                 $objFeatureBox = &$this->newObject('featurebox', 'navigation');
-                $leftContent .= $objFeatureBox->show($block['title'], html_entity_decode($block['content'],ENT_QUOTES));
+                $leftContent .= $objFeatureBox->show($block['title'], html_entity_decode($block['content'], ENT_QUOTES));
             }
         }
     }
 }
 
-/************ MIDDLE COLUMN **************/
+/* * ********** MIDDLE COLUMN ************* */
 $middleContent = NULL;
 $middleBlocks = $this->objPLBlocks->getVisibleBlocks('middle');
 if (isset($middleBlocks)) {
     if (is_array($middleBlocks)) {
         foreach ($middleBlocks as $block) {
-            if ($block['isblock']==$this->TRUE) {
-                    $middleContent .= $this->objBlocks->showBlock($block['blockname'], $block['blockmodule'],'none');
+            if ($block['isblock'] == $this->TRUE) {
+                $middleContent .= $this->objBlocks->showBlock($block['blockname'], $block['blockmodule'], 'none');
             } else {
-                $midContent = html_entity_decode($block['content'],ENT_QUOTES);
-                $middleContent .= "<h3>{$block['title']}</h3>$midContent";
+                $midContent = html_entity_decode($block['content'], ENT_QUOTES);
+                //$middleContent .= "<h3>{$block['title']}</h3>$midContent";
+                $middleContent .= '<div class="currentstory"><div class="storytitle"><h3>'.
+                $block['title'].'</h3></div><div class="abstract">' . $midContent . '</div></div>';
             }
         }
     }
 }
 
-/************ RIGHT COLUMN **************/
-$rightContent =NULL;
+/* * ********** RIGHT COLUMN ************* */
+$rightContent = NULL;
 $rightBlocks = $this->objPLBlocks->getVisibleBlocks('right');
 if (isset($rightBlocks)) {
     if (is_array($rightBlocks)) {
         foreach ($rightBlocks as $block) {
-            if ($block['isblock']==$this->TRUE) {
-                    $rightContent .= $this->objBlocks->showBlock($block['blockname'], $block['blockmodule']);
+            if ($block['isblock'] == $this->TRUE) {
+                $rightContent .= $this->objBlocks->showBlock($block['blockname'], $block['blockmodule']);
             } else {
                 $objFeatureBox = &$this->newObject('featurebox', 'navigation');
-                $rightContent .= $objFeatureBox->show($block['title'], html_entity_decode($block['content'],ENT_QUOTES));
+                $rightContent .= $objFeatureBox->show($block['title'], html_entity_decode($block['content'], ENT_QUOTES));
             }
         }
     }
@@ -57,5 +60,4 @@ $cssLayout->setMiddleColumnContent($middleContent);
 $cssLayout->setRightColumnContent($rightContent);
 
 echo $cssLayout->show();
-
 ?>
