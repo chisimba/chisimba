@@ -94,6 +94,49 @@ class folderaccess extends object {
     }
 
     /**
+     * Creates  form that allows user to enable/disable alerts on folder changes.
+     * These alerts include adding/deleting/renaming and generally any changes on
+     * the file/folder
+     * @param type $id
+     * @return type 
+     */
+    function createAlertsForm($id) {
+        $dbFolder = $this->getObject("dbfolder", "filemanager");
+        $folder = $dbFolder->getFolder($id);
+
+        //mod_filemanager_alertchangesonfolder
+
+        $form = new form('accessform', $this->uri(array('action' => 'setfolderalerts')));
+        $legend = $this->objLanguage->languageText('mod_filemanager_alerts', 'filemanager');
+
+        $objElement = new checkbox('alerts', $this->objLanguage->languageText('mod_filemanager_alertchangesonfolder', 'filemanager'), false);
+       
+        $alertVal = null;
+
+        if (key_exists("alerts", $folder)) {
+            $alertVal = $folder['alerts'];
+        }
+        $alerts = $alertVal == NULL ? false : $folder['alerts'] == 'y'? true:false;
+        $objElement->setChecked($alerts);
+
+
+        $applyButton = new button('apply', $this->objLanguage->languageText('mod_filemanager_apply', 'filemanager'));
+        $applyButton->setToSubmit();
+
+
+
+        $fieldset = new fieldset();
+        $fieldset->setLegend($legend);
+        $fieldset->addContent($objElement->show() .'<br/>'. $applyButton->show());
+
+        $hiddeninput = new hiddeninput('id', $id);
+        $form->addToForm($hiddeninput->show());
+
+        $form->addToForm($fieldset->show());
+        return $form->show();
+    }
+
+    /**
      * this creates a form that allows a user to set the access control on
      * a folder/ file 
      */
@@ -113,19 +156,20 @@ class folderaccess extends object {
         $access = $file['access'] == NULL ? 'public' : $file['access'];
         $objElement->setSelected($access);
 
-        $fieldset = new fieldset();
-        $fieldset->setLegend($legend);
-        $fieldset->addContent($objElement->show());
 
         $applyButton = new button('apply', $this->objLanguage->languageText('mod_filemanager_apply', 'filemanager'));
         $applyButton->setToSubmit();
+
+        $fieldset = new fieldset();
+        $fieldset->setLegend($legend);
+        $fieldset->addContent($objElement->show() . '<br/>' . $applyButton->show());
+
 
 
         $hiddeninput = new hiddeninput('id', $id);
         $form->addToForm($hiddeninput->show());
 
         $form->addToForm($fieldset->show());
-        $form->addToForm($applyButton->show()); // . '&nbsp;' . $buttonCancel->show());
         return $form->show();
     }
 
@@ -149,19 +193,33 @@ class folderaccess extends object {
         $access = $file['visibility'] == NULL ? 'visible' : $file['visibility'];
         $objElement->setSelected($access);
 
-        $fieldset = new fieldset();
-        $fieldset->setLegend($legend);
-        $fieldset->addContent($objElement->show());
-
         $applyButton = new button('apply', $this->objLanguage->languageText('mod_filemanager_apply', 'filemanager'));
         $applyButton->setToSubmit();
+
+
+        $fieldset = new fieldset();
+        $fieldset->setLegend($legend);
+        $fieldset->addContent($objElement->show() . '<br/>' . $applyButton->show());
+
 
         $hiddeninput = new hiddeninput('id', $id);
         $form->addToForm($hiddeninput->show());
 
         $form->addToForm($fieldset->show());
-        $form->addToForm($applyButton->show()); // . '&nbsp;' . $buttonCancel->show());
-        return $form->show();
+
+        $content = $form->show();
+        $objModule = $this->getObject('modules', 'modulecatalogue');
+        //See if the simple map module is registered and set a param
+        $isRegistered = $objModule->checkIfRegistered('digitallibrary');
+        if ($isRegistered) {
+            $dlfieldset = new fieldset();
+            $dlfieldset->setLegend("Link to digital library");
+            $link = new link($this->uri(array("action" => "linkfromfilemanager", "fileid" => $id), "digitallibrary"));
+            $link->link = "<strong>Link this file</>";
+            $dlfieldset->addContent($link->show());
+            $content.=$dlfieldset->show();
+        }
+        return $content;
     }
 
     /**
@@ -203,6 +261,16 @@ class folderaccess extends object {
                 rename($sourceFilePathFull, $destFilePathFull);
             }
         }
+    }
+
+    /**
+     * sets the alerts status on the selected folder
+     * @param type $folderId
+     * @param type $alertStatus 
+     */
+    public function setfFolderAlerts($folderId, $alertStatus) {
+        $dbFolder = $this->getObject("dbfolder", "filemanager");
+        $dbFolder->setFolderAlerts($folderId, $alertStatus);
     }
 
     /**

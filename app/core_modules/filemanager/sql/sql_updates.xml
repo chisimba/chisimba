@@ -66,4 +66,35 @@
             </add>
         </data>
     </update>
-</updates>
+
+
+     <update>
+        <table>tbl_files</table>
+        <version>1.052</version>
+        <description>added column for digitallibrary</description>
+        <data>
+            <add>
+                <name>digitallibrary</name>
+                <type>text</type>
+                <length>1</length>
+            </add>
+        </data>
+    </update>
+    
+    
+     <update>
+        <table>tbl_files_folders</table>
+        <version>1.052</version>
+        <description>added column for alerts</description>
+        <data>
+            <add>
+                <name>alerts</name>
+                <type>text</type>
+                <length>1</length>
+            </add>
+        </data>
+    </update>
+    
+    
+    
+    </updates>

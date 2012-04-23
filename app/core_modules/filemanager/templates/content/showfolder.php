@@ -161,24 +161,26 @@ if ($folder['folderlevel'] != 2 && $folderPermission) {
     $form->addToForm($label->show() . $textinput->show());
     $buttonSubmit = new button('renamefoldersubmit', $this->objLanguage->languageText('mod_filemanager_renamefolder', 'filemanager'));
     $buttonSubmit->setToSubmit();
-    $form->addToForm('&nbsp;' . $buttonSubmit->show().'<br/><div class="warning">'.$this->objLanguage->languageText('mod_filemanager_renamewarning','filemanager').'</div>');// . '&nbsp;' . $buttonCancel->show());
-    
-    
+    $form->addToForm('&nbsp;' . $buttonSubmit->show() . '<br/><div class="warning">' . $this->objLanguage->languageText('mod_filemanager_renamewarning', 'filemanager') . '</div>'); // . '&nbsp;' . $buttonCancel->show());
+
+
     $fieldset = new fieldset();
     $fieldset->setLegend($this->objLanguage->languageText('mod_filemanager_renamefolder', 'filemanager'));
     //$folderId
     $fieldset->addContent($form->show());
-    
+
     $folderActions.= '<span id="renamefolder" style="display: xnone;">' . $fieldset->show() . '<br /></span>';
     $objAccess = $this->getObject("folderaccess", "filemanager");
     $accessContent = $objAccess->createAccessControlForm($folder['id']);
-    $folderActions.= '<span id="accessfolder" style="display: xnone;">' . $accessContent . '<br /></span>';
+    $folderActions.= '<span id="accessfolder" >' . $accessContent . '<br /></span>';
 
-   
-    
+    $alertContent = $objAccess->createAlertsForm($folder['id']);
+    $folderActions.= '<span id="alertsfolder" >' . $alertContent . '<br /></span>';
+
+
     $fieldset = new fieldset();
     $fieldset->setLegend($this->objLanguage->languageText('mod_filemanager_deletefolder', 'filemanager', 'Delete Folder'));
-    $fieldset->addContent( '<br/><div class="warning">'.$this->objLanguage->languageText('mod_filemanager_deletewarning','filemanager').'</div><br/>'.$icon);
+    $fieldset->addContent('<br/><div class="warning">' . $this->objLanguage->languageText('mod_filemanager_deletewarning', 'filemanager') . '</div><br/>' . $icon);
     $folderActions.=$fieldset->show();
 }
 

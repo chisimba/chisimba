@@ -56,6 +56,8 @@ class dbfiletags extends dbTable
         parent::init('tbl_files_filetags');
     }
     
+    
+    
     /**
     * Method to get the list of tags for a file
     *
@@ -69,6 +71,37 @@ class dbfiletags extends dbTable
     {
         // Get List of Tags for the files
         $tags = $this->getAll(' WHERE fileid=\''.$fileId.'\' ORDER BY tag');
+        
+        // Prepare return array
+        $results = array();
+        
+        // Check that item has tags
+        if (count($tags) > 0) {
+            // Loop through tags
+            foreach ($tags as $tag)
+            {
+                // Add tag to return array
+                $results[] = $tag['tag'];
+            }
+        }
+        
+        // Return results
+        return $results;
+    }
+    
+    /**
+    * Method to get the list of tags for all files
+    *
+    * This function does some processing to strip off all other database columns,
+    * and only return the list of tags as an array.
+    *
+    * @param  string $fileId Record Id of the File
+    * @return array  List of Tags
+    */
+    public function getAllFileTags()
+    {
+        // Get List of Tags for the files
+        $tags = $this->getAll(' ORDER BY tag');
         
         // Prepare return array
         $results = array();

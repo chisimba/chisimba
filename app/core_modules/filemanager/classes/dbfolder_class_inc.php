@@ -232,17 +232,17 @@ class dbfolder extends dbTable {
         if (count($folders) > 0) {
             foreach ($folders as $folder) {
                 $extTitle = '';
-                
-                $access=null;
-                if(key_exists("access", $folder)){
-                    $access=$folder['access'];
+
+                $access = null;
+                if (key_exists("access", $folder)) {
+                    $access = $folder['access'];
                 }
                 if ($access == 'private_all') {
                     $objIcon->setIcon('info');
                     $extTitle = $objIcon->show();
                 }
-                $folderText = basename($folder['folderpath']).$extTitle;
-                $folderShortText = substr(basename($folder['folderpath']), 0, 60) . '...'.$extTitle;
+                $folderText = basename($folder['folderpath']) . $extTitle;
+                $folderShortText = substr(basename($folder['folderpath']), 0, 60) . '...' . $extTitle;
 
                 if ($folder['id'] == $selected) {
                     $folderText = '<strong>' . $folderText . '</strong>';
@@ -665,7 +665,7 @@ class dbfolder extends dbTable {
         $label = new label('Create a subfolder in: ', 'input_parentfolder');
 
 
-        $form->addToForm($label->show() .'<br/>' .$this->getTree($folderParts[0], $folderParts[1], 'htmldropdown', $folderId));
+        $form->addToForm($label->show() . '<br/>' . $this->getTree($folderParts[0], $folderParts[1], 'htmldropdown', $folderId));
 
         // $objInputMasks = $this->getObject('inputmasks', 'htmlelements');
         // echo $objInputMasks->show();
@@ -675,7 +675,7 @@ class dbfolder extends dbTable {
 
         $label = new label('Name of Folder: ', 'input_foldername');
 
-        $form->addToForm('<br/>' . $label->show() .'<br/>'. $textinput->show().'&nbsp;');
+        $form->addToForm('<br/>' . $label->show() . '<br/>' . $textinput->show() . '&nbsp;');
 
         $button = new button('create', 'Create Folder');
         $button->setToSubmit();
@@ -983,6 +983,16 @@ class dbfolder extends dbTable {
      */
     function setFolderVisibility($folderId, $access) {
         $this->update("id", $folderId, array("visibility" => $access));
+    }
+
+    /**
+     *Updates this folder with the alerts status. A value of y implies any changes
+     * to the folder alerts users who have access
+     * @param type $folderId
+     * @param type $alertStatus 
+     */
+    function setFolderAlerts($folderId, $alertStatus) {
+        $this->update("id", $folderId, array("alerts" => $alertStatus));
     }
 
 }

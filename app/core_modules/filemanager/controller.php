@@ -977,6 +977,7 @@ class filemanager extends controller {
      */
     private function __createfolder() {
         $parentId = $this->getParam('parentfolder', 'ROOT');
+        
         $foldername = $this->getParam('foldername');
 
         // If no folder name is given, res
@@ -1528,11 +1529,23 @@ function checkWindowOpener()
      * @return type 
      */
     function __setfilevisibility() {
-        $dbFile= $this->getObject("dbfile", "filemanager");
+        $dbFile = $this->getObject("dbfile", "filemanager");
         $access = $this->getParam("access_radio");
         $fileId = $this->getParam("id");
         $dbFile->setFileVisibility($fileId, $access);
         return $this->nextAction("fileinfo", array("id" => $fileId));
+    }
+
+    /**
+     * Updates this folder with the alerts status. A value of y implies any changes
+     * to the folder alerts users who have access 
+     */
+    function __setfolderalerts() {
+        $alertStatus = $this->getParam('alerts') == 'on' ? 'y' : 'n';
+        $folderId = $this->getParam("id");
+        $dbFolder = $this->getObject("dbfolder", "filemanager");
+        $dbFolder->setFolderAlerts($folderId, $alertStatus);
+        return $this->nextAction("viewfolder", array("folder" => $folderId));
     }
 
     /**
