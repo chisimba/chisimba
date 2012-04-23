@@ -140,6 +140,7 @@ class coreloader extends object
      */
     public function init()
     {
+        $this->objConfig = $this->getObject('altconfig', 'config');
         $this->getUiDeps();
         $this->getPluginDeps();
         $this->setDefaultCoreVersion();
@@ -154,7 +155,7 @@ class coreloader extends object
      */
     private function getUiDeps()
     {
-        $xmlFile = $this->getResourceUri('ui_dependencies.xml');
+        $xmlFile = $this->getResourcePath('ui_dependencies.xml', 'jquerycore');
         $objDeps = simplexml_load_file($xmlFile);
         if ($objDeps)
         {
@@ -171,7 +172,7 @@ class coreloader extends object
      */
     private function getPluginDeps()
     {
-        $xmlFile = $this->getResourceUri('plugin_dependencies.xml');
+        $xmlFile = $this->getResourcePath('plugin_dependencies.xml', 'jquerycore');
         $objDeps = simplexml_load_file($xmlFile);
         if ($objDeps)
         {
@@ -193,7 +194,8 @@ class coreloader extends object
      */
     public function setDefaultCoreVersion()
     {
-        $path = 'core_modules/jquerycore/resources/core/';
+        $path = $this->objConfig->getsiteRootPath();
+        $path .= 'core_modules/jquerycore/resources/core/';
         if (is_dir($path))
         {
             if ($dh = opendir($path))
@@ -280,7 +282,8 @@ class coreloader extends object
      */
     public function setTheme($theme)
     {
-        $path = 'core_modules/jquerycore/resources/ui/themes/';
+        $path = $this->objConfig->getsiteRootPath();
+        $path .= 'core_modules/jquerycore/resources/ui/themes/';
 
         if (!empty($theme) && is_string($theme))
         {
