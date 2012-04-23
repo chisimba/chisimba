@@ -718,7 +718,10 @@ class catalogueconfig extends object {
             {
                 unset($lskin);
             }
-            $skinner[] = $lskin;
+            if (!empty($lskin))
+            {
+                $skinner[] = $lskin;
+            }
         }
         if(empty($skinner))
         {
