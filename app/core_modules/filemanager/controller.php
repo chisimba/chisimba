@@ -695,6 +695,28 @@ class filemanager extends controller {
 //        $messages = $this->objUploadMessages->processMessageUrl($results);
         //      $messages['folder'] = $this->getParam('folder');
         //      return $this->nextAction('uploadresults', $messages);
+
+        if ($folder != null) {
+
+            $alertVal = null;
+
+            if (key_exists("alerts", $folder)) {
+                $alertVal = $folder['alerts'];
+            }
+
+            if ($alertVal == 'y') {
+                $objContext = $this->getObject('dbcontext', 'context');
+                $emailUtils = $this->getObject("emailutils", "filemanager");
+                $folderParts = explode('/', $folder['folderpath']);
+
+                if ($folderParts[0] == 'context') {
+                    $contextcode = $folderParts[1];
+                    $context = $objContext->getContext($contextcode);
+
+                    $emailUtils->sendFileEmailAlert($folder['id'], $contextcode, $context['title']);
+                }
+            }
+        }
         return $this->nextAction('viewfolder', array("folder" => $folder['id']));
     }
 
@@ -1022,17 +1044,17 @@ class filemanager extends controller {
                 if (key_exists("alerts", $parentFolder)) {
                     $alertVal = $folder['alerts'];
                 }
-               
+
                 if ($alertVal == 'y') {
                     $objContext = $this->getObject('dbcontext', 'context');
                     $emailUtils = $this->getObject("emailutils", "filemanager");
                     $folderParts = explode('/', $parentFolder['folderpath']);
-                    
+
                     if ($folderParts[0] == 'context') {
                         $contextcode = $folderParts[1];
                         $context = $objContext->getContext($contextcode);
-                        
-                        $emailUtils->sendEmailAlert($parentFolder['id'], $contextcode, $context['title']);
+
+                        $emailUtils->sendFolderEmailAlert($folderId, $contextcode, $context['title']);
                     }
                 }
             }

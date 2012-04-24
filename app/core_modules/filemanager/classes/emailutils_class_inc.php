@@ -34,7 +34,7 @@ class emailutils extends object {
         $this->objManageGroups = $this->getObject('managegroups', 'contextgroups');
     }
 
-    function sendEmailAlert($folderid, $contextcode, $title) {
+    function sendFolderEmailAlert($folderid, $contextcode, $title) {
 
         $students = $this->objManageGroups->contextUsers('Students', $contextcode, array('tbl_users.userId', 'email', 'firstName', 'surname'));
         $lecturers = $this->objManageGroups->contextUsers('Lecturers', $contextcode, array('tbl_users.userId', 'email', 'firstName', 'surname'));
@@ -70,6 +70,41 @@ class emailutils extends object {
         }
     }
 
+    function sendFileEmailAlert($fileid, $contextcode, $title) {
+
+        $students = $this->objManageGroups->contextUsers('Students', $contextcode, array('tbl_users.userId', 'email', 'firstName', 'surname'));
+        $lecturers = $this->objManageGroups->contextUsers('Lecturers', $contextcode, array('tbl_users.userId', 'email', 'firstName', 'surname'));
+        $allusers = array();
+        $allusers = array_merge($students, $lecturers);
+
+        $subject = $this->objSysConfig->getValue('FILECREATE_ALERT_SUB', 'filemanager');
+        $subject = str_replace("{course}", $title, $subject);
+        $objMailer = $this->getObject('email', 'mail');
+        $objWashout = $this->getObject('washout', 'utilities');
+
+        foreach ($allusers as $user) {
+
+            $body = $this->objSysConfig->getValue('FILECREATE_ALERT_BDY', 'filemanager');
+            $body = $objWashout->parseText($body);
+
+            $linkUrl = $this->uri(array('action' => 'viewfolder', 'folder' => $fileid));
+
+            $linkUrl = str_replace("amp;", "", $linkUrl);
+            $body = str_replace("{link}", $linkUrl, $body);
+
+            $body = str_replace("{firstname}", $user['firstname'], $body);
+            $body = str_replace("{lastname}", $user['surname'], $body);
+            $body = str_replace("{course}", "'" . $title . "'", $body);
+            $body = str_replace("{instructor}", $this->objUser->getTitle() . '. ' . $this->objUser->fullname() . ',', $body);
+            $objMailer->setValue('to', array($user['emailaddress']));
+            $objMailer->setValue('from', $this->objUser->email());
+            $objMailer->setValue('fromName', $this->objUser->fullname());
+            $objMailer->setValue('subject', $subject);
+            $objMailer->setValue('body', strip_tags($body));
+            $objMailer->setValue('AltBody', strip_tags($body));
+            $objMailer->send();
+        }
+      }
 }
 
 ?>
