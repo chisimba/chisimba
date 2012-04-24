@@ -1,4 +1,5 @@
 <?php
+
 /**
  * groupAdminModel class
  *
@@ -32,12 +33,12 @@
  */
 // security check - must be included in all scripts
 if (!
-/**
- * Description for $GLOBALS
- * @global unknown $GLOBALS['kewl_entry_point_run']
- * @name   $kewl_entry_point_run
- */
-$GLOBALS['kewl_entry_point_run']) {
+        /**
+         * Description for $GLOBALS
+         * @global unknown $GLOBALS['kewl_entry_point_run']
+         * @name   $kewl_entry_point_run
+         */
+        $GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 
@@ -72,7 +73,7 @@ $GLOBALS['kewl_entry_point_run']) {
  *   isSubGroupMember  - To test if the user is a member of the direct and subgroups.
  * Users table
  *   getUsers          - To get all the users.
- *</PRE>
+ * </PRE>
  *
  * @copyright  (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
  * @package    groupadmin
@@ -82,7 +83,6 @@ $GLOBALS['kewl_entry_point_run']) {
  * @author     Paul Scott based on methods by Jonathan Abrahams
  * @filesource
  */
-
 class groupAdminModel extends dbTable {
 
     /**
@@ -125,9 +125,7 @@ class groupAdminModel extends dbTable {
      * @param  string       $parentId    the unique id of this groups immediate ancestor.( optional default is null=root )
      * @return string|false the newly generated unique id for this group if successful, otherwise false.
      */
-
-
-    public function addGroup( $name,  $description = NULL, $parentId = null ) {
+    public function addGroup($name, $description = NULL, $parentId = null) {
         $data = array('group_define_name' => $name, 'group_type' => LIVEUSER_GROUP_TYPE_ALL);
         $groupId = $this->objLuAdmin->perm->addGroup($data);
         return $groupId;
@@ -136,16 +134,15 @@ class groupAdminModel extends dbTable {
     public function addSubGroups($contextCode, $contextGroupId) {
         // create the subgroups first
         $grps = array("Lecturers", "Students", "Guest");
-        foreach($grps as $grp) {
-            $grpid = $this->addGroup($contextCode."^".$grp);
+        foreach ($grps as $grp) {
+            $grpid = $this->addGroup($contextCode . "^" . $grp);
             // then add them as subGroups of the parent Group.
             $data = array(
-                    'group_id' => $contextGroupId,
-                    'subgroup_id' => $grpid
+                'group_id' => $contextGroupId,
+                'subgroup_id' => $grpid
             );
             $assign = $this->objLuAdmin->perm->assignSubGroup($data);
         }
-
     }
 
     /**
@@ -156,7 +153,7 @@ class groupAdminModel extends dbTable {
      * @param  string     $groupId The unique ID of an existing group.
      * @return boolean    true if successful, otherwise false.
      */
-    public function deleteGroup( $groupId ) {
+    public function deleteGroup($groupId) {
         $filters = array('group_id' => $groupId);
         $removed = $this->objLuAdmin->perm->removeGroup($filters);
         if ($removed === false) {
@@ -174,14 +171,13 @@ class groupAdminModel extends dbTable {
      * @param  string      $filter ( optional ) a SQL WHERE clause.
      * @return array|false Group rows as an array of associate arrays, or FALSE on failure
      */
-    public function getGroups( $filter = NULL) {
-        if(isset($filter) && !empty($filter)) {
+    public function getGroups($filter = NULL) {
+        if (isset($filter) && !empty($filter)) {
             $sql = "SELECT group_define_name, group_id FROM tbl_perms_groups $filter";
             parent::init('tbl_perms_groups ');
-            $groups = $this->getArray($sql, 'tbl_perms_groups')  ;
+            $groups = $this->getArray($sql, 'tbl_perms_groups');
             return $groups;
-        }
-        else {
+        } else {
             $groups = $this->objLuAdmin->perm->getGroups();
         }
         if ($groups === false) {
@@ -202,8 +198,8 @@ class groupAdminModel extends dbTable {
      * @param  string The unique ID of an existing group.
      * @return array  the list of all groups to root excluding the given group.
      */
-    public function getGroupsToRoot( $groupId ) {
-
+    public function getGroupsToRoot($groupId) {
+        
     }
 
     /**
@@ -214,7 +210,7 @@ class groupAdminModel extends dbTable {
      * @param  string The unique ID of an existing group.
      * @return string the group description.
      */
-    public function getDescription( $groupId ) {
+    public function getDescription($groupId) {
         return NULL;
     }
 
@@ -224,22 +220,22 @@ class groupAdminModel extends dbTable {
      * Returns the groupId of the last group name in the array with the path.
      * The path must start at the root down to the group needed, if not found
      * null is returned.
-     *<PRE>
+     * <PRE>
      * Example: getLeafId( array( 'myContext', 'Lectures' );
      * Returns: the Id for the Lecturers group for the context myContext.
-     *</PRE>
+     * </PRE>
      * to identify the row.
      *
      * @access public
      * @param  array       $arrPath an array with the path to the leaf group.
      * @return string|null returns the groupId if successful, otherwise null.
      */
-    public function getLeafId( $arrPath ) {
+    public function getLeafId($arrPath) {
         $groupId = $this->getId($arrPath[0]);
         //var_dump($groupId);
-        if(array_key_exists(1, $arrPath)) {
+        if (array_key_exists(1, $arrPath)) {
             //$subGroups = $this->getSubgroups($groupId);
-            $groupId = $this->getId($arrPath[0].'^'.$arrPath[1]);
+            $groupId = $this->getId($arrPath[0] . '^' . $arrPath[1]);
         }
 
         return $groupId;
@@ -256,12 +252,11 @@ class groupAdminModel extends dbTable {
      * @param  string $pkField the field to find the value( optional default is group name ).
      * @return string the unique id
      */
-    public function getId( $name = 'name' ) {
+    public function getId($name = 'name') {
         $groups = $this->objLuAdmin->perm->getGroups(array('filters' => array('group_define_name' => $name)));
-        if(empty($groups) || !isset($groups[0])) {
+        if (empty($groups) || !isset($groups[0])) {
             return NULL;
-        }
-        else {
+        } else {
             return $groups[0]['group_id'];
         }
     }
@@ -275,7 +270,7 @@ class groupAdminModel extends dbTable {
      * @param  string The unique ID of an existing group.
      * @return string the groups full path.
      */
-    public function getFullPath( $groupId ) {
+    public function getFullPath($groupId) {
         return NULL;
     }
 
@@ -288,12 +283,11 @@ class groupAdminModel extends dbTable {
      * @param  string The unique ID of an existing group.
      * @return string the group name
      */
-    public function getName( $groupId ) {
+    public function getName($groupId) {
         $groups = $this->objLuAdmin->perm->getGroups(array('filters' => array('group_id' => $groupId)));
-        if(empty($groups) || !isset($groups[0])) {
+        if (empty($groups) || !isset($groups[0])) {
             return NULL;
-        }
-        else {
+        } else {
             return $groups[0]['group_define_name'];
         }
     }
@@ -307,23 +301,22 @@ class groupAdminModel extends dbTable {
      * @param  string The unique ID of an existing group.
      * @return array  the list of all subgroups inclusive of given group.
      */
-    public function getSubgroups( $groupId ) {
+    public function getSubgroups($groupId) {
         $subgroups = FALSE;
         $groups = $this->objLuAdmin->perm->getGroups(
                 array(
-                'select' => 'all',
-                'rekey' => true,
-                'filters' => array('group_id' => $groupId),
-                'hierarchy' => true,
+                    'select' => 'all',
+                    'rekey' => true,
+                    'filters' => array('group_id' => $groupId),
+                    'hierarchy' => true,
                 )
         );
 
 
         foreach ($groups as $grps) {
-            if(array_key_exists('subgroups', $grps)) {
+            if (array_key_exists('subgroups', $grps)) {
                 $subgroups[] = $grps['subgroups'];
-            }
-            else {
+            } else {
                 $subgroups = NULL;
             }
         }
@@ -333,12 +326,12 @@ class groupAdminModel extends dbTable {
 
     public function getTopLevelGroups($filters = null) {
 
-        if($filters == null) {
+        if ($filters == null) {
             $params = array(
-                    'select' => 'all',
-                    'rekey' => true,
-                    'filters' => array(),
-                    'hierarchy' => true,
+                'select' => 'all',
+                'rekey' => true,
+                'filters' => array(),
+                'hierarchy' => true,
             );
             $hasFilters = "";
         } else {
@@ -348,33 +341,32 @@ class groupAdminModel extends dbTable {
             $params['hierarchy'] = true;
             $params['select'] = 'all';
 
-            if(!empty($filters['limit'])) {
+            if (!empty($filters['limit'])) {
                 $params['limit'] = $filters['limit'];
-                $lim = ' ,'.$filters['limit'];
+                $lim = ' ,' . $filters['limit'];
             } else {
-
+                
             }
 
-            if(!empty($filters['offset'])) {
+            if (!empty($filters['offset'])) {
                 $params['offset'] = $filters['offset'];
-                $off = ' LIMIT '.$filters['offset'];
+                $off = ' LIMIT ' . $filters['offset'];
             } else {
                 $off = ' LIMIT 0';
             }
 
-            if(empty($filters['offset']) && empty($filters['limit'])) {
+            if (empty($filters['offset']) && empty($filters['limit'])) {
                 $off = "";
                 $lim = "";
             }
 
-            if(!empty($filters['filter'])) {
-                $params['filters'] =array('group_define_name' => array('value' =>  $filters['filter'], 'op' => 'like'),
-                        'group_define_name' => array('value' =>  $filters['filter'].'^%', 'op' => 'not like'));
-                $fil = ' like "'.$filters['filter'].'"';
+            if (!empty($filters['filter'])) {
+                $params['filters'] = array('group_define_name' => array('value' => $filters['filter'], 'op' => 'like'),
+                    'group_define_name' => array('value' => $filters['filter'] . '^%', 'op' => 'not like'));
+                $fil = ' like "' . $filters['filter'] . '"';
             }
 
-            $hasFilters = "and group_define_name  " . $fil." ORDER by group_define_name ".$off.$lim ;
-
+            $hasFilters = "and group_define_name  " . $fil . " ORDER by group_define_name " . $off . $lim;
         }
 
         //@author Wesley Nitsckie
@@ -384,7 +376,7 @@ class groupAdminModel extends dbTable {
         //for now is to do a direct query to find the top level groups .ie
         //groups that dont contain the ^ character
         $sql = "SELECT group_define_name, group_id FROM tbl_perms_groups
-    				WHERE group_define_name not like '%^%'".
+    				WHERE group_define_name not like '%^%'" .
                 $hasFilters;
         //var_dump($sql);
         //$groups = $this->objLuAdmin->perm->getGroups($params);
@@ -395,17 +387,17 @@ class groupAdminModel extends dbTable {
         //please uncomment the code below if a better solution is
         //find other than direct sql
         /*
-      var_dump($groups);
-            var_dump($sql); die;
+          var_dump($groups);
+          var_dump($sql); die;
 
-        $grps = NULL;
-        foreach($groups as $grp) {
-            if(!array_key_exists(1, explode('^', $grp['group_define_name']))) {
-                $grps[] = $grp;
-            }
-        }
-        return $grps;
-        */
+          $grps = NULL;
+          foreach($groups as $grp) {
+          if(!array_key_exists(1, explode('^', $grp['group_define_name']))) {
+          $grps[] = $grp;
+          }
+          }
+          return $grps;
+         */
     }
 
     /**
@@ -418,7 +410,7 @@ class groupAdminModel extends dbTable {
      * @param  string     $newDescription the updated description for this group.
      * @return true|false true if successful, otherwise false.
      */
-    public function setDescription( $groupId, $newDescription ) {
+    public function setDescription($groupId, $newDescription) {
         return NULL;
     }
 
@@ -432,8 +424,8 @@ class groupAdminModel extends dbTable {
      * @param  string     $newName the updated name for this group.
      * @return true|false true if successful, otherwise false.
      */
-    public function setName( $groupId, $newName ) {
-
+    public function setName($groupId, $newName) {
+        
     }
 
     /**
@@ -446,7 +438,7 @@ class groupAdminModel extends dbTable {
      * @param  string The unique ID of an existing user. NB use PKid( userId ) method in user class
      * @return object
      */
-    public function addGroupUser( $groupId, $userId ) {
+    public function addGroupUser($groupId, $userId) {
         // add the user with perm_user_id $userId to group with $grpId
         $ret = $this->objLuAdmin->perm->addUserToGroup(array('perm_user_id' => $userId, 'group_id' => $groupId));
 
@@ -463,10 +455,10 @@ class groupAdminModel extends dbTable {
      * @param  string The unique ID of an existing user. NB use PKid( userId ) method in user class
      * @return true   |false TRUE on success, FALSE on failure
      */
-    public function deleteGroupUser( $groupId, $userId ) {
+    public function deleteGroupUser($groupId, $userId) {
         $filters = array(
-                'group_id' => $groupId,
-                'perm_user_id' => $userId,
+            'group_id' => $groupId,
+            'perm_user_id' => $userId,
         );
         $removed = $this->objLuAdmin->perm->removeUserFromGroup($filters);
 
@@ -484,17 +476,17 @@ class groupAdminModel extends dbTable {
      * @param  string      (   optional ) a SQL WHERE clause.
      * @return array|false The user rows as an array of associate arrays, or FALSE on failure
      */
-    public function getGroupUsers( $groupId, $fields = null, $filter = null ) {
+    public function getGroupUsers($groupId, $fields = null, $filter = null) {
         $params = array(
-                'filters' => array(
-                        'group_id' => $groupId,
-                )
+            'filters' => array(
+                'group_id' => $groupId,
+            )
         );
         $usersGroup = $this->objLuAdmin->perm->getUsers($params);
-        if($fields) {
+        if ($fields) {
             $objUser = $this->getObject('user', 'security');
             $newArr = array();
-            foreach($usersGroup as $user) {
+            foreach ($usersGroup as $user) {
                 $newArr[] = $objUser->getUserDetails($user['auth_user_id']);
             }
 
@@ -514,8 +506,8 @@ class groupAdminModel extends dbTable {
      * @param  string      (   optional ) a SQL WHERE clause.
      * @return array|false The user rows as an array of associate arrays, or FALSE on failure
      */
-    public function getNotGroupUsers( $groupId, $fields = null, $filter = null ) {
-
+    public function getNotGroupUsers($groupId, $fields = null, $filter = null) {
+        
     }
 
     /**
@@ -529,8 +521,8 @@ class groupAdminModel extends dbTable {
      * @param  string      (   optional ) a SQL WHERE clause.
      * @return array|false The user rows as an array of associate arrays, or FALSE on failure
      */
-    public function getSubGroupUsers( $groupId, $fields = null, $filter = null ) {
-
+    public function getSubGroupUsers($groupId, $fields = null, $filter = null) {
+        
     }
 
     /**
@@ -552,8 +544,8 @@ class groupAdminModel extends dbTable {
      * @param  string The unique ID of an existing user. NB use PKid( userId ) method in user class
      * @return array  The list of unique IDs for groups as an array.
      */
-    public function getUserDirectGroups( $userId ) {
-
+    public function getUserDirectGroups($userId) {
+        
     }
 
     /**
@@ -574,7 +566,7 @@ class groupAdminModel extends dbTable {
      * @param  string The unique ID of the user. NB use PKid( userId ) method in user class
      * @return array  The list of unique ID for groups as an array.
      */
-    public function getUserGroups( $userId ) {
+    public function getUserGroups($userId) {
         $permId = $this->getPermUserId($userId);
 
         parent::init('tbl_perms_groupusers ');
@@ -598,15 +590,15 @@ class groupAdminModel extends dbTable {
      * @param  string     The unique ID of the group.
      * @return true|false returns TRUE if user is a member, otherwise FALSE
      */
-    public function isGroupMember( $userId, $groupId ) {
+    public function isGroupMember($userId, $groupId) {
         $params = array(
-                'filters' => array(
-                        'group_id' => $groupId,
-                )
+            'filters' => array(
+                'group_id' => $groupId,
+            )
         );
         $usersGroup = $this->objLuAdmin->perm->getUsers($params);
-        foreach($usersGroup as $users) {
-            if($users['auth_user_id'] == $userId) {
+        foreach ($usersGroup as $users) {
+            if ($users['auth_user_id'] == $userId) {
                 return TRUE;
             }
         }
@@ -622,17 +614,17 @@ class groupAdminModel extends dbTable {
      * @param  string     The unique ID of the group.
      * @return true|false returns TRUE if user is a member, otherwise FALSE
      */
-    public function isSubGroupMember( $userId, $groupId ) {
+    public function isSubGroupMember($userId, $groupId) {
         $params = array(
-                'filters' => array(
-                        'group_id' => $groupId,
-                )
+            'filters' => array(
+                'group_id' => $groupId,
+            )
         );
         $usersGroup = $this->objLuAdmin->perm->getUsers($params);
 
-        foreach($usersGroup as $group) {
+        foreach ($usersGroup as $group) {
             //var_dump($group);
-            if($userId == $group['auth_user_id']) {
+            if ($userId == $group['auth_user_id']) {
                 return true;
             }
         }
@@ -640,17 +632,17 @@ class groupAdminModel extends dbTable {
         //try the subgroups
         $subGroups = $this->getSubgroups($groupId);
 
-        if(count($subGroups[0]) > 0) {
-            foreach($subGroups[0] as $subGroup) {
+        if (count($subGroups[0]) > 0) {
+            foreach ($subGroups[0] as $subGroup) {
                 $params = array(
-                        'filters' => array(
-                                'group_id' => $this->getId($subGroup['group_define_name'])
-                        )
+                    'filters' => array(
+                        'group_id' => $this->getId($subGroup['group_define_name'])
+                    )
                 );
                 $usersGroup = $this->objLuAdmin->perm->getUsers($params);
-                foreach($usersGroup as $group) {
+                foreach ($usersGroup as $group) {
 
-                    if($userId == $group['auth_user_id']) {
+                    if ($userId == $group['auth_user_id']) {
                         return true;
                     }
                 }
@@ -659,7 +651,6 @@ class groupAdminModel extends dbTable {
             return False;
         }
     }
-
 
     /**
      * Method to get all the users.
@@ -671,8 +662,8 @@ class groupAdminModel extends dbTable {
      * @param  string      ( optional ) a SQL WHERE clause.
      * @return array|false The user rows as an array of associate arrays, or FALSE on failure
      */
-    public function getUsers( $fields = null, $filter = null ) {
-
+    public function getUsers($fields = null, $filter = null) {
+        
     }
 
     /**
@@ -685,8 +676,8 @@ class groupAdminModel extends dbTable {
      * @param  string      the field to get
      * @return array|false the only the required field as an array, otherwise FALSE
      */
-    public function getField( $rows, $field ) {
-
+    public function getField($rows, $field) {
+        
     }
 
     /**
@@ -697,8 +688,8 @@ class groupAdminModel extends dbTable {
      * @param  string the reference node.
      * @return array  array|false The child group rows as an array of associate arrays, or FALSE on failure
      */
-    public function getChildren ( $node ) {
-
+    public function getChildren($node) {
+        
     }
 
     /**
@@ -710,15 +701,15 @@ class groupAdminModel extends dbTable {
      * @param  string      the current node ( groupId ).
      * @return array|false The parent group rows as an array of associate arrays, or FALSE on failure
      */
-    public function getParent ( $subGroupId ) {
+    public function getParent($subGroupId) {
         $subgroups = FALSE;
         $parentgroup = Null;
         $groups = $this->objLuAdmin->perm->getGroups(
                 array(
-                'select' => 'all',
-                'rekey' => true,
-                'filters' => array('subgroup_id' => $subGroupId),
-                'hierarchy' => true,
+                    'select' => 'all',
+                    'rekey' => true,
+                    'filters' => array('subgroup_id' => $subGroupId),
+                    'hierarchy' => true,
                 )
         );
 
@@ -737,10 +728,9 @@ class groupAdminModel extends dbTable {
      * @param  void
      * @return array  array|false The root group rows as an array of associate arrays, or FALSE on failure
      */
-    public function getRoot ( ) {
-
+    public function getRoot() {
+        
     }
-
 
     /**
      * Method to recursivly follow the path down the tree.
@@ -752,8 +742,8 @@ class groupAdminModel extends dbTable {
      * @param  array   the names of the nodes to follow down the tree.
      * @param  string  the unique ID of the group leaf node.
      */
-    private function _getGroupPath( $curNode, &$path, &$leaf ) {
-
+    private function _getGroupPath($curNode, &$path, &$leaf) {
+        
     }
 
     /**
@@ -763,8 +753,8 @@ class groupAdminModel extends dbTable {
      * @param  string  the current node ( groupId ).
      * @param  array   the array containing all the nodes found.
      */
-    private function _getGroupsToRoot( $curNode, &$toRoot ) {
-
+    private function _getGroupsToRoot($curNode, &$toRoot) {
+        
     }
 
     /**
@@ -774,8 +764,8 @@ class groupAdminModel extends dbTable {
      * @param  string  the current node.
      * @param  array   the array containing all the nodes found.
      */
-    private function _getSubgroups( $curNode, &$subgroups ) {
-
+    private function _getSubgroups($curNode, &$subgroups) {
+        
     }
 
     /*
@@ -785,12 +775,19 @@ class groupAdminModel extends dbTable {
      *  @access public
      *  @param string userId
      *  @return int the perm_user_id
-    */
+     */
+
     public function getPermUserId($userId) {
-        $sql = 'SELECT perm_user_id FROM tbl_perms_perm_users WHERE auth_user_id = \''.$userId.'\'';
+        $sql = 'SELECT perm_user_id FROM tbl_perms_perm_users WHERE auth_user_id = \'' . $userId . '\'';
         parent::init('tbl_perms_perm_users');
         $res = $this->getArray($sql);
-        return $res[0]['perm_user_id'];
+        if (!empty($res)) {
+            return $res[0]['perm_user_id'];
+        } else {
+            return false;
+        }
     }
+
 }
+
 ?>
