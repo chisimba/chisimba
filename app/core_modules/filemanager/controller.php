@@ -977,7 +977,7 @@ class filemanager extends controller {
      */
     private function __createfolder() {
         $parentId = $this->getParam('parentfolder', 'ROOT');
-        
+
         $foldername = $this->getParam('foldername');
 
         // If no folder name is given, res
@@ -991,11 +991,12 @@ class filemanager extends controller {
 
         // Replace spaces with underscores
         $foldername = str_replace(' ', '_', $foldername);
-
+        $parentFolder = null;
         if ($parentId == 'ROOT') {
             $folderpath = 'users/' . $this->objUser->userId();
         } else {
-            $folder = $this->objFolders->getFolder($parentId);
+            $parentFolder = $folder = $this->objFolders->getFolder($parentId);
+
 
             if ($folder == FALSE) {
                 return $this->nextAction(NULL, array('error' => 'couldnotfindparentfolder'));
@@ -1011,7 +1012,30 @@ class filemanager extends controller {
         $result = $this->objMkdir->mkdirs($path);
 
         if ($result) {
+
             $folderId = $this->objFolders->indexFolder($path);
+
+            if ($parentFolder != null) {
+
+                $alertVal = null;
+
+                if (key_exists("alerts", $parentFolder)) {
+                    $alertVal = $folder['alerts'];
+                }
+               
+                if ($alertVal == 'y') {
+                    $objContext = $this->getObject('dbcontext', 'context');
+                    $emailUtils = $this->getObject("emailutils", "filemanager");
+                    $folderParts = explode('/', $parentFolder['folderpath']);
+                    
+                    if ($folderParts[0] == 'context') {
+                        $contextcode = $folderParts[1];
+                        $context = $objContext->getContext($contextcode);
+                        
+                        $emailUtils->sendEmailAlert($parentFolder['id'], $contextcode, $context['title']);
+                    }
+                }
+            }
             return $this->nextAction('viewfolder', array('folder' => $folderId, 'message' => 'foldercreated'));
         } else {
             return $this->nextAction(NULL, array('error' => 'couldnotcreatefolder'));
