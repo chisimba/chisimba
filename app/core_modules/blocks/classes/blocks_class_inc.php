@@ -495,7 +495,7 @@ class blocks extends object {
      * @param string $cssId The CSS ID for the block, if any
      * @return string The rendered block
      */
-    private function fetchTextBlock($block, $module, $blockDataArr, $blockType = NULL, $titleLength = 20, $wrapStr = TRUE, $showToggle = TRUE, $hidden = 'default', $showTitle = TRUE, $cssClass = 'featurebox', $cssId = '', $configData=NULL) {
+    public function fetchTextBlock($block, $module, $blockDataArr, $blockType = NULL, $titleLength = 20, $wrapStr = TRUE, $showToggle = TRUE, $hidden = 'default', $showTitle = TRUE, $cssClass = 'featurebox', $cssId = '', $configData=NULL) {
         $this->objBlock->configData = $configData;
         //echo "<br />btype: ".$blockType." module: ".$module;
         $blockArr = array();
