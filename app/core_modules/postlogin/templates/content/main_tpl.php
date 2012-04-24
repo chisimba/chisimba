@@ -89,6 +89,8 @@ if ($objUser->isAdmin()) {
     }
 
     foreach ($smallBlocks as $smallBlock) {
+        //Do not include content blocks as they are directly added on right n left options.
+        if($smallBlock["moduleid"] != "contentblocks"){
         $block = $this->newObject('block_' . $smallBlock['blockname'],
                         $smallBlock['moduleid']);
         $moduleId = $smallBlock['moduleid'];
@@ -100,6 +102,7 @@ if ($objUser->isAdmin()) {
                 . '|' . $smallBlock['moduleid'], htmlentities($title));
         $leftBlocksDropDown->addOption('block|' . $smallBlock['blockname']
                 . '|' . $smallBlock['moduleid'], htmlentities($title));
+        }
     }
 
     $wideBlocksDropDown = new dropdown('middleblocks');

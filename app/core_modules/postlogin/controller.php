@@ -124,10 +124,12 @@ class postlogin extends controller {
 
         $objBlocks = $this->getObject('dbmoduleblocks', 'modulecatalogue');
         $smallBlocks = $objBlocks->getBlocks('normal', 'site|user|postlogin');
+        
         $this->setVarByRef('smallBlocks', $smallBlocks);
 
         $wideBlocks = $objBlocks->getBlocks('wide', 'site|user|postlogin');
         $this->setVarByRef('wideBlocks', $wideBlocks);
+        //Add content blocks if any
         $contentSmallBlocks = "";
         $contentWideBlocks = "";
         if ($this->cbExists) {
@@ -137,8 +139,6 @@ class postlogin extends controller {
             $contentWideBlocks = $this->objBlocksContent->getBlocksArr('content_widetext');
             $this->setVarByRef('contentWideBlocks', $contentWideBlocks);
         }
-
-
         return 'main_tpl.php';
     }
 
