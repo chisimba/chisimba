@@ -10,7 +10,7 @@
 
     Author: Derek Keats
     License: GPL V2
-    
+
 */
 
 
@@ -24,7 +24,7 @@ html,body {
 
 html {
     color: #333333;
-    font-family: "lucida grande", tahoma, verdana, arial, sans-serif;  
+    font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
     font-size: 10pt;
     line-height: 190%;
 }
@@ -32,7 +32,7 @@ html {
 body {
     background-color: #DEE2E7;
     color: #333333;
-    font-family: "lucida grande", tahoma, verdana, arial, sans-serif;  
+    font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
     font-size: 10pt;
     line-height: 190%;
     background: url('images/bg.jpg');
@@ -419,7 +419,7 @@ div#header div#search button {
 }
 
 #nav-secondary ul {
-    
+
 }
 
 #nav-secondary li{
@@ -454,7 +454,7 @@ div#header div#search button {
 }
 
 .featureboxlink {
-   
+
 }
 
 
@@ -684,7 +684,7 @@ th.heading {
 }
 
 .allstories {
-    backgroun: red;
+    background: none;
 }
 
 .storytitle h3 {
