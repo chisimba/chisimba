@@ -101,19 +101,17 @@ class getIcon extends object implements ifhtml
     *                           example, for the icon "help.gif", $type would be set to "gif" or left out.
     * @param string $iconfolder The iconfolder to use, defaults to the
     *                           one specified in the config file for KNG
-    *                           
+    *
     */
     public function setIcon($name, $type = 'gif', $iconfolder='icons/')
     {
         $this->name = $name;
-
         // Just to be explicit - Tohir
         if ($type == NULL) {
-            $this->type = 'gif';
+            $this->type = 'png';
         } else {
             $this->type = $type;
         }
-
         // Before Setting the Icon Folder, check if file exists
         $this->_checkIconInSkin ($iconfolder);
     }
@@ -211,7 +209,7 @@ class getIcon extends object implements ifhtml
    * @param string $id            The id of the item to be deleted
    * @param string $deleteArray   The array of parameters for the querystring
    * @param string $callingModule THe module which is calling it.
-   *                              
+   *
    */
     public function getDeleteIconWithConfirm($id, $deleteArray=NULL, $callingModule=NULL, $deletephrase='phrase_confirmdelete')
     {
@@ -312,7 +310,7 @@ class getIcon extends object implements ifhtml
         example, for the icon "help.gif", $type would be set to "gif" or left out.
     * @param string $iconfolder The iconfolder to use, defaults to the
     *                           one specified in the config file for KNG
-    *                           
+    *
     */
     public function getLinkedIcon($url, $name, $type = 'gif', $iconfolder='icons/')
     {
@@ -322,7 +320,7 @@ class getIcon extends object implements ifhtml
         $objLink->link=$this->show();
         return $objLink->show();
     }
-    
+
     /**
     *
     * Method to return an icon with a FQDN link
@@ -335,7 +333,7 @@ class getIcon extends object implements ifhtml
         example, for the icon "help.gif", $type would be set to "gif" or left out.
     * @param string $iconfolder The iconfolder to use, defaults to the
     *                           one specified in the config file for KNG
-    *                           
+    *
     */
     public function getUrlLinkedIcon($url, $name, $type = 'gif', $folder='icons/')
     {
@@ -349,7 +347,7 @@ class getIcon extends object implements ifhtml
         $objLink->link = '<img src="'.$this->_objConfig->getSiteRoot().$this->_objConfig->getskinRoot()."_common/".$folder.$name.".".$type.'" />';
         return $objLink->show();
     }
-    
+
     /**
     * Method to return an icon / text combination link - an icon with text below encapsulated in a div
     *
@@ -364,22 +362,22 @@ class getIcon extends object implements ifhtml
     {
         $objLayer = $this->newObject('layer', 'htmlelements');
         $this->loadClass('link', 'htmlelements');
-        
+
         $this->setIcon($name, $type, $iconfolder);
         $this->extra = " height='$height' width='$width'";
         $this->title = $linkText;
         $icStr = $this->show();
-        
+
         $icStr .= '<span>'.$linkText.'</span>';
-        
+
         $objLink = new link($url);
         $objLink->link = $icStr;
         $objLink->extra = $extra;
         $linkStr = $objLink->show();
-        
+
         $objLayer->str = $linkStr;
         $objLayer->cssClass = 'smallicon';
-        
+
         return $objLayer->show();
     }
 
@@ -397,19 +395,19 @@ class getIcon extends object implements ifhtml
     {
         $objLayer = $this->newObject('layer', 'htmlelements');
         $this->loadClass('link', 'htmlelements');
-        
+
         $this->setIcon($name, $type, $iconfolder);
         //$this->extra = " height='$height' width='$width'";
         $this->title = $linkText;
         $icStr = $this->show();
-        
+
         $icStr .= '<span>'.$linkText.'</span>';
-        
+
         $objLink = new link($url);
         $objLink->link = $icStr;
         $objLink->extra = $extra;
         $linkStr = $objLink->show();
-        
+
         $objLayer->str = $linkStr;
         $objLayer->cssClass = 'smallicon';
         $objLayer->id = $divId;
@@ -417,7 +415,7 @@ class getIcon extends object implements ifhtml
         return $objLayer->show();
     }
 
-    
+
     /**
     * Method to return an icon / text combination link - an icon with text below encapsulated in a div
     * The icons must be encapsulated in a div with id='cpanel'
@@ -433,27 +431,27 @@ class getIcon extends object implements ifhtml
     {
         $objLayer = $this->newObject('layer', 'htmlelements');
         $this->loadClass('link', 'htmlelements');
-        
+
         $this->setIcon($name, $type, $iconfolder);
         $this->extra = $extra." height='48px' width='48px'";
         $this->title = $linkText;
         $icStr = $this->show();
-        
+
         $icStr .= '<span>'.$linkText.'</span>';
-        
+
         $objLink = new link($url);
         $objLink->link = $icStr;
         $linkStr = $objLink->show();
-        
+
         $objLayer->str = $linkStr;
         $objLayer->cssClass = 'icon';
-        
+
         return $objLayer->show();
     }
 
 /**
     * Same as above except no forced width
-    * 
+    *
     * @author Megan Watson, Charl Mert
     * @param  string $url        The uri generated path for the task to be performed
     * @param  string $name       The name of the icon file before the 'extension', but not including the extension. For example, for the icon "help.gif", $name would be set to "help".
@@ -465,18 +463,18 @@ class getIcon extends object implements ifhtml
     {
         $objLayer = $this->newObject('layer', 'htmlelements');
         $this->loadClass('link', 'htmlelements');
-        
+
         $this->setIcon($name, $type, $iconfolder);
         $this->extra = $extra;
         $this->title = $linkText;
         $icStr = $this->show();
-        
+
         $icStr .= '<span>'.$linkText.'</span>';
-        
+
         $objLink = new link($url);
         $objLink->link = $icStr;
         $linkStr = $objLink->show();
-        
+
         $objLayer->str = $linkStr;
         $objLayer->cssClass = '_icon';
 
@@ -486,7 +484,7 @@ class getIcon extends object implements ifhtml
 
 /**
     * Same as above except with id as mandatory param
-    * 
+    *
     * @author Megan Watson, Charl Mert
     * @param  string $url        The uri generated path for the task to be performed
     * @param  string $name       The name of the icon file before the 'extension', but not including the extension. For example, for the icon "help.gif", $name would be set to "help".
@@ -498,22 +496,22 @@ class getIcon extends object implements ifhtml
     {
         $objLayer = $this->newObject('layer', 'htmlelements');
         $this->loadClass('link', 'htmlelements');
-        
+
         $this->setIcon($name, $type, $iconfolder);
         $this->extra = $extra;
         $this->title = $linkText;
         $icStr = $this->show();
-        
+
         $icStr .= '<span>'.$linkText.'</span>';
-        
+
         $objLink = new link($url);
         $objLink->link = $icStr;
         $linkStr = $objLink->show();
-        
+
         $objLayer->str = $linkStr;
 		$objLayer->id = $divId;
         $objLayer->cssClass = '_icon';
-        
+
         return $objLayer->show();
     }
 
