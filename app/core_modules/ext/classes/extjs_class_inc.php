@@ -94,8 +94,10 @@ class extjs extends object {
 
 		if($this->theme != 'Blue')
 		{
-			$xtheme_css = '<link rel="stylesheet" href="skins/_common/css/extjs/themes/'.$this->theme.'/css/xtheme.css" type="text/css" />';
-			$this->appendArrayVar('headerParams', $xtheme_css);
+            if ($this->theme !=='' && $this->theme !== NULL) {
+                $xtheme_css = '<link rel="stylesheet" href="skins/_common/css/extjs/themes/'.$this->theme.'/css/xtheme.css" type="text/css" />';
+                $this->appendArrayVar('headerParams', $xtheme_css);
+            }
 		}
 
 
