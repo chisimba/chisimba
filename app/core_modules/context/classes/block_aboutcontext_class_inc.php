@@ -101,7 +101,8 @@ class block_aboutcontext extends object {
             $link->link=$objIcon->show();
             $showEdit=$link->show();
         }
-        return $showEdit.$objWashout->parseText($objContext->getAbout());
+        $ret = $showEdit.$objWashout->parseText($objContext->getAbout());
+        return "<div class='context_about_block'>$ret</div>";
     }
 }
 ?>

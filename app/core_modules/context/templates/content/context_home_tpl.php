@@ -169,8 +169,8 @@ if ($this->isValid('addblock')) {
     }
     $button = new button('addrightblock', $objLanguage->languageText('mod_prelogin_addblock', 'prelogin', 'Add Block'));
     $button->cssId = 'rightbutton';
-    
-    $value = $objLanguage->languageText('mod_context_turneditingon', 
+
+    $value = $objLanguage->languageText('mod_context_turneditingon',
       'context', 'Turn Editing On');
     $objEdBut = $this->getObject('buildcanvas', 'canvas');
     $editBut = $objEdBut->getSwitchButton($value);
@@ -246,12 +246,16 @@ if ( $showAdminShortcutBlock == "TRUE" || $showAdminShortcutBlock == "true" || $
                         $cssClass, '');
     }
 }
-$objCssLayout->leftColumnContent = '<ul id="nav-secondary">' . $instructorProfile . '</ul>' . $toolbar->show(); //setLeftColumnContent($toolbar->show());
+if (trim($instructorProfile) !==NULL && trim($instructorProfile) !== "") {
+    $objCssLayout->leftColumnContent = '<ul id="nav-secondary">' . $instructorProfile . '</ul>';
+}
+
+$objCssLayout->leftColumnContent .= $toolbar->show();
 
 $objCssLayout->rightColumnContent = '';
 
 if ($this->isValid('addblock')) {
-    $objCssLayout->rightColumnContent .= '<div id="editmode">' 
+    $objCssLayout->rightColumnContent .= '<div id="editmode">'
       . $editBut . '</div>';
 }
 
