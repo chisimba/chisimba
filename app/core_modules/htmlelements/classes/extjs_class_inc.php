@@ -2,7 +2,7 @@
 /**
  * extjs_class_inc.php
  *
- * This class generates the styles and js scripts which is 
+ * This class generates the styles and js scripts which is
  * needed to run any ExtJS script
  *
  *
@@ -67,26 +67,28 @@ class extjs extends object {
         //need the js
         $extbase_js = '<script language="JavaScript" src="'.$this->getResourceUri('ext-3.0-rc2/adapter/ext/ext-base.js','htmlelements').'" type="text/javascript"></script>';
 		$extall_js = '<script language="JavaScript" src="'.$this->getResourceUri('ext-3.0-rc2/ext-all.js', 'htmlelements').'" type="text/javascript"></script>';
-	
+
 		//need the css
-		
-		$extall_css = '<link rel="stylesheet" href="'.$this->getResourceUri('ext-3.0-rc2/resources/css/ext-all.css', 'htmlelements').'" type="text/css" />';				
+
+		$extall_css = '<link rel="stylesheet" href="'.$this->getResourceUri('ext-3.0-rc2/resources/css/ext-all.css', 'htmlelements').'" type="text/css" />';
 		$extall_css .= '<link rel="stylesheet" href="skins/_common/css/extjs/silk/silk.css" type="text/css" />';
 		$extall_css .= '<link rel="stylesheet" href="skins/_common/css/extjs/menus.css" type="text/css" />';
 		$extall_css .= '<link rel="stylesheet" href="skins/_common/css/extjs/buttons.css" type="text/css" />';
-	
+
 		//append them to the header
 		$this->appendArrayVar('headerParams', $extbase_js);
 		$this->appendArrayVar('headerParams', $extall_js);
-		$this->appendArrayVar('headerParams', $extall_css);		
-		
+		$this->appendArrayVar('headerParams', $extall_css);
+
 		if($this->theme != 'Blue')
 		{
-			$xtheme_css = '<link rel="stylesheet" href="skins/_common/css/extjs/themes/'.$this->theme.'/css/xtheme.css" type="text/css" />';		
-			$this->appendArrayVar('headerParams', $xtheme_css);
+            if ($this->theme !=='' && $this->theme !== NULL) {
+                $xtheme_css = '<link rel="stylesheet" href="skins/_common/css/extjs/themes/'.$this->theme.'/css/xtheme.css" type="text/css" />';
+                $this->appendArrayVar('headerParams', $xtheme_css);
+            }
 		}
-        
-		
+
+
     }
 }
 ?>
