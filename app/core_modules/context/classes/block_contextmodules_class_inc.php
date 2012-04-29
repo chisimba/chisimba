@@ -2,25 +2,25 @@
 
 /**
 * Context Modules/Plugins Block
-* 
+*
 * This class generates a block to show the modules/plugins the current context,
 * as well as an administrative link to update it
-* 
+*
 * PHP version 5
-* 
-* This program is free software; you can redistribute it and/or modify 
-* it under the terms of the GNU General Public License as published by 
-* the Free Software Foundation; either version 2 of the License, or 
+*
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; either version 2 of the License, or
 * (at your option) any later version.
-* This program is distributed in the hope that it will be useful, 
-* but WITHOUT ANY WARRANTY; without even the implied warranty of 
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 * GNU General Public License for more details.
-* You should have received a copy of the GNU General Public License 
-* along with this program; if not, write to the 
-* Free Software Foundation, Inc., 
+* You should have received a copy of the GNU General Public License
+* along with this program; if not, write to the
+* Free Software Foundation, Inc.,
 * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-* 
+*
 * @category  Chisimba
 * @package   context
 * @author    Tohir Solomons <tsolomons@uwc.ac.za>
@@ -46,10 +46,10 @@ die("You cannot view this page directly");
 
 /**
 * Context Modules/Plugins Block
-* 
+*
 * This class generates a block to show the modules/plugins the current context,
 * as well as an administrative link to update it
-* 
+*
 * @category  Chisimba
 * @package   context
 * @author    Tohir Solomons <tsolomons@uwc.ac.za>
@@ -66,17 +66,17 @@ class block_contextmodules extends object
     * @var object $objContext : The Context Object
     */
     public $objContext;
-    
+
     /**
     * @var object $objLanguage : The Language Object
     */
     public $objLanguage;
-    
+
     /**
     * @var object $objContextModules : The Context Modules Object
     */
     public $objContextModules;
-    
+
     /**
     * Constructor
     */
@@ -84,16 +84,13 @@ class block_contextmodules extends object
     {
         $this->objContext = $this->getObject('dbcontext');
         $this->contextCode = $this->objContext->getContextCode();
-        
         $this->loadClass('link', 'htmlelements');
         $this->objContextModules = $this->getObject('dbcontextmodules');
         $this->objModules = $this->getObject('modules', 'modulecatalogue');
-        
         $this->objLanguage = $this->getObject('language', 'language');
-        
         $this->title = $this->objLanguage->code2Txt('mod_context_plugins', 'context', array('plugins'=>'plugins'), '[-plugins-]');
     }
-   
+
     /**
      * Method to render the block
      */
@@ -102,77 +99,58 @@ class block_contextmodules extends object
         if ($this->contextCode == 'root' || $this->contextCode == '') {
             return '';
         }
-        
+
         $contextDetails = $this->objContext->getContextDetails($this->contextCode);
-        
+
         if ($contextDetails == FALSE) {
             return '';
         }
-        
+
         $numModules = count($this->objModules->getContextPlugins());
-        
+
         $modules = $this->objContextModules->getContextModules($this->contextCode);
-        
+
         if (count($modules) == 0) {
             $str = '<div class="noRecordsMessage">'.$this->objLanguage->code2Txt('mod_context_contexthasnopluginsabs', 'context', array('plugins'=>'plugins'), 'This [-context-] does not have any [-plugins-] enabled').'</div>';
         } else {
-            
             $table = $this->newObject('htmltable', 'htmlelements');
-            
             $objIcon = $this->newObject('geticon', 'htmlelements');
-            
             $counter = 0;
-            
-            foreach ($modules as $module)
-            {
+            foreach ($modules as $module) {
                 $moduleInfo = $this->objModules->getModuleInfo($module);
-                
                 if ($moduleInfo['isreg']) {
-                    
                     if ($counter % 2 == 0) {
-                        $table->startRow();
+                        $table->startRow('context_plugin');
                     }
-                    
-                    
                     $objIcon->setModuleIcon($module);
                     $moduleTitle = $this->objModules->getModuleTitle($module);
                     $objIcon->alt = $moduleTitle;
                     $objIcon->title = $moduleTitle;
-                    
                     $link = new link ($this->uri(NULL, $module));
                     $link->link = $objIcon->show();
-                    
-                    
-                    $table->addCell($link->show(), 25);
-                    
+                    $table->addCell($link->show(), 25, 'middle');
                     $link->link = $moduleTitle;
-                    $table->addCell($link->show().'<br /><br />', '45%');
-                    
-                    
+                    $table->addCell($link->show(), '45%', 'middle');
                     $counter++;
-                    
                     if ($counter % 2 == 0) {
                         $table->endRow();
                     }
                 }
             }
-            
+
             if ($counter % 2 == 1) {
                 $table->addCell('&nbsp;');
                 $table->addCell('&nbsp;');
                 $table->endRow();
             }
-            
+
             $str = $table->show();
         }
-        
+
         $str .= '<p align="right">'.$this->objLanguage->code2Txt('mod_context_unusedpluginsabs', 'context', array('plugins'=>'plugins'), 'Unused [-plugins-]').': '.($numModules-count($modules)).'</p>';
-        
-        
         $link = new link($this->uri(array('action'=>'manageplugins')));
         $link->link = $this->objLanguage->code2Txt('mod_context_managepluginsabs', 'context', array('plugins'=>'plugins'), 'Manage [-plugins-]');
-        
-        return $str.'<p>'.$link->show().'</p>';
+        return $str.'<p class="admin_link">'.$link->show().'</p>';
     }
 
 

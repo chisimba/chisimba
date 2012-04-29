@@ -28,7 +28,6 @@ $counter = 0;
 foreach ($cpBlocks as $block)
 {
     $counter++;
-    
     if ($counter % 2 == 1) {
         $left[] = $block;
     } else {
