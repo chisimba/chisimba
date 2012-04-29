@@ -56,12 +56,14 @@ if ($this->contextCode != '' && $this->getParam('context') != 'no') {
 
 // Create an Instance of the CSS Layout
 $cssLayout = $this->newObject('csslayout', 'htmlelements');
+$leftColumn = "<div class='filemanager_left'>$leftColumn</div>";
 $cssLayout->setLeftColumnContent($leftColumn);
 $cssLayout->numColumns = 3;
 
 
 // Set the Content of middle column
 $cssLayout->setMiddleColumnContent($this->getContent());
+$rightColumn = "<div class='filemanager_main'>" . $rightColumn . "</div>";
 $cssLayout->setRightColumnContent($rightColumn);
 
 // Display the Layout

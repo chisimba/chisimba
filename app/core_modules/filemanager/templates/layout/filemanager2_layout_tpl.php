@@ -30,10 +30,10 @@ $leftColumn .= '<br /><br /><br />';
 //$cssLayout->setLeftColumnContent($leftColumn);
 
 // Set the Content of middle column
-$cssLayout->setMiddleColumnContent($this->getContent());
+$ret = "<div class='filemanager_main'>" . $this->getContent() . "</div>";
+$cssLayout->setMiddleColumnContent($ret);
 
 // Display the Layout
 echo $cssLayout->show();
-
 
 ?>
