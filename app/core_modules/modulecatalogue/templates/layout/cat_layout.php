@@ -7,10 +7,15 @@ $cssLayout = $this->newObject('csslayout', 'htmlelements');
 $cssLayout->setNumColumns(2);
 
 //add left column
-$cssLayout->setLeftColumnContent($this->objSideMenu->show($activeCat).$this->objTagCloud);
-
+$ret = $this->objSideMenu->show($activeCat).$this->objTagCloud;
+$ret = "<div class='modcat_left'>$ret</div>";
+$cssLayout->setLeftColumnContent($ret);
+unset($ret);
 //set middle content
-$cssLayout->setMiddleColumnContent($this->getContent());
+$ret = $this->getContent();
+$ret = "<div class='modcat_main'>$ret</div>";
+$cssLayout->setMiddleColumnContent($ret);
 
-echo $cssLayout->show(); 
+// Render module catalogue.
+echo $cssLayout->show();
 ?>
