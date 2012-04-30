@@ -1,30 +1,20 @@
 <?php
 
 $this->loadClass('htmlheading', 'htmlelements');
-
-
 $header = new htmlheading();
 $header->type = 1;
 $header->str = $contextTitle.': '.ucwords($objLanguage->languageText('phrase_controlpanel', 'system', 'Control panel'));
-
-echo $header->show();
-
+$ret = $header->show();
 $cpBlocks = array();
-
 $objBlocks = $this->getObject('blocks', 'blocks');
-
-
 $cpBlocks[] = $objBlocks->showBlock('contextsettings', 'context', NULL, 20, TRUE, FALSE);
 $cpBlocks[] = $objBlocks->showBlock('sasiwebserver', 'sasicontext', NULL, 20, TRUE, FALSE);
 $cpBlocks[] = $objBlocks->showBlock('contextmembers', 'contextgroups', NULL, 20, TRUE, FALSE);
 $cpBlocks[] = $objBlocks->showBlock('contextmodules', 'context', NULL, 20, TRUE, FALSE);
 //$cpBlocks[] = $objBlocks->showBlock('contextstats', 'context', NULL, 20, TRUE, FALSE);
-
-
 $left = array();
 $right = array();
 $counter = 0;
-
 foreach ($cpBlocks as $block)
 {
     $counter++;
@@ -34,24 +24,21 @@ foreach ($cpBlocks as $block)
         $right[] = $block;
     }
 }
-
 if (count($left) > 0) {
-    echo '<div class="context_cp_left">';
-    foreach ($left as $block)
-    {
-        echo $block;
+    $ret .= '<div class="context_cp_left">';
+    foreach ($left as $block) {
+        $ret .= $block;
     }
-    echo '</div>';
+    $ret .= '</div>';
 }
-
 if (count($right) > 0) {
-    echo '<div class="context_cp_right">';
+    $ret .= '<div class="context_cp_right">';
     foreach ($right as $block)
     {
-        echo $block;
+        $ret .= $block;
     }
-    echo '</div>';
+    $ret .= '</div>';
 }
-
-echo '<br clear="all" />';
+$ret .= '<br clear="all" />';
+echo $ret;
 ?>
