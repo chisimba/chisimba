@@ -27,7 +27,7 @@
  * @copyright  2010 AVOIR
  * @license    http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
  * @link       http://www.chisimba.com
- * 
+ *
  */
 // security check - must be included in all scripts
 if (!
@@ -85,7 +85,7 @@ class block_selecttype extends object
      *
      * @return NULL
      */
-    public function init() 
+    public function init()
     {
         try {
             $this->objLanguage = &$this->getObject('language', 'language');
@@ -105,23 +105,23 @@ class block_selecttype extends object
      * @return string $this->display block rendered
      * @access public
      */
-    public function show() 
+    public function show()
     {
+        $ret = "";
         $persCan = $this->objLanguage->languageText("mod_canvas_typepersonal", "canvas");
         $persUri = $this->uri(array('action' => 'select', 'ctype' => 'personal'), 'canvas');
-        $objLink = new link($persUri);
-        $objLink->link = $persCan;
-        $ret = $objLink->show();
-
         // Only allow admin users to change the site skins
         if ($this->objUser->isAdmin()) {
             $skinCan = $this->objLanguage->languageText("mod_canvas_typeskin", "canvas");
             $skinUri = $this->uri(array('action' => 'select', 'ctype' => 'skin'), 'canvas');
             $objLink = new link($skinUri);
             $objLink->link = $skinCan;
-            $ret .= "<br />" . $objLink->show();
+            $ret .= $objLink->show();
         }
-        return $ret;
+        $objLink = new link($persUri);
+        $objLink->link = $persCan;
+        $ret .= "<br />" . $objLink->show();
+        return "<div class='canvas_selectblock'>$ret</div>";
     }
 }
 ?>

@@ -26,7 +26,7 @@
  * @copyright  2010 AVOIR
  * @license    http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
  * @link       http://www.chisimba.com
- * 
+ *
  */
 // security check - must be included in all scripts
 if (!
@@ -41,7 +41,7 @@ $GLOBALS['kewl_entry_point_run']) {
 // end security check
 
 /**
- * 
+ *
  * Block for providing a viewer for canvases
  *
  * Block for providing a viewer for selecting the canvas you wish
@@ -86,7 +86,7 @@ class block_canvasviewer extends object
      * @access public
      *
      */
-    public function init() 
+    public function init()
     {
         try {
             $this->objLanguage = &$this->getObject('language', 'language');
@@ -104,16 +104,25 @@ class block_canvasviewer extends object
      * @return string $this->display block rendered
      * @access public
      */
-    public function show() 
+    public function show()
     {
         if (isset($_SESSION['isCanvas'])) {
             if ($_SESSION['isCanvas'] == TRUE) {
-                // Get the type of canvases
-                $cType = $this->getParam('ctype', 'personal');
+                // Get the type of canvases - admins get skin canvases by default
+                if ($this->objUser->isAdmin()) {
+                    $cType = $this->getParam('ctype', 'skin');
+                } else {
+                    $cType = $this->getParam('ctype', 'personal');
+                }
                 // Get the viewer
                 $objViewer = $this->getObject('getcanv', 'canvas');
                 $ret = $objViewer->getCanvases($cType);
-                return $ret;
+                if ($ret == "" || $ret == NULL) {
+                    $ret = "<div class='warning'>"
+                      . $this->objLanguage->languageText("mod_canvas_noperscan", "canvas")
+                      . "</div>";
+                }
+                return "<div class='canvas_main'>$ret</div>";
             }
         }
         return "<span class='warning'>"
