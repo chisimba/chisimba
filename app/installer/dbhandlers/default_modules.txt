@@ -10,23 +10,17 @@ sysconfig
 toolbar
 dublincoremetadata
 context
-#contextadmin
-#contextview - module not in cvs
 contextgroups
 contextpermissions
 storycategoryadmin
 stories
 language
 tagging
-#contextabstract - module not in cvs
 help
 strings
-#credits - not in cvs
 htmlelements
-#search - not in cvs
-#userparamsadmin - not in cvs
-#userparams - requires userparamsadmin
-#login - not in cvs
+search
+userparamsadmin
 systext
 calendarbase
 errors
@@ -34,3 +28,22 @@ skin
 prelogin
 userdetails
 userregistration
+# MODULES THAT ARE NEEDED BUT WERE NOT INSTALLED IN PREVIOUS VERSIONS
+api
+blocks
+canvas
+ckeditor
+config
+dynamiccanvas
+ext
+filemanager
+files
+filters
+jquerycore
+logger
+mail
+navigation
+packages
+tree
+utilities
+#login - not yet ready
