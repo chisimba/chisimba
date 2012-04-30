@@ -55,7 +55,7 @@ $GLOBALS['kewl_entry_point_run'])
 * the colorbox filter
 *
 * @category  Chisimba
-* @author Derek Keats
+* @author Derek Keats <derek@dkeats.com>
 * @author Paul Scott <pscott@uwc.ac.za>
 * @copyright UWC and AVOIR under the GPL
 * @package   utilities
@@ -73,7 +73,6 @@ class colorbox extends object
      * Constructor method. It does nothing here
      *
      * @access public
-     * @param void
      * @return VOID
      *
      */
@@ -81,6 +80,16 @@ class colorbox extends object
     {
     }
 
+    /**
+     *
+     * Render the colour box
+     * 
+     * @param string $boxColor The name corrensponding to the box colour in the stylesheet
+     * @param string $txt The contents of the div box
+     * @return string The rendered DIV
+     * @access public
+     * 
+     */
     public function show($boxColor, $txt)
     {
         return "<div class=\"colorbox $boxColor\">$txt</div>";
