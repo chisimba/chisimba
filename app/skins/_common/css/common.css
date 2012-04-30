@@ -249,7 +249,7 @@ div.quotaup {
     margin-right: 10px;
     float: left;
     text-align: center;
-    
+
 }
 
 .newsblockimage {
@@ -312,10 +312,10 @@ p.feed_render_description {
 #worksheetquestions
 {
 		border:1px dotted black;
-		padding : 4px; 
-		/*width : 200px;*/ 
-		height : 300px; 
-		overflow : auto; 
+		padding : 4px;
+		/*width : 200px;*/
+		height : 300px;
+		overflow : auto;
 }
 
 #filemanager2-mainpanel{
@@ -323,4 +323,8 @@ p.feed_render_description {
         margin-right: auto ;
 	border:1px solid #c3daf9;
 	overflow:auto;
+}
+
+.sysconfig_configsite  {
+    font-size: large;
 }
