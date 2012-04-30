@@ -9,6 +9,7 @@ $cssLayout->setNumColumns(2);
 
 //Insert the left column content
 $desc = $this->objLanguage->languageText("help_sysconfig_about",'sysconfig');
+$desc = "<div class='sysconfig_left'>$desc</div>";
 $cssLayout->setLeftColumnContent($desc);
 unset($desc);
 
@@ -29,29 +30,30 @@ $objIcon = $this->getObject('geticon', 'htmlelements');
 
 //$modules = array_reverse($modules);
 
-$table->startRow();
+$table->startRow("sysconfig_configsite");
 $this->loadClass('link', 'htmlelements');
 $link = new link ($this->uri(array('action'=>'step2', 'pmodule_id'=>'_site_')));
 $link->link = 'Configure site parameters';
 $objIcon->setIcon('computer');
 $table->addCell($objIcon->show());
-$table->addCell('<span style="font-size: 140%; font-weight: bolder;">'.$link->show().'</span><br /><br />', NULL, NULL, NULL, NULL, 'colspan="2"');
+$table->addCell($link->show(), NULL, NULL, NULL, NULL, 'colspan="3"');
 $table->endRow();
 
 //Loop and give the module configs
 //$modules = array_reverse($modules);
-foreach ($modules as $module)
-{
+$rClass = 'even';
+foreach ($modules as $module) {
     if ($module['pmodule'] != '_site_') {
+        $rClass = ($rClass == 'odd')? 'even' : 'odd';
         $table->startRow();
-
         $link = new link ($this->uri(array('action'=>'step2', 'pmodule_id'=>$module['pmodule'])));
         $link->link = ucfirst($this->objLanguage->code2Txt('mod_' . $module['pmodule'] . '_name',$module['pmodule']));
         $objIcon->setModuleIcon($module['pmodule']);
-        $table->addCell($objIcon->show());
-        $table->addCell($link->show());
-        $table->addCell(ucfirst($this->objLanguage->code2Txt('mod_' . $module['pmodule'] . '_desc',$module['pmodule'])));
-        $table->addCell($module['paramcount'], '10%');
+        $table->addCell($objIcon->show(), NULL, 'top', NULL, $rClass);
+        $table->addCell($link->show(), NULL, 'top', NULL, $rClass);
+        $table->addCell(ucfirst($this->objLanguage->code2Txt('mod_'
+          . $module['pmodule'] . '_desc',$module['pmodule'])), NULL, 'top', NULL, $rClass);
+        $table->addCell($module['paramcount'], '10%', 'top', NULL, $rClass);
         $table->endRow();
     }
 }
@@ -62,6 +64,9 @@ $header = new htmlheading();
 $header->type = 1;
 $header->str = $this->objLanguage->languageText("help_sysconfig_about_title",'sysconfig');
 
-$cssLayout->setMiddleColumnContent($header->show() . "<br />" . $table->show());
+$ret = $header->show() . "<br />" . $table->show();
+
+$ret = "<div class='sysconfig_main'>$ret</div>";
+$cssLayout->setMiddleColumnContent($ret);
 echo $cssLayout->show();
 ?>

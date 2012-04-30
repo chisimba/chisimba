@@ -7,9 +7,12 @@ $this->loadClass('htmlheading', 'htmlelements');
 $header = new htmlheading();
 $header->type = 1;
 $header->str = $this->objLanguage->languageText("mod_sysconfig_edtxt",'sysconfig');
-
-$cssLayout->setLeftColumnContent($this->objLanguage->languageText("mod_sysconfig_edlabel",'sysconfig')
-  . "<br />&nbsp;<br />");
-$cssLayout->setMiddleColumnContent($header->show() . $str);
+$left = "<div class='sysconfig_left'>"
+  . $this->objLanguage->languageText("mod_sysconfig_edlabel",'sysconfig')
+  . "</div><br />&nbsp;<br />";
+$cssLayout->setLeftColumnContent($left);
+$middle = $header->show() . $str;
+$middle = "<div class='sysconfig_main'>$middle</div>";
+$cssLayout->setMiddleColumnContent($middle);
 echo $cssLayout->show();
 ?>

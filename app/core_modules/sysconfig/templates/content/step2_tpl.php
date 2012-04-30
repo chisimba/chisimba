@@ -115,8 +115,10 @@ if($pmodule == '_site_'){
     }
 }
 $header->str = $pgHd;
-
-$cssLayout->setLeftColumnContent($leftText . "<br />&nbsp;<br />");
-$cssLayout->setMiddleColumnContent($header->show() . $objTable->show());
+$left = "<div class='sysconfig_left'>$leftText</div><br />&nbsp;<br />";
+$middle = $header->show() . $objTable->show();
+$middle = "<div class='sysconfig_main'>$middle</div>";
+$cssLayout->setLeftColumnContent($left);
+$cssLayout->setMiddleColumnContent($middle);
 echo $cssLayout->show();
 ?>
