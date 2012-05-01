@@ -1,4 +1,4 @@
-<?php  
+<?php
 //do the check to check if TII is accessable
 
     $objExtJS = $this->getObject('extjs','ext');
@@ -78,6 +78,7 @@ $adminMenu = $this->getObject('adminmenu', 'toolbar');
 // Set the left menu into the left CSS layout
 $cssLayout->setLeftColumnContent($adminMenu->show());
 
+$middleColumn = "<div class='groupadmin_main'>$middleColumn</div>";
 // Set the Content of middle column
 $cssLayout->setMiddleColumnContent($middleColumn);
 

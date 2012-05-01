@@ -12,6 +12,6 @@ $cssLayout->setLeftColumnContent($this->userMenuBar->show());
 //set middle content
 $cssLayout->setMiddleColumnContent($this->getContent());
 
-echo $cssLayout->show(); 
-    
+echo $cssLayout->show();
+
 ?>

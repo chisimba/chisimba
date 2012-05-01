@@ -1,5 +1,5 @@
 <?php
-  
+
 //create an instance of the css layout class
 $cssLayout =& $this->newObject('csslayout', 'htmlelements');
 $this->userMenuBar=& $this->getObject('contextmenu','toolbar');
@@ -12,5 +12,5 @@ $cssLayout->setLeftColumnContent($this->userMenuBar->show());
 //set middle content
 $cssLayout->setMiddleColumnContent($this->getContent());
 
-echo $cssLayout->show(); 
+echo $cssLayout->show();
 ?>
