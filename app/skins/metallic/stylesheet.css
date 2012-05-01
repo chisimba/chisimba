@@ -6,7 +6,7 @@
 
     Author: Derek Keats
     License: GPL V2
-    
+
 */
 
 
@@ -147,11 +147,11 @@ h1, h2, h3, h4, h5, h6 {
     border: none;
     padding:10px;
     height: 50px;
-    border-radius-topleft: 25px;
+    border-top-left-radius: 25px;
     -moz-border-radius-topleft: 25px;
     -webkit-border-top-left-radius: 25px;
     -khtml-border-radius-topleft: 25px;
-    border-radius-topright: 25px;
+    border-top-right-radius: 25px;
     -moz-border-radius-topright: 25px;
     -webkit-border-top-right-radius: 25px;
     -khtml-border-radius-topright: 25px;
@@ -238,11 +238,11 @@ it is offset from the text content.
     padding-right: 8px;
     padding-top:10px;
     padding-bottom: 5px;
-    border-radius-topleft: 30px;
+    border-top-left-radius: 30px;
     -moz-border-radius-topleft: 30px;
     -webkit-border-top-left-radius: 30px;
     -khtml-border-radius-topleft: 30px;
-    border-radius-topright: 30px;
+    border-top-right-radius: 30px;
     -moz-border-radius-topright: 30px;
     -webkit-border-top-right-radius: 30px;
     -khtml-border-radius-topright: 30px;
@@ -257,11 +257,11 @@ it is offset from the text content.
     background: url("images/overlay-sm.png") top left repeat;
     border: none;
     padding: 5px;
-    border-radius-topleft: 5px;
+    border-top-left-radius: 5px;
     -moz-border-radius-topleft: 5px;
     -webkit-border-top-left-radius: 5px;
     -khtml-border-radius-topleft: 5px;
-    border-radius-topright: 5px;
+    border-top-right-radius: 5px;
     -moz-border-radius-topright: 5px;
     -webkit-border-top-right-radius: 5px;
     -khtml-border-radius-topright: 5px;
@@ -339,11 +339,11 @@ div#header div#search button {
     margin-right: -8px;
     margin-bottom: -18px;
     -moz-border-radius-bottomleft: 30px;
-    border-radius-bottomleft: 30px;
+    border-bottom-left-radius: 30px;
     -webkit-border-radius-bottomleft: 30px;
     -khtml-border-radius-bottomleft: 30px;
     -moz-border-radius-bottomright: 30px;
-    border-radius-bottomright: 30px;
+    border-bottom-right-radius: 30px;
     -webkit-border-radius-bottomright: 30px;
     -khtml-border-radius-bottomright: 30px;
     border: 1px groove white;
@@ -456,7 +456,7 @@ fieldset {
 
 .tabcontentstyle {
     background: url("images/overlay50.png") top left repeat;
-    border-radius-topright:10px;
+    border-top-right-radius:10px;
     -moz-border-radius-topright:10px;
     -webkit-border-top-right-radius:10px;
 }
@@ -508,11 +508,11 @@ th a {
     padding: 5px;
     margin-top: 5px;
     -moz-border-radius-bottomleft: 25px;
-    border-radius-bottomleft: 25px;
+    border-bottom-left-radius: 25px;
     -webkit-border-bottom-left-radius: 25px;
     -khtml-border-radius-bottomleft: 25px;
     -moz-border-radius-bottomright: 25px;
-    border-radius-bottomright: 25px;
+    border-bottom-right-radius: 25px;
     -webkit-border-bottom-right-radius: 25px;
     -khtml-border-radius-bottomright: 25px;
 }
@@ -684,11 +684,11 @@ th.heading {
     padding-top:10px;
     padding-bottom: 5px;
     width: 100%;
-    border-radius-topleft: 30px;
+    border-top-left-radius: 30px;
     -moz-border-radius-topleft: 30px;
     -webkit-border-top-left-radius: 30px;
     -khtml-border-radius-topleft: 30px;
-    border-radius-topright: 30px;
+    border-top-right-radius: 30px;
     -moz-border-radius-topright: 30px;
     -webkit-border-top-right-radius: 30px;
     -khtml-border-radius-topright: 30px;
@@ -709,11 +709,11 @@ th.heading {
     width: 100%;
     text-align: center;
     -moz-border-radius-bottomleft: 30px;
-    border-radius-bottomleft: 30px;
+    border-bottom-left-radius: 30px;
     -webkit-border-radius-bottomleft: 30px;
     -khtml-border-radius-bottomleft: 30px;
     -moz-border-radius-bottomright: 30px;
-    border-radius-bottomright: 30px;
+    border-bottom-right-radius: 30px;
     -webkit-border-radius-bottomright: 30px;
     -khtml-border-radius-bottomright: 30px;
 }
@@ -804,7 +804,7 @@ http://www.dynamicdrive.com/style/csslibrary/item/modern-bricks-menu/
 	-moz-border-radius-topleft: 5px;
         -webkit-border-top-left-radius: 5px;
 	-khtml-border-radius-topleft: 5px;
-        border-radius-topright: 5px;
+        border-top-right-radius: 5px;
 	-moz-border-radius-topright: 5px;
         -webkit-border-top-right-radius: 5px;
 	-khtml-border-radius-topright: 5px;
@@ -874,11 +874,11 @@ img.storyimage {
     background: transparent url("images/overlay-sm.png") top left repeat;
     border: 1px solid white;
     -moz-border-radius-bottomleft: 25px;
-    border-radius-bottomleft: 25px;
+    border-bottom-left-radius: 25px;
     -webkit-border-bottom-left-radius: 25px;
     -khtml-border-radius-bottomleft: 25px;
     -moz-border-radius-bottomright: 25px;
-    border-radius-bottomright: 25px;
+    border-bottom-right-radius: 25px;
     -webkit-border-bottom-right-radius: 25px;
     -khtml-border-radius-bottomright: 25px;
 }
@@ -1104,11 +1104,11 @@ It will be quite complicated to do this in the skin
     background: url("images/overlay-sm.png") top left repeat;
     border: 1px solid silver;
     -moz-border-radius-bottomleft: 5px;
-    border-radius-bottomleft: 5px;
+    border-bottom-left-radius: 5px;
     -webkit-border-radius-bottomleft: 5px;
     -khtml-border-radius-bottomleft: 5px;
     -moz-border-radius-bottomright: 5px;
-    border-radius-bottomright: 5px;
+    border-bottom-right-radius: 5px;
     -webkit-border-radius-bottomright: 5px;
     -khtml-border-radius-bottomright: 5px;
 }
