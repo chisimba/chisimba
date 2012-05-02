@@ -174,7 +174,20 @@ class dbfiletags extends dbTable
     {
         return $this->insert(array('fileid'=>$fileId, 'tag'=>$tag));
     }
-    
+   
+     /**
+    * Method to get the list of tags, and their weight for generating a tag cloud
+    * for files filtered files
+    *
+    * @param  string $filter The filter to use on the files
+    * @return array 
+    */
+    public function getAllTagCloudResults($filter)
+    {
+        $sql = 'SELECT tag, count(tag) AS weight FROM tbl_files_filetags INNER JOIN tbl_files ON ( tbl_files.id = tbl_files_filetags.fileid '.$filter.' ) GROUP BY tag ORDER BY tag';
+       
+        return $this->getArray($sql);
+    }
     /**
     * Method to get the list of tags, and their weight for generating a tag cloud
     * for files of a user
@@ -187,6 +200,7 @@ class dbfiletags extends dbTable
         $sql = 'SELECT tag, count(tag) AS weight FROM tbl_files_filetags INNER JOIN tbl_files ON ( tbl_files.id = tbl_files_filetags.fileid AND tbl_files.userid = \''.$user.'\' ) GROUP BY tag ORDER BY tag';
         return $this->getArray($sql);
     }
+    //$this->tags->addElement($tags['name'], $tags['url'], $tags['weight'], $tags['time']);
     
     /**
     * Method to get the list of files of a user that has a particular tag
@@ -202,6 +216,20 @@ class dbfiletags extends dbTable
         return $this->getArray($sql);
     }
 
+       /**
+    * Method to get the list of files of a user that has a particular tag
+    *
+    * @param  string $user User Id
+    * @param  string $tag  Tag file should have
+    * @return array 
+    */
+    public function getFilesWithTagByFilter($filter)
+    {
+        $sql = 'SELECT DISTINCT tbl_files.id, tbl_files.* FROM tbl_files INNER JOIN tbl_files_filetags ON (tbl_files.id = tbl_files_filetags.fileid '.$filter.') ORDER BY filename';
+       
+        return $this->getArray($sql);
+    }
+    
 }
 
 ?>

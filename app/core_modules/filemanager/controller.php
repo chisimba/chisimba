@@ -173,7 +173,7 @@ class filemanager extends controller {
      * @access public
      */
     public function requiresLogin($action) {
-        if ($action == 'file') {
+        if ($action == 'file' || $action=='dav') {
             return FALSE;
         } else {
             return TRUE;
@@ -323,9 +323,12 @@ class filemanager extends controller {
             return "__" . $action;
         } else {
             return "__home";
-        }
+    
+            }
     }
 
+    
+    
     /**
      * Checks if the user should have access to the file manager.
      *
@@ -358,6 +361,8 @@ class filemanager extends controller {
      * @access private
      */
     private function __home() {
+        
+        
         $objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
 
         $filemanagerVersion = $objSysConfig->getValue('FILEMANAGER_VERSION', 'filemanager');

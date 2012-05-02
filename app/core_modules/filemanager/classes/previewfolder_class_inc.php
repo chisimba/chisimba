@@ -44,6 +44,8 @@ $this->loadClass('filemanagerobject', 'filemanager');
 class previewfolder extends filemanagerobject {
 
     public $editPermission = TRUE;
+    
+    public $targetModule="filemanager";
 
     /**
      * Constructor
@@ -201,9 +203,11 @@ class previewfolder extends filemanagerobject {
                     if (isset($file['symlinkid'])) {
                         $fileLink = new link($this->uri(array('action' => 'symlink', 'id' => $file['symlinkid'])));
                     } else {
-                        $fileLink = new link($this->uri(array('action' => 'fileinfo', 'id' => $file['id'])));
+                        
+                        $fileLink = new link($this->uri(array('action' => 'fileinfo', 'id' => $file['id']), $this->targetModule));
                     }
 
+                  
                     $linkTitle = '';
 
                     $access = null;

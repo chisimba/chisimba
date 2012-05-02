@@ -183,7 +183,7 @@ class upload extends filemanagerobject
         $form .= $this->formExtra;
         $form .= '</form>';
 
-        return $form;
+        return  $form;
     }
 
     /**
