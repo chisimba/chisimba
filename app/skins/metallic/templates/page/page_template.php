@@ -152,9 +152,6 @@ echo "<div class='Canvas_Content_Body_Before'></div>\n"
 
 
 
-
-
-
 // If the footer is not suppressed, render it out.
 if (!isset($suppressFooter)) {
     // Add the footer string if it is set
@@ -192,4 +189,10 @@ $this->putMessages();
 // Close up the body and HTML and finish up.
 ?>
 </body>
+<?php
+    // Render the javascript unless it is suppressed.
+    if (!isset($pageSuppressJavascript)) {
+        echo $this->getJavascriptFile('chisimba.js', 'skin');
+    }
+?>
 </html>

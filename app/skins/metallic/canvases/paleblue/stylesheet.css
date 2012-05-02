@@ -1,0 +1,35 @@
+/*
+    Document   : stylesheet.css
+    Created on : 30 May 2010, 1:11:21 PM
+    Author     : dkeats
+    Description:
+        A pale blue CSS gradient canvas for the metallic and derrived skins.
+*/
+
+
+html, body {
+
+background: #add9e4; /* Old browsers */
+background: -moz-linear-gradient(top,  #add9e4 0%, #d9edf2 60%, #f7fbfc 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#add9e4), color-stop(60%,#d9edf2), color-stop(100%,#f7fbfc)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #add9e4 0%,#d9edf2 60%,#f7fbfc 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #add9e4 0%,#d9edf2 60%,#f7fbfc 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #add9e4 0%,#d9edf2 60%,#f7fbfc 100%); /* IE10+ */
+background: linear-gradient(top,  #add9e4 0%,#d9edf2 60%,#f7fbfc 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#add9e4', endColorstr='#f7fbfc',GradientType=0 ); /* IE6-9 */
+
+}
+
+#container {
+    background: url("images/overlay.png") top left repeat;
+}
+
+#threecolumn div#left {
+	float:left;
+}
+#threecolumn div#right {
+	float:left;
+}
+#twocolumn div#left {
+	float:left;
+}

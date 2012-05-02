@@ -1,0 +1,14 @@
+{
+    "name": "green",
+    "description": "A green CSS gradient canvas for the metallic and derrived skins.",
+    "downloadfrom":"http://www.chisimba.com/",
+    "preview": {
+        "thumb": "green_th.png",
+        "fullview":"green.png"
+    },
+    "author": {
+        "authorname":"Derek Keats",
+        "email":"derek@dkeats.com",
+        "url":"http://www.dkeats.com"
+    }
+}

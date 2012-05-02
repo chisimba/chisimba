@@ -1,0 +1,14 @@
+{
+    "name": "yellowgrad",
+    "description": "A yellow image gradient canvas for the metallic and derrived skins.",
+    "downloadfrom":"http://www.chisimba.com/",
+    "preview": {
+        "thumb": "yellowgrad_th.png",
+        "fullview":"yellowgrad.png"
+    },
+    "author": {
+        "authorname":"Derek Keats",
+        "email":"derek@dkeats.com",
+        "url":"http://www.dkeats.com"
+    }
+}

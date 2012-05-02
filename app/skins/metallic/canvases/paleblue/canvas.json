@@ -1,0 +1,14 @@
+{
+    "name": "paleblue",
+    "description": "A pale blue CSS gradient canvas for the metallic and derrived skins.",
+    "downloadfrom":"http://www.chisimba.com/",
+    "preview": {
+        "thumb": "paleblue_th.png",
+        "fullview":"paleblue.png"
+    },
+    "author": {
+        "authorname":"Derek Keats",
+        "email":"derek@dkeats.com",
+        "url":"http://www.dkeats.com"
+    }
+}
