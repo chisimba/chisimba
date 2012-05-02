@@ -107,6 +107,7 @@ class context extends controller {
             $this->cbExists = $this->objModuleCatalogue->checkIfRegistered("contentblocks");
             if ($this->cbExists) {
                 $this->objBlocksContent = $this->getObject('dbcontentblocks', 'contentblocks');
+                $this->objTxtBlockBase = $this->getObject("contentblockbase", "contentblocks");
             }
 
             $this->dbSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
@@ -251,10 +252,10 @@ class context extends controller {
         $contentWideBlocks = "";
         if ($this->cbExists) {
             $contentSmallBlocks = $this->objBlocksContent->getBlocksArr('content_text');
-            $this->setVarByRef('contentSmallBlocks', $contentSmallBlocks);
+            $this->setVarByRef('contentSmallBlocks', $contentSmallBlocks);            
 
             $contentWideBlocks = $this->objBlocksContent->getBlocksArr('content_widetext');
-            $this->setVarByRef('contentWideBlocks', $contentWideBlocks);
+            $this->setVarByRef('contentWideBlocks', $contentWideBlocks);            
         }
 
         return 'context_home_tpl.php';

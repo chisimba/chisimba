@@ -1,9 +1,9 @@
 <?php
 $this->setVar('canvastype', 'context');
 /*
-$objExtJS = $this->getObject('extjs', 'ext');
-$objExtJS->show();
-*/
+  $objExtJS = $this->getObject('extjs', 'ext');
+  $objExtJS->show();
+ */
 //Language items
 $default = 'You are using an unsupported browser. Please switch to Mozilla FireFox available at ( http://getfirefox.com ). Currently the system functionality is limited. Thanks!';
 $browserError = $objLanguage->languageText('mod_poll_browserError', 'poll', $default);
@@ -22,7 +22,7 @@ if ($this->isValid('addblock')) {
 
     $objIcon->setIcon('delete');
     $deleteIcon = $objIcon->show();
-?>
+    ?>
     <script type="text/javascript">
         // <![CDATA[
         upIcon = '<?php echo $upIcon; ?>';
@@ -40,7 +40,7 @@ if ($this->isValid('addblock')) {
     </script>
 
 
-<?php
+    <?php
     echo $this->getJavaScriptFile('contextblocks.js');
 } // End Addition of JavaScript
 /*
@@ -91,22 +91,40 @@ if ($this->isValid('addblock')) {
 
     // Add Small Dynamic Blocks
     foreach ($smallDynamicBlocks as $smallBlock) {
-        $smallBlockOptions['dynamicblock|' . $smallBlock['id'] . '|' . $smallBlock['module']] = htmlentities($smallBlock['title']) . " (" . $smallBlock['module'] .")";
+        $smallBlockOptions['dynamicblock|' . $smallBlock['id'] . '|' . $smallBlock['module']] = htmlentities($smallBlock['title']) . " (" . $smallBlock['module'] . ")";
     }
-
 
     // Add Small Blocks
     foreach ($smallBlocks as $smallBlock) {
-        $block = $this->newObject('block_' . $smallBlock['blockname'], $smallBlock['moduleid']);
+        if ($smallBlock['moduleid'] != "contentblocks") {
+            $block = $this->newObject('block_' . $smallBlock['blockname'], $smallBlock['moduleid']);
 
-        $title = $block->title;
-        //parse some abstractions
-        $title = $this->objLanguage->abstractText($title);
-        if ($title == '') {
-            $title = $smallBlock['blockname'] . ' | ';
+            $title = $block->title;
+            //parse some abstractions
+            $title = $this->objLanguage->abstractText($title);
+            if ($title == '') {
+                $title = $smallBlock['blockname'] . ' | ';
+            }
+            $title .= " (" . $smallBlock['moduleid'] . ")";
+            $smallBlockOptions['block|' . $smallBlock['blockname'] . '|' . $smallBlock['moduleid']] = htmlentities($title);
+            
+        } else {
+            
+            // fetch contentblock data
+            $block = $this->objBlocks->showBlock($smallBlock["id"], "contentblocks");
+            $bData = $this->objBlocksContent->getBlockById($smallBlock["id"]);
+            if (!empty($bData)) {
+                $bData = $bData[0];
+                $title = $bData["title"];
+                //parse some abstractions
+                $title = $this->objLanguage->abstractText($title);
+                if ($title == '') {
+                    $title = $smallBlock['blockname'] . ' | ';
+                }
+                $title .= " (" . $smallBlock['moduleid'] . ")";
+                $smallBlockOptions['block|' . $bData["id"] . '|' . "contentblocks"] = htmlentities($bData["title"]. ' (contentblocks)');
+            }
         }
-        $title .= " (" . $smallBlock['moduleid'] . ")";
-        $smallBlockOptions['block|' . $smallBlock['blockname'] . '|' . $smallBlock['moduleid']] = htmlentities($title);
     }
     // Sort Alphabetically
     asort($smallBlockOptions);
@@ -152,7 +170,7 @@ if ($this->isValid('addblock')) {
         $wideBlocksDropDown->addOption($block, $title);
     }
 
-//Add content wideblocks to options
+    //Add content wideblocks to options
     if (!empty($contentWideBlocks)) {
         foreach ($contentWideBlocks as $contentWideBlock) {
             $block = $this->objBlocks->showBlock($contentWideBlock["id"], "contentblocks");
@@ -170,8 +188,7 @@ if ($this->isValid('addblock')) {
     $button = new button('addrightblock', $objLanguage->languageText('mod_prelogin_addblock', 'prelogin', 'Add Block'));
     $button->cssId = 'rightbutton';
 
-    $value = $objLanguage->languageText('mod_context_turneditingon',
-      'context', 'Turn Editing On');
+    $value = $objLanguage->languageText('mod_context_turneditingon', 'context', 'Turn Editing On');
     $objEdBut = $this->getObject('buildcanvas', 'canvas');
     $editBut = $objEdBut->getSwitchButton($value);
 }
@@ -194,7 +211,7 @@ $contextContentIsRegistered = $objModule->checkIfRegistered('contextcontent');
 $utillink = "";
 $this->dbSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
 $showAdminShortcutBlock = $this->dbSysConfig->getValue('SHOW_SHORTCUTS_BLOCK', 'context');
-if ( $showAdminShortcutBlock == "TRUE" || $showAdminShortcutBlock == "true" || $showAdminShortcutBlock == "True") {
+if ($showAdminShortcutBlock == "TRUE" || $showAdminShortcutBlock == "true" || $showAdminShortcutBlock == "True") {
     if ($this->isValid('addblock')) {
         $trackerlink = "";
 
@@ -237,32 +254,22 @@ if ( $showAdminShortcutBlock == "TRUE" || $showAdminShortcutBlock == "true" || $
         $showTitle = true;
         $cssClass = "featurebox";
         $utillink = $objFeatureBox->show(
-                        ucwords($this->objLanguage->code2Txt('mod_contextcontent_activityshortcuts', NULL,'contextcontent', '[-context-] Activities')),
-                        $content,
-                        $block,
-                        $hidden,
-                        $showToggle,
-                        $showTitle,
-                        $cssClass, '');
+                ucwords($this->objLanguage->code2Txt('mod_contextcontent_activityshortcuts', NULL, 'contextcontent', '[-context-] Activities')), $content, $block, $hidden, $showToggle, $showTitle, $cssClass, '');
     }
 }
-if (trim($instructorProfile) !==NULL && trim($instructorProfile) !== "") {
-    $objCssLayout->leftColumnContent = '<ul id="nav-secondary">' . $instructorProfile . '</ul>';
-}
-
-$objCssLayout->leftColumnContent .= $toolbar->show();
+$objCssLayout->leftColumnContent = '<ul id="nav-secondary">' . $instructorProfile . '</ul>' . $toolbar->show(); //setLeftColumnContent($toolbar->show());
 
 $objCssLayout->rightColumnContent = '';
 
 if ($this->isValid('addblock')) {
     $objCssLayout->rightColumnContent .= '<div id="editmode">'
-      . $editBut . '</div>';
+            . $editBut . '</div>';
 }
 
 $liveChatIsRegistered = $objModule->checkIfRegistered('livechat');
 if ($liveChatIsRegistered) {
-   $liveChatBlock=$this->getObject("block_livechat","livechat");
-   $utillink.=$liveChatBlock->show();
+    $liveChatBlock = $this->getObject("block_livechat", "livechat");
+    $utillink.=$liveChatBlock->show();
 }
 $objCssLayout->rightColumnContent .= $utillink;
 $objCssLayout->rightColumnContent .= '<div id="rightblocks">' . $rightBlocksStr . '</div>';
