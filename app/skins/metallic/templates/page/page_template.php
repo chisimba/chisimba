@@ -73,6 +73,9 @@ var curvyCornersVerbose = false;
         $curvy = $this->getJavascriptFile('curvycorners-2.0.4/curvycorners.js', 'canvas');
         echo $curvy;
         echo $objSkin->putJavaScript($mime, $headerParams);
+        // Load the helper JS from the current skin
+        $helperJs = 'skins/' . $skinName . '/javascript/skinhelper.js';
+        echo "\n<script type='text/javascript' src='" . $helperJs . "'></script>\n\n";
     }
 
     // Render the CSS for the current skin unless it is suppressed.
