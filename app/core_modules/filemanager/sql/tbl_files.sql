@@ -86,7 +86,7 @@ $fields = array(
     'timemodified' => array(
         'type' => 'time'
         ),
-,
+
     'visibility' => array(
         'type' => 'text',
         'length' => 20
