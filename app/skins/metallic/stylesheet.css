@@ -1019,7 +1019,11 @@ div.rrt-inner li {
   font-size: 70%;
   margin-left:10px;
 }
-
+.tweet_button {
+    float: right;
+    margin-top: -5px;
+    margin-right: 10px;
+}
 /** Fix latest post for forum */
 /*@todo*/
 
