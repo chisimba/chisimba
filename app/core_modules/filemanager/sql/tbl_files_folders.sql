@@ -28,6 +28,23 @@ $fields = array(
     'folderpassword' => array(
         'type' => 'text',
         'length' => 255
+        ),
+    'access' => array(
+        'type' => 'text',
+        'length' => 20
+        )
+,
+    'visibility' => array(
+        'type' => 'text',
+        'length' => 7
+        ),
+    'access' => array(
+        'type' => 'text',
+        'length' => 20
+        ),
+    'alerts' => array(
+        'type' => 'text',
+        'length' => 20
         )
     );
 //create other indexes here...

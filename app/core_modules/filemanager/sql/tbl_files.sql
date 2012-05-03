@@ -85,6 +85,15 @@ $fields = array(
         ),
     'timemodified' => array(
         'type' => 'time'
+        ),
+,
+    'visibility' => array(
+        'type' => 'text',
+        'length' => 20
+        ),
+    'digitallibrary' => array(
+        'type' => 'text',
+        'length' => 1
         )
     );
 //create other indexes here...
