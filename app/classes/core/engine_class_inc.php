@@ -441,6 +441,15 @@ class engine {
      * @var string
      */
     public $purifier;
+    
+    // The current user agent
+    public static $user_agent;
+    
+    // Protected key names (cannot be set by the user)
+    protected $sessprotect = array('session_id', 'user_agent', 'last_activity', 'ip_address', 'total_hits');
+    
+    // Configuration and driver
+    protected $sessconfig;
 
     /**
      * Constructor.
@@ -478,6 +487,23 @@ class engine {
         // check for which db abstraction to use - MDB2 or PDO
         $this->_dbabs = $this->_objDbConfig->getenable_dbabs ();
 
+        // session config
+        $this->sessconfig = array(
+        		'name' => $this->_objConfig->getValue('sess_name', 'security', 'CHISIMBASESSION'),
+        		'gc_probability' => 2,
+        		'expiration' => $this->_objConfig->getValue('auth_cont_expiretime', 'security', 7200 ),
+        		'regenerate' => 3,
+        		'validate' => array(self::$user_agent), // possible removal
+        		'cookiepath' => $this->_objConfig->getValue ( 'auth_cookiepath', 'security', NULL ),
+        		'cookiedomain' => $this->_objConfig->getValue ( 'auth_cookiedomain', 'security', NULL ),
+        		'cookiesecure' => $this->_objConfig->getValue ( 'auth_cookiesecure', 'security', true )
+        );
+        
+        // Configure garbage collection
+        ini_set('session.gc_probability', (int) $this->sessconfig['gc_probability']);
+        ini_set('session.gc_divisor', 100);
+        ini_set('session.gc_maxlifetime', ($this->sessconfig['expiration'] == 0) ? 86400 : $this->sessconfig['expiration']);
+        
         // Ensure the site is being accessed at the correct location.
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $base = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http';
@@ -533,54 +559,9 @@ class engine {
         //initialise the db factory method of MDB2_Schema
         $this->getDbManagementObj ();
 
-        /* -- Remove this once all users are upgraded to 3.x series framework --*/
-        // check that the application is registered
-        $this->_servername = $this->_objDbConfig->serverName();
-        // find all available applications
-        $applications = $this->luAdmin->perm->getApplications();
-        if(empty($applications) || $applications[0]['application_define_name'] != $this->_servername ) {
-            $data = array('application_define_name' => $this->_servername);
-            $appid = $this->luAdmin->perm->addApplication($data);
-            $this->appid = $data['application_define_name'];
-        }
-        else {
-            $this->appid = $applications[0]['application_define_name'];
-        }
-        // Check that the basic groups are installed.
-        $groups = $this->luAdmin->perm->getGroups();
-        if ($groups === false || empty($groups)) {
-            // add the default groups
-            $data = array('group_define_name' => 'Site Admin', 'group_type' => LIVEUSER_GROUP_TYPE_ALL);
-            $groupId = $this->luAdmin->perm->addGroup($data);
-            $data = array('group_define_name' => 'Lecturers', 'group_type' => LIVEUSER_GROUP_TYPE_ALL);
-            $groupId = $this->luAdmin->perm->addGroup($data);
-            $data = array('group_define_name' => 'Students', 'group_type' => LIVEUSER_GROUP_TYPE_ALL);
-            $groupId = $this->luAdmin->perm->addGroup($data);
-            $data = array('group_define_name' => 'Guest', 'group_type' => LIVEUSER_GROUP_TYPE_ALL);
-            $groupId = $this->luAdmin->perm->addGroup($data);
-
-
-        }
-        // check if admin is part of the admin group now.
-        $admingrp = $this->luAdmin->perm->getGroups(array('filters' => array('group_define_name' => 'Site Admin')));
-        $admingrpId = $admingrp[0]['group_id'];
-        $params = array('filters' => array('group_id' => $admingrpId));
-        $usersGroup = $this->luAdmin->perm->getUsers($params);
-        if(empty($usersGroup) || $usersGroup == false) {
-            // change the default admin user to a lu user
-            $user = $this->luAdmin->auth->getUsers(array('filters' => array('auth_user_id' => '1')));
-            if(is_array($user) && array_key_exists(0, $user)) {
-                $ud = $user[0];
-                $userdata = array();
-                $userdata['auth_user_id'] = $ud['auth_user_id'];
-                $userdata['auth_container_name'] = 'database_local';
-                $userdata['perm_type'] = 5;
-                $add = $this->luAdmin->perm->addUser($userdata);
-                // now add his ass to the admin group
-                $result = $this->luAdmin->perm->addUserToGroup(array('perm_user_id' => $add, 'group_id' => $admingrpId));
-            }
-        }
-        /* -- End remove for 2.x -> 3.x series -- */
+        // Set the user agent
+        self::$user_agent = ( ! empty($_SERVER['HTTP_USER_AGENT']) ? trim($_SERVER['HTTP_USER_AGENT']) : '');
+        $this->sessprotect = array_combine($this->sessprotect, $this->sessprotect);
 
         //the user security module
         $this->_objUser = $this->getObject ( 'user', 'security' );
