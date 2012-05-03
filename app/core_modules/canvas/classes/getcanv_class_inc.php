@@ -5,7 +5,7 @@
  *
  * Provides a means to load canvas thumbnails into the canvas viewer.
  *
- * 
+ *
  *
  * PHP version 5
  *
@@ -67,7 +67,7 @@ class getcanv extends object
     * @access public
     */
     public $objUser;
-    
+
     /**
     * Holds the configuration object
     *
@@ -148,7 +148,7 @@ class getcanv extends object
      * @param string $cType The type of canvas, e.g. personal or skin
      * @return string/boolean The rendered canvas thumbnails or FALSE
      * @access public
-     * 
+     *
      */
     public function getCanvases($cType)
     {
@@ -191,7 +191,8 @@ class getcanv extends object
     */
     private function getSkin()
     {
-        $this->curSkin = $this->getSession('skinName', FALSE);
+        //@todo - this needs sorting out in page templates
+        $this->curSkin = $_SESSION['skinName'];//$this->getSession('skinName', FALSE);
         $canvasArray = $this->getSkinCanvasesArray($this->curSkin);
         $canvases ="";
         foreach ($canvasArray as $canvas) {
