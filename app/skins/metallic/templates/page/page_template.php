@@ -20,7 +20,7 @@ $validCanvases = array_map('basename', glob('skins/metallic/canvases/*', GLOB_ON
 $skinName = "metallic";
 
 // Settings that are needed so that canvase-aware code can function.
-$this->setSession('skinName', $skinName);
+$this->setSession('skinName', 'skin');
 $_SESSION['skinName'] = $skinName;
 $_SESSION['isCanvas'] = TRUE;
 $_SESSION['sourceSkin'] = $skinName;

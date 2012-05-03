@@ -1341,7 +1341,10 @@ Creative commons file license selectors
     background: url("images/overlay-sm.png") top left repeat;
     width: 170px;
 }
-
+/** File manager **/
+#input_filequery{
+    width: 130px;
+}
 /**
 File create folder
 **/
