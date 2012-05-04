@@ -193,13 +193,37 @@ class tabber extends object
     public function show(){
         if(isset($this->tabs) && is_array($this->tabs)){            
             $str = '<div id="'.$this->tabId.'" class="tabber">';
-            $onclick = '';
             $i = 0;
             foreach($this->tabs as $tab){
-                if($this->setSelected == $i++){
-                    $str .= '<div class="tabbertab tabbertabdefault" title="'.$tab['name'].'">';
-                }else{
-                    $str .= '<div class="tabbertab" title="'.$tab['name'].'">';
+                if (isset($tab['onclick']))
+                {
+                    $onclick = ' onclick="' . $tab['onclick'] . '"';
+                }
+                else
+                {
+                    $onclick = NULL;
+                }
+                if (is_numeric($this->setSelected))
+                {
+                    if($this->setSelected == $i++)
+                    {
+                        $str .= '<div class="tabbertab tabbertabdefault" title="'.$tab['name'].'"'.$onclick.'>';
+                    }
+                    else
+                    {
+                        $str .= '<div class="tabbertab" title="'.$tab['name'].'"'.$onclick.'>';
+                    }
+                }
+                else
+                {
+                    if ($this->setSelected == $tab['name'])
+                    {
+                        $str .= '<div class="tabbertab tabbertabdefault" title="'.$tab['name'].'"'.$onclick.'>';
+                    }
+                    else
+                    {
+                        $str .= '<div class="tabbertab" title="'.$tab['name'].'"'.$onclick.'>';
+                    }
                 }
                 $str .= $tab['content'];
                 $str .= '</div>';
