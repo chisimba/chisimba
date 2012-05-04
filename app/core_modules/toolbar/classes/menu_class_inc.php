@@ -343,8 +343,18 @@ class menu extends object
     */
     public function getParams(&$headerParams, &$bodyOnLoad)
     {
-        // get from the tools class
-        $params = $this->tools->params;
+        $toolbarType = $this->objSysConfig->getValue('TOOLBAR_TYPE', 'toolbar');
+        
+        if ($toolbarType == 'dropdown')
+        {
+            // get from the tools class
+            $params = $this->tools->params;
+        }
+        elseif ($toolbarType == 'elearning')
+        {
+            $tools = $this->getObject('toolbar_elearn');
+            $params = $tools->params;
+        }
 
         if(!empty($params)){
             foreach($params as $param){

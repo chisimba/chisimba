@@ -23,6 +23,8 @@ class toolbar_elearn extends object
     
     private $default = 'home';
     
+    public $params;
+    
     /**
     * Method to construct the class
     */
@@ -230,6 +232,13 @@ jQuery('.homelink').bind('click', function() {
             $str .= '<li '.$css.'>'.$link->show().'</li>';
         }
         
+        if ($this->objModule->checkIfRegistered('bookmarks'))
+        {
+            $objBookmark = $this->getObject('bookmarksops', 'bookmarks');
+            $str .= '<li ' .$css. 'style="float:right">' . $objBookmark->showLink() . '</li>';
+            $this->params[] = $objBookmark->bookmarkParams();
+        }
+
         $str .= '</ul></span>';
         
         if ($this->contextCode != '') {
