@@ -679,8 +679,6 @@ function getContexts()
         $params["start"] = ($this->getParam("start")) ? $this->getParam("start") : null;
         $params["limit"] = ($this->getParam("limit")) ? $this->getParam("limit") : null;
 
-        trigger_error(var_export($params, true));
-
         $searchLecturers = FALSE;
         //$searchLecturersString = NULL;
         if (is_array($params['search']) && !empty($params['search'])) {
