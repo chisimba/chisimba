@@ -559,6 +559,55 @@ class engine {
         //initialise the db factory method of MDB2_Schema
         $this->getDbManagementObj ();
 
+        /* -- Remove this once all users are upgraded to 3.x series framework --*/ 
+        // check that the application is registered 
+        $this->_servername = $this->_objDbConfig->serverName(); 
+        // find all available applications 
+        $applications = $this->luAdmin->perm->getApplications(); 
+        if(empty($applications) || $applications[0]['application_define_name'] != $this->_servername ) { 
+            $data = array('application_define_name' => $this->_servername); 
+            $appid = $this->luAdmin->perm->addApplication($data); 
+            $this->appid = $data['application_define_name']; 
+        } 
+        else { 
+            $this->appid = $applications[0]['application_define_name']; 
+        } 
+        // Check that the basic groups are installed. 
+        $groups = $this->luAdmin->perm->getGroups(); 
+        if ($groups === false || empty($groups)) { 
+            // add the default groups 
+            $data = array('group_define_name' => 'Site Admin', 'group_type' => LIVEUSER_GROUP_TYPE_ALL); 
+            $groupId = $this->luAdmin->perm->addGroup($data); 
+            $data = array('group_define_name' => 'Lecturers', 'group_type' => LIVEUSER_GROUP_TYPE_ALL); 
+            $groupId = $this->luAdmin->perm->addGroup($data); 
+            $data = array('group_define_name' => 'Students', 'group_type' => LIVEUSER_GROUP_TYPE_ALL); 
+            $groupId = $this->luAdmin->perm->addGroup($data); 
+            $data = array('group_define_name' => 'Guest', 'group_type' => LIVEUSER_GROUP_TYPE_ALL); 
+            $groupId = $this->luAdmin->perm->addGroup($data); 
+ 	 
+ 	 
+        } 
+        // check if admin is part of the admin group now. 
+        $admingrp = $this->luAdmin->perm->getGroups(array('filters' => array('group_define_name' => 'Site Admin'))); 
+        $admingrpId = $admingrp[0]['group_id']; 
+        $params = array('filters' => array('group_id' => $admingrpId)); 
+        $usersGroup = $this->luAdmin->perm->getUsers($params); 
+        if(empty($usersGroup) || $usersGroup == false) { 
+            // change the default admin user to a lu user 
+            $user = $this->luAdmin->auth->getUsers(array('filters' => array('auth_user_id' => '1'))); 
+            if(is_array($user) && array_key_exists(0, $user)) { 
+                $ud = $user[0]; 
+                $userdata = array(); 
+                $userdata['auth_user_id'] = $ud['auth_user_id']; 
+                $userdata['auth_container_name'] = 'database_local'; 
+                $userdata['perm_type'] = 5; 
+                $add = $this->luAdmin->perm->addUser($userdata); 
+                // now add his ass to the admin group 
+                $result = $this->luAdmin->perm->addUserToGroup(array('perm_user_id' => $add, 'group_id' => $admingrpId)); 
+            } 
+        } 
+        /* -- End remove for 2.x -> 3.x series -- */ 
+
         // Set the user agent
         self::$user_agent = ( ! empty($_SERVER['HTTP_USER_AGENT']) ? trim($_SERVER['HTTP_USER_AGENT']) : '');
         $this->sessprotect = array_combine($this->sessprotect, $this->sessprotect);
