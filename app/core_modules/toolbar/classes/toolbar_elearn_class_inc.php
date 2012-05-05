@@ -235,7 +235,12 @@ jQuery('.homelink').bind('click', function() {
         if ($this->objModule->checkIfRegistered('bookmarks'))
         {
             $objBookmark = $this->getObject('bookmarksops', 'bookmarks');
-            $str .= '<li ' .$css. 'style="float:right">' . $objBookmark->showLink() . '</li>';
+            $goto = $objBookmark->showGotoLink();            
+            if (!empty($goto))
+            {
+                $str .= '<li class="bookmark_icon">' . $goto . '</li>';
+            }
+            $str .= '<li class="bookmark_icon">' . $objBookmark->showLink() . '</li>';
             $this->params[] = $objBookmark->bookmarkParams();
         }
 

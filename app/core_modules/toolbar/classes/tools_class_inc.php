@@ -122,8 +122,9 @@ class tools extends object
         if ($this->moduleCheck->checkIfRegistered('bookmarks') && $this->objUser->isLoggedIn())
         {
             $objBookmark = $this->getObject('bookmarksops', 'bookmarks');
-            $link = $objBookmark->showLink();
+            $link = $objBookmark->showLink() . '&nbsp;';
             $this->params[] = $objBookmark->bookmarkParams();
+            $link .= $objBookmark->showGotoLink();
             return $link;
         }
         else {
