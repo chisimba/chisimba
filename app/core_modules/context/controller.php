@@ -289,7 +289,7 @@ class context extends controller {
                 //add to activity log
 
                 if ($this->eventsEnabled) {
-                    $message = $this->objUser->getsurname() . ' ' . $this->objLanguage->languageText('mod_context_hasentered', 'context') . ' ' . $this->objContext->getContextCode();
+                    $message = $this->objUser->fullname() . ' ' . $this->objLanguage->languageText('mod_context_hasentered', 'context') . ' ' . $this->objContext->getContextCode();
                     $this->eventDispatcher->post($this->objActivityStreamer, "context", array('title' => $message,
                         'link' => $this->uri(array()),
                         'contextcode' => $this->objContext->getContextCode(),
@@ -677,7 +677,7 @@ class context extends controller {
     protected function __leavecontext() {
 
         if ($this->eventsEnabled) {
-            $message = $this->objUser->getsurname() . ' ' . $this->objLanguage->languageText('mod_context_hasleft', 'context') . ' ' . $this->objContext->getContextCode();
+            $message = $this->objUser->fullname() . ' ' . $this->objLanguage->languageText('mod_context_hasleft', 'context') . ' ' . $this->objContext->getContextCode();
             $this->eventDispatcher->post($this->objActivityStreamer, "context", array('title' => $message,
                 'link' => $this->uri(array()),
                 'contextcode' => $this->objContext->getContextCode(),
