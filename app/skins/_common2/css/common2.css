@@ -1079,3 +1079,8 @@ a.contexttitle {
     font-weight: 200;
     color: #1c64d1;
 }
+
+li.bookmark_icon {
+    float: right !important;
+    margin-right: 2px !important;
+}
