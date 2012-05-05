@@ -1069,7 +1069,7 @@ class userdetailsops extends object
         
         $array = array(
             'card' => $this->showBizCard(),
-            'image' => $this->objUser->getUserImage(),
+            'image' => $this->objUser->getUserImage('', TRUE),
         );
         echo json_encode($array);
         die();
@@ -1091,7 +1091,7 @@ class userdetailsops extends object
         {
             $array = array(
                 'card' => $this->showBizCard(),
-                'image' => $this->objUser->getUserImage(),
+                'image' => $this->objUser->getUserImage('', TRUE),
             );
             echo json_encode($array);
             die();
