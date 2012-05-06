@@ -152,6 +152,7 @@ if ($this->isValid('addblock')) {
     }
 
     foreach ($wideBlocks as $wideBlock) {
+        if($wideBlock["moduleid"]!="contentblocks"){
         $block = $this->newObject('block_' . $wideBlock['blockname'], $wideBlock['moduleid']);
         $title = $block->title;
 
@@ -160,6 +161,22 @@ if ($this->isValid('addblock')) {
         }
         $title .= " (" . $wideBlock['moduleid'] . ")";
         $wideBlockOptions['block|' . $wideBlock['blockname'] . '|' . $wideBlock['moduleid']] = htmlentities($title);
+        } else {
+            // fetch contentblock data
+            $block = $this->objBlocks->showBlock($wideBlock["id"], "contentblocks");
+            $bData = $this->objBlocksContent->getBlockById($wideBlock["id"]);
+            if (!empty($bData)) {
+                $bData = $bData[0];
+                $title = $bData["title"];
+                //parse some abstractions
+                $title = $this->objLanguage->abstractText($title);
+                if ($title == '') {
+                    $title = $wideBlock['blockname'] . ' | ';
+                }
+                $title .= " (" . $wideBlock['moduleid'] . ")";
+                $wideBlockOptions['block|' . $bData["id"] . '|' . "contentblocks"] = htmlentities($bData["title"]. ' (contentblocks)');
+            }
+        }
     }
 
     // Sort Alphabetically
