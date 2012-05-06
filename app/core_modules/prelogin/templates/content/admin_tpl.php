@@ -285,5 +285,5 @@ $link->link($objLink);
 $link->link = $this->objLanguage->languageText('mod_prelogin_addblock', 'prelogin');
 
 $content = $objH->show() . $scLink->show() . $submitMsg . $head->show() . $objForm->show() . $link->show();
-echo $content;
+echo "<div class='prelogin_main'>$content</div>";
 ?>

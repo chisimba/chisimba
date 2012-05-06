@@ -126,8 +126,6 @@ $form->addToForm($table);
 if (isset($id)) {
     $form->addToForm(new textinput('id',$id,'hidden'));
 }
-
 $content = $objH->show().$form->show();
-echo $content;
-
+echo "<div class='prelogin_main'>$content</div>";
 ?>
