@@ -103,6 +103,14 @@ class canvas extends controller
         $this->objLog=$this->newObject('logactivity', 'logger');
         // Log this module call
         $this->objLog->log();
+        // Create an instance of the module object
+        $this->objModule = $this->getObject('modules', 'modulecatalogue');        
+        
+        //Check if contentblocks is installed
+        $this->cbExists = $this->objModule->checkIfRegistered("contentblocks");
+        if ($this->cbExists) {
+            $this->objBlocksContent = $this->getObject('dbcontentblocks', 'contentblocks');
+        }
     }
     
     

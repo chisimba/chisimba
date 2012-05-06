@@ -472,16 +472,33 @@ class buildcanvas extends object {
         $objBlocks = $this->getObject('dbmoduleblocks', 'modulecatalogue');
         $smallBlocks = $objBlocks->getBlocks('normal', 'prelogin|site|user');
         foreach ($smallBlocks as $smallBlock) {
-            $block = $this->newObject('block_'
-                    . $smallBlock['blockname'], $smallBlock['moduleid']);
-            $title = $block->title;
-            if ($title == '') {
-                $title = $smallBlock['blockname'] . ' (' . $smallBlock['moduleid'] . ')';
+            if ($smallBlock['moduleid'] != "contentblocks") {
+                $block = $this->newObject('block_'
+                        . $smallBlock['blockname'], $smallBlock['moduleid']);
+                $title = $block->title;
+                if ($title == '') {
+                    $title = $smallBlock['blockname'] . ' (' . $smallBlock['moduleid'] . ')';
+                } else {
+                    $title = $title . " (" . $smallBlock['moduleid'] . ")";
+                }
+                $smallBlockOptions['block|' . $smallBlock['blockname'] . '|'
+                        . $smallBlock['moduleid']] = htmlentities($title);
             } else {
-                $title = $title . " (" . $smallBlock['moduleid'] . ")";
+                // fetch contentblock data
+                //$block = $this->objBlocks->showBlock($smallBlock["id"], "contentblocks");
+                $bData = $this->objBlocksContent->getBlockById($smallBlock["id"]);
+                if (!empty($bData)) {
+                    $bData = $bData[0];
+                    $title = $bData["title"];
+                    //parse some abstractions
+                    $title = $this->objLanguage->abstractText($title);
+                    if ($title == '') {
+                        $title = $smallBlock['blockname'] . ' | ';
+                    }
+                    $title .= " (" . $smallBlock['moduleid'] . ")";
+                    $smallBlockOptions['block|' . $bData["id"] . '|' . "contentblocks"] = htmlentities($bData["title"] . ' (contentblocks)');
+                }
             }
-            $smallBlockOptions['block|' . $smallBlock['blockname'] . '|'
-                    . $smallBlock['moduleid']] = htmlentities($title);
             // Sort Alphabetically
             asort($smallBlockOptions);
             // Add Small Blocks
@@ -526,18 +543,35 @@ class buildcanvas extends object {
         }
         $wideBlocks = $this->objBlocks->getBlocks('wide', 'site|user');
         foreach ($wideBlocks as $wideBlock) {
-            $block = $this->newObject('block_'
-                    . $wideBlock['blockname'], $wideBlock['moduleid']);
-            $title = $block->title;
+            if ($wideBlock["moduleid"] != "contentblocks") {
+                $block = $this->newObject('block_'
+                        . $wideBlock['blockname'], $wideBlock['moduleid']);
+                $title = $block->title;
 
-            if ($title == '') {
-                $title = $wideBlock['blockname'] . ' ('
-                        . $wideBlock['moduleid'] . ')';
+                if ($title == '') {
+                    $title = $wideBlock['blockname'] . ' ('
+                            . $wideBlock['moduleid'] . ')';
+                } else {
+                    $title = $title . " (" . $wideBlock['moduleid'] . ")";
+                }
+
+                $wideBlockOptions['block|' . $wideBlock['blockname'] . '|' . $wideBlock['moduleid']] = htmlentities($title);
             } else {
-                $title = $title . " (" . $wideBlock['moduleid'] . ")";
+                // fetch contentblock data
+                $block = $this->objBlocks->showBlock($wideBlock["id"], "contentblocks");
+                $bData = $this->objBlocksContent->getBlockById($wideBlock["id"]);
+                if (!empty($bData)) {
+                    $bData = $bData[0];
+                    $title = $bData["title"];
+                    //parse some abstractions
+                    $title = $this->objLanguage->abstractText($title);
+                    if ($title == '') {
+                        $title = $wideBlock['blockname'] . ' | ';
+                    }
+                    $title .= " (" . $wideBlock['moduleid'] . ")";
+                    $wideBlockOptions['block|' . $bData["id"] . '|' . "contentblocks"] = htmlentities($bData["title"] . ' (contentblocks)');
+                }
             }
-
-            $wideBlockOptions['block|' . $wideBlock['blockname'] . '|' . $wideBlock['moduleid']] = htmlentities($title);
         }
         // Sort Alphabetically
         asort($wideBlockOptions);
@@ -546,7 +580,7 @@ class buildcanvas extends object {
         foreach ($wideBlockOptions as $block => $title) {
             $wideBlocksDropDown->addOption($block, $title);
         }
-                //Add content blocks if any
+        //Add content blocks if any
         $contentWideBlocks = "";
         if ($this->cbExists) {
             $contentWideBlocks = $this->objBlocksContent->getBlocksArr('content_widetext');
