@@ -558,7 +558,7 @@ class buildcanvas extends object {
                 $wideBlockOptions['block|' . $wideBlock['blockname'] . '|' . $wideBlock['moduleid']] = htmlentities($title);
             } else {
                 // fetch contentblock data
-                $block = $this->objBlocks->showBlock($wideBlock["id"], "contentblocks");
+                //$block = $this->objBlocks->showBlock($wideBlock["id"], "contentblocks");
                 $bData = $this->objBlocksContent->getBlockById($wideBlock["id"]);
                 if (!empty($bData)) {
                     $bData = $bData[0];
