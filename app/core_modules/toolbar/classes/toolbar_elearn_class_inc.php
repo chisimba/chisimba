@@ -235,8 +235,7 @@ jQuery('.homelink').bind('click', function() {
         if ($this->objModule->checkIfRegistered('bookmarks'))
         {
             $objBookmark = $this->getObject('bookmarksops', 'bookmarks');
-            //$goto = $objBookmark->showGotoLink();
-            $goto = "WORKING HERE...";
+            $goto = $objBookmark->showGotoLink();
             if (!empty($goto))
             {
                 $str .= '<li class="bookmark_icon">' . $goto . '</li>';
