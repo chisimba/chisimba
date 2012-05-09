@@ -296,11 +296,11 @@ class context extends controller {
                         'author' => $this->objUser->fullname(),
                         'description' => $message));
 
-                    $this->eventDispatcher->post($this->objActivityStreamer, "context", array('title' => $message,
+                    /*$this->eventDispatcher->post($this->objActivityStreamer, "context", array('title' => $message,
                         'link' => $this->uri(array()),
                         'contextcode' => null,
                         'author' => $this->objUser->fullname(),
-                        'description' => $message));
+                        'description' => $message));*/
                 }
                 $contextRedirectURI = $this->getParam('contextredirecturi', NULL);
                 if ((!is_null($contextRedirectURI)) && (strlen($contextRedirectURI) > 0)) {
