@@ -36,7 +36,10 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 // end security check
 
 /**
- * Logged in users table.
+ * Loggedinusers class
+ *
+ * This class keeps track of which users are logged into the system at any given time.
+ *
  */
 class loggedInUsers extends dbTable {
 
@@ -44,6 +47,12 @@ class loggedInUsers extends dbTable {
     private $systemTimeOut;
     private $logoutdestroy = true;
 
+    /**
+     *
+     * Constructor for the class, which clears inactive users, and
+     * updates login for anyone logged into the system.
+     *
+     */
     public function init() {
         parent::init('tbl_loggedinusers');
         $this->objConfig = $this->getObject('altconfig', 'config');
@@ -64,15 +73,19 @@ class loggedInUsers extends dbTable {
     }
 
     /**
-     * Insert a record.
+     * Insert a record at login time
+     *
      * @param string $userId The userId of the user logging in
+     * @access public
+     * @return VOID
+     *
      */
     public function insertLogin($userId) {
         // Delete old logins
         $sql = "DELETE FROM tbl_loggedinusers
             WHERE
                 (userid = '$userId')
-                AND (((CURRENT_TIMESTAMP-whenlastactive)/100)>'{$this->systemTimeOut}')";
+                AND ((CURRENT_TIMESTAMP-whenlastactive)>'{$this->systemTimeOut}')";
         if (!$this->logoutdestroy) {
             $sql = "DELETE FROM tbl_loggedinusers WHERE userid='$userId'";
         }
@@ -111,6 +124,53 @@ class loggedInUsers extends dbTable {
     }
 
     /**
+     *
+     * Because the login/session management uses liveuser, this means that
+     * a user may be cleared from tbl_loggedinusers but still be logged into
+     * the site due to persistence. This method restores an active user to
+     * the tbl_loggedinusers table.
+     *
+     * @param type $userId
+     */
+    public function activateLogin($userId)
+    {
+        $ipAddress = $_SERVER['REMOTE_ADDR'];
+        $sessionId = session_id();
+        $contextObject = $this->getObject('dbcontext', 'context');
+        $contextCode = $contextObject->getContextCode();
+        if ($contextCode == "" || $contextCode == NULL) {
+            $contextCode = 'lobby';
+        }
+        $theme = "default";
+        $myDate = date('Y-m-d H:i:s');
+        $isInvisible = '0';
+        $sql = "
+            INSERT INTO tbl_loggedinusers (
+                                id,
+                userid,
+                ipaddress,
+                sessionid,
+                whenloggedin,
+                whenlastactive,
+                isinvisible,
+                coursecode,
+                themeused
+            )
+            VALUES (
+                                '" . date('YmdHis') . "',
+                '$userId',
+                '$ipAddress',
+                '$sessionId',
+                 CURRENT_TIMESTAMP,
+                 CURRENT_TIMESTAMP,
+                '$isInvisible',
+                '$contextCode',
+                '$theme'
+            )";
+        $this->query($sql);
+    }
+
+    /**
      * Logout user from the site. The method deletes
      * the user from the database table tbl_loggedinusers, destroys
      * the session, and redirects the user to the index page,
@@ -134,20 +194,25 @@ class loggedInUsers extends dbTable {
      * Update the current user's active timestamp.
      */
     public function doUpdateLogin($userId, $contextCode='lobby') {
-        $sql = "UPDATE tbl_loggedinusers
-        SET
-              whenlastactive = CURRENT_TIMESTAMP,
-            coursecode='$contextCode'
-        WHERE
-              userid='$userId'
-            AND sessionid ='" . session_id() . "'
-        ";
-
-        if (!$this->logoutdestroy) {
+        if (!$this->isUserOnline($userId)) {
+            $this->activateLogin($userId);
+        } else {
             $sql = "UPDATE tbl_loggedinusers
-        SET whenlastactive = CURRENT_TIMESTAMP, coursecode='$contextCode' WHERE userid='$userId'";
+            SET
+                whenlastactive = CURRENT_TIMESTAMP,
+                coursecode='$contextCode'
+            WHERE
+                userid='$userId'
+                AND sessionid ='" . session_id() . "'
+            ";
+
+            if (!$this->logoutdestroy) {
+                $sql = "UPDATE tbl_loggedinusers
+                SET whenlastactive = CURRENT_TIMESTAMP, coursecode='$contextCode'
+                WHERE userid='$userId'";
+            }
+            $this->query($sql);
         }
-        $this->query($sql);
     }
 
     /**
