@@ -58,6 +58,8 @@ class loggedInUsers extends dbTable {
         } else {
             $this->logoutdestroy = false;
         }
+        // Clear inactive users.
+        $this->clearInactive();
         //trigger_error('$this->logoutdestroy::'."$this->logoutdestroy");
     }
 
@@ -72,8 +74,7 @@ class loggedInUsers extends dbTable {
                 (userid = '$userId')
                 AND (((CURRENT_TIMESTAMP-whenlastactive)/100)>'{$this->systemTimeOut}')";
         if (!$this->logoutdestroy) {
-            $sql = "DELETE FROM tbl_loggedinusers
-        WHERE userid='$userId'";
+            $sql = "DELETE FROM tbl_loggedinusers WHERE userid='$userId'";
         }
         $this->query($sql);
         // Update the tbl_loggedinusers table
@@ -264,7 +265,7 @@ class loggedInUsers extends dbTable {
     public function clearInactive() {
         $sql = "DELETE FROM tbl_loggedinusers
         WHERE
-            ((CURRENT_TIMESTAMP-whenlastactive)/100) > '{$this->systemTimeOut}'
+            (CURRENT_TIMESTAMP-whenlastactive) > '{$this->systemTimeOut}'
         ";
 
         $this->query($sql);
@@ -296,7 +297,7 @@ class loggedInUsers extends dbTable {
         $sql = 'SELECT DISTINCT tbl_users.userId, username, firstName, surname FROM tbl_loggedinusers INNER JOIN tbl_users ON (tbl_loggedinusers.userId = tbl_users.userId) ORDER BY ' . $order;
         return $this->getArray($sql);
     }
-    
+
     /**
      * Method to get a list of the latest five logged in users
      * @param string $order Order Clause

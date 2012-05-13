@@ -322,8 +322,6 @@ class user extends dbTable {
      */
     public function updateLogin() {
         $this->loggedInUsers->doUpdateLogin($this->userId());
-        // also clear inactive users whilst updating this one
-        $this->loggedInUsers->clearInactive();
     }
 
     /**
