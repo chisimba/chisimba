@@ -74,7 +74,7 @@ class context extends controller {
      * Constructor
      */
     public function init() {
-        try {            
+        try {
             $this->objContext = $this->getObject('dbcontext');
 
             $this->contextCode = $this->objContext->getContextCode();
@@ -247,17 +247,16 @@ class context extends controller {
 
         $wideBlocks = $objBlocks->getBlocks('wide', 'context|site');
         $this->setVarByRef('wideBlocks', $wideBlocks);
-        
+
         $contentSmallBlocks = "";
         $contentWideBlocks = "";
         if ($this->cbExists) {
             $contentSmallBlocks = $this->objBlocksContent->getBlocksArr('content_text');
-            $this->setVarByRef('contentSmallBlocks', $contentSmallBlocks);            
+            $this->setVarByRef('contentSmallBlocks', $contentSmallBlocks);
 
             $contentWideBlocks = $this->objBlocksContent->getBlocksArr('content_widetext');
-            $this->setVarByRef('contentWideBlocks', $contentWideBlocks);            
+            $this->setVarByRef('contentWideBlocks', $contentWideBlocks);
         }
-
         return 'context_home_tpl.php';
     }
 
@@ -289,18 +288,14 @@ class context extends controller {
                 //add to activity log
 
                 if ($this->eventsEnabled) {
-                    $message = $this->objUser->fullname() . ' ' . $this->objLanguage->languageText('mod_context_hasentered', 'context') . ' ' . $this->objContext->getContextCode();
+                    $message = $this->objUser->fullname() . ' ' .
+                            $this->objLanguage->languageText('mod_context_hasentered', 'context') .
+                            ' ' . $this->contextCode;
                     $this->eventDispatcher->post($this->objActivityStreamer, "context", array('title' => $message,
                         'link' => $this->uri(array()),
                         'contextcode' => $this->objContext->getContextCode(),
                         'author' => $this->objUser->fullname(),
                         'description' => $message));
-
-                    /*$this->eventDispatcher->post($this->objActivityStreamer, "context", array('title' => $message,
-                        'link' => $this->uri(array()),
-                        'contextcode' => null,
-                        'author' => $this->objUser->fullname(),
-                        'description' => $message));*/
                 }
                 $contextRedirectURI = $this->getParam('contextredirecturi', NULL);
                 if ((!is_null($contextRedirectURI)) && (strlen($contextRedirectURI) > 0)) {
@@ -675,17 +670,13 @@ class context extends controller {
      * @access protected
      */
     protected function __leavecontext() {
-
         if ($this->eventsEnabled) {
-            $message = $this->objUser->fullname() . ' ' . $this->objLanguage->languageText('mod_context_hasleft', 'context') . ' ' . $this->objContext->getContextCode();
+            $message = $this->objUser->fullname() . ' ' . 
+                    $this->objLanguage->languageText('mod_context_hasleft', 'context') . 
+                    ' ' . $this->contextCode;
             $this->eventDispatcher->post($this->objActivityStreamer, "context", array('title' => $message,
                 'link' => $this->uri(array()),
                 'contextcode' => $this->objContext->getContextCode(),
-                'author' => $this->objUser->fullname(),
-                'description' => $message));
-            $this->eventDispatcher->post($this->objActivityStreamer, "context", array('title' => $message,
-                'link' => $this->uri(array()),
-                'contextcode' => null,
                 'author' => $this->objUser->fullname(),
                 'description' => $message));
         }
