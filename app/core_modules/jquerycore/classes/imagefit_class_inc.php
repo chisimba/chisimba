@@ -94,7 +94,7 @@ class imagefit extends object
      */
     public function setCssId($cssId)
     {
-        if (!empty($cssId) && is_string($cssId))
+        if (isset($cssId) && is_string($cssId))
         {
             $this->cssId = $cssId;
         }

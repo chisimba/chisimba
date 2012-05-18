@@ -239,7 +239,7 @@ class tabs extends object
      */
     public function setCssId($cssId)
     {
-        if (!empty($cssId) && is_string($cssId))
+        if (isset($cssId) && is_string($cssId))
         {
             $this->cssId = $cssId;
         }
@@ -255,7 +255,7 @@ class tabs extends object
      */
     public function setDisabled($disabled)
     {
-        if (!empty($disabled) && is_bool($disabled))
+        if (isset($disabled) && is_bool($disabled))
         {
             $this->disabled = $disabled;
         }
@@ -271,7 +271,7 @@ class tabs extends object
      */
     public function setIsAjaxTabs($isAjaxTabs)
     {
-        if (!empty($isAjaxTabs) && is_bool($isAjaxTabs))
+        if (isset($isAjaxTabs) && is_bool($isAjaxTabs))
         {
             $this->isAjaxTabs = $isAjaxTabs;
         }
@@ -287,7 +287,7 @@ class tabs extends object
      */
     public function setAjaxOptions($ajaxOptions)
     {
-        if (!empty($ajaxOptions) && is_array($ajaxOptions))
+        if (isset($ajaxOptions) && is_array($ajaxOptions))
         {
             $this->ajaxOptions = $ajaxOptions;
         }
@@ -303,7 +303,7 @@ class tabs extends object
      */
     public function setCache($cache)
     {
-        if (!empty($cache) && is_bool($cache))
+        if (isset($cache) && is_bool($cache))
         {
             $this->cache = $cache;
         }
@@ -319,7 +319,7 @@ class tabs extends object
      */
     public function setCollapsible($collapsible)
     {
-        if (!empty($collapsible) && is_bool($collapsible))
+        if (isset($collapsible) && is_bool($collapsible))
         {
             $this->collapsible = $collapsible;
         }
@@ -335,7 +335,7 @@ class tabs extends object
      */
     public function setDelselectable($deselectable)
     {
-        if (!empty($deselectable) && is_bool($deselectable))
+        if (isset($deselectable) && is_bool($deselectable))
         {
             $this->deselectable = $deselectable;
         }
@@ -351,7 +351,7 @@ class tabs extends object
      */
     public function setDisabledTabs($disabledTabs)
     {
-        if (!empty($disabledTabs) && is_array($disabledTabs))
+        if (isset($disabledTabs) && is_array($disabledTabs))
         {
             $this->disabledTabs = $disabledTabs;
         }
@@ -367,7 +367,7 @@ class tabs extends object
      */
     public function setEvent($event)
     {
-        if (!empty($event) && is_string($event))
+        if (isset($event) && is_string($event))
         {
             $this->event = $event;
         }
@@ -383,7 +383,7 @@ class tabs extends object
      */
     public function setFx($fx)
     {
-        if (!empty($fx) && is_array($fx))
+        if (isset($fx) && is_array($fx))
         {
             $this->fx = $fx;
         }
@@ -399,7 +399,7 @@ class tabs extends object
      */
     public function setIdPrefix($idPrefix)
     {
-        if (!empty($idPrefix) && is_string($idPrefix))
+        if (isset($idPrefix) && is_string($idPrefix))
         {
             $this->idPrefix = $idPrefix;
         }
@@ -415,7 +415,7 @@ class tabs extends object
      */
     public function setSelect($select)
     {
-        if (!empty($select) && is_string($select))
+        if (isset($select) && is_string($select))
         {
             $this->select = $select;
         }
@@ -431,7 +431,7 @@ class tabs extends object
      */
     public function setSelected($selected)
     {
-        if (!empty($selected) && is_integer($selected))
+        if (isset($selected) && is_integer($selected))
         {
             $this->selected = $selected;
         }
@@ -447,7 +447,7 @@ class tabs extends object
      */
     public function setSpinner($spinner)
     {
-        if (!empty($spinner) && is_string($spinner))
+        if (isset($spinner) && is_string($spinner))
         {
             $this->spinner = $spinner;
         }
@@ -463,7 +463,7 @@ class tabs extends object
      */
     public function addTab($tab)
     {
-        if (!empty($tab) && is_array($tab))
+        if (isset($tab) && is_array($tab))
         {
             $this->tabs[$tab['title']] = $tab['content'];
         }
@@ -479,7 +479,7 @@ class tabs extends object
      */
     public function prependTab($tab)
     {
-        if (!empty($tab) && is_array($tab))
+        if (isset($tab) && is_array($tab))
         {
             array_unshift($this->tabs, $tab);
         }
@@ -495,7 +495,7 @@ class tabs extends object
      */
     public function addAjaxTab($tab)
     {
-        if (!empty($tab) && is_string($tab))
+        if (isset($tab) && is_string($tab))
         {
             $this->ajaxTabs[] = $tab;
         }
@@ -511,7 +511,7 @@ class tabs extends object
      */
     public function prependAjaxTab($tab)
     {
-        if (!empty($tab) && is_string($tab))
+        if (isset($tab) && is_string($tab))
         {
             array_unshift($this->tabs, $tab);
         }

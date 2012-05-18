@@ -183,7 +183,7 @@ class tooltip extends object
      */
     public function setCssId($cssId)
     {
-        if (!empty($cssId) && is_string($cssId))
+        if (isset($cssId) && is_string($cssId))
         {
             $this->cssId = $cssId;
         }
@@ -199,7 +199,7 @@ class tooltip extends object
      */
     public function setDelay($delay)
     {
-        if (!empty($delay) && is_integer($delay))
+        if (isset($delay) && is_integer($delay))
         {
             $this->delay = $delay;
         }
@@ -215,7 +215,7 @@ class tooltip extends object
      */
     public function setTrack($track)
     {
-        if (!empty($track) && is_bool($track))
+        if (isset($track) && is_bool($track))
         {
             $this->track = $track;
         }
@@ -231,7 +231,7 @@ class tooltip extends object
      */
     public function setShowUrl($showUrl)
     {
-        if (!empty($showUrl) && is_bool($showUrl))
+        if (isset($showUrl) && is_bool($showUrl))
         {
             $this->showUrl = $showUrl;
         }
@@ -247,7 +247,7 @@ class tooltip extends object
      */
     public function setContentString($contentString)
     {
-        if (!empty($contentString) && is_string($contentString))
+        if (isset($contentString) && is_string($contentString))
         {
             $this->contentString = $contentString;
         }
@@ -263,7 +263,7 @@ class tooltip extends object
      */
     public function setContentFunction($contentFunction)
     {
-        if (!empty($contentFunction) && is_string($contentFunction))
+        if (isset($contentFunction) && is_string($contentFunction))
         {
             $this->contentFunction = $contentFunction;
         }
@@ -279,7 +279,7 @@ class tooltip extends object
      */
     public function setShowBody($showBody)
     {
-        if (!empty($showBody) && is_string($showBody))
+        if (isset($showBody) && is_string($showBody))
         {
             $this->showBody = $showBody;
         }
@@ -295,7 +295,7 @@ class tooltip extends object
      */
     public function setPngFix($pngFix)
     {
-        if (!empty($pngFix) && is_bool($pngFix))
+        if (isset($pngFix) && is_bool($pngFix))
         {
             $this->pngFix = $pngFix;
         }
@@ -311,7 +311,7 @@ class tooltip extends object
      */
     public function setOpacity($opacity)
     {
-        if (!empty($opacity) && is_numeric($opacity))
+        if (isset($opacity) && is_numeric($opacity))
         {
             $this->opacity = $opacity;
         }
@@ -327,7 +327,7 @@ class tooltip extends object
      */
     public function setTop($top)
     {
-        if (!empty($top) && is_numeric($top))
+        if (isset($top) && is_numeric($top))
         {
             $this->top = $top;
         }
@@ -343,7 +343,7 @@ class tooltip extends object
      */
     public function setLeft($left)
     {
-        if (!empty($left) && is_numeric($left))
+        if (isset($left) && is_numeric($left))
         {
             $this->left = $left;
         }
@@ -359,7 +359,7 @@ class tooltip extends object
      */
     public function setExtraClass($extraClass)
     {
-        if (!empty($extraClass) && is_string($extraClass))
+        if (isset($extraClass) && is_string($extraClass))
         {
             $this->extraClass = $extraClass;
         }
@@ -372,7 +372,7 @@ class tooltip extends object
      * @access public
      * @return VOID 
      */
-    public function show()
+    public function load()
     {
         $script = "<script type=\"text/javascript\">";
         $script .= "jQuery(function() {";

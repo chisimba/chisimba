@@ -208,6 +208,7 @@ class dialog extends object
     /**
      * 
      * Variable to hold the resizable option
+     * eg. center, left, right, top, bottom, left top, right top, left bottom, right bottom
      * 
      * @access protected
      * @var boolean
@@ -325,7 +326,7 @@ class dialog extends object
      */
     public function setCssId($cssId)
     {
-        if (!empty($cssId) && is_string($cssId))
+        if (isset($cssId) && is_string($cssId))
         {
             $this->cssId = $cssId;
         }
@@ -341,7 +342,7 @@ class dialog extends object
      */
     public function setDisabled($disabled)
     {
-        if (!empty($disabled) && is_bool($disabled))
+        if (isset($disabled) && is_bool($disabled))
         {
             $this->disabled = $disabled;
         }
@@ -357,7 +358,7 @@ class dialog extends object
      */
     public function setAutoOpen($autoOpen)
     {
-        if (!empty($autoOpen) && is_bool($autoOpen))
+        if (isset($autoOpen) && is_bool($autoOpen))
         {
             $this->autoOpen = $autoOpen;
         }
@@ -373,7 +374,7 @@ class dialog extends object
      */
     public function setButtons(array $buttons)
     {
-        if (!empty($buttons) && is_array($buttons))
+        if (isset($buttons) && is_array($buttons))
         {
             $this->buttons = $buttons;
         }
@@ -402,7 +403,7 @@ class dialog extends object
      */
     public function setCloseOnEscape($closeOnEscape)
     {
-        if (!empty($closeOnEscape) && is_bool($closeOnEscape))
+        if (isset($closeOnEscape) && is_bool($closeOnEscape))
         {
             $this->closeOnEscape = $closeOnEscape;
         }
@@ -418,7 +419,7 @@ class dialog extends object
      */
     public function setCloseText($closeText)
     {
-        if (!empty($closeText) && is_string($closeText));
+        if (isset($closeText) && is_string($closeText));
         {
             $this->closeText = $closeText;
         }
@@ -434,7 +435,7 @@ class dialog extends object
      */
     public function setDialogClass($dialogClass)
     {
-        if (!empty($dialogClass) && is_string($dialogClass));
+        if (isset($dialogClass) && is_string($dialogClass));
         {
             $this->dialogClass = $dialogClass;
         }
@@ -445,12 +446,12 @@ class dialog extends object
      * Method to set the dialog draggable option.
      * 
      * @access public
-     * @param string $draggable TRUE if the dialog is draggable | FALSE if not
+     * @param boolean $draggable TRUE if the dialog is draggable | FALSE if not
      * @return VOID
      */
     public function setDraggable($draggable)
     {
-        if (!empty($draggable) && is_bool($draggable));
+        if (isset($draggable) && is_bool($draggable));
         {
             $this->draggable = $draggable;
         }
@@ -466,7 +467,7 @@ class dialog extends object
      */
     public function setHeight($height)
     {
-        if (!empty($height) && (is_numeric($height) || $height == 'auto'));
+        if (isset($height) && (is_numeric($height) || $height == 'auto'));
         {
             $this->height = $height;
         }
@@ -482,7 +483,7 @@ class dialog extends object
      */
     public function setHide($hide)
     {
-        if (!empty($hide) && is_string($hide));
+        if (isset($hide) && is_string($hide));
         {
             $this->hide = $hide;
         }
@@ -493,12 +494,12 @@ class dialog extends object
      * Method to set the dialog max height option.
      * 
      * @access public
-     * @param string $maxHeight The max hieght of the dialog
+     * @param integer $maxHeight The max hieght of the dialog
      * @return VOID
      */
     public function setMaxHeight($maxHeight)
     {
-        if (!empty($maxHeight) && is_integer($maxHeight));
+        if (isset($maxHeight) && is_integer($maxHeight));
         {
             $this->maxHeight = $maxHeight;
         }
@@ -509,12 +510,12 @@ class dialog extends object
      * Method to set the dialog max width option.
      * 
      * @access public
-     * @param string $maxWidth The max width of the dialog
+     * @param integer $maxWidth The max width of the dialog
      * @return VOID
      */
     public function setMaxWidth($maxWidth)
     {
-        if (!empty($maxWidth) && is_integer($maxWidth));
+        if (isset($maxWidth) && is_integer($maxWidth));
         {
             $this->maxWidth = $maxWidth;
         }
@@ -525,12 +526,12 @@ class dialog extends object
      * Method to set the dialog min height option.
      * 
      * @access public
-     * @param string $minHeight The min hieght of the dialog
+     * @param integer $minHeight The min hieght of the dialog
      * @return VOID
      */
     public function setMinHeight($minHeight)
     {
-        if (!empty($minHeight) && is_integer($minHeight));
+        if (isset($minHeight) && is_integer($minHeight));
         {
             $this->minHeight = $minHeight;
         }
@@ -541,12 +542,12 @@ class dialog extends object
      * Method to set the dialog min width option.
      * 
      * @access public
-     * @param string $minWidth The min width of the dialog
+     * @param integer $minWidth The min width of the dialog
      * @return VOID
      */
     public function setMinWidth($minWidth)
     {
-        if (!empty($minWidth) && is_integer($minWidth));
+        if (isset($minWidth) && is_integer($minWidth));
         {
             $this->minWidth = $minWidth;
         }
@@ -562,7 +563,7 @@ class dialog extends object
      */
     public function setModal($modal)
     {
-        if (!empty($modal) && is_bool($modal));
+        if (isset($modal) && is_bool($modal));
         {
             $this->modal = $modal;
         }
@@ -578,7 +579,7 @@ class dialog extends object
      */
     public function setPosition($position)
     {
-        if (!empty($position) && is_string($position));
+        if (isset($position) && is_string($position));
         {
             $this->position = $position;
         }
@@ -594,7 +595,7 @@ class dialog extends object
      */
     public function setResizable($resizable)
     {
-        if (!empty($resizable) && is_string($resizable));
+        if (isset($resizable) && is_bool($resizable));
         {
             $this->resizable = $resizable;
         }
@@ -610,7 +611,7 @@ class dialog extends object
      */
     public function setShow($show)
     {
-        if (!empty($show) && is_string($show));
+        if (isset($show) && is_string($show));
         {
             $this->show = $show;
         }
@@ -621,12 +622,12 @@ class dialog extends object
      * Method to set the dialog stack option.
      * 
      * @access public
-     * @param boolean $stack TRUE if the dialog must be on to | FALSE if not
+     * @param boolean $stack TRUE if the dialog must be on top | FALSE if not
      * @return VOID
      */
     public function setStack($stack)
     {
-        if (!empty($stack) && is_bool($stack));
+        if (isset($stack) && is_bool($stack));
         {
             $this->stack = $stack;
         }
@@ -637,12 +638,12 @@ class dialog extends object
      * Method to set the dialog title option.
      * 
      * @access public
-     * @param boolean $title The title of the dialog
+     * @param string $title The title of the dialog
      * @return VOID
      */
     public function setTitle($title)
     {
-        if (!empty($title) && is_string($title));
+        if (isset($title) && is_string($title));
         {
             $this->title = $title;
         }
@@ -658,7 +659,7 @@ class dialog extends object
      */
     public function setWidth($width)
     {
-        if (!empty($width) && (is_numeric($width) || $width == 'auto'));
+        if (isset($width) && (is_numeric($width) || $width == 'auto'));
         {
             $this->width = $width;
         }
@@ -674,7 +675,7 @@ class dialog extends object
      */
     public function setZindex($zindex)
     {
-        if (!empty($zindex) && is_numeric($zindex));
+        if (isset($zindex) && is_numeric($zindex));
         {
             $this->zindex = $zindex;
         }
@@ -685,12 +686,12 @@ class dialog extends object
      * Method to set the dialog open event.
      * 
      * @access public
-     * @param integer $open The callback function for the open event
+     * @param string $open The callback function for the open event
      * @return VOID
      */
     public function setOpen($open)
     {
-        if (!empty($open) && is_string($open));
+        if (isset($open) && is_string($open));
         {
             $this->open = $open;
         }
@@ -701,12 +702,12 @@ class dialog extends object
      * Method to set the dialog close event.
      * 
      * @access public
-     * @param integer $close The callback function for the close event
+     * @param string $close The callback function for the close event
      * @return VOID
      */
     public function setClose($close)
     {
-        if (!empty($close) && is_string($close));
+        if (isset($close) && is_string($close));
         {
             $this->close = $close;
         }
@@ -717,12 +718,12 @@ class dialog extends object
      * Method to set the dialog before close event.
      * 
      * @access public
-     * @param integer $beforeClose The callback function for the before close event
+     * @param string $beforeClose The callback function for the before close event
      * @return VOID
      */
     public function setBeforeClose($beforeClose)
     {
-        if (!empty($beforeClose ) && is_string($beforeClose ));
+        if (isset($beforeClose ) && is_string($beforeClose ));
         {
             $this->beforeClose  = $beforeClose ;
         }
@@ -738,7 +739,7 @@ class dialog extends object
      */
     public function setContent($content)
     {
-        if (!empty($content) && is_string($content));
+        if (isset($content) && is_string($content));
         {
             $this->content = $content;
         }
@@ -820,7 +821,7 @@ class dialog extends object
         }
         if (isset($this->position))
         {
-            $script .= ",position: \"$this->poistion\"";
+            $script .= ",position: \"$this->position\"";
         }
         if (isset($this->resizable))
         {
@@ -864,7 +865,7 @@ class dialog extends object
         
         $this->appendArrayVar('headerParams', $script);
         
-        $string = "<div id=\"$this->cssId\" title=\"$this->title\" style=\"display: none\">" . $this->content . "</div>";
+        $string = "<div id=\"$this->cssId\" title='$this->title' style=\"display: none\">" . $this->content . "</div>";
         return $string;
     }
 }

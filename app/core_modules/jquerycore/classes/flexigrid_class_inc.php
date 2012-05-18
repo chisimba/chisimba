@@ -243,7 +243,7 @@ class flexigrid extends object
      */
     public function setCssId($cssId)
     {
-        if (!empty($cssId) && is_string($cssId))
+        if (isset($cssId) && is_string($cssId))
         {
             $this->cssId = $cssId;
         }
@@ -259,7 +259,7 @@ class flexigrid extends object
      */
     public function setTitle($title)
     {
-        if (!empty($title) && is_string($title));
+        if (isset($title) && is_string($title));
         {
             $this->title = $title;
         }
@@ -275,7 +275,7 @@ class flexigrid extends object
      */
     public function setUrl($url)
     {
-        if (!empty($url) && is_string($url))
+        if (isset($url) && is_string($url))
         {
             $this->url = $url;
         }
@@ -291,7 +291,7 @@ class flexigrid extends object
      */
     public function setDataType($dataType)
     {
-        if (!empty($dataType) && ($dataType == 'json' || $dataType == 'xml'))
+        if (isset($dataType) && ($dataType == 'json' || $dataType == 'xml'))
         {
             $this->dataType = $dataType;
         }
@@ -323,7 +323,7 @@ class flexigrid extends object
      */
     public function setColModel(array $columns)
     {
-        if (!empty($columns) && is_array($columns))
+        if (isset($columns) && is_array($columns))
         {
             $this->colModel = $columns;
         }
@@ -380,7 +380,7 @@ class flexigrid extends object
      */
     public function setButtons(array $buttons)
     {
-        if (!empty($buttons) && is_array($buttons))
+        if (isset($buttons) && is_array($buttons))
         {
             $this->buttons = $buttons;
         }
@@ -420,7 +420,7 @@ class flexigrid extends object
      */
     public function setSeparatorAfter($button)
     {
-        if (!empty($button) && is_string($button))
+        if (isset($button) && is_string($button))
         {
             $this->separatorAfter[] = $button;
         }
@@ -437,7 +437,7 @@ class flexigrid extends object
      */
     public function setHeight($height)
     {
-        if (!empty($height) && (is_numeric($height) || $height == 'auto'));
+        if (isset($height) && (is_numeric($height) || $height == 'auto'));
         {
             $this->height = $height;
         }
@@ -453,7 +453,7 @@ class flexigrid extends object
      */
     public function setWidth($width)
     {
-        if (!empty($width) && (is_numeric($width) || $width == 'auto'));
+        if (isset($width) && (is_numeric($width) || $width == 'auto'));
         {
             $this->width = $width;
         }
@@ -469,7 +469,7 @@ class flexigrid extends object
      */
     public function setResizable($resizable)
     {
-        if (!empty($resizable) && is_bool($resizable));
+        if (isset($resizable) && is_bool($resizable));
         {
             $this->resizable = $resizable;
         }
@@ -485,7 +485,7 @@ class flexigrid extends object
      */
     public function setUseRp($useRp)
     {
-        if (!empty($useRp) && is_bool($useRp));
+        if (isset($useRp) && is_bool($useRp));
         {
             $this->useRp = $useRp;
         }
@@ -501,7 +501,7 @@ class flexigrid extends object
      */
     public function setRp($rp)
     {
-        if (!empty($rp) && is_integer($rp));
+        if (isset($rp) && is_integer($rp));
         {
             $this->rp = $rp;
         }
@@ -530,7 +530,7 @@ class flexigrid extends object
      */
     public function setSearchitems(array $searchitems)
     {
-        if (!empty($searchitems) && is_array($searchitems))
+        if (isset($searchitems) && is_array($searchitems))
         {
             $this->searchitems = $searchitems;
         }
@@ -569,7 +569,7 @@ class flexigrid extends object
      */
     public function setSortname($sortname)
     {
-        if (!empty($sortname) && is_string($sortname));
+        if (isset($sortname) && is_string($sortname));
         {
             $this->sortname = $sortname;
         }
@@ -585,7 +585,7 @@ class flexigrid extends object
      */
     public function setSortorder($sortorder)
     {
-        if (!empty($sortorder) && ($sortorder == 'ASC') || $sortorder == 'DESC');
+        if (isset($sortorder) && ($sortorder == 'ASC') || $sortorder == 'DESC');
         {
             $this->sortorder = $sortorder;
         }
@@ -601,7 +601,7 @@ class flexigrid extends object
      */
     public function setSingleSelect($singleSelect)
     {
-        if (!empty($singleSelect) && is_bool($singleSelect));
+        if (isset($singleSelect) && is_bool($singleSelect));
         {
             $this->singleSelect = $singleSelect;
         }
@@ -617,7 +617,7 @@ class flexigrid extends object
      */
     public function setUsepager($usepager)
     {
-        if (!empty($usepager) && is_bool($usepager));
+        if (isset($usepager) && is_bool($usepager));
         {
             $this->usepager = $usepager;
         }
@@ -633,7 +633,7 @@ class flexigrid extends object
      */
     public function setShowTableToggleBtn($showTableToggleBtn)
     {
-        if (!empty($showTableToggleBtn) && is_bool($showTableToggleBtn));
+        if (isset($showTableToggleBtn) && is_bool($showTableToggleBtn));
         {
             $this->showTableToggleBtn = $showTableToggleBtn;
         }
@@ -710,7 +710,7 @@ class flexigrid extends object
                 }
             }
             $script .= "}";
-            if (!empty($this->separatorAfter))
+            if (isset($this->separatorAfter))
             {
                 if (in_array($button['name'], $this->separatorAfter))
                 {
