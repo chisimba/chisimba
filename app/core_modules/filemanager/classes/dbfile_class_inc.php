@@ -782,6 +782,15 @@ class dbfile extends dbTable {
     }
 
     /**
+     * Get all the files that satisfy the filter
+     * @param type $filter
+     * @return type 
+     */
+    public function getMatchingFiles($filter) {
+        return $this->getAll(" $filter");
+    }
+
+    /**
      * Method to get all files in a particular folder
      * @param  string $folder folderpath
      * @return array
@@ -800,7 +809,6 @@ class dbfile extends dbTable {
         return $this->getAll(' WHERE filefolder=\'' . $folder . '\' AND filename = \'' . $filename . '\'');
     }
 
-    
     /**
      * Method to update the license and description of a file
      * @param string $id Record Id of the File
@@ -1008,7 +1016,7 @@ class dbfile extends dbTable {
      * @param type $access Access vlaue. Can be public, private_all or private_selected
      */
     function setFileAccess($fileId, $access) {
-        
+
         $this->update("id", $fileId, array("access" => $access));
     }
 
@@ -1021,7 +1029,6 @@ class dbfile extends dbTable {
     function setFileVisibility($fileId, $access) {
         $this->update("id", $fileId, array("visibility" => $access));
     }
- 
 
 }
 
