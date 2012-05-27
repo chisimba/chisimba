@@ -476,6 +476,7 @@ class dbfolder extends dbTable {
         $parts = explode('/', $path);
 
         switch ($parts[0]) {
+          
             case 'users':
                 if ($parts[1] == $this->objUser->userId()) {
                     $title = $this->getFolderType($parts[0], $parts[1]);
@@ -490,6 +491,11 @@ class dbfolder extends dbTable {
                 $title = $this->getFolderType($parts[0], $parts[1]);
                 $href = $this->uri(array('action' => 'viewfolder', 'folder' => $this->getFolderId('context/' . $parts[1])), 'filemanager');
                 break;
+            case 'digitallibrary': // fix up here
+                $title ='Digital Library';
+                $href = $this->uri(array('action' => 'home'), 'digitallibrary');
+                break;
+            
             default:
                 $title = 'unknown';
                 $href = $this->uri(NULL, 'filemanager');

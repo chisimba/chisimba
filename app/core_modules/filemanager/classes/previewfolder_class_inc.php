@@ -128,7 +128,7 @@ class previewfolder extends filemanagerobject {
 
                     $objTable->addCell($folderIcon);
 
-                    $folderLink = new link($this->uri(array('action' => 'viewfolder', 'folder' => $folder['id'])));
+                    $folderLink = new link($this->uri(array('action' => 'viewfolder', 'folder' => $folder['id']), $this->targetModule));
 
 
                     $extTitle = '';
