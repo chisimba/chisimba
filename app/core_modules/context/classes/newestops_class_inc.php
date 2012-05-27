@@ -99,7 +99,14 @@ class newestops extends object
      *
      */
     private $accessArrayBuilt;
-
+    /**
+     *
+     * A no image string variable
+     *
+     * @var String $noImage
+     *
+     */
+    private $noImage;
 
     /**
     * Constructor, loads common objects
@@ -113,6 +120,7 @@ class newestops extends object
         $this->objLanguage = $this->getObject('language', 'language');
         $this->objUser = $this->getObject('user', 'security');
         $this->accessArrayBuilt = FALSE;
+        $this->noImage = "";
     }
 
     /**
