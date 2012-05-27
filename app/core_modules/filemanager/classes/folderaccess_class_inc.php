@@ -110,13 +110,13 @@ class folderaccess extends object {
         $legend = $this->objLanguage->languageText('mod_filemanager_alerts', 'filemanager');
 
         $objElement = new checkbox('alerts', $this->objLanguage->languageText('mod_filemanager_alertchangesonfolder', 'filemanager'), false);
-       
+
         $alertVal = null;
 
         if (key_exists("alerts", $folder)) {
             $alertVal = $folder['alerts'];
         }
-        $alerts = $alertVal == NULL ? false : $folder['alerts'] == 'y'? true:false;
+        $alerts = $alertVal == NULL ? false : $folder['alerts'] == 'y' ? true : false;
         $objElement->setChecked($alerts);
 
 
@@ -127,7 +127,7 @@ class folderaccess extends object {
 
         $fieldset = new fieldset();
         $fieldset->setLegend($legend);
-        $fieldset->addContent($objElement->show() .'<br/>'. $applyButton->show());
+        $fieldset->addContent($objElement->show() . '<br/>' . $applyButton->show());
 
         $hiddeninput = new hiddeninput('id', $id);
         $form->addToForm($hiddeninput->show());
@@ -181,7 +181,7 @@ class folderaccess extends object {
     function createFileVisibilityForm($id) {
         $dbFile = $this->getObject("dbfile", "filemanager");
         $file = $dbFile->getFile($id);
-        $form = new form('visibilityform', $this->uri(array('action' => 'setfilevisibility')));
+        $form = new form('visibilityform', $this->uri(array('action' => 'setfilevisibility', 'id' => $id)));
         $visibleTxt = $this->objLanguage->languageText('mod_filemanager_visible', 'filemanager');
         $hiddenTxt = $this->objLanguage->languageText('mod_filemanager_hidden', 'filemanager');
         $legend = $this->objLanguage->languageText('mod_filemanager_visibility', 'filemanager');
@@ -274,6 +274,47 @@ class folderaccess extends object {
     }
 
     /**
+     * sets the visibility 
+     * @param type $folderId
+     * @param type $access 
+     */
+    public function setFileVisibility($fileId, $visibility) {
+        $dbFile = $this->getObject("dbfile", "filemanager");
+        $dbFile->setFileVisibility($fileId, $visibility);
+
+        $file = $dbFile->getFile($fileId);
+        $contentBasePath = $this->objConfig->getcontentBasePath();
+        $objMkDir = $this->getObject('mkdir', 'files');
+
+
+        if ($visibility == 'hidden') {
+
+            $destFolder = $this->secureFolder . '/' . $file['filefolder'];
+            $objMkDir->mkdirs($destFolder);
+            @chmod($destFolder, 0777);
+            $filePathFull = $contentBasePath . '/' . $file['path'];
+            $destFilePathFull = $this->secureFolder . '/' . $file['path'];
+            rename($filePathFull, $destFilePathFull);
+        }
+
+        if ($file['access'] == 'private_all') {
+            return;
+        }
+        
+        if ($visibility == 'visible') {
+        
+            $destFolder = $contentBasePath . '/' . $file['filefolder'];
+            $objMkDir->mkdirs($destFolder);
+            @chmod($destFolder, 0777);
+            $destFilePathFull = $contentBasePath . '/' . $file['path'];
+            $sourceFilePathFull = $this->secureFolder . '/' . $file['path'];
+            rename($sourceFilePathFull, $destFilePathFull);
+       
+            
+        }
+    }
+
+    /**
      * sets the access 
      * @param type $folderId
      * @param type $access 
@@ -289,6 +330,7 @@ class folderaccess extends object {
         //for private all, we move the folder to the private section
 
         if ($access == 'private_all') {
+
             $destFolder = $this->secureFolder . '/' . $file['filefolder'];
             $objMkDir->mkdirs($destFolder);
             @chmod($destFolder, 0777);

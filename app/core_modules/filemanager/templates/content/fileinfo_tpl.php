@@ -31,7 +31,8 @@ if($folder['access'] == 'private_all' || $folder['access'] == 'private_selected'
     $fileDownloadPath=$this->uri(array("action"=>"downloadsecurefile","path"=>$file['path'],"filename"=>$file['filename']));
 }
 
-if($file['access'] == 'private_all' || $file['access'] == 'private_selected'){
+
+if($file['access'] == 'private_all' || $file['access'] == 'private_selected' || $file['visibility'] == 'hidden'){
     $fileDownloadPath=$this->uri(array("action"=>"downloadsecurefile","path"=>$file['path'],"filename"=>$file['filename']));
 }
 

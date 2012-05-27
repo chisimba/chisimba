@@ -1580,10 +1580,10 @@ function checkWindowOpener()
      * @return type 
      */
     function __setfilevisibility() {
-        $dbFile = $this->getObject("dbfile", "filemanager");
+        $objFolderAccess = $this->getObject("folderaccess", "filemanager");
         $access = $this->getParam("access_radio");
         $fileId = $this->getParam("id");
-        $dbFile->setFileVisibility($fileId, $access);
+        $objFolderAccess->setFileVisibility($fileId, $access);
         return $this->nextAction("fileinfo", array("id" => $fileId));
     }
 
