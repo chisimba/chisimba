@@ -2,13 +2,13 @@
 /* -------------------- IFAUTH INTERFACE CLASS ----------------*/
 
 /**
-* 
+*
 * Abstract class containing methods that can be used in an authentication
 * plugin class.
-* 
+*
 * An authentication plugin must extend this class, and it must set an array of user
 * information in $this->_record() as an array of data containing the following:
-* 
+*
 * title
 * firstname
 * surname
@@ -17,7 +17,7 @@
 * emailAddress
 * logins
 * password
-* 
+*
 *
 * @author Derek Keats
 * @category Chisimba
@@ -29,28 +29,28 @@
 abstract class abauth extends dbtable
 {
     /**
-    * 
+    *
     * Property to hold the record of data for a user
     * as an array.
-    *  
+    *
     */
     public $_record;
     public $userLoginHistory;
     public $loggedInUsers;
-    
-    public function init($dataTable) 
+
+    public function init($dataTable)
     {
         parent::init($dataTable);
         $this->userLoginHistory = $this->getObject('userLoginHistory', 'security');
         $this->loggedInUsers = $this->getObject('loggedInUsers', 'security');
     }
-    
+
     /**
-    * 
+    *
     * This method initiates a session if one does not exist.
-    * Normally it will have been set the first time the site is 
+    * Normally it will have been set the first time the site is
     * open, but this is a sanity check
-    * 
+    *
     */
     public function initiateSession()
     {
@@ -62,7 +62,7 @@ abstract class abauth extends dbtable
             session_regenerate_id();
         }
     }
-    
+
     /**
     * Method to store User Information in a session upon authentication
     */
@@ -81,14 +81,14 @@ abstract class abauth extends dbtable
         $this->update('userid', $this->userId(), array('logins'=>$logins));
         // ---- Insert into the loggedinusers table
         $this->loggedInUsers->insertLogin($this->userId());
-        //if ($this->userGroups->isAdministrator($userId)) {
+        // Check for admin rights.
         if ((isset($this->_record['accesslevel']))&&($this->_record['accesslevel']=='1')) {
             $this->setSession('isAdmin',TRUE);
         } else {
             $this->setSession('isAdmin',FALSE);
         }
    }
-   
+
     /**
     * Method to store user information in a session
     * User Information is stored in a session to prevent unnecessary database calls
@@ -112,7 +112,7 @@ abstract class abauth extends dbtable
         $email = stripcslashes($this->_record['emailaddress']);
         $this->setSession('email',$email);
     }
-    
+
     /**
     * Return the numeric identifier of the user who
     * is currently logged in
@@ -122,6 +122,6 @@ abstract class abauth extends dbtable
     {
         return $this->getSession('userid');
     }
-    
+
 }
 ?>

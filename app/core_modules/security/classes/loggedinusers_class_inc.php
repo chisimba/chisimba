@@ -91,36 +91,7 @@ class loggedInUsers extends dbTable {
         }
         $this->query($sql);
         // Update the tbl_loggedinusers table
-        $ipAddress = $_SERVER['REMOTE_ADDR'];
-        $sessionId = session_id();
-        $contextCode = "lobby";
-        $theme = "default";
-        $myDate = date('Y-m-d H:i:s');
-        $isInvisible = '0';
-        $sql = "
-            INSERT INTO tbl_loggedinusers (
-                                id,
-                userid,
-                ipaddress,
-                sessionid,
-                whenloggedin,
-                 whenlastactive,
-                isinvisible,
-                coursecode,
-                themeused
-            )
-            VALUES (
-                                '" . date('YmdHis') . "',
-                '$userId',
-                '$ipAddress',
-                '$sessionId',
-                CURRENT_TIMESTAMP,
-                    CURRENT_TIMESTAMP,
-                '$isInvisible',
-                '$contextCode',
-                '$theme'
-            )";
-        $this->query($sql);
+        $this->activateLogin($userId);
     }
 
     /**
@@ -194,7 +165,10 @@ class loggedInUsers extends dbTable {
      * Update the current user's active timestamp.
      */
     public function doUpdateLogin($userId, $contextCode='lobby') {
-        if (!$this->isUserOnline($userId)) {
+        $objUser = $this->getObject('user', 'security');
+        if (!$this->isUserOnline($userId)
+          && $objUser->isLoggedIn($userId)
+        ) {
             $this->activateLogin($userId);
         } else {
             $sql = "UPDATE tbl_loggedinusers
