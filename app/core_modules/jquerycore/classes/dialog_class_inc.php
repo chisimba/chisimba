@@ -755,7 +755,14 @@ class dialog extends object
     public function show()
     {
         $script = "<script type=\"text/javascript\">";
-        $script .= "jQuery(function() {";
+        $script .= 'jQuery(document).ready(function(){';
+        $script .= 'var b=navigator.userAgent.toLowerCase();var isIE=(b.indexOf("msie"))>-1&&/msie\s(\d.\d)/.exec(b)[1];';
+        $script .= 'if(isIE)';
+        $script .= '{';
+        $script .= 'jQuery("*").removeClass("ui-corner-all ui-corner-top ui-corner-bottom ui-corner-left ui-corner-right ui-corner-tl ui-corner-tr ui-corner-bl ui-corner-br")';
+        $script .= '}';
+        $script .= '});';
+        $script .= "jQuery(function(){";
         $script .= "jQuery('#$this->cssId').dialog({";
         $script .= $this->autoOpen ? "autoOpen: true" : "autoOpen: false";
         $script .= $this->disabled ? ",disabled: true" : ",disabled: false";
