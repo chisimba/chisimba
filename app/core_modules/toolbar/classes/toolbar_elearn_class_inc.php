@@ -234,14 +234,17 @@ jQuery('.homelink').bind('click', function() {
 
         if ($this->objModule->checkIfRegistered('bookmarks'))
         {
-            $objBookmark = $this->getObject('bookmarksops', 'bookmarks');
-            $goto = $objBookmark->showGotoLink();
-            if (!empty($goto))
+            if (!$this->objModule->checkIfRegistered('statusbar'))
             {
-                $str .= '<li class="bookmark_icon">' . $goto . '</li>';
+                $objBookmark = $this->getObject('bookmarksops', 'bookmarks');
+                $goto = $objBookmark->showGotoLink();
+                if (!empty($goto))
+                {
+                    $str .= '<li class="bookmark_icon">' . $goto . '</li>';
+                }
+                $str .= '<li class="bookmark_icon">' . $objBookmark->showLink() . '</li>';
+                $this->params[] = $objBookmark->bookmarkParams();
             }
-            $str .= '<li class="bookmark_icon">' . $objBookmark->showLink() . '</li>';
-            $this->params[] = $objBookmark->bookmarkParams();
         }
 
         $str .= '</ul></span>';
