@@ -306,6 +306,15 @@ class dialog extends object
     public $script;
 
     /**
+     * 
+     * Variable to hold the auto appened variable
+     * 
+     * @access public
+     * @var boolean
+     */
+    public $autoAppendScript = TRUE;
+
+    /**
      *
      * Intialiser for the dialog class.
      * 
@@ -746,6 +755,22 @@ class dialog extends object
     }
     
     /**
+     * 
+     * Method to set whether the script is auto appended to the page
+     * 
+     * @access public
+     * @param boolean $autoAppendScript TRUE if the script is automatically included in the page | FALSE  if not
+     * @return VOID
+     */
+    public function setAutoAppendScript($autoAppendScript)
+    {
+        if (isset($autoAppendScript) && is_bool($autoAppendScript))
+        {
+            $this->autoAppendScript = $autoAppendScript;
+        }
+    }
+    
+    /**
      *
      * Method to generate the dialog javascript and add it to the page
      * 
@@ -869,8 +894,11 @@ class dialog extends object
         }
         $script .= "});});</script>";  
         $this->script = $script;
-        
-        $this->appendArrayVar('headerParams', $script);
+  
+        if ($this->autoAppendScript)
+        {
+            $this->appendArrayVar('headerParams', $script);
+        }
         
         $string = "<div id=\"$this->cssId\" title='$this->title' style=\"display: none\">" . $this->content . "</div>";
         return $string;
