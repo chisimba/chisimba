@@ -328,7 +328,7 @@ class menu extends object
         }
 
         //removed id="menu" from the div because it looks crap
-        $navbar = '<div  id="menu">'.$menu.'</div><div id="tooliconslist">'.$iconsStr.'</div><div id="breadcrumbs">'.$crumbs.'</div>';
+        $navbar = '<div  id="menu">'.$menu.'</div><div id="tooliconslist">'.$iconsStr.'</div><div id="breadcrumbs">'.$crumbs.'</div>' . $this->tools->addStatusbar();
 
         return $navbar;
     }

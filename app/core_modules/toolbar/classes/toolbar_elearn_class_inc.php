@@ -232,7 +232,7 @@ jQuery('.homelink').bind('click', function() {
             $str .= '<li '.$css.'>'.$link->show().'</li>';
         }
 
-        if ($this->objModule->checkIfRegistered('bookmarks'))
+        if ($this->objModule->checkIfRegistered('bookmarks') && $this->objUser->isLoggedIn())
         {
             if (!$this->objModule->checkIfRegistered('statusbar'))
             {
@@ -248,6 +248,13 @@ jQuery('.homelink').bind('click', function() {
         }
 
         $str .= '</ul></span>';
+
+        if ($this->objModule->checkIfRegistered('statusbar') && $this->objUser->isLoggedIn())
+        {
+            $objStatusbar = $this->getObject('statusbarops', 'statusbar');
+            $str .= $objStatusbar->showStatusbar();
+            $this->params[] = $objStatusbar->statusbarParams();
+        }
 
         if ($this->contextCode != '') {
             $str .= $this->addContextLogoutJS();

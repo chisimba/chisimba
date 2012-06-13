@@ -121,14 +121,30 @@ class tools extends object
     {
         if ($this->moduleCheck->checkIfRegistered('bookmarks') && $this->objUser->isLoggedIn())
         {
-            if (!$this->moduleCheck->checkIfRegistered('bookmarks'))
-            {
+            if (!$this->moduleCheck->checkIfRegistered('statusbar'))
+            {                
                 $objBookmark = $this->getObject('bookmarksops', 'bookmarks');
                 $link = $objBookmark->showLink() . '&nbsp;';
                 $this->params[] = $objBookmark->bookmarkParams();
                 $link .= $objBookmark->showGotoLink();
                 return $link;
             }
+        }
+        return FALSE;
+    }
+
+    /**
+     * Method to add the statusbar.
+     * @return string $objLink The linked icon
+     */
+    public function addStatusbar()
+    {
+        if ($this->moduleCheck->checkIfRegistered('statusbar') && $this->objUser->isLoggedIn())
+        {
+            $objStatusbar = $this->getObject('statusbarops', 'statusbar');
+            $bar = $objStatusbar->showStatusbar() . '&nbsp;';
+            $this->params[] = $objStatusbar->statusbarParams();
+            return $bar;
         }
         return FALSE;
     }
