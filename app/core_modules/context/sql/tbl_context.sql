@@ -52,8 +52,8 @@ $fields = array(
         'notnull' => TRUE
         ),
     'datecreated' => array(
-        'type' => 'date'
-        ),    
+        'type' => 'datetime'
+        ),
     'status' => array(
         'type' => 'text',
         'length' => 32,

@@ -70,4 +70,18 @@
             </add>
         </data>
     </update>
+    <update>
+        <table>tbl_context</table>
+        <version>1.904</version>
+        <description>Changed datecreated from date to datetime</description>
+        <data>
+            <change>
+                <datecreated>
+                    <definition>
+                        <type>datetime</type>
+                    </definition>
+                </datecreated>
+            </change>
+        </data>
+    </update>
 </updates>
