@@ -1084,3 +1084,80 @@ li.bookmark_icon {
     float: right !important;
     margin-right: 2px !important;
 }
+
+/***********************************************************************************************
+* Styles for statusbar
+***********************************************************************************************/
+
+.statusbar_online_count, .statusbar_email_count, .statusbar_message_count, .statusbar_alert_count, .statusbar_buddies_count, .statusbar_document_count {
+    color: white;
+    font-size: 7pt;
+    font-weight: bold;
+    text-align: center;
+    position: relative;
+    left: 5px;
+    bottom: 15px;
+    background: red;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    margin-top: 0px;
+    padding-bottom: 3px;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 0px;
+}
+
+.statusbar_online_users {
+    background: transparent url('../../_common/icons/group.png') no-repeat top left;
+}
+
+.statusbar_email_on {
+    background: transparent url('../../_common/icons/email.png') no-repeat top left;
+    cursor: pointer;
+}
+
+.statusbar_email_off {
+    background: transparent url('../../_common/icons/email.png') no-repeat top left;
+}
+
+.statusbar_messaging_on {
+    background: transparent url('../../_common/icons/user_comment.png') no-repeat top left;
+    cursor: pointer;
+}
+
+.statusbar_messaging_off {
+    background: transparent url('../../_common/icons/user_comment.png') no-repeat top left;
+}
+
+.statusbar_alert_on {
+    background: transparent url('../../_common/icons/alarm.png') no-repeat top left;
+    cursor: pointer;
+}
+
+.statusbar_alert_off {
+    background: transparent url('../../_common/icons/alarm.png') no-repeat top left;
+}
+
+.statusbar_buddies_on {
+    background: transparent url('../../_common/icons/buddies.png') no-repeat top left;
+    cursor: pointer;
+}
+
+.statusbar_document_on {
+    background: transparent url('../../_common/icons/page.png') no-repeat top left;
+    cursor: pointer;
+}
+
+.statusbar_document_off {
+    background: transparent url('../../_common/icons/page.png') no-repeat top left;
+}
+
+.statusbar_picture_on {
+    background: transparent url('../../_common/icons/camera.png') no-repeat top left;
+    cursor: pointer;
+}
+
+.statusbar_picture_off {
+    background: transparent url('../../_common/icons/camera.png') no-repeat top left;
+}
