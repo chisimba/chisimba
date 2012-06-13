@@ -27,7 +27,7 @@ $objFix->fixThree();
             "block" : "userdetailsimage"
         }
         <?php $objModules = $this->getObject('modules', 'modulecatalogue');
-            $check = $objModules->checkIfRegistered('grades');
+            $check = $objModules->checkIfRegistered('schoolusers');
             if ($check): ?>
             {
                 "display" : "block",
