@@ -52,7 +52,7 @@ $fields = array(
         'notnull' => TRUE
         ),
     'datecreated' => array(
-        'type' => 'datetime'
+        'type' => 'timestamp'
         ),
     'status' => array(
         'type' => 'text',

@@ -72,13 +72,13 @@
     </update>
     <update>
         <table>tbl_context</table>
-        <version>1.91</version>
+        <version>1.92</version>
         <description>Changed datecreated from date to datetime</description>
         <data>
             <change>
                 <datecreated>
                     <definition>
-                        <type>datetime</type>
+                        <type>timestamp</type>
                     </definition>
                 </datecreated>
             </change>
