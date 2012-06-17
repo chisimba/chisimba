@@ -312,7 +312,7 @@ class dialog extends object
      * @access public
      * @var boolean
      */
-    public $autoAppendScript = TRUE;
+    protected $autoAppendScript = TRUE;
 
     /**
      *

@@ -157,6 +157,24 @@ class tooltip extends object
      * @var string
      */
     protected $extraClass;
+    
+    /**
+     * 
+     * Variable to hold the script string
+     * 
+     * @access public
+     * @var string
+     */
+    public $script;
+
+    /**
+     * 
+     * Variable to hold the auto appened variable
+     * 
+     * @access public
+     * @var boolean
+     */
+    protected $autoAppendScript = TRUE;
 
     /**
      *
@@ -366,6 +384,22 @@ class tooltip extends object
     }
     
     /**
+     * 
+     * Method to set whether the script is auto appended to the page
+     * 
+     * @access public
+     * @param boolean $autoAppendScript TRUE if the script is automatically included in the page | FALSE  if not
+     * @return VOID
+     */
+    public function setAutoAppendScript($autoAppendScript)
+    {
+        if (isset($autoAppendScript) && is_bool($autoAppendScript))
+        {
+            $this->autoAppendScript = $autoAppendScript;
+        }
+    }
+    
+    /**
      *
      * Method to generate the tooltip javascript and add it to the page
      * 
@@ -404,8 +438,12 @@ class tooltip extends object
             $script .= ",bodyHandler: function() { return $content;}";
         }
         $script .= "});});</script>";
+        $this->script = $script;
         
-        $this->appendArrayVar('headerParams', $script);
+        if ($this->autoAppendScript)
+        {
+            $this->appendArrayVar('headerParams', $script);
+        }
     }
 }
 ?>
