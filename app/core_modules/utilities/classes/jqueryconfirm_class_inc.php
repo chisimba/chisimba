@@ -142,24 +142,29 @@ class jqueryconfirm extends object
         $buttonsArray[$deleteLabel] = 'var uri="' . $this->url . '";uri=uri.replace(/&amp;/g, "&");document.location=uri;';
         $buttonsArray[$cancelLabel] = 'jQuery("#' . $dialogId . '").dialog("close");';
 
-        $dialog = $this->newObject('dialog', 'jquerycore');
-        $dialog->setCssId($dialogId);
-        $dialog->setTitle($this->title);
-        $dialog->setContent($this->message);
-        $dialog->setWidth(500);
-        $dialog->setButtons($buttonsArray);
-        $string = $dialog->show();
+        $objDialog = $this->newObject('dialog', 'jquerycore');
+        $objDialog->setCssId($dialogId);
+        $objDialog->setTitle($this->title);
+        $objDialog->setContent($this->message);
+        $objDialog->setWidth(500);
+        $objDialog->setAutoAppendScript(FALSE);
+        $objDialog->setButtons($buttonsArray);
+        $dialog = $objDialog->show();
         
-        $string .= '<a href="#" id="' . $id . '">' . $this->linkText . '</a>';
+        
+        $string = '<a href="#" id="' . $id . '">' . $this->linkText . '</a>';
         
         $script = '<script type="text/javascript">';
+        $script .= 'var element = jQuery(\'' . $dialog . '\');';
+        $script .= 'jQuery("body").append(element);';
         $script .= 'jQuery("#' . $id . '").live("click", function(){';
         $script .= 'jQuery("#' . $dialogId . '").dialog("open");';
         $script .= '});';
         $script .= '</script>';
-        $this->appendArrayVar('headerParams', $script);
+        $script .= $objDialog->script;
+        //$this->appendArrayVar('headerParams', $script);
         
-        return $string;        
+        return $script . $string;        
     }
 }
 ?>
