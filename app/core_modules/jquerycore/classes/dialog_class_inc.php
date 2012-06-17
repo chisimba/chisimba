@@ -900,7 +900,7 @@ class dialog extends object
             $this->appendArrayVar('headerParams', $script);
         }
         
-        $string = "<div id=\"$this->cssId\" title='$this->title' style=\"display: none\">" . $this->content . "</div>";
+        $string = "<div id=\"$this->cssId\" title=\"$this->title\" style=\"display: none\">" . $this->content . "</div>";
         return $string;
     }
 }
