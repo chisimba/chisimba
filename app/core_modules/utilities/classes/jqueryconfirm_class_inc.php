@@ -134,7 +134,7 @@ class jqueryconfirm extends object
         $deleteLabel = $this->objLanguage->languageText('word_delete', 'system', 'ERROR: word_delete');
         $cancelLabel = $this->objLanguage->languageText('word_cancel', 'system', 'ERROR: word_cancel');
 
-        $random = mt_rand();
+        $random = time() . '_' . mt_rand();
         $id = 'confirm_' . $random;
         $dialogId = 'dialog_confirm_' . $random;
         
