@@ -83,12 +83,21 @@ require_once("ifhtml_class_inc.php");
     *  using jQuery
     */
     private $autoGrow=FALSE;
-
-
+    /**
+     *
+     * @var string $characters The number of characters the textarea can take 
+     */
+    private $characters;
+    /**
+     *
+     * @var string $label The characters ledt label
+     */
+    private $left;
+    
     /**
     * Method to establish the default values
     */
-    public function textarea($name=null,$value='',$rows=4,$cols=50)
+    public function textarea($name=null,$value='',$rows=4,$cols=50, $characters = NULL, $label = NULL)
      {
         $this->name=$name;
         $this->value=$value;
@@ -96,6 +105,8 @@ require_once("ifhtml_class_inc.php");
         $this->cols=$cols;
         $this->css='textarea';
         $this->cssId = 'input_'.$name;
+        $this->characters = $characters;
+        $this->label = $label;
     }
 
     /**
@@ -203,6 +214,26 @@ require_once("ifhtml_class_inc.php");
         $str.='>';
         $str.=$this->value;
         $str.='</textarea>';
+        
+        if (!is_null($this->characters))
+        {
+            $str .= '<div id="' . $this->cssId . '_characters"><b>' . $this->label . ' </b>' . $this->characters . '</div>';
+            $script = '<script type="text/javascript">';
+            $script .= 'jQuery("#' . $this->cssId . '").live("keyup",function(){';
+            $script .= 'var label="<b>"+"' . $this->label . '"+" </b>";';
+            $script .= 'var char=' . $this->characters . ';';
+            $script .= 'var len=jQuery("#' . $this->cssId . '").val().length;';
+            $script .= 'if(len>=char){';
+            $script .= 'return false;';
+            $script .= '}else{';
+            $script .= 'var left=char-len;';
+            $script .= 'jQuery("#' . $this->cssId . '_characters").html(label+left);';
+            $script .= '}';
+            $script .= '});';
+            $script .= '</script>';
+            echo $script;
+        }
+        
         return $str;
     }
  }
