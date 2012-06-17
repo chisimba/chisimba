@@ -529,23 +529,25 @@ class getIcon extends object implements ifhtml
             $ret .= " align=\"".$this->align."\"";
         }
         //Try alt first, if not try title, and as a last resort use name
+        // removed name as it conflicts with tooltips
         if ($this->alt) {
             $ret .= " alt=\"".$this->alt."\"";
         } else {
             if ($this->title) {
                 $ret .= " alt=\"".$this->title."\"";
             } else {
-                $ret .= " alt=\"".$this->name."\"";
+                //$ret .= " alt=\"".$this->name."\"";
             }
         }
         // try title first, then alt, and as a last resort use name
+        // removed name as it conflicts with tooltips
         if ($this->title) {
             $ret .= " title=\"".$this->title."\"";
         } else {
             if ($this->alt) {
                 $ret .= " title=\"".$this->alt."\"";
             } else {
-                $ret .= " title=\"".$this->name."\"";
+                //$ret .= " title=\"".$this->name."\"";
             }
         }
     // additional attributes
