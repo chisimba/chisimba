@@ -66,7 +66,7 @@ class tabs extends object
      * @access proteced
      * @var string
      */
-    protected $cssId = "jq_tab";
+    protected $cssId = "tabs";
 
     /**
      * 
@@ -220,6 +220,15 @@ class tabs extends object
 
     /**
      *
+     * Variable to determine if the tab id should be random
+     * 
+     * @access public
+     * @var boolean 
+     */
+    public $randomId = FALSE;
+
+    /**
+     *
      * Intialiser for the dialog class.
      * 
      * @access public
@@ -227,6 +236,21 @@ class tabs extends object
      */
     public function init()
     {
+    }
+    /**
+     *
+     * Method to set if the tab id should be random
+     * 
+     * @access public
+     * @param boolean $randomId TRUE if the tab id should be random | FALSE if not
+     * @return VOID 
+     */
+    public function setRandomId($randomId)
+    {
+        if (isset($randomId) && is_bool($randomId))
+        {
+            $this->randomId = $randomId;
+        }            
     }
     
     /**
@@ -526,9 +550,18 @@ class tabs extends object
      */
     public function show()
     {
+        if (!$this->randomId)
+        {
+            $id = $this->cssId;
+        }
+        else
+        {
+            $random = time() . '-' . mt_rand();
+            $id = 'tabs-' . $random;
+        }
         $script = "<script type=\"text/javascript\">";
         $script .= "jQuery(function() {";
-        $script .= "jQuery('#$this->cssId').tabs({";
+        $script .= "jQuery('#$id').tabs({";
         $script .= $this->disabled ? "disabled: true" : "disabled: false";
         if (isset($this->cache))
         {
@@ -614,7 +647,7 @@ class tabs extends object
         
         if ($this->isAjaxTabs)
         {
-            $string = "<div id=\"$this->cssId\"><ul>";
+            $string = "<div id=\"$id\"><ul>";
             foreach ($this->ajaxTabs as $link)
             {
                 $string .= "<li><a href=\"$link\"><span>Content</span></a></li>";
@@ -623,17 +656,17 @@ class tabs extends object
         }
         else
         {
-            $string = "<div id=\"$this->cssId\"><ul>";
+            $string = "<div id=\"$id\"><ul>";
             $i = 0;
             foreach ($this->tabs as $title => $content)
             {
-                $string .= "<li><a href=\"#tabs-" . $i++ . "\">$title</a></li>";
+                $string .= "<li><a href=\"#" . $id . '-' . $i++ . "\">$title</a></li>";
             }
             $string .= "</ul>";
             $i = 0;
             foreach ($this->tabs as $title => $content)
             {
-                $string .= "<div id=\"tabs-" . $i++ . "\"><p>$content</p></div>";
+                $string .= "<div id=\"" . $id . '-' . $i++ . "\"><p>$content</p></div>";
             }
             $string .= "</div>";
         }
