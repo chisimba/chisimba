@@ -217,9 +217,10 @@ require_once("ifhtml_class_inc.php");
         
         if (!is_null($this->characters))
         {
-            $str .= '<div id="' . $this->cssId . '_characters"><b>' . $this->label . ' </b>' . $this->characters . '</div>';
+            $str .= '<div id="' . $this->cssId . '_characters" style="display: none;"><b>' . $this->label . ' </b>' . $this->characters . '</div>';
             $script = '<script type="text/javascript">';
             $script .= 'jQuery("#' . $this->cssId . '").live("keyup",function(){';
+            $script .= 'jQuery("#' . $this->cssId . '_characters").show();';
             $script .= 'var label="<b>"+"' . $this->label . '"+" </b>";';
             $script .= 'var char=' . $this->characters . ';';
             $script .= 'var len=jQuery("#' . $this->cssId . '").val().length;';
