@@ -148,6 +148,7 @@ class jqueryconfirm extends object
         $objDialog->setContent($this->message);
         $objDialog->setWidth(500);
         $objDialog->setAutoAppendScript(FALSE);
+        $objDialog->setPosition("center");
         $objDialog->setButtons($buttonsArray);
         $dialog = $objDialog->show();
         
@@ -159,10 +160,10 @@ class jqueryconfirm extends object
         $script .= 'jQuery("body").append(element);';
         $script .= 'jQuery("#' . $id . '").live("click", function(){';
         $script .= 'jQuery("#' . $dialogId . '").dialog("open");';
+        $script .= 'return false;';
         $script .= '});';
         $script .= '</script>';
         $script .= $objDialog->script;
-        //$this->appendArrayVar('headerParams', $script);
         
         return $script . $string;        
     }
