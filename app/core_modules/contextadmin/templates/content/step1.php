@@ -1,4 +1,5 @@
 <?php
+$objSysConfig = $this->getObject ('dbsysconfig','sysconfig');
 
 $this->loadClass('htmlheading', 'htmlelements');
 $this->loadClass('form', 'htmlelements');
@@ -27,26 +28,26 @@ if ($mode == 'edit') {
 
     $this->appendArrayVar('headerParams', '
     <script type="text/javascript">
-        
+
         // Flag Variable - Update message or not
         var doUpdateMessage = false;
-        
+
         // Var Current Entered Code
         var currentCode;
-        
+
         // Action to be taken once page has loaded
         jQuery(document).ready(function(){
             jQuery("#input_contextcode").bind(\'keyup\', function() {
                 checkCode(jQuery("#input_contextcode").attr(\'value\'));
             });
         });
-        
+
         // Function to check whether context code is taken
         function checkCode(code)
         {
             // Messages can be updated
             doUpdateMessage = true;
-            
+
             // If code is null
             if (code == null) {
                 // Remove existing stuff
@@ -55,44 +56,44 @@ if ($mode == 'edit') {
                 jQuery("#input_contextcode").removeClass("inputerror");
                 jQuery("#contextcodemessage").removeClass("success");
                 doUpdateMessage = false;
-                
+
             // If code is root - Reserved. Saves Ajax Call
             } else if (code.toLowerCase() == "root") {
-                
+
                 currentCode = code;
-                
+
                 jQuery("#contextcodemessage").html("This code has been reserved and cannot be used as a context code.");
                 jQuery("#contextcodemessage").addClass("error");
                 jQuery("#input_contextcode").addClass("inputerror");
                 jQuery("#contextcodemessage").removeClass("success");
                 doUpdateMessage = false;
-                
+
             // Else Need to do Ajax Call
             } else {
-            
-                
-                
+
+
+
                 // Check that existing code is not in use
                 if (currentCode != code) {
-                    
+
                     // Set message to checking
                     jQuery("#contextcodemessage").removeClass("success");
                     jQuery("#contextcodemessage").html("<span id=\"contextcodecheck\">' . addslashes($objIcon->show()) . ' Checking ...</span>");
-                    
-                    
+
+
                     // Set current Code
                     currentCode = code;
-                    
+
                     // DO Ajax
                     jQuery.ajax({
-                        type: "GET", 
-                        url: "index.php", 
-                        data: "module=contextadmin&action=checkcode&code="+code, 
+                        type: "GET",
+                        url: "index.php",
+                        data: "module=contextadmin&action=checkcode&code="+code,
                         success: function(msg){
-                        
+
                             // Check if messages can be updated and code remains the same
                             if (doUpdateMessage == true && currentCode == code) {
-                                
+
                                 // IF code exists
                                 if (msg == "exists") {
                                     jQuery("#contextcodemessage").html("' . $contextexists . '");
@@ -100,7 +101,7 @@ if ($mode == 'edit') {
                                     jQuery("#input_contextcode").addClass("inputerror");
                                     jQuery("#contextcodemessage").removeClass("success");
                                     jQuery("#savebutton").attr("disabled", "disabled");
-                                    
+
                                 // Else
                                 } else {
                                     jQuery("#contextcodemessage").html("Available");
@@ -109,7 +110,7 @@ if ($mode == 'edit') {
                                     jQuery("#input_contextcode").removeClass("inputerror");
                                     jQuery("#savebutton").removeAttr("disabled");
                                 }
-                                
+
                             }
                         }
                     });
@@ -208,19 +209,23 @@ if ($mode == 'add' && is_array($fixup)) {
     $status->setSelected($context['status']);
 }
 
-$access = new radio('access');
-$access->setBreakSpace('<br />');
-$access->addOption('Public', '<strong>' . $this->objLanguage->languageText('word_public', 'system', 'Public') . '</strong> - <span class="caption">' . $this->objLanguage->code2Txt('mod_context_publichelp', 'context', NULL, '[-context-] can be accessed by all users, including anonymous users') . '</span>');
-$access->addOption('Open', '<strong>' . $this->objLanguage->languageText('word_open', 'system', 'Open') . '</strong> - <span class="caption">' . $this->objLanguage->code2Txt('mod_context_opencontextdescription', 'context', NULL, '[-context-] can be accessed by all users that are logged in') . '</span>');
-$access->addOption('Private', '<strong>' . $this->objLanguage->languageText('word_private', 'system', 'Private') . '</strong> - <span class="caption">' . $this->objLanguage->code2Txt('mod_context_privatecontextdescription', 'context', NULL, 'Only [-context-] members can enter the [-context-]') . '<span class="caption">');
+if ($objSysConfig->getValue('context_access_private_only', 'context', 'false') == 'true') {
+    $access = new hiddeninput('access', 'Private');
+} else {
+    $access = new radio('access');
+    $access->setBreakSpace('<br />');
+    $access->addOption('Public', '<strong>' . $this->objLanguage->languageText('word_public', 'system', 'Public') . '</strong> - <span class="caption">' . $this->objLanguage->code2Txt('mod_context_publichelp', 'context', NULL, '[-context-] can be accessed by all users, including anonymous users') . '</span>');
+    $access->addOption('Open', '<strong>' . $this->objLanguage->languageText('word_open', 'system', 'Open') . '</strong> - <span class="caption">' . $this->objLanguage->code2Txt('mod_context_opencontextdescription', 'context', NULL, '[-context-] can be accessed by all users that are logged in') . '</span>');
+    $access->addOption('Private', '<strong>' . $this->objLanguage->languageText('word_private', 'system', 'Private') . '</strong> - <span class="caption">' . $this->objLanguage->code2Txt('mod_context_privatecontextdescription', 'context', NULL, 'Only [-context-] members can enter the [-context-]') . '<span class="caption">');
 
 
-if ($mode == 'add' && is_array($fixup)) {
-    $access->setSelected($fixup['access']);
-} else if ($mode == 'add') {
-    $access->setSelected('Public');
-} else if ($mode == 'edit') {
-    $access->setSelected($context['access']);
+    if ($mode == 'add' && is_array($fixup)) {
+        $access->setSelected($fixup['access']);
+    } else if ($mode == 'add') {
+        $access->setSelected('Public');
+    } else if ($mode == 'edit') {
+        $access->setSelected($context['access']);
+    }
 }
 
 $table = $this->newObject('htmltable', 'htmlelements');
@@ -291,10 +296,12 @@ $table->addCell('&nbsp;');
 $table->addCell('&nbsp;');
 $table->endRow();
 
-$table->startRow();
-$table->addCell($this->objLanguage->languageText('word_access', 'system', 'Access'));
-$table->addCell($access->show());
-$table->endRow();
+if ($objSysConfig->getValue('context_access_private_only', 'context', 'false') == 'false') {
+    $table->startRow();
+    $table->addCell($this->objLanguage->languageText('word_access', 'system', 'Access'));
+    $table->addCell($access->show());
+    $table->endRow();
+}
 
 $emailAlert = new checkbox('emailalertopt', $this->objLanguage->languageText('mod_contextadmin_emailalertwhat', 'contextadmin', 'Send email alerts'), true);  // this will checked
 
@@ -315,7 +322,11 @@ $button = new button('savecontext', $this->objLanguage->languageText('mod_contex
 $button->cssId = 'savebutton';
 $button->setToSubmit();
 
-$form->addToForm($table->show() . '<p><br />' . $button->show() . '</p>');
+$table_ = $table->show();
+if ($objSysConfig->getValue('context_access_private_only', 'context', 'false') == 'true') {
+    $table_ .= $access->show();
+}
+$form->addToForm( $table_ . '<p><br />' . $button->show() . '</p>');
 
 $hiddenInput = new hiddeninput('mode', $mode);
 $form->addToForm($hiddenInput->show());
