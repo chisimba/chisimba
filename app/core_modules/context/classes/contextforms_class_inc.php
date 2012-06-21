@@ -72,6 +72,7 @@ class contextforms extends object {
      * Constructor
      */
     public function init() {
+        $this->objSysConfig = $this->getObject ('dbsysconfig','sysconfig');
         $this->loadClass('htmlheading', 'htmlelements');
         $this->loadClass('form', 'htmlelements');
         $this->loadClass('textinput', 'htmlelements');
@@ -115,17 +116,27 @@ class contextforms extends object {
             $status->setSelected($context['status']);
         }
 
-        $access= new radio ('access');
-        $access->setBreakSpace('<br />');
-        $access->addOption('Public', '<strong>'.$this->objLanguage->languageText('word_public', 'system', 'Public').'</strong> - <span class="caption">'.ucfirst($this->objLanguage->code2Txt('mod_context_publiccontextdescription', 'context', NULL, '[-context-] can be accessed by all users, including anonymous users')).'</span>');
-        $access->addOption('Open', '<strong>'.$this->objLanguage->languageText('word_open', 'system', 'Open').'</strong> - <span class="caption">'.ucfirst($this->objLanguage->code2Txt('mod_context_opencontextdescription', 'context', NULL, '[-context-] can be accessed by all users that are logged in')).'</span>');
-        $access->addOption('Private', '<strong>'.$this->objLanguage->languageText('word_private', 'system', 'Private').'</strong> - <span class="caption">'.$this->objLanguage->code2Txt('mod_context_privatecontextdescription', 'context', NULL, 'Only [-context-] members can enter the [-context-]').'<span class="caption">');
-
-        if ($context != NULL) {
-            $access->setSelected($context['access']);
+        if ($this->objSysConfig->getValue('context_access_private_only', 'context', 'false') == 'true') {
+            if (is_null($context)) {
+                $access_ = 'Private';
+            } else {
+                $access_ = $context['access'];
+            }
+            $access = new hiddeninput('access', $access_);
         } else {
-            $access->setSelected('Public');
+            $access= new radio ('access');
+            $access->setBreakSpace('<br />');
+            $access->addOption('Public', '<strong>'.$this->objLanguage->languageText('word_public', 'system', 'Public').'</strong> - <span class="caption">'.ucfirst($this->objLanguage->code2Txt('mod_context_publiccontextdescription', 'context', NULL, '[-context-] can be accessed by all users, including anonymous users')).'</span>');
+            $access->addOption('Open', '<strong>'.$this->objLanguage->languageText('word_open', 'system', 'Open').'</strong> - <span class="caption">'.ucfirst($this->objLanguage->code2Txt('mod_context_opencontextdescription', 'context', NULL, '[-context-] can be accessed by all users that are logged in')).'</span>');
+            $access->addOption('Private', '<strong>'.$this->objLanguage->languageText('word_private', 'system', 'Private').'</strong> - <span class="caption">'.$this->objLanguage->code2Txt('mod_context_privatecontextdescription', 'context', NULL, 'Only [-context-] members can enter the [-context-]').'<span class="caption">');
+
+            if ($context != NULL) {
+                $access->setSelected($context['access']);
+            } else {
+                $access->setSelected('Public');
+            }
         }
+
 
 
         $table = $this->newObject('htmltable', 'htmlelements');
@@ -161,10 +172,13 @@ class contextforms extends object {
         $table->addCell($status->show());
         $table->endRow();
 
-        $table->startRow();
-        $table->addCell($this->objLanguage->languageText('word_access', 'system', 'Access').':');
-        $table->addCell($access->show());
-        $table->endRow();
+        if ($this->objSysConfig->getValue('context_access_private_only', 'context', 'false') == 'false') {
+            $table->startRow();
+            $table->addCell($this->objLanguage->languageText('word_access', 'system', 'Access').':');
+            $table->addCell($access->show());
+            $table->endRow();
+        }
+
 
         $alerts=explode("|", $context['alerts']);
         $emailAlert = new checkbox('emailalertopt',$this->objLanguage->languageText('mod_contextadmin_emailalert', 'contextadmin', 'Email alerts'),$alerts[0] == 'e' || $alerts[0] == '1');  // this will checked
@@ -238,6 +252,10 @@ class contextforms extends object {
         $form = new form ('createcontext', $this->uri(array('action'=>$this->formAction), $this->formModule));
 
         $form->addToForm($table2->show());
+
+        if ($this->objSysConfig->getValue('context_access_private_only', 'context', 'false') == 'true') {
+            $form->addToForm($access->show());
+        }
 
         if ($context != NULL) {
             $hiddenInput = new hiddeninput('contextcode', $context['contextcode']);

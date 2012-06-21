@@ -512,7 +512,7 @@ class context extends controller {
         $alerts = $this->getParam('emailalertopt') == 'on' ? '1' : '0';
         if ($contextCode == $this->contextCode && $title != '') {
             $result = $this->objContext->updateContext(
-                    $contextCode, $title, $status, $access, $about, FALSE, 'Y', $alerts);
+                    $contextCode, $title, $status, $access, $about, FALSE, /*'Y'*/FALSE, $alerts);
 
             if ($image != '') {
                 $objContextImage = $this->getObject('contextimage', 'context');
@@ -562,7 +562,7 @@ class context extends controller {
         $contexts = $this->objContext->getContextStartingWith($letter);
 
         if (count($contexts) == 0) {
-            
+
         } else {
             $objDisplayContext = $this->getObject('displaycontext', 'context');
 
@@ -587,7 +587,7 @@ class context extends controller {
         }
         $contexts = $con;
         if (count($contexts) == 0) {
-            
+
         } else {
             $objDisplayContext = $this->getObject('displaycontext', 'context');
 
@@ -671,8 +671,8 @@ class context extends controller {
      */
     protected function __leavecontext() {
         if ($this->eventsEnabled) {
-            $message = $this->objUser->fullname() . ' ' . 
-                    $this->objLanguage->languageText('mod_context_hasleft', 'context') . 
+            $message = $this->objUser->fullname() . ' ' .
+                    $this->objLanguage->languageText('mod_context_hasleft', 'context') .
                     ' ' . $this->contextCode;
             $this->eventDispatcher->post($this->objActivityStreamer, "context", array('title' => $message,
                 'link' => $this->uri(array()),
