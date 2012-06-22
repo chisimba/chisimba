@@ -82,6 +82,7 @@ class block_contextsettings extends object
 
         $this->title = ucwords($this->objLanguage->code2Txt('mod_context_contextsettings', 'context', NULL, '[-context-] Settings'));
         $this->objSysConfig = $this->getObject ('dbsysconfig', 'sysconfig');
+        $this->objUser = $this->getObject('user', 'security');
    }
 
    /**
@@ -122,7 +123,7 @@ class block_contextsettings extends object
 
         $str = '<p><strong>'.ucwords($this->objLanguage->code2Txt('mod_context_contexttitle', 'context', NULL, '[-context-] Title')).'</strong>: '.$contextDetails['title'].'</p>';
         $str .= '<p><strong>'.ucwords($this->objLanguage->code2Txt('mod_context_contextstatus', 'context', NULL, '[-context-] status')).'</strong>: '.$contextDetails['status'].'</p>';
-        if ($this->objSysConfig->getValue('context_access_private_only', 'context', 'false') == 'false') {
+        if ($this->objSysConfig->getValue('context_access_private_only', 'context', 'false') == 'false' || $this->objUser->isAdmin()) {
             $str .= '<p><strong>'.$this->objLanguage->languageText('mod_context_accessettings', 'context', 'Access Settings').'</strong>: '.$contextDetails['access'].'</p>';
         }
 
