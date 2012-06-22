@@ -195,7 +195,7 @@ class contextadmin extends controller {
         $showcomment = $this->getParam('showcomment');
 
         $status = $this->getParam('status');
-        $access = $this->getParam('access');
+        $access = $this->getParam('access', 'Private');
         $about = '';
 
         $emailalert = $this->getParam('emailalertopt');
@@ -553,7 +553,7 @@ class contextadmin extends controller {
     private function __edit() {
         $contextCode = $this->getParam('contextcode');
         $context = $this->objContext->getContext($contextCode);
-        
+
         if ($context == FALSE) {
             return $this->nextAction(NULL);
         }
@@ -573,7 +573,7 @@ class contextadmin extends controller {
         $contextCode = $this->getParam('editcontextcode');
         $title = $this->getParam('title');
         $canvas = $this->getParam('canvas');
-       
+
         $status = $this->getParam('status');
         $showcomment = $this->getParam('showcomment');
         $access = $this->getParam('access');
@@ -757,7 +757,7 @@ class contextadmin extends controller {
 
     /**
      * handles a theme uploaded from filemanager
-     * @return <type> 
+     * @return <type>
      */
     public function __saveuploadedtheme() {
 

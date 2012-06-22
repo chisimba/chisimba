@@ -209,9 +209,9 @@ if ($mode == 'add' && is_array($fixup)) {
     $status->setSelected($context['status']);
 }
 
-if ($objSysConfig->getValue('context_access_private_only', 'context', 'false') == 'true') {
-    $access = new hiddeninput('access', 'Private');
-} else {
+    //$access = new hiddeninput('access', 'Private');
+//} else {
+if ($objSysConfig->getValue('context_access_private_only', 'context', 'false') == 'false') {
     $access = new radio('access');
     $access->setBreakSpace('<br />');
     $access->addOption('Public', '<strong>' . $this->objLanguage->languageText('word_public', 'system', 'Public') . '</strong> - <span class="caption">' . $this->objLanguage->code2Txt('mod_context_publichelp', 'context', NULL, '[-context-] can be accessed by all users, including anonymous users') . '</span>');
@@ -322,11 +322,11 @@ $button = new button('savecontext', $this->objLanguage->languageText('mod_contex
 $button->cssId = 'savebutton';
 $button->setToSubmit();
 
-$table_ = $table->show();
-if ($objSysConfig->getValue('context_access_private_only', 'context', 'false') == 'true') {
-    $table_ .= $access->show();
-}
-$form->addToForm( $table_ . '<p><br />' . $button->show() . '</p>');
+//$table_ = $table->show();
+//if ($objSysConfig->getValue('context_access_private_only', 'context', 'false') == 'true') {
+//    $table_ .= $access->show();
+//}
+$form->addToForm( $table->show() . '<p><br />' . $button->show() . '</p>');
 
 $hiddenInput = new hiddeninput('mode', $mode);
 $form->addToForm($hiddenInput->show());
