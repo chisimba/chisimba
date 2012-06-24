@@ -1162,7 +1162,7 @@ li.bookmark_icon {
     background: transparent url('../../_common/icons/camera.png') no-repeat top left;
 }
 
-/* For the new YouTube player */
+/* ---- For the new YouTube player ---- */
 .videoWrapper {
 	position: relative;
 	padding-bottom: 56.25%; /* 16:9 */
