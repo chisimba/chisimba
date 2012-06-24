@@ -86,27 +86,10 @@ class parse4youtube extends object
     */
     public function parse($str)
     {
-        //Match the ones that are in links
-        preg_match_all('/\\[YOUTUBE]<a.*?href="(?P<youtubelink>.*?)".*?>.*?<\/a>\\[\/YOUTUBE]/', $str, $results, PREG_PATTERN_ORDER);
         //Match straight URLs
         preg_match_all('/\\[YOUTUBE](.*?)\\[\/YOUTUBE]/', $str, $results2, PREG_PATTERN_ORDER);
         //Match filters based on the youtube module
         preg_match_all('/\\[YOUTUBE:(.*?)\\]/', $str, $results3, PREG_PATTERN_ORDER);
-        //Get all the ones in links
-        $counter = 0;
-        foreach ($results[0] as $item)
-        {
-            $link = $results['youtubelink'][$counter];
-            //Check if it is a valid link, if not return an error message
-            if ($this->isYoutube($link)) {
-                $videoId = $this->getVideoCode($link);
-                $replacement = $this->getVideoObject($videoId);
-            } else {
-                $replacement = $this->errorMessage;
-            }
-            $str = str_replace($item, $replacement, $str);
-            $counter++;
-        }
         //Get the ones that are straight URL links
         $counter = 0;
         foreach ($results2[0] as $item)
@@ -135,7 +118,7 @@ class parse4youtube extends object
         $counter = 0;
 
         foreach ($results3[0] as $item) {
-            $exPat = $results3[1][$counter];
+            /*$exPat = $results3[1][$counter];
             //Get an array containing the param=value data
             //The format is [YOUTUBE: by_tag,tag,2,1,24]
             if ($flagOk == TRUE) {
@@ -164,7 +147,8 @@ class parse4youtube extends object
                 $replacement = $item . "<br .<span class=\"error\">"
                   .  $this->objLanguage->languageText('mod_filters_error_noyoutube', 'filters')
                   . "</span>";
-            }
+            }*/
+            $replacement = '<span class="warning">The YOUTUBE API feature is disabled due to YouTube API changes.</span>';
             $str = str_replace($item, $replacement, $str);
             $counter++;
         }
@@ -184,12 +168,33 @@ class parse4youtube extends object
     */
     public function getVideoCode($link)
     {
+        // Check if there is a <a href in the link
+        if (strstr($link, '<a')) {
+            $link = $this->unHref($link);
+        }
         $vCode = explode("?", $link);
         $vTxt = $vCode[1];
         $vCode = explode("=", $vTxt);
         $vTxt = $vCode[1];
 
         return $vTxt;
+    }
+    
+    /**
+     *
+     * Some browsers turn the link active on paste into CKEDITOR.
+     * This is a counter to that bad behaviour, it extracts the link
+     * properly.
+     * 
+     * @param string $link The messed up link to parse
+     * @return string The link as the link text of the anchor tag
+     * @Access private
+     * 
+     */
+    private function unHref($link)
+    {
+        preg_match( '/<a[^>]+>([^<]+)<\/a>/si', $link, $m );
+        return trim( $m[1] );
     }
 
     /**
@@ -202,10 +207,11 @@ class parse4youtube extends object
     */
     public function getVideoObject($videoId)
     {
-        return "<object width=\"425\" height=\"350\"><param name=\"movie\" value=\"http://www.youtube.com/v/"
-          .  $videoId . "\"></param><param name=\"wmode\" value=\"transparent\"></param>"
-          . "<embed src=\"http://www.youtube.com/v/" . $videoId . "\" type=\"application/x-shockwave-flash\""
-          .    " wmode=\"transparent\" width=\"425\" height=\"350\"></embed></object>";
+        $vidPlayer = '<div class="videoWrapper"><iframe class="youtube-player" '
+          . 'type="text/html" width="640" height="385" '
+          . 'src="http://www.youtube.com/embed/' . $videoId 
+          .'" frameborder="0" allowfullscreen></iframe></div>';
+        return $vidPlayer;
     }
 
     /**
