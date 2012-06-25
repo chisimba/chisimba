@@ -1,0 +1,4 @@
+Chisimba
+========
+
+Chisimba is the product of a collaboration of the 13 African universities involved in the African Virtual Open Initiatives and Resources (AVOIR) project. Its main purpose is to foster capacity building in Software Engineering among African universities through the collaborative development of Free Software. The framework includes contributions from others outside AVOIR as well. Its physical home, and the location of the highest concentration of developers is in the Free Software Innovation Unit at the University of the Western Cape (UWC). The word “Chisimba” is the Chichewa (Malawi) word for the framework used to build a traditional African house.
