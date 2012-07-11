@@ -867,7 +867,7 @@ class user extends dbTable {
      */
     public function isContextAuthor() {
         $this->objPerms->outputRights();
-        $right = $this->objPerms->checkRule(isAuthor);
+        $right = $this->objPerms->checkRule('isAuthor');
         return $right;
     }
 
@@ -879,7 +879,7 @@ class user extends dbTable {
      */
     public function isContextEditor() {
         $this->objPerms->outputRights();
-        $right = $this->objPerms->checkRule(isEditor);
+        $right = $this->objPerms->checkRule('isEditor');
         return $right;
     }
 
@@ -891,7 +891,7 @@ class user extends dbTable {
      */
     public function isContextReader() {
         $this->objPerms->outputRights();
-        $right = $this->objPerms->checkRule(isReader);
+        $right = $this->objPerms->checkRule('isReader');
         return $right;
     }
 
