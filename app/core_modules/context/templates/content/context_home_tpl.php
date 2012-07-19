@@ -221,7 +221,7 @@ $instructorProfile = "";
 $isRegistered = $objModule->checkIfRegistered('contextinstructor');
 if ($isRegistered) {
     $objContextInstructor = $this->getObject('manager', 'contextinstructor');
-    $instructorProfile = $objContextInstructor->show();
+    $instructorProfile ='<ul id="nav-secondary">' .  $objContextInstructor->show() . '</ul>';
 }
 
 $contextContentIsRegistered = $objModule->checkIfRegistered('contextcontent');
@@ -274,7 +274,7 @@ if ($showAdminShortcutBlock == "TRUE" || $showAdminShortcutBlock == "true" || $s
                 ucwords($this->objLanguage->code2Txt('mod_contextcontent_activityshortcuts', NULL, 'contextcontent', '[-context-] Activities')), $content, $block, $hidden, $showToggle, $showTitle, $cssClass, '');
     }
 }
-$objCssLayout->leftColumnContent = '<ul id="nav-secondary">' . $instructorProfile . '</ul>' . $toolbar->show(); //setLeftColumnContent($toolbar->show());
+$objCssLayout->leftColumnContent = $instructorProfile . $toolbar->show(); //setLeftColumnContent($toolbar->show());
 
 $objCssLayout->rightColumnContent = '';
 
