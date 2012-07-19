@@ -681,8 +681,14 @@ class context extends controller {
                 'description' => $message));
         }
         $this->objContext->leaveContext();
-
-        return $this->nextAction(NULL, NULL, '_default');
+        if ($this->objUser->isLoggedIn()) {
+            return $this->nextAction(NULL, NULL, '_default');
+        } else {
+            // Workaround for bug in the engine class - it should really be unfucked in the engine class
+            $objConfig = $this->getObject('altconfig', 'config');
+            $goToPlace = $objConfig->getPrelogin('KEWL_PRELOGIN_MODULE');
+            return $this->nextAction(NULL, NULL, $goToPlace);
+        }
     }
 
     /**
