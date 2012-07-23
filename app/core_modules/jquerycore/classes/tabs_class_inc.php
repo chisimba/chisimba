@@ -634,7 +634,7 @@ class tabs extends object
         }
         if (isset($this->selected))
         {
-            $script .= ",selected: \"$this->selected\"";
+            $script .= ",selected: $this->selected";
         }
         if (isset($this->spinner))
         {
