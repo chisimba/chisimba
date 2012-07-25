@@ -1171,18 +1171,15 @@ li.bookmark_icon {
 * Styles for image gallery
 ***********************************************************************************************/
 
-.gallery, .album, .image, div.gallery_options, div.album_options {
+.gallery, .album, .image {
     float: left;
     width: 200px;
-    cursor: pointer;
     border: 5px groove black;
     margin: 2px;
     padding: 5px;
 }
 
-.gallery_options, .album_options, .image_options {
-    float: left;
-    width: 200px;
+.gallery_albums, .gallery_empty, album_images, .album_empty {
     cursor: pointer;
 }
 
