@@ -80,52 +80,40 @@ class contextsidebar extends object
     public function show()
     {
         $str = '';
-
         $this->loadClass('htmlheading', 'htmlelements');
-
         $header = new htmlheading();
         $header->type = 2;
         $header->str = $this->objContext->getTitle();
-
         $str .= $header->show();
-
+        // Put in the image for the context (course)
         $objContextImage = $this->getObject('contextimage');
         $contextImage = $objContextImage->getContextImage($this->contextCode);
-
-        if ($contextImage != FALSE) {
+        if ($contextImage !== FALSE) {
             $str .= '<p align="center"><img src="'.$contextImage.'" /></p><br />';
         }
-
+        // Add the search form
         $str .= $this->searchForm();
-
+        // Add all the context modules
         $objContextModules = $this->getObject('dbcontextmodules');
         $contextModules = $objContextModules->getContextModules($this->contextCode);
-
         $objModules = $this->getObject('modules', 'modulecatalogue');
-
         $nodes = array();
-
         $nodes[] = array('text'=>ucwords($this->objLanguage->code2Txt('mod_context_contexthome', 'context', NULL, '[-context-] Home')), 'uri'=>$this->uri(NULL, 'context'), 'nodeid'=>'context', 'css'=>'sidebarhomelink');
-
         if (count($contextModules) > 0) {
-            foreach ($contextModules as $module)
-            {
+            foreach ($contextModules as $module) {
                 $moduleInfo = $objModules->getModuleInfo($module);
-
                 if ($moduleInfo['isreg']) {
-                    $nodes[] = array('text'=>ucwords($moduleInfo['name']), 'uri'=>$this->uri(NULL, $module), 'nodeid'=>$module);
+                    // Make sure that Wall is not included as a link since it cannot be used this way
+                    if (strtolower($module) !== 'wall') {
+                        $nodes[] = array('text'=>ucwords($moduleInfo['name']), 'uri'=>$this->uri(NULL, $module), 'nodeid'=>$module);
+                    }
                 }
-
             }
         }
-
-
-		if ($this->objUser->isAdmin () || $this->objContextGroups->isContextLecturer()) {
-			 $nodes[] = array('text'=>ucwords($this->objLanguage->code2Txt('mod_context_contextcontrolpanel', 'context', NULL, '[-context-] Control Panel')), 'uri'=>$this->uri(array('action'=>'controlpanel'), 'context'), 'nodeid'=>'controlpanel');
-		}
-
+        if ($this->objUser->isAdmin () || $this->objContextGroups->isContextLecturer()) {
+            $nodes[] = array('text'=>ucwords($this->objLanguage->code2Txt('mod_context_contextcontrolpanel', 'context', NULL, '[-context-] Control Panel')), 'uri'=>$this->uri(array('action'=>'controlpanel'), 'context'), 'nodeid'=>'controlpanel');
+        }
         $nodes[] = array('text'=>ucwords($this->objLanguage->code2Txt('phrase_leavecourse', 'system', NULL, 'Leave [-context-]')), 'uri'=>$this->uri(array('action'=>'leavecontext'), 'context'), 'nodeid'=>'leavecontext');
-
         $objSideBar = $this->getObject('sidebar', 'navigation');
         $objSideBar->showHomeLink = FALSE;
 
