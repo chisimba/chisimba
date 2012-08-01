@@ -215,6 +215,8 @@ $header->type = 3;
 $header->str = $objLanguage->languageText('mod_context_addablock', 'context', 'Add a Block');
 
 $toolbar = $this->getObject('contextsidebar');
+
+////// BEGIN MARKED FOR DELETE ---------------------------------
 $instructorProfile = "";
 
 //See if tcontextinstructor is registered, if so, then show
@@ -223,7 +225,7 @@ if ($isRegistered) {
     $objContextInstructor = $this->getObject('manager', 'contextinstructor');
     $instructorProfile ='<ul id="nav-secondary">' .  $objContextInstructor->show() . '</ul>';
 }
-
+////// END MARKED FOR DELETE ------------------------------------
 $contextContentIsRegistered = $objModule->checkIfRegistered('contextcontent');
 $utillink = "";
 $this->dbSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
