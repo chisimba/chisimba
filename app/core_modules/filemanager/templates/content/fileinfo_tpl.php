@@ -223,7 +223,7 @@ if (array_key_exists('width', $file)) {
 $tabContent->addTab(array('name' => $fileInfo, 'content' => $fileInfoContent));
 if ($folderPermission) {
     $fileAccess = $this->getObject("folderaccess", "filemanager");
-    $tabContent->addTab(array('name' => "Access", 'content' => $fileAccess->createFileAccessControlForm($file['id']) . '<br/>' . $fileAccess->createFileVisibilityForm($file['id'])));
+    $tabContent->addTab(array('name' => $this->objLanguage->languageText('mod_filemanager_access', 'filemanager', 'Access'), 'content' => $fileAccess->createFileAccessControlForm($file['id']) . '<br/>' . $fileAccess->createFileVisibilityForm($file['id'])));
 }
 
 echo $tabContent->show();
