@@ -43,31 +43,7 @@ if ($this->isValid('addblock')) {
     <?php
     echo $this->getJavaScriptFile('contextblocks.js');
 } // End Addition of JavaScript
-/*
-  $whoIsOnlineJs='
-  <SCRIPT language="JavaScript1.2">
-  var base="'.$objConfig->getSiteRoot().'?module=livechat'.'";
 
-  function showWhoIsOnlineWin()
-  {
-  var win=window.open ("?module=livechat","Live chat","location=0,status=0,scrollbars=0,width=10,height=10,top=-1, left=-1");
-  win.blur();
-  win.opener.focus();
-  }
-
-
-  </SCRIPT>
-  ';
-  $this->appendArrayVar('headerParams',$whoIsOnlineJs);
-  $objModule = $this->getObject('modules', 'modulecatalogue');
-
-  //See if tcontextinstructor is registered, if so, then show
-  $isRegistered = $objModule->checkIfRegistered('livechat');
-  if ($isRegistered) {
-  $params = 'onload="javascript: showWhoIsOnlineWin()"';
-  $this->setVar("bodyParams", $params);
-
-  } */
 $objModule = $this->getObject('modules', 'modulecatalogue');
 $this->loadClass('dropdown', 'htmlelements');
 $this->loadClass('button', 'htmlelements');
@@ -98,7 +74,6 @@ if ($this->isValid('addblock')) {
     foreach ($smallBlocks as $smallBlock) {
         if ($smallBlock['moduleid'] != "contentblocks") {
             $block = $this->newObject('block_' . $smallBlock['blockname'], $smallBlock['moduleid']);
-
             $title = $block->title;
             //parse some abstractions
             $title = $this->objLanguage->abstractText($title);
@@ -107,9 +82,7 @@ if ($this->isValid('addblock')) {
             }
             $title .= " (" . $smallBlock['moduleid'] . ")";
             $smallBlockOptions['block|' . $smallBlock['blockname'] . '|' . $smallBlock['moduleid']] = htmlentities($title);
-            
         } else {
-            
             // fetch contentblock data
             $block = $this->objBlocks->showBlock($smallBlock["id"], "contentblocks");
             $bData = $this->objBlocksContent->getBlockById($smallBlock["id"]);
@@ -128,29 +101,22 @@ if ($this->isValid('addblock')) {
     }
     // Sort Alphabetically
     asort($smallBlockOptions);
-
     // Add Small Blocks for right
     foreach ($smallBlockOptions as $block => $title) {
         $rightBlocksDropDown->addOption($block, $title);
     }
-
     //then left too
     foreach ($smallBlockOptions as $block => $title) {
         $leftBlocksDropDown->addOption($block, $title);
     }
-
-
     // Create array for sorting
     $wideBlockOptions = array();
-
     $wideBlocksDropDown = new dropdown('middleblocks');
     $wideBlocksDropDown->cssId = 'ddmiddleblocks';
     $wideBlocksDropDown->addOption('', $objLanguage->languageText('phrase_selectone', 'phrase', 'Select One') . '...');
-
     foreach ($wideDynamicBlocks as $wideBlock) {
         $smallBlockOptions['dynamicblock|' . $wideBlock['id'] . '|' . $wideBlock['module']] = htmlentities($wideBlock['title']);
     }
-
     foreach ($wideBlocks as $wideBlock) {
         if($wideBlock["moduleid"]!="contentblocks"){
         $block = $this->newObject('block_' . $wideBlock['blockname'], $wideBlock['moduleid']);
@@ -178,15 +144,12 @@ if ($this->isValid('addblock')) {
             }
         }
     }
-
     // Sort Alphabetically
     asort($wideBlockOptions);
-
     // Add Small Blocks
     foreach ($wideBlockOptions as $block => $title) {
         $wideBlocksDropDown->addOption($block, $title);
     }
-
     //Add content wideblocks to options
     if (!empty($contentWideBlocks)) {
         foreach ($contentWideBlocks as $contentWideBlock) {
@@ -209,23 +172,10 @@ if ($this->isValid('addblock')) {
     $objEdBut = $this->getObject('buildcanvas', 'canvas');
     $editBut = $objEdBut->getSwitchButton($value);
 }
-
 $header = new htmlheading();
 $header->type = 3;
 $header->str = $objLanguage->languageText('mod_context_addablock', 'context', 'Add a Block');
-
 $toolbar = $this->getObject('contextsidebar');
-
-////// BEGIN MARKED FOR DELETE ---------------------------------
-$instructorProfile = "";
-
-//See if tcontextinstructor is registered, if so, then show
-$isRegistered = $objModule->checkIfRegistered('contextinstructor');
-if ($isRegistered) {
-    $objContextInstructor = $this->getObject('manager', 'contextinstructor');
-    $instructorProfile ='<ul id="nav-secondary">' .  $objContextInstructor->show() . '</ul>';
-}
-////// END MARKED FOR DELETE ------------------------------------
 $contextContentIsRegistered = $objModule->checkIfRegistered('contextcontent');
 $utillink = "";
 $this->dbSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
@@ -233,16 +183,13 @@ $showAdminShortcutBlock = $this->dbSysConfig->getValue('SHOW_SHORTCUTS_BLOCK', '
 if ($showAdminShortcutBlock == "TRUE" || $showAdminShortcutBlock == "true" || $showAdminShortcutBlock == "True") {
     if ($this->isValid('addblock')) {
         $trackerlink = "";
-
         $siteRoot = $objConfig->getsiteRoot();
         $moduleUri = $objConfig->getModuleURI();
         $imgPath = "";
-
         $objIcon->setIcon('plus');
         $plusIcon = $objIcon->show();
         $useractivitylink = new link($this->uri(array('action' => 'selectuseractivitybymoduledates')));
         $useractivitylink->link = $plusIcon . '&nbsp;' . ucfirst($this->objLanguage->code2Txt('mod_context_studentactivity', 'context', NULL, '[-readonly-] activity'));
-
         $toolsactivitylink = new link($this->uri(array('action' => 'selecttoolsactivitydates')));
         $toolsactivitylink->link = $plusIcon . '&nbsp;' . $this->objLanguage->code2Txt('mod_context_toolsactivity', 'context', NULL, 'Tools activity') . '<br/>';
         $contentactivitylinkStr = "";
@@ -262,21 +209,18 @@ if ($showAdminShortcutBlock == "TRUE" || $showAdminShortcutBlock == "true" || $s
         }
         $transferlink = new link($this->uri(array('action' => 'transfercontextusers')));
         $transferlink->link = $plusIcon . '&nbsp;' . ucwords($this->objLanguage->code2Txt('mod_context_batchcopy', 'context', NULL, 'Batch Copy [-readonly-]s'));
-
-
         $objFeatureBox = $this->newObject('featurebox', 'navigation');
         $content = $useractivitylink->show() . '<br/>' . $toolsactivitylink->show() . $allcontextactivity . $contentactivitylinkStr . $transferlink->show();
-
         $block = "shortcuts";
         $hidden = 'default';
         $showToggle = false;
         $showTitle = true;
         $cssClass = "featurebox";
         $utillink = $objFeatureBox->show(
-                ucwords($this->objLanguage->code2Txt('mod_contextcontent_activityshortcuts', NULL, 'contextcontent', '[-context-] Activities')), $content, $block, $hidden, $showToggle, $showTitle, $cssClass, '');
+          ucwords($this->objLanguage->code2Txt('mod_contextcontent_activityshortcuts', NULL, 'contextcontent', '[-context-] Activities')), $content, $block, $hidden, $showToggle, $showTitle, $cssClass, '');
     }
 }
-$objCssLayout->leftColumnContent = $instructorProfile . $toolbar->show(); //setLeftColumnContent($toolbar->show());
+$objCssLayout->leftColumnContent = $toolbar->show();
 
 $objCssLayout->rightColumnContent = '';
 
