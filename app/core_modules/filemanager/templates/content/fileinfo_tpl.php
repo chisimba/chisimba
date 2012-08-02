@@ -26,14 +26,14 @@ $header->str = $objFileIcons->getFileIcon($file['filename']) . ' ' . str_replace
 $fileDownloadPath = $this->objConfig->getcontentPath() . $file['path'];
 $fileDownloadPath = $this->objCleanUrl->cleanUpUrl($fileDownloadPath);
 
-$folder=$this->objFolders->getFolder($folderId);
-if($folder['access'] == 'private_all' || $folder['access'] == 'private_selected'){
-    $fileDownloadPath=$this->uri(array("action"=>"downloadsecurefile","path"=>$file['path'],"filename"=>$file['filename']));
+$folder = $this->objFolders->getFolder($folderId);
+if ($folder['access'] == 'private_all' || $folder['access'] == 'private_selected') {
+    $fileDownloadPath = $this->uri(array("action" => "downloadsecurefile", "path" => $file['path'], "filename" => $file['filename']));
 }
 
 
-if($file['access'] == 'private_all' || $file['access'] == 'private_selected' || $file['visibility'] == 'hidden'){
-    $fileDownloadPath=$this->uri(array("action"=>"downloadsecurefile","path"=>$file['path'],"filename"=>$file['filename']));
+if ($file['access'] == 'private_all' || $file['access'] == 'private_selected' || $file['visibility'] == 'hidden') {
+    $fileDownloadPath = $this->uri(array("action" => "downloadsecurefile", "path" => $file['path'], "filename" => $file['filename']));
 }
 
 
@@ -221,9 +221,10 @@ if (array_key_exists('width', $file)) {
 
 
 $tabContent->addTab(array('name' => $fileInfo, 'content' => $fileInfoContent));
-$fileAccess=$this->getObject("folderaccess","filemanager");
-$tabContent->addTab(array('name' => "Access", 'content' => $fileAccess->createFileAccessControlForm($file['id']).'<br/>'.$fileAccess->createFileVisibilityForm($file['id'])));
-
+if ($folderPermission) {
+    $fileAccess = $this->getObject("folderaccess", "filemanager");
+    $tabContent->addTab(array('name' => "Access", 'content' => $fileAccess->createFileAccessControlForm($file['id']) . '<br/>' . $fileAccess->createFileVisibilityForm($file['id'])));
+}
 
 echo $tabContent->show();
 
