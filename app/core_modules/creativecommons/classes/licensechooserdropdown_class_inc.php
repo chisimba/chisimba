@@ -108,7 +108,7 @@ class licensechooserdropdown extends object {
                 }
             }
 
-            $select = '<select name="' . $this->inputName . '" id="input_' . $this->inputName . '">';
+            $select = '<select class="cc-select-dd" name="' . $this->inputName . '" id="input_' . $this->inputName . '">';
 
             $select .= $options;
 
