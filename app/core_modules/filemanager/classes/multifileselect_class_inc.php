@@ -92,24 +92,18 @@ class multifileselect extends filemanagerobject
     {
         $this->name = 'fileselect';
         $this->restrictFileList = array();
-
         $this->defaultFiles = '';
-
         $this->context = FALSE;
         $this->workgroup = FALSE;
-
         $this->objIcon = $this->newObject('geticon', 'htmlelements');
-
         $this->objFile = $this->getObject('dbfile');
-
         $this->loadClass('hiddeninput', 'htmlelements');
         $this->loadClass('textinput', 'htmlelements');
         $this->loadClass('button', 'htmlelements');
-
         $this->widthOfInput = '80%';
-        
         $this->objIcon->setIcon('delete');
         $this->deleteIcon = $this->objIcon->show();
+        $this->objLanguage = $this->getObject ( 'language', 'language' );
     }
 
     /**
@@ -254,25 +248,19 @@ function addToMultiList()
         $selectFile->context = $this->context;
         $selectFile->workgroup = $this->workgroup;
         
-        // Option for showing via submodal window
-        // $objSubModalWindow = $this->getObject('submodalwindow', 'htmlelements');
-        // $subModal = $objSubModalWindow->show('Select', $location, 'button');
-        // return $input->show().$textinput->show().' &nbsp; '.$subModal.$button->show();
-        
-        $addButton = new button ('addtolist', 'Add to List');
+        $addButtonText = '<span class=\'add\'>'.
+          $this->objLanguage->languageText('mod_filemanager_addtolist', 
+            'filemanager', "Add to list") . '</span>';
+        $addButton = new button ('addtolist', $addButtonText);
         $addButton->setOnClick('addToMultiList();');
         
         $str = '<div id="multifiles">';
         $str .= '<div id="multifileslist">'.$defaultDisplay.'</div>';
-        $str .= $input->show().$selectFile->show().'<br />'.$addButton->show();
+        $str .= $input->show().$selectFile->show(). $addButton->show() . '</em>';
         $str .= '</div>';
-        
+       
         return $str;
     }
-
-
-
-
 }
 
 ?>
