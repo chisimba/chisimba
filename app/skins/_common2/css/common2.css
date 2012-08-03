@@ -1221,6 +1221,20 @@ li.bookmark_icon {
 	height: 100%;
 }
 
+/** File manager improvements **/
+/** Fixes for filemanager multifile upload2 **/
+#fileupload1, #fileupload2, #fileupload3  {
+    width: 240px;
+}
+
+#input_creativecommons_fileupload1,
+#input_creativecommons_fileupload2,
+#input_creativecommons_fileupload3 {
+    width: 240px;
+}
+.cc-select-dd {
+    margin-left: 95px;
+}
 
 /** Context improvements **/
 .context_sidebar p img {
@@ -1236,6 +1250,7 @@ li.bookmark_icon {
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     -khtml-border-radius: 5px;
+    margin-top: 4px;
 }
 #ctxtcnt-add-submit {
     margin-top: 8px;
