@@ -45,3 +45,12 @@
 .createforum table td {
     padding: 3px;
 }
+
+/** Discussion forum search form ***/
+#form_searchforums #input_term {
+    width: 240px;
+}
+
+#form_searchforums #input_forum {
+    width: 240px;
+}

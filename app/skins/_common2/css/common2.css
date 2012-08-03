@@ -1220,3 +1220,23 @@ li.bookmark_icon {
 	width: 100%;
 	height: 100%;
 }
+
+
+/** Context improvements **/
+.context_sidebar p img {
+    border-radius: 12px;
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    -khtml-border-radius: 12px;
+}
+
+#input_selectfile_temp_multiselect {
+    width: 340px !important;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+}
+#ctxtcnt-add-submit {
+    margin-top: 8px;
+}
