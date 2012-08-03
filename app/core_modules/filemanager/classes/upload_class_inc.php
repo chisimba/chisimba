@@ -155,14 +155,10 @@ class upload extends filemanagerobject
         {
 
             $objLicense = $this->newObject('licensechooserdropdown', 'creativecommons');
-
             $objLicense->inputName = 'creativecommons_'.$this->name.$i;
-
-
             $form .=  '<input type="file" name="'
               . $this->name . $i . '" '
-              . 'id="'. $this->name . $i . '" /> '.$objLicense->show().$break;
-            //$break = '<br />';
+              . 'id="'. $this->name . $i . '" />'.$objLicense->show().$break;
         }
 
         if ($this->numInputs == 1) {
