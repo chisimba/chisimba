@@ -161,8 +161,7 @@ class upload extends filemanagerobject
 
             $form .=  '<input type="file" name="'
               . $this->name . $i . '" '
-              . 'id="'. $this->name . $i . '" '
-              . 'size="40" /> '.$objLicense->show().$break;
+              . 'id="'. $this->name . $i . '" /> '.$objLicense->show().$break;
             //$break = '<br />';
         }
 

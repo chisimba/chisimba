@@ -89,21 +89,15 @@ class selectfile extends filemanagerobject
         $this->name = 'fileselect';
         $this->restrictFileList = array();
         $this->forceRestrictions = FALSE;
-
         $this->defaultFile = '';
-
         $this->context = FALSE;
         $this->workgroup = FALSE;
-
         $this->objIcon = $this->newObject('geticon', 'htmlelements');
-
         $this->objFile = $this->getObject('dbfile');
-
         $this->loadClass('hiddeninput', 'htmlelements');
         $this->loadClass('textinput', 'htmlelements');
         $this->loadClass('windowpop', 'htmlelements');
         $this->loadClass('button', 'htmlelements');
-
         $this->widthOfInput = '80%';
     }
 
@@ -161,7 +155,6 @@ function clearFileInputJS(name)
             $defaultName = '';
         } else {
             $file = $this->objFile->getFile($this->defaultFile);
-
             if ($file == FALSE) {
                 $defaultId = '';
                 $defaultName = '';
@@ -205,20 +198,13 @@ function clearFileInputJS(name)
             $workgroup = 'no';
         }
 
-
         $location = $this->uri(array('mode'=>'selectfilewindow', 'restriction'=>$ext, 'forcerestrictions'=>$forceRestrictions, 'name'=>$this->name, 'context'=>$context, 'workgroup' => $workgroup), 'filemanager');
-
         // Couldnt do this via uri function due to embedded JS
         $location .= '&amp;value=\'+document.getElementById(\'hidden_'.$this->name.'\').value+\'&amp;';
-
         $objPop->set('location', $location);
-
         $this->objIcon->setIcon('find_file');
         $this->objIcon->alt = 'Select File';
         $this->objIcon->title = 'Select File';
-
-
-        //$objPop->set('linktext', 'Select File');
         $objPop->set('linktext', $this->objIcon->show());
         $objPop->set('linktext', 'Browse');
         $objPop->set('linkType', 'button');
@@ -231,24 +217,11 @@ function clearFileInputJS(name)
         $objPop->set('status','yes');
         //leave the rest at default values
         $objPop->putJs();
-
         $textinput = new textinput ('selectfile_'.$this->name, $defaultName);
         $textinput->setId('input_selectfile_'.$this->name);
         $textinput->extra = ' readonly="true" style="width:'.$this->widthOfInput.'" ';
-
         $button = new button('clear', 'Clear', 'clearFileInputJS(\''.$this->name.'\');');
-
-        // Option for showing via submodal window
-        // $objSubModalWindow = $this->getObject('submodalwindow', 'htmlelements');
-        // $subModal = $objSubModalWindow->show('Select', $location, 'button');
-        // return $input->show().$textinput->show().' &nbsp; '.$subModal.$button->show();
-
         return $input->show().$textinput->show().' '.$objPop->show().' '.$button->show();
     }
-
-
-
-
 }
-
 ?>
