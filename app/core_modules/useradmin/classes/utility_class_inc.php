@@ -91,7 +91,6 @@ class utility extends object {
 		$arr = array();
 
 		$filter = " LIMIT $start , ".$params["limit"];
-		// JOC $userCount = count($this->objUserAdmin->getAll());
         $userCount = $this->objUserAdmin->getRecordCount();
 		$var_users = $this->objUserAdmin->getAll($where." ORDER BY title ".$filter);
 
