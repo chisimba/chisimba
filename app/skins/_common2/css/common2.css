@@ -1171,13 +1171,13 @@ li.bookmark_icon {
 * Styles for image gallery
 ***********************************************************************************************/
 
-.gallery, .album, .image {
+/*.gallery, .album, .image {
     float: left;
     width: 200px;
     border: 5px groove black;
     margin: 2px;
     padding: 5px;
-}
+}*/
 
 .gallery_albums, .gallery_empty, album_images, .album_empty {
     cursor: pointer;
@@ -1204,6 +1204,38 @@ li.bookmark_icon {
 #image, #image_details {
     float: left;
     width: 50%;
+}
+
+/* Image gallery styles */
+.gallery, .album, div.image {
+    background: white;
+    float: left;
+    border: 1px solid whitesmoke;
+    border-radius: 6px;
+    margin: 6px;
+    padding: 5px;
+    width: 200px;
+    height: 190px;
+    margin-bottom: 12px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -khtml-border-radius: 6px;
+    -webkit-box-shadow: 4px 4px 5px rgba(50, 50, 50, 0.47);
+    -moz-box-shadow:    4px 4px 5px rgba(50, 50, 50, 0.47);
+    box-shadow:         4px 4px 5px rgba(50, 50, 50, 0.47);
+}
+
+.gallery_info, .album_info {
+   color: #165879;
+   float: left;
+   margin-right: 6px;
+}
+
+#imagegallerymain #main_tabs .view_image {
+    margin-right: 10px;
+    -webkit-box-shadow: 4px 4px 5px rgba(50, 50, 50, 0.47);
+    -moz-box-shadow:    4px 4px 5px rgba(50, 50, 50, 0.47);
+    box-shadow:         4px 4px 5px rgba(50, 50, 50, 0.47);
 }
 
 /* ---- For the new YouTube player ---- */
