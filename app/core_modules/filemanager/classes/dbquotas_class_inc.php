@@ -99,10 +99,15 @@ class dbquotas extends dbTable {
             return FALSE;
         }
 
-        $quota = $this->getRow('path', $path);
-
-        if ($quota == FALSE) {
+        $rc = (int)$this->getRecordCount("WHERE path='$path'");
+        if ($rc == 0 || $rc > 1) {
+            if ($rc > 1) {
+                $this->delete('path', $path);
+            }
             $quota = $this->setupQuotaFirstRun($path);
+        } else {
+            // $rc == 1
+            $quota = $this->getRow('path', $path);
         }
 
         if ($quota != FALSE) {
@@ -312,6 +317,8 @@ class dbquotas extends dbTable {
 
         $sql .= ' ORDER BY '.str_replace('_', ' ', $orderBy);
 
+        $sql .= ' LIMIT 20';
+
         return $this->getArray($sql);
     }
 
@@ -364,17 +371,14 @@ class dbquotas extends dbTable {
      */
     public function getNumPages($searchType, $searchField='', $searchFor='', $orderBy, $numItemsPerPage) {
         $numResults = $this->getNumResults($searchType, $searchField, $searchFor, $orderBy);
-
-        if ($numResults < $numItemsPerPage) {
+        if ($numResults == 0) {
             $numPages = 1;
         } else {
-            $numPages = ($numResults - ($numResults % $numItemsPerPage)) / $numItemsPerPage;
-
-            if ($numPages % $numItems != 0) {
+            $numPages = (int)floor($numResults / $numItemsPerPage);
+            if ($numResults % $numItemsPerPage > 0) {
                 $numPages++;
             }
         }
-
         return $numPages;
     }
 
