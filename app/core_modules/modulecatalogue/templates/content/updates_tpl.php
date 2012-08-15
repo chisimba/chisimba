@@ -31,7 +31,7 @@ $updateSys = "<span class='floatright'><div class='adminicon'></div>" . $updateS
 $updateAll->link($this->uri(array('action'=>'updateall')));
 $updateAll->link = $this->objLanguage->languageText('mod_modulecatalogue_updateall','modulecatalogue');
 
-$upLang = "<span class='floatright'><div class='adminicon'></div>" 
+$upLang = "<span class='floatright'><div class='adminicon'></div>"
   . $updateAll->show() . "</span>";
 
 $objTable = $this->getObject('htmltable','htmlelements');
@@ -116,12 +116,12 @@ if (!empty($patchArray)) {
     foreach ($patchArray as $patch) {
         $uri = $this->uri(array('action'=>'update','mod'=>$patch['module_id'],'patchver'=>$patch['new_version']),'modulecatalogue');
         $link = &new Link($uri);
+        $link->link = $this->objLanguage->languageText('mod_modulecatalogue_applypatch','modulecatalogue');
         $pIcon = $this->getObject('geticon','htmlelements');
         $pIcon->setModuleIcon($patch['module_id']);
         $modIcon=$pIcon->show();
         $pIcon->setModuleIcon('update');
         $pIcon->alt = $link->link;
-        $link->link = $this->objLanguage->languageText('mod_modulecatalogue_applypatch','modulecatalogue');
         $time = date("d/m/y",filemtime($this->objModFile->findRegisterFile($patch['module_id'])));
         $str .= '<div class="moduleupdate"><b>'
           . $modIcon.ucwords($patch['module_id'])
