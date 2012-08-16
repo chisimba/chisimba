@@ -132,6 +132,7 @@ $form->addToForm($table->show());
 echo $form->show();
 
 $objPagination = $this->newObject('pagination', 'navigation');
+$objPagination->id = 'quotalist';
 
 $numItemsPerPage = 20;
 
@@ -139,7 +140,7 @@ $objPagination->numPageLinks = $this->objQuotas->getNumPages($searchType, $searc
 
 $objPagination->module = 'filemanager';
 $objPagination->action = 'ajaxgetquotas';
-$objPagination->extra = array('searchType'=>$searchType, 'searchField'=>$searchField, 'searchFor'=>$this->getParam('searchfor'), 'orderBy'=>$orderBy);
+$objPagination->extra = array('searchType'=>$searchType, 'searchField'=>$searchField, 'searchFor'=>$this->getParam('searchfor'), 'orderBy'=>$orderBy, 'numItemsPerPage'=>$numItemsPerPage);
 
 echo $objPagination->show();
 

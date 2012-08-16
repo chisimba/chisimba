@@ -292,7 +292,7 @@ class dbquotas extends dbTable {
      * @param string $orderBy How results should be ordered
      * @return array
      */
-    public function getResults($searchType, $searchField='', $searchFor='', $orderBy) {
+    public function getResults($searchType, $searchField='', $searchFor='', $orderBy='', $numItemsPerPage=0, $page=0) {
         if ($searchType == 'context') {
             $substring = $this->getSubstring('tbl_files_quotas.path', 9);
 
@@ -300,6 +300,7 @@ class dbquotas extends dbTable {
 
             $sql .= " WHERE (path LIKE 'context/%'";
         } else {
+            // users
             $substring = $this->getSubstring('tbl_files_quotas.path', 7);
 
             $sql = 'SELECT tbl_files_quotas.*, firstName as firstname, surname FROM tbl_files_quotas JOIN tbl_users ON (userId ='.$substring.')';
@@ -315,11 +316,15 @@ class dbquotas extends dbTable {
 
         $sql .= ')';
 
-        $sql .= ' ORDER BY '.str_replace('_', ' ', $orderBy);
+        if (trim($orderBy) != '') {
+            $sql .= ' ORDER BY '.str_replace('_', ' ', $orderBy);
+        }
 
-        $sql .= ' LIMIT 20';
+        //$numItemsPerPage $page
+        $offset = $page * $numItemsPerPage;
+        $row_count = $numItemsPerPage;
 
-        return $this->getArray($sql);
+        return $this->getArrayWithLimit($sql, (string)$offset, (string)$row_count);
     }
 
     /**

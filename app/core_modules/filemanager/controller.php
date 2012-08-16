@@ -323,12 +323,12 @@ class filemanager extends controller {
             return "__" . $action;
         } else {
             return "__home";
-    
+
             }
     }
 
-    
-    
+
+
     /**
      * Checks if the user should have access to the file manager.
      *
@@ -361,8 +361,8 @@ class filemanager extends controller {
      * @access private
      */
     private function __home() {
-        
-        
+
+
         $objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
 
         $filemanagerVersion = $objSysConfig->getValue('FILEMANAGER_VERSION', 'filemanager');
@@ -1463,9 +1463,11 @@ function checkWindowOpener()
         $this->setPageTemplate(NULL);
 
         $searchType = $this->getParam('searchType');
-        $searchField = $this->getParam('searchField');
-        $searchFor = $this->getParam('searchFor');
-        $orderBy = $this->getParam('orderBy');
+        $searchField = $this->getParam('searchField', '');
+        $searchFor = $this->getParam('searchFor', '');
+        $orderBy = $this->getParam('orderBy', '');
+        $numItemsPerPage = (int)$this->getParam('numItemsPerPage','0');
+        $page = (int)$this->getParam('page','0');
 
         if ($searchType == 'context') {
             $defaultQuota = $this->objQuotas->getDefaultContextQuota();
@@ -1474,7 +1476,14 @@ function checkWindowOpener()
             $defaultQuota = $this->objQuotas->getDefaultUserQuota();
         }
 
-        $results = $this->objQuotas->getResults($searchType, $searchField, $searchFor, $orderBy);
+        $results = $this->objQuotas->getResults(
+            $searchType,
+            $searchField,
+            $searchFor,
+            $orderBy,
+            $numItemsPerPage,
+            $page
+        );
         $this->setVarByRef('results', $results);
         $this->setVarByRef('searchType', $searchType);
         $this->setVarByRef('defaultQuota', $defaultQuota);
@@ -1577,7 +1586,7 @@ function checkWindowOpener()
     /**
      * this sets the folder visibilty. This typically is visible/hidden. A hidden
      * folder is only visible to the creator
-     * @return type 
+     * @return type
      */
     function __setfilevisibility() {
         $objFolderAccess = $this->getObject("folderaccess", "filemanager");
@@ -1589,7 +1598,7 @@ function checkWindowOpener()
 
     /**
      * Updates this folder with the alerts status. A value of y implies any changes
-     * to the folder alerts users who have access 
+     * to the folder alerts users who have access
      */
     function __setfolderalerts() {
         $alertStatus = $this->getParam('alerts') == 'on' ? 'y' : 'n';
@@ -1601,7 +1610,7 @@ function checkWindowOpener()
 
     /**
      * This is called when a secure file has to be downloaded
-     * @return type 
+     * @return type
      */
     function __downloadsecurefile() {
         $filepath = $this->getParam("path");
