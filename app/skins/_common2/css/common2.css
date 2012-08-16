@@ -1170,15 +1170,6 @@ li.bookmark_icon {
 /***********************************************************************************************
 * Styles for image gallery
 ***********************************************************************************************/
-
-/*.gallery, .album, .image {
-    float: left;
-    width: 200px;
-    border: 5px groove black;
-    margin: 2px;
-    padding: 5px;
-}*/
-
 .gallery_albums, .gallery_empty, album_images, .album_empty {
     cursor: pointer;
 }
@@ -1254,7 +1245,6 @@ li.bookmark_icon {
 }
 
 /** File manager improvements **/
-/** Fixes for filemanager multifile upload2 **/
 #fileupload1, #fileupload2, #fileupload3  {
     width: 240px;
 }
