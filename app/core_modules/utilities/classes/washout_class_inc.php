@@ -139,6 +139,7 @@ class washout extends object
      */
     public function parseText($txt, $bbcode = TRUE, $excluded=NULL)
     {
+
     	// Check the configs if the filters are enabled.
     	if ($this->useFilters != 'yes') {
             return $txt;
@@ -157,9 +158,10 @@ class washout extends object
         if (PREG_NO_ERROR !== preg_last_error()){
             $this->pcre_error_decode();
         }
+
         $txt = preg_replace('/\\[(\\w+)(\\W([^\\]\\[]*?)|)\\]/ie',
           "\$this->getHTML('\\0', '\\1')", $txt);
-              
+                
         // All the filters that don't conform to [FILTERNAME*]*[/FILTERNAME],
         //  manually execute them.
         
