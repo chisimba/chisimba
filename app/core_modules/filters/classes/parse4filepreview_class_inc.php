@@ -83,26 +83,22 @@ class parse4filepreview extends object
         // Match all [FILEPREVIEW /] tags
         preg_match_all('%\[FILEPREVIEW.*?/\]%six', $txt, $result, PREG_PATTERN_ORDER);
         $result = $result[0];
-        
         // Combine duplicates
         $result = array_unique($result);
         
         // If there are any matches
         if (count($result) > 0) {
-            
             // Load Preview Class
             $objPreview = $this->getObject('filepreview', 'filemanager');
-            
             // Go through each result
             foreach ($result as $str)
             {
                 // Fix required - Replace &quot; with "
                 $strReplace = str_replace ('&quot;', '"', $str);
-                
                 // Match ids
-                preg_match_all('/id\ *?=\ *?"(?P<id>.*?)"/six', $strReplace, $resultId, PREG_PATTERN_ORDER);
+                $success = preg_match_all('/id\ *?=\ *?"(?P<id>.*?)"/six', $strReplace, $resultId, PREG_PATTERN_ORDER);
                 $resultId = $resultId['id'];
-                
+              
                 // If ID is specified
                 if (isset($resultId[0])) {
                     // get preview
