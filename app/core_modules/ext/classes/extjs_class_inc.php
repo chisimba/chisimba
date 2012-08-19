@@ -70,19 +70,19 @@ class extjs extends object {
         //need the js
         switch ($type) {
             case EXT_JS_STANDARD:
-                $extbase_js = '<script language="JavaScript" src="'.$this->getResourceUri('ext-3.0-rc2/adapter/ext/ext-base.js','ext').'" type="text/javascript"></script>';
+                $extbase_js = '<script language="JavaScript" src="'.$this->getResourceUri('ext-3.4.0/adapter/ext/ext-base.js','ext').'" type="text/javascript"></script>';
                 break;
             case EXT_JS_WITH_PROTOTYPE:
-                $extbase_js = '<script language="JavaScript" src="'.$this->getResourceUri('ext-3.0-rc2/adapter/prototype/ext-prototype-adapter.js','ext').'" type="text/javascript"></script>';
+                $extbase_js = '<script language="JavaScript" src="'.$this->getResourceUri('ext-3.4.0/adapter/prototype/ext-prototype-adapter.js','ext').'" type="text/javascript"></script>';
                 break;
             default:
                 $extbase_js = '';
         }
-		$extall_js = '<script language="JavaScript" src="'.$this->getResourceUri('ext-3.0-rc2/ext-all.js', 'ext').'" type="text/javascript"></script>';
+		$extall_js = '<script language="JavaScript" src="'.$this->getResourceUri('ext-3.4.0/ext-all.js', 'ext').'" type="text/javascript"></script>';
 
 		//need the css
 
-		$extall_css = '<link rel="stylesheet" href="'.$this->getResourceUri('ext-3.0-rc2/resources/css/ext-all.css', 'ext').'" type="text/css" />';
+		$extall_css = '<link rel="stylesheet" href="'.$this->getResourceUri('ext-3.4.0/resources/css/ext-all.css', 'ext').'" type="text/css" />';
 		$extall_css .= '<link rel="stylesheet" href="skins/_common/css/extjs/silk/silk.css" type="text/css" />';
 		$extall_css .= '<link rel="stylesheet" href="skins/_common/css/extjs/menus.css" type="text/css" />';
 		$extall_css .= '<link rel="stylesheet" href="skins/_common/css/extjs/buttons.css" type="text/css" />';
