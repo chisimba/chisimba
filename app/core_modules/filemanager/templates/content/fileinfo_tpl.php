@@ -32,10 +32,27 @@ if ($folder['access'] == 'private_all' || $folder['access'] == 'private_selected
 }
 
 
-if ($file['access'] == 'private_all' || $file['access'] == 'private_selected' || $file['visibility'] == 'hidden') {
-    $fileDownloadPath = $this->uri(array("action" => "downloadsecurefile", "path" => $file['path'], "filename" => $file['filename']));
+$accessKeyExists = false;
+
+if (key_exists("access", $file)) {
+    $accessKeyExists = true;
+}
+$visibilityKeyExists = false;
+
+if (key_exists("visibility", $file)) {
+    $visibilityKeyExists = true;
 }
 
+if ($accessKeyExists) {
+    if ($file['access'] == 'private_all' || $file['access'] == 'private_selected') {
+        $fileDownloadPath = $this->uri(array("action" => "downloadsecurefile", "path" => $file['path'], "filename" => $file['filename']));
+    }
+}
+if ($visibilityKeyExists) {
+    if ($file['visibility'] == 'hidden') {
+        $fileDownloadPath = $this->uri(array("action" => "downloadsecurefile", "path" => $file['path'], "filename" => $file['filename']));
+    }
+}
 
 $objIcon->setIcon('download');
 $link = new link($fileDownloadPath);

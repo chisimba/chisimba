@@ -153,8 +153,15 @@ class folderaccess extends object {
         $objElement->addOption('private_all', $privateAllTxt . '<br/>');
         //$objElement->addOption('private_selected', $privateSelected . '<br/>');
         $objElement->addOption('public', $publicTxt . '<br/>');
-        $access = $file['access'] == NULL ? 'public' : $file['access'];
-        $objElement->setSelected($access);
+        
+        
+        $access = 'public';
+
+        if (key_exists("access", $file)) {
+            $access = $file['access'];
+        }
+        
+         $objElement->setSelected($access);
 
 
         $applyButton = new button('apply', $this->objLanguage->languageText('mod_filemanager_apply', 'filemanager'));
@@ -268,7 +275,7 @@ class folderaccess extends object {
      * @param type $folderId
      * @param type $alertStatus 
      */
-    public function setfFolderAlerts($folderId, $alertStatus) {
+    public function setFolderAlerts($folderId, $alertStatus) {
         $dbFolder = $this->getObject("dbfolder", "filemanager");
         $dbFolder->setFolderAlerts($folderId, $alertStatus);
     }
