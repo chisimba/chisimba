@@ -41,9 +41,9 @@
 					{
 						fieldLabel: 'Email Address',
 						name: 'useradmin_email',
-						allowBlank:false/*,
+						allowBlank:false,
 						vtype: 'email',
-						invalidText : 'Provide a valid email address'*/
+						invalidText : 'Provide a valid email address'
 					},
 					{
 						fieldLabel: 'Cell Number',
