@@ -1,0 +1,135 @@
+/* 
+    Document   : stylesheet
+    Created on : 23 May 2012, 9:30:35 PM
+    Author     : monwabisi
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+@import "../metalic/stylesheet.css";
+.ChisimbaCanvas{
+    width: 100%;
+}
+div#header{
+    position: fixed;
+    margin-top: -9pc;
+    width: 95.3%;
+    line-height: 4;
+    opacity: 0.98;
+    box-shadow: 0 3px 4px #666;
+}
+div#navigation{
+    position: fixed;
+    width: 94.5%;
+    background: transparent;
+    margin-left: 0.6pc;
+}
+h1#sitename{
+    text-align: center;
+    font-size: 30px;
+}
+ul#menuList li{
+    text-align: center;
+}
+div#menu a, a:link{
+    text-shadow: 0 0 2px #fff;
+}
+div#Canvas_Content_Body_Region3{
+    float:right;
+    width:17%;
+}
+div#Canvas_Content_Body_Region1{
+    float:left;
+    width:17%;
+}
+div#Canvas_Content_Body_Region2 {
+    margin-top: 1%;
+    margin-left: 2%;
+    width: available;
+    overflow: hidden;
+}
+div#Canvas_Content_Body{
+    margin-top:5pc;
+}
+h5.featureboxheader{
+    background-color: #fff;
+    border-radius: 2px;
+}
+div.menulinktext {
+    text-align: center;
+    background-color: #bdbdbd;
+}
+ul#menuList li{
+    text-align: center;
+}
+#menu li:hover, #nav-secondary li:hover{
+    background-color: #5d5d5d;
+}
+form#form_loginform{
+    background-color: transparent; 
+    margin-left: 0;
+    text-align: center;
+}
+div.menulinktext:hover{
+    background-color: #fff;
+}
+/*input elements*/
+form#form_loginform input[type='password'], form#form_loginform input[type='search'], form#form_loginform input[type='text']{
+    background: #fff;
+    width: 150px;
+}
+input[type='text'], input[type='password'], input[type='search'], input[type='email']{
+    max-width: 210px;
+    background: #fff;
+    border: 1.5px solid #5d5d5d;
+}
+input[type='select']{
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#eee));
+    background-image: -moz-linear-gradient(-10% 90% 90deg,#eee, #fff);
+}
+input[type=text]:focus, input[type=password]:focus, input[type=search]:focus, intpu[type='email']:focus{
+    box-shadow: 0 0 3px #666;
+    border: 1px solid #fff;
+}
+.button, .sexybutton, .buttonlink, ul#menuList li>a{
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#eee));
+    background-image: -moz-linear-gradient(-10% 90% 90deg,#eee, #fff);
+    border: 1px solid #eee;
+    border-radius: 2px;
+    color: #000;
+    box-shadow: 0 0 2px #000;
+    text-shadow: 0 0 3px #fff;
+}
+.buttonlink{
+    margin: 15px 3px;
+}
+.sexybutton span>span, .sexybutton span{
+    background: none;
+}
+.button:hover, .sexybutton:hover{
+    cursor: pointer;
+    box-shadow: none;
+}
+
+/*all links*/
+a{
+    color: #000;
+}
+/*the jquery search form*/
+div#search{
+    position: static;
+    float: right;
+    margin-top: -8%;
+    width: 350px;
+}
+div#footer{
+    background-color: #fff;
+    font-size: 12px;
+    border-radius: 2px;
+}
+/*the block highlighter*/
+.highlightblock{
+    -webkit-box-shadow: 0 0 15px #ff2121;
+    -moz-box-shadow: 0 0 15px #ff2121;
+    box-shadow: 0 0 15px #ff2121;
+}
