@@ -41,3 +41,15 @@ Styles for loging box
 #loginhelpicon {
 
 }
+
+.openidlogin {
+    padding-right: 10px;
+}
+
+.openidlogin fieldset {
+    width: 98%;
+}
+
+#input_openIDField {
+    width: 170px;
+}
