@@ -144,39 +144,58 @@ class loginInterface extends object {
             // Set the button type to submit
             $objButton->setToSubmit();
             // Add the button to the form
-            //openid / google /yahoo login
-            $objAltConfig = $this->getObject('altconfig', 'config');
-            $siteRoot = $objAltConfig->getSiteRoot();
-            $openidloginlink = new link($this->uri(array("action" => "openidconnect"), "security"));
-            $openidloginlink->link = "Open ID Login";
+            // openid / google /yahoo login
 
-            $OPENID_AUTH_PAGE = $siteRoot . '?module=security&action=openidconnect';
-            
-             
-             $sitePath = $objAltConfig->getSitePath();
-
-            $openidTD = '<a href="#">
-                <img src="'.$sitePath.'/core_modules/security/resources/openid/images/openid_icon32_2.png" alt="" name="but_openid" width="32" height="64" border="0" id="but_openid2" onload="" /></a>';
-            $googleTD = '<a href="' . $OPENID_AUTH_PAGE . '&auth_site=google" target="_top">
-                
-                <img src="'.$sitePath.'/core_modules/security/resources/openid/images/google_icon32_2.png" alt="" name="but_google" width="32" height="63" border="0" id="but_google2" onload="" /></a></td>';
-            $yahooTD = '<a href="' . $OPENID_AUTH_PAGE . '&auth_site=yahoo" target="_top"> 
-                <img src="'.$sitePath.'/core_modules/security/resources/openid/images/yahoo_icon32_2.png" alt="" name="but_yahoo" width="32" height="63" border="0" id="but_yahoo" onload="" /></a>';
-
-
+            // Open ID login code.
             $showOpenIdLogin = $objSysConfig->getValue('show_openidconnect_auth', 'security');
-
-
             $openidlink = "";
             if ($showOpenIdLogin == 'true') {
-                $title=$this->objLanguage->languageText('mod_security_openidlogin','security');
+                $objAltConfig = $this->getObject('altconfig', 'config');
+                $siteRoot = $objAltConfig->getSiteRoot();
+                $openidloginlink = new link($this->uri(array("action" => "openidconnect"), "security"));
+                $openidloginlink->link = "Open ID Login";
+                $OPENID_AUTH_PAGE = $siteRoot . '?module=security&action=openidconnect';
+                $sitePath = $objAltConfig->getSitePath();
+                // I have no idea what this icon is for, seems to do nothing.
+                $openidTD = '<a href="#"><img src="' . $sitePath 
+                  . '/core_modules/security/resources/openid/images/openid_icon32_2.png" '
+                  . 'alt="" name="but_openid" width="32" height="64" border="0" '
+                  . 'id="but_openid2" onload="" /></a>';
+                // A google login icon linked to OpenID login with gooogle id.
+                $googleTD = '<a href="' . $OPENID_AUTH_PAGE . '&auth_site=google" target="_top">'
+                  . '<img src="' . $sitePath 
+                  . '/core_modules/security/resources/openid/images/google_icon32_2.png" '
+                  . 'alt="Google ID" name="but_google" width="32" height="63" '
+                  . 'border="0" id="but_google2" onload="" /></a>';
+                // A Yahoo login icon linked to OpenId login with Yahoo ID.
+                $yahooTD = '<a href="' . $OPENID_AUTH_PAGE 
+                  . '&auth_site=yahoo" target="_top"><img src="' . $sitePath 
+                  .'/core_modules/security/resources/openid/images/yahoo_icon32_2.png" '
+                  . 'alt="Yahoo ID" name="but_yahoo" width="32" height="63" border="0" '
+                  . 'id="but_yahoo" onload="" /></a>';
                 
-                $openIdForm = new form('openlogiidnform', $this->uri(array("action"=>"openidconnect","auth_site"=>"openid")));
+                // Explanation text for the textbox and Choose button
+                $explainBox = '<div class="oid_explain">' .
+                  $this->objLanguage->languageText(
+                    'mod_security_openidexplainbox','security'
+                  ) . '</div>';
+                // Title for the fieldset.
+                $title=$this->objLanguage->languageText(
+                  'mod_security_openidlogintitle','security'
+                );
+                $openIdForm = new form('openlogiidnform', 
+                  $this->uri(array("action"=>"openidconnect","auth_site"=>"openid"))
+                );
                 $objInput = new textinput('openIDField', '', 'text', '30');
                 $objInput->extra = 'maxlength="255"';    
                 $openIDImg='<img src="'.$sitePath.'/core_modules/security/resources/openid/images/openid_icon32_2.png" alt="" name="but_openid" width="32" height="64" border="0" id="but_openid2" align="top" onload="" />';
-                $openIdForm->addToForm($objInput->show());
-                $openIdButton = new button('submit', $this->objLanguage->languageText("mod_security_openidlogin",'security'));
+                $openIdForm->addToForm($explainBox . $objInput->show());
+                // The login via provided open ID URL button
+                $openIdButton = new button('submit', 
+                  $this->objLanguage->languageText(
+                    "mod_security_openidlogin",'security'
+                  )
+                );
                 // Add the login icon
                 $openIdButton->setIconClass("user");
                 // Set the button type to submit
@@ -185,11 +204,14 @@ class loginInterface extends object {
                 
                 $openIdFields = new fieldset();
                 $openIdFields->setLegend($title);
-                $openIdFields->addContent(  $googleTD . $yahooTD.$openIDImg.'<hr/><br/>'.$openIdForm->show());
+                $openIdFields->addContent(  $googleTD . $yahooTD 
+                  .$openIDImg.'<hr/><br/>'.$openIdForm->show());
 
-                $openidlink=$openIdFields->show();
+                $openidlink= '<div class="openidlogin">' 
+                  . $openIdFields->show() . "</div>";
                 
             }
+            
             $objFields->addContent($ldap . '<br />' . $rem . $box
                     . "<div class='loginbuttonwrap'>" . $objButton->show()
                     . '</div>' . $fb);
@@ -204,7 +226,7 @@ class loginInterface extends object {
             $objFields->addContent($p);
             $objForm->addToForm($objFields->show());
 
-            return $objForm->show().$openidlink;
+            return $objForm->show() . $openidlink;
         } catch (Exception $e) {
             customException::cleanUp();
         }
