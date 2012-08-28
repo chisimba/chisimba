@@ -146,7 +146,7 @@ class sysconfiginterface extends object
             $objForm->addToForm("<b>". $valueLabel->show()."</b>: ");
             //Create an element for the input of value
             $objParamValue = new textinput ("pvalue");
-            $objParamValue->size="70";
+            $objParamValue->size="50";
             //Set the value of the element to $value
             if (isset($pvalue)) {
                 $objParamValue->setValue($pvalue);

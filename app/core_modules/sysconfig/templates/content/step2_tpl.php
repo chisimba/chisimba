@@ -18,6 +18,7 @@ if($pmodule == '_site_'){
     $objTable = $this->newObject('htmltable', 'htmlelements');
     $objConfig = $this->newObject('altconfig','config');
     $objTable->cellpadding = 5;
+    $objTable->width='100%';
     //Get the special delete icon to work with confirm
     $objDelIcon = $this->newObject('geticon', 'htmlelements');
     $objDelIcon->setIcon("delete");
@@ -25,8 +26,8 @@ if($pmodule == '_site_'){
 
     //Add a row
     $objTable->startRow();
-    $objTable->addCell("<b>".$this->objLanguage->languageText("mod_sysconfig_paramname",'sysconfig')."</b>", "30%", NULL, "LEFT", "heading");
-    $objTable->addCell("<b>".$this->objLanguage->languageText("mod_sysconfig_paramvalue",'sysconfig')."</b>", "60%", NULL, "LEFT", "heading");
+    $objTable->addCell("<b>".$this->objLanguage->languageText("mod_sysconfig_paramname",'sysconfig')."</b>", "40%", NULL, "LEFT", "heading");
+    $objTable->addCell("<b>".$this->objLanguage->languageText("mod_sysconfig_paramvalue",'sysconfig')."</b>", "50%", NULL, "LEFT", "heading");
     $objTable->addCell("<b>".$this->objLanguage->languageText("mod_sysconfig_action",'sysconfig')."</b>", "10%", NULL, "RIGHT", "heading");
     $objTable->endRow();
     $xml = $objConfig->readConfig('','XML');
@@ -53,8 +54,8 @@ if($pmodule == '_site_'){
 
             $objTable->startRow();
             $objTable->addCell($line, "40%", NULL, NULL, $oddOrEven);
-            $objTable->addCell(htmlentities($value), "30%", NULL, NULL, $oddOrEven);
-            $objTable->addCell($objIcon->getEditIcon($edLink), "60%", NULL, "RIGHT", $oddOrEven);
+            $objTable->addCell(htmlentities($value), "50%", NULL, NULL, $oddOrEven);
+            $objTable->addCell($objIcon->getEditIcon($edLink), "10%", NULL, "RIGHT", $oddOrEven);
             $objTable->endRow();
             //Set rowcount for bitwise determination of odd or even
             $rowcount=($rowcount==0) ? 1 : 0;
@@ -68,6 +69,7 @@ if($pmodule == '_site_'){
     //Create the table for the output
     $objTable = $this->newObject('htmltable', 'htmlelements');
     $objTable->cellpadding = 5;
+    $objTable->width='100%';
     //Get the special delete icon to work with confirm
     $objDelIcon = $this->newObject('geticon', 'htmlelements');
     $objDelIcon->setIcon("delete");
@@ -76,9 +78,9 @@ if($pmodule == '_site_'){
 
     //Add a row
     $objTable->startRow();
-    $objTable->addCell("<b>".$this->objLanguage->languageText("mod_sysconfig_paramname",'sysconfig')."</b>", "30%", NULL, "LEFT", "heading");
-    $objTable->addCell("<b>".$this->objLanguage->languageText("mod_sysconfig_paramdesc",'sysconfig')."</b>", "60%", NULL, "LEFT", "heading");
-    $objTable->addCell("<b>".$this->objLanguage->languageText("mod_sysconfig_paramvalue",'sysconfig')."</b>", "60%", NULL, "LEFT", "heading");
+    $objTable->addCell("<b>".$this->objLanguage->languageText("mod_sysconfig_paramname",'sysconfig')."</b>", "40%", NULL, "LEFT", "heading");
+    $objTable->addCell("<b>".$this->objLanguage->languageText("mod_sysconfig_paramdesc",'sysconfig')."</b>", "30%", NULL, "LEFT", "heading");
+    $objTable->addCell("<b>".$this->objLanguage->languageText("mod_sysconfig_paramvalue",'sysconfig')."</b>", "20%", NULL, "LEFT", "heading");
     $objTable->addCell("<b>".$this->objLanguage->languageText("mod_sysconfig_action",'sysconfig')."</b>", "10%", NULL, "RIGHT", "heading");
     $objTable->endRow();
     if (isset($ary)) {
@@ -104,10 +106,10 @@ if($pmodule == '_site_'){
 
             $objTable->startRow();
             // addCell($str, $width=null, $valign="top", $align=null, $class=null, $attrib=Null)
-            $objTable->addCell($edTitleLink->show(), "20%", NULL, NULL, $oddOrEven);
-            $objTable->addCell($this->objLanguage->languageText($line['pdesc'],$line['pmodule']), "60%", NULL, NULL, $oddOrEven);
+            $objTable->addCell($edTitleLink->show(), "40%", NULL, NULL, $oddOrEven);
+            $objTable->addCell($this->objLanguage->languageText($line['pdesc'],$line['pmodule']), "40%", NULL, NULL, $oddOrEven);
             $objTable->addCell(htmlentities($line['pvalue']), "20%", NULL, NULL, $oddOrEven);
-            $objTable->addCell($objIcon->getEditIcon($edLink), "60%", NULL, "RIGHT", $oddOrEven);
+            $objTable->addCell($objIcon->getEditIcon($edLink), "10%", NULL, "RIGHT", $oddOrEven);
             $objTable->endRow();
             //Set rowcount for bitwise determination of odd or even
             $rowcount=($rowcount==0) ? 1 : 0;
