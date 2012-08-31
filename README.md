@@ -17,7 +17,8 @@ The web based installer found in /path/to/webroot/chisimba_framework/installer/i
 
 If you have any questions, comments or other issues, please do not hesitate to post a message to our users mailing list found at:
 
-http://avoir.uwc.ac.za/mailman/listinfo/nextgen-users 
+http://groups.google.com/group/chisimba‐dev
+
 Have fun! Enjoy Chisimba!
 
 
