@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<updates>
+    <update>
+        <table>tbl_files_metadata_media</table>
+        <version>0.3</version>
+        <description>added column for descriptions</description>
+        <data>
+            <add>
+                <name>description</name>
+                <type>text</type>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_files_folders</table>
+        <version>1.029</version>
+        <description>added column for access</description>
+        <data>
+            <add>
+                <name>access</name>
+                <type>text</type>
+                <length>20</length>
+            </add>
+        </data>
+    </update>
+
+
+    <update>
+        <table>tbl_files_folders</table>
+        <version>1.036</version>
+        <description>added column for visibility</description>
+        <data>
+            <add>
+                <name>visibility</name>
+                <type>text</type>
+                <length>7</length>
+            </add>
+        </data>
+    </update>
+
+
+
+    <update>
+        <table>tbl_files</table>
+        <version>1.036</version>
+        <description>added column for visibility</description>
+        <data>
+            <add>
+                <name>visibility</name>
+                <type>text</type>
+                <length>7</length>
+            </add>
+        </data>
+    </update>
+    
+    
+     <update>
+        <table>tbl_files</table>
+        <version>1.039</version>
+        <description>added column for access</description>
+        <data>
+            <add>
+                <name>access</name>
+                <type>text</type>
+                <length>20</length>
+            </add>
+        </data>
+    </update>
+
+
+     <update>
+        <table>tbl_files</table>
+        <version>1.052</version>
+        <description>added column for digitallibrary</description>
+        <data>
+            <add>
+                <name>digitallibrary</name>
+                <type>text</type>
+                <length>1</length>
+            </add>
+        </data>
+    </update>
+    
+    
+     <update>
+        <table>tbl_files_folders</table>
+        <version>1.052</version>
+        <description>added column for alerts</description>
+        <data>
+            <add>
+                <name>alerts</name>
+                <type>text</type>
+                <length>1</length>
+            </add>
+        </data>
+    </update>
+    
+    
+    
+    </updates>

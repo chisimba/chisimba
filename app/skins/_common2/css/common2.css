@@ -1,0 +1,1279 @@
+
+body{
+    font: 80% "Trebuchet MS", "Lucida Sans Unicode", Tahoma, sans-serif;
+    font:68%/1.5 arial,tahoma,verdana,sans-serif;
+   /* margin: 0;
+    padding: 0;*/
+}
+
+/************** A styles *************/
+a:link,
+a:visited {
+
+  text-decoration: none;
+}
+
+a:hover,
+a:active {
+
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a img {
+  border: none;
+}
+/******** End of A style ***************/
+
+strong {
+  font-weight: bold;
+}
+
+hr {
+  padding-left: 10px
+}
+
+input[type='text'],
+input[type='password'],
+input[type='file'],
+select,
+textarea {
+  padding: 3px;
+  border: solid 1px #c6c6c6;
+  border-bottom: solid 1px #e3e3e3;
+  color: #333;
+  background: #f3f3f3 url('images/bg-forms.png') left top repeat-x;
+  margin-bottom:4px;
+}
+
+input.light {
+  background: #fff url('images/bg-forms-light.png') repeat-x;
+  margin-bottom:4px;
+}
+
+.prioritylist{
+ 	background: #fff url('images/bg-forms-light.png') repeat-x;
+  margin-bottom:4px;
+  border:1px solid #A5A5A5;
+  background-color:#D0D0D0
+}
+
+input[type='submit'],
+input[type='reset'],
+input[type='button'] {
+  padding: 3px 10px;
+
+}
+
+input[type='checkbox'],
+input[type='radio'] {
+  width: auto !important;
+}
+/*
+table,
+tr,
+th,
+td {
+  margin: 0;
+  padding: 0;
+  border: none;
+  text-align: left;
+}
+*/
+fieldset{
+
+}
+
+label {
+font-weight: bold;
+/*display: block;
+float: left;*/
+}
+/* label:after { content: ": " } */
+
+/***********************************************************************************************
+* Common Styles for Usage
+***********************************************************************************************/
+
+
+/* Use this styles for tables instead of <td nowrap> */
+.nowrap { white-space: nowrap; }
+
+
+/* Confirm message that action has occurred successfully - white text on a dark yellow background */
+.confirm, #confirm { color: #000000; background-color: #FFDE39; }
+
+/* Success Messages */
+.success {color:#390;font-weight:bold}
+
+/* Error messages - Red Text Color*/
+.error { color: red; }
+
+/* Error messages for form inputs - Red Background - White Text*/
+input.error, input.inputerror { background-color: red; color: white; }
+
+
+/* Highlighted Text - Yellow Background*/
+.HighLightText, .highlighttext { background-color: #FFFF00; }
+
+
+/* Warning Messages - Orange Background */
+.warning { color: #FFA500; font-weight: bold; }
+
+
+/*  This specify the color of the notes or short little descriptive wording. */
+.minute
+{
+    font-size: 85%;
+}
+
+/* Use for text that is greyed out or dimmed for some reason */
+.dim, .subdued {
+    color: #999999;
+}
+
+
+/* Large Font for Indicating no Records*/
+.noRecordsMessage {
+    font-style: oblique;
+    text-align: center;
+    font-weight: normal;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    font-size: large;
+}
+
+
+
+/* Dark Wrapper - for the header*/
+.wrapperDarkBkg {
+    background-color: #CCCCCC;
+    padding: 3px;
+}
+
+
+
+/* Light Wrapper - for the Content*/
+.wrapperLightBkg {
+    background-color: #FFFFFF;
+    padding: 3px;
+    color: #000000
+}
+
+/*************************************
+* Language direction
+* For example, these below are for divs that should be left aligned for English.
+* But for Arabic or Hebrew, they will be floated right, if it gets overridden in the skin stylesheet
+*******************************************/
+
+.floatlangdir {
+    float: left;
+}
+
+.clearfloatlangdir {
+    /*clear: left;*/
+}
+
+/* END - styles based on language direction */
+
+
+/***********************************************************************************************
+*Table Styles
+***********************************************************************************************/
+table.overflowtable {
+    table-layout:fixed;
+}
+
+table.overflowtable td.overflowcolumn {
+    overflow:hidden;
+    white-space:nowrap;
+}
+
+
+th {
+    /*background-color:#CACDD2;*/
+    border-right: 1px solid black ;
+    padding-left: 5px;
+	margin:10px;
+
+}
+
+td {
+    margin-left: 10px;
+	/*color: #FFF;*/
+}
+
+th a {
+    color: #c4ebe3;
+
+}
+
+
+.highlightblock {
+    border: 1px dashed red;
+}
+
+ul.htmlliststyle li {
+    background: transparent url("../icons/text.gif") no-repeat 0 4px;
+    list-style-type: none;
+    margin: 0;
+    padding-left: 20px;
+}
+
+
+/* Added styles to display quota - width is controlled by code */
+div.outerquota {
+    border: 1px solid #000;
+    background-color: #FFF;
+    font-size: 80%;
+    text-align: center;
+}
+
+div.innerquota {
+    background: #00FF00;
+    height: 16px;
+}
+
+div.quotaup {
+    background: red;
+    height: 16px;
+}
+
+
+
+#nav-secondary{
+    margin: 5px;
+    /*border: 1px dashed ;*/
+    padding: 10px;
+
+}
+#nav-secondary li{
+	padding-left: 15px;
+	/*background-color: #599DF6;*/
+	/*border: 1px solid blue transparent;*/
+	text-decoration:none;
+	/*-moz-border-radius: 8px;
+    border-radius: 8px;*/
+	list-style: none;
+}
+
+.featurebox{
+	margin: 5px;
+
+    /*border: 1px dashed;*/
+	padding:2px;
+	overflow:hidden;
+}
+
+.featureboxheader
+{
+ 	/*background-color:blue;*/
+    /*border: 1px solid  brown transparent;
+    color: #FFF;*/
+	padding: 2px;
+	margin-top:1px;
+	margin-bottom:1px;
+}
+
+.featureboxcontent
+{
+	padding: 5px;
+	padding-top:2px;
+	/*background-color:red;*/
+	margin-top:1px;
+}
+
+/*fieldset {
+    background-color: #FFF;
+    /*border: 1px solid #D8E9F6;*/
+   /*border:0.5px solid #93B3F9;
+    padding: 5px;
+
+
+}*/
+
+/*form {margin-bottom: 10px;}*/
+
+h1#sitename {
+    padding: 20px;
+}
+
+.radio1 {width:100%}
+#formtable {
+	width:100%;
+	padding:5px;
+	text-align: left;
+	}
+
+.note{
+	height:150px;
+	padding:10px;
+	width:150px;
+	position:relative;
+	overflow:hidden;
+	cursor:move;
+	font-family:Trebuchet MS,Tahoma,Myriad Pro,Arial,Verdana,sans-serif;
+	font-size:22px;
+	/* Adding a CSS3 shadow below the note, in the browsers which support it: */
+	-moz-box-shadow:2px 2px 0 #DDDDDD;
+	-webkit-box-shadow:2px 2px 0 #DDDDDD;
+	box-shadow:2px 2px 0 #DDDDDD;
+}
+
+#fancy_ajax .note{
+    cursor:default;
+}
+
+/* Three styles for the notes: */
+
+.yellow{
+	background-color:#FDFB8C;
+	border:1px solid #DEDC65;
+}
+
+.blue{
+	background-color:#A6E3FC;
+	border:1px solid #75C5E7;
+}
+
+.green{
+	background-color:#A5F88B;
+	border:1px solid #98E775;
+}
+
+/* Each note has a data span, which holds its ID */
+span.data{	display:none; }
+
+/* The "Add a note" button: */
+#addButton{
+	position:relative;
+}
+
+/* Green button class: */
+a.green-button,a.green-button:visited{
+	color:black;
+	display:block;
+	font-size:10px;
+	font-weight:bold;
+	height:15px;
+	padding:6px 5px 4px;
+	text-align:center;
+	width:60px;
+	text-shadow:1px 1px 1px #DDDDDD;
+	background:url(img/button_green.png) no-repeat left top;
+}
+
+a.green-button:hover{
+	text-decoration:none;
+	background-position:left bottom;
+}
+
+.author{
+	/* The author name on the note: */
+	bottom:10px;
+	color:#666666;
+	font-family:Arial,Verdana,sans-serif;
+	font-size:12px;
+	position:relative;
+	right:10px;
+}
+
+#main{
+	/* Contains all the notes and limits their movement: */
+	margin:0 auto;
+	position:relative;
+	width:980px;
+	height:500px;
+	z-index:10;
+	background:url(img/add_a_note_help.gif) no-repeat left top;
+}
+
+h3.popupTitle{
+	border-bottom:1px solid #DDDDDD;
+	color:#666666;
+	font-size:24px;
+	font-weight:normal;
+	padding:0 0 5px;
+}
+
+#noteData{
+	/* The input form in the pop-up: */
+	height:200px;
+	margin:30px 0 0 200px;
+	width:350px;
+}
+
+.note-form label{
+	display:block;
+	font-size:10px;
+	font-weight:bold;
+	letter-spacing:1px;
+	text-transform:uppercase;
+	padding-bottom:3px;
+}
+
+.note-form textarea, .note-form input[type=text]{
+	background-color:#FCFCFC;
+	border:1px solid #AAAAAA;
+	font-family:Arial,Verdana,sans-serif;
+	font-size:16px;
+	height:60px;
+	padding:5px;
+	width:300px;
+	margin-bottom:10px;
+}
+
+.note-form input[type=text]{	height:auto; }
+
+.color{
+	/* The color swatches in the form: */
+	cursor:pointer;
+	float:left;
+	height:10px;
+	margin:0 5px 0 0;
+	width:10px;
+}
+
+#note-submit{
+    margin:20px auto;
+}
+
+.required_field {
+    color: red;
+}
+
+#form_commentadd fieldset {
+    margin-bottom: 8px;
+}
+
+/** Fix context control panel */
+ul.x-tab-strip li {
+    list-style-type: none;
+}
+.context_cp_right {
+    width: 45%;
+    margin-left: 40px;
+    float:left;
+}
+.context_cp_left {
+    width: 45%;
+    float:left;
+}
+
+/** Fixed bad code in News module **/
+.halfwidth_left {
+    width:50%;
+    float:left;
+}
+
+/***
+Styles for the Chisimba wall module
+*/
+.clear {
+    clear:both;
+}
+.wall_wrapper {
+    width:448px;
+    margin:0 auto;
+    text-align:left;
+}
+#updateBox {
+    background-color:#F2F2F2;
+    border:1px solid #B5B5B5;
+    padding:4px;
+}
+.wallpost {
+    width:98%;
+    height:70px;
+    border-color:#7C7C7C #C3C3C3 #DDDDDD;
+    border-style:solid;
+    border-width:1px;
+}
+
+.shareBtn {
+    background:#3b5998;
+    float:right;
+    color:#ffffff;
+    font-weight:bold;
+    border:0;
+    padding:4px;
+    margin-top:2px;
+}
+.msg {
+    min-height:38px;height:auto!important;height:38px;_height:38px;
+    margin-top:8px;
+    margin-bottom:8px;
+    /*border-bottom:1px solid #B5B5B5;
+    padding-bottom:4px;*/
+    color: #666666;
+    font-size:13px;
+}
+
+.wall_post_info {
+    margin-top:8px;
+    margin-bottom:8px;
+    border-bottom:1px solid #B5B5B5;
+    padding-bottom:4px;
+    color: #999999;
+    font-size:13px;
+}
+
+.wallpostrow {
+    margin-top: 15px;
+}
+
+.msg a {
+    color:#3B5998;
+    text-decoration:none;
+}
+
+.msg a:hover {
+    text-decoration:underline;
+}
+
+.wallposter {
+    font-weight: bold;
+}
+
+.small_user_image {
+    float: left;
+    height: 35px;
+    width: 35px;
+    margin-right:5px;
+    margin-bottom: 5px;
+}
+
+a.delpost {
+    float: right;
+}
+
+.delpost:hover {
+    background-color: yellow;
+    text-decoration: none;
+}
+
+.pgthumbimage {
+    vertical-align: middle;
+}
+
+
+/** For the wall comments ***/
+
+.wall_comment_author a {
+    color: #3b5998;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.wall_comment_when {
+    color: #666666;
+    padding-top: 8px;
+}
+
+.wall_comment_button a {
+    color: #999999;
+}
+
+.wall_comments_top {
+    background: url('images/comment-top.png');
+    width: 395px;
+    height: 10px;
+    background-repeat: no-repeat;
+    margin: 0px;
+    margin-top: -10px;
+    margin-left: 35px;
+}
+
+.wall_comments_bottom {
+    height: 0px;
+}
+
+ol.wall_replies {
+    list-style:none;
+    font-size:1.2em;
+    margin-top: 0px;
+    width: 390px;
+}
+
+ol.wall_replies li{
+    position:relative;
+    padding:5px;
+    margin-top: 0px;
+    margin-left: -5px;
+    border-bottom:1px solid #f7f7f7;
+    line-height:1.1em;
+    background-color: #edeff4;
+    color:#808080;
+    font-size:11px;
+}
+ol.wall_replies li:first-child {
+    /*border-top:1px dashed #000;*/
+}
+ol.wall_replies li:last-child {
+    margin-bottom: -8px;
+}
+
+.wall_panel
+{
+    padding-left: 35px;
+    margin-bottom: 20px;
+    display:none;
+}
+
+.comment_submit {
+    background:#3b5998;
+    color:#ffffff;
+    font-weight:bold;
+    border:0;
+    padding:4px;
+    margin-top:2px;
+}
+
+a.wall_delcomment {
+    float: right;
+    margin-left: 8px;
+    margin-bottom: 8px;
+}
+
+.wall_comments_more {
+    position:relative;
+    padding: 2px;
+}
+
+.tb_comments_more {
+    width:100%;
+    padding-right:15px;
+}
+
+a.wall_comments_more,
+a.wall_comments_more:visited {
+    color: #eceff6;
+    background: #3b5998;
+}
+
+a.wall_comments_more:hover,
+a.wall_comments_more:visited:hover {
+    color: #eceff6;
+    background: red;
+}
+
+/** When you get older wall posts via ajax **/
+.wall_post_append {
+    background: #fff9d7;
+    margin-top: 10px;
+    padding-bottom: 20px;
+}
+
+/** Other styles **/
+ol.timeline{
+    list-style:none;
+    font-size:1.2em;
+}
+ol.timeline li {
+    display:none;position:relative;
+    padding:.7em 0 .6em 0;
+    border-bottom:1px dashed #000;
+    line-height:1.1em;
+    background-color:#D3E7F5;
+    height:55px;
+    width:499px;
+}
+ol.timeline li:first-child {
+    border-top:1px dashed #000;
+}
+/** -- END WALL MODULE STYLES **/
+
+/** The canvas turn editing on/off button */
+#modeswitch_wrapper {
+
+}
+.editing_on, .editing_off {
+    padding-left: 2px;
+    padding-right: 2px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+}
+.editing_on {
+    background-color: #F90;
+}
+.editing_off {
+    background-color: #98abc7;
+}
+
+/** For the module list **/
+div.stable, div.unset, div.pre-alpha,
+div.alpha, div.beta, div.deprecated,
+div.marked_for_removal, div.invisible {
+    padding: 10px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+}
+div.stable {
+    background: #00FF00;
+}
+div.unset {
+    background: #f00;
+    color: white;
+}
+div.pre-alpha {
+    background: #D3E7F5;
+}
+div.alpha {
+    background: #e3a345;
+}
+div.beta {
+    background: #FFFFCC;
+}
+div.deprecated {
+    background: #ffffff;
+    color: #999999;
+}
+
+div.marked_for_removal {
+    background: #0033FF;
+    color: white;
+}
+
+div.invisible {
+    background: #DB00DC;
+    color: white;
+}
+
+
+/** Creative commons license dropdowns **/
+
+option.copyright {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/copyright.gif');
+    background-repeat: no-repeat;
+}
+option.by {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by.gif');
+    background-repeat: no-repeat;
+}
+option.by-sa {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by-sa.gif');
+    background-repeat: no-repeat;
+}
+option.by-nd {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by-nd.gif');
+    background-repeat: no-repeat;
+}
+option.by-nc {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by-nc.gif');
+    background-repeat: no-repeat;
+}
+option.by-nc-sa {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by-nc-sa.gif');
+    background-repeat: no-repeat;
+}
+option.by-nc-nd {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by-nc-nd.gif');
+    background-repeat: no-repeat;
+}
+option.gnu-fdl {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/gnu-fdl.gif');
+    background-repeat: no-repeat;
+}
+option.by-sa_gnu-fdl {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by-sa_gnu-fdl.gif');
+    background-repeat: no-repeat;
+}
+
+.roundcorners_small {
+     border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+}
+
+.roundcorners_large {
+     border-radius: 25px;
+    -moz-border-radius: 25px;
+    -webkit-border-radius: 25px;
+    -khtml-border-radius: 25px;
+}
+
+a.contexttitle {
+    color: #003366;
+    font-size: larger;
+    padding-left: 5px;
+}
+
+#form_searchform #input_search {
+    width: 120px;
+}
+
+/** Styles for the page annotations **/
+.annotated{
+    position: relative;
+    background-color:#FFEFD8;
+}
+
+.annotated[annotateLevel="0"] {
+    background-color:#FFEFD8;
+}
+
+.annotated[annotateLevel="1"] {
+    background-color:#F0D6BF;
+}
+
+.annotated[annotateLevel="2"] {
+    background-color:#DCC2AB;
+}
+
+.beingAnnotated {
+    background-color:#F90;
+}
+
+.annotationFocus, .annotationFocus[annotatelevel='0']{
+    background-color:#9F0;
+}
+
+.annotationFocus[annotatelevel='1']{
+    background-color:#C2DCAB;
+}
+
+.annotationFocus[annotatelevel='2']{
+    background-color:#D6F0BF;
+}
+
+.jQueryTextAnnotaterDialog{
+    opacity:0.9;
+    z-index: 999;
+    position:absolute;
+    display:none;
+    width: 200px;
+    height: 150px;
+    border: 1px solid black;
+    background-color: #eee;
+    padding: 5px;
+    font-family: Trebuchet, Arial;
+    font-size: 10pt
+}
+
+.jQueryTextAnnotaterDialogForm ul{
+    padding: 0;
+    margin: 0;
+}
+
+.jQueryTextAnnotaterDialogForm li{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+#content, #explanation, #annotations{
+    border: 1px dotted gray;
+    margin: 20px;
+    padding: 20px;
+    font-family: Trebuchet, Arial;
+}
+
+#controls {
+    border: 1px dotted gray;
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+    font-family: Trebuchet, Arial;
+}
+
+#saveAnnotations, #toggleAnnotations {
+    width: 100px;
+    font-family: Trebuchet, Arial;
+}
+
+#explanation, #controls{
+    background-color: #eee;
+}
+
+.annotated img{
+    border: 1px solid #FFEFD8;
+}
+
+.annotationFocus img{
+    border: 1px solid #9F0;
+}
+
+.annotator_comment {
+    line-height: 14px;
+    position: absolute;
+    margin-right: 10px;
+    background-color: #ffaaaa;
+    border: 1px solid red;
+    font-size: 8pt;
+    width: 200px
+}
+
+.comment_line {
+    position: absolute;
+    border-top: 1px dashed red;
+    height: 1px;
+}
+
+.pagenote_note {
+    background: #eee;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+/**   end of pagenotes styles ***/
+
+.redtxt {
+    color: red;
+}
+
+.bluetxt {
+    color: blue;
+}
+
+.greentxt {
+    color: green;
+}
+
+.orangetxt {
+    color: orange;
+}
+
+.blacktxt {
+    color: #000000;
+}
+
+.whitetxt {
+    color: #FFFFFF;
+}
+
+/** Chat stuff in the messaging module **/
+#chatDiv {
+    background: none;
+    height: 300px;
+    border: 1px solid black;
+    padding: 10px;
+    overflow: auto;
+    cursor: default;
+}
+.chat_user {
+    color: black;
+    font-weight: bolder;
+}
+
+.chat_date {
+    color: red;
+}
+.chat_input {
+    width: 100%;
+}
+
+.chat_input {
+    width: 100%;
+}
+
+.chat_buttons {
+    padding-left: 20px;
+}
+
+.chat_buttons button {
+    margin-bottom: 6px;
+}
+
+.ImagePreview{
+    max-height: 100px !important;
+    max-width: 100px !important;
+}
+
+.ImagePreviewArea{
+    width:100px !important;
+    height:100px !important;
+    line-height:100px !important;
+    vertical-align:center !important;
+    text-align:center !important;
+}
+
+/** Fluid video **/
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px;
+    height: 0;
+    overflow: hidden;
+    background:none;
+    border:none;
+    margin-right: 8px;
+}
+
+.video-container iframe,
+.video-container object,
+.video-container embed {
+
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.video-container video {
+  width: 100%    !important;
+  height: auto   !important;
+}
+
+
+/** For most recent context blocks **/
+
+.context_recent {
+    width: 100%;
+    height: auto;
+}
+
+.context_recent_context {
+    position: relative;
+    float: left;
+    width: 220px;
+    height: 190px;
+    overflow: hidden;
+    margin: 8px;
+    padding: 5px;
+    border-radius: 12px;
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    -khtml-border-radius: 12px;
+    background: -webkit-gradient(linear, left top, left bottom,
+        color-stop(0%, white), color-stop(65%, white),
+        color-stop(100%, #f7f7f7));
+    background: -moz-linear-gradient(top, white 0%, white 55%, #D5E4F3 130%);
+    -moz-box-shadow: 3px 3px 4px #000;
+	-webkit-box-shadow: 3px 3px 4px #000;
+	box-shadow: 3px 3px 4px #000;
+	/* For IE 8 */
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000')";
+	/* For IE 5.5 - 7 */
+	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000');
+}
+
+.context_recent_context img {
+    position: relative;
+    margin-right: 5px;
+    float: left;
+}
+
+.context_recent_title {
+    font-size: 150%;
+}
+
+.context_creationdate {
+    font-size: 125%;
+    font-weight: 200;
+    color: #1c64d1;
+}
+
+li.bookmark_icon {
+    float: right !important;
+    margin-right: 2px !important;
+}
+
+/***********************************************************************************************
+* Styles for statusbar
+***********************************************************************************************/
+
+.statusbar_online_count, .statusbar_email_count, .statusbar_message_count,
+.statusbar_alert_count, .statusbar_buddies_count, .statusbar_document_count, .statusbar_picture_count {
+    color: white;
+    font-size: 7pt;
+    font-weight: bold;
+    text-align: center;
+    position: relative;
+    left: 5px;
+    bottom: 15px;
+    background: red;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    margin-top: 0px;
+    padding-bottom: 3px;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 0px;
+}
+
+.statusbar_online_users {
+    background: transparent url('../../_common/icons/group.png') no-repeat top left;
+}
+
+.statusbar_email_on {
+    background: transparent url('../../_common/icons/email.png') no-repeat top left;
+    cursor: pointer;
+}
+
+.statusbar_email_off {
+    background: transparent url('../../_common/icons/email.png') no-repeat top left;
+}
+
+.statusbar_messaging_on {
+    background: transparent url('../../_common/icons/user_comment.png') no-repeat top left;
+    cursor: pointer;
+}
+
+.statusbar_messaging_off {
+    background: transparent url('../../_common/icons/user_comment.png') no-repeat top left;
+}
+
+.statusbar_alert_on {
+    background: transparent url('../../_common/icons/alarm.png') no-repeat top left;
+    cursor: pointer;
+}
+
+.statusbar_alert_off {
+    background: transparent url('../../_common/icons/alarm.png') no-repeat top left;
+}
+
+.statusbar_buddies_on {
+    background: transparent url('../../_common/icons/buddies.png') no-repeat top left;
+    cursor: pointer;
+}
+
+.statusbar_document_on {
+    background: transparent url('../../_common/icons/page.png') no-repeat top left;
+    cursor: pointer;
+}
+
+.statusbar_document_off {
+    background: transparent url('../../_common/icons/page.png') no-repeat top left;
+}
+
+.statusbar_picture_on {
+    background: transparent url('../../_common/icons/camera.png') no-repeat top left;
+    cursor: pointer;
+}
+
+.statusbar_picture_off {
+    background: transparent url('../../_common/icons/camera.png') no-repeat top left;
+}
+
+.dialog_fixed {
+    position: fixed !important;
+}
+
+/***********************************************************************************************
+* Styles for image gallery
+***********************************************************************************************/
+.gallery_albums, .gallery_empty, album_images, .album_empty {
+    cursor: pointer;
+}
+
+#main_tabs, #context_tabs {
+    float: left;
+    width: 99%;
+    margin: 5px
+}
+
+.view_image {
+    cursor: pointer;
+}
+
+.more_boxes {
+    display: none;
+}
+
+.tooltip_always_on_top {
+    z-index: 2000;
+}
+
+#image, #image_details {
+    float: left;
+    width: 50%;
+}
+
+/* Image gallery styles */
+.gallery, .album, div.image {
+    background: white;
+    float: left;
+    border: 1px solid whitesmoke;
+    border-radius: 6px;
+    margin: 6px;
+    padding: 5px;
+    width: 200px;
+    height: 190px;
+    margin-bottom: 12px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -khtml-border-radius: 6px;
+    -webkit-box-shadow: 4px 4px 5px rgba(50, 50, 50, 0.47);
+    -moz-box-shadow:    4px 4px 5px rgba(50, 50, 50, 0.47);
+    box-shadow:         4px 4px 5px rgba(50, 50, 50, 0.47);
+}
+
+.gallery_info, .album_info {
+   color: #165879;
+   float: left;
+   margin-right: 6px;
+}
+
+#imagegallerymain #main_tabs .view_image {
+    margin-right: 10px;
+    -webkit-box-shadow: 4px 4px 5px rgba(50, 50, 50, 0.47);
+    -moz-box-shadow:    4px 4px 5px rgba(50, 50, 50, 0.47);
+    box-shadow:         4px 4px 5px rgba(50, 50, 50, 0.47);
+}
+
+/* ---- For the new YouTube player ---- */
+.videoWrapper {
+	position: relative;
+	padding-bottom: 56.25%; /* 16:9 */
+	padding-top: 25px;
+	height: 0;
+}
+.videoWrapper iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+/** File manager improvements **/
+#fileupload1, #fileupload2, #fileupload3  {
+    width: 240px;
+}
+
+#input_creativecommons_fileupload1,
+#input_creativecommons_fileupload2,
+#input_creativecommons_fileupload3 {
+    width: 240px;
+}
+.cc-select-dd {
+    margin-left: 95px;
+}
+
+/** Context improvements **/
+.context_sidebar p img {
+    border-radius: 12px;
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    -khtml-border-radius: 12px;
+}
+
+#input_selectfile_temp_multiselect {
+    width: 340px !important;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    margin-top: 4px;
+}
+#ctxtcnt-add-submit {
+    margin-top: 8px;
+}

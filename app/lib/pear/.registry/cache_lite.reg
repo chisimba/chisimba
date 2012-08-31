@@ -1,0 +1,158 @@
+a:18:{s:8:"provides";a:21:{s:23:"class;Cache_Lite_Output";a:4:{s:4:"type";s:5:"class";s:4:"name";s:17:"Cache_Lite_Output";s:7:"extends";s:10:"Cache_Lite";s:8:"explicit";b:1;}s:33:"function;Cache_Lite_Output::start";a:3:{s:4:"type";s:8:"function";s:4:"name";s:24:"Cache_Lite_Output::start";s:8:"explicit";b:1;}s:31:"function;Cache_Lite_Output::end";a:3:{s:4:"type";s:8:"function";s:4:"name";s:22:"Cache_Lite_Output::end";s:8:"explicit";b:1;}s:25:"class;Cache_Lite_Function";a:4:{s:4:"type";s:5:"class";s:4:"name";s:19:"Cache_Lite_Function";s:7:"extends";s:10:"Cache_Lite";s:8:"explicit";b:1;}s:34:"function;Cache_Lite_Function::call";a:3:{s:4:"type";s:8:"function";s:4:"name";s:25:"Cache_Lite_Function::call";s:8:"explicit";b:1;}s:34:"function;Cache_Lite_Function::drop";a:3:{s:4:"type";s:8:"function";s:4:"name";s:25:"Cache_Lite_Function::drop";s:8:"explicit";b:1;}s:21:"class;Cache_Lite_File";a:4:{s:4:"type";s:5:"class";s:4:"name";s:15:"Cache_Lite_File";s:7:"extends";s:10:"Cache_Lite";s:8:"explicit";b:1;}s:29:"function;Cache_Lite_File::get";a:3:{s:4:"type";s:8:"function";s:4:"name";s:20:"Cache_Lite_File::get";s:8:"explicit";b:1;}s:16:"class;Cache_Lite";a:3:{s:4:"type";s:5:"class";s:4:"name";s:10:"Cache_Lite";s:8:"explicit";b:1;}s:30:"function;Cache_Lite::setOption";a:3:{s:4:"type";s:8:"function";s:4:"name";s:21:"Cache_Lite::setOption";s:8:"explicit";b:1;}s:24:"function;Cache_Lite::get";a:3:{s:4:"type";s:8:"function";s:4:"name";s:15:"Cache_Lite::get";s:8:"explicit";b:1;}s:25:"function;Cache_Lite::save";a:3:{s:4:"type";s:8:"function";s:4:"name";s:16:"Cache_Lite::save";s:8:"explicit";b:1;}s:27:"function;Cache_Lite::remove";a:3:{s:4:"type";s:8:"function";s:4:"name";s:18:"Cache_Lite::remove";s:8:"explicit";b:1;}s:26:"function;Cache_Lite::clean";a:3:{s:4:"type";s:8:"function";s:4:"name";s:17:"Cache_Lite::clean";s:8:"explicit";b:1;}s:31:"function;Cache_Lite::setToDebug";a:3:{s:4:"type";s:8:"function";s:4:"name";s:22:"Cache_Lite::setToDebug";s:8:"explicit";b:1;}s:32:"function;Cache_Lite::setLifeTime";a:3:{s:4:"type";s:8:"function";s:4:"name";s:23:"Cache_Lite::setLifeTime";s:8:"explicit";b:1;}s:43:"function;Cache_Lite::saveMemoryCachingState";a:3:{s:4:"type";s:8:"function";s:4:"name";s:34:"Cache_Lite::saveMemoryCachingState";s:8:"explicit";b:1;}s:42:"function;Cache_Lite::getMemoryCachingState";a:3:{s:4:"type";s:8:"function";s:4:"name";s:33:"Cache_Lite::getMemoryCachingState";s:8:"explicit";b:1;}s:33:"function;Cache_Lite::lastModified";a:3:{s:4:"type";s:8:"function";s:4:"name";s:24:"Cache_Lite::lastModified";s:8:"explicit";b:1;}s:31:"function;Cache_Lite::raiseError";a:3:{s:4:"type";s:8:"function";s:4:"name";s:22:"Cache_Lite::raiseError";s:8:"explicit";b:1;}s:31:"function;Cache_Lite::extendLife";a:3:{s:4:"type";s:8:"function";s:4:"name";s:22:"Cache_Lite::extendLife";s:8:"explicit";b:1;}}s:8:"filelist";a:36:{s:14:"docs/technical";a:4:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:5:"Cache";s:6:"md5sum";s:32:"934071f21c17611811e01396ca604c79";s:12:"installed_as";s:45:"/usr/share/php/docs/Cache_Lite/docs/technical";}s:13:"docs/examples";a:4:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:5:"Cache";s:6:"md5sum";s:32:"1eb8d968a8b40bebf9b580782fe0a3a7";s:12:"installed_as";s:44:"/usr/share/php/docs/Cache_Lite/docs/examples";}s:31:"tests/Cache_Lite_classical.phpt";a:4:{s:4:"role";s:4:"test";s:14:"baseinstalldir";s:5:"Cache";s:6:"md5sum";s:32:"02a3c6ac536076fc77810b843e4a6212";s:12:"installed_as";s:63:"/usr/share/php/tests/Cache_Lite/tests/Cache_Lite_classical.phpt";}s:39:"tests/Cache_Lite_automaticCleaning.phpt";a:4:{s:4:"role";s:4:"test";s:14:"baseinstalldir";s:5:"Cache";s:6:"md5sum";s:32:"710f77b0ed753a42a49aad8b779ee18c";s:12:"installed_as";s:71:"/usr/share/php/tests/Cache_Lite/tests/Cache_Lite_automaticCleaning.phpt";}s:29:"tests/Cache_Lite_eternal.phpt";a:4:{s:4:"role";s:4:"test";s:14:"baseinstalldir";s:5:"Cache";s:6:"md5sum";s:32:"71d8c3bbeb65faff31ee6822391e2744";s:12:"installed_as";s:61:"/usr/share/php/tests/Cache_Lite/tests/Cache_Lite_eternal.phpt";}s:28:"tests/Cache_Lite_fatest.phpt";a:4:{s:4:"role";s:4:"test";s:14:"baseinstalldir";s:5:"Cache";s:6:"md5sum";s:32:"198f6f9142051df39d9f70e6c9a0b635";s:12:"installed_as";s:60:"/usr/share/php/tests/Cache_Lite/tests/Cache_Lite_fatest.phpt";}s:36:"tests/Cache_Lite_File_classical.phpt";a:4:{s:4:"role";s:4:"test";s:14:"baseinstalldir";s:5:"Cache";s:6:"md5sum";s:32:"985482fedda364c2b4f166183e1dd9b4";s:12:"installed_as";s:68:"/usr/share/php/tests/Cache_Lite/tests/Cache_Lite_File_classical.phpt";}s:40:"tests/Cache_Lite_Function_classical.phpt";a:4:{s:4:"role";s:4:"test";s:14:"baseinstalldir";s:5:"Cache";s:6:"md5sum";s:32:"58e15eced32aaed91afa7b8c2985e7aa";s:12:"installed_as";s:72:"/usr/share/php/tests/Cache_Lite/tests/Cache_Lite_Function_classical.phpt";}s:35:"tests/Cache_Lite_Function_drop.phpt";a:4:{s:4:"role";s:4:"test";s:14:"baseinstalldir";s:5:"Cache";s:6:"md5sum";s:32:"5e796fdaf0a7b06e229bdc2057bbb459";s:12:"installed_as";s:67:"/usr/share/php/tests/Cache_Lite/tests/Cache_Lite_Function_drop.phpt";}s:40:"tests/Cache_Lite_Function_dontcache.phpt";a:4:{s:4:"role";s:4:"test";s:14:"baseinstalldir";s:5:"Cache";s:6:"md5sum";s:32:"5c8fbf9a55fe0e62c543ba537b51ba86";s:12:"installed_as";s:72:"/usr/share/php/tests/Cache_Lite/tests/Cache_Lite_Function_dontcache.phpt";}s:28:"tests/Cache_Lite_hashed.phpt";a:4:{s:4:"role";s:4:"test";s:14:"baseinstalldir";s:5:"Cache";s:6:"md5sum";s:32:"a744ad847aa90ab010217f36a4b02a73";s:12:"installed_as";s:60:"/usr/share/php/tests/Cache_Lite/tests/Cache_Lite_hashed.phpt";}s:27:"tests/Cache_Lite_error.phpt";a:4:{s:4:"role";s:4:"test";s:14:"baseinstalldir";s:5:"Cache";s:6:"md5sum";s:32:"005a0b4093a22454152b10c5b3a5531a";s:12:"installed_as";s:59:"/usr/share/php/tests/Cache_Lite/tests/Cache_Lite_error.phpt";}s:28:"tests/Cache_Lite_error2.phpt";a:4:{s:4:"role";s:4:"test";s:14:"baseinstalldir";s:5:"Cache";s:6:"md5sum";s:32:"1d7dc15b1621f98e920a0331ed01fb3c";s:12:"installed_as";s:60:"/usr/share/php/tests/Cache_Lite/tests/Cache_Lite_error2.phpt";}s:28:"tests/Cache_Lite_error3.phpt";a:4:{s:4:"role";s:4:"test";s:14:"baseinstalldir";s:5:"Cache";s:6:"md5sum";s:32:"554b773f3677d0a64e61e0e4c97ebab1";s:12:"installed_as";s:60:"/usr/share/php/tests/Cache_Lite/tests/Cache_Lite_error3.phpt";}s:33:"tests/Cache_Lite_memorycache.phpt";a:4:{s:4:"role";s:4:"test";s:14:"baseinstalldir";s:5:"Cache";s:6:"md5sum";s:32:"0bbbee2deb4df646b16034ccf128ccbd";s:12:"installed_as";s:65:"/usr/share/php/tests/Cache_Lite/tests/Cache_Lite_memorycache.phpt";}s:38:"tests/Cache_Lite_Output_classical.phpt";a:4:{s:4:"role";s:4:"test";s:14:"baseinstalldir";s:5:"Cache";s:6:"md5sum";s:32:"912efc43bb996181572015e019802f03";s:12:"installed_as";s:70:"/usr/share/php/tests/Cache_Lite/tests/Cache_Lite_Output_classical.phpt";}s:35:"tests/Cache_Lite_serialization.phpt";a:4:{s:4:"role";s:4:"test";s:14:"baseinstalldir";s:5:"Cache";s:6:"md5sum";s:32:"21d2f81e4eca52e62d6ff5d627279358";s:12:"installed_as";s:67:"/usr/share/php/tests/Cache_Lite/tests/Cache_Lite_serialization.phpt";}s:30:"tests/Cache_Lite_lifetime.phpt";a:4:{s:4:"role";s:4:"test";s:14:"baseinstalldir";s:5:"Cache";s:6:"md5sum";s:32:"c0cebda77abb8bec1fcb8a9d66ae0742";s:12:"installed_as";s:62:"/usr/share/php/tests/Cache_Lite/tests/Cache_Lite_lifetime.phpt";}s:21:"tests/pearbug513.phpt";a:4:{s:4:"role";s:4:"test";s:14:"baseinstalldir";s:5:"Cache";s:6:"md5sum";s:32:"0055a5b3f32732ed93eb1d35da967d15";s:12:"installed_as";s:53:"/usr/share/php/tests/Cache_Lite/tests/pearbug513.phpt";}s:22:"tests/pearbug7618.phpt";a:4:{s:4:"role";s:4:"test";s:14:"baseinstalldir";s:5:"Cache";s:6:"md5sum";s:32:"ce290cff1c6d59f355af2fd24264fb3f";s:12:"installed_as";s:54:"/usr/share/php/tests/Cache_Lite/tests/pearbug7618.phpt";}s:25:"tests/cache_lite_base.inc";a:4:{s:4:"role";s:4:"test";s:14:"baseinstalldir";s:5:"Cache";s:6:"md5sum";s:32:"4cfa4bd099dfb552bb6cbfad3e62f12e";s:12:"installed_as";s:57:"/usr/share/php/tests/Cache_Lite/tests/cache_lite_base.inc";}s:30:"tests/cache_lite_file_base.inc";a:4:{s:4:"role";s:4:"test";s:14:"baseinstalldir";s:5:"Cache";s:6:"md5sum";s:32:"fc9d144785e80a4fca49e241c059de2f";s:12:"installed_as";s:62:"/usr/share/php/tests/Cache_Lite/tests/cache_lite_file_base.inc";}s:34:"tests/cache_lite_function_base.inc";a:4:{s:4:"role";s:4:"test";s:14:"baseinstalldir";s:5:"Cache";s:6:"md5sum";s:32:"38b9d571d4e216c79ba682f29e1e2d37";s:12:"installed_as";s:66:"/usr/share/php/tests/Cache_Lite/tests/cache_lite_function_base.inc";}s:32:"tests/cache_lite_output_base.inc";a:4:{s:4:"role";s:4:"test";s:14:"baseinstalldir";s:5:"Cache";s:6:"md5sum";s:32:"90e87442db22f9aae9cc987366616381";s:12:"installed_as";s:64:"/usr/share/php/tests/Cache_Lite/tests/cache_lite_output_base.inc";}s:19:"tests/callcache.inc";a:4:{s:4:"role";s:4:"test";s:14:"baseinstalldir";s:5:"Cache";s:6:"md5sum";s:32:"1a49f54c490135ea472c831750458a92";s:12:"installed_as";s:51:"/usr/share/php/tests/Cache_Lite/tests/callcache.inc";}s:16:"tests/tmpdir.inc";a:4:{s:4:"role";s:4:"test";s:14:"baseinstalldir";s:5:"Cache";s:6:"md5sum";s:32:"b59be5741e8f3ee07fc1d077c9018ae3";s:12:"installed_as";s:48:"/usr/share/php/tests/Cache_Lite/tests/tmpdir.inc";}s:15:"tests/bench.php";a:4:{s:4:"role";s:4:"test";s:14:"baseinstalldir";s:5:"Cache";s:6:"md5sum";s:32:"59e7508427cab7d47b1b62bc07936a93";s:12:"installed_as";s:47:"/usr/share/php/tests/Cache_Lite/tests/bench.php";}s:16:"tests/bench2.php";a:4:{s:4:"role";s:4:"test";s:14:"baseinstalldir";s:5:"Cache";s:6:"md5sum";s:32:"2b5c37b7a863a245a19fd90042b2f147";s:12:"installed_as";s:48:"/usr/share/php/tests/Cache_Lite/tests/bench2.php";}s:16:"tests/bench3.php";a:4:{s:4:"role";s:4:"test";s:14:"baseinstalldir";s:5:"Cache";s:6:"md5sum";s:32:"209c403db75cce49715f4b8e7f16969b";s:12:"installed_as";s:48:"/usr/share/php/tests/Cache_Lite/tests/bench3.php";}s:12:"tests/readme";a:4:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:5:"Cache";s:6:"md5sum";s:32:"f7a9487bf565e79860114dac982848c5";s:12:"installed_as";s:43:"/usr/share/php/docs/Cache_Lite/tests/readme";}s:15:"Lite/Output.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:5:"Cache";s:6:"md5sum";s:32:"c41b74345fc8b619981af02d047df8c5";s:12:"installed_as";s:36:"/usr/share/php/Cache/Lite/Output.php";}s:17:"Lite/Function.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:5:"Cache";s:6:"md5sum";s:32:"56959e26b5c2ee85ba353d5c69c07d48";s:12:"installed_as";s:38:"/usr/share/php/Cache/Lite/Function.php";}s:13:"Lite/File.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:5:"Cache";s:6:"md5sum";s:32:"1b17bb07f86f724f24f58e0987f45585";s:12:"installed_as";s:34:"/usr/share/php/Cache/Lite/File.php";}s:8:"Lite.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:5:"Cache";s:6:"md5sum";s:32:"ce1eeee64f947e609c9624de35357302";s:12:"installed_as";s:29:"/usr/share/php/Cache/Lite.php";}s:7:"LICENSE";a:4:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:5:"Cache";s:6:"md5sum";s:32:"085e7fb76fb3fa8ba9e9ed0ce95a43f9";s:12:"installed_as";s:38:"/usr/share/php/docs/Cache_Lite/LICENSE";}s:4:"TODO";a:4:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:5:"Cache";s:6:"md5sum";s:32:"4c638b951a7c8a4dcb94f10abf1d818b";s:12:"installed_as";s:35:"/usr/share/php/docs/Cache_Lite/TODO";}}s:10:"xsdversion";s:3:"1.0";s:15:"packagerversion";s:5:"1.4.9";s:7:"package";s:10:"Cache_Lite";s:7:"summary";s:33:"Fast and Safe little cache system";s:11:"description";s:152:"This package is a little cache system optimized for file containers. It is fast and safe (because it uses file locking and/or anti-corruption tests).
+ 
+";s:11:"maintainers";a:1:{i:0;a:4:{s:6:"handle";s:3:"fab";s:4:"name";s:12:"Fabien MARTY";s:5:"email";s:11:"fab@php.net";s:4:"role";s:4:"lead";}}s:7:"version";s:5:"1.7.2";s:12:"release_date";s:10:"2006-06-03";s:15:"release_license";s:4:"lgpl";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:156:"Bugs fixed :
+- #7799 : setToDebug() doesn't work
+- #7732 (or #7598) : hashedDirectory refactoring to get rid of some warnings (in some particular cases)
+  
+";s:12:"release_deps";a:1:{i:1;a:3:{s:4:"type";s:3:"pkg";s:3:"rel";s:3:"has";s:4:"name";s:4:"PEAR";}}s:9:"changelog";a:24:{i:0;a:5:{s:7:"version";s:5:"1.7.1";s:12:"release_date";s:10:"2006-05-14";s:15:"release_license";s:4:"lgpl";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:181:"Bugs fixed :
+- #7618 : can't save cache correctly (in some particular cases)
+  (thanks to neta-master at ywcafe dot net)
+Other changes :
+- new unit test file (about bug #7618)
+    
+";}i:1;a:5:{s:7:"version";s:5:"1.7.0";s:12:"release_date";s:10:"2006-02-21";s:15:"release_license";s:4:"lgpl";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:67:"No change (just some modifications into online documentation)
+    
+";}i:2;a:5:{s:7:"version";s:10:"1.7.0beta2";s:12:"release_date";s:10:"2006-02-04";s:15:"release_license";s:4:"lgpl";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:607:"Bugs fixed :
+- 3 unit test files was forgotten in beta1 package.xml  
+New features :
+- request #6681 : new extendLife() method (thanks to alex at vegagames dot net)
+- request #6617 : "$this->method()" calls are ok with Cache_Lite_Function without workaround 
+                  (thanks to thomas dot nicolai at unisg dot ch)
+- request #6575 : new options 'dontCacheWhenTheOutputContainsNOCACHE', 'dontCacheWhenTheResultIsFalse', 
+                  'dontCacheWhenTheResultIsNull' (thanks to thomas dot nicolai at unisg dot ch)
+- new debug option for Cache_Lite_Function                 
+- new test files
+    
+";}i:3;a:5:{s:7:"version";s:10:"1.7.0beta1";s:12:"release_date";s:10:"2006-01-29";s:15:"release_license";s:4:"lgpl";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:585:"New features :
+- 3 new unit tests
+- a new option is available in the constructor "errorHandlingAPIBreak" (boolean, false by default) ; 
+  if set to true, it introduces a little API break but the error handling is better in CACHE_LITE_ERROR_RETURN
+  mode (specially with the save() method which can return a PEAR_Error object)
+Changes :
+- code refactoring for setToDebug() (thanks to moosh (at) php (dot) net)  
+- code refactoring (thanks to code analyzer)
+Bugs fixed :
+- #6388 : add an explicit dependancy on PEAR package (for error handling) (thanks to moosh (at) php (dot) net)
+    
+";}i:4;a:5:{s:7:"version";s:5:"1.6.0";s:12:"release_date";s:10:"2005-12-03";s:15:"release_license";s:4:"lgpl";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:67:"No change (just some modifications into online documentation)
+    
+";}i:5;a:5:{s:7:"version";s:10:"1.6.0beta2";s:12:"release_date";s:10:"2005-11-25";s:15:"release_license";s:4:"lgpl";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:282:"New features :
+- a new phpt test script (eternal caching)
+- you can now call Cache_Lite constructor with any argument (thanks to ratibus at gmail dot com)
+Bug fixed :
+- bugfixes about eternal caching
+Other change : 
+- better code factoring (thanks to ratibus at gmail dot com)
+    
+";}i:6;a:5:{s:7:"version";s:10:"1.6.0beta1";s:12:"release_date";s:10:"2005-11-17";s:15:"release_license";s:4:"lgpl";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:438:"New features :
+- phpt test scripts
+- add of drop() method to Cache_Lite_Function (thanks to 
+Hugo Morganho hjm at holos dot pt)  
+- request #5495 : a null lifetime give an eternal caching (need tests)
+Bug fixed :
+- bugfix #5921 : a variable was unused (no consequence for the end user), 
+thanks to moosh at php dot net
+- bugfix #5938 : little mistakes given by Zend Code Analyser 
+- little mistake in the example for Cache_Lite_File
+    
+";}i:7;a:5:{s:7:"version";s:5:"1.5.2";s:12:"release_date";s:10:"2005-07-18";s:15:"release_license";s:4:"lgpl";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:66:"Bug Fixed :
+- a "package.xml" problem (a file was forgotten)
+    
+";}i:8;a:5:{s:7:"version";s:5:"1.5.1";s:12:"release_date";s:10:"2005-07-10";s:15:"release_license";s:4:"lgpl";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:89:"Changes :
+- juste a little more docs since 1.5.0 (beta)
+- the state in "stable" now
+    
+";}i:9;a:5:{s:7:"version";s:5:"1.5.0";s:12:"release_date";s:10:"2005-06-18";s:15:"release_license";s:4:"lgpl";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:575:"New features :
+- add of a doNotTestCacheValidity in Output (like in Lite.php)
+- request #4502 : better control on cache cleaning condition (thanks to 
+vincent lascaux); introduce the idea of a user callback for the 
+cleaning process
+- new Cache_Lite_File module (for a cache controlled by a master file, 
+very usefull for templates or config caching)
+Bug fixed :
+- avoid a potential error message if cache doesn't exist
+- bug #4236 : fread PHP warning on zero length read (because of the change
+of fread() behaviour in PHP) (thanks to rick dot overman at gmail dot com)
+    
+";}i:10;a:5:{s:7:"version";s:5:"1.4.1";s:12:"release_date";s:10:"2005-03-01";s:15:"release_license";s:4:"lgpl";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:220:"Bug fixed :
+- problem of non-ISO-8859-1 characters in package.xml (bug #3621)
+- problem of the returning value in clean() method (integer and not void)
+  (thanks to Demian Turner (demian (at) phpkitchen (dot) com))
+    
+";}i:11;a:5:{s:7:"version";s:5:"1.4.0";s:12:"release_date";s:10:"2005-01-21";s:15:"release_license";s:4:"lgpl";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:59:"Changes :
+- juste a little more docs since 1.4.0beta1
+    
+";}i:12;a:5:{s:7:"version";s:10:"1.4.0beta1";s:12:"release_date";s:10:"2004-12-11";s:15:"release_license";s:4:"lgpl";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:338:"New features :
+- hashed cache directory structure with the choice of the level (thanks to Mike Benoit (ipso at snappymail dot ca))
+- new options for cleaning the cache ("not in group", "too old"...) (thanks to dontilooksweetandinnocent@ambience.ru)
+- automatic cleaning of too old cache files based on a customisable "random method"
+    
+";}i:13;a:5:{s:7:"version";s:5:"1.3.1";s:12:"release_date";s:10:"2004-08-16";s:15:"release_license";s:4:"lgpl";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:251:"Bug fixed :
+- problem with clean() method with memoryCaching activated (thanks to Bojan Mihelac (bmihelac at mihelac dot org))
+- remove() method didn't deal with memoryCaching
+- bug fix #1758, thanks to Dave (djpenton at cs dot mu dot oz dot au)
+    
+";}i:14;a:5:{s:7:"version";s:3:"1.3";s:12:"release_date";s:10:"2004-02-07";s:15:"release_license";s:4:"lgpl";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:310:"Changes :
+- Add a warning in examples file because of http://pear.php.net/bugs/bug.php?id=660
+Bug fixed :
+- little warning fix in Cache_Lite_Function (fab)
+- little bug fix in lastModified() method (thanks to Yavor Shahpasov)
+- fix http://pear.php.net/bugs/bug.php?id=513 (thanks to alan@aardwolfweb.com)
+    
+";}i:15;a:5:{s:7:"version";s:3:"1.2";s:12:"release_date";s:10:"2003-10-25";s:15:"release_license";s:4:"lgpl";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:706:"Changes :
+- Rewrite of Cache_Lite constructor (thanks to Brian E. Lozier) 
+New Features :
+- Add of lastModified() method (for Cache_Lite hackers) (thanks to Harry Fuecks)
+- Introduce automatic serialization (false in default) (thanks to Dan Wilson)
+- Add of an url for a cache_lite tutorial (english (thanks to paj) and french)
+Bug fixed :
+- Change the Cache_Lite::raiseError calls in $this->raiseError (thanks to Holger Willenborg)
+- Set the default group for remove, since get and save both have it set (thanks to jellybob)
+- Little fix for caching binary data under Windows (thanks to Simeon Franklin)
+- little fix with fileNameProtection set to false (not the default (big thank to Harry Fuecks))
+    
+";}i:16;a:5:{s:7:"version";s:3:"1.1";s:12:"release_date";s:10:"2003-02-23";s:15:"release_license";s:4:"lgpl";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:671:"Changes :
+- Move to usage of call_user_func_array() and call_user_func() as call_user_method() is depreciated (thanks to Sterling Hughes) 
+New Features :
+- Introduce memoryCaching (idea of Mike Benoit)
+- Add of a file name protection option (can be faster if set to off) (thanks to Brian Webb for the idea)
+Bug fixed :
+- Little fix : cache was inefficient if the output is only 0 (thanks to Brian Webb)
+- notice fix (thanks to Lorenzo Alberton, Pierre-Alain Joye and Jon Parise)
+- Little fix to avoid file names problems with an exotic group name (thanks to Brian Webb)
+- Fix a possible bug when resave a cache file after a succesfull get (thanks to Michael Caplan)
+    
+";}i:17;a:5:{s:7:"version";s:5:"1.0.1";s:12:"release_date";s:10:"2002-11-12";s:15:"release_license";s:4:"lgpl";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:68:"Bug fixed :
+- clean() bug with group (Thanks to Ondrej Jombik)
+    
+";}i:18;a:5:{s:7:"version";s:3:"1.0";s:12:"release_date";s:10:"2002-11-11";s:15:"release_license";s:4:"lgpl";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:183:"This is the first stable release of Cache_Lite. There is no big change since the
+0.4 beta release but two months of tests !
+Changes :
+- fix magic_q issue (Thanks to Moshe Doron)
+    
+";}i:19;a:5:{s:7:"version";s:3:"0.4";s:12:"release_date";s:10:"2002-09-25";s:15:"release_license";s:4:"lgpl";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:270:"New features :
+- Add setLifeTime() method to change the cache lifetime dynamicaly
+Changes :
+- changes in the directory layout and in file names to (better) respect PEAR standards
+  => incompatibility with 0.3 version even there is no incompatible change in the API
+    
+";}i:20;a:5:{s:7:"version";s:3:"0.3";s:12:"release_date";s:10:"2002-08-31";s:15:"release_license";s:4:"lgpl";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:404:"New features :
+- Add '$doNotTestCacheValidity' optional parameter for the get() method
+Changes :
+- raiseError() method becomes public
+- swap of two lines in _write() method (Thanks to Jean-Francois BUSTARRET)
+Bugs fixed :
+- remove blank spaces at the end of the class (Thanks to Jean-Francois BUSTARRET)
+- E_NOTICEs problems and maybe a minor bug of errors management (Thanks to Sebastian BERGMANN)
+    
+";}i:21;a:5:{s:7:"version";s:5:"0.2.0";s:12:"release_date";s:10:"2002-08-10";s:15:"release_license";s:4:"lgpl";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:289:"New features :
+- Adding Cache_Lite_Function (to cache the result and output of functions/methods)
+Bugs fixed :
+- In a few cases of cache corruption, it was possible to get some warnings (but the output was correct)
+- Cache_Lite_Output require_once (to load Cache_Lite) wasn't correct
+    
+";}i:22;a:5:{s:7:"version";s:5:"0.1.1";s:12:"release_date";s:10:"2002-08-08";s:15:"release_license";s:4:"lgpl";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:28:"A little packaging fix
+    
+";}i:23;a:5:{s:7:"version";s:3:"0.1";s:12:"release_date";s:10:"2002-08-08";s:15:"release_license";s:4:"lgpl";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:32:"This is the first release.
+    
+";}}s:12:"_lastversion";N;s:7:"dirtree";a:6:{s:35:"/usr/share/php/docs/Cache_Lite/docs";b:1;s:37:"/usr/share/php/tests/Cache_Lite/tests";b:1;s:36:"/usr/share/php/docs/Cache_Lite/tests";b:1;s:25:"/usr/share/php/Cache/Lite";b:1;s:20:"/usr/share/php/Cache";b:1;s:30:"/usr/share/php/docs/Cache_Lite";b:1;}s:13:"_lastmodified";i:1174302836;}

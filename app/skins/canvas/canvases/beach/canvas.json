@@ -1,0 +1,14 @@
+{
+    "name": "beach",
+    "description": "A simple, minimalist beach style background canvas to demonstrate personal canvases.",
+    "downloadfrom":"http://www.chisimba.com/usrfiles/users/9448100319/downloads/canvases/beach.zip",
+    "preview": {
+        "thumb": "beach_th.png",
+        "fullview":"beach.png"
+    },
+    "author": {
+        "authorname":"Derek Keats",
+        "email":"derek@dkeats.com",
+        "url":"http://www.dkeats.com"
+    }
+}

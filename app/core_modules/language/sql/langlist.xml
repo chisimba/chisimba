@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<defaultdata>
+  <!-- Table tbl_languagelist -->
+    <tbl_languagelist>
+        <id>1</id>
+        <languageCode>tbl_english</languageCode>
+        <languageName>English</languageName>
+    </tbl_languagelist>
+</defaultdata>

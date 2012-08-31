@@ -1,0 +1,65 @@
+/* 
+ *	Horizontal, top-2-bottom
+ *	## Tweaks for IE5, IE6
+ *	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ *	(c) 2004 - Aleksandar Vacic, www.aplus.co.yu
+ * Some rights reserved, http://creativecommons.org/licenses/by-sa/2.0/
+ *	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ */
+
+/*		------	Basic style	------		*/
+
+/* Fix IE6's inability to expand clickable area */
+#menu li:hover a {
+	position: relative;
+}
+
+#menu li {
+	position: static;
+}
+
+#menu li:hover {
+	position: relative;
+	z-index: 10000;
+}
+
+/* IE can't handle display, so fail-over to visibility */
+#menu li ul {
+	display: block;
+	visibility: hidden;
+}
+
+/* because of the specific way of clearing floats */
+#menu {
+	padding-bottom: 2px;
+}
+
+/* simulate child selector for IE */
+div#menu li:hover ul,
+#menu li:hover li:hover ul,
+#menu li:hover li:hover li:hover ul {
+	visibility: visible;
+	z-index: 10000;
+}
+
+div#menu li:hover li ul,
+#menu li:hover li:hover li ul,
+#menu li:hover li:hover li:hover li ul {
+	visibility: hidden;
+}
+
+#menuList {
+    display: block;
+    border: 2px solid yellow;
+}
+
+/*		------   Make-up	--------			*/
+
+#breadcrumbs {
+    display: block;
+    clear: both;
+}
+
+#leftcontent select, #rightcontent select {
+    width: 160px;
+}

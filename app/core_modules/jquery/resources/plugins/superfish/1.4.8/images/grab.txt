@@ -1,0 +1,13 @@
+wget http://www.barandis.com/dev/jquery/ddmenu/images/arrow-black-up.png
+wget http://www.barandis.com/dev/jquery/ddmenu/images/arrow-white-up.png
+wget http://www.barandis.com/dev/jquery/ddmenu/images/arrow-white-up.png
+wget http://www.barandis.com/dev/jquery/ddmenu/images/arrow-black-down.png
+wget http://www.barandis.com/dev/jquery/ddmenu/images/arrow-white-down.png
+wget http://www.barandis.com/dev/jquery/ddmenu/images/arrow-white-down.png
+wget http://www.barandis.com/dev/jquery/ddmenu/images/arrow-black-right.png 
+wget http://www.barandis.com/dev/jquery/ddmenu/images/arrow-white-right.png 
+wget http://www.barandis.com/dev/jquery/ddmenu/images/arrow-white-right.png 
+wget http://www.barandis.com/dev/jquery/ddmenu/images/arrow-white-up.png 
+wget http://www.barandis.com/dev/jquery/ddmenu/images/arrow-black-left.png 
+wget http://www.barandis.com/dev/jquery/ddmenu/images/arrow-white-left.png
+wget http://www.barandis.com/dev/jquery/ddmenu/images/arrow-white-up.png 

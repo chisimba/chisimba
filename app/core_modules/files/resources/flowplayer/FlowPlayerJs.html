@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>FlowPlayer</title>
+<script type="text/javascript" src="swfobject.js"></script>
+<script  type="text/javascript">
+/*
+ * Init and setup FlowPlayer. This example file shows 'advanced' features like
+ * playlists and configuring with JavaScript. FlowPlayer.html is a simpler example.
+ */
+
+var flowPlayer1;
+function init() {
+	if (document.getElementById) {
+		flowPlayer1 = document.getElementById("FlowPlayer");
+    }
+	setFlowPlayerConfig();
+}
+
+// wait for the page to fully load before initializing
+window.onload = init;
+
+
+function setFlowPlayerConfig() {
+	flowPlayer1.setConfig(fpConf);
+}
+
+function clipSelected(clipIndex) {
+	flowPlayer1.ToClip(clipIndex);
+}
+
+// Playlist.
+var clips = [
+	{ name: 'ClickToPlay', url: 'http://www.kolumbus.fi/apiirain/video/resources/main_clickToPlay.jpg' },
+	{ name: 'Honda ad', url: 'honda_accord.flv' },
+	{ name: 'Skiing in ounasvaara', url: 'ounasvaara.flv' },
+	{ name: 'New lake', url: 'http://www.sunsetcities.com/sunset-park/new-lake/09230031.jpg' },
+	{ name: 'Sunset', url: 'http://www.ashdown-eyes.co.uk/28dec4-j.JPG', duration: 10 },
+	{ name: 'Chaco sunset', url: 'http://www.photo.net/photo/pcd1666/chaco-sunset-74.3.jpg', duration: 10 }
+];
+
+// FlowPlayer configuration
+var fpConf = {
+// for FMS:
+//	streamingServerURL: 'rtmp://cyzy7r959.rtmphost.com/flowplayer',
+// for red5:
+//	streamingServerURL: 'rtmp://localhost:1935/oflaDemo',
+//	thumbsOnFLV: true,
+	playList: clips,
+	showPlayList: false,
+	baseURL: '',
+	autoPlay: true,
+	autoBuffering: true,
+	startingBufferLength: 5,
+	bufferLength: 10,
+	loop: true,
+	videoHeight: 420,
+	hideControls: false,
+	initialScale: 'fill'
+}
+
+</script>
+</head>
+<body bgcolor="#CCCCCC">
+
+	<div id="flowplayerholder">
+		You need to have the <a href="http://www.macromedia.com/go/getflashplayer">Flash Player</a> installed and
+		a browser with JavaScript support.
+	</div>
+	<script type="text/javascript">
+		// <![CDATA[
+
+	  var fo = new SWFObject("FlowPlayer.swf", "FlowPlayer", "500", "560", "7", "#ffffff", true);
+      // need this next line for local testing, it's optional if your swf is on the same domain as your html page
+      fo.addParam("allowScriptAccess", "always");
+	  fo.addParam("flashVars", "config={configInject: true}");
+      fo.write("flowplayerholder");
+
+		// ]]>
+	</script>
+
+
+<table>
+	<tr><td>Splash</td><td><a href="javascript: clipSelected(0)">Play</a></td></tr>
+	<tr><td>Honda ad / Skiing</td><td><a href="javascript: clipSelected(1)">Play</a></td></tr>
+	<tr><td>New lage</td><td><a href="javascript: clipSelected(2)">Play</a></td></tr>
+	<tr><td>Sunset</td><td><a href="javascript: clipSelected(3)">Play</a></td></tr>
+	<tr><td>Chaco sunset</td><td><a href="javascript: clipSelected(4)">Play</a></td></tr>
+</table>
+
+</body>
+</html>

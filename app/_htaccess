@@ -1,0 +1,60 @@
+# Turn on expires
+ExpiresActive On
+
+# Expires by a week
+ExpiresDefault A604800
+
+ExpiresByType image/gif A604800
+ExpiresByType image/png A604800
+ExpiresByType image/jpg A604800
+ExpiresByType image/jpeg A604800
+ExpiresByType text/css A604800
+ExpiresByType application/x-javascript A604800
+ExpiresByType video/x-flv A604800 
+ExpiresByType application/pdf A604800 
+ExpiresByType text/javascript A604800
+ExpiresByType text/plain A604800
+ExpiresByType application/x-Shockwave-Flash A604800
+
+
+
+# Sample Rewrite Engine for Chisimba
+
+# Turn Rewrite Engine On 
+RewriteEngine on
+
+# Go to the Blog module
+RewriteRule ^blog$ index.php?module=blog [T=application/x-httpd-php]
+# Go to the Blog module - This like the above but caters for trailing slash
+RewriteRule ^blog/$ index.php?module=blog [T=application/x-httpd-php]
+
+# View by User
+RewriteRule ^blog/user/([^.]+)$ index.php?module=blog&action=randblog&userid=$1 [T=application/x-httpd-php]
+# View by User - This like the above but caters for trailing slash
+RewriteRule ^blog/user/([^.]+)/$ index.php?module=blog&action=randblog&userid=$1 [T=application/x-httpd-php]
+
+# Blog Posts
+RewriteRule ^blog/user/([^.]+)/post/([^.]+)$ index.php?module=blog&action=viewsingle&userid=$1&postid=$2 [T=application/x-httpd-php]
+# Blog Posts - This like the above but caters for trailing slash
+RewriteRule ^blog/user/([^.]+)/post/([^.]+)/$ index.php?module=blog&action=viewsingle&userid=$1&postid=$2 [T=application/x-httpd-php]
+
+
+# Go to the Podcast module
+RewriteRule ^podcast$ index.php?module=podcast [T=application/x-httpd-php]
+# Go to the Podcast module - This like the above but caters for trailing slash
+RewriteRule ^podcast/$ index.php?module=podcast [T=application/x-httpd-php]
+# Go to the Podcast module
+RewriteRule ^podcast/user/$ index.php?module=podcast [T=application/x-httpd-php]
+# Go to the Podcast module - This like the above but caters for trailing slash
+RewriteRule ^podcast/user$ index.php?module=podcast [T=application/x-httpd-php]
+
+
+# View by User
+RewriteRule ^podcast/user/([^./]+)$ index.php?module=podcast&action=byuser&id=$1 [T=application/x-httpd-php]
+# View by User - This like the above but caters for trailing slash
+RewriteRule ^podcast/user/([^./]+)/$ index.php?module=podcast&action=byuser&id=$1 [T=application/x-httpd-php]
+
+# Podcast Posts
+RewriteRule ^podcast/user/([^./]+)/post/([^./]+)$ index.php?module=podcast&action=viewpodcast&userid=$1&id=$2 [T=application/x-httpd-php]
+# Podcast Posts - This like the above but caters for trailing slash
+RewriteRule ^podcast/([^./]+)/post/([^./]+)/$ index.php?module=podcast&action=viewpodcast&userid=$1&id=$2 [T=application/x-httpd-php]

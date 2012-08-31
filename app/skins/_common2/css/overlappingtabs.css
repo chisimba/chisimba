@@ -1,0 +1,141 @@
+.glassytabs {
+	list-style:none; 
+	padding:15px 0 0 10px; 
+	margin:30px 10px 50px 0; 
+	height:23px; 
+	background:#bcd url(images/glossytabs/tab_e.gif); 
+	border-bottom:1px solid #000;
+	}
+	
+.glossytabs li {
+	display:block; 
+	float:left; 
+	margin:0 -13px -1px 0;
+	}
+	
+.glossytabs li a {
+		display:block; 
+		text-decoration:none;
+		}
+
+.glossytabs li a em {
+	float:left; 
+	padding:0 20px; 
+	height:22px; 
+	border-top:1px solid #fff; 
+	border-bottom:1px solid #000; 
+	position:relative; z-index:100; 
+	font-style:normal; 
+	color:#fff; 
+	background:#f93 url(images/glossytabs/tab_d.gif) repeat-x bottom left; 
+	font-size:11px; 
+	font-family:verdana; 
+	line-height:20px;
+	}
+
+.glossytabs li a b {font-size:0; line-height:0; position:relative; border-bottom:1px solid #000; border-top:1px solid #fff; width:1px; display:block; float:left; z-index:300; background:#f93 url(images/glossytabs/tab_d.gif) repeat-x bottom left;}
+
+.glossytabs li b.p1 {height:19px; background:#fff; margin-top:4px; border-top:0; z-index:100;}
+.glossytabs li b.p2 {height:19px; margin-top:2px; border-top:2px solid #fff; border-bottom:1px solid #888; z-index:100;}
+.glossytabs li b.p3 {width:2px; height:21px; margin-top:1px; z-index:100;}
+.glossytabs li b.p5 {height:20px; margin-top:2px;}
+.glossytabs li b.p6 {height:19px; margin-top:3px;}
+.glossytabs li b.p7 {height:18px; margin-top:4px;}
+.glossytabs li b.p8 {height:17px; margin-top:5px;}
+.glossytabs li b.p9 {height:16px; margin-top:6px;}
+.glossytabs li b.p10 {height:15px; margin-top:7px;}
+.glossytabs li b.p11 {height:14px; margin-top:8px;}
+.glossytabs li b.p12 {height:13px; margin-top:9px;}
+.glossytabs li b.p13 {height:12px; margin-top:10px;}
+.glossytabs li b.p14 {height:11px; margin-top:11px;}
+.glossytabs li b.p15 {height:10px; margin-top:12px;}
+.glossytabs li b.p16 {height:9px; margin-top:13px;}
+.glossytabs li b.p17 {height:8px; margin-top:14px;}
+.glossytabs li b.p18 {height:7px; margin-top:15px;}
+.glossytabs li b.p19 {height:6px; margin-top:16px;}
+.glossytabs li b.p20 {height:5px; margin-top:17px;}
+.glossytabs li b.p21 {height:4px; margin-top:18px;}
+.glossytabs li b.p22 {height:3px; margin-top:19px;}
+.glossytabs li b.p23 {height:2px; margin-top:20px;}
+.glossytabs li b.p24 {height:1px; margin-top:21px;overflow:hidden;}
+.glossytabs li b.p25 {width:1px; height:1px; background:#fff; margin-top:22px; border-top:0; overflow:hidden;}
+.glossytabs li b.p26 {width:1px; height:1px; background:#000; margin-top:23px; border:0; overflow:hidden;}
+
+.glossytabs li em b.shdw {position:absolute; display:block; left:-4px; bottom:0; border:0; width:17px; height:17px; background: #f93 url(images/glossytabs/tab_a.gif) bottom left; z-index:500;}
+
+.glossytabs li a:hover,
+.glossytabs li a:focus, 
+.glossytabs li a:active 
+{white-space:nowrap; color:#000; position:relative; z-index:500; cursor:pointer;}
+.glossytabs li a:hover em, 
+.glossytabs li a:focus em, 
+.glossytabs li a:active em 
+{color:#800; background:#fc8 url(images/glossytabs/tab_b.gif) bottom left; border-bottom-color:#888;}
+.glossytabs li a:hover em b.shdw,
+.glossytabs li a:focus em b.shdw, 
+.glossytabs li a:active em b.shdw  
+{visibility:hidden;}
+.glossytabs li a:hover b, 
+.glossytabs li a:focus b, 
+.glossytabs li a:active b 
+{background:#fc8 url(images/glossytabs/tab_b.gif) bottom left; border-bottom-color:#888;}
+.glossytabs li a:hover b.p1, 
+.glossytabs li a:focus b.p1, 
+.glossytabs li a:active b.p1 
+{background:#fff; border-bottom-color:#888;}
+.glossytabs li a:hover b.p25, 
+.glossytabs li a:focus b.p25, 
+.glossytabs li a:active b.p25 
+{background:#fff; border-bottom-color:#888;}
+.glossytabs li a:hover b.p26, 
+.glossytabs li a:focus b.p26, 
+.glossytabs li a:active b.p26 
+{background:#888;}
+
+.glossytabs li a.selected, 
+.glossytabs li a:hover.selected,  
+.glossytabs li a:active.selected  
+{white-space:nowrap; color:#000; position:relative; z-index:600; cursor:default;}
+.glossytabs li a.selected em, 
+.glossytabs li a:hover.selected em,
+.glossytabs li a:active.selected em
+{color:#800; background:#fff url(images/glossytabs/tab_c.gif) bottom left; border-bottom-color:#fff;}
+.glossytabs li a.selected em b.shdw, 
+.glossytabs li a:hover.selected em b.shdw, 
+.glossytabs li a:active.selected em b.shdw 
+{visibility:hidden;}
+.glossytabs li a.selected b, 
+.glossytabs li a:hover.selected b, 
+.glossytabs li a:active.selected b 
+{background:#fff url(images/glossytabs/tab_c.gif) bottom left; border-bottom-color:#fff;}
+.glossytabs li a.selected b.p1, 
+.glossytabs li a:hover.selected b.p1, 
+.glossytabs li a:active.selected b.p1 
+{background:#fff; border-bottom-color:#fff;}
+.glossytabs li a.selected b.p26, 
+.glossytabs li a:hover.selected b.p26, 
+.glossytabs li a:active.selected b.p26 
+{width:1px; height:1px; background:#fff; margin-top:23px; border-top:0; overflow:hidden;}
+
+
+
+.tabs {list-style:none; padding:11px 0 0 10px; margin:30px 10px 50px 0; height:26px; background:url(images/backing.gif) repeat-x left bottom;}
+.tabs li {float:left; margin-right:-29px;}
+.tabs li a {display:block; position:relative; text-decoration:none;}
+.tabs li a em {display:block; height:26px; float:left; padding:0 39px 0 10px; background:url(images/tab3.gif) right top; position:relative; z-index:100; font-size:11px; font-weight:normal; font-style:normal; color:#fff; line-height:25px; font-family:verdana;}
+.tabs li a b {display:block; float:left; width:29px; height:26px; background:url(images/tab3.gif) left top; position:relative; z-index:200;}
+
+.tabs li a.m1 {z-index:600;}
+.tabs li a.m2 {z-index:500;}
+.tabs li a.m3 {z-index:400;}
+.tabs li a.m4 {z-index:300;}
+.tabs li a.m5 {z-index:200;}
+.tabs li a.m6 {z-index:100;}
+
+.tabs li a:hover {border:0; z-index:700; cursor:pointer;}
+.tabs li a:hover b {background-position: left center;}
+.tabs li a:hover em  {background-position: right center; color:#050;}
+
+.tabs li a.selected, .tabs li a.selected:hover {border:0; z-index:800; cursor:default;}
+.tabs li a.selected b, .tabs li a.selected:hover b {background-position: left bottom;}
+.tabs li a.selected em, .tabs li a.selected:hover em  {background-position: right bottom; color:#000;}

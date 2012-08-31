@@ -1,0 +1,39 @@
+/*!
+ * Ext JS Library 3.0.0
+ * Copyright(c) 2006-2009 Ext JS, LLC
+ * licensing@extjs.com
+ * http://www.extjs.com/license
+ */
+
+
+.calendar {
+    background-image:url(../../resources/images/default/shared/calendar.gif) !important;
+}
+
+.blist {
+    background-image: url(images/list-items.gif) !important;
+}
+
+.groups {
+    background-image: url(images/topic.gif) !important;
+}
+
+.bmenu {
+    background-image: url(images/menu-show.gif) !important;
+}
+
+.zoom {
+    background-image: url(images/zoom.png) !important;
+}
+
+.menu-title{
+    background: #D6E3F2;
+    border-style: solid;
+    border-color:#DAE6F4 #99bbe8 #99bbe8 #DAE6F4;
+    border-width: 1px;
+    margin:-2px -2px 0;
+    color:#15428b;
+    font:bold 10px tahoma,arial,verdana,sans-serif;
+    display:block;
+    padding:3px;
+}

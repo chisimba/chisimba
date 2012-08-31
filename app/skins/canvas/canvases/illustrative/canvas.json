@@ -1,0 +1,14 @@
+{
+    "name": "illustrative",
+    "description": "This canvas illustrates the new ChisimbaCanvas naming conventions for classes and Ids. Each one is colour coded differently.",
+    "downloadfrom":"_NULL",
+    "preview": {
+        "thumb": "illustrative_th.png",
+        "fullview":"illustrative.png"
+    },
+    "author": {
+        "authorname":"Derek Keats",
+        "email":"derek@dkeats.com",
+        "url":"http://www.dkeats.com"
+    }
+}

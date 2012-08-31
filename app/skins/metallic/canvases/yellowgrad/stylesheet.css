@@ -1,0 +1,31 @@
+/*
+    Document   : stylesheet.css
+    Created on : 30 May 2010, 1:11:21 PM
+    Author     : dkeats
+    Description:
+        A yellow image gradient canvas for the metallic and derrived skins.
+*/
+
+
+html, body {
+    background: white url("images/grad.png") top left repeat-x;
+    background-attachment: fixed;
+}
+
+#container {
+    background: url("images/overlay.png") top left repeat;
+}
+
+#threecolumn div#left {
+	float:left;
+}
+#threecolumn div#right {
+	float:left;
+}
+#twocolumn div#left {
+	float:left;
+}
+
+#sitename a {
+    color: brown;
+}

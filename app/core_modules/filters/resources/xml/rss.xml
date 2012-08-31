@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<filter>
+  <name>RSS and Atom feed reader</name>
+  <description>Turns a RSS or ATOM feed into an insertable piece of content.</description>
+  <type>chisimba_variable</type>
+  <examples>
+     <example>[RSS]http://www.uwc.ac.za[/RSS]</example>
+     <example>[RSS:]http://www.google.com[/RSS]</example>
+  </examples>
+  <num_of_parameters>3</num_of_parameters>
+  <params>
+    <param>
+       <name>limit</name>
+       <value>Number of feed items to display</value>
+    </param>
+    <param>
+       <name>fields</name>
+       <value>A list of pipe delimited fields</value>
+    </param>
+    <param>
+       <name>parse</name>
+       <value>TRUE|FALSE Whether to parse Chisimba filters in the feed</value>
+    </param>
+  </params>
+  <before>[RSS: __params__]</before>
+  <after>[/RSS]</after>
+</filter>

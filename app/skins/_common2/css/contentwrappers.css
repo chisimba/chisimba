@@ -1,0 +1,45 @@
+#threecolumn
+{
+	border: 1px dashed ; border:2px solid blue;
+	overflow:auto;
+	
+}
+
+#middlecontent{
+	overflow:auto;
+	}
+
+#threecolumn div#left {
+	position:relative;
+	float:left;
+	width:200px;
+	 border:2px solid orange;
+  
+}
+#threecolumn div#content {
+	position:relative;
+	float:left;
+	width:400px;
+	 border:2px solid green;
+}
+
+#threecolumn div#right {
+	position:relative;
+	float:left;
+	width:200px;
+	 border:2px solid yellow;
+}
+
+
+#twocolumn div#right{
+	display:none
+	}
+	
+	
+#wrapper{
+	
+		border:2px solid red;
+width:100%}
+
+
+

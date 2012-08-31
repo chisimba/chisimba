@@ -1,0 +1,14 @@
+{
+    "name": "modcanvas",
+    "description": "A canvas for the canvas module so that you can know you are in canvas.",
+    "downloadfrom":"_NULL",
+    "preview": {
+        "thumb": "modcanvas_th.png",
+        "fullview":"modcanvas.png"
+    },
+    "author": {
+        "authorname":"Derek Keats",
+        "email":"derek@dkeats.com",
+        "url":"http://www.dkeats.com"
+    }
+}

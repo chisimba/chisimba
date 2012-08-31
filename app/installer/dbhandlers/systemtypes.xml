@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<settings xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='systemtypes.xsd'>
+	<systemtypes>
+		<category>Basic System Only</category>
+		<category>Blog</category>
+		<category>Workgroups</category>
+		<category>Content Management System</category>
+		<category>Communications</category>
+		<category>e-Learning Management System</category>
+		<category>Document Conversion</category>
+                <category>Research Teams</category>
+	</systemtypes>
+
+    <modulelist>
+        <category>
+            <categoryname>Basic System Only</categoryname>
+            <!-- module>decisiontable</module -->
+            <module>modulecatalogue</module>
+            <module>redirect</module>
+            <module>security</module>
+            <module>systext</module>
+            <module>sysconfig</module>
+            <module>tree</module>
+            <module>groupadmin</module>
+            <module>config</module>
+            <module>context</module>
+            <module>contextgroups</module>
+            <module>contextpermissions</module>
+            <module>errors</module>
+            <module>files</module>
+            <module>filters</module>
+            <module>help</module>
+            <module>htmlelements</module>
+            <module>language</module>
+            <module>logger</module>
+            <module>navigation</module>
+            <module>postlogin</module>
+            <module>prelogin</module>
+            <module>skin</module>
+            <module>storycategoryadmin</module>
+            <module>stories</module>
+            <module>strings</module>
+            <module>toolbar</module>
+            <module>useradmin</module>
+            <module>userdetails</module>
+            <module>userregistration</module>
+            <module>blocks</module>
+            <module>mail</module>
+            <module>utilities</module>
+            <module>packages</module>
+            <module>permissions</module>
+            <module>tagging</module>
+            <module>filemanager</module>
+            <module>jquerycore</module>
+        </category>
+
+        <category>
+            <categoryname>Blog</categoryname>
+            <module>blogcomments</module>
+            <module>creativecommons</module>
+            <module>feed</module>
+            <module>filemanager</module>
+            <module>httpclient</module>
+            <module>userparamsadmin</module>
+            <module>blog</module>
+        </category>
+
+        <category>
+            <categoryname>Workgroups</categoryname>
+            <module>forum</module>
+            <module>workgroup</module>
+            <module>workgroupadmin</module>
+            <module>calendar</module>
+            <module>filemanager</module>
+        </category>
+
+        <category>
+            <categoryname>Content Management System</categoryname>
+            <module>cms</module>
+            <module>cmsadmin</module>
+            <module>creativecommons</module>
+            <module>feed</module>
+            <module>filemanager</module>
+            <module>blocks</module>
+            <module>blockalicious</module>
+            <module>yahoolib</module>
+        </category>
+
+        <category>
+            <categoryname>Communications</categoryname>
+            <module>messaging</module>
+            <module>internalmail</module>
+            <module>wiki</module>
+        </category>
+
+        <category>
+            <categoryname>e-Learning Management System</categoryname>
+            <module>announcements</module>
+            <module>assignment</module>
+            <module>blocks</module>
+            <module>calendar</module>
+            <module>context</module>
+            <module>contextadmin</module>
+            <module>contextcontent</module>
+            <module>contextgroups</module>
+            <module>contextpermissions</module>
+            <module>filemanager</module>
+            <module>essay</module>
+            <module>essayadmin</module>
+            <module>faq</module>
+            <module>forum</module>
+            <module>glossary</module>
+            <module>gradebook</module>
+            <module>mcqtests</module>
+            <module>personalspace</module>
+            <module>popupcalendar</module>
+            <module>rubric</module>
+            <module>tutorials</module>
+            <module>websearch</module>
+            <module>wiki</module>
+            <module>worksheet</module>
+            <module>eportfolio</module>
+        </category>
+
+        <category>
+            <categoryname>Document Conversion</categoryname>
+            <module>documentconverter</module>
+            <module>htmldoc</module>
+            <module>imagemagick</module>
+            <module>mediaconverter</module>
+            <module>swftools</module>
+        </category>
+
+        <category>
+            <categoryname>Research Teams</categoryname>
+            <module>announcements</module>
+            <module>blocks</module>
+            <module>blockalicious</module>
+            <module>blog</module>
+            <module>calendar</module>
+            <module>context</module>
+            <module>contextadmin</module>
+            <module>contextcontent</module>
+            <module>contextgroups</module>
+            <module>contextpermissions</module>
+            <module>contextstats</module>
+            <module>filemanager</module>
+            <module>faq</module>
+            <module>forum</module>
+            <module>glossary</module>
+            <module>homepage</module>
+            <module>internalmail</module>
+            <module>logger</module>
+            <module>messaging</module>
+            <module>oembed</module>
+            <module>personalspace</module>
+            <module>personalblocks</module>
+            <module>podcast</module>
+            <module>popupcalendar</module>
+            <module>simplemap</module>
+            <module>textblock</module>
+            <module>timeline</module>
+            <module>twitter</module>
+            <module>userdetails</module>
+            <module>userparamsadmin</module>
+            <module>wall</module>
+            <module>websearch</module>
+            <module>wiki</module>
+        </category>
+
+    </modulelist>
+
+</settings>

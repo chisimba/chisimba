@@ -1,0 +1,61 @@
+html, body {
+    margin: 0;
+}
+
+#container {
+    margin: 25px;
+    padding: 10px;  
+}
+
+#header {
+    margin: 0;
+    padding: 0;
+}
+
+#header_no_banner{
+    margin: 0;
+    padding: 0;
+}
+
+#rightcolumn div#left{
+    display:none
+}
+
+#left {
+    float: left;
+    width: 200px;
+    padding:5px;
+    overflow:hidden;
+}
+#threecolumn {
+    margin: 0px;
+}
+
+#twocolumn div#right{
+    display:none
+}
+#twocolumn div#content{
+    margin: 0 0 0 210px;
+}
+
+	
+#content{
+    padding:5px;
+    overflow:auto;
+}
+#right {
+    float: right;
+    width: 200px;
+    padding:5px;
+}
+#footer {
+    text-align: center;
+    padding: 10px;
+}
+#footerbr {
+    clear: both;
+}
+
+#navigation {
+    padding-top:5px;
+}

@@ -1,0 +1,135 @@
+/*
+    Document   : stylesheet.css
+    Created on : 30 May 2010, 1:11:21 PM
+    Author     : dkeats
+    Description:
+        Leave this blank for consistency to implement the underlying skin as a canvas to enable selecting.
+*/
+
+html {
+    background: url("images/bg-gradient.png") top left repeat-x;
+    background-color: #b5bdc8;
+}
+
+body {
+    font-family: Verdana, Arial, sans-serif;
+    background-image: none;
+    background: transparent;
+    font-size: 12px;
+    color: #6B6B6B;
+}
+
+/* Fixed width canvas */
+.ChisimbaCanvas {
+    width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.Canvas_Content_Body {
+    float: left;
+    display:block;
+}
+
+.Canvas_Content_Body_Before{
+    clear:both;
+}
+
+#container {
+    background: url("images/gradient.png") top left repeat-y;
+}
+
+/* Locate the search box correctly */
+div#header div#search {
+    margin: 0;
+    margin: 10px;
+    padding: 10px;
+    color: gray;
+    width: 360px;
+    position: relative;
+    margin-top: -34px;
+    margin-left: 590px;
+}
+
+#header {
+    background: url("images/banner_bg.png") top left repeat-x;
+    height: 111px;
+    margin-bottom: -12px;
+    padding-left: 30px;
+}
+
+#menu {
+    margin-left: 5px;
+}
+
+#navigation {
+    margin-top: -62px;
+    height: 80px;
+}
+
+/* Nice blockquotes */
+blockquote {
+    background:#f9f9f9;
+    border-left:10px solid #ccc;
+    margin:1.5em 10px;
+    padding:.5em 10px;
+    quotes:"\201C""\201D""\2018""\2019";
+}
+blockquote:before {
+    color:#ccc;
+    content:open-quote;
+    font-size:4em;
+    line-height:.1em;
+    margin-right:.25em;
+    vertical-align:-.4em;
+}
+blockquote p {
+    display:inline;
+}
+
+/*
+
+Style the breadcrumbs with a gradient that has
+rounded corners
+
+*/
+#breadcrumbs {
+    background-image: none;
+    margin-left: -10px;
+    margin-bottom: 3px;
+}
+
+.Canvas_Content_Head_Breadcrumbs_Before {
+    height: 32px;
+    width: 30px;
+    background: url("images/breadbefore.png") top left no-repeat;
+    float: left;
+
+}
+.Canvas_Content_Head_Breadcrumbs {
+    position: relative;
+    height: 32px;
+    background: url("images/breadinternal.png") top left repeat-x;
+    float: left;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 5px;
+    display: block;
+}
+
+.Canvas_Content_Head_Breadcrumbs_After {
+    height: 32px;
+    width: 30px;
+    background: url("images/breadafter.png") top left no-repeat;
+    float: left;
+}
+
+/*
+
+Style the menu
+
+*/
+#menu>ul>li {
+    background: url("images/breadinternal.png") top left repeat-x;
+}

@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<updates>
+    <update>
+        <table>tbl_languagetext</table>
+        <version>1.56</version>
+        <description>Modified description to a clob datatype to handle larger text entries</description>
+        <data>
+            <change>
+                <description>
+                <type>clob</type>
+                    <definition>
+                        <type>clob</type>
+                    </definition>
+                </description>
+            </change>
+        </data>
+    </update>
+    <update>
+        <table>tbl_languagetext</table>
+            <version>1.57</version>
+            <description>Increased size for code field</description>
+            <data>
+                <change>
+                    <code>
+                    <type>clob</type>
+                        <definition>
+                            <type>clob</type>
+                        </definition>
+                    </code>
+                </change>
+            </data>
+    </update>
+</updates>

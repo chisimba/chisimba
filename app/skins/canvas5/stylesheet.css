@@ -1,0 +1,56 @@
+/*
+    This is the Canvas2 skin for Chisimba. It is my first attemt to create a
+    canvas (no relation to HTML5 <canvas> tag) based skin for Chisimba that uses
+    HTML5. It is experimental, to say the least!
+
+    Author: Derek Keats
+    License: GPL V2
+    
+*/
+
+
+/* Get the basic formatting from  metallic for now*/
+@import "../metallic/stylesheet.css";
+
+
+body {
+  background: #000;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+#backgroundHolder {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	background-color: #999;
+}
+
+.ChisimbaCanvas {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    overflow: auto;
+    max-height: 100%;
+}
+
+/*
+    This is the site name. Set it to display:none if you
+    use an image banner.
+*/
+h1#sitename {
+    padding: 0px;
+    position: absolute;
+    top: 38px;
+}
+
+div#header div#search { 
+    margin-top: 11px;
+}

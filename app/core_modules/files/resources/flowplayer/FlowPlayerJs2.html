@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>FlowPlayer</title>
+<script type="text/javascript" src="swfobject.js"></script>
+<script  type="text/javascript">
+/*
+ * Init and setup FlowPlayer.  This example file shows 'advanced' features like
+ * playlists and configuring with JavaScript. FlowPlayer.html is a simpler example.
+ */
+
+var flowPlayer1;
+function init() {
+	if (document.getElementById) {
+		flowPlayer1 = document.getElementById("FlowPlayer");
+    }
+	setFlowPlayerConfig();
+}
+
+// wait for the page to fully load before initializing
+window.onload = init;
+
+function setFlowPlayerConfig() {
+	flowPlayer1.setConfig(fpConf);
+}
+
+/*
+ * This is the playlist with FLV videos and images. The images can have a duration property
+ * and the flv video files can have start and end properties that give the starting and
+ * ending positions in seconds. All these attributes (duration, start, end) are optional.
+ *
+ * The start and end attributes really only work with the Flash Media Server. I have had
+ * problems when thesting using Red5.
+ */
+var clips = [                      
+	{ name: 'ClickToPlay', url: 'http://www.kolumbus.fi/apiirain/video/resources/main_clickToPlay.jpg' },
+	{ name: 'Stripper Falling From Poll', url: 'http://zippy1981.is-a-geek.com:8081/flv.php?movie_id=167', start: 0, end: 20},
+	{ name: 'Honda accord', url: 'honda_accord.flv' },
+	{ name: 'Ounasvaara', url: 'ounasvaara.flv', start: 15, end: 23 },
+	{ name: 'Milton Friedmanon', url: 'http://vp.video.google.com/videodownload?version=0&secureurl=twAAAD3Nu3qi35Sq20PncHx_N85T906JGae5xZmkTv_R_ZCcDGA0yTapUR0RwupDbpZcNbjY-MdNMAT-VQC4U0TE9SyMNYYG0fdqwToIx6gMunzvEyDd8gwNyiwY-A1-8c4tpls2xEOIv0BZ7sO-aEEGjzV9j16n4enqCZ8SV5898qQ3MjHGsemiY96XrIp9rFSkbKMspA5IpOwOCT4Ts32UnOwdzUnZWuu38dMIRqG9zK15IjdRYyhoOvEhG-AjiRjlrQ&sigh=6Or8xwTb3TIpQZbydtuiroQ_6fk&begin=0&len=1714578&docid=6813529239937418232'
+		}
+];
+
+var fpConf = {
+	playList: clips,
+	showPlayList: false,
+	baseURL: 'http://www.kolumbus.fi/apiirain/video',
+	autoPlay: true,
+	autoBuffering: true,
+	bufferLength: 20,
+	loop: false,
+	videoHeight: 300,
+	hideControls: false,
+	showPlayListButtons: false,
+	progressBarColor1: 0xFF0000,
+	progressBarColor2: 0xFF0000,
+	bufferBarColor1: 0x00FF00,
+	bufferBarColor2: 0x00FF00,
+	progressBarBorderColor1: 0xAAAAAA,
+	progressBarBorderColor2: 0xAAAAAA
+}
+
+/*
+ * Event hanlders
+ */
+function clipSelected(clipIndex) {
+	flowPlayer1.ToClip(clipIndex);
+}
+
+function play() {
+	flowPlayer1.DoPlay();
+	updateIsPlaying();
+}
+
+function pause() {
+	flowPlayer1.Pause();
+	updateIsPlaying();
+}
+
+function stop() {
+	flowPlayer1.DoStop();
+	updateIsPlaying();
+}
+
+function updateIsPlaying() {
+	var field = document.getElementById("playing");
+	field.value = "Playing: " + flowPlayer1.getIsPlaying() + ", paused : " + flowPlayer1.getIsPaused();
+}
+
+function seek() {
+	var seekTimeField = document.getElementById("seekTime");
+	flowPlayer1.Seek(seekTimeField.value);
+}
+
+function getTime() {
+	var time = flowPlayer1.getTime();
+	var timeField = document.getElementById("time");
+	timeField.value = time;
+}
+
+function getDuration() {
+	var value = flowPlayer1.getDuration();
+	var field = document.getElementById("duration");
+	field.value = value;
+}
+
+function getPercentLoaded() {
+	var value = flowPlayer1.getPercentLoaded();
+	var field = document.getElementById("loaded");
+	field.value = value;
+}
+
+</script>
+</head>
+<body bgcolor="#CCCCCC">
+
+	<div id="flowplayerholder">
+		This will be replaced by the player. 
+	</div>
+	<script type="text/javascript">
+		// <![CDATA[
+
+	  var fo = new SWFObject("FlowPlayer.swf", "FlowPlayer", "500", "560", "7", "#ffffff", true);
+      // need this next line for local testing, it's optional if your swf is on the same domain as your html page
+      fo.addParam("allowScriptAccess", "always");
+	  fo.addParam("flashVars", "config={configInject: true}");
+      fo.write("flowplayerholder");
+
+		// ]]>
+	</script>
+	
+	<table>
+		<tr>
+			<td>Splash</td><td><a href="javascript: clipSelected(0)">Go</a></td>
+		</tr>
+		<tr>
+			<td>Stripper</td><td><a href="javascript: clipSelected(1)">Go</a></td>
+		</tr>
+		<tr>
+			<td>Honda accord</td><td><a href="javascript: clipSelected(2)">Go</a></td>
+		</tr>
+		<tr>
+			<td>Ounasvaara</td><td><a href="javascript: clipSelected(3)">Go</a></td>
+		</tr>
+		<tr>
+			<td>Milton</td><td><a href="javascript: clipSelected(4)">Go</a></td>
+		</tr>
+	</table>
+
+	<table>
+		<tr>
+			<td><a href="javascript: play()">Play</a></td>
+			<td><a href="javascript: pause()">Pause</a></td>
+			<td><input type="text" id="playing" disabled="true" size="30"></td>
+		</tr>
+		<tr>
+			<td colspan="3"><a href="javascript: stop()">Stop</a></td>
+		</tr>
+		<tr>
+			<td><input type="text" id="seekTime"></td>
+			<td colspan="2"><a href="javascript: seek()">Seek</a></td>
+		</tr>
+		<tr>
+			<td><a href="javascript: getTime()">Get time</a></td>
+			<td colspan="2"><input type="text" id="time" /></td>
+		</tr>
+		<tr>
+			<td><a href="javascript: getDuration()">Get duration</a></td>
+			<td colspan="2"><input type="text" id="duration" /></td>
+		</tr>
+		<tr>
+			<td><a href="javascript: getPercentLoaded()">Get % loaded</a></td>
+			<td colspan="2"><input type="text" id="loaded" /></td>
+		</tr>
+	</table>
+
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+    "name": "red",
+    "description": "A simple, minimalist red-background theme for demonstrating the use of the Chisimba canvas. It uses a simple background image, and a fixed width canvas and shows how to move the two narrow columns to the right side of the canvas.",
+    "downloadfrom":"_NULL",
+    "preview": {
+        "thumb": "red_th.png",
+        "fullview":"red.png"
+    },
+    "author": {
+        "authorname":"Derek Keats",
+        "email":"derek@dkeats.com",
+        "url":"http://www.dkeats.com"
+    }
+}

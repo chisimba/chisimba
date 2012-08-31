@@ -1,0 +1,44 @@
+/**********************************************
+* Default Layout styles 
+*@author Wesley Nitsckie
+@css validator check - passed [20 Jan 2009]
+http://jigsaw.w3.org/css-validator/validator
+**********************************************/
+
+
+#container {
+    margin: 25px;
+    padding: 10px;
+	
+  
+}
+
+#header {
+    /*background-color: #fff;
+    padding:10px;
+    background: transparent url('images/header.jpg') no-repeat top left;*/
+	background: transparent url('images/header.jpg') no-repeat top left;
+    height: 100px;
+    border: 1px dotted ;
+    margin: 2px;
+}
+
+
+#leftcontent, #contentcontent, #rightcontent,#navigation,#middlecontent, #footer  {
+    margin: 2px;	
+    border: 1px dotted ;
+    padding: 10px;
+
+  
+	
+}
+#contentcontent{
+  
+    border:1px dotted ;
+    margin-bottom:1px;
+    padding-top:5px;
+}
+
+#footer{
+	
+	}

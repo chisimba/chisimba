@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<updates>
+    <update>
+        <table>tbl_context</table>
+        <version>1.15</version>
+        <description>Added Archive Field</description>
+        <data>
+            <add>
+                <name>archive</name>
+                <type>integer</type>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_context</table>
+        <version>1.551</version>
+        <description>Added goals Field</description>
+        <data>
+            <add>
+                <name>goals</name>
+                <type>text</type>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_context</table>
+        <version>1.701</version>
+        <description>Added showcomment Field</description>
+        <data>
+            <add>
+                <name>showcomment</name>
+                <type>integer</type>
+            </add>
+        </data>
+    </update>
+
+    <update>
+        <table>tbl_context</table>
+        <version>1.821</version>
+        <description>Added alerts Field</description>
+        <data>
+            <add>
+                <name>alerts</name>
+                <type>text</type>
+                <length>255</length>
+            </add>
+        </data>
+    </update>
+        
+    <update>
+        <table>tbl_context</table>
+        <version>1.824</version>
+        <description>Added lastaccessed Field</description>
+        <data>
+            <add>
+                <name>lastaccessed</name>
+                <type>timestamp</type>
+            </add>
+        </data>
+    </update>
+       <update>
+        <table>tbl_context</table>
+        <version>1.83</version>
+        <description>Added canvas Field</description>
+        <data>
+            <add>
+                <name>canvas</name>
+                <type>text</type>
+                <length>32</length>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_context</table>
+        <version>1.92</version>
+        <description>Changed datecreated from date to datetime</description>
+        <data>
+            <change>
+                <datecreated>
+                    <definition>
+                        <type>timestamp</type>
+                    </definition>
+                </datecreated>
+            </change>
+        </data>
+    </update>
+</updates>

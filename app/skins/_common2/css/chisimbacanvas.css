@@ -1,0 +1,77 @@
+/* 
+    Document   : canvas
+    Created on : 31 May 2010, 8:05:33 AM
+    Author     : dkeats
+    Description:
+        These are the base styles for the Chisimba canvas. Note
+        the use of uppercase in the names.
+*/
+
+.ChisimbaCanvas {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+#CanvasContent {
+    
+}
+
+#Canvas_BeforeContainer {
+
+}
+
+#Canvas_AfterContainer {
+
+}
+
+#Canvas_Content_Head {
+
+}
+
+#Canvas_Content_Head_Before {
+
+}
+
+#Canvas_Content_Head_After {
+
+}
+
+#Canvas_Content_Header {
+
+}
+
+#Canvas_Content_Head_Navigation {
+    
+}
+
+#Canvas_Content_Head_BreadCrumbs {
+    
+}
+
+#Canvas_Content_Body {
+
+}
+
+#Canvas_Content_Body_Region1 {
+
+}
+
+#Canvas_Content_Body_Region2 {
+
+}
+
+#Canvas_Content_Body_Region3 {
+
+}
+#Canvas_Content_Footer {
+
+}
+
+#Canvas_Content_Footer_Before {
+
+}
+
+#Canvas_Content_Footer_After {
+
+}

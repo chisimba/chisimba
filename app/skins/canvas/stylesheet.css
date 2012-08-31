@@ -1,0 +1,310 @@
+/*
+    This is the Canvas skin for Chisimba. It is based on the
+    CAZPIX skin by Paul Scott, and the metallic skin from which
+    this skin was directly derived. It uses the skin engine version
+    2 for Chisimba, and implements the canvas model as proposed
+    by Derek Keats.
+
+    Author: Derek Keats
+    License: GPL V2
+
+    This is a metallic derived skin, so lets just import it to avoid
+    having to maintain it twice.
+    
+*/
+@import "../canvas/canvasbase.css";
+
+/*
+    This is the site name. Set it to display:none if you
+    use an image banner.
+*/
+h1#sitename {
+    padding: 0px;
+}
+
+div#header div#search { 
+    margin-top: 14px;
+}
+
+#onecolumn, #twocolumn, #threecolumn {
+    float:left;
+    width:100%;
+}
+
+.ChisimbaCanvas {
+    width: auto;
+    padding:0px;
+    margin-right: 25px;
+    margin-left: 25px;
+}
+
+#Canvas_Content {
+    padding:0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 25px;
+}
+
+#Canvas_BeforeContainer {
+    height: 0px;
+}
+
+#container {
+    margin: 0px;
+}
+
+.Canvas_Column {
+    margin-top: 0px;
+}
+
+#twocolumn, #threecolumn {
+    background: transparent;
+    padding: 0px;
+}
+
+#Canvas_Content_Body_Region1 {
+    background: url("images/overlay-sm.png") top left repeat;
+    float:left;
+    width:220px;
+    margin-top: 3px;
+    padding-bottom:4px;
+    padding-top: 6px;
+    padding-left: 6px;
+    padding-right: 4px;
+}
+
+#Canvas_Content_Body_Region2 {
+    margin-top: 0px;
+    padding-left: 8px;
+    padding-top: 6px;
+    overflow: hidden;
+}
+
+#Canvas_Content_Body_Region3 {
+    background: url("images/overlay-sm.png") top left repeat;
+    float:right;
+    width:220px;
+    margin-top: 3px;
+    padding-bottom:4px;
+    padding-top: 6px;
+    padding-left: 6px;
+    padding-right: 4px;
+}
+
+#threecolumn #Canvas_Content_Body_Region2 {
+
+    padding-right: 8px;
+    width:auto;
+}
+
+#twocolumn #Canvas_Content_Body_Region2 {
+    padding-right: 8px;
+    width:auto;
+}
+/******************************
+ * Featuresuggest styles
+ *****************************/
+ul.suggestions{	list-style:none;}
+
+.suggestions li{
+	background-color:#ffffff;
+	padding:10px;
+	margin-bottom:10px;
+	position:relative;
+	font-size:18px;
+	width:730px;
+	overflow-x:hidden;
+	word-wrap:break-word;
+}
+
+#suggest{
+	background-color:#ffffff;
+	padding:30px;
+	margin:60px 0 0;
+}
+
+.rounded,
+#suggest,
+.suggestions li{
+	-moz-border-radius-topleft:12px;
+	-moz-border-radius-bottomright:12px;
+
+	-webkit-border-top-left-radius:12px;
+	-webkit-border-bottom-right-radius:12px;
+	
+	border-top-left-radius:12px;
+	border-bottom-right-radius:12px;
+}
+
+#suggestionText{
+	background-color:#ffffff;
+	border:1px solid #333333;
+	color:#ffffff;
+	display:block;
+	float:left;
+	font-family:Corbel,'Myriad Pro',Arial,Helvetica,sans-serif;
+	font-size:18px;
+	margin-right:20px;
+	padding:4px 0 4px 14px;
+	text-shadow:1px 1px 0 white;
+	width:555px;
+	outline:none;
+}
+
+#submitSuggestion{
+	width:95px;
+	height:31px;
+	background:url('images/submit_button.png') no-repeat;
+	text-transform:uppercase;
+	text-indent:-9999px;
+	overflow:hidden;
+	border:none;
+	cursor:pointer;
+	display:block;
+	margin:0 auto;
+}
+
+#submitSuggestion:hover{
+	background-position:left -31px;
+}
+
+form.working #submitSuggestion{
+	background-position:left bottom;
+}
+
+.suggestions .text{
+    background-color: #ffffff;
+	line-height:1.4;
+	padding:0 70px;
+}
+
+.suggestions .rating{
+	bottom:12px;
+	color:#939393;
+	font-family:Arial,Helvetica,sans-serif;
+	font-size:18px;
+	position:absolute;
+	right:15px;
+}
+
+.vote{
+	float:left;
+}
+
+.vote span{
+	background:url('images/vote_arrows.png') no-repeat;
+	float:left;
+	height:26px;
+	margin-right:4px;
+	width:26px;
+	cursor:pointer;
+}
+
+.vote.inactive span{
+	opacity:0.5;
+	filter: alpha(opacity = 50);
+	cursor:default;
+}
+
+.vote .down { 
+    background-position:right top;
+}
+
+.vote.active .up:hover {
+    background-position:left bottom;
+}
+
+.vote.active .down:hover {
+    background-position:right bottom;
+}
+
+.myList {
+   list-style: none;
+   margin: 0;
+   padding: 0;
+}
+.myList li {
+   float: left;
+}
+
+.unreadmail {
+    color: red;
+}
+
+.infonote {
+    margin-top: 12px;
+}
+
+.infonote:before {
+    content:url(images/icons/info.png);
+    margin-top: 7px;
+    margin-right: 8px;
+    vertical-align: top;
+    float: left;
+}
+
+.phone:before {
+    content:url(images/icons/phone_sm.png);
+    position: relative;
+    margin-left: 5px;
+}
+
+label.error {
+    color: #F04C3E;
+}
+
+label.error:before {
+    content:url(images/error-icon_sm.png);
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+input.error {
+    background: #FFDEAD;
+    color: #F04C3E;
+}
+
+div.stable, div.unset, div.pre-alpha, 
+div.alpha, div.beta, div.deprecated, 
+div.marked_for_removal, div.invisible {
+    padding: 10px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+}
+div.stable {
+    background: #00FF00;
+}
+div.unset {
+    background: #f00;
+    color: white;
+}
+div.pre-alpha {
+    background: #D3E7F5;
+}
+div.alpha {
+    background: #e3a345;
+}
+div.beta {
+    background: #FFFFCC;
+}
+div.deprecated {
+    background: #ffffff;
+    color: #999999;
+}
+
+div.marked_for_removal {
+    background: #0033FF;
+    color: white;
+}
+
+div.invisible {
+    background: #DB00DC;
+    color: white;
+}
+
+.sb_desc{
+    margin-top: 5px;
+    margin-bottom: 20px;
+}

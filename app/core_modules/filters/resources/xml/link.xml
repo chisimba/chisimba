@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<filter>
+  <name>Active URL</name>
+  <description>Turns a URL into an active, clickable link.</description>
+  <type>chisimba_simple</type>
+  <formats>
+    <format>[LINK]http://myserver.mydomain/mypath.html[/LINK]</format>
+  </formats>
+  <examples>
+     <example>[LINK]http://www.uwc.ac.za[/LINK]</example>
+     <example>[LINK]http://www.google.com[/LINK]</example>
+     <example>[LINK]http://www.dkeats.com/index.php?module=blog&amp;action=viewblog&amp;catid=gen13Srv30Nme10_9296_1209966037&amp;userid=1563080430[/LINK]</example>
+  </examples>
+  <num_of_parameters>0</num_of_parameters>
+  <labels>
+     <label>
+       <for>filter_text</for>
+       <text>Copy the link in the textbox to generate at link filter for it</text>
+     </label>
+  </labels>
+  <before>[LINK]</before>
+  <after>[/LINK]</after>
+</filter>

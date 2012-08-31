@@ -1,0 +1,164 @@
+a:18:{s:8:"provides";a:18:{s:20:"class;XML_Serializer";a:4:{s:4:"type";s:5:"class";s:4:"name";s:14:"XML_Serializer";s:7:"extends";s:4:"PEAR";s:8:"explicit";b:1;}s:35:"function;XML_Serializer::apiVersion";a:3:{s:4:"type";s:8:"function";s:4:"name";s:26:"XML_Serializer::apiVersion";s:8:"explicit";b:1;}s:37:"function;XML_Serializer::resetOptions";a:3:{s:4:"type";s:8:"function";s:4:"name";s:28:"XML_Serializer::resetOptions";s:8:"explicit";b:1;}s:34:"function;XML_Serializer::setOption";a:3:{s:4:"type";s:8:"function";s:4:"name";s:25:"XML_Serializer::setOption";s:8:"explicit";b:1;}s:35:"function;XML_Serializer::setOptions";a:3:{s:4:"type";s:8:"function";s:4:"name";s:26:"XML_Serializer::setOptions";s:8:"explicit";b:1;}s:34:"function;XML_Serializer::serialize";a:3:{s:4:"type";s:8:"function";s:4:"name";s:25:"XML_Serializer::serialize";s:8:"explicit";b:1;}s:42:"function;XML_Serializer::getSerializedData";a:3:{s:4:"type";s:8:"function";s:4:"name";s:33:"XML_Serializer::getSerializedData";s:8:"explicit";b:1;}s:22:"class;XML_Unserializer";a:4:{s:4:"type";s:5:"class";s:4:"name";s:16:"XML_Unserializer";s:7:"extends";s:4:"PEAR";s:8:"explicit";b:1;}s:37:"function;XML_Unserializer::apiVersion";a:3:{s:4:"type";s:8:"function";s:4:"name";s:28:"XML_Unserializer::apiVersion";s:8:"explicit";b:1;}s:39:"function;XML_Unserializer::resetOptions";a:3:{s:4:"type";s:8:"function";s:4:"name";s:30:"XML_Unserializer::resetOptions";s:8:"explicit";b:1;}s:36:"function;XML_Unserializer::setOption";a:3:{s:4:"type";s:8:"function";s:4:"name";s:27:"XML_Unserializer::setOption";s:8:"explicit";b:1;}s:37:"function;XML_Unserializer::setOptions";a:3:{s:4:"type";s:8:"function";s:4:"name";s:28:"XML_Unserializer::setOptions";s:8:"explicit";b:1;}s:38:"function;XML_Unserializer::unserialize";a:3:{s:4:"type";s:8:"function";s:4:"name";s:29:"XML_Unserializer::unserialize";s:8:"explicit";b:1;}s:46:"function;XML_Unserializer::getUnserializedData";a:3:{s:4:"type";s:8:"function";s:4:"name";s:37:"XML_Unserializer::getUnserializedData";s:8:"explicit";b:1;}s:38:"function;XML_Unserializer::getRootName";a:3:{s:4:"type";s:8:"function";s:4:"name";s:29:"XML_Unserializer::getRootName";s:8:"explicit";b:1;}s:39:"function;XML_Unserializer::startHandler";a:3:{s:4:"type";s:8:"function";s:4:"name";s:30:"XML_Unserializer::startHandler";s:8:"explicit";b:1;}s:37:"function;XML_Unserializer::endHandler";a:3:{s:4:"type";s:8:"function";s:4:"name";s:28:"XML_Unserializer::endHandler";s:8:"explicit";b:1;}s:39:"function;XML_Unserializer::cdataHandler";a:3:{s:4:"type";s:8:"function";s:4:"name";s:30:"XML_Unserializer::cdataHandler";s:8:"explicit";b:1;}}s:8:"filelist";a:32:{s:12:"doc/todo.txt";a:5:{s:4:"role";s:4:"data";s:14:"baseinstalldir";s:3:"XML";s:6:"md5sum";s:32:"38b25708edc72ee4b55e5729f45d13d5";s:12:"replacements";a:1:{i:0;a:3:{s:4:"type";s:12:"package-info";s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";}}s:12:"installed_as";s:47:"/usr/share/php/data/XML_Serializer/doc/todo.txt";}s:20:"examples/example.xml";a:5:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:3:"XML";s:6:"md5sum";s:32:"c1472503cbf6c35221dc8e37c7e58049";s:12:"replacements";a:1:{i:0;a:3:{s:4:"type";s:12:"package-info";s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";}}s:12:"installed_as";s:55:"/usr/share/php/docs/XML_Serializer/examples/example.xml";}s:31:"examples/serializeAndEncode.php";a:5:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:3:"XML";s:6:"md5sum";s:32:"de994b8fc500eec602eb4d343f7ff832";s:12:"replacements";a:1:{i:0;a:3:{s:4:"type";s:12:"package-info";s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";}}s:12:"installed_as";s:66:"/usr/share/php/docs/XML_Serializer/examples/serializeAndEncode.php";}s:31:"examples/serializeAndReturn.php";a:5:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:3:"XML";s:6:"md5sum";s:32:"d450d6dd9a06b2f1a0d2ef6da5e46e82";s:12:"replacements";a:1:{i:0;a:3:{s:4:"type";s:12:"package-info";s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";}}s:12:"installed_as";s:66:"/usr/share/php/docs/XML_Serializer/examples/serializeAndReturn.php";}s:38:"examples/serializeArrayWithObjects.php";a:5:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:3:"XML";s:6:"md5sum";s:32:"af985a7616b5e04a5bb7ea77c0262141";s:12:"replacements";a:1:{i:0;a:3:{s:4:"type";s:12:"package-info";s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";}}s:12:"installed_as";s:73:"/usr/share/php/docs/XML_Serializer/examples/serializeArrayWithObjects.php";}s:27:"examples/serializeCData.php";a:5:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:3:"XML";s:6:"md5sum";s:32:"6ffd811b98db9ba09c924fc3e89bb2f4";s:12:"replacements";a:1:{i:0;a:3:{s:4:"type";s:12:"package-info";s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";}}s:12:"installed_as";s:62:"/usr/share/php/docs/XML_Serializer/examples/serializeCData.php";}s:32:"examples/serializeEmptyArray.php";a:5:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:3:"XML";s:6:"md5sum";s:32:"aaf2a7916fdd50edded1d912337b0412";s:12:"replacements";a:1:{i:0;a:3:{s:4:"type";s:12:"package-info";s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";}}s:12:"installed_as";s:67:"/usr/share/php/docs/XML_Serializer/examples/serializeEmptyArray.php";}s:34:"examples/serializeIndexedArray.php";a:5:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:3:"XML";s:6:"md5sum";s:32:"07b32558293a54d0e5fbfa5c3cc45926";s:12:"replacements";a:1:{i:0;a:3:{s:4:"type";s:12:"package-info";s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";}}s:12:"installed_as";s:69:"/usr/share/php/docs/XML_Serializer/examples/serializeIndexedArray.php";}s:45:"examples/serializeIndexedArrayWithContext.php";a:5:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:3:"XML";s:6:"md5sum";s:32:"cf06e01f08140cc16d640ff3293c3f2e";s:12:"replacements";a:1:{i:0;a:3:{s:4:"type";s:12:"package-info";s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";}}s:12:"installed_as";s:80:"/usr/share/php/docs/XML_Serializer/examples/serializeIndexedArrayWithContext.php";}s:36:"examples/serializeNullProperties.php";a:5:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:3:"XML";s:6:"md5sum";s:32:"3a4b59908968c2236f00fdadcff3ba3f";s:12:"replacements";a:1:{i:0;a:3:{s:4:"type";s:12:"package-info";s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";}}s:12:"installed_as";s:71:"/usr/share/php/docs/XML_Serializer/examples/serializeNullProperties.php";}s:28:"examples/serializeObject.php";a:5:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:3:"XML";s:6:"md5sum";s:32:"7c3885eacc310582c31d414ffb4db255";s:12:"replacements";a:1:{i:0;a:3:{s:4:"type";s:12:"package-info";s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";}}s:12:"installed_as";s:63:"/usr/share/php/docs/XML_Serializer/examples/serializeObject.php";}s:25:"examples/serializeRDF.php";a:5:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:3:"XML";s:6:"md5sum";s:32:"716d2191f3adbeb081c7f1eda4359e6c";s:12:"replacements";a:1:{i:0;a:3:{s:4:"type";s:12:"package-info";s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";}}s:12:"installed_as";s:60:"/usr/share/php/docs/XML_Serializer/examples/serializeRDF.php";}s:41:"examples/serializeSelectiveAttributes.php";a:5:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:3:"XML";s:6:"md5sum";s:32:"ab46918564e3e442db6891acab29250a";s:12:"replacements";a:1:{i:0;a:3:{s:4:"type";s:12:"package-info";s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";}}s:12:"installed_as";s:76:"/usr/share/php/docs/XML_Serializer/examples/serializeSelectiveAttributes.php";}s:36:"examples/serializeWithAttributes.php";a:5:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:3:"XML";s:6:"md5sum";s:32:"60bb192a46491d74dbe1e001e4154459";s:12:"replacements";a:1:{i:0;a:3:{s:4:"type";s:12:"package-info";s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";}}s:12:"installed_as";s:71:"/usr/share/php/docs/XML_Serializer/examples/serializeWithAttributes.php";}s:37:"examples/serializeWithAttributes2.php";a:5:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:3:"XML";s:6:"md5sum";s:32:"c36f2772977cdf5d9e5a8c699e56e2ca";s:12:"replacements";a:1:{i:0;a:3:{s:4:"type";s:12:"package-info";s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";}}s:12:"installed_as";s:72:"/usr/share/php/docs/XML_Serializer/examples/serializeWithAttributes2.php";}s:33:"examples/serializeWithComment.php";a:5:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:3:"XML";s:6:"md5sum";s:32:"0405ff9b51030a5ed2acc1620ce37f6b";s:12:"replacements";a:1:{i:0;a:3:{s:4:"type";s:12:"package-info";s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";}}s:12:"installed_as";s:68:"/usr/share/php/docs/XML_Serializer/examples/serializeWithComment.php";}s:29:"examples/serializeWithDtd.php";a:5:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:3:"XML";s:6:"md5sum";s:32:"11edc47a77b376d02ee09842b4457c42";s:12:"replacements";a:1:{i:0;a:3:{s:4:"type";s:12:"package-info";s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";}}s:12:"installed_as";s:64:"/usr/share/php/docs/XML_Serializer/examples/serializeWithDtd.php";}s:44:"examples/serializeWithIndentedAttributes.php";a:5:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:3:"XML";s:6:"md5sum";s:32:"47ca01ba1bccf794cf8af43b8347e80b";s:12:"replacements";a:1:{i:0;a:3:{s:4:"type";s:12:"package-info";s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";}}s:12:"installed_as";s:79:"/usr/share/php/docs/XML_Serializer/examples/serializeWithIndentedAttributes.php";}s:35:"examples/serializeWithNamespace.php";a:5:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:3:"XML";s:6:"md5sum";s:32:"fd4da48311a806468fcc545d5d725c37";s:12:"replacements";a:1:{i:0;a:3:{s:4:"type";s:12:"package-info";s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";}}s:12:"installed_as";s:70:"/usr/share/php/docs/XML_Serializer/examples/serializeWithNamespace.php";}s:32:"examples/serializeWithTagMap.php";a:5:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:3:"XML";s:6:"md5sum";s:32:"fe81a386e7f0e84dddf4c6c7dd7551ad";s:12:"replacements";a:1:{i:0;a:3:{s:4:"type";s:12:"package-info";s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";}}s:12:"installed_as";s:67:"/usr/share/php/docs/XML_Serializer/examples/serializeWithTagMap.php";}s:30:"examples/unserializeAnyXML.php";a:5:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:3:"XML";s:6:"md5sum";s:32:"78f6861118d168f55adf0c8c744a068d";s:12:"replacements";a:1:{i:0;a:3:{s:4:"type";s:12:"package-info";s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";}}s:12:"installed_as";s:65:"/usr/share/php/docs/XML_Serializer/examples/unserializeAnyXML.php";}s:34:"examples/unserializeClassNames.php";a:5:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:3:"XML";s:6:"md5sum";s:32:"a51652d21c44353377ed4a71c992b54d";s:12:"replacements";a:1:{i:0;a:3:{s:4:"type";s:12:"package-info";s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";}}s:12:"installed_as";s:69:"/usr/share/php/docs/XML_Serializer/examples/unserializeClassNames.php";}s:31:"examples/unserializeEncoded.php";a:5:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:3:"XML";s:6:"md5sum";s:32:"abe46fb437edd1549ae8cb25bc45a7e2";s:12:"replacements";a:1:{i:0;a:3:{s:4:"type";s:12:"package-info";s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";}}s:12:"installed_as";s:66:"/usr/share/php/docs/XML_Serializer/examples/unserializeEncoded.php";}s:28:"examples/unserializeEnum.php";a:5:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:3:"XML";s:6:"md5sum";s:32:"25419e079ae92d71293aa2caa90d0485";s:12:"replacements";a:1:{i:0;a:3:{s:4:"type";s:12:"package-info";s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";}}s:12:"installed_as";s:63:"/usr/share/php/docs/XML_Serializer/examples/unserializeEnum.php";}s:30:"examples/unserializeObject.php";a:5:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:3:"XML";s:6:"md5sum";s:32:"758597f64be3f6132c58f59e4355032d";s:12:"replacements";a:1:{i:0;a:3:{s:4:"type";s:12:"package-info";s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";}}s:12:"installed_as";s:65:"/usr/share/php/docs/XML_Serializer/examples/unserializeObject.php";}s:27:"examples/unserializeRDF.php";a:5:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:3:"XML";s:6:"md5sum";s:32:"9fd1be0b5689fdae672e862d8b80b132";s:12:"replacements";a:1:{i:0;a:3:{s:4:"type";s:12:"package-info";s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";}}s:12:"installed_as";s:62:"/usr/share/php/docs/XML_Serializer/examples/unserializeRDF.php";}s:34:"examples/unserializeWhitespace.php";a:5:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:3:"XML";s:6:"md5sum";s:32:"f6785d5df9aa96c6bc45a7837c9bf7e2";s:12:"replacements";a:1:{i:0;a:3:{s:4:"type";s:12:"package-info";s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";}}s:12:"installed_as";s:69:"/usr/share/php/docs/XML_Serializer/examples/unserializeWhitespace.php";}s:38:"examples/unserializeWithAttributes.php";a:5:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:3:"XML";s:6:"md5sum";s:32:"0016f26a5debc380cd52ccb909db69c5";s:12:"replacements";a:1:{i:0;a:3:{s:4:"type";s:12:"package-info";s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";}}s:12:"installed_as";s:73:"/usr/share/php/docs/XML_Serializer/examples/unserializeWithAttributes.php";}s:34:"examples/unserializeWithTagMap.php";a:5:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:3:"XML";s:6:"md5sum";s:32:"99b0734f65e69d2c238bd264e907c8ad";s:12:"replacements";a:1:{i:0;a:3:{s:4:"type";s:12:"package-info";s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";}}s:12:"installed_as";s:69:"/usr/share/php/docs/XML_Serializer/examples/unserializeWithTagMap.php";}s:40:"examples/unserializeWithTypeGuessing.php";a:5:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:3:"XML";s:6:"md5sum";s:32:"654d663a079b527b2f28bff7367c38f4";s:12:"replacements";a:1:{i:0;a:3:{s:4:"type";s:12:"package-info";s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";}}s:12:"installed_as";s:75:"/usr/share/php/docs/XML_Serializer/examples/unserializeWithTypeGuessing.php";}s:14:"Serializer.php";a:5:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:3:"XML";s:6:"md5sum";s:32:"be52ecbd59c4b60d09e12025ec691ddd";s:12:"replacements";a:1:{i:0;a:3:{s:4:"type";s:12:"package-info";s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";}}s:12:"installed_as";s:33:"/usr/share/php/XML/Serializer.php";}s:16:"Unserializer.php";a:5:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:3:"XML";s:6:"md5sum";s:32:"6b6b12b5cff37965b27afa67b6878ad0";s:12:"replacements";a:1:{i:0;a:3:{s:4:"type";s:12:"package-info";s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";}}s:12:"installed_as";s:35:"/usr/share/php/XML/Unserializer.php";}}s:10:"xsdversion";s:3:"1.0";s:15:"packagerversion";s:5:"1.4.0";s:7:"package";s:14:"XML_Serializer";s:7:"summary";s:106:"Swiss-army knive for reading and writing XML files. Creates XML files from data structures and vice versa.";s:11:"description";s:853:"XML_Serializer serializes complex data structures like arrays or object as XML documents.
+This class helps you generating any XML document you require without the need for DOM.
+Furthermore this package can be used as a replacement to serialize() and unserialize() as it comes with a matching XML_Unserializer that is able to create PHP data structures (like arrays and objects) from XML documents, if type hints are available.
+If you use the XML_Unserializer on standard XML files, it will try to guess how it has to be unserialized. In most cases it does exactly what you expect it to do.
+Try reading a RSS file with XML_Unserializer and you have the whole RSS file in a structured array or even a collection of objects, similar to XML_RSS.
+
+Since version 0.8.0 the package is able to treat XML documents similar to the simplexml extension of PHP 5.
+ 
+";s:11:"maintainers";a:1:{i:0;a:4:{s:6:"handle";s:5:"schst";s:4:"name";s:15:"Stephan Schmidt";s:5:"email";s:19:"schst@php-tools.net";s:4:"role";s:4:"lead";}}s:7:"version";s:6:"0.18.0";s:12:"release_date";s:10:"2005-10-02";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:601:"XML_Serializer:
+- Allow the use of '#default' whenever one wants to specify an option for any other key
+- fixed bug #4575 for real: XML_Serializer now expects __sleep() to return an array of property names
+XML_Unserializer:
+- Added new IGNORE_KEYS option to specify a list of tags which will not be unserialized using their names as keys
+- Added new GUESS_TYPE option to automatically convert the data to the best matching type
+- Allow COMPLEXTYPE to be an array to be able to unserialize to arrays or objects
+- Allow the use of '#default' whenever one wants to specify an option for any other tag
+  
+";s:12:"release_deps";a:5:{i:1;a:5:{s:4:"type";s:3:"pkg";s:3:"rel";s:2:"ge";s:7:"version";s:5:"1.1.1";s:8:"optional";s:2:"no";s:4:"name";s:8:"XML_Util";}i:2;a:5:{s:4:"type";s:3:"pkg";s:3:"rel";s:2:"ge";s:7:"version";s:5:"1.2.6";s:8:"optional";s:2:"no";s:4:"name";s:10:"XML_Parser";}i:3;a:4:{s:4:"type";s:3:"pkg";s:3:"rel";s:3:"has";s:8:"optional";s:2:"no";s:4:"name";s:4:"PEAR";}i:4;a:4:{s:4:"type";s:3:"php";s:3:"rel";s:2:"ge";s:7:"version";s:5:"4.2.0";s:8:"optional";s:2:"no";}i:5;a:4:{s:4:"type";s:3:"ext";s:3:"rel";s:3:"has";s:8:"optional";s:2:"no";s:4:"name";s:3:"xml";}}s:9:"changelog";a:22:{i:0;a:4:{s:7:"version";s:3:"0.2";s:12:"release_date";s:10:"2003-08-03";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:20:"inital release
+    
+";}i:1;a:4:{s:7:"version";s:3:"0.4";s:12:"release_date";s:10:"2003-08-12";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:237:"added Unserializer
+removed bug with object typehint
+removed bug with unnameditem w/o _originalKey attribute
+uses XML_Util to validate tagname
+serializer does not break on resources anymore
+added support for __sleep() and __wakeup()
+    
+";}i:2;a:5:{s:7:"version";s:3:"0.5";s:12:"release_date";s:10:"2003-08-14";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:285:"Unserializer is now able to unserialize XML files w/o type hints by automatically transforming multiple occurences of the same tag to an indexed array
+This is now similar to ext/simpleXML in PHP5 that means it can be used to parse any XML file, try it with your favorite RSS feed
+    
+";}i:3;a:5:{s:7:"version";s:3:"0.6";s:12:"release_date";s:10:"2003-08-21";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:398:"Unserializer is able to return the name of the root tag,
+added 'complexType' option to XML_Unserializer,
+added possibility to create nested objects from any XML file,
+tagname is used as classname if no other class is specified,
+added 'overrideOptions' option that can be used to restore the default options for a serialization,
+added 'keyAttribute' option to XML_Unserializer,
+added Todo list
+    
+";}i:4;a:5:{s:7:"version";s:3:"0.8";s:12:"release_date";s:10:"2003-09-23";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:1532:"XML_Serializer:
+* added option: scalarAsAttribute to create tags with attributes from an array or object,
+* added option: prependAttributes to enable a prepend string for attributes (ensure they are different from type hints),
+* added option: attributeIndent to allow multiline tags, if a tag has several attributes; this makes it easier to read (requested by Yavor Shahpasov),
+* now requires XML_Util 0.4.1 or newer,
+* added option: mode => simplexml, allows you to serialize indexed arrays like simpleXML of PHP5 does: tags use name of the parent structure and are in the same depth (this is still in alpha state, not thoroughly tested)
+
+XML_Unserializer:
+* added option: parseAttributes which allows you to parse tags with attributes,
+* added option: attributesArray to specify the name of the array in which attributes should be stored,
+* added option: prependAttributes to specify a prepend string for the generated array keys,
+* added option: contentName to specify the key for the content of a tag that contains also attributes
+* added option: tagMap, to change the names of the tags while parsing
+
+Both:
+* removed bug that occured when instantiating w/o options (reported by Alan Knowles),
+* added options: keyAttribute, typeAttribute and classAtribute to allow user to specify attribute names for typehints,
+* added resetOptions(),
+* added setOption(),
+* added option: overrideOptions that allows you to reset to defaults for one call of serialize or unserialize,
+* added some very small docs to defaultOptions arrays
+    
+";}i:5;a:5:{s:7:"version";s:5:"0.8.1";s:12:"release_date";s:10:"2003-09-23";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:377:"Bugfix release
+                                        
+XML_Serializer:
+* removed bug when using mode => simplexml and indexed arrays contained only scalar values,
+* removed bug with missing _originalKey attribute when serializing objects
+
+XML_Unserializer:
+* added check for set{$propName} method to use methods to set properties in Unserializer instead of direct access
+    
+";}i:6;a:5:{s:7:"version";s:3:"0.9";s:12:"release_date";s:10:"2003-10-13";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:370:"XML_Serializer:
++ added support for doctype declaration (requested by Lapo 'Raist' Luchini),
+* changed tagName option to rootName option (tagName is still supported but deprecated),
++ added rootAttributes option (thanks to Lapo 'Raist' Luchini),
++ added rootName option for serializing objects
+
+XML_Unserializer:
+* removed bug with unserializing aggregated objects
+    
+";}i:7;a:5:{s:7:"version";s:5:"0.9.1";s:12:"release_date";s:10:"2003-10-26";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:20:"fixed bug #105
+    
+";}i:8;a:5:{s:7:"version";s:5:"0.9.2";s:12:"release_date";s:10:"2004-04-23";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:59:"fixed invalid multiple call to XML_Parser constructor
+    
+";}i:9;a:5:{s:7:"version";s:6:"0.10.0";s:12:"release_date";s:10:"2004-05-24";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:204:"- fixed bug #1478 (Array to string conversion)
+- fixed bug #170 (RDF examples produce incorrect code)
+- added new options to XML_Serializer: attributesArray and contentName to match XML_Unserializer
+    
+";}i:10;a:5:{s:7:"version";s:6:"0.10.1";s:12:"release_date";s:10:"2004-07-12";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:61:"fixed bug #1846 (unserialization bug with empty arrays)
+    
+";}i:11;a:5:{s:7:"version";s:6:"0.11.0";s:12:"release_date";s:10:"2004-08-24";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:228:"Serializer:
+- Request #2019 (use classname as tagname in indexed arrays)
+- replaced double quotes with single quotes
+- some CS fixes
+
+Unserializer:
+- added new option 'forceEnum'
+- replaced double quotes with single quotes
+    
+";}i:12;a:5:{s:7:"version";s:6:"0.11.1";s:12:"release_date";s:10:"2004-08-25";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:55:"Serializer:
+- fixed bug with default line endings
+    
+";}i:13;a:5:{s:7:"version";s:6:"0.12.0";s:12:"release_date";s:10:"2004-11-03";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:136:"Serializer:
+- added new option tagMap (requested by Toby)
+Unserializer:
+- added encoding option (thanks to mc[at]glouglou[dot]net)
+    
+";}i:14;a:5:{s:7:"version";s:6:"0.13.0";s:12:"release_date";s:10:"2004-11-06";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:221:"Serializer:
+- fixed bug #2688: in simplexml mode $array needs to be non-empty (thanks to demian[at]phpkitchen[dot]com and derek[at]hostbaby[dot]com)
+Unserializer:
+- implemented Request #2650: Multiple key attributes
+    
+";}i:15;a:5:{s:7:"version";s:6:"0.13.1";s:12:"release_date";s:10:"2004-11-26";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:164:"Serializer:
+- fixed error handling (suppress error handling, when XML_Util returns an error) (patch by Lukas Smith)
+- replaced some left-over tabs with spaces
+    
+";}i:16;a:5:{s:7:"version";s:6:"0.14.0";s:12:"release_date";s:10:"2004-12-22";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:539:"Serializer:
+- new option 'encodeFunction' to apply a PHP function to character data and attributes before serializing the data
+Unserializer:
+- Does no longer extend XML_Parser (allows to change encoding at runtime), this could break some scripts
+- new option 'targetEncoding' to specify the target encoding for character data
+- new option 'decodeFunction' to apply a PHP function on character data and attributes while unserializing the document
+- some tiny whitespace fixes
+Global:
+- new requires XML_Parser 1.2.2 and XML_Util 1.1.0
+    
+";}i:17;a:5:{s:7:"version";s:6:"0.14.1";s:12:"release_date";s:10:"2004-12-27";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:92:"Bugfix release:
+- XML_Unserializer now again extends PEAR to use PEAR error management
+    
+";}i:18;a:5:{s:7:"version";s:6:"0.15.0";s:12:"release_date";s:10:"2005-02-12";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:306:"XML_Serializer:
+- added option to return the result directly from serialize()
+XML_Unserializer:
+- added option to return the result directly from unserialize(),
+- added defaultClass option
+- added tagAsClass option (fixes Bug #3303)
+- fixed bug (tag name was not used as classname when tag was empty)
+    
+";}i:19;a:5:{s:7:"version";s:6:"0.16.0";s:12:"release_date";s:10:"2005-06-05";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:506:"XML_Serializer:
+- introduced constants for all options (this helps avoiding typos in the option names)
+- deprecated option 'tagName' is no longer supported, use XML_SERIALIZER_OPTION_ROOT_NAME (or rootName) instead
+- implement Request #3762: added new ignoreNull option to ignore properties that are set to null when serializing objects or arrays
+- fixed bug with encoding function
+- use new header comment blocks
+XML_Unserializer:
+- fix bug #4075 (allow tagMap option to influence any kind of value)
+    
+";}i:20;a:5:{s:7:"version";s:6:"0.17.0";s:12:"release_date";s:10:"2005-09-24";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:677:"XML_Serializer:
+- fixed bug #4575: use the return values of __sleep() when serializing objects
+- allow XML_SERIALIZER_OPTION_DEFAULT_TAG to be set as array to set different default tags based on the surrounding tag
+- allow XML_SERIALIZER_OPTION_SCALAR_AS_ATTRIBUTES to be set as array to selectively use scalar values as attributes
+- allow scalar values as first argument to serialize()
+- implemented request #3180: Add option to create cdata sections
+XML_Unserializer:
+- added constants for all options
+- fixed bug #5187: decode function should decode cdata instead of the element name
+- implemented request #3700: Treatment of whitespace can be influenced via an option
+    
+";}i:21;a:5:{s:7:"version";s:6:"0.18.0";s:12:"release_date";s:10:"2005-10-02";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:603:"XML_Serializer:
+- Allow the use of '#default' whenever one wants to specify an option for any other key
+- fixed bug #4575 for real: XML_Serializer now expects __sleep() to return an array of property names
+XML_Unserializer:
+- Added new IGNORE_KEYS option to specify a list of tags which will not be unserialized using their names as keys
+- Added new GUESS_TYPE option to automatically convert the data to the best matching type
+- Allow COMPLEXTYPE to be an array to be able to unserialize to arrays or objects
+- Allow the use of '#default' whenever one wants to specify an option for any other tag
+    
+";}}s:12:"_lastversion";N;s:7:"dirtree";a:3:{s:38:"/usr/share/php/data/XML_Serializer/doc";b:1;s:43:"/usr/share/php/docs/XML_Serializer/examples";b:1;s:18:"/usr/share/php/XML";b:1;}s:13:"_lastmodified";i:1174302837;}

@@ -1,0 +1,35 @@
+/* 
+    Document   : stylesheet.css
+    Created on : 30 May 2010, 1:11:21 PM
+    Author     : dkeats
+    Description:
+        The green canvas for demonstrating personal canvases
+*/
+
+
+html, body {
+    background: url('images/bg.gif');
+    background-repeat: repeat;
+    background-attachment: fixed;
+}
+
+/*
+    The canvas elements
+*/
+.ChisimbaCanvas {
+    width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+div#header div#search {
+    margin: 0;
+    margin: 10px;
+    padding: 10px;
+    color: gray;
+    width: 360px;
+    position: relative;
+    margin-top: -32px;
+    margin-left: 650px;
+}

@@ -1,0 +1,11 @@
+
+////// BEGIN MARKED FOR DELETE ---------------------------------
+$instructorProfile = "";
+
+//See if tcontextinstructor is registered, if so, then show
+$isRegistered = $objModule->checkIfRegistered('contextinstructor');
+if ($isRegistered) {
+    $objContextInstructor = $this->getObject('manager', 'contextinstructor');
+    $instructorProfile ='<ul id="nav-secondary">' .  $objContextInstructor->show() . '</ul>';
+}
+////// END MARKED FOR DELETE ------------------------------------

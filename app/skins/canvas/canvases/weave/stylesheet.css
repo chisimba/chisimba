@@ -1,0 +1,11 @@
+html, body {
+    background: url('images/bg.jpg');
+}
+
+#header a, a.visited {
+    color: #5a3f1e;
+}
+
+#header a:hover, a.visited:hover {
+    color: #4c4d4f;
+}

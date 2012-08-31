@@ -1,0 +1,6 @@
+chisimba (3.3.0) unstable; urgency=low
+
+  * New upstream release.
+    - Added debian specifics for upstreaming to PPA
+
+ -- Paul Scott <pscott@uwc.ac.za>  Sun, 22 May 2011 14:46:59 +0200

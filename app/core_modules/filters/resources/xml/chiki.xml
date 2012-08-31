@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<filter>
+  <name>Chiki</name>
+  <description>Takes a Chisimba Wiki-like codes, also known as a chiki, and renders some output based on it.</description>
+  <type>chisimba_chiki</type>
+  <formats>
+    <format>{chikicode}</format>
+  </formats>
+  <examples>
+     <example>{wiki}</example>
+     <example>{blog}</example>
+     <example>{needsedit}</example>
+  </examples>
+  <num_of_parameters>0</num_of_parameters>
+  <labels>
+     <label>
+       <for>filter_text</for>
+       <text>Select the chiki from the dropdown.</text>
+     </label>
+  <labels>
+  <before>{</before>
+  <after>}</after>
+</filter>

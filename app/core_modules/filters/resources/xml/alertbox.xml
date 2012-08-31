@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<filter>
+  <name>Alertbox</name>
+  <description>Insert an alert box containing a link to external content which is 
+    NOT a full webpage (i.e. does'nt contain body HTML tags. When clicked the content
+    appears in a popup box, simlar to the alerts on Facebook. This is sometimes 
+    referred to as a lightbox (images) or a Facebox (after Facebook).
+  </description>
+  <type>chisimba</type>
+  <formats>
+    <format>[ALERTBOX: url=http://myserver.mydomain/myfile.ext]The text that will have the link[/ALERTBOX]</format>
+  </formats>
+  <examples>
+     <example>[ALERTBOX: url=http://localhost/myfile.txt]Click here to see My File.[/ALERTBOX]</example>
+  </examples>
+  <num_of_parameters>1</num_of_parameters>
+  <params>
+    <param>
+       <name>url</name>
+       <value>A valid URL to a file that can be presented in a web browser (e.g. an image, text, etc)</value>
+    </param>
+  </params>
+  <before>[ALERTBOX: __params__]</before>
+  <after>[/ALERTBOX]</after>
+</filter>

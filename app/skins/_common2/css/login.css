@@ -1,0 +1,55 @@
+/************************************************
+Styles for loging box
+************************************************/
+#username_label {
+
+}
+
+#username_input {
+
+}
+
+#password_label {
+
+}
+
+#password_input {
+
+}
+
+#ldap_label {
+
+}
+
+#ldap_tickbox {
+
+}
+
+
+#rememberme_label {
+
+}
+
+#rememberme_tickbox {
+
+}
+
+#forgotpwdlink {
+
+}
+
+#loginhelpicon {
+
+}
+
+.openidlogin {
+    padding-right: 10px;
+}
+
+.openidlogin fieldset {
+    width: 98%;
+}
+
+#input_openIDField {
+    width: 170px;
+}

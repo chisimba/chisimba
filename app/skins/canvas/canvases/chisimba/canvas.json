@@ -1,0 +1,14 @@
+{
+    "name": "chisimba",
+    "description": "This is the Chisimba skin done as a canvas.",
+    "downloadfrom":"http://www.chisimba.com/usrfiles/users/9448100319/downloads/canvases/chisimba.zip",
+    "preview": {
+        "thumb": "chisimba_th.png",
+        "fullview":"chisimba.png"
+    },
+    "author": {
+        "authorname":"Derek Keats",
+        "email":"derek@dkeats.com",
+        "url":"http://www.dkeats.com"
+    }
+}

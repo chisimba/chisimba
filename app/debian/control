@@ -1,0 +1,18 @@
+Source: chisimba
+Maintainer: Paul Scott <pscott@uwc.ac.za>
+Uploaders: Paul Scott <pscott@uwc.ac.za>
+Section: web
+Priority: extra
+Standards-Version: 3.9.1
+Build-Depends: debhelper (>= 7)
+Homepage: http://www.chisimba.com/
+Vcs-Browser: https://trac.uwc.ac.za/chisimba/framework
+Vcs-Svn: https://cvs2.uwc.ac.za/chisimba/framework/trunk
+Package: chisimba
+Architecture: all
+Depends: libapache2-mod-php5,
+    php5-mysql, php5-mysqli, php5-pgsql, 
+    php5-mcrypt, php5-gd, php5-imap, php5-curl, php-pear
+Recommends: apache2, mysql-client
+Suggests: mysql-server, www-browser
+Description: Web application framework. This package allows running a Chisimba framework instance.

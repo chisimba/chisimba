@@ -1,0 +1,144 @@
+/*
+    Document   : stylesheet.css
+    Created on : 30 May 2010, 1:11:21 PM
+    Author     : dkeats
+    Description:
+        Leave this blank for consistency to implement the underlying skin as a canvas to enable selecting.
+*/
+
+html, body {
+    background-image: none;
+    background-color: #221D1B;
+}
+
+body {
+    font-family: Verdana, Arial, sans-serif;
+    background: transparent;
+    font-size: 12px;
+    color: white;
+}
+
+
+/* Fixed width canvas */
+.ChisimbaCanvas {
+    width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.Canvas_Content_Body {
+    float: left;
+    display:block;
+    background: transparent;
+}
+
+.Canvas_Content_Body_Before{
+    clear:both;
+}
+
+#Canvas_Content_Body_Region1,
+#Canvas_Content_Body_Region2,
+#Canvas_Content_Body_Region3 {
+    background: transparent;
+    background-image: none;
+}
+
+#container {
+    background: #142a1d;
+    border: solid silver 1px;
+    padding: 0px;
+}
+
+#header {
+    background: url("images/header.jpg") top left no-repeat;
+    height: 225px;
+    margin-bottom: -12px;
+    padding-left: 30px;
+}
+
+#header h1 {
+    margin-top: 45px;
+    margin-left: 540px;
+}
+
+#header a, a.visited {
+    color: #FFFFFF;
+}
+
+#header a:hover, a.visited:hover {
+    color: #989898;
+}
+
+/* Locate the search box correctly */
+div#header div#search {
+    margin: 0;
+    margin: 10px;
+    padding: 10px;
+    color: gray;
+    width: 360px;
+    position: relative;
+    margin-top: 90px;
+    margin-left: 650px;
+}
+
+#menu {
+    margin-left: 5px;
+}
+
+#navigation {
+    margin-top: -42px;
+}
+
+#menuList {
+    background: transparent url("images/navbg.png") top left no-repeat;
+    height: 32px;
+    width: 820px;
+}
+
+ul#menuList li {
+    width: 123px;
+}
+
+ul#menuList li.first {
+    margin-left: 6px;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* Nice blockquotes */
+blockquote {
+    background:#f9f9f9;
+    border-left:10px solid #ccc;
+    margin:1.5em 10px;
+    padding:.5em 10px;
+    quotes:"\201C""\201D""\2018""\2019";
+}
+blockquote:before {
+    color:#ccc;
+    content:open-quote;
+    font-size:4em;
+    line-height:.1em;
+    margin-right:.25em;
+    vertical-align:-.4em;
+}
+blockquote p {
+    display:inline;
+}
+
+/*
+
+Style the menu
+
+*/
+#menu>ul>li {
+    background: url("images/breadinternal.png") top left repeat-x;
+}

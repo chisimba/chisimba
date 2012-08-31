@@ -1,0 +1,61 @@
+body {
+	margin: 0 auto; font: normal 100% "Georgia","Times New Roman","Times",serif; color: #333; text-align: center; background: #fff;
+}
+a {
+	color: #daa520;
+}
+.ads {
+    padding: 24px 0 12px 0; font-family: "Arial","Verdana","Helvetica",sans-serif; text-align: center;
+}
+.skip {
+	position: absolute; left: -5000px;
+}
+.photos {
+    text-align: center; padding: 24px 0 0 0;
+}
+#wrapper {
+    width: 750px; margin: 0 auto; text-align: center;
+}
+p {
+    margin: 0; line-height: 1.4;
+}
+.example_1, .example_2, .example_3, .example_4 {
+    font-size: .8em; padding: 0 0 12px 0; text-align: left;
+}
+.example_3 ul {
+    padding-top: 12px;
+    font-size: 1em;
+}
+.example_3 ul li {
+    font-size: 1em;
+}
+p.description {
+    font-size: 1.2em; padding: 12px 0 12px 0; border-top: #ccc 1px dashed;
+}
+p.version {
+    font-size: .8em; background: #f5f5f5; padding: 4px 0;
+}
+p.contents {
+    font-size: .8em; padding: 12px 0;
+}
+p.release {
+    font-size: .8em; padding: 0 0 12px 0;
+}
+p.download {
+    font-size: .8em; padding: 0 0 12px 0; text-align: left;
+}
+h1 {
+    font-weight: normal; padding: 16px 0 8px 0; margin: 0;
+}
+h2 {
+    font-size: .8em; font-weight: normal; padding: 0 0 16px 0; margin: 0;
+}
+h3 {
+    font-size: 1em; font-weight: normal; padding: 0 0 16px 0; margin: 0; text-align: left;
+}
+ul {
+    margin-top: 0; margin-bottom: 0; padding-top: 0; padding-bottom: 12px;
+}
+ul li {
+    font-size: .8em; margin-top: 0; margin-bottom: 0; padding-top: 0; padding-bottom: 6px; text-align: left;
+}

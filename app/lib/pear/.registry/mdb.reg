@@ -1,0 +1,267 @@
+a:17:{s:8:"provides";a:0:{}s:8:"filelist";a:55:{s:7:"MDB.php";a:3:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:1:"/";s:12:"installed_as";s:22:"/usr/share/php/MDB.php";}s:6:"README";a:2:{s:4:"role";s:3:"doc";s:12:"installed_as";s:30:"/usr/share/php/docs/MDB/README";}s:11:"MAINTAINERS";a:2:{s:4:"role";s:3:"doc";s:12:"installed_as";s:35:"/usr/share/php/docs/MDB/MAINTAINERS";}s:4:"TODO";a:2:{s:4:"role";s:3:"doc";s:12:"installed_as";s:28:"/usr/share/php/docs/MDB/TODO";}s:14:"MDB/Common.php";a:2:{s:4:"role";s:3:"php";s:12:"installed_as";s:29:"/usr/share/php/MDB/Common.php";}s:16:"MDB/querysim.php";a:2:{s:4:"role";s:3:"php";s:12:"installed_as";s:31:"/usr/share/php/MDB/querysim.php";}s:13:"MDB/mssql.php";a:2:{s:4:"role";s:3:"php";s:12:"installed_as";s:28:"/usr/share/php/MDB/mssql.php";}s:13:"MDB/ibase.php";a:2:{s:4:"role";s:3:"php";s:12:"installed_as";s:28:"/usr/share/php/MDB/ibase.php";}s:12:"MDB/oci8.php";a:2:{s:4:"role";s:3:"php";s:12:"installed_as";s:27:"/usr/share/php/MDB/oci8.php";}s:13:"MDB/fbsql.php";a:2:{s:4:"role";s:3:"php";s:12:"installed_as";s:28:"/usr/share/php/MDB/fbsql.php";}s:13:"MDB/mysql.php";a:2:{s:4:"role";s:3:"php";s:12:"installed_as";s:28:"/usr/share/php/MDB/mysql.php";}s:13:"MDB/pgsql.php";a:2:{s:4:"role";s:3:"php";s:12:"installed_as";s:28:"/usr/share/php/MDB/pgsql.php";}s:12:"MDB/Date.php";a:2:{s:4:"role";s:3:"php";s:12:"installed_as";s:27:"/usr/share/php/MDB/Date.php";}s:15:"MDB/Manager.php";a:2:{s:4:"role";s:3:"php";s:12:"installed_as";s:30:"/usr/share/php/MDB/Manager.php";}s:14:"MDB/Parser.php";a:2:{s:4:"role";s:3:"php";s:12:"installed_as";s:29:"/usr/share/php/MDB/Parser.php";}s:24:"MDB/metabase_wrapper.php";a:2:{s:4:"role";s:3:"php";s:12:"installed_as";s:39:"/usr/share/php/MDB/metabase_wrapper.php";}s:22:"MDB/peardb_wrapper.php";a:2:{s:4:"role";s:3:"php";s:12:"installed_as";s:37:"/usr/share/php/MDB/peardb_wrapper.php";}s:35:"MDB/reverse_engineer_xml_schema.php";a:2:{s:4:"role";s:3:"php";s:12:"installed_as";s:50:"/usr/share/php/MDB/reverse_engineer_xml_schema.php";}s:19:"MDB/Modules/LOB.php";a:2:{s:4:"role";s:3:"php";s:12:"installed_as";s:34:"/usr/share/php/MDB/Modules/LOB.php";}s:30:"MDB/Modules/Manager/Common.php";a:2:{s:4:"role";s:3:"php";s:12:"installed_as";s:45:"/usr/share/php/MDB/Modules/Manager/Common.php";}s:29:"MDB/Modules/Manager/mssql.php";a:2:{s:4:"role";s:3:"php";s:12:"installed_as";s:44:"/usr/share/php/MDB/Modules/Manager/mssql.php";}s:29:"MDB/Modules/Manager/ibase.php";a:2:{s:4:"role";s:3:"php";s:12:"installed_as";s:44:"/usr/share/php/MDB/Modules/Manager/ibase.php";}s:28:"MDB/Modules/Manager/oci8.php";a:2:{s:4:"role";s:3:"php";s:12:"installed_as";s:43:"/usr/share/php/MDB/Modules/Manager/oci8.php";}s:29:"MDB/Modules/Manager/fbsql.php";a:2:{s:4:"role";s:3:"php";s:12:"installed_as";s:44:"/usr/share/php/MDB/Modules/Manager/fbsql.php";}s:29:"MDB/Modules/Manager/mysql.php";a:2:{s:4:"role";s:3:"php";s:12:"installed_as";s:44:"/usr/share/php/MDB/Modules/Manager/mysql.php";}s:29:"MDB/Modules/Manager/pgsql.php";a:2:{s:4:"role";s:3:"php";s:12:"installed_as";s:44:"/usr/share/php/MDB/Modules/Manager/pgsql.php";}s:17:"doc/tutorial.html";a:2:{s:4:"role";s:3:"doc";s:12:"installed_as";s:41:"/usr/share/php/docs/MDB/doc/tutorial.html";}s:18:"doc/datatypes.html";a:2:{s:4:"role";s:3:"doc";s:12:"installed_as";s:42:"/usr/share/php/docs/MDB/doc/datatypes.html";}s:33:"doc/xml_schema_documentation.html";a:2:{s:4:"role";s:3:"doc";s:12:"installed_as";s:57:"/usr/share/php/docs/MDB/doc/xml_schema_documentation.html";}s:18:"doc/xml_schema.xsl";a:2:{s:4:"role";s:3:"doc";s:12:"installed_as";s:42:"/usr/share/php/docs/MDB/doc/xml_schema.xsl";}s:16:"doc/skeleton.php";a:2:{s:4:"role";s:3:"doc";s:12:"installed_as";s:40:"/usr/share/php/docs/MDB/doc/skeleton.php";}s:32:"doc/Modules_Manager_skeleton.php";a:2:{s:4:"role";s:3:"doc";s:12:"installed_as";s:56:"/usr/share/php/docs/MDB/doc/Modules_Manager_skeleton.php";}s:12:"tests/README";a:2:{s:4:"role";s:4:"test";s:12:"installed_as";s:37:"/usr/share/php/tests/MDB/tests/README";}s:14:"tests/test.php";a:2:{s:4:"role";s:4:"test";s:12:"installed_as";s:39:"/usr/share/php/tests/MDB/tests/test.php";}s:17:"tests/clitest.php";a:2:{s:4:"role";s:4:"test";s:12:"installed_as";s:42:"/usr/share/php/tests/MDB/tests/clitest.php";}s:20:"tests/testchoose.php";a:2:{s:4:"role";s:4:"test";s:12:"installed_as";s:45:"/usr/share/php/tests/MDB/tests/testchoose.php";}s:26:"tests/MDB_api_testcase.php";a:2:{s:4:"role";s:4:"test";s:12:"installed_as";s:51:"/usr/share/php/tests/MDB/tests/MDB_api_testcase.php";}s:30:"tests/MDB_manager_testcase.php";a:2:{s:4:"role";s:4:"test";s:12:"installed_as";s:55:"/usr/share/php/tests/MDB/tests/MDB_manager_testcase.php";}s:28:"tests/MDB_usage_testcase.php";a:2:{s:4:"role";s:4:"test";s:12:"installed_as";s:53:"/usr/share/php/tests/MDB/tests/MDB_usage_testcase.php";}s:27:"tests/MDB_bugs_testcase.php";a:2:{s:4:"role";s:4:"test";s:12:"installed_as";s:52:"/usr/share/php/tests/MDB/tests/MDB_bugs_testcase.php";}s:27:"tests/HTML_TestListener.php";a:2:{s:4:"role";s:4:"test";s:12:"installed_as";s:52:"/usr/share/php/tests/MDB/tests/HTML_TestListener.php";}s:30:"tests/Console_TestListener.php";a:2:{s:4:"role";s:4:"test";s:12:"installed_as";s:55:"/usr/share/php/tests/MDB/tests/Console_TestListener.php";}s:15:"tests/tests.css";a:2:{s:4:"role";s:4:"test";s:12:"installed_as";s:40:"/usr/share/php/tests/MDB/tests/tests.css";}s:19:"tests/testUtils.php";a:2:{s:4:"role";s:4:"test";s:12:"installed_as";s:44:"/usr/share/php/tests/MDB/tests/testUtils.php";}s:25:"tests/test_setup.php.dist";a:2:{s:4:"role";s:4:"test";s:12:"installed_as";s:50:"/usr/share/php/tests/MDB/tests/test_setup.php.dist";}s:17:"tests/test.schema";a:2:{s:4:"role";s:4:"test";s:12:"installed_as";s:42:"/usr/share/php/tests/MDB/tests/test.schema";}s:18:"tests/MDB_test.php";a:2:{s:4:"role";s:4:"test";s:12:"installed_as";s:43:"/usr/share/php/tests/MDB/tests/MDB_test.php";}s:31:"tests/MDB_pear_wrapper_test.php";a:2:{s:4:"role";s:4:"test";s:12:"installed_as";s:56:"/usr/share/php/tests/MDB/tests/MDB_pear_wrapper_test.php";}s:29:"tests/metapear_test_db.schema";a:2:{s:4:"role";s:4:"test";s:12:"installed_as";s:54:"/usr/share/php/tests/MDB/tests/metapear_test_db.schema";}s:28:"tests/driver_test_config.php";a:2:{s:4:"role";s:4:"test";s:12:"installed_as";s:53:"/usr/share/php/tests/MDB/tests/driver_test_config.php";}s:21:"tests/driver_test.php";a:2:{s:4:"role";s:4:"test";s:12:"installed_as";s:46:"/usr/share/php/tests/MDB/tests/driver_test.php";}s:20:"tests/setup_test.php";a:2:{s:4:"role";s:4:"test";s:12:"installed_as";s:45:"/usr/share/php/tests/MDB/tests/setup_test.php";}s:24:"tests/driver_test.schema";a:2:{s:4:"role";s:4:"test";s:12:"installed_as";s:49:"/usr/share/php/tests/MDB/tests/driver_test.schema";}s:21:"tests/lob_test.schema";a:2:{s:4:"role";s:4:"test";s:12:"installed_as";s:46:"/usr/share/php/tests/MDB/tests/lob_test.schema";}s:27:"tests/templates/results.tpl";a:2:{s:4:"role";s:4:"test";s:12:"installed_as";s:52:"/usr/share/php/tests/MDB/tests/templates/results.tpl";}}s:10:"xsdversion";s:3:"1.0";s:7:"package";s:3:"MDB";s:7:"summary";s:26:"database abstraction layer";s:11:"description";s:1318:"PEAR MDB is a merge of the PEAR DB and Metabase php database abstraction layers.
+It provides a common API for all support RDBMS. The main difference to most
+other DB abstraction packages is that MDB goes much further to ensure
+portability. Among other things MDB features:
+* An OO-style query API
+* A DSN (data source name) or array format for specifying database servers
+* Datatype abstraction and on demand datatype conversion
+* Portable error codes
+* Sequential and non sequential row fetching as well as bulk fetching
+* Ordered array and associative array for the fetched rows
+* Prepare/execute (bind) emulation
+* Sequence emulation
+* Replace emulation
+* Limited Subselect emulation
+* Row limit support
+* Transactions support
+* Large Object support
+* Index/Unique support
+* Module Framework to load advanced functionality on demand
+* Table information interface
+* RDBMS management methods (creating, dropping, altering)
+* RDBMS independent xml based schema definition management
+* Altering of a DB from a changed xml schema
+* Reverse engineering of xml schemas from an existing DB (currently only MySQL)
+* Full integration into the PEAR Framework
+* Wrappers for the PEAR DB and Metabase APIs
+* PHPDoc API documentation
+Currently supported RDBMS:
+MySQL
+PostGreSQL
+Oracle
+Frontbase
+Querysim
+Interbase/Firebird
+MSSQL
+";s:11:"maintainers";a:8:{i:0;a:4:{s:6:"handle";s:6:"lsmith";s:4:"name";s:17:"Lukas Kahwe Smith";s:5:"email";s:14:"lsmith@php.net";s:4:"role";s:4:"lead";}i:1;a:4:{s:6:"handle";s:8:"dickmann";s:4:"name";s:18:"Christian Dickmann";s:5:"email";s:17:"chrisdicki@gmx.de";s:4:"role";s:11:"contributor";}i:2;a:4:{s:6:"handle";s:3:"pgc";s:4:"name";s:11:"Paul Cooper";s:5:"email";s:14:"pgc@ucecom.com";s:4:"role";s:11:"contributor";}i:3;a:4:{s:6:"handle";s:3:"ssb";s:4:"name";s:19:"Stig Sæther Bakken";s:5:"email";s:12:"stig@php.net";s:4:"role";s:11:"contributor";}i:4;a:4:{s:6:"handle";s:3:"cox";s:4:"name";s:13:"Tomas V.V.Cox";s:5:"email";s:11:"cox@php.net";s:4:"role";s:11:"contributor";}i:5;a:4:{s:6:"handle";s:6:"manuel";s:4:"name";s:12:"Manuel Lemos";s:5:"email";s:14:"mlemos@acm.org";s:4:"role";s:11:"contributor";}i:6;a:4:{s:6:"handle";s:3:"fmk";s:4:"name";s:16:"Frank M. Kromann";s:5:"email";s:18:"frank@kromann.info";s:4:"role";s:11:"contributor";}i:7;a:4:{s:6:"handle";s:5:"quipo";s:4:"name";s:16:"Lorenzo Alberton";s:5:"email";s:19:"l.alberton@quipo.it";s:4:"role";s:11:"contributor";}}s:7:"version";s:5:"1.3.0";s:12:"release_date";s:10:"2003-04-22";s:15:"release_license";s:9:"BSD style";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:1480:"MDB requires PHP 4.2 from now on.
+MDB:
+- fixed PHP5 compatibility issue in MDB::isError()
+all drivers:
+- added quoteIdentifier() method
+- added sequence_col_name option to make the column name inside sequence
+  emulation tables configurable
+- renamed toString() to __toString() in order to take advantage of new PHP5
+  goodness and made it public
+- unified the native error raising methods (tested on oracle, pgsql, mysql and ibase)
+- fixed bug #1159 which would break index handling in getTableFieldDefinition()
+  if not in portability mode
+MDB_ibase:
+- fixed several bugs in the buffering code
+- fixed NULL management
+- fixed replace()
+MDB_oci8:
+- fixed several bugs in the buffering code
+- added native currId() implementation
+MDB_Manager_oci8:
+- added listTables() and listTableFields()
+MDB_mysql:
+- added quoteIdentifier() method
+MDB_fbsql:
+- removed broken implementations of currId()
+MDB_mssql:
+- removed broken implementations of currId()
+- added quoteIdentifier() method
+MDB_Manager_mysql:
+- fixed mysql 4.0.13 issue in createSequence()
+- several fixes to ensure the correct case is used when fetching data
+  without the portability flag setting enabled
+MDB_Manager_mssql:
+- added listTables() and listTableFields()
+- added getTableFieldDefinition() (still alpha quality)
+test suite:
+- added several test and applied PHP5 compatibility fixes
+- fixed a wrong assumption in the fetchmode bug test
+- moved set_time_limit() call to the setup script to be easier to customize
+";s:12:"release_deps";a:3:{i:1;a:3:{s:4:"type";s:3:"php";s:3:"rel";s:2:"ge";s:7:"version";s:5:"4.2.0";}i:2;a:4:{s:4:"type";s:3:"pkg";s:3:"rel";s:2:"ge";s:7:"version";s:5:"1.0b1";s:4:"name";s:4:"PEAR";}i:3;a:3:{s:4:"type";s:3:"pkg";s:3:"rel";s:3:"has";s:4:"name";s:10:"XML_Parser";}}s:9:"changelog";a:28:{i:0;a:4:{s:7:"version";s:3:"1.3";s:12:"release_date";s:10:"2003-04-22";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:1481:"MDB requires PHP 4.2 from now on.
+MDB:
+- fixed PHP5 compatibility issue in MDB::isError()
+all drivers:
+- added quoteIdentifier() method
+- added sequence_col_name option to make the column name inside sequence
+  emulation tables configurable
+- renamed toString() to __toString() in order to take advantage of new PHP5
+  goodness and made it public
+- unified the native error raising methods (tested on oracle, pgsql, mysql and ibase)
+- fixed bug #1159 which would break index handling in getTableFieldDefinition()
+  if not in portability mode
+MDB_ibase:
+- fixed several bugs in the buffering code
+- fixed NULL management
+- fixed replace()
+MDB_oci8:
+- fixed several bugs in the buffering code
+- added native currId() implementation
+MDB_Manager_oci8:
+- added listTables() and listTableFields()
+MDB_mysql:
+- added quoteIdentifier() method
+MDB_fbsql:
+- removed broken implementations of currId()
+MDB_mssql:
+- removed broken implementations of currId()
+- added quoteIdentifier() method
+MDB_Manager_mysql:
+- fixed mysql 4.0.13 issue in createSequence()
+- several fixes to ensure the correct case is used when fetching data
+  without the portability flag setting enabled
+MDB_Manager_mssql:
+- added listTables() and listTableFields()
+- added getTableFieldDefinition() (still alpha quality)
+test suite:
+- added several test and applied PHP5 compatibility fixes
+- fixed a wrong assumption in the fetchmode bug test
+- moved set_time_limit() call to the setup script to be easier to customize
+
+";}i:1;a:4:{s:7:"version";s:3:"1.2";s:12:"release_date";s:10:"2004-01-11";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:405:"- fixed potential memory leaks in the handling of metadata associated with
+  result sets
+- silenced all calls to native RDBMS API calls
+MDB:
+- fixed issue in MDB::singleton() when using array dsn's
+MDB_Common:
+- fixed typo in fetchCol (bug #523)
+MDB_Driver_mssql:
+- fixed parse error
+MDB_Driver_oci:
+- fixed bug in the result buffering code
+test suite:
+- fixed typo in the output of console test results
+
+";}i:2;a:4:{s:7:"version";s:5:"1.1.4";s:12:"release_date";s:10:"2004-01-05";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:2105:"This release marks the end of the feature additions to MDB 1.x. All further
+feature additions will do into the MDB 2.x (aka MDB2) branch. MDB 1.x will
+of course still be actively maintained and possibly new drivers may get added.
+All:
+- fixed issues with PHP5
+- cosmetic fixes
+MDB Class:
+- added MDB::isConnection()
+- fixed issues in MDB::singleton() if instances of MDB have been disconnected
+test suite:
+- minor improvements to the test suite
+- fixed most CS issues in the test suite
+- fixed bug in test suite (user_id was incorrectly set to type text instead of integer)
+- added a test for MDB::singleton()
+MDB_Common:
+- fixed bug in support() that would result in always returning true
+- fixed bug in getValue() when $type is empty
+- fixed bug in getDSN() incorrect handling of port value
+- fixed bug in currID() which would result in a fatal error
+- fixed the common implementation of fetchInto()
+- added MDB_FETCHMODE_ASSOC to the common implementation of fetchInto()
+All drivers:
+- backported several fixes from HEAD to each of the drivers
+- fixed bug in extension detection in all drivers
+- fixed bug 22328
+- added notes at the top of the driver regarding driver specfic issues
+- disconnect now unsets instead of overwriting with '' in $GLOBALS['_MDB_databases']
+- added optimize option
+- lowercase keys in associative results if optimize option is set to portability
+MySQL driver:
+- fixed bug in the transaction support detection in the manager class
+Interbase driver:
+- now passes all but the transaction test
+- now also supports associative fetching
+- added missing getTypeDeclaration() method
+- fixed replace emulation
+- fixed bug in interbase driver LOB handling
+- fixed autofree in fetchInto()
+Oracle driver:
+- fixed autofree in fetchInto()
+- fixed a typo in convertResult()
+MSSQL driver:
+- now passes all tests
+- numerous bug fixes
+FBSQL driver:
+- numerous bug fixes to all parts of the driver (especially to the connection handling,
+datatype abstraction, limit support and manager class)
+PGSQL driver:
+- fixed a bug in the error code mapping due to changes in recent PostGreSQL versions
+
+
+";}i:3;a:4:{s:7:"version";s:5:"1.1.3";s:12:"release_date";s:10:"2003-06-13";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:254:"- added MDB::singleton()
+- added MDB_Common destructor
+- fixed serious issue in fetch[One|Row|Col|All] which prevented result sets to be free-ed correctly
+- improvements to the manager test suite
+- added MSSQL driver (alpha)
+- improved Frontbase driver
+
+";}i:4;a:4:{s:7:"version";s:9:"1.1.3-RC2";s:12:"release_date";s:10:"2003-06-03";s:13:"release_state";s:5:"devel";s:13:"release_notes";s:197:"- added MDB::singleton()
+- added MDB_Common destructor
+- fixed serious issue in fetch[One|Row|Col|All] which prevented result sets to be free-ed correctly
+- improvements to the manager test suite
+
+";}i:5;a:4:{s:7:"version";s:9:"1.1.3-RC1";s:12:"release_date";s:10:"2003-06-01";s:13:"release_state";s:5:"devel";s:13:"release_notes";s:197:"- added MDB::singleton()
+- added MDB_Common destructor
+- fixed serious issue in fetch[One|Row|Col|All] which prevented result sets to be free-ed correctly
+- improvements to the manager test suite
+
+";}i:6;a:4:{s:7:"version";s:5:"1.1.2";s:12:"release_date";s:10:"2003-04-23";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:751:"- This is mainly a bug fix release
+- 4 new driver were added
+  Oracle (still Beta)
+  Frontbase (still Alpha)
+  Interbase/Firebird (still Alpha, due to missing features)
+  Querysim
+  - All get*Value() methods (excet get*lobValue() for now) will convert a php NULL into an SQL NULL
+    (resulting in API changes in the NULL handling of the get*Value() and replace() methods)
+  - REPLACE emulation now works more similar to how MySQLs REPLACE works
+  - Moved code from the Common constructor into MDB::connect()
+  - Moved code from the Driver constructor into the drivers connect method
+  - PostGreSQL reverse engineering partly implemented
+  - Made the MDB_Date classe behave more similar to PEAR::Date (especially in regards to daylight saving time)
+
+
+";}i:7;a:4:{s:7:"version";s:5:"1.1.1";s:12:"release_date";s:10:"2002-11-26";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:672:"Since the changelog for the 1.1.0 release was incomplete here follows the complete list of changes from the 1.0 release:
+Minor bugfixes and PHPDoc enhancements
+PEAR-ized directory structure and class names
+Added PHPUnit test suite (browser and cli)
+Manager.php does not load MDB.php anymore (include MDB.php instead and use MDB::loadFile())
+MDB::connect() does not need to be modified anymore to add support for a new driver
+API changes:
+- MDB_common::loadExtension renamed to MDB_common::loadModule
+- MDB::assertExtension was dropped in favor of PEAR::loadExtension
+- MDB::loadFile was added to load additional files (from now on only MDB.php will be included directly)
+
+";}i:8;a:4:{s:7:"version";s:5:"1.1.0";s:12:"release_date";s:10:"2002-11-24";s:13:"release_state";s:5:"devel";s:13:"release_notes";s:121:"PEAR-ized directory structure and class names
+Added PHPUnit test suite (browser and cli)
+Minor bugfixes and API changes
+
+";}i:9;a:4:{s:7:"version";s:8:"1.1.0pl1";s:12:"release_date";s:10:"2002-11-25";s:13:"release_state";s:5:"devel";s:13:"release_notes";s:63:"Fixed issue of metapear_test_db.schema being in the wrong dir
+
+";}i:10;a:4:{s:7:"version";s:8:"1.0.1RC1";s:12:"release_date";s:10:"2002-11-14";s:13:"release_state";s:5:"devel";s:13:"release_notes";s:103:"PEAR-ized directory structure and class names
+Added PHPUnit test suite
+Minor bugfixes and API changes
+
+";}i:11;a:4:{s:7:"version";s:3:"1.0";s:12:"release_date";s:10:"2002-09-08";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:122:"First stable release (repackaged RC4). Added Paul Cooper to the list of contributors. Please see README.txt for details.
+
+";}i:12;a:4:{s:7:"version";s:7:"1.0_RC4";s:12:"release_date";s:10:"2002-09-07";s:13:"release_state";s:5:"devel";s:13:"release_notes";s:109:"Just minor bugs fixes and beautifications in several places. Added skeleton drivers to help driver authors.
+
+";}i:13;a:4:{s:7:"version";s:7:"1.0_RC3";s:12:"release_date";s:10:"2002-09-05";s:13:"release_state";s:5:"devel";s:13:"release_notes";s:332:"this is release candidate 3 for MDB 1.0 featuring: major fixes and improvements to the MDB manager; bug fixes to the parser and date; both the mysql and the postgresql driver can now run query() without being connected to a specific database; added xsl that can render xml schema files to html; added initial version of a tutorial
+
+";}i:14;a:4:{s:7:"version";s:7:"1.0_RC2";s:12:"release_date";s:10:"2002-08-21";s:13:"release_state";s:5:"devel";s:13:"release_notes";s:203:"this is release candidate 2 for MDB 1.0 featuring: major fixes and improvements to the MDB manager; totaly new XML_Parser based parser with much improved speed; moved date functions to a seperate class
+
+";}i:15;a:4:{s:7:"version";s:7:"1.0_RC1";s:12:"release_date";s:10:"2002-08-11";s:13:"release_state";s:5:"devel";s:13:"release_notes";s:171:"this is the first release candidate for MDB 1.0; it contains mostly cosmetic changes but also improvements to reverse engineering of xml schemas from existing MySQL DBs.
+
+";}i:16;a:4:{s:7:"version";s:6:"0.9.11";s:12:"release_date";s:10:"2002-08-05";s:13:"release_state";s:5:"devel";s:13:"release_notes";s:141:"made feature improvements and bug fixs to the manager; pgsql core driver now passes the driver test suite; lob support cleanup considerably
+
+";}i:17;a:4:{s:7:"version";s:6:"0.9.10";s:12:"release_date";s:10:"2002-07-30";s:13:"release_state";s:5:"devel";s:13:"release_notes";s:62:"cleanups all over MDB; large improvements to the MDB manager
+
+";}i:18;a:4:{s:7:"version";s:5:"0.9.9";s:12:"release_date";s:10:"2002-07-17";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:118:"Further cleanups to the API;fixes to the pgsql driver; manager can now reverse engineer sequences into an xml schema
+
+";}i:19;a:4:{s:7:"version";s:5:"0.9.8";s:12:"release_date";s:10:"2002-07-04";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:146:"Further cleanups to the API (especially for sending the types of to be fetched data);added initial pgsql manager class; formatting and eol fixes
+
+";}i:20;a:4:{s:7:"version";s:7:"0.9.7.1";s:12:"release_date";s:10:"2002-06-20";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:191:"Bugfix release: fetchInto in the pgsql driver and baseFetchInto fixed to handle when now run numbers is passed to the method; mysql subselect emulation now returns NULL if no data is found;
+
+";}i:21;a:4:{s:7:"version";s:5:"0.9.7";s:12:"release_date";s:10:"2002-06-20";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:214:"PHPDoc have now been added to all methods in common.php; some API changes, mostly to the transaction methods; introduced a simple subselect emulation; added postgresql driver; fix fetchInto in the pear db wrapper
+
+";}i:22;a:4:{s:7:"version";s:5:"0.9.6";s:12:"release_date";s:10:"2002-06-12";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:239:"fixed a serious bug in parser.php that prevented tables from being initialized correctly; added several new methods to better match the PEAR DB feature set; added PHPDoc comments to most methods in common.php; more formating improvements
+
+";}i:23;a:4:{s:7:"version";s:5:"0.9.5";s:12:"release_date";s:10:"2002-06-05";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:133:"added autofree option; dropped setup() infavor of class contructors; minor changes to the API; improvements to the Metabase wrapper
+
+";}i:24;a:4:{s:7:"version";s:5:"0.9.4";s:12:"release_date";s:10:"2002-05-31";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:260:"Moved all DB management methods into a seperate class that is loaded on demand; MDB manager can now create an xml schema file from an existing DB;Improvements to the error handling, XMl schema manager and Metabase Wrapper as well as general formatting tweaks
+
+";}i:25;a:4:{s:7:"version";s:5:"0.9.3";s:12:"release_date";s:10:"2002-05-17";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:153:"MDB now uses the currect include path in all situations; improvements to the error handling (thx to Christian Dickmann) and  the pear wrapper were made
+
+";}i:26;a:4:{s:7:"version";s:5:"0.9.1";s:12:"release_date";s:10:"2002-05-03";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:29:"fixed errors in package.xml
+
+";}i:27;a:4:{s:7:"version";s:3:"0.9";s:12:"release_date";s:10:"2002-05-03";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:31:"First packaged release of MDB
+
+";}}s:12:"_lastversion";N;s:7:"dirtree";a:8:{s:14:"/usr/share/php";b:1;s:23:"/usr/share/php/docs/MDB";b:1;s:18:"/usr/share/php/MDB";b:1;s:26:"/usr/share/php/MDB/Modules";b:1;s:34:"/usr/share/php/MDB/Modules/Manager";b:1;s:27:"/usr/share/php/docs/MDB/doc";b:1;s:30:"/usr/share/php/tests/MDB/tests";b:1;s:40:"/usr/share/php/tests/MDB/tests/templates";b:1;}s:13:"_lastmodified";i:1174302836;}

@@ -1,0 +1,88 @@
+/* General HTML5 resets **/
+body {
+    background-image: none;
+    background-color: transparent;
+    line-height:1;
+}
+
+* { 
+    margin: 0; 
+    padding: 0;
+    border: none;
+    outline:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+    -moz-border-radius: 0px;  
+    -khtml-border-radius: 0px;  
+    -webkit-border-radius: 0px;  
+    border-radius: 0px; 
+}
+
+article,aside,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section { 
+    display:block;
+}
+
+nav ul {
+    list-style:none;
+}
+
+blockquote, q {
+    quotes:none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content:'';
+    content:none;
+}
+
+a {
+    margin:0;
+    padding:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}
+
+hr {
+    display:block;
+    height:1px;
+    border:0;   
+    border-top:1px solid #cccccc;
+    margin:1em 0;
+    padding:0;
+}
+
+input, select {
+    vertical-align:middle;
+}
+
+
+table {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+
+mark {
+    background-color:#ff9;
+    color:#000; 
+    font-style:italic;
+    font-weight:bold;
+}
+
+del {
+    text-decoration: line-through;
+}
+
+abbr[title], dfn[title] {
+    border-bottom:1px dotted;
+    cursor:help;
+}
+
+ins {
+    background-color:#ff9;
+    color:#000;
+    text-decoration:none;
+}

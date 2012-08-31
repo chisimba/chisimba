@@ -1,0 +1,67 @@
+.newForumContainer {
+
+    margin: 10px;
+
+    border: 1px solid black;
+
+}
+
+
+
+.newForumTopic {
+
+    background-color: #F2F2F2;
+
+    padding: 5px;
+
+}
+
+.newForumContent {
+
+    clear: both;
+
+    background-color: white;
+
+    border-top: 1px solid black;
+
+    padding: 5px;
+
+}
+
+
+
+.forumUserPicture {
+
+    float:left;
+
+}
+
+
+
+.forumTopicTitle {
+
+    margin-left: 50px;
+
+}
+
+
+
+.smallText {
+
+    font-size: 90%;
+
+}
+
+
+
+.forumTangentIndent {
+
+    margin: 10px;
+
+    padding: 5px;
+
+    background-color: #ffffcc;
+
+    border: 1px dotted #800080
+
+}
