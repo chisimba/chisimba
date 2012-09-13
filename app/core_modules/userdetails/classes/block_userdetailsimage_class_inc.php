@@ -71,9 +71,7 @@ class block_userdetailsimage extends object
     {
         $this->objLanguage = $this->getObject('language', 'language');
         $this->objOps = $this->getObject('userdetailsops', 'userdetails');
-        
         $titleLabel = $this->objLanguage->code2Txt('phrase_userimage', 'system', NULL, 'ERROR: phrase_userimage');
-        
         $this->title = $titleLabel;
     }
     /**

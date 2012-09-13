@@ -157,6 +157,7 @@ class userdetailsops extends object
         $countryValue = $userArray['country'];
         $emailAddressValue = $userArray['emailaddress'];
         $contactNumberValue = $userArray['cellnumber'];
+        $userId = $userArray['userid'];
         $passwordValue = NULL;
         $confirmPasswordValue = NULL;
         
@@ -299,6 +300,16 @@ class userdetailsops extends object
         $bizcardLayer = $objLayer->show();
 
         $string = $bizcardLayer;
+        
+        // Show the userid so the user has a place to find it
+        $uidExplain = $this->objLanguage->languageText('mod_userdetails_uidexplain', 'userdetails', 'Your user ID');
+        $objLayer = new layer();
+        $objLayer->id = 'userid_exp';
+        $objLayer->str = $uidExplain . ": <span class='uid'>" 
+          . $userId . "</span>";
+        $expLayer = $objLayer->show();
+        
+        $string = $string . $expLayer;
         
         // set up html elements
         $objDrop = new dropdown('title');
@@ -585,7 +596,6 @@ class userdetailsops extends object
                 $dialog .= $this->objDialog->show();
             }            
         }
-        
         $string .= $dialog;
 
         return $string;        
@@ -825,11 +835,9 @@ class userdetailsops extends object
     public function showBizCard($reset = TRUE)
     {
         $user = $this->objUserAdmin->getUserDetails($this->userId);
-
         $this->objBizCard->setUserArray($user);
         $this->objBizCard->showResetImage = $reset;
         $this->objBizCard->resetModule = 'userdetails';
-
         return $this->objBizCard->show();
     }
     
