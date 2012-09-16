@@ -1301,3 +1301,14 @@ li.bookmark_icon {
     padding-left: 10px;
     padding-right: 10px;
 }
+
+/** Social buttons from the socialweb module **/
+.social_buttons {
+    float: right;
+}
+
+.social_button {
+    float: right;
+    margin-left: 8px;
+    margin-right: 8px;
+}
