@@ -114,6 +114,9 @@ class previewfolder extends filemanagerobject {
             if (count($subFolders) > 0) {
                 $folderIcon = $this->objFileIcons->getExtensionIcon('folder');
 
+                $objFolder = $this->getObject("dbfolder","filemanager");
+                $objFiles = $this->getObject("dbfile","filemanager");
+
                 foreach ($subFolders as $folder) {
 
                     $objTable->startRow();
@@ -143,7 +146,14 @@ class previewfolder extends filemanagerobject {
                         $extTitle = $objIcon->show();
                     }
 
-                    $folderLink->title = basename($folder['folderpath']);
+                    $NmbrofFiles = count($objFiles->getFolderFiles($folder['folderpath']));
+                    $NmbrofFolders = count($objFolder->getSubFolders($folder['id']));
+                    $TitleString = "contains ".$NmbrofFolders." folder(s) and ".$NmbrofFiles." file(s)";
+                    
+                    if($NmbrofFiles == 0 && $NmbrofFolders == 0){
+                        $TitleString = "empty";
+                    }
+                    $folderLink->title = $TitleString;
                     $folderLink->link = substr(basename($folder['folderpath']), 0, 70) . '...' . $extTitle;
 
                     $objTable->addCell($folderLink->show());
