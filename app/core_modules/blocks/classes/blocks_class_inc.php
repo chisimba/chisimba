@@ -127,7 +127,10 @@ class blocks extends object {
      *
      * @param string $blockType The type of block (e.g. tabbed box)
      */
-    public function showBlock($block, $module, $blockType = NULL, $titleLength = 20, $wrapStr = TRUE, $showToggle = TRUE, $hidden = 'default', $showTitle = TRUE, $cssClass = 'featurebox', $cssId = '', $configData=NULL) {
+    public function showBlock($block, $module, $blockType = NULL, 
+      $titleLength = 20, $wrapStr = FALSE, $showToggle = TRUE, 
+      $hidden = 'default', $showTitle = TRUE, 
+      $cssClass = 'featurebox', $cssId = '', $configData=NULL) {
         if ($this->loadBlock($block, $module)) {
             if ($this->checkLoginRequirement()) {
                 if ($this->checkAdminRequirement()) {

@@ -81,6 +81,9 @@ class licensechooser extends object {
 
         // Load the Radio Button Class
         $this->loadClass('radio', 'htmlelements');
+        
+        // Load the link class
+        $this->loadClass('link', 'htmlelements');
 
         // Load the GetIcon Object
         $this->objIcon = $this->newObject('geticon', 'htmlelements');
