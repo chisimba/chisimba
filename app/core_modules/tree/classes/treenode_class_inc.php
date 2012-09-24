@@ -93,6 +93,12 @@ class treenode
     var $events;
 
     /**
+     * The title attribute of the link
+     * @var string
+     */
+    var $titleattr;
+
+    /**
     * Constructor
     *
     * @access public
@@ -129,6 +135,7 @@ class treenode
         $this->isDynamic     = true;
         $this->ensureVisible = false;
         $this->linkTarget    = null;
+        $this->titleattr = "";
 
         $this->parent        = null;
         $this->events        = $events;

@@ -198,12 +198,13 @@ class dbfolder extends dbTable {
      */
     function getTree($folderType = 'users', $id, $treeType = 'dhtml', $selected = '') {
         //Create a new tree
-        $menu = new treemenu();
-        $objIcon = $this->newObject('geticon', 'htmlelements');
-
+        $TitleAttr = "";
         $icon = 'folder.gif';
+        $menu = new treemenu();
+        $objFile = $this->getObject("dbfile");
+        $objIcon = $this->newObject('geticon', 'htmlelements');
+        $objFiles = $this->getObject('dbfile','filemanager');
         $expandedIcon = 'folder-expanded.gif';
-
         $baseFolder = $folderType . '/' . $id;
         $baseFolderId = $this->getFolderId($baseFolder);
 
@@ -214,26 +215,40 @@ class dbfolder extends dbTable {
             $folderText = $this->getFolderType($folderType, $id);
             $cssClass = '';
         }
-
-
+        
+        $NmbrofFiles = count($objFile->getFolderFiles($id));
+        $NmbrofFolders = count($this->getUserFolders($id));
+        
+        //TODO: make a reusable function
+                if(empty($NmbrofFiles) && empty($NmbrofFolders)){
+                    $TitleAttr = "empty";
+                }else{
+                    $TitleAttr = 'countains_'.$NmbrofFiles.'_file(s)_and_'.($NmbrofFolders-1).'_folder(s)';
+                }
 
         if ($treeType == 'htmldropdown') {
             $allFilesNode = new treenode(array('text' => strip_tags($folderText), 'link' => $baseFolderId));
         } else {
-            $allFilesNode = new treenode(array('text' => $folderText, 'link' => $this->uri(array('action' => 'viewfolder', 'folder' => $baseFolderId)), 'icon' => $icon, 'expandedIcon' => $expandedIcon, 'cssClass' => $cssClass));
+            $allFilesNode = new treenode(array('text' => $folderText, 'link' => $this->uri(array('action' => 'viewfolder', 'folder' => $baseFolderId)), 'icon' => $icon, 'expandedIcon' => $expandedIcon, 'cssClass' => $cssClass,'titleattr'=>$TitleAttr));
         }
 
         $refArray = array();
         $refArray[$baseFolder] = & $allFilesNode;
-
         $folders = $this->getFolders($folderType, $id);
 
-        $objFile = $this->getObject("dbfile");
         if (count($folders) > 0) {
             foreach ($folders as $folder) {
-                $extTitle = '';
+                $NmbrofFiles = count($objFile->getFolderFiles($folder['folderpath']));
+                $NmbrofFolders = count($this->getSubFolders($folder['id']));
+                if(empty($NmbrofFiles) && empty($NmbrofFolders)){
+                    $TitleAttr = "empty";
+                }else{
+                    $TitleAttr = 'countains_'.$NmbrofFiles.'_file(s)_and_'.$NmbrofFolders.'_folder(s)';
+                }
 
+                $extTitle = '';
                 $access = null;
+                
                 if (key_exists("access", $folder)) {
                     $access = $folder['access'];
                 }
@@ -254,7 +269,7 @@ class dbfolder extends dbTable {
                 if ($treeType == 'htmldropdown') {
                     $node = & new treenode(array('title' => $folderText, 'text' => $folderShortText, 'link' => $folder['id'], 'icon' => $icon, 'expandedIcon' => $expandedIcon, 'cssClass' => $cssClass));
                 } else {
-                    $node = & new treenode(array('title' => $folderText, 'text' => $folderShortText, 'link' => $this->uri(array('action' => 'viewfolder', 'folder' => $folder['id'])), 'icon' => $icon, 'expandedIcon' => $expandedIcon, 'cssClass' => $cssClass));
+                    $node = & new treenode(array('title' => $folderText, 'text' => $folderShortText, 'link' => $this->uri(array('action' => 'viewfolder', 'folder' => $folder['id'])), 'icon' => $icon, 'expandedIcon' => $expandedIcon, 'cssClass' => $cssClass,'titleattr'=>$TitleAttr));
                 }
 
 

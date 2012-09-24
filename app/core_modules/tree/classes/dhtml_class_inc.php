@@ -20,6 +20,12 @@ class dhtml extends presentation
     var $isDynamic;
 
     /**
+     * Title attribute for the link
+     * @var string
+     */
+    var $titleatrr;
+
+    /**
     * Path to the images
     * @var string
     */
@@ -76,6 +82,7 @@ class dhtml extends presentation
         $this->isDynamic = $isDynamic;
 
         // Defaults
+        $this->titleattr        ="";
         $this->images           = 'images';
         $this->maxDepth         = 0;        // No limit
         $this->linkTarget       = '_self';
@@ -103,14 +110,16 @@ class dhtml extends presentation
 
         $html  = "\n";
         $html .= '<script language="javascript" type="text/javascript">' . "\n\t";
-        $html .= sprintf('%s = new TreeMenu("%s", "%s", "%s", "%s", %s, %s);',
+        $html .= sprintf('%s = new TreeMenu( "%s", "%s", "%s", "%s", %s, %s, "%s");',
                          $menuObj,
                          $this->images,
                          $menuObj,
                          $this->linkTarget,
                          $this->defaultClass,
                          $this->usePersistence ? 'true' : 'false',
-                         $this->noTopLevelImages ? 'true' : 'false');
+                         $this->noTopLevelImages ? 'true' : 'false',
+                         $this->titleatrr
+                );
 
         $html .= "\n";
 
@@ -145,7 +154,7 @@ class dhtml extends presentation
         
         $expanded  = $this->isDynamic ? ($nodeObj->expanded  ? 'true' : 'false') : 'true';
         $isDynamic = $this->isDynamic ? ($nodeObj->isDynamic ? 'true' : 'false') : 'false';
-        $html = sprintf("\t %s = %s.addItem(new TreeNode('%s', %s, %s, %s, %s, '%s', '%s', %s));\n",
+        $html = sprintf("\t %s = %s.addItem(new TreeNode('%s', %s, %s, %s, %s, '%s', '%s', %s, '%s'));\n",
                         $return,
                         $prefix,
                         str_replace("'", "\\'", $nodeObj->text),
@@ -155,7 +164,9 @@ class dhtml extends presentation
                         $isDynamic,
                         $nodeObj->cssClass,
                         $nodeObj->linkTarget,
-                        !empty($nodeObj->expandedIcon) ? "'" . $nodeObj->expandedIcon . "'" : 'null');
+                        !empty($nodeObj->expandedIcon) ? "'" . $nodeObj->expandedIcon . "'" : 'null',
+                        $nodeObj->titleattr
+            );
 
         foreach ($nodeObj->events as $event => $handler) {
             $html .= sprintf("\t %s.setEvent('%s', '%s');\n",
