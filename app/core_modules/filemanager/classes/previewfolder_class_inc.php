@@ -54,6 +54,8 @@ class previewfolder extends filemanagerobject {
         $this->objLanguage = $this->getObject('language', 'language');
         $this->objAltConfig = $this->getObject("altconfig", "config");
         $this->objUser = $this->getObject("user", "security");
+        $this->objFolder = $this->getObject("dbfolder", "filemanager");
+        $this->objFiles = $this->getObject("dbfile", "filemanager");
         $this->loadClass('link', 'htmlelements');
         $this->loadClass('label', 'htmlelements');
         $this->loadClass('checkbox', 'htmlelements');
@@ -71,7 +73,13 @@ class previewfolder extends filemanagerobject {
      * @access public
      */
     function previewContent($subFolders, $files, $mode, $name, $symlinks = array(), $restriction = array(), $forceRestriction = FALSE) {
-        return $this->previewLongView($subFolders, $files, $symlinks, $restriction, $mode, $name, $forceRestriction);
+        $viewType = $this->getParam('view');
+        if ($viewType == "list" || empty($viewType)) {
+            return $this->previewLongView($subFolders, $files, $symlinks, $restriction, $mode, $name, $forceRestriction);
+        }
+        if ($viewType == "thumbnails") {
+            return $this->previewThumbnails($subFolders, $files, $symlinks, $restriction, $mode, $name, $forceRestriction);
+        }
     }
 
     /**
@@ -114,8 +122,6 @@ class previewfolder extends filemanagerobject {
             if (count($subFolders) > 0) {
                 $folderIcon = $this->objFileIcons->getExtensionIcon('folder');
 
-                $objFolder = $this->getObject("dbfolder","filemanager");
-                $objFiles = $this->getObject("dbfile","filemanager");
 
                 foreach ($subFolders as $folder) {
 
@@ -146,11 +152,11 @@ class previewfolder extends filemanagerobject {
                         $extTitle = $objIcon->show();
                     }
 
-                    $NmbrofFiles = count($objFiles->getFolderFiles($folder['folderpath']));
-                    $NmbrofFolders = count($objFolder->getSubFolders($folder['id']));
-                    $TitleString = "contains ".$NmbrofFolders." folder(s) and ".$NmbrofFiles." file(s)";
-                    
-                    if($NmbrofFiles == 0 && $NmbrofFolders == 0){
+                    $NmbrofFiles = count($this->objFiles->getFolderFiles($folder['folderpath']));
+                    $NmbrofFolders = count($this->objFolder->getSubFolders($folder['id']));
+                    $TitleString = "contains " . $NmbrofFolders . " folder(s) and " . $NmbrofFiles . " file(s)";
+
+                    if ($NmbrofFiles == 0 && $NmbrofFolders == 0) {
                         $TitleString = "empty";
                     }
                     $folderLink->title = $TitleString;
@@ -165,7 +171,6 @@ class previewfolder extends filemanagerobject {
             if (is_array($symlinks)) {
                 $files = array_merge($files, $symlinks);
             }
-
             if (count($files) > 0) {
                 //var_dump($files);
                 $fileSize = new formatfilesize();
@@ -196,7 +201,6 @@ class previewfolder extends filemanagerobject {
                         $objTable->startRow();
                     }
 
-                    //$objTable->startRow();
                     if ($this->editPermission) {
                         $checkbox = new checkbox('files[]');
 
@@ -207,7 +211,6 @@ class previewfolder extends filemanagerobject {
                         }
 
                         $checkbox->cssId = htmlentities('input_files_' . $file['filename']);
-
                         $objTable->addCell($checkbox->show(), 20);
                     }
 
@@ -221,14 +224,11 @@ class previewfolder extends filemanagerobject {
                         $fileLink = new link($this->uri(array('action' => 'fileinfo', 'id' => $file['id']), $this->targetModule));
                     }
 
-
                     $linkTitle = '';
-
                     $access = null;
                     if (key_exists("access", $file)) {
                         $access = $file['access'];
                     }
-
                     if ($access == 'private_all') {
                         $objIcon->setIcon('info');
                         $linkTitle = basename($file['filename']) . $objIcon->show();
@@ -243,12 +243,10 @@ class previewfolder extends filemanagerobject {
                     $selectImageStr = '<a href=\'javascript:selectImageWindow("' . $name . '", "' . $filepath . '","' . $file['filename'] . '","' . $file['id'] . '");\'>' . basename($file['filename']) . '</a>';
 
                     if ($mode == 'fckimage' || $mode == 'fckflash' || $mode == 'fcklink') {
-
                         $objTable->addCell($selectStr);
                     } else if ($mode == 'selectfilewindow') {
                         $objTable->addCell($selectFileStr);
                     } else if ($mode == 'selectimagewindow') {
-
                         $objTable->addCell($selectImageStr);
                     } else {
                         $objTable->addCell($fileLink->show());
@@ -301,7 +299,252 @@ function turnOnFiles(value)
         } else {
             $str = '';
         }
+        return $str . $objTable->show();
+    }
 
+    function previewThumbnails($subFolders, $files, $symlinks, $restriction, $mode, $name, $forceRestriction = FALSE) {
+        $objTable = $this->newObject('htmltable', 'htmlelements');
+        $objTable->cssId = $this->objLanguage->languageText('mod_filemanager_filemanagertableclass','filemanager','filemanagerTable');
+        $objCleanUrl = $this->getObject("cleanurl", "filemanager");
+        $objIcon = $this->newObject('geticon', 'htmlelements');
+        $objImage;
+        $folderIcon = $this->objFileIcons->getExtensionIcon('folder');
+        // Set Restriction as empty if it is none
+        if (count($restriction) == 1 && $restriction[0] == '') {
+            $restriction = array();
+        }
+
+        $hidden = 0;
+
+        if (count($subFolders) == 0 && count($files) == 0 && count($symlinks) == 0) {
+            $objTable->startRow();
+            $objTable->addCell('<em>' . $this->objLanguage->languageText('mod_filemanager_nofilesorfolders', 'filemanager', 'No files or folders found') . '</em>', NULL, NULL, NULL, 'noRecordsMessage', 'colspan="5"');
+            $objTable->endRow();
+        } else {
+            if (count($subFolders) > 0) {
+                foreach ($subFolders as $folder) {
+                    $folderLink = new link($this->uri(array('action' => 'viewfolder', 'folder' => $folder['id'])));
+                    $objTable->startRow();
+                    if ($this->editPermission) {
+                        $deLink = new link($this->uri(array('action' => 'deletefolder', 'id' => $folder['id'])), $this->targetModule);
+                        $checkbox = new checkbox('files[]');
+                        $checkbox->cssId = htmlentities('input_files_' . basename($folder['folderpath']));
+                        $deLink->link = "delete";
+                        $deLink->cssClass = "buttonlink";
+                        $checkbox->value = 'folder__' . $folder['id'];
+                        $folderLink->link = $folderIcon . "<h5 class='featureboxheader' >Folder name: " . substr(basename($folder['folderpath']), 0, 12) . "</h5>";
+                        $accessVal = null;
+
+                        //TODO: Make this a reusable function
+                        $NmbrofFiles = count($this->objFiles->getFolderFiles($folder['folderpath']));
+                        $NmbrofFolders = count($this->objFolder->getSubFolders($folder['id']));
+                        $TitleString = "contains " . $NmbrofFolders . " folder(s) and " . $NmbrofFiles . " file(s)";
+
+                        if ($NmbrofFiles == 0 && $NmbrofFolders == 0) {
+                            $TitleString = "empty";
+                        }
+                        $folderLink->title = $TitleString;
+                        if (key_exists("access", $folder)) {
+                            $accessVal = $folder['access'];
+                        }
+                        if ($accessVal == 'private_all') {
+                            $objIcon->setIcon('info');
+                        }
+                        $objTable->startRow();
+                        $objTable->addCell($checkbox->show() . $deLink->show() . $folderLink->show());
+                        $objTable->endRow();
+                    }
+                }
+            }
+
+            if (is_array($symlinks)) {
+                $files = array_merge($files, $symlinks);
+            }
+
+            if (count($files) > 0) {
+                $fileSize = new formatfilesize();
+
+                foreach ($files as $file) {
+                    $visibility = null;
+                    if (key_exists("visibility", $file)) {
+                        $visibility = $file['visibility'];
+                    }
+                    $showFile = true;
+                    if ($visibility == 'hidden') {
+                        if ($file['creatorid'] == $this->objUser->userid()) {
+                            $showFile = true;
+                        } else {
+                            $showFile = false;
+                        }
+                    }
+                    if (!$showFile) {
+                        continue;
+                    }
+                    if (count($restriction) > 0) {
+                        if (!in_array(strtolower($file['datatype']), $restriction)) {
+                            $objTable->startRow('hidefile');
+                            $hidden++;
+                        } else {
+                            $objTable->startRow();
+                        }
+                    } else {
+                        $objTable->startRow();
+                    }
+
+                    if ($this->editPermission) {
+                        $strPermissions = "";
+                        $checkbox = new checkbox('files[]');
+                        $editLink = new link($this->uri(array('action' => 'editfiledetails', 'id' => $file['id']), $this->targetModule));
+
+                        if (isset($file['symlinkid'])) {
+                            $checkbox->value = 'symlink__' . $file['symlinkid'];
+                        } else {
+                            $checkbox->value = $file['id'];
+                        }
+
+                        $checkbox->cssId = htmlentities('input_files_' . $file['filename']);
+                        $strPermissions .= $checkbox->show();
+                    }
+
+                    if (isset($file['symlinkid'])) {
+                        $fileLink = new link($this->uri(array('action' => 'symlink', 'id' => $file['symlinkid'])));
+                    } else {
+
+                        $fileLink = new link($this->uri(array('action' => 'fileinfo', 'id' => $file['id']), $this->targetModule));
+                    }
+
+                    $linkTitle = '';
+
+                    $access = null;
+                    if (key_exists("access", $file)) {
+                        $access = $file['access'];
+                    }
+
+                    if ($access == 'private_all') {
+                        $objIcon->setIcon('info');
+                        $linkTitle = basename($file['filename']) . $objIcon->show();
+                    } else {
+                        $linkTitle = basename($file['filename']);
+                        $fileType = $this->getObject("fileparts", "files");
+                    }
+                    //Images
+                    if (ereg("image", $file['mimetype'])) {
+                        $objImage = $this->getObject("image", "htmlelements");
+                        $filepath = $this->objAltConfig->getSiteRoot() . '/usrfiles/' . $file['path'];
+                        $objImage->src = $filepath;
+                        $fileLink->link = $objImage->show() . "<h5 class='filedetails' >File name: " . substr($file['filename'], 0, 12) . "...<br />File size: " . $file['filesize'] . "kb<br />File type: " . $fileType->getExtension($file['filename']) . "</h5>";
+                    }
+                    //audio
+                    $player = "";
+                    $objEmbed = $this->newObject("fileembed", "filemanager");
+
+                    if (ereg("audio", $file['mimetype'])) {
+                        $player = $objEmbed->showSoundPlayer($objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])));
+                        $fileLink->link = "<h5 class='filedetails' >File name: " . substr($file['filename'], 0, 12) . "...<br />File size: " . $file['filesize'] . "kb<br />File type: " . $fileType->getExtension($file['filename']) . "</h5>";
+                    }
+                    //video
+
+                    $objMimeType = $this->newObject("mimetypes", "files");
+                    //other formats
+                    if ($objMimeType->isValidMimeType($objMimeType->getMimeType($file['filename'])) && !ereg("image", $file['mimetype']) && !ereg("audio", $file['mimetype'])) {
+                        $objImage = $this->objFileIcons->getExtensionIcon($fileType->getExtension($file['filename']));
+                        $fileLink->link = $objImage . "<h5 class='filedetails' >File name: " . substr($file['filename'], 0, 12) . "...<br />File size: " . $file['filesize'] . "kb<br />File type: " . $fileType->getExtension($file['filename']) . "</h5>";
+                    }
+
+                    $downloadLink = new link($objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])));
+                    $downloadLink->link = "download";
+                    $editLink->link = "edit";
+                    $downloadLink->cssClass = "buttonlink";
+                    $editLink->cssClass = "buttonlink";
+                    $strPermissions .= $editLink->show();
+                    $selectStr = '<a href=\'javascript:selectFile("' . $filepath . '");\'>' . basename($file['filename']) . '</a>';
+                    $selectFileStr = '<a href=\'javascript:selectFileWindow("' . $name . '","' . $file['filename'] . '","' . $file['id'] . '");\'>' . basename($file['filename']) . '</a>';
+                    $selectImageStr = '<a href=\'javascript:selectImageWindow("' . $name . '", "' . $filepath . '","' . $file['filename'] . '","' . $file['id'] . '");\'>' . basename($file['filename']) . '</a>';
+
+                    if ($mode == 'fckimage' || $mode == 'fckflash' || $mode == 'fcklink') {
+
+                        $objTable->addCell($selectStr);
+                    } else if ($mode == 'selectfilewindow') {
+                        $objTable->addCell($selectFileStr);
+                    } else if ($mode == 'selectimagewindow') {
+                    } else {
+                        $objTable->addCell($strPermissions . $downloadLink->show() . "</p>" . $player . $fileLink->show());
+                    }
+                    $objTable->endRow();
+                }
+            }
+        }
+        $str = "<style type='text/css' >
+                #filemanagerTable tr{
+                        display: inline-block;
+                        padding: 2px;
+                 }
+                #filemanagerTable tr img{
+                        width: 100%;
+                        height: 100%;
+                 }
+                #filemanagerTable tr td{
+                        height: 12pc;
+                        width: 12pc;
+                        border: 0.5pc solid #fff;
+                        background: #fff;
+                        box-shadow: 0 0 5px #5d5d5d;
+                 }
+                 #filemanagerTable tr{
+                        margin: 0.5pc;
+                 }
+                 #filemanagerTable tr td:hover{
+                        
+                   }
+                 .buttonlink{
+                        background: #CACACA;
+                        margin: 1pc 0.5pc;
+                 }
+                 h5.filedetails{
+                        background: #fff;
+                 }
+</style>";
+
+        if ($hidden > 0 && count($restriction) > 0) {
+            //$str = '';
+            $str = '<style type="text/css">
+                tr.hidefile {display:none;}
+                </style>';
+            $str .= $this->objLanguage->languageText('mod_filemanager_browsingfor', 'filemanager', 'Browsing for') . ': ';
+            $comma = '';
+            foreach ($restriction as $restrict) {
+                $str .= $comma . $restrict;
+                $comma = ', ';
+            }
+            if (!$forceRestriction) {
+                $str = '<script type="text/javascript">
+var onOrOff = "off";
+function turnOnFiles(value)
+{
+    if (onOrOff == \'off\') {
+        jQuery(\'tr.hidefile\').each(function (i) {
+            this.style.display = \'table-row\';
+        });
+        adjustLayout();
+        onOrOff = "on";
+    } else {
+        jQuery(\'tr.hidefile\').each(function (i) {
+            this.style.display = \'none\';
+        });
+        adjustLayout();
+        onOrOff = "off";
+    }
+}
+</script>';
+                $str .= ' &nbsp; - ';
+                $this->loadClass('checkbox', 'htmlelements');
+                $this->loadClass('label', 'htmlelements');
+                $checkbox = new checkbox('showall');
+                $checkbox->extra = ' onclick="turnOnFiles();"';
+                $label = new label($this->objLanguage->languageText('mod_filemanager_showallfiles', 'filemanager', 'Show All Files'), $checkbox->cssId);
+                $str .= $checkbox->show() . $label->show();
+            }
+        }
         return $str . $objTable->show();
     }
 

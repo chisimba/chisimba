@@ -85,12 +85,26 @@ $checkOpenerScript = '
 
 $this->appendArrayVar('headerParams', $checkOpenerScript);
 $this->loadClass('fieldset', 'htmlelements');
+$objForm = new form('changeview');
+$objThumbLink = new link($this->uri(array('view'=>'thumbnails')));
+$objListLink = new link($this->uri(array('view'=>'list')));
+$objViewHeading = $this->getObject('htmlheading','htmlelements');
+$objViewHeading->str = "Change view";
+$objViewHeading->type = 3;
+$objListLink->link = "List";
+$objThumbLink->link = "Thumbnails";
+$objListLink->extra = "class=sexybutton";
+$objThumbLink->extra = "class=sexybutton";
+$objForm->addToForm($objViewHeading->show());
+$objForm->addToForm($objThumbLink->show()."&nbsp;&nbsp;&nbsp;");
+$objForm->addToForm($objListLink->show());
+
 if ($folderPermission2) {
     $fieldset = new fieldset();
 
     $fieldset->setLegend($this->objLanguage->languageText('mod_filemanager_createafolder', 'filemanager', 'Create a Folder'));
     $fieldset->addContent($this->objFolders->showCreateFolderForm($folderId));
-    echo $fieldset->show();
+    echo $objForm->show().$fieldset->show();
 }
 $accessLink = "";
 if ($folder['folderlevel'] == 2) {
