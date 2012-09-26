@@ -12,11 +12,11 @@
  * @license   GNU GPL
  * @author    Derek Keats
  *            
- *            */
+ **/
 interface ifhtml
 {
 
-       /**
+    /**
     * Show method to render the results
     */
     function show();

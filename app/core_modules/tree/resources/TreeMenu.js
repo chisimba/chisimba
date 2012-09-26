@@ -68,9 +68,10 @@ function adjustPageLayout()
 /**
 * TreeMenu class
 */
-	function TreeMenu(iconpath, myname, linkTarget, defaultClass, usePersistence, noTopLevelImages)
+	function TreeMenu(iconpath, myname, linkTarget, defaultClass, usePersistence, noTopLevelImages,title)
 	{
 		// Properties
+        this.title          = title;
 		this.iconpath         = iconpath;
 		this.myname           = myname;
 		this.linkTarget       = linkTarget;
@@ -233,7 +234,8 @@ function adjustPageLayout()
 			var onMDown   = this.doesMenu() && nodes[i].n.length  && nodes[i].isDynamic ? this.stringFormat('onmousedown="{0}.toggleBranch(\'{1}\', true);adjustPageLayout();" style="cursor: pointer; cursor: hand"', this.myname, layerID) : '';
 			var imgTag    = this.stringFormat('<img src="{0}/{1}{2}.gif" width="20" height="20" align="top" border="0" name="img_{3}" {4}>', this.iconpath, gifname, modifier, layerID, onMDown);
 			var linkTarget= nodes[i].linkTarget ? nodes[i].linkTarget : this.linkTarget;
-			var linkStart = nodes[i].link ? this.stringFormat('<a href="{0}" target="{1}">', nodes[i].link, linkTarget) : '';
+            var title = nodes[i].title;
+			var linkStart = nodes[i].link ? this.stringFormat('<a href="{0}" target="{1}" title={2} >', nodes[i].link, linkTarget,title) : '';
 
 			var linkEnd   = nodes[i].link ? '</a>' : '';
 
