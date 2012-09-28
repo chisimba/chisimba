@@ -85,9 +85,10 @@ $checkOpenerScript = '
 
 $this->appendArrayVar('headerParams', $checkOpenerScript);
 $this->loadClass('fieldset', 'htmlelements');
+$objAltConfig = $this->getObject("altconfig", "config");
 $objForm = new form('changeview');
-$objThumbLink = new link($this->uri(array('view'=>'thumbnails')));
-$objListLink = new link($this->uri(array('view'=>'list')));
+$objThumbLink = new link($this->uri(array('module'=>$objAltConfig->getDefaultModuleName(),'action'=>$this->getParam('action'),'folder'=>$this->getParam('folder'),'view'=>'thumbnails')));
+$objListLink = new link($this->uri(array('module'=>$objAltConfig->getDefaultModuleName(),'action'=>$this->getParam('action'),'folder'=>$this->getParam('folder'),'view'=>'list')));
 $objViewHeading = $this->getObject('htmlheading','htmlelements');
 $objViewHeading->str = "Change view";
 $objViewHeading->type = 3;
