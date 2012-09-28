@@ -1,5 +1,5 @@
 
-body{
+body {
     font: 80% "Trebuchet MS", "Lucida Sans Unicode", Tahoma, sans-serif;
     font:68%/1.5 arial,tahoma,verdana,sans-serif;
    /* margin: 0;
@@ -1311,4 +1311,10 @@ li.bookmark_icon {
     float: right;
     margin-left: 8px;
     margin-right: 8px;
+}
+
+
+#Canvas_Content_Body_Region2 img {
+    /* Fix images overflowing main content area */
+    max-width: 100%;
 }
