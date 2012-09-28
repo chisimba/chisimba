@@ -58,9 +58,7 @@ class dbfolder extends dbTable {
         $this->objCleanUrl = $this->getObject('cleanurl');
         $this->objContext = $this->getObject('dbcontext', 'context');
         $this->contextCode = $this->objContext->getContextCode();
-
         $this->objLanguage = $this->getObject('language', 'language');
-
         $this->loadClass('treemenu', 'tree');
         $this->loadClass('treenode', 'tree');
         $this->loadClass('htmllist', 'tree');
@@ -198,12 +196,13 @@ class dbfolder extends dbTable {
      */
     function getTree($folderType = 'users', $id, $treeType = 'dhtml', $selected = '') {
         //Create a new tree
-        $menu = new treemenu();
-        $objIcon = $this->newObject('geticon', 'htmlelements');
-
+        $TitleAttr = "";
         $icon = 'folder.gif';
+        $menu = new treemenu();
+        $objFile = $this->getObject("dbfile");
+        $objIcon = $this->newObject('geticon', 'htmlelements');
+        $objFiles = $this->getObject('dbfile','filemanager');
         $expandedIcon = 'folder-expanded.gif';
-
         $baseFolder = $folderType . '/' . $id;
         $baseFolderId = $this->getFolderId($baseFolder);
 
@@ -214,26 +213,40 @@ class dbfolder extends dbTable {
             $folderText = $this->getFolderType($folderType, $id);
             $cssClass = '';
         }
-
-
+        
+        $NmbrofFiles = count($objFile->getUserFiles($id));
+        $NmbrofFolders = count($this->getUserFolders($id));
+        
+        //TODO: make this a reusable function
+                if(empty($NmbrofFiles) && empty($NmbrofFolders)){
+                    $TitleAttr = "empty";
+                }else{
+                    $TitleAttr = 'countains_'.$NmbrofFiles.'_file(s)_and_'.($NmbrofFolders).'_folder(s)';
+                }
 
         if ($treeType == 'htmldropdown') {
             $allFilesNode = new treenode(array('text' => strip_tags($folderText), 'link' => $baseFolderId));
         } else {
-            $allFilesNode = new treenode(array('text' => $folderText, 'link' => $this->uri(array('action' => 'viewfolder', 'folder' => $baseFolderId)), 'icon' => $icon, 'expandedIcon' => $expandedIcon, 'cssClass' => $cssClass));
+            $allFilesNode = new treenode(array('text' => $folderText, 'link' => $this->uri(array('action' => 'viewfolder', 'folder' => $baseFolderId)), 'icon' => $icon, 'expandedIcon' => $expandedIcon, 'cssClass' => $cssClass,'titleattr'=>$TitleAttr));
         }
 
         $refArray = array();
         $refArray[$baseFolder] = & $allFilesNode;
-
         $folders = $this->getFolders($folderType, $id);
 
-        $objFile = $this->getObject("dbfile");
         if (count($folders) > 0) {
             foreach ($folders as $folder) {
-                $extTitle = '';
+                $NmbrofFiles = count($objFile->getFolderFiles($folder['folderpath']));
+                $NmbrofFolders = count($this->getSubFolders($folder['id']));
+                if(empty($NmbrofFiles) && empty($NmbrofFolders)){
+                    $TitleAttr = "empty";
+                }else{
+                    $TitleAttr = 'countains_'.$NmbrofFiles.'_file(s)_and_'.$NmbrofFolders.'_folder(s)';
+                }
 
+                $extTitle = '';
                 $access = null;
+                
                 if (key_exists("access", $folder)) {
                     $access = $folder['access'];
                 }
@@ -254,13 +267,12 @@ class dbfolder extends dbTable {
                 if ($treeType == 'htmldropdown') {
                     $node = & new treenode(array('title' => $folderText, 'text' => $folderShortText, 'link' => $folder['id'], 'icon' => $icon, 'expandedIcon' => $expandedIcon, 'cssClass' => $cssClass));
                 } else {
-                    $node = & new treenode(array('title' => $folderText, 'text' => $folderShortText, 'link' => $this->uri(array('action' => 'viewfolder', 'folder' => $folder['id'])), 'icon' => $icon, 'expandedIcon' => $expandedIcon, 'cssClass' => $cssClass));
+                    $node = & new treenode(array('title' => $folderText, 'text' => $folderShortText, 'link' => $this->uri(array('action' => 'viewfolder', 'folder' => $folder['id'])), 'icon' => $icon, 'expandedIcon' => $expandedIcon, 'cssClass' => $cssClass,'titleattr'=>$TitleAttr));
                 }
 
 
                 $parent = dirname($folder['folderpath']);
 
-                //echo $folder['folderpath'].' - '.$parent.'<br />';
                 if (array_key_exists($parent, $refArray)) {
                     $refArray[dirname($folder['folderpath'])]->addItem($node);
                 }
@@ -629,7 +641,6 @@ class dbfolder extends dbTable {
 
                 $parent = '/' . dirname($folder['folderpath']);
 
-                //echo $folder['folderpath'].' - '.$parent.'<br />';
                 if (array_key_exists($parent, $refArray)) {
                     $refArray['/' . dirname($folder['folderpath'])]->addItem($node);
                 }
@@ -665,27 +676,16 @@ class dbfolder extends dbTable {
         }
 
         $folderParts = explode('/', $folderPath);
-
         $form = new form('createfolder', $this->uri(array('action' => 'createfolder')));
-
         $label = new label('Create a subfolder in: ', 'input_parentfolder');
-
 
         $form->addToForm($label->show() . '<br/>' . $this->getTree($folderParts[0], $folderParts[1], 'htmldropdown', $folderId));
 
-        // $objInputMasks = $this->getObject('inputmasks', 'htmlelements');
-        // echo $objInputMasks->show();
-
         $textinput = new textinput('foldername');
-        //$textinput->setCss('text input_mask anytext');
-
         $label = new label('Name of Folder: ', 'input_foldername');
-
         $form->addToForm('<br/>' . $label->show() . '<br/>' . $textinput->show() . '&nbsp;');
-
         $button = new button('create', 'Create Folder');
         $button->setToSubmit();
-
         $form->addToForm('<br/>' . $button->show());
 
         return $form->show();
@@ -734,21 +734,13 @@ class dbfolder extends dbTable {
             return FALSE;
         } else if ($level == 1) {
             $newPath = $folderName;
-            //$containingFolder = '';
         } else {
             // Level >= 2
             $newPath = preg_replace('/^(.+\/)(.+)$/', "\${1}$folderName", $path);
-            //$result = preg_match('/^(.+\/).+$/', $path, $matches);
-            //if ($result === FALSE || $result == 0) {
-            //    return FALSE;
-            //}
-            //$containingFolder = $matches[1];
         }
+
         $pathFull = $this->objConfig->getcontentBasePath() . $path;
         $newPathFull = $this->objConfig->getcontentBasePath() . $newPath;
-        //trigger_error('$pathFull:'.$pathFull);
-        //trigger_error('$newPathFull:'.$newPathFull);
-        //return TRUE;
         // Update filesystem
         $result = rename($pathFull, $newPathFull);
         if ($result === FALSE) {
@@ -768,9 +760,6 @@ class dbfolder extends dbTable {
                 $id_ = $rec['id'];
                 $path_ = $rec['folderpath'];
                 $newPath_ = preg_replace('|^(' . $path . ')(/.*)$|', "{$newPath}\${2}", $path_);
-                //trigger_error('$path_:'.$path_);
-                //trigger_error('$newPath_:'.$newPath_);
-                //continue;
                 $this->update(
                         'id', $id_, array(
                     'folderpath' => $newPath_
@@ -783,13 +772,6 @@ class dbfolder extends dbTable {
             return FALSE;
         }
         return TRUE;
-        /*
-          $cwd = getcwd();
-          if ($cwd === FALSE) {
-          return FALSE;
-          }
-          $result = chdir($containingFolder);
-         */
     }
 
     /**
@@ -822,18 +804,9 @@ class dbfolder extends dbTable {
             // If there are files in the directory, delete them one by one
             if (count($results[0]) > 0) {
 
-                //var_dump ($results[0]);
-
                 foreach ($results[0] as $file) {
                     // Remove the usrfiles portion from the file
                     preg_match('/(?<=usrfiles(\\\|\/)).*/', $file, $regs);
-
-                    /*
-                      echo 'File';
-                      var_dump($file);
-                      echo 'Regs';
-                      var_dump($regs);
-                     */
 
                     // Clean up portion - esp convert backslash to forward slash
                     $path = $this->objCleanUrl->cleanUpUrl($regs[0]);
@@ -959,9 +932,7 @@ class dbfolder extends dbTable {
         if ($folderSourceId == $folderDestId) {
             return TRUE;
         }
-        //$sourceFolder=$this->getRow('id', $folderSourceId);
         $destFolder = $this->getRow('id', $folderDestId);
-        //$sourcePath=$sourceFolder['folderpath'];
         $destPath = $destFolder['folderpath'];
         foreach ($files as $file) {
             $result = $this->objFiles->moveFile($file, $destPath);
