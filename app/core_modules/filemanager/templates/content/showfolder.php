@@ -90,15 +90,13 @@ $objForm = new form('changeview');
 $objThumbLink = new link($this->uri(array('module'=>$objAltConfig->getDefaultModuleName(),'action'=>$this->getParam('action'),'folder'=>$this->getParam('folder'),'view'=>'thumbnails')));
 $objListLink = new link($this->uri(array('module'=>$objAltConfig->getDefaultModuleName(),'action'=>$this->getParam('action'),'folder'=>$this->getParam('folder'),'view'=>'list')));
 $objViewHeading = $this->getObject('htmlheading','htmlelements');
-$objViewHeading->str = "Change view";
 $objViewHeading->type = 3;
 $objListLink->link = "List";
 $objThumbLink->link = "Thumbnails";
 $objListLink->extra = "class=sexybutton";
 $objThumbLink->extra = "class=sexybutton";
+$objViewHeading->str = "Change view<br />".$objListLink->show()."&nbsp;&nbsp;&nbsp;".$objThumbLink->show();
 $objForm->addToForm($objViewHeading->show());
-$objForm->addToForm($objThumbLink->show()."&nbsp;&nbsp;&nbsp;");
-$objForm->addToForm($objListLink->show());
 
 if ($folderPermission2) {
     $fieldset = new fieldset();

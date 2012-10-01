@@ -304,10 +304,11 @@ function turnOnFiles(value)
 
     function previewThumbnails($subFolders, $files, $symlinks, $restriction, $mode, $name, $forceRestriction = FALSE) {
         $objTable = $this->newObject('htmltable', 'htmlelements');
-        $objTable->cssId = $this->objLanguage->languageText('mod_filemanager_filemanagertableclass','filemanager','filemanagerTable');
+        $objTable->cssId = $this->objLanguage->languageText('mod_filemanager_filemanagertableclass', 'filemanager', 'filemanagerTable');
         $objCleanUrl = $this->getObject("cleanurl", "filemanager");
         $objIcon = $this->newObject('geticon', 'htmlelements');
         $objMimeType = $this->newObject("mimetypes", "files");
+        $objEmbed = $this->newObject("fileembed", "filemanager");
         $objImage;
         $folderIcon = $this->objFileIcons->getExtensionIcon('folder');
         // Set Restriction as empty if it is none
@@ -336,13 +337,12 @@ function turnOnFiles(value)
                         if ($NmbrofFiles == 0 && $NmbrofFolders == 0) {
                             $TitleString = "empty";
                         }
-                        $deLink = new link($this->uri(array('action' => 'deletefolder', 'id' => $folder['id'])), $this->targetModule);
                         $checkbox = new checkbox('files[]');
+                        $Deleteconfirm = $this->newObject('jqueryconfirm', 'utilities');
+                        $Deleteconfirm->setConfirm('delete', $this->uri(array('action' => 'deletefolder', 'id' => $folder['id'])), $this->objLanguage->languageText('mod_filemanager_areyousuredeletefiles', 'filemanager'));
                         $checkbox->cssId = htmlentities('input_files_' . basename($folder['folderpath']));
-                        $deLink->link = "delete";
-                        $deLink->cssClass = "buttonlink";
                         $checkbox->value = 'folder__' . $folder['id'];
-                        $folderLink->link = $folderIcon . "<p class='filedetails' ><br /><br /><br /><br />Folder name: " . substr(basename($folder['folderpath']), 0, 12) . "<br />Files: ".$NmbrofFiles."<br />Folders: ".$NmbrofFolders."</p>";
+                        $folderLink->link = $folderIcon . "<p class='filedetails' ><br />Folder name: " . substr(basename($folder['folderpath']), 0, 12) . "<br />Files: " . $NmbrofFiles . "<br />Folders: " . $NmbrofFolders . "</p>";
                         $accessVal = null;
                         $folderLink->title = $TitleString;
                         if (key_exists("access", $folder)) {
@@ -352,7 +352,7 @@ function turnOnFiles(value)
                             $objIcon->setIcon('info');
                         }
                         $objTable->startRow();
-                        $objTable->addCell($checkbox->show() . $deLink->show() . $folderLink->show());
+                        $objTable->addCell($checkbox->show() . $Deleteconfirm->show() . $folderLink->show());
                         $objTable->endRow();
                     }
                 }
@@ -423,28 +423,30 @@ function turnOnFiles(value)
                         $objIcon->setIcon('info');
                         $linkTitle = basename($file['filename']) . $objIcon->show();
                     } else {
-                        $linkTitle = basename($file['filename']);
                         $filepath = $this->objAltConfig->getSiteRoot() . '/usrfiles/' . $file['path'];
                         $fileType = $this->getObject("fileparts", "files");
-                        $paragrph = "<p class='filedetails' ><br /><br />Name: " . substr($file['filename'], 0, 10) . "..<br />size: " . $file['filesize'] . "kb<br />type: " . $fileType->getExtension($file['filename']) . "<br />license: ".$file['license']."<br />upload date: ".$file['datecreated']."</p>";
+                        $PlayerString = "Name: " . substr($file['filename'], 0, 17) . "..<br />Size: " . $file['filesize'] . "kb<br />Type: " . $fileType->getExtension($file['filename']) . "<br />License: " . $file['license'] . "<br />upload date: " . $file['datecreated'];
+                        $ImageParagraph = "<p class='filedetails' ><br /><br />Name: " . substr($file['filename'], 0, 15) . "..<br />size: " . $file['filesize'] . "kb<br />type: " . $fileType->getExtension($file['filename']) . "<br />license: " . $file['license'] . "<br />upload date: " . $file['datecreated'] . "</p>";
                     }
                     //Images
                     if (ereg("image", $file['mimetype'])) {
-                        $objImage = $this->getObject("image", "htmlelements");
-                        $objImage->src = $filepath;
-                        $fileLink->link = $objImage->show().$paragrph ;
+                        $fileLink->link = $objEmbed->embed($objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])), 'image') . $ImageParagraph;
                     }
                     //audio
                     $player = "";
-                    $objEmbed = $this->newObject("fileembed", "filemanager");
                     if (ereg("audio", $file['mimetype'])) {
                         $player = $objEmbed->showSoundPlayer($objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])));
-                        $fileLink->link = "Name: " . substr($file['filename'], 0, 10) . "..<br />Size: " . $file['filesize'] . "kb<br />Type: " . $fileType->getExtension($file['filename']) . "<br />License: ".$file['license']."<br />upload date: ".$file['datecreated'];
+                        $fileLink->link = $PlayerString;
+                    }
+                    //video
+                    if (ereg("video", $file['mimetype'])) {
+                        $player = $objEmbed->showWMV($objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])));
+                        $fileLink->link = $PlayerString;
                     }
                     //other formats
-                    if ($objMimeType->isValidMimeType($objMimeType->getMimeType($file['filename'])) && !ereg("image", $file['mimetype']) && !ereg("audio", $file['mimetype'])) {
+                    if ($objMimeType->isValidMimeType($objMimeType->getMimeType($file['filename'])) && !ereg("image", $file['mimetype']) && !ereg("audio", $file['mimetype']) && !ereg("video", $file['mimetype'])) {
                         $objImage = $this->objFileIcons->getExtensionIcon($fileType->getExtension($file['filename']));
-                        $fileLink->link = $objImage.$paragrph;
+                        $fileLink->link = $objImage . $ImageParagraph;
                     }
 
                     $downloadLink = new link($objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])));
@@ -463,8 +465,9 @@ function turnOnFiles(value)
                     } else if ($mode == 'selectfilewindow') {
                         $objTable->addCell($selectFileStr);
                     } else if ($mode == 'selectimagewindow') {
+
                     } else {
-                        $objTable->addCell($strPermissions . $downloadLink->show() . "</p>" . $fileLink->show().$player);
+                        $objTable->addCell($strPermissions . $downloadLink->show() . "</p>" . $player . $fileLink->show());
                     }
                     $objTable->endRow();
                 }
@@ -473,7 +476,7 @@ function turnOnFiles(value)
         $str = "<style type='text/css' >
                 #filemanagerTable tr{
                         display: inline-block;
-                        padding: 0.5pc;
+                        margin: 0.5pc;
                  }
                 #filemanagerTable tr td a img{
                         width: 13pc;
@@ -489,7 +492,7 @@ function turnOnFiles(value)
                  #filemanagerTable tr td  a p.filedetails{
                         position: absolute;
                         margin-top: -13.5pc;
-                        height: 14pc;
+                        height: 13.5pc;
                         width: 13pc;
                         color: #000000;
                         text-shadow: 1px 0 1px #000000;
@@ -500,6 +503,9 @@ function turnOnFiles(value)
                         -webkit-transition-timing-function: ease;
                         -webkit-transition-duration: 0.5s;
                         -webkit-transition-propery: opacity;
+                   }
+                   #filemanagerTable tr td a:hover{
+                         text-decoration: none;
                    }
                    #filemanagerTable tr td a p:hover{
                          opacity: 0.85;
