@@ -340,10 +340,20 @@ class curlwrapper extends object
     {
         // Setup URL for Curl
         $ch = curl_init($url);
+        
+        // Headers as some sites will ban for scraping without this
+        $headers[] = 'Accept: image/gif, image/x-bitmap, image/jpeg, image/pjpeg';
+        $headers[] = 'Connection: Keep-Alive';
+        $headers[] = 'Content-type: application/x-www-form-urlencoded;charset=UTF-8';
+        $userAgent = 'Mozilla/5.0 (compatible; Chisimba/3.4; +http://chisimba.com)';
 
         // More Curl settings
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_HEADER, FALSE);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_USERAGENT, $userAgent);
+
+        
 
         // Add Server Proxy if it exists
         if ($this->proxyInfo['server'] != '') {
