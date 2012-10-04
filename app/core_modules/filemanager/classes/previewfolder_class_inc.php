@@ -57,7 +57,7 @@ class previewfolder extends filemanagerobject {
 
 
     /**
-     * The string to indicate the current type of iew
+     * The string to indicate the current type of view
      *@access public
      * @var string
      */
