@@ -8,6 +8,8 @@ $this->loadClass('textinput', 'htmlelements');
 $this->loadClass('label', 'htmlelements');
 
 $objIcon = $this->newObject('geticon', 'htmlelements');
+$objLanguage = $this->newObject('language','language');
+$objAltConfig = $this->getObject("altconfig", "config");
 
 $this->appendArrayVar('headerParams', $this->getJavascriptFile('selectall.js', 'htmlelements'));
 
@@ -16,7 +18,6 @@ if (isset($file['path'])) {
     $fileDownloadPath .= $file['path'];
 }
 $fileDownloadPath = $this->objCleanUrl->cleanUpUrl($fileDownloadPath);
-$objThumbnail = $this->getObject('thumbnails', 'filemanager');
 if (!isset($selectParam)) {
     $selectParam = '';
 }
@@ -85,25 +86,49 @@ $checkOpenerScript = '
 
 $this->appendArrayVar('headerParams', $checkOpenerScript);
 $this->loadClass('fieldset', 'htmlelements');
-$objAltConfig = $this->getObject("altconfig", "config");
-$objForm = new form('changeview');
+
+//the div element to contain links for changing the view
+$ViewDiv = "<div id='changeview_div' >";
+//The changeview form
+$objForm = new form($objLanguage->languageText("mod_filemanager_changeviewform","filemanager"));
+//Thumbnails link to allow for switching to thumbnails view
 $objThumbLink = new link($this->uri(array('module'=>$objAltConfig->getDefaultModuleName(),'action'=>$this->getParam('action'),'folder'=>$this->getParam('folder'),'view'=>'thumbnails')));
+//List view llink to allow switching to list view
 $objListLink = new link($this->uri(array('module'=>$objAltConfig->getDefaultModuleName(),'action'=>$this->getParam('action'),'folder'=>$this->getParam('folder'),'view'=>'list')));
+
+//The heading to display the links for switching views
 $objViewHeading = $this->getObject('htmlheading','htmlelements');
 $objViewHeading->type = 3;
-$objListLink->link = "List";
-$objThumbLink->link = "Thumbnails";
+
+//Setting the text to be displayed on the links
+$objListLink->link = $objLanguage->languageText("mod_filemanager_listviewlinkvalue","filemanager");
+$objThumbLink->link = $objLanguage->languageText("mod_filemanager_thumbnailslinkvalue","filemanager");
+
+//assigning a class value to the links to enable styling
 $objListLink->extra = "class=sexybutton";
 $objThumbLink->extra = "class=sexybutton";
-$objViewHeading->str = "Change view<br />".$objListLink->show()."&nbsp;&nbsp;&nbsp;".$objThumbLink->show();
+
+//get the current view
+$CurrentView = $this->getParam('view');
+
+//append the appropriate link to switch view
+if($CurrentView == "list" || empty($CurrentView)){
+    $objViewHeading->str = "Change view<br />".$objThumbLink->show();
+} elseif ($CurrentView == "thumbnails") {
+    $objViewHeading->str = "Change view<br />".$objListLink->show();
+}
+
+//append heading with link to form
 $objForm->addToForm($objViewHeading->show());
+//append the form to the div element and then close the element
+$ViewDiv .=$objForm->show()."</div>";
 
 if ($folderPermission2) {
     $fieldset = new fieldset();
 
     $fieldset->setLegend($this->objLanguage->languageText('mod_filemanager_createafolder', 'filemanager', 'Create a Folder'));
-    $fieldset->addContent($this->objFolders->showCreateFolderForm($folderId));
-    echo $objForm->show().$fieldset->show();
+    $fieldset->addContent($this->objFolders->showCreateFolderForm($folderId)."&nbsp;&nbsp;".$ViewDiv);
+    echo $fieldset->show();
 }
 $accessLink = "";
 if ($folder['folderlevel'] == 2) {
@@ -112,8 +137,6 @@ if ($folder['folderlevel'] == 2) {
     $folderpath = $breadcrumbs;
 } else if ($folderPermission) {
     $icon = $objIcon->getDeleteIconWithConfirm($folderId, array('action' => 'deletefolder', 'id' => $folderId), 'filemanager', $this->objLanguage->languageText('mod_filemanager_confirmdeletefolder', 'filemanager', 'Are you sure wou want to remove this folder?'));
-    //$objLinkRename = new link($this->uri(array('action' => 'renamefolder', 'folder'=>$folderId)));
-    //$objLinkRename->link = $this->objLanguage->languageText('mod_filemanager_rename', 'filemanager');
     $linkRename = '<span id="renameButton" style="cursor: pointer; text-decoration: underline">' . $this->objLanguage->languageText('mod_filemanager_rename', 'filemanager') . '</span><script type="text/javascript">
 document.getElementById(\'renameButton\').onclick = function() {
     document.getElementById(\'renamefolder\').style.display = \'inline\';
@@ -129,7 +152,6 @@ document.getElementById(\'renameButton\').onclick = function() {
     adjustLayout();
 };
 </script>&nbsp;|&nbsp;';
-//$objLinkRename->show();
 } else {
     $icon = '';
     $linkRename = '&nbsp;|&nbsp;';
@@ -164,7 +186,7 @@ switch ($this->getParam('error')) {
 }
 
 echo '<h1>' . $folderpath . '</h1>';
-$folderActions = ""; // $fieldset->show(); //'<table border="0"><tr><td valign="baseline"></td><td valign="baseline">' . $linkRename . $accessLink . $icon . '</td></tr></table>';
+$folderActions = "";
 if ($folder['folderlevel'] != 2 && $folderPermission) {
     $form = new form('formrenamefolder', $this->uri(array('action' => 'renamefolder')));
     $objInputFolder = new hiddeninput('folder', $folderId);

@@ -19,6 +19,7 @@ header($ExpStr);
 
 $cssArray = array(
     "common.css",
+    "filemanager.css",
     "cssdropdownmenu.css",
     "htmlelements.css",
     "creativecommons.css",

@@ -42,9 +42,26 @@
 $this->loadClass('filemanagerobject', 'filemanager');
 
 class previewfolder extends filemanagerobject {
-
+    /**
+     * The variable to indicate wether the user has edit permition or not
+     *@access public
+     * @var boolean
+     */
     public $editPermission = TRUE;
+    /**
+     * The string variable to store the target module
+     *@access public
+     * @var string
+     */
     public $targetModule = "filemanager";
+
+
+    /**
+     * The string to indicate the current type of iew
+     *@access public
+     * @var string
+     */
+    public $viewType;
 
     /**
      * Constructor
@@ -73,11 +90,11 @@ class previewfolder extends filemanagerobject {
      * @access public
      */
     function previewContent($subFolders, $files, $mode, $name, $symlinks = array(), $restriction = array(), $forceRestriction = FALSE) {
-        $viewType = $this->getParam('view');
-        if ($viewType == "list" || empty($viewType)) {
+        $this->viewType = $this->getParam('view');
+        if ($this->viewType == "list" || empty($this->viewType)) {
             return $this->previewLongView($subFolders, $files, $symlinks, $restriction, $mode, $name, $forceRestriction);
         }
-        if ($viewType == "thumbnails") {
+        if ($this->viewType == "thumbnails") {
             return $this->previewThumbnails($subFolders, $files, $symlinks, $restriction, $mode, $name, $forceRestriction);
         }
     }
@@ -137,7 +154,7 @@ class previewfolder extends filemanagerobject {
 
                     $objTable->addCell($folderIcon);
 
-                    $folderLink = new link($this->uri(array('action' => 'viewfolder', 'folder' => $folder['id']), $this->targetModule));
+                    $folderLink = new link($this->uri(array('action' => 'viewfolder', 'folder' => $folder['id'],'view'=> $this->viewType), $this->targetModule));
 
 
                     $extTitle = '';
@@ -309,6 +326,7 @@ function turnOnFiles(value)
         $objIcon = $this->newObject('geticon', 'htmlelements');
         $objMimeType = $this->newObject("mimetypes", "files");
         $objEmbed = $this->newObject("fileembed", "filemanager");
+        $ViewDiv;
         $objImage;
         $folderIcon = $this->objFileIcons->getExtensionIcon('folder');
         // Set Restriction as empty if it is none
@@ -325,7 +343,7 @@ function turnOnFiles(value)
         } else {
             if (count($subFolders) > 0) {
                 foreach ($subFolders as $folder) {
-                    $folderLink = new link($this->uri(array('action' => 'viewfolder', 'folder' => $folder['id'])));
+                    $folderLink = new link($this->uri(array('action' => 'viewfolder', 'folder' => $folder['id'],'view'=> $this->viewType), $this->targetModule));
                     $objTable->startRow();
                     if ($this->editPermission) {
 
@@ -352,7 +370,8 @@ function turnOnFiles(value)
                             $objIcon->setIcon('info');
                         }
                         $objTable->startRow();
-                        $objTable->addCell($checkbox->show() . $Deleteconfirm->show() . $folderLink->show());
+                        $ViewDiv = "<div class='fm_thumbnails' >".$checkbox->show() . $Deleteconfirm->show() . $folderLink->show()."</div>";
+                        $objTable->addCell($ViewDiv);
                         $objTable->endRow();
                     }
                 }
@@ -425,17 +444,19 @@ function turnOnFiles(value)
                     } else {
                         $filepath = $this->objAltConfig->getSiteRoot() . '/usrfiles/' . $file['path'];
                         $fileType = $this->getObject("fileparts", "files");
+                        //Text to display video and audio file information
                         $PlayerString = "Name: " . substr($file['filename'], 0, 17) . "..<br />Size: " . $file['filesize'] . "kb<br />Type: " . $fileType->getExtension($file['filename']) . "<br />License: " . $file['license'] . "<br />upload date: " . $file['datecreated'];
+                        //Text to display image file information
                         $ImageParagraph = "<p class='filedetails' ><br /><br />Name: " . substr($file['filename'], 0, 15) . "..<br />size: " . $file['filesize'] . "kb<br />type: " . $fileType->getExtension($file['filename']) . "<br />license: " . $file['license'] . "<br />upload date: " . $file['datecreated'] . "</p>";
                     }
-                    //Images
+                    // generate image thumbnails
                     if (ereg("image", $file['mimetype'])) {
                         $fileLink->link = $objEmbed->embed($objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])), 'image') . $ImageParagraph;
                     }
-                    //audio
-                    $player = "";
+                    //create and append audio player object
+                    $objPlayer = "";
                     if (ereg("audio", $file['mimetype'])) {
-                        $player = $objEmbed->showSoundPlayer($objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])));
+                        $objPlayer = $objEmbed->showSoundPlayer($objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])));
                         $fileLink->link = $PlayerString;
                     }
                     //video
@@ -447,6 +468,9 @@ function turnOnFiles(value)
                     if ($objMimeType->isValidMimeType($objMimeType->getMimeType($file['filename'])) && !ereg("image", $file['mimetype']) && !ereg("audio", $file['mimetype']) && !ereg("video", $file['mimetype'])) {
                         $objImage = $this->objFileIcons->getExtensionIcon($fileType->getExtension($file['filename']));
                         $fileLink->link = $objImage . $ImageParagraph;
+                    }  else {
+                        $objImage = $this->objFileIcons->getExtensionIcon('uknown');
+                        $fileLink->link = $objImage;
                     }
 
                     $downloadLink = new link($objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])));
@@ -467,7 +491,9 @@ function turnOnFiles(value)
                     } else if ($mode == 'selectimagewindow') {
 
                     } else {
-                        $objTable->addCell($strPermissions . $downloadLink->show() . "</p>" . $player . $fileLink->show());
+                        //append all elements inside the div
+                        $ViewDiv = "<div class='fm_thumbnails' >".$strPermissions.$downloadLink->show()."</p>".$objPlayer.$fileLink->show()."</div>";
+                        $objTable->addCell($ViewDiv);
                     }
                     $objTable->endRow();
                 }

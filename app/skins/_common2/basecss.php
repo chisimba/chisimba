@@ -48,6 +48,7 @@ function generateCache()
         "layout.css",
         "common2.css",
         "htmlelements.css",
+        "filemanager.css",
         "creativecommons.css",
         "forum.css",
         "calendar.css",
