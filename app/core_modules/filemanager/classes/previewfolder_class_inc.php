@@ -468,9 +468,6 @@ function turnOnFiles(value)
                     if ($objMimeType->isValidMimeType($objMimeType->getMimeType($file['filename'])) && !ereg("image", $file['mimetype']) && !ereg("audio", $file['mimetype']) && !ereg("video", $file['mimetype'])) {
                         $objImage = $this->objFileIcons->getExtensionIcon($fileType->getExtension($file['filename']));
                         $fileLink->link = $objImage . $ImageParagraph;
-                    }  else {
-                        $objImage = $this->objFileIcons->getExtensionIcon('uknown');
-                        $fileLink->link = $objImage;
                     }
 
                     $downloadLink = new link($objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])));
