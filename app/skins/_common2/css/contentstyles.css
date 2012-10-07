@@ -1,0 +1,88 @@
+/*******************************************************************************
+*  Content styles to be used in the authoring of content by advanced users     *
+*******************************************************************************/
+/* ---------------- BEGIN PRESET DIVS  ------------------*/
+.preset_div_wrapper {
+    clear: both;
+}
+.preset_div_wrapper_after {
+    content: "."; 
+    display: block; 
+    height: 0; 
+    font-size:0; 
+    clear: both; 
+    visibility:hidden;
+}
+.preset_div, .preset_div_rounded, .preset_div_rounded_shadow {
+    float: left;
+    padding: 5px;
+    width: 195px;
+    margin: 2px;
+}
+
+.preset_div a, .preset_div_rounded a, .preset_div_rounded_shadow a,
+.preset_div a:visited, .preset_div_rounded a:visited, 
+.preset_div_rounded_shadow a:visited {
+    color: #dadada;
+}
+.preset_div a:hover, .preset_div_rounded a:hover, 
+.preset_div_rounded_shadow a:hover, .preset_div a:visited:hover, 
+.preset_div_rounded a:visited:hover, 
+.preset_div_rounded_shadow a:visited:hover {
+    color: #FFCC00;
+}
+
+.preset_div_rounded, .preset_div_rounded_shadow {
+    border-radius: 12px;
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    -khtml-border-radius: 12px;
+}
+.preset_div_rounded_shadow {
+    -webkit-box-shadow: 4px 4px 5px rgba(50, 50, 50, 0.27);
+    -moz-box-shadow:    4px 4px 5px rgba(50, 50, 50, 0.27);
+    box-shadow:         4px 4px 5px rgba(50, 50, 50, 0.27);
+}
+
+.plumb {
+    background: #4E205A;
+    color: #FFFFFF;
+}
+.purple {
+    background: #85489C;
+    color: #FFFFFF;
+}
+.lime {
+    background: #ADD03B;
+    color: #FFFFFF;
+}
+.grass {
+    background: #006A5D;
+    color: #FFFFFF;
+}
+.orangepeal {
+    background: #F3782E;
+    color: #FFFFFF;
+}
+.sky {
+    background: #00B1CF;
+    color: #FFFFFF;
+}
+.turk {
+    background: #00708A;
+    color: #FFFFFF;
+}
+.coal {
+    background: #000000;
+    color: #FFFFFF;
+}
+.charcoal {
+    background: #323232;
+    color: #FFFFFF;
+}
+.chisimba {
+    background: #5a3f1e;
+    color: #FFFFFF;
+}
+
+/* ----------------- END PRESET DIVS  -------------------*/
