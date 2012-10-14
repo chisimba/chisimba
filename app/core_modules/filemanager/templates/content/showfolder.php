@@ -88,6 +88,12 @@ $this->appendArrayVar('headerParams', $checkOpenerScript);
 $this->loadClass('fieldset', 'htmlelements');
 
 //the div element to contain links for changing the view
+//instantiate the DOM object
+$objDOM = new DOMDocument("UTF-8");
+$testDiv = $objDOM->createElement("div");
+$testDiv->setAttribute("innethtml", "Test Div");
+$testText = $objDOM->createTextNode("This is test text");
+$testDiv->appendChild($testText);
 $ViewDiv = "<div id='changeview_div' >";
 //The changeview form
 $objForm = new form($objLanguage->languageText("mod_filemanager_changeviewform","filemanager"));
