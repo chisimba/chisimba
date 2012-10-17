@@ -88,19 +88,13 @@ $this->appendArrayVar('headerParams', $checkOpenerScript);
 $this->loadClass('fieldset', 'htmlelements');
 
 //the div element to contain links for changing the view
-//instantiate the DOM object
-$objDOM = new DOMDocument("UTF-8");
-$testDiv = $objDOM->createElement("div");
-$testDiv->setAttribute("innethtml", "Test Div");
-$testText = $objDOM->createTextNode("This is test text");
-$testDiv->appendChild($testText);
-$ViewDiv = "<div id='changeview_div' >";
+$viewDiv = "<div id='changeview_div' >";
 //The changeview form
 $objForm = new form($objLanguage->languageText("mod_filemanager_changeviewform","filemanager"));
 //Thumbnails link to allow for switching to thumbnails view
 $objThumbLink = new link($this->uri(array('module'=>$objAltConfig->getDefaultModuleName(),'action'=>$this->getParam('action'),'folder'=>$this->getParam('folder'),'view'=>'thumbnails')));
 //List view llink to allow switching to list view
-$objListLink = new link($this->uri(array('module'=>$objAltConfig->getDefaultModuleName(),'action'=>$this->getParam('action'),'folder'=>$this->getParam('folder'),'view'=>'list')));
+$objListLink = new link($this->uri(array('module'=>$objAltConfig->getDefaultModuleName(),'action'=>$this->getParam('action'),'folder'=>$this->getParam('folder'),'view'=>strtolower($this->objLanguage->languageText("phrase_listview","system")))));
 
 //The heading to display the links for switching views
 $objViewHeading = $this->getObject('htmlheading','htmlelements');
@@ -111,29 +105,29 @@ $objListLink->link = $objLanguage->languageText("mod_filemanager_listviewlinkval
 $objThumbLink->link = $objLanguage->languageText("mod_filemanager_thumbnailslinkvalue","filemanager");
 
 //assigning a class value to the links to enable styling
-$objListLink->extra = "class=sexybutton";
-$objThumbLink->extra = "class=sexybutton";
+$objListLink->extra = "class=".$this->objLanguage->languageText("word_sexybutton","system");
+$objThumbLink->extra = "class=".$this->objLanguage->languageText("word_sexybutton","system");
 
 //get the current view
-$CurrentView = $this->getParam('view');
+$currentView = $this->getParam('view');
 
 //append the appropriate link to switch view
-if($CurrentView == "list" || empty($CurrentView)){
-    $objViewHeading->str = "Change view<br />".$objThumbLink->show();
-} elseif ($CurrentView == "thumbnails") {
-    $objViewHeading->str = "Change view<br />".$objListLink->show();
+if($currentView == strtolower($this->objLanguage->languageText("phrase_thumbnailview","system"))){
+    $objViewHeading->str = $this->objLanguage->languageText("phrase_changeview","system")."<br />".$objListLink->show();
+} else{
+    $objViewHeading->str = $this->objLanguage->languageText("phrase_changeview","system")."<br />".$objThumbLink->show();
 }
 
 //append heading with link to form
 $objForm->addToForm($objViewHeading->show());
 //append the form to the div element and then close the element
-$ViewDiv .=$objForm->show()."</div>";
+$viewDiv .=$objForm->show()."</div>";
 
 if ($folderPermission2) {
     $fieldset = new fieldset();
 
     $fieldset->setLegend($this->objLanguage->languageText('mod_filemanager_createafolder', 'filemanager', 'Create a Folder'));
-    $fieldset->addContent($this->objFolders->showCreateFolderForm($folderId)."&nbsp;&nbsp;".$ViewDiv);
+    $fieldset->addContent($this->objFolders->showCreateFolderForm($folderId).$viewDiv);
     echo $fieldset->show();
 }
 $accessLink = "";
@@ -202,7 +196,7 @@ if ($folder['folderlevel'] != 2 && $folderPermission) {
     $form->addToForm($label->show() . $textinput->show());
     $buttonSubmit = new button('renamefoldersubmit', $this->objLanguage->languageText('mod_filemanager_renamefolder', 'filemanager'));
     $buttonSubmit->setToSubmit();
-    $form->addToForm('&nbsp;' . $buttonSubmit->show() . '<br/><div class="warning">' . $this->objLanguage->languageText('mod_filemanager_renamewarning', 'filemanager') . '</div>'); // . '&nbsp;' . $buttonCancel->show());
+    $form->addToForm('&nbsp;' . $buttonSubmit->show() . '<br/><div class="warning">' . $this->objLanguage->languageText('mod_filemanager_renamewarning', 'filemanager') . '</div>');
 
 
     $fieldset = new fieldset();

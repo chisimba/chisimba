@@ -196,7 +196,9 @@ class dbfolder extends dbTable {
      */
     function getTree($folderType = 'users', $id, $treeType = 'dhtml', $selected = '') {
         //Create a new tree
-        $TitleAttr = "";
+
+	//Create the variable to contain the link's title text and assign it the value [ Contains folder(s) and file(s) ]
+        $titleAttr;// = $this->objLanguage->languageText("mod_filemanager_contentsindicator","filemanager");
         $icon = 'folder.gif';
         $menu = new treemenu();
         $objFile = $this->getObject("dbfile");
@@ -214,20 +216,22 @@ class dbfolder extends dbTable {
             $cssClass = '';
         }
         
-        $NmbrofFiles = count($objFile->getUserFiles($id));
-        $NmbrofFolders = count($this->getUserFolders($id));
+        $nmbrOfFiles = count($objFile->getUserFiles($id));
+        $nmbrOfFolders = count($this->getUserFolders($id));
         
         //TODO: make this a reusable function
-                if(empty($NmbrofFiles) && empty($NmbrofFolders)){
-                    $TitleAttr = "empty";
+	//For parent folder
+                if( $nmbrOfFiles==0 && $nmbrOfFolders==0){
+                    $titleAttr = $this->objLanguage->languageText("mod_filemanager_emptyfolderindicator","filemanager");
                 }else{
-                    $TitleAttr = 'countains_'.$NmbrofFiles.'_file(s)_and_'.($NmbrofFolders).'_folder(s)';
+                    $titleAttr = str_replace(" ","_",$this->objLanguage->languageText("mod_filemanager_contentsindicator","filemanager"));
+			$titleAttr = substr($titleAttr,0,9).$nmbrOfFolders."_".substr($titleAttr,9,9)."_".$nmbrOfFiles."_".substr($titleAttr,19,11);
                 }
 
         if ($treeType == 'htmldropdown') {
             $allFilesNode = new treenode(array('text' => strip_tags($folderText), 'link' => $baseFolderId));
         } else {
-            $allFilesNode = new treenode(array('text' => $folderText, 'link' => $this->uri(array('action' => 'viewfolder', 'folder' => $baseFolderId)), 'icon' => $icon, 'expandedIcon' => $expandedIcon, 'cssClass' => $cssClass,'titleattr'=>$TitleAttr));
+            $allFilesNode = new treenode(array('text' => $folderText, 'link' => $this->uri(array('action' => 'viewfolder', 'folder' => $baseFolderId)), 'icon' => $icon, 'expandedIcon' => $expandedIcon, 'cssClass' => $cssClass,'titleattr'=>$titleAttr));
         }
 
         $refArray = array();
@@ -236,12 +240,14 @@ class dbfolder extends dbTable {
 
         if (count($folders) > 0) {
             foreach ($folders as $folder) {
-                $NmbrofFiles = count($objFile->getFolderFiles($folder['folderpath']));
-                $NmbrofFolders = count($this->getSubFolders($folder['id']));
-                if(empty($NmbrofFiles) && empty($NmbrofFolders)){
-                    $TitleAttr = "empty";
+		//TODO: make this a reusable function
+                $nmbrOfFiles = count($objFile->getFolderFiles($folder['folderpath']));
+                $nmbrOfFolders = count($this->getSubFolders($folder['id']));
+                if( $nmbrOfFiles ==0 && $nmbrOfFolders ==0){
+                    $titleAttr = $this->objLanguage->languageText("mod_filemanager_emptyfolderindicator","filemanager");
                 }else{
-                    $TitleAttr = 'countains_'.$NmbrofFiles.'_file(s)_and_'.$NmbrofFolders.'_folder(s)';
+                    $titleAttr = str_replace(" ","_",$this->objLanguage->languageText("mod_filemanager_contentsindicator","filemanager"));
+			$titleAttr = substr($titleAttr,0,9).$nmbrOfFolders."_".substr($titleAttr,9,9)."_".$nmbrOfFiles."_".substr($titleAttr,19,11);
                 }
 
                 $extTitle = '';
@@ -267,7 +273,7 @@ class dbfolder extends dbTable {
                 if ($treeType == 'htmldropdown') {
                     $node = & new treenode(array('title' => $folderText, 'text' => $folderShortText, 'link' => $folder['id'], 'icon' => $icon, 'expandedIcon' => $expandedIcon, 'cssClass' => $cssClass));
                 } else {
-                    $node = & new treenode(array('title' => $folderText, 'text' => $folderShortText, 'link' => $this->uri(array('action' => 'viewfolder', 'folder' => $folder['id'])), 'icon' => $icon, 'expandedIcon' => $expandedIcon, 'cssClass' => $cssClass,'titleattr'=>$TitleAttr));
+                    $node = & new treenode(array('title' => $folderText, 'text' => $folderShortText, 'link' => $this->uri(array('action' => 'viewfolder', 'folder' => $folder['id'])), 'icon' => $icon, 'expandedIcon' => $expandedIcon, 'cssClass' => $cssClass,'titleattr'=>$titleAttr));
                 }
 
 

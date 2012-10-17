@@ -91,12 +91,11 @@ class previewfolder extends filemanagerobject {
      */
     function previewContent($subFolders, $files, $mode, $name, $symlinks = array(), $restriction = array(), $forceRestriction = FALSE) {
         $this->viewType = $this->getParam('view');
-        if ($this->viewType == "list" || empty($this->viewType)) {
-            return $this->previewLongView($subFolders, $files, $symlinks, $restriction, $mode, $name, $forceRestriction);
-        }
-        if ($this->viewType == "thumbnails") {
+        if ($this->viewType == strtolower($this->objLanguage->languageText("phrase_thumbnailview","system"))) {
             return $this->previewThumbnails($subFolders, $files, $symlinks, $restriction, $mode, $name, $forceRestriction);
-        }
+        }else{
+            return $this->previewLongView($subFolders, $files, $symlinks, $restriction, $mode, $name, $forceRestriction);
+	}
     }
 
     /**
@@ -169,15 +168,20 @@ class previewfolder extends filemanagerobject {
                         $extTitle = $objIcon->show();
                     }
 
-                    //variables to store informatin partaining folder contants
+ 
+                    //TODO: make this a reusable function
+		    //variables to store informatin partaining folder contants
 		    $nmbrOfFiles = count($this->objFiles->getFolderFiles($folder['folderpath']));
                     $nmbrOfFolders = count($this->objFolder->getSubFolders($folder['id']));
-                    $titleString = $this->objLanguage->languageText("mod_filemanager_contentsindicator","filemanager");
 
-                    if ($nmbrOfFiles == 0 && $nmbrOfFolders == 0) {
+                    //Assign the value to be displayed on the link's title depending on it's contents
+		if ($nmbrOfFiles == 0 && $nmbrOfFolders == 0) {
                         $titleString = $this->objLanguage->languageText("mod_filemanager_emptyfolderindicator","filemanager");
-                    }
-                    $folderLink->title = substr($titleString,0,8)." ".$nmbrOfFolders." ".substr($titleString,9,13)." ".$nmbrOfFiles." ".substr($titleString,23,7);
+                    }else{
+                    $titleString = $this->objLanguage->languageText("mod_filemanager_contentsindicator","filemanager");
+			$titleString = substr($titleString,0,9).$nmbrOfFolders.substr($titleString,8,11).$nmbrOfFiles.substr($titleString,18,12);
+			}
+			$folderLink->title = $titleString;
                     $folderLink->link = substr(basename($folder['folderpath']), 0, 70) . '...' . $extTitle;
 
                     $objTable->addCell($folderLink->show());
@@ -352,17 +356,26 @@ function turnOnFiles(value)
 		    //variables to store informatin partaining folder contants
 		    $nmbrOfFiles = count($this->objFiles->getFolderFiles($folder['folderpath']));
                     $nmbrOfFolders = count($this->objFolder->getSubFolders($folder['id']));
+
+                    //Assign the value to be displayed on the link's title depending on it's contents
+		if ($nmbrOfFiles == 0 && $nmbrOfFolders == 0) {
+                        $titleString = $this->objLanguage->languageText("mod_filemanager_emptyfolderindicator","filemanager");
+                    }else{
                     $titleString = $this->objLanguage->languageText("mod_filemanager_contentsindicator","filemanager");
+			$titleString = substr($titleString,0,9).$nmbrOfFolders.substr($titleString,8,11).$nmbrOfFiles.substr($titleString,18,12);
+			}
 
                         $checkbox = new checkbox('files[]');
                         $deleteconfirm = $this->newObject('jqueryconfirm', 'utilities');
                         $deleteconfirm->setConfirm('delete', $this->uri(array('action' => 'deletefolder', 'id' => $folder['id'])), $this->objLanguage->languageText('mod_filemanager_areyousuredeletefiles', 'filemanager'));
                         $checkbox->cssId = htmlentities('input_files_' . basename($folder['folderpath']));
                         $checkbox->value = 'folder__' . $folder['id'];
+
                     	//The value to appear when the mouse is over the link
-			$folderLink->title = substr($titleString,0,8)." ".$nmbrOfFolders." ".substr($titleString,9,13)." ".$nmbrOfFiles." ".substr($titleString,23,7);
-                        $folderLink->link = $folderIcon . "<p class='filedetails' ><br />".$this->objLanguage->languageText("phrase_foldername","system")." : " . substr(basename($folder['folderpath']), 0, 12) . "<br />".$this->objLanguage->languageText("word_files","system")." : " . count($this->objFiles->getFolderFiles($folder['folderpath'])) . "<br />".$this->objLanguage->languageText("word_folders","system")." : " . count($this->objFolder->getSubFolders($folder['id'])) . "</p>";
-                        $accessVal = null;
+			$folderLink->title = $titleString;
+                        $folderLink->link = $folderIcon . "<p class='filedetails' ><br />".$this->objLanguage->languageText("phrase_foldername","system").": " . substr(basename($folder['folderpath']), 0, 12) . "<br />".$this->objLanguage->languageText("word_files","system").": " . count($this->objFiles->getFolderFiles($folder['folderpath'])) . "<br />".$this->objLanguage->languageText("word_folders","system").": " . count($this->objFolder->getSubFolders($folder['id'])) . "</p>";
+                        
+$accessVal = null;
                         if (key_exists("access", $folder)) {
                             $accessVal = $folder['access'];
                         }
@@ -451,24 +464,24 @@ function turnOnFiles(value)
                         $filepath = $this->objAltConfig->getSiteRoot() . '/usrfiles/' . $file['path'];
                         $fileType = $this->getObject("fileparts", "files");
                         //Text to display video and audio file information
-                        $PlayerString = $this->objLanguage->languageText("word_filename","system") ." : ". substr($file['filename'], 0, 15) . "..<br />".$this->objLanguage->languageText("phrase_filesize","system")." : " . $file['filesize'] . "kb<br />".$this->objLanguage->languageText("phrase_mimetype","system")." : " . $fileType->getExtension($file['filename']) ."<br />".$this->objLanguage->languageText("phrase_dateuploaded","system")." : " . $file['datecreated'];
+                        $playerString = $this->objLanguage->languageText("word_filename","system") .": ". substr($file['filename'], 0, 10) . "..<br />".$this->objLanguage->languageText("phrase_filesize","system").": " . $file['filesize'] . "kb<br />".$this->objLanguage->languageText("phrase_mimetype","system").": " . $fileType->getExtension($file['filename']) ."<br />".$this->objLanguage->languageText("phrase_dateuploaded","system").": " . $file['datecreated'];
                         //Text to display image file information
-                        $imageParagraph = "<p class='filedetails' ><br /><br />".$this->objLanguage->languageText("word_filename","system") ." : ". substr($file['filename'], 0, 15) . "..<br />".$this->objLanguage->languageText("phrase_filesize","system")." : " . $file['filesize'] . " kb<br />".$this->objLanguage->languageText("phrase_mimetype")." : " . $fileType->getExtension($file['filename']) . "<br />".$this->objLanguage->languageText("phrase_dateuploaded","system")." : " . $file['datecreated'] . "</p>";
+                        $imageParagraph = "<p class='filedetails' ><br /><br />".$this->objLanguage->languageText("word_filename","system") ." : ". substr($file['filename'], 0, 10) . "..<br />".$this->objLanguage->languageText("phrase_filesize","system").": " . $file['filesize'] . " kb<br />".$this->objLanguage->languageText("phrase_mimetype").": " . $fileType->getExtension($file['filename']) . "<br />".$this->objLanguage->languageText("phrase_dateuploaded","system").": " . $file['datecreated'] . "</p>";
                     }
                     // generate image thumbnails
                     if (ereg("image", $file['mimetype'])) {
-                        $fileLink->link = $objEmbed->embed($objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])), 'image') . $imageParagraph;
+                        $fileLink->link = $objEmbed->embed($objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])), $this->objLanguage->languageText("word_image","system")) . $imageParagraph;
                     }
                     //create and append audio player object
                     $objPlayer = "";
                     if (ereg("audio", $file['mimetype'])) {
                         $objPlayer = $objEmbed->showSoundPlayer($objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])));
-                        $fileLink->link = $PlayerString;
+                        $fileLink->link = $playerString;
                     }
                     //video
                     if (ereg("video", $file['mimetype'])) {
-                        $player = $objEmbed->showFlash($objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])));
-                        $fileLink->link = $PlayerString;
+                        $objPlayer = $objEmbed->showWithFlowPlayer($objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])));
+                        $fileLink->link = $playerString;
                     }
                     //other formats
                     if ($objMimeType->isValidMimeType($objMimeType->getMimeType($file['filename'])) && !ereg("image", $file['mimetype']) && !ereg("audio", $file['mimetype']) && !ereg("video", $file['mimetype'])) {
