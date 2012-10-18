@@ -345,7 +345,8 @@ function turnOnFiles(value)
             $objTable->startRow();
             $objTable->addCell('<em>' . $this->objLanguage->languageText('mod_filemanager_nofilesorfolders', 'filemanager', 'No files or folders found') . '</em>', NULL, NULL, NULL, 'noRecordsMessage', 'colspan="5"');
             $objTable->endRow();
-        } else {
+        } else{
+
             if (count($subFolders) > 0) {
                 foreach ($subFolders as $folder) {
                     $folderLink = new link($this->uri(array('action' => 'viewfolder', 'folder' => $folder['id'],'view'=> $this->viewType), $this->targetModule));
@@ -361,7 +362,7 @@ function turnOnFiles(value)
 		if ($nmbrOfFiles == 0 && $nmbrOfFolders == 0) {
                         $titleString = $this->objLanguage->languageText("mod_filemanager_emptyfolderindicator","filemanager");
                     }else{
-                    $titleString = $this->objLanguage->languageText("mod_filemanager_contentsindicator","filemanager");
+                    	$titleString = $this->objLanguage->languageText("mod_filemanager_contentsindicator","filemanager");
 			$titleString = substr($titleString,0,9).$nmbrOfFolders.substr($titleString,8,11).$nmbrOfFiles.substr($titleString,18,12);
 			}
 
@@ -428,9 +429,6 @@ $accessVal = null;
                         $strPermissions = "";
                         $checkbox = new checkbox('files[]');
                         $editLink = new link($this->uri(array('action' => 'editfiledetails', 'id' => $file['id']), $this->targetModule));
-                    	$downloadLink = new link($objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])));
-                    	$downloadLink->link = $this->objLanguage->languageText("mod_filemanager_downloadlinkvalue","filemanager");
-                    	$downloadLink->cssClass = $this->objLanguage->languageText("mod_filemanager_buttonlinkclass","filemanager");
 
                         if (isset($file['symlinkid'])) {
                             $checkbox->value = 'symlink__' . $file['symlinkid'];
@@ -461,28 +459,40 @@ $accessVal = null;
                         $objIcon->setIcon('info');
                         $linkTitle = basename($file['filename']) . $objIcon->show();
                     } else {
+			//TODO: find supstitude action
+			}
+                    	$downloadLink = new link($objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])));
+                    	$downloadLink->link = $this->objLanguage->languageText("mod_filemanager_downloadlinkvalue","filemanager");
+                    	$downloadLink->cssClass = $this->objLanguage->languageText("mod_filemanager_buttonlinkclass","filemanager");
+$strPermissions .= $downloadLink->show();
                         $filepath = $this->objAltConfig->getSiteRoot() . '/usrfiles/' . $file['path'];
                         $fileType = $this->getObject("fileparts", "files");
+
                         //Text to display video and audio file information
                         $playerString = $this->objLanguage->languageText("word_filename","system") .": ". substr($file['filename'], 0, 10) . "..<br />".$this->objLanguage->languageText("phrase_filesize","system").": " . $file['filesize'] . "kb<br />".$this->objLanguage->languageText("phrase_mimetype","system").": " . $fileType->getExtension($file['filename']) ."<br />".$this->objLanguage->languageText("phrase_dateuploaded","system").": " . $file['datecreated'];
+
                         //Text to display image file information
                         $imageParagraph = "<p class='filedetails' ><br /><br />".$this->objLanguage->languageText("word_filename","system") ." : ". substr($file['filename'], 0, 10) . "..<br />".$this->objLanguage->languageText("phrase_filesize","system").": " . $file['filesize'] . " kb<br />".$this->objLanguage->languageText("phrase_mimetype").": " . $fileType->getExtension($file['filename']) . "<br />".$this->objLanguage->languageText("phrase_dateuploaded","system").": " . $file['datecreated'] . "</p>";
-                    }
+                    
+
                     // generate image thumbnails
                     if (ereg("image", $file['mimetype'])) {
                         $fileLink->link = $objEmbed->embed($objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])), $this->objLanguage->languageText("word_image","system")) . $imageParagraph;
                     }
+
                     //create and append audio player object
                     $objPlayer = "";
                     if (ereg("audio", $file['mimetype'])) {
                         $objPlayer = $objEmbed->showSoundPlayer($objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])));
                         $fileLink->link = $playerString;
                     }
+
                     //video
                     if (ereg("video", $file['mimetype'])) {
                         $objPlayer = $objEmbed->showWithFlowPlayer($objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])));
                         $fileLink->link = $playerString;
                     }
+
                     //other formats
                     if ($objMimeType->isValidMimeType($objMimeType->getMimeType($file['filename'])) && !ereg("image", $file['mimetype']) && !ereg("audio", $file['mimetype']) && !ereg("video", $file['mimetype'])) {
                         $objImage = $this->objFileIcons->getExtensionIcon($fileType->getExtension($file['filename']));
@@ -491,30 +501,30 @@ $accessVal = null;
 
                     $selectStr = '<a href=\'javascript:selectFile("' . $filepath . '");\'>' . basename($file['filename']) . '</a>';
                     $selectFileStr = '<a href=\'javascript:selectFileWindow("' . $name . '","' . $file['filename'] . '","' . $file['id'] . '");\'>' . basename($file['filename']) . '</a>';
-                    $selectImageStr = '<a href=\'javascript:selectImageWindow("' . $name . '", "' . $filepath . '","' . $file['filename'] . '","' . $file['id'] . '");\'>' . basename($file['filename']) . '</a>';
+
 
                     if ($mode == 'fckimage' || $mode == 'fckflash' || $mode == 'fcklink') {
-
                         $objTable->addCell($selectStr);
                     } else if ($mode == 'selectfilewindow') {
                         $objTable->addCell($selectFileStr);
-                    } else if ($mode == 'selectimagewindow') {
-
+                    } else if ($mode == 'selectimagewindow') { 
+                 	$selectImageStr = '<a href=\'javascript:selectImageWindow("' . $name . '", "' . $filepath . '","' . $file['filename'] . '","' . $file['id'] . '");\'>' . $fileLink->link.'</a>';
+                        $objTable->addCell($selectImageStr);
                     } else {
-                        //append all elements inside the div and close the paragraph element
-                        $viewDiv = "<div class='fm_thumbnails' >".$strPermissions.$downloadLink->show()."</p>".$objPlayer.$fileLink->show()."</div>";
+                        //close the paragraph element and append all elements inside the div
+                        $viewDiv = "<div class='fm_thumbnails' >".$strPermissions."</p>".$objPlayer.$fileLink->show()."</div>";
                         $objTable->addCell($viewDiv);
                     }
                     $objTable->endRow();
                 }
             }
         }
-        $str = "";
 
         if ($hidden > 0 && count($restriction) > 0) {
-            $str = '<style type="text/css">
-                tr.hidefile {display:none;}
-                </style>';
+            $str = '';
+            $str .= '<style type="text/css">
+tr.hidefile {display:none;}
+</style>';
             $str .= $this->objLanguage->languageText('mod_filemanager_browsingfor', 'filemanager', 'Browsing for') . ': ';
             $comma = '';
             foreach ($restriction as $restrict) {
@@ -522,7 +532,7 @@ $accessVal = null;
                 $comma = ', ';
             }
             if (!$forceRestriction) {
-                $str = '<script type="text/javascript">
+                $str .= '<script type="text/javascript">
 var onOrOff = "off";
 function turnOnFiles(value)
 {
@@ -549,6 +559,8 @@ function turnOnFiles(value)
                 $label = new label($this->objLanguage->languageText('mod_filemanager_showallfiles', 'filemanager', 'Show All Files'), $checkbox->cssId);
                 $str .= $checkbox->show() . $label->show();
             }
+        } else {
+            $str = '';
         }
         return $str . $objTable->show();
     }
