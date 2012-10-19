@@ -1,0 +1,62 @@
+/* 
+    Document   : filemanager
+    Created on : 03 Oct 2012, 10:38:45 PM
+    Author     : monwabisi
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+#form_createfolder{
+    float: left;
+}
+#changeview_div{
+    float: right;
+}
+     #filemanagerTable tr{
+                        display: inline-block;
+                        margin: 0.5pc;
+                 }
+                #filemanagerTable tr td a img{
+                        width: 13pc;
+			margin-top: 0.4pc;
+                        height: 13pc;
+                 }
+                #filemanagerTable tr td{
+                        height: 13pc;
+                        width: 13pc;
+                        border: 0.5pc solid #fff;
+                        background: #fff;
+                        box-shadow: 0 0 5px #5d5d5d;
+                 }
+                 #filemanagerTable tr td  a p.filedetails{
+                        position: absolute;
+                        margin-top: -13.4pc;
+                        height: 13.5pc;
+                        width: 13pc;
+                        color: #000000;
+                        text-shadow: 1px 0 1px #000000;
+                        opacity: 0;
+                        -moz-transition-property: opacity;
+                        -moz-transition-duration: 0.5s;
+                        -moz-transition-timing-function: ease;
+                        -webkit-transition-timing-function: ease;
+                        -webkit-transition-duration: 0.5s;
+                        -webkit-transition-propery: opacity;
+                   }
+                   #filemanagerTable tr td a:hover{
+                         text-decoration: none;
+                   }
+                   #filemanagerTable tr td a p:hover{
+                         opacity: 0.85;
+                         background: #FFF;
+                   }
+                   #filemanagerTable tr td p:hover{
+                        
+                   }
+                 .buttonlink{
+                        background: #CACACA;
+                        margin: 1pc 0.5pc;
+                 }
+#filemanagerTable tr td #audioplayer1{
+	margin-top: 0.5pc;
+}

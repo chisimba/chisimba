@@ -331,7 +331,6 @@ function turnOnFiles(value)
         $objIcon = $this->newObject('geticon', 'htmlelements');
         $objMimeType = $this->newObject("mimetypes", "files");
         $objEmbed = $this->newObject("fileembed", "filemanager");
-        $viewDiv;
         $objImage;
         $folderIcon = $this->objFileIcons->getExtensionIcon('folder');
         // Set Restriction as empty if it is none
@@ -383,7 +382,7 @@ $accessVal = null;
                         if ($accessVal == 'private_all') {
                             $objIcon->setIcon('info');
                         }
-                        $objTable->startRow();
+                        //$objTable->startRow();
 			$viewDiv = "<div class='fm_thumbnails' >".$checkbox->show() . $deleteconfirm->show() . $folderLink->show()."</div>";
                         $objTable->addCell($viewDiv);
                         $objTable->endRow();
@@ -429,6 +428,7 @@ $accessVal = null;
                         $strPermissions = "";
                         $checkbox = new checkbox('files[]');
                         $editLink = new link($this->uri(array('action' => 'editfiledetails', 'id' => $file['id']), $this->targetModule));
+                        $strPermissions .= $checkbox->show();
 
                         if (isset($file['symlinkid'])) {
                             $checkbox->value = 'symlink__' . $file['symlinkid'];
@@ -437,11 +437,11 @@ $accessVal = null;
                         }
 
                         $checkbox->cssId = htmlentities('input_files_' . $file['filename']);
-                        $strPermissions .= $checkbox->show();
                     	$editLink->cssClass = $this->objLanguage->languageText("mod_filemanager_buttonlinkclass","filemanager");
                     	$editLink->link = substr($this->objLanguage->languageText("mod_filemanager_editfiledetails","filemanager"),0,4);
                     	$strPermissions .= $editLink->show();
                     }
+        	$viewDiv="<div class='fm_thumbnails' >";
 
                     if (isset($file['symlinkid'])) {
                         $fileLink = new link($this->uri(array('action' => 'symlink', 'id' => $file['symlinkid'])));
@@ -458,13 +458,12 @@ $accessVal = null;
                     if ($access == 'private_all') {
                         $objIcon->setIcon('info');
                         $linkTitle = basename($file['filename']) . $objIcon->show();
-                    } else {
-			//TODO: find supstitude action
-			}
+                    }
                     	$downloadLink = new link($objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])));
                     	$downloadLink->link = $this->objLanguage->languageText("mod_filemanager_downloadlinkvalue","filemanager");
                     	$downloadLink->cssClass = $this->objLanguage->languageText("mod_filemanager_buttonlinkclass","filemanager");
-$strPermissions .= $downloadLink->show();
+			$strPermissions .= $downloadLink->show();
+			$viewDiv .= $strPermissions;
                         $filepath = $this->objAltConfig->getSiteRoot() . '/usrfiles/' . $file['path'];
                         $fileType = $this->getObject("fileparts", "files");
 
@@ -483,39 +482,42 @@ $strPermissions .= $downloadLink->show();
                     //create and append audio player object
                     $objPlayer = "";
                     if (ereg("audio", $file['mimetype'])) {
-                        $objPlayer = $objEmbed->showSoundPlayer($objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])));
                         $fileLink->link = $playerString;
+                        $objPlayer = $objEmbed->showSoundPlayer($objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])));
+			$viewDiv .= $objPlayer;
                     }
 
                     //video
                     if (ereg("video", $file['mimetype'])) {
+                        $fileLink->link =$playerString;
                         $objPlayer = $objEmbed->showWithFlowPlayer($objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])));
-                        $fileLink->link = $playerString;
+			$viewDiv .=  $objPlayer;
                     }
 
                     //other formats
-                    if ($objMimeType->isValidMimeType($objMimeType->getMimeType($file['filename'])) && !ereg("image", $file['mimetype']) && !ereg("audio", $file['mimetype']) && !ereg("video", $file['mimetype'])) {
-                        $objImage = $this->objFileIcons->getExtensionIcon($fileType->getExtension($file['filename']));
-                        $fileLink->link = $objImage . $imageParagraph;
-                    }
-
-                    $selectStr = '<a href=\'javascript:selectFile("' . $filepath . '");\'>' . basename($file['filename']) . '</a>';
-                    $selectFileStr = '<a href=\'javascript:selectFileWindow("' . $name . '","' . $file['filename'] . '","' . $file['id'] . '");\'>' . basename($file['filename']) . '</a>';
-
+			 if( !ereg("audio", $file['mimetype']) && !ereg("image", $file['mimetype']) &&  !ereg("video", $file['mimetype'])) {
+                        	$objImage = $this->objFileIcons->getExtensionIcon($fileType->getExtension($file['filename']));
+                        	$fileLink->link = $objImage.$imageParagraph;
+			}
+                    
 
                     if ($mode == 'fckimage' || $mode == 'fckflash' || $mode == 'fcklink') {
+			$viewDiv .= $fileLink->show()."</div>";
+                    	$selectStr = '<a href=\'javascript:selectFile("' . $filepath . '");\'>' . $viewDiv. '</a>';
                         $objTable->addCell($selectStr);
                     } else if ($mode == 'selectfilewindow') {
+			$selectFileStr = '<a href=\'javascript:selectFileWindow("' . $name . '","' . $file['filename'] . '","' . $file['id'] . '");\'>' . $viewDiv. '</a>';
                         $objTable->addCell($selectFileStr);
-                    } else if ($mode == 'selectimagewindow') { 
-                 	$selectImageStr = '<a href=\'javascript:selectImageWindow("' . $name . '", "' . $filepath . '","' . $file['filename'] . '","' . $file['id'] . '");\'>' . $fileLink->link.'</a>';
-                        $objTable->addCell($selectImageStr);
+                    } else if ($mode == 'selectimagewindow') {
+                 	$selectImageStr = '<a href=\'javascript:selectImageWindow("' . $name . '", "' . $filepath . '","' . $file['filename'] . '","' . $file['id'] . '");\' class=\' ' .$this->objLanguage->languageText('mod_filemanager_buttonlinkclass','filemanager').' \' >'.$this->objLanguage->languageText('word_select','system').'</a>'; 
+			$viewDiv .= $selectImageStr."<br />".$fileLink->show()."</div>";
+                        $objTable->addCell($viewDiv);
                     } else {
                         //close the paragraph element and append all elements inside the div
-                        $viewDiv = "<div class='fm_thumbnails' >".$strPermissions."</p>".$objPlayer.$fileLink->show()."</div>";
+                        $viewDiv .= $fileLink->show()."</div>";
                         $objTable->addCell($viewDiv);
+                    	$objTable->endRow();
                     }
-                    $objTable->endRow();
                 }
             }
         }
@@ -523,7 +525,7 @@ $strPermissions .= $downloadLink->show();
         if ($hidden > 0 && count($restriction) > 0) {
             $str = '';
             $str .= '<style type="text/css">
-tr.hidefile {display:none;}
+#filemanagerTable tr.hidefile {display:none;}
 </style>';
             $str .= $this->objLanguage->languageText('mod_filemanager_browsingfor', 'filemanager', 'Browsing for') . ': ';
             $comma = '';
@@ -537,13 +539,13 @@ var onOrOff = "off";
 function turnOnFiles(value)
 {
     if (onOrOff == \'off\') {
-        jQuery(\'tr.hidefile\').each(function (i) {
-            this.style.display = \'table-row\';
+        jQuery(\'#filemanagerTable tr.hidefile\').each(function (i) {
+            this.style.display = \'inline-block\';
         });
         adjustLayout();
         onOrOff = "on";
     } else {
-        jQuery(\'tr.hidefile\').each(function (i) {
+        jQuery(\'#filemanagerTable tr.hidefile\').each(function (i) {
             this.style.display = \'none\';
         });
         adjustLayout();
