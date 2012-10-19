@@ -428,7 +428,6 @@ $accessVal = null;
                         $strPermissions = "";
                         $checkbox = new checkbox('files[]');
                         $editLink = new link($this->uri(array('action' => 'editfiledetails', 'id' => $file['id']), $this->targetModule));
-                        $strPermissions .= $checkbox->show();
 
                         if (isset($file['symlinkid'])) {
                             $checkbox->value = 'symlink__' . $file['symlinkid'];
@@ -437,6 +436,7 @@ $accessVal = null;
                         }
 
                         $checkbox->cssId = htmlentities('input_files_' . $file['filename']);
+                        $strPermissions .= $checkbox->show();
                     	$editLink->cssClass = $this->objLanguage->languageText("mod_filemanager_buttonlinkclass","filemanager");
                     	$editLink->link = substr($this->objLanguage->languageText("mod_filemanager_editfiledetails","filemanager"),0,4);
                     	$strPermissions .= $editLink->show();

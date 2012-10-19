@@ -60,3 +60,6 @@
 #filemanagerTable tr td #audioplayer1{
 	margin-top: 0.5pc;
 }
+#filemanagerTable tr td object{
+		margin-top: 0.5pc;
+}
