@@ -332,6 +332,10 @@ function turnOnFiles(value)
         $objMimeType = $this->newObject("mimetypes", "files");
         $objEmbed = $this->newObject("fileembed", "filemanager");
         $objImage;
+	//The dom document
+	$domDoc = new DOMDocument('UTF-8');
+	//The dom elements
+	$domElements = array();
         $folderIcon = $this->objFileIcons->getExtensionIcon('folder');
         // Set Restriction as empty if it is none
         if (count($restriction) == 1 && $restriction[0] == '') {
@@ -395,7 +399,7 @@ $accessVal = null;
             }
 
             if (count($files) > 0) {
-                $fileSize = new formatfilesize();
+                $objFileSize = new formatfilesize();
 
                 foreach ($files as $file) {
                     $visibility = null;
@@ -426,27 +430,48 @@ $accessVal = null;
 
                     if ($this->editPermission) {
                         $strPermissions = "";
+			//DOM checkbox
+			$domElements['checkbox'] = $domDoc->createElement('input');
+			$domElements['checkbox']->setAttribute('type','checkbox');
+			$domElements['checkbox']->setAttribute('name','files[]');
                         $checkbox = new checkbox('files[]');
+			//DOM link
+			$domElements['editLink'] = $domDoc->createElement('a');
+			$domElements['editLink']->setAttribute('href',str_replace('amp;','',$this->uri(array('action' => 'editfiledetails', 'id' => $file['id']), $this->targetModule)));
                         $editLink = new link($this->uri(array('action' => 'editfiledetails', 'id' => $file['id']), $this->targetModule));
 
                         if (isset($file['symlinkid'])) {
+			    $domElements['checkbox']->setAttribute('value','symlink_'.$file['symlink']);
                             $checkbox->value = 'symlink__' . $file['symlinkid'];
                         } else {
+			    $domElements['checkbox']->setAttribute('value',$file['id']);
                             $checkbox->value = $file['id'];
                         }
 
+			$domElements['viewDiv'] = $domDoc->createElement('div');
+			$domElements['viewDiv']->setAttribute('class','fm_thumbnails');
                         $checkbox->cssId = htmlentities('input_files_' . $file['filename']);
+			$domElements['checkbox']->setAttribute('id',htmlentities('input_files_'.$file['filename']));
                         $strPermissions .= $checkbox->show();
+			$domElements['viewDiv']->appendChild($domElements['checkbox']);
+			$domElements['editLink']->setAttribute('class',$this->objLanguage->languageText("mod_filemanager_buttonlinkclass","filemanager"));
                     	$editLink->cssClass = $this->objLanguage->languageText("mod_filemanager_buttonlinkclass","filemanager");
+			$domElements['editLink']->appendChild($domDoc->createTextNode(substr($this->objLanguage->languageText("mod_filemanager_editfiledetails","filemanager"),0,4)));
+			$domElements['viewDiv']->appendChild($domElements['editLink']);
                     	$editLink->link = substr($this->objLanguage->languageText("mod_filemanager_editfiledetails","filemanager"),0,4);
                     	$strPermissions .= $editLink->show();
                     }
-        	$viewDiv="<div class='fm_thumbnails' >";
+        	$viewDiv="";
 
                     if (isset($file['symlinkid'])) {
+			//The DOM file link
+			$domElements['fileLink'] = $domDoc->createElement('a');
+			$domElements['fileLink']->setAttribute('href',str_replace('amp;','',$this->uri(array('action' => 'symlink', 'id' => $file['symlinkid']))));
                         $fileLink = new link($this->uri(array('action' => 'symlink', 'id' => $file['symlinkid'])));
                     } else {
-
+			//The DOM file link
+			$domElements['fileLink'] = $domDoc->createElement('a');
+			$domElements['fileLink']->setAttribute('href',str_replace('amp;','',$this->uri(array('action' => 'fileinfo', 'id' => $file['id']), $this->targetModule)));
                         $fileLink = new link($this->uri(array('action' => 'fileinfo', 'id' => $file['id']), $this->targetModule));
                     }
                     $linkTitle = '';
@@ -460,6 +485,15 @@ $accessVal = null;
                         $linkTitle = basename($file['filename']) . $objIcon->show();
                     }
                     	$downloadLink = new link($objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])));
+			//The DOM download link
+			$domElements['downloadLink'] = $domDoc->createElement('a');
+			$domElements['downloadLink']->setAttribute('href',$objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])));
+			$domElements['downloadLink']->appendChild($domDoc->createTextNode($this->objLanguage->languageText("mod_filemanager_downloadlinkvalue","filemanager")));
+			$domElements['downloadLink']->setAttribute('class',$this->objLanguage->languageText("mod_filemanager_buttonlinkclass","filemanager"));
+			$domElements['viewDiv']->appendChild($domElements['downloadLink']);
+			//creating space between the link at the top and the string below
+			$domElements['viewDiv']->appendChild($domDoc->createElement('p'));
+
                     	$downloadLink->link = $this->objLanguage->languageText("mod_filemanager_downloadlinkvalue","filemanager");
                     	$downloadLink->cssClass = $this->objLanguage->languageText("mod_filemanager_buttonlinkclass","filemanager");
 			$strPermissions .= $downloadLink->show();
@@ -468,22 +502,59 @@ $accessVal = null;
                         $fileType = $this->getObject("fileparts", "files");
 
                         //Text to display video and audio file information
+			$domElements['playerString'] = $domDoc->createElement('p');
+			$domElements['playerString']->appendChild($domDoc->createTextNode($this->objLanguage->languageText("word_filename","system") .": ". substr($file['filename'], 0, 12) . ".."));
+			//new line
+			$domElements['playerString']->appendChild($domDoc->createElement('br'));
+			$domElements['playerString']->appendChild($domDoc->createTextNode($this->objLanguage->languageText("phrase_filesize","system").": ".$objFileSize->formatsize($file['filesize'])));
+			//new line
+			$domElements['playerString']->appendChild($domDoc->createElement('br'));
+			$domElements['playerString']->appendChild($domDoc->createTextNode($this->objLanguage->languageText("phrase_filetype","system").": ".$fileType->getExtension($file['filename'])));
+			//new line
+			$domElements['playerString']->appendChild($domDoc->createElement('br'));
+			$domElements['playerString']->appendChild($domDoc->createTextNode($this->objLanguage->languageText("phrase_dateuploaded","system").": ".$file['datecreated']));
+
                         $playerString = $this->objLanguage->languageText("word_filename","system") .": ". substr($file['filename'], 0, 10) . "..<br />".$this->objLanguage->languageText("phrase_filesize","system").": " . $file['filesize'] . "kb<br />".$this->objLanguage->languageText("phrase_mimetype","system").": " . $fileType->getExtension($file['filename']) ."<br />".$this->objLanguage->languageText("phrase_dateuploaded","system").": " . $file['datecreated'];
+
+
+
+			//The DOM image paragraph (to display image file information)
+			$domElements['imgParagraph'] = $domDoc->createElement('p');
+			$domElements['imgParagraph']->setAttribute('class','filedetails');
+			$domElements['imgParagraph']->appendChild($domDoc->createElement('br'));
+			$domElements['imgParagraph']->appendChild($domDoc->createTextNode($this->objLanguage->languageText("word_filename","system") .": ".substr($file['filename'], 0, 10)));
+			//new line
+			$domElements['imgParagraph']->appendChild($domDoc->createElement('br'));
+			$domElements['imgParagraph']->appendChild($domDoc->createtextNode($this->objLanguage->languageText("phrase_filesize","system").": ".$objFileSize->formatsize($file['filesize'])));
+			//new line
+			$domElements['imgParagraph']->appendChild($domDoc->createElement('br'));
+			$domElements['imgParagraph']->appendChild($domDoc->createTextNode($this->objLanguage->languageText("phrase_filetype").": ".$fileType->getExtension($file['filename'])));
+			//new line
+			$domElements['imgParagraph']->appendChild($domDoc->createElement('br'));
+			$domElements['imgParagraph']->appendChild($domDoc->createTextNode($this->objLanguage->languageText("phrase_dateuploaded","system").": ".$file['datecreated']));
 
                         //Text to display image file information
                         $imageParagraph = "<p class='filedetails' ><br /><br />".$this->objLanguage->languageText("word_filename","system") ." : ". substr($file['filename'], 0, 10) . "..<br />".$this->objLanguage->languageText("phrase_filesize","system").": " . $file['filesize'] . " kb<br />".$this->objLanguage->languageText("phrase_mimetype").": " . $fileType->getExtension($file['filename']) . "<br />".$this->objLanguage->languageText("phrase_dateuploaded","system").": " . $file['datecreated'] . "</p>";
                     
 
                     // generate image thumbnails
+		    //The DOM image
+		    $domElements['image'] = $domDoc->createElement('img');
                     if (ereg("image", $file['mimetype'])) {
+			$domElements['image']->setAttribute('src',str_replace('amp;','',$this->objAltConfig->getcontentPath() . $file['path']));
+			$domElements['fileLink']->appendChild($domElements['image']);
+			$domElements['fileLink']->appendChild($domElements['imgParagraph']);
+			$domElements['viewDiv']->appendChild($domElements['fileLink']);
                         $fileLink->link = $objEmbed->embed($objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])), $this->objLanguage->languageText("word_image","system")) . $imageParagraph;
                     }
 
-                    //create and append audio player object
+                    //create audio player object
                     $objPlayer = "";
                     if (ereg("audio", $file['mimetype'])) {
                         $fileLink->link = $playerString;
                         $objPlayer = $objEmbed->showSoundPlayer($objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])));
+			$domElements['fileLink']->appendChild($domElements['playerString']);
+			$domElements['viewDiv']->appendChild($domElements['fileLink']);
 			$viewDiv .= $objPlayer;
                     }
 
@@ -492,12 +563,18 @@ $accessVal = null;
                         $fileLink->link =$playerString;
                         $objPlayer = $objEmbed->showWithFlowPlayer($objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])));
 			$viewDiv .=  $objPlayer;
+			$domElements['fileLink']->appendChild($domElements['playerString']);
+			$domElements['viewDiv']->appendChild($domElements['fileLink']);
                     }
 
                     //other formats
 			 if( !ereg("audio", $file['mimetype']) && !ereg("image", $file['mimetype']) &&  !ereg("video", $file['mimetype'])) {
                         	$objImage = $this->objFileIcons->getExtensionIcon($fileType->getExtension($file['filename']));
                         	$fileLink->link = $objImage.$imageParagraph;
+				$domElements['image']->setAttribute('src',$this->objAltConfig->getskinRoot().'_common/icons/filetypes32/'.$fileType->getExtension($file['filename']).'.png');
+				$domElements['fileLink']->appendChild($domElements['image']);
+				$domElements['fileLink']->appendChild($domElements['imgParagraph']);
+				$domElements['viewDiv']->appendChild($domElements['fileLink']);
 			}
                     
 
@@ -514,8 +591,8 @@ $accessVal = null;
                         $objTable->addCell($viewDiv);
                     } else {
                         //close the paragraph element and append all elements inside the div
-                        $viewDiv .= $fileLink->show()."</div>";
-                        $objTable->addCell($viewDiv);
+                        $viewDiv .= $fileLink->show()."";
+                        $objTable->addCell($domDoc->saveHTML($domElements['viewDiv']).$objPlayer);
                     	$objTable->endRow();
                     }
                 }

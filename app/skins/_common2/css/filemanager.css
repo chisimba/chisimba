@@ -9,7 +9,7 @@
 #form_createfolder{
     float: left;
 }
-#changeview_div{
+#form_changeview{
     float: right;
 }
      #filemanagerTable tr{
@@ -28,7 +28,7 @@
                         background: #fff;
                         box-shadow: 0 0 5px #5d5d5d;
                  }
-                 #filemanagerTable tr td  a p.filedetails{
+                 p.filedetails{
                         position: absolute;
                         margin-top: -13.4pc;
                         height: 13.5pc;
@@ -47,8 +47,8 @@
                          text-decoration: none;
                    }
                    #filemanagerTable tr td a p:hover{
-                         opacity: 0.85;
-                         background: #FFF;
+                         opacity: 0.8;
+                         background: #FFFFFF;
                    }
                    #filemanagerTable tr td p:hover{
                         
@@ -60,6 +60,22 @@
 #filemanagerTable tr td #audioplayer1{
 	margin-top: 0.5pc;
 }
-#filemanagerTable tr td object{
+#filemanagerTable div.video-container{
 		margin-top: 0.5pc;
+		width: 13pc;
+}
+#form_changeview a.sexybutton{
+	color: #FFFFFF;
+	width: 100%;
+	background: #6E6E6E;
+	text-align: center;
+	font-size: 1pc;
+	border: none;
+	box-shadow: none;
+	text-shadow: none;
+}
+
+#form_changeview a.sexybutton:hover{
+	background: #21AAF7;
+	text-decoration: none;
 }
