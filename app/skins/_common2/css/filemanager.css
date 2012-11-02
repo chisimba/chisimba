@@ -6,6 +6,9 @@
         Purpose of the stylesheet follows.
 */
 
+table#filemanagerTable{
+    margin: 1pc;
+}
 #form_createfolder{
     float: left;
 }
