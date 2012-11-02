@@ -182,6 +182,8 @@ class previewfolder extends filemanagerobject {
                         $titleString = $this->objLanguage->languageText("mod_filemanager_contentsindicator", "filemanager");
                         $titleString = substr($titleString, 0, 9) . $nmbrOfFolders . substr($titleString, 8, 11) . $nmbrOfFiles . substr($titleString, 18, 12);
                     }
+                    //End subfolder and files count
+
                     $folderLink->title = $titleString;
                     $folderLink->link = substr(basename($folder['folderpath']), 0, 70) . '...' . $extTitle;
 
@@ -325,6 +327,16 @@ function turnOnFiles(value)
         return $str . $objTable->show();
     }
 
+    /**
+     * prevew the files in thumbnails view
+     *
+     * Long description (if any) ...
+     *
+     * @param  array  $subFolders Parameter description (if any) ...
+     * @param  array  $files      Parameter description (if any) ...
+     * @return object Return description (if any) ...
+     * @access public
+     */
     function previewThumbnails($subFolders, $files, $symlinks, $restriction, $mode, $name, $forceRestriction = FALSE) {
         $objTable = $this->newObject('htmltable', 'htmlelements');
         $objTable->cssId = $this->objLanguage->languageText('mod_filemanager_filemanagertableclass', 'filemanager', 'filemanagerTable');
@@ -332,12 +344,11 @@ function turnOnFiles(value)
         $objIcon = $this->newObject('geticon', 'htmlelements');
         $objMimeType = $this->newObject("mimetypes", "files");
         $objEmbed = $this->newObject("fileembed", "filemanager");
-        $objImage;
+        $this->objFileIcons->size = 'large';
         //The dom document
         $domDoc = new DOMDocument('UTF-8');
-        //The dom elements
+        //The dom elements array
         $domElements = array();
-        $folderIcon = $this->objFileIcons->getExtensionIcon('folder');
         // Set Restriction as empty if it is none
         if (count($restriction) == 1 && $restriction[0] == '') {
             $restriction = array();
@@ -353,48 +364,76 @@ function turnOnFiles(value)
 
             if (count($subFolders) > 0) {
                 foreach ($subFolders as $folder) {
-                    $folderLink = new link($this->uri(array('action' => 'viewfolder', 'folder' => $folder['id'], 'view' => $this->viewType), $this->targetModule));
+                    //The DOM folder link
+                    $domElements['viewDiv'] = $domDoc->createElement('div');
+                    $domElements['viewDiv']->setAttribute('class', 'fm_thumbnails');
+                    $domElements['folderLink'] = $domDoc->createElement('a');
+                    //The DOM icon folder
+                    $domElements['folderIcon'] = $domDoc->createElement('img');
+                    $domElements['folderIcon']->setAttribute('src', $this->objFileIcons->getIconSrc('folder'));
+                    $domElements['folderIcon']->setAttribute('class', 'iconThumbnail');
+                    $domElements['folderLink']->setAttribute('title', $this->objLanguage->languageText('mod_filemanager_clicktoopen', 'filemanager'));
+                    $domElements['folderLink']->setAttribute('href', str_replace('amp;', '', $this->uri(array('action' => 'viewfolder', 'folder' => $folder['id'], 'view' => $this->viewType), $this->targetModule)));
+
                     $objTable->startRow();
                     if ($this->editPermission) {
-
-                        //TODO: make this a reusable function
-                        //variables to store informatin partaining folder contants
-                        $nmbrOfFiles = count($this->objFiles->getFolderFiles($folder['folderpath']));
-                        $nmbrOfFolders = count($this->objFolder->getSubFolders($folder['id']));
-
-                        //Assign the value to be displayed on the link's title depending on it's contents
-                        if ($nmbrOfFiles == 0 && $nmbrOfFolders == 0) {
-                            $titleString = $this->objLanguage->languageText("mod_filemanager_emptyfolderindicator", "filemanager");
-                        } else {
-                            $titleString = $this->objLanguage->languageText("mod_filemanager_contentsindicator", "filemanager");
-                            $titleString = substr($titleString, 0, 9) . $nmbrOfFolders . substr($titleString, 8, 11) . $nmbrOfFiles . substr($titleString, 18, 12);
-                        }
-
-                        $checkbox = new checkbox('files[]');
+                        //The DOM folder checkbox
+                        $domElements['folderCheckbox'] = $domDoc->createElement('input');
+                        $domElements['folderCheckbox']->setAttribute('type', 'checkbox');
+                        $domElements['folderCheckbox']->setAttribute('name', 'files[]');
                         //The DOM delete link
                         $domElements['deleteconfirm'] = $domDoc->createElement('a');
-
-                        $deleteconfirm = $this->newObject('jqueryconfirm', 'utilities');
-                        $deleteconfirm->setConfirm($this->objLanguage->languageText('word_delete', 'system'), $this->uri(array('action' => 'deletefolder', 'id' => $folder['id'])), $this->objLanguage->languageText('mod_filemanager_areyousuredeletefiles', 'filemanager'));
-                        $checkbox->cssId = htmlentities('input_files_' . basename($folder['folderpath']));
-                        $checkbox->value = 'folder__' . $folder['id'];
-
-                        //The value to appear when the mouse is over the link
-                        $folderLink->title = $titleString;
-                        $folderLink->link = $folderIcon . "<p class='filedetails' ><br />" . $this->objLanguage->languageText("phrase_foldername", "system") . ": " . substr(basename($folder['folderpath']), 0, 12) . "<br />" . $this->objLanguage->languageText("word_files", "system") . ": " . count($this->objFiles->getFolderFiles($folder['folderpath'])) . "<br />" . $this->objLanguage->languageText("word_folders", "system") . ": " . count($this->objFolder->getSubFolders($folder['id'])) . "</p>";
-
-                        $accessVal = null;
-                        if (key_exists("access", $folder)) {
-                            $accessVal = $folder['access'];
-                        }
-                        if ($accessVal == 'private_all') {
-                            $objIcon->setIcon('info');
-                        }
-                        //$objTable->startRow();
-                        $viewDiv = "<div class='fm_thumbnails' >" . $checkbox->show() . $deleteconfirm->show() . $folderLink->show() . "</div>";
-                        $objTable->addCell($viewDiv);
-                        $objTable->endRow();
+                        $domElements['deleteconfirm']->appendChild($domDoc->createTextNode($this->objLanguage->languageText('word_delete', 'system')));
+                        $domElements['deleteconfirm']->setAttribute('class', $this->objLanguage->languageText('mod_filemanager_buttonlinkclass', 'filemanager'));
+                        $domElements['deleteconfirm']->setAttribute('href', str_replace('amp;', '', $this->uri(array('action' => 'deletefolder', 'id' => $folder['id'], 'module' => $this->targetModule))));
+                        $domElements['viewDiv']->appendChild($domElements['folderCheckbox']);
+                        $domElements['viewDiv']->appendChild($domElements['deleteconfirm']);
+                        $domElements['viewDiv']->appendChild($domDoc->createElement('br'));
                     }
+
+                    //TODO: make this a reusable function
+                    //variables to store informatin partaining folder contants
+                    $nmbrOfFiles = count($this->objFiles->getFolderFiles($folder['folderpath']));
+                    $nmbrOfFolders = count($this->objFolder->getSubFolders($folder['id']));
+
+                    //Assign the value to be displayed on the link's title depending on it's contents
+                    if ($nmbrOfFiles == 0 && $nmbrOfFolders == 0) {
+                        $titleString = $this->objLanguage->languageText("mod_filemanager_emptyfolderindicator", "filemanager");
+                    } else {
+                        $titleString = $this->objLanguage->languageText("mod_filemanager_contentsindicator", "filemanager");
+                        $titleString = substr($titleString, 0, 9) . $nmbrOfFolders . substr($titleString, 8, 11) . $nmbrOfFiles . substr($titleString, 18, 12);
+                    }
+                    //End of subfolder and files count
+
+                    $domElements['folderCheckbox']->setAttribute('id', htmlentities('input_files_' . basename($folder['folderpath'])));
+                    $domElements['folderCheckbox']->setAttribute('value', 'folder_' . $folder['id']);
+
+                    //The value to appear when the mouse is over the link
+                    $domElements['folderParagraph'] = $domDoc->createElement('p');
+                    $domElements['folderParagraph']->setAttribute('class', 'filedetails');
+                    $domElements['folderParagraph']->appendChild($domDoc->createTextNode($this->objLanguage->languageText("phrase_foldername", "system") . ": " . substr(basename($folder['folderpath']), 0, 12)));
+                    $domElements['folderParagraph']->appendChild($domDoc->createElement('br'));
+                    $domElements['folderParagraph']->appendChild($domDoc->createTextNode($this->objLanguage->languageText("word_files", "system") . ": " . count($this->objFiles->getFolderFiles($folder['folderpath']))));
+                    $domElements['folderParagraph']->appendChild($domDoc->createElement('br'));
+                    $domElements['folderParagraph']->appendChild($domDoc->createTextNode($this->objLanguage->languageText("word_folders", "system") . ": " . count($this->objFolder->getSubFolders($folder['id']))));
+                    //creating space between the link at the top and the string below
+                    $domElements['viewDiv']->appendChild($domDoc->createElement('p'));
+                    $domElements['folderLink']->appendChild($domElements['folderIcon']);
+                    $domElements['folderLink']->appendChild($domElements['folderParagraph']);
+                    $domElements['viewDiv']->appendChild($domDoc->createElement('br'));
+                    $domElements['viewDiv']->appendChild($domElements['folderLink']);
+
+                    $accessVal = null;
+                    if (key_exists("access", $folder)) {
+                        $accessVal = $folder['access'];
+                    }
+                    if ($accessVal == 'private_all') {
+                        $domElements['folderParagraph']->appendChild($domDoc->createElement('br'));
+                        $domElements['folderParagraph']->appendChild($domDoc->createTextNode($this->objLanguage->languageText('word_access', 'system') . ': '));
+                        $domElements['folderParagraph']->appendChild($domDoc->createTextNode($folder['access']));
+                    }
+                    $objTable->addCell($domDoc->saveHTML($domElements['viewDiv']));
+                    $objTable->endRow();
                 }
             }
 
@@ -433,64 +472,39 @@ function turnOnFiles(value)
                     }
 
                     if ($this->editPermission) {
-                        //remove
-                        $strPermissions = "";
                         //DOM checkbox
                         $domElements['checkbox'] = $domDoc->createElement('input');
                         $domElements['checkbox']->setAttribute('type', 'checkbox');
                         $domElements['checkbox']->setAttribute('name', 'files[]');
-                        //remove
-                        $checkbox = new checkbox('files[]');
                         //DOM link
                         $domElements['editLink'] = $domDoc->createElement('a');
+                        $domElements['editLink']->setAttribute('title', $this->objLanguage->languageText('mod_filemanager_clicktoedit','filemanager'));
                         $domElements['editLink']->setAttribute('href', str_replace('amp;', '', $this->uri(array('action' => 'editfiledetails', 'id' => $file['id']), $this->targetModule)));
-                        //remove
-                        $editLink = new link($this->uri(array('action' => 'editfiledetails', 'id' => $file['id']), $this->targetModule));
 
                         if (isset($file['symlinkid'])) {
                             $domElements['checkbox']->setAttribute('value', 'symlink_' . $file['symlink']);
-                            //remove
-                            $checkbox->value = 'symlink__' . $file['symlinkid'];
                         } else {
                             $domElements['checkbox']->setAttribute('value', $file['id']);
-                            //remove
-                            $checkbox->value = $file['id'];
                         }
 
                         //The DOM div elements
                         $domElements['viewDiv'] = $domDoc->createElement('div');
                         $domElements['viewDiv']->setAttribute('class', 'fm_thumbnails');
-                        //remove
-                        $checkbox->cssId = htmlentities('input_files_' . $file['filename']);
                         $domElements['checkbox']->setAttribute('id', htmlentities('input_files_' . $file['filename']));
-                        //remove
-                        $strPermissions .= $checkbox->show();
                         $domElements['viewDiv']->appendChild($domElements['checkbox']);
                         $domElements['editLink']->setAttribute('class', $this->objLanguage->languageText("mod_filemanager_buttonlinkclass", "filemanager"));
-                        //remove
-                        $editLink->cssClass = $this->objLanguage->languageText("mod_filemanager_buttonlinkclass", "filemanager");
                         $domElements['editLink']->appendChild($domDoc->createTextNode(substr($this->objLanguage->languageText("mod_filemanager_editfiledetails", "filemanager"), 0, 4)));
                         $domElements['viewDiv']->appendChild($domElements['editLink']);
-                        //remove
-                        $editLink->link = substr($this->objLanguage->languageText("mod_filemanager_editfiledetails", "filemanager"), 0, 4);
-                        //remove
-                        $strPermissions .= $editLink->show();
                     }
-                    //remove
-                    $viewDiv = "";
 
                     if (isset($file['symlinkid'])) {
                         //The DOM file link
                         $domElements['fileLink'] = $domDoc->createElement('a');
                         $domElements['fileLink']->setAttribute('href', str_replace('amp;', '', $this->uri(array('action' => 'symlink', 'id' => $file['symlinkid']))));
-                        //remove
-                        $fileLink = new link($this->uri(array('action' => 'symlink', 'id' => $file['symlinkid'])));
                     } else {
                         //The DOM file link
                         $domElements['fileLink'] = $domDoc->createElement('a');
                         $domElements['fileLink']->setAttribute('href', str_replace('amp;', '', $this->uri(array('action' => 'fileinfo', 'id' => $file['id']), $this->targetModule)));
-                        //remove
-                        $fileLink = new link($this->uri(array('action' => 'fileinfo', 'id' => $file['id']), $this->targetModule));
                     }
                     $linkTitle = '';
                     $access = null;
@@ -502,9 +516,10 @@ function turnOnFiles(value)
                         $objIcon->setIcon('info');
                         $linkTitle = basename($file['filename']) . $objIcon->show();
                     }
-                    $downloadLink = new link($objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])));
+                    $domElements['fileLink']->setAttribute('title', $this->objLanguage->languageText('mod_filemanager_clicktoviewinfo', 'filemanager'));
                     //The DOM download link
                     $domElements['downloadLink'] = $domDoc->createElement('a');
+                    $domElements['downloadLink']->setAttribute('title', $this->objLanguage->languageText('mod_filemanager_clicktodownload', 'filemanager'));
                     $domElements['downloadLink']->setAttribute('href', $objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])));
                     $domElements['downloadLink']->appendChild($domDoc->createTextNode($this->objLanguage->languageText("mod_filemanager_downloadlinkvalue", "filemanager")));
                     $domElements['downloadLink']->setAttribute('class', $this->objLanguage->languageText("mod_filemanager_buttonlinkclass", "filemanager"));
@@ -512,11 +527,6 @@ function turnOnFiles(value)
                     //creating space between the link at the top and the string below
                     $domElements['viewDiv']->appendChild($domDoc->createElement('p'));
 
-                    //remove first 4lines
-                    $downloadLink->link = $this->objLanguage->languageText("mod_filemanager_downloadlinkvalue", "filemanager");
-                    $downloadLink->cssClass = $this->objLanguage->languageText("mod_filemanager_buttonlinkclass", "filemanager");
-                    $strPermissions .= $downloadLink->show();
-                    $viewDiv .= $strPermissions;
                     $filepath = $this->objAltConfig->getSiteRoot() . '/usrfiles/' . $file['path'];
                     $fileType = $this->getObject("fileparts", "files");
 
@@ -533,10 +543,6 @@ function turnOnFiles(value)
                     $domElements['playerString']->appendChild($domDoc->createElement('br'));
                     $domElements['playerString']->appendChild($domDoc->createTextNode($this->objLanguage->languageText("phrase_dateuploaded", "system") . ": " . $file['datecreated']));
 
-                    $playerString = $this->objLanguage->languageText("word_filename", "system") . ": " . substr($file['filename'], 0, 10) . "..<br />" . $this->objLanguage->languageText("phrase_filesize", "system") . ": " . $file['filesize'] . "kb<br />" . $this->objLanguage->languageText("phrase_mimetype", "system") . ": " . $fileType->getExtension($file['filename']) . "<br />" . $this->objLanguage->languageText("phrase_dateuploaded", "system") . ": " . $file['datecreated'];
-
-
-
                     //The DOM image paragraph (to display image file information)
                     $domElements['imgParagraph'] = $domDoc->createElement('p');
                     $domElements['imgParagraph']->setAttribute('class', 'filedetails');
@@ -552,51 +558,40 @@ function turnOnFiles(value)
                     $domElements['imgParagraph']->appendChild($domDoc->createElement('br'));
                     $domElements['imgParagraph']->appendChild($domDoc->createTextNode($this->objLanguage->languageText("phrase_dateuploaded", "system") . ": " . $file['datecreated']));
 
-                    //Text to display image file information(remove)
-                    $imageParagraph = "<p class='filedetails' ><br /><br />" . $this->objLanguage->languageText("word_filename", "system") . " : " . substr($file['filename'], 0, 10) . "..<br />" . $this->objLanguage->languageText("phrase_filesize", "system") . ": " . $file['filesize'] . " kb<br />" . $this->objLanguage->languageText("phrase_mimetype") . ": " . $fileType->getExtension($file['filename']) . "<br />" . $this->objLanguage->languageText("phrase_dateuploaded", "system") . ": " . $file['datecreated'] . "</p>";
-
-
                     // generate image thumbnails
                     //The DOM image
                     $domElements['image'] = $domDoc->createElement('img');
                     if (ereg("image", $file['mimetype'])) {
                         $domElements['image']->setAttribute('src', str_replace('amp;', '', $this->objAltConfig->getcontentPath() . $file['path']));
+                        $domElements['image']->setAttribute('class', 'imgThumbnail');
                         $domElements['fileLink']->appendChild($domElements['image']);
                         $domElements['fileLink']->appendChild($domElements['imgParagraph']);
                         $domElements['viewDiv']->appendChild($domElements['fileLink']);
-                        //remove
-                        $fileLink->link = $objEmbed->embed($objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])), $this->objLanguage->languageText("word_image", "system")) . $imageParagraph;
                     }
 
-                    //create audio player object
+                    //create audio/video player object
                     $objPlayer = "";
                     if (ereg("audio", $file['mimetype'])) {
-                        //remove
-                        $fileLink->link = $playerString;
                         $objPlayer = $objEmbed->showSoundPlayer($objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])));
                         $domElements['fileLink']->appendChild($domElements['playerString']);
                         $domElements['viewDiv']->appendChild($domElements['fileLink']);
-                        //remove
-                        $viewDiv .= $objPlayer;
                     }
 
                     //video
                     if (ereg("video", $file['mimetype'])) {
-                        //remove
-                        $fileLink->link = $playerString;
                         $objPlayer = $objEmbed->showWithFlowPlayer($objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])));
-                        //remove
-                        $viewDiv .= $objPlayer;
                         $domElements['fileLink']->appendChild($domElements['playerString']);
                         $domElements['viewDiv']->appendChild($domElements['fileLink']);
                     }
+                    
+                    //zip
+                    
 
                     //other formats
                     if (!ereg("audio", $file['mimetype']) && !ereg("image", $file['mimetype']) && !ereg("video", $file['mimetype'])) {
-                        //remove first 2lines
-                        $objImage = $this->objFileIcons->getExtensionIcon($fileType->getExtension($file['filename']));
-                        $fileLink->link = $objImage . $imageParagraph;
-                        $domElements['image']->setAttribute('src', $this->objAltConfig->getskinRoot() . '_common/icons/filetypes32/' . $fileType->getExtension($file['filename']) . '.png');
+                        $domElements['image']->setAttribute('src', $this->objFileIcons->getIconSrc($file['datatype']));
+                        $domElements['image']->setAttribute('class', 'iconThumbnail');
+                        $domElements['image']->normalize();
                         $domElements['fileLink']->appendChild($domElements['image']);
                         $domElements['fileLink']->appendChild($domElements['imgParagraph']);
                         $domElements['viewDiv']->appendChild($domElements['fileLink']);
@@ -604,42 +599,35 @@ function turnOnFiles(value)
 
 
                     if ($mode == 'fckimage' || $mode == 'fckflash' || $mode == 'fcklink') {
-                        //remove
-                        $viewDiv .= $fileLink->show() . "</div>";
+                        //Disable file preview
+                        $domElements['fileLink']->removeAttribute('href');
                         //The DOM select string
                         $domElements['selectStr'] = $domDoc->createElement('a');
                         $domElements['selectStr']->appendChild($domDoc->createTextNode($this->objLanguage->languageText('word_select', 'system')));
                         $domElements['selectStr']->setAttribute('href', 'javascript:selectFile("' . $filepath . '");');
                         $domElements['selectStr']->setAttribute('class', $this->objLanguage->languageText('mod_filemanager_buttonlinkclass', 'filemanager'));
                         $domElements['viewDiv']->appendChild($domElements['selectStr']);
-                        //remove
-                        $selectStr = '<a href=\'javascript:selectFile("' . $filepath . '");\'>' . $viewDiv . '</a>';
                         $objTable->addCell($domDoc->saveHTML($domElements['viewDiv']) . $objPlayer);
                     } else if ($mode == 'selectfilewindow') {
+                        $domElements['fileLink']->removeAttribute('href');
                         //The DOM select file string
                         $domElements['selectFileStr'] = $domDoc->createElement('a');
-                        $domElements['selectFileStr']->setAttribute('href', 'javascript:selectFileWindow("'.$name.'","'.$file['filename'].'","'.$file['id'].'");');
-                        $domElements['selectFileStr']->appendChild($domDoc->createTextNode($this->objLanguage->languageText('word_select','system')));
-                        $domElements['selectFileStr']->setAttribute('class', $this->objLanguage->languageText('mod_filemanager_buttonlinkclass','filemanager'));
+                        $domElements['selectFileStr']->setAttribute('href', 'javascript:selectFileWindow("' . $name . '","' . $file['filename'] . '","' . $file['id'] . '");');
+                        $domElements['selectFileStr']->appendChild($domDoc->createTextNode($this->objLanguage->languageText('word_select', 'system')));
+                        $domElements['selectFileStr']->setAttribute('class', $this->objLanguage->languageText('mod_filemanager_buttonlinkclass', 'filemanager'));
                         $domElements['viewDiv']->appendChild($domElements['selectFileStr']);
-                        //remove
-                        $selectFileStr = '<a href=\'javascript:selectFileWindow("' . $name . '","' . $file['filename'] . '","' . $file['id'] . '");\'>' . $viewDiv . '</a>';
                         $objTable->addCell($domDoc->saveHTML($domElements['viewDiv']) . $objPlayer);
                     } else if ($mode == 'selectimagewindow') {
+                        $domElements['fileLink']->removeAttribute('href');
                         //The DOM image select link
                         $domElements['imageSelect'] = $domDoc->createElement('a');
                         $domElements['imageSelect']->setAttribute('href', 'javascript:selectImageWindow("' . $name . '","' . $filepath . '","' . $file['filename'] . '","' . $file['id'] . '");');
                         $domElements['imageSelect']->appendChild($domDoc->createTextNode($this->objLanguage->languageText('word_select', 'system')));
                         $domElements['imageSelect']->setAttribute('class', $this->objLanguage->languageText('mod_filemanager_buttonlinkclass', 'filemanager'));
                         $domElements['viewDiv']->appendChild($domElements['imageSelect']);
-                        $selectImageStr = '<a href=\'javascript:selectImageWindow("' . $name . '", "' . $filepath . '","' . $file['filename'] . '","' . $file['id'] . '");\' class=\' ' . $this->objLanguage->languageText('mod_filemanager_buttonlinkclass', 'filemanager') . ' \' >' . $this->objLanguage->languageText('word_select', 'system') . '</a>';
-                        //remove
-                        $viewDiv .= $selectImageStr . "<br />" . $fileLink->show() . "</div>";
                         $objTable->addCell($domDoc->saveHTML($domElements['viewDiv']) . $objPlayer);
-                        //$objTable->addCell($viewDiv);
                     } else {
-                        //close the paragraph element and append all elements inside the div(remove)
-                        $viewDiv .= $fileLink->show() . "";
+                        //return the document with all available objects and elements
                         $objTable->addCell($domDoc->saveHTML($domElements['viewDiv']) . $objPlayer);
                         $objTable->endRow();
                     }
