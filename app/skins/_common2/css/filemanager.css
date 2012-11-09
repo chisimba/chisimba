@@ -84,3 +84,7 @@ p.filedetails{
     background: #21AAF7;
     text-decoration: none;
 }
+
+div.video-container{
+    margin: 0.5pc;
+}
