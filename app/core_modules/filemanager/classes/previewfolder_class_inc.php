@@ -344,6 +344,7 @@ function turnOnFiles(value)
         $objIcon = $this->newObject('geticon', 'htmlelements');
         $objMimeType = $this->newObject("mimetypes", "files");
         $objEmbed = $this->newObject("fileembed", "filemanager");
+        $objFilePreview = $this->getObject('filepreview');
         $this->objFileIcons->size = 'large';
         //The dom document
         $domDoc = new DOMDocument('UTF-8');
@@ -381,6 +382,9 @@ function turnOnFiles(value)
                         $domElements['folderCheckbox'] = $domDoc->createElement('input');
                         $domElements['folderCheckbox']->setAttribute('type', 'checkbox');
                         $domElements['folderCheckbox']->setAttribute('name', 'files[]');
+                        $domElements['folderCheckbox']->setAttribute('id', htmlentities('input_files_' . basename($folder['folderpath'])));
+                        $domElements['folderCheckbox']->setAttribute('value', 'folder__' . $folder['id']);
+                        $domElements['folderCheckbox']->setAttribute('class', 'transparentbgnb');
                         //The DOM delete link
                         $domElements['deleteconfirm'] = $domDoc->createElement('a');
                         $domElements['deleteconfirm']->appendChild($domDoc->createTextNode($this->objLanguage->languageText('word_delete', 'system')));
@@ -404,10 +408,6 @@ function turnOnFiles(value)
                         $titleString = substr($titleString, 0, 9) . $nmbrOfFolders . substr($titleString, 8, 11) . $nmbrOfFiles . substr($titleString, 18, 12);
                     }
                     //End of subfolder and files count
-
-                    $domElements['folderCheckbox']->setAttribute('id', htmlentities('input_files_' . basename($folder['folderpath'])));
-                    $domElements['folderCheckbox']->setAttribute('value', 'folder_' . $folder['id']);
-
                     //The value to appear when the mouse is over the link
                     $domElements['folderParagraph'] = $domDoc->createElement('p');
                     $domElements['folderParagraph']->setAttribute('class', 'filedetails');
@@ -478,7 +478,7 @@ function turnOnFiles(value)
                         $domElements['checkbox']->setAttribute('name', 'files[]');
                         //DOM link
                         $domElements['editLink'] = $domDoc->createElement('a');
-                        $domElements['editLink']->setAttribute('title', $this->objLanguage->languageText('mod_filemanager_clicktoedit','filemanager'));
+                        $domElements['editLink']->setAttribute('title', $this->objLanguage->languageText('mod_filemanager_clicktoedit', 'filemanager'));
                         $domElements['editLink']->setAttribute('href', str_replace('amp;', '', $this->uri(array('action' => 'editfiledetails', 'id' => $file['id']), $this->targetModule)));
 
                         if (isset($file['symlinkid'])) {
@@ -572,20 +572,17 @@ function turnOnFiles(value)
                     //create audio/video player object
                     $objPlayer = "";
                     if (ereg("audio", $file['mimetype'])) {
-                        $objPlayer = $objEmbed->showSoundPlayer($objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])));
+                        $objPlayer = $objFilePreview->previewFile($file['id']);
                         $domElements['fileLink']->appendChild($domElements['playerString']);
                         $domElements['viewDiv']->appendChild($domElements['fileLink']);
                     }
 
                     //video
                     if (ereg("video", $file['mimetype'])) {
-                        $objPlayer = $objEmbed->showWithFlowPlayer($objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])));
+                        $objPlayer = $objFilePreview->previewFile($file['id']);
                         $domElements['fileLink']->appendChild($domElements['playerString']);
                         $domElements['viewDiv']->appendChild($domElements['fileLink']);
                     }
-                    
-                    //zip
-                    
 
                     //other formats
                     if (!ereg("audio", $file['mimetype']) && !ereg("image", $file['mimetype']) && !ereg("video", $file['mimetype'])) {
