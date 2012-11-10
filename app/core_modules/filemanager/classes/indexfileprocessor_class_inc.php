@@ -259,6 +259,11 @@ class indexfileprocessor extends object
 
         // Determine filename
         $filename = basename($filePath);
+        
+        //get the archive file ID
+        $archiveID = $this->getParam('id');
+        //create the archive file object
+        $archiveFile = $this->objFile->getFile($archiveID);
 
         // Get mimetype if not given
         if ($mimetype == '') {
@@ -272,7 +277,7 @@ class indexfileprocessor extends object
         $fileSize = filesize($savePath);
 
         // 1) Add to Database
-        $fileId = $this->objFile->addFile($filename, $filePath, $fileSize, $mimetype, $category, '1', $userId);
+        $fileId = $this->objFile->addFile($filename, $filePath, $fileSize, $mimetype, $category, '1', $userId,NULL,$archiveFile['license']);
 
         // 2) Start Analysis of File
         if ($category == 'images' || $category == 'audio' || $category == 'video' || $category == 'flash') {
