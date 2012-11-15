@@ -394,20 +394,7 @@ function turnOnFiles(value)
                         $domElements['viewDiv']->appendChild($domElements['deleteconfirm']);
                         $domElements['viewDiv']->appendChild($domDoc->createElement('br'));
                     }
-
-                    //TODO: make this a reusable function
-                    //variables to store informatin partaining folder contants
-                    $nmbrOfFiles = count($this->objFiles->getFolderFiles($folder['folderpath']));
-                    $nmbrOfFolders = count($this->objFolder->getSubFolders($folder['id']));
-
-                    //Assign the value to be displayed on the link's title depending on it's contents
-                    if ($nmbrOfFiles == 0 && $nmbrOfFolders == 0) {
-                        $titleString = $this->objLanguage->languageText("mod_filemanager_emptyfolderindicator", "filemanager");
-                    } else {
-                        $titleString = $this->objLanguage->languageText("mod_filemanager_contentsindicator", "filemanager");
-                        $titleString = substr($titleString, 0, 9) . $nmbrOfFolders . substr($titleString, 8, 11) . $nmbrOfFiles . substr($titleString, 18, 12);
-                    }
-                    //End of subfolder and files count
+                    
                     //The value to appear when the mouse is over the link
                     $domElements['folderParagraph'] = $domDoc->createElement('p');
                     $domElements['folderParagraph']->setAttribute('class', 'filedetails');
@@ -471,6 +458,10 @@ function turnOnFiles(value)
                         $objTable->startRow();
                     }
 
+                    //The DOM div element
+                    $domElements['viewDiv'] = $domDoc->createElement('div');
+                    $domElements['viewDiv']->setAttribute('class', 'fm_thumbnails');
+
                     if ($this->editPermission) {
                         //DOM checkbox
                         $domElements['checkbox'] = $domDoc->createElement('input');
@@ -487,9 +478,6 @@ function turnOnFiles(value)
                             $domElements['checkbox']->setAttribute('value', $file['id']);
                         }
 
-                        //The DOM div elements
-                        $domElements['viewDiv'] = $domDoc->createElement('div');
-                        $domElements['viewDiv']->setAttribute('class', 'fm_thumbnails');
                         $domElements['checkbox']->setAttribute('id', htmlentities('input_files_' . $file['filename']));
                         $domElements['viewDiv']->appendChild($domElements['checkbox']);
                         $domElements['editLink']->setAttribute('class', $this->objLanguage->languageText("mod_filemanager_buttonlinkclass", "filemanager"));
@@ -524,7 +512,7 @@ function turnOnFiles(value)
                     $domElements['downloadLink']->appendChild($domDoc->createTextNode($this->objLanguage->languageText("mod_filemanager_downloadlinkvalue", "filemanager")));
                     $domElements['downloadLink']->setAttribute('class', $this->objLanguage->languageText("mod_filemanager_buttonlinkclass", "filemanager"));
                     $domElements['viewDiv']->appendChild($domElements['downloadLink']);
-                    //creating space between the link at the top and the string below
+                    //creating space between the links at the top and the string below
                     $domElements['viewDiv']->appendChild($domDoc->createElement('p'));
 
                     $filepath = $this->objAltConfig->getSiteRoot() . '/usrfiles/' . $file['path'];
