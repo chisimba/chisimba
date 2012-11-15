@@ -270,8 +270,6 @@ class indexfileprocessor extends object
 
         // File Size
         $fileSize = filesize($savePath);
-        
-        $fileId = '';
         //get the archive file ID
         $archiveID = $this->getParam('id');
         if(!empty($archiveID)){
@@ -280,7 +278,7 @@ class indexfileprocessor extends object
             // 1) Add to Database with archive license
             $fileId = $this->objFile->addFile($filename, $filePath, $fileSize, $mimetype, $category, '1', $userId,NULL,$archiveFile['license']);
         }else{
-            // 2) Add to Database without archive license if the files do not come from an archive
+            // 1) Add to Database without archive license if the files do not come from an archive
             $fileId = $this->objFile->addFile($filename, $filePath, $fileSize, $mimetype, $category, '1', $userId);
         }
         // 2) Start Analysis of File
