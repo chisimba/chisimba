@@ -385,11 +385,15 @@ function turnOnFiles(value)
                         $domElements['folderCheckbox']->setAttribute('id', htmlentities('input_files_' . basename($folder['folderpath'])));
                         $domElements['folderCheckbox']->setAttribute('value', 'folder__' . $folder['id']);
                         $domElements['folderCheckbox']->setAttribute('class', 'transparentbgnb');
+                        //Delete confirm object
+                        $delConfirm = $this->getObject('confirm','utilities');
+                        //Setting the confirmation message
+                        $delConfirm->setConfirm(NULL,str_replace('amp;', '', $this->uri(array('action' => 'deletefolder', 'id' => $folder['id'], 'module' => $this->targetModule))),$this->objLanguage->languageText('mod_filemanager_areyousuredeletefiles','filemanager'),"Extra");
                         //The DOM delete link
                         $domElements['deleteconfirm'] = $domDoc->createElement('a');
                         $domElements['deleteconfirm']->appendChild($domDoc->createTextNode($this->objLanguage->languageText('word_delete', 'system')));
                         $domElements['deleteconfirm']->setAttribute('class', $this->objLanguage->languageText('mod_filemanager_buttonlinkclass', 'filemanager'));
-                        $domElements['deleteconfirm']->setAttribute('href', str_replace('amp;', '', $this->uri(array('action' => 'deletefolder', 'id' => $folder['id'], 'module' => $this->targetModule))));
+                        $domElements['deleteconfirm']->setAttribute('href', $delConfirm->href);
                         $domElements['viewDiv']->appendChild($domElements['folderCheckbox']);
                         $domElements['viewDiv']->appendChild($domElements['deleteconfirm']);
                         $domElements['viewDiv']->appendChild($domDoc->createElement('br'));
