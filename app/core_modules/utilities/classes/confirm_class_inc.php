@@ -51,6 +51,12 @@ class confirm extends object{
     *Any extra subelements go here
     */
     var $extra;
+    
+    /**
+     * @var $href
+     * The href property
+     */
+    var $href;
 
     /**
     *Constructor
@@ -65,6 +71,15 @@ class confirm extends object{
     function init(){
 
     }
+    
+    /**
+     * Function to assign value to the href property
+     *@access private
+     * @return null 
+     */
+    private function setHref(){
+        $this->href = "javascript:if(confirm('$this->message')){document.location='$this->url'}";
+    }
 
     /**
     *Method to setup the Confirmation Box
@@ -77,7 +92,8 @@ class confirm extends object{
         $this->link=$link;
         $this->url=$url;
         $this->message=$message;
-                $this->extra=$extra;
+        $this->extra=$extra;
+        $this->setHref();
     }
 
 
@@ -85,7 +101,7 @@ class confirm extends object{
     *Method to show the box
     */
     function show(){
-        $str='<a href="javascript: if(confirm(\''.$this->message.'\')) {document.location=\''.$this->url.'\'}" '.$this->extra.'>'.$this->link.'</a>';
+        $str = "<a href=".$this->href." ".$this->extra." >".$this->link."</a>";
         return $str;
     }
 }
