@@ -388,7 +388,7 @@ function turnOnFiles(value)
                         //Delete confirm object
                         $delConfirm = $this->getObject('confirm','utilities');
                         //Setting the confirmation message
-                        $delConfirm->setConfirm(NULL,str_replace('amp;', '', $this->uri(array('action' => 'deletefolder', 'id' => $folder['id'], 'module' => $this->targetModule))),$this->objLanguage->languageText('mod_filemanager_areyousuredeletefiles','filemanager'),"Extra");
+                        $delConfirm->setConfirm(NULL,str_replace('amp;', '', $this->uri(array('action' => 'deletefolder', 'id' => $folder['id'], 'module' => $this->targetModule))),$this->objLanguage->languageText('mod_filemanager_areyousuredeletefiles','filemanager'),NULL);
                         //The DOM delete link
                         $domElements['deleteconfirm'] = $domDoc->createElement('a');
                         $domElements['deleteconfirm']->appendChild($domDoc->createTextNode($this->objLanguage->languageText('word_delete', 'system')));
