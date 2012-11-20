@@ -101,7 +101,7 @@ class confirm extends object{
     *Method to show the box
     */
     function show(){
-        $str = "<a href=".$this->href." ".$this->extra." >".$this->link."</a>";
+        $str =  '<a href="'.$this->href.'" "'.$this->extra.'" >'.$this->link.'</a>';
         return $str;
     }
 }
