@@ -485,8 +485,10 @@ function turnOnFiles(value)
                         $domElements['checkbox']->setAttribute('id', htmlentities('input_files_' . $file['filename']));
                         $domElements['viewDiv']->appendChild($domElements['checkbox']);
                         $domElements['editLink']->setAttribute('class', $this->objLanguage->languageText("mod_filemanager_buttonlinkclass", "filemanager"));
-                        $domElements['editLink']->appendChild($domDoc->createTextNode(substr($this->objLanguage->languageText("mod_filemanager_editfiledetails", "filemanager"), 0, 4)));
+                        $domElements['editLink']->appendChild($domDoc->createTextNode(substr($this->objLanguage->languageText("word_edit", "system"), 0, 4)));
                         $domElements['viewDiv']->appendChild($domElements['editLink']);
+                        //Add the line separator
+                        $domElements['viewDiv']->appendChild($domDoc->createTextNode(' | '));
                     }
 
                     if (isset($file['symlinkid'])) {
@@ -513,7 +515,7 @@ function turnOnFiles(value)
                     $domElements['downloadLink'] = $domDoc->createElement('a');
                     $domElements['downloadLink']->setAttribute('title', $this->objLanguage->languageText('mod_filemanager_clicktodownload', 'filemanager'));
                     $domElements['downloadLink']->setAttribute('href', $objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])));
-                    $domElements['downloadLink']->appendChild($domDoc->createTextNode($this->objLanguage->languageText("mod_filemanager_downloadlinkvalue", "filemanager")));
+                    $domElements['downloadLink']->appendChild($domDoc->createTextNode($this->objLanguage->languageText("word_download", "system")));
                     $domElements['downloadLink']->setAttribute('class', $this->objLanguage->languageText("mod_filemanager_buttonlinkclass", "filemanager"));
                     $domElements['viewDiv']->appendChild($domElements['downloadLink']);
                     //creating space between the links at the top and the string below
