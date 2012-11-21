@@ -87,10 +87,16 @@ $checkOpenerScript = '
 $this->appendArrayVar('headerParams', $checkOpenerScript);
 $this->loadClass('fieldset', 'htmlelements');
 
-//the div element to contain links for changing the view
-$viewDiv = "<div id='changeview_div' >";
+//the DOM document for creating elements
+$domDoc = new DOMDocument('UTF-8');
+//the elements array
+$domElements = array(
+//The div element to contain the form for changing view
+'viewDiv'=> $domDoc->createElement('div')
+);
 //The changeview form
 $objForm = new form($objLanguage->languageText("mod_filemanager_changeviewform","filemanager"));
+
 //Thumbnails link to allow for switching to thumbnails view
 $objThumbLink = new link($this->uri(array('module'=>$objAltConfig->getDefaultModuleName(),'action'=>$this->getParam('action'),'folder'=>$this->getParam('folder'),'view'=>'thumbnails')));
 //List view llink to allow switching to list view
@@ -121,13 +127,13 @@ if($currentView == strtolower($this->objLanguage->languageText("phrase_thumbnail
 //append heading with link to form
 $objForm->addToForm($objViewHeading->show());
 //append the form to the div element and then close the element
-$viewDiv .=$objForm->show()."</div>";
+$domElements['viewDiv']->setAttribute('innerHTML',$objForm->show());
 
 if ($folderPermission2) {
     $fieldset = new fieldset();
 
     $fieldset->setLegend($this->objLanguage->languageText('mod_filemanager_createafolder', 'filemanager', 'Create a Folder'));
-    $fieldset->addContent($this->objFolders->showCreateFolderForm($folderId).$viewDiv);
+    $fieldset->addContent($this->objFolders->showCreateFolderForm($folderId).$domElements['viewDiv']->getAttribute('innerHTML'));
     echo $fieldset->show();
 }
 $accessLink = "";

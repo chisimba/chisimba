@@ -270,10 +270,17 @@ class indexfileprocessor extends object
 
         // File Size
         $fileSize = filesize($savePath);
-
-        // 1) Add to Database
-        $fileId = $this->objFile->addFile($filename, $filePath, $fileSize, $mimetype, $category, '1', $userId);
-
+        //get the archive file ID
+        $archiveID = $this->getParam('id');
+        if(!empty($archiveID)){
+            //create the archive file object
+            $archiveFile = $this->objFile->getFile($archiveID);
+            // 1) Add to Database with archive license
+            $fileId = $this->objFile->addFile($filename, $filePath, $fileSize, $mimetype, $category, '1', $userId,NULL,$archiveFile['license']);
+        }else{
+            // 1) Add to Database without archive license if the files do not come from an archive
+            $fileId = $this->objFile->addFile($filename, $filePath, $fileSize, $mimetype, $category, '1', $userId);
+        }
         // 2) Start Analysis of File
         if ($category == 'images' || $category == 'audio' || $category == 'video' || $category == 'flash') {
             // Get Media Info

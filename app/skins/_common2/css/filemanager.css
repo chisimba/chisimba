@@ -6,60 +6,85 @@
         Purpose of the stylesheet follows.
 */
 
+table#filemanagerTable{
+    margin: 1pc;
+}
 #form_createfolder{
     float: left;
 }
-#changeview_div{
+#form_changeview{
     float: right;
 }
-     #filemanagerTable tr{
-                        display: inline-block;
-                        margin: 0.5pc;
-                 }
-                #filemanagerTable tr td a img{
-                        width: 13pc;
-			margin-top: 0.4pc;
-                        height: 13pc;
-                 }
-                #filemanagerTable tr td{
-                        height: 13pc;
-                        width: 13pc;
-                        border: 0.5pc solid #fff;
-                        background: #fff;
-                        box-shadow: 0 0 5px #5d5d5d;
-                 }
-                 #filemanagerTable tr td  a p.filedetails{
-                        position: absolute;
-                        margin-top: -13.4pc;
-                        height: 13.5pc;
-                        width: 13pc;
-                        color: #000000;
-                        text-shadow: 1px 0 1px #000000;
-                        opacity: 0;
-                        -moz-transition-property: opacity;
-                        -moz-transition-duration: 0.5s;
-                        -moz-transition-timing-function: ease;
-                        -webkit-transition-timing-function: ease;
-                        -webkit-transition-duration: 0.5s;
-                        -webkit-transition-propery: opacity;
-                   }
-                   #filemanagerTable tr td a:hover{
-                         text-decoration: none;
-                   }
-                   #filemanagerTable tr td a p:hover{
-                         opacity: 0.85;
-                         background: #FFF;
-                   }
-                   #filemanagerTable tr td p:hover{
-                        
-                   }
-                 .buttonlink{
-                        background: #CACACA;
-                        margin: 1pc 0.5pc;
-                 }
-#filemanagerTable tr td #audioplayer1{
-	margin-top: 0.5pc;
+#filemanagerTable tr{
+    display: inline-block;
+    margin: 0.5pc;
 }
-#filemanagerTable tr td object{
-		margin-top: 0.5pc;
+#filemanagerTable tr td a img.imgThumbnail{
+    width: 13pc;
+    margin-top: 0.4pc;
+    height: 13pc;
+}
+#filemanagerTable tr td a img.iconThumbnail{
+    margin: 5pc;
+    height: 3pc;
+}
+#filemanagerTable tr td{
+    height: 13pc;
+    width: 13pc;
+    border: 0.5pc solid #FFFFFF;
+    background: #fff;
+    box-shadow: 0 0 5px #5d5d5d;
+}
+p.filedetails{
+    position: absolute;
+    margin-top: -13pc;
+    height: 12pc;
+    width: 13pc;
+    color: #000000;
+    text-shadow: 1px 0 1px #000000;
+    opacity: 0;
+    -moz-transition-property: opacity;
+    -moz-transition-duration: 0.5s;
+    -moz-transition-timing-function: ease;
+    -webkit-transition-timing-function: ease;
+    -webkit-transition-duration: 0.5s;
+    -webkit-transition-propery: opacity;
+}
+#filemanagerTable tr td a:hover{
+    text-decoration: none;
+}
+#filemanagerTable tr td a p:hover{
+    opacity: 0.89;
+    background: #FFFFFF;
+}
+
+.buttonlink{
+    background: #CACACA;
+    margin: 1pc 0.5pc;
+}
+#filemanagerTable tr td #audioplayer1{
+    margin-top: 0.5pc;
+}
+#filemanagerTable div.video-container{
+    margin-top: 0.5pc;
+    width: 13pc;
+}
+#form_changeview a.sexybutton{
+    color: #FFFFFF;
+    width: 100%;
+    background: #6E6E6E;
+    text-align: center;
+    font-size: 1pc;
+    border: none;
+    box-shadow: none;
+    text-shadow: none;
+}
+
+#form_changeview a.sexybutton:hover{
+    background: #21AAF7;
+    text-decoration: none;
+}
+
+div.video-container{
+    margin: 0.5pc;
 }

@@ -62,12 +62,18 @@ class fileicons extends object
     */
     public $size = 'small';
     
+        /**
+    * @var string $_objConfig: string for the configuration object
+    */
+    public $_objConfig;
+    
     /**
     * Constructor
     */
     public function init()
     {
         $this->objIcon = $this->getObject('geticon', 'htmlelements');
+        $this->_objConfig = $this->getObject('altconfig','config');
     }
 
     /**
@@ -207,6 +213,32 @@ class fileicons extends object
             $this->objIcon->title = $filedesc;
             return $this->objIcon->show();
         }
+    }
+    /**
+     * Method to return the address to the icon of the specified file type
+     * @param string $ext the format which you want the icon file to be. (png OR gif)
+     * @param string $filetype type of file which you want to retrieve the icon for. ( mp3 or pdf etc...)
+     * @return $address string address of the icon
+     * @access public
+     */
+    public function getIconSrc($filetype,$ext = 'png'){
+           if ($this->size == 'large') {
+                $iconfolder =  'icons/filetypes32/';
+            } else {
+                $iconfolder = 'icons/filetypes/';
+            }
+            if(ereg('gif', $ext)){
+                $ext = '.gif';
+            }  else {
+                $ext = '.png';
+            }
+            if(!empty($filetype)|| !$filetype == NULL){
+                trim($filetype);
+                if(!file_exists($this->_objConfig->getskinRoot().'_common/'.$iconfolder.$filetype.$ext)){
+                    $filetype = 'unknown_icon';
+                }
+                return $this->_objConfig->getskinRoot().'_common/'.$iconfolder.$filetype.$ext;
+         }
     }
 
 }

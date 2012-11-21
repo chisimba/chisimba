@@ -249,8 +249,10 @@ if ($file['category'] == 'archives' && $file['datatype'] == 'zip') {
 
     $folderParts = explode('/', $file['filefolder']);
     //getTree($folderType='users', $id, $treeType='dhtml', $selected='')
+    //get the archive file id
+    $archiveId = $this->getParam('id');
 
-    $form = new form('extractarchive', $this->uri(array('action' => 'extractarchive')));
+    $form = new form('extractarchive', $this->uri(array('action' => 'extractarchive','id'=>$archiveId)));
     $form->addToForm($this->objLanguage->languageText('mod_filemanager_extractarchiveto', 'filemanager', 'Extract Archive to') . ': ' . $this->objFolders->getTree($folderParts[0], $folderParts[1], 'htmldropdown', $folderId));
 
     $button = new button('submitform', $this->objLanguage->languageText('mod_filemanager_extractfiles', 'filemanager', 'Extract Files'));
