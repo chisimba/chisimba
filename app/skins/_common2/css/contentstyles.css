@@ -1,0 +1,181 @@
+/*******************************************************************************
+*  Content styles to be used in the authoring of content by advanced users     *
+*******************************************************************************/
+
+
+/* ---------------- BEGIN PRESET DIVS  ------------------*/
+.preset_div_wrapper {
+    /* Presets must be contained in this div */
+    clear: both;
+    /* For IE 6/7 (trigger hasLayout) */
+    zoom:1;
+}
+.preset_div_wrapper:after {
+    /* A clearfix so that preset_div_wrapper_after is not required */ 
+    content: "."; 
+    display: block; 
+    height: 0; 
+    font-size:0; 
+    clear: both; 
+    visibility:hidden;
+}
+.preset_div, .preset_div_rounded, .preset_div_rounded_shadow {
+    float: left;
+    padding: 5px;
+    width: 195px;
+    margin: 2px;
+}
+.preset_div a, .preset_div_rounded a, .preset_div_rounded_shadow a,
+.preset_div a:visited, .preset_div_rounded a:visited, 
+.preset_div_rounded_shadow a:visited {
+    color: #dadada;
+}
+.preset_div a:hover, .preset_div_rounded a:hover, 
+.preset_div_rounded_shadow a:hover, .preset_div a:visited:hover, 
+.preset_div_rounded a:visited:hover, 
+.preset_div_rounded_shadow a:visited:hover {
+    color: #FFCC00;
+}
+
+.preset_div_rounded, .preset_div_rounded_shadow {
+    border-radius: 12px;
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    -khtml-border-radius: 12px;
+}
+.preset_div_rounded_shadow {
+    -webkit-box-shadow: 4px 4px 5px rgba(50, 50, 50, 0.27);
+    -moz-box-shadow:    4px 4px 5px rgba(50, 50, 50, 0.27);
+    box-shadow:         4px 4px 5px rgba(50, 50, 50, 0.27);
+    /* For IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000')";
+    /* For IE 5.5 - 7 */
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000');
+}
+
+.plumb {
+    background: #4E205A;
+    color: #FFFFFF;
+}
+.purple {
+    background: #85489C;
+    color: #FFFFFF;
+}
+.lime {
+    background: #ADD03B;
+    color: #FFFFFF;
+}
+.grass {
+    background: #006A5D;
+    color: #FFFFFF;
+}
+.orangepeal {
+    background: #F3782E;
+    color: #FFFFFF;
+}
+.sky {
+    background: #00B1CF;
+    color: #FFFFFF;
+}
+.turk {
+    background: #00708A;
+    color: #FFFFFF;
+}
+.coal {
+    background: #000000;
+    color: #FFFFFF;
+}
+.charcoal {
+    background: #323232;
+    color: #FFFFFF;
+}
+.chisimba {
+    background: #5a3f1e;
+    color: #FFFFFF;
+}
+
+.coolgradient {
+    background: -webkit-gradient(linear, left top, left bottom,
+        color-stop(0%, white), color-stop(65%, white),
+        color-stop(100%, #f7f7f7));
+    background: -moz-linear-gradient(top, white 0%, white 55%, #D5E4F3 130%);
+
+}
+.darksilvergradient {
+    color: #FFFFFF;
+    background-image: #595c5a;
+    background-image: -webkit-linear-gradient(bottom, #888a85 0%, #555753 50%, #2e3436 100%);
+    background-image: -moz-linear-gradient(bottom, #888a85 0%, #555753 50%, #2e3436 100%);
+    background-image: -o-linear-gradient(bottom, #888a85 0%, #555753 50%, #2e3436 100%);
+    background-image: -ms-linear-gradient(bottom, #888a85 0%, #555753 50%, #2e3436 100%);
+    background-image: linear-gradient(bottom, #888a85 0%, #555753 50%, #2e3436 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#2e3436", endColorstr="#888a85",GradientType=0);
+}
+.chameleongradient {
+    color: #FFFFFF;
+    background-image: #6ec51b;
+    background-image: -webkit-linear-gradient(bottom, #8ae234 0%, #73d216 50%, #4e9a06 100%);
+    background-image: -moz-linear-gradient(bottom, #8ae234 0%, #73d216 50%, #4e9a06 100%);
+    background-image: -o-linear-gradient(bottom, #8ae234 0%, #73d216 50%, #4e9a06 100%);
+    background-image: -ms-linear-gradient(bottom, #8ae234 0%, #73d216 50%, #4e9a06 100%);
+    background-image: linear-gradient(bottom, #8ae234 0%, #73d216 50%, #4e9a06 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#4e9a06", endColorstr="#8ae234",GradientType=0);
+}
+
+
+.skygradient {
+    color: #FFFFFF;
+    background-image: #426fa9;
+    background-image: -webkit-linear-gradient(bottom, #729fcf 0%, #3465a4 50%, #204a87 100%);
+    background-image: -moz-linear-gradient(bottom, #729fcf 0%, #3465a4 50%, #204a87 100%);
+    background-image: -o-linear-gradient(bottom, #729fcf 0%, #3465a4 50%, #204a87 100%);
+    background-image: -ms-linear-gradient(bottom, #729fcf 0%, #3465a4 50%, #204a87 100%);
+    background-image: linear-gradient(bottom, #729fcf 0%, #3465a4 50%, #204a87 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#204a87", endColorstr="#729fcf",GradientType=0);
+}
+.plumgradient {
+    color: #FFFFFF;
+    background-image: #7f5783;
+    background-image: -webkit-linear-gradient(bottom, #ad7fa8 0%, #75507b 50%, #5c3566 100%);
+    background-image: -moz-linear-gradient(bottom, #ad7fa8 0%, #75507b 50%, #5c3566 100%);
+    background-image: -o-linear-gradient(bottom, #ad7fa8 0%, #75507b 50%, #5c3566 100%);
+    background-image: -ms-linear-gradient(bottom, #ad7fa8 0%, #75507b 50%, #5c3566 100%);
+    background-image: linear-gradient(bottom, #ad7fa8 0%, #75507b 50%, #5c3566 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#5c3566", endColorstr="#ad7fa8",GradientType=0);
+}
+.scarletgradient {
+    color: #FFFFFF;
+    background-image: #ca0e0e;
+    background-image: -webkit-linear-gradient(bottom, #ef2929 0%, #cc0000 50%, #a40000 100%);
+    background-image: -moz-linear-gradient(bottom, #ef2929 0%, #cc0000 50%, #a40000 100%);
+    background-image: -o-linear-gradient(bottom, #ef2929 0%, #cc0000 50%, #a40000 100%);
+    background-image: -ms-linear-gradient(bottom, #ef2929 0%, #cc0000 50%, #a40000 100%);
+    background-image: linear-gradient(bottom, #ef2929 0%, #cc0000 50%, #a40000 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#a40000", endColorstr="#ef2929",GradientType=0);
+}
+.silvergradient {
+    color: #000000;
+    background-image: #d4d6d0;
+    background-image: -webkit-linear-gradient(bottom, #eeeeec 0%, #d3d7cf 50%, #babdb6 100%);
+    background-image: -moz-linear-gradient(bottom, #eeeeec 0%, #d3d7cf 50%, #babdb6 100%);
+    background-image: -o-linear-gradient(bottom, #eeeeec 0%, #d3d7cf 50%, #babdb6 100%);
+    background-image: -ms-linear-gradient(bottom, #eeeeec 0%, #d3d7cf 50%, #babdb6 100%);
+    background-image: linear-gradient(bottom, #eeeeec 0%, #d3d7cf 50%, #babdb6 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#babdb6", endColorstr="#eeeeec",GradientType=0);
+}
+.fixedheight_100 {
+    height: 100px
+}
+.fixedheight_200 {
+    height: 200px
+}
+.fixedheight_300 {
+    height: 300px
+}
+.fixedheight_400 {
+    height: 400px
+}
+.fixedheight_500 {
+    height: 500px
+}
+/* ----------------- END PRESET DIVS  -------------------*/
