@@ -67,8 +67,6 @@ class parse4chem extends object
     {
         $this->objConfig = $this->getObject('altconfig', 'config');
         // Get an instance of the params extractor
-        $this->objDisplay = $this->getObject("chemdisplay", "chemdoodle");
-        // Get an instance of the params extractor
         $this->objExpar = $this->getObject("extractparams", "utilities");
     }
 
@@ -81,68 +79,72 @@ class parse4chem extends object
     */
     public function parse($txt)
     {
-        preg_match_all('/\[CHEM\](.*)\[\/CHEM\]/U', $txt, $results, PREG_PATTERN_ORDER);
-        preg_match_all('/\\[CHEM:(.*?)\\]/', $txt, $results2, PREG_PATTERN_ORDER);
-        $counter = 0;
-        foreach ($results[1] as $item)
-        {
-            $file = $item;
+        $objModule = $this->getObject('modules','modulecatalogue');
+        if ($objModule->checkIfRegistered('chemdoodle', 'chemdoodle')) {
+            // Get an instance of the params extractor
+            $this->objDisplay = $this->getObject("chemdisplay", "chemdoodle");
+            preg_match_all('/\[CHEM\](.*)\[\/CHEM\]/U', $txt, $results, PREG_PATTERN_ORDER);
+            preg_match_all('/\\[CHEM:(.*?)\\]/', $txt, $results2, PREG_PATTERN_ORDER);
+            $counter = 0;
+            foreach ($results[1] as $item)
+            {
+                $file = $item;
 
-            $replacement = $this->objDisplay->showTransformerMolecule($file);
-            $txt = str_replace($results[0][$counter], $replacement, $txt);
-            $counter++;
+                $replacement = $this->objDisplay->showTransformerMolecule($file);
+                $txt = str_replace($results[0][$counter], $replacement, $txt);
+                $counter++;
+            }
+
+            //Get all the ones [FLV: xx=yy] tags (added by Derek 2007 09 23)
+            $counter = 0;
+            foreach ($results2[0] as $item)
+            {
+                $this->item=$item;
+                $str = $results2[1][$counter];
+                $ar= $this->objExpar->getArrayParams($str, ",");
+                if (isset($this->objExpar->width)) {
+                    $width = $this->objExpar->width;
+                } else {
+                    $width=320;
+                }
+                if (isset($this->objExpar->height)) {
+                    $height = $this->objExpar->height;
+                } else {
+                    $height=240;
+                }
+                if (isset($this->objExpar->background)) {
+                    $height = $this->objExpar->background;
+                } else {
+                    $background='white';
+                }
+
+                if (isset($this->objExpar->type)) {
+                    $type = $this->objExpar->type;
+                } else {
+                    $type='transformer';
+                }
+                if (isset($this->objExpar->file)) {
+                    $file = $this->objExpar->file;
+                }
+
+                switch($type){
+                    default:
+                    case 'transformer':
+                        $replacement = $this->objDisplay->showTransformerMolecule($file, $width, $height, 'true', 3, 'true', $background);
+                        break;
+                    case '2d':
+                        $replacement = $this->objDisplay->show2dMolecule($file, $width, $height);
+                        break;
+                    case 'image':
+                        $replacement = $this->objDisplay->showMolecule($file, $width, $height);
+                        break;
+
+                }
+
+                $txt = str_replace($item, $replacement, $txt);
+                $counter++;
+            }
         }
-
-        //Get all the ones [FLV: xx=yy] tags (added by Derek 2007 09 23)
-        $counter = 0;
-        foreach ($results2[0] as $item)
-        {
-            $this->item=$item;
-            $str = $results2[1][$counter];
-            $ar= $this->objExpar->getArrayParams($str, ",");
-            if (isset($this->objExpar->width)) {
-                $width = $this->objExpar->width;
-            } else {
-                $width=320;
-            }
-            if (isset($this->objExpar->height)) {
-                $height = $this->objExpar->height;
-            } else {
-                $height=240;
-            }
-            if (isset($this->objExpar->background)) {
-                $height = $this->objExpar->background;
-            } else {
-                $background='white';
-            }
-
-            if (isset($this->objExpar->type)) {
-                $type = $this->objExpar->type;
-            } else {
-                $type='transformer';
-            }
-            if (isset($this->objExpar->file)) {
-                $file = $this->objExpar->file;
-            }
-
-            switch($type){
-                default:
-                case 'transformer':
-                    $replacement = $this->objDisplay->showTransformerMolecule($file, $width, $height, 'true', 3, 'true', $background);
-                    break;
-                case '2d':
-                    $replacement = $this->objDisplay->show2dMolecule($file, $width, $height);
-                    break;
-                case 'image':
-                    $replacement = $this->objDisplay->showMolecule($file, $width, $height);
-                    break;
-
-            }
-
-            $txt = str_replace($item, $replacement, $txt);
-            $counter++;
-        }
-
         return $txt;
     }
 }

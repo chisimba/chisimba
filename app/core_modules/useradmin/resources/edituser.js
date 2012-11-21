@@ -159,7 +159,7 @@
 						fieldLabel: 'Email Address',
 						name: 'useradmin_email',
 						allowBlank:false,
-						vtype: 'email',
+						//vtype: 'email',
 						invalidText : 'Provide a valid email address'
 					},
 					{
