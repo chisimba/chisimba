@@ -243,7 +243,7 @@ class curlwrapper extends object
         curl_setopt($ch, CURLOPT_TIMEOUT, 10);
         curl_setopt($ch, CURLOPT_ENCODING, "");
         curl_setopt($ch, CURLOPT_HTTPHEADER, array("Expect:"));
-        curl_setopt($ch, CURLOPT_USERAGENT, "Chisimba (http://chisimba.com)");
+        curl_setopt($ch, CURLOPT_USERAGENT, "Chisimba (http://avoir.uwc.ac.za)");
         curl_setopt($ch, CURLOPT_REFERER, $this->uri(''));
         curl_setopt($ch, CURLOPT_URL, $url);
 
