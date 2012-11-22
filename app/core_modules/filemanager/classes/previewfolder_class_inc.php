@@ -592,6 +592,8 @@ function turnOnFiles(value)
                     if ($mode == 'fckimage' || $mode == 'fckflash' || $mode == 'fcklink') {
                         //Disable file preview
                         $domElements['fileLink']->removeAttribute('href');
+                        //remove the title string as the option will not be possible
+                        $domElements['fileLink']->removeAttribute('title');
                         //The DOM select string
                         $domElements['selectStr'] = $domDoc->createElement('a');
                         $domElements['selectStr']->appendChild($domDoc->createTextNode($this->objLanguage->languageText('word_select', 'system')));
@@ -601,6 +603,8 @@ function turnOnFiles(value)
                         $objTable->addCell($domDoc->saveHTML($domElements['viewDiv']) . $objPlayer);
                     } else if ($mode == 'selectfilewindow') {
                         $domElements['fileLink']->removeAttribute('href');
+                        //remove the title string as the option will not be possible
+                        $domElements['fileLink']->removeAttribute('title');
                         //The DOM select file string
                         $domElements['selectFileStr'] = $domDoc->createElement('a');
                         $domElements['selectFileStr']->setAttribute('href', 'javascript:selectFileWindow("' . $name . '","' . $file['filename'] . '","' . $file['id'] . '");');
@@ -610,6 +614,8 @@ function turnOnFiles(value)
                         $objTable->addCell($domDoc->saveHTML($domElements['viewDiv']) . $objPlayer);
                     } else if ($mode == 'selectimagewindow') {
                         $domElements['fileLink']->removeAttribute('href');
+                        //remove the title string as the option will not be possible
+                        $domElements['fileLink']->removeAttribute('title');
                         //The DOM image select link
                         $domElements['imageSelect'] = $domDoc->createElement('a');
                         $domElements['imageSelect']->setAttribute('href', 'javascript:selectImageWindow("' . $name . '","' . $filepath . '","' . $file['filename'] . '","' . $file['id'] . '");');
