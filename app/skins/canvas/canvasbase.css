@@ -1687,7 +1687,7 @@ a.delpost {
 }
 
 .wall_comments_top {
-    background: transparent;
+    background: url('images/comment-top.png');
     width: 395px;
     height: 10px;
     background-repeat: no-repeat;

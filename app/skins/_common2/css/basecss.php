@@ -2,11 +2,12 @@
 // Make it a CSS header
 header('Content-type: text/css');
 
+
+
 // Define the filename of the cached file
 define("CACHED_FILE", "cached.css");
 // Define the lifetime of the cached file in seconds
-//define("CACHE_LIFE", 604800);
-define("CACHE_LIFE", 0.0000001);
+define("CACHE_LIFE", 604800);
 
 if (file_exists(CACHED_FILE)) {
     $cacheTime = @filemtime(CACHED_FILE);
@@ -15,6 +16,7 @@ if (file_exists(CACHED_FILE)) {
     if (!$cacheTime or (time() - $cacheTime >= CACHE_LIFE)){
         // Generate a cache
         generateCache();
+        //require_once CACHED_FILE;
         include_once CACHED_FILE;
     } else {
         // It has not expired, so load it
@@ -45,7 +47,6 @@ function generateCache()
         "forum.css",
         "calendar.css",
         "cms.css",
-        "contentstyles.css",
         "stepmenu.css",
         "switchmenu.css",
         "colorboxes.css",
@@ -62,7 +63,7 @@ function generateCache()
         "chisimbacanvas.css",
     );
     //load up all of the CSS files into an array
-    //$cssFiles = glob("*.css"); -- can't use GLOB because they require an order
+    $cssFiles = glob("*.css");
     $counter=1;
     foreach ($cssArray as $cssFile) {
         if (file_exists($cssFile)) {
