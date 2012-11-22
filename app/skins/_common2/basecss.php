@@ -48,7 +48,6 @@ function generateCache()
         "layout.css",
         "common2.css",
         "htmlelements.css",
-        "filemanager.css",
         "creativecommons.css",
         "forum.css",
         "calendar.css",
@@ -67,6 +66,7 @@ function generateCache()
         "cssdropdownmenu.css",
         "sexybuttons.css",
         "chisimbacanvas.css",
+        "filemanager.css",
     );
     //load up all of the CSS files into an array
     $cssFiles = glob("*.css");

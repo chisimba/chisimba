@@ -19,7 +19,6 @@ header($ExpStr);
 
 $cssArray = array(
     "common.css",
-    "filemanager.css",
     "cssdropdownmenu.css",
     "htmlelements.css",
     "creativecommons.css",
@@ -34,6 +33,7 @@ $cssArray = array(
     "modernbrickmenu.css",
     "jquerytags.css",
     "glossytabs.css",
+    "filemanager.css",
 );
 
 foreach ($cssArray as $cssFile)
