@@ -138,9 +138,10 @@ class folderaccess extends object {
 
     /**
      * this creates a form that allows a user to set the access control on
-     * a folder/ file 
+     * a folder or file 
      */
     function createFileAccessControlForm($id) {
+        
         $dbFile = $this->getObject("dbfile", "filemanager");
         $file = $dbFile->getFile($id);
         $form = new form('accessform', $this->uri(array('action' => 'setfileaccess')));
