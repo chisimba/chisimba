@@ -173,7 +173,7 @@ class filemanager extends controller {
      * @access public
      */
     public function requiresLogin($action) {
-        if ($action == 'file' || $action=='dav') {
+        if ($action == 'file' || $action == 'dav') {
             return FALSE;
         } else {
             return TRUE;
@@ -323,11 +323,8 @@ class filemanager extends controller {
             return "__" . $action;
         } else {
             return "__home";
-
-            }
+        }
     }
-
-
 
     /**
      * Checks if the user should have access to the file manager.
@@ -398,11 +395,43 @@ class filemanager extends controller {
     private function __file() {
         $id = $this->getParam('id');
         $filename = $this->getParam('filename');
-
         $file = $this->objFiles->getFileInfo($id);
 
+        $accessKeyExists = false;
+
+        if (key_exists("access", $file)) {
+            $accessKeyExists = true;
+        }
+        $visibilityKeyExists = false;
+
+        if (key_exists("visibility", $file)) {
+            $visibilityKeyExists = true;
+        }
+
+        $downloadSecure = false;
+
+        if ($accessKeyExists) {
+            if ($file['access'] == 'private_all' || $file['access'] == 'private_selected') {
+                $downloadSecure = true;
+            }
+        }
+        if ($visibilityKeyExists) {
+            if ($file['visibility'] == 'hidden') {
+                $downloadSecure = true;
+            }
+        }
+
+        if ($downloadSecure) {
+            $filepath = $file["path"];
+            $filename = $file["filename"];
+            $objFolderAccess = $this->getObject("folderaccess", "filemanager");
+
+            return $objFolderAccess->downloadFile($filepath, $filename);
+        }
+
+
         if ($file == FALSE || $file['filename'] != $filename) {
-            die($this->objLanguage->languageText('mod_filemanager_norecordofsuchafile', 'filemanager', 'No Record of Such a File Exists') . '.');
+            return "access_denied_tpl.php";
         }
 
         $filePath = $this->objConfig->getcontentPath() . $file['path'];
@@ -1466,8 +1495,8 @@ function checkWindowOpener()
         $searchField = $this->getParam('searchField', '');
         $searchFor = $this->getParam('searchFor', '');
         $orderBy = $this->getParam('orderBy', '');
-        $numItemsPerPage = (int)$this->getParam('numItemsPerPage','0');
-        $page = (int)$this->getParam('page','0');
+        $numItemsPerPage = (int) $this->getParam('numItemsPerPage', '0');
+        $page = (int) $this->getParam('page', '0');
 
         if ($searchType == 'context') {
             $defaultQuota = $this->objQuotas->getDefaultContextQuota();
@@ -1477,12 +1506,7 @@ function checkWindowOpener()
         }
 
         $results = $this->objQuotas->getResults(
-            $searchType,
-            $searchField,
-            $searchFor,
-            $orderBy,
-            $numItemsPerPage,
-            $page
+                $searchType, $searchField, $searchFor, $orderBy, $numItemsPerPage, $page
         );
         $this->setVarByRef('results', $results);
         $this->setVarByRef('searchType', $searchType);

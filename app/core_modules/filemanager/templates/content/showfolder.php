@@ -31,6 +31,7 @@ $checkOpenerScript = '
 
         function selectFile(path)
         {
+        //alert(path);
 
             if (window.opener) {
 
@@ -51,9 +52,10 @@ $checkOpenerScript = '
 
  function selectFileWindow(name,filename, fileid)
         {
+      
             if (window.opener) {
 
-                //alert(fileName[id]);
+                alert(fileName[id]);
                 window.opener.document.getElementById("input_selectfile_"+name).value = filename;
                 window.opener.document.getElementById("hidden_"+name).value = fileid;
 

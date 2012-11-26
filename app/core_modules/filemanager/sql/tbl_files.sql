@@ -91,6 +91,10 @@ $fields = array(
         'type' => 'text',
         'length' => 20
         ),
+    'access' => array(
+        'type' => 'text',
+        'length' => 20
+        ),
     'digitallibrary' => array(
         'type' => 'text',
         'length' => 1

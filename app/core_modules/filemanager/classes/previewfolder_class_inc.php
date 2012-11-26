@@ -262,7 +262,10 @@ class previewfolder extends filemanagerobject {
                     }
 
                     $fileLink->link = $linkTitle;
-                    $filepath = $this->objAltConfig->getSiteRoot() . '/usrfiles/' . $file['path'];
+
+                    $downloadPath = $this->uri(array('action' => 'file', 'id' => $file['id'], 'filename' => $file['filename']));
+
+                    $filepath = $downloadPath; //$this->objAltConfig->getSiteRoot() . '/usrfiles/' . $file['path'];
                     $selectStr = '<a href=\'javascript:selectFile("' . $filepath . '");\'>' . basename($file['filename']) . '</a>';
                     $selectFileStr = '<a href=\'javascript:selectFileWindow("' . $name . '","' . $file['filename'] . '","' . $file['id'] . '");\'>' . basename($file['filename']) . '</a>';
                     $selectImageStr = '<a href=\'javascript:selectImageWindow("' . $name . '", "' . $filepath . '","' . $file['filename'] . '","' . $file['id'] . '");\'>' . basename($file['filename']) . '</a>';
@@ -386,9 +389,9 @@ function turnOnFiles(value)
                         $domElements['folderCheckbox']->setAttribute('value', 'folder__' . $folder['id']);
                         $domElements['folderCheckbox']->setAttribute('class', 'transparentbgnb');
                         //Delete confirm object
-                        $delConfirm = $this->getObject('confirm','utilities');
+                        $delConfirm = $this->getObject('confirm', 'utilities');
                         //Setting the confirmation message
-                        $delConfirm->setConfirm(NULL,str_replace('amp;', '', $this->uri(array('action' => 'deletefolder', 'id' => $folder['id'], 'module' => $this->targetModule))),$this->objLanguage->languageText('mod_filemanager_areyousuredeletefiles','filemanager'),NULL);
+                        $delConfirm->setConfirm(NULL, str_replace('amp;', '', $this->uri(array('action' => 'deletefolder', 'id' => $folder['id'], 'module' => $this->targetModule))), $this->objLanguage->languageText('mod_filemanager_areyousuredeletefiles', 'filemanager'), NULL);
                         //The DOM delete link
                         $domElements['deleteconfirm'] = $domDoc->createElement('a');
                         $domElements['deleteconfirm']->appendChild($domDoc->createTextNode($this->objLanguage->languageText('word_delete', 'system')));
@@ -398,7 +401,7 @@ function turnOnFiles(value)
                         $domElements['viewDiv']->appendChild($domElements['deleteconfirm']);
                         $domElements['viewDiv']->appendChild($domDoc->createElement('br'));
                     }
-                    
+
                     //The value to appear when the mouse is over the link
                     $domElements['folderParagraph'] = $domDoc->createElement('p');
                     $domElements['folderParagraph']->setAttribute('class', 'filedetails');

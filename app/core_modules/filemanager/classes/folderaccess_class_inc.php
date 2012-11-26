@@ -362,6 +362,7 @@ class folderaccess extends object {
      */
     function downloadFile($filepath, $filename) {
 
+        
         //check if user has access to the parent folder before accessing it
 
         $parts = explode('/', $filepath);
@@ -378,33 +379,39 @@ class folderaccess extends object {
 
                 $objUserContext = $this->getObject('usercontext', 'context');
                 if (!$objUserContext->isContextMember($userId, $contextCode)) {
-                    die("I'm sorry, you may not download that file.");
+                    return "filenotavailable_tpl.php";
                 }
                 break;
         }
 
         $baseDir = $this->secureFolder;
 
+       
+
         // Detect missing filename
         if (!$filename && !$filepath)
-            die("I'm sorry, you must specify a file name to download.");
+            return "filenotavailable_tpl.php";
 
         // Make sure we can't download files above the current directory location.
         if (eregi("\.\.", $filepath))
-            die("I'm sorry, you may not download that file.");
+            return "filenotavailable_tpl.php";
         $file = str_replace("..", "", $filepath);
 
+        
+        
         // Make sure we can't download .ht control files.
         if (eregi("\.ht.+", $filepath))
-            die("I'm sorry, you may not download that file.");
+            return "filenotavailable_tpl.php";
 
         // Combine the download path and the filename to create the full path to the file.
         $file = $baseDir . '/' . $filepath;
 
         // Test to ensure that the file exists.
-        if (!file_exists($file))
-            die("I'm sorry, the file doesn't seem to exist.");
-
+        if (!file_exists($file)){
+      
+            return 'filenotavailable_tpl.php';
+        }
+       
         // Extract the type of file which will be sent to the browser as a header
         $type = filetype($file);
 

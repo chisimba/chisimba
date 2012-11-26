@@ -161,6 +161,10 @@ class dbquotas extends dbTable {
             $creatorid = $xpath[1];
             $modifierid = $creatorid;
         }
+        //still, just in case
+        if($creatorid == NULL) {
+            return FALSE;
+        }
         return $this->insert(
                 array(
                 'path' => $path,
