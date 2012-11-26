@@ -7,7 +7,8 @@ header('Content-type: text/css');
 // Define the filename of the cached file
 define("CACHED_FILE", "cached.css");
 // Define the lifetime of the cached file in seconds
-define("CACHE_LIFE", 604800);
+//define("CACHE_LIFE", 604800);
+define("CACHE_LIFE", 0.000001);
 
 if (file_exists(CACHED_FILE)) {
     $cacheTime = @filemtime(CACHED_FILE);
