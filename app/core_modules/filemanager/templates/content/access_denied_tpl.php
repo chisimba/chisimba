@@ -11,3 +11,4 @@ echo $heading->show();
 
 // Create and output message.
 echo '<p>'.htmlspecialchars($messageText).'</p>';
+?>

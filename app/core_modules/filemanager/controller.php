@@ -1591,8 +1591,25 @@ function checkWindowOpener()
         $objFolderAccess = $this->getObject("folderaccess", "filemanager");
         $access = $this->getParam("access_radio");
         $folderId = $this->getParam("id");
-        $objFolderAccess->setAccess($folderId, $access);
-        return $this->nextAction("viewfolder", array("folder" => $folderId));
+        if ($objFolderAccess->setAccess($folderId, $access)) {
+            return $this->nextAction("viewfolder", array("folder" => $folderId));
+        } else {
+            $message = "";
+            if ($this->objUser->isAdmin()) {
+                $message = $this->objLanguage->languageText('mod_filemanager_nosecurefolderadmin_message', 'filemanager');
+            } else {
+                $message = $this->objLanguage->languageText('mod_filemanager_nosecurefolder_message', 'filemanager');
+            }
+            $this->setVarByRef("messageText", $message);
+            $action = "viewfolder";
+            $id = "folder";
+            $idValue = $folderId;
+            $this->setVarByRef("action", $action);
+            $this->setVarByRef("id", $id);
+            $this->setVarByRef("idvalue", $idValue);
+
+            return "cannotchangevisibility_tpl.php";
+        }
     }
 
     /**
@@ -1603,8 +1620,25 @@ function checkWindowOpener()
         $objFolderAccess = $this->getObject("folderaccess", "filemanager");
         $access = $this->getParam("access_radio");
         $fileId = $this->getParam("id");
-        $objFolderAccess->setFileAccess($fileId, $access);
-        return $this->nextAction("fileinfo", array("id" => $fileId));
+        if ($objFolderAccess->setFileAccess($fileId, $access)) {
+            return $this->nextAction("fileinfo", array("id" => $fileId));
+        } else {
+            $message = "";
+            if ($this->objUser->isAdmin()) {
+                $message = $this->objLanguage->languageText('mod_filemanager_nosecurefolderadmin_message', 'filemanager');
+            } else {
+                $message = $this->objLanguage->languageText('mod_filemanager_nosecurefolder_message', 'filemanager');
+            }
+            $this->setVarByRef("messageText", $message);
+
+            $action = "fileinfo";
+            $id = "id";
+            $idValue = $fileId;
+            $this->setVarByRef("action", $action);
+            $this->setVarByRef("id", $id);
+            $this->setVarByRef("idvalue", $idValue);
+            return "cannotchangevisibility_tpl.php";
+        }
     }
 
     /**
@@ -1616,8 +1650,26 @@ function checkWindowOpener()
         $objFolderAccess = $this->getObject("folderaccess", "filemanager");
         $access = $this->getParam("access_radio");
         $fileId = $this->getParam("id");
-        $objFolderAccess->setFileVisibility($fileId, $access);
-        return $this->nextAction("fileinfo", array("id" => $fileId));
+
+
+        if ($objFolderAccess->setFileVisibility($fileId, $access)) {
+            return $this->nextAction("fileinfo", array("id" => $fileId));
+        } else {
+            $message = "";
+            if ($this->objUser->isAdmin()) {
+                $message = $this->objLanguage->languageText('mod_filemanager_nosecurefolderadmin_message', 'filemanager');
+            } else {
+                $message = $this->objLanguage->languageText('mod_filemanager_nosecurefolder_message', 'filemanager');
+            }
+            $this->setVarByRef("messageText", $message);
+            $action = "fileinfo";
+            $id = "id";
+            $idValue = $fileId;
+            $this->setVarByRef("action", $action);
+            $this->setVarByRef("id", $id);
+            $this->setVarByRef("idvalue", $idValue);
+            return "cannotchangevisibility_tpl.php";
+        }
     }
 
     /**

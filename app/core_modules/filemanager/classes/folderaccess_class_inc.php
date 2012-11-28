@@ -20,7 +20,7 @@
 
 /**
  * This class is used to control accessibility of a file/ folder. This typically
- * involves making file public/ private
+ * involves making file public/ private or visible/invisible
  *
  * @author davidwaf
  */
@@ -141,7 +141,7 @@ class folderaccess extends object {
      * a folder or file 
      */
     function createFileAccessControlForm($id) {
-        
+
         $dbFile = $this->getObject("dbfile", "filemanager");
         $file = $dbFile->getFile($id);
         $form = new form('accessform', $this->uri(array('action' => 'setfileaccess')));
@@ -154,15 +154,15 @@ class folderaccess extends object {
         $objElement->addOption('private_all', $privateAllTxt . '<br/>');
         //$objElement->addOption('private_selected', $privateSelected . '<br/>');
         $objElement->addOption('public', $publicTxt . '<br/>');
-        
-        
+
+
         $access = 'public';
 
         if (key_exists("access", $file)) {
             $access = $file['access'];
         }
-        
-         $objElement->setSelected($access);
+
+        $objElement->setSelected($access);
 
 
         $applyButton = new button('apply', $this->objLanguage->languageText('mod_filemanager_apply', 'filemanager'));
@@ -232,11 +232,20 @@ class folderaccess extends object {
 
     /**
      * this sets the access control over a file. Depending on the access type, the
-     * file location may be moved between public and secure
+     * file location may be moved between public and secure. Now, a secure folder
+     * is really on secure if it is created outside the web-server folder. Currently
+     * we cant auto-create one (can we ?)..so force admin to create one
      * @param type $fileId
      * @param type $access 
      */
     public function setAccess($folderId, $access) {
+        if (!is_dir($this->secureFolder)) {
+            return FALSE;
+        }
+        // But first, do we have read/write access to secure folder ?
+        if (!is_writable($this->secureFolder)) {
+            return FALSE;
+        }
         $dbFolder = $this->getObject("dbfolder", "filemanager");
         $dbFile = $this->getObject("dbfile", "filemanager");
         $folder = $dbFolder->getFolder($folderId);
@@ -247,9 +256,10 @@ class folderaccess extends object {
         $contentBasePath = $this->objConfig->getcontentBasePath();
         $objMkDir = $this->getObject('mkdir', 'files');
 
-        //for private all, we move the folder to the private section
+        //for private all, we move the folder to the private section.
 
         if ($access == 'private_all') {
+
             foreach ($files as $file) {
                 $destFolder = $this->secureFolder . '/' . $file['filefolder'];
                 $objMkDir->mkdirs($destFolder);
@@ -269,6 +279,7 @@ class folderaccess extends object {
                 rename($sourceFilePathFull, $destFilePathFull);
             }
         }
+        return TRUE;
     }
 
     /**
@@ -287,6 +298,13 @@ class folderaccess extends object {
      * @param type $access 
      */
     public function setFileVisibility($fileId, $visibility) {
+        // But first, do we have read/write access to secure folder ?
+        if (!is_dir($this->secureFolder)) {
+            return FALSE;
+        }
+        if (!is_writable($this->secureFolder)) {
+            return FALSE;
+        }
         $dbFile = $this->getObject("dbfile", "filemanager");
         $dbFile->setFileVisibility($fileId, $visibility);
 
@@ -308,18 +326,17 @@ class folderaccess extends object {
         if ($file['access'] == 'private_all') {
             return;
         }
-        
+
         if ($visibility == 'visible') {
-        
+
             $destFolder = $contentBasePath . '/' . $file['filefolder'];
             $objMkDir->mkdirs($destFolder);
             @chmod($destFolder, 0777);
             $destFilePathFull = $contentBasePath . '/' . $file['path'];
             $sourceFilePathFull = $this->secureFolder . '/' . $file['path'];
             rename($sourceFilePathFull, $destFilePathFull);
-       
-            
         }
+        return TRUE;
     }
 
     /**
@@ -328,6 +345,12 @@ class folderaccess extends object {
      * @param type $access 
      */
     public function setFileAccess($fileId, $access) {
+        if (!is_dir($this->secureFolder)) {
+            return FALSE;
+        }
+        if (!is_writable($this->secureFolder)) {
+            return FALSE;
+        }
         $dbFile = $this->getObject("dbfile", "filemanager");
         $dbFile->setFileAccess($fileId, $access);
 
@@ -362,7 +385,7 @@ class folderaccess extends object {
      */
     function downloadFile($filepath, $filename) {
 
-        
+
         //check if user has access to the parent folder before accessing it
 
         $parts = explode('/', $filepath);
@@ -386,7 +409,7 @@ class folderaccess extends object {
 
         $baseDir = $this->secureFolder;
 
-       
+
 
         // Detect missing filename
         if (!$filename && !$filepath)
@@ -397,8 +420,8 @@ class folderaccess extends object {
             return "filenotavailable_tpl.php";
         $file = str_replace("..", "", $filepath);
 
-        
-        
+
+
         // Make sure we can't download .ht control files.
         if (eregi("\.ht.+", $filepath))
             return "filenotavailable_tpl.php";
@@ -407,11 +430,11 @@ class folderaccess extends object {
         $file = $baseDir . '/' . $filepath;
 
         // Test to ensure that the file exists.
-        if (!file_exists($file)){
-      
+        if (!file_exists($file)) {
+
             return 'filenotavailable_tpl.php';
         }
-       
+
         // Extract the type of file which will be sent to the browser as a header
         $type = filetype($file);
 
