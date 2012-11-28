@@ -64,7 +64,7 @@ class thumbnails extends object
         $this->thumbLocations = array(
             0=>'/filemanager_thumbnails/large/',
             1=>'/filemanager_thumbnails/medium/',
-            2=>'/filemanager_thumbnails/small/'
+            2=>'/filemanager_thumbnails/'
         );
     }
 
@@ -76,7 +76,7 @@ class thumbnails extends object
     public function checkThumbnailFolder()
     {
         // Set Up Path
-        $path = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/small/';
+        $path = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/';
         $path = $this->objCleanUrl->cleanUpUrl($path);
         //medium thumbnail images
         $m_path = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/medium/';
@@ -204,7 +204,7 @@ class thumbnails extends object
             $thumbLocation = $this->thumbLocations[1];
             break;
             default :
-                $thumbLocation = $this->thumbLocation[2];
+                $thumbLocation = $this->thumbLocations[2];
         }
         // Create thumbnail. If it exists, it will not be recreated.
         if ($filePath != NULL) {
