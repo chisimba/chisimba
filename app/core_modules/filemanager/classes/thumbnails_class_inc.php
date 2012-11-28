@@ -128,11 +128,11 @@ class thumbnails extends object
         
         
         if($index == 0){
-            // Resize to 100x100 Maintaining Aspect Ratio
-            $this->objImageResize->resize(300, 300, TRUE);
+            // Resize to 250x250 Maintaining Aspect Ratio
+            $this->objImageResize->resize(250, 250, TRUE);
         }
         if($index == 1){
-            // Resize to 100x100 Maintaining Aspect Ratio
+            // Resize to 200x200 Maintaining Aspect Ratio
             $this->objImageResize->resize(200, 200, TRUE);
         }
         if($index == 2){
