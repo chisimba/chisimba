@@ -348,6 +348,7 @@ function turnOnFiles(value)
         $objMimeType = $this->newObject("mimetypes", "files");
         $objEmbed = $this->newObject("fileembed", "filemanager");
         $objFilePreview = $this->getObject('filepreview');
+        $objThumbnail = $this->getObject('thumbnails','filemanager');
         $this->objFileIcons->size = 'large';
         //The dom document
         $domDoc = new DOMDocument('UTF-8');
@@ -559,7 +560,7 @@ function turnOnFiles(value)
                     //The DOM image
                     $domElements['image'] = $domDoc->createElement('img');
                     if (ereg("image", $file['mimetype'])) {
-                        $domElements['image']->setAttribute('src', str_replace('amp;', '', $this->objAltConfig->getcontentPath() . $file['path']));
+                        $domElements['image']->setAttribute('src', str_replace('amp;', '', $objThumbnail->getThumbnail($file['id'],$file['filename'],$objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path']) ) ,'medium') ) );
                         $domElements['image']->setAttribute('class', 'imgThumbnail');
                         $domElements['fileLink']->appendChild($domElements['image']);
                         $domElements['fileLink']->appendChild($domElements['imgParagraph']);
