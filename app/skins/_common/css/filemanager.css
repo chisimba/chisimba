@@ -1,0 +1,110 @@
+/* 
+    Document   : filemanager
+    Created on : 03 Oct 2012, 10:38:45 PM
+    Author     : monwabisi
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+table#filemanagerTable{
+    margin: 1pc;
+}
+#form_createfolder{
+    float: left;
+}
+#form_changeview{
+    float: right;
+}
+#filemanagerTable tr{
+    display: inline-block;
+    margin: 0.5pc;
+}
+
+#filemanagerTable tr td a img.imgThumbnail{
+    margin: 0.7pc;
+}
+#filemanagerTable tr td a img.iconThumbnail{
+    padding: 5pc;
+}
+#filemanagerTable tr{
+    border: 0.5pc solid #FFFFFF;
+    background: #fff;
+    box-shadow: 0 0 0.5pc #000000;
+    min-height: 13.5pc;
+    min-width: 13.5pc;
+}
+#filemanagerTable tr td{
+    min-height: 13.5pc;
+    min-width: 13.5pc;
+}
+p.folderdetails{
+    position: absolute;
+    margin-top: -13pc;
+    min-height: 12pc;
+    min-width: 12pc;
+    color: #000000;
+    text-shadow: 1px 0 1px #000000;
+    opacity: 0;
+    -moz-transition-property: opacity;
+    -moz-transition-duration: 0.5s;
+    -moz-transition-timing-function: ease;
+    -webkit-transition-timing-function: ease;
+    -webkit-transition-duration: 0.5s;
+    -webkit-transition-propery: opacity;
+}
+p.filedetails{
+    position: absolute;
+    min-height: 12pc;
+    min-width: 12pc;
+    margin-top: -0.1pc;
+    color: #000000;
+    background: #FFFFFF;
+    font-weight: bold;
+    max-width: 13pc;
+    opacity: 0;
+    text-shadow: 0.1pc 0 0.1pc #FFFFFF;
+    -moz-transition-property: opacity;
+    -moz-transition-duration: 0.5s;
+    -moz-transition-timing-function: ease;
+    -webkit-transition-timing-function: ease;
+    -webkit-transition-duration: 0.5s;
+    -webkit-transition-propery: opacity;
+}
+p.filedetails:hover, p.folderdetails:hover{
+    opacity: 0.8;
+}
+
+#filemanagerTable tr td a:hover{
+    text-decoration: none;
+}
+
+.buttonlink{
+    background: #CACACA;
+    margin: 1pc 0.5pc;
+}
+#filemanagerTable tr td #audioplayer1{
+    margin-top: 0.5pc;
+}
+#filemanagerTable div.video-container{
+    margin-top: 0.5pc;
+    width: 100%;
+}
+#form_changeview a.sexybutton{
+    color: #FFFFFF;
+    width: 100%;
+    background: #6E6E6E;
+    text-align: center;
+    font-size: 1pc;
+    border: none;
+    box-shadow: none;
+    text-shadow: none;
+}
+
+#form_changeview a.sexybutton:hover{
+    background: #21AAF7;
+    text-decoration: none;
+}
+
+div.video-container{
+    margin: 0.2pc;
+}
