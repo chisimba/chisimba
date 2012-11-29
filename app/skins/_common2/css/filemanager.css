@@ -19,27 +19,29 @@ table#filemanagerTable{
     display: inline-block;
     margin: 0.5pc;
 }
+
 #filemanagerTable tr td a img.imgThumbnail{
-    width: 13pc;
-    margin-top: 0.4pc;
-    height: 13pc;
+    margin: 0.7pc;
 }
 #filemanagerTable tr td a img.iconThumbnail{
-    margin: 5pc;
-    height: 3pc;
+    padding: 5pc;
 }
-#filemanagerTable tr td{
-    height: 13pc;
-    width: 13pc;
+#filemanagerTable tr{
     border: 0.5pc solid #FFFFFF;
     background: #fff;
     box-shadow: 0 0 0.5pc #000000;
+    min-height: 13.5pc;
+    min-width: 13.5pc;
 }
-p.filedetails{
+#filemanagerTable tr td{
+    min-height: 13.5pc;
+    min-width: 13.5pc;
+}
+p.folderdetails{
     position: absolute;
     margin-top: -13pc;
-    height: 12pc;
-    width: 13pc;
+    min-height: 12pc;
+    min-width: 12pc;
     color: #000000;
     text-shadow: 1px 0 1px #000000;
     opacity: 0;
@@ -50,12 +52,30 @@ p.filedetails{
     -webkit-transition-duration: 0.5s;
     -webkit-transition-propery: opacity;
 }
+p.filedetails{
+    position: absolute;
+    min-height: 12pc;
+    min-width: 12pc;
+    margin-top: -0.1pc;
+    color: #000000;
+    background: #FFFFFF;
+    font-weight: bold;
+    max-width: 13pc;
+    opacity: 0;
+    text-shadow: 0.1pc 0 0.1pc #FFFFFF;
+    -moz-transition-property: opacity;
+    -moz-transition-duration: 0.5s;
+    -moz-transition-timing-function: ease;
+    -webkit-transition-timing-function: ease;
+    -webkit-transition-duration: 0.5s;
+    -webkit-transition-propery: opacity;
+}
+p.filedetails:hover, p.folderdetails:hover{
+    opacity: 0.8;
+}
+
 #filemanagerTable tr td a:hover{
     text-decoration: none;
-}
-#filemanagerTable tr td a p:hover{
-    opacity: 0.89;
-    background: #FFFFFF;
 }
 
 .buttonlink{
