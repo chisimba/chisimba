@@ -30,8 +30,8 @@ table#filemanagerTable{
     border: 0.5pc solid #FFFFFF;
     background: #fff;
     box-shadow: 0 0 0.5pc #000000;
-    min-height: 13.5pc;
-    min-width: 13.5pc;
+    min-height: 12pc;
+    min-width: 12pc;
 }
 #filemanagerTable tr td{
     min-height: 13.5pc;
@@ -51,16 +51,16 @@ p.folderdetails{
     -webkit-transition-timing-function: ease;
     -webkit-transition-duration: 0.5s;
     -webkit-transition-propery: opacity;
+    -o-transition-timing-function: ease;
+    -o-transition-duration: 0.5s;
+    -o-transition-propery: opacity;
 }
 p.filedetails{
     position: absolute;
-    min-height: 12pc;
-    min-width: 12pc;
     margin-top: -0.1pc;
     color: #000000;
     background: #FFFFFF;
     font-weight: bold;
-    max-width: 13pc;
     opacity: 0;
     text-shadow: 0.1pc 0 0.1pc #FFFFFF;
     -moz-transition-property: opacity;
@@ -69,6 +69,9 @@ p.filedetails{
     -webkit-transition-timing-function: ease;
     -webkit-transition-duration: 0.5s;
     -webkit-transition-propery: opacity;
+    -o-transition-timing-function: ease;
+    -o-transition-duration: 0.5s;
+    -o-transition-propery: opacity;
 }
 p.filedetails:hover, p.folderdetails:hover{
     opacity: 0.8;
