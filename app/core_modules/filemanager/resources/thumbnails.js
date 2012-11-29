@@ -2,7 +2,6 @@
 jQuery(document).ready(function(){
    var fileLink = jQuery('.fileLink');
    var fileDetails = jQuery('.filedetails');
-   var index = 0;
    jQuery(fileLink).hover(function(event){
        event.preventDefault()
        jQuery(fileDetails).css('width',jQuery(this).css('width'))
