@@ -531,7 +531,6 @@ function turnOnFiles(value)
                     $domElements['imgParagraph'] = $domDoc->createElement('p');
                     $domElements['imgParagraph']->setAttribute('class', 'filedetails');
                     $domElements['detailsDiv'] = $domDoc->createElement('div');
-                    $domElements['detailsDiv']->setAttribute('class', 'filedetails');
                     $domElements['imgDiv'] = $domDoc->createElement('div');
                     $domElements['imgDiv']->setAttribute('class','imageDiv');
                     $domElements['imgParagraph']->appendChild($domDoc->createElement('br'));
@@ -672,7 +671,7 @@ function turnOnFiles(value)
             $str = '';
         }
         //get the jQuery to control the popup
-        return $str . $objTable->show();
+        return $str . $objTable->show().$this->getJavascriptFile('thumbnails.js','filemanager');
     }
 
 }
