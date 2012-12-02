@@ -345,6 +345,7 @@ function turnOnFiles(value)
         $objMimeType = $this->newObject("mimetypes", "files");
         $objEmbed = $this->newObject("fileembed", "filemanager");
         $objFilePreview = $this->getObject('filepreview');
+        $objThumbnail = $this->getObject('thumbnails','filemanager');
         $this->objFileIcons->size = 'large';
         //The dom document
         $domDoc = new DOMDocument('UTF-8');
@@ -401,7 +402,7 @@ function turnOnFiles(value)
                     
                     //The value to appear when the mouse is over the link
                     $domElements['folderParagraph'] = $domDoc->createElement('p');
-                    $domElements['folderParagraph']->setAttribute('class', 'filedetails');
+                    $domElements['folderParagraph']->setAttribute('class', 'folderdetails');
                     $domElements['folderParagraph']->appendChild($domDoc->createTextNode($this->objLanguage->languageText("phrase_foldername", "system") . ": " . substr(basename($folder['folderpath']), 0, 12)));
                     $domElements['folderParagraph']->appendChild($domDoc->createElement('br'));
                     $domElements['folderParagraph']->appendChild($domDoc->createTextNode($this->objLanguage->languageText("word_files", "system") . ": " . count($this->objFiles->getFolderFiles($folder['folderpath']))));
@@ -498,6 +499,7 @@ function turnOnFiles(value)
                     } else {
                         //The DOM file link
                         $domElements['fileLink'] = $domDoc->createElement('a');
+                        $domElements['fileLink']->setAttribute('class', 'fileLink');
                         $domElements['fileLink']->setAttribute('href', str_replace('amp;', '', $this->uri(array('action' => 'fileinfo', 'id' => $file['id']), $this->targetModule)));
                     }
                     $linkTitle = '';
@@ -519,27 +521,18 @@ function turnOnFiles(value)
                     $domElements['downloadLink']->setAttribute('class', $this->objLanguage->languageText("mod_filemanager_buttonlinkclass", "filemanager"));
                     $domElements['viewDiv']->appendChild($domElements['downloadLink']);
                     //creating space between the links at the top and the string below
-                    $domElements['viewDiv']->appendChild($domDoc->createElement('p'));
+                    $domElements['viewDiv']->appendChild($domDoc->createElement('br'));
 
                     $filepath = $this->objAltConfig->getSiteRoot() . '/usrfiles/' . $file['path'];
                     $fileType = $this->getObject("fileparts", "files");
 
-                    //Text to display video and audio file information
-                    $domElements['playerString'] = $domDoc->createElement('p');
-                    $domElements['playerString']->appendChild($domDoc->createTextNode($this->objLanguage->languageText("word_filename", "system") . ": " . substr($file['filename'], 0, 12) . ".."));
-                    //new line
-                    $domElements['playerString']->appendChild($domDoc->createElement('br'));
-                    $domElements['playerString']->appendChild($domDoc->createTextNode($this->objLanguage->languageText("phrase_filesize", "system") . ": " . $objFileSize->formatsize($file['filesize'])));
-                    //new line
-                    $domElements['playerString']->appendChild($domDoc->createElement('br'));
-                    $domElements['playerString']->appendChild($domDoc->createTextNode($this->objLanguage->languageText("phrase_filetype", "system") . ": " . $fileType->getExtension($file['filename'])));
-                    //new line
-                    $domElements['playerString']->appendChild($domDoc->createElement('br'));
-                    $domElements['playerString']->appendChild($domDoc->createTextNode($this->objLanguage->languageText("phrase_dateuploaded", "system") . ": " . $file['datecreated']));
-
+                    
                     //The DOM image paragraph (to display image file information)
                     $domElements['imgParagraph'] = $domDoc->createElement('p');
                     $domElements['imgParagraph']->setAttribute('class', 'filedetails');
+                    $domElements['detailsDiv'] = $domDoc->createElement('div');
+                    $domElements['imgDiv'] = $domDoc->createElement('div');
+                    $domElements['imgDiv']->setAttribute('class','imageDiv');
                     $domElements['imgParagraph']->appendChild($domDoc->createElement('br'));
                     $domElements['imgParagraph']->appendChild($domDoc->createTextNode($this->objLanguage->languageText("word_filename", "system") . ": " . substr($file['filename'], 0, 10)));
                     //new line
@@ -552,30 +545,31 @@ function turnOnFiles(value)
                     $domElements['imgParagraph']->appendChild($domDoc->createElement('br'));
                     $domElements['imgParagraph']->appendChild($domDoc->createTextNode($this->objLanguage->languageText("phrase_dateuploaded", "system") . ": " . $file['datecreated']));
 
-                    // generate image thumbnails
+                    // get image thumbnails
                     //The DOM image
                     $domElements['image'] = $domDoc->createElement('img');
                     if (ereg("image", $file['mimetype'])) {
-                        $domElements['image']->setAttribute('src', str_replace('amp;', '', $this->objAltConfig->getcontentPath() . $file['path']));
+                        $domElements['image']->setAttribute('src', str_replace('amp;', '', $objThumbnail->getThumbnail($file['id'],$file['filename'],$objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path']) ) ,'large') ) );
                         $domElements['image']->setAttribute('class', 'imgThumbnail');
-                        $domElements['fileLink']->appendChild($domElements['image']);
-                        $domElements['fileLink']->appendChild($domElements['imgParagraph']);
-                        $domElements['viewDiv']->appendChild($domElements['fileLink']);
+                        $domElements['imgDiv']->appendChild($domElements['image']);
+                        $domElements['detailsDiv']->appendChild($domElements['imgParagraph']);
                     }
 
+                    
                     //create audio/video player object
                     $objPlayer = "";
                     if (ereg("audio", $file['mimetype'])) {
                         $objPlayer = $objFilePreview->previewFile($file['id']);
-                        $domElements['fileLink']->appendChild($domElements['playerString']);
                         $domElements['viewDiv']->appendChild($domElements['fileLink']);
+                        $domElements['imgParagraph']->removeAttribute('class');
+                        $domElements['detailsDiv']->appendChild($domElements['imgParagraph']);
                     }
 
                     //video
                     if (ereg("video", $file['mimetype'])) {
-                        $objPlayer = $objFilePreview->previewFile($file['id']);
-                        $domElements['fileLink']->appendChild($domElements['playerString']);
-                        $domElements['viewDiv']->appendChild($domElements['fileLink']);
+                        $test = $this->getObject('fileembed','filemanager');
+                        $objPlayer = $test->showFlash($objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])));
+                        //$objPlayer = $objFilePreview->previewFile($file['id']);
                     }
 
                     //other formats
@@ -583,12 +577,15 @@ function turnOnFiles(value)
                         $domElements['image']->setAttribute('src', $this->objFileIcons->getIconSrc($file['datatype']));
                         $domElements['image']->setAttribute('class', 'iconThumbnail');
                         $domElements['image']->normalize();
-                        $domElements['fileLink']->appendChild($domElements['image']);
-                        $domElements['fileLink']->appendChild($domElements['imgParagraph']);
-                        $domElements['viewDiv']->appendChild($domElements['fileLink']);
+                        $domElements['imgDiv']->appendChild($domElements['image']);
+                        $domElements['detailsDiv']->appendChild($domElements['imgParagraph']);
                     }
 
 
+                        $domElements['fileLink']->appendChild($domElements['detailsDiv']);
+                        $domElements['fileLink']->appendChild($domElements['imgDiv']);
+                        $domElements['viewDiv']->appendChild($domElements['fileLink']);
+                        
                     if ($mode == 'fckimage' || $mode == 'fckflash' || $mode == 'fcklink') {
                         //Disable file preview
                         $domElements['fileLink']->removeAttribute('href');
@@ -631,7 +628,6 @@ function turnOnFiles(value)
                 }
             }
         }
-
         if ($hidden > 0 && count($restriction) > 0) {
             $str = '';
             $str .= '<style type="text/css">
@@ -674,7 +670,8 @@ function turnOnFiles(value)
         } else {
             $str = '';
         }
-        return $str . $objTable->show();
+        //get the jQuery to control the popup
+        return $str . $objTable->show().$this->getJavascriptFile('thumbnails.js','filemanager');
     }
 
 }

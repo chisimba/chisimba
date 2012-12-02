@@ -60,6 +60,12 @@ class thumbnails extends object
         $this->objImageResize = $this->getObject('imageresize', 'files');
         $this->objFileParts = $this->getObject('fileparts', 'files');
         $this->objCleanUrl = $this->getObject('cleanurl');
+        //the directories array
+        $this->thumbLocations = array(
+            0=>'/filemanager_thumbnails/large/',
+            1=>'/filemanager_thumbnails/medium/',
+            2=>'/filemanager_thumbnails/'
+        );
     }
 
     /**
@@ -70,8 +76,14 @@ class thumbnails extends object
     public function checkThumbnailFolder()
     {
         // Set Up Path
-        $path = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails';
+        $path = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/';
         $path = $this->objCleanUrl->cleanUpUrl($path);
+        //medium thumbnail images
+        $m_path = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/medium/';
+        $this->objMkdir->mkdirs($m_path);
+        //large thumbnail images
+        $l_path = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/large/';
+        $this->objMkdir->mkdirs($l_path);
 
         // Check if Folder exists, else create it
         $result = $this->objMkdir->mkdirs($path);
@@ -86,10 +98,20 @@ class thumbnails extends object
     */
     public function createThumbailFromFile($filepath, $fileId)
     {
+        
+        // Check if folder exists
+        $this->checkThumbnailFolder();
+        
+        $filepath = $this->objCleanUrl->cleanUpUrl($filepath);
+        
+        // Send Image to Resize Class
+        $this->objImageResize->setImg($filepath);
+        
+        for($index=0;$index<3;$index++){
         // Do a check if a thumbnail exists. No need to overwrite
-        $thumbJpg = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/'.$fileId.'.jpg';
+        $thumbJpg = $this->objConfig->getcontentBasePath().$this->thumbLocations[$index].$fileId.'.jpg';
         $thumbJpg = $this->objCleanUrl->cleanUpUrl($thumbJpg);
-        $thumbPng = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/'.$fileId.'.png';
+        $thumbPng = $this->objConfig->getcontentBasePath().$this->thumbLocations[$index].$fileId.'.png';
         $thumbPng = $this->objCleanUrl->cleanUpUrl($thumbPng);        
         
         // Dont do anything if thumb exists.
@@ -105,16 +127,20 @@ class thumbnails extends object
         }
         
         
-        // Check if folder exists
-        $this->checkThumbnailFolder();
+        if($index == 0){
+            // Resize to 250x250 Maintaining Aspect Ratio
+            $this->objImageResize->resize(250, 250, TRUE);
+        }
+        if($index == 1){
+            // Resize to 200x200 Maintaining Aspect Ratio
+            $this->objImageResize->resize(200, 200, TRUE);
+        }
+        if($index == 2){
+            // Resize to 100x100 Maintaining Aspect Ratio
+            $this->objImageResize->resize(100, 100, TRUE);
+        }
         
-        $filepath = $this->objCleanUrl->cleanUpUrl($filepath);
         
-        // Send Image to Resize Class
-        $this->objImageResize->setImg($filepath);
-        
-        // Resize to 100x100 Maintaining Aspect Ratio
-        $this->objImageResize->resize(100, 100, TRUE);
         
         //$this->objImageResize->show(); // Uncomment for testing purposes
 
@@ -126,23 +152,25 @@ class thumbnails extends object
         {
             if ($ext == 'jpg')
             {
-                $img = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/'.$fileId.'.jpg';
+                $img = $this->objConfig->getcontentBasePath().$this->thumbLocations[$index].$fileId.'.jpg';
             }
             else
             {
-                $img = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/'.$fileId.'.png';
+                $img = $this->objConfig->getcontentBasePath().$this->thumbLocations[$index].$fileId.'.png';
             }
         }
         else
         {
             if ($ext == 'jpg')
             {
-                $img = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/'.$this->objImageResize->filetype.'.jpg';
+                $img = $this->objConfig->getcontentBasePath().$this->thumbLocations[$index].$this->objImageResize->filetype.'.jpg';
             }
             else
             {
-                $img = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/'.$this->objImageResize->filetype.'.png';
+                $img = $this->objConfig->getcontentBasePath().$this->thumbLocations[$index].$this->objImageResize->filetype.'.png';
             }
+        }
+        $this->objImageResize->store($img);
         }
         
         // Save File
@@ -159,25 +187,42 @@ class thumbnails extends object
     * 
     * @param  string $fileId   Record Id of the File
     * @param  string $filename Filename of the file
+     * @param string $size size of the thumbnail image to be returned
     * @return string Path to the thumbnail or False
     */
-    public function getThumbnail($fileId, $filename=NULL, $filePath=NULL)
+    public function getThumbnail($fileId, $filename=NULL, $filePath=NULL,$size=NULL)
     {
+        $thumbLocation = '';
+        if(empty($size) || NULL){
+            $size = 'small';
+        }
+        switch (strtolower($size)){
+        case 'large':
+            $thumbLocation = $this->thumbLocations[0];
+            break;
+        case 'medium':
+            $thumbLocation = $this->thumbLocations[1];
+            break;
+            default :
+                $thumbLocation = $this->thumbLocations[2];
+        }
         // Create thumbnail. If it exists, it will not be recreated.
         if ($filePath != NULL) {
             $this->createThumbailFromFile($this->objConfig->getcontentBasePath().'/'.$filePath, $fileId);
         }
+        //set thumbnail location depending on the requested size
+        
         
         // Check if thumbnail exist
-        if (file_exists($this->objConfig->getcontentPath().'/filemanager_thumbnails/'.$fileId.'.jpg'))
+        if (file_exists($this->objConfig->getcontentPath().$thumbLocation.$fileId.'.jpg'))
         {
-            $url = $this->objConfig->getcontentPath().'/filemanager_thumbnails/'.$fileId.'.jpg';
+            $url = $this->objConfig->getcontentPath().$thumbLocation.$fileId.'.jpg';
             $url = $this->objCleanUrl->cleanUpUrl($url);
             return $url;
         } 
-        elseif (file_exists($this->objConfig->getcontentPath().'/filemanager_thumbnails/'.$fileId.'.png'))
+        elseif (file_exists($this->objConfig->getcontentPath().$thumbLocation.$fileId.'.png'))
         {
-            $url = $this->objConfig->getcontentPath().'/filemanager_thumbnails/'.$fileId.'.png';
+            $url = $this->objConfig->getcontentPath().$thumbLocation.$fileId.'.png';
             $url = $this->objCleanUrl->cleanUpUrl($url);
             return $url;
         } 
@@ -190,15 +235,15 @@ class thumbnails extends object
         {
             $extension = $this->objFileParts->getExtension($filename);
             
-            if (file_exists($this->objConfig->getcontentPath().'/filemanager_thumbnails/'.$extension.'.jpg'))
+            if (file_exists($this->objConfig->getcontentPath().$thumbLocation.$extension.'.jpg'))
             {
-                $url = $this->objConfig->getcontentPath().'/filemanager_thumbnails/'.$extension.'.jpg';
+                $url = $this->objConfig->getcontentPath().$thumbLocation.$extension.'.jpg';
                 $url = $this->objCleanUrl->cleanUpUrl($url);
                 return $url;
             }
-            elseif (file_exists($this->objConfig->getcontentPath().'/filemanager_thumbnails/'.$extension.'.png'))
+            elseif (file_exists($this->objConfig->getcontentPath().$thumbLocation.$extension.'.png'))
             {
-                $url = $this->objConfig->getcontentPath().'/filemanager_thumbnails/'.$extension.'.png';
+                $url = $this->objConfig->getcontentPath().$thumbLocation.$extension.'.png';
                 $url = $this->objCleanUrl->cleanUpUrl($url);
                 return $url;
             }
