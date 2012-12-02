@@ -221,8 +221,7 @@ class parse4embed extends object {
         
         //$search = '/<a(.*?)href=\"([^<]+)\.mp3\"([^>]*)>(.*?)<\/a>/isU';
         $search = '/\[EMBED\]\s*<a(.*?)href=\"([^<]+)\.mp3\"([^>]*)>(.*)<\/a>\s*\[\/EMBED\]/isU';
-        
-        /*\\0&nbsp;\n\n*/$replace = "<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\"";
+        $replace = "<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\"";
         
         $replace = ' <applet code="javazoom.jlGui.TinyPlayer" archive="tinyplayer.jar,jl020.jar"
 width="59" height="32" name="playerid" codebase="core_modules/files/resources/tinyplayer/" align="middle">
@@ -249,7 +248,6 @@ width="59" height="32" name="playerid" codebase="core_modules/files/resources/ti
         $str = $this->parseMp3($str);
         $str = $this->parseMpeg($str);
         $str = $this->parseWmm($str);
-
         return $this->parseWmv($str);
     } # end of function
     
