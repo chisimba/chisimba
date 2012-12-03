@@ -74,6 +74,7 @@ class previewfolder extends filemanagerobject {
         $this->objUser = $this->getObject("user", "security");
         $this->objFolder = $this->getObject("dbfolder", "filemanager");
         $this->objFiles = $this->getObject("dbfile", "filemanager");
+        $this->objCleanUrl = $this->getObject("cleanurl", "filemanager");
         $this->loadClass('link', 'htmlelements');
         $this->loadClass('label', 'htmlelements');
         $this->loadClass('checkbox', 'htmlelements');
@@ -340,7 +341,6 @@ function turnOnFiles(value)
     function previewThumbnails($subFolders, $files, $symlinks, $restriction, $mode, $name, $forceRestriction = FALSE) {
         $objTable = $this->newObject('htmltable', 'htmlelements');
         $objTable->cssId = $this->objLanguage->languageText('mod_filemanager_filemanagertableclass', 'filemanager', 'filemanagerTable');
-        $objCleanUrl = $this->getObject("cleanurl", "filemanager");
         $objIcon = $this->newObject('geticon', 'htmlelements');
         $objMimeType = $this->newObject("mimetypes", "files");
         $objEmbed = $this->newObject("fileembed", "filemanager");
@@ -516,7 +516,7 @@ function turnOnFiles(value)
                     //The DOM download link
                     $domElements['downloadLink'] = $domDoc->createElement('a');
                     $domElements['downloadLink']->setAttribute('title', $this->objLanguage->languageText('mod_filemanager_clicktodownload', 'filemanager'));
-                    $domElements['downloadLink']->setAttribute('href', $objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])));
+                    $domElements['downloadLink']->setAttribute('href', $this->objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])));
                     $domElements['downloadLink']->appendChild($domDoc->createTextNode($this->objLanguage->languageText("word_download", "system")));
                     $domElements['downloadLink']->setAttribute('class', $this->objLanguage->languageText("mod_filemanager_buttonlinkclass", "filemanager"));
                     $domElements['viewDiv']->appendChild($domElements['downloadLink']);
@@ -548,8 +548,8 @@ function turnOnFiles(value)
                     // get image thumbnails
                     //The DOM image
                     $domElements['image'] = $domDoc->createElement('img');
-                    if (ereg("image", $file['mimetype'])) {
-                        $domElements['image']->setAttribute('src', str_replace('amp;', '', $objThumbnail->getThumbnail($file['id'],$file['filename'],$objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path']) ) ,'large') ) );
+                    if (ereg("image", $file['mimetype']) || ereg("video", $file['mimetype'])) {
+                        $domElements['image']->setAttribute('src', str_replace('amp;', '', $objThumbnail->getThumbnail($file['id'],$file['filename'],$this->objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path']) ) ,'large') ) );
                         $domElements['image']->setAttribute('class', 'imgThumbnail');
                         $domElements['imgDiv']->appendChild($domElements['image']);
                         $domElements['detailsDiv']->appendChild($domElements['imgParagraph']);
@@ -563,13 +563,6 @@ function turnOnFiles(value)
                         $domElements['viewDiv']->appendChild($domElements['fileLink']);
                         $domElements['imgParagraph']->removeAttribute('class');
                         $domElements['detailsDiv']->appendChild($domElements['imgParagraph']);
-                    }
-
-                    //video
-                    if (ereg("video", $file['mimetype'])) {
-                        $test = $this->getObject('fileembed','filemanager');
-                        $objPlayer = $test->showFlash($objCleanUrl->cleanUpUrl(($this->objAltConfig->getcontentPath() . $file['path'])));
-                        //$objPlayer = $objFilePreview->previewFile($file['id']);
                     }
 
                     //other formats
