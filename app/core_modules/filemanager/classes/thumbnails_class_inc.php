@@ -59,6 +59,7 @@ class thumbnails extends object
         $this->objMkdir = $this->getObject('mkdir', 'files');
         $this->objImageResize = $this->getObject('imageresize', 'files');
         $this->objFileParts = $this->getObject('fileparts', 'files');
+        $this->objFiles = $this->getObject('dbfile','filemanager');
         $this->objCleanUrl = $this->getObject('cleanurl');
         //the directories array
         $this->thumbLocations = array(
@@ -76,21 +77,23 @@ class thumbnails extends object
     public function checkThumbnailFolder()
     {
         // Set Up Path
-        $path = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/';
+        $path = $this->objConfig->getcontentBasePath().$this->thumbLocations[0];
         $path = $this->objCleanUrl->cleanUpUrl($path);
         //medium thumbnail images
-        $m_path = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/medium/';
-        $this->objMkdir->mkdirs($m_path);
+        $m_path = $this->objConfig->getcontentBasePath().$this->thumbLocations[1];
+        $path = $this->objCleanUrl->cleanUpUrl($m_path);
         //large thumbnail images
-        $l_path = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/large/';
-        $this->objMkdir->mkdirs($l_path);
-
+        $l_path = $this->objConfig->getcontentBasePath().$this->thumbLocations[2];
+        $l_path = $this->objCleanUrl->cleanUpUrl($l_path);
         // Check if Folder exists, else create it
         $result = $this->objMkdir->mkdirs($path);
+        
+        $this->objMkdir->mkdirs($m_path);
+        $this->objMkdir->mkdirs($l_path);
 
         return $result;
     }
-
+    
     /**
     * Method to create Thumbnail
     * @param string $filepath Path to File
@@ -103,7 +106,8 @@ class thumbnails extends object
         $this->checkThumbnailFolder();
         
         $filepath = $this->objCleanUrl->cleanUpUrl($filepath);
-        
+        //image size for video thumbnails
+        $imgSize = '';
         // Send Image to Resize Class
         $this->objImageResize->setImg($filepath);
         
@@ -115,6 +119,7 @@ class thumbnails extends object
         $thumbPng = $this->objCleanUrl->cleanUpUrl($thumbPng);        
         
         // Dont do anything if thumb exists.
+        $ext = '';
         if (file_exists($thumbJpg))
         {
             $ext = 'jpg';
@@ -126,19 +131,39 @@ class thumbnails extends object
             return TRUE;
         }
         
-        
+        if(ereg('image', $this->objFiles->getFileMimetype($fileId))){
         if($index == 0){
-            // Resize to 100x100 Maintaining Aspect Ratio
-            $this->objImageResize->resize(300, 300, TRUE);
+            // Resize to 250x250 Maintaining Aspect Ratio
+            $this->objImageResize->resize(250, 250, TRUE);
         }
         if($index == 1){
-            // Resize to 100x100 Maintaining Aspect Ratio
+            // Resize to 200x200 Maintaining Aspect Ratio
             $this->objImageResize->resize(200, 200, TRUE);
         }
         if($index == 2){
             // Resize to 100x100 Maintaining Aspect Ratio
             $this->objImageResize->resize(100, 100, TRUE);
         }
+        }elseif (ereg('video', $this->objFiles->getFileMimetype($fileId))) {
+            if($index == 0){
+                $imgSize = '250x250';
+            }elseif ($index == 1) {
+                    $imgSize = '200x200';
+                }elseif ($index == 2) {
+                    $imgSize = '100x100';
+                }
+                //where the file will be saved
+                $destination = $this->objConfig->getcontentBasePath().$this->thumbLocations[$index].$fileId.'.png';
+                //where the file is located
+                $location = $this->objFiles->getFilePath($fileId);
+                //the command to be executed in order to produce the image thumbnail
+                $command = "ffmpeg -i '".$location."' -vframes 1 -s '".$imgSize."' -ss 00:00:01.1 -f image2 '".$destination."'";
+                if(!file_exists($destination)){
+                    exec($command);
+                }  else {
+                    continue;
+                }
+            }
         
         
         

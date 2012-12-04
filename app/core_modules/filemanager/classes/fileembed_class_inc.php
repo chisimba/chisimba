@@ -143,7 +143,7 @@ class fileembed extends object {
         $ret = "\n\n<video width=\"$width\" height=\"$height\" controls=\"controls\">\n";
         $ret .= "<source src=\"$file\"  type=\"video/webm\"></source>\n";
         $ret .= $this->objLanguage->languageText("mod_files_err_nohtmk5", 'files',
-           "Your browser does not support the HTMK5 VIDEO tag.");
+           "Your browser does not support the HTML5 VIDEO tag.");
         $ret .= "</video>";
         return $ret;
     }
