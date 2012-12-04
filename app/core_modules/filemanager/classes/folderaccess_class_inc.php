@@ -283,6 +283,49 @@ class folderaccess extends object {
     }
 
     /**
+     * Checks to see if a file has access mode set as public/private
+     * @param type $file
+     * @return boolean
+     */
+    public function isFileAccessPrivate($file) {
+        $accessKeyExists = false;
+        $downloadSecure = false;
+        if (key_exists("access", $file)) {
+            $accessKeyExists = true;
+        }
+        if ($accessKeyExists) {
+            if ($file['access'] == 'private_all' || $file['access'] == 'private_selected') {
+                $downloadSecure = true;
+
+                return TRUE;
+            }
+        }
+        return FALSE;
+    }
+
+    /**
+     * Checks to see if a folder has visibility set to public/private
+     * @param type $file
+     * @return boolean
+     */
+    public function isFileVisibilityPrivate($file) {
+
+        $visibilityKeyExists = false;
+
+        if (key_exists("visibility", $file)) {
+            $visibilityKeyExists = true;
+        }
+
+
+        if ($visibilityKeyExists) {
+            if ($file['visibility'] == 'hidden') {
+                return TRUE;
+            }
+        }
+        return FALSE;
+    }
+
+    /**
      * sets the alerts status on the selected folder
      * @param type $folderId
      * @param type $alertStatus 
@@ -299,6 +342,7 @@ class folderaccess extends object {
      */
     public function setFileVisibility($fileId, $visibility) {
         // But first, do we have read/write access to secure folder ?
+       
         if (!is_dir($this->secureFolder)) {
             return FALSE;
         }
@@ -345,12 +389,16 @@ class folderaccess extends object {
      * @param type $access 
      */
     public function setFileAccess($fileId, $access) {
+         echo($this->secureFolder.'<br/>');
         if (!is_dir($this->secureFolder)) {
+           
             return FALSE;
         }
         if (!is_writable($this->secureFolder)) {
+            
             return FALSE;
         }
+       
         $dbFile = $this->getObject("dbfile", "filemanager");
         $dbFile->setFileAccess($fileId, $access);
 
@@ -377,6 +425,7 @@ class folderaccess extends object {
             $sourceFilePathFull = $this->secureFolder . '/' . $file['path'];
             rename($sourceFilePathFull, $destFilePathFull);
         }
+        return TRUE;
     }
 
     /**

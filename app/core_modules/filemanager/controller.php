@@ -396,39 +396,56 @@ class filemanager extends controller {
         $id = $this->getParam('id');
         $filename = $this->getParam('filename');
         $file = $this->objFiles->getFileInfo($id);
+        $folderPath = $file['filefolder'];
+        $folderId = $this->objFolders->getFolderId($folderPath);
+        $folder = $this->objFolders->getFolder($folderId);
 
-        $accessKeyExists = false;
+        $objFolderAccess = $this->getObject('folderaccess', 'filemanager');
+        $folderIsSecure = $objFolderAccess->isFileAccessPrivate($folder);
 
-        if (key_exists("access", $file)) {
-            $accessKeyExists = true;
-        }
-        $visibilityKeyExists = false;
-
-        if (key_exists("visibility", $file)) {
-            $visibilityKeyExists = true;
-        }
-
-        $downloadSecure = false;
-
-        if ($accessKeyExists) {
-            if ($file['access'] == 'private_all' || $file['access'] == 'private_selected') {
-                $downloadSecure = true;
+        //check the permissions of the parent folder. Is it public/private
+        if ($folderIsSecure) {
+            //then check...are we logged in..and if so, are we in the correct  context ?
+            if ($this->objUser->isLoggedIn) {
+                if ($folder[0] == 'context' && $folder[1] != $this->contextCode) {
+                    return "access_denied_tpl.php";
+                } else {
+                    $filepath = $file["path"];
+                    $filename = $file["filename"];
+                    return $objFolderAccess->downloadFile($filepath, $filename);
+                }
+            } else {
+                return "access_denied_tpl.php";
             }
         }
-        if ($visibilityKeyExists) {
-            if ($file['visibility'] == 'hidden') {
-                $downloadSecure = true;
+
+
+        $fileAccessPrivate = $objFolderAccess->isFileAccessPrivate($file);
+        $fileVisibilityPrivate = $objFolderAccess->isFileVisibilityPrivate($file);
+
+
+        if ($fileAccessPrivate) {
+
+            if ($this->objUser->isLoggedIn) {
+
+                $filepath = $file["path"];
+                $filename = $file["filename"];
+                return $objFolderAccess->downloadFile($filepath, $filename);
+            } else {
+                return "access_denied_tpl.php";
             }
         }
 
-        if ($downloadSecure) {
-            $filepath = $file["path"];
-            $filename = $file["filename"];
-            $objFolderAccess = $this->getObject("folderaccess", "filemanager");
-
-            return $objFolderAccess->downloadFile($filepath, $filename);
+        if ($fileVisibilityPrivate) {
+            $userId = $this->objUser->userId;
+            if ($userId == $file['creatorid']) {
+                $filepath = $file["path"];
+                $filename = $file["filename"];
+                return $objFolderAccess->downloadFile($filepath, $filename);
+            } else {
+                return "access_denied_tpl.php";
+            }
         }
-
 
         if ($file == FALSE || $file['filename'] != $filename) {
             return "access_denied_tpl.php";
@@ -449,8 +466,6 @@ class filemanager extends controller {
 
                 $forceMaxFilePath = $this->objCleanUrl->cleanUpUrl($forceMaxFilePath);
                 $forceMaxFileBasePath = $this->objCleanUrl->cleanUpUrl($forceMaxFileBasePath);
-
-
 
                 // To do: Build in Security on whether user can view file
                 if (file_exists($forceMaxFileBasePath)) {
@@ -498,7 +513,7 @@ class filemanager extends controller {
             //echo $filePath;
             header("Location:{$filePath}");
         } else {
-            die('File does not exist');
+            return "access_denied_tpl.php";
         }
     }
 
