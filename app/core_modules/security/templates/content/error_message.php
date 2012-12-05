@@ -26,7 +26,7 @@ switch ($this->getParam('message')) {
         break;
     case 'wrongpassword':
         $Header->str = $this->objLanguage->languageText('mod_security_incorrectpassword', 'security');
-        $smallText = $this->objLanguage->languageText('mod_security_incorrectpasswordmessage', 'security');
+        $smallText = ($customText = $this->objDbSysconfig->getValue('error_wrongpassword_customtext', 'security','')) != '' ? $customText : $this->objLanguage->languageText('mod_security_incorrectpasswordmessage', 'security');
         break;
     case 'noaccount':
         $Header->str = $this->objLanguage->languageText('mod_security_noaccount', 'security');
@@ -81,8 +81,7 @@ if ($showOtherStuff) {
     // Other links
     $newPasswordLink = new link($this->uri(array('action' => 'needpassword')));
     $newPasswordLink->link = $this->objLanguage->languageText('mod_security_requestnewpassword', 'security');
-    $objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
-    $registerModule = $objSysConfig->getValue('REGISTRATION_MODULE', 'security');
+    $registerModule = $this->objDbSysconfig->getValue('REGISTRATION_MODULE', 'security');
     $registerModule = !empty($registerModule) ? $registerModule : 'userregistration';
     $registerLink = new link($this->uri(array('action' => 'showregister'), $registerModule));
     $registerLink->link = $this->objLanguage->languageText('word_register');

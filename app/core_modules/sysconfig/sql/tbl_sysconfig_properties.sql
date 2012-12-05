@@ -15,19 +15,19 @@ $fields = array(
     'pmodule' => array(
         'type' => 'text',
         'length' => 25,
-        'notnull' => TRUE,
+        'notnull' => 1,
         'default' => 'unknown'
         ),
     'pname' => array(
         'type' => 'text',
         'length' => 32,
-        'notnull' => TRUE,
+        'notnull' => 1,
         'default' => 'novalue'
         ),
     'pvalue' => array(
         'type' => 'text',
         'length' => 255,
-        'notnull' => TRUE,
+        'notnull' => 1,
         'default' => 'unknown'
         ),
     'pdesc' => array(
