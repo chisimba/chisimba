@@ -145,7 +145,6 @@ class loginInterface extends object {
             $objButton->setToSubmit();
             // Add the button to the form
             // openid / google /yahoo login
-
             // Open ID login code.
             $showOpenIdLogin = $objSysConfig->getValue('show_openidconnect_auth', 'security');
             $openidlink = "";
@@ -157,61 +156,60 @@ class loginInterface extends object {
                 $OPENID_AUTH_PAGE = $siteRoot . '?module=security&action=openidconnect';
                 $sitePath = $objAltConfig->getSitePath();
                 // I have no idea what this icon is for, seems to do nothing.
-                $openidTD = '<a href="#"><img src="' . $sitePath 
-                  . '/core_modules/security/resources/openid/images/openid_icon32_2.png" '
-                  . 'alt="" name="but_openid" width="32" height="64" border="0" '
-                  . 'id="but_openid2" onload="" /></a>';
+                $openidTD = '<a href="#"><img src="' . $sitePath
+                        . '/core_modules/security/resources/openid/images/openid_icon32_2.png" '
+                        . 'alt="" name="but_openid" width="32" height="64" border="0" '
+                        . 'id="but_openid2" onload="" /></a>';
                 // A google login icon linked to OpenID login with gooogle id.
                 $googleTD = '<a href="' . $OPENID_AUTH_PAGE . '&auth_site=google" target="_top">'
-                  . '<img src="' . $sitePath 
-                  . '/core_modules/security/resources/openid/images/google_icon32_2.png" '
-                  . 'alt="Google ID" name="but_google" width="32" height="63" '
-                  . 'border="0" id="but_google2" onload="" /></a>';
+                        . '<img src="' . $sitePath
+                        . '/core_modules/security/resources/openid/images/google_icon32_2.png" '
+                        . 'alt="Google ID" name="but_google" width="32" height="63" '
+                        . 'border="0" id="but_google2" onload="" /></a>';
                 // A Yahoo login icon linked to OpenId login with Yahoo ID.
-                $yahooTD = '<a href="' . $OPENID_AUTH_PAGE 
-                  . '&auth_site=yahoo" target="_top"><img src="' . $sitePath 
-                  .'/core_modules/security/resources/openid/images/yahoo_icon32_2.png" '
-                  . 'alt="Yahoo ID" name="but_yahoo" width="32" height="63" border="0" '
-                  . 'id="but_yahoo" onload="" /></a>';
-                
+                $yahooTD = '<a href="' . $OPENID_AUTH_PAGE
+                        . '&auth_site=yahoo" target="_top"><img src="' . $sitePath
+                        . '/core_modules/security/resources/openid/images/yahoo_icon32_2.png" '
+                        . 'alt="Yahoo ID" name="but_yahoo" width="32" height="63" border="0" '
+                        . 'id="but_yahoo" onload="" /></a>';
+
                 // Explanation text for the textbox and Choose button
                 $explainBox = '<div class="oid_explain">' .
-                  $this->objLanguage->languageText(
-                    'mod_security_openidexplainbox','security'
-                  ) . '</div>';
+                        $this->objLanguage->languageText(
+                                'mod_security_openidexplainbox', 'security'
+                        ) . '</div>';
                 // Title for the fieldset.
-                $title=$this->objLanguage->languageText(
-                  'mod_security_openidlogintitle','security'
+                $title = $this->objLanguage->languageText(
+                        'mod_security_openidlogintitle', 'security'
                 );
-                $openIdForm = new form('openlogiidnform', 
-                  $this->uri(array("action"=>"openidconnect","auth_site"=>"openid"))
+                $openIdForm = new form('openlogiidnform',
+                                $this->uri(array("action" => "openidconnect", "auth_site" => "openid"))
                 );
                 $objInput = new textinput('openIDField', '', 'text', '30');
-                $objInput->extra = 'maxlength="255"';    
-                $openIDImg='<img src="'.$sitePath.'/core_modules/security/resources/openid/images/openid_icon32_2.png" alt="" name="but_openid" width="32" height="64" border="0" id="but_openid2" align="top" onload="" />';
+                $objInput->extra = 'maxlength="255"';
+                $openIDImg = '<img src="' . $sitePath . '/core_modules/security/resources/openid/images/openid_icon32_2.png" alt="" name="but_openid" width="32" height="64" border="0" id="but_openid2" align="top" onload="" />';
                 $openIdForm->addToForm($explainBox . $objInput->show());
                 // The login via provided open ID URL button
-                $openIdButton = new button('submit', 
-                  $this->objLanguage->languageText(
-                    "mod_security_openidlogin",'security'
-                  )
+                $openIdButton = new button('submit',
+                                $this->objLanguage->languageText(
+                                        "mod_security_openidlogin", 'security'
+                                )
                 );
                 // Add the login icon
                 $openIdButton->setIconClass("user");
                 // Set the button type to submit
                 $openIdButton->setToSubmit();
                 $openIdForm->addToForm($openIdButton->show());
-                
+
                 $openIdFields = new fieldset();
                 $openIdFields->setLegend($title);
-                $openIdFields->addContent(  $googleTD . $yahooTD 
-                  .$openIDImg.'<hr/><br/>'.$openIdForm->show());
+                $openIdFields->addContent($googleTD . $yahooTD
+                        . $openIDImg . '<hr/><br/>' . $openIdForm->show());
 
-                $openidlink= '<div class="openidlogin">' 
-                  . $openIdFields->show() . "</div>";
-                
+                $openidlink = '<div class="openidlogin">'
+                        . $openIdFields->show() . "</div>";
             }
-            
+
             $objFields->addContent($ldap . '<br />' . $rem . $box
                     . "<div class='loginbuttonwrap'>" . $objButton->show()
                     . '</div>' . $fb);
@@ -475,10 +473,10 @@ class loginInterface extends object {
 
         //Here starts the authentication process
         // Create file storage area for OpenID data
-        $openidPath = $this->objConfig->getcontentBasePath().'/openid';
-          $objMkDir = $this->getObject('mkdir', 'files');
+        $openidPath = $this->objConfig->getcontentBasePath() . '/openid';
+        $objMkDir = $this->getObject('mkdir', 'files');
         $objMkDir->mkdirs($openidPath);
-        
+
         $store = new Auth_OpenID_FileStore($openidPath);
 
         // Create OpenID consumer
@@ -515,6 +513,11 @@ class loginInterface extends object {
         header('Location: ' . $url);
     }
 
+    /**
+     * Using this option, we need to redirect to user profile after login
+     * to update user details as we have no other way of getting this info
+     * @return type
+     */
     function openIdLogin() {
         session_start();
         require_once "Auth/OpenID/Consumer.php";
@@ -529,13 +532,13 @@ class loginInterface extends object {
         $DEFAULT_REDIRECT_ULR = $siteRoot . '?module=security&action=openidloginresult';
         $OPENID_AUTH_PAGE = $siteRoot . '?module=security&action=openidlogin';
         $OPENID_CALLBACK_PAGE = $siteRoot . '?module=security&action=openidlogin';
-        
-         $objMkDir = $this->getObject('mkdir', 'files');
 
-        $openidPath = $this->objConfig->getcontentBasePath().'/openid';
+        $objMkDir = $this->getObject('mkdir', 'files');
+
+        $openidPath = $this->objConfig->getcontentBasePath() . '/openid';
         $objMkDir->mkdirs($openidPath);
         $store = new Auth_OpenID_FileStore($openidPath);
-        
+
         $consumer = new Auth_OpenID_Consumer($store);
         $response = $consumer->complete($OPENID_CALLBACK_PAGE);
 
@@ -557,10 +560,12 @@ class loginInterface extends object {
             $_SESSION['AUTH'] = true;
 
             $me = array();
+
+            $updateDetailsPhrase = $this->objLanguage->languageText("mod_security_updateprofile", 'security');
             $me['username'] = $email;
             $me['email'] = $email;
-            $me['first_name'] = 'Not set';
-            $me['last_name'] = 'Not set';
+            $me['first_name'] = $updateDetailsPhrase;
+            $me['last_name'] = '';
             $me['gender'] = 'male';
             $me['id'] = mt_rand(1000, 9999) . date('ymd');
             return $this->openIdAuth($me);
@@ -604,6 +609,11 @@ class loginInterface extends object {
                 }
                 return $this->nextAction($act, $url, $url ['module']);
             }
+            //check to see if user still has not updated names. If so, force redirect to profile
+            $updateDetailsPhrase = $this->objLanguage->languageText("mod_security_updateprofile", 'security');
+            if ($objUser->getFirstname() == $updateDetailsPhrase || $objUser->getFirstname()=='Not set') {
+                return "userdetails";
+            }
             $postlogin = $this->objConfig->getdefaultModuleName();
             return $postlogin;
         } else {
@@ -642,8 +652,10 @@ class loginInterface extends object {
                 }
                 return $this->nextAction($act, $url, $url ['module']);
             }
-            $postlogin = $this->objConfig->getdefaultModuleName();
-            return $postlogin;
+            //now, we would usually head for postlogin, but we shouldnt. Rather head for the profile
+            //so that we get the user to replace the 'Not Set' bull with real name
+            //$postlogin = $this->objConfig->getdefaultModuleName();
+            return "userdetails";
         }
     }
 
