@@ -114,6 +114,8 @@ class fileembed extends object {
                 return $this->showMPG($file, $width, $height);
             case 'mp4':
                 return $this->showMP4($file, $width, $height);
+            case 'm4v':
+                return $this->showMP4($file, $width, $height);
             case 'flv':
                 return $this->showFLV($file, $width, $height);
             case 'ogg':
