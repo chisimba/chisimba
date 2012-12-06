@@ -244,6 +244,7 @@
     });
 
 Ext.onReady(function(){
+ Ext.QuickTips.init();
 	//trigger the data store load
     userdata.load({params:{start:0, limit:25}});
 
