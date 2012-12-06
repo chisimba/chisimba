@@ -792,23 +792,26 @@ class dbTableManager extends object {
          * check if there is already field with same name
          * If true, simply return
          */
-    
+
+        /*
         $fields = $this->listTableFields($name);
- 
+
         foreach ($changes as $change) {
             if ($this->returnIfExistingKey($change, $fields, $changes)) {
                 return TRUE;
             }
         }
+        */
         // If the change is an insert - insert the data, otherwise alter the table
         if (isset($changes['insert'])) {
             // insert data through db table
-            $fields = $changes['insert'];
             if ($check) {
-                $ret = TRUE;
+                return TRUE;
             } else {
                 dbtable::init($name, $this->_db);
-                $ret = dbtable::insert($fields, $name);
+                $fields = $changes['insert'];
+                $ret_ = dbtable::insert($fields, $name);
+                return $ret_ !== FALSE ? TRUE : FALSE;
             }
         } else {
             $ret = $this->_db->mgAlterTable($name, $changes, $check);

@@ -9,8 +9,8 @@
                 <dateCreated>
                     <definition>
                         <type>timestamp</type>
-                       </definition> 
-                </dateCreated> 
+                       </definition>
+                </dateCreated>
             </change>
         </data>
         <data>
@@ -18,8 +18,8 @@
                 <dateModified>
                     <definition>
                         <type>timestamp</type>
-                       </definition> 
-                </dateModified> 
+                       </definition>
+                </dateModified>
             </change>
         </data>
     </update>
@@ -35,12 +35,13 @@
                     <definition>
                         <type>text</type>
                         <length>255</length>
-                    </definition> 
+                    </definition>
                 </pvalue>
         </change>
         </data>
     </update>
-    <!-- update>
+<![CDATA[
+    <update>
         <table>tbl_sysconfig_properties</table>
         <version>1.4</version>
         <description>added description field for parameters</description>
@@ -50,5 +51,24 @@
                 <type>clob</type>
             </add>
         </data>
-    </update -->
+    </update>
+]]>
+    <update>
+        <table>tbl_sysconfig_properties</table>
+        <version>1.602</version>
+        <description>change pvalue field notnull attribute to 0</description>
+        <data>
+            <change>
+                <pvalue>
+                    <notnull>0</notnull>
+                    <definition>
+                        <type>text</type>
+                        <length>255</length>
+                        <notnull>0</notnull>
+                        <default></default>
+                    </definition>
+                </pvalue>
+            </change>
+        </data>
+    </update>
 </updates>
