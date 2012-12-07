@@ -292,15 +292,21 @@ class patch extends dbtable {
                                         }
                                     }
                                 }
-                                if ($this->objModuleAdmin->alterTable($update->table,$pData,true) == true) {
+                                $ret = $this->objModuleAdmin->alterTable($update->table,$pData,true);
+                                if ($ret == MDB2_OK || $ret === TRUE) {
                                     //$this->objModuleAdmin->alterTable($update->table,$pData,false);
-                                    if ($this->objModuleAdmin->alterTable($update->table,$pData,false)!=MDB2_OK) {
+                                    $ret = $this->objModuleAdmin->alterTable($update->table,$pData,false);
+                                    if ($ret != MDB2_OK || $ret === FALSE) {
                                         return FALSE;
                                     }
+                                    // MDB2_OK==1
                                     $patch = array('moduleid'=>$modname,'version'=>$ver,'tablename'=>$update->table,
                                     'patchdata'=>$pData,'applied'=>$this->objModule->now());
                                     $this->objModule->insert($patch,'tbl_module_patches');
                                 } else {
+                                    if (is_string($ret)) {
+                                        log_debug($ret);
+                                    }
                                     return FALSE;
                                 }
                             }
