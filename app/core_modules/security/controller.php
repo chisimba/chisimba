@@ -45,7 +45,7 @@ class security extends controller {
     }
 
     function requiresLogin($action) {
-        $actions = array('showlogin', 'ajax_login', 'login', 'logintwitter', 'error', 'needpassword', 'needpasswordconfirm', 'emailsent', 'generatenewcaptcha', 'oauthdisp', 'fbconnect', 'openidlogin', 'openidconnect');
+        $actions = array('showlogin', 'ajax_login', 'login', 'logintwitter', 'error', 'needpassword', 'needpasswordconfirm', 'emailsent', 'generatenewcaptcha', 'oauthdisp', 'fbconnect', 'openidlogin', 'openidconnect','facebookconnect');
 
         if (in_array($action, $actions)) {
             return FALSE;

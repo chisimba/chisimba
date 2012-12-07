@@ -173,6 +173,13 @@ class loginInterface extends object {
                         . 'alt="Yahoo ID" name="but_yahoo" width="32" height="63" border="0" '
                         . 'id="but_yahoo" onload="" /></a>';
 
+                $fbTD = '<a href="' . $OPENID_AUTH_PAGE
+                        . '&auth_site=facebook" target="_top"><img src="' . $sitePath
+                        . '/core_modules/security/resources/openid/images/facebook_icon32_2.png" '
+                        . 'alt="FB ID" name="but_fb" width="32" height="63" border="0" '
+                        . 'id="but_fb" onload="" /></a>';
+
+
                 // Explanation text for the textbox and Choose button
                 $explainBox = '<div class="oid_explain">' .
                         $this->objLanguage->languageText(
@@ -203,7 +210,7 @@ class loginInterface extends object {
 
                 $openIdFields = new fieldset();
                 $openIdFields->setLegend($title);
-                $openIdFields->addContent($googleTD . $yahooTD
+                $openIdFields->addContent($fbTD . '&nbsp;' . $googleTD . '&nbsp;' . $yahooTD . '&nbsp;'
                         . $openIDImg . '<hr/><br/>' . $openIdForm->show());
 
                 $openidlink = '<div class="openidlogin">'
@@ -437,8 +444,12 @@ class loginInterface extends object {
         require_once "Auth/OpenID/FileStore.php";
         require_once "Auth/OpenID/SReg.php";
         require_once "Auth/OpenID/AX.php";
+        require_once "facebook.php";
+
 
         $objAltConfig = $this->getObject('altconfig', 'config');
+        $this->objDbSysconfig = $this->getObject('dbsysconfig', 'sysconfig');
+
         $modPath = $objAltConfig->getModulePath();
         $moduleUri = $objAltConfig->getModuleURI();
         $siteRoot = $objAltConfig->getSiteRoot();
@@ -450,6 +461,47 @@ class loginInterface extends object {
         $_SESSION['AUTH'] = false;
 
         switch ($auth_site) {
+            case "facebook":
+                $apiId = $this->objDbSysconfig->getValue('facebook_app_id', 'security');
+                $secret = $this->objDbSysconfig->getValue('facebook_app_secret', 'security');
+                // echo $apiId.' - '.$secret;
+                $facebook = new Facebook(array(
+                            'appId' => $apiId,
+                            'secret' => $secret,
+                        ));
+
+
+                $fbuser = $facebook->getUser();
+                if (!$fbuser) {
+                    $loginUrl = $facebook->getLoginUrl(array('req_perms' => 'email,read_stream'));
+                    header('Location: ' . $loginUrl);
+                } else {
+                    try {
+                        $fbme = $facebook->api('/me');
+
+                        if ($fbme) {
+                            $me['username'] = $fbme['id'];
+                            $me['email'] = $fbme['email'];
+                            $me['first_name'] = $fbme['first_name'];
+                            $me['last_name'] = $fbme['last_name'];
+                            $sex = $fbme['gender'];
+                            if ($sex == 'male') {
+                                $sex = 'M';
+                            } else {
+                                $sex = 'F';
+                            }
+                            $me['gender'] = $sex;
+                            $me['id'] = mt_rand(1000, 9999) . date('ymd');
+                            $this->openIdAuth($me);
+                        } else {
+                            return $this->nextAction('error', array('message' => 'no_fbconnect'));
+                        }
+                    } catch (FacebookApiException $e) {
+                        
+                    }
+                }
+                 return 'error';
+                break;
             case "google":
                 $oid_identifier = 'https://www.google.com/accounts/o8/id';
                 $_SESSION['auth_site'] = "Google";
@@ -502,11 +554,15 @@ class loginInterface extends object {
         foreach ($attribute as $attr) {
             $ax->add($attr);
         }
-
-        // Add AX fetch request to authentication request 
-        $auth->addExtension($ax);
-
-
+        if (!$auth) {
+            header('Location: ' . $siteRoot . '?module=security&action=error&message=no_openidconnect&msg=' . $this->objLanguage->languageText("mod_security_errorconnectingtoprovider", 'security') . ': ' . $auth_provider);
+        }
+        try {
+            // Add AX fetch request to authentication request 
+            $auth->addExtension($ax);
+        } catch (Exception $ex) {
+            header('Location: ' . $siteRoot . '?module=security&action=error&message=no_openidconnect&msg=' . $this->objLanguage->languageText("mod_security_errorconnectingtoprovider", 'security') . ': ' . $auth_provider);
+        }
         // redirect to the OpenID provider's website for authentication
         $url = $auth->redirectURL($siteRoot, $OPENID_CALLBACK_PAGE);
 
@@ -611,7 +667,7 @@ class loginInterface extends object {
             }
             //check to see if user still has not updated names. If so, force redirect to profile
             $updateDetailsPhrase = $this->objLanguage->languageText("mod_security_updateprofile", 'security');
-            if ($objUser->getFirstname() == $updateDetailsPhrase || $objUser->getFirstname()=='Not set') {
+            if ($objUser->getFirstname() == $updateDetailsPhrase || $objUser->getFirstname() == 'Not set') {
                 return "userdetails";
             }
             $postlogin = $this->objConfig->getdefaultModuleName();
@@ -655,7 +711,13 @@ class loginInterface extends object {
             //now, we would usually head for postlogin, but we shouldnt. Rather head for the profile
             //so that we get the user to replace the 'Not Set' bull with real name
             //$postlogin = $this->objConfig->getdefaultModuleName();
-            return "userdetails";
+            //check to see if user still has not updated names. If so, force redirect to profile
+            $updateDetailsPhrase = $this->objLanguage->languageText("mod_security_updateprofile", 'security');
+            if ($objUser->getFirstname() == $updateDetailsPhrase || $objUser->getFirstname() == 'Not set') {
+                return "userdetails";
+            } else {
+                return $this->objConfig->getdefaultModuleName();
+            }
         }
     }
 
