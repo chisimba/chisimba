@@ -480,11 +480,10 @@ class loginInterface extends object {
                         $fbme = $facebook->api('/me');
 
                         if ($fbme) {
-                            print_r($fbme);
-                            echo '<br/>';
+                            
                             $me = array();
                             $me['username'] = $fbme['username'];
-                            $me['email'] = $fbme['email'];
+                            $me['email'] = $fbme['id'].'@'.$fbme['username'].'com';
                             $me['first_name'] = $fbme['first_name'];
                             $me['last_name'] = $fbme['last_name'];
                             $sex = $fbme['gender'];
@@ -637,8 +636,7 @@ class loginInterface extends object {
 
     private function openIdAuth($me) {
         // skip the nonsense and log in
-        print_r($me);
-        die();
+       
         $username = $me['username'];
         $p = explode("@", $me['email']);
         $password = $p[0];
