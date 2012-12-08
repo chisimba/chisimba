@@ -634,7 +634,7 @@ class loginInterface extends object {
         }
     }
 
-    private function openIdAuth($me) {
+    private function openIdAuth($me,$fb=FALSE) {
         // skip the nonsense and log in
        
         $username = $me['username'];
@@ -683,6 +683,9 @@ class loginInterface extends object {
             $firstname = $me['first_name'];
             $surname = $me['last_name'];
             $email = $me['email'];
+            if($fb){
+                $email='notset@chisimba.com';
+            }
             $sex = $me['gender'];
             if ($sex == 'male') {
                 $sex = 'M';
@@ -691,6 +694,7 @@ class loginInterface extends object {
             }
             $country = '';
             $accountType = 'OpenId';
+            //addUser('2611121208', 'david.wafula', '', '', 'David', 'Wafula', '738429445@david...', 'F', '', '', '', 'OpenId', '1')
             $objUModel->addUser($userid, $username, $password, $title, $firstname, $surname, $email, $sex, $country, $cellnumber = '', $staffnumber = '', $accountType, '1');
             $objUser->authenticateUser($username, $password, FALSE);
             if (!isset($_REQUEST [session_name()])) {
