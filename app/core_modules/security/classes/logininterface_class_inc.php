@@ -494,7 +494,7 @@ class loginInterface extends object {
                             }
                             $me['gender'] = $sex;
                             $me['id'] = mt_rand(1000, 9999) . date('ymd');
-                            $this->openIdAuth($me);
+                            $this->openIdAuth($me,TRUE);
                         } else {
                             return $this->nextAction('error', array('message' => 'no_fbconnect'));
                         }
