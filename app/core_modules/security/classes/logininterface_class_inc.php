@@ -639,7 +639,7 @@ class loginInterface extends object {
         $username = $me['username'];
         $p = explode("@", $me['email']);
         $password = $p[0];
-        if ($username == '' || $password == '') {
+        if ($username == '') {
             return $this->nextAction('error', array('message' => 'no_fbconnect'));
         }
         // try the login
