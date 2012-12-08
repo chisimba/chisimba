@@ -480,6 +480,8 @@ class loginInterface extends object {
                         $fbme = $facebook->api('/me');
 
                         if ($fbme) {
+                            print_r($fbme);
+                            die();
                             $me['username'] = $fbme['id'];
                             $me['email'] = $fbme['email'];
                             $me['first_name'] = $fbme['first_name'];
@@ -497,6 +499,7 @@ class loginInterface extends object {
                             return $this->nextAction('error', array('message' => 'no_fbconnect'));
                         }
                     } catch (FacebookApiException $e) {
+                         error_log($e);
                         
                     }
                 }
