@@ -1,0 +1,37 @@
+The email class in this module provides a framework for sending email. Note that to, cc, and bcc can be one addresss as a string or an array of addresses.
+
+Useage:
+
+$objMailer = $this->getObject('email', 'mail');
+$objMailer->setValue('to', array('dkeats@uwc.ac.za', 'badboy@jail.gov'));
+$objMailer->setValue('from', 'elearning@uwc.ac.za')
+$objMailer->setValue('fromName', 'The E-Learning Team');
+$objMailer->setValue('subject', 'Email in Chisimba');
+$objMailer->setValue('cc', array('joe@soap.com', 'tom@thumbalina.com');
+$objMailer->setValue(bcc, 'someone@someplace.com'); 
+$objMailer->attach('/var/www/app/config/config_inc.php', 'config_inc.php');
+$objMailer->attach('/var/www/app/index.php');
+if ($objMailer->send) {
+   echo "success ";
+} else {
+   echo "failed";
+}
+
+
+It does a lot more than this, but this should cover 90% of existing uses.
+
+It gets its settings from sysconfig parameters as follows:
+CONFIG: MAIL_SEND_METHOD|smtp
+CONFIG: MAIL_SMTP_SERVER|mail.somedomain.edit.me
+CONFIG: MAIL_SMTP_REQUIRESAUTH|true
+CONFIG: MAIL_SMTP_USER|editme
+CONFIG: MAIL_SMTP_PASSWORD|editme
+CONFIG: MAIL_USE_HTML_AS_DEFAULT|false
+
+Currently only sendmail is implemented, but as soon as I have a working system I will implement php mail() as well as sendmail and others. 
+
+@Todo
+custom headers
+
+
+
