@@ -480,9 +480,9 @@ class loginInterface extends object {
                         $fbme = $facebook->api('/me');
 
                         if ($fbme) {
-                            print_r($fbme);
-                            die();
-                            $me['username'] = $fbme['id'];
+                            
+                            $me = array();
+                            $me['username'] = $fbme['username'];
                             $me['email'] = $fbme['email'];
                             $me['first_name'] = $fbme['first_name'];
                             $me['last_name'] = $fbme['last_name'];
