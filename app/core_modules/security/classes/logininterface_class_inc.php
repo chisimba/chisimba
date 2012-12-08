@@ -636,10 +636,12 @@ class loginInterface extends object {
 
     private function openIdAuth($me) {
         // skip the nonsense and log in
+        print_r($me);
+        die();
         $username = $me['username'];
         $p = explode("@", $me['email']);
         $password = $p[0];
-        if ($username == '') {
+        if ($username == '' || $password='') {
             return $this->nextAction('error', array('message' => 'no_fbconnect'));
         }
         // try the login
