@@ -684,7 +684,7 @@ class loginInterface extends object {
             $surname = $me['last_name'];
             $email = $me['email'];
             if($fb){
-                $email='notset@chisimba.com';
+                $email='nt@chisimba.com';
             }
             $sex = $me['gender'];
             if ($sex == 'male') {
