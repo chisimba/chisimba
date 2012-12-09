@@ -43,7 +43,7 @@ class emailutils extends object {
 
         $subject = $this->objSysConfig->getValue('FILECREATE_ALERT_SUB', 'filemanager');
         $subject = str_replace("{course}", $title, $subject);
-        $objMailer = $this->getObject('email', 'mail');
+        $objMailer = $this->getObject('mailer', 'mail');
         $objWashout = $this->getObject('washout', 'utilities');
 
         foreach ($allusers as $user) {
@@ -79,7 +79,7 @@ class emailutils extends object {
 
         $subject = $this->objSysConfig->getValue('FILECREATE_ALERT_SUB', 'filemanager');
         $subject = str_replace("{course}", $title, $subject);
-        $objMailer = $this->getObject('email', 'mail');
+        $objMailer = $this->getObject('mailer', 'mail');
         $objWashout = $this->getObject('washout', 'utilities');
 
         foreach ($allusers as $user) {
