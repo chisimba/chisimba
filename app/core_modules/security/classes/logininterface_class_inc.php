@@ -492,6 +492,7 @@ class loginInterface extends object {
         $store = new Auth_OpenID_FileStore($openidPath);
 
         // Create OpenID consumer
+    
         $consumer = new Auth_OpenID_Consumer($store);
 
         // Create an authentication request to the OpenID provider
