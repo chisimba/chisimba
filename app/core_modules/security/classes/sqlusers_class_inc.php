@@ -322,11 +322,25 @@ class sqlUsers extends dbtable
         .$info['link']." (".$info['url'].")\n"
         .$this->objLanguage->languageText('word_sincerely')."\n"
         .str_replace('SITENAME',$info['sitename'],$this->objLanguage->languageText('mod_useradmin_greet5'))."\n";
-        $subject=str_replace('SITENAME',$info['sitename'],$this->objLanguage->languageText('mod_useradmin_greet6')); 
         $emailtext=str_replace('SITENAME',$info['sitename'],$emailtext);
-        $subject=str_replace('SITENAME',$info['sitename'],$subject);
-        $header="From: ".str_replace('SITENAME',$info['sitename'],$this->objLanguage->languageText('mod_useradmin_greet5')).'<noreply@'.$info['server'].">\r\n";
-        @mail($email,$subject,$emailtext,$header);
+
+        //$subject=str_replace('SITENAME',$info['sitename'],$subject);
+        //$header="From: ".str_replace('SITENAME',$info['sitename'],$this->objLanguage->languageText('mod_useradmin_greet5')).'<noreply@'.$info['server'].">\r\n";
+        //@mail($email,$subject,$emailtext,$header);
+        
+        $fromName =str_replace('SITENAME',$info['sitename'], 
+          $this->objLanguage->languageText('mod_useradmin_greet5'));
+        $from = 'noreply@'.$info['server'];
+        $subject=str_replace('SITENAME',$info['sitename'],
+          $this->objLanguage->languageText('mod_useradmin_greet6'));
+        
+        $objMailer = $this->getObject('mailer', 'mail');
+        $objMailer->setValue('to', $email);
+        $objMailer->setValue('from', $from);
+        $objMailer->setValue('fromName', $fromName);
+        $objMailer->setValue('subject', $subject);
+        $objMailer->setValue('body', $emailtext);
+        return $objMailer->send();
     }
     
     /**

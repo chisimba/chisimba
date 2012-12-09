@@ -115,37 +115,6 @@ class useradmin_model extends dbtable
         return $id;
     }
 
-
-    /**
-    * Method to edit a user account using info from getParam()
-    * Does not change the password or userId
-    * @param string $userId
-    * @returns string $id
-    */
-    /*
-    function editUserAccount($userId)
-    {
-        $newdata=array(
-            'username'=>$this->getParam('username'),
-            'title'=>$this->getParam('title'),
-            'firstname'=>$this->getParam('firstname'),
-            'surname'=>$this->getParam('surname'),
-            'emailAddress'=>$this->getParam('email'),
-            'sex'=>$this->getParam('gender'),
-            'country'=>$this->getParam('country')
-            );
-        // remove blank fields
-        foreach ($newdata as $key=>$value)
-        {
-            if ($value==''){
-                unset($newdata[$key]);
-            }
-        }
-        $id=$this->update('userId',$userId,$newdata);
-        return $id;
-    }
-    */
-
     /**
     * method to lookup list of users for admin functions
     * @author James Scoble
@@ -172,12 +141,6 @@ class useradmin_model extends dbtable
             else {
                 if ($exact===TRUE){
                     $sql.=" WHERE $how = '$match'";
-                /*
-                } else if ($exact=='greater'){
-                    $sql.=" WHERE $how > '$match'";
-                } else if ($exact=='less'){
-                    $sql.=" WHERE $how < '$match'";
-                */
                 } else {
                     $sql.=" WHERE $how LIKE '$match%'";
                 }
@@ -278,45 +241,6 @@ class useradmin_model extends dbtable
         }
     }
 
-    /**
-    * This is a method to change a user's password to a random setting
-    * and email the result. It checks to see if the username and email
-    * address match before making any changes.
-    * @param string $username
-    * @param string $email
-    * @returns string $status messagecode
-    */
-    /*
-    function resetPassword($username,$email)
-    {
-        $username=trim($username);
-        $email=trim($email);
-        $sql="select userId, username, firstname, surname, pass from tbl_users where username='$username' and emailAddress='$email'";
-        $result=$this->getArray($sql);
-        if (isset($result[0])){
-            // Get the user's info
-            $userId=$result[0]['userId'];
-            $password=$result[0]['pass'];
-            $firstname=$result[0]['firstname'];
-            $surname=$result[0]['surname'];
-            if ($password!=(sha1('--LDAP--'))){
-                $objPassword=&$this->getObject('passwords','useradmin');
-                $newpassword=$objPassword->createPassword();
-                $cryptpassword=sha1($newpassword);
-                $this->update('userId',$userId,array('pass'=>$cryptpassword));
-                $this->emailPassword($userId,$username,$firstname,$surname,$email,$newpassword);
-                return "mod_useradmin_passwordreset";
-            } else {
-                // LDAP USER
-                return "mod_useradmin_ldapnochange";
-            }
-        } else {
-            // error that no such username/email exists
-            return "mod_useradmin_nomatch";
-        }
-        return TRUE;
-    }
-    */
 
     /**
     * Method to compose and send email for resetting of password
