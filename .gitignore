@@ -1,1 +1,9 @@
 /nbproject/private/
+/app/core_modules/filemanager/nbproject/private/
+/app/core_modules/security/nbproject/private/
+/app/core_modules/ext/nbproject/private/
+/app/core_modules/useradmin/nbproject/private/
+/app/packages/langadmin/resources/ChisimbaLangTranslator/build/
+/app/packages/langadmin/resources/ChisimbaLangTranslator/dist/
+/app/packages/langadmin/resources/ChisimbaLangTranslator/nbproject/private/
+/app/packages/phpids/resources/phpids-0.6.3.1/nbproject/private/
