@@ -24,12 +24,13 @@ $GLOBALS['kewl_entry_point_run'])
 * @licence   GNU/GPL
 *
 */
-abstract class absendmail extends engine
+abstract class absendmail extends object
 {
 
     /**
     *
     * @var string $to String or array to hold the value of the mail to address(s)
+    * @access protected
     *
     */
      protected $to;
@@ -37,6 +38,7 @@ abstract class absendmail extends engine
     /**
     *
     * @var string $cc String or array to hold the value of the mail cc address(s)
+    * @access protected
     *
     */
      protected $cc;
@@ -44,6 +46,7 @@ abstract class absendmail extends engine
     /**
     *
     * @var string $bcc String or array to hold the value of the mail bcc address(s)
+    * @access protected
     *
     */
      protected $bcc;
@@ -51,6 +54,7 @@ abstract class absendmail extends engine
     /**
     *
     * @var string $from String to hold the value of the mail from address
+    * @access protected
     *
     */
      protected $from;
@@ -58,6 +62,7 @@ abstract class absendmail extends engine
     /**
     *
     * @var string $fromName String to hold the value of the mail from Name of person
+    * @access protected
     *
     */
      protected $fromName;
@@ -65,6 +70,7 @@ abstract class absendmail extends engine
     /**
     *
     * @var string $priority String to hold the value of the mail priority
+    * @access protected
     *
     */
      protected $priority;
@@ -72,6 +78,7 @@ abstract class absendmail extends engine
     /**
     *
     * @var string $subject String to hold the value of the mail subject
+    * @access protected
     *
     */
      protected $subject;
@@ -79,6 +86,7 @@ abstract class absendmail extends engine
     /**
     *
     * @var string $body String to hold the value of the mail body (in HTML)
+    * @access protected
     *
     */
      protected $body;
@@ -86,6 +94,7 @@ abstract class absendmail extends engine
     /**
     *
     * @var string $wordWrap String to hold the value of the word wrap length
+    * @access protected
     *
     */
      protected $wordWrap;
@@ -93,6 +102,7 @@ abstract class absendmail extends engine
     /**
     *
     * @var string $altBody String to hold the value of the mail body (in plain text)
+    * @access protected
     *
     */
      protected $altBody;
@@ -100,6 +110,7 @@ abstract class absendmail extends engine
     /**
     *
     * @var string $mailer String to hold the value of the mailer (smtp, sendmail, PHP mail)
+    * @access protected
     *
     */
      protected $mailer;
@@ -142,7 +153,6 @@ abstract class absendmail extends engine
     {
           if (property_exists($this,$itemName)) {
               $this->$itemName = $itemValue;
-              //trigger_error($itemName.':'.var_export($itemValue, TRUE));
               return TRUE;
           } else {
               return FALSE;

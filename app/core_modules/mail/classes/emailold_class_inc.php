@@ -60,7 +60,7 @@ require_once("ifsendmail_class_inc.php");
 * @licence   GNU/GPL
 *
 */
-class email extends absendmail implements ifsendmail
+class emailold extends absendmail implements ifsendmail
 {
     /**
      *
@@ -74,28 +74,22 @@ class email extends absendmail implements ifsendmail
     * Standard init method
     *
     */
-    function init() {
-        parent::__construct();
-
-        //$this->objBaseMail = new PHPMailer;
+    function __construct()
+    {
+        $this->objBaseMail = new PHPMailer;
         //Get an instance of the config object
-        //$objConfig = $this->getObject('dbsysconfig', 'sysconfig');
-        die("DEAD");
-        /*
+        $objConfig=$this->newObject('altconfig','config');
         //Get the value of the delimiter
         $method = $objConfig->getValue('MAIL_SEND_METHOD', 'mail');
-        die($method);
         switch ($method) {
             //set up for SMTP
             case "smtp":
-                 die("SMTP");
                 $this->objBaseMail->IsSMTP();
                 $this->objBaseMail->Host = $objConfig->getValue('MAIL_SMTP_SERVER', 'mail');
                 $smtpAuth = $objConfig->getValue('MAIL_SMTP_REQUIRESAUTH', 'mail');
                 if ($smtpAuth == "true") {
                     $this->objBaseMail->SMTPAuth = true;
                     $this->objBaseMail->Port = $objConfig->getValue('MAIL_SMTP_PORT', 'mail');
-                    die($this->objBaseMail->Port);
                     $this->objBaseMail->Username = $objConfig->getValue('MAIL_SMTP_USER', 'mail');
                     $this->objBaseMail->Password = $objConfig->getValue('MAIL_SMTP_PASSWORD', 'mail');
                 }
@@ -118,7 +112,7 @@ class email extends absendmail implements ifsendmail
             $this->objBaseMail->IsHTML(FALSE);
         }
         //Set the default wordwrap
-        $this->objBaseMail->WordWrap = 50;*/
+        $this->objBaseMail->WordWrap = 50;
 
     }
 
