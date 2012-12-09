@@ -649,7 +649,7 @@ class loginInterface extends object {
             return $this->openIdAuth($me);
         } else {
             $_SESSION['AUTH'] = false;
-            header('Location: ' . $siteRoot . '?module=security&action=error&message=no_openidconnect&msg=' . $this->objLanguage->languageText("mod_security_problemlogginginwith", 'security') . ': ' . $auth_site);
+            header('Location: ' . $siteRoot . '?module=security&action=error&message=no_openidconnect&msg=mod_security_problemlogginginwith');
         }
     }
 
