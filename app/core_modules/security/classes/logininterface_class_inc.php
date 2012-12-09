@@ -492,7 +492,7 @@ class loginInterface extends object {
         $store = new Auth_OpenID_FileStore($openidPath);
 
         // Create OpenID consumer
-    
+
         $consumer = new Auth_OpenID_Consumer($store);
 
         // Create an authentication request to the OpenID provider
@@ -543,29 +543,26 @@ class loginInterface extends object {
         $apiId = $this->objDbSysconfig->getValue('facebook_app_id', 'security');
         $secret = $this->objDbSysconfig->getValue('facebook_app_secret', 'security');
 
-        
+
         $facebook = new Facebook(array(
                     'appId' => $apiId,
                     'secret' => $secret,
                 ));
 
-        //echo $facebook->getAccessToken();
-      
+
         $fbuser = $facebook->getUser();
 
         if (!$fbuser) {
-          //  print_r($_SESSION);
-           // die();
             $loginUrl = $facebook->getLoginUrl();
-          //  echo $loginUrl;
-            //die();
-            header('Location: ' . $loginUrl);
+
+            $result = array("action" => "fblogin", "data" => $loginUrl);
+            return $result;
         } else {
             try {
                 $fbme = $facebook->api('/me');
                 //die("$fbme  is the thin");
                 if ($fbme) {
-              //      die("yes fbne");
+                    //      die("yes fbne");
 
                     $me = array();
                     $me['username'] = $fbme['username'];
@@ -648,6 +645,7 @@ class loginInterface extends object {
             $me['last_name'] = '';
             $me['gender'] = 'male';
             $me['id'] = mt_rand(1000, 9999) . date('ymd');
+
             return $this->openIdAuth($me);
         } else {
             $_SESSION['AUTH'] = false;
@@ -668,11 +666,15 @@ class loginInterface extends object {
         $objUModel = $this->getObject('useradmin_model2', 'security');
         $objUser = $this->getObject('user', 'security');
         $objSkin = $this->getObject("skin", "skin");
-        if ($fb) {
+        if ($fb || $password == '') {
             $password = '--';
         }
-        $login = $objUser->authenticateUser($username, $password, FALSE);
+
+
+        $login = $objUser->authenticateUser($username, '--', FALSE);
         if ($login) {
+
+
             if (!isset($_REQUEST [session_name()])) {
                 $this->objEngine->sessionStart();
             } else {
@@ -708,6 +710,7 @@ class loginInterface extends object {
 
             return $postlogin;
         } else {
+
             // login failure, so new user. Lets create him in the system now and then log him in.
             $userid = $me['id'];
             $title = '';

@@ -57,7 +57,7 @@ class security extends controller {
     }
 
     function dispatch($action) {
-       
+
         $this->setLayoutTemplate(NULL);
         switch ($action) {
             case 'login' :
@@ -93,14 +93,26 @@ class security extends controller {
                 $this->objUi->openIdConnect($this->getParam("auth_site"));
                 break;
             case 'initfacebooklogin':
-               
+
                 $result = $this->objUi->doFacebookLogin();
+                if (is_array($result)) {
+                   
+                    $facebookLogin = $this->objLanguage->languageText("mod_security_facebooklogin", 'security');
+            
+                    $message = '<a href="' . $result['data'] . '">'.$facebookLogin.'</a>';
+                    $this->setVarByRef("message", $message);
+                    return "facebook_tpl.php";
+                }
+                die();  
                 return $this->nextAction(NULL, NULL, $result);
+              
                 break;
+
             case 'openidlogin':
                 $result = $this->objUi->openIdLogin();
+
                 return $this->nextAction(NULL, NULL, $result);
-                break;
+                die();
 
             case 'ajax_login':
                 $username = $this->getParam('username', '');
@@ -141,7 +153,7 @@ class security extends controller {
             $message = 'wrongpassword';
             return $this->nextAction('error', array('message' => $message));
         }
-        if ($password == '--twitter--') {
+        if ($password == '--twitter--' || $password=='--') {
             $message = 'dooauth';
             return $this->nextAction('error', array('message' => $message));
         }
