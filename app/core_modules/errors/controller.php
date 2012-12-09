@@ -173,24 +173,21 @@ class errors extends controller
                 try {
                     //load up the mail class
                     $this->objMail = $this->newObject('email', 'mail');
-                       //set up the mailer
-                       $objMailer = $this->getObject('email', 'mail');
-                    $objMailer->setValue('to', array($this->objConfig->getsiteEmail(), 'nextgen-online@mailman.uwc.ac.za', 'fsiu@uwc.ac.za'));
+                    //set up the mailer
+                    $objMailer = $this->getObject('mailer', 'mail');
+                    $objMailer->setValue('to', array($this->objConfig->getsiteEmail(), 'chisimba-dev@googlegroups.com'));
                     $objMailer->setValue('from', $this->objUser->email());
                     $objMailer->setValue('fromName', $this->objUser->fullname());
                     $objMailer->setValue('subject', $this->objLanguage->languageText("mod_errors_errsubject", "errors"));
                     $objMailer->setValue('body', $text . "  " . $hidmsg . " " . $this->objConfig->getSiteName() . " " . $this->objConfig->getSiteRoot());
-                    if (md5(strtoupper($captcha)) != $this->getParam('captcha') || empty($captcha))
-                      {
+                    if (md5(strtoupper($captcha)) != $this->getParam('captcha') || empty($captcha)) {
                         return 'spam_tpl.php';
                         break;
-                      }
-                      else {
-                          $objMailer->send();
+                    } else {
+                        $objMailer->send();
                         return 'thanks_tpl.php';
                         break;
-                          
-                      }
+                    }
 
                 }
                 catch (customException $e)
