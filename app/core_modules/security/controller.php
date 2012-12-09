@@ -45,7 +45,9 @@ class security extends controller {
     }
 
     function requiresLogin($action) {
-        $actions = array('showlogin', 'ajax_login', 'login', 'logintwitter', 'error', 'needpassword', 'needpasswordconfirm', 'emailsent', 'generatenewcaptcha', 'oauthdisp', 'fbconnect', 'openidlogin', 'openidconnect','facebookconnect');
+        $actions = array('showlogin', 'ajax_login', 'login', 'logintwitter', 'error', 'needpassword',
+            'needpasswordconfirm', 'emailsent', 'generatenewcaptcha', 'oauthdisp', 'fbconnect', 'openidlogin',
+            'openidconnect', 'facebookconnect', 'initfacebooklogin');
 
         if (in_array($action, $actions)) {
             return FALSE;
@@ -55,6 +57,7 @@ class security extends controller {
     }
 
     function dispatch($action) {
+       
         $this->setLayoutTemplate(NULL);
         switch ($action) {
             case 'login' :
@@ -87,8 +90,13 @@ class security extends controller {
                 break;
 
             case 'openidconnect':
-                 $this->objUi->openIdConnect($this->getParam("auth_site"));
-               break;
+                $this->objUi->openIdConnect($this->getParam("auth_site"));
+                break;
+            case 'initfacebooklogin':
+               
+                $result = $this->objUi->doFacebookLogin();
+                return $this->nextAction(NULL, NULL, $result);
+                break;
             case 'openidlogin':
                 $result = $this->objUi->openIdLogin();
                 return $this->nextAction(NULL, NULL, $result);
@@ -127,7 +135,7 @@ class security extends controller {
         $objUnF = $this->getObject('loginsecurity', 'login');
         $username = $objUnF->getUserName();
         $password = $objUnF->getPassword();
-        
+
         $remember = $this->getParam('remember', 'off');
         if (strlen($username) > 255 || strlen($password) > 255) {
             $message = 'wrongpassword';

@@ -154,6 +154,7 @@ class loginInterface extends object {
                 $openidloginlink = new link($this->uri(array("action" => "openidconnect"), "security"));
                 $openidloginlink->link = "Open ID Login";
                 $OPENID_AUTH_PAGE = $siteRoot . '?module=security&action=openidconnect';
+                $FB_AUTH_PAGE = $siteRoot . 'index.php?module=security&action=initfacebooklogin&auth_site=facebook';
                 $sitePath = $objAltConfig->getSitePath();
                 // I have no idea what this icon is for, seems to do nothing.
                 $openidTD = '<a href="#"><img src="' . $sitePath
@@ -173,8 +174,8 @@ class loginInterface extends object {
                         . 'alt="Yahoo ID" name="but_yahoo" width="32" height="63" border="0" '
                         . 'id="but_yahoo" onload="" /></a>';
 
-                $fbTD = '<a href="' . $OPENID_AUTH_PAGE
-                        . '&auth_site=facebook" target="_top"><img src="' . $sitePath
+                $fbTD = '<a href="' . $FB_AUTH_PAGE
+                        . '" target="_top"><img src="' . $sitePath
                         . '/core_modules/security/resources/openid/images/facebook_icon32_2.png" '
                         . 'alt="FB ID" name="but_fb" width="32" height="63" border="0" '
                         . 'id="but_fb" onload="" /></a>';
@@ -211,7 +212,7 @@ class loginInterface extends object {
                 $openIdFields = new fieldset();
                 $openIdFields->setLegend($title);
                 $openIdFields->addContent($fbTD . '&nbsp;' . $googleTD . '&nbsp;' . $yahooTD . '&nbsp;'
-                        . $openIDImg . '<hr/><br/>' . $openIdForm->show());
+                        . '<hr/><br/>' . $openIdForm->show());
 
                 $openidlink = '<div class="openidlogin">'
                         . $openIdFields->show() . "</div>";
@@ -444,7 +445,6 @@ class loginInterface extends object {
         require_once "Auth/OpenID/FileStore.php";
         require_once "Auth/OpenID/SReg.php";
         require_once "Auth/OpenID/AX.php";
-        require_once "facebook.php";
 
 
         $objAltConfig = $this->getObject('altconfig', 'config');
@@ -461,50 +461,7 @@ class loginInterface extends object {
         $_SESSION['AUTH'] = false;
 
         switch ($auth_site) {
-            case "facebook":
-                $apiId = $this->objDbSysconfig->getValue('facebook_app_id', 'security');
-                $secret = $this->objDbSysconfig->getValue('facebook_app_secret', 'security');
-                // echo $apiId.' - '.$secret;
-                $facebook = new Facebook(array(
-                            'appId' => $apiId,
-                            'secret' => $secret,
-                        ));
 
-
-                $fbuser = $facebook->getUser();
-                if (!$fbuser) {
-                    $loginUrl = $facebook->getLoginUrl(array('req_perms' => 'email,read_stream'));
-                    header('Location: ' . $loginUrl);
-                } else {
-                    try {
-                        $fbme = $facebook->api('/me');
-
-                        if ($fbme) {
-                            
-                            $me = array();
-                            $me['username'] = $fbme['username'];
-                            $me['email'] = $fbme['id'].'@'.$fbme['username'].'com';
-                            $me['first_name'] = $fbme['first_name'];
-                            $me['last_name'] = $fbme['last_name'];
-                            $sex = $fbme['gender'];
-                            if ($sex == 'male') {
-                                $sex = 'M';
-                            } else {
-                                $sex = 'F';
-                            }
-                            $me['gender'] = $sex;
-                            $me['id'] = mt_rand(1000, 9999) . date('ymd');
-                            $this->openIdAuth($me,TRUE);
-                        } else {
-                            return $this->nextAction('error', array('message' => 'no_fbconnect'));
-                        }
-                    } catch (FacebookApiException $e) {
-                         error_log($e);
-                        
-                    }
-                }
-                 return 'error';
-                break;
             case "google":
                 $oid_identifier = 'https://www.google.com/accounts/o8/id';
                 $_SESSION['auth_site'] = "Google";
@@ -573,6 +530,68 @@ class loginInterface extends object {
     }
 
     /**
+     * this function handles all the facebook login
+     * @return string
+     */
+    function doFacebookLogin() {
+        session_start();
+        require_once "facebook.php";
+
+        $this->objDbSysconfig = $this->getObject('dbsysconfig', 'sysconfig');
+
+        $apiId = $this->objDbSysconfig->getValue('facebook_app_id', 'security');
+        $secret = $this->objDbSysconfig->getValue('facebook_app_secret', 'security');
+
+        
+        $facebook = new Facebook(array(
+                    'appId' => $apiId,
+                    'secret' => $secret,
+                ));
+
+        //echo $facebook->getAccessToken();
+      
+        $fbuser = $facebook->getUser();
+
+        if (!$fbuser) {
+          //  print_r($_SESSION);
+           // die();
+            $loginUrl = $facebook->getLoginUrl();
+          //  echo $loginUrl;
+            //die();
+            header('Location: ' . $loginUrl);
+        } else {
+            try {
+                $fbme = $facebook->api('/me');
+                //die("$fbme  is the thin");
+                if ($fbme) {
+              //      die("yes fbne");
+
+                    $me = array();
+                    $me['username'] = $fbme['username'];
+                    $me['email'] = $fbme['id'] . '@' . $fbme['username'] . 'com';
+                    $me['first_name'] = $fbme['first_name'];
+                    $me['last_name'] = $fbme['last_name'];
+                    $sex = $fbme['gender'];
+                    if ($sex == 'male') {
+                        $sex = 'M';
+                    } else {
+                        $sex = 'F';
+                    }
+                    $me['gender'] = $sex;
+                    $me['id'] = mt_rand(1000, 9999) . date('ymd');
+                    return $this->openIdAuth($me, TRUE);
+                } else {
+                    //                     die("no fb me");
+                    return $this->nextAction('error', array('message' => 'no_fbconnect'));
+                }
+            } catch (FacebookApiException $e) {
+                error_log($e);
+            }
+        }
+        //  die("not here no wat");
+    }
+
+    /**
      * Using this option, we need to redirect to user profile after login
      * to update user details as we have no other way of getting this info
      * @return type
@@ -608,6 +627,7 @@ class loginInterface extends object {
             //this is a workaround because some openid providers, like myopenid.com,
             //does not fully support attribute exchange just yet. They're working on it.
             //I may update it in the future.
+
             if ($_SESSION['openid_user']) {
                 $email = $_SESSION['openid_user'];
                 $_SESSION['openid_user'] = null;
@@ -634,19 +654,22 @@ class loginInterface extends object {
         }
     }
 
-    private function openIdAuth($me,$fb=FALSE) {
+    private function openIdAuth($me, $fb = FALSE) {
         // skip the nonsense and log in
-       
+
         $username = $me['username'];
         $p = explode("@", $me['email']);
         $password = $p[0];
-        if ($username == '' || $password='') {
+        if ($username == '' || $password = '') {
             return $this->nextAction('error', array('message' => 'no_fbconnect'));
         }
         // try the login
         $objUModel = $this->getObject('useradmin_model2', 'security');
         $objUser = $this->getObject('user', 'security');
         $objSkin = $this->getObject("skin", "skin");
+        if ($fb) {
+            $password = '--';
+        }
         $login = $objUser->authenticateUser($username, $password, FALSE);
         if ($login) {
             if (!isset($_REQUEST [session_name()])) {
@@ -658,8 +681,10 @@ class loginInterface extends object {
             $objSkin->validateSkinSession();
             $url = $this->getSession('oldurl');
             $url ['passthroughlogin'] = 'true';
-            if ($module != NULL) {
-                $url ['module'] = $module;
+            if (isset($module)) {
+                if ($module != NULL) {
+                    $url ['module'] = $module;
+                }
             }
             if (is_array($url) && (isset($url ['module'])) && ($url ['module'] != 'splashscreen')) {
                 if (isset($url ['action']) && ($url ['action'] != 'logoff')) {
@@ -674,7 +699,12 @@ class loginInterface extends object {
             if ($objUser->getFirstname() == $updateDetailsPhrase || $objUser->getFirstname() == 'Not set') {
                 return "userdetails";
             }
+
             $postlogin = $this->objConfig->getdefaultModuleName();
+            if ($fb) {
+                return $this->nextAction(NULL, NULL, $postlogin);
+            }
+
             return $postlogin;
         } else {
             // login failure, so new user. Lets create him in the system now and then log him in.
@@ -683,8 +713,8 @@ class loginInterface extends object {
             $firstname = $me['first_name'];
             $surname = $me['last_name'];
             $email = $me['email'];
-            if($fb){
-                $email='nt@chisimba.com';
+            if ($fb) {
+                $email = 'notset@chisimba.com';
             }
             $sex = $me['gender'];
             if ($sex == 'male') {
@@ -694,8 +724,9 @@ class loginInterface extends object {
             }
             $country = '';
             $accountType = 'OpenId';
-            //addUser('2611121208', 'david.wafula', '', '', 'David', 'Wafula', '738429445@david...', 'F', '', '', '', 'OpenId', '1')
-            $objUModel->addUser($userid, $username, $password, $title, $firstname, $surname, $email, $sex, $country, $cellnumber = '', $staffnumber = '', $accountType, '1');
+            // $objUModel->addUser('2611121208', 'david.wafula', '--', 'Mr', 'David', 'Wafula', '738429445@david...', 'F', 'US', 'xxxx', '--', 'OpenId', '1');
+            $objUModel->addUser(
+                    $userid, $username, '--', $title, $firstname, $surname, $email, $sex, $country, $cellnumber = '', $staffnumber = '', $accountType, '1');
             $objUser->authenticateUser($username, $password, FALSE);
             if (!isset($_REQUEST [session_name()])) {
                 $this->objEngine->sessionStart();
@@ -705,9 +736,12 @@ class loginInterface extends object {
             $objSkin->validateSkinSession();
             $url = $this->getSession('oldurl');
             $url ['passthroughlogin'] = 'true';
-            if ($module != NULL) {
-                $url ['module'] = $module;
+            if (isset($module)) {
+                if ($module != NULL) {
+                    $url ['module'] = $module;
+                }
             }
+
             if (is_array($url) && (isset($url ['module'])) && ($url ['module'] != 'splashscreen')) {
                 if (isset($url ['action']) && ($url ['action'] != 'logoff')) {
                     $act = $url ['action'];
@@ -716,6 +750,8 @@ class loginInterface extends object {
                 }
                 return $this->nextAction($act, $url, $url ['module']);
             }
+
+
             //now, we would usually head for postlogin, but we shouldnt. Rather head for the profile
             //so that we get the user to replace the 'Not Set' bull with real name
             //$postlogin = $this->objConfig->getdefaultModuleName();
@@ -724,9 +760,24 @@ class loginInterface extends object {
             if ($objUser->getFirstname() == $updateDetailsPhrase || $objUser->getFirstname() == 'Not set') {
                 return "userdetails";
             } else {
+
                 return $this->objConfig->getdefaultModuleName();
             }
         }
+    }
+
+    /**
+     * Method to call a further action within a module.
+     *
+     * @param  string $action Action to perform next.
+     * @param  array  $params Parameters to pass to action.
+     * @return NULL
+     */
+    public function nextAction($action, $params = array(), $module = NULL) {
+        // list($template, $_) = $this->_dispatch($action, $this->_moduleName);
+        $params['action'] = $action;
+        header('Location: ' . html_entity_decode($this->uri($params, $module)));
+        return NULL;
     }
 
 }
