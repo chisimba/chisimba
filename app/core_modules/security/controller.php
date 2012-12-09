@@ -96,16 +96,18 @@ class security extends controller {
 
                 $result = $this->objUi->doFacebookLogin();
                 if (is_array($result)) {
-                   
+
                     $facebookLogin = $this->objLanguage->languageText("mod_security_facebooklogin", 'security');
-            
-                    $message = '<a href="' . $result['data'] . '">'.$facebookLogin.'</a>';
+
+                    $message = '<a href="' . $result['data'] . '">' . $facebookLogin . '</a>';
                     $this->setVarByRef("message", $message);
                     return "facebook_tpl.php";
                 }
-                
+                if (!$result) {
+                    die();
+                }
                 return $this->nextAction(NULL, NULL, $result);
-               die(); 
+                die();
                 break;
 
             case 'openidlogin':
@@ -153,7 +155,7 @@ class security extends controller {
             $message = 'wrongpassword';
             return $this->nextAction('error', array('message' => $message));
         }
-        if ($password == '--twitter--' || $password=='--') {
+        if ($password == '--twitter--' || $password == '--') {
             $message = 'dooauth';
             return $this->nextAction('error', array('message' => $message));
         }
