@@ -271,7 +271,7 @@ WHERE
         $subject="New staff member logged on to ". $this->oblAltConfig->getSiteName();
         $body="The following new staff member has logged on the system for the first time, please give him/her lecturer permissions: ".$names;
 
-        $objMailer = $this->getObject('email', 'mail');
+        $objMailer = $this->getObject('mailer', 'mail');
 
         foreach($receivers as $receiver) {
 
