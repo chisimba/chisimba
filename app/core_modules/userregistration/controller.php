@@ -105,7 +105,7 @@ class userregistration extends controller
                     $url = $this->objConfig->getSiteRoot() . "index.php?module=userregistration&user=" . $code;
                     $msg = $msg . " <br />" . $url;
                     // bang off the email now
-                    $objMailer = $this->getObject('email', 'mail');
+                    $objMailer = $this->getObject('mailer', 'mail');
                     $objMailer->setValue('to', array(
                         $fe
                     ));
