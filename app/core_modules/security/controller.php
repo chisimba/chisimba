@@ -103,9 +103,9 @@ class security extends controller {
                     $this->setVarByRef("message", $message);
                     return "facebook_tpl.php";
                 }
-                die();  
+                
                 return $this->nextAction(NULL, NULL, $result);
-              
+               die(); 
                 break;
 
             case 'openidlogin':
