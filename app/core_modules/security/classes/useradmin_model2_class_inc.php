@@ -513,7 +513,7 @@ IP Address of Request: '.$_SERVER['REMOTE_ADDR'];
             $message = str_replace('[[SITEADDRESS]]', $this->objConfig->getsiteRoot(), $message);
             $message = str_replace('[[DATE]]', date('l dS \of F Y h:i:s A'), $message);
 
-            $objMailer = $this->getObject('email', 'mail');
+            $objMailer = $this->getObject('mailer', 'mail');
             $objMailer->setValue('to', array($user['emailaddress']));
             $objMailer->setValue('from', $siteEmail);
             $objMailer->setValue('fromName', $siteName.' Registration System');
@@ -563,7 +563,7 @@ IP Address of Request: '.$_SERVER['REMOTE_ADDR'];
         $message = str_replace('[[SITEADDRESS]]', $this->objConfig->getsiteRoot(), $message);
         $message = str_replace('[[DATE]]', date('l dS \of F Y h:i:s A'), $message);
 
-        $objMailer = $this->getObject('email', 'mail');
+        $objMailer = $this->getObject('mailer', 'mail');
         $objMailer->setValue('to', array($user['emailaddress']));
         $objMailer->setValue('from', $siteEmail);
         $objMailer->setValue('fromName', $siteName.' Registration System');
@@ -615,7 +615,7 @@ IP Address of Request: '.$_SERVER['REMOTE_ADDR'];
         $message = str_replace('[[SITEADDRESS]]', $this->objConfig->getsiteRoot(), $message);
         $message = str_replace('[[DATE]]', date('l dS \of F Y h:i:s A'), $message);
 
-        $objMailer = $this->getObject('email', 'mail');//$user['emailaddress'],
+        $objMailer = $this->getObject('mailer', 'mail');//$user['emailaddress'],
         $objMailer->setValue('to', array($user['emailaddress']));
         //$objMailer->setValue('to', array($user['emailaddress']));
         $objMailer->setValue('from', $siteEmail);
