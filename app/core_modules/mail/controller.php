@@ -36,25 +36,7 @@ class mail extends controller
     */
     function dispatch()
     {
-        $bodyText = "Test email text";
-        $this->setVar('str', 'There is no end user functionality in this module');
-        $objMailer = $this->getObject('email', 'mail');
-        $objMailer->setValue('to', array('pscott@uwc.ac.za'));
-        $objMailer->setValue('from', 'elearning@uwc.ac.za');
-        $objMailer->setValue('fromName', 'The E-Learning Team');
-        $objMailer->setValue('subject', 'Email in Chisimba');
-        $objMailer->setValue('cc', array('joe@soap.com', 'tom@thumbalina.com'));
-        $objMailer->setValue('bcc', 'someone@someplace.com');
-        $objMailer->setValue('body', $bodyText);
-        $objMailer->attach('/var/www/app/config/config_inc.php',
-          'config_inc.php');
-        $objMailer->attach('/var/www/app/index.php');
-        if ($objMailer->send()) {
-           echo "success ";
-        } else {
-           echo "failed";
-        }
-        return "dump_tpl.php";
+        header('Location: index.php');
     }
 }
 ?>
