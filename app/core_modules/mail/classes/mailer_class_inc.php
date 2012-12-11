@@ -71,7 +71,9 @@ class mailer extends absendmail
         //Get the value of the delimiter
         $this->sendMethod = $this->objConfig->getValue('MAIL_SEND_METHOD', 'mail');
         //Check if we should use HTML mail
-        $this->useHTMLMail = $this->objConfig->getValue('MAIL_USE_HTML_AS_DEFAULT', 'mail');
+        $this->useHTMLMail = $this->booleanFromTxt(
+          $this->objConfig->getValue('MAIL_USE_HTML_AS_DEFAULT', 'mail')
+        );
         switch ($this->sendMethod) {
             //set up for SMTP
             case "smtp":
@@ -82,6 +84,9 @@ class mailer extends absendmail
                 $this->port = $this->objConfig->getValue('MAIL_SMTP_PORT', 'mail');
                 $this->username = $this->objConfig->getValue('MAIL_SMTP_USER', 'mail');
                 $this->password = $this->objConfig->getValue('MAIL_SMTP_PASSWORD', 'mail');
+                break;
+            case "sendmail":
+                
                 break;
             default:
                 break;
@@ -106,7 +111,41 @@ class mailer extends absendmail
         }
     }
     
+    /**
+     * 
+     * Send an email message using one of the known sending methods
+     * Currently only supports SMTP and sendmail using the mail()
+     * command in PHP.
+     * 
+     * @return boolean 
+     * @access Public
+     * 
+     */
     public function send()
+    {
+        switch ($this->sendMethod) {
+            case "smtp":
+                return $this->sendSmtp();
+                break;
+            case "sendmail":
+                return $this->sendSendmail();
+                break;
+            default:
+                break;
+        }
+    }
+    
+    
+    /**
+     * 
+     * Send An email by using a remote SMTP service. Note that the parameters
+     * must be congfigured before calling the send or sendSmtp method.
+     * 
+     * @return boolean
+     * @access public
+     * 
+     */
+    public function sendSmtp()
     {
         $fullFrom = "'" . $this->fromName . "' <" . $this->from . ">";
         $fullFrom =  $this->from;
@@ -196,13 +235,31 @@ class mailer extends absendmail
             )
         );
         
+        // Case where we are sending HTML mail
+        if ($this->useHTMLMail == TRUE) {
+            if (isset($this->htmlbody)) {
+                $htmlBody = $this->htmlbody;
+            } else {
+                $htmlBody = $this->body;
+            }
+            // Add the HTML body using PEAR::Mime.
+            
+        }
+        
+        // Do the sending 
         $mail = $smtp->send($recipients, $headers, $this->body);
         if (PEAR::isError($mail)) {
-            echo("<p>" . $mail->getMessage() . "</p>");
-            return FALSE;
+            throw new customException($mail->getMessage());
+            exit();
         } else {
             return TRUE;
         }
+    }
+    
+    
+    public function sendSendmail()
+    {
+        die("The sendmail method is not yet functional");
     }
 
     /**
@@ -212,7 +269,7 @@ class mailer extends absendmail
     */
     public function attach($file, $name=NULL)
     {
-       $this->objBaseMail->AddAttachment($file);
+       //@todo
     }
 
 }
