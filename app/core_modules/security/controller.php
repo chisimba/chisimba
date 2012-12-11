@@ -97,9 +97,18 @@ class security extends controller {
                 $result = $this->objUi->doFacebookLogin();
                 if (is_array($result)) {
 
-                    $facebookLogin = $this->objLanguage->languageText("mod_security_facebooklogin", 'security');
+                    $facebookLogin = $this->objLanguage->languageText(
+                      "mod_security_facebooklogin", 'security'
+                    );
+                    $facebookLogin2 = $this->objLanguage->languageText(
+                      "mod_security_facebooklogin2", 'security'
+                    );
 
-                    $message = '<a href="' . $result['data'] . '">' . $facebookLogin . '</a>';
+                    $message = '<div class="security_fbloginpop"><a href="' 
+                      . $result['data'] . '">' . $facebookLogin 
+                      . '</a><br /><br /><span class="info">' . $facebookLogin2 
+                      . '</span></div>';
+                    
                     $this->setVarByRef("message", $message);
                     return "facebook_tpl.php";
                 }
