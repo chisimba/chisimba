@@ -440,7 +440,7 @@ class loginInterface extends object {
     function openIdConnect($auth_site) {
         //required includes
 
-        session_start();
+        //session_start();
         require_once "Auth/OpenID/Consumer.php";
         require_once "Auth/OpenID/FileStore.php";
         require_once "Auth/OpenID/SReg.php";
@@ -535,7 +535,7 @@ class loginInterface extends object {
      * @return string
      */
     function doFacebookLogin() {
-        session_start();
+      //  session_start();
         require_once "facebook.php";
 
         $this->objDbSysconfig = $this->getObject('dbsysconfig', 'sysconfig');
@@ -595,7 +595,7 @@ class loginInterface extends object {
      * @return type
      */
     function openIdLogin() {
-        session_start();
+       // session_start();
         require_once "Auth/OpenID/Consumer.php";
         require_once "Auth/OpenID/FileStore.php";
         require_once "Auth/OpenID/SReg.php";
