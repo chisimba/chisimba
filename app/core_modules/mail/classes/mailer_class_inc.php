@@ -138,6 +138,7 @@ class mailer extends absendmail
         // Add CC
         if (isset($this->cc)) {
             if (is_array($this->cc)) {
+                $entries = count($this->cc);
                 $cc = "";
                 $counter = 0;
                 foreach ($this->cc as $address) {
@@ -158,6 +159,7 @@ class mailer extends absendmail
         // Add CC
         if (isset($this->bcc)) {
             if (is_array($this->bcc)) {
+                $entries = count($this->bcc);
                 $bcc = "";
                 $counter = 0;
                 foreach ($this->bcc as $address) {
@@ -184,6 +186,7 @@ class mailer extends absendmail
             'Cc' => $cc,
             'Subject' => $this->subject
         );
+
         
         $smtp = Mail::factory(
             'smtp',
