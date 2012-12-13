@@ -174,6 +174,14 @@ class htmlarea extends object {
     function setName($name) {
         $this->name = $name;
     }
+    
+    /**
+     * @access public
+     * @param type $value The css class value
+     */
+    function setCssClass($value){
+        $this->cssClass = $value;
+    }
 
     /**
      * function to set the amount of rows
@@ -257,7 +265,7 @@ class htmlarea extends object {
 
         $rawvalue = $this->value;
 
-        $this->editor = '<textarea name="' . $this->name . '">' . htmlspecialchars($rawvalue) . '</textarea>';
+        $this->editor = '<textarea name="' . $this->name . '" class="'.$this->cssClass.'" >' . htmlspecialchars($rawvalue) . '</textarea>';
         $this->editor.="
         <script type=\"text/javascript\">
                 var disablespellchecker=" . $this->disableSpellChecker . ";
