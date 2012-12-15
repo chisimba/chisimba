@@ -63,6 +63,7 @@ class loginInterface extends object {
             $this->objConfig = $this->getObject('altconfig', 'config');
             $this->objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
             $this->objHelp = $this->getObject('help', 'help');
+            $this->objUser = $this->getObject('user', 'security');
         } catch (Exception $e) {
             customException::cleanUp();
         }
@@ -155,6 +156,7 @@ class loginInterface extends object {
                 $openidloginlink->link = "Open ID Login";
                 $OPENID_AUTH_PAGE = $siteRoot . '?module=security&action=openidconnect';
                 $FB_AUTH_PAGE = $siteRoot . 'index.php?module=security&action=initfacebooklogin&auth_site=facebook';
+                $TWITTER_AUTH_PAGE = $siteRoot . 'index.php?module=security&action=dotwitterlogin&auth_site=twitter';
                 $sitePath = $objAltConfig->getSitePath();
                 // I have no idea what this icon is for, seems to do nothing.
                 $openidTD = '<a href="#"><img src="' . $sitePath
@@ -179,6 +181,11 @@ class loginInterface extends object {
                         . '/core_modules/security/resources/openid/images/facebook_icon32_2.png" '
                         . 'alt="FB ID" name="but_fb" width="32" height="63" border="0" '
                         . 'id="but_fb" onload="" /></a>';
+                $twitterTD = '<a href="' . $TWITTER_AUTH_PAGE
+                        . '" target="_top"><img src="' . $sitePath
+                        . '/core_modules/security/resources/openid/images/twitter_icon32_2.png" '
+                        . 'alt="TWITTER ID" name="but_twitter" width="32" height="63" border="0" '
+                        . 'id="but_twitter" onload="" /></a>';
 
 
                 // Explanation text for the textbox and Choose button
@@ -211,7 +218,7 @@ class loginInterface extends object {
 
                 $openIdFields = new fieldset();
                 $openIdFields->setLegend($title);
-                $openIdFields->addContent($fbTD . '&nbsp;' . $googleTD . '&nbsp;' . $yahooTD . '&nbsp;'
+                $openIdFields->addContent($fbTD . '&nbsp;' . $twitterTD . '&nbsp;' . $googleTD . '&nbsp;' . $yahooTD . '&nbsp;'
                         . '<hr/><br/>' . $openIdForm->show());
 
                 $openidlink = '<div class="openidlogin">'
@@ -257,6 +264,50 @@ class loginInterface extends object {
             return NULL;
         }
     }
+
+
+    public function doTwitterLogin() {
+
+        require_once "Auth/twitteroauth/twitteroauth/twitteroauth.php";
+        $this->objDbSysconfig = $this->getObject('dbsysconfig', 'sysconfig');
+        $objAltConfig = $this->getObject('altconfig', 'config');
+
+        $consumer_key = $this->objDbSysconfig->getValue('twitter_consumer_key', 'security');
+        $consumer_secret = $this->objDbSysconfig->getValue('twitter_consumer_secret', 'security');
+        $access_token = $this->objDbSysconfig->getValue('twitter_access_token', 'security');
+        $token_secret = $this->objDbSysconfig->getValue('twitter_token_secret', 'security');
+
+        try {
+            /* Create a TwitterOauth object with consumer/user tokens. */
+            $connection = new TwitterOAuth($consumer_key, $consumer_secret, $access_token, $token_secret);
+            $twitterInfo = $connection->get('account/verify_credentials');
+
+            $userid = $twitterInfo->id;
+            $username = $twitterInfo->screen_name;
+            $fullname = $twitterInfo->name;
+            $name = explode(" ", $fullname);
+            $surname = '';
+            if (count($name) > 1) {
+                $surname = $name[1];
+            }
+
+            $me = array();
+
+            $updateDetailsPhrase = $this->objLanguage->languageText("mod_security_updateprofile", 'security');
+            $me['username'] = $userid;
+            $me['email'] =$username;
+            $me['first_name'] = $updateDetailsPhrase;
+            $me['last_name'] = '';
+            $me['gender'] = 'male';
+            $me['id'] = mt_rand(1000, 9999) . date('ymd');
+
+            return $this->openIdAuth($me);
+        } catch (customException $e) {
+            customException::cleanUp();
+            exit;
+        }
+    }
+
 
     public function fbButton() {
         $this->objMods = $this->getObject('modules', 'modulecatalogue');
@@ -439,7 +490,6 @@ class loginInterface extends object {
      */
     function openIdConnect($auth_site) {
         //required includes
-
         //session_start();
         require_once "Auth/OpenID/Consumer.php";
         require_once "Auth/OpenID/FileStore.php";
@@ -535,7 +585,7 @@ class loginInterface extends object {
      * @return string
      */
     function doFacebookLogin() {
-      //  session_start();
+        //  session_start();
         require_once "facebook.php";
 
         $this->objDbSysconfig = $this->getObject('dbsysconfig', 'sysconfig');
@@ -595,7 +645,7 @@ class loginInterface extends object {
      * @return type
      */
     function openIdLogin() {
-       // session_start();
+        // session_start();
         require_once "Auth/OpenID/Consumer.php";
         require_once "Auth/OpenID/FileStore.php";
         require_once "Auth/OpenID/SReg.php";

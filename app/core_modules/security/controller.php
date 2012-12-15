@@ -39,7 +39,7 @@ class security extends controller {
         //Get an instance of the skin
         $this->objSkin = $this->getObject('skin', 'skin');
         $this->objConfig = $this->getObject('altconfig', 'config');
-        $this->objEpiWrapper = $this->getObject('epiwrapper');
+        //$this->objEpiWrapper = $this->getObject('epiwrapper');
         $this->loggedInUsers = $this->getObject('loggedInUsers', 'security');
         $this->objUi = $this->getObject('logininterface', 'security');
     }
@@ -47,7 +47,7 @@ class security extends controller {
     function requiresLogin($action) {
         $actions = array('showlogin', 'ajax_login', 'login', 'logintwitter', 'error', 'needpassword',
             'needpasswordconfirm', 'emailsent', 'generatenewcaptcha', 'oauthdisp', 'fbconnect', 'openidlogin',
-            'openidconnect', 'facebookconnect', 'initfacebooklogin');
+            'openidconnect', 'facebookconnect', 'initfacebooklogin','dotwitterlogin');
 
         if (in_array($action, $actions)) {
             return FALSE;
@@ -92,6 +92,13 @@ class security extends controller {
             case 'openidconnect':
                 $this->objUi->openIdConnect($this->getParam("auth_site"));
                 break;
+            case 'dotwitterlogin':
+                $result = $this->objUi->doTwitterLogin();
+             
+                return $this->nextAction(NULL, NULL, $result);
+                die();
+               
+                
             case 'initfacebooklogin':
 
                 $result = $this->objUi->doFacebookLogin();
@@ -231,12 +238,14 @@ class security extends controller {
 
     /**
      *
-     * Login via twitter
+     * Login via twitter.  NB: This method os deprecated and no longer used,
+     * instead twitter auth is done via logininterface class
      * 
      * @param string $module The module to go to after login
      * @return VOID (execute next action)
      * 
      */
+    
     public function doTwitterLogin($module = NULL) {
         // grab the consumer secret and key from sysconfig quickly
         try {
@@ -334,8 +343,8 @@ class security extends controller {
         if (strtolower($show) == 'true') {
             $this->consumer_key = $this->objDbSysconfig->getValue('twitter_consumer_key', 'security');
             $this->consumer_secret = $this->objDbSysconfig->getValue('twitter_consumer_secret', 'security');
-            $this->objEpiTwitter = new EpiTwitter($this->consumer_key, $this->consumer_secret, $_COOKIE['oauth_token'], $_COOKIE['oauth_token_secret']);
-            $this->objEpiTwitter->get_accountEnd_session();
+         //   $this->objEpiTwitter = new EpiTwitter($this->consumer_key, $this->consumer_secret, $_COOKIE['oauth_token'], $_COOKIE['oauth_token_secret']);
+          //  $this->objEpiTwitter->get_accountEnd_session();
             setcookie("oauth_token", '', time() - 100);
             setcookie("oauth_token_secret", '', time() - 100);
             $lo = $this->objLu->logout();
