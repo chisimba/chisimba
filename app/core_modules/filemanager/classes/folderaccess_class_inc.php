@@ -240,11 +240,11 @@ class folderaccess extends object {
      */
     public function setAccess($folderId, $access) {
         if (!is_dir($this->secureFolder)) {
-            return FALSE;
+            return 1;
         }
         // But first, do we have read/write access to secure folder ?
         if (!is_writable($this->secureFolder)) {
-            return FALSE;
+            return 2;
         }
         $dbFolder = $this->getObject("dbfolder", "filemanager");
         $dbFile = $this->getObject("dbfile", "filemanager");
@@ -279,7 +279,7 @@ class folderaccess extends object {
                 rename($sourceFilePathFull, $destFilePathFull);
             }
         }
-        return TRUE;
+        return 0;
     }
 
     /**
@@ -344,10 +344,10 @@ class folderaccess extends object {
         // But first, do we have read/write access to secure folder ?
        
         if (!is_dir($this->secureFolder)) {
-            return FALSE;
+            return 1;
         }
         if (!is_writable($this->secureFolder)) {
-            return FALSE;
+            return 2;
         }
         $dbFile = $this->getObject("dbfile", "filemanager");
         $dbFile->setFileVisibility($fileId, $visibility);
@@ -380,7 +380,7 @@ class folderaccess extends object {
             $sourceFilePathFull = $this->secureFolder . '/' . $file['path'];
             rename($sourceFilePathFull, $destFilePathFull);
         }
-        return TRUE;
+        return 0;
     }
 
     /**
@@ -392,11 +392,11 @@ class folderaccess extends object {
          echo($this->secureFolder.'<br/>');
         if (!is_dir($this->secureFolder)) {
            
-            return FALSE;
+            return 1;
         }
         if (!is_writable($this->secureFolder)) {
             
-            return FALSE;
+            return 2;
         }
        
         $dbFile = $this->getObject("dbfile", "filemanager");
@@ -425,7 +425,7 @@ class folderaccess extends object {
             $sourceFilePathFull = $this->secureFolder . '/' . $file['path'];
             rename($sourceFilePathFull, $destFilePathFull);
         }
-        return TRUE;
+        return 0;
     }
 
     /**
