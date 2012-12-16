@@ -432,7 +432,7 @@ class filemanager extends controller {
 
         if ($fileAccessPrivate) {
 
-            if ($this->objUser->isLoggedIn) {
+            if ($this->objUser->isLoggedIn()) {
 
                 $filepath = $file["path"];
                 $filename = $file["filename"];
