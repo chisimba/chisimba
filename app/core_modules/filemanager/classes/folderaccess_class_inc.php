@@ -259,24 +259,31 @@ class folderaccess extends object {
         //for private all, we move the folder to the private section.
 
         if ($access == 'private_all') {
+//if a folder is private, blanketly move everything in and mark them private too
 
             foreach ($files as $file) {
-                $destFolder = $this->secureFolder . '/' . $file['filefolder'];
-                $objMkDir->mkdirs($destFolder);
-                @chmod($destFolder, 0777);
-                $filePathFull = $contentBasePath . '/' . $file['path'];
-                $destFilePathFull = $this->secureFolder . '/' . $file['path'];
-                rename($filePathFull, $destFilePathFull);
+                /*  $destFolder = $this->secureFolder . '/' . $file['filefolder'];
+                  $objMkDir->mkdirs($destFolder);
+                  @chmod($destFolder, 0777);
+                  $filePathFull = $contentBasePath . '/' . $file['path'];
+                  $destFilePathFull = $this->secureFolder . '/' . $file['path'];
+                  rename($filePathFull, $destFilePathFull);
+                 */
+                $this->setFileAccess($file['id'], "private_all");
             }
         }
         if ($access == 'public') {
             foreach ($files as $file) {
-                $destFolder = $contentBasePath . '/' . $file['filefolder'];
-                $objMkDir->mkdirs($destFolder);
-                @chmod($destFolder, 0777);
-                $destFilePathFull = $contentBasePath . '/' . $file['path'];
-                $sourceFilePathFull = $this->secureFolder . '/' . $file['path'];
-                rename($sourceFilePathFull, $destFilePathFull);
+                //check the access of each of files..dont move privtae files
+                if (!$this->isFileAccessPrivate($file)) {
+                    $destFolder = $contentBasePath . '/' . $file['filefolder'];
+                    $objMkDir->mkdirs($destFolder);
+                    @chmod($destFolder, 0777);
+                    $destFilePathFull = $contentBasePath . '/' . $file['path'];
+                    $sourceFilePathFull = $this->secureFolder . '/' . $file['path'];
+
+                    rename($sourceFilePathFull, $destFilePathFull);
+                }
             }
         }
         return 0;
@@ -342,7 +349,7 @@ class folderaccess extends object {
      */
     public function setFileVisibility($fileId, $visibility) {
         // But first, do we have read/write access to secure folder ?
-       
+
         if (!is_dir($this->secureFolder)) {
             return 1;
         }
@@ -389,16 +396,16 @@ class folderaccess extends object {
      * @param type $access 
      */
     public function setFileAccess($fileId, $access) {
-         echo($this->secureFolder.'<br/>');
+        echo($this->secureFolder . '<br/>');
         if (!is_dir($this->secureFolder)) {
-           
+
             return 1;
         }
         if (!is_writable($this->secureFolder)) {
-            
+
             return 2;
         }
-       
+
         $dbFile = $this->getObject("dbfile", "filemanager");
         $dbFile->setFileAccess($fileId, $access);
 
