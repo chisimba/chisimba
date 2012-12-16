@@ -196,14 +196,13 @@ class dbfolder extends dbTable {
      */
     function getTree($folderType = 'users', $id, $treeType = 'dhtml', $selected = '') {
         //Create a new tree
-
-	//Create the variable to contain the link's title text and assign it the value [ Contains folder(s) and file(s) ]
-        $titleAttr;// = $this->objLanguage->languageText("mod_filemanager_contentsindicator","filemanager");
+        //Create the variable to contain the link's title text and assign it the value [ Contains folder(s) and file(s) ]
+        $titleAttr; // = $this->objLanguage->languageText("mod_filemanager_contentsindicator","filemanager");
         $icon = 'folder.gif';
         $menu = new treemenu();
         $objFile = $this->getObject("dbfile");
         $objIcon = $this->newObject('geticon', 'htmlelements');
-        $objFiles = $this->getObject('dbfile','filemanager');
+        $objFiles = $this->getObject('dbfile', 'filemanager');
         $expandedIcon = 'folder-expanded.gif';
         $baseFolder = $folderType . '/' . $id;
         $baseFolderId = $this->getFolderId($baseFolder);
@@ -215,23 +214,23 @@ class dbfolder extends dbTable {
             $folderText = $this->getFolderType($folderType, $id);
             $cssClass = '';
         }
-        
+
         $nmbrOfFiles = count($objFile->getUserFiles($id));
         $nmbrOfFolders = count($this->getUserFolders($id));
-        
+
         //TODO: make this a reusable function
-	//For parent folder
-                if( $nmbrOfFiles==0 && $nmbrOfFolders==0){
-                    $titleAttr = $this->objLanguage->languageText("mod_filemanager_emptyfolderindicator","filemanager");
-                }else{
-                    $titleAttr = str_replace(" ","_",$this->objLanguage->languageText("mod_filemanager_contentsindicator","filemanager"));
-			$titleAttr = substr($titleAttr,0,9).$nmbrOfFolders."_".substr($titleAttr,9,9)."_".$nmbrOfFiles."_".substr($titleAttr,19,11);
-                }
+        //For parent folder
+        if ($nmbrOfFiles == 0 && $nmbrOfFolders == 0) {
+            $titleAttr = $this->objLanguage->languageText("mod_filemanager_emptyfolderindicator", "filemanager");
+        } else {
+            $titleAttr = str_replace(" ", "_", $this->objLanguage->languageText("mod_filemanager_contentsindicator", "filemanager"));
+            $titleAttr = substr($titleAttr, 0, 9) . $nmbrOfFolders . "_" . substr($titleAttr, 9, 9) . "_" . $nmbrOfFiles . "_" . substr($titleAttr, 19, 11);
+        }
 
         if ($treeType == 'htmldropdown') {
             $allFilesNode = new treenode(array('text' => strip_tags($folderText), 'link' => $baseFolderId));
         } else {
-            $allFilesNode = new treenode(array('text' => $folderText, 'link' => $this->uri(array('action' => 'viewfolder', 'folder' => $baseFolderId)), 'icon' => $icon, 'expandedIcon' => $expandedIcon, 'cssClass' => $cssClass,'titleattr'=>$titleAttr));
+            $allFilesNode = new treenode(array('text' => $folderText, 'link' => $this->uri(array('action' => 'viewfolder', 'folder' => $baseFolderId)), 'icon' => $icon, 'expandedIcon' => $expandedIcon, 'cssClass' => $cssClass, 'titleattr' => $titleAttr));
         }
 
         $refArray = array();
@@ -240,19 +239,19 @@ class dbfolder extends dbTable {
 
         if (count($folders) > 0) {
             foreach ($folders as $folder) {
-		//TODO: make this a reusable function
+                //TODO: make this a reusable function
                 $nmbrOfFiles = count($objFile->getFolderFiles($folder['folderpath']));
                 $nmbrOfFolders = count($this->getSubFolders($folder['id']));
-                if( $nmbrOfFiles ==0 && $nmbrOfFolders ==0){
-                    $titleAttr = $this->objLanguage->languageText("mod_filemanager_emptyfolderindicator","filemanager");
-                }else{
-                    $titleAttr = str_replace(" ","_",$this->objLanguage->languageText("mod_filemanager_contentsindicator","filemanager"));
-			$titleAttr = substr($titleAttr,0,9).$nmbrOfFolders."_".substr($titleAttr,9,9)."_".$nmbrOfFiles."_".substr($titleAttr,19,11);
+                if ($nmbrOfFiles == 0 && $nmbrOfFolders == 0) {
+                    $titleAttr = $this->objLanguage->languageText("mod_filemanager_emptyfolderindicator", "filemanager");
+                } else {
+                    $titleAttr = str_replace(" ", "_", $this->objLanguage->languageText("mod_filemanager_contentsindicator", "filemanager"));
+                    $titleAttr = substr($titleAttr, 0, 9) . $nmbrOfFolders . "_" . substr($titleAttr, 9, 9) . "_" . $nmbrOfFiles . "_" . substr($titleAttr, 19, 11);
                 }
 
                 $extTitle = '';
                 $access = null;
-                
+
                 if (key_exists("access", $folder)) {
                     $access = $folder['access'];
                 }
@@ -273,7 +272,7 @@ class dbfolder extends dbTable {
                 if ($treeType == 'htmldropdown') {
                     $node = & new treenode(array('title' => $folderText, 'text' => $folderShortText, 'link' => $folder['id'], 'icon' => $icon, 'expandedIcon' => $expandedIcon, 'cssClass' => $cssClass));
                 } else {
-                    $node = & new treenode(array('title' => $folderText, 'text' => $folderShortText, 'link' => $this->uri(array('action' => 'viewfolder', 'folder' => $folder['id'])), 'icon' => $icon, 'expandedIcon' => $expandedIcon, 'cssClass' => $cssClass,'titleattr'=>$titleAttr));
+                    $node = & new treenode(array('title' => $folderText, 'text' => $folderShortText, 'link' => $this->uri(array('action' => 'viewfolder', 'folder' => $folder['id'])), 'icon' => $icon, 'expandedIcon' => $expandedIcon, 'cssClass' => $cssClass, 'titleattr' => $titleAttr));
                 }
 
 
@@ -435,6 +434,23 @@ class dbfolder extends dbTable {
     }
 
     /**
+     * this returns full folder info for a given folder path
+     * @param type $path The path to the folder
+     */
+    public function getFolderByPath($path) {
+        //remove the trailing '/' if any
+        $len = strlen($path);
+        //do we have a trailing '/'?
+        $lastChar = substr($path, -1);
+        if ($lastChar == '/') {
+            $path = substr($path, 0, $len - 1);
+        }
+      
+        $folder = $this->getRow('folderpath',$path);
+        return $folder;
+    }
+
+    /**
      * Short description for function
      *
      * Long description (if any) ...
@@ -494,7 +510,7 @@ class dbfolder extends dbTable {
         $parts = explode('/', $path);
 
         switch ($parts[0]) {
-          
+
             case 'users':
                 if ($parts[1] == $this->objUser->userId()) {
                     $title = $this->getFolderType($parts[0], $parts[1]);
@@ -510,10 +526,10 @@ class dbfolder extends dbTable {
                 $href = $this->uri(array('action' => 'viewfolder', 'folder' => $this->getFolderId('context/' . $parts[1])), 'filemanager');
                 break;
             case 'digitallibrary': // fix up here
-                $title ='Digital Library';
+                $title = 'Digital Library';
                 $href = $this->uri(array('action' => 'home'), 'digitallibrary');
                 break;
-            
+
             default:
                 $title = 'unknown';
                 $href = $this->uri(NULL, 'filemanager');
@@ -969,7 +985,7 @@ class dbfolder extends dbTable {
     }
 
     /**
-     *Updates this folder with the alerts status. A value of y implies any changes
+     * Updates this folder with the alerts status. A value of y implies any changes
      * to the folder alerts users who have access
      * @param type $folderId
      * @param type $alertStatus 
