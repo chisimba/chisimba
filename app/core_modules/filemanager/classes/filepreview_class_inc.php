@@ -42,6 +42,10 @@
  */
 class filepreview extends object {
 
+    //secure folder 
+    private $secureFolder;
+    private $isSecure = FALSE;
+
     /**
      * Constructor
      */
@@ -52,6 +56,11 @@ class filepreview extends object {
         $this->objThumbnails = $this->getObject('thumbnails');
         $this->objConfig = $this->getObject('altconfig', 'config');
         $this->objFileEmbed = $this->getObject('fileembed');
+
+        $this->objFolderAccess = $this->getObject("folderaccess");
+        $this->sysConf = $this->getObject('dbsysconfig', 'sysconfig');
+        $this->secureFolder = $this->sysConf->getValue('SECUREFODLER', 'filemanager');
+
         $this->loadClass('link', 'htmlelements');
     }
 
@@ -74,9 +83,25 @@ class filepreview extends object {
             return '';
         }
 
-        $this->file['fullpath'] = $this->objConfig->getcontentBasePath() . $this->file['path'];
-        $this->file['path'] = $this->objConfig->getcontentPath() . $this->file['path'];
-        $this->file['fullurl'] = $this->objConfig->getsiteRoot() . $this->file['path'];
+        if ($this->objFolderAccess->isFileAccessPrivate($this->file)) {
+            $this->isSecure = true;
+        }
+
+
+        $fullPath = $this->objConfig->getcontentBasePath() . $this->file['path'];
+        $path = $this->objConfig->getcontentPath() . $this->file['path'];
+        if ($this->isSecure) {
+            $fullPath = $this->secureFolder . '/' . $this->file['path'];
+            $path = $this->file['path'];
+        }
+        $this->file['fullpath'] = $fullPath;
+        $this->file['path'] = $path;
+        $url = $this->objConfig->getsiteRoot() . $this->file['path'];
+        if ($this->isSecure) {
+            $url = $this->uri(array("action" => "downloadsecurefile", "path" => $this->file['path'], "filename" => $this->file['filename']));
+        }
+        $this->file['fullurl'] = $url;
+
         // Fix Up - Try to get file using controller, instead of hard linking to file
         $this->file['path'] = $this->objCleanurl->cleanUpUrl($this->file['path']);
         $this->file['fullurl'] = $this->objCleanurl->cleanUpUrl($this->file['fullurl']);
@@ -134,25 +159,37 @@ class filepreview extends object {
      */
     function showImage() {
 
+
+        $contentPath = $this->objConfig->getcontentPath();
+        $contentBasePath = $this->objConfig->getcontentBasePath();
+        if ($this->isSecure) {
+            $contentPath = $this->secureFolder . '/';
+            $contentBasePath = $this->secureFolder . '/';
+        }
         // If Photoshop File, check for converted
         if ($this->file['datatype'] == 'psd') {
-            if (file_exists($this->objConfig->getcontentPath() . 'filemanager_thumbnails/standard_' . $this->file['id'] . '.jpg')) {
-                return $this->objFileEmbed->embed($this->objConfig->getcontentPath() . 'filemanager_thumbnails/standard_' . $this->file['id'] . '.jpg', 'image');
+            if (file_exists($contentPath . 'filemanager_thumbnails/standard_' . $this->file['id'] . '.jpg')) {
+                return $this->objFileEmbed->embed($contentPath . 'filemanager_thumbnails/standard_' . $this->file['id'] . '.jpg', 'image');
             } else {
                 $objImageResize = $this->getObject('imageresize', 'files');
                 $objImageResize->setImg($this->file['path']);
                 $objImageResize->resize(imagesx($objImageResize->image), imagesy($objImageResize->image), TRUE);
 
-                $img = $this->objConfig->getcontentBasePath() . '/filemanager_thumbnails/standard_' . $this->file['id'] . '.jpg';
+                $img = $contentBasePath . '/filemanager_thumbnails/standard_' . $this->file['id'] . '.jpg';
                 $objImageResize->store($img);
 
-                return $this->objFileEmbed->embed($this->objConfig->getcontentPath() . 'filemanager_thumbnails/standard_' . $this->file['id'] . '.jpg', 'image');
+                return $this->objFileEmbed->embed($contentPath . 'filemanager_thumbnails/standard_' . $this->file['id'] . '.jpg', 'image');
             }
         } else if ($this->file['datatype'] == 'svg') {
             return $this->objFileEmbed->embed($this->file['linkname'], 'svg', '100%', 400);
         } else {
+
             $fileUrl = $this->objConfig->getSiteRoot() . '/' . $this->file['path'];
 
+
+            if ($this->isSecure) {
+                $fileUrl = $this->uri(array("action" => "downloadsecurefile", "path" => $this->file['path'], "filename" => $this->file['filename']));
+            }
             return $this->objFileEmbed->embed($fileUrl, 'image', null, null);
         }
         //width="270" height="270"'<img src="'.$this->file['linkname'].'"  />';//
@@ -220,7 +257,7 @@ class filepreview extends object {
             case 'mp4':
                 return $this->objFileEmbed->embed($this->file['fullurl'], 'mp4', $width, $height + 12);
             case 'm4v' :
-                return $this->objFileEmbed->embed($this->file['fullurl'], 'm4v',$width, $height + 12);
+                return $this->objFileEmbed->embed($this->file['fullurl'], 'm4v', $width, $height + 12);
             case 'webm':
                 return $this->objFileEmbed->embed($this->file['fullurl'], 'webm', $width, $height + 12);
             default:
@@ -266,9 +303,14 @@ class filepreview extends object {
                 break;
         }
 
+        $contentPath = $this->objConfig->getcontentPath();
+        if ($this->isSecure) {
+            $contentPath = $this->secureFolder.'/';
+        }
+
         // Check if file has been rendered
-        if (file_exists($this->objConfig->getcontentPath() . 'filemanager_thumbnails/' . $this->file['id'] . '.htm')) {
-            return '<div style="padding: 20px; overflow: auto;">' . file_get_contents($this->objConfig->getcontentPath() . 'filemanager_thumbnails/' . $this->file['id'] . '.htm') . '</div>';
+        if (file_exists($contentPath . 'filemanager_thumbnails/' . $this->file['id'] . '.htm')) {
+            return '<div style="padding: 20px; overflow: auto;">' . file_get_contents($contentPath . 'filemanager_thumbnails/' . $this->file['id'] . '.htm') . '</div>';
         } else {
             // Open File, Read Contents, Close
             $handle = fopen($this->file['path'], "r");
@@ -288,7 +330,7 @@ class filepreview extends object {
             $content = $objCleaner->cleanHtml($content);
 
             // Write to File to Prevent Server Straim
-            $filename = $this->objConfig->getcontentPath() . 'filemanager_thumbnails/' . $this->file['id'] . '.htm';
+            $filename = $contentPath . 'filemanager_thumbnails/' . $this->file['id'] . '.htm';
             $handle = fopen($filename, 'w');
             fwrite($handle, $content);
             fclose($handle);
@@ -301,10 +343,18 @@ class filepreview extends object {
      * Method to show a document
      */
     function showDocument() {
+        $contentPath = $this->objConfig->getcontentPath() ;
+        $contentBasePath=$this->objConfig->getcontentBasePath();
+        if ($this->isSecure) {
+            $contentPath = $this->secureFolder.'/';
+            $contentBasePath=  $this->secureFolder.'/';
+        }
+       
+
         switch ($this->file['datatype']) {
             case 'rss':
-                if (file_exists($this->objConfig->getcontentPath() . 'filemanager_thumbnails/' . $this->file['id'] . '.htm')) {
-                    return file_get_contents($this->objConfig->getcontentPath() . 'filemanager_thumbnails/' . $this->file['id'] . '.htm');
+                if (file_exists($contentPath . 'filemanager_thumbnails/' . $this->file['id'] . '.htm')) {
+                    return file_get_contents($contentPath . 'filemanager_thumbnails/' . $this->file['id'] . '.htm');
                     break;
                 } else {
                     // Open File, Read Contents, Close
@@ -341,7 +391,7 @@ class filepreview extends object {
                     $content = $objCleaner->cleanHtml($content);
 
                     // Write to File to Prevent Server Straim
-                    $filename = $this->objConfig->getcontentPath() . 'filemanager_thumbnails/' . $this->file['id'] . '.htm';
+                    $filename = $contentPath. 'filemanager_thumbnails/' . $this->file['id'] . '.htm';
                     $handle = fopen($filename, 'w');
                     fwrite($handle, $content);
                     fclose($handle);
@@ -362,9 +412,9 @@ class filepreview extends object {
                 if ($isRegistered) {
                     $objPDF2Flash = $this->getObject('pdf2flash', 'swftools');
 
-                    $fullFlashPath = $this->objConfig->getcontentBasePath() . 'filemanager_thumbnails/' . $this->file['id'] . '.swf';
-                    $finalFlash = $this->objConfig->getcontentPath() . 'filemanager_thumbnails/' . $this->file['id'] . '.swf';
-                    $htmlFileDestination = $this->objConfig->getcontentBasePath() . 'filemanager_thumbnails/' . $this->file['id'] . '.htm';
+                    $fullFlashPath = $contentBasePath . 'filemanager_thumbnails/' . $this->file['id'] . '.swf';
+                    $finalFlash = $contentPath . 'filemanager_thumbnails/' . $this->file['id'] . '.swf';
+                    $htmlFileDestination = $contentBasePath . 'filemanager_thumbnails/' . $this->file['id'] . '.htm';
 
                     if (file_exists($htmlFileDestination) && file_exists($fullFlashPath)) {
                         //$destination = $this->objConfig->getcontentBasePath().'filemanager_thumbnails/'.$this->file['id'].'.htm';
@@ -393,12 +443,12 @@ class filepreview extends object {
             case 'ppt':
 
                 // Local path to file
-                $finalFlash = $this->objConfig->getcontentPath() . 'filemanager_thumbnails/' . $this->file['id'] . '.swf';
+                $finalFlash = $contentPath . 'filemanager_thumbnails/' . $this->file['id'] . '.swf';
 
                 // Full path to flash preview thumbnail file
-                $fullFlashPath = $this->objConfig->getcontentBasePath() . 'filemanager_thumbnails/' . $this->file['id'] . '.swf';
+                $fullFlashPath = $contentBasePath . 'filemanager_thumbnails/' . $this->file['id'] . '.swf';
 
-                $htmlFileDestination = $this->objConfig->getcontentBasePath() . 'filemanager_thumbnails/' . $this->file['id'] . '.htm';
+                $htmlFileDestination = $contentBasePath . 'filemanager_thumbnails/' . $this->file['id'] . '.htm';
 
                 // Check if preview exists already
                 if (file_exists($htmlFileDestination) && file_exists($fullFlashPath)) {
@@ -420,7 +470,7 @@ class filepreview extends object {
 
                         $objConvertDoc = $this->getObject('convertdoc', 'documentconverter');
 
-                        $pdfFile = $this->objConfig->getcontentBasePath() . 'filemanager_thumbnails/' . $this->file['id'] . '.pdf';
+                        $pdfFile = $contentBasePath . 'filemanager_thumbnails/' . $this->file['id'] . '.pdf';
 
                         // If PDF does not already exist
                         if (!file_exists($pdfFile)) {

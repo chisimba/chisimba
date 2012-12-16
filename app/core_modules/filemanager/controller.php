@@ -400,21 +400,27 @@ class filemanager extends controller {
         $folderId = $this->objFolders->getFolderId($folderPath);
         $folder = $this->objFolders->getFolder($folderId);
 
+         
+        
         $objFolderAccess = $this->getObject('folderaccess', 'filemanager');
         $folderIsSecure = $objFolderAccess->isFileAccessPrivate($folder);
 
         //check the permissions of the parent folder. Is it public/private
         if ($folderIsSecure) {
             //then check...are we logged in..and if so, are we in the correct  context ?
-            if ($this->objUser->isLoggedIn) {
+            
+            if ($this->objUser->isLoggedIn()) {
                 if ($folder[0] == 'context' && $folder[1] != $this->contextCode) {
+                    
                     return "access_denied_tpl.php";
                 } else {
                     $filepath = $file["path"];
                     $filename = $file["filename"];
+               
                     return $objFolderAccess->downloadFile($filepath, $filename);
                 }
             } else {
+               
                 return "access_denied_tpl.php";
             }
         }
