@@ -274,8 +274,9 @@ class folderaccess extends object {
         }
         if ($access == 'public') {
             foreach ($files as $file) {
+                $this->setFileAccess($file['id'], "public");
                 //check the access of each of files..dont move privtae files
-                if (!$this->isFileAccessPrivate($file)) {
+                /*if (!$this->isFileAccessPrivate($file)) {
                     $destFolder = $contentBasePath . '/' . $file['filefolder'];
                     $objMkDir->mkdirs($destFolder);
                     @chmod($destFolder, 0777);
@@ -283,7 +284,7 @@ class folderaccess extends object {
                     $sourceFilePathFull = $this->secureFolder . '/' . $file['path'];
 
                     rename($sourceFilePathFull, $destFilePathFull);
-                }
+                }*/
             }
         }
         return 0;
