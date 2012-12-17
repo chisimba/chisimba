@@ -400,27 +400,27 @@ class filemanager extends controller {
         $folderId = $this->objFolders->getFolderId($folderPath);
         $folder = $this->objFolders->getFolder($folderId);
 
-         
-        
+
+
         $objFolderAccess = $this->getObject('folderaccess', 'filemanager');
         $folderIsSecure = $objFolderAccess->isFileAccessPrivate($folder);
 
         //check the permissions of the parent folder. Is it public/private
         if ($folderIsSecure) {
             //then check...are we logged in..and if so, are we in the correct  context ?
-            
+
             if ($this->objUser->isLoggedIn()) {
                 if ($folder[0] == 'context' && $folder[1] != $this->contextCode) {
-                    
+
                     return "access_denied_tpl.php";
                 } else {
                     $filepath = $file["path"];
                     $filename = $file["filename"];
-               
+
                     return $objFolderAccess->downloadFile($filepath, $filename);
                 }
             } else {
-               
+
                 return "access_denied_tpl.php";
             }
         }
@@ -1640,7 +1640,7 @@ function checkWindowOpener()
                     $heading = $this->objLanguage->languageText('mod_filemanager_nosecurefolder_heading', 'filemanager');
             }
             $this->setVarByRef("messageText", $message);
-            $this->setVarByRef("heading",$heading);
+            $this->setVarByRef("heading", $heading);
             $action = "viewfolder";
             $id = "folder";
             $idValue = $folderId;
@@ -1680,6 +1680,11 @@ function checkWindowOpener()
                 case 2:
                     $message = $this->objLanguage->languageText('mod_filemanager_securefoldernowritable_message', 'filemanager');
                     $heading = $this->objLanguage->languageText('mod_filemanager_securefoldernowritable_heading', 'filemanager');
+
+                    break;
+                case 3:
+                    $message = $this->objLanguage->languageText('mod_filemanager_privatefilepublicfolder_message', 'filemanager');
+                    $heading = $this->objLanguage->languageText('mod_filemanager_privatefilepublicfolder_heading', 'filemanager');
 
                     break;
                 default :

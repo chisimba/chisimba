@@ -44,7 +44,7 @@ class folderaccess extends object {
         $this->secureFolder = $this->sysConf->getValue('SECUREFODLER', 'filemanager');
         $this->objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
         $this->objConfig = $this->getObject('altconfig', 'config');
-
+        $this->objFolder = $this->getObject("dbfolder");
         $this->objUser = $this->getObject('user', 'security');
         $this->objGroupOps = $this->getObject('groupops', 'groupadmin');
         $this->objGroupAdminModel = $this->getObject('groupadminmodel', 'groupadmin');
@@ -250,8 +250,7 @@ class folderaccess extends object {
         $dbFile = $this->getObject("dbfile", "filemanager");
         $folder = $dbFolder->getFolder($folderId);
         $files = $dbFile->getFolderFiles($folder['folderpath']);
-        $dbFolder->setFolderAccess($folderId, $access);
-
+     
 
         $contentBasePath = $this->objConfig->getcontentBasePath();
         $objMkDir = $this->getObject('mkdir', 'files');
@@ -262,13 +261,7 @@ class folderaccess extends object {
 //if a folder is private, blanketly move everything in and mark them private too
 
             foreach ($files as $file) {
-                /*  $destFolder = $this->secureFolder . '/' . $file['filefolder'];
-                  $objMkDir->mkdirs($destFolder);
-                  @chmod($destFolder, 0777);
-                  $filePathFull = $contentBasePath . '/' . $file['path'];
-                  $destFilePathFull = $this->secureFolder . '/' . $file['path'];
-                  rename($filePathFull, $destFilePathFull);
-                 */
+
                 $this->setFileAccess($file['id'], "private_all");
             }
         }
@@ -276,17 +269,19 @@ class folderaccess extends object {
             foreach ($files as $file) {
                 $this->setFileAccess($file['id'], "public");
                 //check the access of each of files..dont move privtae files
-                /*if (!$this->isFileAccessPrivate($file)) {
-                    $destFolder = $contentBasePath . '/' . $file['filefolder'];
-                    $objMkDir->mkdirs($destFolder);
-                    @chmod($destFolder, 0777);
-                    $destFilePathFull = $contentBasePath . '/' . $file['path'];
-                    $sourceFilePathFull = $this->secureFolder . '/' . $file['path'];
+                /* if (!$this->isFileAccessPrivate($file)) {
+                  $destFolder = $contentBasePath . '/' . $file['filefolder'];
+                  $objMkDir->mkdirs($destFolder);
+                  @chmod($destFolder, 0777);
+                  $destFilePathFull = $contentBasePath . '/' . $file['path'];
+                  $sourceFilePathFull = $this->secureFolder . '/' . $file['path'];
 
-                    rename($sourceFilePathFull, $destFilePathFull);
-                }*/
+                  rename($sourceFilePathFull, $destFilePathFull);
+                  } */
             }
         }
+           $dbFolder->setFolderAccess($folderId, $access);
+
         return 0;
     }
 
@@ -376,7 +371,7 @@ class folderaccess extends object {
         }
 
         if ($file['access'] == 'private_all') {
-            return;
+            return 0;
         }
 
         if ($visibility == 'visible') {
@@ -397,7 +392,7 @@ class folderaccess extends object {
      * @param type $access 
      */
     public function setFileAccess($fileId, $access) {
-        echo($this->secureFolder . '<br/>');
+
         if (!is_dir($this->secureFolder)) {
 
             return 1;
@@ -408,8 +403,7 @@ class folderaccess extends object {
         }
 
         $dbFile = $this->getObject("dbfile", "filemanager");
-        $dbFile->setFileAccess($fileId, $access);
-
+        
         $file = $dbFile->getFile($fileId);
         $contentBasePath = $this->objConfig->getcontentBasePath();
         $objMkDir = $this->getObject('mkdir', 'files');
@@ -426,6 +420,14 @@ class folderaccess extends object {
             rename($filePathFull, $destFilePathFull);
         }
         if ($access == 'public') {
+            //first check parent folder..if the parent folder is private..do not make it public
+
+            $uploadFolderDetails = $this->objFolder->getFolderByPath($file['filefolder']);
+
+            if ($this->isFileAccessPrivate($uploadFolderDetails)) {
+                return 3;
+            }
+
             $destFolder = $contentBasePath . '/' . $file['filefolder'];
             $objMkDir->mkdirs($destFolder);
             @chmod($destFolder, 0777);
@@ -433,6 +435,8 @@ class folderaccess extends object {
             $sourceFilePathFull = $this->secureFolder . '/' . $file['path'];
             rename($sourceFilePathFull, $destFilePathFull);
         }
+        $dbFile->setFileAccess($fileId, $access);
+
         return 0;
     }
 

@@ -305,7 +305,7 @@ class filepreview extends object {
 
         $contentPath = $this->objConfig->getcontentPath();
         if ($this->isSecure) {
-            $contentPath = $this->secureFolder.'/';
+            $contentPath = $this->secureFolder . '/';
         }
 
         // Check if file has been rendered
@@ -343,13 +343,13 @@ class filepreview extends object {
      * Method to show a document
      */
     function showDocument() {
-        $contentPath = $this->objConfig->getcontentPath() ;
-        $contentBasePath=$this->objConfig->getcontentBasePath();
+        $contentPath = $this->objConfig->getcontentPath();
+        $contentBasePath = $this->objConfig->getcontentBasePath();
         if ($this->isSecure) {
-            $contentPath = $this->secureFolder.'/';
-            $contentBasePath=  $this->secureFolder.'/';
+            $contentPath = $this->secureFolder . '/';
+            $contentBasePath = $this->secureFolder . '/';
         }
-       
+
 
         switch ($this->file['datatype']) {
             case 'rss':
@@ -391,7 +391,7 @@ class filepreview extends object {
                     $content = $objCleaner->cleanHtml($content);
 
                     // Write to File to Prevent Server Straim
-                    $filename = $contentPath. 'filemanager_thumbnails/' . $this->file['id'] . '.htm';
+                    $filename = $contentPath . 'filemanager_thumbnails/' . $this->file['id'] . '.htm';
                     $handle = fopen($filename, 'w');
                     fwrite($handle, $content);
                     fclose($handle);
@@ -420,10 +420,12 @@ class filepreview extends object {
                         //$destination = $this->objConfig->getcontentBasePath().'filemanager_thumbnails/'.$this->file['id'].'.htm';
                         return file_get_contents($htmlFileDestination);
                     } else {
+
                         if ($objPDF2Flash->convert2SWF($this->file['path'], $fullFlashPath)) {
                             $objPDF2Flash->generateHTMLWrapper($fullFlashPath, $finalFlash, $htmlFileDestination);
                             return file_get_contents($htmlFileDestination);
                         } else {
+
                             return NULL;
                         }
                     }

@@ -926,7 +926,7 @@ class dbfile extends dbTable {
 
             return 'cannotoverwrite';
         }
-        break;
+       
     }
 
     /**
