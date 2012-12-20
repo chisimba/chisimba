@@ -70,6 +70,7 @@ class block_updates extends object {
         $this->title = 'Updates';
         $this->objLanguage = $this->getObject('language', 'language');
         $this->objPatch = $this->getObject('patch', 'modulecatalogue');
+        $this->objUser = $this->getObject('user', 'security');
         $this->domDoc = new DOMDocument('UTF-8');
     }
 
@@ -86,13 +87,13 @@ class block_updates extends object {
         $objIcon = $this->getObject('geticon', 'htmlelements');
         foreach ($this->objPatch->checkModules() as $module) {
             $doms['updatePara'] = $this->domDoc->createElement('p');
-            $doms['updatePara']->setAttribute('id', 'moduleupdate');
+            $doms['updatePara']->setAttribute('id', $module['module_id']);
+            $doms['updatePara']->setAttribute('class', 'updatePara');
             $doms['moduleIcon'] = $this->domDoc->createElement('image');
             $objIcon->setModuleIcon($module['module_id']);
             $doms['moduleIcon']->setAttribute('id', 'moduleIcon');
             $doms['moduleIcon']->setAttribute('src', $objIcon->getSrc());
             $doms['updateDiv']->setAttribute('id', 'div_updates');
-            $doms['updatePara']->setAttribute('id', 'updatePara');
             //the link
             $doms['patchLink'] = $this->domDoc->createElement('a');
             $doms['patchLink']->setAttribute('id', $module['module_id']);
@@ -128,13 +129,18 @@ class block_updates extends object {
     }
 
     /**
+     * Method to display the form or message
      * 
      * @access public
-     * @return string The block and javascript file
+     * @return string The block and javascript file OR message to non-administrative users
      */
     public function show() {
-        $modules = $this->objPatch->checkModules();
-        return $this->getUpdates() . $this->getJavascriptFile('updates.js', 'modulecatalogue');
+        if ($this->objUser->isAdmin()) {
+            $modules = $this->objPatch->checkModules();
+            return $this->getUpdates() . $this->getJavascriptFile('updates.js', 'modulecatalogue');
+        } else {
+            return $this->objLanguage->languageText('mod_modulecatalogue_nonadminmsg', 'modulecatalogue');
+        }
     }
 
 }
