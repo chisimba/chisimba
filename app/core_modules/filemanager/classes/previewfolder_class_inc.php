@@ -340,16 +340,6 @@ class previewfolder extends filemanagerobject {
                     if (key_exists("access", $file)) {
                         $access = $file['access'];
                     }
-                    if ($access == 'private_all') {
-                        $domElements['imgParagraph']->appendChild($this->domDoc->createElement('br'));
-                        $domElements['imgParagraph']->appendChild($this->domDoc->createTextNode($this->objLanguage->languageText('word_access', 'system') . ': '));
-                        $domElements['imgParagraph']->appendChild($this->domDoc->createTextNode($folder['access']));
-                        $domElements['viewDiv']->setAttribute('id',$file['access']);
-                        $objIcon->setIcon('info');
-                        $linkTitle = basename($file['filename']) . $objIcon->show();
-                    } else {
-                        $linkTitle = basename($file['filename']);
-                    }
 
                     $domElements['fileLink']->setAttribute('title', $this->objLanguage->languageText('mod_filemanager_clicktoviewinfo', 'filemanager'));
                     //The DOM download link
@@ -379,6 +369,18 @@ class previewfolder extends filemanagerobject {
                     //new line
                     $domElements['imgParagraph']->appendChild($this->domDoc->createElement('br'));
                     $domElements['imgParagraph']->appendChild($this->domDoc->createTextNode($this->objLanguage->languageText("phrase_dateuploaded", "system") . ": " . $file['datecreated']));
+
+
+                    if ($access == 'private_all') {
+                        $domElements['imgParagraph']->appendChild($this->domDoc->createElement('br'));
+                        $domElements['imgParagraph']->appendChild($this->domDoc->createTextNode(ucfirst($this->objLanguage->languageText('word_access', 'system')) . ': '));
+                        $domElements['imgParagraph']->appendChild($this->domDoc->createTextNode($folder['access']));
+                        $domElements['viewDiv']->setAttribute('id', $file['access']);
+                        $objIcon->setIcon('info');
+                        $linkTitle = basename($file['filename']) . $objIcon->show();
+                    } else {
+                        $linkTitle = basename($file['filename']);
+                    }
 
                     // get image thumbnails
                     //The DOM image
