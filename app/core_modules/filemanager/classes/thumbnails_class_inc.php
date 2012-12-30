@@ -81,14 +81,15 @@ class thumbnails extends object
         $path = $this->objCleanUrl->cleanUpUrl($path);
         //medium thumbnail images
         $m_path = $this->objConfig->getcontentBasePath().$this->thumbLocations[1];
-        $path = $this->objCleanUrl->cleanUpUrl($m_path);
+        $m_path = $this->objCleanUrl->cleanUpUrl($m_path);
         //large thumbnail images
         $l_path = $this->objConfig->getcontentBasePath().$this->thumbLocations[2];
         $l_path = $this->objCleanUrl->cleanUpUrl($l_path);
         // Check if Folder exists, else create it
         $result = $this->objMkdir->mkdirs($path);
-        
+        //create folder for medium images
         $this->objMkdir->mkdirs($m_path);
+        //create folder for large images
         $this->objMkdir->mkdirs($l_path);
 
         return $result;
