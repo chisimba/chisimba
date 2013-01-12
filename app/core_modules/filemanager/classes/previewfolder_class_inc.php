@@ -253,13 +253,17 @@ class previewfolder extends filemanagerobject {
             if (count($files) > 0) {
                 //var_dump($files);
                 $fileSize = new formatfilesize();
+
                 foreach ($files as $file) {
+
                     $domElements['viewDiv'] = $this->domDoc->createElement('div');
                     $domElements['viewDiv']->setAttribute('class', 'fm_thumbnails');
 
                     $visibility = null;
                     if (key_exists("visibility", $file)) {
                         $visibility = $file['visibility'];
+                    } else {
+                        $file['visibility'] = 'visible';
                     }
                     $showFile = true;
                     if ($visibility == 'hidden') {
@@ -339,6 +343,8 @@ class previewfolder extends filemanagerobject {
                     $access = null;
                     if (key_exists("access", $file)) {
                         $access = $file['access'];
+                    } else {
+                        $file['access'] = 'public';
                     }
 
                     $domElements['fileLink']->setAttribute('title', $this->objLanguage->languageText('mod_filemanager_clicktoviewinfo', 'filemanager'));
@@ -415,7 +421,16 @@ class previewfolder extends filemanagerobject {
                     $domElements['viewDiv']->appendChild($domElements['fileLink']);
 
                     $fileLink->link = $linkTitle;
+                    $folderAccessObj = $this->getObject("folderaccess");
                     $filepath = $this->objAltConfig->getSiteRoot() . '/usrfiles/' . $file['path'];
+                    //// $filePreviewObj->previewFile($file['id']);
+                    //$this->uri(array("action" => "downloadsecurefile", "path" => $file['path'], "filename" => $file['filename']));
+                    // echo "rssult == ". $folderAccessObj->isFileAccessPrivate($file);
+                    // die();
+                    if ($folderAccessObj->isFileAccessPrivate($file)) {
+                        $filepath = $this->objAltConfig->getSiteRoot() . "index.php?module=filemanager&action=file&id=" . $file['id'] . '&filename=' . $file['filename'];
+                    }
+
                     $selectStr = '<a href=\'javascript:selectFile("' . $filepath . '");\'>' . basename($file['filename']) . '</a>';
                     $selectFileStr = '<a href=\'javascript:selectFileWindow("' . $name . '","' . $file['filename'] . '","' . $file['id'] . '");\'>' . basename($file['filename']) . '</a>';
                     $selectImageStr = '<a href=\'javascript:selectImageWindow("' . $name . '", "' . $filepath . '","' . $file['filename'] . '","' . $file['id'] . '");\'>' . basename($file['filename']) . '</a>';
