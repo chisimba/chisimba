@@ -112,8 +112,6 @@ class previewfolder extends filemanagerobject {
         $objFilePreview = $this->getObject('filepreview');
         $objFileSize = new formatfilesize();
         $objThumbnail = $this->getObject('thumbnails', 'filemanager');
-        $domElements['viewDiv'] = $this->domDoc->createElement('div');
-        $domElements['viewDiv']->setAttribute('class', 'fm_thumbnails');
         if ($this->viewType == strtolower('thumbnails')) {
             $objTable->cssId = $this->objLanguage->languageText('mod_filemanager_filemanagertableclass', 'filemanager', 'filemanagerTable');
             $this->objFileIcons->size = 'large';
@@ -148,6 +146,8 @@ class previewfolder extends filemanagerobject {
                 $folderIcon = $this->objFileIcons->getExtensionIcon('folder');
 
                 foreach ($subFolders as $folder) {
+                    $domElements['viewDiv'] = $this->domDoc->createElement('div');
+                    $domElements['viewDiv']->setAttribute('class', 'fm_thumbnails');
                     $domElements['folderLink'] = $this->domDoc->createElement('a');
                     //The DOM icon folder
                     $domElements['folderIcon'] = $this->domDoc->createElement('img');
@@ -255,7 +255,6 @@ class previewfolder extends filemanagerobject {
                 $fileSize = new formatfilesize();
 
                 foreach ($files as $file) {
-
                     $domElements['viewDiv'] = $this->domDoc->createElement('div');
                     $domElements['viewDiv']->setAttribute('class', 'fm_thumbnails');
 
