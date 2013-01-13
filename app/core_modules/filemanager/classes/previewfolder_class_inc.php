@@ -112,8 +112,6 @@ class previewfolder extends filemanagerobject {
         $objFilePreview = $this->getObject('filepreview');
         $objFileSize = new formatfilesize();
         $objThumbnail = $this->getObject('thumbnails', 'filemanager');
-        $domElements['viewDiv'] = $this->domDoc->createElement('div');
-        $domElements['viewDiv']->setAttribute('class', 'fm_thumbnails');
         if ($this->viewType == strtolower('thumbnails')) {
             $objTable->cssId = $this->objLanguage->languageText('mod_filemanager_filemanagertableclass', 'filemanager', 'filemanagerTable');
             $this->objFileIcons->size = 'large';
@@ -148,6 +146,9 @@ class previewfolder extends filemanagerobject {
                 $folderIcon = $this->objFileIcons->getExtensionIcon('folder');
 
                 foreach ($subFolders as $folder) {
+                    $this->domDoc = new DOMDocument('utf-8');
+                    $domElements['viewDiv'] = $this->domDoc->createElement('div');
+                    $domElements['viewDiv']->setAttribute('class', 'fm_thumbnails');
                     $domElements['folderLink'] = $this->domDoc->createElement('a');
                     //The DOM icon folder
                     $domElements['folderIcon'] = $this->domDoc->createElement('img');
@@ -254,6 +255,7 @@ class previewfolder extends filemanagerobject {
                 //var_dump($files);
                 $fileSize = new formatfilesize();
                 foreach ($files as $file) {
+                    $this->domDoc = new DOMDocument('utf-8');
                     $domElements['viewDiv'] = $this->domDoc->createElement('div');
                     $domElements['viewDiv']->setAttribute('class', 'fm_thumbnails');
 
@@ -303,14 +305,14 @@ class previewfolder extends filemanagerobject {
                         $checkbox->cssId = htmlentities('input_files_' . $file['filename']);
                         if ($this->viewType != strtolower('thumbnails')) {
                             $objTable->addCell($checkbox->show());
-                        }else{
-                        $domElements['checkbox']->setAttribute('id', htmlentities('input_files_' . $file['filename']));
-                        $domElements['viewDiv']->appendChild($domElements['checkbox']);
-                        $domElements['editLink']->setAttribute('class', $this->objLanguage->languageText("mod_filemanager_buttonlinkclass", "filemanager"));
-                        $domElements['editLink']->appendChild($this->domDoc->createTextNode(substr($this->objLanguage->languageText("word_edit", "system"), 0, 4)));
-                        $domElements['viewDiv']->appendChild($domElements['editLink']);
-                        //Add the line separator
-                        $domElements['viewDiv']->appendChild($this->domDoc->createTextNode(' | '));
+                        } else {
+                            $domElements['checkbox']->setAttribute('id', htmlentities('input_files_' . $file['filename']));
+                            $domElements['viewDiv']->appendChild($domElements['checkbox']);
+                            $domElements['editLink']->setAttribute('class', $this->objLanguage->languageText("mod_filemanager_buttonlinkclass", "filemanager"));
+                            $domElements['editLink']->appendChild($this->domDoc->createTextNode(substr($this->objLanguage->languageText("word_edit", "system"), 0, 4)));
+                            $domElements['viewDiv']->appendChild($domElements['editLink']);
+                            //Add the line separator
+                            $domElements['viewDiv']->appendChild($this->domDoc->createTextNode(' | '));
                         }
                     }
 
@@ -486,12 +488,12 @@ class previewfolder extends filemanagerobject {
 
         if ($hidden > 0 && count($restriction) > 0) {
             $str = '';
-            if($this->viewType == strtolower('thumbnails')){
-            $str .= '<style type="text/css">
+            if ($this->viewType == strtolower('thumbnails')) {
+                $str .= '<style type="text/css">
 #filemanagerTable tr.hidefile {display:none;}
 </style>';
-            }else{
-            $str .= '<style type="text/css">
+            } else {
+                $str .= '<style type="text/css">
  tr.hidefile {display:none;}
 </style>';
             }
@@ -502,8 +504,8 @@ class previewfolder extends filemanagerobject {
                 $comma = ', ';
             }
             if (!$forceRestriction) {
-                if($this->viewType == strtolower('thumbnails')){
-                $str .= '<script type="text/javascript">
+                if ($this->viewType == strtolower('thumbnails')) {
+                    $str .= '<script type="text/javascript">
 var onOrOff = "off";
 function turnOnFiles(value)
 {
@@ -522,8 +524,8 @@ function turnOnFiles(value)
     }
 }
 </script>';
-                }else{
-                $str .= '<script type="text/javascript">
+                } else {
+                    $str .= '<script type="text/javascript">
 var onOrOff = "off";
 function turnOnFiles(value)
 {
