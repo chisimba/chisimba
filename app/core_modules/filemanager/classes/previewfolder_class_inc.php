@@ -297,7 +297,7 @@ class previewfolder extends filemanagerobject {
                         $domElements['editLink']->setAttribute('href', str_replace('amp;', '', $this->uri(array('action' => 'editfiledetails', 'id' => $file['id']), $this->targetModule)));
 
                         if (isset($file['symlinkid'])) {
-                            $domElements['checkbox']->setAttribute('value', 'symlink_' . $file['symlink']);
+                            $domElements['checkbox']->setAttribute('value', 'symlink_' . $file['symlinkid']);
                             $checkbox->value = 'symlink__' . $file['symlinkid'];
                         } else {
                             $checkbox->value = $file['id'];

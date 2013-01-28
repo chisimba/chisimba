@@ -907,11 +907,10 @@ class filemanager extends controller {
                 return $this->__viewfolder($folderSourceId);
             }
             //return 'dump_tpl.php';
+        } else if (isset($_POST['symlinkcontext'])) {
+                return $this->__symlinkcontext();
         } else if (isset($_POST['submitform'])) {
             // Delete files
-            if (isset($_POST['symlinkcontext'])) {
-                return $this->__symlinkcontext();
-            }
             $this->objMenuTools->addToBreadCrumbs(array('Confirm Delete'));
             return 'multidelete_form_tpl.php';
         } else {
