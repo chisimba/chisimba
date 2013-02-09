@@ -70,8 +70,8 @@ class alertbox extends object
     {
         $this->appendArrayVar('headerParams', $this->getJavaScriptFile('alertbox/facebox.js'));
         $this->appendArrayVar('headerParams', '<script type="text/javascript">
- jQuery(document).ready(function($) {
-  $(\'a[rel*=facebox]\').facebox();
+    jQuery(document).ready(function(jQuery) {
+        jQuery(\'a[rel*=facebox]\').facebox();
 })
 </script>');
     }

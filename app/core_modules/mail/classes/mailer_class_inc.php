@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 
  * A general mail sending class
@@ -8,44 +9,40 @@
  * 
  * 
  */
-
 // security check - must be included in all scripts
 if (!
-/**
- * Description for $GLOBALS
- * @global string $GLOBALS['kewl_entry_point_run']
- * @name   $kewl_entry_point_run
- */
-$GLOBALS['kewl_entry_point_run'])
-{
+        /**
+         * Description for $GLOBALS
+         * @global string $GLOBALS['kewl_entry_point_run']
+         * @name   $kewl_entry_point_run
+         */
+        $GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 // end security check
 
 /**
-* sendmail abstract
-*/
+ * sendmail abstract
+ */
 require_once("absendmail_class_inc.php");
-    
-
 
 /**
-*
-* A general mail sending class
-* 
-* A general mail sending class that wraps the mail functionality of
-* PEAR::Mail. 
-*
-*
-* @author    Derek Keats
-* @category  Chisimba
-* @package   mail
-* @copyright AVOIR
-* @licence   GNU/GPL
-*
-*/
-class mailer extends absendmail 
-{
+ *
+ * A general mail sending class
+ * 
+ * A general mail sending class that wraps the mail functionality of
+ * PEAR::Mail. 
+ *
+ *
+ * @author    Derek Keats
+ * @category  Chisimba
+ * @package   mail
+ * @copyright AVOIR
+ * @licence   GNU/GPL
+ *
+ */
+class mailer extends absendmail {
+
     public $objConfig;
     private $sendMethod;
     private $useHTMLMail;
@@ -54,7 +51,7 @@ class mailer extends absendmail
     private $port;
     private $username;
     private $password;
-    
+
     /**
      * 
      * Standard init, load PEAR::Mail and set up some parameters
@@ -62,12 +59,11 @@ class mailer extends absendmail
      * @return VOID
      * 
      */
-    public function init()
-    {
+    public function init() {
         require_once($this->getPearResource('Mail.php'));
         require_once($this->getPearResource('Mail/mime.php'));
-        
-        $this->objConfig=$this->newObject('dbsysconfig','sysconfig');
+
+        $this->objConfig = $this->newObject('dbsysconfig', 'sysconfig');
         //Get the value of the delimiter
         $this->sendMethod = $this->objConfig->getValue('MAIL_SEND_METHOD', 'mail');
         //Check if we should use HTML mail
@@ -77,7 +73,7 @@ class mailer extends absendmail
             case "smtp":
                 $this->host = $this->objConfig->getValue('MAIL_SMTP_SERVER', 'mail');
                 $this->smtpAuth = $this->booleanFromTxt(
-                  $this->objConfig->getValue('MAIL_SMTP_REQUIRESAUTH', 'mail')
+                        $this->objConfig->getValue('MAIL_SMTP_REQUIRESAUTH', 'mail')
                 );
                 $this->port = $this->objConfig->getValue('MAIL_SMTP_PORT', 'mail');
                 $this->username = $this->objConfig->getValue('MAIL_SMTP_USER', 'mail');
@@ -87,7 +83,7 @@ class mailer extends absendmail
                 break;
         }
     }
-    
+
     /**
      * Convert a string to boolean
      * 
@@ -96,8 +92,7 @@ class mailer extends absendmail
      * @return boolean
      * 
      */
-    private function booleanFromTxt($txt)
-    {
+    private function booleanFromTxt($txt) {
         $txt = strtolower($txt);
         if ($txt == 'true') {
             return TRUE;
@@ -105,27 +100,26 @@ class mailer extends absendmail
             return FALSE;
         }
     }
-    
-    public function send()
-    {
+
+    public function send() {
         $fullFrom = "'" . $this->fromName . "' <" . $this->from . ">";
-        $fullFrom =  $this->from;
+        $fullFrom = $this->from;
         $cc = NULL;
         $bcc = NULL;
-        
+
         if (is_array($this->to)) {
             $entries = count($this->to);
             if ($entries > 1) {
                 $to = "";
                 $counter = 0;
                 foreach ($this->to as $address) {
-                   $chk = $counter + 1;
-                   if ($chk == $entries) {
-                       $to .= $address;
-                   } else {
-                       $to .= $address . ',';
-                   }
-                   $counter ++;
+                    $chk = $counter + 1;
+                    if ($chk == $entries) {
+                        $to .= $address;
+                    } else {
+                        $to .= $address . ',';
+                    }
+                    $counter++;
                 }
             } else {
                 $to = $this->to[0];
@@ -134,7 +128,7 @@ class mailer extends absendmail
             $to = $this->to;
         }
         $recipients = $to;
-        
+
         // Add CC
         if (isset($this->cc)) {
             if (is_array($this->cc)) {
@@ -142,20 +136,20 @@ class mailer extends absendmail
                 $cc = "";
                 $counter = 0;
                 foreach ($this->cc as $address) {
-                   $chk = $counter + 1;
-                   if ($chk == $entries) {
-                       $cc .= $address;
-                   } else {
-                       $cc .= $address . ',';
-                   }
-                   $counter ++;
+                    $chk = $counter + 1;
+                    if ($chk == $entries) {
+                        $cc .= $address;
+                    } else {
+                        $cc .= $address . ',';
+                    }
+                    $counter++;
                 }
             } else {
                 $cc = $this->cc;
             }
             $recipients = $recipients . "," . $cc;
         }
-        
+
         // Add CC
         if (isset($this->bcc)) {
             if (is_array($this->bcc)) {
@@ -163,42 +157,67 @@ class mailer extends absendmail
                 $bcc = "";
                 $counter = 0;
                 foreach ($this->bcc as $address) {
-                   $chk = $counter + 1;
-                   if ($chk == $entries) {
-                       $bcc .= $address;
-                   } else {
-                       $bcc .= $address . ',';
-                   }
-                   $counter ++;
+                    $chk = $counter + 1;
+                    if ($chk == $entries) {
+                        $bcc .= $address;
+                    } else {
+                        $bcc .= $address . ',';
+                    }
+                    $counter++;
                 }
             } else {
                 $bcc = $this->cc;
             }
             $recipients = $recipients . "," . $bcc;
         }
-        
+
         // To Blind CC (aka, BCC) an address, simply add the address to the 
         //    $recipients, but not to any of the $headers.
-        $headers = array (
+        $headers = array(
             'From' => $fullFrom,
-            'Return-Path'   => $this->from,
+            'Return-Path' => $this->from,
             'To' => $to,
             'Cc' => $cc,
             'Subject' => $this->subject
         );
 
-        
-        $smtp = Mail::factory(
-            'smtp',
-            array (
-              'host' => $this->host,
-              'port' => $this->port,
-              'auth' => $this->smtpAuth,
-              'username' => $this->username,
-              'password' => $this->password
-            )
-        );
-        
+
+        //setting values for htmlMail
+        switch ($this->useHTMLMail) {
+            case TRUE:
+                $objMime = new Mail_mime();
+                $objMime->addCc($this->cc);
+                $objMime->addBcc($this->bcc);
+                $objMime->setTXTBody($this->body);
+                $objMime->setHTMLBody($this->htmlbody);
+                $this->body = $objMime->get();
+                $headers = $objMime->headers($headers);
+                //
+                $smptParams = array(
+                    'MIME Version' => '1.0',
+                    'Content-Type' => 'text/html; charset=ISO-8859-1',
+                    'host' => $this->host,
+                    'port' => $this->port,
+                    'auth' => $this->smtpAuth,
+                    'username' => $this->username,
+                    'password' => $this->password
+                );
+                //
+                $smtp = Mail::factory('smtp', $smptParams);
+                break;
+            default :
+                $smtp = Mail::factory(
+                                'smtp', array(
+                            'host' => $this->host,
+                            'port' => $this->port,
+                            'auth' => $this->smtpAuth,
+                            'username' => $this->username,
+                            'password' => $this->password
+                                )
+                );
+                break;
+        }
+
         $mail = $smtp->send($recipients, $headers, $this->body);
         if (PEAR::isError($mail)) {
             echo("<p>" . $mail->getMessage() . "</p>");
@@ -209,14 +228,14 @@ class mailer extends absendmail
     }
 
     /**
-    *
-    * Method to attach a file
-    *
-    */
-    public function attach($file, $name=NULL)
-    {
-       $this->objBaseMail->AddAttachment($file);
+     *
+     * Method to attach a file
+     *
+     */
+    public function attach($file, $name = NULL) {
+        $this->objBaseMail->AddAttachment($file);
     }
 
 }
+
 ?>

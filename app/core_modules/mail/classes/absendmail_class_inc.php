@@ -114,6 +114,13 @@ abstract class absendmail extends object
     *
     */
      protected $mailer;
+     
+     /**
+      *
+      * @var string $htmlbody String to hold the html message
+      * @access protected 
+      */
+     protected $htmlbody;
 
     /**
      * Magic method as an alias to getValue.
