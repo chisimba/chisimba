@@ -183,7 +183,7 @@ class previewfolder extends filemanagerobject {
                         $domElements['viewDiv']->appendChild($this->domDoc->createElement('br'));
 
                         if ($this->viewType != strtolower('thumbnails')) {
-                            $objTable->addCell($checkbox->show(), 20);
+                            $objTable->addCell($checkbox->show());
                         }
                     }
                     //The value to appear when the mouse is over the link
@@ -255,6 +255,7 @@ class previewfolder extends filemanagerobject {
                 $fileSize = new formatfilesize();
 
                 foreach ($files as $file) {
+                    $this->domDoc = new DOMDocument('utf-8');
                     $domElements['viewDiv'] = $this->domDoc->createElement('div');
                     $domElements['viewDiv']->setAttribute('class', 'fm_thumbnails');
 
@@ -305,15 +306,16 @@ class previewfolder extends filemanagerobject {
                         }
                         $checkbox->cssId = htmlentities('input_files_' . $file['filename']);
                         if ($this->viewType != strtolower('thumbnails')) {
-                            $objTable->addCell($checkbox->show(), 20);
+                            $objTable->addCell($checkbox->show());
+                        } else {
+                            $domElements['checkbox']->setAttribute('id', htmlentities('input_files_' . $file['filename']));
+                            $domElements['viewDiv']->appendChild($domElements['checkbox']);
+                            $domElements['editLink']->setAttribute('class', $this->objLanguage->languageText("mod_filemanager_buttonlinkclass", "filemanager"));
+                            $domElements['editLink']->appendChild($this->domDoc->createTextNode(substr($this->objLanguage->languageText("word_edit", "system"), 0, 4)));
+                            $domElements['viewDiv']->appendChild($domElements['editLink']);
+                            //Add the line separator
+                            $domElements['viewDiv']->appendChild($this->domDoc->createTextNode(' | '));
                         }
-                        $domElements['checkbox']->setAttribute('id', htmlentities('input_files_' . $file['filename']));
-                        $domElements['viewDiv']->appendChild($domElements['checkbox']);
-                        $domElements['editLink']->setAttribute('class', $this->objLanguage->languageText("mod_filemanager_buttonlinkclass", "filemanager"));
-                        $domElements['editLink']->appendChild($this->domDoc->createTextNode(substr($this->objLanguage->languageText("word_edit", "system"), 0, 4)));
-                        $domElements['viewDiv']->appendChild($domElements['editLink']);
-                        //Add the line separator
-                        $domElements['viewDiv']->appendChild($this->domDoc->createTextNode(' | '));
                     }
 
                     $label = new label($this->objFileIcons->getFileIcon($file['filename']), htmlentities('input_files_' . $file['filename']));
@@ -499,9 +501,15 @@ class previewfolder extends filemanagerobject {
 
         if ($hidden > 0 && count($restriction) > 0) {
             $str = '';
-            $str .= '<style type="text/css">
+            if ($this->viewType == strtolower('thumbnails')) {
+                $str .= '<style type="text/css">
 #filemanagerTable tr.hidefile {display:none;}
 </style>';
+            } else {
+                $str .= '<style type="text/css">
+ tr.hidefile {display:none;}
+</style>';
+            }
             $str .= $this->objLanguage->languageText('mod_filemanager_browsingfor', 'filemanager', 'Browsing for') . ': ';
             $comma = '';
             foreach ($restriction as $restrict) {
@@ -509,7 +517,8 @@ class previewfolder extends filemanagerobject {
                 $comma = ', ';
             }
             if (!$forceRestriction) {
-                $str .= '<script type="text/javascript">
+                if ($this->viewType == strtolower('thumbnails')) {
+                    $str .= '<script type="text/javascript">
 var onOrOff = "off";
 function turnOnFiles(value)
 {
@@ -528,6 +537,27 @@ function turnOnFiles(value)
     }
 }
 </script>';
+                } else {
+                    $str .= '<script type="text/javascript">
+var onOrOff = "off";
+function turnOnFiles(value)
+{
+    if (onOrOff == \'off\') {
+        jQuery(\'tr.hidefile\').each(function (i) {
+            this.style.display = \'table-row\';
+        });
+        adjustLayout();
+        onOrOff = "on";
+    } else {
+        jQuery(\'tr.hidefile\').each(function (i) {
+            this.style.display = \'none\';
+        });
+        adjustLayout();
+        onOrOff = "off";
+    }
+}
+</script>';
+                }
                 $str .= ' &nbsp; - ';
                 $this->loadClass('checkbox', 'htmlelements');
                 $this->loadClass('label', 'htmlelements');

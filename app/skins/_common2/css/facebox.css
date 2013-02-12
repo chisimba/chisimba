@@ -39,7 +39,10 @@
 #facebox .body {
   padding: 10px;
   background: #fff;
-  width: 600px;
+  width:fit-content;
+  height:fit-content;
+  padding-right: 30px;
+  margin-right: 30px;
 }
 
 #facebox .loading {
@@ -48,6 +51,8 @@
 
 #facebox .image {
   text-align: center;
+  width: 100%;
+  height: auto;
 }
 
 #facebox img {
@@ -55,7 +60,6 @@
 }
 
 #facebox .footer {
-  border-top: 1px solid #DDDDDD;
   padding-top: 5px;
   margin-top: 10px;
   text-align: right;
@@ -72,5 +76,11 @@
 }
 #facebox div#content {
   margin: 0;
-  width: 700px;
+  width: auto;
+  height: auto;
+}
+
+
+#facebox div#content {
+    
 }
