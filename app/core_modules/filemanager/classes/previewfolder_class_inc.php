@@ -146,10 +146,7 @@ class previewfolder extends filemanagerobject {
                 $folderIcon = $this->objFileIcons->getExtensionIcon('folder');
 
                 foreach ($subFolders as $folder) {
-<<<<<<< HEAD
-=======
                     $this->domDoc = new DOMDocument('utf-8');
->>>>>>> edge
                     $domElements['viewDiv'] = $this->domDoc->createElement('div');
                     $domElements['viewDiv']->setAttribute('class', 'fm_thumbnails');
                     $domElements['folderLink'] = $this->domDoc->createElement('a');
