@@ -795,8 +795,12 @@ class PEARCheckAction extends StepAction
                 if (empty($package_info)) {
 
                     $this->errors[] = '<br> Required PEAR module "'.$package_name.'" is not installed. Please run';
-
-                    $this->errors[] = '<span class="errors"><pre>pear install --alldeps -f '.$package_name.'</pre></span>';
+                    if ($package_name == 'MDB2') {
+                        $this->errors[] = '<span class="errors"><pre>pear install --alldeps -f  MDB2-2.5.0b2 </pre></span>';
+                    } else {
+                        $this->errors[] = '<span class="errors"><pre>pear install --alldeps -f '.$package_name.'</pre></span>';
+                    }
+                    
 
                     $this->required_packages[$package_name]['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
 
