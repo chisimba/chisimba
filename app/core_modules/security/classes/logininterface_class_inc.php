@@ -265,7 +265,6 @@ class loginInterface extends object {
         }
     }
 
-
     public function doTwitterLogin() {
 
         require_once "Auth/twitteroauth/twitteroauth/twitteroauth.php";
@@ -295,7 +294,7 @@ class loginInterface extends object {
 
             $updateDetailsPhrase = $this->objLanguage->languageText("mod_security_updateprofile", 'security');
             $me['username'] = $userid;
-            $me['email'] =$username;
+            $me['email'] = $username;
             $me['first_name'] = $updateDetailsPhrase;
             $me['last_name'] = '';
             $me['gender'] = 'male';
@@ -307,7 +306,6 @@ class loginInterface extends object {
             exit;
         }
     }
-
 
     public function fbButton() {
         $this->objMods = $this->getObject('modules', 'modulecatalogue');
@@ -704,17 +702,29 @@ class loginInterface extends object {
     }
 
     private function openIdAuth($me, $fb = FALSE) {
-        // skip the nonsense and log in
 
+        
+        $objUModel = $this->getObject('useradmin_model2', 'security');
+        $objUser = $this->getObject('user', 'security');
         $username = $me['username'];
+
+        $userid = $objUser->getUserId($username);
+       
+        //the user might have changed pwd when asked to change default details
+        //doesnt matter, since they will never be able to login with it. so, reset it
+        // try the login
+        if ($userid) {
+            $user=$objUser->getUserDetails($userid);
+            
+            $objUModel->updateUserDetails($user['id'], $username,
+                    $user['firstname'], $user['surname'], $user['title'], $user['emailaddress'], 
+                    $user['sex'], $user['country'], $user['cellnumber'], $user['staffnumber'], '--');
+        }
         $p = explode("@", $me['email']);
         $password = $p[0];
         if ($username == '' || $password = '') {
             return $this->nextAction('error', array('message' => 'no_fbconnect'));
         }
-        // try the login
-        $objUModel = $this->getObject('useradmin_model2', 'security');
-        $objUser = $this->getObject('user', 'security');
         $objSkin = $this->getObject("skin", "skin");
         if ($fb || $password == '') {
             $password = '--';
@@ -761,7 +771,8 @@ class loginInterface extends object {
             return $postlogin;
         } else {
 
-            // login failure, so new user. Lets create him in the system now and then log him in.
+
+
             $userid = $me['id'];
             $title = '';
             $firstname = $me['first_name'];
@@ -778,7 +789,6 @@ class loginInterface extends object {
             }
             $country = '';
             $accountType = 'OpenId';
-            // $objUModel->addUser('2611121208', 'david.wafula', '--', 'Mr', 'David', 'Wafula', '738429445@david...', 'F', 'US', 'xxxx', '--', 'OpenId', '1');
             $objUModel->addUser(
                     $userid, $username, '--', $title, $firstname, $surname, $email, $sex, $country, $cellnumber = '', $staffnumber = '', $accountType, '1');
             $objUser->authenticateUser($username, $password, FALSE);
