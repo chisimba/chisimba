@@ -115,7 +115,7 @@ if ($modules) {
         if (in_array($moduleId,$localModules)) { //dont display downloadable modules until that functionality is complete
             $textButton = &new Link($this->uri(array('action'=>'textelements','mod'=>$moduleId,'cat'=>$activeCat),'modulecatalogue'));
             $textButton->link = $this->objLanguage->languageText('mod_modulecatalogue_textelement','modulecatalogue');
-            $textButton->extra = $instButton->extra = "class=\"pseudobutton\"";
+            $textButton->extra = "class=\"pseudobutton\"";
             $class = ($count % 2 == 0)? 'even' : 'odd';
             $count++;
             $desc = $this->objCatalogueConfig->getModuleDescription($moduleId);
@@ -143,6 +143,7 @@ if ($modules) {
                 if (!(in_array($moduleId,$rMods))) { //not registered
                     $instButton = &new Link($this->uri(array('action'=>'install','mod'=>$moduleId,'cat'=>$activeCat,'srchstr' => $srchStr, 'srchtype' => $srchType, 'lastaction' => $lastAction),'modulecatalogue'));
                     $instButton->link = $this->objLanguage->languageText('word_install');
+                    $instButton->extra = "class=\"pseudobutton\"";
                     $instButtonShow = $instButton->show();
                     if (!$batchuninstall) {
                         $checkBox=$objCheck->show();
@@ -155,6 +156,7 @@ if ($modules) {
                     }
                     $instButton = &new Link($this->uri(array('action'=>'uninstall','mod'=>$moduleId,'cat'=>$activeCat,'srchstr'=>$srchStr,'srchtype'=>$srchType,'lastaction'=>$lastAction),'modulecatalogue'));
                     $instButton->link = $this->objLanguage->languageText('word_uninstall');
+                    $instButton->extra = "class=\"pseudobutton\"";
                     $objConfirm = &$this->getObject('confirm','utilities');
                     $objConfirm->setConfirm($this->objLanguage->languageText('word_uninstall'),
                     $this->uri(array('action'=>'uninstall','mod'=>$moduleId,'cat'=>$activeCat,'srchstr'=>$srchStr,'srchtype'=>$srchType,'lastaction'=>$lastAction),'modulecatalogue'),
