@@ -116,7 +116,6 @@
             <module>popupcalendar</module>
             <module>rubric</module>
             <module>tutorials</module>
-            <module>websearch</module>
             <module>wiki</module>
             <module>worksheet</module>
             <module>eportfolio</module>
@@ -164,7 +163,6 @@
             <module>userdetails</module>
             <module>userparamsadmin</module>
             <module>wall</module>
-            <module>websearch</module>
             <module>wiki</module>
         </category>
 
