@@ -1116,12 +1116,9 @@ class userdetailsops extends object
     public function showBlock()
     {
         $bizcard = $this->showBizCard(FALSE);
-        
         $objLink = new link($this->uri(NULL, 'userdetails'));
         $link = $objLink->show();
-        
-        $string = $bizcard . '<br />' . $link;
-        
+        $string = $bizcard . '<br />' . $link;      
         return $string;
     }
 }
