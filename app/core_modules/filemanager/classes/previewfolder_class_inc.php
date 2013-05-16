@@ -69,6 +69,7 @@ class previewfolder extends filemanagerobject {
      */
     public function init() {
         $this->objFileIcons = $this->getObject('fileicons', 'files');
+        $this->objFileIcons->size = 32;
         $this->objLanguage = $this->getObject('language', 'language');
         $this->objAltConfig = $this->getObject("altconfig", "config");
         $this->objUser = $this->getObject("user", "security");
