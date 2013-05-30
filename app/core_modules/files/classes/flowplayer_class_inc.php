@@ -169,7 +169,7 @@ class flowplayer extends object
         $ret = '
         <a
                     href="' . $file . '"
-                    style="display:block;width:100%; height: auto;"
+                    style="display:block; width:100%; height:100%;"
                     id="' . $videoId . '">
         </a>';
         return $ret;
