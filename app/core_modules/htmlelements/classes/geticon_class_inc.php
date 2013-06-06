@@ -103,7 +103,7 @@ class getIcon extends object implements ifhtml
     *                           one specified in the config file for KNG
     *
     */
-    public function setIcon($name, $type = 'gif', $iconfolder='icons/')
+    public function setIcon($name, $type = 'png', $iconfolder='icons/')
     {
         $this->name = $name;
         // Just to be explicit - Tohir

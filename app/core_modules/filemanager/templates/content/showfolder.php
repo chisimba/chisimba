@@ -6,6 +6,7 @@ $this->loadClass('hiddeninput', 'htmlelements');
 $this->loadClass('link', 'htmlelements');
 $this->loadClass('textinput', 'htmlelements');
 $this->loadClass('label', 'htmlelements');
+$this->loadClass('geticon','htmlelements');
 
 $objIcon = $this->newObject('geticon', 'htmlelements');
 $objLanguage = $this->newObject('language','language');
@@ -55,7 +56,6 @@ $checkOpenerScript = '
       
             if (window.opener) {
 
-                alert(fileName[id]);
                 window.opener.document.getElementById("input_selectfile_"+name).value = filename;
                 window.opener.document.getElementById("hidden_"+name).value = fileid;
 
@@ -109,22 +109,29 @@ $objViewHeading = $this->getObject('htmlheading','htmlelements');
 $objViewHeading->type = 3;
 
 //Setting the text to be displayed on the links
-$objListLink->link = $objLanguage->languageText("mod_filemanager_listviewlinkvalue","filemanager");
-$objThumbLink->link = $objLanguage->languageText("mod_filemanager_thumbnailslinkvalue","filemanager");
+$objIcon->setIcon('listview');
+$objListLink->link = $objIcon->show() /*$objLanguage->languageText("mod_filemanager_listviewlinkvalue","filemanager")*/;
+$objIcon->setIcon('thumbnailsview');
+$objThumbLink->link = $objIcon->show() /*$objLanguage->languageText("mod_filemanager_thumbnailslinkvalue","filemanager")*/;
 
 //assigning a class value to the links to enable styling
-$objListLink->extra = "class=".$this->objLanguage->languageText("word_sexybutton","system");
-$objThumbLink->extra = "class=".$this->objLanguage->languageText("word_sexybutton","system");
+$objListLink->cssClass = $this->objLanguage->languageText("word_sexybutton","system")." listview" ;
+$objThumbLink->cssClass = $this->objLanguage->languageText("word_sexybutton","system")." thumbnailview";
 
 //get the current view
 $currentView = $this->getParam('view');
-
-//append the appropriate link to switch view
-if($currentView == strtolower($this->objLanguage->languageText("phrase_thumbnailview","system"))){
-    $objViewHeading->str = $this->objLanguage->languageText("phrase_changeview","system")."<br />".$objListLink->show();
-} else{
-    $objViewHeading->str = $this->objLanguage->languageText("phrase_changeview","system")."<br />".$objThumbLink->show();
+if($currentView == "list" || $currentView == NULL){
+    $objThumbLink->cssId = "inactive";
+}  else {
+    $objListLink->cssId = "inactive";
 }
+//append the appropriate link to switch view
+//if($currentView == strtolower($this->objLanguage->languageText("phrase_thumbnailview","system"))){
+    $objViewHeading->str = "<div class='changeview'".$this->objLanguage->languageText("phrase_changeview","system")."<br />".$objListLink->show();
+//} else{
+    $objViewHeading->str .= $objThumbLink->show();
+    $objViewHeading->str .= "</div>";
+//}
 
 //append heading with link to form
 $objForm->addToForm($objViewHeading->show());
