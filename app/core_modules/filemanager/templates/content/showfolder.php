@@ -56,7 +56,6 @@ $checkOpenerScript = '
       
             if (window.opener) {
 
-                alert(fileName[id]);
                 window.opener.document.getElementById("input_selectfile_"+name).value = filename;
                 window.opener.document.getElementById("hidden_"+name).value = fileid;
 
@@ -116,8 +115,8 @@ $objIcon->setIcon('thumbnailsview');
 $objThumbLink->link = $objIcon->show() /*$objLanguage->languageText("mod_filemanager_thumbnailslinkvalue","filemanager")*/;
 
 //assigning a class value to the links to enable styling
-$objListLink->extra = "class=".$this->objLanguage->languageText("word_sexybutton","system");
-$objThumbLink->extra = "class=".$this->objLanguage->languageText("word_sexybutton","system");
+$objListLink->cssClass = $this->objLanguage->languageText("word_sexybutton","system")." listview" ;
+$objThumbLink->cssClass = $this->objLanguage->languageText("word_sexybutton","system")." thumbnailview";
 
 //get the current view
 $currentView = $this->getParam('view');
