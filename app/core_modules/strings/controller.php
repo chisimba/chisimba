@@ -45,14 +45,35 @@ class strings extends controller
         return $this->$method();
     }
     
+    /**
+     * 
+     * Parse a URL for use in showing the site summary in content
+     * similar to the way Facebook does it.
+     * 
+     * @access public
+     * @return VOID
+     * 
+     */
     public function __parseurl()
     {
         $url = $this->getParam('url', FALSE);
         if ($url) {
             $objCurl = $this->getObject('curlwrapper', 'utilities');
-            $pageContents = $objCurl->exec($url);
-            //$pageContents = file_get_contents($url);
-            die($pageContents);
+            $pageContents = $objCurl->exec(urldecode($url));
+            // Load the page into the DOM object.
+            $dom = new DOMDocument;
+            @$dom->loadHTML($pageContents);
+            $title = $dom->getElementsByTagName('title')->item(0)->textContent;
+            $ret = $title;
+            // Get the images.
+            $images = $dom->getElementsByTagName('img');
+            foreach ($images as $image) {
+                $src = $image->getAttribute('src');
+                $width = $image->getAttribute('width');
+                $ret .=  "$src $width <br />";
+            }
+            die($ret);
+
         } else {
             die("ERROR_NOURL");
         }
