@@ -58,20 +58,32 @@ class strings extends controller
     {
         $url = $this->getParam('url', FALSE);
         if ($url) {
-            $objCurl = $this->getObject('curlwrapper', 'utilities');
-            $pageContents = $objCurl->exec(urldecode($url));
-            // Load the page into the DOM object.
-            $dom = new DOMDocument;
-            @$dom->loadHTML($pageContents);
-            $title = $dom->getElementsByTagName('title')->item(0)->textContent;
-            $ret = $title;
-            // Get the images.
-            $images = $dom->getElementsByTagName('img');
-            foreach ($images as $image) {
-                $src = $image->getAttribute('src');
-                $width = $image->getAttribute('width');
-                $ret .=  "$src $width <br />";
-            }
+            // Get the site snipper.
+            $objSnipper = $this->getObject('snipsite', 'strings');
+            // Create the HTML document.
+            $doc = new DOMDocument('UTF-8');
+            // Create the title div.
+            $titleDiv = $doc->createElement('div');
+            $titleDiv->setAttribute('class', 'sitesnippet_title');
+            $title = $objSnipper->getTitle();
+            $titleDiv->appendChild($doc->createTextNode($title));
+            $doc->appendChild($titleDiv);
+            
+            $contentDiv = $doc->createElement('div');
+            $contentDiv->setAttribute('class', 'sitesnippet_desc');
+            $p = $objSnipper->getParagraph();
+            $contentDiv->appendChild($doc->createTextNode($p));
+            $doc->appendChild($contentDiv);
+            
+            $imgDiv = $doc->createElement('div');
+            $imgDiv->setAttribute('class', 'sitesnippet_img');
+            $img = $doc->createElement('img');
+            $img->setAttribute('src', $objSnipper->getImage());
+            $imgDiv->appendChild($img);
+            $doc->appendChild($imgDiv);
+            
+            
+            $ret = $doc->saveHTML();
             die($ret);
 
         } else {
