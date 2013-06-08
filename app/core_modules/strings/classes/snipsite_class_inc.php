@@ -119,6 +119,15 @@ class snipsite extends object
         return $title;
     }
     
+    /**
+     * 
+     * Use the DOM and try a variety of techniques to get some
+     * information from the page to act as summary.
+     * 
+     * @return string The resulting site summary
+     * @access public
+     * 
+     */
     public function getSiteSummary()
     {
         // First try the meta description tag from open graph data
@@ -127,10 +136,21 @@ class snipsite extends object
             if (strlen($res) < 300) {
                 $res .= $this->getParagraph(200);
             }
+        } else {
+            $res .= $this->getParagraph(300);
         }
         return $res;
+        
     }
     
+    /**
+     * 
+     * Use the DOM to extract the Open Graph description tag
+     * 
+     * @return string/boolean The Description content or FALSE
+     * @access public
+     * 
+     */
     public function getMetaOgDescription()
     {
         $metaTags = $this->dom->getElementsByTagName('meta');
@@ -168,7 +188,7 @@ class snipsite extends object
         if ($paras->length > 0) {
             foreach ($paras as $para) {
                 $p = $para->textContent;
-                if (strlen($p) > $pLen) {
+                if (strlen($p) >= $pLen) {
                     $ret = $p;
                     break;
                 }
