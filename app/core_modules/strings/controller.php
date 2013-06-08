@@ -177,6 +177,8 @@ class strings extends controller
         switch ($action)
         {
             case 'parseurl':
+                return FALSE;
+                break;
             default:
                 return TRUE;
                 break;
