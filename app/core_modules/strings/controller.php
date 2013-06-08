@@ -84,7 +84,7 @@ class strings extends controller
             // Put description in a div.
             $contentDiv = $doc->createElement('div');
             $contentDiv->setAttribute('class', 'sitesnippet_desc');
-            $p = $objSnipper->getParagraph();
+            $p = $objSnipper->getSiteSummary();
             $contentDiv->appendChild($doc->createTextNode($p));
             $outerDiv->appendChild($contentDiv);
            

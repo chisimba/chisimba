@@ -119,6 +119,36 @@ class snipsite extends object
         return $title;
     }
     
+    public function getSiteSummary()
+    {
+        // First try the meta description tag from open graph data
+        $res = $this->getMetaOgDescription();
+        if ($res) {
+            if (strlen($res) < 300) {
+                $res .= $this->getParagraph(200);
+            }
+        }
+        return $res;
+    }
+    
+    public function getMetaOgDescription()
+    {
+        $metaTags = $this->dom->getElementsByTagName('meta');
+        if ($metaTags->length > 0) {
+            foreach ($metaTags as $tag) {
+                $prop = $tag->getAttribute('property');
+                if ($prop == 'og:description') {
+                    $desc = $tag->getAttribute('content');
+                    return $desc;
+                }
+            }
+            return FALSE;
+        } else {
+            // No meta tags found.
+            return FALSE;
+        }
+    }
+    
     
     /**
      * 
@@ -130,20 +160,21 @@ class snipsite extends object
      * @access public
      * 
      */
-    public function getParagraph($pLen = 400)
+    public function getParagraph($pLen = 300)
     {
         // Get the paragraphs.
         $paras = $this->dom->getElementsByTagName('p');
-        $count = 0;
-        foreach ($paras as $para) {
-            $p = $para->textContent;
-            if (strlen($p) > $pLen) {
-                break;
+        $ret = NULL;
+        if ($paras->length > 0) {
+            foreach ($paras as $para) {
+                $p = $para->textContent;
+                if (strlen($p) > $pLen) {
+                    $ret = $p;
+                    break;
+                }
             }
-            $count++;
         }
-        $p = strip_tags($p);
-        return $p;
+        return " " . strip_tags($ret);
     }
     
     /**
@@ -161,7 +192,7 @@ class snipsite extends object
         foreach ($images as $image) {
             $src = $image->getAttribute('src');
             $size = @getimagesize($src);
-            if ($size[0] >= 100 || $size[1]>=100){
+            if ($size[0] >= 60 || $size[1]>= 60){
                 return $src;
             }
          }
