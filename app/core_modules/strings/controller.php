@@ -58,20 +58,40 @@ class strings extends controller
     {
         $url = $this->getParam('url', FALSE);
         if ($url) {
-            $objCurl = $this->getObject('curlwrapper', 'utilities');
-            $pageContents = $objCurl->exec(urldecode($url));
-            // Load the page into the DOM object.
-            $dom = new DOMDocument;
-            @$dom->loadHTML($pageContents);
-            $title = $dom->getElementsByTagName('title')->item(0)->textContent;
-            $ret = $title;
-            // Get the images.
-            $images = $dom->getElementsByTagName('img');
-            foreach ($images as $image) {
-                $src = $image->getAttribute('src');
-                $width = $image->getAttribute('width');
-                $ret .=  "$src $width <br />";
-            }
+            // Get the site snipper.
+            $objSnipper = $this->getObject('snipsite', 'strings');
+            // Create the HTML document.
+            $doc = new DOMDocument('UTF-8');
+            // The outer layer that contains it all
+            $outerDiv = $doc->createElement('div');
+            $outerDiv->setAttribute('class', 'sitesnippet_wraper');
+            
+            //  Put image in a div.
+            $imgDiv = $doc->createElement('div');
+            $imgDiv->setAttribute('class', 'sitesnippet_img');
+            $img = $doc->createElement('img');
+            $img->setAttribute('src', $objSnipper->getImage());
+            $imgDiv->appendChild($img);
+            $outerDiv->appendChild($imgDiv);
+            
+            // Put the title in a div.
+            $titleDiv = $doc->createElement('div');
+            $titleDiv->setAttribute('class', 'sitesnippet_title');
+            $title = $objSnipper->getTitle();
+            $titleDiv->appendChild($doc->createTextNode($title));
+            $outerDiv->appendChild($titleDiv);
+            
+            // Put description in a div.
+            $contentDiv = $doc->createElement('div');
+            $contentDiv->setAttribute('class', 'sitesnippet_desc');
+            $p = $objSnipper->getSiteSummary();
+            $contentDiv->appendChild($doc->createTextNode($p));
+            $outerDiv->appendChild($contentDiv);
+           
+            // Put it all in the outter div
+            $doc->appendChild($outerDiv);
+            // Render it out.
+            $ret = $doc->saveHTML();
             die($ret);
 
         } else {
@@ -157,6 +177,8 @@ class strings extends controller
         switch ($action)
         {
             case 'parseurl':
+                return FALSE;
+                break;
             default:
                 return TRUE;
                 break;
