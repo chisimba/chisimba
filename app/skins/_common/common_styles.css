@@ -347,8 +347,8 @@ div#wrapper{float:left;width:100%}
 {
 
     color: #000000;
-
-    background-color: #FFDE39; /* A dark yellow */
+    box-shadow: 0 0 1px #000;
+    background-color: #FFF; /* A dark yellow */
 
 }
 

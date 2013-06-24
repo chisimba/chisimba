@@ -1,56 +1,171 @@
-.newForumContainer {
-    margin: 10px;
-    border: 1px solid black;
+.newForumContainer.reply, .newForumContainer.parent, .newForumContent{
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.75);
+        box-shadow: 0 1px 2px rgba(0,0,0,0.75);
+        background: #fff;
+}
+.newForumContainer.reply{
+        background: none !important;
+}
+.newForumContainer.parent{
+        border-radius: 3px;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
 }
 
 .newForumTopic {
-    background-color: #F2F2F2;
-    padding: 5px;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+        /*padding: 5px;*/
 }
 
 .newForumContent {
-    clear: both;
-    background-color: white;
-    border-top: 1px solid black;
-    padding: 5px;
+        /*background: #fff;*/
+        margin-top: -15px;
+        border-top: 1px solid #ccc;
+        /*border-bottom: 1px solid #ccc;*/
+}
+.newForumContainer{
+        margin-left: 110px;
+        margin-top: 0px;
+        z-index: 0;
+        position: relative;
+}
+.newForumContainer.reply{
+        border-bottom: 1px solid #ccc;
+        /*        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.75);
+                -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.75);
+                box-shadow: 0 1px 2px rgba(0,0,0,0.75);*/
+        background: #fff;
+}
+.innerReplyDiv{
+
+}
+.newForumContainer p{
+        padding: 10px;
+}
+.miniReply{
+        background: #fff;
+        border: 1px solid #000;
+        margin: 5px;
+}
+a.filePreview.download{
+        color: #fff;
+        padding: 10px;
+        margin: 5px;
+        /*border: 1px solid #000;*/
+        /* Opera */
+        background: rgba(233,76,21,1) url("gradient-bg.png");
+        /* Recent browsers */
+        background: url(icons/logout_white.png) no-repeat center, -webkit-gradient(
+                linear,
+                left top, left bottom,
+                from(rgba(255,120,73,1)),
+                to(rgba(233,76,21,1))
+                );
+        background: url(icons/logout_white.png) no-repeat center, -webkit-linear-gradient(
+                top,
+                rgba(255,120,73,1),
+                rgba(233,76,21,1)
+                );
+        background: url(icons/logout_white.png) no-repeat center, -moz-linear-gradient(
+                top,
+                rgba(255,120,73,1),
+                rgba(233,76,21,1)
+                );
+        background: url(icons/logout_white.png) no-repeat center, -o-linear-gradient(
+                top,
+                rgba(255,120,73,1),
+                rgba(233,76,21,1)
+                );
+        background: url(icons/logout_white.png) no-repeat center, linear-gradient(
+                top,
+                rgba(255,120,73,1),
+                rgba(233,76,21,1)
+                );
 }
 
 .forumUserPicture {
-    float:left;
+        float:left;
 }
 
 .forumTopicTitle {
-    margin-left: 50px;
+        margin-left: 50px;
 }
 
 .smallText {
-    font-size: 90%;
+        font-size: 90%;
 }
 
 .forumTangentIndent {
-    margin: 10px;
-    padding: 5px;
-    background-color: #ffffcc;
-    border: 1px dotted #800080
+        margin: 10px;
+        padding: 5px;
+        background-color: #ffffcc;
+        border: 1px dotted #800080;
 }
 
 .createforum #input_description, .createforum #input_name{
-    width: 400px;
+        width: 400px;
 }
 
 .createforum table {
-    width: 750px;
+        width: 750px;
 }
 
 .createforum table td {
-    padding: 3px;
+        padding: 3px;
 }
 
 /** Discussion forum search form ***/
 #form_searchforums #input_term {
-    width: 240px;
+        width: 240px;
 }
 
 #form_searchforums #input_forum {
-    width: 240px;
+        width: 240px;
+}
+span#confirm{
+        color: #fff;
+        font-weight: 700;
+        /*font-size: 1.5em;*/
+        position: fixed;
+        padding: 20px;
+        /*left: 0;*/
+        margin-left: 25px;
+        top: 0;
+        z-index: 2;
+        border: 2px solid #fff;
+        border-radius: 3px;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        box-shadow: 0 0 2px #000;
+        /* Opera */
+        background: rgba(233,76,21,1) url("gradient-bg.png");
+        /* Recent browsers */
+        background:  -webkit-gradient(
+                linear,
+                left top, left bottom,
+                from(rgba(255,120,73,.98)),
+                to(rgba(233,76,21,.98))
+                );
+        background:  -webkit-linear-gradient(
+                top,
+                rgba(255,120,73,.98),
+                rgba(233,76,21,.98)
+                );
+        background:  -moz-linear-gradient(
+                top,
+                rgba(255,120,73,.98),
+                rgba(233,76,21,.98)
+                );
+        background:  -o-linear-gradient(
+                top,
+                rgba(255,120,73,.98),
+                rgba(233,76,21,.98)
+                );
+        background: linear-gradient(
+                top,
+                rgba(255,120,73,.98),
+                rgba(233,76,21,.98)
+                );
 }
