@@ -4,6 +4,17 @@
         box-shadow: 0 1px 2px rgba(0,0,0,0.75);
         background: #fff;
 }
+.forumProfileImg{
+    float: left;
+}
+#flatview{
+        padding-top: 15px;
+}
+/*.newForumContainer {
+    margin: 10px;
+    margin-left: 100px;
+    border: 1px solid black;
+}*/
 .newForumContainer.reply{
         background: none !important;
 }
@@ -26,7 +37,7 @@
         /*border-bottom: 1px solid #ccc;*/
 }
 .newForumContainer{
-        margin-left: 110px;
+        margin-left: 90px;
         margin-top: 0px;
         z-index: 0;
         position: relative;
