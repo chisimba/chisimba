@@ -53,6 +53,10 @@ class htmlarea extends object {
      */
     var $cssClass;
     /**
+     * @var string css Id property
+     */
+    var $cssId;
+    /**
      *
      * @var string $height: The height of the editor
      */
@@ -265,7 +269,7 @@ class htmlarea extends object {
 
         $rawvalue = $this->value;
 
-        $this->editor = '<textarea name="' . $this->name . '" class="'.$this->cssClass.'" >' . htmlspecialchars($rawvalue) . '</textarea>';
+        $this->editor = '<textarea name="' . $this->name . '" class="'.$this->cssClass.'" id="'.$this->cssId.'"  >' . htmlspecialchars($rawvalue) . '</textarea>';
         $this->editor.="
         <script type=\"text/javascript\">
                 var disablespellchecker=" . $this->disableSpellChecker . ";
