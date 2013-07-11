@@ -81,6 +81,21 @@ class blocks extends object {
      * @var object $objConfig
      */
     public $objConfig;
+    
+    /**
+     * Property to hold the block object
+     *
+     * @var object $objBlock;
+     */
+    public $objBlock;
+    
+    /**
+     * 
+     * Property to hold the config data
+     *
+     * @var string $configData
+     */
+    public $configData;
 
     /**
      * Constructor method
@@ -498,10 +513,13 @@ class blocks extends object {
      * @param string $cssId The CSS ID for the block, if any
      * @return string The rendered block
      */
-    public function fetchTextBlock($block, $module, $blockDataArr, $blockType = NULL, $titleLength = 20, $wrapStr = TRUE, $showToggle = TRUE, $hidden = 'default', $showTitle = TRUE, $cssClass = 'featurebox', $cssId = '', $configData=NULL) {
+    public function fetchTextBlock($block, $module, $blockDataArr, $blockType = NULL, $titleLength = 20, $wrapStr = TRUE, $showToggle = TRUE, $hidden = 'default', $showTitle = TRUE, $cssClass = 'featurebox', $cssId = NULL, $configData=NULL) {
+        if (!is_object($this->objBlock)) {
+            $this->objBlock = new stdClass();
+        }
         $this->objBlock->configData = $configData;
         //echo "<br />btype: ".$blockType." module: ".$module;
-        $blockArr = array();
+        //$blockArr = array();
         //split to check if text or wideblock
         if (isset($block)) {
             if ($module == "contentblocks") {
