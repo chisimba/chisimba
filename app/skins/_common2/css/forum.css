@@ -52,6 +52,14 @@
 .innerReplyDiv{
 
 }
+div.blurPopUp{
+    background: rgba(181,181,181,.7);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
 .newForumContainer p{
         padding: 10px;
 }
@@ -142,9 +150,8 @@ span#confirm{
         position: fixed;
         padding: 20px;
         /*left: 0;*/
-        margin-left: 25px;
-        top: 0;
-        z-index: 2;
+        margin: 440px;
+        z-index: 200;
         border: 2px solid #fff;
         border-radius: 3px;
         -webkit-border-radius: 3px;
