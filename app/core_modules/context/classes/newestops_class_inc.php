@@ -228,7 +228,7 @@ class newestops extends object
                 $ret .= "<div class='context_recent_context'>{$contextImage} "
                 . "<span class='context_recent_title'>" . $title
                 . "</span><br /><span class='context_about'>{$about}</span><br />"
-                . "<span class='context_creationdate'>{$creationDate}</span></div>";
+                . "<div class='context_creationdate'>{$creationDate}</div></div>";
             }
         } else {
             $msg = $this->objLanguage->code2Txt('mod_context_norecordscat', 'context', NULL, 'No [-contexts-] in this category');
