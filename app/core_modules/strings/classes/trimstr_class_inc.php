@@ -45,7 +45,7 @@ class trimstr extends object {
         if ($str != "") {
             // check to see if there are any spaces left
             if (!substr_count($str, " ")) {
-                if ($more) $str .= "...";
+                if ($more) $str .= " ...";
                 return $str;
             } 
             // backtrack
@@ -53,7 +53,7 @@ class trimstr extends object {
                 $str = substr($str, 0, -1);
             } 
             $str = substr($str, 0, -1);
-            if ($more) $str .= "...";
+            if ($more) $str .= " ...";
         } 
         return $this->cleanHtml($str); // strips out the HTML to prevent damage to the interface
     } 
