@@ -139,6 +139,8 @@ class newestops extends object
         $objShorter = $this->getObject('trimstr', 'strings');
         $mustBeMember = FALSE;
         $mustBeLoggedIn = FALSE;
+        $objModule = $this->getObject('modules', 'modulecatalogue'); 
+        $hasActivityStreams = $objModule->checkIfRegistered("activitystreamer");
         switch ($contextType) {
             case 'Open':
                 $contexts = $this->objDb->getArrayOfOpenContexts($numOfItems);
@@ -153,7 +155,11 @@ class newestops extends object
                 $contexts = $this->objDb->getArrayOfMostRecentlyActiveContexts($numOfItems);
                 break;
             case 'MostActive':
-                $contexts = $this->objDb->getArrayOfMostActiveContexts($numOfItems);
+                if ($hasActivityStreams) {
+                    $contexts = $this->objDb->getArrayOfMostActiveContexts($numOfItems);
+                } else {
+                    $contexts = array();
+                }
                 break;
             default:
                 return NULL; // replace with error message
