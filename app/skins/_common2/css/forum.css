@@ -1,3 +1,9 @@
+a.ok{
+    background: #fff;
+    padding: 10px;
+    color: #000;
+    margin: 68px 68px;
+}
 .newForumContainer.reply, .newForumContainer.parent, .newForumContent{
         -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.75);
         -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.75);
@@ -149,8 +155,7 @@ span#confirm{
         /*font-size: 1.5em;*/
         position: fixed;
         padding: 20px;
-        /*left: 0;*/
-        margin: 440px;
+        margin: 20% 20% 20% 45%;
         z-index: 200;
         border: 2px solid #fff;
         border-radius: 3px;
