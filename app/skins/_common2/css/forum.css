@@ -11,6 +11,7 @@ a.ok{
         background: #fff;
 }
 .forumProfileImg{
+    background: none;
     float: left;
 }
 #flatview{
