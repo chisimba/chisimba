@@ -166,7 +166,7 @@ class loginInterface extends object {
                                 $objAltConfig = $this->getObject('altconfig', 'config');
                                 $siteRoot = $objAltConfig->getSiteRoot();
                                 $openidloginlink = new link($this->uri(array("action" => "openidconnect"), "security"));
-                                $openidloginlink->link = "Open ID Login";
+                                $openidloginlink->link = '<h3>'.$this->objLanguage->languageText('mod_security_oauthheading','security').'</h3>';
                                 $OPENID_AUTH_PAGE = $siteRoot . '?module=security&action=openidconnect';
                                 $FB_AUTH_PAGE = $siteRoot . 'index.php?module=security&action=initfacebooklogin&auth_site=facebook';
                                 $TWITTER_AUTH_PAGE = $siteRoot . 'index.php?module=security&action=dotwitterlogin&auth_site=twitter';
@@ -179,25 +179,25 @@ class loginInterface extends object {
                                 // A google login icon linked to OpenID login with gooogle id.
                                 $googleTD = '<a href="' . $OPENID_AUTH_PAGE . '&auth_site=google" target="_top">'
                                         . '<img src="' . $sitePath
-                                        . '/core_modules/security/resources/openid/images/google_icon32_2.png" '
-                                        . 'alt="Google ID" name="but_google" width="32" height="63" '
+                                        . '/core_modules/security/resources/openid/images/google_plus.png" '
+                                        . 'alt="Google ID" name="but_google" width="32" height="32" '
                                         . 'border="0" id="but_google2" onload="" /></a>';
                                 // A Yahoo login icon linked to OpenId login with Yahoo ID.
                                 $yahooTD = '<a href="' . $OPENID_AUTH_PAGE
                                         . '&auth_site=yahoo" target="_top"><img src="' . $sitePath
-                                        . '/core_modules/security/resources/openid/images/yahoo_icon32_2.png" '
-                                        . 'alt="Yahoo ID" name="but_yahoo" width="32" height="63" border="0" '
+                                        . '/core_modules/security/resources/openid/images/youtube.png" '
+                                        . 'alt="Yahoo ID" name="but_yahoo" width="32" height="32" border="0" '
                                         . 'id="but_yahoo" onload="" /></a>';
 
                                 $fbTD = '<a href="' . $FB_AUTH_PAGE
                                         . '" target="_top"><img src="' . $sitePath
-                                        . '/core_modules/security/resources/openid/images/facebook_icon32_2.png" '
-                                        . 'alt="FB ID" name="but_fb" width="32" height="63" border="0" '
+                                        . '/core_modules/security/resources/openid/images/facebook.png" '
+                                        . 'alt="FB ID" name="but_fb" width="32" height="32" border="0" '
                                         . 'id="but_fb" onload="" /></a>';
                                 $twitterTD = '<a href="' . $TWITTER_AUTH_PAGE
                                         . '" target="_top"><img src="' . $sitePath
-                                        . '/core_modules/security/resources/openid/images/twitter_icon32_2.png" '
-                                        . 'alt="TWITTER ID" name="but_twitter" width="32" height="63" border="0" '
+                                        . '/core_modules/security/resources/openid/images/twitter.png" '
+                                        . 'alt="TWITTER ID" name="but_twitter" width="32" height="32" border="0" '
                                         . 'id="but_twitter" onload="" /></a>';
 
 
@@ -207,9 +207,9 @@ class loginInterface extends object {
                                                 'mod_security_openidexplainbox', 'security'
                                         ) . '</div>';
                                 // Title for the fieldset.
-                                $title = $this->objLanguage->languageText(
+                                $title = '<h3>'.$this->objLanguage->languageText(
                                         'mod_security_openidlogintitle', 'security'
-                                );
+                                ).'</h3>';
                                 $openIdForm = new form('openlogiidnform', $this->uri(array("action" => "openidconnect", "auth_site" => "openid"))
                                 );
                                 $objInput = new textinput('openIDField', '', 'text', '30');
@@ -228,7 +228,8 @@ class loginInterface extends object {
                                 $openIdForm->addToForm($openIdButton->show());
 
                                 $openIdFields = new fieldset();
-                                $openIdFields->setLegend($title);
+                                $openIdFields->setLegend('<h3>'.$title.'</h3>');
+                                $openIdFields->addContent('<hr>');
                                 $openIdFields->addContent($fbTD . '&nbsp;' . $twitterTD . '&nbsp;' . $googleTD . '&nbsp;' . $yahooTD . '&nbsp;'
                                         . '<hr/><br/>' . $openIdForm->show());
 
