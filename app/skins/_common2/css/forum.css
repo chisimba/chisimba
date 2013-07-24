@@ -4,6 +4,11 @@ a.ok{
     color: #000;
     margin: 68px 68px;
 }
+span.strong{
+        font-size: large;
+        font-weight: bold;
+        line-height:1.2;
+}
 .newForumContainer.reply, .newForumContainer.parent, .newForumContent{
         -moz-box-shadow: 0 25px 30px -29px #000;
         -webkit-box-shadow: 0 25px 30px -29px #000;
@@ -17,13 +22,9 @@ a.ok{
 #flatview{
         padding-top: 15px;
 }
-/*.newForumContainer {
-    margin: 10px;
-    margin-left: 100px;
-    border: 1px solid black;
-}*/
 .newForumContainer.reply{
         background: none !important;
+        border-bottom: none !important;
 }
 .newForumContainer.parent{
         border-radius: 3px;
