@@ -631,7 +631,7 @@ fieldset.tabbox ul, fieldset.tabbox ol {
 
 .menutitle{
 
-    cursor:pointer;
+    cursor: help;
 
     margin-bottom: 5px;
 

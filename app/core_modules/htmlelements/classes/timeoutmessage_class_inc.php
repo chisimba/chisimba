@@ -196,9 +196,10 @@ class timeoutMessage extends object {
                 $str.= $this->message;
                 $str.= " {$objLink->show()} </$this->htmlTag>
                         <script type='text/javascript' >
-                        jQuery('a.floatingClose').click(function(){
-                                alert(7);
-                                jQuery('span.confirm, span#confirm').fadeOut('slow');
+                        jQuery(document).ready(function(){
+                                jQuery(document).on('click','a.floatingClose',function(){
+                                        jQuery(this).closest('span#confirm').fadeOut('slow');
+                                });
                         });
                         </script>";
                 return $str;

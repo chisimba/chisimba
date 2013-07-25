@@ -1,8 +1,8 @@
 a.ok{
-    background: #fff;
-    padding: 10px;
-    color: #000;
-    margin: 68px 68px;
+        background: #fff;
+        padding: 10px;
+        color: #000;
+        margin: 68px 68px;
 }
 span.strong{
         font-size: large;
@@ -10,14 +10,15 @@ span.strong{
         line-height:1.2;
 }
 .newForumContainer.reply, .newForumContainer.parent, .newForumContent{
-        -moz-box-shadow: 0 25px 30px -29px #000;
-        -webkit-box-shadow: 0 25px 30px -29px #000;
-        box-shadow: 0 25px 30px -29px #000;
-        background: #fff;
+        -moz-box-shadow: 0 1px 3px -1px #6d6d6d;
+        -webkit-box-shadow: 0 1px 3px -1px #6d6d6d;
+        box-shadow: 0 1px 3px -1px #6d6d6d;
+        background-color: #fff;
+        border-radius: 5px;     
 }
 .forumProfileImg{
-    background: none;
-    float: left;
+        background: none;
+        float: left;
 }
 #flatview{
         padding-top: 15px;
@@ -35,14 +36,12 @@ span.strong{
 .newForumTopic {
         border-top-left-radius: 3px;
         border-top-right-radius: 3px;
-        /*padding: 5px;*/
 }
 
 .newForumContent {
-        /*background: #fff;*/
-        /*margin-top: -15px;*/
-        border-top: 1px solid #ccc;
-        /*border-bottom: 1px solid #ccc;*/
+        padding: 10px;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
 }
 .newForumContainer{
         margin-left: 90px;
@@ -61,12 +60,20 @@ span.strong{
 
 }
 div.blurPopUp{
-    background: rgba(181,181,181,.7);
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+        background: rgba(205,205,205,.7);
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+}
+span.centered{
+        /*width: 50% !important;*/
+        margin: 20% 40% auto 40% !important;
+        vertical-align: middle;
+        padding: 50px !important;
+        box-shadow: 0 0 5px #000 !important;
 }
 .newForumContainer p{
         padding: 10px;
@@ -75,6 +82,9 @@ div.blurPopUp{
         background: #fff;
         border: 1px solid #000;
         margin: 5px;
+}
+a.attachmentLink{
+        background: tomato;
 }
 a.filePreview.download{
         color: #fff;
@@ -193,4 +203,26 @@ span#confirm{
                 rgba(255,120,73,.98),
                 rgba(233,76,21,.98)
                 );
+}
+.menutitle{
+        background: #ffffff; /* Old browsers */
+        /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+        background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjQ3JSIgc3RvcC1jb2xvcj0iI2Y2ZjZmNiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNlZGVkZWQiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+        background: -moz-linear-gradient(top,  #ffffff 0%, #f6f6f6 47%, #ededed 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(47%,#f6f6f6), color-stop(100%,#ededed)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top,  #ffffff 0%,#f6f6f6 47%,#ededed 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top,  #ffffff 0%,#f6f6f6 47%,#ededed 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top,  #ffffff 0%,#f6f6f6 47%,#ededed 100%); /* IE10+ */
+        background: linear-gradient(to bottom,  #ffffff 0%,#f6f6f6 47%,#ededed 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 ); /* IE6-8 */
+        border: none !important;
+        box-shadow: 0 1px 3px -1px #6d6d6d;
+        -webkit-box-shadow: 0 1px 3px -1px #6d6d6d;
+        -moz-box-shadow: 0 1px 3px -1px #6d6d6d;
+}
+.menutitle:hover{
+        color: #6d6d6d;
+        box-shadow: 0 1px 3px -1px tomato;
+        -webkit-box-shadow: 0 1px 3px -1px tomato;
+        -moz-box-shadow: 0 1px 3px -1px tomato;
 }
