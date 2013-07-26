@@ -2,33 +2,34 @@
 // Make it a CSS header
 header('Content-type: text/css');
 
+// Get a cahce filename based on the directory we are in
+$dirComponent = extractDir();
+$hashComponenet = getHash();
+$cacheFile = extractDir() . ".css";
 
-
-// Define the filename of the cached file
-define("CACHED_FILE", "cached.css");
 // Define the lifetime of the cached file in seconds
 //define("CACHE_LIFE", 604800);
 define("CACHE_LIFE", 0.000001);
 
-if (file_exists(CACHED_FILE)) {
-    $cacheTime = @filemtime(CACHED_FILE);
+if (file_exists($cacheFile)) {
+    $cacheTime = @filemtime($cacheFile);
     $expires = "Expires: " . gmdate("D, d M Y H:i:s", $cacheTime + CACHE_LIFE) . " GMT";
     header($expires);
     if (!$cacheTime or (time() - $cacheTime >= CACHE_LIFE)){
         // Generate a cache
-        generateCache();
+        generateCache($cacheFile);
         //require_once CACHED_FILE;
-        include_once CACHED_FILE;
+        include_once $cacheFile;
     } else {
         // It has not expired, so load it
-        require_once "" . CACHED_FILE;
+        require_once "" . $cacheFile;
     }  
 } else {
     $expires = "Expires: " . gmdate("D, d M Y H:i:s", time() + CACHE_LIFE) . " GMT";
     header($expires);
     // It doesn't exist so create it & then include it
-    generateCache();
-    require_once CACHED_FILE;
+    generateCache($cacheFile);
+    require_once $cacheFile;
 }
 
 
@@ -38,7 +39,7 @@ if (file_exists(CACHED_FILE)) {
 * Generate the cache file
 *
 */
-function generateCache()
+function generateCache($cacheFile='cache.css')
 {
     $cssArray = array(
         "layout.css",
@@ -73,10 +74,10 @@ function generateCache()
             $css = optimize($css);
             if ($counter == 1) {
                 // Create it or overwrite it the first time around
-                file_put_contents(CACHED_FILE, $css);
+                file_put_contents($cacheFile, $css);
             } else {
                 // Append after the first one
-                file_put_contents(CACHED_FILE, $css, FILE_APPEND);
+                file_put_contents($cacheFile, $css, FILE_APPEND);
             }
         }
         $counter++;
@@ -95,5 +96,33 @@ function optimize($css)
   // remove tabs, spaces, newlines, etc.
   $css = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $css);
   return $css;
+}
+
+/**
+ * 
+ * Extract the current home directory for the site, or return
+ * __root if the site is root. This is then used to write the cache
+ * file as $dirName.css
+ * 
+ * @return string The directory
+ * 
+ */
+function extractDir()
+{
+    //get public directory structure eg "/top/second/third" 
+    $publicDirectory = dirname($_SERVER['PHP_SELF']); 
+    //place each directory into array 
+    $directoryAr = explode('/', $publicDirectory); 
+    //get highest or top level in array of directory strings 
+    $publicBase = max($directoryAr); 
+    if ($publicBase == "") {
+        $publicBase=getHash();
+    }
+    return $publicBase; 
+}
+
+function getHash()
+{
+    return md5($_SERVER['HTTP_HOST']);
 }
 ?>
