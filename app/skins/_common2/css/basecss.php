@@ -2,10 +2,24 @@
 // Make it a CSS header
 header('Content-type: text/css');
 
-// Get a cahce filename based on the directory we are in
-$dirComponent = extractDir();
-$hashComponenet = getHash();
-$cacheFile = extractDir() . ".css";
+// Add entry point run security here
+
+// Get the name of the cache file
+$cacheFile = htmlspecialchars($_GET["cachefile"]);
+if ($cacheFile !== "" && $cacheFile !==NULL) {
+    $cacheFile = $cacheFile . ".css";
+} else {
+    // Get a cahce filename based on the directory we are in
+    $dirComponent = extractDir();
+    $hashComponenet = getHash();
+    $cacheFile = extractDir() . ".css";
+}
+
+$compileCanvasCss = htmlspecialchars($_GET["compile_c_css"]);
+if ($compileCanvasCss !== "" && $compileCanvasCss !==NULL) {
+    // Compile the canvas CSS as well
+    
+}
 
 // Define the lifetime of the cached file in seconds
 //define("CACHE_LIFE", 604800);
