@@ -55,11 +55,11 @@ class cssmenu extends object
         $home = $this->objConfig->getdefaultModuleName();
 
         $str='<ul id="menuList" class="adxm">'; //this is not using this javascript menu. its using the css one
-        $str .= '<li class="first"><a href="'.$this->uri('', $home).'">'.$homeLabel.'</a></li>';
+        $str .= '<li class="first"><a href="'.$this->uri('', $home).'"><div id="home" class="navigation-icon" ></div>' .$homeLabel.'</a></li>';
         foreach($this->menu as $key=>$item){
             $objLink = new link('#');
-            $objLink->link=$key.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-            $str.='<li>'.$objLink->show().'<ul>'."\n";
+            $objLink->link='<div id="'.strtolower($key).'" class="navigation-icon" ></div>'.$key.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+            $str.='<li>'.$objLink->show().'<ul class="inner-menu" >'."\n";
             $counter = 1;
             $numitems = count ($item);
             foreach($item as $link=>$val){
@@ -84,7 +84,7 @@ class cssmenu extends object
             }
             $str.="</ul></li>\n";
         }
-        $str .= '<li class="last"><a href="javascript: if(confirm(\''.$confirmLabel.'\')) {document.location= \''.$this->uri(array('action' => 'logoff'), 'security', '', FALSE, TRUE).'\'};">'.$logoutLabel.'</a></li>';
+        $str .= '<li class="last"><div id="logout" class="navigation-icon" ></div><a href="javascript: if(confirm(\''.$confirmLabel.'\')) {document.location= \''.$this->uri(array('action' => 'logoff'), 'security', '', FALSE, TRUE).'\'};">'.$logoutLabel.'</a></li>';
         $str .="</ul>";
 
         return $str;

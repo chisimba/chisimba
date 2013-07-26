@@ -1,8 +1,10 @@
 a.ok{
-        background: #fff;
+        background: #6d6d6d;
         padding: 10px;
-        color: #000;
+        color: #FFF;
         margin: 68px 68px;
+        box-shadow: 0 1px 3px 0px;
+        border-radius: 5px;
 }
 span.strong{
         font-size: large;
@@ -51,16 +53,13 @@ span.strong{
 }
 .newForumContainer.reply{
         border-bottom: 1px solid #ccc;
-        /*        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.75);
-                -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.75);
-                box-shadow: 0 1px 2px rgba(0,0,0,0.75);*/
         background: #fff;
 }
 .innerReplyDiv{
 
 }
 div.blurPopUp{
-        background: rgba(205,205,205,.7);
+        background: rgba(207,207,207,.65);
         position: fixed;
         top: 0;
         bottom: 0;
@@ -70,13 +69,15 @@ div.blurPopUp{
 }
 span.centered{
         /*width: 50% !important;*/
-        margin: 20% 40% auto 40% !important;
+        margin: 5% 40% auto 40% !important;
         vertical-align: middle;
         padding: 50px !important;
-        box-shadow: 0 0 5px #000 !important;
+        box-shadow: 0 1px 3px -1px #000 !important;
+        background: #FCFCFC !important;
+        color: #000 !important;
 }
 .newForumContainer p{
-        padding: 10px;
+        padding: 1px 9px;
 }
 .miniReply{
         background: #fff;
