@@ -176,7 +176,7 @@ class getIcon extends object implements ifhtml
     */
     public function getEditIcon($url)
     {
-        $this->setIcon('edit_sm');
+        $this->setIcon('edit');
         // Set title to be the word edit
         $this->title = $this->_objLanguage->languagetext('word_edit', NULL, "Edit");
         $objLink = $this->newObject('link', 'htmlelements');
