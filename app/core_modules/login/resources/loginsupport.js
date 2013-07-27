@@ -37,7 +37,7 @@ jQuery(function() {
         var remember = jQuery("#input_remember").val();
         var nonce = jQuery("#nonce").val();
         jQuery("#login_block_wrapper").html(loadingImage);
-        var mydata = "username="+username+"&password="+password+"&remember="+remember
+        var mydata = "username="+username+"&password="+password+"&remember="+remember;
         //alert(mydata);
         jQuery.ajax({
             type: "POST",
@@ -139,7 +139,7 @@ jQuery(function() {
 
     // For the password box
     jQuery(document).on("click", "#input_remember", function(){
-        jQuery("#input_remember").val('on')
+        jQuery("#input_remember").val('on');
     });
 
     // For the captcha.
