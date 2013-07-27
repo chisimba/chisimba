@@ -24,7 +24,7 @@ jQuery(function() {
     jQuery(document).ready(function() {
     });
     
-    jQuery('#grade_select').live('click', function() {
+    jQuery(document).on('click', '#grade_select', function() {
         jQuery.ajax({
             type: "POST",
             url: "index.php?module=userdetails&action=ajaxChangeGrade",
@@ -43,7 +43,7 @@ jQuery(function() {
         });
     });
 
-    jQuery('#update_image').live('click', function() {
+    jQuery(document).on('click', '#update_image', function() {
         jQuery.ajax({
             type: "POST",
             url: "index.php?module=userdetails&action=ajaxChangeImage",
@@ -66,7 +66,7 @@ jQuery(function() {
                 }
                 else
                 {
-                    var obj = jQuery.parseJSON(data)
+                    var obj = jQuery.parseJSON(data);
                     jQuery('#bizcard').html(obj.card);
                     jQuery('.toolbar_userimage').html(obj.image);
                     jQuery('#hidden_imageselect').val('');
@@ -75,15 +75,15 @@ jQuery(function() {
                     return false;
                 }
             }
-        })
+        });
     });
     
-    jQuery('#form_updateimage').live('submit', function() {
+    jQuery(document).on('submit', '#form_updateimage', function() {
         jQuery.ajax({
             type: "POST",
             url: "index.php?module=userdetails&action=ajaxResetImage",
             success: function(data) {
-                var obj = jQuery.parseJSON(data)
+                var obj = jQuery.parseJSON(data);
                 jQuery('#bizcard').html(obj.card);
                 jQuery('.toolbar_userimage').html(obj.image);
                 jQuery("#dialog_imagereset").dialog('open');
@@ -115,4 +115,4 @@ var resetSession = function(myDialog)
             return false;
         }
     });    
-}
+};
