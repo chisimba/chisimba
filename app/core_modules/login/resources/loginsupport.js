@@ -20,7 +20,7 @@
 jQuery(function() {
     
     // Show the login block as a drop down, roll up
-    jQuery('.LOGIN_DROP').live("click", function(){
+    jQuery(document).on("click", '.LOGIN_DROP', function(){
         jQuery('#LOGIN_BLOCK').slideToggle('slow', function() {
             // Anything else we want to do?
         });
@@ -29,7 +29,7 @@ jQuery(function() {
     // Set the initial value of remember to off
     jQuery("#input_remember").val('off');
 
-    jQuery("#loginButton").live("click", function(){
+    jQuery(document).on("click", "#loginButton", function(){
         // Capture what's in the div so we can restore it
         var tmp = jQuery("#login_block_wrapper").html();
         var username = jQuery("#input_username").val();
@@ -117,33 +117,33 @@ jQuery(function() {
     });
 
         // For the username box
-    jQuery("#input_username").live("click", function(){
+    jQuery(document).on("click", "#input_username", function(){
         jQuery(this).css("background","white");
         jQuery(this).css("border","1px dotted red");
     });
-    jQuery("#input_username").live("blur", function(){
+    jQuery(document).on("blur", "#input_username", function(){
         jQuery(this).css("background","#F8F8F8");
         jQuery(this).css("border","1px solid #D8D8D8");
     });
 
 
     // For the password box
-    jQuery("#input_password").live("click", function(){
+    jQuery(document).on("click", "#input_password", function(){
         jQuery(this).css("background","white");
         jQuery(this).css("border","1px dotted red");
     });
-    jQuery("#input_password").live("blur", function(){
+    jQuery(document).on("blur", "#input_password", function(){
         jQuery(this).css("background","#F8F8F8");
         jQuery(this).css("border","1px solid #D8D8D8");
     });
 
     // For the password box
-    jQuery("#input_remember").live("click", function(){
+    jQuery(document).on("click", "#input_remember", function(){
         jQuery("#input_remember").val('on')
     });
 
     // For the captcha.
-    jQuery("#captchaButton").live("click", function(){
+    jQuery(document).on("click", "#captchaButton", function(){
         var captcha = jQuery("#captcha").val();
         jQuery.ajax({
             type: "POST",
