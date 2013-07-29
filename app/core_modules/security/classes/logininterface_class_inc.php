@@ -234,7 +234,7 @@ class loginInterface extends object {
                                         . '<hr/><br/>' . $openIdForm->show());
 
                                 $openidlink = '<div class="openidlogin">'
-                                        . $openIdFields->show() . "</div>";
+                                        . $openIdFields->show() . "</div>"; 
                         }
 
                         $objFields->addContent($ldap . '<br />' . $rem . $box
