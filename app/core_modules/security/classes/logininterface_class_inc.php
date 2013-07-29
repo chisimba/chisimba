@@ -163,78 +163,123 @@ class loginInterface extends object {
                         $showOpenIdLogin = $objSysConfig->getValue('show_openidconnect_auth', 'security');
                         $openidlink = "";
                         if ($showOpenIdLogin == 'true') {
-                                $objAltConfig = $this->getObject('altconfig', 'config');
-                                $siteRoot = $objAltConfig->getSiteRoot();
-                                $openidloginlink = new link($this->uri(array("action" => "openidconnect"), "security"));
-                                $openidloginlink->link = '<h3>'.$this->objLanguage->languageText('mod_security_oauthheading','security').'</h3>';
-                                $OPENID_AUTH_PAGE = $siteRoot . '?module=security&action=openidconnect';
-                                $FB_AUTH_PAGE = $siteRoot . 'index.php?module=security&action=initfacebooklogin&auth_site=facebook';
-                                $TWITTER_AUTH_PAGE = $siteRoot . 'index.php?module=security&action=dotwitterlogin&auth_site=twitter';
-                                $sitePath = $objAltConfig->getSitePath();
-                                // I have no idea what this icon is for, seems to do nothing.
-                                $openidTD = '<a href="#"><img src="' . $sitePath
-                                        . '/core_modules/security/resources/openid/images/openid_icon32_2.png" '
-                                        . 'alt="" name="but_openid" width="32" height="64" border="0" '
-                                        . 'id="but_openid2" onload="" /></a>';
-                                // A google login icon linked to OpenID login with gooogle id.
-                                $googleTD = '<a href="' . $OPENID_AUTH_PAGE . '&auth_site=google" target="_top">'
-                                        . '<img src="' . $sitePath
-                                        . '/core_modules/security/resources/openid/images/google_plus.png" '
-                                        . 'alt="Google ID" name="but_google" width="32" height="32" '
-                                        . 'border="0" id="but_google2" onload="" /></a>';
-                                // A Yahoo login icon linked to OpenId login with Yahoo ID.
-                                $yahooTD = '<a href="' . $OPENID_AUTH_PAGE
-                                        . '&auth_site=yahoo" target="_top"><img src="' . $sitePath
-                                        . '/core_modules/security/resources/openid/images/youtube.png" '
-                                        . 'alt="Yahoo ID" name="but_yahoo" width="32" height="32" border="0" '
-                                        . 'id="but_yahoo" onload="" /></a>';
+                            
+                            // OpenId auth page is used for Google and Yahoo
+                            $objAltConfig = $this->getObject('altconfig', 'config');
+                            $siteRoot = $objAltConfig->getSiteRoot();
+                            $OPENID_AUTH_PAGE = $siteRoot . '?module=security&action=openidconnect';
+                            
+                            // Google icon
+                            $gIcon = $this->newObject('geticon', 'htmlelements');
+                            $gIcon->setIcon ('google', 'png', 'login');
+                            $gIcon->alt = "Google ID";
+                            $gIcon->extra = ' name="but_google" id="but_google2" onload="" ';
+                            
+                            // Facebook icon
+                            $fIcon = $this->newObject('geticon', 'htmlelements');
+                            $fIcon->setIcon ('facebook', 'png', 'login');
+                            $fIcon->alt = "FB ID";
+                            $fIcon->extra = ' name="but_fb" id="but_fb" onload="" ';
+                            $FB_AUTH_PAGE = $siteRoot . 'index.php?module=security&action=initfacebooklogin&auth_site=facebook';
+                            
+                            // Yahoo icon
+                            $yIcon = $this->newObject('geticon', 'htmlelements');
+                            $yIcon->setIcon ('yahoo', 'png', 'login');
+                            $yIcon->alt = "Yahoo ID";
+                            $yIcon->extra = ' name="but_yahoo" id="but_yahoo" onload="" ';
+                            
+                            //Twitter icon
+                            $tIcon = $this->newObject('geticon', 'htmlelements');
+                            $tIcon->setIcon ('facebook', 'png', 'login');
+                            $tIcon->alt = "TWITTER ID";
+                            $tIcon->extra = ' name="but_twitter" id="but_twitter" onload="" ';
+                            $TWITTER_AUTH_PAGE = $siteRoot . 'index.php?module=security&action=dotwitterlogin&auth_site=twitter';
+                            
+                            
+                            $objAltConfig = $this->getObject('altconfig', 'config');
+                            $siteRoot = $objAltConfig->getSiteRoot();
+                            $openidloginlink = new link($this->uri(array("action" => "openidconnect"), "security"));
+                            $openidloginlink->link = '<h3>'.$this->objLanguage->languageText('mod_security_oauthheading','security').'</h3>';
+                            $sitePath = $objAltConfig->getSitePath();
+                            
 
-                                $fbTD = '<a href="' . $FB_AUTH_PAGE
-                                        . '" target="_top"><img src="' . $sitePath
-                                        . '/core_modules/security/resources/openid/images/facebook.png" '
-                                        . 'alt="FB ID" name="but_fb" width="32" height="32" border="0" '
-                                        . 'id="but_fb" onload="" /></a>';
-                                $twitterTD = '<a href="' . $TWITTER_AUTH_PAGE
-                                        . '" target="_top"><img src="' . $sitePath
-                                        . '/core_modules/security/resources/openid/images/twitter.png" '
-                                        . 'alt="TWITTER ID" name="but_twitter" width="32" height="32" border="0" '
-                                        . 'id="but_twitter" onload="" /></a>';
+                            // I have no idea what this icon is for, seems to do nothing.
+                            $openidTD = '<a href="#"><img src="' . $sitePath
+                                    . '/core_modules/security/resources/openid/images/openid_icon32_2.png" '
+                                    . 'alt="" name="but_openid" width="32" height="64" border="0" '
+                                    . 'id="but_openid2" onload="" /></a>';
+                            // A google login icon linked to OpenID login with gooogle id.
+                            /*$googleTD = '<a href="' . $OPENID_AUTH_PAGE . '&auth_site=google" target="_top">'
+                                    . '<img src="' . $sitePath
+                                    . '/core_modules/security/resources/openid/images/google_plus.png" '
+                                    . 'alt="Google ID" name="but_google" width="32" height="32" '
+                                    . 'border="0" id="but_google2" onload="" /></a>';*/
+                            $googleTD = '<a href="' . $OPENID_AUTH_PAGE . '&auth_site=google" target="_top">' .$gIcon->show() . '</a>';
+                            // A Yahoo login icon linked to OpenId login with Yahoo ID.
+                            /*$yahooTD = '<a href="' . $OPENID_AUTH_PAGE
+                                    . '&auth_site=yahoo" target="_top"><img src="' . $sitePath
+                                    . '/core_modules/security/resources/openid/images/youtube.png" '
+                                    . 'alt="Yahoo ID" name="but_yahoo" width="32" height="32" border="0" '
+                                    . 'id="but_yahoo" onload="" /></a>';*/
+                            $yahooTD = '<a href="' . $OPENID_AUTH_PAGE
+                                    . '&auth_site=yahoo" target="_top">'
+                                    . $yIcon->show() . '</a>';
+
+                            /*$fbTD = '<a href="' . $FB_AUTH_PAGE
+                                    . '" target="_top"><img src="' . $sitePath
+                                    . '/core_modules/security/resources/openid/images/facebook.png" '
+                                    . 'alt="FB ID" name="but_fb" width="32" height="32" border="0" '
+                                    . 'id="but_fb" onload="" /></a>';*/
+
+                             $fbTD = '<a href="' . $FB_AUTH_PAGE
+                                    . '" target="_top">'
+                                    . $fIcon->show() . '</a>';
 
 
-                                // Explanation text for the textbox and Choose button
-                                $explainBox = '<div class="oid_explain">' .
-                                        $this->objLanguage->languageText(
-                                                'mod_security_openidexplainbox', 'security'
-                                        ) . '</div>';
-                                // Title for the fieldset.
-                                $title = '<h3>'.$this->objLanguage->languageText(
-                                        'mod_security_openidlogintitle', 'security'
-                                ).'</h3>';
-                                $openIdForm = new form('openlogiidnform', $this->uri(array("action" => "openidconnect", "auth_site" => "openid"))
-                                );
-                                $objInput = new textinput('openIDField', '', 'text', '30');
-                                $objInput->extra = 'maxlength="255"';
-                                $openIDImg = '<img src="' . $sitePath . '/core_modules/security/resources/openid/images/openid_icon32_2.png" alt="" name="but_openid" width="32" height="64" border="0" id="but_openid2" align="top" onload="" />';
-                                $openIdForm->addToForm($explainBox . $objInput->show());
-                                // The login via provided open ID URL button
-                                $openIdButton = new button('submit', $this->objLanguage->languageText(
-                                                "mod_security_openidlogin", 'security'
-                                        )
-                                );
-                                // Add the login icon
-                                $openIdButton->setIconClass("user");
-                                // Set the button type to submit
-                                $openIdButton->setToSubmit();
-                                $openIdForm->addToForm($openIdButton->show());
+                            /*$twitterTD = '<a href="' . $TWITTER_AUTH_PAGE
+                                    . '" target="_top"><img src="' . $sitePath
+                                    . '/core_modules/security/resources/openid/images/twitter.png" '
+                                    . 'alt="TWITTER ID" name="but_twitter" width="32" height="32" border="0" '
+                                    . 'id="but_twitter" onload="" /></a>';*/
+                            $twitterTD = '<a href="' . $TWITTER_AUTH_PAGE
+                                    . '" target="_top">'
+                                    . $tIcon->show() . '</a>';
 
-                                $openIdFields = new fieldset();
-                                $openIdFields->setLegend('<h3>'.$title.'</h3>');
-                                $openIdFields->addContent('<hr>');
-                                $openIdFields->addContent($fbTD . '&nbsp;' . $twitterTD . '&nbsp;' . $googleTD . '&nbsp;' . $yahooTD . '&nbsp;'
-                                        . '<hr/><br/>' . $openIdForm->show());
+                            // Explanation text for the textbox and Choose button
+                            $explainBox = '<div class="oid_explain">' .
+                                    $this->objLanguage->languageText(
+                                            'mod_security_openidexplainbox', 'security'
+                                    ) . '</div>';
+                            // Title for the fieldset.
+                            $title = '<h3>'.$this->objLanguage->languageText(
+                                    'mod_security_openidlogintitle', 'security'
+                            ).'</h3>';
+                            $openIdForm = new form('openlogiidnform', $this->uri(array("action" => "openidconnect", "auth_site" => "openid"))
+                            );
+                            $objInput = new textinput('openIDField', '', 'text', '30');
+                            $objInput->extra = 'maxlength="255"';
+                            $openIDImg = '<img src="' . $sitePath . '/core_modules/security/resources/openid/images/openid_icon32_2.png" alt="" name="but_openid" width="32" height="64" border="0" id="but_openid2" align="top" onload="" />';
+                            $openIdForm->addToForm($explainBox . $objInput->show());
+                            // The login via provided open ID URL button
+                            $openIdButton = new button('submit', $this->objLanguage->languageText(
+                                            "mod_security_openidlogin", 'security'
+                                    )
+                            );
+                            // Add the login icon
+                            $openIdButton->setIconClass("user");
+                            // Set the button type to submit
+                            $openIdButton->setToSubmit();
+                            $openIdForm->addToForm($openIdButton->show());
 
-                                $openidlink = '<div class="openidlogin">'
-                                        . $openIdFields->show() . "</div>"; 
+                            $openIdFields = new fieldset();
+                            $openIdFields->setLegend('<h3>'.$title.'</h3>');
+                            $openIdFields->addContent('<hr>');
+                            $openIdFields->addContent($fbTD . '&nbsp;' . $twitterTD . '&nbsp;' . $googleTD . '&nbsp;' . $yahooTD . '&nbsp;'
+                                    . '<hr/><br/>' . $openIdForm->show());
+
+                            $openidlink = '<div class="openidlogin">'
+                                    . $openIdFields->show() . "</div>";
+
                         }
 
                         $objFields->addContent($ldap . '<br />' . $rem . $box
