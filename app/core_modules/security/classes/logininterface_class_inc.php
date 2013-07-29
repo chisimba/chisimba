@@ -180,7 +180,6 @@ class loginInterface extends object {
                             $fIcon->setIcon ('facebook');
                             $fIcon->alt = "FB ID";
                             $fIcon->extra = ' name="but_fb" id="but_fb" onload="" ';
-                            //---------------$FB_AUTH_PAGE = $siteRoot . 'index.php?module=security&action=initfacebooklogin&auth_site=facebook';
                             $FB_AUTH_PAGE = $this->uri(array("action" => "initfacebooklogin", 'auth_site' => 'facebook'), "security");
                             
                             // Yahoo icon
@@ -194,7 +193,6 @@ class loginInterface extends object {
                             $tIcon->setIcon ('twitter', 'png');
                             $tIcon->alt = "TWITTER ID";
                             $tIcon->extra = ' name="but_twitter" id="but_twitter" onload="" ';
-                            //---------------------$TWITTER_AUTH_PAGE = $siteRoot . 'index.php?module=security&action=dotwitterlogin&auth_site=twitter';
                             $TWITTER_AUTH_PAGE = $this->uri(array("action" => "dotwitterlogin", 'auth_site' => 'twitter'), "security");
                             
                             
@@ -202,13 +200,7 @@ class loginInterface extends object {
                             $openidloginlink = new link($this->uri(array("action" => "openidconnect"), "security"));
                             $openidloginlink->link = '<h3>'.$this->objLanguage->languageText('mod_security_oauthheading','security').'</h3>';
                             $sitePath = $objAltConfig->getSitePath();
-                            
 
-                            // I have no idea what this icon is for, seems to do nothing.
-                            $openidTD = '<a href="#"><img src="' . $sitePath
-                                    . '/core_modules/security/resources/openid/images/openid_icon32_2.png" '
-                                    . 'alt="" name="but_openid" width="32" height="64" border="0" '
-                                    . 'id="but_openid2" onload="" /></a>';
                             // A google login icon linked to OpenID login with gooogle id.
                             $googleTD = '<a href="' . $OPENID_AUTH_PAGE . '&auth_site=google" target="_top">' .$gIcon->show() . '</a>';
                             // A Yahoo login icon linked to OpenId login with Yahoo ID.
@@ -233,31 +225,43 @@ class loginInterface extends object {
                             $title = '<h3>'.$this->objLanguage->languageText(
                                     'mod_security_openidlogintitle', 'security'
                             ).'</h3>';
-                            $openIdForm = new form('openlogiidnform', $this->uri(array("action" => "openidconnect", "auth_site" => "openid"))
-                            );
-                            $objInput = new textinput('openIDField', '', 'text', '30');
-                            $objInput->extra = 'maxlength="255"';
-                            $openIDImg = '<img src="' . $sitePath . '/core_modules/security/resources/openid/images/openid_icon32_2.png" alt="" name="but_openid" width="32" height="64" border="0" id="but_openid2" align="top" onload="" />';
-                            $openIdForm->addToForm($explainBox . $objInput->show());
-                            // The login via provided open ID URL button
-                            $openIdButton = new button('submit', $this->objLanguage->languageText(
-                                            "mod_security_openidlogin", 'security'
-                                    )
-                            );
-                            // Add the login icon
-                            $openIdButton->setIconClass("user");
-                            // Set the button type to submit
-                            $openIdButton->setToSubmit();
-                            $openIdForm->addToForm($openIdButton->show());
+                            
+                            $allowOpenIdForm = FALSE;
+                            if ($allowOpenIdForm) {
+                                // Allow login via any Open ID url, use mainly for testing.
+                                $openIdForm = new form('openlogiidnform', $this->uri(array("action" => "openidconnect", "auth_site" => "openid"))
+                                );
+                                $objInput = new textinput('openIDField', '', 'text', '30');
+                                $objInput->extra = 'maxlength="255"';
+                                $openIdForm->addToForm($explainBox . $objInput->show());
+                                // The login via provided open ID URL button
+                                $openIdButton = new button('submit', $this->objLanguage->languageText(
+                                                "mod_security_openidlogin", 'security'
+                                        )
+                                );
+                                // Add the login icon
+                                $openIdButton->setIconClass("user");
+                                // Set the button type to submit
+                                $openIdButton->setToSubmit();
+                                $openIdForm->addToForm($openIdButton->show());
+                                $opForm = '<hr/><br/>' . $openIdForm->show();
+                            } else {
+                                $opForm = NULL;
+                            }
+                            
+                            
+
 
                             $openIdFields = new fieldset();
                             $openIdFields->setLegend('<h3>'.$title.'</h3>');
                             $openIdFields->addContent('<hr>');
-                            $openIdFields->addContent($fbTD . '&nbsp;' . $twitterTD . '&nbsp;' . $googleTD . '&nbsp;' . $yahooTD . '&nbsp;'
-                                    . '<hr/><br/>' . $openIdForm->show());
+                            $openIdFields->addContent($fbTD . '&nbsp;' 
+                                    . $twitterTD . '&nbsp;' . $googleTD 
+                                    . '&nbsp;' . $yahooTD . '&nbsp;'
+                                    . $opForm);
 
                             $openidlink = '<div class="openidlogin">'
-                                    . $openIdFields->show() . "</div>";
+                              . $openIdFields->show() . "</div>";
 
                         }
 
