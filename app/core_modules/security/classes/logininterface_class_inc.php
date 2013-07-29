@@ -167,7 +167,7 @@ class loginInterface extends object {
                             // OpenId auth page is used for Google and Yahoo
                             $objAltConfig = $this->getObject('altconfig', 'config');
                             $siteRoot = $objAltConfig->getSiteRoot();
-                            $OPENID_AUTH_PAGE = $siteRoot . '?module=security&action=openidconnect';
+                            $OPENID_AUTH_PAGE = $this->uri(array("action" => "openidconnect"), "security");
                             
                             // Google icon
                             $gIcon = $this->newObject('geticon', 'htmlelements');
@@ -180,7 +180,8 @@ class loginInterface extends object {
                             $fIcon->setIcon ('facebook');
                             $fIcon->alt = "FB ID";
                             $fIcon->extra = ' name="but_fb" id="but_fb" onload="" ';
-                            $FB_AUTH_PAGE = $siteRoot . 'index.php?module=security&action=initfacebooklogin&auth_site=facebook';
+                            //---------------$FB_AUTH_PAGE = $siteRoot . 'index.php?module=security&action=initfacebooklogin&auth_site=facebook';
+                            $FB_AUTH_PAGE = $this->uri(array("action" => "initfacebooklogin", 'auth_site' => 'facebook'), "security");
                             
                             // Yahoo icon
                             $yIcon = $this->newObject('geticon', 'htmlelements');
@@ -190,14 +191,14 @@ class loginInterface extends object {
                             
                             //Twitter icon
                             $tIcon = $this->newObject('geticon', 'htmlelements');
-                            $tIcon->setIcon ('facebook');
+                            $tIcon->setIcon ('twitter', 'png');
                             $tIcon->alt = "TWITTER ID";
                             $tIcon->extra = ' name="but_twitter" id="but_twitter" onload="" ';
-                            $TWITTER_AUTH_PAGE = $siteRoot . 'index.php?module=security&action=dotwitterlogin&auth_site=twitter';
+                            //---------------------$TWITTER_AUTH_PAGE = $siteRoot . 'index.php?module=security&action=dotwitterlogin&auth_site=twitter';
+                            $TWITTER_AUTH_PAGE = $this->uri(array("action" => "dotwitterlogin", 'auth_site' => 'twitter'), "security");
                             
                             
-                            $objAltConfig = $this->getObject('altconfig', 'config');
-                            $siteRoot = $objAltConfig->getSiteRoot();
+
                             $openidloginlink = new link($this->uri(array("action" => "openidconnect"), "security"));
                             $openidloginlink->link = '<h3>'.$this->objLanguage->languageText('mod_security_oauthheading','security').'</h3>';
                             $sitePath = $objAltConfig->getSitePath();
@@ -209,38 +210,16 @@ class loginInterface extends object {
                                     . 'alt="" name="but_openid" width="32" height="64" border="0" '
                                     . 'id="but_openid2" onload="" /></a>';
                             // A google login icon linked to OpenID login with gooogle id.
-                            /*$googleTD = '<a href="' . $OPENID_AUTH_PAGE . '&auth_site=google" target="_top">'
-                                    . '<img src="' . $sitePath
-                                    . '/core_modules/security/resources/openid/images/google_plus.png" '
-                                    . 'alt="Google ID" name="but_google" width="32" height="32" '
-                                    . 'border="0" id="but_google2" onload="" /></a>';*/
                             $googleTD = '<a href="' . $OPENID_AUTH_PAGE . '&auth_site=google" target="_top">' .$gIcon->show() . '</a>';
                             // A Yahoo login icon linked to OpenId login with Yahoo ID.
-                            /*$yahooTD = '<a href="' . $OPENID_AUTH_PAGE
-                                    . '&auth_site=yahoo" target="_top"><img src="' . $sitePath
-                                    . '/core_modules/security/resources/openid/images/youtube.png" '
-                                    . 'alt="Yahoo ID" name="but_yahoo" width="32" height="32" border="0" '
-                                    . 'id="but_yahoo" onload="" /></a>';*/
                             $yahooTD = '<a href="' . $OPENID_AUTH_PAGE
                                     . '&auth_site=yahoo" target="_top">'
                                     . $yIcon->show() . '</a>';
-
-                            /*$fbTD = '<a href="' . $FB_AUTH_PAGE
-                                    . '" target="_top"><img src="' . $sitePath
-                                    . '/core_modules/security/resources/openid/images/facebook.png" '
-                                    . 'alt="FB ID" name="but_fb" width="32" height="32" border="0" '
-                                    . 'id="but_fb" onload="" /></a>';*/
-
+                            // Facebook login icon with link to login page.
                              $fbTD = '<a href="' . $FB_AUTH_PAGE
                                     . '" target="_top">'
                                     . $fIcon->show() . '</a>';
-
-
-                            /*$twitterTD = '<a href="' . $TWITTER_AUTH_PAGE
-                                    . '" target="_top"><img src="' . $sitePath
-                                    . '/core_modules/security/resources/openid/images/twitter.png" '
-                                    . 'alt="TWITTER ID" name="but_twitter" width="32" height="32" border="0" '
-                                    . 'id="but_twitter" onload="" /></a>';*/
+                            // Twitter login icon with link to login page.
                             $twitterTD = '<a href="' . $TWITTER_AUTH_PAGE
                                     . '" target="_top">'
                                     . $tIcon->show() . '</a>';
