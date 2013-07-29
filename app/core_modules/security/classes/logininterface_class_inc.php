@@ -249,9 +249,6 @@ class loginInterface extends object {
                                 $opForm = NULL;
                             }
                             
-                            
-
-
                             $openIdFields = new fieldset();
                             $openIdFields->setLegend('<h3>'.$title.'</h3>');
                             $openIdFields->addContent('<hr>');
@@ -268,7 +265,6 @@ class loginInterface extends object {
                         $objFields->addContent($ldap . '<br />' . $rem . $box
                                 . "<div class='loginbuttonwrap'>" . $objButton->show()
                                 . '</div>' . $fb);
-
 
                         $notice = $this->objLanguage->languageText('mod_security_forgotpassword');
                         $helpText = strtoupper($this->objLanguage->languageText('mod_security_helpmelogin', 'security', 'Yes, please help me to login'));
