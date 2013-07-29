@@ -171,26 +171,26 @@ class loginInterface extends object {
                             
                             // Google icon
                             $gIcon = $this->newObject('geticon', 'htmlelements');
-                            $gIcon->setIcon ('google', 'png', 'login');
+                            $gIcon->setIcon ('google');
                             $gIcon->alt = "Google ID";
                             $gIcon->extra = ' name="but_google" id="but_google2" onload="" ';
                             
                             // Facebook icon
                             $fIcon = $this->newObject('geticon', 'htmlelements');
-                            $fIcon->setIcon ('facebook', 'png', 'login');
+                            $fIcon->setIcon ('facebook');
                             $fIcon->alt = "FB ID";
                             $fIcon->extra = ' name="but_fb" id="but_fb" onload="" ';
                             $FB_AUTH_PAGE = $siteRoot . 'index.php?module=security&action=initfacebooklogin&auth_site=facebook';
                             
                             // Yahoo icon
                             $yIcon = $this->newObject('geticon', 'htmlelements');
-                            $yIcon->setIcon ('yahoo', 'png', 'login');
+                            $yIcon->setIcon ('yahoo');
                             $yIcon->alt = "Yahoo ID";
                             $yIcon->extra = ' name="but_yahoo" id="but_yahoo" onload="" ';
                             
                             //Twitter icon
                             $tIcon = $this->newObject('geticon', 'htmlelements');
-                            $tIcon->setIcon ('facebook', 'png', 'login');
+                            $tIcon->setIcon ('facebook');
                             $tIcon->alt = "TWITTER ID";
                             $tIcon->extra = ' name="but_twitter" id="but_twitter" onload="" ';
                             $TWITTER_AUTH_PAGE = $siteRoot . 'index.php?module=security&action=dotwitterlogin&auth_site=twitter';
