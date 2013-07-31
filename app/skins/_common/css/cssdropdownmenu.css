@@ -4,26 +4,26 @@
 ***********************************************************************************************/
 
 #menu {
-    display: block;
+/*    display: block;
     padding-left: 10px;
     z-index: 100;
-    float:left;
+    float:left;*/
 }
 
 #menu ul {
-    margin: 0;
+/*    margin: 0;
     padding: 0;
     border: 0;
-    list-style-type: none;
+    list-style-type: none;*/
 }
 
 #menu li {
-    margin: 0;
+/*    margin: 0;
     border: 0;
     display: block;
     float: left;
     position: relative;
-    width: 130px
+    width: 130px*/
 }
 
 
@@ -34,14 +34,14 @@
 }
 
 #menu img {
-    float: left;
+/*    float: left;
     width: 17px;
-    height: 17px;
+    height: 17px;*/
 }
 
 #menu span {
-    margin-left: 20px;
-    display: block;
+/*    margin-left: 20px;
+    display: block;*/
 }
 
 
