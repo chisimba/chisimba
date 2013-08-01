@@ -200,6 +200,9 @@ class timeoutMessage extends object {
                                 jQuery(document).on('click','a.floatingClose',function(){
                                         jQuery(this).closest('span#confirm').fadeOut('slow');
                                 });
+                                setTimeout(function(){
+                                        jQuery('span#confirm').fadeOut('slow');
+                                },{$this->timeout});
                         });
                         </script>";
                 return $str;
