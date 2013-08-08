@@ -327,7 +327,7 @@ class loginInterface extends object {
             
             
             /* Create a TwitterOauth object with consumer/user tokens. */
-            //$connection = new TwitterOAuth($consumer_key, $consumer_secret, $access_token, $token_secret);
+            //KEEP CRUFT FOR NOW$connection = new TwitterOAuth($consumer_key, $consumer_secret, $access_token, $token_secret);
             $twitterInfo = $connection->get('account/verify_credentials');
             $userid = $twitterInfo->id;
             $username = $twitterInfo->screen_name;
