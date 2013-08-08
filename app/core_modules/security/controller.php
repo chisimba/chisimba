@@ -93,13 +93,11 @@ class security extends controller {
                 break;
             case 'dotwitterlogin':
                  $result = $this->objUi->doTwitterLogin();
-             die ($result);
                 return $this->nextAction(NULL, NULL, $result);
                 die();
                
                 
             case 'initfacebooklogin':
-
                 $result = $this->objUi->doFacebookLogin();
                 if (is_array($result)) {
 

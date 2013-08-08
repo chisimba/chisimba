@@ -215,7 +215,7 @@ class loginInterface extends object {
                 $twitterTD = '<a href="' . $TWITTER_AUTH_PAGE
                         . '" target="_top">'
                         . $tIcon->show() . '</a>';
-                $twitterTD = NULL;
+                //$twitterTD = NULL; <--- uncomment for commit until TWITTER AUTH is fixed
 
                 // Explanation text for the textbox and Choose button
                 $explainBox = '<div class="oid_explain">' .
@@ -308,19 +308,27 @@ class loginInterface extends object {
 
     public function doTwitterLogin() {
 
-        require_once "Auth/twitteroauth/twitteroauth/twitteroauth.php";
+        // Get the currently valid auth package.
+        $loadPath = $this->getResourcePath('twitteroauth2', 'security');
+        $loadPath = str_replace('//', '/', $loadPath . '/twitteroauth.php');
+        require_once $loadPath;
+        
+        // Get the required keys
         $this->objDbSysconfig = $this->getObject('dbsysconfig', 'sysconfig');
         $objAltConfig = $this->getObject('altconfig', 'config');
-
         $consumer_key = $this->objDbSysconfig->getValue('twitter_consumer_key', 'security');
         $consumer_secret = $this->objDbSysconfig->getValue('twitter_consumer_secret', 'security');
         $access_token = $this->objDbSysconfig->getValue('twitter_access_token', 'security');
         $token_secret = $this->objDbSysconfig->getValue('twitter_token_secret', 'security');
         try {
+            
             /* Create a TwitterOauth object with consumer/user tokens. */
             $connection = new TwitterOAuth($consumer_key, $consumer_secret, $access_token, $token_secret);
+            
+            
+            /* Create a TwitterOauth object with consumer/user tokens. */
+            //$connection = new TwitterOAuth($consumer_key, $consumer_secret, $access_token, $token_secret);
             $twitterInfo = $connection->get('account/verify_credentials');
-var_dump($twitterInfo);die("DEAD");
             $userid = $twitterInfo->id;
             $username = $twitterInfo->screen_name;
             $fullname = $twitterInfo->name;
