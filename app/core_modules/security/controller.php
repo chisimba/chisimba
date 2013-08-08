@@ -88,13 +88,12 @@ class security extends controller {
             case 'fbconnect' :
                 $this->objUi->fbConnect();
                 break;
-
             case 'openidconnect':
                 $this->objUi->openIdConnect($this->getParam("auth_site"));
                 break;
             case 'dotwitterlogin':
-                $result = $this->objUi->doTwitterLogin();
-             
+                 $result = $this->objUi->doTwitterLogin();
+             die ($result);
                 return $this->nextAction(NULL, NULL, $result);
                 die();
                
