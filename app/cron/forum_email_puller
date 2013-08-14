@@ -1,3 +1,1 @@
 #!bin/bash
-
-*/2 * * * *  /var/www/ch/index.php?module=forum&action=pullmaill
