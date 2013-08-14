@@ -13,11 +13,11 @@ span.strong{
         line-height:1.2;
 }
 .newForumContainer.reply, .newForumContainer.parent, .newForumContent{
-        -moz-box-shadow: 0 1px 3px -1px #6d6d6d;
-        -webkit-box-shadow: 0 1px 3px -1px #6d6d6d;
-        box-shadow: 0 1px 3px -1px #6d6d6d;
+        -moz-box-shadow: 0 25px 30px -29px #000;
+        -webkit-box-shadow: 0 25px 30px -29px #000;
+        box-shadow: 0 25px 30px -29px #000;
         background-color: #fff;
-        border-radius: 5px;     
+        border-radius: 5px;
 }
 .forumProfileImg{
         background: none;
@@ -35,20 +35,27 @@ span.strong{
         -webkit-border-radius: 3px;
         -moz-border-radius: 3px;
 }
-
+.all-wrapper{
+        margin-left: 100px;
+        margin-top: -45px;
+}
 .newForumTopic {
         border-top-left-radius: 3px;
         border-top-right-radius: 3px;
+        /*margin-top: -45px;*/
 }
 
 .newForumContent {
         padding: 10px;
         border-top-left-radius: 0px;
         border-top-right-radius: 0px;
+/*        -moz-box-shadow: 0 25px 30px -29px #000;
+        -webkit-box-shadow: 0 25px 30px -29px #000;*/
+        box-shadow: 0 25px 30px -25px #000;
 }
 .newForumContainer{
         margin-left: 90px;
-        margin-top: 0px;
+        /*margin-top: 0px;*/
         z-index: 0;
         position: relative;
 }
