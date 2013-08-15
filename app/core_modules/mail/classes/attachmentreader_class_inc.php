@@ -24,7 +24,7 @@ class AttachmentReader {
          */
         function __construct($emailHost, $emailPort, $emailOptions, $emailLogin, $emailPassword, $catchAllBase=NULL) {
                 $hostString = "{{$emailHost}:{$emailPort}/{$emailOptions}}";
-
+                echo "<br/>1".$emailHost."<br/>2".$emailPort."<br/>3".$emailOptions."<br/>4".$emailLogin."<br/>5".$emailPassword;
                 $this->mbox = imap_open($hostString, $emailLogin, $emailPassword, OP_SILENT) or die("can't connect: " . imap_last_error());
 
                 // Remove all mail that may have been marked for deletion
