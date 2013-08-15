@@ -23,7 +23,7 @@ class AttachmentReader {
          * Constructor - Establishes Connection to Email Host
          */
         function __construct($emailHost, $emailPort, $emailOptions, $emailLogin, $emailPassword, $catchAllBase=NULL) {
-                $hostString = "{{$emailHost}:{$emailPort}/{$emailOptions}}";
+                $hostString = "{{$emailHost}:{$emailPort}/{$emailOptions}} INBOX";
 
                 $this->mbox = imap_open($hostString, $emailLogin, $emailPassword, OP_SILENT) or die("can't connect: " . imap_last_error());
 
