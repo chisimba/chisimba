@@ -1,1 +1,3 @@
 #!bin/bash
+
+curl owl.thumbzup.com/index.php?module=forum&action=pullmail
