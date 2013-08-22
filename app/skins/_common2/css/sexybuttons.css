@@ -94,7 +94,7 @@
 }
 
 .sexybutton:hover span {
-	/*background-position: right center;*/
+	background-position: right center;
 }
 
 .sexybutton:hover span span {
@@ -102,7 +102,7 @@
 }
 
 .sexybutton:active span {
-	/*background-position: right bottom;*/
+	background-position: right bottom;
 }
 
 .sexybutton:active span span {
