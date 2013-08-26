@@ -202,11 +202,11 @@ class imageresize extends object
         if(isset($aspectratio)&& $aspectratio) {
             $w = round($o_wd * $height / $o_ht);
             $h = round($o_ht * $width / $o_wd);
-            if(($height-$h)<($width-$w)){
-                $width =& $w;
-            } else {
-                $height =& $h;
-            }
+//            if(($height-$h)<($width-$w)){
+//                $width =& $w;
+//            } else {
+//                $height =& $h;
+//            }
         }
         
         // Create Thumbnail Image
