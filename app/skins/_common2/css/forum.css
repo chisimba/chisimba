@@ -13,9 +13,6 @@ span.strong{
         line-height:1.2;
 }
 .newForumContainer.reply, .newForumContainer.parent, .newForumContent{
-        -moz-box-shadow: 0 25px 30px -25px #000;
-        -webkit-box-shadow: 0 25px 30px -25px #000;
-        box-shadow: 0 25px 30px -25px #000;
         background-color: #fff;
         border-radius: 5px;
 }
@@ -47,9 +44,10 @@ span.strong{
 }
 .newForumContainer{
         margin-left: 120px;
-        box-shadow: 0 25px 30px -25px #000;
-        -moz-box-shadow: 0 25px 30px -25px #000;
-        -webkit-box-shadow: 0 25px 30px -25px #000;
+        box-shadow: 0 0 2px -1px #000;
+        -webkit-box-shadow: 0 0 3px -1px #000;
+        -moz-box-shadow: 0 0 3px -1px #000;
+        border-bottom: 3px solid #e8e8e8;
         z-index: 0;
         position: relative;
 }

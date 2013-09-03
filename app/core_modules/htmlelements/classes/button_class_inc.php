@@ -62,8 +62,13 @@ require_once("ifhtml_class_inc.php");
  */
 class button extends abhtmlbase implements ifhtml
 {
+        /**
+         *
+         * @var object DOM object
+         */
+        public $domDoc;
 
-    /**
+        /**
     * @var string $onsubmit: The javascript to be executed on submit, if any.
     */
     public $onsubmit;
@@ -188,6 +193,21 @@ class button extends abhtmlbase implements ifhtml
         else {
             return $this->showDefault();
         }
+    }
+    
+    public function showNew($value){
+            $this->domDoc = new DOMDocument('utf-8');
+            $domElements['button'] = $this->domDoc->createElement('button');
+            $domElements['button']->appendChild($this->domDoc->createTextNode($value));
+            if(isset($this->cssClass)){
+                    $domElements['button']->setAtribute('class',  $this->cssClass);
+            }
+            if(isset($this->cssId)){
+                    $domElements['button']->setAttribute('id',  $this->cssId);
+            }
+            if(isset($this->onclick)){
+                    $domElements['button']->setAttribute('onclick',  $this->onclick);
+            }
     }
 
     
