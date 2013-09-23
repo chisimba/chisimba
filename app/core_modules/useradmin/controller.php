@@ -52,7 +52,7 @@ class useradmin extends controller
         $this->setLayoutTemplate('useradmin_layout_tpl.php');
 
         $this->setVar('ENABLE_PROTOTYPE_ONLY', TRUE);
-        $this->setVar('SUPPRESS_JQUERY', TRUE);
+        $this->setVar('SUPPRESS_JQUERY', FALSE);
 
         // echo '<pre>';
         // print_r($_SESSION);

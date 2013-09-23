@@ -55,6 +55,14 @@ class loginInterface extends object {
      */
     public $objConfig;
 
+    /**
+     * Icons object
+     * 
+     * @access public
+     * @var object
+     */
+    var $objIcon;
+
     public function init() {
         try {
             // Create an instance of the language object
@@ -64,6 +72,7 @@ class loginInterface extends object {
             $this->objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
             $this->objHelp = $this->getObject('help', 'help');
             $this->objUser = $this->getObject('user', 'security');
+            $this->objIcon = $this->getObject('geticon', 'htmlelements');
         } catch (Exception $e) {
             customException::cleanUp();
         }
@@ -93,6 +102,7 @@ class loginInterface extends object {
             $this->loadClass('label', 'htmlelements');
             $this->loadClass('fieldset', 'htmlelements');
             $objBox = $this->newObject('alertbox', 'htmlelements');
+            $objIcon = $this->getObject('geticon', 'htmlelements');
 
             // prepare the link for the oAuth providers 
             $box = $this->oauthDisp();
@@ -104,22 +114,25 @@ class loginInterface extends object {
 
             //--Create an element for the username
             $objInput = new textinput('username', '', 'text', '15');
-            $objInput->extra = 'maxlength="255"';
+            $objInput->extra = 'maxlength="255" placeholder="' . $this->objLanguage->languageText('word_username', 'system') . '"';
             $objLabel = new label($this->objLanguage->languageText('word_username') . ': ', 'input_username');
             //Add validation for username
             $objForm->addRule('username', $this->objLanguage->languageText("mod_login_unrequired", 'security', 'Please enter a username. A username is required in order to login.'), 'required');
 
             //Add the username box to the form
-            $objFields->addContent($objLabel->show() . '<br />');
+            $this->objIcon->setIcon('user');
+            $objFields->addContent($this->objIcon->show());
             $objFields->addContent($objInput->show() . '<br />');
             //$objForm->addToForm();
             //--- Create an element for the password
             $objInput = new textinput('password', '', 'password', '15');
-            $objInput->extra = 'maxlength="255"';
+            $objInput->extra = 'maxlength="255" placeholder="' . $this->objLanguage->languageText('word_password', 'system') . '"';
             $objLabel = new label($this->objLanguage->languageText('word_password') . ': ', 'input_password');
             //Add the password box to the form
             //$objForm->addToForm();
-            $objFields->addContent($objLabel->show() . '<br />');
+            $this->objIcon->setIcon('key');
+            $objFields->addContent($this->objIcon->show());
+//                        $objFields->addContent($objLabel->show() . '<br />');
             $objFields->addContent($objInput->show());
             //--- Create an element for the network login radio
             $objElement = new checkbox("useLdap");
@@ -150,43 +163,59 @@ class loginInterface extends object {
             $showOpenIdLogin = $objSysConfig->getValue('show_openidconnect_auth', 'security');
             $openidlink = "";
             if ($showOpenIdLogin == 'true') {
+
+                // OpenId auth page is used for Google and Yahoo
                 $objAltConfig = $this->getObject('altconfig', 'config');
                 $siteRoot = $objAltConfig->getSiteRoot();
+                $OPENID_AUTH_PAGE = $this->uri(array("action" => "openidconnect"), "security");
+
+                // Google icon
+                $gIcon = $this->newObject('geticon', 'htmlelements');
+                $gIcon->setIcon('google');
+                $gIcon->alt = "Google ID";
+                $gIcon->extra = ' name="but_google" id="but_google2" onload="" ';
+
+                // Facebook icon
+                $fIcon = $this->newObject('geticon', 'htmlelements');
+                $fIcon->setIcon('facebook');
+                $fIcon->alt = "FB ID";
+                $fIcon->extra = ' name="but_fb" id="but_fb" onload="" ';
+                $FB_AUTH_PAGE = $this->uri(array("action" => "initfacebooklogin", 'auth_site' => 'facebook'), "security");
+
+                // Yahoo icon
+                $yIcon = $this->newObject('geticon', 'htmlelements');
+                $yIcon->setIcon('yahoo');
+                $yIcon->alt = "Yahoo ID";
+                $yIcon->extra = ' name="but_yahoo" id="but_yahoo" onload="" ';
+
+                //Twitter icon
+                $tIcon = $this->newObject('geticon', 'htmlelements');
+                $tIcon->setIcon('twitter', 'png');
+                $tIcon->alt = "TWITTER ID";
+                $tIcon->extra = ' name="but_twitter" id="but_twitter" onload="" ';
+                $TWITTER_AUTH_PAGE = $this->uri(array("action" => "dotwitterlogin", 'auth_site' => 'twitter'), "security");
+                $TWITTER_AUTH_PAGE = str_replace("&amp;", "&", $TWITTER_AUTH_PAGE);
+
+
                 $openidloginlink = new link($this->uri(array("action" => "openidconnect"), "security"));
-                $openidloginlink->link = "Open ID Login";
-                $OPENID_AUTH_PAGE = $siteRoot . '?module=security&action=openidconnect';
-                $FB_AUTH_PAGE = $siteRoot . 'index.php?module=security&action=initfacebooklogin&auth_site=facebook';
-                $TWITTER_AUTH_PAGE = $siteRoot . 'index.php?module=security&action=dotwitterlogin&auth_site=twitter';
+                $openidloginlink->link = '<h3>' . $this->objLanguage->languageText('mod_security_oauthheading', 'security') . '</h3>';
                 $sitePath = $objAltConfig->getSitePath();
-                // I have no idea what this icon is for, seems to do nothing.
-                $openidTD = '<a href="#"><img src="' . $sitePath
-                        . '/core_modules/security/resources/openid/images/openid_icon32_2.png" '
-                        . 'alt="" name="but_openid" width="32" height="64" border="0" '
-                        . 'id="but_openid2" onload="" /></a>';
+
                 // A google login icon linked to OpenID login with gooogle id.
-                $googleTD = '<a href="' . $OPENID_AUTH_PAGE . '&auth_site=google" target="_top">'
-                        . '<img src="' . $sitePath
-                        . '/core_modules/security/resources/openid/images/google_icon32_2.png" '
-                        . 'alt="Google ID" name="but_google" width="32" height="63" '
-                        . 'border="0" id="but_google2" onload="" /></a>';
+                $googleTD = '<a href="' . $OPENID_AUTH_PAGE . '&auth_site=google" target="_top">' . $gIcon->show() . '</a>';
                 // A Yahoo login icon linked to OpenId login with Yahoo ID.
                 $yahooTD = '<a href="' . $OPENID_AUTH_PAGE
-                        . '&auth_site=yahoo" target="_top"><img src="' . $sitePath
-                        . '/core_modules/security/resources/openid/images/yahoo_icon32_2.png" '
-                        . 'alt="Yahoo ID" name="but_yahoo" width="32" height="63" border="0" '
-                        . 'id="but_yahoo" onload="" /></a>';
-
+                        . '&auth_site=yahoo" target="_top">'
+                        . $yIcon->show() . '</a>';
+                // Facebook login icon with link to login page.
                 $fbTD = '<a href="' . $FB_AUTH_PAGE
-                        . '" target="_top"><img src="' . $sitePath
-                        . '/core_modules/security/resources/openid/images/facebook_icon32_2.png" '
-                        . 'alt="FB ID" name="but_fb" width="32" height="63" border="0" '
-                        . 'id="but_fb" onload="" /></a>';
+                        . '" target="_top">'
+                        . $fIcon->show() . '</a>';
+                // Twitter login icon with link to login page.
                 $twitterTD = '<a href="' . $TWITTER_AUTH_PAGE
-                        . '" target="_top"><img src="' . $sitePath
-                        . '/core_modules/security/resources/openid/images/twitter_icon32_2.png" '
-                        . 'alt="TWITTER ID" name="but_twitter" width="32" height="63" border="0" '
-                        . 'id="but_twitter" onload="" /></a>';
-
+                        . '" target="_top">'
+                        . $tIcon->show() . '</a>';
+                //$twitterTD = NULL; <--- uncomment for commit until TWITTER AUTH is fixed
 
                 // Explanation text for the textbox and Choose button
                 $explainBox = '<div class="oid_explain">' .
@@ -194,32 +223,45 @@ class loginInterface extends object {
                                 'mod_security_openidexplainbox', 'security'
                         ) . '</div>';
                 // Title for the fieldset.
-                $title = $this->objLanguage->languageText(
-                        'mod_security_openidlogintitle', 'security'
-                );
-                $openIdForm = new form('openlogiidnform',
-                                $this->uri(array("action" => "openidconnect", "auth_site" => "openid"))
-                );
-                $objInput = new textinput('openIDField', '', 'text', '30');
-                $objInput->extra = 'maxlength="255"';
-                $openIDImg = '<img src="' . $sitePath . '/core_modules/security/resources/openid/images/openid_icon32_2.png" alt="" name="but_openid" width="32" height="64" border="0" id="but_openid2" align="top" onload="" />';
-                $openIdForm->addToForm($explainBox . $objInput->show());
-                // The login via provided open ID URL button
-                $openIdButton = new button('submit',
-                                $this->objLanguage->languageText(
-                                        "mod_security_openidlogin", 'security'
-                                )
-                );
-                // Add the login icon
-                $openIdButton->setIconClass("user");
-                // Set the button type to submit
-                $openIdButton->setToSubmit();
-                $openIdForm->addToForm($openIdButton->show());
+                $title = '<h3>' . $this->objLanguage->languageText(
+                                'mod_security_openidlogintitle', 'security'
+                        ) . '</h3>';
+
+                $allowOpenIdForm = FALSE;
+                if ($allowOpenIdForm) {
+                    // Allow login via any Open ID url, use mainly for testing.
+                    $openIdForm = new form('openlogiidnform', $this->uri(array("action" => "openidconnect", "auth_site" => "openid"))
+                    );
+                    $objInput = new textinput('openIDField', '', 'text', '30');
+                    $objInput->extra = 'maxlength="255"';
+                    $openIdForm->addToForm($explainBox . $objInput->show());
+                    // The login via provided open ID URL button
+                    $openIdButton = new button('submit', $this->objLanguage->languageText(
+                                    "mod_security_openidlogin", 'security'
+                            )
+                    );
+                    // Add the login icon
+                    $openIdButton->setIconClass("user");
+                    // Set the button type to submit
+                    $openIdButton->setToSubmit();
+                    $openIdForm->addToForm($openIdButton->show());
+                    $opForm = '<hr/><br/>' . $openIdForm->show();
+                } else {
+                    $opForm = NULL;
+                }
 
                 $openIdFields = new fieldset();
-                $openIdFields->setLegend($title);
-                $openIdFields->addContent($fbTD . '&nbsp;' . $twitterTD . '&nbsp;' . $googleTD . '&nbsp;' . $yahooTD . '&nbsp;'
-                        . '<hr/><br/>' . $openIdForm->show());
+                $openIdFields->setLegend('<h3>' . $title . '</h3>');
+                $openIdFields->addContent(
+                     $this->objLanguage->languageText('mod_security_oidliinstr', 
+                    'security', 
+                    'Login with one of the accounts indicated by the icons below')
+                );
+                $openIdFields->addContent('<hr>');
+                $openIdFields->addContent($fbTD . '&nbsp;'
+                        . $twitterTD . '&nbsp;' . $googleTD
+                        . '&nbsp;' . $yahooTD . '&nbsp;'
+                        . $opForm);
 
                 $openidlink = '<div class="openidlogin">'
                         . $openIdFields->show() . "</div>";
@@ -228,7 +270,6 @@ class loginInterface extends object {
             $objFields->addContent($ldap . '<br />' . $rem . $box
                     . "<div class='loginbuttonwrap'>" . $objButton->show()
                     . '</div>' . $fb);
-
 
             $notice = $this->objLanguage->languageText('mod_security_forgotpassword');
             $helpText = strtoupper($this->objLanguage->languageText('mod_security_helpmelogin', 'security', 'Yes, please help me to login'));
@@ -267,20 +308,27 @@ class loginInterface extends object {
 
     public function doTwitterLogin() {
 
-        require_once "Auth/twitteroauth/twitteroauth/twitteroauth.php";
+        // Get the currently valid auth package.
+        $loadPath = $this->getResourcePath('twitteroauth2', 'security');
+        $loadPath = str_replace('//', '/', $loadPath . '/twitteroauth.php');
+        require_once $loadPath;
+        
+        // Get the required keys
         $this->objDbSysconfig = $this->getObject('dbsysconfig', 'sysconfig');
         $objAltConfig = $this->getObject('altconfig', 'config');
-
         $consumer_key = $this->objDbSysconfig->getValue('twitter_consumer_key', 'security');
         $consumer_secret = $this->objDbSysconfig->getValue('twitter_consumer_secret', 'security');
         $access_token = $this->objDbSysconfig->getValue('twitter_access_token', 'security');
         $token_secret = $this->objDbSysconfig->getValue('twitter_token_secret', 'security');
-
         try {
+            
             /* Create a TwitterOauth object with consumer/user tokens. */
             $connection = new TwitterOAuth($consumer_key, $consumer_secret, $access_token, $token_secret);
+            
+            
+            /* Create a TwitterOauth object with consumer/user tokens. */
+            //KEEP CRUFT FOR NOW$connection = new TwitterOAuth($consumer_key, $consumer_secret, $access_token, $token_secret);
             $twitterInfo = $connection->get('account/verify_credentials');
-
             $userid = $twitterInfo->id;
             $username = $twitterInfo->screen_name;
             $fullname = $twitterInfo->name;
@@ -318,10 +366,10 @@ class loginInterface extends object {
             $appId = $this->objDbSysconfig->getValue('apid', 'facebookapps');
             // Create our Application instance (replace this with your appId and secret).
             $facebook = new Facebook(array(
-                        'appId' => $appId,
-                        'secret' => $secret,
-                        'cookie' => true,
-                    ));
+                'appId' => $appId,
+                'secret' => $secret,
+                'cookie' => true,
+            ));
 
             $session = $facebook->getSession();
             $fbappid = $facebook->getAppId();
@@ -443,10 +491,10 @@ class loginInterface extends object {
             $appId = $this->objDbSysconfig->getValue('apid', 'facebookapps');
             // Create our Application instance (replace this with your appId and secret).
             $facebook = new Facebook(array(
-                        'appId' => $appId,
-                        'secret' => $secret,
-                        'cookie' => true,
-                    ));
+                'appId' => $appId,
+                'secret' => $secret,
+                'cookie' => true,
+            ));
 
             // We may or may not have this data based on a $_GET or $_COOKIE based session.
             //
@@ -593,9 +641,9 @@ class loginInterface extends object {
 
 
         $facebook = new Facebook(array(
-                    'appId' => $apiId,
-                    'secret' => $secret,
-                ));
+            'appId' => $apiId,
+            'secret' => $secret,
+        ));
 
 
         $fbuser = $facebook->getUser();
@@ -703,22 +751,20 @@ class loginInterface extends object {
 
     private function openIdAuth($me, $fb = FALSE) {
 
-        
+
         $objUModel = $this->getObject('useradmin_model2', 'security');
         $objUser = $this->getObject('user', 'security');
         $username = $me['username'];
 
         $userid = $objUser->getUserId($username);
-       
+
         //the user might have changed pwd when asked to change default details
         //doesnt matter, since they will never be able to login with it. so, reset it
         // try the login
         if ($userid) {
-            $user=$objUser->getUserDetails($userid);
-            
-            $objUModel->updateUserDetails($user['id'], $username,
-                    $user['firstname'], $user['surname'], $user['title'], $user['emailaddress'], 
-                    $user['sex'], $user['country'], $user['cellnumber'], $user['staffnumber'], '--');
+            $user = $objUser->getUserDetails($userid);
+
+            $objUModel->updateUserDetails($user['id'], $username, $user['firstname'], $user['surname'], $user['title'], $user['emailaddress'], $user['sex'], $user['country'], $user['cellnumber'], $user['staffnumber'], '--');
         }
         $p = explode("@", $me['email']);
         $password = $p[0];

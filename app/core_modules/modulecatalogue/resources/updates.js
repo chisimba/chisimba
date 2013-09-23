@@ -34,7 +34,7 @@ jQuery(".patchLink").click(function(){
 });
 
 //Apply all patches
-jQuery("#linkUpdateAll").live('click',function(){
+jQuery(document).on('click', "#linkUpdateAll", function(){
     jQuery.ajax({
         url: 'index.php?module=modulecatalogue&action=patchall',
         type: 'POST',

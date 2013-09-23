@@ -119,8 +119,14 @@ class menu extends object
 
         if($this->context){
             $visibleMod = $this->objDbConMod->getContextModules($this->contextCode);
-            foreach($visibleMod as $vis){
-                $visModules[] = $vis['moduleid'];
+            if (!empty($visibleMod)) {
+                foreach($visibleMod as $vis){
+                    if (is_array($vis)) {
+                        if (array_key_exists('moduleid', $vis)) {
+                            $visModules[] = $vis['moduleid'];
+                        }
+                    }
+                }
             }
         }
 

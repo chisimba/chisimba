@@ -103,7 +103,7 @@ class getIcon extends object implements ifhtml
     *                           one specified in the config file for KNG
     *
     */
-    public function setIcon($name, $type = 'gif', $iconfolder='icons/')
+    public function setIcon($name, $type = 'png', $iconfolder='icons/')
     {
         $this->name = $name;
         // Just to be explicit - Tohir
@@ -112,8 +112,15 @@ class getIcon extends object implements ifhtml
         } else {
             $this->type = $type;
         }
-        // Before Setting the Icon Folder, check if file exists
-        $this->_checkIconInSkin ($iconfolder);
+        // Check if there is an icon theme first
+        if ($this->_checkIconInTheme($iconfolder)) {
+            return TRUE;
+        } else {
+            // Before Setting the Icon Folder, check if file exists in the skin and use it
+            $this->_checkIconInSkin ($iconfolder);
+        }
+        return TRUE;
+
     }
 
     /**
@@ -147,6 +154,55 @@ class getIcon extends object implements ifhtml
             }
         }
     }
+    
+    /**
+     * 
+     * Get the current icon theme, if any, from the icon themes setting of
+     * the skin module
+     * 
+     * @return boolean/string FALSE or the theme.
+     * @access private
+     * 
+     */
+    private function _getIconTheme()
+    {
+        $objDbConfig = $this->getObject('dbsysconfig', 'sysconfig');
+        $iconTheme = $objDbConfig->getValue('icon_theme', 'skin');
+        if ($iconTheme == "" || $iconTheme==NULL || $iconTheme == "_canvas") {
+            return FALSE;
+        } else {
+            return 'iconthemes/' . $iconTheme . '/';
+        }
+    }
+    
+    /**
+     * 
+     * Check if there is an icon them, and set the object properties
+     * accordingly
+     * 
+     * @param type $iconfolder The folder to look into for icons
+     * @return boolean TRUE|FALSE
+     * 
+     */
+    private function _checkIconInTheme($iconfolder)
+    {
+        $iconTheme = $this->_getIconTheme();
+        if ($iconTheme) {
+            $filename = $iconTheme . $iconfolder . $this->name . '.' . $this->type;
+            $filePath = $this->_objConfig->getsiteRootPath() . $filename;
+            if (file_exists($filePath)){
+                $this->iconfolder = $iconTheme . $iconfolder;
+                //echo "FOUND: " . $filePath . "<br />";
+                return TRUE;
+            } else {
+                //echo "NOT FOUND: " . $filePath . "<br />";
+                return FALSE;
+            }
+        } else {
+            // There is no icon theme set
+            return FALSE;
+        }
+    }
 
     /**
     * Method to set the module icon parameters
@@ -176,7 +232,7 @@ class getIcon extends object implements ifhtml
     */
     public function getEditIcon($url)
     {
-        $this->setIcon('edit_sm');
+        $this->setIcon('edit');
         // Set title to be the word edit
         $this->title = $this->_objLanguage->languagetext('word_edit', NULL, "Edit");
         $objLink = $this->newObject('link', 'htmlelements');

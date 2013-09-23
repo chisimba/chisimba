@@ -1,4 +1,5 @@
 <?php
+
 /**
  * TimeoutMessage class
  * 
@@ -29,157 +30,184 @@
  */
 // security check - must be included in all scripts
 if (!
-/**
- * Description for $GLOBALS
- * @global unknown $GLOBALS['kewl_entry_point_run']
- * @name   $kewl_entry_point_run
- */
-$GLOBALS['kewl_entry_point_run']) {
-    die("You cannot view this page directly");
+        /**
+         * Description for $GLOBALS
+         * @global unknown $GLOBALS['kewl_entry_point_run']
+         * @name   $kewl_entry_point_run
+         */
+        $GLOBALS['kewl_entry_point_run']) {
+        die("You cannot view this page directly");
 }
 
 /**
-*
-* Used to create messages with a timer.
-*
-* @category  HTML Controls
-* @copyright 2004, University of the Western Cape & AVOIR Project
-* @license   GNU GPL
-* @author    Jonathan Abrahams
-*            
-*/
+ *
+ * Used to create messages with a timer.
+ *
+ * @category  HTML Controls
+ * @copyright 2004, University of the Western Cape & AVOIR Project
+ * @license   GNU GPL
+ * @author    Jonathan Abrahams
+ *            
+ */
 class timeoutMessage extends object {
-    /**
-    * @var string : The confirmation message.
-    */
-    public $message;
-    /**
-    * @var integer: The timer (in miliseconds) used timeout the message.
-    */
-    public $timeout;
-    /**
-    * @var string: The css id
-    */
-    public $cssId;
-    /**
-    * @var string: The css class
-    */
-    public $cssClass;
-    /**
-    * @var string: The html tag
-    */
-    public $htmlTag;
-    /**
-    * @var string: the CSS Method of hiding - either NONE OR HIDDEN
-    */
-    public $typeHide;
 
-    /**
-    * Initialization method to set default values
-    */
-    public function init( ) {
-        //The default message is empty.
-        $this->message = '';
-        //The default timeout is 5seconds.
-        $this->timeout = 5000;
-        //The default cssId is #confirm
-        $this->cssId = 'confirm';
-        //The default htmlTag is SPAN
-        $this->htmlTag = 'span';
-        // The default type of hide
-        $this->typeHide = 'none';
-        //hidden
-    }
+        /**
+         * @var string : The confirmation message.
+         */
+        public $message;
 
-    /*
-    * Method to set the message
-    * @param string
-    */
-    public function setMessage( $message ) {
-        $this->message = $message;
-    }
+        /**
+         * @var integer: The timer (in miliseconds) used timeout the message.
+         */
+        public $timeout;
 
-    /*
-     * Method to set the timeout.
-     * @param integer unit in miliseconds.
-     * @param  unknown $miliSec Parameter description (if any) ...
-     * @return void   
-     * @access public 
-     */
-    public function setTimeout( $miliSec ) {
-        $this->timeout = $miliSec;
-    }
+        /**
+         * @var string: The css id
+         */
+        public $cssId;
 
-    /*
-     * Method to set the hide type to Hidden.
-     * @return void  
-     * @access public
-     */
-    public function setHideTypeToHidden( ) {
-        $this->typeHide = 'hidden';
-    }
+        /**
+         * @var string: The css class
+         */
+        public $cssClass;
 
-    /*
-     * Method to set the hide type to Hidden.
-     * @return void  
-     * @access public
-    */
-    public function setHideTypeToNone( ) {
-        $this->typeHide = 'none';
-    }
+        /**
+         * @var string: The html tag
+         */
+        public $htmlTag;
 
-    /*
-     * Private method to insert the java script function.
-     * @return string Return description (if any) ...
-     * @access public
-    */
-    public function _jscript() {
-        static $count = 0;
-        $jscript = '<script type="text/javascript">';
+        /**
+         * @var string: the CSS Method of hiding - either NONE OR HIDDEN
+         */
+        public $typeHide;
 
-        if ($this->typeHide == 'hidden') {
-            $code = '.visibility = \'hidden\'';
-        } else {
-            $code = '.display = \'none\'';
+        /**
+         * Initialization method to set default values
+         */
+        public function init() {
+                //The default message is empty.
+                $this->message = '';
+                //The default timeout is 5seconds.
+                $this->timeout = 5000;
+                //The default cssId is #confirm
+                $this->cssId = 'confirm';
+                //The default htmlTag is SPAN
+                $this->htmlTag = 'span';
+                // The default type of hide
+                $this->typeHide = 'none';
+                //hidden
         }
 
-        $jscript.= "function hidemydiv$count() {
+        /*
+         * Method to set the message
+         * @param string
+         */
+
+        public function setMessage($message) {
+                $this->message = $message;
+        }
+
+        /*
+         * Method to set the timeout.
+         * @param integer unit in miliseconds.
+         * @param  unknown $miliSec Parameter description (if any) ...
+         * @return void   
+         * @access public 
+         */
+
+        public function setTimeout($miliSec) {
+                $this->timeout = $miliSec;
+        }
+
+        /*
+         * Method to set the hide type to Hidden.
+         * @return void  
+         * @access public
+         */
+
+        public function setHideTypeToHidden() {
+                $this->typeHide = 'hidden';
+        }
+
+        /*
+         * Method to set the hide type to Hidden.
+         * @return void  
+         * @access public
+         */
+
+        public function setHideTypeToNone() {
+                $this->typeHide = 'none';
+        }
+
+        /*
+         * Private method to insert the java script function.
+         * @return string Return description (if any) ...
+         * @access public
+         */
+
+        public function _jscript() {
+                static $count = 0;
+                $jscript = '<script type="text/javascript">';
+
+                if ($this->typeHide == 'hidden') {
+                        $code = '.visibility = \'hidden\'';
+                } else {
+                        $code = '.display = \'none\'';
+                }
+
+                $jscript.= "function hidemydiv$count() {
             var el = document.getElementById('$this->cssId');
             if(el){
                 el.style$code;
             }
         }";
-        $jscript.= " setTimeout('hidemydiv$count()', $this->timeout );";
-        $jscript.="</script>";
-        $count++;
-        return $jscript;
-    }
-
-    /*
-     * Method to show jscript in header.
-     * @return void  
-     * @access public
-     */
-    public function showJScript()
-    {
-        $this->appendArrayVar('headerParams', $this->_jscript() );
-    }
-
-    /*
-     * Method to show the message.
-     * @return string Return description (if any) ...
-     * @access public
-     */
-    public function show()
-    {
-        // Timeout script is Disable for invalid values
-        if( $this->timeout > 0 ) {
-            $this->showJScript();
+                $jscript.= " setTimeout('hidemydiv$count()', $this->timeout );";
+                $jscript.="</script>";
+                $count++;
+                return $jscript;
         }
-        $str = sprintf( "<%s id=\"%s\">", $this->htmlTag, $this->cssId );
-        $str.= $this->message;
-        $str.= "</$this->htmlTag>";
-        return $str;
-    }
+
+        /*
+         * Method to show jscript in header.
+         * @return void  
+         * @access public
+         */
+
+        public function showJScript() {
+                $this->appendArrayVar('headerParams', $this->_jscript());
+        }
+
+        /*
+         * Method to show the message.
+         * @return string Return description (if any) ...
+         * @access public
+         */
+
+        public function show() {
+                $objLink = $this->getObject('link', 'htmlelements');
+                $objLink->cssClass = 'floatingClose';
+                $objLink->link = '';
+                $objLink->href = "javascript:void(0);";
+                // Timeout script is Disable for invalid values
+                if ($this->timeout > 0) {
+                        $this->showJScript();
+                }
+                $str = sprintf("<%s id=\"%s\">", $this->htmlTag, $this->cssId);
+                $str.= $this->message;
+                $str.= " {$objLink->show()} </$this->htmlTag>
+                        <script type='text/javascript' >
+                        jQuery(document).ready(function(){
+                                jQuery(document).on('click','a.floatingClose',function(){
+                                        jQuery(this).closest('span#confirm').fadeOut('slow');
+                                });
+                                setTimeout(function(){
+                                        jQuery('span#confirm').fadeOut('slow');
+                                },{$this->timeout});
+                        });
+                        </script>";
+                return $str;
+        }
+
 }
+
 ?>

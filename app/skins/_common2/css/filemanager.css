@@ -104,8 +104,8 @@ p.filedetails:hover, p.folderdetails:hover{
 }
 
 #form_changeview a.sexybutton:hover{
-    background: #21AAF7;
     text-decoration: none;
+    background: #e8e8e8;
 }
 
 div.video-container{

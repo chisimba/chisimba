@@ -183,7 +183,7 @@
             jQuery("#rightaddblock").hide();
             jQuery("#middleaddblock").hide();
             jQuery("#editmodeswitchbutton").text(turnEditingOn);
-            jQuery("#modeswitch_wrapper").removeClass("editing_off");
+            jQuery("#modeswitch_wrapper").removeClass("editing_on");
             jQuery("#modeswitch_wrapper").addClass("editing_off");
             jQuery(".blockoptions").hide();
             jQuery(".block").removeClass('highlightblock');

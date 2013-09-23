@@ -839,17 +839,17 @@ class user extends dbTable {
             $userId = $this->userId();
         }
         if ($alt == NULL) {
-            $alt = 'alt="User Image" ';
+            $alt = ' alt="User Image" ';
         } else {
             $alt = ' alt="' . $alt . '" title="' . $alt . '" ';
         }
 
         if (file_exists($this->imagePath . $userId . '_small.png')) {
-            return '<img class="full_user_image" src="' . $this->imageUri . $userId . '_small.png"' . $alt . '/>';
+            return '<img class="full_user_image" src="' . $this->imageUri . $userId . '_small.png" ' . $alt . '/>';
         } elseif (file_exists($this->imagePath . $userId . '_small.jpg')) {
-            return '<img class="full_user_image" src="' . $this->imageUri . $userId . '_small.jpg"' . $alt . '/>';
+            return '<img class="full_user_image" src="' . $this->imageUri . $userId . '_small.jpg" ' . $alt . '/>';
         } else {
-            return '<img class="small_user_image" src="' . $this->imageUri . 'default_small.jpg"' . $alt . '/>';
+            return '<img class="small_user_image" src="' . $this->imageUri . 'default_small.jpg" ' . $alt . '/>';
         }
     }
 

@@ -88,19 +88,16 @@ class security extends controller {
             case 'fbconnect' :
                 $this->objUi->fbConnect();
                 break;
-
             case 'openidconnect':
                 $this->objUi->openIdConnect($this->getParam("auth_site"));
                 break;
             case 'dotwitterlogin':
-                $result = $this->objUi->doTwitterLogin();
-             
+                 $result = $this->objUi->doTwitterLogin();
                 return $this->nextAction(NULL, NULL, $result);
                 die();
                
                 
             case 'initfacebooklogin':
-
                 $result = $this->objUi->doFacebookLogin();
                 if (is_array($result)) {
 

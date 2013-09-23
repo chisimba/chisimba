@@ -27,7 +27,7 @@ class url extends object {
         // Exclude matched inside anchor tags
         $not_anchor = '(?<!"|href=|href\s=\s|href=\s|href\s=)';
         // Match he protocol with ://, e.g. http://
-        $protocol = '(http|ftp|https):\/\/';
+        $protocol = '(http|https):\/\/';
         $domain = '[\w]+(.[\w]+)';
         $subdir = '([\w\-\.;,@?^=%&:\/~\+#]*[\w\-\@?^=%&\/~\+#])?';
         $test = '/' . $not_anchor . $protocol . $domain . $subdir . '/i';
@@ -169,6 +169,7 @@ class url extends object {
               "<img src=\"${0}\"/>", $str);
 
     }
+    
 }
 
 ?>

@@ -310,7 +310,7 @@ class filepreview extends object {
 
         // Check if file has been rendered
         if (file_exists($contentPath . 'filemanager_thumbnails/' . $this->file['id'] . '.htm')) {
-            return '<div style="padding: 20px; overflow: auto;">' . file_get_contents($contentPath . 'filemanager_thumbnails/' . $this->file['id'] . '.htm') . '</div>';
+            return '<div class="code-file-preview" style="padding: 20px; overflow: auto;">' . file_get_contents($contentPath . 'filemanager_thumbnails/' . $this->file['id'] . '.htm') . '</div>';
         } else {
             // Open File, Read Contents, Close
             $handle = fopen($this->file['path'], "r");

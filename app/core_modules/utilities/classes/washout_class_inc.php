@@ -184,6 +184,8 @@ class washout extends object
         $class =  $this->getObject('parse4blocks', 'filters');
         $txt = $class->parse($txt);
         
+        //$txt = $this->activateLinks($txt);
+        
         $txt = $this->bbcode->parse4bbcode($txt);
         return $txt;
     }
@@ -293,5 +295,49 @@ class washout extends object
             return TRUE;
         }
     }
+
+    /**
+     * 
+    /**
+     * Take a string and return it with URLS with http://  or https:// having 
+     * had the classes and ID added to create active links using the javascript
+     * and string parser.
+     *
+     * @param string $txt The string to be parsed
+     * @return string the parsed string
+     * @access public
+     * 
+     */
+    public function xxactivateLinks($txt)
+    {
+        // The Regular Expression filter
+        $test = '/(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/';
+        // Check if there is a url in the text
+        if(preg_match($test, $txt, $url)) {
+            preg_match_all($test, $txt, $matches);
+            $usedPatterns = array();
+            $count=0;
+            foreach($matches[0] as $pattern){
+                
+                $rndId= time() . "_" . $count;
+                if(!array_key_exists($pattern, $usedPatterns)){
+                    if ($this->checkState($pattern)) {
+                        $usedPatterns[$pattern]=true;
+                        $txt = str_replace  ($pattern, "<a class=\"snipsite\" id=\"{$rndId}\" href=\"{$pattern}\" rel=\"nofollow\">{$pattern}</a> ", $txt);   
+                        $count++;
+                    }
+                }
+            }
+            return $txt;  
+
+        } else {
+
+            // if no urls in the text just return the text
+            return $txt;
+
+        }     
+
+    }
+    
 }
 ?>
