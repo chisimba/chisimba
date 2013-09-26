@@ -27,7 +27,12 @@ if (!isset($pageSuppressToolbar)) {
 
 // Create a variable to hold the Footer depending on the login status.
 if (isset($footerStr)) {
-    $this->footerNav->str = $footerStr;
+    if (isset($this->footerNav)) {
+        $this->footerNav->str = $footerStr;
+    } else {
+        $this->footerNav = new stdClass;
+        $this->footerNav->str = $footerStr;
+    }
 } elseif ($objUser->isLoggedIn()) {
     $this->loadClass('link', 'htmlelements');
     $link = new link ($this->URI(array('action'=>'logoff'),'security'));
