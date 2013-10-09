@@ -1,0 +1,7 @@
+{
+    "skinName": "softwarefreedom",
+    "description": "A nice clean blog skin for softwarefreedom.co.za.",
+    "skinEngine":"default",
+    "skinVersion":"3.0",
+    "layoutType": "canvas_stacked13"
+}

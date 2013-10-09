@@ -1,0 +1,80 @@
+/*
+    Document   : stylesheet.css
+    Created on : 30 May 2010, 1:11:21 PM
+    Author     : dkeats
+    Description:
+        This is the experimental canvas stylesheet for Kenga.co.za
+*/
+
+body {
+    background: white url(images/back.gif) repeat fixed;
+    margin: 0px;
+    padding: 0px;
+}
+
+#Canvas_Content_Body {
+    background: transparent url(images/horizontal.png) repeat-y;
+    width: 990px;
+}
+
+.Canvas_Content_Head_Header {
+    background:transparent;
+}
+
+/* Set up the banner area */
+div#header {
+    background: transparent url(images/overlay70.png) repeat;
+    display: block;
+    height: 120px;
+    color: #fff;
+    padding: 0;
+    margin: 0;
+}
+
+.ChisimbaCanvas {
+    width: 990px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    background: transparent;
+    -webkit-border-radius: 28px;
+    -moz-border-radius: 28px;
+    border-radius: 28px;
+    -webkit-box-shadow: 0px 0px 29px whitesmoke;
+    -moz-box-shadow: 0px 0px 29px whitesmoke;
+    box-shadow: 0px 0px 29px whitesmoke;
+    padding: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+#navigation {
+    background: silver;
+}
+
+#Canvas_Content_Body_Region1,
+#Canvas_Content_Body_Region2,
+#Canvas_Content_Body_Region3 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    border-top: 3px solid slategray;
+}
+
+#Canvas_Content_Body_Region1 {
+   background: transparent url(images/left-bg.png) repeat-x;
+   border-right: 2px solid slategray;
+   border-left: 2px solid slategray;
+   border-bottom: slategray 2px solid;
+}
+
+#Canvas_Content_Body_Region3 {
+   background: transparent url(images/right-bg.png) repeat-x;
+   border-left: 2px solid slategray;
+   border-right: 2px solid slategray;
+   border-bottom: slategray 2px solid;
+}
+
+#Canvas_Content_Body_Region2 {
+   background: whitesmoke;
+   border-bottom: slategray 2px solid;
+}

@@ -1,0 +1,46 @@
+
+#onecolumn, #twocolumn, #threecolumn {
+    float:left;
+    width:100%;
+}
+#container {
+    margin: 0px;
+}
+#twocolumn, #threecolumn {
+    background: transparent;
+    padding: 0px;
+}
+
+#threecolumn #Canvas_Content_Body_Region2 {
+    width:auto;
+    padding-right: 8px;
+
+}
+
+#twocolumn #Canvas_Content_Body_Region2 {
+    padding-right: 8px;
+    width:auto;
+}
+/*
+    The left and right columns in 2 and 3 column layout.
+*/
+#left, #right {
+    background: transparent;
+    border: none;
+    margin-left: 0px;
+}
+/*
+    The content areas of all three columns
+*/
+#leftcontent, #contentcontent, #rightcontent {
+    padding: 10px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -khtml-border-radius: 8px;
+}
+#contentcontent{
+    margin-bottom:1px;
+    background: url("images/overlay-sm.png") top left repeat;
+    border: none;
+}

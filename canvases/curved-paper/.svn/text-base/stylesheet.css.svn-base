@@ -1,0 +1,469 @@
+/*
+    An eLearning skin for the Sangari eLearning system
+
+    It uses the skin engine version 2 for Chisimba.
+
+    Author: Derek Keats
+    License: GPL V2
+
+*/
+
+
+@import "../canvas/canvasbase.css";
+/* Google Web Fonts*/
+@import url(http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+
+body {
+        background: #CCC url('images/Header.jpg') no-repeat top center;
+	font-family: "Lucida Grande", Verdana, Arial, "Bitstream Vera Sans",
+		sans-serif;
+	font-size: 12px;
+	font-size-adjust: none;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	line-height: normal;
+	background-color: #CCC;
+}
+
+html {
+    margin: 0px;
+    padding: 0px;
+}
+
+.Canvas_Content_Head_Breadcrumbs{
+    margin-top: -10px;
+}
+
+#Canvas_Content_Body {
+    margin-top: 22px;
+}
+
+.Canvas_AfterAll {
+    background: #CCC url('images/Footer.jpg') no-repeat bottom center;
+    height: 118px;
+    text-align: center;
+    margin-bottom:60px;   
+}
+
+.Canvas_Content_Footer {
+    background: none;
+    text-align: center;
+    padding-top: 30px;
+}
+
+
+
+#Canvas_Content_Body_Region1,
+#Canvas_Content_Body_Region2,
+#Canvas_Content_Body_Region3 {
+    min-height:700px;
+}
+
+#Canvas_Content_Body_Region1 {
+    width:200px;
+    background-image: none;
+}
+
+#Canvas_Content_Body_Region3 {
+    width:200px;
+    margin-left: 0px;
+    background-image: none;
+}
+
+.ChisimbaCanvas {
+    display: block;
+    background: white;
+    width: 970px;
+    padding: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#container {
+    margin-bottom: 0px;
+}
+
+.Canvas_AfterContainer {
+    height:0px;
+}
+
+#Canvas_Content {
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+#Canvas_Content_Body_Region2 {
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    font-size: 140%;
+    line-height: 140%;
+}
+
+#container {
+    background: transparent;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    border: none;
+}
+
+
+ 
+.featurebox {
+    border: 1px solid #CCC;
+}
+
+.toggleIt {
+    margin-left: 5px;
+}
+
+.middleblocks {
+    border: 1px solid red;
+}
+
+/* Locate the search box correctly */
+ div#header div#search {
+    margin: 10px;
+    margin-top: -56px;
+    padding: 10px;
+    color: gray;
+    width: 360px;
+    position: relative;
+    margin-left: 640px;
+}
+#input_search {
+    margin-top:12px;
+}
+
+#navigation{
+    background-color: #D3E7F5;
+    height: 29px;
+    padding-left: 10px;
+}
+
+/* The top logo */
+#header {
+    height: 40px;
+    margin-top: 2px;
+}
+
+h1#sitename {
+    display: inline-block;
+    margin-top: -10px;  
+    padding: 0px;
+}
+
+/* The footer */
+#footer {
+    width: 970px;
+    color: navy;
+    height: 30px;
+    background: none;
+    margin: 0 auto;
+}
+
+#footer a:link, #footer a:visited {
+    color: skyblue;
+    text-decoration: none;
+}
+#footer a:hover, #footer a.visited:hover {
+    color: cyan;
+    text-decoration: none;
+}
+
+/* eLearning button styles */
+
+ul .glossytabs {
+    color: #4a5ca8;
+}
+
+.glossytabs li{
+    margin-left: 4px;
+    padding-left: 10px;
+}
+
+.glossytabs li a{
+    color: #4a5ca8;
+    font-size: 110%;
+    font-weight: bold;
+}
+
+.glossytabs li a strong {
+    background: transparent url(images/nav-bg.gif) repeat-x scroll 0;
+    float: left;
+    display: block;
+    padding: 0px 16px 0px 16px; /*Padding of menu items*/
+    font-weight: bold;
+}
+
+.glossytabs li.current a strong {
+    color: #000;
+    background: transparent url(images/current-bg.gif) repeat-x scroll 0;
+    font-weight: bold;
+}
+
+.glossytabs li a:hover strong {
+    background: transparent url(images/hover-bg.gif) repeat-x scroll 0;
+    font-weight: bold;
+}
+
+#sitename a:link, #sitename a:visited {
+    color: rgb(4, 151, 223);
+}
+
+#sitename a:link:hover, #sitename a:visited:hover {
+    color: navy;
+}
+
+
+#Canvas_Content_Body_Region2 .featurebox {
+    border: 1px solid #CCC;
+}
+
+#input_username, #input_password {
+    width: 140px; 
+}
+
+/** Styles for the page annotations **/
+.annotated{
+    position: relative;
+    background-color:#FFEFD8;
+}
+
+.annotated[annotateLevel="0"] {
+    background-color:#FFEFD8;
+}
+
+.annotated[annotateLevel="1"] {
+    background-color:#F0D6BF;
+}
+
+.annotated[annotateLevel="2"] {
+    background-color:#DCC2AB;
+}
+
+.beingAnnotated {
+    background-color:#F90;
+}
+
+.annotationFocus, .annotationFocus[annotatelevel='0']{
+    background-color:#9F0;
+}
+
+.annotationFocus[annotatelevel='1']{
+    background-color:#C2DCAB;
+}
+
+.annotationFocus[annotatelevel='2']{
+    background-color:#D6F0BF;
+}
+
+.jQueryTextAnnotaterDialog{
+    opacity:0.9;
+    z-index: 999;
+    position:absolute;
+    display:none;
+    width: 200px;
+    height: 150px;
+    border: 1px solid black;
+    background-color: #eee;
+    padding: 5px;
+    font-family: Trebuchet, Arial;
+    font-size: 10pt
+}
+
+.jQueryTextAnnotaterDialogForm ul{
+    padding: 0;
+    margin: 0;
+}
+
+.jQueryTextAnnotaterDialogForm li{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+#content, #explanation, #annotations{
+    border: 1px dotted gray;
+    margin: 20px;
+    padding: 20px;
+    font-family: Trebuchet, Arial;
+}
+
+#controls {
+    border: 1px dotted gray;
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+    font-family: Trebuchet, Arial;
+}
+
+#saveAnnotations, #toggleAnnotations {
+    width: 100px;
+    font-family: Trebuchet, Arial;
+}
+
+#explanation, #controls{
+    background-color: #eee;
+}
+
+.annotated img{
+    border: 1px solid #FFEFD8;
+}
+
+.annotationFocus img{
+    border: 1px solid #9F0;
+}
+
+.annotator_comment {
+    line-height: 14px;
+    position: absolute; 
+    margin-right: 10px;
+    background-color: #ffaaaa; 
+    border: 1px solid red; 
+    font-size: 8pt; 
+    width: 200px
+}
+
+.comment_line {
+    position: absolute; 
+    border-top: 1px dashed red; 
+    height: 1px;
+}
+
+.pagenote_note {
+    background: #eee;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+/**   end of pagenotes styles ***/
+
+/** General styles that can be used in formatting **/
+
+.floatleft {
+    float: left;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.floatright {
+    float: right;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.rawimage {
+    border: 0px;
+}
+
+h1.multiline {
+    line-height: 26px;
+}
+
+h2.multiline {
+    line-height: 20px;
+}
+
+h3.multiline {
+    line-height: 16px;
+}
+
+a.pseudobutton {
+    
+}
+
+/** Splashscreen **/
+
+.splashscreenwrapper {
+    margin: auto;
+    background: transparent;
+}
+
+.splashscreen {
+    background: transparent url('../../packages/splashnostalgia/resources/screens/Chalkboard.png') no-repeat top center;
+    width:496px;
+    height: 435px;
+    padding: 0px;
+    margin: auto;
+}
+
+.splashcontents {
+    margin: auto;
+    padding-left: 66px;
+    padding-right: 66px;
+    padding-top: 60px;
+}
+
+#modeswitch_wrapper {
+    height: 25px;
+    padding-top: 8px;
+}
+
+#editmodeswitchbutton {
+    
+}
+
+#lastten p {
+    margin-top: 3px;
+}
+
+/** Creative commons license dropdowns **/
+
+option.copyright {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/copyright.gif');
+    background-repeat: no-repeat; 
+}
+option.by {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by.gif');
+    background-repeat: no-repeat;
+}
+option.by-sa {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by-sa.gif');
+    background-repeat: no-repeat;
+}
+option.by-nd {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by-nd.gif');
+    background-repeat: no-repeat;
+}
+option.by-nc {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by-nc.gif');
+    background-repeat: no-repeat;
+}
+option.by-nc-sa {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by-nc-sa.gif');
+    background-repeat: no-repeat;
+}
+option.by-nc-nd {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by-nc-nd.gif');
+    background-repeat: no-repeat;
+}
+option.gnu-fdl {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/gnu-fdl.gif');
+    background-repeat: no-repeat;
+}
+option.by-sa_gnu-fdl {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by-sa_gnu-fdl.gif');
+    background-repeat: no-repeat;
+}
+/** End of CC License styles **/
+
+/** Switchboard **/
+#switchboardlinks table {
+    border-collapse: collapse;
+}
+#switchboardlinks tr > td {
+    padding-bottom: 20px;
+}

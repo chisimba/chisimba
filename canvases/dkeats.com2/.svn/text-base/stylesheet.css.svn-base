@@ -1,0 +1,361 @@
+@import "../canvas/canvasbase.css";
+
+/* Body style */
+html {
+	margin: 0px;
+	padding: 0px;
+}
+body {
+    background-color: #EDEDED;
+    margin: 0px;
+    padding: 0px;
+    color: 4b526d;
+    font: 10pt Arial, "Lucida Sans Unicode", Tahoma, sans-serif;
+    line-height: 180%;
+}
+/* End of body style */
+
+/*
+Fix up the fact that commons styles STILL messes with
+the format of lists.
+*/
+li {
+    line-height: 1.4em;
+    padding-left: 10px;
+}
+ul
+{
+    list-style-type: square;
+    margin:0;
+    padding:0 20px;
+    z-index: -3;
+}
+ul ul, ul ul ul, ul ul ul ul
+{
+    list-style-type: circle;
+    margin:0;
+    padding:0 10px;
+    z-index: -3;
+}
+/* End of LI fix */
+
+#container {
+    background: transparent;
+    border: none;
+    padding: 0px;
+}
+
+/* Set up the banner area */
+div#header {
+    background: transparent url(images/dkeats.com_banner.png) no-repeat top left;
+    display: block;
+    height: 120px;
+    color: #fff;
+    padding: 0;
+    margin: 0;
+}
+#headerwrapper {
+    background: transparent url(images/dkeats.com_banner_bg.png) repeat-x;
+    height: 120px;
+    width: 100%;
+    background-repeat: repeat-x;
+    padding: 0;
+    margin: 0;
+    border-top-left-radius: 25px;
+    -moz-border-radius-topleft: 25px;
+    -webkit-border-top-left-radius: 25px;
+    -khtml-border-radius-topleft: 25px;
+    border-top-right-radius: 25px;
+    -moz-border-radius-topright: 25px;
+    -webkit-border-top-right-radius: 25px;
+    -khtml-border-radius-topright: 25px;
+}
+div#header h1#sitename span {
+    /* The name of the site is in the image so don't display the text */
+    display: none;
+    margin-left: -9000px;
+}
+div#header h1 {
+	margin-top: 55px;
+}
+/* End of set up the banner area */
+/* Fixed width canvas */
+.ChisimbaCanvas {
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+#Canvas_Content_Body {
+    float: left;
+    display:block;
+}
+
+.Canvas_Content_Body_Before{
+    clear:both;
+}
+
+/* Locate the search box correctly */
+ div#header div#search {
+    margin: 0;
+    margin: 10px;
+    padding: 10px;
+    color: gray;
+    width: 360px;
+    position: relative;
+    margin-top:  -18px;
+    margin-left: 620px;
+}
+/* End of search box */
+
+#Canvas_Content_Body_Region1,
+#Canvas_Content_Body_Region2,
+#Canvas_Content_Body_Region3 {
+    min-height:700px;
+}
+
+#Canvas_Content_Body_Region2 {
+    padding: 0px;
+    padding-left: 6px;
+    padding-right: 6px;
+
+}
+
+#Canvas_Content_Body_Region1 {
+    width:190px;
+    /*background-image: none;*/
+}
+
+#Canvas_Content_Body_Region3 {
+    width:190px;
+    margin-left: 0px;
+
+}
+
+.submenu {
+    background: transparent;
+    width: 98%;
+}
+
+/* Fix search box on file manager */
+#input_filequery {
+    width: 170px;
+}
+
+
+/** STYLES FOR SIMPLE GALLERY **/
+
+#main {
+	width:986px;
+	margin:0 auto;
+}
+
+#images {
+	display:none;
+}
+
+.panel {
+	float:left;
+}
+
+ul.exposureThumbs {
+	background: transparent;
+	border: none;
+	padding: 0;
+	margin: 0;
+	list-style-type: none;
+}
+
+ul.exposureThumbs li {
+	margin-top: 6px;
+        margin-right: 0px;
+        margin-left: -12px;
+        margin-bottom: 6px;
+	padding:0;
+	text-align:center;
+	display:none;
+}
+
+ul.exposureThumbs li img {
+	cursor:pointer;
+}
+
+ul.exposureThumbs li.last {
+	margin-top: 6px;
+        margin-right: 0px;
+        margin-left: -12px;
+        margin-bottom: 6px;
+}
+
+.exposureImage {
+    margin: 0px;
+    -webkit-border-radius: 28px;
+    -moz-border-radius: 28px;
+    border-radius: 28px;
+}
+
+.exposureTarget {
+
+	background: transparent;
+	float:left;
+	padding:0;
+	margin:0;
+	border:none;
+	position:relative;
+	overflow:hidden;
+}
+
+.exposureWrapper {
+	position:absolute;
+	top:0;
+	left:0;
+}
+
+.exposureWrapper img {
+	cursor:pointer;
+	position:absolute;
+	top:0;
+	left:0;
+}
+
+.exposureLoaded {
+	background-image:none;
+}
+
+.exposureData {
+	position:absolute;
+ 	left:0;
+ 	right:0;
+ 	bottom:-2000px;
+	height:60px;
+	padding:7px;
+	color:#fff;
+	font-family:Arial,Verdana,Helvetica,sans-serif;
+	font-size:16px;
+	font-weight:bold;
+	display:none;
+}
+
+/* In this demo we are using thumbs with fixed size */
+ul.exposureThumbs li {
+	width:150px;
+	height:80px;
+}
+
+.exposureSlideshowControls a,
+.exposureControls span,
+.exposureControls a {
+	font-family:Arial,Verdana,Helvetica,sans-serif;
+	font-size:11px;
+	padding:8px;
+	background-color:#555;
+	display:block;
+	float:left;
+	left: 0;
+}
+
+
+.exposureSlideshowControls a {
+    float:left;
+    margin-top: 0px;
+    background-color:#555;
+}
+
+.exposureSlideshowControls {
+    margin-left: 16px;
+}
+
+.exposureSlideshowControls a,
+.exposureControls a {
+    color:#ccc;
+    text-decoration:none;
+    outline:none;
+}
+
+.exposureSlideshowControls a:active,
+.exposureSlideshowControls a:hover,
+.exposureControls a:active,
+.exposureControls a:hover {
+    background-color:#444;
+    color:#ddd;
+}
+
+.exposurePaging .active {
+    color:#fff;
+    background-color:#111;
+}
+
+.clear {
+    clear:both;
+}
+
+p.info {
+    margin:40px auto;
+    text-align:center;
+    width:600px;
+}
+
+p.info a {
+    color:#006fc0;
+}
+
+p.info a:hover, p.info a:active {
+    color:#0084e7;
+}
+
+.FB_comment {
+    margin-left: 250px;
+    margin-top: -30px;
+}
+/** END STYLES FOR SIMPLE GALLERY */
+
+
+/** Creative commons license dropdowns **/
+
+option.copyright {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/copyright.gif');
+    background-repeat: no-repeat;
+}
+option.by {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by.gif');
+    background-repeat: no-repeat;
+}
+option.by-sa {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by-sa.gif');
+    background-repeat: no-repeat;
+}
+option.by-nd {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by-nd.gif');
+    background-repeat: no-repeat;
+}
+option.by-nc {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by-nc.gif');
+    background-repeat: no-repeat;
+}
+option.by-nc-sa {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by-nc-sa.gif');
+    background-repeat: no-repeat;
+}
+option.by-nc-nd {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by-nc-nd.gif');
+    background-repeat: no-repeat;
+}
+option.gnu-fdl {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/gnu-fdl.gif');
+    background-repeat: no-repeat;
+}
+option.by-sa_gnu-fdl {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by-sa_gnu-fdl.gif');
+    background-repeat: no-repeat;
+}
+/** End of CC License styles **/

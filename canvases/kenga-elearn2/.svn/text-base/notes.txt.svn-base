@@ -1,0 +1,5 @@
+Creating equal height columns with CSS is not as easy as it 
+may first seem. This tutorial highlights the display problems 
+that occur with multiple column layouts, and then shows a 
+simple solution that works in all common web browsers. 
+http://matthewjamestaylor.com/blog/equal-height-columns-cross-browser-css-no-hacks

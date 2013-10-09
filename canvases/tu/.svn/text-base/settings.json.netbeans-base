@@ -1,0 +1,7 @@
+{
+    "skinName": "tu",
+    "description": "A nice clean canvas for thumbzup developer site",
+    "skinEngine":"default",
+    "skinVersion":"3.0",
+    "layoutType": "canvas_stacked13"
+}

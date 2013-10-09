@@ -1,0 +1,7 @@
+{
+    "skinName": "Photoblog",
+    "description": "A skin for A photoblog site",
+    "skinEngine":"default",
+    "skinVersion":"3.0",
+    "layoutType": "_default"
+}

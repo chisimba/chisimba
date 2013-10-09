@@ -1,0 +1,14 @@
+{
+    "name": "green",
+    "description": "A green canvas for Kenga",
+    "downloadfrom":"_NULL",
+    "preview": {
+        "thumb": "green_th.png",
+        "fullview":"green.png"
+    },
+    "author": {
+        "authorname":"Derek Keats",
+        "email":"derek@dkeats.com",
+        "url":"http://www.dkeats.com"
+    }
+}

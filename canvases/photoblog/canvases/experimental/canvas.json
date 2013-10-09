@@ -1,0 +1,14 @@
+{
+    "name": "experimental",
+    "description": "A experimental canvas for Kenga",
+    "downloadfrom":"_NULL",
+    "preview": {
+        "thumb": "experimental_th.png",
+        "fullview":"experimental.png"
+    },
+    "author": {
+        "authorname":"Derek Keats",
+        "email":"derek@dkeats.com",
+        "url":"http://www.dkeats.com"
+    }
+}

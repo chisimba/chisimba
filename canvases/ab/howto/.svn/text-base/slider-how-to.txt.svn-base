@@ -1,0 +1,95 @@
+The slider used in this skin is Camera by Pixedelic.com
+See: http://www.pixedelic.com/plugins/camera/
+
+
+
+Introduction,
+
+Camera slideshow is an open source project, based on Diapo 
+slideshow (http://www.pixedelic.com/plugins/diapo), but 
+improved a lot. You can download it and use for free, you 
+can also include it in your projects and sell it as part 
+of a bigger work (in this case please consider a donation).
+
+Camera slideshow requires jQuery 1.4+ and other jQuery plugins 
+are necessary if you want to use some functionalities: 
+jQuery Easing (visit the project page) and a customized version 
+of jQuery Mobile (visit the project page) to use Camera with 
+mobile devices. These plugins are included in the zip you can 
+download at the bottom of this page.
+
+
+The basics
+
+This is the basic structure to make Camera work:
+
+<div class="camera_wrap">
+    <div data-src="images/image_1.jpg"></div>
+    <div data-src="images/image_1.jpg"></div>
+    <div data-src="images/image_2.jpg"></div>
+</div>
+
+Just put this code into your HTML page and the basic slideshow 
+will be ready to use. See the other demos to create more complex 
+slideshows.
+
+For jQuery newbies: after downloading and unzipping Camera, you 
+can see some files in the folder called Examples included in the 
+zip: there I provided some examples of Camera slideshow.
+
+As you can see in the examples themselves, before the Camera 
+plugin, you must call jQuery in the head of your document: without 
+jQuery the slideshow doesn't work.
+
+Then you must call jQuery Easing plugin and jQuery Mobile plugin. 
+After that you must call Camera plugin and initialize the 
+function camera with the simply method 
+
+jQuery('YOUR_TARGET').camera();
+
+Methods
+
+This is the main function to start your slideshow. Have a look to 
+the options for more detailed info about how to set the slideshow.
+
+jQuery('YOUR_TARGET').camera(); //the basic method
+
+jQuery('YOUR_TARGET').camera({ //here I declared some settings, the height and the presence of the thumbnails 
+	height: '41%',
+	pagination: false,
+	thumbnails: true
+});
+
+
+You can use the public methods below to stop the slideshow, for instance, when you open a lightbox. They simply add or remove a class to the target element.
+
+jQuery('YOUR_TARGET').cameraStop(); //stop the slideshow
+
+jQuery('YOUR_TARGET').cameraPlay(); //start the slideshow
+
+jQuery('YOUR_TARGET').cameraPause(); //pause the slideshow (some difference between 'pause' and 'stop': when you stop the loader and the commands are hidden)
+
+jQuery('YOUR_TARGET').cameraResume(); //resume the slideshow after pausing
+
+
+Skins
+
+Do not forget to call also "camera.css". By editing this CSS file you 
+can create your own personal skin, of course. But Camera already 
+provides some skins. It has got 33 different colors for the icons. 
+To use them just add one of this classes to the target element (if 
+you don't use any of this classes the color of the icons will 
+be petroleum/graphite):
+
+camera_amber_skin  |  camera_ash_skin  |  camera_azure_skin  
+|  camera_beige_skin  |  camera_black_skin  |  camera_blue_skin  
+|  camera_brown_skin  |  camera_burgundy_skin  |  camera_charcoal_skin  
+|  camera_chocolate_skin  |  camera_coffee_skin  |  camera_cyan_skin  
+|  camera_fuchsia_skin  |  camera_gold_skin  |  camera_green_skin  
+|  camera_grey_skin  |  camera_indigo_skin  |  camera_khaki_skin  
+|  camera_lime_skin  |  camera_magenta_skin  |  camera_maroon_skin  
+|  camera_orange_skin  |  camera_olive_skin  |  camera_pink_skin  
+|  camera_pistachio_skin  |  camera_pink_skin  |  camera_red_skin  
+|  camera_tangerine_skin  |  camera_turquoise_skin  
+|  camera_violet_skin  |  camera_white_skin  |  camera_yellow_skin
+

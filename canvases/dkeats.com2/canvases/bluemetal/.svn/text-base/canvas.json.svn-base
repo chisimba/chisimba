@@ -1,0 +1,14 @@
+{
+    "name": "bluemetal",
+    "description": "A canvas for dkeats.com based on http://blog.gist.com/",
+    "downloadfrom":"_NULL",
+    "preview": {
+        "thumb": "bluemetal_th.png",
+        "fullview":"bluemetal.png"
+    },
+    "author": {
+        "authorname":"Derek Keats",
+        "email":"derek@dkeats.com",
+        "url":"http://www.dkeats.com"
+    }
+}

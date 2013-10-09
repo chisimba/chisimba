@@ -1,0 +1,36 @@
+/*
+    Contemporary skin based on kenga.klearn2
+
+    It uses the skin engine version 2 for Chisimba.
+
+    Author: Derek Keats
+    License: GPL V2
+*/
+
+@import "../kenga-elearn2/stylesheet.css";
+
+/* The top menu bar */
+#menu>ul>li {
+    background: transparent url(images/button-bg.jpg) repeat-x scroll 0;
+    font-size: 130%;
+    height: 30px;
+    padding-top: 6px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -khtml-border-radius: 8px;
+}
+#menu>ul>li>a, #menu>ul>li>a:visited {
+    color: white;
+}
+#menu>ul>li:hover {
+    background: transparent url(images/button-hover-bg.jpg) repeat-x scroll 0;
+}
+#menu li ul {
+    background: transparent url(images/light-blue-granular.jpg) repeat;
+    margin-top: 8px;
+}
+#floathead_content1 {
+    background: white url('images/anims.gif') no-repeat;
+    height: 162px;
+}

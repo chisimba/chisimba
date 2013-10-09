@@ -1,0 +1,32 @@
+/*
+    Document   : stylesheet.css
+    Created on : 30 May 2010, 1:11:21 PM
+    Author     : dkeats
+    Description:
+        This is the green canvas stylesheet for Kenga.co.za
+*/
+
+body {
+    background: white url(images/bg.png) repeat-x;
+    margin: 0px;
+    padding: 0px;
+}
+
+#Canvas_Content_Body {
+    background: transparent url(images/horizontal.png) repeat-y;
+    width: 990px;
+}
+
+.Canvas_Content_Head_Header {
+    background:transparent;
+}
+
+/* Set up the banner area */
+div#header {
+    background: transparent url(images/overlay70.png) repeat;
+    display: block;
+    height: 120px;
+    color: #fff;
+    padding: 0;
+    margin: 0;
+}

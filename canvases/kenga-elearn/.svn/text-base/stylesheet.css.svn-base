@@ -1,0 +1,385 @@
+/*
+    An eLearning skin for the Kenga eLearning system
+
+    It uses the skin engine version 2 for Chisimba.
+
+    Author: Derek Keats
+    License: GPL V2
+
+*/
+
+
+@import "../canvas/stylesheet.css";
+
+/* The body & background */
+body {
+    background: url('images/bg.jpg');
+    background-repeat: repeat-x repeat-y;
+    background-attachment: fixed;
+}
+
+/* The top logo */
+#header {
+    background: transparent url('images/kenga-elearn.png') no-repeat top left;
+    height: 80px;
+    margin-top: 2px;
+}
+h1#sitename {
+    display:none;
+}
+
+/* The footer */
+#footer {
+    background: white url('images/mainmenu.png') repeat-x left;
+    color: white;
+    height: 30px;
+}
+
+#footer a:link, #footer a:visited {
+    color: skyblue;
+    text-decoration: none;
+}
+#footer a:hover, #footer a.visited:hover {
+    color: cyan;
+    text-decoration: none;
+}
+
+/* eLearning button styles */
+
+ul .glossytabs {
+    color: #4a5ca8;
+}
+
+.glossytabs li{
+    margin-left: 4px;
+    padding-left: 10px;
+}
+
+.glossytabs li a{
+    color: #4a5ca8;
+    font-size: 110%;
+    font-weight: bold;
+}
+
+.glossytabs li a strong {
+    background: transparent url(images/nav-bg.gif) repeat-x scroll 0;
+    float: left;
+    display: block;
+    padding: 0px 16px 0px 16px; /*Padding of menu items*/
+    font-weight: bold;
+}
+
+.glossytabs li.current a strong {
+    color: #000;
+    background: transparent url(images/current-bg.gif) repeat-x scroll 0;
+    font-weight: bold;
+}
+
+.glossytabs li a:hover strong {
+    background: transparent url(images/hover-bg.gif) repeat-x scroll 0;
+    font-weight: bold;
+}
+
+/** Personal blocks **/
+.tabbertab th.heading {
+    color: #3f95c3;
+    line-height: 15px;
+    font-size: small;
+}
+
+.tabbertab td {
+    color: #165879;
+    font-family: sans-serif;
+    font-size: small;
+    font-weight: lighter;
+    line-height: 15px;
+}
+
+.personalblock {
+    margin-top: 10px;
+    margin-bottom:10px;
+    padding: 5px;
+    border: 1px dotted #407aa7;
+}
+
+/** File manager **/
+#input_filequery{
+    width: 130px;
+}
+
+/** Wide calendar **/
+#widecalendar {
+    width: 98%;
+}
+div#widecalendar table.calendarTable td {
+    padding-left: 0px;
+    font-size: small;
+}
+div#widecalendar table.calendarTable td ul {
+    padding: 0px;
+    margin-left: 0px;
+}
+li.event_site, li.event_other, li.event_context, li.event_user, li.event_workgroup {
+    padding-left: 23px;
+    padding-right: 3px;
+}
+
+.dayNamesText {
+    font-size: smaller;
+}
+
+.undercallinks_wrapper {
+    margin-bottom: 20px;
+}
+
+.eventslist {
+    background: transparent;
+    width: 98%;
+}
+
+table.eventslist tr {
+    height: auto;
+    padding: 0px;
+}
+
+table.eventslist td {
+    padding-bottom: 10px;
+}
+
+/** Splashscreen **/
+
+.splashscreenwrapper {
+    margin: auto;
+    background: transparent;
+}
+
+.splashscreen {
+    background: transparent url('../../packages/splashnostalgia/resources/screens/Chalkboard.png') no-repeat top center;
+    width:496px;
+    height: 435px;
+    padding: 0px;
+    margin: auto;
+}
+
+.splashcontents {
+    margin: auto;
+    padding-left: 66px;
+    padding-right: 66px;
+    padding-top: 60px;
+}
+
+
+a.contexttitle {
+    color: #003366;
+    font-size: larger;
+    padding-left: 5px;
+}
+
+/** Styles for the page annotations **/
+.annotated{
+    position: relative;
+    background-color:#FFEFD8;
+}
+
+.annotated[annotateLevel="0"] {
+    background-color:#FFEFD8;
+}
+
+.annotated[annotateLevel="1"] {
+    background-color:#F0D6BF;
+}
+
+.annotated[annotateLevel="2"] {
+    background-color:#DCC2AB;
+}
+
+.beingAnnotated {
+    background-color:#F90;
+}
+
+.annotationFocus, .annotationFocus[annotatelevel='0']{
+    background-color:#9F0;
+}
+
+.annotationFocus[annotatelevel='1']{
+    background-color:#C2DCAB;
+}
+
+.annotationFocus[annotatelevel='2']{
+    background-color:#D6F0BF;
+}
+
+.jQueryTextAnnotaterDialog{
+    opacity:0.9;
+    z-index: 999;
+    position:absolute;
+    display:none;
+    width: 200px;
+    height: 150px;
+    border: 1px solid black;
+    background-color: #eee;
+    padding: 5px;
+    font-family: Trebuchet, Arial;
+    font-size: 10pt
+}
+
+.jQueryTextAnnotaterDialogForm ul{
+    padding: 0;
+    margin: 0;
+}
+
+.jQueryTextAnnotaterDialogForm li{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+#content, #explanation, #annotations{
+    border: 1px dotted gray;
+    margin: 20px;
+    padding: 20px;
+    font-family: Trebuchet, Arial;
+}
+
+#controls {
+    border: 1px dotted gray;
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+    font-family: Trebuchet, Arial;
+}
+
+#saveAnnotations, #toggleAnnotations {
+    width: 100px;
+    font-family: Trebuchet, Arial;
+}
+
+#explanation, #controls{
+    background-color: #eee;
+}
+
+.annotated img{
+    border: 1px solid #FFEFD8;
+}
+
+.annotationFocus img{
+    border: 1px solid #9F0;
+}
+
+.annotator_comment {
+    line-height: 14px;
+    position: absolute; 
+    margin-right: 10px;
+    background-color: #ffaaaa; 
+    border: 1px solid red; 
+    font-size: 8pt; 
+    width: 200px
+}
+
+.comment_line {
+    position: absolute; 
+    border-top: 1px dashed red; 
+    height: 1px;
+}
+
+.pagenote_note {
+    background: #eee;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+/**   end of pagenotes styles ***/
+
+
+/** Creative commons license dropdowns **/
+
+option.copyright {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/copyright.gif');
+    background-repeat: no-repeat; 
+}
+option.by {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by.gif');
+    background-repeat: no-repeat;
+}
+option.by-sa {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by-sa.gif');
+    background-repeat: no-repeat;
+}
+option.by-nd {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by-nd.gif');
+    background-repeat: no-repeat;
+}
+option.by-nc {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by-nc.gif');
+    background-repeat: no-repeat;
+}
+option.by-nc-sa {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by-nc-sa.gif');
+    background-repeat: no-repeat;
+}
+option.by-nc-nd {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by-nc-nd.gif');
+    background-repeat: no-repeat;
+}
+option.gnu-fdl {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/gnu-fdl.gif');
+    background-repeat: no-repeat;
+}
+option.by-sa_gnu-fdl {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by-sa_gnu-fdl.gif');
+    background-repeat: no-repeat;
+}
+/** End of CC License styles **/
+
+/** Fix up page navigation in course content **/
+table.pagenavigation {
+    border-spacing: 8px;
+}
+
+table.pagenavigation td:nth-child(odd) { 
+    background: url("images/bottom-content-nav-back.png") top left repeat-x;
+    -moz-border-radius: 10px;  
+    -khtml-border-radius: 10px;  
+    -webkit-border-radius: 10px;  
+    border-radius: 10px;
+    padding: 5px;
+}
+
+table.pagenavigation td:nth-child(even) { 
+    background: url("images/bottom-content-middle-nav-back.png") top left repeat;
+    -moz-border-radius: 10px;  
+    -khtml-border-radius: 10px;  
+    -webkit-border-radius: 10px;  
+    border-radius: 10px;
+}
+
+#tablenav hr {
+    visibility: hidden;
+}
+
+table.toppagenavigation {
+    border-spacing: 8px;
+}
+
+table.toppagenavigation td { 
+    background: url("images/top-content-nav-back.png") top left repeat-x;
+    -moz-border-radius: 10px;  
+    -khtml-border-radius: 10px;  
+    -webkit-border-radius: 10px;  
+    border-radius: 10px;
+    padding: 5px;
+}
+
+/** Fix for announcements **/
+.outerwrapper {
+    margin-right:10px;
+}
