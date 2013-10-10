@@ -1,0 +1,319 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<updates>
+    <update>
+        <table>tbl_oer_products</table>
+        <version>0.090</version>
+        <description>
+            <br/>Added new column for themes
+        </description>
+        <data>
+            <add>
+                <name>themes</name>
+                <type>text</type>
+       
+            </add>
+        </data>
+    </update>
+
+    <update>
+        <table>tbl_oer_products</table>
+        <version>0.091</version>
+        <description>
+            <br/>Added new column for keywords
+        </description>
+        <data>
+            <add>
+                <name>keywords</name>
+                <type>text</type>
+                <length>128</length>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_oer_products</table>
+        <version>0.098</version>
+        <description>
+            <br/>Added new column for institution
+        </description>
+        <data>
+            <add>
+                <name>institutionid</name>
+                <type>text</type>
+                <length>32</length>
+            </add>
+        </data>
+    </update>
+
+    <update>
+        <table>tbl_oer_sectionnodes</table>
+        <version>0.169</version>
+        <description>
+            <br/>Added node type
+        </description>
+        <data>
+            <add>
+                <name>nodetype</name>
+                <type>text</type>
+                <length>32</length>
+            </add>
+        </data>
+    </update>
+
+    <update>
+        <table>tbl_oer_sectionnodes</table>
+        <version>0.116</version>
+        <description>
+            <br/>Added node status
+        </description>
+        <data>
+            <add>
+                <name>status</name>
+                <type>text</type>
+                <length>32</length>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_oer_sectioncontent</table>
+        <version>0.131</version>
+        <description>
+            <br/>Added userid
+        </description>
+        <data>
+            <add>
+                <name>userid</name>
+                <type>text</type>
+                <length>32</length>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_oer_sectioncontent</table>
+        <version>0.131</version>
+        <description>
+            <br/>Added keywords
+        </description>
+        <data>
+            <add>
+                <name>keywords</name>
+                <type>text</type>
+                <length>255</length>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_oer_sectioncontent</table>
+        <version>0.131</version>
+        <description>
+            <br/>Added adaptation notes
+        </description>
+        <data>
+            <add>
+                <name>adaptation_notes</name>
+                <type>text</type>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_oer_sectioncontent</table>
+        <version>0.131</version>
+        <description>
+            <br/>Added current path
+        </description>
+        <data>
+            <add>
+                <name>current_path</name>
+                <type>text</type>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_oer_sectioncontent</table>
+        <version>0.131</version>
+        <description>
+            <br/>Added keywords
+        </description>
+        <data>
+            <add>
+                <name>keywords</name>
+                <type>text</type>
+                <length>255</length>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_oer_featuredproduct</table>
+        <version>0.140</version>
+        <description>
+            <br/>Added product type
+        </description>
+        <data>
+            <add>
+                <name>prodtype</name>
+                <type>text</type>
+                <length>32</length>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_oer_featuredproduct</table>
+        <version>0.140</version>
+        <description>
+            <br/>Added featured status
+        </description>
+        <data>
+            <add>
+                <name>status</name>
+                <type>text</type>
+                <length>32</length>
+            </add>
+        </data>
+    </update>
+
+
+    <update>
+        <table>tbl_oer_downloaders</table>
+        <version>0.146</version>
+        <description>
+            <br/>Added product id field
+        </description>
+        <data>
+            <add>
+                <name>productid</name>
+                <type>text</type>
+                <length>32</length>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_oer_downloaders</table>
+        <version>0.146</version>
+        <description>
+            <br/>Added notify adaptation field
+        </description>
+        <data>
+            <add>
+                <name>notifyadaptation</name>
+                <type>text</type>
+                <length>32</length>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_oer_downloaders</table>
+        <version>0.146</version>
+        <description>
+            <br/>Added notify original field
+        </description>
+        <data>
+            <add>
+                <name>notifyoriginal</name>
+                <type>text</type>
+                <length>32</length>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_oer_downloaders</table>
+        <version>0.147</version>
+        <description>
+            <br/>Added download format field
+        </description>
+        <data>
+            <add>
+                <name>downloadformat</name>
+                <type>text</type>
+                <length>32</length>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_oer_downloaders</table>
+        <version>0.147</version>
+        <description>
+            <br/>Added download time field
+        </description>
+        <data>
+            <add>
+                <name>downloadtime</name>
+                <type>text</type>
+                <length>32</length>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_oer_institutions</table>
+        <version>0.152</version>
+        <description>
+            <br/>Added download time field
+        </description>
+        <data>
+            <change>
+                <name>description</name>
+                <type>text</type>
+              
+            </change>
+        </data>
+    </update>    
+    <update>
+        <table>tbl_oer_sectioncontent</table>
+        <version>0.169</version>
+        <description>
+            <br/>Added delered node
+        </description>
+        <data>
+            <add>
+                <name>deleted</name>
+                <type>text</type>
+                <length>1</length>
+            </add>
+        </data>
+    </update>
+
+    <update>
+        <table>tbl_oer_products</table>
+        <version>0.177</version>
+        <description>
+            <br/>Added group field
+        </description>
+        <data>
+            <add>
+                <name>groupid</name>
+                <type>text</type>
+                <length>32</length>
+            </add>
+        </data>
+    </update>
+
+    <update>
+        <table>tbl_oer_products</table>
+        <version>0.182</version>
+        <description>
+            <br/>Added region field
+        </description>
+        <data>
+            <add>
+                <name>region</name>
+                <type>text</type>
+                <length>64</length>
+            </add>
+        </data>
+    </update>
+   <update>
+        <table>tbl_oer_products</table>
+        <version>0.183</version>
+        <description>
+            <br/>Added country field
+        </description>
+        <data>
+            <add>
+                <name>country</name>
+                <type>text</type>
+                <length>5</length>
+            </add>
+        </data>
+    </update>
+
+</updates>
+
+

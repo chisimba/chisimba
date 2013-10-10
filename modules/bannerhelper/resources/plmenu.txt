@@ -1,0 +1,36 @@
+<!--
+
+This file is the prelogin menu for your site. Menu entries are within 
+unordered lists with each UL being one menu entry. Experiment with it.
+Make the access keys something meaningful, usually the first letter of
+the menu item.
+
+--->
+
+
+<ul class='plmenu'>
+    <li><a href='#' accesskey="A">First top</a>
+        <ul>
+            <li><a href='#' accesskey="B">First top, first dd</a></li>
+            <li><a href='#' accesskey="C">First top, second dd</a></li>
+        </ul>
+    </li>
+    <li><a href='#' accesskey="D">Second top</a>
+        <ul>
+            <li><a href='#' accesskey="E">Second top, first dd</a></li>
+            <li><a href='#' accesskey="D">Second top, second dd</a></li>
+            <li><a href='#' accesskey="G">Second top, third dd</a></li>
+            <li><a href='#' accesskey="H">Second top, fourth dd</a></li>
+        </ul>
+    </li>
+    <li><a href='#' accesskey="I">Third top</a>
+        <ul>
+            <li><a href='#' accesskey="J">Third top, first dd</a></li>
+            <li><a href='#' accesskey="K">Third top, second dd</a></li>
+            <li><a href='#' accesskey="L">Third top, third dd</a></li>
+            <li><a href='#' accesskey="M">Third top, fourth dd</a></li>
+        </ul>
+    </li>
+    <li><a href='#' accesskey="N">Fourth top, no dd</a></li>
+    <li><a href='#' accesskey="O">Fifth top, no dd</a></li>
+</ul>

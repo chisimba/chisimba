@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This file is a code generation template for Chisimba wrapper generation input of user data -->
+<chisimba_wrapper_ui_form>
+
+<form elementname="wrapper_generator">
+<action>processresults</action>
+<task>buildwrapper</task>
+<generatorname>genwrapper</generatorname>
+<page>buildwrapper</page>
+<title>Build a wrapper for a foreign class</title>
+<overview>This form allows you to input the basic information needed to build a 
+wrapper class to include a foreign class into your module. Fill in the information required and click
+the Generate button. The class being wrapped must be able to be instantiated in Chisimba, and 
+must reside in the lib directory of the module that whill house the wrapper class.</overview>
+<items>
+
+<item elementname="modulecode">
+<name>modulecode</name>
+<type>textinput</type>
+<width>65</width>
+<label>Module code</label>
+<validation/>
+<description>Enter the module code for the module where the foreign class
+is located in that module's resources directory.</description>
+</item>
+
+<item elementname="filename">
+<name>filename</name>
+<type>textinput</type>
+<width>65</width>
+<label>File name of foreign class</label>
+<validation/>
+<description>Type in the filename of the foreign class to wrap. Make sure that
+you use the correct case for the file name.</description>
+</item>
+
+<item elementname="classname">
+<name>classname</name>
+<type>textinput</type>
+<width>65</width>
+<label>Class name of foreign class</label>
+<validation/>
+<description>Type in the name of the foreign class to wrap. Make sure that
+you use the correct case for the class name as it might be different from 
+that of the file name.</description>
+</item>
+
+
+<item elementname="submitbutton">
+<name>submitbutton</name>
+<type>submitbutton</type>
+<width/>
+<label>Generate</label>
+<validation/>
+<description/>
+</item>
+
+</items>
+</form>
+
+</chisimba_wrapper_ui_form>

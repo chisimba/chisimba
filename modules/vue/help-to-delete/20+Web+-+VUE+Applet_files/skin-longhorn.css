@@ -1,0 +1,43 @@
+/* Copyright Dynarch.com, 2003-2005.  All Rights Reserved. */
+
+@import url("hmenu-extended.css");
+
+div.dynarch-horiz-menu { padding: 1px; }
+div.dynarch-horiz-menu table tr td.hover { padding: 2px 9px; border: 1px solid; }
+div.dynarch-horiz-menu table tr td.active,
+div.dynarch-horiz-menu table tr td.pressed { padding: 3px 8px 1px 10px; border: 1px solid; }
+
+/* horizontal parts */
+
+div.dynarch-horiz-menu { background-color: #5a6b7d; color: #fff; border: 1px solid #8394ac; }
+div.dynarch-horiz-menu table { color: #fff; }
+div.dynarch-horiz-menu table tr td { height: 20px; }
+div.dynarch-horiz-menu table tr td.hover { background: url("img/longhorn/bar-hover-bg.png") repeat-x 0 0; border-color: #dfe2e5; }
+div.dynarch-horiz-menu table tr td.active { background: url("img/longhorn/bar-hover-bg.png") repeat-x 0 0; border-color: #dfe2e5; }
+div.dynarch-horiz-menu table tr td.pressed { background: url("img/longhorn/bar-hover-bg.png") repeat-x 0 0; padding: 3px 2px 1px 4px; border-color: #dfe2e5; }
+div.dynarch-horiz-menu table tr td.active div, div.dynarch-horiz-menu table tr td.hover div, div.dynarch-horiz-menu table tr td.pressed div {
+	color: #fff;
+}
+div.dynarch-horiz-menu table tr td.hover table,
+div.dynarch-horiz-menu table tr td.active table { color: #fff; }
+div.dynarch-horiz-menu table tr td.separator { width: 7px; }
+div.dynarch-horiz-menu table tr td.separator div { border-right-color: #7a8b9d; border-left: none; margin-right: 3px; }
+
+/* vertical parts */
+
+div.dynarch-popup-menu div.d div.c div.b div.a { padding: 2px 1px; }
+div.dynarch-popup-menu { border-color: #4e5358; color: #000; background-color: #f5f5f5; padding: 0; }
+div.dynarch-popup-menu tr.item td { height: 21px; }
+div.dynarch-popup-menu tr.item td.icon { padding: 1px 1px 1px 3px; }
+div.dynarch-popup-menu tr.separator td div { background: url("img/longhorn/separator.png") no-repeat 50% 50%; padding-bottom: 1px; }
+div.dynarch-popup-menu tr.item.hover, div.dynarch-popup-menu tr.item.active { 
+  background: url("img/longhorn/popup-hover-bg.png") repeat-x 0 0;
+}
+div.dynarch-popup-menu tr.item.hover td, div.dynarch-popup-menu tr.item.active td {
+  border-color: #aadaed;
+}
+div.dynarch-popup-menu tr.active td.arrow div { background-image: url("img/longhorn/rarrow-hover.gif"); }
+div.dynarch-popup-menu tr.item.hover td.icon, div.dynarch-popup-menu tr.item.active td.icon {
+  padding-left: 2px;
+}
+div.dynarch-popup-menu tr.item td { color: #000; }

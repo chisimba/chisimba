@@ -1,0 +1,28 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix vcard: <http://www.w3.org/2001/vcard-rdf/3.0#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix cc: <http://creativecommons.org/ns#> .
+
+
+@prefix swrc: <http://swrc.ontoware.org/ontology#> .
+@prefix admin: <http://webns.net/mvcb/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix iswc: <http://annotation.semanticweb.org/iswc/iswc.daml#> .
+@prefix d2r: <http://sites.wiwiss.fu-berlin.de/suhl/bizer/d2r-server/config.rdf#> .
+@prefix db1: <http://www.example.org/dbserver01/db01#> .
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+   
+@prefix fu_person: <http://localhost/rdfapi-php/rap-pubby/persons/> .
+@prefix fu_project: <http://localhost/rdfapi-php/rap-pubby/projects/> .
+@prefix fu_publication: <http://localhost/rdfapi-php/rap-pubby/publications/> .
+@prefix fu_position: <http://localhost/rdfapi-php/rap-pubby/positions/> .
+@prefix event: <http://localhost/rdfapi-php/rap-pubby/events/> .
+@prefix topic: <http://localhost/rdfapi-php/rap-pubby/topics/> .
+
+
+

@@ -1,0 +1,15 @@
+/** Icon + text div links (Control Panel) **/
+
+.icon a span{ 
+    display: block; 
+    text-align: center; 
+    line-height: 25px;
+    font-size: 1.2em;
+}
+
+#cmsaddcontenttopnavbuttons .smallicon a span{ 
+    display: block; 
+    text-align: center; 
+    line-height: 30px;
+    font-size: 0.8em;
+}

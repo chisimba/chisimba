@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<defaultdata>
+  <!-- Table tbl_forum_discussiontype -->
+    <tbl_forum_discussiontype>
+        <id>init_1</id>
+        <type_name>Comment</type_name>
+        <type_icon>comments</type_icon>
+        <status>0</status>
+    </tbl_forum_discussiontype>
+    <tbl_forum_discussiontype>
+        <id>init_2</id>
+        <type_name>Question &amp; Answer</type_name>
+        <type_icon>question</type_icon>
+        <status>0</status>
+    </tbl_forum_discussiontype>
+    <tbl_forum_discussiontype>
+        <id>init_3</id>
+        <type_name>Analysis</type_name>
+        <type_icon>analysis</type_icon>
+        <status>0</status>
+    </tbl_forum_discussiontype>
+    <tbl_forum_discussiontype>
+        <id>init_4</id>
+        <type_name>Debate</type_name>
+        <type_icon>debate</type_icon>
+        <status>0</status>
+    </tbl_forum_discussiontype>
+    <tbl_forum_discussiontype>
+        <id>init_5</id>
+        <type_name>Reaction</type_name>
+        <type_icon>reaction</type_icon>
+        <status>0</status>
+    </tbl_forum_discussiontype>
+    <tbl_forum_discussiontype>
+        <id>init_6</id>
+        <type_name>Brainstorming</type_name>
+        <type_icon>brain</type_icon>
+        <status>0</status>
+    </tbl_forum_discussiontype>
+    <tbl_forum_discussiontype>
+        <id>init_7</id>
+        <type_name>General</type_name>
+        <type_icon>notice</type_icon>
+        <status>0</status>
+    </tbl_forum_discussiontype>
+    <tbl_forum_discussiontype>
+        <id>init_8</id>
+        <type_name>Chit Chat</type_name>
+        <type_icon>chat</type_icon>
+        <status>0</status>
+    </tbl_forum_discussiontype>
+    <tbl_forum_discussiontype>
+        <id>init_9</id>
+        <type_name>Introduce Yourself</type_name>
+        <type_icon>introduceyourself</type_icon>
+        <status>1</status>
+    </tbl_forum_discussiontype>
+    <tbl_forum_discussiontype>
+        <id>init_10</id>
+        <type_name>Notice</type_name>
+        <type_icon>notice</type_icon>
+        <status>0</status>
+    </tbl_forum_discussiontype>
+    <tbl_forum_discussiontype>
+        <id>init_11</id>
+        <type_name>Advertisement</type_name>
+        <type_icon>advertisement</type_icon>
+        <status>0</status>
+    </tbl_forum_discussiontype>
+    <!-- Table tbl_forum_default_ratings -->
+    <tbl_forum_default_ratings>
+        <id>init_1</id>
+        <rating_description>Perfect Answer!</rating_description>
+        <rating_point>5</rating_point>
+    </tbl_forum_default_ratings>
+    <tbl_forum_default_ratings>
+        <id>init_2</id>
+        <rating_description>Some Good Information</rating_description>
+        <rating_point>4</rating_point>
+    </tbl_forum_default_ratings>
+    <tbl_forum_default_ratings>
+        <id>init_3</id>
+        <rating_description>Helpful Enough</rating_description>
+        <rating_point>3</rating_point>
+    </tbl_forum_default_ratings>
+    <tbl_forum_default_ratings>
+        <id>init_4</id>
+        <rating_description>Not Very Helpful</rating_description>
+        <rating_point>2</rating_point>
+    </tbl_forum_default_ratings>
+    <tbl_forum_default_ratings>
+        <id>init_5</id>
+        <rating_description>Way Off Topic</rating_description>
+        <rating_point>1</rating_point>
+    </tbl_forum_default_ratings>
+</defaultdata>

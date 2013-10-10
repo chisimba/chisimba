@@ -1,0 +1,5073 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<birds>
+   <bird>
+       <id>1</id>
+       <alphabeticalname>Albatross, Amsterdam</alphabeticalname>
+       <fullname>Amsterdam Albatross</fullname>
+       <scientificname>Diomedea amsterdamensis</scientificname>
+   </bird>
+   <bird>
+       <id>2</id>
+       <alphabeticalname>Albatross, Atlantic Yellow-nosed</alphabeticalname>
+       <fullname>Atlantic Yellow-nosed Albatross</fullname>
+       <scientificname>Thalassarche chlororhynchos</scientificname>
+   </bird>
+   <bird>
+       <id>3</id>
+       <alphabeticalname>Albatross, Black-browed</alphabeticalname>
+       <fullname>Black-browed Albatross</fullname>
+       <scientificname>Thalassarche melanophrys</scientificname>
+   </bird>
+   <bird>
+       <id>4</id>
+       <alphabeticalname>Albatross, Buller’s</alphabeticalname>
+       <fullname>Buller's Albatross</fullname>
+       <scientificname>Thalassarche bulleri</scientificname>
+   </bird>
+   <bird>
+       <id>5</id>
+       <alphabeticalname>Albatross, Chatham</alphabeticalname>
+       <fullname>Chatham Albatross</fullname>
+       <scientificname>Thalassarche eremita</scientificname>
+   </bird>
+   <bird>
+       <id>6</id>
+       <alphabeticalname>Albatross, Grey-headed</alphabeticalname>
+       <fullname>Grey-headed Albatross</fullname>
+       <scientificname>Thalassarche chrysostoma</scientificname>
+   </bird>
+   <bird>
+       <id>7</id>
+       <alphabeticalname>Albatross, Indian Yellow-nosed</alphabeticalname>
+       <fullname>Indian Yellow-nosed Albatross</fullname>
+       <scientificname>Thalassarche carteri</scientificname>
+   </bird>
+   <bird>
+       <id>8</id>
+       <alphabeticalname>Albatross, Laysan</alphabeticalname>
+       <fullname>Laysan Albatross</fullname>
+       <scientificname>Phoebastria immutabilis</scientificname>
+   </bird>
+   <bird>
+       <id>9</id>
+       <alphabeticalname>Albatross, Light-mantled</alphabeticalname>
+       <fullname>Light-mantled Albatross</fullname>
+       <scientificname>Phoebetria palpebrata</scientificname>
+   </bird>
+   <bird>
+       <id>10</id>
+       <alphabeticalname>Albatross, Northern Royal</alphabeticalname>
+       <fullname>Northern Royal Albatross</fullname>
+       <scientificname>Diomedea sanfordi</scientificname>
+   </bird>
+   <bird>
+       <id>11</id>
+       <alphabeticalname>Albatross, Salvin’s</alphabeticalname>
+       <fullname>Salvin’s Albatross</fullname>
+       <scientificname>Thalassarche salvini</scientificname>
+   </bird>
+   <bird>
+       <id>12</id>
+       <alphabeticalname>Albatross, Shy</alphabeticalname>
+       <fullname>Shy Albatross</fullname>
+       <scientificname>Thalassarche cauta</scientificname>
+   </bird>
+   <bird>
+       <id>13</id>
+       <alphabeticalname>Albatross, Sooty</alphabeticalname>
+       <fullname>Sooty Albatross</fullname>
+       <scientificname>Phoebetria fusca</scientificname>
+   </bird>
+   <bird>
+       <id>14</id>
+       <alphabeticalname>Albatross, Southern Royal</alphabeticalname>
+       <fullname>Southern Royal Albatross</fullname>
+       <scientificname>Diomedea epomophora</scientificname>
+   </bird>
+   <bird>
+       <id>15</id>
+       <alphabeticalname>Albatross, Tristan</alphabeticalname>
+       <fullname>Tristan Albatross</fullname>
+       <scientificname>Diomedea dabbenena</scientificname>
+   </bird>
+   <bird>
+       <id>16</id>
+       <alphabeticalname>Albatross, Wandering</alphabeticalname>
+       <fullname>Wandering Albatross</fullname>
+       <scientificname>Diomedea exulans</scientificname>
+   </bird>
+   <bird>
+       <id>17</id>
+       <alphabeticalname>Apalis, Bar-throated</alphabeticalname>
+       <fullname>Bar-throated Apalis</fullname>
+       <scientificname>Apalis thoracica</scientificname>
+   </bird>
+   <bird>
+       <id>18</id>
+       <alphabeticalname>Apalis, Rudd’s</alphabeticalname>
+       <fullname>Rudd’s Apalis</fullname>
+       <scientificname>Apalis ruddi</scientificname>
+   </bird>
+   <bird>
+       <id>19</id>
+       <alphabeticalname>Apalis, Yellow-breasted</alphabeticalname>
+       <fullname>Yellow-breasted Apalis</fullname>
+       <scientificname>Apalis flavida</scientificname>
+   </bird>
+   <bird>
+       <id>20</id>
+       <alphabeticalname>Avocet, Pied</alphabeticalname>
+       <fullname>Pied Avocet</fullname>
+       <scientificname>Recurvirostra avosetta</scientificname>
+   </bird>
+   <bird>
+       <id>21</id>
+       <alphabeticalname>Babbler, Arrow-marked</alphabeticalname>
+       <fullname>Arrow-marked Babbler</fullname>
+       <scientificname>Turdoides jardineii</scientificname>
+   </bird>
+   <bird>
+       <id>22</id>
+       <alphabeticalname>Babbler, Southern Pied</alphabeticalname>
+       <fullname>Southern Pied Babbler</fullname>
+       <scientificname>Turdoides bicolor</scientificname>
+   </bird>
+   <bird>
+       <id>23</id>
+       <alphabeticalname>Barbet, Acacia Pied</alphabeticalname>
+       <fullname>Acacia Pied Barbet</fullname>
+       <scientificname>Tricholaema leucomelas</scientificname>
+   </bird>
+   <bird>
+       <id>24</id>
+       <alphabeticalname>Barbet, Black-collared</alphabeticalname>
+       <fullname>Black-collared Barbet</fullname>
+       <scientificname>Lybius torquatus</scientificname>
+   </bird>
+   <bird>
+       <id>25</id>
+       <alphabeticalname>Barbet, Crested</alphabeticalname>
+       <fullname>Crested Barbet</fullname>
+       <scientificname>Trachyphonus vaillantii</scientificname>
+   </bird>
+   <bird>
+       <id>26</id>
+       <alphabeticalname>Barbet, Green</alphabeticalname>
+       <fullname>Green Barbet</fullname>
+       <scientificname>Stactolaema olivacea</scientificname>
+   </bird>
+   <bird>
+       <id>27</id>
+       <alphabeticalname>Barbet, White-eared</alphabeticalname>
+       <fullname>White-eared Barbet</fullname>
+       <scientificname>Stactolaema leucotis</scientificname>
+   </bird>
+   <bird>
+       <id>28</id>
+       <alphabeticalname>Bateleur</alphabeticalname>
+       <fullname>Bateleur</fullname>
+       <scientificname>Terathopius ecaudatus</scientificname>
+   </bird>
+   <bird>
+       <id>29</id>
+       <alphabeticalname>Batis, Cape</alphabeticalname>
+       <fullname>Cape Batis</fullname>
+       <scientificname>Batis capensis</scientificname>
+   </bird>
+   <bird>
+       <id>30</id>
+       <alphabeticalname>Batis, Chinspot</alphabeticalname>
+       <fullname>Chinspot Batis</fullname>
+       <scientificname>Batis molitor</scientificname>
+   </bird>
+   <bird>
+       <id>31</id>
+       <alphabeticalname>Batis, Pririt</alphabeticalname>
+       <fullname>Pririt Batis</fullname>
+       <scientificname>Batis pririt</scientificname>
+   </bird>
+   <bird>
+       <id>32</id>
+       <alphabeticalname>Batis, Woodward's</alphabeticalname>
+       <fullname>Woodward's Batis</fullname>
+       <scientificname>Batis fratrum</scientificname>
+   </bird>
+   <bird>
+       <id>33</id>
+       <alphabeticalname>Bee-eater, Blue-cheeked</alphabeticalname>
+       <fullname>Blue-cheeked Bee-eater</fullname>
+       <scientificname>Merops persicus</scientificname>
+   </bird>
+   <bird>
+       <id>34</id>
+       <alphabeticalname>Bee-eater, European</alphabeticalname>
+       <fullname>European Bee-eater</fullname>
+       <scientificname>Merops apiaster</scientificname>
+   </bird>
+   <bird>
+       <id>35</id>
+       <alphabeticalname>Bee-eater, Little</alphabeticalname>
+       <fullname>Little Bee-eater</fullname>
+       <scientificname>Merops pusillus</scientificname>
+   </bird>
+   <bird>
+       <id>36</id>
+       <alphabeticalname>Bee-eater, Olive</alphabeticalname>
+       <fullname>Olive Bee-eater</fullname>
+       <scientificname>Merops superciliosus</scientificname>
+   </bird>
+   <bird>
+       <id>37</id>
+       <alphabeticalname>Bee-eater, Southern Carmine</alphabeticalname>
+       <fullname>Southern Carmine Bee-eater</fullname>
+       <scientificname>Merops nubicoides</scientificname>
+   </bird>
+   <bird>
+       <id>38</id>
+       <alphabeticalname>Bee-eater, Swallow-tailed</alphabeticalname>
+       <fullname>Swallow-tailed Bee-eater</fullname>
+       <scientificname>Merops hirundineus</scientificname>
+   </bird>
+   <bird>
+       <id>39</id>
+       <alphabeticalname>Bee-eater, White-fronted</alphabeticalname>
+       <fullname>White-fronted Bee-eater</fullname>
+       <scientificname>Merops bullockoides</scientificname>
+   </bird>
+   <bird>
+       <id>40</id>
+       <alphabeticalname>Bee-eater, White-throated</alphabeticalname>
+       <fullname>White-throated Bee-eater</fullname>
+       <scientificname>Merops albicollis</scientificname>
+   </bird>
+   <bird>
+       <id>41</id>
+       <alphabeticalname>Bishop, Southern Red</alphabeticalname>
+       <fullname>Southern Red Bishop</fullname>
+       <scientificname>Euplectes orix</scientificname>
+   </bird>
+   <bird>
+       <id>42</id>
+       <alphabeticalname>Bishop, Yellow</alphabeticalname>
+       <fullname>Yellow Bishop</fullname>
+       <scientificname>Euplectes capensis</scientificname>
+   </bird>
+   <bird>
+       <id>43</id>
+       <alphabeticalname>Bishop, Yellow-crowned</alphabeticalname>
+       <fullname>Yellow-crowned Bishop</fullname>
+       <scientificname>Euplectes afer</scientificname>
+   </bird>
+   <bird>
+       <id>44</id>
+       <alphabeticalname>Bittern, Dwarf</alphabeticalname>
+       <fullname>Dwarf Bittern</fullname>
+       <scientificname>Ixobrychus sturmii</scientificname>
+   </bird>
+   <bird>
+       <id>45</id>
+       <alphabeticalname>Bittern, Eurasian</alphabeticalname>
+       <fullname>Eurasian Bittern</fullname>
+       <scientificname>Botaurus stellaris</scientificname>
+   </bird>
+   <bird>
+       <id>46</id>
+       <alphabeticalname>Bittern, Little</alphabeticalname>
+       <fullname>Little Bittern</fullname>
+       <scientificname>Ixobrychus minutus</scientificname>
+   </bird>
+   <bird>
+       <id>47</id>
+       <alphabeticalname>Blackcap, Bush</alphabeticalname>
+       <fullname>Bush Blackcap</fullname>
+       <scientificname>Lioptilus nigricapillus</scientificname>
+   </bird>
+   <bird>
+       <id>48</id>
+       <alphabeticalname>Blackcap, Eurasian</alphabeticalname>
+       <fullname>Eurasian Blackcap</fullname>
+       <scientificname>Sylvia atricapilla</scientificname>
+   </bird>
+   <bird>
+       <id>49</id>
+       <alphabeticalname>Bokmakierie</alphabeticalname>
+       <fullname>Bokmakierie</fullname>
+       <scientificname>Telophorus zeylonus</scientificname>
+   </bird>
+   <bird>
+       <id>50</id>
+       <alphabeticalname>Booby, Brown</alphabeticalname>
+       <fullname>Brown Booby</fullname>
+       <scientificname>Sula leucogaster</scientificname>
+   </bird>
+   <bird>
+       <id>51</id>
+       <alphabeticalname>Booby, Red-footed</alphabeticalname>
+       <fullname>Red-footed Booby</fullname>
+       <scientificname>Sula sula</scientificname>
+   </bird>
+   <bird>
+       <id>52</id>
+       <alphabeticalname>Boubou, Southern</alphabeticalname>
+       <fullname>Southern Boubou</fullname>
+       <scientificname>Laniarius ferrugineus</scientificname>
+   </bird>
+   <bird>
+       <id>53</id>
+       <alphabeticalname>Boubou, Tropical</alphabeticalname>
+       <fullname>Tropical Boubou</fullname>
+       <scientificname>Laniarius major</scientificname>
+   </bird>
+   <bird>
+       <id>54</id>
+       <alphabeticalname>Broadbill, African</alphabeticalname>
+       <fullname>African Broadbill</fullname>
+       <scientificname>Smithornis capensis</scientificname>
+   </bird>
+   <bird>
+       <id>55</id>
+       <alphabeticalname>Brownbul, Terrestrial</alphabeticalname>
+       <fullname>Terrestrial Brownbul</fullname>
+       <scientificname>Phyllastrephus terrestris</scientificname>
+   </bird>
+   <bird>
+       <id>56</id>
+       <alphabeticalname>Brubru</alphabeticalname>
+       <fullname>Brubru</fullname>
+       <scientificname>Nilaus afer</scientificname>
+   </bird>
+   <bird>
+       <id>57</id>
+       <alphabeticalname>Bulbul, African Red-eyed</alphabeticalname>
+       <fullname>African Red-eyed Bulbul</fullname>
+       <scientificname>Pycnonotus nigricans</scientificname>
+   </bird>
+   <bird>
+       <id>58</id>
+       <alphabeticalname>Bulbul, Cape</alphabeticalname>
+       <fullname>Cape Bulbul</fullname>
+       <scientificname>Pycnonotus capensis</scientificname>
+   </bird>
+   <bird>
+       <id>59</id>
+       <alphabeticalname>Bulbul, Dark-capped</alphabeticalname>
+       <fullname>Dark-capped Bulbul</fullname>
+       <scientificname>Pycnonotus tricolor</scientificname>
+   </bird>
+   <bird>
+       <id>60</id>
+       <alphabeticalname>Bunting, Cape</alphabeticalname>
+       <fullname>Cape Bunting</fullname>
+       <scientificname>Emberiza capensis</scientificname>
+   </bird>
+   <bird>
+       <id>61</id>
+       <alphabeticalname>Bunting, Cinnamon-breasted</alphabeticalname>
+       <fullname>Cinnamon-breasted Bunting</fullname>
+       <scientificname>Emberiza tahapisi</scientificname>
+   </bird>
+   <bird>
+       <id>62</id>
+       <alphabeticalname>Bunting, Golden-breasted</alphabeticalname>
+       <fullname>Golden-breasted Bunting</fullname>
+       <scientificname>Emberiza flaviventris</scientificname>
+   </bird>
+   <bird>
+       <id>63</id>
+       <alphabeticalname>Bunting, Lark-like</alphabeticalname>
+       <fullname>Lark-like Bunting</fullname>
+       <scientificname>Emberiza impetuani</scientificname>
+   </bird>
+   <bird>
+       <id>64</id>
+       <alphabeticalname>Bush-Shrike, Black-fronted</alphabeticalname>
+       <fullname>Black-fronted Bush-Shrike</fullname>
+       <scientificname>Chlorophoneus nigrifrons</scientificname>
+   </bird>
+   <bird>
+       <id>65</id>
+       <alphabeticalname>Bush-Shrike, Gorgeous</alphabeticalname>
+       <fullname>Gorgeous Bush-Shrike</fullname>
+       <scientificname>Chlorophoneus viridis</scientificname>
+   </bird>
+   <bird>
+       <id>66</id>
+       <alphabeticalname>Bush-Shrike, Grey-headed</alphabeticalname>
+       <fullname>Grey-headed Bush-Shrike</fullname>
+       <scientificname>Malaconotus blanchoti</scientificname>
+   </bird>
+   <bird>
+       <id>67</id>
+       <alphabeticalname>Bush-Shrike, Olive</alphabeticalname>
+       <fullname>Olive Bush-Shrike</fullname>
+       <scientificname>Chlorophoneus olivaceus</scientificname>
+   </bird>
+   <bird>
+       <id>68</id>
+       <alphabeticalname>Bush-Shrike, Orange-breasted</alphabeticalname>
+       <fullname>Orange-breasted Bush-Shrike</fullname>
+       <scientificname>Chlorophoneus sulfureopectus</scientificname>
+   </bird>
+   <bird>
+       <id>69</id>
+       <alphabeticalname>Bustard, Black-bellied</alphabeticalname>
+       <fullname>Black-bellied Bustard</fullname>
+       <scientificname>Lissotis melanogaster</scientificname>
+   </bird>
+   <bird>
+       <id>70</id>
+       <alphabeticalname>Bustard, Denham’s</alphabeticalname>
+       <fullname>Denham’s Bustard</fullname>
+       <scientificname>Neotis denhami</scientificname>
+   </bird>
+   <bird>
+       <id>71</id>
+       <alphabeticalname>Bustard, Kori</alphabeticalname>
+       <fullname>Kori Bustard</fullname>
+       <scientificname>Ardeotis kori</scientificname>
+   </bird>
+   <bird>
+       <id>72</id>
+       <alphabeticalname>Bustard, Ludwig’s</alphabeticalname>
+       <fullname>Ludwig’s Bustard</fullname>
+       <scientificname>Neotis ludwigii</scientificname>
+   </bird>
+   <bird>
+       <id>73</id>
+       <alphabeticalname>Buttonquail, Black-rumped</alphabeticalname>
+       <fullname>Black-rumped Buttonquail</fullname>
+       <scientificname>Turnix nanus</scientificname>
+   </bird>
+   <bird>
+       <id>74</id>
+       <alphabeticalname>Buttonquail, Common (Kurrichane)</alphabeticalname>
+       <fullname>Common (Kurrichane) Buttonquail</fullname>
+       <scientificname>Turnix sylvaticus</scientificname>
+   </bird>
+   <bird>
+       <id>75</id>
+       <alphabeticalname>Buzzard, European Honey</alphabeticalname>
+       <fullname>European Honey Buzzard</fullname>
+       <scientificname>Pernis apivorus</scientificname>
+   </bird>
+   <bird>
+       <id>76</id>
+       <alphabeticalname>Buttonquail, Hottentot</alphabeticalname>
+       <fullname>Hottentot Buttonquail</fullname>
+       <scientificname>Turnix hottentottus</scientificname>
+   </bird>
+   <bird>
+       <id>77</id>
+       <alphabeticalname>Buzzard, Common (Steppe )</alphabeticalname>
+       <fullname>Common (Steppe) Buzzard</fullname>
+       <scientificname>Buteo buteo</scientificname>
+   </bird>
+   <bird>
+       <id>78</id>
+       <alphabeticalname>Buzzard, Forest</alphabeticalname>
+       <fullname>Forest Buzzard</fullname>
+       <scientificname>Buteo trizonatus</scientificname>
+   </bird>
+   <bird>
+       <id>79</id>
+       <alphabeticalname>Buzzard, Jackal</alphabeticalname>
+       <fullname>Jackal Buzzard</fullname>
+       <scientificname>Buteo rufofuscus</scientificname>
+   </bird>
+   <bird>
+       <id>80</id>
+       <alphabeticalname>Buzzard, Lizard</alphabeticalname>
+       <fullname>Lizard Buzzard</fullname>
+       <scientificname>Kaupifalco monogrammicus</scientificname>
+   </bird>
+   <bird>
+       <id>81</id>
+       <alphabeticalname>Camaroptera, Green-backed</alphabeticalname>
+       <fullname>Green-backed Camaroptera</fullname>
+       <scientificname>Camaroptera brachyura</scientificname>
+   </bird>
+   <bird>
+       <id>82</id>
+       <alphabeticalname>Camaroptera, Grey-backed</alphabeticalname>
+       <fullname>Grey-backed Camaroptera</fullname>
+       <scientificname>Camaroptera brevicaudata</scientificname>
+   </bird>
+   <bird>
+       <id>83</id>
+       <alphabeticalname>Canary, Black-headed</alphabeticalname>
+       <fullname>Black-headed Canary</fullname>
+       <scientificname>Serinus alario</scientificname>
+   </bird>
+   <bird>
+       <id>84</id>
+       <alphabeticalname>Canary, Black-throated</alphabeticalname>
+       <fullname>Black-throated Canary</fullname>
+       <scientificname>Crithagra atrogularis</scientificname>
+   </bird>
+   <bird>
+       <id>85</id>
+       <alphabeticalname>Canary, Brimstone</alphabeticalname>
+       <fullname>Brimstone Canary</fullname>
+       <scientificname>Crithagra sulphurata</scientificname>
+   </bird>
+   <bird>
+       <id>86</id>
+       <alphabeticalname>Canary, Cape</alphabeticalname>
+       <fullname>Cape Canary</fullname>
+       <scientificname>Serinus canicollis</scientificname>
+   </bird>
+   <bird>
+       <id>87</id>
+       <alphabeticalname>Canary, Forest</alphabeticalname>
+       <fullname>Forest Canary</fullname>
+       <scientificname>Crithagra scotops</scientificname>
+   </bird>
+   <bird>
+       <id>88</id>
+       <alphabeticalname>Canary, Lemon-breasted</alphabeticalname>
+       <fullname>Lemon-breasted Canary</fullname>
+       <scientificname>Crithagra citrinipectus</scientificname>
+   </bird>
+   <bird>
+       <id>89</id>
+       <alphabeticalname>Canary, White-throated</alphabeticalname>
+       <fullname>White-throated Canary</fullname>
+       <scientificname>Crithagra albogularis</scientificname>
+   </bird>
+   <bird>
+       <id>90</id>
+       <alphabeticalname>Canary, Yellow</alphabeticalname>
+       <fullname>Yellow Canary</fullname>
+       <scientificname>Crithagra flaviventris</scientificname>
+   </bird>
+   <bird>
+       <id>91</id>
+       <alphabeticalname>Canary, Yellow-fronted</alphabeticalname>
+       <fullname>Yellow-fronted Canary</fullname>
+       <scientificname>Crithagra mozambica</scientificname>
+   </bird>
+   <bird>
+       <id>92</id>
+       <alphabeticalname>Chaffinch, Common</alphabeticalname>
+       <fullname>Common Chaffinch</fullname>
+       <scientificname>Fringilla coelebs</scientificname>
+   </bird>
+   <bird>
+       <id>93</id>
+       <alphabeticalname>Chat, Ant-eating</alphabeticalname>
+       <fullname>Ant-eating Chat</fullname>
+       <scientificname>Myrmecocichla formicivora</scientificname>
+   </bird>
+   <bird>
+       <id>94</id>
+       <alphabeticalname>Chat, Arnot’s</alphabeticalname>
+       <fullname>Arnot’s Chat</fullname>
+       <scientificname>Pentholaea arnotti</scientificname>
+   </bird>
+   <bird>
+       <id>95</id>
+       <alphabeticalname>Chat, Boulder</alphabeticalname>
+       <fullname>Boulder Chat</fullname>
+       <scientificname>Pinarornis plumosus</scientificname>
+   </bird>
+   <bird>
+       <id>96</id>
+       <alphabeticalname>Chat, Buff-streaked</alphabeticalname>
+       <fullname>Buff-streaked Chat</fullname>
+       <scientificname>Campicoloides bifasciata</scientificname>
+   </bird>
+   <bird>
+       <id>97</id>
+       <alphabeticalname>Chat, Familiar</alphabeticalname>
+       <fullname>Familiar Chat</fullname>
+       <scientificname>Cercomela familiaris</scientificname>
+   </bird>
+   <bird>
+       <id>98</id>
+       <alphabeticalname>Chat, Karoo</alphabeticalname>
+       <fullname>Karoo Chat</fullname>
+       <scientificname>Cercomela schlegelii</scientificname>
+   </bird>
+   <bird>
+       <id>99</id>
+       <alphabeticalname>Chat, Mocking Cliff</alphabeticalname>
+       <fullname>Mocking Cliff Chat</fullname>
+       <scientificname>Thamnolaea cinnamomeiventris</scientificname>
+   </bird>
+   <bird>
+       <id>100</id>
+       <alphabeticalname>Chat, Sickle-winged</alphabeticalname>
+       <fullname>Sickle-winged Chat</fullname>
+       <scientificname>Cercomela sinuata</scientificname>
+   </bird>
+   <bird>
+       <id>101</id>
+       <alphabeticalname>Chat, Tractrac</alphabeticalname>
+       <fullname>Tractrac Chat</fullname>
+       <scientificname>Cercomela tractrac</scientificname>
+   </bird>
+   <bird>
+       <id>102</id>
+       <alphabeticalname>Cisticola, Cloud</alphabeticalname>
+       <fullname>Cloud Cisticola</fullname>
+       <scientificname>Cisticola textrix</scientificname>
+   </bird>
+   <bird>
+       <id>103</id>
+       <alphabeticalname>Cisticola, Croaking</alphabeticalname>
+       <fullname>Croaking Cisticola</fullname>
+       <scientificname>Cisticola natalensis</scientificname>
+   </bird>
+   <bird>
+       <id>104</id>
+       <alphabeticalname>Cisticola, Desert</alphabeticalname>
+       <fullname>Desert Cisticola</fullname>
+       <scientificname>Cisticola aridulus</scientificname>
+   </bird>
+   <bird>
+       <id>105</id>
+       <alphabeticalname>Cisticola, Grey-backed</alphabeticalname>
+       <fullname>Grey-backed Cisticola</fullname>
+       <scientificname>Cisticola subruficapilla</scientificname>
+   </bird>
+   <bird>
+       <id>106</id>
+       <alphabeticalname>Cisticola, Lazy</alphabeticalname>
+       <fullname>Lazy Cisticola</fullname>
+       <scientificname>Cisticola aberrans</scientificname>
+   </bird>
+   <bird>
+       <id>107</id>
+       <alphabeticalname>Cisticola, Levaillant’s</alphabeticalname>
+       <fullname>Levaillant’s Cisticola</fullname>
+       <scientificname>Cisticola tinniens</scientificname>
+   </bird>
+   <bird>
+       <id>108</id>
+       <alphabeticalname>Cisticola, Pale-crowned</alphabeticalname>
+       <fullname>Pale-crowned Cisticola</fullname>
+       <scientificname>Cisticola cinnamomeus</scientificname>
+   </bird>
+   <bird>
+       <id>109</id>
+       <alphabeticalname>Cisticola, Rattling</alphabeticalname>
+       <fullname>Rattling Cisticola</fullname>
+       <scientificname>Cisticola chiniana</scientificname>
+   </bird>
+   <bird>
+       <id>110</id>
+       <alphabeticalname>Cisticola, Red-faced</alphabeticalname>
+       <fullname>Red-faced Cisticola</fullname>
+       <scientificname>Cisticola erythrops</scientificname>
+   </bird>
+   <bird>
+       <id>111</id>
+       <alphabeticalname>Cisticola, Rufous-winged</alphabeticalname>
+       <fullname>Rufous-winged Cisticola</fullname>
+       <scientificname>Cisticola galactotes</scientificname>
+   </bird>
+   <bird>
+       <id>112</id>
+       <alphabeticalname>Cisticola, Tinkling</alphabeticalname>
+       <fullname>Tinkling Cisticola</fullname>
+       <scientificname>Cisticola rufilatus</scientificname>
+   </bird>
+   <bird>
+       <id>113</id>
+       <alphabeticalname>Cisticola, Wailing</alphabeticalname>
+       <fullname>Wailing Cisticola</fullname>
+       <scientificname>Cisticola lais</scientificname>
+   </bird>
+   <bird>
+       <id>114</id>
+       <alphabeticalname>Cisticola, Wing-snapping</alphabeticalname>
+       <fullname>Wing-snapping Cisticola</fullname>
+       <scientificname>Cisticola ayresii</scientificname>
+   </bird>
+   <bird>
+       <id>115</id>
+       <alphabeticalname>Cisticola, Zitting</alphabeticalname>
+       <fullname>Zitting Cisticola</fullname>
+       <scientificname>Cisticola juncidis</scientificname>
+   </bird>
+   <bird>
+       <id>116</id>
+       <alphabeticalname>Coot, Red-knobbed</alphabeticalname>
+       <fullname>Red-knobbed coot</fullname>
+       <scientificname>Fulica cristata</scientificname>
+   </bird>
+   <bird>
+       <id>117</id>
+       <alphabeticalname>Cormorant, Bank</alphabeticalname>
+       <fullname>Bank Cormorant</fullname>
+       <scientificname>Phalacrocorax neglectus</scientificname>
+   </bird>
+   <bird>
+       <id>118</id>
+       <alphabeticalname>Cormorant, Cape</alphabeticalname>
+       <fullname>Cape Cormorant</fullname>
+       <scientificname>Phalacrocorax capensis</scientificname>
+   </bird>
+   <bird>
+       <id>119</id>
+       <alphabeticalname>Cormorant, Crowned</alphabeticalname>
+       <fullname>Crowned Cormorant</fullname>
+       <scientificname>Phalacrocorax coronatus</scientificname>
+   </bird>
+   <bird>
+       <id>120</id>
+       <alphabeticalname>Cormorant, Reed</alphabeticalname>
+       <fullname>Reed Cormorant</fullname>
+       <scientificname>Phalacrocorax africanus</scientificname>
+   </bird>
+   <bird>
+       <id>121</id>
+       <alphabeticalname>Cormorant, White-breasted</alphabeticalname>
+       <fullname>White-breasted Cormorant</fullname>
+       <scientificname>Phalacrocorax lucidus</scientificname>
+   </bird>
+   <bird>
+       <id>122</id>
+       <alphabeticalname>Coucal, Black</alphabeticalname>
+       <fullname>Black Coucal</fullname>
+       <scientificname>Centropus grillii</scientificname>
+   </bird>
+   <bird>
+       <id>123</id>
+       <alphabeticalname>Coucal, Burchell’s</alphabeticalname>
+       <fullname>Burchell’s Coucal</fullname>
+       <scientificname>Centropus burchellii</scientificname>
+   </bird>
+   <bird>
+       <id>124</id>
+       <alphabeticalname>Coucal, Senegal</alphabeticalname>
+       <fullname>Senegal Coucal</fullname>
+       <scientificname>Centropus senegalensis</scientificname>
+   </bird>
+   <bird>
+       <id>125</id>
+       <alphabeticalname>Courser, Bronze-winged</alphabeticalname>
+       <fullname>Bronze-winged Courser</fullname>
+       <scientificname>Rhinoptilus chalcopterus</scientificname>
+   </bird>
+   <bird>
+       <id>126</id>
+       <alphabeticalname>Courser, Burchell’s</alphabeticalname>
+       <fullname>Burchell's Courser</fullname>
+       <scientificname>Cursorius rufus</scientificname>
+   </bird>
+   <bird>
+       <id>127</id>
+       <alphabeticalname>Courser, Double-banded</alphabeticalname>
+       <fullname>Double-banded Courser</fullname>
+       <scientificname>Rhinoptilus africanus</scientificname>
+   </bird>
+   <bird>
+       <id>128</id>
+       <alphabeticalname>Courser, Temminck’s</alphabeticalname>
+       <fullname>Temminck's Courser</fullname>
+       <scientificname>Cursorius temminckii</scientificname>
+   </bird>
+   <bird>
+       <id>129</id>
+       <alphabeticalname>Courser, Three-banded</alphabeticalname>
+       <fullname>Three-banded Courser</fullname>
+       <scientificname>Rhinoptilus cinctus</scientificname>
+   </bird>
+   <bird>
+       <id>130</id>
+       <alphabeticalname>Crab-plover</alphabeticalname>
+       <fullname>Crab-Plover</fullname>
+       <scientificname>Dromas ardeola</scientificname>
+   </bird>
+   <bird>
+       <id>131</id>
+       <alphabeticalname>Crake, African</alphabeticalname>
+       <fullname>African Crake</fullname>
+       <scientificname>Crecopsis egregia</scientificname>
+   </bird>
+   <bird>
+       <id>132</id>
+       <alphabeticalname>Crake, Baillon’s</alphabeticalname>
+       <fullname>Baillon's Crake</fullname>
+       <scientificname>Porzana pusilla</scientificname>
+   </bird>
+   <bird>
+       <id>133</id>
+       <alphabeticalname>Crake, Black</alphabeticalname>
+       <fullname>Black Crake</fullname>
+       <scientificname>Amaurornis flavirostra</scientificname>
+   </bird>
+   <bird>
+       <id>134</id>
+       <alphabeticalname>Crake, Corn</alphabeticalname>
+       <fullname>Corn Crake</fullname>
+       <scientificname>Crex crex</scientificname>
+   </bird>
+   <bird>
+       <id>135</id>
+       <alphabeticalname>Crake, Spotted</alphabeticalname>
+       <fullname>Spotted Crake</fullname>
+       <scientificname>Porzana porzana</scientificname>
+   </bird>
+   <bird>
+       <id>136</id>
+       <alphabeticalname>Crake, Striped</alphabeticalname>
+       <fullname>Striped Crake</fullname>
+       <scientificname>Aenigmatolimnas marginalis</scientificname>
+   </bird>
+   <bird>
+       <id>137</id>
+       <alphabeticalname>Crane, Blue</alphabeticalname>
+       <fullname>Blue Crane</fullname>
+       <scientificname>Anthropoides paradiseus</scientificname>
+   </bird>
+   <bird>
+       <id>138</id>
+       <alphabeticalname>Crane, Grey Crowned</alphabeticalname>
+       <fullname>Grey Crowned Crane</fullname>
+       <scientificname>Balearica regulorum</scientificname>
+   </bird>
+   <bird>
+       <id>139</id>
+       <alphabeticalname>Crane, Wattled</alphabeticalname>
+       <fullname>Wattled Crane</fullname>
+       <scientificname>Bugeranus carunculatus</scientificname>
+   </bird>
+   <bird>
+       <id>140</id>
+       <alphabeticalname>Crombec, Long-billed</alphabeticalname>
+       <fullname>Long-billed crombec</fullname>
+       <scientificname>Sylvietta rufescens</scientificname>
+   </bird>
+   <bird>
+       <id>141</id>
+       <alphabeticalname>Crow, Cape</alphabeticalname>
+       <fullname>Cape Crow</fullname>
+       <scientificname>Corvus capensis</scientificname>
+   </bird>
+   <bird>
+       <id>142</id>
+       <alphabeticalname>Crow, House</alphabeticalname>
+       <fullname>House Crow</fullname>
+       <scientificname>Corvus splendens</scientificname>
+   </bird>
+   <bird>
+       <id>143</id>
+       <alphabeticalname>Crow, Pied</alphabeticalname>
+       <fullname>Pied crow</fullname>
+       <scientificname>Corvus albus</scientificname>
+   </bird>
+   <bird>
+       <id>144</id>
+       <alphabeticalname>Cuckoo, African</alphabeticalname>
+       <fullname>African Cuckoo</fullname>
+       <scientificname>Cuculus gularis</scientificname>
+   </bird>
+   <bird>
+       <id>145</id>
+       <alphabeticalname>Cuckoo, African Emerald</alphabeticalname>
+       <fullname>African Emerald Cuckoo</fullname>
+       <scientificname>Chrysococcyx cupreus</scientificname>
+   </bird>
+   <bird>
+       <id>146</id>
+       <alphabeticalname>Cuckoo, Black</alphabeticalname>
+       <fullname>Black Cuckoo</fullname>
+       <scientificname>Cuculus clamosus</scientificname>
+   </bird>
+   <bird>
+       <id>147</id>
+       <alphabeticalname>Cuckoo, Common</alphabeticalname>
+       <fullname>Common Cuckoo</fullname>
+       <scientificname>Cuculus canorus</scientificname>
+   </bird>
+   <bird>
+       <id>148</id>
+       <alphabeticalname>Cuckoo, Diederik</alphabeticalname>
+       <fullname>Diederik Cuckoo</fullname>
+       <scientificname>Chrysococcyx caprius</scientificname>
+   </bird>
+   <bird>
+       <id>149</id>
+       <alphabeticalname>Cuckoo, Great Spotted</alphabeticalname>
+       <fullname>Great Spotted Cuckoo</fullname>
+       <scientificname>Clamator glandarius</scientificname>
+   </bird>
+   <bird>
+       <id>150</id>
+       <alphabeticalname>Cuckoo, Jacobin</alphabeticalname>
+       <fullname>Jacobin Cuckoo</fullname>
+       <scientificname>Clamator jacobinus</scientificname>
+   </bird>
+   <bird>
+       <id>151</id>
+       <alphabeticalname>Cuckoo, Klaas’s</alphabeticalname>
+       <fullname>Klaas's Cuckoo</fullname>
+       <scientificname>Chrysococcyx klaas</scientificname>
+   </bird>
+   <bird>
+       <id>152</id>
+       <alphabeticalname>Cuckoo, Levaillant’s</alphabeticalname>
+       <fullname>Levaillant's Cuckoo</fullname>
+       <scientificname>Clamator levaillantii</scientificname>
+   </bird>
+   <bird>
+       <id>153</id>
+       <alphabeticalname>Cuckoo, Madagascar</alphabeticalname>
+       <fullname>Madagascar Cuckoo</fullname>
+       <scientificname>Cuculus rochii</scientificname>
+   </bird>
+   <bird>
+       <id>154</id>
+       <alphabeticalname>Cuckoo, Red-chested</alphabeticalname>
+       <fullname>Red-chested Cuckoo</fullname>
+       <scientificname>Cuculus solitarius</scientificname>
+   </bird>
+   <bird>
+       <id>155</id>
+       <alphabeticalname>Cuckoo, Thick-billed</alphabeticalname>
+       <fullname>Thick-billed Cuckoo</fullname>
+       <scientificname>Pachycoccyx audeberti</scientificname>
+   </bird>
+   <bird>
+       <id>156</id>
+       <alphabeticalname>Cuckooshrike, Black</alphabeticalname>
+       <fullname>Black Cuckooshrike</fullname>
+       <scientificname>Campephaga flava</scientificname>
+   </bird>
+   <bird>
+       <id>157</id>
+       <alphabeticalname>Cuckooshrike, Grey</alphabeticalname>
+       <fullname>Grey Cuckooshrike</fullname>
+       <scientificname>Coracina caesia</scientificname>
+   </bird>
+   <bird>
+       <id>158</id>
+       <alphabeticalname>Cuckooshrike, White-breasted</alphabeticalname>
+       <fullname>White-breasted Cuckooshrike</fullname>
+       <scientificname>Coracina pectoralis</scientificname>
+   </bird>
+   <bird>
+       <id>159</id>
+       <alphabeticalname>Curlew, Eurasian</alphabeticalname>
+       <fullname>Eurasian Curlew</fullname>
+       <scientificname>Numenius arquata</scientificname>
+   </bird>
+   <bird>
+       <id>160</id>
+       <alphabeticalname>Darter, African</alphabeticalname>
+       <fullname>African Darter</fullname>
+       <scientificname>Anhinga rufa</scientificname>
+   </bird>
+   <bird>
+       <id>161</id>
+       <alphabeticalname>Dove, African Mourning</alphabeticalname>
+       <fullname>African Mourning Dove</fullname>
+       <scientificname>Streptopelia decipiens</scientificname>
+   </bird>
+   <bird>
+       <id>162</id>
+       <alphabeticalname>Dove, Blue-spotted Wood</alphabeticalname>
+       <fullname>Blue-spotted Wood Dove</fullname>
+       <scientificname>Turtur afer</scientificname>
+   </bird>
+   <bird>
+       <id>163</id>
+       <alphabeticalname>Dove, Cape Turtle</alphabeticalname>
+       <fullname>Cape Turtle Dove</fullname>
+       <scientificname>Streptopelia capicola</scientificname>
+   </bird>
+   <bird>
+       <id>164</id>
+       <alphabeticalname>Dove, Emerald-spotted Wood</alphabeticalname>
+       <fullname>Emerald-spotted Wood Dove</fullname>
+       <scientificname>Turtur chalcospilos</scientificname>
+   </bird>
+   <bird>
+       <id>165</id>
+       <alphabeticalname>Dove, European Turtle</alphabeticalname>
+       <fullname>European Turtle Dove</fullname>
+       <scientificname>Streptopelia turtur</scientificname>
+   </bird>
+   <bird>
+       <id>166</id>
+       <alphabeticalname>Dove, Laughing</alphabeticalname>
+       <fullname>Laughing Dove</fullname>
+       <scientificname>Streptopelia senegalensis</scientificname>
+   </bird>
+   <bird>
+       <id>167</id>
+       <alphabeticalname>Dove, Lemon</alphabeticalname>
+       <fullname>Lemon Dove</fullname>
+       <scientificname>Aplopelia larvata</scientificname>
+   </bird>
+   <bird>
+       <id>168</id>
+       <alphabeticalname>Dove, Namaqua</alphabeticalname>
+       <fullname>Namaqua Dove</fullname>
+       <scientificname>Oena capensis</scientificname>
+   </bird>
+   <bird>
+       <id>169</id>
+       <alphabeticalname>Dove, Red-eyed</alphabeticalname>
+       <fullname>Red-eyed Dove</fullname>
+       <scientificname>Streptopelia semitorquata</scientificname>
+   </bird>
+   <bird>
+       <id>170</id>
+       <alphabeticalname>Dove, Rock</alphabeticalname>
+       <fullname>Rock Dove</fullname>
+       <scientificname>Columba livia</scientificname>
+   </bird>
+   <bird>
+       <id>171</id>
+       <alphabeticalname>Dove, Tambourine</alphabeticalname>
+       <fullname>Tambourine Dove</fullname>
+       <scientificname>Turtur tympanistria</scientificname>
+   </bird>
+   <bird>
+       <id>172</id>
+       <alphabeticalname>Dowitcher, Asiatic</alphabeticalname>
+       <fullname>Asiatic Dowitcher</fullname>
+       <scientificname>Limnodromus semipalmatus</scientificname>
+   </bird>
+   <bird>
+       <id>173</id>
+       <alphabeticalname>Drongo, Fork-tailed</alphabeticalname>
+       <fullname>Fork-tailed Drongo</fullname>
+       <scientificname>Dicrurus adsimilis</scientificname>
+   </bird>
+   <bird>
+       <id>174</id>
+       <alphabeticalname>Drongo, Square-tailed</alphabeticalname>
+       <fullname>Square-tailed Drongo</fullname>
+       <scientificname>Dicrurus ludwigii</scientificname>
+   </bird>
+   <bird>
+       <id>175</id>
+       <alphabeticalname>Duck, African Black</alphabeticalname>
+       <fullname>African Black Duck</fullname>
+       <scientificname>Anas sparsa</scientificname>
+   </bird>
+   <bird>
+       <id>176</id>
+       <alphabeticalname>Duck, Fulvous Whistling</alphabeticalname>
+       <fullname>Fulvous Whistling Duck</fullname>
+       <scientificname>Dendrocygna bicolor</scientificname>
+   </bird>
+   <bird>
+       <id>177</id>
+       <alphabeticalname>Duck, Knob-billed</alphabeticalname>
+       <fullname>Knob-billed Duck</fullname>
+       <scientificname>Sarkidiornis melanotos</scientificname>
+   </bird>
+   <bird>
+       <id>178</id>
+       <alphabeticalname>Duck, Maccoa</alphabeticalname>
+       <fullname>Maccoa Duck</fullname>
+       <scientificname>Oxyura maccoa</scientificname>
+   </bird>
+   <bird>
+       <id>179</id>
+       <alphabeticalname>Duck, White-backed</alphabeticalname>
+       <fullname>White-backed Duck</fullname>
+       <scientificname>Thalassornis leuconotus</scientificname>
+   </bird>
+   <bird>
+       <id>180</id>
+       <alphabeticalname>Duck, White-faced Whistling</alphabeticalname>
+       <fullname>White-faced Whistling Duck</fullname>
+       <scientificname>Dendrocygna viduata</scientificname>
+   </bird>
+   <bird>
+       <id>181</id>
+       <alphabeticalname>Duck, Yellow-billed</alphabeticalname>
+       <fullname>Yellow-billed Duck</fullname>
+       <scientificname>Anas undulata</scientificname>
+   </bird>
+   <bird>
+       <id>182</id>
+       <alphabeticalname>Dunlin</alphabeticalname>
+       <fullname>Dunlin</fullname>
+       <scientificname>Calidris alpina</scientificname>
+   </bird>
+   <bird>
+       <id>183</id>
+       <alphabeticalname>Eagle, African Fish</alphabeticalname>
+       <fullname>African Fish Eagle</fullname>
+       <scientificname>Haliaeetus vocifer</scientificname>
+   </bird>
+   <bird>
+       <id>184</id>
+       <alphabeticalname>Eagle, African Hawk</alphabeticalname>
+       <fullname>African Hawk Eagle</fullname>
+       <scientificname>Aquila spilogaster</scientificname>
+   </bird>
+   <bird>
+       <id>185</id>
+       <alphabeticalname>Eagle, Ayres’s Hawk</alphabeticalname>
+       <fullname>Ayres Hawk Eagle</fullname>
+       <scientificname>Hieraaetus ayresii</scientificname>
+   </bird>
+   <bird>
+       <id>186</id>
+       <alphabeticalname>Eagle, Black-chested Snake</alphabeticalname>
+       <fullname>Black-chested Snake Eagle</fullname>
+       <scientificname>Circaetus pectoralis</scientificname>
+   </bird>
+   <bird>
+       <id>187</id>
+       <alphabeticalname>Eagle, Booted</alphabeticalname>
+       <fullname>Booted Eagle</fullname>
+       <scientificname>Hieraaetus pennatus</scientificname>
+   </bird>
+   <bird>
+       <id>188</id>
+       <alphabeticalname>Eagle, Brown Snake</alphabeticalname>
+       <fullname>Brown Snake Eagle</fullname>
+       <scientificname>Circaetus cinereus</scientificname>
+   </bird>
+   <bird>
+       <id>189</id>
+       <alphabeticalname>Eagle, Crowned</alphabeticalname>
+       <fullname>Crowned Eagle</fullname>
+       <scientificname>Stephanoaetus coronatus</scientificname>
+   </bird>
+   <bird>
+       <id>190</id>
+       <alphabeticalname>Eagle, Lesser Spotted</alphabeticalname>
+       <fullname>Lesser Spotted Eagle</fullname>
+       <scientificname>Aquila pomarina</scientificname>
+   </bird>
+   <bird>
+       <id>191</id>
+       <alphabeticalname>Eagle, Long-crested</alphabeticalname>
+       <fullname>Long-crested Eagle</fullname>
+       <scientificname>Lophaetus occipitalis</scientificname>
+   </bird>
+   <bird>
+       <id>192</id>
+       <alphabeticalname>Eagle, Martial</alphabeticalname>
+       <fullname>Martial Eagle</fullname>
+       <scientificname>Polemaetus bellicosus</scientificname>
+   </bird>
+   <bird>
+       <id>193</id>
+       <alphabeticalname>Eagle, Southern Banded Snake</alphabeticalname>
+       <fullname>Southern Banded Snake Eagle</fullname>
+       <scientificname>Circaetus fasciolatus</scientificname>
+   </bird>
+   <bird>
+       <id>194</id>
+       <alphabeticalname>Eagle, Steppe</alphabeticalname>
+       <fullname>Steppe Eagle</fullname>
+       <scientificname>Aquila nipalensis</scientificname>
+   </bird>
+   <bird>
+       <id>195</id>
+       <alphabeticalname>Eagle, Tawny</alphabeticalname>
+       <fullname>Tawny Eagle</fullname>
+       <scientificname>Aquila rapax</scientificname>
+   </bird>
+   <bird>
+       <id>196</id>
+       <alphabeticalname>Eagle, Verreaux’s</alphabeticalname>
+       <fullname>Verreaux’s Eagle</fullname>
+       <scientificname>Aquila verreauxii</scientificname>
+   </bird>
+   <bird>
+       <id>197</id>
+       <alphabeticalname>Eagle, Wahlberg’s</alphabeticalname>
+       <fullname>Wahlberg’s Eagle</fullname>
+       <scientificname>Hieraaetus wahlbergi</scientificname>
+   </bird>
+   <bird>
+       <id>198</id>
+       <alphabeticalname>Egret, Western Cattle</alphabeticalname>
+       <fullname>Western Cattle Egret</fullname>
+       <scientificname>Bubulcus ibis</scientificname>
+   </bird>
+   <bird>
+       <id>199</id>
+       <alphabeticalname>Egret, Great</alphabeticalname>
+       <fullname>Great Egret</fullname>
+       <scientificname>Egretta alba</scientificname>
+   </bird>
+   <bird>
+       <id>200</id>
+       <alphabeticalname>Egret, Little</alphabeticalname>
+       <fullname>Little Egret</fullname>
+       <scientificname>Egretta garzetta</scientificname>
+   </bird>
+   <bird>
+       <id>201</id>
+       <alphabeticalname>Egret, Slaty</alphabeticalname>
+       <fullname>Slaty Egret</fullname>
+       <scientificname>Egretta vinaceigula</scientificname>
+   </bird>
+   <bird>
+       <id>202</id>
+       <alphabeticalname>Egret, Yellow-billed</alphabeticalname>
+       <fullname>Yellow-billed Egret</fullname>
+       <scientificname>Egretta intermedia</scientificname>
+   </bird>
+   <bird>
+       <id>203</id>
+       <alphabeticalname>Eremomela, Burnt-necked</alphabeticalname>
+       <fullname>Burnt-necked Eremomela</fullname>
+       <scientificname>Eremomela usticollis</scientificname>
+   </bird>
+   <bird>
+       <id>204</id>
+       <alphabeticalname>Eremomela, Green-capped</alphabeticalname>
+       <fullname>Green-capped Eremomela</fullname>
+       <scientificname>Eremomela scotops</scientificname>
+   </bird>
+   <bird>
+       <id>205</id>
+       <alphabeticalname>Eremomela, Karoo</alphabeticalname>
+       <fullname>Karoo Eremomela</fullname>
+       <scientificname>Eremomela gregalis</scientificname>
+   </bird>
+   <bird>
+       <id>206</id>
+       <alphabeticalname>Eremomela, Yellow-bellied</alphabeticalname>
+       <fullname>Yellow-bellied Eremomela</fullname>
+       <scientificname>Eremomela icteropygialis</scientificname>
+   </bird>
+   <bird>
+       <id>207</id>
+       <alphabeticalname>Falcon, Amur</alphabeticalname>
+       <fullname>Amur Falcon</fullname>
+       <scientificname>Falco amurensis</scientificname>
+   </bird>
+   <bird>
+       <id>208</id>
+       <alphabeticalname>Falcon, Eleonora’s</alphabeticalname>
+       <fullname>Eleonora's Falcon</fullname>
+       <scientificname>Falco eleonorae</scientificname>
+   </bird>
+   <bird>
+       <id>209</id>
+       <alphabeticalname>Falcon, Lanner</alphabeticalname>
+       <fullname>Lanner Falcon</fullname>
+       <scientificname>Falco biarmicus</scientificname>
+   </bird>
+   <bird>
+       <id>210</id>
+       <alphabeticalname>Falcon, Peregrine</alphabeticalname>
+       <fullname>Peregrine Falcon</fullname>
+       <scientificname>Falco peregrinus</scientificname>
+   </bird>
+   <bird>
+       <id>211</id>
+       <alphabeticalname>Falcon, Pygmy</alphabeticalname>
+       <fullname>Pygmy Falcon</fullname>
+       <scientificname>Polihierax semitorquatus</scientificname>
+   </bird>
+   <bird>
+       <id>212</id>
+       <alphabeticalname>Falcon, Red-footed</alphabeticalname>
+       <fullname>Red-footed Falcon</fullname>
+       <scientificname>Falco vespertinus</scientificname>
+   </bird>
+   <bird>
+       <id>213</id>
+       <alphabeticalname>Falcon, Red-necked</alphabeticalname>
+       <fullname>Red-necked Falcon</fullname>
+       <scientificname>Falco chicquera</scientificname>
+   </bird>
+   <bird>
+       <id>214</id>
+       <alphabeticalname>Falcon, Sooty</alphabeticalname>
+       <fullname>Sooty Falcon</fullname>
+       <scientificname>Falco concolor</scientificname>
+   </bird>
+   <bird>
+       <id>215</id>
+       <alphabeticalname>Falcon, Taita</alphabeticalname>
+       <fullname>Taita Falcon</fullname>
+       <scientificname>Falco fasciinucha</scientificname>
+   </bird>
+   <bird>
+       <id>216</id>
+       <alphabeticalname>Finch, Cuckoo</alphabeticalname>
+       <fullname>Cuckoo Finch</fullname>
+       <scientificname>Anomalospiza imberbis</scientificname>
+   </bird>
+   <bird>
+       <id>217</id>
+       <alphabeticalname>Finch, Cut-throat</alphabeticalname>
+       <fullname>Cut-throat Finch</fullname>
+       <scientificname>Amadina fasciata</scientificname>
+   </bird>
+   <bird>
+       <id>218</id>
+       <alphabeticalname>Finch, Red-headed</alphabeticalname>
+       <fullname>Red-headed Finch</fullname>
+       <scientificname>Amadina erythrocephala</scientificname>
+   </bird>
+   <bird>
+       <id>219</id>
+       <alphabeticalname>Finch, Scaly-feathered</alphabeticalname>
+       <fullname>Scaly-feathered Finch</fullname>
+       <scientificname>Sporopipes squamifrons</scientificname>
+   </bird>
+   <bird>
+       <id>220</id>
+       <alphabeticalname>Finfoot, African</alphabeticalname>
+       <fullname>African Finfoot</fullname>
+       <scientificname>Podica senegalensis</scientificname>
+   </bird>
+   <bird>
+       <id>221</id>
+       <alphabeticalname>Firefinch, African</alphabeticalname>
+       <fullname>African Firefinch</fullname>
+       <scientificname>Lagonosticta rubricata</scientificname>
+   </bird>
+   <bird>
+       <id>222</id>
+       <alphabeticalname>Firefinch, Jameson’s</alphabeticalname>
+       <fullname>Jameson's Firefinch</fullname>
+       <scientificname>Lagonosticta rhodopareia</scientificname>
+   </bird>
+   <bird>
+       <id>223</id>
+       <alphabeticalname>Firefinch, Red-billed</alphabeticalname>
+       <fullname>Red-billed Firefinch</fullname>
+       <scientificname>Lagonosticta senegala</scientificname>
+   </bird>
+   <bird>
+       <id>224</id>
+       <alphabeticalname>Fiscal, Common</alphabeticalname>
+       <fullname>Common Fiscal</fullname>
+       <scientificname>Lanius collaris</scientificname>
+   </bird>
+   <bird>
+       <id>225</id>
+       <alphabeticalname>Flamingo, Greater</alphabeticalname>
+       <fullname>Greater Flamingo</fullname>
+       <scientificname>Phoenicopterus roseus</scientificname>
+   </bird>
+   <bird>
+       <id>226</id>
+       <alphabeticalname>Flamingo, Lesser</alphabeticalname>
+       <fullname>Lesser Flamingo</fullname>
+       <scientificname>Phoeniconaias minor</scientificname>
+   </bird>
+   <bird>
+       <id>227</id>
+       <alphabeticalname>Flufftail, Buff-spotted</alphabeticalname>
+       <fullname>Buff-spotted Flufftail</fullname>
+       <scientificname>Sarothrura elegans</scientificname>
+   </bird>
+   <bird>
+       <id>228</id>
+       <alphabeticalname>Flufftail, Red-chested</alphabeticalname>
+       <fullname>Red-chested Flufftail</fullname>
+       <scientificname>Sarothrura rufa</scientificname>
+   </bird>
+   <bird>
+       <id>229</id>
+       <alphabeticalname>Flufftail, Streaky-breasted</alphabeticalname>
+       <fullname>Streaky-breasted Flufftail</fullname>
+       <scientificname>Sarothrura boehmi</scientificname>
+   </bird>
+   <bird>
+       <id>230</id>
+       <alphabeticalname>Flufftail, Striped</alphabeticalname>
+       <fullname>Striped Flufftail</fullname>
+       <scientificname>Sarothrura affinis</scientificname>
+   </bird>
+   <bird>
+       <id>231</id>
+       <alphabeticalname>Flufftail, White-winged</alphabeticalname>
+       <fullname>White-winged Flufftail</fullname>
+       <scientificname>Sarothrura ayresi</scientificname>
+   </bird>
+   <bird>
+       <id>232</id>
+       <alphabeticalname>Flycatcher, African Dusky</alphabeticalname>
+       <fullname>African Dusky Flycatcher</fullname>
+       <scientificname>Muscicapa adusta</scientificname>
+   </bird>
+   <bird>
+       <id>233</id>
+       <alphabeticalname>Flycatcher, African Paradise</alphabeticalname>
+       <fullname>African Paradise Flycatcher</fullname>
+       <scientificname>Terpsiphone viridis</scientificname>
+   </bird>
+   <bird>
+       <id>234</id>
+       <alphabeticalname>Flycatcher, Ashy</alphabeticalname>
+       <fullname>Ashy Flycatcher</fullname>
+       <scientificname>Muscicapa caerulescens</scientificname>
+   </bird>
+   <bird>
+       <id>235</id>
+       <alphabeticalname>Flycatcher, Black-and-white (Vanga)</alphabeticalname>
+       <fullname>Black-and-white Shrike-flycatcher</fullname>
+       <scientificname>Bias musicus</scientificname>
+   </bird>
+   <bird>
+       <id>236</id>
+       <alphabeticalname>Flycatcher, Blue-mantled Crested</alphabeticalname>
+       <fullname>Blue-mantled Crested-Flycatcher</fullname>
+       <scientificname>Trochocercus cyanomelas</scientificname>
+   </bird>
+   <bird>
+       <id>237</id>
+       <alphabeticalname>Flycatcher, Chat</alphabeticalname>
+       <fullname>Chat Flycatcher</fullname>
+       <scientificname>Bradornis infuscatus</scientificname>
+   </bird>
+   <bird>
+       <id>238</id>
+       <alphabeticalname>Flycatcher, Collared</alphabeticalname>
+       <fullname>Collared Flycatcher</fullname>
+       <scientificname>Ficedula albicollis</scientificname>
+   </bird>
+   <bird>
+       <id>239</id>
+       <alphabeticalname>Flycatcher, Fairy</alphabeticalname>
+       <fullname>Fairy Flycatcher</fullname>
+       <scientificname>Stenostira scita</scientificname>
+   </bird>
+   <bird>
+       <id>240</id>
+       <alphabeticalname>Flycatcher, Fiscal</alphabeticalname>
+       <fullname>Fiscal Flycatcher</fullname>
+       <scientificname>Sigelus silens</scientificname>
+   </bird>
+   <bird>
+       <id>241</id>
+       <alphabeticalname>Flycatcher, Grey Tit-</alphabeticalname>
+       <fullname>Grey Tit-flycatcher</fullname>
+       <scientificname>Myioparus plumbeus</scientificname>
+   </bird>
+   <bird>
+       <id>242</id>
+       <alphabeticalname>Flycatcher, Marico</alphabeticalname>
+       <fullname>Marico flycatcher</fullname>
+       <scientificname>Bradornis mariquensis</scientificname>
+   </bird>
+   <bird>
+       <id>243</id>
+       <alphabeticalname>Flycatcher, Pale</alphabeticalname>
+       <fullname>Pale flycatcher</fullname>
+       <scientificname>Bradornis pallidus</scientificname>
+   </bird>
+   <bird>
+       <id>244</id>
+       <alphabeticalname>Flycatcher, Southern Black</alphabeticalname>
+       <fullname>Southern Black flycatcher</fullname>
+       <scientificname>Melaenornis pammelaina</scientificname>
+   </bird>
+   <bird>
+       <id>245</id>
+       <alphabeticalname>Flycatcher, Spotted</alphabeticalname>
+       <fullname>Spotted flycatcher</fullname>
+       <scientificname>Muscicapa striata</scientificname>
+   </bird>
+   <bird>
+       <id>246</id>
+       <alphabeticalname>Francolin, Coqui</alphabeticalname>
+       <fullname>Coqui Francolin</fullname>
+       <scientificname>Peliperdix coqui</scientificname>
+   </bird>
+   <bird>
+       <id>247</id>
+       <alphabeticalname>Francolin, Crested</alphabeticalname>
+       <fullname>Crested Francolin</fullname>
+       <scientificname>Dendroperdix sephaena</scientificname>
+   </bird>
+   <bird>
+       <id>248</id>
+       <alphabeticalname>Francolin, Grey-winged</alphabeticalname>
+       <fullname>Grey-winged Francolin</fullname>
+       <scientificname>Scleroptila africana</scientificname>
+   </bird>
+   <bird>
+       <id>249</id>
+       <alphabeticalname>Francolin, Orange River</alphabeticalname>
+       <fullname>Orange River Francolin</fullname>
+       <scientificname>Scleroptila levaillantoides</scientificname>
+   </bird>
+   <bird>
+       <id>250</id>
+       <alphabeticalname>Francolin, Red-winged</alphabeticalname>
+       <fullname>Red-winged Francolin</fullname>
+       <scientificname>Scleroptila levaillantii</scientificname>
+   </bird>
+   <bird>
+       <id>251</id>
+       <alphabeticalname>Francolin, Shelley’s</alphabeticalname>
+       <fullname>Shelley’s Francolin</fullname>
+       <scientificname>Scleroptila shelleyi</scientificname>
+   </bird>
+   <bird>
+       <id>252</id>
+       <alphabeticalname>Frigatebird, Greater</alphabeticalname>
+       <fullname>Greater frigatebird</fullname>
+       <scientificname>Fregata minor</scientificname>
+   </bird>
+   <bird>
+       <id>253</id>
+       <alphabeticalname>Frigatebird, Lesser</alphabeticalname>
+       <fullname>Lesser frigatebird</fullname>
+       <scientificname>Fregata ariel</scientificname>
+   </bird>
+   <bird>
+       <id>254</id>
+       <alphabeticalname>Fulmar, Southern</alphabeticalname>
+       <fullname>Southern Fulmar</fullname>
+       <scientificname>Fulmarus glacialoides</scientificname>
+   </bird>
+   <bird>
+       <id>255</id>
+       <alphabeticalname>Gallinule, Allen’s</alphabeticalname>
+       <fullname>Allen’s Gallinule</fullname>
+       <scientificname>Porphyrio alleni</scientificname>
+   </bird>
+   <bird>
+       <id>256</id>
+       <alphabeticalname>Gallinule, American (Purple)</alphabeticalname>
+       <fullname>American (Purple) Gallinule</fullname>
+       <scientificname>Porphyrio martinicus</scientificname>
+   </bird>
+   <bird>
+       <id>257</id>
+       <alphabeticalname>Gannet, Australasian</alphabeticalname>
+       <fullname>Australasian Gannet</fullname>
+       <scientificname>Morus serrator</scientificname>
+   </bird>
+   <bird>
+       <id>258</id>
+       <alphabeticalname>Gannet, Cape</alphabeticalname>
+       <fullname>Cape Gannet</fullname>
+       <scientificname>Morus capensis</scientificname>
+   </bird>
+   <bird>
+       <id>259</id>
+       <alphabeticalname>Garganey</alphabeticalname>
+       <fullname>Garganey</fullname>
+       <scientificname>Anas querquedula</scientificname>
+   </bird>
+   <bird>
+       <id>260</id>
+       <alphabeticalname>Go-away-bird, Grey</alphabeticalname>
+       <fullname>Grey Go-away-bird</fullname>
+       <scientificname>Corythaixoides concolor</scientificname>
+   </bird>
+   <bird>
+       <id>261</id>
+       <alphabeticalname>Godwit, Bar-tailed</alphabeticalname>
+       <fullname>Bar-tailed Godwit</fullname>
+       <scientificname>Limosa lapponica</scientificname>
+   </bird>
+   <bird>
+       <id>262</id>
+       <alphabeticalname>Godwit, Black-tailed</alphabeticalname>
+       <fullname>Black-tailed Godwit</fullname>
+       <scientificname>Limosa limosa</scientificname>
+   </bird>
+   <bird>
+       <id>263</id>
+       <alphabeticalname>Godwit, Hudsonian</alphabeticalname>
+       <fullname>Hudsonian Godwit</fullname>
+       <scientificname>Limosa haemastica</scientificname>
+   </bird>
+   <bird>
+       <id>264</id>
+       <alphabeticalname>Goose, African Pygmy</alphabeticalname>
+       <fullname>African Pygmy Goose</fullname>
+       <scientificname>Nettapus auritus</scientificname>
+   </bird>
+   <bird>
+       <id>265</id>
+       <alphabeticalname>Goose, Egyptian</alphabeticalname>
+       <fullname>Egyptian Goose</fullname>
+       <scientificname>Alopochen aegyptiaca</scientificname>
+   </bird>
+   <bird>
+       <id>266</id>
+       <alphabeticalname>Goose, Spur-winged</alphabeticalname>
+       <fullname>Spur-winged Goose</fullname>
+       <scientificname>Plectropterus gambensis</scientificname>
+   </bird>
+   <bird>
+       <id>267</id>
+       <alphabeticalname>Goshawk, African</alphabeticalname>
+       <fullname>African Goshawk</fullname>
+       <scientificname>Accipiter tachiro</scientificname>
+   </bird>
+   <bird>
+       <id>268</id>
+       <alphabeticalname>Goshawk, Dark Chanting</alphabeticalname>
+       <fullname>Dark Chanting Goshawk</fullname>
+       <scientificname>Melierax metabates</scientificname>
+   </bird>
+   <bird>
+       <id>269</id>
+       <alphabeticalname>Goshawk, Gabar</alphabeticalname>
+       <fullname>Gabar Goshawk</fullname>
+       <scientificname>Melierax gabar</scientificname>
+   </bird>
+   <bird>
+       <id>270</id>
+       <alphabeticalname>Goshawk, Pale Chanting</alphabeticalname>
+       <fullname>Pale Chanting Goshawk</fullname>
+       <scientificname>Melierax canorus</scientificname>
+   </bird>
+   <bird>
+       <id>271</id>
+       <alphabeticalname>Grassbird, Cape</alphabeticalname>
+       <fullname>Cape Grassbird</fullname>
+       <scientificname>Sphenoeacus afer</scientificname>
+   </bird>
+   <bird>
+       <id>272</id>
+       <alphabeticalname>Grebe, Black-necked</alphabeticalname>
+       <fullname>Black-necked Grebe</fullname>
+       <scientificname>Podiceps nigricollis</scientificname>
+   </bird>
+   <bird>
+       <id>273</id>
+       <alphabeticalname>Grebe, Great Crested</alphabeticalname>
+       <fullname>Great Crested Grebe</fullname>
+       <scientificname>Podiceps cristatus</scientificname>
+   </bird>
+   <bird>
+       <id>274</id>
+       <alphabeticalname>Grebe, Little</alphabeticalname>
+       <fullname>Little Grebe</fullname>
+       <scientificname>Tachybaptus ruficollis</scientificname>
+   </bird>
+   <bird>
+       <id>275</id>
+       <alphabeticalname>Greenbul, Sombre</alphabeticalname>
+       <fullname>Sombre Greenbul</fullname>
+       <scientificname>Andropadus importunus</scientificname>
+   </bird>
+   <bird>
+       <id>276</id>
+       <alphabeticalname>Greenbul, Yellow-bellied</alphabeticalname>
+       <fullname>Yellow-bellied Greenbul</fullname>
+       <scientificname>Chlorocichla flaviventris</scientificname>
+   </bird>
+   <bird>
+       <id>277</id>
+       <alphabeticalname>Greenbul, Yellow-streaked</alphabeticalname>
+       <fullname>Yellow-streaked Greenbul</fullname>
+       <scientificname>Phyllastrephus flavostriatus</scientificname>
+   </bird>
+   <bird>
+       <id>278</id>
+       <alphabeticalname>Greenshank, Common</alphabeticalname>
+       <fullname>Common Greenshank</fullname>
+       <scientificname>Tringa nebularia</scientificname>
+   </bird>
+   <bird>
+       <id>279</id>
+       <alphabeticalname>Guineafowl, Crested</alphabeticalname>
+       <fullname>Crested Guineafowl</fullname>
+       <scientificname>Guttera pucherani</scientificname>
+   </bird>
+   <bird>
+       <id>280</id>
+       <alphabeticalname>Guineafowl, Helmeted</alphabeticalname>
+       <fullname>Helmeted Guineafowl</fullname>
+       <scientificname>Numida meleagris</scientificname>
+   </bird>
+   <bird>
+       <id>281</id>
+       <alphabeticalname>Gull, Common Black-headed</alphabeticalname>
+       <fullname>Common Black-headed Gull</fullname>
+       <scientificname>Chroicocephalus ridibundus</scientificname>
+   </bird>
+   <bird>
+       <id>282</id>
+       <alphabeticalname>Gull, Franklin’s</alphabeticalname>
+       <fullname>Franklin's Gull</fullname>
+       <scientificname>Leucophaeus pipixcan</scientificname>
+   </bird>
+   <bird>
+       <id>283</id>
+       <alphabeticalname>Gull, Grey-headed</alphabeticalname>
+       <fullname>Grey-headed Gull</fullname>
+       <scientificname>Chroicocephalus cirrocephalus</scientificname>
+   </bird>
+   <bird>
+       <id>284</id>
+       <alphabeticalname>Gull, Hartlaub’s</alphabeticalname>
+       <fullname>Hartlaub's Gull</fullname>
+       <scientificname>Chroicocephalus hartlaubii</scientificname>
+   </bird>
+   <bird>
+       <id>285</id>
+       <alphabeticalname>Gull, Kelp</alphabeticalname>
+       <fullname>Kelp Gull</fullname>
+       <scientificname>Larus dominicanus</scientificname>
+   </bird>
+   <bird>
+       <id>286</id>
+       <alphabeticalname>Gull, Lesser Black-backed</alphabeticalname>
+       <fullname>Lesser Black-backed Gull</fullname>
+       <scientificname>Larus fuscus</scientificname>
+   </bird>
+   <bird>
+       <id>287</id>
+       <alphabeticalname>Gull, Sabine’s</alphabeticalname>
+       <fullname>Sabine’s Gull</fullname>
+       <scientificname>Xema sabini</scientificname>
+   </bird>
+   <bird>
+       <id>288</id>
+       <alphabeticalname>Gull, Slender-billed</alphabeticalname>
+       <fullname>Slender-billed Gull</fullname>
+       <scientificname>Chroicocephalus genei</scientificname>
+   </bird>
+   <bird>
+       <id>289</id>
+       <alphabeticalname>Hamerkop</alphabeticalname>
+       <fullname>Hamerkop</fullname>
+       <scientificname>Scopus umbretta</scientificname>
+   </bird>
+   <bird>
+       <id>290</id>
+       <alphabeticalname>Harrier, African Marsh</alphabeticalname>
+       <fullname>African Marsh Harrier</fullname>
+       <scientificname>Circus ranivorus</scientificname>
+   </bird>
+   <bird>
+       <id>291</id>
+       <alphabeticalname>Harrier, Black</alphabeticalname>
+       <fullname>Black Harrier</fullname>
+       <scientificname>Circus maurus</scientificname>
+   </bird>
+   <bird>
+       <id>292</id>
+       <alphabeticalname>Harrier, Montagu’s</alphabeticalname>
+       <fullname>Montagu's Harrier</fullname>
+       <scientificname>Circus pygargus</scientificname>
+   </bird>
+   <bird>
+       <id>293</id>
+       <alphabeticalname>Harrier, Pallid</alphabeticalname>
+       <fullname>Pallid Harrier</fullname>
+       <scientificname>Circus macrourus</scientificname>
+   </bird>
+   <bird>
+       <id>294</id>
+       <alphabeticalname>Harrier, Western Marsh</alphabeticalname>
+       <fullname>Western Marsh Harrier</fullname>
+       <scientificname>Circus aeruginosus</scientificname>
+   </bird>
+   <bird>
+       <id>295</id>
+       <alphabeticalname>Hawk, African Cuckoo</alphabeticalname>
+       <fullname>African Cuckoo Hawk</fullname>
+       <scientificname>Aviceda cuculoides</scientificname>
+   </bird>
+   <bird>
+       <id>296</id>
+       <alphabeticalname>Hawk, African Harrier-</alphabeticalname>
+       <fullname>African Harrier-Hawk</fullname>
+       <scientificname>Polyboroides typus</scientificname>
+   </bird>
+   <bird>
+       <id>297</id>
+       <alphabeticalname>Hawk, Bat</alphabeticalname>
+       <fullname>Bat Hawk</fullname>
+       <scientificname>Macheiramphus alcinus</scientificname>
+   </bird>
+   <bird>
+       <id>298</id>
+       <alphabeticalname>Helmet-Shrike, Chestnut-fronted</alphabeticalname>
+       <fullname>Chestnut-fronted Helmet-Shrike</fullname>
+       <scientificname>Prionops scopifrons</scientificname>
+   </bird>
+   <bird>
+       <id>299</id>
+       <alphabeticalname>Helmet-Shrike, Retz’s</alphabeticalname>
+       <fullname>Retz's Helmet-Shrike</fullname>
+       <scientificname>Prionops retzii</scientificname>
+   </bird>
+   <bird>
+       <id>300</id>
+       <alphabeticalname>Helmet-Shrike, White-crested</alphabeticalname>
+       <fullname>White-crested Helmet-Shrike</fullname>
+       <scientificname>Prionops plumatus</scientificname>
+   </bird>
+   <bird>
+       <id>301</id>
+       <alphabeticalname>Heron, Black</alphabeticalname>
+       <fullname>Black Heron</fullname>
+       <scientificname>Egretta ardesiaca</scientificname>
+   </bird>
+   <bird>
+       <id>302</id>
+       <alphabeticalname>Heron, Black-crowned Night</alphabeticalname>
+       <fullname>Black-crowned Night Heron</fullname>
+       <scientificname>Nycticorax nycticorax</scientificname>
+   </bird>
+   <bird>
+       <id>303</id>
+       <alphabeticalname>Heron, Black-headed</alphabeticalname>
+       <fullname>Black-headed Heron</fullname>
+       <scientificname>Ardea melanocephala</scientificname>
+   </bird>
+   <bird>
+       <id>304</id>
+       <alphabeticalname>Heron, Goliath</alphabeticalname>
+       <fullname>Goliath Heron</fullname>
+       <scientificname>Ardea goliath</scientificname>
+   </bird>
+   <bird>
+       <id>305</id>
+       <alphabeticalname>Heron, Green-backed</alphabeticalname>
+       <fullname>Green-backed Heron</fullname>
+       <scientificname>Butorides striata</scientificname>
+   </bird>
+   <bird>
+       <id>306</id>
+       <alphabeticalname>Heron, Grey</alphabeticalname>
+       <fullname>Grey Heron</fullname>
+       <scientificname>Ardea cinerea</scientificname>
+   </bird>
+   <bird>
+       <id>307</id>
+       <alphabeticalname>Heron, Little Blue</alphabeticalname>
+       <fullname>Little Blue Heron</fullname>
+       <scientificname>Egretta caerulea</scientificname>
+   </bird>
+   <bird>
+       <id>308</id>
+       <alphabeticalname>Heron, Purple</alphabeticalname>
+       <fullname>Purple Heron</fullname>
+       <scientificname>Ardea purpurea</scientificname>
+   </bird>
+   <bird>
+       <id>309</id>
+       <alphabeticalname>Heron, Rufous-bellied</alphabeticalname>
+       <fullname>Rufous-bellied Heron</fullname>
+       <scientificname>Ardeola rufiventris</scientificname>
+   </bird>
+   <bird>
+       <id>310</id>
+       <alphabeticalname>Heron, Squacco</alphabeticalname>
+       <fullname>Squacco Heron</fullname>
+       <scientificname>Ardeola ralloides</scientificname>
+   </bird>
+   <bird>
+       <id>311</id>
+       <alphabeticalname>Heron, White-backed Night</alphabeticalname>
+       <fullname>White-backed Night Heron</fullname>
+       <scientificname>Gorsachius leuconotus</scientificname>
+   </bird>
+   <bird>
+       <id>312</id>
+       <alphabeticalname>Hobby, African</alphabeticalname>
+       <fullname>African Hobby</fullname>
+       <scientificname>Falco cuvierii</scientificname>
+   </bird>
+   <bird>
+       <id>313</id>
+       <alphabeticalname>Hobby, Eurasian</alphabeticalname>
+       <fullname>Eurasian Hobby</fullname>
+       <scientificname>Falco subbuteo</scientificname>
+   </bird>
+   <bird>
+       <id>314</id>
+       <alphabeticalname>Honeybird, Brown-backed</alphabeticalname>
+       <fullname>Brown-backed Honeybird</fullname>
+       <scientificname>Prodotiscus regulus</scientificname>
+   </bird>
+   <bird>
+       <id>315</id>
+       <alphabeticalname>Honeyguide, Greater</alphabeticalname>
+       <fullname>Greater Honeyguide</fullname>
+       <scientificname>Indicator indicator</scientificname>
+   </bird>
+   <bird>
+       <id>316</id>
+       <alphabeticalname>Honeyguide, Lesser</alphabeticalname>
+       <fullname>Lesser Honeyguide</fullname>
+       <scientificname>Indicator minor</scientificname>
+   </bird>
+   <bird>
+       <id>317</id>
+       <alphabeticalname>Honeyguide, Scaly-throated</alphabeticalname>
+       <fullname>Scaly-throated Honeyguide</fullname>
+       <scientificname>Indicator variegatus</scientificname>
+   </bird>
+   <bird>
+       <id>318</id>
+       <alphabeticalname>Hoopoe, African</alphabeticalname>
+       <fullname>African Hoopoe</fullname>
+       <scientificname>Upupa africana</scientificname>
+   </bird>
+   <bird>
+       <id>319</id>
+       <alphabeticalname>Hornbill, African Grey</alphabeticalname>
+       <fullname>African Grey Hornbill</fullname>
+       <scientificname>Tockus nasutus</scientificname>
+   </bird>
+   <bird>
+       <id>320</id>
+       <alphabeticalname>Hornbill, Crowned</alphabeticalname>
+       <fullname>Crowned Hornbill</fullname>
+       <scientificname>Tockus alboterminatus</scientificname>
+   </bird>
+   <bird>
+       <id>321</id>
+       <alphabeticalname>Hornbill, Southern Red-billed</alphabeticalname>
+       <fullname>Southern Red-billed Hornbill</fullname>
+       <scientificname>Tockus rufirostris</scientificname>
+   </bird>
+   <bird>
+       <id>322</id>
+       <alphabeticalname>Hornbill, Southern Ground-</alphabeticalname>
+       <fullname>Southern Ground-Hornbill</fullname>
+       <scientificname>Bucorvus leadbeateri</scientificname>
+   </bird>
+   <bird>
+       <id>323</id>
+       <alphabeticalname>Hornbill, Southern Yellow-billed</alphabeticalname>
+       <fullname>Southern Yellow-billed Hornbill</fullname>
+       <scientificname>Tockus leucomelas</scientificname>
+   </bird>
+   <bird>
+       <id>324</id>
+       <alphabeticalname>Hornbill, Trumpeter</alphabeticalname>
+       <fullname>Trumpeter Hornbill</fullname>
+       <scientificname>Bycanistes bucinator</scientificname>
+   </bird>
+   <bird>
+       <id>325</id>
+       <alphabeticalname>Hyliota, Southern</alphabeticalname>
+       <fullname>Southern Hyliota</fullname>
+       <scientificname>Hyliota australis</scientificname>
+   </bird>
+   <bird>
+       <id>326</id>
+       <alphabeticalname>Ibis, African Sacred</alphabeticalname>
+       <fullname>African Sacred Ibis</fullname>
+       <scientificname>Threskiornis aethiopicus</scientificname>
+   </bird>
+   <bird>
+       <id>327</id>
+       <alphabeticalname>Ibis, Glossy</alphabeticalname>
+       <fullname>Glossy Ibis</fullname>
+       <scientificname>Plegadis falcinellus</scientificname>
+   </bird>
+   <bird>
+       <id>328</id>
+       <alphabeticalname>Ibis, Hadeda</alphabeticalname>
+       <fullname>Hadeda Ibis</fullname>
+       <scientificname>Bostrychia hagedash</scientificname>
+   </bird>
+   <bird>
+       <id>329</id>
+       <alphabeticalname>Ibis, Southern Bald</alphabeticalname>
+       <fullname>Southern Bald Ibis</fullname>
+       <scientificname>Geronticus calvus</scientificname>
+   </bird>
+   <bird>
+       <id>330</id>
+       <alphabeticalname>Indigobird, Dusky</alphabeticalname>
+       <fullname>Dusky Indigobird</fullname>
+       <scientificname>Vidua funerea</scientificname>
+   </bird>
+   <bird>
+       <id>331</id>
+       <alphabeticalname>Indigobird, Purple</alphabeticalname>
+       <fullname>Purple Indigobird</fullname>
+       <scientificname>Vidua purpurascens</scientificname>
+   </bird>
+   <bird>
+       <id>332</id>
+       <alphabeticalname>Indigobird, Village</alphabeticalname>
+       <fullname>Village Indigobird</fullname>
+       <scientificname>Vidua chalybeata</scientificname>
+   </bird>
+   <bird>
+       <id>333</id>
+       <alphabeticalname>Jacana, African</alphabeticalname>
+       <fullname>African Jacana</fullname>
+       <scientificname>Actophilornis africanus</scientificname>
+   </bird>
+   <bird>
+       <id>334</id>
+       <alphabeticalname>Jacana, Lesser</alphabeticalname>
+       <fullname>Lesser Jacana</fullname>
+       <scientificname>Microparra capensis</scientificname>
+   </bird>
+   <bird>
+       <id>335</id>
+       <alphabeticalname>Jaeger, Long-tailed</alphabeticalname>
+       <fullname>Long-tailed Jaeger</fullname>
+       <scientificname>Stercorarius longicaudus</scientificname>
+   </bird>
+   <bird>
+       <id>336</id>
+       <alphabeticalname>Jaeger, Parasitic</alphabeticalname>
+       <fullname>Parasitic Jaeger</fullname>
+       <scientificname>Stercorarius parasiticus</scientificname>
+   </bird>
+   <bird>
+       <id>337</id>
+       <alphabeticalname>Kestrel, Dickinson’s</alphabeticalname>
+       <fullname>Dickinson’s Kestrel</fullname>
+       <scientificname>Falco dickinsoni</scientificname>
+   </bird>
+   <bird>
+       <id>338</id>
+       <alphabeticalname>Kestrel, Greater</alphabeticalname>
+       <fullname>Greater Kestrel</fullname>
+       <scientificname>Falco rupicoloides</scientificname>
+   </bird>
+   <bird>
+       <id>339</id>
+       <alphabeticalname>Kestrel, Lesser</alphabeticalname>
+       <fullname>Lesser Kestrel</fullname>
+       <scientificname>Falco naumanni</scientificname>
+   </bird>
+   <bird>
+       <id>340</id>
+       <alphabeticalname>Kestrel, Rock</alphabeticalname>
+       <fullname>Rock Kestrel</fullname>
+       <scientificname>Falco rupicolus</scientificname>
+   </bird>
+   <bird>
+       <id>341</id>
+       <alphabeticalname>Kingfisher, African Pygmy</alphabeticalname>
+       <fullname>African Pygmy Kingfisher</fullname>
+       <scientificname>Ispidina picta</scientificname>
+   </bird>
+   <bird>
+       <id>342</id>
+       <alphabeticalname>Kingfisher, Brown-hooded</alphabeticalname>
+       <fullname>Brown-hooded Kingfisher</fullname>
+       <scientificname>Halcyon albiventris</scientificname>
+   </bird>
+   <bird>
+       <id>343</id>
+       <alphabeticalname>Kingfisher, Giant</alphabeticalname>
+       <fullname>Giant Kingfisher</fullname>
+       <scientificname>Megaceryle maxima</scientificname>
+   </bird>
+   <bird>
+       <id>344</id>
+       <alphabeticalname>Kingfisher, Grey-headed</alphabeticalname>
+       <fullname>Grey-headed Kingfisher</fullname>
+       <scientificname>Halcyon leucocephala</scientificname>
+   </bird>
+   <bird>
+       <id>345</id>
+       <alphabeticalname>Kingfisher, Half-collared</alphabeticalname>
+       <fullname>Half-collared Kingfisher</fullname>
+       <scientificname>Alcedo semitorquata</scientificname>
+   </bird>
+   <bird>
+       <id>346</id>
+       <alphabeticalname>Kingfisher, Malachite</alphabeticalname>
+       <fullname>Malachite Kingfisher</fullname>
+       <scientificname>Alcedo cristata</scientificname>
+   </bird>
+   <bird>
+       <id>347</id>
+       <alphabeticalname>Kingfisher, Mangrove</alphabeticalname>
+       <fullname>Mangrove Kingfisher</fullname>
+       <scientificname>Halcyon senegaloides</scientificname>
+   </bird>
+   <bird>
+       <id>348</id>
+       <alphabeticalname>Kingfisher, Pied</alphabeticalname>
+       <fullname>Pied Kingfisher</fullname>
+       <scientificname>Ceryle rudis</scientificname>
+   </bird>
+   <bird>
+       <id>349</id>
+       <alphabeticalname>Kingfisher, Striped</alphabeticalname>
+       <fullname>Striped Kingfisher</fullname>
+       <scientificname>Halcyon chelicuti</scientificname>
+   </bird>
+   <bird>
+       <id>350</id>
+       <alphabeticalname>Kingfisher, Woodland</alphabeticalname>
+       <fullname>Woodland Kingfisher</fullname>
+       <scientificname>Halcyon senegalensis</scientificname>
+   </bird>
+   <bird>
+       <id>351</id>
+       <alphabeticalname>Kite, Black</alphabeticalname>
+       <fullname>Black Kite</fullname>
+       <scientificname>Milvus migrans</scientificname>
+   </bird>
+   <bird>
+       <id>352</id>
+       <alphabeticalname>Kite, Black-shouldered</alphabeticalname>
+       <fullname>Black-shouldered Kite</fullname>
+       <scientificname>Elanus caeruleus</scientificname>
+   </bird>
+   <bird>
+       <id>353</id>
+       <alphabeticalname>Kite, Yellow-billed</alphabeticalname>
+       <fullname>Yellow-billed Kite</fullname>
+       <scientificname>Milvus aegyptius</scientificname>
+   </bird>
+   <bird>
+       <id>354</id>
+       <alphabeticalname>Kittiwake, Black-legged</alphabeticalname>
+       <fullname>Black-legged Kittiwake</fullname>
+       <scientificname>Rissa tridactyla</scientificname>
+   </bird>
+   <bird>
+       <id>355</id>
+       <alphabeticalname>Knot, Great</alphabeticalname>
+       <fullname>Great Knot</fullname>
+       <scientificname>Calidris tenuirostris</scientificname>
+   </bird>
+   <bird>
+       <id>356</id>
+       <alphabeticalname>Knot, Red</alphabeticalname>
+       <fullname>Red Knot</fullname>
+       <scientificname>Calidris canutus</scientificname>
+   </bird>
+   <bird>
+       <id>357</id>
+       <alphabeticalname>Korhaan, Blue</alphabeticalname>
+       <fullname>Blue Korhaan</fullname>
+       <scientificname>Eupodotis caerulescens</scientificname>
+   </bird>
+   <bird>
+       <id>358</id>
+       <alphabeticalname>Korhaan, Karoo</alphabeticalname>
+       <fullname>Karoo Korhaan</fullname>
+       <scientificname>Eupodotis vigorsii</scientificname>
+   </bird>
+   <bird>
+       <id>359</id>
+       <alphabeticalname>Korhaan, Northern Black</alphabeticalname>
+       <fullname>Northern Black Korhaan</fullname>
+       <scientificname>Afrotis afraoides</scientificname>
+   </bird>
+   <bird>
+       <id>360</id>
+       <alphabeticalname>Korhaan, Red-crested</alphabeticalname>
+       <fullname>Red-crested Korhaan</fullname>
+       <scientificname>Lophotis ruficrista</scientificname>
+   </bird>
+   <bird>
+       <id>361</id>
+       <alphabeticalname>Korhaan, Southern Black</alphabeticalname>
+       <fullname>Southern Black Korhaan</fullname>
+       <scientificname>Afrotis afra</scientificname>
+   </bird>
+   <bird>
+       <id>362</id>
+       <alphabeticalname>Korhaan, White-bellied</alphabeticalname>
+       <fullname>White-bellied Korhaan</fullname>
+       <scientificname>Eupodotis senegalensis</scientificname>
+   </bird>
+   <bird>
+       <id>363</id>
+       <alphabeticalname>Lapwing, African Wattled</alphabeticalname>
+       <fullname>African Wattled Lapwing</fullname>
+       <scientificname>Vanellus senegallus</scientificname>
+   </bird>
+   <bird>
+       <id>364</id>
+       <alphabeticalname>Lapwing, Blacksmith</alphabeticalname>
+       <fullname>Blacksmith Lapwing</fullname>
+       <scientificname>Vanellus armatus</scientificname>
+   </bird>
+   <bird>
+       <id>365</id>
+       <alphabeticalname>Lapwing, Black-winged</alphabeticalname>
+       <fullname>Black-winged Lapwing</fullname>
+       <scientificname>Vanellus melanopterus</scientificname>
+   </bird>
+   <bird>
+       <id>366</id>
+       <alphabeticalname>Lapwing, Crowned</alphabeticalname>
+       <fullname>Crowned Lapwing</fullname>
+       <scientificname>Vanellus coronatus</scientificname>
+   </bird>
+   <bird>
+       <id>367</id>
+       <alphabeticalname>Lapwing, Long-toed</alphabeticalname>
+       <fullname>Long-toed Lapwing</fullname>
+       <scientificname>Vanellus crassirostris</scientificname>
+   </bird>
+   <bird>
+       <id>368</id>
+       <alphabeticalname>Lapwing, Senegal</alphabeticalname>
+       <fullname>Senegal Lapwing</fullname>
+       <scientificname>Vanellus lugubris</scientificname>
+   </bird>
+   <bird>
+       <id>369</id>
+       <alphabeticalname>Lapwing, White-crowned</alphabeticalname>
+       <fullname>White-crowned Lapwing</fullname>
+       <scientificname>Vanellus albiceps</scientificname>
+   </bird>
+   <bird>
+       <id>370</id>
+       <alphabeticalname>Lark, Agulhas Long-billed</alphabeticalname>
+       <fullname>Agulhas Long-billed Lark</fullname>
+       <scientificname>Certhilauda brevirostris</scientificname>
+   </bird>
+   <bird>
+       <id>371</id>
+       <alphabeticalname>Lark, Barlow’s</alphabeticalname>
+       <fullname>Barlow’s Lark</fullname>
+       <scientificname>Calendulauda barlowi</scientificname>
+   </bird>
+   <bird>
+       <id>372</id>
+       <alphabeticalname>Lark, Botha’s</alphabeticalname>
+       <fullname>Botha’s Lark</fullname>
+       <scientificname>Spizocorys fringillaris</scientificname>
+   </bird>
+   <bird>
+       <id>373</id>
+       <alphabeticalname>Lark, Cape Clapper</alphabeticalname>
+       <fullname>Cape Clapper Lark</fullname>
+       <scientificname>Mirafra apiata</scientificname>
+   </bird>
+   <bird>
+       <id>374</id>
+       <alphabeticalname>Lark, Cape Long-billed</alphabeticalname>
+       <fullname>Cape Long-billed Lark</fullname>
+       <scientificname>Certhilauda curvirostris</scientificname>
+   </bird>
+   <bird>
+       <id>375</id>
+       <alphabeticalname>Lark, Dusky</alphabeticalname>
+       <fullname>Dusky Lark</fullname>
+       <scientificname>Pinarocorys nigricans</scientificname>
+   </bird>
+   <bird>
+       <id>376</id>
+       <alphabeticalname>Lark, Eastern Clapper</alphabeticalname>
+       <fullname>Eastern clapper Lark</fullname>
+       <scientificname>Mirafra fasciolata</scientificname>
+   </bird>
+   <bird>
+       <id>377</id>
+       <alphabeticalname>Lark, Eastern Long-billed</alphabeticalname>
+       <fullname>Eastern Long-billed Lark</fullname>
+       <scientificname>Certhilauda semitorquata</scientificname>
+   </bird>
+   <bird>
+       <id>378</id>
+       <alphabeticalname>Lark, Fawn-coloured</alphabeticalname>
+       <fullname>Fawn-coloured Lark</fullname>
+       <scientificname>Calendulauda africanoides</scientificname>
+   </bird>
+   <bird>
+       <id>379</id>
+       <alphabeticalname>Lark, Flappet</alphabeticalname>
+       <fullname>Flappet Lark</fullname>
+       <scientificname>Mirafra rufocinnamomea</scientificname>
+   </bird>
+   <bird>
+       <id>380</id>
+       <alphabeticalname>Lark, Karoo</alphabeticalname>
+       <fullname>Karoo Lark</fullname>
+       <scientificname>Calendulauda albescens</scientificname>
+   </bird>
+   <bird>
+       <id>381</id>
+       <alphabeticalname>Lark, Karoo Long-billed</alphabeticalname>
+       <fullname>Karoo Long-billed Lark</fullname>
+       <scientificname>Certhilauda subcoronata</scientificname>
+   </bird>
+   <bird>
+       <id>382</id>
+       <alphabeticalname>Lark, Large-billed</alphabeticalname>
+       <fullname>Large-billed Lark</fullname>
+       <scientificname>Galerida magnirostris</scientificname>
+   </bird>
+   <bird>
+       <id>383</id>
+       <alphabeticalname>Lark, Melodious</alphabeticalname>
+       <fullname>Melodious Lark</fullname>
+       <scientificname>Mirafra cheniana</scientificname>
+   </bird>
+   <bird>
+       <id>384</id>
+       <alphabeticalname>Lark, Monotonous</alphabeticalname>
+       <fullname>Monotonous Lark</fullname>
+       <scientificname>Mirafra passerina</scientificname>
+   </bird>
+   <bird>
+       <id>385</id>
+       <alphabeticalname>Lark, Pink-billed</alphabeticalname>
+       <fullname>Pink-billed Lark</fullname>
+       <scientificname>Spizocorys conirostris</scientificname>
+   </bird>
+   <bird>
+       <id>386</id>
+       <alphabeticalname>Lark, Red</alphabeticalname>
+       <fullname>Red Lark</fullname>
+       <scientificname>Calendulauda burra</scientificname>
+   </bird>
+   <bird>
+       <id>387</id>
+       <alphabeticalname>Lark, Red-capped</alphabeticalname>
+       <fullname>Red-capped Lark</fullname>
+       <scientificname>Calandrella cinerea</scientificname>
+   </bird>
+   <bird>
+       <id>388</id>
+       <alphabeticalname>Lark, Rudd’s</alphabeticalname>
+       <fullname>Rudd’s Lark</fullname>
+       <scientificname>Heteromirafra ruddi</scientificname>
+   </bird>
+   <bird>
+       <id>389</id>
+       <alphabeticalname>Lark, Rufous-naped</alphabeticalname>
+       <fullname>Rufous-naped Lark</fullname>
+       <scientificname>Mirafra africana</scientificname>
+   </bird>
+   <bird>
+       <id>390</id>
+       <alphabeticalname>Lark, Sabota</alphabeticalname>
+       <fullname>Sabota Lark</fullname>
+       <scientificname>Calendulauda sabota</scientificname>
+   </bird>
+   <bird>
+       <id>391</id>
+       <alphabeticalname>Lark, Sclater’s</alphabeticalname>
+       <fullname>Sclater’s Lark</fullname>
+       <scientificname>Spizocorys sclateri</scientificname>
+   </bird>
+   <bird>
+       <id>392</id>
+       <alphabeticalname>Lark, Short-clawed</alphabeticalname>
+       <fullname>Short-clawed Lark</fullname>
+       <scientificname>Certhilauda chuana</scientificname>
+   </bird>
+   <bird>
+       <id>393</id>
+       <alphabeticalname>Lark, Spike-heeled</alphabeticalname>
+       <fullname>Spike-heeled Lark</fullname>
+       <scientificname>Chersomanes albofasciata</scientificname>
+   </bird>
+   <bird>
+       <id>394</id>
+       <alphabeticalname>Lark, Stark’s</alphabeticalname>
+       <fullname>Stark’s Lark</fullname>
+       <scientificname>Spizocorys starki</scientificname>
+   </bird>
+   <bird>
+       <id>395</id>
+       <alphabeticalname>Longclaw, Cape</alphabeticalname>
+       <fullname>Cape Longclaw</fullname>
+       <scientificname>Macronyx capensis</scientificname>
+   </bird>
+   <bird>
+       <id>396</id>
+       <alphabeticalname>Longclaw, Rosy-throated</alphabeticalname>
+       <fullname>Rosy-throated Longclaw</fullname>
+       <scientificname>Macronyx ameliae</scientificname>
+   </bird>
+   <bird>
+       <id>397</id>
+       <alphabeticalname>Longclaw, Yellow-throated</alphabeticalname>
+       <fullname>Yellow-throated Longclaw</fullname>
+       <scientificname>Macronyx croceus</scientificname>
+   </bird>
+   <bird>
+       <id>398</id>
+       <alphabeticalname>Lovebird, Rosy-faced</alphabeticalname>
+       <fullname>Rosy-faced Lovebird</fullname>
+       <scientificname>Agapornis roseicollis</scientificname>
+   </bird>
+   <bird>
+       <id>399</id>
+       <alphabeticalname>Malkoha, Green</alphabeticalname>
+       <fullname>Green Malkoha</fullname>
+       <scientificname>Ceuthmochares australis</scientificname>
+   </bird>
+   <bird>
+       <id>400</id>
+       <alphabeticalname>Mallard</alphabeticalname>
+       <fullname>Mallard</fullname>
+       <scientificname>Anas platyrhynchos</scientificname>
+   </bird>
+   <bird>
+       <id>401</id>
+       <alphabeticalname>Mannikin, Bronze</alphabeticalname>
+       <fullname>Bronze Mannikin</fullname>
+       <scientificname>Spermestes cucullata</scientificname>
+   </bird>
+   <bird>
+       <id>402</id>
+       <alphabeticalname>Mannikin, Magpie</alphabeticalname>
+       <fullname>Magpie Mannikin</fullname>
+       <scientificname>Spermestes fringilloides</scientificname>
+   </bird>
+   <bird>
+       <id>403</id>
+       <alphabeticalname>Mannikin, Red-backed</alphabeticalname>
+       <fullname>Red-backed Mannikin</fullname>
+       <scientificname>Spermestes bicolor</scientificname>
+   </bird>
+   <bird>
+       <id>404</id>
+       <alphabeticalname>Martin, Banded</alphabeticalname>
+       <fullname>Banded Martin</fullname>
+       <scientificname>Riparia cincta</scientificname>
+   </bird>
+   <bird>
+       <id>405</id>
+       <alphabeticalname>Martin, Brown-throated</alphabeticalname>
+       <fullname>Brown-throated Martin</fullname>
+       <scientificname>Riparia paludicola</scientificname>
+   </bird>
+   <bird>
+       <id>406</id>
+       <alphabeticalname>Martin, Common House</alphabeticalname>
+       <fullname>Common House Martin</fullname>
+       <scientificname>Delichon urbicum</scientificname>
+   </bird>
+   <bird>
+       <id>407</id>
+       <alphabeticalname>Martin, Rock</alphabeticalname>
+       <fullname>Rock Martin</fullname>
+       <scientificname>Hirundo fuligula</scientificname>
+   </bird>
+   <bird>
+       <id>408</id>
+       <alphabeticalname>Martin, Sand</alphabeticalname>
+       <fullname>Sand Martin</fullname>
+       <scientificname>Riparia riparia</scientificname>
+   </bird>
+   <bird>
+       <id>409</id>
+       <alphabeticalname>Moorhen, Common</alphabeticalname>
+       <fullname>Common Moorhen</fullname>
+       <scientificname>Gallinula chloropus</scientificname>
+   </bird>
+   <bird>
+       <id>410</id>
+       <alphabeticalname>Moorhen, Lesser</alphabeticalname>
+       <fullname>Lesser Moorhen</fullname>
+       <scientificname>Gallinula angulata</scientificname>
+   </bird>
+   <bird>
+       <id>411</id>
+       <alphabeticalname>Mousebird, Red-faced</alphabeticalname>
+       <fullname>Red-faced Mousebird</fullname>
+       <scientificname>Urocolius indicus</scientificname>
+   </bird>
+   <bird>
+       <id>412</id>
+       <alphabeticalname>Mousebird, Speckled</alphabeticalname>
+       <fullname>Speckled Mousebird</fullname>
+       <scientificname>Colius striatus</scientificname>
+   </bird>
+   <bird>
+       <id>413</id>
+       <alphabeticalname>Mousebird, White-backed</alphabeticalname>
+       <fullname>White-backed Mousebird</fullname>
+       <scientificname>Colius colius</scientificname>
+   </bird>
+   <bird>
+       <id>414</id>
+       <alphabeticalname>Myna, Common</alphabeticalname>
+       <fullname>Common Myna</fullname>
+       <scientificname>Acridotheres tristis</scientificname>
+   </bird>
+   <bird>
+       <id>415</id>
+       <alphabeticalname>Neddicky</alphabeticalname>
+       <fullname>Neddicky</fullname>
+       <scientificname>Cisticola fulvicapilla</scientificname>
+   </bird>
+   <bird>
+       <id>416</id>
+       <alphabeticalname>Nicator, Eastern</alphabeticalname>
+       <fullname>Eastern Nicator</fullname>
+       <scientificname>Nicator gularis</scientificname>
+   </bird>
+   <bird>
+       <id>417</id>
+       <alphabeticalname>Nightingale, Thrush</alphabeticalname>
+       <fullname>Thrush Nightingale</fullname>
+       <scientificname>Luscinia luscinia</scientificname>
+   </bird>
+   <bird>
+       <id>418</id>
+       <alphabeticalname>Nightjar, European</alphabeticalname>
+       <fullname>European Nightjar</fullname>
+       <scientificname>Caprimulgus europaeus</scientificname>
+   </bird>
+   <bird>
+       <id>419</id>
+       <alphabeticalname>Nightjar, Fiery-necked</alphabeticalname>
+       <fullname>Fiery-necked Nightjar</fullname>
+       <scientificname>Caprimulgus pectoralis</scientificname>
+   </bird>
+   <bird>
+       <id>420</id>
+       <alphabeticalname>Nightjar, Freckled</alphabeticalname>
+       <fullname>Freckled Nightjar</fullname>
+       <scientificname>Caprimulgus tristigma</scientificname>
+   </bird>
+   <bird>
+       <id>421</id>
+       <alphabeticalname>Nightjar, Pennant-winged</alphabeticalname>
+       <fullname>Pennant-winged Nightjar</fullname>
+       <scientificname>Macrodipteryx vexillarius</scientificname>
+   </bird>
+   <bird>
+       <id>422</id>
+       <alphabeticalname>Nightjar, Rufous-cheeked</alphabeticalname>
+       <fullname>Rufous-cheeked Nightjar</fullname>
+       <scientificname>Caprimulgus rufigena</scientificname>
+   </bird>
+   <bird>
+       <id>423</id>
+       <alphabeticalname>Nightjar, Square-tailed</alphabeticalname>
+       <fullname>Square-tailed Nightjar</fullname>
+       <scientificname>Caprimulgus fossii</scientificname>
+   </bird>
+   <bird>
+       <id>424</id>
+       <alphabeticalname>Nightjar, Swamp</alphabeticalname>
+       <fullname>Swamp Nightjar</fullname>
+       <scientificname>Caprimulgus natalensis</scientificname>
+   </bird>
+   <bird>
+       <id>425</id>
+       <alphabeticalname>Noddy, Brown</alphabeticalname>
+       <fullname>Brown Noddy</fullname>
+       <scientificname>Anous stolidus</scientificname>
+   </bird>
+   <bird>
+       <id>426</id>
+       <alphabeticalname>Noddy, Lesser</alphabeticalname>
+       <fullname>Lesser Noddy</fullname>
+       <scientificname>Anous tenuirostris</scientificname>
+   </bird>
+   <bird>
+       <id>427</id>
+       <alphabeticalname>Openbill, African</alphabeticalname>
+       <fullname>African Openbill</fullname>
+       <scientificname>Anastomus lamelligerus</scientificname>
+   </bird>
+   <bird>
+       <id>428</id>
+       <alphabeticalname>Oriole, African Golden</alphabeticalname>
+       <fullname>African Golden Oriole</fullname>
+       <scientificname>Oriolus auratus</scientificname>
+   </bird>
+   <bird>
+       <id>429</id>
+       <alphabeticalname>Oriole, Black-headed</alphabeticalname>
+       <fullname>Black-headed Oriole</fullname>
+       <scientificname>Oriolus larvatus</scientificname>
+   </bird>
+   <bird>
+       <id>430</id>
+       <alphabeticalname>Oriole, Eurasian Golden</alphabeticalname>
+       <fullname>Eurasian Golden Oriole</fullname>
+       <scientificname>Oriolus oriolus</scientificname>
+   </bird>
+   <bird>
+       <id>431</id>
+       <alphabeticalname>Osprey, Western</alphabeticalname>
+       <fullname>Western Osprey</fullname>
+       <scientificname>Pandion haliaetus</scientificname>
+   </bird>
+   <bird>
+       <id>432</id>
+       <alphabeticalname>Ostrich, Common</alphabeticalname>
+       <fullname>Common Ostrich</fullname>
+       <scientificname>Struthio camelus</scientificname>
+   </bird>
+   <bird>
+       <id>433</id>
+       <alphabeticalname>Owl, African Grass</alphabeticalname>
+       <fullname>African Grass Owl</fullname>
+       <scientificname>Tyto capensis</scientificname>
+   </bird>
+   <bird>
+       <id>434</id>
+       <alphabeticalname>Owl, African Scops</alphabeticalname>
+       <fullname>African Scops Owl</fullname>
+       <scientificname>Otus senegalensis</scientificname>
+   </bird>
+   <bird>
+       <id>435</id>
+       <alphabeticalname>Owl, African Wood</alphabeticalname>
+       <fullname>African Wood Owl</fullname>
+       <scientificname>Strix woodfordii</scientificname>
+   </bird>
+   <bird>
+       <id>436</id>
+       <alphabeticalname>Owl, Cape Eagle-</alphabeticalname>
+       <fullname>Cape Eagle-Owl</fullname>
+       <scientificname>Bubo capensis</scientificname>
+   </bird>
+   <bird>
+       <id>437</id>
+       <alphabeticalname>Owl, Marsh</alphabeticalname>
+       <fullname>Marsh Owl</fullname>
+       <scientificname>Asio capensis</scientificname>
+   </bird>
+   <bird>
+       <id>438</id>
+       <alphabeticalname>Owl, Pel’s Fishing</alphabeticalname>
+       <fullname>Pel's Fishing Owl</fullname>
+       <scientificname>Scotopelia peli</scientificname>
+   </bird>
+   <bird>
+       <id>439</id>
+       <alphabeticalname>Owl, Southern White-faced</alphabeticalname>
+       <fullname>Southern White-faced Owl</fullname>
+       <scientificname>Ptilopsis granti</scientificname>
+   </bird>
+   <bird>
+       <id>440</id>
+       <alphabeticalname>Owl, Spotted Eagle-</alphabeticalname>
+       <fullname>Spotted Eagle-Owl</fullname>
+       <scientificname>Bubo africanus</scientificname>
+   </bird>
+   <bird>
+       <id>441</id>
+       <alphabeticalname>Owl, Verreaux’s Eagle-</alphabeticalname>
+       <fullname>Verreaux’s Eagle-Owl</fullname>
+       <scientificname>Bubo lacteus</scientificname>
+   </bird>
+   <bird>
+       <id>442</id>
+       <alphabeticalname>Owl, Western Barn</alphabeticalname>
+       <fullname>Western Barn Owl</fullname>
+       <scientificname>Tyto alba</scientificname>
+   </bird>
+   <bird>
+       <id>443</id>
+       <alphabeticalname>Owlet, African Barred</alphabeticalname>
+       <fullname>African Barred Owlet</fullname>
+       <scientificname>Glaucidium capense</scientificname>
+   </bird>
+   <bird>
+       <id>444</id>
+       <alphabeticalname>Owlet, Pearl-spotted</alphabeticalname>
+       <fullname>Pearl-spotted Owlet</fullname>
+       <scientificname>Glaucidium perlatum</scientificname>
+   </bird>
+   <bird>
+       <id>445</id>
+       <alphabeticalname>Oxpecker, Red-billed</alphabeticalname>
+       <fullname>Red-billed Oxpecker</fullname>
+       <scientificname>Buphagus erythrorhynchus</scientificname>
+   </bird>
+   <bird>
+       <id>446</id>
+       <alphabeticalname>Oxpecker, Yellow-billed</alphabeticalname>
+       <fullname>Yellow-billed Oxpecker</fullname>
+       <scientificname>Buphagus africanus</scientificname>
+   </bird>
+   <bird>
+       <id>447</id>
+       <alphabeticalname>Oystercatcher, African Black</alphabeticalname>
+       <fullname>African Black Oystercatcher</fullname>
+       <scientificname>Haematopus moquini</scientificname>
+   </bird>
+   <bird>
+       <id>448</id>
+       <alphabeticalname>Oystercatcher, Eurasian</alphabeticalname>
+       <fullname>Eurasian Oystercatcher</fullname>
+       <scientificname>Haematopus ostralegus</scientificname>
+   </bird>
+   <bird>
+       <id>449</id>
+       <alphabeticalname>Painted-snipe, Greater</alphabeticalname>
+       <fullname>Greater Painted-snipe</fullname>
+       <scientificname>Rostratula benghalensis</scientificname>
+   </bird>
+   <bird>
+       <id>450</id>
+       <alphabeticalname></alphabeticalname>
+       <fullname></fullname>
+       <scientificname></scientificname>
+   </bird>
+   <bird>
+       <id>451</id>
+       <alphabeticalname>Parakeet, Rose-ringed</alphabeticalname>
+       <fullname>Rose-ringed Parakeet</fullname>
+       <scientificname>Psittacula krameri</scientificname>
+   </bird>
+   <bird>
+       <id>452</id>
+       <alphabeticalname>Parrot, Brown-headed</alphabeticalname>
+       <fullname>Brown-headed Parrot</fullname>
+       <scientificname>Poicephalus cryptoxanthus</scientificname>
+   </bird>
+   <bird>
+       <id>453</id>
+       <alphabeticalname>Parrot, Cape</alphabeticalname>
+       <fullname>Cape Parrot</fullname>
+       <scientificname>Poicephalus robustus</scientificname>
+   </bird>
+   <bird>
+       <id>454</id>
+       <alphabeticalname>Parrot, Grey-headed</alphabeticalname>
+       <fullname>Grey-headed Parrot</fullname>
+       <scientificname>Poicephalus fuscicollis</scientificname>
+   </bird>
+   <bird>
+       <id>455</id>
+       <alphabeticalname>Parrot, Meyer’s</alphabeticalname>
+       <fullname>Meyer’s Parrot</fullname>
+       <scientificname>Poicephalus meyeri</scientificname>
+   </bird>
+   <bird>
+       <id>456</id>
+       <alphabeticalname>Partridge, Chukar</alphabeticalname>
+       <fullname>Chukar Partridge</fullname>
+       <scientificname>Alectoris chukar</scientificname>
+   </bird>
+   <bird>
+       <id>457</id>
+       <alphabeticalname>Peafowl, Indian</alphabeticalname>
+       <fullname>Indian Peafowl</fullname>
+       <scientificname>Pavo cristatus</scientificname>
+   </bird>
+   <bird>
+       <id>458</id>
+       <alphabeticalname>Pelican, Great White</alphabeticalname>
+       <fullname>Great White Pelican</fullname>
+       <scientificname>Pelecanus onocrotalus</scientificname>
+   </bird>
+   <bird>
+       <id>459</id>
+       <alphabeticalname>Pelican, Pink-backed</alphabeticalname>
+       <fullname>Pink-backed Pelican</fullname>
+       <scientificname>Pelecanus rufescens</scientificname>
+   </bird>
+   <bird>
+       <id>460</id>
+       <alphabeticalname>Penduline-Tit, Cape</alphabeticalname>
+       <fullname>Grey Penduline-Tit</fullname>
+       <scientificname>Anthoscopus minutus</scientificname>
+   </bird>
+   <bird>
+       <id>461</id>
+       <alphabeticalname>Penduline-Tit, Grey</alphabeticalname>
+       <fullname>Grey Penduline-Tit</fullname>
+       <scientificname>Anthoscopus caroli</scientificname>
+   </bird>
+   <bird>
+       <id>462</id>
+       <alphabeticalname>Penguin, African</alphabeticalname>
+       <fullname>African Penguin</fullname>
+       <scientificname>Spheniscus demersus</scientificname>
+   </bird>
+   <bird>
+       <id>463</id>
+       <alphabeticalname>Penguin, King</alphabeticalname>
+       <fullname>King Penguin</fullname>
+       <scientificname>Aptenodytes patagonicus</scientificname>
+   </bird>
+   <bird>
+       <id>464</id>
+       <alphabeticalname>Penguin, Macaroni</alphabeticalname>
+       <fullname>Macaroni Penguin</fullname>
+       <scientificname>Eudyptes chrysolophus</scientificname>
+   </bird>
+   <bird>
+       <id>465</id>
+       <alphabeticalname>Penguin, Northern Rockhopper</alphabeticalname>
+       <fullname>Northern Rockhopper Penguin</fullname>
+       <scientificname>Eudyptes moseleyi</scientificname>
+   </bird>
+   <bird>
+       <id>466</id>
+       <alphabeticalname>Penguin, Southern Rockhopper</alphabeticalname>
+       <fullname>Southern Rockhopper Penguin</fullname>
+       <scientificname>Eudyptes chrysocome</scientificname>
+   </bird>
+   <bird>
+       <id>467</id>
+       <alphabeticalname>Petrel, Black-bellied Storm</alphabeticalname>
+       <fullname>Black-bellied Storm Petrel</fullname>
+       <scientificname>Fregetta tropica</scientificname>
+   </bird>
+   <bird>
+       <id>468</id>
+       <alphabeticalname>Petrel, European Storm</alphabeticalname>
+       <fullname>European Storm Petrel</fullname>
+       <scientificname>Hydrobates pelagicus</scientificname>
+   </bird>
+   <bird>
+       <id>469</id>
+       <alphabeticalname>Petrel, Grey-backed Storm</alphabeticalname>
+       <fullname>Grey-backed Storm Petrel</fullname>
+       <scientificname>Garrodia nereis</scientificname>
+   </bird>
+   <bird>
+       <id>470</id>
+       <alphabeticalname>Petrel, Leach’s Storm</alphabeticalname>
+       <fullname>Leach’s Storm Petrel</fullname>
+       <scientificname>Oceanodroma leucorhoa</scientificname>
+   </bird>
+   <bird>
+       <id>471</id>
+       <alphabeticalname>Petrel, Matsudaira’s Storm</alphabeticalname>
+       <fullname>Matsudaira’s Storm Petrel</fullname>
+       <scientificname>Oceanodroma matsudairae</scientificname>
+   </bird>
+   <bird>
+       <id>472</id>
+       <alphabeticalname>Petrel, White-bellied Storm</alphabeticalname>
+       <fullname>White-bellied Storm Petrel</fullname>
+       <scientificname>Fregetta grallaria</scientificname>
+   </bird>
+   <bird>
+       <id>473</id>
+       <alphabeticalname>Petrel, White-faced Storm</alphabeticalname>
+       <fullname>White-faced Storm Petrel</fullname>
+       <scientificname>Pelagodroma marina</scientificname>
+   </bird>
+   <bird>
+       <id>474</id>
+       <alphabeticalname>Petrel, Wilson’s Storm</alphabeticalname>
+       <fullname>Wilson’s Storm Petrel</fullname>
+       <scientificname>Oceanites oceanicus</scientificname>
+   </bird>
+   <bird>
+       <id>475</id>
+       <alphabeticalname>Petrel, Antarctic</alphabeticalname>
+       <fullname>Antarctic Petrel</fullname>
+       <scientificname>Thalassoica antarctica</scientificname>
+   </bird>
+   <bird>
+       <id>476</id>
+       <alphabeticalname>Petrel, Atlantic</alphabeticalname>
+       <fullname>Atlantic Petrel</fullname>
+       <scientificname>Pterodroma incerta</scientificname>
+   </bird>
+   <bird>
+       <id>477</id>
+       <alphabeticalname>Petrel, Barau’s</alphabeticalname>
+       <fullname>Barau’s Petrel</fullname>
+       <scientificname>Pterodroma baraui</scientificname>
+   </bird>
+   <bird>
+       <id>478</id>
+       <alphabeticalname>Petrel, Blue</alphabeticalname>
+       <fullname>Blue Petrel</fullname>
+       <scientificname>Halobaena caerulea</scientificname>
+   </bird>
+   <bird>
+       <id>479</id>
+       <alphabeticalname>Petrel, Great-winged</alphabeticalname>
+       <fullname>Great-winged Petrel</fullname>
+       <scientificname>Pterodroma macroptera</scientificname>
+   </bird>
+   <bird>
+       <id>480</id>
+       <alphabeticalname>Petrel, Grey</alphabeticalname>
+       <fullname>Grey Petrel</fullname>
+       <scientificname>Procellaria cinerea</scientificname>
+   </bird>
+   <bird>
+       <id>481</id>
+       <alphabeticalname>Petrel, Kerguelen</alphabeticalname>
+       <fullname>Kerguelen Petrel</fullname>
+       <scientificname>Lugensa brevirostris</scientificname>
+   </bird>
+   <bird>
+       <id>482</id>
+       <alphabeticalname>Petrel, Northern Giant</alphabeticalname>
+       <fullname>Northern Giant Petrel</fullname>
+       <scientificname>Macronectes halli</scientificname>
+   </bird>
+   <bird>
+       <id>483</id>
+       <alphabeticalname>Petrel, Pintado</alphabeticalname>
+       <fullname>Pintado Petrel</fullname>
+       <scientificname>Daption capense</scientificname>
+   </bird>
+   <bird>
+       <id>484</id>
+       <alphabeticalname>Petrel, Soft-plumaged</alphabeticalname>
+       <fullname>Soft-plumaged Petrel</fullname>
+       <scientificname>Pterodroma mollis</scientificname>
+   </bird>
+   <bird>
+       <id>485</id>
+       <alphabeticalname>Petrel, Southern Giant</alphabeticalname>
+       <fullname>Southern Giant Petrel</fullname>
+       <scientificname>Macronectes giganteus</scientificname>
+   </bird>
+   <bird>
+       <id>486</id>
+       <alphabeticalname>Petrel, Spectacled</alphabeticalname>
+       <fullname>Spectacled Petrel</fullname>
+       <scientificname>Procellaria conspicillata</scientificname>
+   </bird>
+   <bird>
+       <id>487</id>
+       <alphabeticalname>Petrel, White-chinned</alphabeticalname>
+       <fullname>White-chinned Petrel</fullname>
+       <scientificname>Procellaria aequinoctialis</scientificname>
+   </bird>
+   <bird>
+       <id>488</id>
+       <alphabeticalname>Petrel, White-headed</alphabeticalname>
+       <fullname>White-headed Petrel</fullname>
+       <scientificname>Pterodroma lessonii</scientificname>
+   </bird>
+   <bird>
+       <id>489</id>
+       <alphabeticalname>Petronia, Yellow-throated</alphabeticalname>
+       <fullname>Yellow-throated Petronia</fullname>
+       <scientificname>Gymnoris superciliaris</scientificname>
+   </bird>
+   <bird>
+       <id>490</id>
+       <alphabeticalname>Phalarope, Red</alphabeticalname>
+       <fullname>Red Phalarope</fullname>
+       <scientificname>Phalaropus fulicarius</scientificname>
+   </bird>
+   <bird>
+       <id>491</id>
+       <alphabeticalname>Phalarope, Red-necked</alphabeticalname>
+       <fullname>Red-necked Phalarope</fullname>
+       <scientificname>Phalaropus lobatus</scientificname>
+   </bird>
+   <bird>
+       <id>492</id>
+       <alphabeticalname>Phalarope, Wilson’s</alphabeticalname>
+       <fullname>Wilson’s Phalarope</fullname>
+       <scientificname>Phalaropus tricolor</scientificname>
+   </bird>
+   <bird>
+       <id>493</id>
+       <alphabeticalname>Pigeon, African Green</alphabeticalname>
+       <fullname>African Green Pigeon</fullname>
+       <scientificname>Treron calvus</scientificname>
+   </bird>
+   <bird>
+       <id>494</id>
+       <alphabeticalname>Pigeon, African Olive</alphabeticalname>
+       <fullname>African Olive Pigeon</fullname>
+       <scientificname>Columba arquatrix</scientificname>
+   </bird>
+   <bird>
+       <id>495</id>
+       <alphabeticalname>Pigeon, Eastern Bronze-naped</alphabeticalname>
+       <fullname>Eastern Bronze-naped Pigeon</fullname>
+       <scientificname>Columba delegorguei</scientificname>
+   </bird>
+   <bird>
+       <id>496</id>
+       <alphabeticalname>Pigeon, Speckled</alphabeticalname>
+       <fullname>Speckled Pigeon</fullname>
+       <scientificname>Columba guinea</scientificname>
+   </bird>
+   <bird>
+       <id>497</id>
+       <alphabeticalname>Pintail, Northern</alphabeticalname>
+       <fullname>Northern Pintail</fullname>
+       <scientificname>Anas acuta</scientificname>
+   </bird>
+   <bird>
+       <id>498</id>
+       <alphabeticalname>Pipit, African</alphabeticalname>
+       <fullname>African Pipit</fullname>
+       <scientificname>Anthus cinnamomeus</scientificname>
+   </bird>
+   <bird>
+       <id>499</id>
+       <alphabeticalname>Pipit, African Rock</alphabeticalname>
+       <fullname>African Rock Pipit</fullname>
+       <scientificname>Anthus crenatus</scientificname>
+   </bird>
+   <bird>
+       <id>500</id>
+       <alphabeticalname>Pipit, Buffy</alphabeticalname>
+       <fullname>Buffy Pipit</fullname>
+       <scientificname>Anthus vaalensis</scientificname>
+   </bird>
+   <bird>
+       <id>501</id>
+       <alphabeticalname>Pipit, Bushveld</alphabeticalname>
+       <fullname>Bushveld Pipit</fullname>
+       <scientificname>Anthus caffer</scientificname>
+   </bird>
+   <bird>
+       <id>502</id>
+       <alphabeticalname>Pipit, Golden</alphabeticalname>
+       <fullname>Golden Pipit</fullname>
+       <scientificname>Tmetothylacus tenellus</scientificname>
+   </bird>
+   <bird>
+       <id>503</id>
+       <alphabeticalname>Pipit, Kimberley</alphabeticalname>
+       <fullname>Kimberley Pipit</fullname>
+       <scientificname>Anthus pseudosimilis</scientificname>
+   </bird>
+   <bird>
+       <id>504</id>
+       <alphabeticalname>Pipit, Long-billed</alphabeticalname>
+       <fullname>Long-billed Pipit</fullname>
+       <scientificname>Anthus similis</scientificname>
+   </bird>
+   <bird>
+       <id>505</id>
+       <alphabeticalname>Pipit, Long-tailed</alphabeticalname>
+       <fullname>Long-tailed Pipit</fullname>
+       <scientificname>Anthus longicaudatus</scientificname>
+   </bird>
+   <bird>
+       <id>506</id>
+       <alphabeticalname>Pipit, Mountain</alphabeticalname>
+       <fullname>Mountain Pipit</fullname>
+       <scientificname>Anthus hoeschi</scientificname>
+   </bird>
+   <bird>
+       <id>507</id>
+       <alphabeticalname>Pipit, Plain-backed</alphabeticalname>
+       <fullname>Plain-backed Pipit</fullname>
+       <scientificname>Anthus leucophrys</scientificname>
+   </bird>
+   <bird>
+       <id>508</id>
+       <alphabeticalname>Pipit, Red-throated</alphabeticalname>
+       <fullname>Red-throated Pipit</fullname>
+       <scientificname>Anthus cervinus</scientificname>
+   </bird>
+   <bird>
+       <id>509</id>
+       <alphabeticalname>Pipit, Short-tailed</alphabeticalname>
+       <fullname>Short-tailed Pipit</fullname>
+       <scientificname>Anthus brachyurus</scientificname>
+   </bird>
+   <bird>
+       <id>511</id>
+       <alphabeticalname>Pipit, Striped</alphabeticalname>
+       <fullname>Striped Pipit</fullname>
+       <scientificname>Anthus lineiventris</scientificname>
+   </bird>
+   <bird>
+       <id>512</id>
+       <alphabeticalname>Pipit, Tree</alphabeticalname>
+       <fullname>Tree Pipit</fullname>
+       <scientificname>Anthus trivialis</scientificname>
+   </bird>
+   <bird>
+       <id>513</id>
+       <alphabeticalname>Pipit, Yellow-breasted</alphabeticalname>
+       <fullname>Yellow-breasted Pipit</fullname>
+       <scientificname>Anthus chloris</scientificname>
+   </bird>
+   <bird>
+       <id>514</id>
+       <alphabeticalname>Pitta, African</alphabeticalname>
+       <fullname>African Pitta</fullname>
+       <scientificname>Pitta angolensis</scientificname>
+   </bird>
+   <bird>
+       <id>515</id>
+       <alphabeticalname>Plover, American Golden</alphabeticalname>
+       <fullname>American Golden Plover</fullname>
+       <scientificname>Pluvialis dominica</scientificname>
+   </bird>
+   <bird>
+       <id>516</id>
+       <alphabeticalname>Plover, Caspian</alphabeticalname>
+       <fullname>Caspian Plover</fullname>
+       <scientificname>Charadrius asiaticus</scientificname>
+   </bird>
+   <bird>
+       <id>517</id>
+       <alphabeticalname>Plover, Chestnut-banded</alphabeticalname>
+       <fullname>Chestnut-banded Plover</fullname>
+       <scientificname>Charadrius pallidus</scientificname>
+   </bird>
+   <bird>
+       <id>518</id>
+       <alphabeticalname>Plover, Common Ringed</alphabeticalname>
+       <fullname>Common Ringed Plover</fullname>
+       <scientificname>Charadrius hiaticula</scientificname>
+   </bird>
+   <bird>
+       <id>519</id>
+       <alphabeticalname>Plover, Greater Sand</alphabeticalname>
+       <fullname>Greater Sand Plover</fullname>
+       <scientificname>Charadrius leschenaultii</scientificname>
+   </bird>
+   <bird>
+       <id>520</id>
+       <alphabeticalname>Plover, Grey</alphabeticalname>
+       <fullname>Grey Plover</fullname>
+       <scientificname>Pluvialis squatarola</scientificname>
+   </bird>
+   <bird>
+       <id>521</id>
+       <alphabeticalname>Plover, Kittlitz’s</alphabeticalname>
+       <fullname>Kittlitz’s Plover</fullname>
+       <scientificname>Charadrius pecuarius</scientificname>
+   </bird>
+   <bird>
+       <id>522</id>
+       <alphabeticalname>Plover, Lesser Sand</alphabeticalname>
+       <fullname>Lesser Sand Plover</fullname>
+       <scientificname>Charadrius mongolus</scientificname>
+   </bird>
+   <bird>
+       <id>523</id>
+       <alphabeticalname>Plover, Pacific Golden</alphabeticalname>
+       <fullname>Pacific Golden Plover</fullname>
+       <scientificname>Pluvialis fulva</scientificname>
+   </bird>
+   <bird>
+       <id>524</id>
+       <alphabeticalname>Plover, Three-banded</alphabeticalname>
+       <fullname>Three-banded Plover</fullname>
+       <scientificname>Charadrius tricollaris</scientificname>
+   </bird>
+   <bird>
+       <id>525</id>
+       <alphabeticalname>Plover, White-fronted</alphabeticalname>
+       <fullname>White-fronted Plover</fullname>
+       <scientificname>Charadrius marginatus</scientificname>
+   </bird>
+   <bird>
+       <id>526</id>
+       <alphabeticalname>Pochard, Southern</alphabeticalname>
+       <fullname>Southern Pochard</fullname>
+       <scientificname>Netta erythrophthalma</scientificname>
+   </bird>
+   <bird>
+       <id>527</id>
+       <alphabeticalname>Pratincole, Black-winged</alphabeticalname>
+       <fullname>Black-winged Pratincole</fullname>
+       <scientificname>Glareola nordmanni</scientificname>
+   </bird>
+   <bird>
+       <id>528</id>
+       <alphabeticalname>Pratincole, Collared</alphabeticalname>
+       <fullname>Collared Pratincole</fullname>
+       <scientificname>Glareola pratincola</scientificname>
+   </bird>
+   <bird>
+       <id>529</id>
+       <alphabeticalname>Pratincole, Rock</alphabeticalname>
+       <fullname>Rock Pratincole</fullname>
+       <scientificname>Glareola nuchalis</scientificname>
+   </bird>
+   <bird>
+       <id>530</id>
+       <alphabeticalname>Prinia, Black-chested</alphabeticalname>
+       <fullname>Black-chested Prinia</fullname>
+       <scientificname>Prinia flavicans</scientificname>
+   </bird>
+   <bird>
+       <id>531</id>
+       <alphabeticalname>Prinia, Drakensberg</alphabeticalname>
+       <fullname>Drakensberg Prinia</fullname>
+       <scientificname>Prinia hypoxantha</scientificname>
+   </bird>
+   <bird>
+       <id>532</id>
+       <alphabeticalname>Prinia, Karoo</alphabeticalname>
+       <fullname>Karoo Prinia</fullname>
+       <scientificname>Prinia maculosa</scientificname>
+   </bird>
+   <bird>
+       <id>533</id>
+       <alphabeticalname>Prinia, Tawny-flanked</alphabeticalname>
+       <fullname>Tawny-flanked Prinia</fullname>
+       <scientificname>Prinia subflava</scientificname>
+   </bird>
+   <bird>
+       <id>534</id>
+       <alphabeticalname>Prion, Antarctic</alphabeticalname>
+       <fullname>Antarctic Prion</fullname>
+       <scientificname>Pachyptila desolata</scientificname>
+   </bird>
+   <bird>
+       <id>535</id>
+       <alphabeticalname>Prion, Broad-billed</alphabeticalname>
+       <fullname>Broad-billed Prion</fullname>
+       <scientificname>Pachyptila vittata</scientificname>
+   </bird>
+   <bird>
+       <id>536</id>
+       <alphabeticalname>Prion, Fairy</alphabeticalname>
+       <fullname>Fairy Prion</fullname>
+       <scientificname>Pachyptila turtur</scientificname>
+   </bird>
+   <bird>
+       <id>537</id>
+       <alphabeticalname>Prion, Salvin’s</alphabeticalname>
+       <fullname>Salvin’s Prion</fullname>
+       <scientificname>Pachyptila salvini</scientificname>
+   </bird>
+   <bird>
+       <id>538</id>
+       <alphabeticalname>Prion, Slender-billed</alphabeticalname>
+       <fullname>Slender-billed Prion</fullname>
+       <scientificname>Pachyptila belcheri</scientificname>
+   </bird>
+   <bird>
+       <id>539</id>
+       <alphabeticalname>Puffback, Black-backed</alphabeticalname>
+       <fullname>Black-backed Puffback</fullname>
+       <scientificname>Dryoscopus cubla</scientificname>
+   </bird>
+   <bird>
+       <id>540</id>
+       <alphabeticalname>Pytilia, Green-winged</alphabeticalname>
+       <fullname>Green-winged Pytilia</fullname>
+       <scientificname>Pytilia melba</scientificname>
+   </bird>
+   <bird>
+       <id>541</id>
+       <alphabeticalname>Pytilia, Orange-winged</alphabeticalname>
+       <fullname>Orange-winged Pytilia</fullname>
+       <scientificname>Pytilia afra</scientificname>
+   </bird>
+   <bird>
+       <id>542</id>
+       <alphabeticalname>Quail, Blue</alphabeticalname>
+       <fullname>Blue Quail</fullname>
+       <scientificname>Excalfactoria adansonii</scientificname>
+   </bird>
+   <bird>
+       <id>543</id>
+       <alphabeticalname>Quail, Common</alphabeticalname>
+       <fullname>Common Quail</fullname>
+       <scientificname>Coturnix coturnix</scientificname>
+   </bird>
+   <bird>
+       <id>544</id>
+       <alphabeticalname>Quail, Harlequin</alphabeticalname>
+       <fullname>Harlequin Quail</fullname>
+       <scientificname>Coturnix delegorguei</scientificname>
+   </bird>
+   <bird>
+       <id>545</id>
+       <alphabeticalname>Quail-finch, African</alphabeticalname>
+       <fullname>African Quail-finch</fullname>
+       <scientificname>Ortygospiza fuscocrissa</scientificname>
+   </bird>
+   <bird>
+       <id>546</id>
+       <alphabeticalname>Quelea, Red-billed</alphabeticalname>
+       <fullname>Red-billed Quelea</fullname>
+       <scientificname>Quelea quelea</scientificname>
+   </bird>
+   <bird>
+       <id>547</id>
+       <alphabeticalname>Quelea, Red-headed</alphabeticalname>
+       <fullname>Red-headed Quelea</fullname>
+       <scientificname>Quelea erythrops</scientificname>
+   </bird>
+   <bird>
+       <id>548</id>
+       <alphabeticalname>Rail, African</alphabeticalname>
+       <fullname>African Rail</fullname>
+       <scientificname>Rallus caerulescens</scientificname>
+   </bird>
+   <bird>
+       <id>549</id>
+       <alphabeticalname>Raven, White-necked</alphabeticalname>
+       <fullname>White-necked Raven</fullname>
+       <scientificname>Corvus albicollis</scientificname>
+   </bird>
+   <bird>
+       <id>550</id>
+       <alphabeticalname>Redshank, Common</alphabeticalname>
+       <fullname>Common Redshank</fullname>
+       <scientificname>Tringa totanus</scientificname>
+   </bird>
+   <bird>
+       <id>551</id>
+       <alphabeticalname>Redshank, Spotted</alphabeticalname>
+       <fullname>Spotted Redshank</fullname>
+       <scientificname>Tringa erythropus</scientificname>
+   </bird>
+   <bird>
+       <id>552</id>
+       <alphabeticalname>Redstart, Common</alphabeticalname>
+       <fullname>Common Redstart</fullname>
+       <scientificname>Phoenicurus phoenicurus</scientificname>
+   </bird>
+   <bird>
+       <id>553</id>
+       <alphabeticalname>Robin, Bearded Scrub</alphabeticalname>
+       <fullname>Bearded Scrub Robin</fullname>
+       <scientificname>Erythropygia quadrivirgata</scientificname>
+   </bird>
+   <bird>
+       <id>554</id>
+       <alphabeticalname>Robin, Brown Scrub</alphabeticalname>
+       <fullname>Brown Scrub Robin</fullname>
+       <scientificname>Erythropygia signata</scientificname>
+   </bird>
+   <bird>
+       <id>555</id>
+       <alphabeticalname>Robin, Kalahari Scrub</alphabeticalname>
+       <fullname>Kalahari Scrub Robin</fullname>
+       <scientificname>Erythropygia paena</scientificname>
+   </bird>
+   <bird>
+       <id>556</id>
+       <alphabeticalname>Robin, Karoo Scrub</alphabeticalname>
+       <fullname>Karoo Scrub Robin</fullname>
+       <scientificname>Erythropygia coryphoeus</scientificname>
+   </bird>
+   <bird>
+       <id>557</id>
+       <alphabeticalname>Robin, White-browed Scrub</alphabeticalname>
+       <fullname>White-browed Scrub Robin</fullname>
+       <scientificname>Erythropygia leucophrys</scientificname>
+   </bird>
+   <bird>
+       <id>558</id>
+       <alphabeticalname>Robin, White-starred</alphabeticalname>
+       <fullname>White-starred Robin</fullname>
+       <scientificname>Pogonocichla stellata</scientificname>
+   </bird>
+   <bird>
+       <id>559</id>
+       <alphabeticalname>Robin-chat, Cape</alphabeticalname>
+       <fullname>Cape Robin-Chat</fullname>
+       <scientificname>Cossypha caffra</scientificname>
+   </bird>
+   <bird>
+       <id>560</id>
+       <alphabeticalname>Robin-chat, Chorister</alphabeticalname>
+       <fullname>Chorister Robin-Chat</fullname>
+       <scientificname>Cossypha dichroa</scientificname>
+   </bird>
+   <bird>
+       <id>561</id>
+       <alphabeticalname>Robin-chat, Red-capped</alphabeticalname>
+       <fullname>Red-capped Robin-Chat</fullname>
+       <scientificname>Cossypha natalensis</scientificname>
+   </bird>
+   <bird>
+       <id>562</id>
+       <alphabeticalname>Robin-chat, White-browed</alphabeticalname>
+       <fullname>White-browed Robin-Chat</fullname>
+       <scientificname>Cossypha heuglini</scientificname>
+   </bird>
+   <bird>
+       <id>563</id>
+       <alphabeticalname>Robin-chat, White-throated</alphabeticalname>
+       <fullname>White-throated Robin-Chat</fullname>
+       <scientificname>Cossypha humeralis</scientificname>
+   </bird>
+   <bird>
+       <id>564</id>
+       <alphabeticalname>Rockjumper, Cape</alphabeticalname>
+       <fullname>Cape Rockjumper</fullname>
+       <scientificname>Chaetops frenatus</scientificname>
+   </bird>
+   <bird>
+       <id>565</id>
+       <alphabeticalname>Rockjumper, Drakensberg</alphabeticalname>
+       <fullname>Drakensberg Rockjumper</fullname>
+       <scientificname>Chaetops aurantius</scientificname>
+   </bird>
+   <bird>
+       <id>566</id>
+       <alphabeticalname>Roller, Broad-billed</alphabeticalname>
+       <fullname>Broad-billed Roller</fullname>
+       <scientificname>Eurystomus glaucurus</scientificname>
+   </bird>
+   <bird>
+       <id>567</id>
+       <alphabeticalname>Roller, European</alphabeticalname>
+       <fullname>European Roller</fullname>
+       <scientificname>Coracias garrulus</scientificname>
+   </bird>
+   <bird>
+       <id>568</id>
+       <alphabeticalname>Roller, Lilac-breasted</alphabeticalname>
+       <fullname>Lilac-breasted Roller</fullname>
+       <scientificname>Coracias caudatus</scientificname>
+   </bird>
+   <bird>
+       <id>569</id>
+       <alphabeticalname>Roller, Purple</alphabeticalname>
+       <fullname>Purple Roller</fullname>
+       <scientificname>Coracias naevius</scientificname>
+   </bird>
+   <bird>
+       <id>570</id>
+       <alphabeticalname>Roller, Racket-tailed</alphabeticalname>
+       <fullname>Racket-tailed Roller</fullname>
+       <scientificname>Coracias spatulatus</scientificname>
+   </bird>
+   <bird>
+       <id>571</id>
+       <alphabeticalname>Ruff</alphabeticalname>
+       <fullname>Ruff</fullname>
+       <scientificname>Philomachus pugnax</scientificname>
+   </bird>
+   <bird>
+       <id>572</id>
+       <alphabeticalname>Sanderling</alphabeticalname>
+       <fullname>Sanderling</fullname>
+       <scientificname>Calidris alba</scientificname>
+   </bird>
+   <bird>
+       <id>573</id>
+       <alphabeticalname>Sandgrouse, Burchell’s</alphabeticalname>
+       <fullname>Burchell’s Sandgrouse</fullname>
+       <scientificname>Pterocles burchelli</scientificname>
+   </bird>
+   <bird>
+       <id>574</id>
+       <alphabeticalname>Sandgrouse, Double-banded</alphabeticalname>
+       <fullname>Double-banded Sandgrouse</fullname>
+       <scientificname>Pterocles bicinctus</scientificname>
+   </bird>
+   <bird>
+       <id>575</id>
+       <alphabeticalname>Sandgrouse, Namaqua</alphabeticalname>
+       <fullname>Namaqua Sandgrouse</fullname>
+       <scientificname>Pterocles namaqua</scientificname>
+   </bird>
+   <bird>
+       <id>576</id>
+       <alphabeticalname>Sandgrouse, Yellow-throated</alphabeticalname>
+       <fullname>Yellow-throated Sandgrouse</fullname>
+       <scientificname>Pterocles gutturalis</scientificname>
+   </bird>
+   <bird>
+       <id>577</id>
+       <alphabeticalname>Sandpiper, Baird’s</alphabeticalname>
+       <fullname>Baird’s Sandpiper</fullname>
+       <scientificname>Calidris bairdii</scientificname>
+   </bird>
+   <bird>
+       <id>578</id>
+       <alphabeticalname>Sandpiper, Broad-billed</alphabeticalname>
+       <fullname>Broad-billed Sandpiper</fullname>
+       <scientificname>Limicola falcinellus</scientificname>
+   </bird>
+   <bird>
+       <id>579</id>
+       <alphabeticalname>Sandpiper, Buff-breasted</alphabeticalname>
+       <fullname>Buff-breasted Sandpiper</fullname>
+       <scientificname>Tryngites subruficollis</scientificname>
+   </bird>
+   <bird>
+       <id>580</id>
+       <alphabeticalname>Sandpiper, Common</alphabeticalname>
+       <fullname>Common Sandpiper</fullname>
+       <scientificname>Actitis hypoleucos</scientificname>
+   </bird>
+   <bird>
+       <id>581</id>
+       <alphabeticalname>Sandpiper, Curlew</alphabeticalname>
+       <fullname>Curlew Sandpiper</fullname>
+       <scientificname>Calidris ferruginea</scientificname>
+   </bird>
+   <bird>
+       <id>582</id>
+       <alphabeticalname>Sandpiper, Green</alphabeticalname>
+       <fullname>Green Sandpiper</fullname>
+       <scientificname>Tringa ochropus</scientificname>
+   </bird>
+   <bird>
+       <id>583</id>
+       <alphabeticalname>Sandpiper, Marsh</alphabeticalname>
+       <fullname>Marsh Sandpiper</fullname>
+       <scientificname>Tringa stagnatilis</scientificname>
+   </bird>
+   <bird>
+       <id>584</id>
+       <alphabeticalname>Sandpiper, Pectoral</alphabeticalname>
+       <fullname>Pectoral Sandpiper</fullname>
+       <scientificname>Calidris melanotos</scientificname>
+   </bird>
+   <bird>
+       <id>585</id>
+       <alphabeticalname>Sandpiper, Terek</alphabeticalname>
+       <fullname>Terek Sandpiper</fullname>
+       <scientificname>Xenus cinereus</scientificname>
+   </bird>
+   <bird>
+       <id>586</id>
+       <alphabeticalname>Sandpiper, White-rumped</alphabeticalname>
+       <fullname>White-rumped Sandpiper</fullname>
+       <scientificname>Calidris fuscicollis</scientificname>
+   </bird>
+   <bird>
+       <id>587</id>
+       <alphabeticalname>Sandpiper, Wood</alphabeticalname>
+       <fullname>Wood Sandpiper</fullname>
+       <scientificname>Tringa glareola</scientificname>
+   </bird>
+   <bird>
+       <id>588</id>
+       <alphabeticalname>Saw-wing, Black</alphabeticalname>
+       <fullname>Black Saw-wing</fullname>
+       <scientificname>Psalidoprocne holomelaena</scientificname>
+   </bird>
+   <bird>
+       <id>589</id>
+       <alphabeticalname>Scimitarbill, Common</alphabeticalname>
+       <fullname>Common Scimitarbill</fullname>
+       <scientificname>Rhinopomastus cyanomelas</scientificname>
+   </bird>
+   <bird>
+       <id>590</id>
+       <alphabeticalname>Secretarybird</alphabeticalname>
+       <fullname>Secretarybird</fullname>
+       <scientificname>Sagittarius serpentarius</scientificname>
+   </bird>
+   <bird>
+       <id>591</id>
+       <alphabeticalname>Seedeater (Canary), Protea</alphabeticalname>
+       <fullname>Protea Seedeater (Canary)</fullname>
+       <scientificname>Crithagra leucoptera</scientificname>
+   </bird>
+   <bird>
+       <id>592</id>
+       <alphabeticalname>Seedeater, Streaky-headed</alphabeticalname>
+       <fullname>Streaky-headed Seedeater</fullname>
+       <scientificname>Crithagra gularis</scientificname>
+   </bird>
+   <bird>
+       <id>593</id>
+       <alphabeticalname>Shearwater, Cory’s</alphabeticalname>
+       <fullname>Cory's Shearwater</fullname>
+       <scientificname>Calonectris diomedea</scientificname>
+   </bird>
+   <bird>
+       <id>594</id>
+       <alphabeticalname>Shearwater, Flesh-footed</alphabeticalname>
+       <fullname>Flesh-footed Shearwater</fullname>
+       <scientificname>Puffinus carneipes</scientificname>
+   </bird>
+   <bird>
+       <id>595</id>
+       <alphabeticalname>Shearwater, Great</alphabeticalname>
+       <fullname>Great Shearwater</fullname>
+       <scientificname>Puffinus gravis</scientificname>
+   </bird>
+   <bird>
+       <id>596</id>
+       <alphabeticalname>Shearwater, Little</alphabeticalname>
+       <fullname>Little Shearwater</fullname>
+       <scientificname>Puffinus assimilis</scientificname>
+   </bird>
+   <bird>
+       <id>597</id>
+       <alphabeticalname>Shearwater, Manx</alphabeticalname>
+       <fullname>Manx Shearwater</fullname>
+       <scientificname>Puffinus puffinus</scientificname>
+   </bird>
+   <bird>
+       <id>598</id>
+       <alphabeticalname>Shearwater, Sooty</alphabeticalname>
+       <fullname>Sooty Shearwater</fullname>
+       <scientificname>Puffinus griseus</scientificname>
+   </bird>
+   <bird>
+       <id>599</id>
+       <alphabeticalname>Shearwater, Streaked</alphabeticalname>
+       <fullname>Streaked Shearwater</fullname>
+       <scientificname>Calonectris leucomelas</scientificname>
+   </bird>
+   <bird>
+       <id>600</id>
+       <alphabeticalname>Shearwater, Wedge-tailed</alphabeticalname>
+       <fullname>Wedge-tailed Shearwater</fullname>
+       <scientificname>Puffinus pacificus</scientificname>
+   </bird>
+   <bird>
+       <id>601</id>
+       <alphabeticalname>Sheathbill, Greater</alphabeticalname>
+       <fullname>Greater Sheathbill</fullname>
+       <scientificname>Chionis albus</scientificname>
+   </bird>
+   <bird>
+       <id>602</id>
+       <alphabeticalname>Shelduck, South African</alphabeticalname>
+       <fullname>South African Shelduck</fullname>
+       <scientificname>Tadorna cana</scientificname>
+   </bird>
+   <bird>
+       <id>603</id>
+       <alphabeticalname>Shikra</alphabeticalname>
+       <fullname>Shikra</fullname>
+       <scientificname>Accipiter badius</scientificname>
+   </bird>
+   <bird>
+       <id>604</id>
+       <alphabeticalname>Shoveler, Cape</alphabeticalname>
+       <fullname>Cape Shoveler</fullname>
+       <scientificname>Anas smithii</scientificname>
+   </bird>
+   <bird>
+       <id>605</id>
+       <alphabeticalname>Shrike, Crimson-breasted</alphabeticalname>
+       <fullname>Crimson-breasted Shrike</fullname>
+       <scientificname>Laniarius atrococcineus</scientificname>
+   </bird>
+   <bird>
+       <id>606</id>
+       <alphabeticalname>Shrike, Lesser Grey</alphabeticalname>
+       <fullname>Lesser Grey Shrike</fullname>
+       <scientificname>Lanius minor</scientificname>
+   </bird>
+   <bird>
+       <id>607</id>
+       <alphabeticalname>Shrike, Magpie</alphabeticalname>
+       <fullname>Magpie Shrike</fullname>
+       <scientificname>Corvinella melanoleuca</scientificname>
+   </bird>
+   <bird>
+       <id>608</id>
+       <alphabeticalname>Shrike, Red-backed</alphabeticalname>
+       <fullname>Red-backed Shrike</fullname>
+       <scientificname>Lanius collurio</scientificname>
+   </bird>
+   <bird>
+       <id>609</id>
+       <alphabeticalname>Shrike, Southern White-crowned</alphabeticalname>
+       <fullname>Southern White-crowned Shrike</fullname>
+       <scientificname>Eurocephalus anguitimens</scientificname>
+   </bird>
+   <bird>
+       <id>610</id>
+       <alphabeticalname>Siskin, Cape</alphabeticalname>
+       <fullname>Cape Siskin</fullname>
+       <scientificname>Crithagra totta</scientificname>
+   </bird>
+   <bird>
+       <id>611</id>
+       <alphabeticalname>Siskin, Drakensberg</alphabeticalname>
+       <fullname>Drakensberg Siskin</fullname>
+       <scientificname>Crithagra symonsi</scientificname>
+   </bird>
+   <bird>
+       <id>612</id>
+       <alphabeticalname>Skimmer, African</alphabeticalname>
+       <fullname>African Skimmer</fullname>
+       <scientificname>Rynchops flavirostris</scientificname>
+   </bird>
+   <bird>
+       <id>613</id>
+       <alphabeticalname>Skua, Pomarine</alphabeticalname>
+       <fullname>Pomarine Skua</fullname>
+       <scientificname>Stercorarius pomarinus</scientificname>
+   </bird>
+   <bird>
+       <id>614</id>
+       <alphabeticalname>Skua, South Polar</alphabeticalname>
+       <fullname>South Polar Skua</fullname>
+       <scientificname>Stercorarius maccormicki</scientificname>
+   </bird>
+   <bird>
+       <id>615</id>
+       <alphabeticalname>Skua, Subantarctic</alphabeticalname>
+       <fullname>Subantarctic Skua</fullname>
+       <scientificname>Stercorarius antarctica</scientificname>
+   </bird>
+   <bird>
+       <id>616</id>
+       <alphabeticalname>Snipe, African</alphabeticalname>
+       <fullname>African Snipe</fullname>
+       <scientificname>Gallinago nigripennis</scientificname>
+   </bird>
+   <bird>
+       <id>617</id>
+       <alphabeticalname>Snipe, Great</alphabeticalname>
+       <fullname>Great Snipe</fullname>
+       <scientificname>Gallinago media</scientificname>
+   </bird>
+   <bird>
+       <id>618</id>
+       <alphabeticalname>Sparrow, Cape</alphabeticalname>
+       <fullname>Cape Sparrow</fullname>
+       <scientificname>Passer melanurus</scientificname>
+   </bird>
+   <bird>
+       <id>619</id>
+       <alphabeticalname>Sparrow, Great</alphabeticalname>
+       <fullname>Great Sparrow</fullname>
+       <scientificname>Passer motitensis</scientificname>
+   </bird>
+   <bird>
+       <id>620</id>
+       <alphabeticalname>Sparrow, House</alphabeticalname>
+       <fullname>House Sparrow</fullname>
+       <scientificname>Passer domesticus</scientificname>
+   </bird>
+   <bird>
+       <id>621</id>
+       <alphabeticalname>Sparrow, Southern Grey-headed</alphabeticalname>
+       <fullname>Southern Grey-headed Sparrow</fullname>
+       <scientificname>Passer diffusus</scientificname>
+   </bird>
+   <bird>
+       <id>622</id>
+       <alphabeticalname>Sparrowhawk, Black</alphabeticalname>
+       <fullname>Black Sparrowhawk</fullname>
+       <scientificname>Accipiter melanoleucus</scientificname>
+   </bird>
+   <bird>
+       <id>623</id>
+       <alphabeticalname>Sparrowhawk, Little</alphabeticalname>
+       <fullname>Little Sparrowhawk</fullname>
+       <scientificname>Accipiter minullus</scientificname>
+   </bird>
+   <bird>
+       <id>624</id>
+       <alphabeticalname>Sparrowhawk, Ovambo</alphabeticalname>
+       <fullname>Ovambo Sparrowhawk</fullname>
+       <scientificname>Accipiter ovampensis</scientificname>
+   </bird>
+   <bird>
+       <id>625</id>
+       <alphabeticalname>Sparrowhawk, Rufous-breasted</alphabeticalname>
+       <fullname>Rufous-breasted Sparrowhawk</fullname>
+       <scientificname>Accipiter rufiventris</scientificname>
+   </bird>
+   <bird>
+       <id>626</id>
+       <alphabeticalname>Sparrow-lark, Black-eared</alphabeticalname>
+       <fullname>Black-eared Sparrow-lark</fullname>
+       <scientificname>Eremopterix australis</scientificname>
+   </bird>
+   <bird>
+       <id>627</id>
+       <alphabeticalname>Sparrow-lark, Chestnut-backed</alphabeticalname>
+       <fullname>Chestnut-backed Sparrow-lark</fullname>
+       <scientificname>Eremopterix leucotis</scientificname>
+   </bird>
+   <bird>
+       <id>628</id>
+       <alphabeticalname>Sparrow-lark, Grey-backed</alphabeticalname>
+       <fullname>Grey-backed Sparrow-lark</fullname>
+       <scientificname>Eremopterix verticalis</scientificname>
+   </bird>
+   <bird>
+       <id>629</id>
+       <alphabeticalname>Sparrow-Weaver, White-browed</alphabeticalname>
+       <fullname>White-browed Sparrow-Weaver</fullname>
+       <scientificname>Plocepasser mahali</scientificname>
+   </bird>
+   <bird>
+       <id>630</id>
+       <alphabeticalname>Spinetail, Böhm’s</alphabeticalname>
+       <fullname>Böhm’s Spinetail</fullname>
+       <scientificname>Neafrapus boehmi</scientificname>
+   </bird>
+   <bird>
+       <id>631</id>
+       <alphabeticalname>Spinetail, Mottled</alphabeticalname>
+       <fullname>Mottled Spinetail</fullname>
+       <scientificname>Telacanthura ussheri</scientificname>
+   </bird>
+   <bird>
+       <id>632</id>
+       <alphabeticalname>Spoonbill, African</alphabeticalname>
+       <fullname>African Spoonbill</fullname>
+       <scientificname>Platalea alba</scientificname>
+   </bird>
+   <bird>
+       <id>633</id>
+       <alphabeticalname>Spurfowl, Cape</alphabeticalname>
+       <fullname>Cape Spurfowl</fullname>
+       <scientificname>Pternistis capensis</scientificname>
+   </bird>
+   <bird>
+       <id>634</id>
+       <alphabeticalname>Spurfowl, Natal</alphabeticalname>
+       <fullname>Natal Spurfowl</fullname>
+       <scientificname>Pternistis natalensis</scientificname>
+   </bird>
+   <bird>
+       <id>635</id>
+       <alphabeticalname>Spurfowl, Red-billed</alphabeticalname>
+       <fullname>Red-billed Spurfowl</fullname>
+       <scientificname>Pternistis adspersus</scientificname>
+   </bird>
+   <bird>
+       <id>636</id>
+       <alphabeticalname>Spurfowl, Red-necked</alphabeticalname>
+       <fullname>Red-necked Spurfowl</fullname>
+       <scientificname>Pternistis afer</scientificname>
+   </bird>
+   <bird>
+       <id>637</id>
+       <alphabeticalname>Spurfowl, Swainson’s</alphabeticalname>
+       <fullname>Swainson’s Spurfowl</fullname>
+       <scientificname>Pternistis swainsonii</scientificname>
+   </bird>
+   <bird>
+       <id>638</id>
+       <alphabeticalname>Starling, Black-bellied</alphabeticalname>
+       <fullname>Black-bellied Starling</fullname>
+       <scientificname>Notopholia corrusca</scientificname>
+   </bird>
+   <bird>
+       <id>639</id>
+       <alphabeticalname>Starling, Burchell’s</alphabeticalname>
+       <fullname>Burchell’s Starling</fullname>
+       <scientificname>Lamprotornis australis</scientificname>
+   </bird>
+   <bird>
+       <id>640</id>
+       <alphabeticalname>Starling, Cape Glossy</alphabeticalname>
+       <fullname>Cape Glossy Starling</fullname>
+       <scientificname>Lamprotornis nitens</scientificname>
+   </bird>
+   <bird>
+       <id>641</id>
+       <alphabeticalname>Starling, Common</alphabeticalname>
+       <fullname>Common Starling</fullname>
+       <scientificname>Sturnus vulgaris</scientificname>
+   </bird>
+   <bird>
+       <id>642</id>
+       <alphabeticalname>Starling, Greater Blue-eared</alphabeticalname>
+       <fullname>Greater Blue-eared Starling</fullname>
+       <scientificname>Lamprotornis chalybaeus</scientificname>
+   </bird>
+   <bird>
+       <id>643</id>
+       <alphabeticalname>Starling, Meves’s</alphabeticalname>
+       <fullname>Meves’s Starling</fullname>
+       <scientificname>Lamprotornis mevesii</scientificname>
+   </bird>
+   <bird>
+       <id>644</id>
+       <alphabeticalname>Starling, Miombo Blue-eared</alphabeticalname>
+       <fullname>Miombo Blue-eared Starling</fullname>
+       <scientificname>Lamprotornis elisabeth</scientificname>
+   </bird>
+   <bird>
+       <id>645</id>
+       <alphabeticalname>Starling, Pale-winged</alphabeticalname>
+       <fullname>Pale-winged Starling</fullname>
+       <scientificname>Onychognathus nabouroup</scientificname>
+   </bird>
+   <bird>
+       <id>646</id>
+       <alphabeticalname>Starling, Pied</alphabeticalname>
+       <fullname>Pied Starling</fullname>
+       <scientificname>Lamprotornis bicolor</scientificname>
+   </bird>
+   <bird>
+       <id>647</id>
+       <alphabeticalname>Starling, Red-winged</alphabeticalname>
+       <fullname>Red-winged Starling</fullname>
+       <scientificname>Onychognathus morio</scientificname>
+   </bird>
+   <bird>
+       <id>648</id>
+       <alphabeticalname>Starling, Violet-backed</alphabeticalname>
+       <fullname>Violet-backed Starling</fullname>
+       <scientificname>Cinnyricinclus leucogaster</scientificname>
+   </bird>
+   <bird>
+       <id>649</id>
+       <alphabeticalname>Starling, Wattled</alphabeticalname>
+       <fullname>Wattled Starling</fullname>
+       <scientificname>Creatophora cinerea</scientificname>
+   </bird>
+   <bird>
+       <id>650</id>
+       <alphabeticalname>Stilt, Black-winged</alphabeticalname>
+       <fullname>Black-winged Stilt</fullname>
+       <scientificname>Himantopus himantopus</scientificname>
+   </bird>
+   <bird>
+       <id>651</id>
+       <alphabeticalname>Stint, Little</alphabeticalname>
+       <fullname>Little Stint</fullname>
+       <scientificname>Calidris minuta</scientificname>
+   </bird>
+   <bird>
+       <id>652</id>
+       <alphabeticalname>Stint, Long-toed</alphabeticalname>
+       <fullname>Long-toed Stint</fullname>
+       <scientificname>Calidris subminuta</scientificname>
+   </bird>
+   <bird>
+       <id>653</id>
+       <alphabeticalname>Stint, Red-necked</alphabeticalname>
+       <fullname>Red-necked Stint</fullname>
+       <scientificname>Calidris ruficollis</scientificname>
+   </bird>
+   <bird>
+       <id>654</id>
+       <alphabeticalname>Stint, Temminck’s</alphabeticalname>
+       <fullname>Temminck’s Stint</fullname>
+       <scientificname>Calidris temminckii</scientificname>
+   </bird>
+   <bird>
+       <id>655</id>
+       <alphabeticalname>Stonechat, African</alphabeticalname>
+       <fullname>African StoneChat</fullname>
+       <scientificname>Saxicola torquatus</scientificname>
+   </bird>
+   <bird>
+       <id>656</id>
+       <alphabeticalname>Stork, Abdim’s</alphabeticalname>
+       <fullname>Abdim’s Stork</fullname>
+       <scientificname>Ciconia abdimii</scientificname>
+   </bird>
+   <bird>
+       <id>657</id>
+       <alphabeticalname>Stork, Black</alphabeticalname>
+       <fullname>Black Stork</fullname>
+       <scientificname>Ciconia nigra</scientificname>
+   </bird>
+   <bird>
+       <id>658</id>
+       <alphabeticalname>Stork, Marabou</alphabeticalname>
+       <fullname>Marabou Stork</fullname>
+       <scientificname>Leptoptilos crumeniferus</scientificname>
+   </bird>
+   <bird>
+       <id>659</id>
+       <alphabeticalname>Stork, Saddle-billed</alphabeticalname>
+       <fullname>Saddle-billed Stork</fullname>
+       <scientificname>Ephippiorhynchus senegalensis</scientificname>
+   </bird>
+   <bird>
+       <id>660</id>
+       <alphabeticalname>Stork, White</alphabeticalname>
+       <fullname>White Stork</fullname>
+       <scientificname>Ciconia ciconia</scientificname>
+   </bird>
+   <bird>
+       <id>661</id>
+       <alphabeticalname>Stork, Woolly-necked</alphabeticalname>
+       <fullname>Woolly-necked Stork</fullname>
+       <scientificname>Ciconia episcopus</scientificname>
+   </bird>
+   <bird>
+       <id>662</id>
+       <alphabeticalname>Stork, Yellow-billed</alphabeticalname>
+       <fullname>Yellow-billed Stork</fullname>
+       <scientificname>Mycteria ibis</scientificname>
+   </bird>
+   <bird>
+       <id>663</id>
+       <alphabeticalname>Sugarbird, Cape</alphabeticalname>
+       <fullname>Cape Sugarbird</fullname>
+       <scientificname>Promerops cafer</scientificname>
+   </bird>
+   <bird>
+       <id>664</id>
+       <alphabeticalname>Sugarbird, Gurney’s</alphabeticalname>
+       <fullname>Gurney’s Sugarbird</fullname>
+       <scientificname>Promerops gurneyi</scientificname>
+   </bird>
+   <bird>
+       <id>665</id>
+       <alphabeticalname>Sunbird, Amethyst</alphabeticalname>
+       <fullname>Amethyst Sunbird</fullname>
+       <scientificname>Chalcomitra amethystina</scientificname>
+   </bird>
+   <bird>
+       <id>666</id>
+       <alphabeticalname>Sunbird, Collared</alphabeticalname>
+       <fullname>Collared Sunbird</fullname>
+       <scientificname>Anthodiaeta collaris</scientificname>
+   </bird>
+   <bird>
+       <id>667</id>
+       <alphabeticalname>Sunbird, Dusky</alphabeticalname>
+       <fullname>Dusky Sunbird</fullname>
+       <scientificname>Cinnyris fuscus</scientificname>
+   </bird>
+   <bird>
+       <id>668</id>
+       <alphabeticalname>Sunbird, Greater Double-collared</alphabeticalname>
+       <fullname>Greater Double-collared Sunbird</fullname>
+       <scientificname>Cinnyris afer</scientificname>
+   </bird>
+   <bird>
+       <id>669</id>
+       <alphabeticalname>Sunbird, Grey</alphabeticalname>
+       <fullname>Grey Sunbird</fullname>
+       <scientificname>Cyanomitra veroxii</scientificname>
+   </bird>
+   <bird>
+       <id>670</id>
+       <alphabeticalname>Sunbird, Malachite</alphabeticalname>
+       <fullname>Malachite Sunbird</fullname>
+       <scientificname>Nectarinia famosa</scientificname>
+   </bird>
+   <bird>
+       <id>671</id>
+       <alphabeticalname>Sunbird, Marico</alphabeticalname>
+       <fullname>Marico Sunbird</fullname>
+       <scientificname>Cinnyris mariquensis</scientificname>
+   </bird>
+   <bird>
+       <id>672</id>
+       <alphabeticalname>Sunbird, Neergaard’s</alphabeticalname>
+       <fullname>Neergaard's Sunbird</fullname>
+       <scientificname>Cinnyris neergaardi</scientificname>
+   </bird>
+   <bird>
+       <id>673</id>
+       <alphabeticalname>Sunbird, Olive</alphabeticalname>
+       <fullname>Olive Sunbird</fullname>
+       <scientificname>Cyanomitra olivacea</scientificname>
+   </bird>
+   <bird>
+       <id>674</id>
+       <alphabeticalname>Sunbird, Orange-breasted</alphabeticalname>
+       <fullname>Orange-breasted Sunbird</fullname>
+       <scientificname>Anthobaphes violacea</scientificname>
+   </bird>
+   <bird>
+       <id>675</id>
+       <alphabeticalname>Sunbird, Plain-backed</alphabeticalname>
+       <fullname>Plain-backed Sunbird</fullname>
+       <scientificname>Anthreptes reichenowi</scientificname>
+   </bird>
+   <bird>
+       <id>676</id>
+       <alphabeticalname>Sunbird, Purple-banded</alphabeticalname>
+       <fullname>Purple-banded Sunbird</fullname>
+       <scientificname>Cinnyris bifasciatus</scientificname>
+   </bird>
+   <bird>
+       <id>677</id>
+       <alphabeticalname>Sunbird, Scarlet-chested</alphabeticalname>
+       <fullname>Scarlet-chested Sunbird</fullname>
+       <scientificname>Chalcomitra senegalensis</scientificname>
+   </bird>
+   <bird>
+       <id>678</id>
+       <alphabeticalname>Sunbird, Southern Double-collared</alphabeticalname>
+       <fullname>Southern Double-collared Sunbird</fullname>
+       <scientificname>Cinnyris chalybeus</scientificname>
+   </bird>
+   <bird>
+       <id>679</id>
+       <alphabeticalname>Sunbird, Variable</alphabeticalname>
+       <fullname>Variable Sunbird</fullname>
+       <scientificname>Cinnyris venustus</scientificname>
+   </bird>
+   <bird>
+       <id>680</id>
+       <alphabeticalname>Sunbird, White-bellied</alphabeticalname>
+       <fullname>White-bellied Sunbird</fullname>
+       <scientificname>Cinnyris talatala</scientificname>
+   </bird>
+   <bird>
+       <id>681</id>
+       <alphabeticalname>Swallow, Barn</alphabeticalname>
+       <fullname>Barn Swallow</fullname>
+       <scientificname>Hirundo rustica</scientificname>
+   </bird>
+   <bird>
+       <id>682</id>
+       <alphabeticalname>Swallow, Blue</alphabeticalname>
+       <fullname>Blue Swallow</fullname>
+       <scientificname>Hirundo atrocaerulea</scientificname>
+   </bird>
+   <bird>
+       <id>683</id>
+       <alphabeticalname>Swallow, Greater Striped</alphabeticalname>
+       <fullname>Greater Striped Swallow</fullname>
+       <scientificname>Cecropis cucullata</scientificname>
+   </bird>
+   <bird>
+       <id>684</id>
+       <alphabeticalname>Swallow, Grey-rumped</alphabeticalname>
+       <fullname>Grey-rumped Swallow</fullname>
+       <scientificname>Pseudhirundo griseopyga</scientificname>
+   </bird>
+   <bird>
+       <id>685</id>
+       <alphabeticalname>Swallow, Lesser Striped</alphabeticalname>
+       <fullname>Lesser Striped Swallow</fullname>
+       <scientificname>Cecropis abyssinica</scientificname>
+   </bird>
+   <bird>
+       <id>686</id>
+       <alphabeticalname>Swallow, Mosque</alphabeticalname>
+       <fullname>Mosque Swallow</fullname>
+       <scientificname>Cecropis senegalensis</scientificname>
+   </bird>
+   <bird>
+       <id>687</id>
+       <alphabeticalname>Swallow, Pearl-breasted</alphabeticalname>
+       <fullname>Pearl-breasted Swallow</fullname>
+       <scientificname>Hirundo dimidiata</scientificname>
+   </bird>
+   <bird>
+       <id>688</id>
+       <alphabeticalname>Swallow, Red-breasted</alphabeticalname>
+       <fullname>Red-breasted Swallow</fullname>
+       <scientificname>Cecropis semirufa</scientificname>
+   </bird>
+   <bird>
+       <id>689</id>
+       <alphabeticalname>Swallow, South African Cliff</alphabeticalname>
+       <fullname>South African Cliff Swallow</fullname>
+       <scientificname>Petrochelidon spilodera</scientificname>
+   </bird>
+   <bird>
+       <id>690</id>
+       <alphabeticalname>Swallow, White-throated</alphabeticalname>
+       <fullname>White-throated Swallow</fullname>
+       <scientificname>Hirundo albigularis</scientificname>
+   </bird>
+   <bird>
+       <id>691</id>
+       <alphabeticalname>Swallow, Wire-tailed</alphabeticalname>
+       <fullname>Wire-tailed Swallow</fullname>
+       <scientificname>Hirundo smithii</scientificname>
+   </bird>
+   <bird>
+       <id>692</id>
+       <alphabeticalname>Swamphen, African (Purple)</alphabeticalname>
+       <fullname>African (Purple) Swamphen</fullname>
+       <scientificname>Porphyrio madagascariensis</scientificname>
+   </bird>
+   <bird>
+       <id>693</id>
+       <alphabeticalname>Swan, Mute</alphabeticalname>
+       <fullname>Mute Swan</fullname>
+       <scientificname>Cygnus olor</scientificname>
+   </bird>
+   <bird>
+       <id>694</id>
+       <alphabeticalname>Swift, African Black</alphabeticalname>
+       <fullname>African Black Swift</fullname>
+       <scientificname>Apus barbatus</scientificname>
+   </bird>
+   <bird>
+       <id>695</id>
+       <alphabeticalname>Swift, African Palm</alphabeticalname>
+       <fullname>African Palm Swift</fullname>
+       <scientificname>Cypsiurus parvus</scientificname>
+   </bird>
+   <bird>
+       <id>696</id>
+       <alphabeticalname>Swift, Alpine</alphabeticalname>
+       <fullname>Alpine Swift</fullname>
+       <scientificname>Tachymarptis melba</scientificname>
+   </bird>
+   <bird>
+       <id>697</id>
+       <alphabeticalname>Swift, Bradfield’s</alphabeticalname>
+       <fullname>Bradfield’s Swift</fullname>
+       <scientificname>Apus bradfieldi</scientificname>
+   </bird>
+   <bird>
+       <id>698</id>
+       <alphabeticalname>Swift, Common</alphabeticalname>
+       <fullname>Common Swift</fullname>
+       <scientificname>Apus apus</scientificname>
+   </bird>
+   <bird>
+       <id>699</id>
+       <alphabeticalname>Swift, Horus</alphabeticalname>
+       <fullname>Horus Swift</fullname>
+       <scientificname>Apus horus</scientificname>
+   </bird>
+   <bird>
+       <id>700</id>
+       <alphabeticalname>Swift, Little</alphabeticalname>
+       <fullname>Little Swift</fullname>
+       <scientificname>Apus affinis</scientificname>
+   </bird>
+   <bird>
+       <id>701</id>
+       <alphabeticalname>Swift, Pallid</alphabeticalname>
+       <fullname>Pallid Swift</fullname>
+       <scientificname>Apus pallidus</scientificname>
+   </bird>
+   <bird>
+       <id>702</id>
+       <alphabeticalname>Swift, White-rumped</alphabeticalname>
+       <fullname>White-rumped Swift</fullname>
+       <scientificname>Apus caffer</scientificname>
+   </bird>
+   <bird>
+       <id>703</id>
+       <alphabeticalname>Tchagra, Black-crowned</alphabeticalname>
+       <fullname>Black-crowned Tchagra</fullname>
+       <scientificname>Tchagra senegalus</scientificname>
+   </bird>
+   <bird>
+       <id>704</id>
+       <alphabeticalname>Tchagra, Brown-crowned</alphabeticalname>
+       <fullname>Brown-crowned Tchagra</fullname>
+       <scientificname>Tchagra australis</scientificname>
+   </bird>
+   <bird>
+       <id>705</id>
+       <alphabeticalname>Tchagra, Southern</alphabeticalname>
+       <fullname>Southern Tchagra</fullname>
+       <scientificname>Tchagra tchagra</scientificname>
+   </bird>
+   <bird>
+       <id>706</id>
+       <alphabeticalname>Teal, Cape</alphabeticalname>
+       <fullname>Cape Teal</fullname>
+       <scientificname>Anas capensis</scientificname>
+   </bird>
+   <bird>
+       <id>707</id>
+       <alphabeticalname>Teal, Hottentot</alphabeticalname>
+       <fullname>Hottentot Teal</fullname>
+       <scientificname>Anas hottentota</scientificname>
+   </bird>
+   <bird>
+       <id>708</id>
+       <alphabeticalname>Teal, Red-billed</alphabeticalname>
+       <fullname>Red-billed Teal</fullname>
+       <scientificname>Anas erythrorhyncha</scientificname>
+   </bird>
+   <bird>
+       <id>709</id>
+       <alphabeticalname>Tern, Antarctic</alphabeticalname>
+       <fullname>Antarctic Tern</fullname>
+       <scientificname>Sterna vittata</scientificname>
+   </bird>
+   <bird>
+       <id>710</id>
+       <alphabeticalname>Tern, Arctic</alphabeticalname>
+       <fullname>Arctic Tern</fullname>
+       <scientificname>Sterna paradisaea</scientificname>
+   </bird>
+   <bird>
+       <id>711</id>
+       <alphabeticalname>Tern, Black</alphabeticalname>
+       <fullname>Black Tern</fullname>
+       <scientificname>Chlidonias niger</scientificname>
+   </bird>
+   <bird>
+       <id>712</id>
+       <alphabeticalname>Tern, Black-naped</alphabeticalname>
+       <fullname>Black-naped Tern</fullname>
+       <scientificname>Sterna sumatrana</scientificname>
+   </bird>
+   <bird>
+       <id>713</id>
+       <alphabeticalname>Tern, Bridled</alphabeticalname>
+       <fullname>Bridled Tern</fullname>
+       <scientificname>Onychoprion anaethetus</scientificname>
+   </bird>
+   <bird>
+       <id>714</id>
+       <alphabeticalname>Tern, Caspian</alphabeticalname>
+       <fullname>Caspian Tern</fullname>
+       <scientificname>Sterna caspia</scientificname>
+   </bird>
+   <bird>
+       <id>715</id>
+       <alphabeticalname>Tern, Common</alphabeticalname>
+       <fullname>Common Tern</fullname>
+       <scientificname>Sterna hirundo</scientificname>
+   </bird>
+   <bird>
+       <id>716</id>
+       <alphabeticalname>Tern, Damara</alphabeticalname>
+       <fullname>Damara Tern</fullname>
+       <scientificname>Sterna balaenarum</scientificname>
+   </bird>
+   <bird>
+       <id>717</id>
+       <alphabeticalname>Tern, Elegant</alphabeticalname>
+       <fullname>Elegant Tern</fullname>
+       <scientificname>Sterna elegans</scientificname>
+   </bird>
+   <bird>
+       <id>718</id>
+       <alphabeticalname>Tern, Gull-billed</alphabeticalname>
+       <fullname>Gull-billed Tern</fullname>
+       <scientificname>Gelochelidon nilotica</scientificname>
+   </bird>
+   <bird>
+       <id>719</id>
+       <alphabeticalname>Tern, Lesser Crested</alphabeticalname>
+       <fullname>Lesser Crested Tern</fullname>
+       <scientificname>Thalasseus bengalensis</scientificname>
+   </bird>
+   <bird>
+       <id>720</id>
+       <alphabeticalname>Tern, Little</alphabeticalname>
+       <fullname>Little Tern</fullname>
+       <scientificname>Sterna albifrons</scientificname>
+   </bird>
+   <bird>
+       <id>721</id>
+       <alphabeticalname>Tern, Roseate</alphabeticalname>
+       <fullname>Roseate Tern</fullname>
+       <scientificname>Sterna dougallii</scientificname>
+   </bird>
+   <bird>
+       <id>722</id>
+       <alphabeticalname>Tern, Sandwich</alphabeticalname>
+       <fullname>Sandwich Tern</fullname>
+       <scientificname>Thalasseus sandvicensis</scientificname>
+   </bird>
+   <bird>
+       <id>723</id>
+       <alphabeticalname>Tern, Sooty</alphabeticalname>
+       <fullname>Sooty Tern</fullname>
+       <scientificname>Onychoprion fuscatus</scientificname>
+   </bird>
+   <bird>
+       <id>724</id>
+       <alphabeticalname>Tern, Swift</alphabeticalname>
+       <fullname>Swift Tern</fullname>
+       <scientificname>Thalasseus bergii</scientificname>
+   </bird>
+   <bird>
+       <id>725</id>
+       <alphabeticalname>Tern, Whiskered</alphabeticalname>
+       <fullname>Whiskered Tern</fullname>
+       <scientificname>Chlidonias hybrida</scientificname>
+   </bird>
+   <bird>
+       <id>726</id>
+       <alphabeticalname>Tern, White-cheeked</alphabeticalname>
+       <fullname>White-cheeked Tern</fullname>
+       <scientificname>Sterna repressa</scientificname>
+   </bird>
+   <bird>
+       <id>727</id>
+       <alphabeticalname>Tern, White-winged</alphabeticalname>
+       <fullname>White-winged Tern</fullname>
+       <scientificname>Chlidonias leucopterus</scientificname>
+   </bird>
+   <bird>
+       <id>728</id>
+       <alphabeticalname>Thick-knee, Spotted</alphabeticalname>
+       <fullname>Spotted Thick-knee</fullname>
+       <scientificname>Burhinus capensis</scientificname>
+   </bird>
+   <bird>
+       <id>729</id>
+       <alphabeticalname>Thick-knee, Water</alphabeticalname>
+       <fullname>Water Thick-knee</fullname>
+       <scientificname>Burhinus vermiculatus</scientificname>
+   </bird>
+   <bird>
+       <id>730</id>
+       <alphabeticalname>Thrush, Cape Rock</alphabeticalname>
+       <fullname>Cape Rock Thrush</fullname>
+       <scientificname>Monticola rupestris</scientificname>
+   </bird>
+   <bird>
+       <id>731</id>
+       <alphabeticalname>Thrush, Collared Palm</alphabeticalname>
+       <fullname>Collared Palm Thrush</fullname>
+       <scientificname>Cichladusa arquata</scientificname>
+   </bird>
+   <bird>
+       <id>732</id>
+       <alphabeticalname>Thrush, Groundscraper</alphabeticalname>
+       <fullname>Groundscraper Thrush</fullname>
+       <scientificname>Psophocichla litsitsirupa</scientificname>
+   </bird>
+   <bird>
+       <id>733</id>
+       <alphabeticalname>Thrush, Karoo</alphabeticalname>
+       <fullname>Karoo Thrush</fullname>
+       <scientificname>Turdus smithi</scientificname>
+   </bird>
+   <bird>
+       <id>734</id>
+       <alphabeticalname>Thrush, Kurrichane</alphabeticalname>
+       <fullname>Kurrichane Thrush</fullname>
+       <scientificname>Turdus libonyanus</scientificname>
+   </bird>
+   <bird>
+       <id>735</id>
+       <alphabeticalname>Thrush, Olive</alphabeticalname>
+       <fullname>Olive Thrush</fullname>
+       <scientificname>Turdus olivaceus</scientificname>
+   </bird>
+   <bird>
+       <id>736</id>
+       <alphabeticalname>Thrush, Orange Ground</alphabeticalname>
+       <fullname>Orange Ground Thrush</fullname>
+       <scientificname>Zoothera gurneyi</scientificname>
+   </bird>
+   <bird>
+       <id>737</id>
+       <alphabeticalname>Thrush, Sentinel Rock</alphabeticalname>
+       <fullname>Sentinel Rock Thrush</fullname>
+       <scientificname>Monticola explorator</scientificname>
+   </bird>
+   <bird>
+       <id>738</id>
+       <alphabeticalname>Thrush, Short-toed Rock</alphabeticalname>
+       <fullname>Short-toed Rock Thrush</fullname>
+       <scientificname>Monticola brevipes</scientificname>
+   </bird>
+   <bird>
+       <id>739</id>
+       <alphabeticalname>Thrush, Spotted Ground</alphabeticalname>
+       <fullname>Spotted Ground Thrush</fullname>
+       <scientificname>Zoothera guttata</scientificname>
+   </bird>
+   <bird>
+       <id>740</id>
+       <alphabeticalname>Tinkerbird, Red-fronted</alphabeticalname>
+       <fullname>Red-fronted Tinkerbird</fullname>
+       <scientificname>Pogoniulus pusillus</scientificname>
+   </bird>
+   <bird>
+       <id>741</id>
+       <alphabeticalname>Tinkerbird, Yellow-fronted</alphabeticalname>
+       <fullname>Yellow-fronted Tinkerbird</fullname>
+       <scientificname>Pogoniulus chrysoconus</scientificname>
+   </bird>
+   <bird>
+       <id>742</id>
+       <alphabeticalname>Tinkerbird, Yellow-rumped</alphabeticalname>
+       <fullname>Yellow-rumped Tinkerbird</fullname>
+       <scientificname>Pogoniulus bilineatus</scientificname>
+   </bird>
+   <bird>
+       <id>743</id>
+       <alphabeticalname>Tit, Ashy</alphabeticalname>
+       <fullname>Ashy Tit</fullname>
+       <scientificname>Parus cinerascens</scientificname>
+   </bird>
+   <bird>
+       <id>744</id>
+       <alphabeticalname>Tit, Grey</alphabeticalname>
+       <fullname>Grey Tit</fullname>
+       <scientificname>Parus afer</scientificname>
+   </bird>
+   <bird>
+       <id>745</id>
+       <alphabeticalname>Tit, Southern Black</alphabeticalname>
+       <fullname>Southern Black Tit</fullname>
+       <scientificname>Parus niger</scientificname>
+   </bird>
+   <bird>
+       <id>746</id>
+       <alphabeticalname>Tit-Babbler, Chestnut-vented</alphabeticalname>
+       <fullname>Chestnut-vented Tit-Babbler</fullname>
+       <scientificname>Sylvia subcaerulea</scientificname>
+   </bird>
+   <bird>
+       <id>747</id>
+       <alphabeticalname>Tit-Babbler, Layard’s</alphabeticalname>
+       <fullname>Layard’s Tit-Babbler</fullname>
+       <scientificname>Sylvia layardi</scientificname>
+   </bird>
+   <bird>
+       <id>748</id>
+       <alphabeticalname>Trogon, Narina</alphabeticalname>
+       <fullname>Narina Trogon</fullname>
+       <scientificname>Apaloderma narina</scientificname>
+   </bird>
+   <bird>
+       <id>749</id>
+       <alphabeticalname>Tropicbird, Red-billed</alphabeticalname>
+       <fullname>Red-billed Tropicbird</fullname>
+       <scientificname>Phaethon aethereus</scientificname>
+   </bird>
+   <bird>
+       <id>750</id>
+       <alphabeticalname>Tropicbird, Red-tailed</alphabeticalname>
+       <fullname>Red-tailed Tropicbird</fullname>
+       <scientificname>Phaethon rubricauda</scientificname>
+   </bird>
+   <bird>
+       <id>751</id>
+       <alphabeticalname>Tropicbird, White-tailed</alphabeticalname>
+       <fullname>White-tailed Tropicbird</fullname>
+       <scientificname>Phaethon lepturus</scientificname>
+   </bird>
+   <bird>
+       <id>752</id>
+       <alphabeticalname>Turaco, Knysna</alphabeticalname>
+       <fullname>Knysna Turaco</fullname>
+       <scientificname>Tauraco corythaix</scientificname>
+   </bird>
+   <bird>
+       <id>753</id>
+       <alphabeticalname>Turaco, Livingstone’s</alphabeticalname>
+       <fullname>Livingstone’s Turaco</fullname>
+       <scientificname>Tauraco livingstonii</scientificname>
+   </bird>
+   <bird>
+       <id>754</id>
+       <alphabeticalname>Turaco, Purple-crested</alphabeticalname>
+       <fullname>Purple-crested Turaco</fullname>
+       <scientificname>Tauraco porphyreolophus</scientificname>
+   </bird>
+   <bird>
+       <id>755</id>
+       <alphabeticalname>Turnstone, Ruddy</alphabeticalname>
+       <fullname>Ruddy Turnstone</fullname>
+       <scientificname>Arenaria interpres</scientificname>
+   </bird>
+   <bird>
+       <id>756</id>
+       <alphabeticalname>Twinspot, Green</alphabeticalname>
+       <fullname>Green Twinspot</fullname>
+       <scientificname>Mandingoa nitidula</scientificname>
+   </bird>
+   <bird>
+       <id>757</id>
+       <alphabeticalname>Twinspot, Pink-throated</alphabeticalname>
+       <fullname>Pink-throated Twinspot</fullname>
+       <scientificname>Hypargos margaritatus</scientificname>
+   </bird>
+   <bird>
+       <id>758</id>
+       <alphabeticalname>Twinspot, Red-throated</alphabeticalname>
+       <fullname>Red-throated Twinspot</fullname>
+       <scientificname>Hypargos niveoguttatus</scientificname>
+   </bird>
+   <bird>
+       <id>759</id>
+       <alphabeticalname>Vulture, Bearded</alphabeticalname>
+       <fullname>Bearded Vulture</fullname>
+       <scientificname>Gypaetus barbatus</scientificname>
+   </bird>
+   <bird>
+       <id>760</id>
+       <alphabeticalname>Vulture, Cape</alphabeticalname>
+       <fullname>Cape Vulture</fullname>
+       <scientificname>Gyps coprotheres</scientificname>
+   </bird>
+   <bird>
+       <id>761</id>
+       <alphabeticalname>Vulture, Egyptian</alphabeticalname>
+       <fullname>Egyptian Vulture</fullname>
+       <scientificname>Neophron percnopterus</scientificname>
+   </bird>
+   <bird>
+       <id>762</id>
+       <alphabeticalname>Vulture, Hooded</alphabeticalname>
+       <fullname>Hooded Vulture</fullname>
+       <scientificname>Necrosyrtes monachus</scientificname>
+   </bird>
+   <bird>
+       <id>763</id>
+       <alphabeticalname>Vulture, Lappet-faced</alphabeticalname>
+       <fullname>Lappet-faced Vulture</fullname>
+       <scientificname>Aegypius tracheliotos</scientificname>
+   </bird>
+   <bird>
+       <id>764</id>
+       <alphabeticalname>Vulture, Palm-nut</alphabeticalname>
+       <fullname>Palm-nut Vulture</fullname>
+       <scientificname>Gypohierax angolensis</scientificname>
+   </bird>
+   <bird>
+       <id>765</id>
+       <alphabeticalname>Vulture, Rüppell’s</alphabeticalname>
+       <fullname>Rüppell’s Vulture</fullname>
+       <scientificname>Gyps rueppellii</scientificname>
+   </bird>
+   <bird>
+       <id>766</id>
+       <alphabeticalname>Vulture, White-backed</alphabeticalname>
+       <fullname>White-backed Vulture</fullname>
+       <scientificname>Gyps africanus</scientificname>
+   </bird>
+   <bird>
+       <id>767</id>
+       <alphabeticalname>Vulture, White-headed</alphabeticalname>
+       <fullname>White-headed Vulture</fullname>
+       <scientificname>Aegypius occipitalis</scientificname>
+   </bird>
+   <bird>
+       <id>768</id>
+       <alphabeticalname>Wagtail, African Pied</alphabeticalname>
+       <fullname>African Pied Wagtail</fullname>
+       <scientificname>Motacilla aguimp</scientificname>
+   </bird>
+   <bird>
+       <id>769</id>
+       <alphabeticalname>Wagtail, Cape</alphabeticalname>
+       <fullname>Cape Wagtail</fullname>
+       <scientificname>Motacilla capensis</scientificname>
+   </bird>
+   <bird>
+       <id>770</id>
+       <alphabeticalname>Wagtail, Citrine</alphabeticalname>
+       <fullname>Citrine Wagtail</fullname>
+       <scientificname>Motacilla citreola</scientificname>
+   </bird>
+   <bird>
+       <id>771</id>
+       <alphabeticalname>Wagtail, Grey</alphabeticalname>
+       <fullname>Grey Wagtail</fullname>
+       <scientificname>Motacilla cinerea</scientificname>
+   </bird>
+   <bird>
+       <id>772</id>
+       <alphabeticalname>Wagtail, Mountain</alphabeticalname>
+       <fullname>Mountain Wagtail</fullname>
+       <scientificname>Motacilla clara</scientificname>
+   </bird>
+   <bird>
+       <id>773</id>
+       <alphabeticalname>Wagtail, Western Yellow</alphabeticalname>
+       <fullname>Western Yellow Wagtail</fullname>
+       <scientificname>Motacilla flava</scientificname>
+   </bird>
+   <bird>
+       <id>774</id>
+       <alphabeticalname>Warbler, African Reed</alphabeticalname>
+       <fullname>African Reed Warbler</fullname>
+       <scientificname>Acrocephalus baeticatus</scientificname>
+   </bird>
+   <bird>
+       <id>775</id>
+       <alphabeticalname>Warbler, Barratt’s</alphabeticalname>
+       <fullname>Barratt’s Warbler</fullname>
+       <scientificname>Bradypterus barratti</scientificname>
+   </bird>
+   <bird>
+       <id>776</id>
+       <alphabeticalname>Warbler, Barred Wren-</alphabeticalname>
+       <fullname>Barred Wren-Warbler</fullname>
+       <scientificname>Calamonastes fasciolatus</scientificname>
+   </bird>
+   <bird>
+       <id>777</id>
+       <alphabeticalname>Warbler, Basra Reed</alphabeticalname>
+       <fullname>Basra Reed Warbler</fullname>
+       <scientificname>Acrocephalus griseldis</scientificname>
+   </bird>
+   <bird>
+       <id>778</id>
+       <alphabeticalname>Warbler, Broad-tailed</alphabeticalname>
+       <fullname>Broad-tailed Warbler</fullname>
+       <scientificname>Schoenicola brevirostris</scientificname>
+   </bird>
+   <bird>
+       <id>779</id>
+       <alphabeticalname>Warbler, Cinnamon-breasted</alphabeticalname>
+       <fullname>Cinnamon-breasted Warbler</fullname>
+       <scientificname>Euryptila subcinnamomea</scientificname>
+   </bird>
+   <bird>
+       <id>780</id>
+       <alphabeticalname>Warbler, Dark-capped Yellow</alphabeticalname>
+       <fullname>Dark-capped Yellow Warbler</fullname>
+       <scientificname>Iduna natalensis</scientificname>
+   </bird>
+   <bird>
+       <id>781</id>
+       <alphabeticalname>Warbler, Eurasian Reed</alphabeticalname>
+       <fullname>Eurasian Reed Warbler</fullname>
+       <scientificname>Acrocephalus scirpaceus</scientificname>
+   </bird>
+   <bird>
+       <id>782</id>
+       <alphabeticalname>Warbler, Garden</alphabeticalname>
+       <fullname>Garden Warbler</fullname>
+       <scientificname>Sylvia borin</scientificname>
+   </bird>
+   <bird>
+       <id>783</id>
+       <alphabeticalname>Warbler, Great Reed</alphabeticalname>
+       <fullname>Great Reed Warbler</fullname>
+       <scientificname>Acrocephalus arundinaceus</scientificname>
+   </bird>
+   <bird>
+       <id>784</id>
+       <alphabeticalname>Warbler, Icterine</alphabeticalname>
+       <fullname>Icterine Warbler</fullname>
+       <scientificname>Hippolais icterina</scientificname>
+   </bird>
+   <bird>
+       <id>785</id>
+       <alphabeticalname>Warbler, Knysna</alphabeticalname>
+       <fullname>Knysna Warbler</fullname>
+       <scientificname>Bradypterus sylvaticus</scientificname>
+   </bird>
+   <bird>
+       <id>786</id>
+       <alphabeticalname>Warbler, Lesser Swamp</alphabeticalname>
+       <fullname>Lesser Swamp Warbler</fullname>
+       <scientificname>Acrocephalus gracilirostris</scientificname>
+   </bird>
+   <bird>
+       <id>787</id>
+       <alphabeticalname>Warbler, Little Rush</alphabeticalname>
+       <fullname>Little Rush Warbler</fullname>
+       <scientificname>Bradypterus baboecala</scientificname>
+   </bird>
+   <bird>
+       <id>788</id>
+       <alphabeticalname>Warbler, Marsh</alphabeticalname>
+       <fullname>Marsh Warbler</fullname>
+       <scientificname>Acrocephalus palustris</scientificname>
+   </bird>
+   <bird>
+       <id>789</id>
+       <alphabeticalname>Warbler, Namaqua</alphabeticalname>
+       <fullname>Namaqua Warbler</fullname>
+       <scientificname>Phragmacia substriata</scientificname>
+   </bird>
+   <bird>
+       <id>790</id>
+       <alphabeticalname>Warbler, Olive-tree</alphabeticalname>
+       <fullname>Olive-tree Warbler</fullname>
+       <scientificname>Hippolais olivetorum</scientificname>
+   </bird>
+   <bird>
+       <id>791</id>
+       <alphabeticalname>Warbler, River</alphabeticalname>
+       <fullname>River Warbler</fullname>
+       <scientificname>Locustella fluviatilis</scientificname>
+   </bird>
+   <bird>
+       <id>792</id>
+       <alphabeticalname>Warbler, Rufous-eared</alphabeticalname>
+       <fullname>Rufous-eared Warbler</fullname>
+       <scientificname>Malcorus pectoralis</scientificname>
+   </bird>
+   <bird>
+       <id>793</id>
+       <alphabeticalname>Warbler, Sedge</alphabeticalname>
+       <fullname>Sedge Warbler</fullname>
+       <scientificname>Acrocephalus schoenobaenus</scientificname>
+   </bird>
+   <bird>
+       <id>794</id>
+       <alphabeticalname>Warbler, Stierling’s Wren-</alphabeticalname>
+       <fullname>Stierling’s Wren-Warbler</fullname>
+       <scientificname>Calamonastes stierlingi</scientificname>
+   </bird>
+   <bird>
+       <id>795</id>
+       <alphabeticalname>Warbler, Victorin’s</alphabeticalname>
+       <fullname>Victorin’s Warbler</fullname>
+       <scientificname>Cryptillas victorini</scientificname>
+   </bird>
+   <bird>
+       <id>796</id>
+       <alphabeticalname>Warbler, Willow</alphabeticalname>
+       <fullname>Willow Warbler</fullname>
+       <scientificname>Phylloscopus trochilus</scientificname>
+   </bird>
+   <bird>
+       <id>797</id>
+       <alphabeticalname>Warbler, Yellow-throated Woodland</alphabeticalname>
+       <fullname>Yellow-throated Woodland Warbler</fullname>
+       <scientificname>Phylloscopus ruficapilla</scientificname>
+   </bird>
+   <bird>
+       <id>798</id>
+       <alphabeticalname>Wattle-eye, Black-throated</alphabeticalname>
+       <fullname>Black-throated Wattle-eye</fullname>
+       <scientificname>Platysteira peltata</scientificname>
+   </bird>
+   <bird>
+       <id>799</id>
+       <alphabeticalname>Waxbill, Black-faced</alphabeticalname>
+       <fullname>Black-faced Waxbill</fullname>
+       <scientificname>Estrilda erythronotos</scientificname>
+   </bird>
+   <bird>
+       <id>800</id>
+       <alphabeticalname>Waxbill, Blue</alphabeticalname>
+       <fullname>Blue Waxbill</fullname>
+       <scientificname>Uraeginthus angolensis</scientificname>
+   </bird>
+   <bird>
+       <id>801</id>
+       <alphabeticalname>Waxbill, Common</alphabeticalname>
+       <fullname>Common Waxbill</fullname>
+       <scientificname>Estrilda astrild</scientificname>
+   </bird>
+   <bird>
+       <id>802</id>
+       <alphabeticalname>Waxbill, Grey</alphabeticalname>
+       <fullname>Grey Waxbill</fullname>
+       <scientificname>Estrilda perreini</scientificname>
+   </bird>
+   <bird>
+       <id>803</id>
+       <alphabeticalname>Waxbill, Orange-breasted</alphabeticalname>
+       <fullname>Orange-breasted Waxbill</fullname>
+       <scientificname>Amandava subflava</scientificname>
+   </bird>
+   <bird>
+       <id>804</id>
+       <alphabeticalname>Waxbill, Swee</alphabeticalname>
+       <fullname>Swee Waxbill</fullname>
+       <scientificname>Coccopygia melanotis</scientificname>
+   </bird>
+   <bird>
+       <id>805</id>
+       <alphabeticalname>Waxbill, Violet-eared</alphabeticalname>
+       <fullname>Violet-eared Waxbill</fullname>
+       <scientificname>Uraeginthus granatinus</scientificname>
+   </bird>
+   <bird>
+       <id>806</id>
+       <alphabeticalname>Weaver, African (Holub's) Golden</alphabeticalname>
+       <fullname>African (Holub's) Golden Weaver</fullname>
+       <scientificname>Ploceus xanthops</scientificname>
+   </bird>
+   <bird>
+       <id>807</id>
+       <alphabeticalname>Weaver, Cape</alphabeticalname>
+       <fullname>Cape Weaver</fullname>
+       <scientificname>Ploceus capensis</scientificname>
+   </bird>
+   <bird>
+       <id>808</id>
+       <alphabeticalname>Weaver, Chestnut</alphabeticalname>
+       <fullname>Chestnut Weaver</fullname>
+       <scientificname>Ploceus rubiginosus</scientificname>
+   </bird>
+   <bird>
+       <id>809</id>
+       <alphabeticalname>Weaver, Dark-backed</alphabeticalname>
+       <fullname>Dark-backed Weaver</fullname>
+       <scientificname>Ploceus bicolor</scientificname>
+   </bird>
+   <bird>
+       <id>810</id>
+       <alphabeticalname>Weaver, Lesser Masked</alphabeticalname>
+       <fullname>Lesser Masked Weaver</fullname>
+       <scientificname>Ploceus intermedius</scientificname>
+   </bird>
+   <bird>
+       <id>811</id>
+       <alphabeticalname>Weaver, Red-billed Buffalo</alphabeticalname>
+       <fullname>Red-billed Buffalo Weaver</fullname>
+       <scientificname>Bubalornis niger</scientificname>
+   </bird>
+   <bird>
+       <id>812</id>
+       <alphabeticalname>Weaver, Red-headed</alphabeticalname>
+       <fullname>Red-headed Weaver</fullname>
+       <scientificname>Anaplectes rubriceps</scientificname>
+   </bird>
+   <bird>
+       <id>813</id>
+       <alphabeticalname>Weaver, Sociable</alphabeticalname>
+       <fullname>Sociable Weaver</fullname>
+       <scientificname>Philetairus socius</scientificname>
+   </bird>
+   <bird>
+       <id>814</id>
+       <alphabeticalname>Weaver, Southern Brown-throated</alphabeticalname>
+       <fullname>Southern Brown-throated Weaver</fullname>
+       <scientificname>Ploceus xanthopterus</scientificname>
+   </bird>
+   <bird>
+       <id>815</id>
+       <alphabeticalname>Weaver, Southern Masked</alphabeticalname>
+       <fullname>Southern Masked Weaver</fullname>
+       <scientificname>Ploceus velatus</scientificname>
+   </bird>
+   <bird>
+       <id>816</id>
+       <alphabeticalname>Weaver, Spectacled</alphabeticalname>
+       <fullname>Spectacled Weaver</fullname>
+       <scientificname>Ploceus ocularis</scientificname>
+   </bird>
+   <bird>
+       <id>817</id>
+       <alphabeticalname>Weaver, Thick-billed</alphabeticalname>
+       <fullname>Thick-billed Weaver</fullname>
+       <scientificname>Amblyospiza albifrons</scientificname>
+   </bird>
+   <bird>
+       <id>818</id>
+       <alphabeticalname>Weaver, Village</alphabeticalname>
+       <fullname>Village Weaver</fullname>
+       <scientificname>Ploceus cucullatus</scientificname>
+   </bird>
+   <bird>
+       <id>819</id>
+       <alphabeticalname>Weaver, Yellow</alphabeticalname>
+       <fullname>Yellow Weaver</fullname>
+       <scientificname>Ploceus subaureus</scientificname>
+   </bird>
+   <bird>
+       <id>820</id>
+       <alphabeticalname>Wheatear, Capped</alphabeticalname>
+       <fullname>Capped Wheatear</fullname>
+       <scientificname>Oenanthe pileata</scientificname>
+   </bird>
+   <bird>
+       <id>821</id>
+       <alphabeticalname>Wheatear, Mountain</alphabeticalname>
+       <fullname>Mountain Wheatear</fullname>
+       <scientificname>Oenanthe monticola</scientificname>
+   </bird>
+   <bird>
+       <id>822</id>
+       <alphabeticalname>Wheatear, Northern</alphabeticalname>
+       <fullname>Northern Wheatear</fullname>
+       <scientificname>Oenanthe oenanthe</scientificname>
+   </bird>
+   <bird>
+       <id>823</id>
+       <alphabeticalname>Wheatear, Pied</alphabeticalname>
+       <fullname>Pied Wheatear</fullname>
+       <scientificname>Oenanthe pleschanka</scientificname>
+   </bird>
+   <bird>
+       <id>824</id>
+       <alphabeticalname>Whimbrel, Common</alphabeticalname>
+       <fullname>Common Whimbrel</fullname>
+       <scientificname>Numenius phaeopus</scientificname>
+   </bird>
+   <bird>
+       <id>825</id>
+       <alphabeticalname>White-eye, African Yellow</alphabeticalname>
+       <fullname>African Yellow White-eye</fullname>
+       <scientificname>Zosterops senegalensis</scientificname>
+   </bird>
+   <bird>
+       <id>826</id>
+       <alphabeticalname>White-eye, Cape</alphabeticalname>
+       <fullname>Cape White-eye</fullname>
+       <scientificname>Zosterops capensis</scientificname>
+   </bird>
+   <bird>
+       <id>827</id>
+       <alphabeticalname>White-eye, Orange River</alphabeticalname>
+       <fullname>Orange River White-eye</fullname>
+       <scientificname>Zosterops pallidus</scientificname>
+   </bird>
+   <bird>
+       <id>828</id>
+       <alphabeticalname>Whitethroat, Common</alphabeticalname>
+       <fullname>Common Whitethroat</fullname>
+       <scientificname>Sylvia communis</scientificname>
+   </bird>
+   <bird>
+       <id>829</id>
+       <alphabeticalname>Whydah, Broad-tailed Paradise</alphabeticalname>
+       <fullname>Broad-tailed Paradise Whydah</fullname>
+       <scientificname>Vidua obtusa</scientificname>
+   </bird>
+   <bird>
+       <id>830</id>
+       <alphabeticalname>Whydah, Long-tailed Paradise</alphabeticalname>
+       <fullname>Long-tailed Paradise Whydah</fullname>
+       <scientificname>Vidua paradisaea</scientificname>
+   </bird>
+   <bird>
+       <id>831</id>
+       <alphabeticalname>Whydah, Pin-tailed</alphabeticalname>
+       <fullname>Pin-tailed Whydah</fullname>
+       <scientificname>Vidua macroura</scientificname>
+   </bird>
+   <bird>
+       <id>832</id>
+       <alphabeticalname>Whydah, Shaft-tailed</alphabeticalname>
+       <fullname>Shaft-tailed Whydah</fullname>
+       <scientificname>Vidua regia</scientificname>
+   </bird>
+   <bird>
+       <id>833</id>
+       <alphabeticalname>Widowbird, Fan-tailed</alphabeticalname>
+       <fullname>Fan-tailed Widowbird</fullname>
+       <scientificname>Euplectes axillaris</scientificname>
+   </bird>
+   <bird>
+       <id>834</id>
+       <alphabeticalname>Widowbird, Long-tailed</alphabeticalname>
+       <fullname>Long-tailed Widowbird</fullname>
+       <scientificname>Euplectes progne</scientificname>
+   </bird>
+   <bird>
+       <id>835</id>
+       <alphabeticalname>Widowbird, Red-collared</alphabeticalname>
+       <fullname>Red-collared Widowbird</fullname>
+       <scientificname>Euplectes ardens</scientificname>
+   </bird>
+   <bird>
+       <id>836</id>
+       <alphabeticalname>Widowbird, White-winged</alphabeticalname>
+       <fullname>White-winged Widowbird</fullname>
+       <scientificname>Euplectes albonotatus</scientificname>
+   </bird>
+   <bird>
+       <id>837</id>
+       <alphabeticalname>Wood-hoopoe, Green</alphabeticalname>
+       <fullname>Green Wood-hoopoe</fullname>
+       <scientificname>Phoeniculus purpureus</scientificname>
+   </bird>
+   <bird>
+       <id>838</id>
+       <alphabeticalname>Woodpecker, Bearded</alphabeticalname>
+       <fullname>Bearded Woodpecker</fullname>
+       <scientificname>Dendropicos namaquus</scientificname>
+   </bird>
+   <bird>
+       <id>839</id>
+       <alphabeticalname>Woodpecker, Bennett’s</alphabeticalname>
+       <fullname>Bennett’s Woodpecker</fullname>
+       <scientificname>Campethera bennettii</scientificname>
+   </bird>
+   <bird>
+       <id>840</id>
+       <alphabeticalname>Woodpecker, Cardinal</alphabeticalname>
+       <fullname>Cardinal Woodpecker</fullname>
+       <scientificname>Dendropicos fuscescens</scientificname>
+   </bird>
+   <bird>
+       <id>841</id>
+       <alphabeticalname>Woodpecker, Golden-tailed</alphabeticalname>
+       <fullname>Golden-tailed Woodpecker</fullname>
+       <scientificname>Campethera abingoni</scientificname>
+   </bird>
+   <bird>
+       <id>842</id>
+       <alphabeticalname>Woodpecker, Ground</alphabeticalname>
+       <fullname>Ground Woodpecker</fullname>
+       <scientificname>Geocolaptes olivaceus</scientificname>
+   </bird>
+   <bird>
+       <id>843</id>
+       <alphabeticalname>Woodpecker, Knysna</alphabeticalname>
+       <fullname>Knysna Woodpecker</fullname>
+       <scientificname>Campethera notata</scientificname>
+   </bird>
+   <bird>
+       <id>844</id>
+       <alphabeticalname>Woodpecker, Olive</alphabeticalname>
+       <fullname>Olive Woodpecker</fullname>
+       <scientificname>Dendropicos griseocephalus</scientificname>
+   </bird>
+   <bird>
+       <id>845</id>
+       <alphabeticalname>Wryneck, Red-throated</alphabeticalname>
+       <fullname>Red-throated Wryneck</fullname>
+       <scientificname>Jynx ruficollis</scientificname>
+   </bird>
+   <bird>
+       <id>846</id>
+       <alphabeticalname>Yellowlegs, Lesser</alphabeticalname>
+       <fullname>Lesser Yellowlegs</fullname>
+       <scientificname>Tringa flavipes</scientificname>
+   </bird>
+</birds>

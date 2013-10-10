@@ -1,0 +1,167 @@
+.mceContentBody {
+    border: none;
+    margin: 10px;
+    padding: 0;
+    text-align: left;    
+    background-color: #fff;
+}
+
+.wiki-content,
+.wiki-content p,
+.wiki-content table,
+.wiki-content tr,
+.wiki-content td,
+.wiki-content th,
+.wiki-content ol,
+.wiki-content ul,
+.wiki-content li {
+    font-size: 10pt;
+    line-height: 13pt;
+}
+
+.wiki-content p {
+    margin: 10px 0;
+    padding: 0;
+}
+
+.wiki-content li,
+.wiki-content ul p,
+.wiki-content ol p {
+    margin: 0;
+    padding: 0;
+}
+
+.wiki-content ul {
+    list-style-type: disc;
+    color: #000;
+    margin: 10px 0;
+    padding-left: 22px;
+}
+
+.wiki-content ul ul {
+    margin: 0;
+}
+
+.wiki-content ol {
+    list-style-type: decimal;
+}
+
+.wiki-content ol ol {
+    list-style-type: lower-alpha;
+}
+
+.wiki-content ol ol ol {
+    list-style-type: lower-roman;
+}
+
+.wiki-content ol ol ol ol {
+    list-style-type: decimal;
+}
+
+.wiki-content ol ol ol ol ol {
+    list-style-type: lower-alpha;
+}
+
+.wiki-content ol ol ol ol ol ol {
+    list-style-type: lower-roman;
+}
+
+.wiki-content ol ol ol ol ol ol ol {
+    list-style-type: decimal;
+}
+
+.wiki-content ol ol ol ol ol ol ol ol {
+    list-style-type: lower-alpha;
+}
+
+.wiki-content ol ol ol ol ol ol ol ol ol {
+    list-style-type: lower-roman;
+}
+
+.wiki-content ol ol ol ol ol ol ol ol ol ol {
+    list-style-type: decimal;
+}
+
+.wiki-content ol ol ol ol ol ol ol ol ol ol ol {
+    list-style-type: lower-alpha;
+}
+
+.wiki-content ol ol ol ol ol ol ol ol ol ol ol ol {
+    list-style-type: lower-roman;
+}
+
+#com-atlassian-confluence .wiki-content h1,
+.wiki-content h1,
+.wiki-content h2,
+.wiki-content h3,
+.wiki-content h4,
+.wiki-content h5,
+.wiki-content h6 {
+    font-weight: bold;
+    line-height: normal;
+    padding: 0;
+    margin: 0;
+}
+
+.wiki-content h1 {
+    font-size: 18pt;
+    margin-top: 32px;
+}
+
+.wiki-content h2 {
+    font-size: 16pt;
+    margin-top: 24px;
+}
+
+.wiki-content h3 {
+    font-size: 14pt;
+    margin-top: 20px;
+}
+
+.wiki-content h4 {
+    font-size: 12pt;
+    margin-top: 14px;
+}
+
+.wiki-content h5 {
+    font-size: 11pt;
+    margin-top: 12px;
+}
+
+.wiki-content h6 {
+    font-size: 10pt;
+    color: black;
+    margin-top: 8px;
+}
+
+.wiki-content .confluenceTable, .grid {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 0;
+}
+
+.wiki-content td.confluenceTd {
+    padding-right: 10px;
+}
+.wiki-content td.confluenceTd,
+.wiki-content th.confluenceTh {
+    margin: 0;
+    padding: 0;
+}
+
+.wiki-content-preview {
+    padding: 5px;
+    border-left: 1px solid;
+    border-right: 1px solid;
+}
+.mceEditor td {
+    background: #fff;
+}
+td.mceToolbarTop {
+    background: #f0eeee;
+}
+td.mceStatusbarBottom {
+    border-top: none;
+}

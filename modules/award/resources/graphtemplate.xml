@@ -1,0 +1,47 @@
+<chart>
+
+	<axis_category size='16' alpha='85' shadow='medium' />
+	<axis_ticks value_ticks='false' category_ticks='true' major_thickness='2' minor_thickness='1' minor_count='1' minor_color='222222' position='inside' />
+	<axis_value shadow='medium' min='[MIN]' size='10' color='000000' alpha='65' steps='6' show_min='false' />
+	
+	<chart_data>
+		[CONTENT]
+	</chart_data>
+	<chart_grid_h alpha='10' thickness='1' />
+	<chart_guide horizontal='true' vertical='true' thickness='1' alpha='25' type='dashed' text_h_alpha='0' text_v_alpha='0' />
+	<chart_note type='flag' size='11' color='000000' alpha='70' x='-10' y='-36' background_color='aaff00' background_alpha='75' shadow='medium' bevel='note' />
+	<chart_pref line_thickness='2' point_shape='circle' point_size='7' fill_shape='false' />
+	<chart_rect x='35' y='40' width='745' height='370' positive_color='ffffee' positive_alpha='65' negative_color='ff8888' negative_alpha='65' bevel='bg' shadow='high' />
+	<chart_transition type='slide_left' delay='.5' duration='0.5' order='series' />
+	<chart_type>Line</chart_type>
+	
+	<draw>
+		<text shadow='high' transition='dissolve' delay='0' duration='0.5' alpha='70' size='15' x='08' y='-18' width='770' height='35' h_align='left' v_align='bottom'>[TITLE]</text>
+	</draw>
+	<filter>
+		<shadow id='low' distance='2' angle='45' alpha='20' blurX='5' blurY='5' />
+		<shadow id='medium' distance='2' angle='45' alpha='40' blurX='7' blurY='7' />
+		<shadow id='high' distance='5' angle='45' alpha='25' blurX='10' blurY='10' />
+		<bevel id='bg' angle='45' blurX='15' blurY='15' distance='5' highlightAlpha='25' shadowAlpha='50' type='outer' />
+		<bevel id='note' angle='45' blurX='10' blurY='10' distance='3' highlightAlpha='60' shadowAlpha='15' />
+	</filter>
+   
+	<legend shadow='low' transition='dissolve' delay='0' duration='0.5' x='5' y='15' width='780' height='5' layout='horizontal' margin='5' bullet='line' size='13' color='000000' alpha='75' fill_color='000000' fill_alpha='10' line_color='000000' line_alpha='70' line_thickness='0' />
+	
+	<tooltip color='FFFFFF' alpha='90' background_color='8888FF' background_alpha='90' shadow='medium' />
+            
+	<series_color>
+		<color>ff4422</color>
+		<color>ffee00</color>
+		<color>8844ff</color>
+        <color>000000</color>
+		<color>0000ff</color>
+		<color>00ff00</color>
+		<color>c89341</color>
+		<color>668899</color>
+		<color>4c6b41</color>
+		<color>844684</color>
+		<color>ff9000</color>
+	</series_color>
+
+</chart>

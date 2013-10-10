@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<updates>
+    <update>
+        <table>tbl_liftclub_details</table>
+        <version>0.21</version>
+        <description>Added the safety and privacy terms field</description>
+        <data>
+        	<add>
+    			    <name>safetyterms</name>
+		    	    <type>text</type>
+    			    <length>2</length>
+			      </add>
+		      </data>
+	  </update>
+    <update>
+        <table>tbl_liftclub_details</table>
+        <version>0.15</version>
+        <description>Added a field for user need</description>
+        <data>
+            <add>
+                <name>userneed</name>
+                <type>text</type>
+                <length>15</length>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_liftclub_details</table>
+        <version>0.15</version>
+        <description>Added a Need Type Field</description>
+        <data>
+        	<add>
+    			    <name>needtype</name>
+		    	    <type>text</type>
+    			    <length>15</length>
+			      </add>
+		      </data>
+	  </update>    
+    <update>
+        <table>tbl_liftclub_details</table>
+        <version>0.15</version>
+        <description>Added a date Required Type Field</description>
+        <data>
+        	<add>
+    			    <name>daterequired</name>
+		    	    <type>date</type>
+			      </add>
+		      </data>
+	  </update>    
+    <update>
+        <table>tbl_liftclub_details</table>
+        <version>0.15</version>
+        <description>Added a date created or modified Field</description>
+        <data>
+        	<add>
+    			    <name>datecreatedormodified</name>
+		    	    <type>timestamp</type>
+			      </add>
+		      </data>
+	  </update>
+</updates>

@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<updates>
+    <update>
+        <table>tbl_blogcomments</table>
+        <version>0.5</version>
+        <description>Modified field length of the author name</description>
+        <data>
+        	<change>
+    			<comment_author>
+        		<type>text</type>
+        			<definition>
+		    			<type>text</type>
+    					<length>150</length>
+    				</definition>
+    			</comment_author>
+			</change>
+		</data>
+	</update>
+</updates>

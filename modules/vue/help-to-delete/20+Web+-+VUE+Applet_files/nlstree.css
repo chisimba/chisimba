@@ -1,0 +1,65 @@
+.prnnode, .node, .selnode, .selprnnode, .row, .selrow {
+    font-family:tahoma,Arial;
+    font-size:8pt;
+    text-decoration:none;
+    padding:0px;
+    margin:0px;
+    line-height:1;
+    border:0px none;
+    cursor:pointer;
+    color:#000000;
+    outline-style:none;
+}
+
+
+a.prnnode  {
+    padding:3px;
+}
+
+a.prnnode:hover {
+    Xfont-weight:bold;
+    background-color:#CCFFCC;
+}
+
+a.node {
+    padding:3px;
+}
+
+a.node:hover {
+    Xfont-weight:bold;
+    background-color:#CCFFCC;
+}
+
+a.selnode {
+    Xfont-weight:bold;
+    background-color:#CCFFCC;
+    padding:2px;
+    border:#66CC66 1px solid;
+}
+
+a.selprnnode {
+    Xfont-weight:bold;
+    background-color:#CCFFCC;
+    padding:2px;
+    border:#66CC66 1px solid;
+}
+
+div.row {
+    color:#0066cc;
+}
+
+div.selrow {
+    background-color:#99CCFF;
+}
+
+div.row:hover {
+    Xfont-weight:bold;
+}
+
+input.nodeedit {
+    color:#666666;
+    position:absolute;
+    height:20px;
+    border:#cfcfcf 1px solid;
+    z-index:1;
+}

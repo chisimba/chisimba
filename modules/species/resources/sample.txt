@@ -1,0 +1,1 @@
+This is a sample file that is loaded by Ajax using species.js. Put all your jQuery and other javascript file into species.js and load it in your controller's init() method, or wherever you need it.

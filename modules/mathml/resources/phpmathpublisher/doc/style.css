@@ -1,0 +1,115 @@
+BODY {
+	font-family:  'Times New Roman',times,serif ;
+	background-color:#FFFFFF;
+	color:#000000;
+	margin-top: 5px;
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+}
+A:link    { color:#335d88;font-weight: bold; text-decoration: none;}
+A:visited { color:#335d88;font-weight: bold;  text-decoration: none;}
+A:hover   { color:red; font-weight: bold; text-decoration: none;}
+
+#contentlabel
+{
+	font-family : 'Times New Roman',times,serif ;
+	font-size : 1.2em;
+	font-style: bold;
+	color: #666666;
+	font-variant: small-caps;
+	background-color:#FFFFFF;
+	padding-left: 0px;
+	padding-right: 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border-bottom: 2px dotted #888;
+}
+
+#contentbox
+{
+	font-family : 'Times New Roman',times,serif ;
+	font-size : medium;
+}
+
+#header
+{
+	color: #666666;
+	font-family :  'Times New Roman',times,serif ;
+	font-weight: bold;
+	font-variant: small-caps;
+	background-color:#FFFFFF;
+	font-size: 1.4em;
+	padding: 2px 0 2px 10px;
+	margin: 0px;
+	text-align : center;
+}
+
+#nav 
+{
+	color: #335d88;
+	background-color: #95c1df;
+	font-family :  'Times New Roman',times,serif ;
+	font-size: 0.8em;
+	padding: 2px 0 2px 10px;
+	margin: 0px;
+}
+#aide
+{
+font-family :  arial,helvetica,sans-serif;
+}
+#aide .left
+{
+float : left;
+left : 1%;
+width :35%;
+font-family :  arial,helvetica,sans-serif;
+color:#000;
+background-color:#f0f0f0;
+border:1px solid #69c;
+line-height:150%;
+padding: 5px 5px 5px 5px;
+/*position: absolute;*/
+font-size: .8em;
+}
+
+#aide .center
+{
+margin : 1em 37%;
+font-family :  arial,helvetica,sans-serif;
+color:#000;
+background-color:#f0f0f0;
+border:1px solid #69c;
+line-height:150%;
+font-size: .8em;
+padding: 5px 5px 5px 5px;
+}
+#aide .right
+{
+float : right;
+right : 1%;
+width : 35%;
+font-family :  arial,helvetica,sans-serif;
+color:#000;
+background-color:#f0f0f0;
+border:1px solid #69c;
+line-height:150%;
+/*position: absolute;*/
+font-size: .8em;
+padding: 5px 5px 5px 5px;
+}
+
+
+
+#footer
+{
+position : relative;
+top : 1em;
+border-top: 2px dotted;
+border-color: #888;
+text-align: center;
+font-size: .8em;
+font-family :  'Times New Roman',times,serif ;
+padding: 2px;
+clear: both;
+}

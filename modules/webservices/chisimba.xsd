@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://server" xmlns:AuthorNS="http://server">
+	<complexType name="ChisimbaType">
+		<sequence>
+			<element name="name" type="string"/>
+			<element name="dob" type="string"/>
+			<element name="pob" type="string"/>
+		</sequence>
+	</complexType>
+</schema>

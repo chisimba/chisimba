@@ -1,0 +1,96 @@
+<updates>
+    <update>
+        <table>tbl_im</table>
+        <version>0.008</version>
+        <description>Added a messagereturned field</description>
+        <data>
+            <add>
+                <name>msg_returned</name>
+                <type>text</type>
+                <length>60</length>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_im_presence</table>
+        <version>0.011</version>
+        <description>Split JID field into user and agent</description>
+        <data>
+            <add>
+                <name>useragent</name>
+                <type>text</type>
+                <length>60</length>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_im</table>
+        <version>0.015</version>
+        <description>Added a parentid field</description>
+        <data>
+            <add>
+                <name>parentid</name>
+                <type>text</type>
+                <length>32</length>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_im_users</table>
+        <version>0.016</version>
+        <description>Added patients field</description>
+        <data>
+            <add>
+                <name>patients</name>
+                <type>integer</type>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_im_presence</table>
+        <version>0.018</version>
+        <description>Added counsilorid field</description>
+        <data>
+            <add>
+                <name>counsilor</name>
+                <type>text</type>
+                <length>32</length>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_im_users</table>
+        <version>0.191</version>
+        <description>Added manualassign field</description>
+        <data>
+            <add>
+                <name>manualassign</name>
+                <type>integer</type>                
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_im_presence</table>
+        <version>0.192</version>
+        <description>Added hidden field</description>
+        <data>
+            <add>
+                <name>hidden</name>
+                <type>integer</type>                
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_im_presence</table>
+        <version>0.196</version>
+        <description>Added new field</description>
+        <data>
+            <add>
+                <name>needs_reply</name>
+                <type>integer</type>                
+            </add>
+        </data>
+    </update>
+
+
+</updates>

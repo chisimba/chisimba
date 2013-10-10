@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<filters>
+    <filter>
+        <name>colorbox</name>
+        <type>parametized</type>
+        <label>Colorbox</label>
+        <defaultvalue/>
+        <params>
+            <param name="boxtype:1">redbox</param>
+            <param name="boxtype:2">bluebox</param>
+            <param name="boxtype:3">yellowbox</param>
+            <param name="boxtype:4">purplebox</param>
+            <param name="boxtype:5">greenbox</param>
+            <param name="boxtype:6">orangebox</param>
+            <param name="boxtype:7">pinkbox</param>
+            <param name="boxtype:8">greybox</param>
+            <param name="boxtype:9">bwbox</param>
+            <param name="boxtype:10">wbbox</param>
+        </params>
+        <instructions>Select the color of the box to use in the parameters field.This will be applied to the selectd text in the editor.</instructions>
+        <tag>COLORBOX</tag>
+        <input/>
+    </filter>
+    <filter>
+        <name>delicious</name>
+        <type>basicinput</type>
+        <label>del.icio.us tag cloud</label>
+        <params />
+        <defaultvalue/>
+        <instructions>Enter your del.icio.us username within the tags to create a tag cloud of your bookmarked URL's.</instructions>
+        <tag>DELTAGS</tag>
+        <input>
+            <inputparam name="username">Enter your del.icio.us username </inputparam>
+        </input>
+
+    </filter>
+    <filter>
+        <name>flash video simple</name>
+        <type>basicinput</type>
+        <label>Flash Video (FLV) simple</label>
+        <params />
+        <defaultvalue/>
+        <instructions>Provide the URL of a flash video. Size of the video will be 340 x 240</instructions>
+        <tag>FLV</tag>
+        <input>
+            <inputparam name="url">Provide the URL of a flash video. Size of the video will be 340 x 240</inputparam>
+        </input>
+    </filter>
+    <filter>
+        <name>flash video complex</name>
+        <type>pasteinput_singletag</type>
+        <label>Flash Video (FLV) complex</label>
+        <preinputvalue>url=</preinputvalue>
+        <params/>
+        <defaultvalue>width=800, height=600</defaultvalue>
+        <instructions>Enter the flv url, then modify width and height parameters to control the size of the flash video file (FLV) to be embedded in the content</instructions>
+        <tag>FLV</tag>
+        <input>
+            <inputparam name="url">Enter the flv url, then modify width and height parameters to control the size of the flash video file (FLV) to be embedded in the content</inputparam>
+        </input>
+    </filter>
+    <filter>
+        <name>IFrame</name>
+        <type>basicinput</type>
+        <label>IFrame</label>
+        <params />
+        <defaultvalue/>
+        <instructions>Inserts a page via URL into a content box. Please specify url|width|height as parameters</instructions>
+        <tag>IFRAME</tag>
+
+        <input>
+            <inputparam name="iframparams">Enter the url for the iframe, with and height in format url|width|height. Example; www.example.com|400|300</inputparam>
+        </input>
+    </filter>
+    <filter>
+        <name>Google Video</name>
+        <type>basicinput</type>
+        <label>Google Video</label>
+        <params />
+        <defaultvalue/>
+        <instructions>Inserts a Google Video either by link or URL</instructions>
+        <tag>GVID</tag>
+        <input>
+            <inputparam name="url">Enter the link or url for the google video</inputparam>
+        </input>
+    </filter>
+    <filter>
+        <name>Math</name>
+        <type>basicinput</type>
+        <label>Math formula</label>
+        <params />
+        <defaultvalue/>
+        <instructions>Enter a formula in standard mathematical latex format to render correctly</instructions>
+        <tag>MATH</tag>
+        <input>
+            <inputparam name="formula">Enter a formula in standard mathematical latex format to render correctly for example \alpha\,\!</inputparam>
+        </input>
+    </filter>
+    <filter>
+        <name>PDF</name>
+        <type>basicinput</type>
+        <label>PDF</label>
+        <params />
+        <defaultvalue/>
+        <instructions>Provide a URL to the pdf document to have it rendered in the content</instructions>
+        <tag>PDF</tag>
+        <input>
+            <inputparam name="url">Provide a URL to the pdf document to have it rendered in the content</inputparam>
+        </input>
+    </filter>
+    <filter>
+        <name>RSS</name>
+        <type>basicinput</type>
+        <label>RSS Feed</label>
+        <params />
+        <defaultvalue/>
+        <instructions>Provide a URL to a RSS feed to insert into the content</instructions>
+        <tag>RSS</tag>
+        <input>
+            <inputparam name="url">Provide a URL to a RSS feed to insert into the content</inputparam>
+        </input>
+    </filter>
+        <filter>
+        <name>realtime</name>
+        <type>basicinput</type>
+        <label>Virtual Classroom</label>
+        <params />
+        <defaultvalue/>
+        <instructions>Enter the name of the room to use for virtual classroom</instructions>
+        <tag>REALTIME</tag>
+        <input>
+            <inputparam name="url">Enter the name of the room to use for virtual classroom</inputparam>
+        </input>
+    </filter>
+    <filter>
+        <name>slide share</name>
+        <type>directpasteinput</type>
+        <label>Slideshare (Wordpress format)</label>
+        <params />
+        <defaultvalue/>
+        <instructions>Provide the slideshare embed link (wordpress format)</instructions>
+        <tag>SLIDESHARE</tag>
+        <input>
+            <inputparam name="value">Provide the slideshare embed link (wordpress format)</inputparam>
+        </input>
+    </filter>
+    <filter>
+        <name>webpresent</name>
+        <type>directpasteinput</type>
+        <label>Webpresent</label>
+        <params />
+        <defaultvalue/>
+        <instructions>Provide the webpresent embed link</instructions>
+        <tag>WEBPRESENT</tag>
+        <input>
+            <inputparam name="value">Provide the webpresent embed link</inputparam>
+        </input>
+    </filter>
+    <filter>
+        <name>wikipedia</name>
+        <type>pasteinput_singletag</type>
+        <label>Wikipedia</label>
+        <params />
+        <defaultvalue/>
+        <instructions>Provide the name of the wikipedia page</instructions>
+        <tag>WIKIPEDIA</tag>
+        <preinputvalue>topic=</preinputvalue>
+        <input>
+            <inputparam name="pagename">Provide the name of the wikipedia page</inputparam>
+        </input>
+    </filter>
+    <filter>
+        <name>YouTube</name>
+        <type>basicinput</type>
+        <label>YouTube</label>
+        <params />
+        <defaultvalue/>
+        <instructions>Inserts a YouTube video by either link or URL</instructions>
+        <tag>YOUTUBE</tag>
+        <input>
+            <inputparam name="url">Enter the link or url for the youtube video</inputparam>
+        </input>
+    </filter>
+</filters>

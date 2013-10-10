@@ -1,0 +1,12 @@
+RewriteEngine on
+
+#Chisimba shorturl rules
+
+#Uncomment the following if you're instance is hosted in a subdirectory e.g. http://sumhost.co.za/app/
+#RewriteCond %{REQUEST_URI} !((.+\..+)|(^/[a-z0-9_-]+/$)|(^/[a-z0-9_-]+$)) [NC]
+
+#Uncomment the following if you're instance is hosted in the root e.g. http://sumhost.co.za/
+RewriteCond %{REQUEST_URI} ^/[a-z0-9_-]+/$|^/[a-z0-9_-]+$ [NC]
+
+RewriteRule (.*)$ ?module=shorturl&action=redirect [QSA,L]
+

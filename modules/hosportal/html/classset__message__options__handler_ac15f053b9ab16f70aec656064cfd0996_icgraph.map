@@ -1,0 +1,8 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classset__reply__options.html#ab7a9f8d58b0766b9c0921c09a3118062" title="set_reply_options::buildSwitchMenuDropDownOption" alt="" coords="333,5,659,35"/>
+<area shape="rect" id="node9" href="$classset__original__message__options.html#ab7a9f8d58b0766b9c0921c09a3118062" title="set_original_message_options::buildSwitchMenuDropDownOption" alt="" coords="296,59,696,88"/>
+<area shape="rect" id="node5" href="$classset__reply__options.html#a6d4d06729d6d4001dcb0227c3828e516" title="set_reply_options::buildSwitchMenu" alt="" coords="781,5,1011,35"/>
+<area shape="rect" id="node7" href="$classset__reply__options.html#a262193b071ce8a4d8ca986f9f0db39d7" title="set_reply_options::showBuiltSwitchMenu" alt="" coords="1133,5,1392,35"/>
+<area shape="rect" id="node11" href="$classset__original__message__options.html#a6d4d06729d6d4001dcb0227c3828e516" title="set_original_message_options::buildSwitchMenu" alt="" coords="745,59,1047,88"/>
+<area shape="rect" id="node13" href="$classset__original__message__options.html#a262193b071ce8a4d8ca986f9f0db39d7" title="set_original_message_options::showBuiltSwitchMenu" alt="" coords="1097,59,1428,88"/>
+</map>

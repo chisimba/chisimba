@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<defaultdata>
+  <!-- Table tbl_quotes -->
+
+   <tbl_quotes>
+        <id>init_1</id>
+        <quote>If you have any trouble sounding condescending, find a Unix user to show you how it done.</quote>
+        <whosaidit>Scott Adams</whosaidit>
+        <datecreated>2005-03-10 22:16:25</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_2</id>
+        <quote>There are three kinds of death in this world. There's heart death, there's brain death, and there's being off the network.</quote>
+        <whosaidit>Guy Almes</whosaidit>
+        <datecreated>2005-03-10 22:17:32</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_3</id>
+        <quote>If you put garbage in a computer nothing comes out but garbage. But this garbage, having passed through a very expensive machine, is somehow ennobled and none dare criticize it</quote>
+        <whosaidit>Anonymous</whosaidit>
+        <datecreated>2005-03-10 22:18:18</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_4</id>
+        <quote>Multimedia? As far as I'm concerned, it's reading with a radio on!</quote>
+        <whosaidit>Rory Bremner</whosaidit>
+        <datecreated>2005-03-10 22:20:28</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_5</id>
+        <quote>Men have become the tools of their tools</quote>
+        <whosaidit>Henry David Thoreau</whosaidit>
+        <datecreated>2005-03-10 22:22:29</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_6</id>
+        <quote>When I give a lecture, I accept that people look at their watches, but what i do not tolerate is when they look at it an raise it to their ear to find out if it stopped.</quote>
+        <whosaidit>Marcel Achard</whosaidit>
+        <datecreated>2005-03-10 22:25:06</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_7</id>
+        <quote>Time is a great teacher, but unfortunately it kills all its pupils.</quote>
+        <whosaidit>Hector Louis Berlioz</whosaidit>
+        <datecreated>2005-03-10 22:25:40</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_8</id>
+        <quote>Some people talk in their sleep. Lecturers talk while other people sleep.</quote>
+        <whosaidit>Albert Camus</whosaidit>
+        <datecreated>2005-03-10 22:26:18</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_9</id>
+        <quote>Education is one of the few things a person is willing to pay for and not get.</quote>
+        <whosaidit>William Lowe Bryan</whosaidit>
+        <datecreated>2005-03-12 09:46:12</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_10</id>
+        <quote>The object of teaching a child is to enable him to get along without a teacher.</quote>
+        <whosaidit>Albert Hubbard</whosaidit>
+        <datecreated>2005-03-12 09:52:27</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_11</id>
+        <quote>The only real education comes from what goes counter to you.</quote>
+        <whosaidit>Andre Gide</whosaidit>
+        <datecreated>2005-03-12 09:53:46</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_12</id>
+        <quote>The things taught in colleges and schools are not an education, but the means of education.</quote>
+        <whosaidit>Ralph Waldo Emerson</whosaidit>
+        <datecreated>2005-03-12 10:12:23</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_13</id>
+        <quote>You cannot teach a man anything; you can only help him find it within himself.</quote>
+        <whosaidit>Galileo Galilei</whosaidit>
+        <datecreated>2005-03-12 10:33:16</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_15</id>
+        <quote>There is nothing so stupid as an educated man, if you get off the thing that he was educated in.</quote>
+        <whosaidit>Will Rogers</whosaidit>
+        <datecreated>2005-03-12 10:33:52</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_16</id>
+        <quote>Education is too important to be left solely to educators.</quote>
+        <whosaidit>Francis Keppel</whosaidit>
+        <datecreated>2005-03-12 10:34:26</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_17</id>
+        <quote>Examinations are formidable even to the best prepared, for the greatest fool may ask more than the wisest man can answer.</quote>
+        <whosaidit>C.C Colton</whosaidit>
+        <datecreated>2005-03-12 10:34:56</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_18</id>
+        <quote>Education: Being able to differentiate between what you do know and what you don't. It's knowing where to go to find out what you need to know, and it's knowing hoe to use the information once you get it.</quote>
+        <whosaidit>William Feather</whosaidit>
+        <datecreated>2005-03-12 10:35:24</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_19</id>
+        <quote>An educated man is one who can entertain a new idea, entertain another man and entertain himself.</quote>
+        <whosaidit>Sydney Wood</whosaidit>
+        <datecreated>2005-03-10 10:35:42</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_20</id>
+        <quote>The primary purpose of a liberal education is to make one's mind a pleasant place in which to spend one's time.</quote>
+        <whosaidit>Sydney J Harris</whosaidit>
+        <datecreated>2005-03-12 10:36:04</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_21</id>
+        <quote>Education is not filling a bucket but lighting a fire.</quote>
+        <whosaidit>William B. Yeats</whosaidit>
+        <datecreated>2005-03-12 10:36:20</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_22</id>
+        <quote>The great aim of education is not knowledge, but action.</quote>
+        <whosaidit>Herbert Spencer</whosaidit>
+        <datecreated>2005-03-12 10:36:33</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_24</id>
+        <quote>Poor is the pupil who does not surpass his master.</quote>
+        <whosaidit>Leonardo Da Vinci</whosaidit>
+        <datecreated>2005-03-12 10:37:12</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_25</id>
+        <quote>Apply yourself. Get all the education you can, but then...do something. Don't just stand there, make it happen.</quote>
+        <whosaidit>Lee Iacocca</whosaidit>
+        <datecreated>2005-03-12 10:38:22</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_26</id>
+        <quote>If someone is going down the wrong road, he doesn't need motivation to speed him up. What he needs is education to turn him around.</quote>
+        <whosaidit>Jim Rohn</whosaidit>
+        <datecreated>2005-03-12 10:39:20</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>>
+        <id>init_27</id>
+        <quote>Eduaction is what survives when has been learnt has been forgotten.</quote>
+        <whosaidit>B. F. Skinner</whosaidit>
+        <datecreated>2005-03-12 10:40:06</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_28</id>
+        <quote>The object of education is to prepare the young to educate themselves throughout their lives.</quote>
+        <whosaidit>Robert Maynard Hutchins</whosaidit>
+        <datecreated>2005-03-12 10:40:28</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_29</id>
+        <quote>Nothing in the world can take the place of persistence. Talent will not; nothing is more common than unsuccessful men with talent. Genius will not; unrewarded genius is almost a proverb. Education will not; the world is full of educated derelicts. Persistence and determination alone are omnipotent. The slogan, 'Press on,' has solved and always will solve the problems of the human race.</quote>
+        <whosaidit>Calvin Coollidge</whosaidit>
+        <datecreated>2005-03-12 10:40:57</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_30</id>
+        <quote>It has always seemed strange to me that in our endless discussions about education so little stress is laid on the pleasure of becoming an educated person, the enormous interest it adds to life. to be able to be caught up in the world of thought--that is to be educated.</quote>
+        <whosaidit>Edith Hamilton</whosaidit>
+        <datecreated>2005-03-12 10:41:28</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_31</id>
+        <quote>If I were asked to enumerate ten educational stupidities, the giving of grades would head the list... If I can't give a child a better reason for studying than a grade on a report card, I ought to lock my desk and go home and stay there.</quote>
+        <whosaidit>Dorothy De Zouche</whosaidit>
+        <datecreated>2005-03-12 10:41:59</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_32</id>
+        <quote>I have never let my schooling interfere with my education.</quote>
+        <whosaidit>Attributed to Mark Twain, but not verified</whosaidit>
+        <datecreated>2005-03-12 10:42:22</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_33</id>
+        <quote>I am always ready to learn, but I do not always like being taught.</quote>
+        <whosaidit>Sir Winston Churchill</whosaidit>
+        <datecreated>2005-03-12 10:42:41</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_34</id>
+        <quote>Education's purpose is to replace an empty mind with an open one.</quote>
+        <whosaidit>Malcolm Forbes</whosaidit>
+        <datecreated>2005-03-12 10:43:19</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_35</id>
+        <quote>He who dares to teach must never cease to learn.</quote>
+        <whosaidit>Richard Henry Dann</whosaidit>
+        <datecreated>2005-03-12 10:43:37</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_36</id>
+        <quote>A man's ethical behavior should be based effectually on sympathy, education, and social ties; no religious bases is necessary. Man would indeed be in a poor way if he had to restrained by fear of punishment and hope of reward after death.</quote>
+        <whosaidit>Albert Einstein</whosaidit>
+        <datecreated>2005-03-12 10:44:26</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_37</id>
+        <quote>Education commences at the mother's knee, and every word spoken within the hearing of little children tends towards the formation of character.</quote>
+        <whosaidit>Hosea Ballou</whosaidit>
+        <datecreated>2005-03-12 10:44:49</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_38</id>
+        <quote>The inculcation of the incomprehensible into the ignorant by the incompetent.</quote>
+        <whosaidit>Josiah Stamp</whosaidit>
+        <datecreated>2005-03-12 09:48:14</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_39</id>
+        <quote>It has been said that we have not had the three R's in America, we had the six R's; remedial readin', remedial 'ritin' and remedial 'rithmitic </quote>
+        <whosaidit>Robert M. Hutchins</whosaidit>
+        <datecreated>2005-03-12 09:49:12</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_40</id>
+        <quote>Men are born ignorant, not stupid; they are made stupid by education.</quote>
+        <whosaidit>Bertrand Russell</whosaidit>
+        <datecreated>2005-03-12 09:49:57</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_41</id>
+        <quote>You can lead a man up to th' university, but ye can't make him think.</quote>
+        <whosaidit>Finley Peter Dunne</whosaidit>
+        <datecreated>2005-03-12 09:50:38</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_42</id>
+        <quote>Some people talk in there sleep. Lecturers talk while other people sleep.</quote>
+        <whosaidit>Albert Camus</whosaidit>
+        <datecreated>2005-03-10 22:26:18</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_43</id>
+        <quote>I am not a teacher; only a fellow traveler of whom you asked the way. I pointed ahead-ahead of myself as well as of you.</quote>
+        <whosaidit>George Bernard Shaw</whosaidit>
+        <datecreated>2005-03-12 09:52:03</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_44</id>
+        <quote>Education is one of the chief obstacles to intelligence and freedom of thought.</quote>
+        <whosaidit>Bertrand A. Russell</whosaidit>
+        <datecreated>2005-03-12 09:46:46</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_45</id>
+        <quote>Man's going forward from cocksure ignorance to thoughtful uncertainty.</quote>
+        <whosaidit>Kenneth G. Johnson</whosaidit>
+        <datecreated>2005-03-12 09:47:25</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_46</id>
+        <quote>Chisimba is PHP on rocket fuel.</quote>
+        <whosaidit>Derek W. Keats</whosaidit>
+        <datecreated>2005-03-12 09:47:25</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_47</id>
+        <quote>Every time you stop a school, you will have to build a jail. What you gain at one end you lose at the other. It's like feeding a dog on his own tail. It won't fatten the dog.</quote>
+        <whosaidit>Mark Twain</whosaidit>
+        <datecreated>2005-03-12 09:47:25</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_48</id>
+        <quote>Was the World Made for Man? Man has been here 32,000 years. That it took a hundred million years to prepare the world for him is proof that that is what it was done for. I suppose it is. I dunno. If the Eiffel tower were now representing the world's age, the skin of paint on the pinnacle-knob at its summit would represent man's share of that age; anybody would perceive that that skin was what the tower was built for. I reckon they would. I dunno.</quote>
+        <whosaidit>Mark Twain</whosaidit>
+        <datecreated>2005-03-12 09:47:25</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_49</id>
+        <quote>...there are some things that can beat smartness and foresight. Awkwardness and stupidity can. The best swordsman in the world doesn't need to fear the second best swordsman in the world; no, the person for him to be afraid of is some ignorant antagonist who has never had a sword in his hand before; he doesn't do the thing he ought to do, and so the expert isn't prepared for him.</quote>
+        <whosaidit>Mark Twain</whosaidit>
+        <datecreated>2005-03-12 09:47:25</datecreated>
+        <creatorid>1</creatorid>
+	<datemodified>NULL</datemodified>
+	<modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_50</id>
+        <quote>Alliance: In international politics, the union of two thieves who have their hands so deeply inserted in each other's pocket that they cannot separately plunder a third.</quote>
+        <whosaidit>Ambrose Bierce</whosaidit>
+        <datecreated>2005-03-12 09:47:25</datecreated>
+        <creatorid>1</creatorid>
+    <datemodified>NULL</datemodified>
+    <modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_50</id>
+        <quote>If you pick up a starving dog and make him prosperous, he will not bite you. This is the principal difference between a dog and a man.</quote>
+        <whosaidit>Mark Twain</whosaidit>
+        <datecreated>2005-03-12 09:47:25</datecreated>
+        <creatorid>1</creatorid>
+    <datemodified>NULL</datemodified>
+    <modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_51</id>
+        <quote>You do not really understand something unless you can explain it to your grandmother.</quote>
+        <whosaidit>Albert Einstein</whosaidit>
+        <datecreated>2005-03-12 09:47:25</datecreated>
+        <creatorid>1</creatorid>
+    <datemodified>NULL</datemodified>
+    <modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_52</id>
+        <quote>The first question I ask myself when something doesn't seem to be beautiful is why do I think it's not beautiful. And very shortly you discover that there is no reason.</quote>
+        <whosaidit>John Cage</whosaidit>
+        <datecreated>2005-03-12 09:47:25</datecreated>
+        <creatorid>1</creatorid>
+    <datemodified>NULL</datemodified>
+    <modifierid>NULL</modifierid>
+   </tbl_quotes>
+   <tbl_quotes>
+        <id>init_53</id>
+        <quote>No one means all he says, and yet very few say all they mean, for words are slippery and thought is viscous.</quote>
+        <whosaidit>Henry Adams</whosaidit>
+        <datecreated>2005-03-12 09:47:25</datecreated>
+        <creatorid>1</creatorid>
+    <datemodified>NULL</datemodified>
+    <modifierid>NULL</modifierid>
+   </tbl_quotes>  
+</defaultdata>

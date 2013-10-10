@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <link href="http://www.google.com/apis/maps/base.css" rel="stylesheet" 
+type="text/css"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>#Brandmonday #brandplus tweets</title>
+    <script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=ABQIAAAAq_-zASCRreQq9Xuux802xBTDsDhw_IRCOMb7qVKI55haMJ-cbhQN-EDFOnhw3_hHjRxFUQl29_igPQ"
+            type="text/javascript"></script>
+    <script type="text/javascript">
+    //<![CDATA[
+    
+    function createMarker(point,html) {
+        var marker = new GMarker(point);
+        GEvent.addListener(marker, "click", function() {
+          marker.openInfoWindowHtml(html);
+        });
+        return marker;
+      }
+
+    function refresh(){
+          var map = new GMap2(document.getElementById("map"));
+        map.addControl(new GSmallMapControl());
+        map.addControl(new GMapTypeControl());
+        map.setCenter(new GLatLng(-30, 25), 6);
+
+          GDownloadUrl("http://www.brandmonday.biz/index.php?module=brandmonday&action=getplusmap", function(data, responseCode) {
+          // To ensure against HTTP errors that result in null or bad data,
+          // always check status code is equal to 200 before processing the data
+          if(responseCode == 200) {
+            var xml = GXml.parse(data);
+            var markers = xml.documentElement.getElementsByTagName("marker");
+            for (var i = 0; i < markers.length; i++) {
+              var tweet = markers[i].getAttribute("tweet");
+              var point = new GLatLng(parseFloat(markers[i].getAttribute("lat")), parseFloat(markers[i].getAttribute("lng")));
+              var marker = createMarker(point, tweet)
+              map.addOverlay(marker);
+            }
+            
+          } else if(responseCode == -1) {
+            alert("Data request timed out. Please try later.");
+          } else { 
+            alert("Request resulted in error. Check XML file is retrievable.");
+          }
+        });
+          window.setTimeout("refresh()", 30000);
+
+    }
+
+    function load() {
+      if (GBrowserIsCompatible()) {
+        var map = new GMap2(document.getElementById("map"));
+        map.addControl(new GSmallMapControl());
+        map.addControl(new GMapTypeControl());
+        map.setCenter(new GLatLng(-30, 25), 6);
+        GDownloadUrl("http://www.brandmonday.biz/index.php?module=brandmonday&action=getplusmap", function(data, responseCode) {
+          // To ensure against HTTP errors that result in null or bad data,
+          // always check status code is equal to 200 before processing the data
+          if(responseCode == 200) {
+            var xml = GXml.parse(data);
+            var markers = xml.documentElement.getElementsByTagName("marker");
+            for (var i = 0; i < markers.length; i++) {
+              var tweet = markers[i].getAttribute("tweet");
+              var point = new GLatLng(parseFloat(markers[i].getAttribute("lat")), parseFloat(markers[i].getAttribute("lng")));
+              var marker = createMarker(point, tweet)
+              map.addOverlay(marker);
+              map.addOverlay(marker);
+	    }
+          } else if(responseCode == -1) {
+	    alert("Data request timed out. Please try later.");
+          } else { 
+            alert("Request resulted in error. Check XML file is retrievable.");
+          }
+        });
+
+        window.setTimeout("refresh()", 30000);
+
+      }
+    }
+
+    //]]>
+    </script>
+
+  </head>
+
+  <body onload="load()" onunload="GUnload()">
+    <div id="map" style="width: 768px; height: 768px"></div>
+    </p>
+  </body>
+</html>
+
+
+

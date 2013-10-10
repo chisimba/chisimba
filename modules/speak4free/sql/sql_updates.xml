@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<updates>
+    <update>
+        <table>tbl_speak4free_topics</table>
+        <version>0.52</version>
+        <description>added active field</description>
+        <data>
+        	<add>
+    			<length>1</length>
+                        <name>active</name>
+                        <type>text</type>
+		</add>
+	</data>
+    </update>
+               
+</updates>

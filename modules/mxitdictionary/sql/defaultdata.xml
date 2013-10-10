@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<defaultdata>
+    <tbl_mxit_words>
+        <id>init_1</id>
+        <word>B3</word>
+        <definition>Battery</definition>
+    </tbl_mxit_words>
+
+	<tbl_mxit_words>
+        <id>init_2</id>
+        <word>Brb</word>
+        <definition>Be right back</definition>
+    </tbl_mxit_words>
+
+	<tbl_mxit_words>
+        <id>init_3</id>
+        <word>Cia</word>
+        <definition>See you later</definition>
+    </tbl_mxit_words>
+
+	<tbl_mxit_words>
+        <id>init_4</id>
+        <word>Ey</word>
+        <definition>Hey</definition>
+    </tbl_mxit_words>
+
+	<tbl_mxit_words>
+        <id>init_5</id>
+        <word>G8</word>
+        <definition>Great</definition>
+    </tbl_mxit_words>
+
+	<tbl_mxit_words>
+        <id>init_6</id>
+        <word>G2g</word>
+        <definition>Got to go</definition>
+    </tbl_mxit_words>
+
+	<tbl_mxit_words>
+        <id>init_7</id>
+        <word>Gudnyt</word>
+        <definition>Good night</definition>
+    </tbl_mxit_words>
+
+	<tbl_mxit_words>
+        <id>init_8</id>
+        <word>Hud</word>
+        <definition>How are you doing</definition>
+    </tbl_mxit_words>
+
+	<tbl_mxit_words>
+        <id>init_9</id>
+        <word>Ilu</word>
+        <definition>I love you</definition>
+    </tbl_mxit_words>
+
+	<tbl_mxit_words>
+        <id>init_10</id>
+        <word>B4</word>
+        <definition>Before</definition>
+    </tbl_mxit_words>
+
+	<tbl_mxit_words>
+        <id>init_11</id>
+        <word>Jc</word>
+        <definition>Just Chiling</definition>
+    </tbl_mxit_words>
+
+	<tbl_mxit_words>
+        <id>init_12</id>
+        <word>K</word>
+        <definition>Okay</definition>
+    </tbl_mxit_words>
+
+	<tbl_mxit_words>
+        <id>init_13</id>
+        <word>L2m</word>
+        <definition>Listen to music</definition>
+    </tbl_mxit_words>
+
+	<tbl_mxit_words>
+        <id>init_14</id>
+        <word>Lib</word>
+        <definition>Laying in bed</definition>
+    </tbl_mxit_words>
+
+	<tbl_mxit_words>
+        <id>init_15</id>
+        <word>Lmaol</word>
+        <definition>Laugh my ass off loud</definition>
+    </tbl_mxit_words>
+
+	<tbl_mxit_words>
+        <id>init_16</id>
+        <word>Lol</word>
+        <definition>Laughing out loud</definition>
+    </tbl_mxit_words>
+
+	<tbl_mxit_words>
+        <id>init_17</id>
+        <word>Nvm</word>
+        <definition>Never mind</definition>
+    </tbl_mxit_words>
+
+	<tbl_mxit_words>
+        <id>init_18</id>
+        <word>Kwl</word>
+        <definition>Cool</definition>
+    </tbl_mxit_words>
+
+	<tbl_mxit_words>
+        <id>init_19</id>
+        <word>Lyk</word>
+        <definition>Like</definition>
+    </tbl_mxit_words>
+
+	<tbl_mxit_words>
+        <id>init_20</id>
+        <word>Wud</word>
+        <definition>What you doing?</definition>
+    </tbl_mxit_words>
+
+	<tbl_mxit_words>
+        <id>init_21</id>
+        <word>Sowi</word>
+        <definition>Sorry</definition>
+    </tbl_mxit_words>
+
+	<tbl_mxit_words>
+        <id>init_22</id>
+        <word>Wuu2</word>
+        <definition>What you up to?</definition>
+    </tbl_mxit_words>
+
+	<tbl_mxit_words>
+        <id>init_23</id>
+        <word>Wuw</word>
+        <definition>Who you with?</definition>
+    </tbl_mxit_words>
+	
+</defaultdata>

@@ -1,0 +1,14 @@
+<p align="justify">Form Builder is a standalone Chisimba module that permits users to create
+HTML forms through a user friendly WYSIWYG interface without having to code
+anything. This module surrenders control over to the user and provide over
+eleven different types of form elements; each one that can be built and
+configured differently.</p>
+<p align="justify">Once users have built their forms, the form builder
+can construct it in any location, module or page depending on the user’s
+volition. Form submissions can be e-mailed to the user, saved in the form
+builder database for future viewing or both.</p>
+<p align="justify">Additionally, publishing options are offered. Users are also given control
+over what actions are
+to be performed once their form is submitted. This module is designed to be
+powerful and concurrently user friendly. If you are not familiar with HTML forms
+or elements, it is advised to browse through the help page for a while.</p>

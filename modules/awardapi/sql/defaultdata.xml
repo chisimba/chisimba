@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<defaultdata>
+    
+    <tbl_award_agree_types>
+        <id>1</id>
+        <name>Wage Determination</name>            
+        <abbreviation>WD</abbreviation>
+    </tbl_award_agree_types>
+    
+    <tbl_award_agree_types>
+        <id>2</id>
+        <name>Bilateral</name>            
+        <abbreviation>B</abbreviation>
+    </tbl_award_agree_types>
+    
+    <tbl_award_agree_types>
+        <id>3</id>
+        <name>Private Bargaining Council</name>            
+        <abbreviation>PBC</abbreviation>
+    </tbl_award_agree_types>
+    
+    <tbl_award_agree_types>
+        <id>4</id>
+        <name>Public Bargaining Council</name>            
+        <abbreviation>SBC</abbreviation>
+    </tbl_award_agree_types>
+    
+    <tbl_award_agree_types>
+        <id>5</id>
+        <name>Sectoral Determination</name>            
+        <abbreviation>SD</abbreviation>
+    </tbl_award_agree_types>
+    
+    <tbl_award_agree_types>
+        <id>6</id>
+        <name>Unilateral</name>            
+        <abbreviation>UN</abbreviation>
+    </tbl_award_agree_types>
+    
+    <tbl_award_pay_period_types>
+        <id>1</id>
+        <name>Hourly</name>            
+        <abbreviation>ph</abbreviation>
+        <factor>0</factor>
+    </tbl_award_pay_period_types>
+    
+    <tbl_award_pay_period_types>
+        <id>2</id>
+        <name>Weekly</name>            
+        <abbreviation>pw</abbreviation>
+        <factor>1</factor>
+    </tbl_award_pay_period_types>
+    
+    <tbl_award_pay_period_types>
+        <id>3</id>
+        <name>Fortnightly</name>            
+        <abbreviation>pf</abbreviation>
+        <factor>2</factor>
+    </tbl_award_pay_period_types>
+    
+    <tbl_award_pay_period_types>
+        <id>4</id>
+        <name>Monthly</name>            
+        <abbreviation>pm</abbreviation>
+        <factor>4.33</factor>
+    </tbl_award_pay_period_types>
+    
+    <tbl_award_pay_period_types>
+        <id>5</id>
+        <name>Yearly</name>            
+        <abbreviation>pa</abbreviation>
+        <factor>52</factor>
+    </tbl_award_pay_period_types>
+    
+</defaultdata>

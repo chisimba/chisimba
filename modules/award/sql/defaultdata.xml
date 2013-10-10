@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<defaultdata>
+	<tbl_award_navigation>
+		<id>init_01</id>
+		<name>home</name>
+		<action>home</action>
+		<accesslevel>1</accesslevel>
+	</tbl_award_navigation>
+	
+	<tbl_award_navigation>
+		<id>init_02</id>
+		<name>find company</name>
+		<action>agreement</action>
+		<accesslevel>1</accesslevel>
+	</tbl_award_navigation>
+	
+	<tbl_award_navigation>
+		<id>init_03</id>
+		<name>wages</name>
+		<action>wages</action>
+		<accesslevel>1</accesslevel>
+	</tbl_award_navigation>
+	
+	<tbl_award_navigation>
+		<id>init_04</id>
+		<name>conditions</name>
+		<action>conditions</action>
+		<accesslevel>1</accesslevel>
+	</tbl_award_navigation>
+	
+	<tbl_award_navigation>
+		<id>init_05</id>
+		<name>women at work</name>
+		<action>gender</action>
+		<accesslevel>1</accesslevel>
+	</tbl_award_navigation>
+	
+	<tbl_award_navigation>
+		<id>init_06</id>
+		<name>decent work</name>
+		<action>decentwork</action>
+		<accesslevel>1</accesslevel>
+	</tbl_award_navigation>
+	
+	<tbl_award_navigation>
+		<id>init_07</id>
+		<name>inflation</name>
+		<action>inflation</action>
+		<accesslevel>1</accesslevel>
+	</tbl_award_navigation>
+	
+	<tbl_award_navigation>
+		<id>init_08</id>
+		<name>trade union</name>
+		<action>tradeunion</action>
+		<accesslevel>2</accesslevel>
+	</tbl_award_navigation>
+	
+	<tbl_award_navigation>
+		<id>init_10</id>
+		<name>admin</name>
+		<action>admin</action>
+		<accesslevel>3</accesslevel>
+	</tbl_award_navigation>
+	
+	
+	
+	<tbl_award_gender_bcea>
+		<id>init_01</id>
+		<category>Equal Opportunity</category>
+		<type>Maternity Leave</type>
+		<nameid>init_13</nameid>
+		<bcea>4 months</bcea>
+		<comment>Maternity leave is a core right</comment>
+	</tbl_award_gender_bcea>
+	
+	<tbl_award_gender_bcea>
+		<id>init_02</id>
+		<category>Equal Opportunity</category>
+		<type>Maternity Pay</type>
+		<nameid>init_15</nameid>
+		<bcea>33%</bcea>
+		<comment>The BCEA entitlement is dependent on wage level and credits accumulated</comment>
+	</tbl_award_gender_bcea>
+	
+	<tbl_award_gender_bcea>
+		<id>init_03</id>
+		<category>Equal Opportunity</category>
+		<type>Maternity</type>
+		<nameid>init_40</nameid>
+		<bcea>None</bcea>
+		<comment>Maternity leave is a core right and there is no basis in the BCEA for implementing a qualifying period</comment>
+	</tbl_award_gender_bcea>
+	
+	<tbl_award_gender_bcea>
+		<id>init_04</id>
+		<category>Equal Opportunity</category>
+		<type>Childcare</type>
+		<nameid>init_23</nameid>
+		<bcea>Not Covered</bcea>
+		<comment>Women generally account for the vast majority of caregiving, especially in respect of children. The availability of alternative childcare arrangements is therefore a good indicator of equal opportunity for women to work </comment>
+	</tbl_award_gender_bcea>
+	
+	<tbl_award_gender_bcea>
+		<id>init_05</id>
+		<category>Skills Development</category>
+		<type>Learnerships</type>
+		<nameid>init_35</nameid>
+		<bcea>Not Covered</bcea>
+		<comment>Learnerships are a better indicator of skills acquisition leading to certification than are other skills development programmes</comment>
+	</tbl_award_gender_bcea>
+	
+	<tbl_award_gender_bcea>
+		<id>init_06</id>
+		<category>Health</category>
+		<type>Medical Cover</type>
+		<nameid>init_28</nameid>
+		<bcea>Not Covered</bcea>
+		<comment>Health cover promotes good health and can help protect workers against periods when they require frequent medical attention</comment>
+	</tbl_award_gender_bcea>
+	
+	<tbl_award_gender_bcea>
+		<id>init_07</id>
+		<category>Health</category>
+		<type>Maternity</type>
+		<nameid>init_20</nameid>
+		<bcea>Not Covered</bcea>
+		<comment>Women who present to healthcare practitioners during and after pregnancy generally enjoy better health</comment>
+	</tbl_award_gender_bcea>
+	
+	<tbl_award_gender_bcea>
+		<id>init_08</id>
+		<category>Health</category>
+		<type>Sick Leave</type>
+		<nameid>init_27</nameid>
+		<bcea>11</bcea>
+		<comment> </comment>
+	</tbl_award_gender_bcea>
+	
+	<tbl_award_gender_bcea>
+		<id>init_09</id>
+		<category>Family</category>
+		<type>Leave</type>
+		<nameid>init_24</nameid>
+		<bcea>5</bcea>
+		<comment>Family Responsibility Leave as defined in the BCEA includes paternity, compassionate and childcare leave</comment>
+	</tbl_award_gender_bcea>
+	
+	<tbl_award_gender_bcea>
+		<id>init_10</id>
+		<category>Parental</category>
+		<type>Childcare Leave</type>
+		<nameid>init_25</nameid>
+		<bcea>Not Covered</bcea>
+		<comment>Child-rearing presents parents with numerous responsibilities including taking care of a sick child and educational commitments</comment>
+	</tbl_award_gender_bcea>
+	
+	<tbl_award_default_wage>
+		<id>1</id>
+		<year>2003</year>
+		<sample>0</sample>
+		<value>0</value>
+		<inc>0</inc>
+		<actual>0</actual>
+		<workers>0</workers>
+	</tbl_award_default_wage>
+	
+	<tbl_award_default_wage>
+		<id>2</id>
+		<year>2004</year>
+		<sample>0</sample>
+		<value>0</value>
+		<inc>0</inc>
+		<actual>0</actual>
+		<workers>0</workers>
+	</tbl_award_default_wage>
+	
+	<tbl_award_default_wage>
+		<id>3</id>
+		<year>2005</year>
+		<sample>0</sample>
+		<value>0</value>
+		<inc>0</inc>
+		<actual>0</actual>
+		<workers>0</workers>
+	</tbl_award_default_wage>
+	
+	<tbl_award_default_wage>
+		<id>4</id>
+		<year>2006</year>
+		<sample>0</sample>
+		<value>0</value>
+		<inc>0</inc>
+		<actual>0</actual>
+		<workers>0</workers>
+	</tbl_award_default_wage>
+	
+	<tbl_award_default_wage>
+		<id>5</id>
+		<year>2007</year>
+		<sample>0</sample>
+		<value>0</value>
+		<inc>0</inc>
+		<actual>0</actual>
+		<workers>0</workers>
+	</tbl_award_default_wage>
+	
+	<tbl_award_default_continuity>
+		<id>1</id>
+		<continuity>0</continuity>
+	</tbl_award_default_continuity>
+
+	
+		
+</defaultdata>

@@ -1,0 +1,30 @@
+<HTML>
+<HEAD>
+  <TITLE>ChemDoodle Web</TITLE>
+  <LINK rel="stylesheet" href="../ChemDoodleWeb.css" type="text/css">
+  <SCRIPT type="text/javaSCRIPT" src="../ChemDoodleWeb-libs.js"></SCRIPT>
+  <SCRIPT type="text/javaSCRIPT" src="../ChemDoodleWeb.js"></SCRIPT>
+  <style>
+    body {
+      text-align: center;
+      vertical-align: center;
+      padding: 0px 0px 0px 0px;
+      margin: 0px 0px 0px 0px;
+      overflow: auto;
+    }
+    canvas.ChemDoodleWebComponent {
+      padding: 0px 0px 0px 0px;
+      margin: 0px 0px 0px 0px;
+      border: 0px solid black;
+    }
+  </style>
+  <meta name = "viewport" content = "width = device-width">
+</HEAD>
+<BODY>
+<div style="display: block;">
+  <SCRIPT>
+    var pubchem = new MolGrabberCanvas('pubchem', 200, 200, '../CDWPubChem.php');
+  </SCRIPT>
+</div>
+</BODY>
+</HTML>

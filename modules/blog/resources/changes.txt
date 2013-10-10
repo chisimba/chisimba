@@ -1,0 +1,24 @@
+- Changed the editor so it uses the full width (i.e. 1 column template)
+- Added two new styles to each post: blogpost_before & .blogpost_after
+- Removed the table header from the bottom bar (the one with bookmark, etc) table
+- Wrapped the bottom bar table in a div with class='blog_bottombar'
+- Removed "<br /><br />" from after the bottombar table
+- Added class
+    .blog_bottombar {
+        margin-top: 6px;
+        margin-bottom: 6px;
+    }
+  To make up for the removal of the <br /> tags
+- Added a permaLink and a hash of it to index facebook or wall posts
+  $permaLink = $this->uri(array(
+    'module' => 'blog',
+    'action' => 'viewsingle',
+    'postid' => $pid,
+    'userid' => $post['userid']
+  ));
+  $permaHash = md5($permaLink);
+
+- Added a class called dynamiccomment to cater for the different ways of adding
+  comments, currently Chisimba comments, Wall, or Facebook comments with values
+  of DEFAULT, WALL or FACEBOOK.
+- Added comment_type as a config parameter to the blog module for the above.

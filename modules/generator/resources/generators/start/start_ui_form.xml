@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This file is a code generation template for Chisimba controller generation input of user data -->
+<chisimba_start_ui_form>
+
+<form elementname="start">
+<action>processresults</action>
+<task>buildstart</task>
+<generatorname>genstart</generatorname>
+<page>buildstart</page>
+<title>Chisimba code generation start</title>
+<overview>You are on the start page for code generation. Click one of the links at the 
+left to generate code snippets, or the links  at the right to generate full 
+Chisimba objects.</overview>
+<items>
+
+<item elementname="interfacetext">
+<name>modulecode</name>
+<type>plaintext</type>
+<width />
+<label />
+<validation/>
+<description>The Chisimba code Generator generates code for a Chisimba module. It is still 
+under active development. Then there are 2 or more XML files that you need to place in the
+generators/OBJECTTYPE directory of the generator module. Thats all you need, the generator
+itself takes care of the rest, including generating some of its own interface.
+
+The two required files are OBJECTTYPE_ui_form.xml and OBJECTTYPE_ui_link.xml. The first of 
+these contain XML renditions of the input form that you require. The format of this is pretty 
+simple, you can look at any of the examples in generators (e.g. controller, register, dbtable, 
+edit). The second one contains XML to provide a title and description for the interface.
+
+For almost all uses, you need the skeleton and other XML templates described previously. See 
+the examples provided to see how these are structured. What is in them depends on what you 
+put in your genOBJECTTYPE class.</description>
+</item>
+
+
+</items>
+</form>
+
+</chisimba_start_ui_form>

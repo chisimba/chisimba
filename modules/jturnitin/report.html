@@ -1,0 +1,1119 @@
+
+	
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="iParadigms, LLC" />
+    <meta name="keywords" content="" /> 
+    <meta name="description" content="" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<title>Turnitin</title>
+	
+	
+    <link href="/resources/css/turnitin/cms/page_type/tii_master_packaged.v2144.css"  title="master" media="screen" rel="stylesheet" type="text/css" />
+    <link href="/resources/css/turnitin/cms/page_type/tii_lowres_packaged.v2144.css"  title="lowres" media="screen" disabled="disabled" rel="stylesheet" type="text/css" />
+    <link href="/resources/css/common/common.v2083.css"  rel="stylesheet" type="text/css" />
+    
+    
+    <!--[if IE ]><style type="text/css" >@import "/resources/css/turnitin/cms/filters/tii_cms_ie.v1812.css";</style><![endif]-->
+    <!--[if IE 6]><style type="text/css" >@import "/resources/css/turnitin/cms/filters/tii_cms_ie6.v1812.css";</style><![endif]-->
+    <link href="/resources/css/turnitin/cms/print/tii_cms_print.v1069.css"  media="print" rel="stylesheet" type="text/css" />
+
+    
+	
+
+	<!--	Popup the warning window after $timeout_ms ms.	-->
+	<script type="text/javascript">
+	<!--
+	    var application_open = false;
+		var the_count = 0;
+		var the_timeout;
+		the_timeout=setTimeout('executeTimer();', 3600000);
+		the_count += 1;
+		function executeTimer() {
+		    if(application_open){return;}
+			win=window.open('/g_timeout_bypass.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592','WindowName','toolbar=0,location=no,resizable=yes,width=400,height=180,scrollbars=yes');
+			win.focus();
+		
+			the_timeout=setTimeout('executeTimer();', 3600000); 
+			the_count += 1;
+			if ( the_count > 5 ) {
+				clearTimeout(the_timeout);
+			}
+		}
+		function logout_main() {
+			self.location="/logout.asp?session-id=ff93a7209dbbcd8840598b9ef5012592&svr=11&src=3";
+		}
+		function restartTimer() {
+            application_open = false;
+            stopTimer();
+            the_timeout=setTimeout('executeTimer();', 3600000);
+        }
+        function stopTimer() {
+            if(the_timeout) {
+                clearTimeout(the_timeout);
+            }
+        }
+	//-->
+	</script>
+
+<script type="text/javascript" src="/js/build/en_us/tii_core.v23701.js"></script>
+
+<script type="text/javascript">
+    // ESTABLISH TII GLOBAL VALUES
+    Tii.cms.global.randomNumber = 0.539001092140779;
+    Tii.cms.global.serverID = '11';
+    Tii.cms.global.sessionID = 'ff93a7209dbbcd8840598b9ef5012592';
+    Tii.cms.global.lang = 'en_us';
+</script>
+
+<script type="text/javascript">
+		function display_readonly_alert() {
+			alert('This feature is no longer available because this class has expired and has become read-only. If you would like to extend the expiration date of this class, please return to your class home page and click on the \'update\' button for this class.');
+		}
+
+		function display_inactive_alert() {
+			alert('This class is inactive and no longer accessible.');
+		}
+
+		function display_a_readonly_alert() {
+			alert('This feature is no longer available because this account has become read-only. For more information, please contact your account administrator.');
+		}
+
+		function display_a_inactive_alert() {
+			alert('This feature is no longer available because this account is inactive. For more information, please contact your account administrator.');
+		}
+
+		function display_s_readonly_alert() {
+			alert('This feature is no longer available because this class has expired and has become read-only. For more information, please contact your instructor.');
+		}
+
+		function display_s_inactive_alert() {
+			alert('This feature is no longer available because this class has expired and is now inactive. For more information, please contact your instructor.');
+		}
+
+        YAHOO.util.Event.onDOMReady(function () {
+            if($("account_sections")){
+                var oMenuBar = new YAHOO.widget.MenuBar("account_sections", { 
+                                                            autosubmenudisplay: true, 
+                                                            hidedelay: 750, 
+                                                            lazyload: true });
+                oMenuBar.render();
+            }
+            
+            var ss = new StylesheetSwitcher([
+                {
+                    name: 'normal',
+                    link: '',
+                    element: document.getElementByHandle('normal'),
+                    selected: true
+                },
+                {
+                    name: 'smaller',
+                    link: "/resources/css/turnitin/cms/page_type/tii_cms_small_text.v681.css",
+                    element: document.getElementByHandle('smaller')
+                },    
+                {
+                    name: 'bigger',
+                    link: "/resources/css/turnitin/cms/page_type/tii_cms_large_text.v1009.css",
+                    element: document.getElementByHandle('bigger')
+                }
+            ], '/cms_requests.asp', '11');
+            
+            
+            // initialize jump menu buttons
+            var jumpButtonElements = document.getElementsByHandle('jump_menu_button', '', 'INPUT');
+            for(var i = 0; i < jumpButtonElements.length; i++) {
+                var jumpButton = jumpButtonElements[i];
+
+                var menuElement = document.getElementByHandle('jump_menu_options', jumpButton.parentNode, 'SELECT');
+
+                var button = new YAHOO.widget.Button(jumpButton, { 
+                    type: "menu", 
+                    menu: menuElement
+                });
+            }
+            
+            // initialize message showing/hiding
+            var closeButtons = document.getElementsByHandle('close',  '', 'a');
+
+            if (closeButtons.length > 0) {
+                var hideMessage = function(e) {
+                var closeButton = $E.getTarget(e);
+
+                var attributes = { 
+                    opacity: { to: 0 },
+                    height: {to: 0},
+                    padding: {to: 0}
+                }; 
+                var anim = new YAHOO.util.Anim(closeButton.parentNode, attributes, 1, YAHOO.util.Easing.easeOut);
+                anim.onComplete.subscribe(function(){
+                    closeButton.parentNode.style.display = 'none';
+                })
+                anim.animate();
+
+                $E.stopEvent(e);
+                }
+                $E.on(closeButtons, 'click', hideMessage);
+            }
+
+        });
+        
+        function hide_msg(accountid) {
+            var callback = {
+            	success:function(o) {
+            	},
+            	failure:function(o) {
+            	    alert('could not save preference');
+            	}
+            };
+
+            YAHOO.util.Connect.asyncRequest('GET', '/cms_requests.asp?svr=11&msg_to_hide=' + accountid, callback);
+        }
+
+        function hide_tip(tipid) {
+            var callback = {
+            	success:function(o) {
+            	},
+            	failure:function(o) {
+            	}
+            };
+
+            YAHOO.util.Connect.asyncRequest('GET', '/cms_requests.asp?svr=11&tip_to_hide=' + tipid, callback);
+        }
+</script>
+
+<script type="text/javascript">
+YAHOO.util.Event.onDOMReady(setScreenClass); 
+YAHOO.util.Event.on(window, 'resize',setScreenClass);
+function setScreenClass(){
+	var linkElement = document.getElementsByTagName('link')[0];
+	var docWidth = YAHOO.util.Dom.getViewportWidth();
+	if ((docWidth <= 980)) {
+		setActiveLink('lowres');
+	}
+	else {
+		setActiveLink('master');
+	}
+}
+
+function setActiveLink(linkTitle) {
+	var links = document.getElementsByTagName('link');
+	for (i=0; i<3; i++) {
+		if (links[i].getAttribute('rel').indexOf('style') != -1 && links[i].getAttribute('title')) {
+			var lTitle = links[i].getAttribute('title');
+			if (lTitle == 'master' || lTitle == 'lowres' || lTitle == 'iphone') {
+				if (linkTitle !== lTitle) {
+ 					links[i].disabled = true;
+				}
+				else {
+					links[i].disabled = false;
+				}
+			}
+		}
+	}
+}
+</script>
+
+
+<link href="/new_dynamic/dynamic_styles.v18833.css" type="text/css" rel="stylesheet"  type="text/css" />
+</head>
+
+<body id="tii_cms" ><div id="wrapper">
+
+
+
+
+		
+
+<script type="text/javascript">
+var uservoiceOptions = {
+  /* required */
+  key: 'turnitin',
+  host: 'turnitin.uservoice.com', 
+  forum: '49153',
+  showTab: false,  
+  params: { sso: '1sqwJm0XXDh2iP9%2BCRdLxT2PHU5hNIOdH8zmmupSERLVBYHoYnQkS8XRTo1RDl11bKiHwIwyPQ19%0A71g5oFK7kdsMJMd7xaeQqVbYm1hS4P%2BlG2mgMtt4ih%2FqsQlCB2xoGOrsGp70%2FouVVMKdkHL4kQ%3D%3D%0A' }
+};
+function _loadUserVoice() {
+    var s = document.createElement('script');
+    s.src = ("https:" == document.location.protocol ? "https://" : "http://") + "cdn.uservoice.com/javascripts/widgets/tab.js";
+    document.getElementsByTagName('head')[0].appendChild(s);
+}
+_loadSuper = window.onload;
+window.onload = (typeof window.onload != 'function') ? _loadUserVoice : function() { _loadSuper(); _loadUserVoice(); };
+</script>
+
+
+<script type="text/javascript">
+
+function initLangSelect() {
+    var selectedLangOptionElement = $D.getElementsBy(function(el){return el.selected}, 'OPTION', 'lang_form')[0]
+    var langSelectButton = new YAHOO.widget.Button("lang_submit", {  
+    	                                        type: "menu",  
+    	                                        menu: "lang_select",
+    	                                        title: "Select a Language",
+    	                                        label: selectedLangOptionElement.innerHTML    	                                        
+    	                                        });
+    langSelectButton.MENUBUTTON_DEFAULT_TITLE = 'Click to select a language';
+    langSelectButton.MENUBUTTON_MENU_VISIBLE_TITLE = 'Click or press Esc to collapse';
+    $('lang_span').style.display = 'inherit';
+}
+
+YAHOO.util.Event.onDOMReady(initLangSelect);
+</script>
+
+
+
+<div id="top_nav">
+    <!-- Logged in as -->
+    <ul id="mode_menu">
+       <li class="selected_usertype"><strong>instructor</strong></li>
+            
+            
+            
+        <li><a tabindex="1" href="user_type.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&ut&#61;s"><em>student</em></a></li>
+            
+    </ul>
+    <!-- Select User Type -->
+	
+    <!-- Welcome & Language & Help--> 
+    <form id="lang_form" method='post' action="lang_update.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&" accept-charset="utf-8">
+        <ul id="leave_cms">
+            <li class="logout"><a class="right" tabindex="1" href="logout.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&">Logout</a></li>
+    		
+    	        <li class="help"><a class="right" tabindex="1" target="_blank" href="/static/knowledge_base/knowledge_base.html?lang=en_us">Help</a></li>
+    		
+        </ul>
+        <span class="right divider">|</span>
+		
+		<span class="right feedback">
+			<a tabindex="1" href="#" onclick="UserVoice.Popin.show(uservoiceOptions); return false;">Feedback Forum</a>
+		</span>
+		<span class="right divider"> | </span>
+		
+        
+        <span id="lang_span" class="right">
+            <select class="smallB" id="lang_select" name="lang_select" title="Select Language">
+                  <option value="en_us" selected="selected">English</option>
+  <option value="ms">Bahasa Melayu</option>
+  <option value="de">Deutsch</option>
+  <option value="es">Español</option>
+  <option value="fr">Français</option>
+  <option value="tr">Türkçe (Beta)</option>
+  <option value="zh_hans">中文 (简体)</option>
+  <option value="zh_tw">中文 (繁體)</option>
+  <option value="ja">日本語</option>
+  <option value="ko">한국어</option>
+  <option value="th">ภาษาไทย</option>
+
+            </select>
+            <input value="Change Language" type="submit" id="lang_submit" name="lang_submit" tabindex="1" />
+        </span>
+        <span class="right divider"> |</span>
+        
+        <p class="right welcome">Welcome, david2 wafula2 </p>
+    </form>
+    <div class="clear"></div>
+</div>
+
+
+
+
+
+
+
+
+<!-- @@@@@@@@@@ TOP TABS @@@@@@@@@@@@ -->
+<div id="top_tabs_wrapper">
+    <div id="top_tabs">
+    
+    
+    
+    <ul id="stylesheet_switcher">
+        <li class="smaller"><a class="_smaller " href="cms_requests.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&text_size=smaller&return=true">smaller</a></li>
+        <li class="normal"><a class="_normal selected" href="cms_requests.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&text_size=normal&return=true">normal</a></li>
+        <li class="bigger"><a class="_bigger " href="cms_requests.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&text_size=bigger&return=true">bigger</a></li>
+    </ul>
+    
+    
+          
+        <a href="t_home.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&"><h1><span></span>Turnitin</h1></a>
+        
+    			
+        
+
+    <div id="account_sections" class=" yuimenubar yuimenubarnav">
+        <div class="bd">
+            <ul class="first-of-type">
+                
+                <li class="yuimenubaritem  selected"><a class="yuimenubaritemlabel" href="t_home.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&">my classes</a></li>
+                
+                
+                
+                
+                <!-- USER INFO  -->
+                <li class="yuimenubaritem "><a class="yuimenubaritemlabel" href="user_info.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&">user info</a></li>
+                <li class="yuimenubaritem ">
+                    <a class="yuimenubaritemlabel" href="announcements.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&">messages</a>
+                </li>
+            </ul>   
+        </div>
+    </div>
+    
+    
+    <div class="clear"></div>
+    </div>
+</div>
+
+
+<!-- @@@@@@@@@@ BREAD CRUMBS @@@@@@@@@@@@ -->
+<div id="bread_crumbs">
+<h2>Now viewing:</h2> <ul><li><a href="t_home.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&">Home</a><span class="breadcrumb_arrow">  &#62; </span><a href="t_class_home.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&cid=3286413">Turn it prod test</a><span class="breadcrumb_arrow"> &#62; </span><a href="t_inbox.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&aid=9519164">In prod test1</a></li></ul>
+
+    <div class="clear"></div>
+</div>
+
+<div  id="main_content" class="">
+
+
+		
+
+
+
+
+
+<!-- Saved Info Message -->
+
+
+
+
+<div id="subnavigation">
+
+<div id="tabs">			
+	<ul id="sub_nav" class="">
+		
+		<li class="first_selected"><a TABINDEX="2" id="left" href="t_class_home.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&">assignments</a></li>
+		<li><a TABINDEX="2" href="t_students.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&" title="">students</a></li>
+			
+		
+		<li><a TABINDEX="2" href="t_gradebook.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&" title="">gradebook</a></li>
+		
+		
+        
+        
+		
+		<li><a TABINDEX="2" href="/peermark/libraries?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&" title="">libraries</a></li>
+		<li><a TABINDEX="2" href="calendar.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&" title="">calendar</a></li>
+		
+		<li><a TABINDEX="2" href="discuss_home.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&" title="">discussion</a></li>
+		
+		
+		
+		
+		<li class="last"><a TABINDEX="2" href="t_class_prefs.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&cid&#61;3286413&amp;iid&#61;52613" title="">preferences</a></li>
+		
+	</ul>
+</div>
+
+
+
+
+	<div class="tips_wrapper">
+		<div id="gen_info" class="tips">
+			<div class="tips_inner">
+				<div class="padding">
+					<h2>About this page</h2>
+					<p>This is your assignment inbox. To view a paper, click the paper's title. To view an Originality Report, click the paper's Originality Report icon in the report column. A ghosted icon indicates that the Originality Report has not yet been generated.</p>
+				</div>
+			</div>
+		</div>
+	</div>			
+
+
+
+
+</div>
+
+
+<div id="main_section">
+
+
+		
+
+
+
+<!--END CLASSHEADER, START PAGESPECIFIC-->
+
+<iframe src="/grademark3/preload_gm_resources.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&student=0" style="display:none;"></iframe>
+
+<script type="text/javascript" src="/scripts/checkbox.v23358.js"></script>
+<script type="text/javascript">
+<!--
+    var isGeneratingFile = false;
+	function dgConfirmDelete() {
+		if (0) {
+			return confirm('Some of these papers have been read for distributed grading.  Deleting them will remove all reads and any accompanying grades.\n\nAre you sure you want to continue?');
+		}
+		return 1;
+	}
+	function confirmDelete() {
+		if (dgConfirmDelete() && confirm('Deleting papers removes them from your inbox but does not remove them from our database. Are you sure you want to delete the selected papers?')) {
+			document.inbox_form.perform_delete.value = 1;
+			document.inbox_form.submit();
+		}
+	}
+	function confirmZipDownload() {
+        if (isAnObjectBoxChecked()) {
+            if (confirm('This action will compress the selected files and download them to your computer.  Do you want to continue?')) {
+                document.inbox_form.do_zip_download.value = 1;
+            
+                window.open('waiting_for_file.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&type=zip','','toolbar=0,location=no,resizable=yes,width=300,height=140,scrollbars=yes');
+                document.inbox_form.submit();
+            
+            }
+        }
+        else {
+            Tii.cms.Utils.notify('Please select one or more papers to download.');
+        }
+	}
+	
+	function isAnObjectBoxChecked() {
+	    if (document.inbox_form.check_all.checked) {
+	        return true;
+	    }
+	    
+	    var objects = document.inbox_form.object_checkbox;
+	    if (objects.length > 1){
+    	    for (var i = 0; i < objects.length; i++) {
+    	        if (objects[i].checked) {
+    	            return true;
+    	        }
+    	    }
+        }
+        else {
+            return (objects.checked);
+        }
+	    
+	    return false;
+	}
+	
+	function prepareBulkDownload() {
+        var callback = {
+            success: function(o) {
+                var response = YAHOO.lang.JSON.parse(o.responseText);
+                
+                if (response.error) {
+                    // error responses will already come back localized
+                    Tii.cms.Utils.notify(response.error);
+                    return;
+                }
+
+                switch (response.did_prepare) {
+                    case -1:
+                        Tii.cms.Utils.notify('We are compressing a file you previously requested for download. When this compression is complete, you may request another file for download.');
+                        disableDownloadMenuItem(1);
+                        downloadMenuButton.set('title', 'You have already requested a file for download. Please check your message inbox for your file.');
+                        break;
+                    case 1:
+                        Tii.cms.Utils.notify('Your files are being compressed. When compression is complete a zip file will be available for download in your Turnitin <a href="/announcements.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&">Messages</a> tab.');
+                        disableDownloadMenuItem(1);
+                        downloadMenuButton.set('title', 'You have already requested a file for download. Please check your message inbox for your file.');
+                        break;
+                    default:
+                        Tii.cms.Utils.notify('There was an error processing your request.');
+                        break;
+                }
+            },
+            failure: function(o) {
+                Tii.cms.Utils.notify('There was an error processing your request.');
+            }
+        };
+        
+        YAHOO.util.Connect.setForm(document.inbox_form);
+        YAHOO.util.Connect.asyncRequest('POST', '/t_bulk_download.asp?svr=3&action=prepare', callback);
+	}
+	
+	function checkReadsAvailableForBulk() {
+	    
+	    if(!isAnObjectBoxChecked()) {
+	        Tii.cms.Utils.notify('No students were selected for download. Please select at least one student for download.');
+	        return;
+	    }
+	    
+	    
+        var callback = {
+            success: function(o) {
+                var response = YAHOO.lang.JSON.parse(o.responseText);
+                
+                if (response.error) {
+                    // error responses will already come back localized
+                    Tii.cms.Utils.notify(response.error);
+                    return;
+                }
+                else if (response.unavailable_reads === 0) {
+                    var message = [
+                        'This action will compress the selected files into a zip file. You will be notified in your Turnitin Messages tab when the zip file is available for download.',
+                        'Do you wish to continue?'
+                    ].join("\n\n");
+                    if(confirm(message)) {
+                        prepareBulkDownload();
+                    }
+                }
+                else if(response.unavailable_reads > 0) {
+                    var message = [
+                        'This action will compress the selected files into a zip file. You will be notified in your Turnitin Messages tab when the zip file is available for download.',
+                        'Some of the students you selected do not have a GradeMark file.',
+                        'Do you wish to continue?'
+                    ].join("\n\n");
+                    if(confirm(message)) {
+                         prepareBulkDownload();
+                     }
+                }
+                else if(response.unavailable_reads === -1) {
+                    var message = [
+                        'The compression process cannot begin because the students you selected do not have GradeMark files.',
+                    ].join("\n\n");
+                    
+                    alert(message);
+                }
+                else {
+                    Tii.cms.Utils.notify('There was an error processing your request');
+                }
+            },
+            failure: function(o) {
+                Tii.cms.Utils.notify('There was an error processing your request');
+            }
+        };
+        
+        YAHOO.util.Connect.setForm(document.inbox_form);
+        YAHOO.util.Connect.asyncRequest('POST', '/t_bulk_download.asp?svr=3&action=check_for_reads', callback);
+	}
+
+    function getCookie(name) {
+        var dc = document.cookie;
+        var prefix = name + "=";
+        var begin = dc.indexOf("; " + prefix);
+        if (begin == -1) {
+            begin = dc.indexOf(prefix);
+            if (begin != 0) {
+                return null;
+            }
+        } else {
+            begin += 2;
+        }
+        var end = document.cookie.indexOf(";", begin);
+        if (end == -1) {
+            end = dc.length;
+        }
+        return unescape(dc.substring(begin + prefix.length, end));        
+    }
+    
+    function toggleReportBreakdown(element) {
+        var tCells = YAHOO.util.Dom.getElementsByClassName('report_breakdown_hide');
+        var cellsLength = tCells.length;
+        if (cellsLength) {
+            YAHOO.util.Dom.replaceClass(element,'view_report_breakdown', 'hide_report_breakdown');
+            for (i=0; i < cellsLength; i++) {
+                YAHOO.util.Dom.replaceClass(tCells[i], 'report_breakdown_hide', 'report_breakdown_show');
+            }
+        } else {
+
+            tCells = YAHOO.util.Dom.getElementsByClassName('report_breakdown_show');
+            cellsLength = tCells.length;
+            if (cellsLength) {
+                YAHOO.util.Dom.replaceClass(element,'hide_report_breakdown', 'view_report_breakdown');
+                for (i=0; i < cellsLength; i++) {
+                    YAHOO.util.Dom.replaceClass(tCells[i], 'report_breakdown_show', 'report_breakdown_hide');
+                }
+            }
+        }
+        return false;
+    }
+    
+    var downloadMenuButton;
+    function initDownloadMenu () {
+        var downloadMenu = [];
+        
+        
+            downloadMenu.push({ text: 'Original File', value: 0, onclick: { fn: confirmZipDownload } });
+        
+
+        
+        
+        if (!downloadMenu.length) {
+            return;
+        }
+        
+        downloadMenuButton = new YAHOO.widget.Button('download_menu_button',{
+            type: "menu",
+            menu: downloadMenu,
+            label: "download",
+            menuclassname: "download_menu",
+            disabled: isGeneratingFile,
+            container: $('download_menu_button_container')
+        });
+    }
+    function disableDownloadMenuItem (itemIndex) {
+        var menu = downloadMenuButton.getMenu();
+        var menuItem = menu.getItem(itemIndex);
+        menuItem.cfg.setProperty('disabled', true);
+    }
+    YAHOO.util.Event.onDOMReady(initDownloadMenu);
+
+-->
+</script>
+
+
+
+    <!--<script type="text/javascript">
+        win=window.open('class_expired.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&enddate=&classID=3286413','WindowName','toolbar=0,location=no,resizable=yes,width=400,height=180,scrollbars=yes');
+        win.focus();
+    </script>-->
+    
+    
+    <form method="post" name="inbox_form" class="nopad" accept-charset="utf-8">
+    <input type="hidden" name="perform_delete" value="0"/>
+    <input type="hidden" name="do_zip_download" value="0">
+    <input type="hidden" name="use_pdfs" value="0">
+    <input type="hidden" name="folder" value="0">
+
+    <!-- IBOX START--> 
+    <div class="ibox">
+        <div class ="ibox_header_wrapper">
+            <div class ="ibox_header">
+                <div class="ibox_header_inner">
+                    <div class="padding">
+                    <!-- ###### Title of Acount ########## -->
+                    
+                    <h2>
+                <em>In prod test1</em>
+        		
+        		<a class="gotoedit"   href="t_modify_assignment.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&aid&#61;9519164&referrer=inbox" title="Edit assignment settings"><img src="resources/image_bin/icons/cms/turnitin/small_16/config.gif"></img></a>
+        		
+                
+                <div class="clear"></div>
+                inbox
+                </h2>
+                
+
+
+
+				<div id="controls">
+                    <!-- SUBMIT BUTTON
+                    ==========================================================================--> 
+                    
+                    <a class="glossy_button submit_paper_button" tabindex="3" href="t_submit.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&aid&#61;9519164"><strong><span>submit paper</span></strong></a>
+                        
+                    <a class="glossy_button" tabindex="3" href="t_grademark_report.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&aid&#61;9519164"><strong><span>GradeMark Report</span></strong></a>
+                        
+                    
+                </div>
+
+                <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+<!-- IBOX BODY WRAPPER START --> 
+<div class="ibox_body_wrapper">
+
+
+
+
+
+<!-- NEW VIEW OPTIONS
+==========================================================================--> 
+<input tabindex="3" type="hidden" name="target_aid" value="0">
+<!--<td align="center"><font class="VD9">page: </td>-->
+
+<div class="ibox_tabs inbox_tabs">		
+<ul>
+	<li class="active"><a href="t_inbox.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&aid&#61;9519164&amp;fo&#61;0&amp;pg&#61;">new papers</a></li>
+	<li><a href="t_inbox.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&aid&#61;9519164&amp;fo&#61;1&amp;pg&#61;">viewed papers</a></li>
+	<li><a href="t_inbox.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&aid&#61;9519164&amp;fo&#61;2&amp;pg&#61;">marked papers</a></li>
+	<li><a href="t_inbox.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&aid&#61;9519164&amp;fo&#61;folder&amp;pg&#61;">all papers</a></li>
+</ul>
+<div class="clear"></div>
+</div>
+<div style="display:none;" class="ibox_tabs ibox_tabs_ip">		
+<ul>
+	<li class="active"><a href="t_inbox.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&aid&#61;9519164&amp;fo&#61;0&amp;pg&#61;">new</a></li>
+	<li><a href="t_inbox.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&aid&#61;9519164&amp;fo&#61;1&amp;pg&#61;">viewed</a></li>
+	<li><a href="t_inbox.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&aid&#61;9519164&amp;fo&#61;2&amp;pg&#61;">marked</a></li>
+	<li><a href="t_inbox.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&aid&#61;9519164&amp;fo&#61;folder&amp;pg&#61;">all</a></li>
+</ul>
+<div class="clear"></div>
+</div>
+
+
+
+<!-- INBOX TOOLBAR
+==========================================================================--> 
+<div class="ibox_toolbar">
+    <a tabindex="3" href="javascript:confirmDelete()"><span>delete</span></a> 
+        <div id="download_menu_button_container">
+            <span class="yui-button yui-menu-button" id="download_menu_button">
+                <span class="first-child">
+                    <button type="button" tabindex="3" id="download_menu_button-button" title="Menu collapsed.  Click to expand.">download</button>
+                </span>
+            </span>
+        </div>
+    <span><input type="submit" value="move to..." tabindex="3" name="inbox_move_to" alt="move"/></span>
+    
+    <div class="clear"></div>
+</div>
+
+
+
+<!-- TABLE HEADER
+==========================================================================--> 
+<div class="clear"></div>
+<table class="inbox_table">
+<tr class="inbox_header">
+
+<!-- CHECK ALL BOX --> 
+<th class="class_statistics"><input tabindex="3" type="checkbox" name="check_all" onclick="check_all_boxes();"/></th>
+
+<!-- AUTHOR TH --> 
+<th class="ibox_medium ibox_author">
+
+    <a href="t_inbox.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&aid&#61;9519164&amp;fo&#61;0&amp;pg&#61;1&amp;ro&#61;4">author</a>
+
+</th>
+
+<!-- TITLE TH--> 
+<th class="ibox_medium ibox_title">	
+    <a href="t_inbox.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&aid&#61;9519164&amp;fo&#61;0&amp;pg&#61;1&amp;ro&#61;2">title</a>
+</th>
+
+<!-- REPORT TH--> 
+<!--<td width="60" align="center">search</td>-->
+<th class="ibox_short or_report_cell">
+<a tabindex="3" href="t_inbox.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&aid&#61;9519164&amp;fo&#61;0&amp;pg&#61;1&amp;ro&#61;1">report</a>
+<br><a href="#" onclick="return toggleReportBreakdown(this);" class="view_report_breakdown">view detail</a>
+</th>
+
+<th class="ibox_short or_report_cell report_breakdown_hide">
+    <a href="t_inbox.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&aid&#61;9519164&amp;fo&#61;0&amp;pg&#61;1&amp;ro&#61;5">web</a>
+</th>
+<th class="ibox_short or_report_cell report_breakdown_hide">
+<a href="t_inbox.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&aid&#61;9519164&amp;fo&#61;0&amp;pg&#61;1&amp;ro&#61;6">publication</a>
+</th>
+<th class="ibox_short or_report_cell report_breakdown_hide">
+<a href="t_inbox.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&aid&#61;9519164&amp;fo&#61;0&amp;pg&#61;1&amp;ro&#61;7">student papers</a>
+</th>
+
+<!--GRADE TH--> 
+
+
+<!--GRADEMARK TH--> 
+	
+<th class="ibox_short"><span>grademark</span></th>
+
+<!--ELSE NOTHING--> 
+			
+
+<!--FILE TH--> 
+<th class="ibox_short">file</th>
+
+<!--PAPER ID--> 
+<th class="ibox_short">paper ID</th>
+
+<!--DATE TH--> 
+<th class="ibox_short">
+<a tabindex="3" href="t_inbox.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&aid&#61;9519164&amp;fo&#61;0&amp;pg&#61;1&amp;ro&#61;3">date</a>
+</th>
+
+</tr>
+<!-- END TABLE HEADER
+==========================================================================--> 
+
+
+
+
+
+
+<tr>
+
+<!-- NO CHECKBOX -->
+
+<td class="class_status"><input tabindex="3" type="checkbox" name="object_checkbox" onClick="uncheck_checkall()" value="137674388"></td>
+
+
+<!-- AUTHOR -->
+<td class="ibox_author ibox_medium" ><a class="AR11_U_darkB" href="t_students_stat.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&sid=21012815">Demo, Student</a></td>
+
+
+<td  class="ibox_medium ibox_title" >
+<!-- REMEDIATION TITLE -->
+
+
+<!-- TITLE -->
+
+<a tabindex="3"  href="javascript:void(0);" onclick="window.open('paper_frameset.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&oid=137674388','markup','location=0,menubar=0,resizable=1,scrollbars=1,titlebar=0,toolbar=0,status=0');">In prod test1</a>
+
+</td>
+
+<td class="ibox_short or_report_cell">
+<!-- OR REPORT -->
+
+<span class="or_full_version"><a class="green"
+	                    href="javascript:void(0);" 
+	                    onClick="window.open('/newreport.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&oid=137674388&ft=1','rview','height=768,width=1024,location=no,menubar=no,resizable=yes,scrollbars=yes,titlebar=no,toolbar=no,status=no');"><span class="white">12%</span></a></span> <span class="or_print_version"><a class="green"
+	                    href="javascript:void(0);" 
+	                    onClick="window.open('/newreport_printview.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&oid=137674388&ft=1','rview','height=768,width=1024,location=no,menubar=no,resizable=yes,scrollbars=yes,titlebar=no,toolbar=no,status=no');"><span class="white">12%</span></a></span>
+
+</td>
+
+<td class="ibox_short or_report_cell report_breakdown_hide">12%</td>
+<td class="ibox_short or_report_cell report_breakdown_hide">N/A</td>
+<td class="ibox_short or_report_cell report_breakdown_hide">N/A</td>
+
+<!-- MAX POINTS -->
+
+
+
+<!-- GRADEMARK -->
+<td class="ibox_grademark">
+
+<!-- GRADEMARK GRADED INDICATOR -->
+
+
+</td>
+
+<!-- DOWNLOAD PAPER -->
+
+
+<td class="ibox_short">
+
+<a  class="dl_file" title="This document is in (doc) format"  tabindex="3" href="javascript:win=window.open('/download_file.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&type=paper&oid=137674388&fn=var_www_kim_wip_elearning300_turnitin_my_java_show.doc&session-id=ff93a7209dbbcd8840598b9ef5012592&p=','', 'toolbar=0,location=no,resizable=yes,width=300,height=140,scrollbars=yes');win.focus();">download paper
+</a>
+
+</td>
+
+
+
+
+<td class="ibox_short">137674388</td>
+<td class="class_status" title="mm-dd-yy" nowrap>05-20-10</td>
+</tr>
+</table>
+
+
+		
+</div>
+<!-- IBOX BODY WRAPPER End --> 
+
+<!-- Footer Section Start --> 
+<div class ="ibox_footer_wrapper">
+	<div class ="ibox_footer">
+		<div class="ibox_footer_inner">
+			<div class="padding">
+			 
+			 <!-- RSS Could go in here --> 
+			 
+			<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Footer Section End --> 
+
+<div class="clear"></div>
+</div>
+<!-- IBOX END -->
+
+	 
+
+
+<!-- Main Section Closed --> 
+</div>
+<!-- Main Section Close --> 
+
+
+<!-- Main Content Closed --> 
+<div class="clear"></div>
+</div>
+<!-- Main Content Closed --> 
+
+
+<div id="footer_container">
+	<div id="footer">
+    								
+    
+    
+    <p>Copyright &copy; 1998 &ndash; 2010 <a href="http://www.iparadigms.com" target="_blank">iParadigms, LLC</a>. All rights reserved.</p>
+    
+        
+    
+    <ul>	
+        
+        
+        <li><a tabindex="5" target="_usage" href="/static/usage_policy.html" >usage policy</a></li>
+        <li><a href="/resources/documentation/turnitin/sales/en_us/privacy_pledge_en_us.pdf">privacy pledge</a></li>
+         
+        
+        <li class="help_button"><a tabindex="5" target="_helpdesk" href="/help/helpdesk.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&">
+        Helpdesk</a></li>
+        <li><a tabindex="5" href="http://www.plagiarism.org" target="new">research resources</a></li>
+        								
+        
+        									
+    </ul>
+	</div>
+</div>
+
+<div id="invis">
+    
+    
+    
+</div>
+
+<!-- Wrapper Content Closed --> 
+<div class="clear"></div>
+</div>
+<!-- Wrapper Content Closed --> 
+
+	<script type="text/javascript"> var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); </script> <script type="text/javascript"> try { var pageTracker = _gat._getTracker("UA-145472-1"); pageTracker._trackPageview(); } catch(err) {}</script>
+
+</body>
+</html>
+<noscript>
+    <div class="system_check_overlay"></div>
+    <div class="system_check_panel_container">
+        <div class="system_check_panel">
+        <form action="/system_check_cookie.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&">
+            <div class="hd">
+            </div>
+            <div class="bd">
+                <div class="system_check_row">
+                    <h2 class="title">Turnitin System Requirements Compatibility Check</h2>
+                    <div>Turnitin runs best when your system and browser are in sync with our <a target='_blank' href='/static/system_requirements.html'>minimum system requirements</a>. We're briefly interrupting your login so we can work with you to make sure things are running smoothly.</div>
+                </div>
+                <ul>
+                    <li class="test test_failed">
+                        <h3 class="test_title">Operating System</h3>
+                        <div>Your operating system is: <b>Unknown</b></div>
+                        <div class="failure_explanation">This operating system is not currently supported by Turnitin and full compatibility with Turnitin products cannot be guaranteed. <a target='_blank' href='/static/knowledge_base/supported_operating_systems.html'>Find more information on supported operating systems</a>.
+                        </div>
+                    </li>
+                    <li class="test test_failed">
+                        <h3 class="test_title">Web Browser</h3>
+                        <div>Your web browser is: <b>unknown</b></div>
+                        <div class="failure_explanation">Your web browser is not currently supported by Turnitin and full compatibility with Turnitin products cannot be guaranteed. <a target='_blank' href='/static/knowledge_base/supported_web_browsers.html'>Find more information on supported browsers and why this is important</a>.
+                        </div>
+                    </li>
+                    <li class="test test_failed">
+                        <h3 class="test_title">Cookies</h3>
+                        <div>Your web browser's cookies are <b>not enabled</b></div>
+                        <div class="failure_explanation">Learn <a target='_blank' href='/static/knowledge_base/enabling_cookies.html'>how to enable your cookies and why this is important</a>.
+                        </div>
+                    </li>
+                    <li class="test test_failed">
+                        <h3 class="test_title">Javascript</h3>
+                        <div>Javascript in your web browser is <b>not enabled</b></div>
+                        <div class="failure_explanation">Learn <a target='_blank' href='/static/knowledge_base/enabling_javascript.html'>how to enable Javascript in your web browser and why this is important</a>.
+                        </div>
+                    </li>
+                </ul>
+                <div class="system_check_row">
+                    <b>4 issues</b> have been flagged during this system check. <a target='_blank' href='/static/knowledge_base/knowledge_base.html'>Help Center</a> articles are available to guide your setup. If you would like to, you can:
+                </div>
+                <div class="system_check_row">
+                    <a href="/rerun_system_check.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&">Run system check again</a>
+                </div>
+                <div class="system_check_row">
+                    <input type="hidden" name="redirect" value="1" />
+                    <input type="hidden" name="session-id" value="ff93a7209dbbcd8840598b9ef5012592" />
+                    <span class="submit_form_button">
+                        <input type="submit" name="system_check_submit" id="system_check_submit" value="Continue to Dashboard" />
+                    </span>
+                    <div class="clear"></div>
+                </div>
+                
+            </div>
+            <div class="ft">
+            </div>
+        </form>
+        </div>
+    </div>
+</noscript>
+
+    <div id="js_system_check_overlay" class="system_check_overlay" style="display:none;"></div>
+    <div id="js_system_check_panel_container" class="system_check_panel_container" style="display:none;">
+        <div class="system_check_panel">
+            <div class="hd">
+            </div>
+            <div class="bd">
+                <div class="system_check_row">
+                    <h2 class="title">Turnitin System Requirements Compatibility Check</h2>
+                    <div>Turnitin runs best when your system and browser are in sync with our <a target='_blank' href='/static/system_requirements.html'>minimum system requirements</a>. We're briefly interrupting your login so we can work with you to make sure things are running smoothly.</div>
+                </div>
+                <ul>
+                    <li class="test test_failed">
+                        <h3 class="test_title">Operating System</h3>
+                        <div>Your operating system is: <b>Unknown</b></div>
+                        <div class="failure_explanation">This operating system is not currently supported by Turnitin and full compatibility with Turnitin products cannot be guaranteed. <a target='_blank' href='/static/knowledge_base/supported_operating_systems.html'>Find more information on supported operating systems</a>.
+                        </div>
+                    </li>
+                    <li class="test test_failed">
+                        <h3 class="test_title">Web Browser</h3>
+                        <div>Your web browser is: <b>unknown</b></div>
+                        <div class="failure_explanation">Your web browser is not currently supported by Turnitin and full compatibility with Turnitin products cannot be guaranteed. <a target='_blank' href='/static/knowledge_base/supported_web_browsers.html'>Find more information on supported browsers and why this is important</a>.
+                        </div>
+                    </li>
+                    <li class="test test_failed">
+                        <h3 class="test_title">Cookies</h3>
+                        <div>Your web browser's cookies are <b>not enabled</b></div>
+                        <div class="failure_explanation">Learn <a target='_blank' href='/static/knowledge_base/enabling_cookies.html'>how to enable your cookies and why this is important</a>.
+                        </div>
+                    </li>
+                    <li class="test test_passed">
+                        <h3 class="test_title">Javascript</h3>
+                        <div>Javascript in your web browser is <b>enabled</b></div>
+                        <div class="failure_explanation">Learn <a target='_blank' href='/static/knowledge_base/enabling_javascript.html'>how to enable Javascript in your web browser and why this is important</a>.
+                        </div>
+                    </li>
+                </ul>
+                <div class="system_check_row">
+                    <b>3 issues</b> have been flagged during this system check. <a target='_blank' href='/static/knowledge_base/knowledge_base.html'>Help Center</a> articles are available to guide your setup. If you would like to, you can:
+                </div>
+                <div class="system_check_row">
+                    <a href="rerun_system_check.asp?r=48.7813687666669&svr=11&session-id=ff93a7209dbbcd8840598b9ef5012592&lang=en_us&">Run system check again</a>
+                </div>
+                <div class="system_check_row">
+                    <span class="submit_form_button">
+                        <input type="button" name="system_check_submit" id="system_check_submit" value="Continue to Dashboard" />
+                    </span>
+                    <div class="clear"></div>
+                </div>
+                
+            </div>
+            <div class="ft">
+            </div>
+        </div>
+    </div>
+    <script>
+        $E.addListener(
+            'system_check_submit',
+            'click',
+            function(event) {
+                $E.stopEvent(event);
+
+            
+
+                Element.hide('js_system_check_overlay');
+                Element.hide('js_system_check_panel_container');
+            },
+            this,
+            true);
+        Element.show('js_system_check_overlay');
+        Element.show('js_system_check_panel_container');
+    </script>
+

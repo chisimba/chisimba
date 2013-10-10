@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This file is a code generation template for Chisimba dbtable class properties -->
+<chisimba_dbtable_properties>
+
+<item name="objuser" type="property">
+<description>
+This item generates the property that will be used to
+hold an instance of the user object.
+</description>
+  <code>
+    /**
+    *
+    * @param string object $objUser A property to hold an instance of the user object
+    *
+    */
+    public $objUser;
+  </code>
+</item>
+
+</chisimba_dbtable_properties>

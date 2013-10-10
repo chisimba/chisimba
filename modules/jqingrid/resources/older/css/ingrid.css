@@ -1,0 +1,206 @@
+.datagrid td, .datagrid th {
+	font-size: 11px;
+	font-family: Tahoma, Verdana, Arial, sans-serif; 
+	margin: 0px;
+	border-bottom: 1px solid #ABABAB;
+}
+
+table.datagrid {
+	table-layout: fixed;
+}
+
+table.datagrid td {
+	padding: 2px;
+	text-align: left;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+table.datagrid tr  {
+	height: 25px;
+}
+
+table.datagrid th  {
+	padding: 2px;
+	text-align: left;
+	font-weight: normal;
+}
+
+.grid-loading {
+	background: #E3E3E3 url('../img/load-bg.png');
+	display: block;
+	opacity:.50;	
+	-moz-opacity:.50;
+	filter:alpha(opacity=50);
+	text-align: center;
+}
+.grid-loading div {
+	width: 100%;
+	height: 100%;
+	display: block;
+	background: url('../img/indicator_web20_working.gif') no-repeat center center;
+}
+.grid-header-bg {
+	background: #E3E3E3 url('../img/grid-hrow.gif') repeat-x bottom;
+}
+
+
+.grid-row-style1 { background-color: #FFFFFF; }
+.grid-row-style2 { background-color: #EEF6FF; }
+.grid-row-style3 { background-color: #EEEEEE; }
+
+.grid-row-hover {
+	background-color: #FFFFBB;
+}
+.grid-row-sel {
+	background-color: #EEEEEE;
+	border-bottom: 1px solid #333333;
+}
+.grid-row-sel td {
+	color: #990000;
+}
+table.datagrid td.grid-custom-col {
+	color: #333333;
+	background-color:red;
+	text-align:right;
+}
+
+table.datagrid th div.grid-col-resize {
+	background: url('../img/grid-split.gif') no-repeat center;
+	cursor:col-resize;
+	width: 6px;
+	height:16px;
+	font-size:1px;
+	float: right;
+	display: block;
+	text-indent:-1000px;
+	overflow:hidden;
+}
+
+table.datagrid thead {
+}
+
+/*
+Column Sorting Styles
+*/
+.grid-sort-asc {
+	background: url('../img/sort-asc.png') no-repeat center left;
+	display: block;
+	height: 18px;
+	padding: 3px 0 0 16px;
+	cursor: pointer;
+}
+.grid-sort-desc {
+	background: url('../img/sort-desc.png') no-repeat center left;
+	display: block;
+	height: 18px;
+	padding: 3px 0 0 16px;
+	cursor: pointer;
+}
+.grid-sort-none {
+	background: url('../img/sort-none.png') no-repeat center left;
+	display: block;
+	height: 18px;
+	padding: 3px 0 0 16px;
+	cursor: pointer;
+}
+
+
+/*
+Paging Control Styles
+*/
+
+/* paging control footer toolbar */
+.grid-page-toolbar {
+	background: url('../img/page-bg.gif') repeat-x;
+	font: 11px Tahoma;
+	padding-top: 7px;	
+	border-bottom: 1px solid #77ABF2;
+}
+/* paging control footer toolbar page form (pform) */
+.grid-page-toolbar form {
+	margin: 0;
+}
+/* first page button (pb1) */
+.grid-page-start {
+	background: url('../img/page-first.png') no-repeat center;
+	display: block;
+	float:left;
+	margin:3px;	
+	width: 16px;
+	height: 16px;
+	text-indent: -1000px;
+	overflow: hidden;
+	margin-left: 10px;
+}
+/* previous page button (pb2) */
+.grid-page-prev {
+	background: url('../img/page-prev.png') no-repeat center;
+	display: block;
+	float:left;
+	margin:3px;
+	width: 16px;
+	height: 16px;
+	text-indent: -1000px;
+	overflow: hidden;
+}
+/* next page button (pb3) */
+.grid-page-next {
+	background: url('../img/page-next.png') no-repeat center;
+	display: block;
+	float:left;
+	margin:3px;
+	width: 16px;
+	height: 16px;
+	text-indent: -1000px;
+	overflow: hidden;
+}
+/* last page button (pb4) */
+.grid-page-end {
+	background: url('../img/page-last.png') no-repeat center;
+	display: block;
+	float:left;
+	margin:3px;
+	width: 16px;
+	height: 16px;
+	text-indent: -1000px;
+	overflow: hidden;
+}
+/* loading indicator graphic (pload) */
+.grid-page-loading {
+	background: url('../img/grid-loading.gif') no-repeat center;
+	display: block;
+	float:left;
+	margin:3px;
+	width: 16px;
+	height: 16px;
+	text-indent: -1000px;
+	overflow: hidden;
+}
+/* loading done indicator graphic (pload) */
+.grid-page-loading-done {
+	background: url('../img/grid-loading-done.gif') no-repeat center;
+}
+/* page info text around textbox (pinfo) */
+.grid-page-info {
+	font: 11px Tahoma;
+	display: block;
+	float:left;
+	color: #575757;
+}
+/* viewing rows x of y text message (pv) */
+.grid-page-viewing-records-info {
+	font: 11px Tahoma;
+	color: #575757;	
+	display: block;
+	float: right;
+	height: 16px;
+	margin: 3px 10px 0 0;
+}
+/* page input field (pfld) */
+.grid-page-input {
+	font: 11px Tahoma;
+	width: 30px;
+	padding: 2px; 
+	border: 1px inset;	
+}

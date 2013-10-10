@@ -1,0 +1,65 @@
+/* 
+   RDFDBUtils : Style.css 
+   Version 0.1 
+   Author: Gunnar AAstrand Grimnes <ggrimnes@csd.abdn.ac.uk>
+*/
+
+body { 
+  background: #ffffff; 
+  font-family: tahoma, sans-serif;
+}
+
+a:link, a:visited {
+	color : #000099;
+	text-decoration : none;
+}
+
+a:hover {
+	background-color : #ffffff;
+	color : #00009f;
+	text-decoration : underline;
+}
+
+
+.okbutton {  
+  border: 2px black solid;
+  margin: 10px 10px 10px 10px; 
+}
+
+.menu { 
+  border: 1px black solid; 
+  background: #99ccff; 
+  padding: 10px; 
+
+}
+
+
+.footer {  
+  font-size: small; 
+  text-align: center;
+  width: 50%; 
+  margin-left: auto; 
+  margin-right: auto; 
+}
+
+
+
+.warning { 
+  color: #ff0000;
+}
+
+.tableheader {   
+  font-weight: bold;
+}
+
+.resulttable { 
+  font-size: small;
+}
+
+.restablerow0{ 
+  background-color: #99CCFF;
+}
+
+.restablerow1{ 
+  background-color: #CCCCCC;
+}

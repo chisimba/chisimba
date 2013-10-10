@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<updates>
+    <update>
+        <table>tbl_announcements</table>
+        <version>0.222</version>
+        <description>Increased field length for titles</description>
+        <data>
+            <change>
+                <createdon>
+                    <definition>
+                        <type>timestamp</type>
+                    </definition>
+                </createdon>
+            </change>
+        </data>
+    </update>
+</updates>

@@ -1,0 +1,23 @@
+<form name="test" action="?module=forms&amp;action=savedata" method="post">
+    <p><span style="color: rgb(128, 128, 128);"><strong><span style="font-size: larger;">Sample Form:</span></strong></span></p>
+    <table width="100%" cellspacing="1" cellpadding="1" border="0" align="left">
+        <tbody>
+            <tr>
+                <td>Employee Name</td>
+                <td><input type="text" name="employeename" size="50" maxlength="50" /></td>
+            </tr>
+            <tr>
+                <td>Employee Number</td>
+                <td><input type="text" name="employeenumber" size="50" maxlength="50" /></td>
+            </tr>
+            <tr>
+                <td>
+                <p><input type="submit" name="submit" value="Submit" /></p>
+                </td>
+                <td>&nbsp;</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>&nbsp;&nbsp;</p>
+</form>
+<p>&nbsp;</p>

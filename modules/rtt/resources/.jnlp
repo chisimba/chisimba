@@ -1,0 +1,63 @@
+<jnlp spec="1.0+" codebase="http://146.141.76.164/chisimba//packages//rtt/resources/">
+    <information>
+        <title>Realtime Communication Tools</title>
+        <vendor>AVOIR</vendor>
+        <description>Realtime Communication Tools</description>
+        <homepage href="http://www.chisimba.com"/>
+        <description kind="short">rtt</description>
+        <icon href="http://146.141.76.164/chisimba//packages//rtt/resources//images/logo.png"/>
+        <icon kind="splash" href="http://146.141.76.164/chisimba//packages//rtt/resources//images/splash_rtt.png"/>
+        <offline-allowed/>
+    </information>
+    <resources>
+        <j2se version="1.5+" />
+
+        <jar href="commons-collections-3.1-rt.jar" />
+        <jar href="commons-logging-api-rt.jar" />
+        <jar href="quartz-all-1.6.0.jar" />
+        <jar href="jta-rt.jar" />
+        <jar href="PgsLookAndFeel.jar"/>
+        <jar href="l2fprod-common-all.jar"/>
+        <jar href="kunstsoff-rt.jar" />
+        <jar href="smack.jar" />
+        <jar href="smackx.jar" />
+        <jar href="looks-2.3.0.jar" />
+        <jar href="realtime2-chatmanager.jar" />
+        <jar href="realtime2-presentations.jar" />
+        <jar href="realtime2-audio.jar" />
+        <jar href="realtime2-core.jar" />
+        <jar href="realtime2-usermanager.jar" />
+        <jar href="realtime2-roommanager.jar" />
+        <jar href="realtime2-whiteboard.jar" />
+</resources>
+
+
+   <application-desc    main-class="org.avoir.realtime.core.Main">
+    <argument>-slidesdir=/</argument>
+    <argument>-maxstanzas=5</argument>
+    <argument>-admin=true</argument>
+    <argument>-debug=true</argument>
+    <argument>-enabledraw=true</argument>
+    <argument>-skinclass=null </argument>
+    <argument>-audiovideourl=146.141.76.164/:7070/red5</argument>
+    <argument>-serverport=5222</argument>
+    <argument>-serverhost=146.141.76.164</argument>
+    <argument>-mode=1</argument>
+    <argument>-plugins=org.avoir.realtime.user.UserManager#org.avoir.realtime.roommanager.RoomManager#org.avoir.realtime.chat.ChatManager#org.avoir.realtime.presentations.PresentationManager#org.avoir.realtime.whiteboard.WhiteboardManager#org.avoir.realtime.audio.AudioManager</argument>
+    <argument>-username=</argument>
+    <argument>-names=</argument>
+    <argument>-email=@chisimba.com</argument>
+    <argument>-rtpPort=1935</argument>
+    <argument>-sipPort=6060</argument>
+    <argument>-outboundProxy=sip:146.141.97.28;lr</argument>
+    <argument>-password=1234</argument>
+    <argument>-domain=146.141.97.28</argument>
+    <argument>-userpart=1000</argument>
+    <argument>-roomname=chisimba</argument>
+    </application-desc>
+
+    <security>
+        <all-permissions/>
+    </security>
+</jnlp>
+

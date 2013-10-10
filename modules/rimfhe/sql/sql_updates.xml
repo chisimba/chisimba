@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<updates>
+
+    <update>
+        <table>tbl_rimfhe_journal</table>
+        <version>0.23</version>
+        <description>Added column issn.</description>
+        <data>
+           	<add>
+       			<name>issn</name>
+    	    	<type>text</type>
+       			<length>200</length>
+       			<notnull>FALSE</notnull>
+       			<default>NULL</default>
+    		</add>
+    	</data>
+	</update>
+	<update>
+        <table>tbl_rimfhe_graduatedocstud</table>
+        <version>0.24</version>
+        <description>Added column nationality.</description>
+        <data>
+           	<add>
+       			<name>nationality</name>
+    	    	<type>text</type>
+       			<length>20</length>
+       			<notnull>TRUE</notnull>
+       			<default>NULL</default>
+    		</add>
+    	</data>
+	</update>
+<update>
+        <table>tbl_rimfhe_graduatedocstud</table>
+        <version>0.24</version>
+        <description>Added column race.</description>
+        <data>
+           	<add>
+       			<name>race</name>
+    	    	<type>text</type>
+       			<length>20</length>
+       			<notnull>TRUE</notnull>
+       			<default>NULL</default>
+    		</add>
+    	</data>
+	</update>
+</updates>

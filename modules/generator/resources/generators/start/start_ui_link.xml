@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This file is a code generation template for Chisimba controller generation labels for the input template -->
+<chisimba_start_ui_link>
+
+<title>Start generator</title>
+<description>Start the generator module for generating Chsimba code.</description>
+
+</chisimba_start_ui_link>

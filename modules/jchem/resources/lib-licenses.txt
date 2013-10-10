@@ -1,0 +1,203 @@
+JCP contains the following libraries. Please read this for comments on copyright etc.
+
+Chemistry Development Kit, master version as of Mon Apr 26 10:51:27 BST 2010 (http://cdk.sf.net)
+Copyright 1997-2009 The CDK Development Team
+License: LGPL v2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+Download: https://sourceforge.net/projects/cdk/files/
+Source available at: http://sourceforge.net/scm/?type=git&group_id=20024
+
+Apache Log4J 1.2.15 (http://logging.apache.org/log4j/1.2/index.html)
+Copyright 2007 The Apache Software Foundation
+License: Apache License, Version 2.0 (http://logging.apache.org/log4j/1.2/license.html)
+Download: http://logging.apache.org/log4j/1.2/download.html
+Source available at: http://logging.apache.org/log4j/1.2/download.html
+
+
+JRI null (http://www.rforge.net/JRI/)
+Copyright null
+License: null (null)
+Download: null
+Source available at: null
+
+
+InChI Software 1.02 (http://iupac.org/inchi/)
+Copyright null
+License: GNU LGPL (null)
+Download: null
+Source available at: null
+
+Apache Log4J null (null)
+Copyright null
+License: null (null)
+Download: null
+Source available at: null
+
+JNI-InChI 0.5 (http://jni-inchi.sourceforge.net/)
+Copyright null
+License: GNU Lesser General Public License (http://jni-inchi.sourceforge.net/license.html)
+Download: null
+Source available at: null
+
+
+XML APIs 1.3.02 (http://xml.apache.org/commons/index.html)
+Copyright null
+License: Apache License, 2.0 (http://xml.apache.org/commons/licenses.html)
+Download: http://apache.mirror.rbftpnetworks.com/xml/commons/
+Source available at: http://apache.mirror.rbftpnetworks.com/xml/commons/
+
+
+XOM 1.1 (http://xom.nu/)
+Copyright 2002, 2004 Elliotte Rusty Harold
+License: GNU LGPL, 2.1 (http://xom.nu/license.xhtml)
+Download: http://www.cafeconleche.org/XOM/xom-1.1.jar
+Source available at: https://xom.dev.java.net/source/browse/xom/
+
+
+A Java Matrix Package 1.0.2 (http://math.nist.gov/javanumerics/jama/)
+Copyright This software is a cooperative product of The MathWorks and the National Institute of Standards and Technology (NIST) which has been released to the public domain. Neither The MathWorks nor NIST assumes any responsibility whatsoever for its use by other parties, and makes no guarantees, expressed or implied, about its quality, reliability, or any other characteristic.
+License: Public Domain (http://math.nist.gov/javanumerics/jama/)
+Download: http://math.nist.gov/javanumerics/jama/
+Source available at: http://math.nist.gov/javanumerics/jama/
+
+
+SJava 0.68 (http://www.omegahat.org/RSJava/)
+Copyright (c) 1998 1999, The Omega Project for Statistical Computing. All rights reserved.
+License: BSD (http://www.omegahat.org/License.html)
+Download: Binary downlaod on request from omega-bugs@www.omegahat.org
+Source available at: http://www.omegahat.org/RSJava/SJava_0.68-0.tar.gz
+
+
+Apache Commons - CLI 1.0 (http://commons.apache.org/cli/)
+Copyright 2001-2002 The Apache Software Foundation
+License: Apache License Version 2.0 (http://commons.apache.org/license.html)
+Download: http://archive.apache.org/dist/commons/cli/old/v1.0/
+Source available at: http://archive.apache.org/dist/commons/cli/old/v1.0/
+
+
+JavaCC null (https://javacc.dev.java.net/)
+Copyright null
+License: BSD (null)
+Download: null
+Source available at: null
+
+
+Apache Xerces 2.9.0 (http://xerces.apache.org/xerces2-j/)
+Copyright null
+License: Apache License, 2.0 (http://xerces.apache.org/xerces2-j/)
+Download: http://xerces.apache.org/xerces2-j/download.cgi
+Source available at: http://xerces.apache.org/xerces2-j/download.cgi
+
+
+CMLXOM 2.5 beta1 (https://sourceforge.net/projects/cml/develop)
+Copyright null
+License: Artistic License 2.0 (null)
+Download: null
+Source available at: https://sourceforge.net/scm/?type
+
+CML 2.5 XML Schema null (null)
+Copyright null
+License: Creative Commons BY-ND (null)
+Download: null
+Source available at: null
+
+
+XML Pull Parser 1.1.4c (http://www.extreme.indiana.edu/xgws/xsoap/xpp/)
+Copyright (c) 2001 Extreme! Lab, Indiana University. All rights reserved.
+License: Indiana University Extreme! Lab Software License (http://www.extreme.indiana.edu/viewcvs/~checkout~/XPP3/LICENSE.txt)
+Download: http://www.extreme.indiana.edu/xgws/xsoap/xpp/download/old_versions/
+Source available at: http://www.extreme.indiana.edu/xgws/xsoap/xpp/download/old_versions/
+
+The author says:
+Indiana University Extreme! Lab Software License
+
+Version 1.1.1
+
+Copyright (c) 2002 Extreme! Lab, Indiana University. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without 
+modification, are permitted provided that the following conditions 
+are met:
+
+1. Redistributions of source code must retain the above copyright notice, 
+   this list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright 
+   notice, this list of conditions and the following disclaimer in 
+   the documentation and/or other materials provided with the distribution.
+
+3. The end-user documentation included with the redistribution, if any, 
+   must include the following acknowledgment:
+
+  "This product includes software developed by the Indiana University 
+  Extreme! Lab (http://www.extreme.indiana.edu/)."
+
+Alternately, this acknowledgment may appear in the software itself, 
+if and wherever such third-party acknowledgments normally appear.
+
+4. The names "Indiana University" and "Indiana University Extreme! Lab" 
+must not be used to endorse or promote products derived from this 
+software without prior written permission. For written permission, 
+please contact http://www.extreme.indiana.edu/.
+
+5. Products derived from this software may not use "Indiana University" 
+name nor may "Indiana University" appear in their name, without prior 
+written permission of the Indiana University.
+
+THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESSED OR IMPLIED
+WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE AUTHORS, COPYRIGHT HOLDERS OR ITS CONTRIBUTORS
+BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+JGraphT 0.6.0 (http://jgrapht.sourceforge.net/)
+Copyright 2003-2005, by Barak Naveh and Contributors
+License: GNU Lesser General Public License, 2.1 (http://jgrapht.sourceforge.net/LGPL.html)
+Download: https://sourceforge.net/projects/jgrapht/files/
+Source available at: https://sourceforge.net/scm/?type
+
+
+Vecmath 1.2-1.14 (null)
+Copyright 1997,1998,1999 Kenji Hiranabe, Eiwa System Management, Inc.
+License: Custom, MIT-like (null)
+Download: null
+Source available at: https://sourceforge.net/scm/?type
+
+The author says:
+Copyright (C) 1997,1998,1999
+Kenji Hiranabe, Eiwa System Management, Inc.
+
+This program is free software.
+Implemented by Kenji Hiranabe(hiranabe@esm.co.jp),
+conforming to the Java(TM) 3D API specification by Sun Microsystems.
+
+Permission to use, copy, modify, distribute and sell this software
+and its documentation for any purpose is hereby granted without fee,
+provided that the above copyright notice appear in all copies and
+that both that copyright notice and this permission notice appear
+in supporting documentation. Kenji Hiranabe and Eiwa System Management,Inc.
+makes no representations about the suitability of this software for any
+purpose.  It is provided "AS IS" with NO WARRANTY.
+
+ANTLR 2.4.0 (http://www.antlr.org)
+Copyright (c) 2003-2008, Terence Parr
+License: BSD (http://www.antlr.org/license.html)
+Download: http://www.antlr2.org/download.html
+Source available at: http://www.antlr2.org/download.html
+
+The author says:
+Copyright (c) 2003-2008, Terence Parr
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+    * Neither the name of the author nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission. 
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 

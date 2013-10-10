@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<updates>
+    <update>
+        <table>tbl_survey</table>
+        <version>1.161</version>
+        <description>Added login flag to decide whethere taking survey needs login or not</description>
+        <data>
+            <add>
+                    <name>login</name>
+                    <type>text</type>
+                    <length>1</length>
+                
+            </add>
+        </data>
+    </update>
+
+   
+        
+</updates>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jnlp href="launch.jnlp" spec="1.0+">
+    <information>
+        <title>Who is online plugin for KEWL3</title>
+        <vendor>eLearning Support and Innovation Unit</vendor>
+        <homepage href="https://elearn.wits.ac.za"/>
+        <description>Support Live chats within the course</description>
+        <description kind="short">Support Live chats within the course</description>
+    </information>
+    <update check="always"/>
+    <security>
+        <all-permissions/>
+    </security>
+    <resources>
+        <j2se version="1.5+"/>
+        <jar href="LiveChat.jar" main="true"/>
+        <jar href="smack.jar"/>
+        <jar href="smackx.jar"/>
+    </resources>
+    <applet-desc height="300" main-class="livechat.Main" name="LiveChat" width="250">
+        <param name="serverHost" value="localhost"/>
+        <param name="serverPort" value="5222"/>
+        <param name="username" value="Anonymous user (not logged in)"/>
+        <param name="roomname" value="lobby"/>
+        <param name="email" value="Anonymous user (not logged in)"/>
+        <param name="names" value="Anonymous user (not logged in)"/>
+        <param name="isinstructor" value="no"/>
+        <param name="roomdesc" value=""/>
+    </applet-desc>
+</jnlp>
+          

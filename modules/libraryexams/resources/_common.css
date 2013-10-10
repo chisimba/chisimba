@@ -1,0 +1,397 @@
+/*CMS Header*/
+#cms_main {
+    width: 100%;
+}
+
+#cms_header_left {
+    float:left; 
+    align: left; 
+    margin:0px; 
+    padding:0px;
+}
+
+#cms_header_right {
+    float:right; 
+    align:right; 
+    margin:0px; 
+    padding:0px;
+}
+
+.clearboth {
+    clear:both; 
+    margin:0px; 
+    padding:0px;
+}
+
+.cms_table_header {
+    padding-left : 3px;
+}
+
+/*Content Page Parameters Tabbed Form Container*/
+#AddContentPageContent {
+    min-width: 400px;
+}
+
+
+/*Template's List Table*/
+#templateListTable th, td{
+    padding-left: 5px;
+}
+
+/*Add Template's Select Image*/
+#template_thumb {
+    cursor: pointer;
+}
+
+#cmsaddcontenttopnavbuttons {
+    width: 370px;
+    float:right; 
+    align:right; 
+    margin:0px; 
+    padding:0px;
+}
+
+#cmsaddcontenttopnavheading {
+    float:left; 
+    align: left; 
+    margin:0px; 
+    padding:0px;
+}
+
+.AddContentLeft {
+    width: 450px;
+}
+
+.AddContentLeft th, td{
+    padding: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.AddContentRight {
+    padding-left: 10px;
+    width: 280px;
+}
+
+.AddSectionLeft th, td{
+    padding: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.AddSectionRight {
+    padding-left: 10px;
+    width: 280px;
+}
+
+
+#templateListTable th{
+    text-align: left;
+}
+
+.ui-tabs-nav li {
+    line-height: 1.4em;
+    padding-left: 0px;
+    background-color: transparent;
+    background-image: none;
+}
+
+#sectionstreemenu {
+    overflow: auto;
+}
+
+/* CMS Add Content Styles */
+#cmsvspacer {
+    padding-bottom:10px;
+}
+
+#cmsheaderspacer {
+    padding-bottom:20px;
+}
+
+#wrapAddContent {
+
+}
+#leftAddContent {
+    float: left;
+    width: 60%;
+}
+#rightAddContent {
+    float: right;
+    width: 35%;
+}
+
+#input_title {
+/*    width: 220px;*/
+}
+
+#input_parent {
+    width: 50%;
+    min-width: 100px;
+/*    width: 220px;*/
+}
+
+#input_template_title {
+    width: 225px;
+}
+#input_description {
+    width: 225px;
+}
+
+
+.addContentTabs{
+    position: relative;
+    display: block;
+    left:0px;
+    /*width: 270px;*/
+    width: 100%;
+}
+
+.addSectionTabs{
+    position: relative;
+    display: block;
+    left:0px;
+    /*width: 270px;*/
+    width: 100%;
+}
+
+#form_addfrm select {
+    width: 100%;
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-top-style: solid;
+    border-right-style: solid;
+    border-bottom-style: solid;
+    border-left-style: solid;
+    border-top-color: #cccccc;
+    border-right-color: #cccccc;
+    border-bottom-color: #cccccc;
+    border-left-color: #cccccc;
+    z-index: -3;
+    font-size: 11px;
+}
+
+
+
+
+
+/*Content Page Parameters Tabbed Form */
+
+#AddContentPageParams {
+    padding-top: 0px;
+    float:left;
+}
+
+#AddContentPageParams li {
+    padding-left: 3px;
+}
+
+#AddContentPageParams textarea {
+    width: 245px;
+}
+
+#AddContentPageParams input {
+    /*width: 110px;*/
+}
+
+#AddContentPageParams .text {
+    width: 100px;
+}
+
+#AddContentPageParams .toggleShow{
+    visibility: visible;
+}
+
+#AddContentPageParams .toggleHide{
+    visibility: hidden;
+}
+
+#AddContentPageParams #toggle_layer_param{
+    /*visibility: hidden;*/
+}
+
+
+
+/*Section  Page Parameters Tabbed Form */
+#AddSectionPageParams th, #AddSectionPageParams td{
+    width:250px;
+}
+
+#AddSectionPageParams {
+    padding-top: 0px;
+}
+
+#AddSectionPageParams li {
+    padding-left: 3px;
+}
+
+#AddSectionPageParams textarea {
+    width: 245px;
+}
+
+#AddSectionPageParams .text {
+    width: 100px;
+}
+
+#AddSectionPageParams .toggleShow{
+    visibility: visible;
+}
+
+#AddSectionPageParams .toggleHide{
+    visibility: hidden;
+}
+
+
+/** Icon + text div links (Control Panel) **/
+
+.smallicon {
+    height: 85px;
+    width: 85px;
+    text-align: center;
+    font-size: 110%;
+    line-height: 80%;
+    float: left;
+    padding: 0px;
+    margin: 2px;
+    color : black;
+}
+
+.smallicon a, .smallicon a:visited {
+    display: block;
+    float: left;
+    border: 1px solid #f0f0f0;
+    height: 85px;
+    width: 85px;
+    vertical-align: middle;
+    font-size: 110%;
+    line-height: 80%;
+    text-decoration: none;
+    padding: 0px;
+    margin: 0px;
+    background: #f5f5f5;
+    color : black;
+}
+
+.smallicon a:hover {
+    border-left: 1px solid #eee;
+    border-top: 1px solid #eee;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    background: #fcfcfc;
+
+}
+
+.smallicon img  { 
+    padding: 2px 0; 
+    padding-bottom: 3px; 
+    margin: 0 auto;  
+}
+
+.smallicon span { 
+    display: block; 
+    text-align: center; 
+    line-height: 1em;
+    font-size: 0.8em;
+}
+
+#superfishmenu {
+    display: block;
+    margin-bottom: auto;
+}
+
+#cmsleftblockscontainer {
+    display: block;
+    margin-bottom: auto;
+
+}
+
+#chis_sf_menu {
+    display: block;
+    margin-bottom: auto;
+
+}
+
+
+
+/*CMS Admin Tree Menu*/
+#tree1{
+    overflow: auto;
+}
+
+/*CMS Admin Tree Menu Styling*/
+.simpleTree .active
+{
+    cursor: default;
+    background-color:none;
+    padding:0px 2px;
+    border: none;
+}
+
+.simpleTree .text a:visited
+{
+    text-decoration: none;
+}
+
+
+
+/* jQuery Tabs*/
+.ui-tabs-nav a span
+{
+padding-top: 1px;
+padding-right: 0pt;
+height: 20px;
+background-x-position: 0pt;
+background-y-position: 0pt;
+line-height: 20px;
+font-size: 0.8em;
+}
+
+.ui-tabs-nav .ui-tabs-selected a span
+{
+padding-top: 0pt;
+height: 27px;
+background-x-position: 0pt;
+background-y-position: -23px;
+line-height: 27px;
+font-size: 0.8em;
+}
+
+#bodydiv {
+    min-width: 
+}
+
+.clearboth {
+    clear : both;
+}
+
+#cmsheadercontainer {
+	padding-bottom : 10px;
+	border-bottom : 1px solig #ededed;
+	background-color: pink;
+}
+
+.hidden {
+	display : none;
+}
+
+#cmscontrolpanelmenu {
+	color: white;
+	font-size: 15px;
+	padding: 3px;
+}
+
+.contentfeaturebox a:hover {
+	text-decoration: none;
+}
+
+.fg-menu-container li{
+	line-height: 1.4em;
+	padding-left: 25px;
+	background-color: transparent;
+	background-image: none;
+	background-repeat: no-repeat;
+	background-attachment: scroll;
+	background-position: 0pt 0pt;
+}

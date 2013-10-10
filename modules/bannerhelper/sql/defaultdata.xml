@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<defaultdata>
+  <!-- MODULE: bannerhelper, This installs a default block on the dynamic template -->
+    <tbl_bannerhelper_moduleblocks>
+        <id>init_on_install_1</id>
+        <userid>1</userid>
+        <block>block|about|bannerhelper</block>
+        <side>left</side>
+        <position>1</position>
+        <module>bannerhelper</module>
+        <datelastupdated>2012-02-17 15:12:58</datelastupdated>
+    </tbl_bannerhelper_moduleblocks>
+    <tbl_bannerhelper_moduleblocks>
+        <id>init_on_install_2</id>
+        <userid>1</userid>
+        <block>block|banner0|bannerhelper</block>
+        <side>middle</side>
+        <position>2</position>
+        <module>bannerhelper</module>
+        <datelastupdated>2012-04-26 15:12:58</datelastupdated>
+    </tbl_bannerhelper_moduleblocks>
+    <tbl_bannerhelper_moduleblocks>
+        <id>init_on_install_3</id>
+        <userid>1</userid>
+        <block>block|banner1|bannerhelper</block>
+        <side>middle</side>
+        <position>3</position>
+        <module>bannerhelper</module>
+        <datelastupdated>2012-04-26 15:12:58</datelastupdated>
+    </tbl_bannerhelper_moduleblocks>
+    <tbl_bannerhelper_moduleblocks>
+        <id>init_on_install_4</id>
+        <userid>1</userid>
+        <block>block|banner2|bannerhelper</block>
+        <side>middle</side>
+        <position>1</position>
+        <module>bannerhelper</module>
+        <datelastupdated>2012-02-17 15:12:58</datelastupdated>
+    </tbl_bannerhelper_moduleblocks>
+    <tbl_bannerhelper_moduleblocks>
+        <id>init_on_install_5</id>
+        <userid>1</userid>
+        <block>block|banner3|bannerhelper</block>
+        <side>middle</side>
+        <position>1</position>
+        <module>bannerhelper</module>
+        <datelastupdated>2012-02-17 15:12:58</datelastupdated>
+    </tbl_bannerhelper_moduleblocks>
+    <tbl_bannerhelper_moduleblocks>
+        <id>init_on_install_6</id>
+        <userid>1</userid>
+        <block>block|menublk|bannerhelper</block>
+        <side>middle</side>
+        <position>1</position>
+        <module>bannerhelper</module>
+        <datelastupdated>2012-02-17 15:12:58</datelastupdated>
+    </tbl_bannerhelper_moduleblocks>
+</defaultdata>

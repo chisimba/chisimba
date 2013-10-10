@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<updates>
+    <update>
+        <table>tbl_forum</table>
+        <version>2.5</version>
+        <description>added new column for forumtype</description>
+        <data>
+            <add>
+                <name>forum_type</name>
+                <type>text</type>
+                <length>255</length>
+                <default>context</default>
+            </add>
+        </data>
+    </update>
+</updates>

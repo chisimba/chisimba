@@ -1,0 +1,4 @@
+The banner helper module provides for the adding of content to four overlays
+on top of the banner for compatible skins. It was designed for the dkeats.clean
+canvas (skin) and will only work for that canvase and others that are either
+derived from it or that take the same approach.

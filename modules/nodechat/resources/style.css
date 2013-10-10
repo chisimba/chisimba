@@ -1,0 +1,67 @@
+html {
+ background: #333;
+}
+body {
+ background: white;
+ border: 1px solid black;
+ color: black;
+ font: 0.8em / 1.6 verdana, arial, sans-serif;
+ margin: 0;
+ padding: 0;
+ position: absolute;
+ top: 0;
+ right: 0;
+ bottom: 0;
+ left: 0;
+}
+p {
+ margin: 2em;
+ padding: 0;
+ text-align: center;
+}
+ul {
+ margin: 0;
+ overflow: scroll;
+ padding: 0.5em;
+}
+ul span {
+ float: right;
+ color: #999;
+ clear: left;
+}
+#log {
+ position: absolute;
+ top: 0;
+ right: 10em;
+ bottom: 2em;
+ left: 0;
+}
+#users {
+ position: absolute;
+ top: 0;
+ right: 0;
+ bottom: 2em;
+ left: auto;
+ width: 9em;
+}
+form {
+ position: absolute;
+ top: auto;
+ right: 0;
+ bottom: 0;
+ left: 0;
+}
+form, p {
+ margin: 0;
+ padding: 0;
+}
+input {
+ width: 99%;
+}
+#chat {
+ display: none;
+}
+#error {
+ color: red;
+ text-align: left;
+}

@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<updates>
+    <update>
+        <table>tbl_comment</table>
+        <version>0.8</version>
+        <description>Replaced a reserved word field with a legal SQL entity in the table definition</description>
+        <data>
+            <rename>
+                <comment>
+                    <name>commenttext</name>
+                    <definition>
+                        <type>clob</type>
+                    </definition>
+                </comment>
+            </rename>
+        </data>
+    </update>
+</updates>

@@ -1,0 +1,231 @@
+<?php
+require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'constants.inc.php';
+require_once MORIARTY_DIR . 'config.class.php';
+require_once MORIARTY_DIR . 'credentials.class.php';
+
+class ConfigTest extends PHPUnit_Framework_TestCase {
+
+  function test_get_first_fpmap_uri_default() {
+    $config = new Config("http://example.org/store/config");
+    $this->assertEquals("http://example.org/store/config/fpmaps/1", $config->get_first_fpmap_uri());
+  }
+  function test_get_first_query_profile_uri_default() {
+    $config = new Config("http://example.org/store/config");
+    $this->assertEquals("http://example.org/store/config/queryprofiles/1", $config->get_first_query_profile_uri());
+  }
+  
+  function test_get_first_fpmap_uri_handles_legacy_uris() {
+    $fpmap_uris = array(
+                          'ajmg-dev1' => 'http://api.talis.com/stores/ajmg-dev1/indexes/default/fpmaps/default',
+                          'beobal-dev1' => 'http://api.talis.com/stores/beobal-dev1/indexes/default/fpmaps/default',
+                          'bib-sandbox' => 'http://api.talis.com/stores/bib-sandbox/indexes/m21Advanced/fpmaps/fpmap',
+                          'bib-talisuniplymouth-1' => 'http://api.talis.com/stores/bib-talisuniplymouth-1/config/fpmaps/1',
+                          'cenotelist' => 'http://api.talis.com/stores/cenotelist/indexes/default/fpmaps/fpmap',
+                          'cnimages' => 'http://api.talis.com/stores/cnimages/indexes/cnimages/fpmaps/fpmap',
+                          'danja-dev1' => 'http://api.talis.com/stores/danja-dev1/indexes/default/fpmaps/default',
+                          'dataMonitoring' => 'http://api.talis.com/stores/dataMonitoring/indexes/default/fpmaps/default',
+                          'engage-dev1' => 'http://api.talis.com/stores/engage-dev1/indexes/metaboxIndex/fpmaps/fpmap',
+                          'engagetenant10' => 'http://api.talis.com/stores/engagetenant10/indexes/metaboxIndex/fpmaps/fpmap',
+                          'engagetenant11' => 'http://api.talis.com/stores/engagetenant11/indexes/metaboxIndex/fpmaps/fpmap',
+                          'engagetenant12' => 'http://api.talis.com/stores/engagetenant12/indexes/metaboxIndex/fpmaps/fpmap',
+                          'engagetenant13' => 'http://api.talis.com/stores/engagetenant13/indexes/metaboxIndex/fpmaps/fpmap',
+                          'engagetenant14' => 'http://api.talis.com/stores/engagetenant14/indexes/metaboxIndex/fpmaps/fpmap',
+                          'engagetenant15' => 'http://api.talis.com/stores/engagetenant15/indexes/metaboxIndex/fpmaps/fpmap',
+                          'engagetenant16' => 'http://api.talis.com/stores/engagetenant16/indexes/metaboxIndex/fpmaps/fpmap',
+                          'engagetenant17' => 'http://api.talis.com/stores/engagetenant17/indexes/metaboxIndex/fpmaps/fpmap',
+                          'engagetenant18' => 'http://api.talis.com/stores/engagetenant18/indexes/metaboxIndex/fpmaps/fpmap',
+                          'engagetenant19' => 'http://api.talis.com/stores/engagetenant19/indexes/metaboxIndex/fpmaps/fpmap',
+                          'engagetenant1' => 'http://api.talis.com/stores/engagetenant1/indexes/metaboxIndex/fpmaps/fpmap',
+                          'engagetenant20' => 'http://api.talis.com/stores/engagetenant20/indexes/metaboxIndex/fpmaps/fpmap',
+                          'engagetenant21' => 'http://api.talis.com/stores/engagetenant21/indexes/metaboxIndex/fpmaps/fpmap',
+                          'engagetenant22' => 'http://api.talis.com/stores/engagetenant22/indexes/metaboxIndex/fpmaps/fpmap',
+                          'engagetenant23' => 'http://api.talis.com/stores/engagetenant23/indexes/metaboxIndex/fpmaps/fpmap',
+                          'engagetenant24' => 'http://api.talis.com/stores/engagetenant24/indexes/metaboxIndex/fpmaps/fpmap',
+                          'engagetenant25' => 'http://api.talis.com/stores/engagetenant25/indexes/metaboxIndex/fpmaps/fpmap',
+                          'engagetenant26' => 'http://api.talis.com/stores/engagetenant26/indexes/metaboxIndex/fpmaps/fpmap',
+                          'engagetenant27' => 'http://api.talis.com/stores/engagetenant27/indexes/metaboxIndex/fpmaps/fpmap',
+                          'engagetenant28' => 'http://api.talis.com/stores/engagetenant28/indexes/metaboxIndex/fpmaps/fpmap',
+                          'engagetenant29' => 'http://api.talis.com/stores/engagetenant29/indexes/metaboxIndex/fpmaps/fpmap',
+                          'engagetenant2' => 'http://api.talis.com/stores/engagetenant2/indexes/metaboxIndex/fpmaps/fpmap',
+                          'engagetenant30' => 'http://api.talis.com/stores/engagetenant30/indexes/metaboxIndex/fpmaps/fpmap',
+                          'engagetenant3' => 'http://api.talis.com/stores/engagetenant3/indexes/metaboxIndex/fpmaps/fpmap',
+                          'engagetenant4' => 'http://api.talis.com/stores/engagetenant4/indexes/metaboxIndex/fpmaps/fpmap',
+                          'engagetenant5' => 'http://api.talis.com/stores/engagetenant5/indexes/metaboxIndex/fpmaps/fpmap',
+                          'engagetenant6' => 'http://api.talis.com/stores/engagetenant6/indexes/metaboxIndex/fpmaps/fpmap',
+                          'engagetenant7' => 'http://api.talis.com/stores/engagetenant7/indexes/metaboxIndex/fpmaps/fpmap',
+                          'engagetenant8' => 'http://api.talis.com/stores/engagetenant8/indexes/metaboxIndex/fpmaps/fpmap',
+                          'engagetenant9' => 'http://api.talis.com/stores/engagetenant9/indexes/metaboxIndex/fpmaps/fpmap',
+                          'engagetenantstore' => 'http://api.talis.com/stores/engagetenantstore/indexes/metaboxIndex/fpmaps/fpmap',
+                          'gatech' => 'http://api.talis.com/stores/gatech/indexes/m21Advanced/fpmap',
+                          'holdings' => 'http://api.talis.com/stores/holdings/indexes/m21Holdings/fpmaps/fpmap',
+                          'iand-dev1' => 'http://api.talis.com/stores/iand-dev1/indexes/default/fpmaps/default',
+                          'iand-dev2' => 'http://api.talis.com/stores/iand-dev2/indexes/default/fpmaps/default',
+                          'iand-dev3' => 'http://api.talis.com/stores/iand-dev3/indexes/default/fpmaps/default',
+                          'image-sandbox' => 'http://api.talis.com/stores/image-sandbox/indexes/image-sandbox/fpmaps/fpmap',
+                          'inst-5050' => 'http://api.talis.com/stores/inst-5050/indexes/m21Advanced/fpmaps/fpmap',
+                          'inst-u138' => 'http://api.talis.com/stores/inst-u138/indexes/m21Advanced/fpmaps/fpmap',
+                          'jingye-dev1' => 'http://api.talis.com/stores/jingye-dev1/indexes/default/fpmaps/default',
+                          'kwijibo-dev1' => 'http://api.talis.com/stores/kwijibo-dev1/indexes/default/fpmaps/default',
+                          'list-demo1' => 'http://api.talis.com/stores/list-demo1/indexes/metaboxIndex/fpmaps/fpmap',
+                          'list-dev1' => 'http://api.talis.com/stores/list-dev1/indexes/metaboxIndex/fpmaps/fpmap',
+                          'list-dev2' => 'http://api.talis.com/stores/list-dev2/indexes/metaboxIndex/fpmaps/fpmap',
+                          'list-dev3' => 'http://api.talis.com/stores/list-dev3/indexes/metaboxIndex/fpmaps/fpmap',
+                          'list-qa1' => 'http://api.talis.com/stores/list-qa1/indexes/metaboxIndex/fpmaps/fpmap',
+                          'list-qa2' => 'http://api.talis.com/stores/list-qa2/indexes/metaboxIndex/fpmaps/fpmap',
+                          'list-qa3' => 'http://api.talis.com/stores/list-qa3/indexes/metaboxIndex/fpmaps/fpmap',
+                          'list-tenants-dev' => 'http://api.talis.com/stores/list-tenants-dev/indexes/metaboxIndex/fpmaps/fpmap',
+                          'malcyl-dev1' => 'http://api.talis.com/stores/malcyl-dev1/indexes/default/fpmaps/default',
+                          'nuggetengage-demo1' => 'http://api.talis.com/stores/nuggetengage-demo1/indexes/metaboxIndex/fpmaps/fpmap',
+                          'nuggetengage-demo2' => 'http://api.talis.com/stores/nuggetengage-demo2/indexes/metaboxIndex/fpmaps/fpmap',
+                          'nuggetengage-demo3' => 'http://api.talis.com/stores/nuggetengage-demo3/indexes/metaboxIndex/fpmaps/fpmap',
+                          'nuggetengage-demo4' => 'http://api.talis.com/stores/nuggetengage-demo4/indexes/metaboxIndex/fpmaps/fpmap',
+                          'nuggetengage-qa1' => 'http://api.talis.com/stores/nuggetengage-qa1/indexes/metaboxIndex/fpmaps/fpmap',
+                          'quoll-dev1' => 'http://api.talis.com/stores/quoll-dev1/indexes/default/fpmaps/default',
+                          'schema-cache' => 'http://api.talis.com/stores/schema-cache/indexes/default/fpmaps/default',
+                          'silkworm-dev' => 'http://api.talis.com/stores/silkworm-dev/indexes/default/fpmaps/default',
+                          'silkworm' => 'http://api.talis.com/stores/silkworm/indexes/default/fpmaps/default',
+                          'source-dev1' => 'http://api.talis.com/stores/source-dev1/indexes/default/fpmaps/default',
+                          'source-qa1' => 'http://api.talis.com/stores/source-qa1/indexes/default/fpmaps/default',
+                          'tomh-dev1' => 'http://api.talis.com/stores/tomh-dev1/indexes/default/fpmaps/default',
+                          'ukbib' => 'http://api.talis.com/stores/ukbib/indexes/m21Advanced/fpmaps/fpmap',
+                          'union' => 'http://api.talis.com/stores/union/indexes/union/fpmaps/fpmap',
+                          'wikipedia' => 'http://api.talis.com/stores/wikipedia/indexes/abstracts/fpmaps/fpmap',
+                          'zephyr-cust10' => 'http://api.talis.com/stores/zephyr-cust10/indexes/metaboxIndex/fpmaps/fpmap',
+                          'zephyr-cust11' => 'http://api.talis.com/stores/zephyr-cust11/indexes/metaboxIndex/fpmaps/fpmap',
+                          'zephyr-cust12' => 'http://api.talis.com/stores/zephyr-cust12/indexes/metaboxIndex/fpmaps/fpmap',
+                          'zephyr-cust13' => 'http://api.talis.com/stores/zephyr-cust13/indexes/metaboxIndex/fpmaps/fpmap',
+                          'zephyr-cust14' => 'http://api.talis.com/stores/zephyr-cust14/indexes/metaboxIndex/fpmaps/fpmap',
+                          'zephyr-cust15' => 'http://api.talis.com/stores/zephyr-cust15/indexes/metaboxIndex/fpmaps/fpmap',
+                          'zephyr-cust16' => 'http://api.talis.com/stores/zephyr-cust16/indexes/metaboxIndex/fpmaps/fpmap',
+                          'zephyr-cust17' => 'http://api.talis.com/stores/zephyr-cust17/indexes/metaboxIndex/fpmaps/fpmap',
+                          'zephyr-cust18' => 'http://api.talis.com/stores/zephyr-cust18/indexes/metaboxIndex/fpmaps/fpmap',
+                          'zephyr-cust19' => 'http://api.talis.com/stores/zephyr-cust19/indexes/metaboxIndex/fpmaps/fpmap',
+                          'zephyr-cust1' => 'http://api.talis.com/stores/zephyr-cust1/indexes/metaboxIndex/fpmaps/fpmap',
+                          'zephyr-cust2' => 'http://api.talis.com/stores/zephyr-cust2/indexes/metaboxIndex/fpmaps/fpmap',
+                          'zephyr-cust3' => 'http://api.talis.com/stores/zephyr-cust3/indexes/metaboxIndex/fpmaps/fpmap',
+                          'zephyr-cust4' => 'http://api.talis.com/stores/zephyr-cust4/indexes/metaboxIndex/fpmaps/fpmap',
+                          'zephyr-cust5' => 'http://api.talis.com/stores/zephyr-cust5/indexes/metaboxIndex/fpmaps/fpmap',
+                          'zephyr-cust6' => 'http://api.talis.com/stores/zephyr-cust6/indexes/metaboxIndex/fpmaps/fpmap',
+                          'zephyr-cust7' => 'http://api.talis.com/stores/zephyr-cust7/indexes/metaboxIndex/fpmaps/fpmap',
+                          'zephyr-cust8' => 'http://api.talis.com/stores/zephyr-cust8/indexes/metaboxIndex/fpmaps/fpmap',
+                          'zephyr-cust9' => 'http://api.talis.com/stores/zephyr-cust9/indexes/metaboxIndex/fpmaps/fpmap',
+
+
+    );
+
+    foreach ($fpmap_uris as $store_name => $fpmap_uri) {
+      $config = new Config("http://api.talis.com/stores/$store_name/config");
+      $this->assertEquals($fpmap_uri, $config->get_first_fpmap_uri());
+    }
+
+  }
+
+  function test_get_first_query_profile_uri_handles_legacy_uris() {
+    $qp_uris = array(
+                          'ajmg-dev1' => 'http://api.talis.com/stores/ajmg-dev1/indexes/default/queryprofiles/default',
+                          'beobal-dev1' => 'http://api.talis.com/stores/beobal-dev1/indexes/default/queryprofiles/default',
+                          'bib-sandbox' => 'http://api.talis.com/stores/bib-sandbox/indexes/m21Advanced/queryprofiles/default',
+                          'bib-talisuniplymouth-1' => 'http://api.talis.com/stores/bib-talisuniplymouth-1/config/queryprofiles/1',
+                          'cenotelist' => 'http://api.talis.com/stores/cenotelist/indexes/default/queryprofiles/default',
+                          'cnimages' => 'http://api.talis.com/stores/cnimages/indexes/cnimages/queryprofiles/default',
+                          'danja-dev1' => 'http://api.talis.com/stores/danja-dev1/indexes/default/queryprofiles/default',
+                          'dataMonitoring' => 'http://api.talis.com/stores/dataMonitoring/indexes/default/queryprofiles/default',
+                          'engage-dev1' => 'http://api.talis.com/stores/engage-dev1/indexes/metaboxIndex/queryprofiles/default',
+                          'engagetenant10' => 'http://api.talis.com/stores/engagetenant10/indexes/metaboxIndex/queryprofiles/default',
+                          'engagetenant11' => 'http://api.talis.com/stores/engagetenant11/indexes/metaboxIndex/queryprofiles/default',
+                          'engagetenant11' => 'http://api.talis.com/stores/engagetenant11/indexes/metaboxIndex/queryprofiles/default',
+                          'engagetenant13' => 'http://api.talis.com/stores/engagetenant13/indexes/metaboxIndex/queryprofiles/default',
+                          'engagetenant14' => 'http://api.talis.com/stores/engagetenant14/indexes/metaboxIndex/queryprofiles/default',
+                          'engagetenant15' => 'http://api.talis.com/stores/engagetenant15/indexes/metaboxIndex/queryprofiles/default',
+                          'engagetenant16' => 'http://api.talis.com/stores/engagetenant16/indexes/metaboxIndex/queryprofiles/default',
+                          'engagetenant17' => 'http://api.talis.com/stores/engagetenant17/indexes/metaboxIndex/queryprofiles/default',
+                          'engagetenant18' => 'http://api.talis.com/stores/engagetenant18/indexes/metaboxIndex/queryprofiles/default',
+                          'engagetenant19' => 'http://api.talis.com/stores/engagetenant19/indexes/metaboxIndex/queryprofiles/default',
+                          'engagetenant1' => 'http://api.talis.com/stores/engagetenant1/indexes/metaboxIndex/queryprofiles/default',
+                          'engagetenant20' => 'http://api.talis.com/stores/engagetenant20/indexes/metaboxIndex/queryprofiles/default',
+                          'engagetenant21' => 'http://api.talis.com/stores/engagetenant21/indexes/metaboxIndex/queryprofiles/default',
+                          'engagetenant22' => 'http://api.talis.com/stores/engagetenant22/indexes/metaboxIndex/queryprofiles/default',
+                          'engagetenant23' => 'http://api.talis.com/stores/engagetenant23/indexes/metaboxIndex/queryprofiles/default',
+                          'engagetenant24' => 'http://api.talis.com/stores/engagetenant24/indexes/metaboxIndex/queryprofiles/default',
+                          'engagetenant25' => 'http://api.talis.com/stores/engagetenant25/indexes/metaboxIndex/queryprofiles/default',
+                          'engagetenant26' => 'http://api.talis.com/stores/engagetenant26/indexes/metaboxIndex/queryprofiles/default',
+                          'engagetenant27' => 'http://api.talis.com/stores/engagetenant27/indexes/metaboxIndex/queryprofiles/default',
+                          'engagetenant28' => 'http://api.talis.com/stores/engagetenant28/indexes/metaboxIndex/queryprofiles/default',
+                          'engagetenant29' => 'http://api.talis.com/stores/engagetenant29/indexes/metaboxIndex/queryprofiles/default',
+                          'engagetenant2' => 'http://api.talis.com/stores/engagetenant2/indexes/metaboxIndex/queryprofiles/default',
+                          'engagetenant30' => 'http://api.talis.com/stores/engagetenant30/indexes/metaboxIndex/queryprofiles/default',
+                          'engagetenant3' => 'http://api.talis.com/stores/engagetenant3/indexes/metaboxIndex/queryprofiles/default',
+                          'engagetenant4' => 'http://api.talis.com/stores/engagetenant4/indexes/metaboxIndex/queryprofiles/default',
+                          'engagetenant5' => 'http://api.talis.com/stores/engagetenant5/indexes/metaboxIndex/queryprofiles/default',
+                          'engagetenant6' => 'http://api.talis.com/stores/engagetenant6/indexes/metaboxIndex/queryprofiles/default',
+                          'engagetenant7' => 'http://api.talis.com/stores/engagetenant7/indexes/metaboxIndex/queryprofiles/default',
+                          'engagetenant8' => 'http://api.talis.com/stores/engagetenant8/indexes/metaboxIndex/queryprofiles/default',
+                          'engagetenant9' => 'http://api.talis.com/stores/engagetenant9/indexes/metaboxIndex/queryprofiles/default',
+                          'engagetenantstore' => 'http://api.talis.com/stores/engagetenantstore/indexes/metaboxIndex/queryprofiles/default',
+                          'gatech' => 'http://api.talis.com/stores/gatech/indexes/m21Advanced/queryprofiles/default',
+                          'holdings' => 'http://api.talis.com/stores/holdings/indexes/m21Holdings/queryprofiles/default',
+                          'iand-dev1' => 'http://api.talis.com/stores/iand-dev1/indexes/default/queryprofiles/default',
+                          'iand-dev2' => 'http://api.talis.com/stores/iand-dev2/indexes/default/queryprofiles/default',
+                          'iand-dev3' => 'http://api.talis.com/stores/iand-dev3/indexes/default/queryprofiles/default',
+                          'image-sandbox' => 'http://api.talis.com/stores/image-sandbox/indexes/image-sandbox/queryprofiles/default',
+                          'inst-5050' => 'http://api.talis.com/stores/inst-5050/indexes/m21Advanced/queryprofiles/default',
+                          'inst-u138' => 'http://api.talis.com/stores/inst-u138/indexes/m21Advanced/queryprofiles/default',
+                          'jingye-dev1' => 'http://api.talis.com/stores/jingye-dev1/indexes/default/queryprofiles/default',
+                          'kwijibo-dev1' => 'http://api.talis.com/stores/kwijibo-dev1/indexes/default/queryprofiles/default',
+                          'list-demo1' => 'http://api.talis.com/stores/list-demo1/indexes/metaboxIndex/queryprofiles/default',
+                          'list-dev1' => 'http://api.talis.com/stores/list-dev1/indexes/metaboxIndex/queryprofiles/default',
+                          'list-dev2' => 'http://api.talis.com/stores/list-dev2/indexes/metaboxIndex/queryprofiles/default',
+                          'list-dev3' => 'http://api.talis.com/stores/list-dev3/indexes/metaboxIndex/queryprofiles/default',
+                          'list-qa1' => 'http://api.talis.com/stores/list-qa1/indexes/metaboxIndex/queryprofiles/default',
+                          'list-qa2' => 'http://api.talis.com/stores/list-qa2/indexes/metaboxIndex/queryprofiles/default',
+                          'list-qa3' => 'http://api.talis.com/stores/list-qa3/indexes/metaboxIndex/queryprofiles/default',
+                          'list-tenants-dev' => 'http://api.talis.com/stores/list-tenants-dev/indexes/metaboxIndex/queryprofiles/default',
+                          'malcyl-dev1' => 'http://api.talis.com/stores/malcyl-dev1/indexes/default/queryprofiles/default',
+                          'nuggetengage-demo1' => 'http://api.talis.com/stores/nuggetengage-demo1/indexes/metaboxIndex/queryprofiles/default',
+                          'nuggetengage-demo2' => 'http://api.talis.com/stores/nuggetengage-demo2/indexes/metaboxIndex/queryprofiles/default',
+                          'nuggetengage-demo3' => 'http://api.talis.com/stores/nuggetengage-demo3/indexes/metaboxIndex/queryprofiles/default',
+                          'nuggetengage-demo4' => 'http://api.talis.com/stores/nuggetengage-demo4/indexes/metaboxIndex/queryprofiles/default',
+                          'nuggetengage-qa1' => 'http://api.talis.com/stores/nuggetengage-qa1/indexes/metaboxIndex/queryprofiles/default',
+                          'quoll-dev1' => 'http://api.talis.com/stores/quoll-dev1/indexes/default/queryprofiles/default',
+                          'schema-cache' => 'http://api.talis.com/stores/schema-cache/indexes/default/queryprofiles/default',
+                          'silkworm-dev' => 'http://api.talis.com/stores/silkworm-dev/indexes/default/queryprofiles/default',
+                          'silkworm' => 'http://api.talis.com/stores/silkworm/indexes/default/queryprofiles/default',
+                          'source-dev1' => 'http://api.talis.com/stores/source-dev1/indexes/default/queryprofiles/default',
+                          'source-qa1' => 'http://api.talis.com/stores/source-qa1/indexes/default/queryprofiles/default',
+                          'tomh-dev1' => 'http://api.talis.com/stores/tomh-dev1/indexes/default/queryprofiles/default',
+                          'ukbib' => 'http://api.talis.com/stores/ukbib/indexes/m21Advanced/queryprofiles/default',
+                          'union' => 'http://api.talis.com/stores/union/indexes/union/queryprofiles/default',
+                          'wikipedia' => 'http://api.talis.com/stores/wikipedia/indexes/abstracts/queryprofiles/default',
+                          'zephyr-cust10' => 'http://api.talis.com/stores/zephyr-cust10/indexes/metaboxIndex/queryprofiles/default',
+                          'zephyr-cust11' => 'http://api.talis.com/stores/zephyr-cust11/indexes/metaboxIndex/queryprofiles/default',
+                          'zephyr-cust12' => 'http://api.talis.com/stores/zephyr-cust12/indexes/metaboxIndex/queryprofiles/default',
+                          'zephyr-cust13' => 'http://api.talis.com/stores/zephyr-cust13/indexes/metaboxIndex/queryprofiles/default',
+                          'zephyr-cust14' => 'http://api.talis.com/stores/zephyr-cust14/indexes/metaboxIndex/queryprofiles/default',
+                          'zephyr-cust15' => 'http://api.talis.com/stores/zephyr-cust15/indexes/metaboxIndex/queryprofiles/default',
+                          'zephyr-cust16' => 'http://api.talis.com/stores/zephyr-cust16/indexes/metaboxIndex/queryprofiles/default',
+                          'zephyr-cust17' => 'http://api.talis.com/stores/zephyr-cust17/indexes/metaboxIndex/queryprofiles/default',
+                          'zephyr-cust18' => 'http://api.talis.com/stores/zephyr-cust18/indexes/metaboxIndex/queryprofiles/default',
+                          'zephyr-cust19' => 'http://api.talis.com/stores/zephyr-cust19/indexes/metaboxIndex/queryprofiles/default',
+                          'zephyr-cust1' => 'http://api.talis.com/stores/zephyr-cust1/indexes/metaboxIndex/queryprofiles/default',
+                          'zephyr-cust2' => 'http://api.talis.com/stores/zephyr-cust2/indexes/metaboxIndex/queryprofiles/default',
+                          'zephyr-cust3' => 'http://api.talis.com/stores/zephyr-cust3/indexes/metaboxIndex/queryprofiles/default',
+                          'zephyr-cust4' => 'http://api.talis.com/stores/zephyr-cust4/indexes/metaboxIndex/queryprofiles/default',
+                          'zephyr-cust5' => 'http://api.talis.com/stores/zephyr-cust5/indexes/metaboxIndex/queryprofiles/default',
+                          'zephyr-cust6' => 'http://api.talis.com/stores/zephyr-cust6/indexes/metaboxIndex/queryprofiles/default',
+                          'zephyr-cust7' => 'http://api.talis.com/stores/zephyr-cust7/indexes/metaboxIndex/queryprofiles/default',
+                          'zephyr-cust8' => 'http://api.talis.com/stores/zephyr-cust8/indexes/metaboxIndex/queryprofiles/default',
+                          'zephyr-cust9' => 'http://api.talis.com/stores/zephyr-cust9/indexes/metaboxIndex/queryprofiles/default',
+
+    );
+
+    foreach ($qp_uris as $store_name => $qp_uri) {
+      $config = new Config("http://api.talis.com/stores/$store_name/config");
+      $this->assertEquals($qp_uri, $config->get_first_query_profile_uri());
+    }
+
+  }
+
+
+
+}
+?>

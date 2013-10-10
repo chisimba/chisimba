@@ -1,0 +1,60 @@
+ADDED from OLD MODULE
+  thumbnailuploader_class_inc.php
+  groupedit_class_inc.php
+  dbgroups_class_inc.php
+  dbinstitution_class_inc.php
+
+NEW FILES
+  block_groupedit_class_inc.php
+  groupedit_class_inc.php
+
+NEW LAYOUT POSSIBILITIES
+  Added <div class='formwrapper'></div> around forms
+
+NOTES:
+  The groups functionality has to be the most convoluted code
+  I have ever seen. There is no use of proper validation, and
+  no use of JS/Ajax to validate fields. Functionality is in the
+  controller, but in other methods that do not have a corresponding
+  action. There is a lot of work needed to refactor this code. I
+  am doing it as follows:
+
+  1. Get the empty form working with minimum other functionality
+  2. Add validations and checks
+  3. Add edit / add functionality
+
+
+
+
+
+
+
+        // Institution latitude input options.
+        $title = $this->objLanguage->languageText(
+          'mod_oer_loclat', 'oer');
+        $table->startRow();
+        $table->addCell($title);
+        $textinput = new textinput('loclat');
+        $textinput->size = 60;
+        if ($this->mode == 'edit') {
+            $value = $this->getParam('loclat', NULL);
+            $textinput->setValue($value);
+        }
+        $textinput->cssClass = 'required';
+        $table->addCell($textinput->show());
+        $table->endRow();
+
+        //Institution longitued input options
+        $title = $this->objLanguage->languageText(
+          'mod_oer_loclong', 'oer');
+        $table->startRow();
+        $table->addCell($title);
+        $textinput = new textinput('loclong');
+        $textinput->size = 60;
+        if ($this->mode == 'edit') {
+            $value = $this->getParam('loclong', NULL);
+            $textinput->setValue($value);
+        }
+        $textinput->cssClass = 'required';
+        $table->addCell($textinput->show());
+        $table->endRow();

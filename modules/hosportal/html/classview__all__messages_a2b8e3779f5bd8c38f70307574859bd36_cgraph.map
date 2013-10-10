@@ -1,0 +1,10 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classview__all__messages.html#a7c5cbaf5a028486379be4605afaaca79" title="buildForm" alt="" coords="108,112,185,141"/>
+<area shape="rect" id="node5" href="$classview__all__messages.html#a689844fc143fdc30133e4f8626352cb2" title="getFormAction" alt="" coords="265,5,372,35"/>
+<area shape="rect" id="node7" href="$classview__all__messages.html#a510387f74a5004363836cb2acc64e3bd" title="getPaginationParameters" alt="" coords="235,59,403,88"/>
+<area shape="rect" id="node13" href="$classview__all__messages.html#a4755da47f8dd8be5ae394406ca54d407" title="loadElements" alt="" coords="268,112,369,141"/>
+<area shape="rect" id="node15" href="$classview__all__messages.html#ac5afcac536f948289dcb5de8ec59582c" title="searchMessages" alt="" coords="259,165,379,195"/>
+<area shape="rect" id="node17" href="$classview__all__messages.html#a1259e74000dccc3d64fa7fc2db40962c" title="sortMessages" alt="" coords="267,219,371,248"/>
+<area shape="rect" id="node9" href="$classview__all__messages.html#a1284627674f33d2c73175f565f1e9c62" title="getNumberofOriginalComments" alt="" coords="456,32,659,61"/>
+<area shape="rect" id="node11" href="$classview__all__messages.html#a5e9695013c97bcee7b1c28f32e3aee29" title="getNumberofSearchedComments" alt="" coords="451,85,664,115"/>
+</map>

@@ -1,0 +1,112 @@
+
+<project name="livechat" default="dist" basedir=".">
+    <description>LiveChat Build file</description>
+    <!-- set global properties for this build -->
+    <property name="src" location="." />
+    <property name="build" location="build" />
+    <property name="rver" location="2" />
+    <property name="dist" location="." />
+    <property name="livechat.lib.dir" value="lib" />
+    <property name="livechat.deploy.dir1" value="/var/www/chisimba/packages/livechat/resources" />
+    <property name="livechat.deploy.dir2" value="/var/www/elearning_beta_3_0_0/app/packages/livechat/resources" />
+
+    <property name="livechat.core.file.name" value="deploy/LiveChat.jar" />
+    
+    <property name="resources.dir" value="resources" />
+    <path id="classpath.base">
+    </path>
+    <path id="classpath.lib">
+        <pathelement location="lib/smack.jar" />
+        <pathelement location="lib/smackx.jar" />
+        </path>
+    <target name="init">
+        <!-- Create the time stamp -->
+        <tstamp>
+            <format property="build.time" pattern="yyyy-MM-dd HH:mm:ss Z"/>
+        </tstamp>
+        <echo>Generating Version.java...</echo>
+        <echo file="src/livechat/util/Version.java">
+
+            package livechat.util;${line.separator}
+
+            public class Version {${line.separator}
+            public static String versionShort = "livechat-1.0.0";${line.separator}
+            public static String versionLong = "livechat-2.0.0 build ${DSTAMP}";${line.separator}
+
+            public static String getLongVersion() {${line.separator}
+            String about = "Chisimba Realtime Tools - LiveChat " + Version.versionLong;${line.separator}
+            return about;${line.separator}
+            }${line.separator}
+
+            public static String getShortVersion() {${line.separator}
+            String about = "LiveChat " + Version.versionShort;${line.separator}
+            return about;${line.separator}
+            }${line.separator}
+
+            }${line.separator}
+
+        </echo>
+        <!-- Create the build directory structure used by compile -->
+        <mkdir dir="${build}" />
+   
+    </target>
+    <target name="compile" depends="init" description="compile the source ">
+        <!-- Compile the java code from ${src} into ${build} -->
+        <javac srcdir="${src}" destdir="${build}" debug="true"  source="1.5"  debuglevel="lines, vars,source">
+            <classpath refid="classpath.lib" />
+        </javac>
+
+    </target>
+      
+    <target name="sign-deps" description="Signs the  other dependencies file" >
+
+        <signjar keystore="livechat.jks" jar="lib/smackx.jar" alias="livechat" storepass="elsi2010" />
+        <copy file="lib/smackx.jar" todir="${livechat.deploy.dir1}" overwrite="true" />
+        <copy file="lib/smackx.jar" todir="${livechat.deploy.dir2}" overwrite="true" />
+
+        <signjar keystore="livechat.jks" jar="lib/smack.jar" alias="livechat" storepass="elsi2010" />
+        <copy file="lib/smack.jar" todir="${livechat.deploy.dir2}" overwrite="true" />
+        <copy file="lib/smack.jar" todir="${livechat.deploy.dir1}" overwrite="true" />
+    </target>
+    <target name="sign-core-jar" description="Signs the core jar file" depends="compile">
+        <signjar keystore="livechat.jks" jar="${livechat.core.file.name}"  storepass="elsi2010" />
+    </target>
+    
+    <target name="dist" depends="compile" description="generate the distribution">
+        <!-- Create the distribution directory -->
+        <mkdir dir="${dist}/deploy" />
+
+    </target>
+    <target name="deploy-core" depends="compile" description="generate the core jar">
+        <!-- Create the distribution directory -->
+        <mkdir dir="${dist}"/>
+        <jar destfile="${livechat.core.file.name}">
+
+
+            <fileset dir="build">
+                <include name="livechat/**/*.class" />
+            </fileset>
+
+            <fileset dir="src">
+                <include name="resources/licence" />
+                <include name="images/**/*" />
+                <include name="META-INF/smack.providers" />
+
+            </fileset>
+        </jar>
+        <signjar keystore="livechat.jks" jar="${livechat.core.file.name}" alias="livechat"  storepass="elsi2010" />
+        <copy file="${livechat.core.file.name}" todir="${livechat.deploy.dir1}" overwrite="true" />
+        <copy file="${livechat.core.file.name}" todir="${livechat.deploy.dir2}" overwrite="true" />
+    </target>
+
+
+
+    <target name="deploy-all" depends="sign-deps,deploy-core" description="Deploys the jar files to the web modules folder">
+    </target>
+
+    <target name="clean" description="clean up">
+        <!-- Delete the ${build} and ${dist} directory trees -->
+        <delete dir="${build}" />
+        <delete dir="${dist}" />
+    </target>
+</project>

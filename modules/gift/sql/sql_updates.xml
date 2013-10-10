@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<updates>
+    <update>
+        <table>tbl_gift</table>
+        <version>0.042</version>
+        <description>Added time stamp</description>
+        <data>
+            <add>
+                <name>tran_date</name>
+                <type>timestamp</type>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_gift</table>
+        <version>0.042</version>
+        <description>Added division/department</description>
+        <data>
+            <add>
+                <name>division</name>
+                <type>text</type>
+                <notnull>1</notnull>
+                <length>32</length>
+            </add>
+        </data>
+    </update>
+
+
+    <update>
+        <table>tbl_gift</table>
+        <version>0.044</version>
+        <description>Added gift type</description>
+        <data>
+            <add>
+                <name>gift_type</name>
+                <type>text</type>
+                <notnull>1</notnull>
+                <length>32</length>
+            </add>
+        </data>
+    </update>
+
+    <update>
+        <table>tbl_gift</table>
+        <version>0.047</version>
+        <description>Added gift type</description>
+        <data>
+            <add>
+                <name>comments</name>
+                <type>text</type>
+               
+            </add>
+        </data>
+    </update>
+
+
+    <update>
+        <table>tbl_gift</table>
+        <version>0.047</version>
+        <description>Added attachment</description>
+        <data>
+            <add>
+                <name>attachments</name>
+                <type>text</type>
+                <length>255</length>
+            </add>
+        </data>
+    </update>
+
+
+
+    <update>
+        <table>tbl_gift</table>
+        <version>0.051</version>
+        <description>Added date received</description>
+        <data>
+            <add>
+                <name>date_recieved</name>
+                <type>timestamp</type>
+
+            </add>
+        </data>
+    </update>
+
+
+
+    <update>
+        <table>tbl_gift</table>
+        <version>0.052</version>
+        <description>Added date received</description>
+        <data>
+            <add>
+                <name>deleted</name>
+                <type>text</type>
+                <length>1</length>
+            </add>
+        </data>
+    </update>
+
+
+
+    <update>
+        <table>tbl_gift_attachments</table>
+        <version>0.053</version>
+        <description>Added date received</description>
+        <data>
+            <add>
+                <name>deleted</name>
+                <type>text</type>
+                <length>1</length>
+            </add>
+        </data>
+    </update>
+
+
+
+    <update>
+        <table>tbl_gift_departments</table>
+        <version>0.053</version>
+        <description>Added date received</description>
+        <data>
+            <add>
+                <name>deleted</name>
+                <type>text</type>
+                <length>1</length>
+            </add>
+        </data>
+    </update>
+
+
+    <update>
+        <table>tbl_gift_departments</table>
+        <version>0.055</version>
+        <description>path</description>
+        <data>
+            <add>
+                <name>path</name>
+                <type>text</type>
+            </add>
+        </data>
+    </update>
+
+
+    <update>
+        <table>tbl_gift_departments</table>
+        <version>0.056</version>
+        <description>path</description>
+        <data>
+            <add>
+                <name>level</name>
+                <type>text</type>
+                <length>1</length>
+            </add>
+        </data>
+    </update>
+
+</updates>

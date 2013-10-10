@@ -1,0 +1,17 @@
+<map id="G" name="G">
+<area shape="rect" id="node1" href="$classchisimba__modules__handler.html" title="Abstract Base Class ABC that groups the same of objects together." alt="" coords="5,352,184,381"/>
+<area shape="rect" id="node3" href="$classbutton__module.html" title="Class that models a button from the chisimba core modules." alt="" coords="249,5,356,35"/>
+<area shape="rect" id="node5" href="$classconfirm__module.html" title="Class that models a confrim option window pop up from the chisimba core modules." alt="" coords="247,59,359,88"/>
+<area shape="rect" id="node7" href="$classdropdown__module.html" title="Class that models a drop down object from the chisimba core modules." alt="" coords="240,112,365,141"/>
+<area shape="rect" id="node9" href="$classform__module.html" title="Class that models a form object from the chisimba core modules." alt="" coords="255,165,351,195"/>
+<area shape="rect" id="node11" href="$classhtmlarea__module.html" title="Class that models a html area object from the chisimba core modules." alt="" coords="243,219,363,248"/>
+<area shape="rect" id="node13" href="$classhtmltable__module.html" title="htmltable_module" alt="" coords="241,272,364,301"/>
+<area shape="rect" id="node15" href="$classicon__module.html" title="icon_module" alt="" coords="256,325,349,355"/>
+<area shape="rect" id="node17" href="$classlabel__module.html" title="label_module" alt="" coords="253,379,352,408"/>
+<area shape="rect" id="node19" href="$classlanguage__module.html" title="language_module" alt="" coords="241,432,364,461"/>
+<area shape="rect" id="node21" href="$classlink__module.html" title="link_module" alt="" coords="257,485,348,515"/>
+<area shape="rect" id="node23" href="$classswitchmenu__module.html" title="switchmenu_module" alt="" coords="233,539,372,568"/>
+<area shape="rect" id="node25" href="$classtextarea__module.html" title="textarea_module" alt="" coords="244,592,361,621"/>
+<area shape="rect" id="node27" href="$classtextinput__module.html" title="textinput_module" alt="" coords="243,645,363,675"/>
+<area shape="rect" id="node29" href="$classuser__module.html" title="user_module" alt="" coords="255,699,351,728"/>
+</map>

@@ -1,0 +1,29 @@
+Welcome to the SWORDAPP IMAP email example client!
+--------------------------------------------------
+
+This is an example SWORD deposit application that reads emails from an
+IMAP mailbox, and deposits it. The person who sent the email is used as the
+author, the subject line of the email used as the title, and the body of the
+email is used as an abstract. Attached files are the deposited with the item.
+
+A reply is sent to the sender of the email with the URL of the deposited item.
+
+See configuration.php for the settings.
+
+The application requires PHP to be configured with IMAP and the PECL mailparse
+library. These are used to connect to the IMAP mailbox, and to parse the
+email attachments. For best results, use plain text emails.
+
+This application has been written by Stuart Lewis (stuart@stuartlewis.com).
+Limited support is availble via the sword-app-tech email list:
+
+ - https://lists.sourceforge.net/lists/listinfo/sword-app-tech
+
+
+Licence
+-------
+The library is licenced with a BSD licence. See the file LICENCE in the
+distribution directory.
+
+The library makes use of MimeMailParser.class.php which is distibuted using
+the GNU GPL licence. See: http://code.google.com/p/php-mime-mail-parser/

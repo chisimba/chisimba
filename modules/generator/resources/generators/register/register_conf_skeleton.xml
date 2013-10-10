@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This file is a code generation skeletong for Chisimba 2 col template layout -->
+<chisimba_register_skeleton>
+
+<item name="overviewcomment" type="comment">
+<description>Inserts a comment at the top of the register.conf file</description>
+<code>COMMENT: ---- REGISTER.CONF file for Chisimba module {MODULENAME} ----
+</code>
+</item>
+
+<item name="coreparams" type="parsecode">
+<description>Place holder for inserting the core parameters in place of {BASIC}</description>
+<code>
+{BASIC}
+</code>
+</item>
+
+<item name="languageelems" type="parsecode">
+<description>Place holder for inserting the language elements in place of {LANGUAGEELEMS}</description>
+<code>
+{LANGUAGEELEMS}
+</code>
+</item>
+
+</chisimba_register_skeleton>

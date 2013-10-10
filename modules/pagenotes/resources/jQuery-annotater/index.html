@@ -1,0 +1,292 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+		<meta http-equiv="content-type" content="text/html; charset=windows-1250" />
+
+		<title>jQuery text annotater</title>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+		<script type="text/javascript" src="textAnnotater-0.91.js"></script>
+		<script type="text/javascript" src="json2.js"></script>
+		<script type="text/javascript" src="disableTextselect.js"></script>
+		<script>
+			jQuery(document).ready(function(){
+				annotaterInit("#content");
+			});
+			var annotations;
+			function annotaterInit(cssSelector) {
+				var options = {};
+				options.form = '<ul><li><input type="checkbox" name="errorType" value="1" /> Interesting</li><li><input type="checkbox" name="errorType" value="2" /> Not important</li><li><textarea name="comment"></textarea></li></ul>';
+			  options.annotations = {"0":[{"elementId":"textAnnotate_85","formValues":[{"name":"errorType","value":"1"},{"name":"comment","value":""}]},{"elementId":"textAnnotate_86","formValues":[{"name":"errorType","value":"1"},{"name":"comment","value":""}]},{"elementId":"textAnnotate_87","formValues":[{"name":"errorType","value":"1"},{"name":"comment","value":""}]},{"elementId":"textAnnotate_88","formValues":[{"name":"errorType","value":"1"},{"name":"comment","value":""}]},{"elementId":"textAnnotate_89","formValues":[{"name":"errorType","value":"1"},{"name":"comment","value":""}]},{"elementId":"textAnnotate_90","formValues":[{"name":"errorType","value":"1"},{"name":"comment","value":""}]},{"elementId":"textAnnotate_91","formValues":[{"name":"errorType","value":"1"},{"name":"comment","value":""}]},{"elementId":"textAnnotate_92","formValues":[{"name":"errorType","value":"1"},{"name":"comment","value":""}]},{"elementId":"textAnnotate_93","formValues":[{"name":"errorType","value":"1"},{"name":"comment","value":""}]},{"elementId":"textAnnotate_94","formValues":[{"name":"errorType","value":"1"},{"name":"comment","value":""}]}],"1":[{"elementId":"textAnnotate_470","formValues":[{"name":"comment","value":"Second item"}]},{"elementId":"textAnnotate_471","formValues":[{"name":"comment","value":"Second item"}]}]};
+				options.onInit=function(global_annotations){
+					annotations = global_annotations;
+				}
+
+				options.onAddAnnotation=function(addedAnnotation, global_annotations){
+					/* add a Word-style comment */
+                                        alert(addedAnnotation);
+					addBasicWordStyleComment(addedAnnotation);
+				}
+
+				options.onRemoveAnnotation=function(removedAnnotation, global_annotations){
+					/* remove the Word-style comment */
+					removeBasicWordStyleComment(removedAnnotation);
+				}
+
+				options.onSaveAnnotation=function(savedAnnotation, serializedForm){
+					/* update the Word-style comment */
+					updateBasicWordStyleComment(savedAnnotation);
+				}
+
+				jQuery(cssSelector).textAnnotate(options);
+				jQuery(cssSelector).disableTextSelect();
+
+				jQuery('#annotationDefinitionsLoaded').val(JSON.stringify(options.annotations));
+			}
+			function save(){				
+				jQuery('#annotationDefinitionsSaved').val(JSON.stringify(annotations));
+			}			
+			
+			/**
+			 * Adds a Word-style comment on the right of the screen
+			 **/			 			
+			function addBasicWordStyleComment(annotation){
+				var comment = _getAnnotationComment(annotation);
+					
+				/* get comment */
+				if (comment){
+					/* put comment in container */
+					var firstElement = jQuery('#'+annotation[0].elementId);
+					var firstElementTop  = firstElement.offset().top;
+					var firstElementHeight = firstElement.height(); 
+					var firstElementLeft = firstElement.offset().left;
+				
+					var commentContainer = jQuery('<div style="position: absolute; background-color: #ffaaaa; border: 1px solid red; font-size: 8pt; width: 200px"></div>');
+					commentContainer.html(comment);
+					jQuery('body').append(commentContainer);
+					jQuery(commentContainer).css({"top":firstElementTop+firstElementHeight, "right": 0});						
+					var commentContainerLeft = commentContainer.offset().left;						
+					
+					var commentLine = jQuery('<div style="position: absolute; border-top: 1px dashed red; height: 1px;"></div>');
+					jQuery('body').append(commentLine);						
+					jQuery(commentLine).css({"top":firstElementTop+firstElementHeight, "left": firstElementLeft, "width":(commentContainerLeft-firstElementLeft)});
+					/*console.log(global_annotations);*/
+					
+					/* store it in first element, so it can be removed */
+					firstElement.data('WordStyleComment', {"container": commentContainer, "line": commentLine});
+				}					
+			}
+			
+			/**
+			 * Removes a Word-style comment on the right of the screen
+			 **/
+			function removeBasicWordStyleComment(annotation){
+				var firstElement = jQuery('#'+annotation[0].elementId);
+				var wordStyleComment = firstElement.data('WordStyleComment');
+				if (wordStyleComment){
+					jQuery(wordStyleComment.container).remove();
+					jQuery(wordStyleComment.line).remove();						
+				}
+			}
+			
+			/**
+			 * Updates the Word-style comment
+			 **/			 			
+			function updateBasicWordStyleComment(annotation){
+				var firstElement = jQuery('#'+annotation[0].elementId);				
+				
+				var wordStyleComment = firstElement.data('WordStyleComment');
+				if (wordStyleComment==undefined) {
+					addBasicWordStyleComment(annotation)
+				}else{					
+					var comment = _getAnnotationComment(annotation);
+					jQuery(wordStyleComment.container).html(comment);
+				}
+			}
+			
+			/**
+			 * Fetches a comment from an annotation
+			 **/			 			
+			function _getAnnotationComment(annotation){
+				var comment;
+				if (annotation[0]){
+					var formValues = annotation[0].formValues;
+					if (formValues){
+						for (var i=0; i<formValues.length; i++){
+							if (formValues[i].name=='comment'){
+							  comment = formValues[i].value;
+							  break;
+							}
+						}
+					}
+				}	
+				return comment;	
+			}
+		</script>
+		<style>
+			.annotated{
+				position: relative;
+				background-color:#FFEFD8;
+			}
+
+			.annotated[annotateLevel="0"] {
+				background-color:#FFEFD8;
+			}
+
+			.annotated[annotateLevel="1"] {
+				background-color:#F0D6BF;
+			}
+
+			.annotated[annotateLevel="2"] {
+				background-color:#DCC2AB;
+			}
+
+			.beingAnnotated {
+				background-color:#F90;
+			}
+
+			.annotationFocus, .annotationFocus[annotatelevel='0']{
+				background-color:#9F0;
+			}
+
+			.annotationFocus[annotatelevel='1']{
+				background-color:#C2DCAB;
+			}
+
+			.annotationFocus[annotatelevel='2']{
+				background-color:#D6F0BF;
+			}
+
+			.jQueryTextAnnotaterDialog{
+				opacity:0.9;
+				z-index: 999;
+				position:absolute;
+				display:none;
+				width: 200px;
+				height: 150px;
+				border: 1px solid black;
+				background-color: #eee;
+				padding: 5px;
+				font-family: Trebuchet, Arial;
+				font-size: 10pt
+			}
+
+			.jQueryTextAnnotaterDialogForm ul{
+				padding: 0;
+				margin: 0;
+			}
+
+			.jQueryTextAnnotaterDialogForm li{
+				margin: 0;
+				padding: 0;
+				list-style-type: none;
+			}
+
+			#content, #controls, #explanation, #annotations{
+				border: 1px dotted gray;
+				margin: 20px;
+				padding: 20px;
+				font-family: Trebuchet, Arial;
+			}
+
+			#content{
+				width: 800px;				
+			}
+			
+			#explanation, #controls{
+				background-color: #eee;
+}
+
+.annotated img{
+	border: 1px solid #FFEFD8;
+}
+
+.annotationFocus img{
+	border: 1px solid #9F0;
+}
+th{
+	text-align: left;
+}
+
+img{
+	border: 0;
+}
+		</style>
+  </head>
+  <body>
+		<div id="explanation">
+			<h1 style="background-color: black; color:white;">jQuery Text Annotator 0.91</h1>
+			<p>Usage:</p>
+			<ul>
+				<li>Select a piece of text.</li>
+				<li>A popup appears: use the form to characterise the annotation</li>
+				<li>Press the button on the bottom of the screen to output the annotations in JSON</li>
+				<li>Annotations currently loaded:<br/>
+					<textarea rows="5" cols="40" id="annotationDefinitionsLoaded"></textarea>
+				</li>
+			</ul>
+			<p>Features:</p>
+			<ul>
+				<li>jQuery powered (v1.5.1 that is)</li>
+				<li>Customizable:
+					<ul>
+						<li>Annotation form can contain all HTML you like</li>
+						<li>Everything is stylable with CSS</li>
+					</ul>
+				</li>
+				<li>Callbacks give you additional control over what the annotator should do</li>
+				<li>Comments should be structure-independent (in other words: HTML-tags are ignored).</li>
+				<li>Lightweight (compressed: <6Kb)</li>
+				<li>Works in IE7+ / FF / GC.</li>
+			</ul>
+			<p>Todo:</p>
+			<ul>
+				<li>Code documenting</li>
+				<li>Optimise annotation JSON: make each annotation an object with functions/events etc</li>
+				<li>Small bugfixes.</li>
+			</ul>
+			<p><a href="jQuery-annotater-0.91.zip">Download</a></p>
+			<a href="http://www.gnu.org/licenses/gpl-3.0.html"><img src="gplv3-88x31.png"/></a>
+		<p style="background-color: black; color:white;text-align: right; font-weight:bold;">Contact: koos.vanderkolk [at] wur.nl</p>
+		</div>
+
+		<div id="content">			
+			<div class="contentModule-text">
+				<h3>Text</h3>
+				<p>Lorem ipsum dolor sit amet, consectetur <span>adipiscing</span> elit. Curabitur sollicitudin sagittis mauris at molestie. Fusce gravida ultricies lorem pellentesque tempor. Curabitur tristique felis vel orci ullamcorper dignissim. Phasellus tempor semper neque a fringilla. Nulla malesuada mi eu dui tempor vulputate. Ut quis erat a felis porttitor dapibus. Sed a nisi et orci pellentesque scelerisque vitae et odio. Maecenas malesuada nibh vitae augue venenatis tincidunt vel ullamcorper dolor. Fusce porta diam nec nunc cursus ullamcorper ut non neque. Nulla vel dolor turpis, id tincidunt quam. Vestibulum hendrerit eros eget dui aliquet quis fermentum ligula luctus. Integer dui mi, pulvinar nec dignissim vel, facilisis non nibh. Nulla in venenatis nulla. Etiam ac justo eget tortor ultrices posuere at non purus. Fusce eu nisl eget orci placerat pharetra. Nulla quam augue, fringilla sit amet tempor non, malesuada sit amet quam. Pellentesque mauris urna, semper ut dignissim quis, malesuada ac magna. Donec condimentum ultrices urna a accumsan. Maecenas facilisis auctor sodales. Ut quis diam eros, nec lacinia tellus.</p>
+				<p>Curabitur urna elit, varius in posuere vitae, molestie non tellus. Nam sagittis mattis risus, et tempor urna fermentum eget. Suspendisse vitae est ac dolor tempus ullamcorper eget sed nulla. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Phasellus feugiat mollis massa eleifend accumsan. Nullam mattis, magna quis ultricies tincidunt, ipsum justo consequat quam, ut eleifend sem mi congue purus. Nunc sit amet orci vitae justo mollis molestie et in erat. Suspendisse eget ligula quis ante auctor gravida a non sapien. Nulla volutpat consequat quam, varius elementum magna tristique ut. Donec adipiscing, enim at ullamcorper dapibus, sem tellus volutpat velit, eu gravida magna mauris eu enim. Maecenas consectetur placerat quam, et bibendum eros consectetur eget. Sed elementum pretium condimentum. Praesent auctor, dolor at fringilla aliquam, nulla metus varius ante, sed venenatis est ante id nisl. Nulla in magna nec augue hendrerit faucibus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In est erat, fermentum quis vulputate eget, sodales non metus. Mauris scelerisque, dui id malesuada suscipit, eros tellus interdum tortor, et lacinia erat erat ultrices felis. Suspendisse non quam non nisl dictum vulputate in et nisl. Sed a posuere augue.</p>
+				<p>In vitae ante erat. Sed leo urna, interdum at fermentum in, volutpat ac neque. Proin egestas iaculis egestas. Integer fringilla, nisl in malesuada tincidunt, lectus libero porttitor sem, ut gravida sapien nisi ut velit. In sem tortor, elementum sed varius ac, adipiscing dapibus erat. Donec ullamcorper ligula id enim tristique non egestas mi tempus. Integer lobortis laoreet nibh, in placerat dolor sodales eu. Ut fermentum tempor massa, in feugiat dolor malesuada ut. Praesent ac dictum lectus. Cras rutrum, nisl non ultricies feugiat, arcu eros viverra lectus, eu lacinia est orci non metus. </p>
+
+				<h3>Lists</h3>
+				<ul>
+					<li>First item</li>
+					<li>Second item</li>
+					<li>Third item</li>
+					<li>Fourth item</li>
+				</ul>
+				<h3>Tables</h3>
+				<table style="border:1px solid black">
+					<tr>
+						<th></th><th>Property A</th><th>Property B</th>
+					</tr>
+					<tr>
+						<th>Item X</th><td>Yes</td><td>No</td>
+					</tr>
+					<tr>
+						<th>Item Y</th><td>No</td><td>Yes</td>
+					</tr>
+				</table>
+				<h3>Images (when clicked)</h3>
+				<img src="hat.jpg" alt="hat" />
+			</p>
+			</div>
+		</div>
+		<div id="annotations">
+		</div>
+		
+		<div id="controls">
+			<button onclick="save()">Save annotations</button><br />
+			<textarea rows="5" cols="40" id="annotationDefinitionsSaved"></textarea>
+		</div>
+
+  </body>
+</html>

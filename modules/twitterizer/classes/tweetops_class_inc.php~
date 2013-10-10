@@ -1,0 +1,282 @@
+<?php
+/**
+ *
+ *  Twitterizer operations class
+ *
+ * PHP version 5.1.0+
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ *
+ * @category  Chisimba
+ * @package   Twitterizer
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @copyright 2009 AVOIR
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version
+ * @link      http://avoir.uwc.ac.za
+ */
+
+// security check - must be included in all scripts
+if (! /**
+ * The $GLOBALS is an array used to control access to certain constants.
+ * Here it is used to check if the file is opening in engine, if not it
+ * stops the file from running.
+ *
+ * @global entry point $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ *
+ */
+$GLOBALS ['kewl_entry_point_run']) {
+    die ( "You cannot view this page directly" );
+}
+// end security check
+
+
+/**
+ *
+ * Twitterizer operations class
+ *
+ * PHP version 5.1.0+
+ *
+ * @author Paul Scott
+ * @package twitterizer
+ *
+ */
+class tweetops extends object {
+
+    /**
+     *
+     * @var string $objLanguage String object property for holding the
+     * language object
+     * @access public
+     *
+     */
+    public $objLanguage;
+    public $objConfig;
+    public $objSysConfig;
+    public $objWashout;
+    public $objUser;
+    public $objDbTweets;
+    public $conn;
+
+    /**
+     * Constructor
+     *
+     * @access public
+     *
+     */
+    public function init() {
+        $this->objLanguage = $this->getObject('language', 'language');
+        $this->objConfig = $this->getObject('altconfig', 'config');
+        $this->objSysConfig = $this->getObject ( 'dbsysconfig', 'sysconfig' );
+        $this->objWashout = $this->getObject('washout', 'utilities');
+        $this->objUser = $this->getObject('user', 'security');
+        $this->objDbTweets = $this->getObject('dbtweets');
+        // Get the sysconfig variables for the Jabber user to set up the connection.
+        $this->objSysConfig = $this->getObject ( 'dbsysconfig', 'sysconfig' );
+        $this->jserver = $this->objSysConfig->getValue ( 'jabberserver', 'twitterizer' );
+        $this->jport = $this->objSysConfig->getValue ( 'jabberport', 'twitterizer' );
+        $this->juser = $this->objSysConfig->getValue ( 'jabberuser', 'twitterizer' );
+        $this->jpass = $this->objSysConfig->getValue ( 'jabberpass', 'twitterizer' );
+        $this->jclient = $this->objSysConfig->getValue ( 'jabberclient', 'twitterizer' );
+        $this->jdomain = $this->objSysConfig->getValue ( 'jabberdomain', 'twitterizer' );
+          
+        // set up the connection
+        $this->conn = new XMPPHP_XMPP ( $this->jserver, intval ( $this->jport ), $this->juser, $this->jpass, $this->jclient, $this->jdomain, $printlog = FALSE, $loglevel = XMPPHP_Log::LEVEL_ERROR );
+    }
+
+    /**
+     *
+     */
+    public function createTrackFile() {
+        $terms = $this->objSysConfig->getValue('trackterms', 'twitterizer');
+        $seed = "track=";
+        $seed = $seed.$terms;
+        $filename = $this->objConfig->getcontentBasePath()."tracking";
+        if(file_put_contents($filename, $seed)) {
+            return TRUE;
+        }
+        else {
+            return FALSE;
+        }
+    }
+
+    /**
+     * go persistent connection to twitter API method 
+     */
+     public function getData() {
+         $newTime = null;
+         $this->objDbTweets = $this->getObject('dbtweets');
+         $params = $this->objSysConfig->getValue('trackterms', 'twitterizer');
+         $user = $this->objSysConfig->getValue('twitteruser', 'twitterizer');
+         $pass = $this->objSysConfig->getValue('twitterpass', 'twitterizer');
+         $terms = urlencode($params);
+         $fp = fopen("http://".$user.":".$pass."@stream.twitter.com/track.json?track=$terms","r");  
+         while($data = fgets($fp))  
+         {  
+             $time = date("YmdHi");
+             $workdir = $this->objConfig->getcontentBasePath();
+             $file = $workdir.$time;  
+             if ($newTime!=$time)  
+             {  
+                 @fclose($fp2);
+                 chdir($workdir);
+                 foreach(glob("*.txt") as $prev) { 
+                     $records = file($prev);
+                     foreach($records as $record) {
+                         $record = json_decode($record);
+                         // parse out the important bits
+                         $text = $record->text;
+                         $created = $record->created_at;
+                         $userdata = $record->user;
+                         $screen_name = $userdata->screen_name;
+                         $name = $userdata->name;
+                         $image = $userdata->profile_image_url;
+                         $location = $userdata->location;
+                         // make an array for db record insert
+                         $insarr = array('tweet' => $text, 'createdat' => $created, 'tstamp'=> strtotime($created), 'screen_name' => $screen_name, 'name' => $name, 'image' => $image, 'location' => $location);
+                         $this->objDbTweets->addRec($insarr);
+                         // send to XMPP bot as well...
+                         $this->conn->connect ();
+                         // get a list of the subscribers
+                         $objSubs = $this->getObject('dbsubs');
+                         $subscribers = $objSubs->getActive();
+                         foreach($subscribers as $subs) {
+                             $this->conn->message($subs['jid'], $text);
+                         }
+                     }
+                     unlink($prev);
+                 }
+                 $fp2 = fopen("{$file}.txt","a");
+             }
+             fputs($fp2, $data);  
+             $newTime = $time; //date("YmdHi");
+          }
+     }
+
+    public function renderOutputForBrowser($msgs) {
+        $ret = NULL;
+        foreach($msgs as $pos) {
+            $user = $pos['screen_name'];
+            $pic = $pos['image'];
+            $usrlink = $this->newObject('link', 'htmlelements');
+            $usrlink->href = "http://twitter.com/$user";
+            $usrlink->link = $user;
+            $txt = "<b>".$usrlink->show()."</b> ".$this->objWashout->parseText($pos['tweet'])."<br />".$pos['createdat'];
+            $image = "<a href='http://twitter.com/".$user."'><img src='$pic' height='48', width='48' /></a>";
+            // bust out a table to format the lot, then bang it in a feturebox
+            $msgtbl = $this->newObject('htmltable', 'htmlelements');
+            $msgtbl->cellpadding = 3;
+            $msgtbl->cellspacing = 3;
+            $msgtbl->startRow();
+            $msgtbl->addCell($image, 1);
+            $msgtbl->addCell($txt);
+            $msgtbl->endRow();
+
+            $ret .= $msgtbl->show();
+        }
+        header ( "Content-Type: text/html;charset=utf-8" );
+        return $ret;
+    }
+
+    public function renderTopBoxen($userid = NULL) {
+    }
+    
+    public function renderLeftBoxen($userid = NULL) {
+        $ret = NULL;
+        $ret .= $this->siocBox();
+        $ret .= $this->statsBox();
+        $ret .= $this->termsBox();
+        $ret .= $this->searchBox();
+        return $ret;
+    }
+
+    public function renderRightBoxen($userid = NULL) {
+    }
+
+    private function statsBox() {
+        $msgcount = $this->objDbTweets->getMsgRecordCount ();
+        $numusers = $this->objDbTweets->getUserCount ();
+        $objFB = $this->newObject('featurebox', 'navigation');
+        
+        return $objFB->show($this->objLanguage->languageText('mod_twitterizer_statsfb', 'twitterizer'), $this->objLanguage->languageText('mod_twitterizer_totsofar', 'twitterizer').': '.$msgcount.                                                                                                    "<br />".$this->objLanguage->languageText('mod_twitterizer_numusers', 'twitterizer').': '.$numusers);
+    }
+
+    private function termsBox() {
+        $ret = NULL;
+        $objFB = $this->newObject('featurebox', 'navigation');
+        $terms = $this->objSysConfig->getValue('trackterms', 'twitterizer');
+        $terms = explode(",", $terms);
+        $t = NULL;
+        foreach($terms as $term) {
+            $t .= $term."<br />";
+        }
+        return $objFB->show($this->objLanguage->languageText('mod_twitterizer_termsfb', 'twitterizer'), $this->objLanguage->languageText('mod_twitterizer_termsused', 'twitterizer').": <br />".$t);
+    }
+
+    private function searchBox() {
+        $this->loadClass('textinput', 'htmlelements');
+        $qseekform = new form('qseek', $this->uri(array(
+        'action' => 'search',
+        )));
+        $qseekform->addRule('searchterm', $this->objLanguage->languageText("mod_twitterizer_phrase_searchtermreq", "twitterizer") , 'required');
+        $qseekterm = new textinput('searchterm');
+        $qseekterm->size = 15;
+        $qseekform->addToForm($qseekterm->show());
+        $this->objsTButton = &new button($this->objLanguage->languageText('word_search', 'system'));
+        $this->objsTButton->setValue($this->objLanguage->languageText('word_search', 'system'));
+        $this->objsTButton->setToSubmit();
+        $qseekform->addToForm($this->objsTButton->show());
+        $qseekform = $qseekform->show();
+        $objFeatureBox = $this->getObject('featurebox', 'navigation');
+        $ret = $objFeatureBox->show($this->objLanguage->languageText("mod_twitterizer_qseek", "twitterizer") , $qseekform);
+
+        return $ret;
+    }
+
+    private function siocBox() {
+        $objIcon = $this->newObject ( 'geticon', 'htmlelements' );
+        $this->loadClass('href', 'htmlelements');
+        $objIcon->alt = 'SIOC';
+        $objIcon->setIcon('sioc', 'gif');
+        $sioclink = new href($this->uri(array('action' => 'sioc', 'sioc_type' => 'site')), $objIcon->show());
+        $objFB = $this->newObject('featurebox', 'navigation');
+
+        return $objFB->show($this->objLanguage->languageText("mod_twitterizer_phrase_siocfb", "twitterizer"),$sioclink->show());
+        
+    }
+    
+    public function getJsonTweets($start = 0,  $limit=20, $lastTimeCheck=false) {
+
+    	if($lastTimeCheck == ""){
+    	 	$msgs = $this->objDbTweets->getRange($start, $limit);    	
+    	}else{
+    		$msgs = $this->objDbTweets->getDateRange($lastTimeCheck);
+    	}
+    	
+    	 $cnt = $this->objDbTweets->getTweetCount();
+    	
+    	 echo json_encode(array('totalCount' => $cnt[0]['cnt'], 'tweets' => $msgs));
+    }
+    
+    public function searchTweets($query){
+    	
+    	$msgs = $this->objDbTweets->searcTable($query);
+    	$cnt = count($msgs);
+    	echo json_encode(array('totalCount' => $cnt[0]['cnt'], 'tweets' => $msgs));
+    }
+    
+
+}
+?>

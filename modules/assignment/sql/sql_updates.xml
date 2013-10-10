@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<updates>
+    <update>
+        <table>tbl_assignment</table>
+        <version>0.310</version>
+        <description>Added opening date - when assignments become visible to students</description>
+        <data>
+            <add>
+                <name>opening_date</name>
+                <type>timestamp</type>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_assignment</table>
+        <version>0.341</version>
+        <description>Added assesment type - Is it a reflection based assignment? </description>
+        <data>
+            <add>
+                <name>assesment_type</name>
+                <type>text</type>
+                <notnull>1</notnull>
+                <default>0</default>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_assignment_submit</table>
+        <version>0.314</version>
+        <description>Change mark to cater for decimals - currently integer</description>
+        <data>
+            <change>
+                <mark>
+                    <definition>
+                        <type>decimal</type>
+                    </definition>
+                </mark>
+            </change>
+        </data>
+    </update>
+    <update>
+        <table>tbl_assignment</table>
+        <version>0.349</version>
+        <description>Change assesment_type to length 1</description>
+        <data>
+            <change>
+                <assesment_type>
+                    <definition>
+                        <type>text</type>
+                        <length>1</length>
+                    </definition>
+                </assesment_type>
+            </change>
+        </data>
+    </update>
+    <update>
+        <table>tbl_assignment</table>
+        <version>0.362</version>
+        <description>Added email alert option </description>
+        <data>
+            <add>
+                <name>email_alert</name>
+                <type>text</type>
+                <length>1</length>
+                <default>1</default>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_assignment</table>
+        <version>0.402</version>
+        <description>Added filename conversion option </description>
+        <data>
+            <add>
+                <name>filename_conversion</name>
+                <type>text</type>
+                <length>1</length>
+                <default>1</default>
+            </add>
+        </data>
+    </update>
+
+    <update>
+        <table>tbl_assignment</table>
+        <version>0.501</version>
+        <description>Added visibility option </description>
+        <data>
+            <add>
+                <name>visibility</name>
+                <type>text</type>
+                <length>1</length>
+                <default>1</default>
+            </add>
+        </data>
+    </update>
+
+
+    <update>
+        <table>tbl_assignment</table>
+        <version>0.501</version>
+        <description>Added email alert option </description>
+        <data>
+            <add>
+                <name>email_alert_onsubmit</name>
+                <type>text</type>
+                <length>1</length>
+                <default>1</default>
+            </add>
+        </data>
+    </update>
+
+
+    <update>
+        <table>tbl_assignment</table>
+        <version>0.503</version>
+        <description>Added groups option </description>
+        <data>
+            <add>
+                <name>usegroups</name>
+                <type>text</type>
+                <length>1</length>
+                <default>1</default>
+            </add>
+        </data>
+    </update>
+
+
+        <update>
+        <table>tbl_assignment</table>
+        <version>0.503</version>
+        <description>Added goals option</description>
+        <data>
+            <add>
+                <name>usegoals</name>
+                <type>text</type>
+                <length>1</length>
+                <default>1</default>
+            </add>
+        </data>
+    </update>
+
+</updates>

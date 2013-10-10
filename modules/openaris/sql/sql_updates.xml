@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<updates> 
+  
+  <update>
+        <table>tbl_ahis_diseasereport</table>
+        <version>2.007</version>
+        <description>fixed spelling error in field outbreakcode</description>
+        <data>
+            <rename>
+                <outbreackcode>
+                    <name>outbreakcode</name>
+                    <definition>
+                        <type>text</type>
+                        <length>11</length>
+                        <notnull>1</notnull>
+                    </definition>
+                </outbreackcode>
+            </rename>                
+        </data>        
+    </update> 
+       
+</updates>

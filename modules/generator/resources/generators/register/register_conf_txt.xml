@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This file is a code generation template for Chisimba register.conf text file -->
+<chisimba_register_conf_txt>\
+
+<entry>
+  <name>start_comment</name>
+  <param>COMMENT</param>
+  <value>---------- REGISTER.CONF file for module {MODULE_NAME}
+  
+  </value>
+</entry>
+
+<entry>
+  <name>module_id</name>
+  <param>MODULE_ID</param>
+  <value>{MODULE_ID}</value>
+</entry>
+
+<entry>
+  <name>module_name</name>
+  <param>MODULE_NAME</param>
+  <value>{MODULE_NAME}</value>
+</entry>
+
+<entry>
+  <name>module_description</name>
+  <param>MODULE_DESCRIPTION</param>
+  <value>{MODULE_DESCRIPTION}</value>
+</entry>
+
+<entry>
+  <name>module_authors</name>
+  <param>MODULE_AUTHORS</param>
+  <value>{MODULE_AUTHORS}</value>
+</entry>
+
+<entry>
+  <name>module_realeasedate</name>
+  <param>MODULE_RELEASEDATE</param>
+  <value>{MODULE_RELEASEDATE}</value>
+</entry>
+
+<entry>
+  <name>module_version</name>
+  <param>MODULE_VERSION</param>
+  <value>0.01</value>
+</entry>
+
+<entry>
+  <name>menu_category</name>
+  <param>MENU_CATEGORY</param>
+  <value>{MENU_CATEGORY}</value>
+</entry>
+
+<entry>
+  <name>sidemenu_category</name>
+  <param>SIDEMENU_CATEGORY</param>
+  <value>{SIDEMENU_CATEGORY}</value>
+</entry>
+
+<entry>
+  <name>context_aware</name>
+  <param>CONTEXT_AWARE</param>
+  <value>{CONTEXT_AWARE}</value>
+</entry>
+
+<entry>
+  <name>depends_context</name>
+  <param>DEPENDS_CONTEXT</param>
+  <value>{DEPENDS_CONTEXT}</value>
+</entry>
+
+</chisimba_register_conf_txt>

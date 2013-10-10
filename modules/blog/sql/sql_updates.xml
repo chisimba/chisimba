@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<updates>
+    <update>
+        <table>tbl_blog_posts</table>
+        <version>0.69</version>
+        <description>Added a Creative Commons Licence Field</description>
+        <data>
+        	<add>
+    			<name>post_lic</name>
+		    	<type>text</type>
+    			<length>60</length>
+			</add>
+		</data>
+	</update>
+	<update>
+        <table>tbl_blog_postmeta</table>
+        <version>0.98</version>
+        <description>Modified post metadata table to handle text elements for tagging</description>
+        <data>
+        	<change>
+        		<post_id>
+        		<type>text</type>
+        			<definition>
+		    			<type>text</type>
+    					<length>32</length>
+    				</definition>
+    			</post_id>
+			</change>
+		</data>
+	</update>
+	<!--<update>
+        <table>tbl_blog_profile</table>
+        <version>1.6</version>
+        <description>Set up profile table</description>
+        <data>
+        	<change>
+        	<blog_descrip>
+		    	<type>clob</type>
+		    		<definition>
+		    			<type>clob</type>
+    				</definition>
+    		</blog_descrip>
+			</change>
+		</data>
+	</update>  -->
+	<!--
+	<update>
+        <table>tbl_blog_userrss</table>
+        <version>1.3</version>
+        <description>Modified user rss table</description>
+        <data>
+        	<add>
+    			<name>rsscache</name>
+		    	<type>clob</type>
+			</add>
+			<add>
+    			<name>rsstime</name>
+		    	<type>text</type>
+		    	<length>255</length>
+			</add>
+		</data>
+	</update>
+    -->
+    <update>
+        <table>tbl_blog_posts</table>
+        <version>1.17</version>
+        <description>Added Sticky posts field</description>
+        <data>
+        	<add>
+    			<name>stickypost</name>
+		    	<type>integer</type>
+    			<length>20</length>
+			</add>
+		</data>
+	</update>
+	<update>
+        <table>tbl_blog_posts</table>
+        <version>1.19</version>
+        <description>Added Show PDF control field</description>
+        <data>
+        	<add>
+    			<name>showpdf</name>
+		    	<type>integer</type>
+    			<length>20</length>
+			</add>
+		</data>
+	</update>
+	<update>
+        <table>tbl_blog_links</table>
+        <version>1.31</version>
+        <description>added a link type field</description>
+        <data>
+        	<add>
+    			<name>link_type</name>
+		    	<type>text</type>
+    			<length>255</length>
+			</add>
+		</data>
+	</update>
+	<update>
+        <table>tbl_blog_links</table>
+        <version>1.31</version>
+        <description>modified timestamp field to cater for integers</description>
+        <data>
+        	<change>
+        		<link_updated>
+        		<type>text</type>
+        			<definition>
+		    			<type>text</type>
+    					<length>50</length>
+    				</definition>
+    			</link_updated>
+			</change>
+		</data>
+	</update>
+	<update>
+        <table>tbl_blog_posts</table>
+        <version>1.65</version>
+        <description>added geotagging fields</description>
+        <data>
+        	<add>
+    			<name>geolat</name>
+		    	<type>text</type>
+    			<length>255</length>
+			</add>
+			<add>
+    			<name>geolon</name>
+		    	<type>text</type>
+    			<length>255</length>
+			</add>
+		</data>
+	</update>
+</updates>

@@ -1,0 +1,17 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classside__other__links.html#a689844fc143fdc30133e4f8626352cb2" title="getFormAction" alt="" coords="356,5,484,37"/>
+<area shape="rect" id="node5" href="$classside__navigation__links__handler.html#a350c3d97e61c9c4c66649478451d43f5" title="side_navigation_links_handler::setGoToDashboard" alt="" coords="227,61,613,93"/>
+<area shape="rect" id="node7" href="$classside__navigation__links__handler.html#abcf83fd3cb8acb16377b89dfc060a8ae" title="side_navigation_links_handler::setGoToDVCContacts" alt="" coords="217,117,623,149"/>
+<area shape="rect" id="node9" href="$classside__navigation__links__handler.html#a178f78704fd873456cd0bfe92868ac62" title="side_navigation_links_handler::setGoToEfficiencyRatios" alt="" coords="207,173,633,205"/>
+<area shape="rect" id="node11" href="$classside__navigation__links__handler.html#ac34c024cdc6d2c404b082b8682c38dab" title="side_navigation_links_handler::setGoToFinanceTools" alt="" coords="217,229,623,261"/>
+<area shape="rect" id="node13" href="$classside__navigation__links__handler.html#a98d78c6fa5fde516c3daf7e9281a4a40" title="side_navigation_links_handler::setGoToForumLink" alt="" coords="228,285,612,317"/>
+<area shape="rect" id="node15" href="$classside__navigation__links__handler.html#add8b99e670d0fbf758397b78124f7e05" title="side_navigation_links_handler::setGoToGlossary" alt="" coords="235,341,605,373"/>
+<area shape="rect" id="node17" href="$classside__navigation__links__handler.html#aea89d637d5ab632cc0d29e6cd997b359" title="side_navigation_links_handler::setGoToHEMIS" alt="" coords="241,397,599,429"/>
+<area shape="rect" id="node19" href="$classside__navigation__links__handler.html#abff9c81036378089cc6fca246ada7954" title="side_navigation_links_handler::setGoToHome" alt="" coords="245,453,595,485"/>
+<area shape="rect" id="node21" href="$classside__navigation__links__handler.html#aaa7ea3af4145142ff141bd341a5405b3" title="side_navigation_links_handler::setGoToHRIRInfo" alt="" coords="233,509,607,541"/>
+<area shape="rect" id="node23" href="$classside__navigation__links__handler.html#a80349b9746e30258ab031f832ff6a3d7" title="side_navigation_links_handler::setGoToIntegrityAssurance" alt="" coords="197,565,643,597"/>
+<area shape="rect" id="node25" href="$classside__navigation__links__handler.html#a6641ddcbfabb4244d1ba18899ff26763" title="side_navigation_links_handler::setGoToMIUContacts" alt="" coords="220,621,620,653"/>
+<area shape="rect" id="node27" href="$classside__navigation__links__handler.html#a08e056713abf12c6c5422f15ffb89335" title="side_navigation_links_handler::setGoToPolicies" alt="" coords="237,677,603,709"/>
+<area shape="rect" id="node29" href="$classside__navigation__links__handler.html#ab3db58653e19bf240b0edab9bc8c8d99" title="side_navigation_links_handler::setGoToQQR" alt="" coords="249,733,591,765"/>
+<area shape="rect" id="node31" href="$classside__navigation__links__handler.html#a0cf3c280432c95334f9c1c8bb72f44e5" title="side_navigation_links_handler::setGoToStudentsReports" alt="" coords="207,789,633,821"/>
+</map>

@@ -1,0 +1,16 @@
+/* 
+    Document   : buttons.css
+    Created on : 20 Aug 2010, 12:01:49 PM
+    Author     : nguni
+    Description: Render the buttons and images on the extjs grid for questions
+*/
+
+.add {
+    background-image: url(images/add.png) !important;
+}
+.silk-add {
+    background-image: url(images/add16.gif) !important;
+}
+.add24 {
+    background-image: url(images/add24.gif) !important;
+}
