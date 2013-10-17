@@ -1715,6 +1715,9 @@ class eportfolio extends controller {
                 //		exit;
                 return $this->removeUserFromGroup($this->getParam('userid'), $this->getParam('group'));
                 break;
+            case 'removeallusers':
+                return $this->removeAllUsersFromGroup($this->getParam('userId'), $this->getParam('group'));
+                break;
 
             case "viewothersportfolio":
                 $this->setLayoutTemplate('eportfolio_layout_tpl.php');
@@ -1746,8 +1749,14 @@ class eportfolio extends controller {
      * @param string $group Group to be deleted from - either lecturers, students or guest
      */
     private function removeUserFromGroup($userId = NULL, $groupId = NULL) {
-        if ($userId == '') {
+        if (is_null($userId)) {
+/*
             return $this->nextAction(NULL, array(
+                'message' => 'nouseridprovidedfordelete'
+            ));
+*/
+            return $this->nextAction('viewgroups', array(
+                'id' => $groupId,
                 'message' => 'nouseridprovidedfordelete'
             ));
         }
@@ -1756,10 +1765,47 @@ class eportfolio extends controller {
         if (class_exists('groupops', false)) {
             $permid = $this->objGroupsOps->getUserByUserId($userId);
         }
+        //log_debug('#!$1:'.var_export($permid, TRUE));
         $pkId = $permid['perm_user_id'];
+        //log_debug('#!$2:'.var_export($pkId, TRUE));
         $deleteMember = $this->_objGroupAdmin->deleteGroupUser($groupId, $pkId);
+        //log_debug('#!$3:'.var_export($deleteMember, TRUE));
         return $this->nextAction('viewgroups', array(
+            'id' => $groupId,
             'message' => 'userdeletedfromgroup'
+        ));
+    }
+
+    /**
+     * Method to remove a user from a group
+     * @param string $userId User Id of the User
+     * @param string $group Group to be deleted from - either lecturers, students or guest
+     */
+    private function removeAllUsersFromGroup($arrUserId = NULL, $groupId = NULL) {
+        //log_debug('#!'.var_export($arrUserId, TRUE));
+        if (is_null($arrUserId)) {
+/*
+            return $this->nextAction(NULL, array(
+                'message' => 'nouseridprovidedfordelete'
+            ));
+*/
+            return $this->nextAction('viewgroups', array(
+                'id' => $groupId,
+                'message' => 'nouseridsprovidedfordelete'
+            ));
+        }
+        foreach ($arrUserId as $userId) {
+            //$pkId = $this->objUser->PKId($userId);
+            //Check if class groupops exists
+            if (class_exists('groupops', false)) {
+                $permid = $this->objGroupsOps->getUserByUserId($userId);
+            }
+            $pkId = $permid['perm_user_id'];
+            $deleteMember = $this->_objGroupAdmin->deleteGroupUser($groupId, $pkId);
+        }
+        return $this->nextAction('viewgroups', array(
+            'id' => $groupId,
+            'message' => 'usersdeletedfromgroup'
         ));
     }
 
@@ -2082,7 +2128,7 @@ class eportfolio extends controller {
             }
         }
         if ($this->getParam('button') == 'cancel' && $groupId <> '') {
-            
+
         }
         // After processing return to main
         return $this->nextAction('view_assertion', array());
@@ -2129,7 +2175,7 @@ class eportfolio extends controller {
             }
         }
         if ($this->getParam('button') == 'cancel' && $groupId <> '') {
-            
+
         }
         // After processing return to main
         return $this->nextAction('view_assertion', array());
