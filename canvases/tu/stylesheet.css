@@ -87,9 +87,9 @@ li.navigation-list-wrapper{
 }
 li.navigation-list-wrapper#home{
         background: url(icons/home.png) no-repeat center #FFF;
-        box-shadow: 0 0 2px -1px #000;
-        -webkit-box-shadow: 0 0 2px -1px #000;
-        -moz-box-shadow: 0 0 2px -1px #000;
+        box-shadow: 0 0 3px -1px #000;
+        -webkit-box-shadow: 0 0 3px -1px #000;
+        -moz-box-shadow: 0 0 3px -1px #000;
 }
 li.navigation-list-wrapper#home label{
         margin-left: -19px;
