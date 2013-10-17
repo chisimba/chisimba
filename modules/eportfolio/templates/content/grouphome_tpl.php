@@ -19,8 +19,16 @@ if (isset($showconfirmation) && $showconfirmation) {
         echo '<ul><li><span class="confirm">' . $this->objLanguage->languageText('phrase_eportfolio_membersuccessfullyremoved', 'eportfolio') . '</span></li>';
         echo '</ul>';
     }
+    if ($this->getParam('message') == 'usersdeletedfromgroup') {
+        echo '<ul><li><span class="confirm">' . $this->objLanguage->languageText('phrase_eportfolio_memberssuccessfullyremoved', 'eportfolio') . '</span></li>';
+        echo '</ul>';
+    }
     if ($this->getParam('message') == 'nouseridprovidedfordelete') {
         echo '<ul><li><span class="confirm">' . $this->objLanguage->languageText('phrase_eportfolio_nouseridprovidedfordelete', 'eportfolio') . '</span></li>';
+        echo '</ul>';
+    }
+    if ($this->getParam('message') == 'nouseridsprovidedfordelete') {
+        echo '<ul><li><span class="confirm">' . $this->objLanguage->languageText('phrase_eportfolio_nouseridsprovidedfordelete', 'eportfolio') . '</span></li>';
         echo '</ul>';
     }
     if ($this->getParam('message') == 'usersupdated') {
@@ -102,7 +110,7 @@ $objTable->endRow();
 if (count($grpMembers) > 0) {
     $objTable->row_attributes = 'onmouseover="this.className=\'tbl_ruler\';" onmouseout="this.className=\'none\'; "';
     foreach($grpMembers as $grpMember) {
-        $objCheck = new checkbox('lecturerId[]');
+        $objCheck = new checkbox('userId[]');
         $objCheck->value = $grpMember['userid'];
         $objTable->startRow();
         if ($this->isValid('removeallusers')) {
@@ -136,20 +144,21 @@ if (count($grpMembers) > 0) {
     $objTable->endRow();
 }
 $objButton = new button('select', $this->objLanguage->languageText('phrase_selectall'));
-$objButton->extra = 'onclick="javascript:SetAllCheckBoxes(\'removelecturers\', \'lecturerId[]\', true)"';
+$objButton->extra = 'onclick="javascript:SetAllCheckBoxes(\'removeusers\', \'userId[]\', true)"';
 $buttons = $objButton->show();
 $objButton = new button('unselect', $this->objLanguage->languageText('mod_contextgroups_unselectall', 'contextgroups', 'Unselect All'));
-$objButton->extra = 'onclick="javascript:SetAllCheckBoxes(\'removelecturers\', \'lecturerId[]\', false)"';
+$objButton->extra = 'onclick="javascript:SetAllCheckBoxes(\'removeusers\', \'userId[]\', false)"';
 $buttons.= '&nbsp;&nbsp;&nbsp;&nbsp;' . $objButton->show();
 $objButton = new button('delete', $this->objLanguage->languageText('mod_contextgroups_deleteselected', 'eportfolio', 'Delete Selected'));
-$objButton->extra = 'onclick="javascript:if(confirm(\'' . $this->objLanguage->languageText('phrase_eportfolio_confirmdeleteuser', 'eportfolio', NULL, 'Are you sure you want to delete these [-authors-]?') . '\')){document.removelecturers.submit();}else{return false;}"';
+$objButton->extra = 'onclick="javascript:if(confirm(\'' . $this->objLanguage->languageText('phrase_eportfolio_confirmdeleteusers', 'eportfolio', NULL, 'Are you sure you want to delete these [-authors-]?') . '\')){document.removeusers.submit();}else{return false;}"';
 $buttons.= '&nbsp;&nbsp;&nbsp;&nbsp;' . $objButton->show();
-$objForm = new form('removelecturers', $this->uri(array(
+$objForm = new form('removeusers', $this->uri(array(
     'action' => 'removeallusers',
-    'mode' => 'lecturer'
+    'group' => $group
+    //'mode' => 'lecturer'
 )));
 $objForm->addToForm($objTable->show());
-if (count($grpMembers) > 1) {
+if (count($grpMembers) > 0) {
     $objForm->addToForm($buttons);
 }
 //echo $objForm->show();
