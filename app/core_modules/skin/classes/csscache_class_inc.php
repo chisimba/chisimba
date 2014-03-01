@@ -240,7 +240,7 @@ class csscache extends object
             "navigationmenu.css",
             "modulespecific.css",
             "cssdropdownmenu.css",
-            "sexybuttons.css",
+            "sexybuttons2.css",
             "chisimbacanvas.css",
             "filemanager.css",
         );
