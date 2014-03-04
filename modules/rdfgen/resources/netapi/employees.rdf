@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<rdf:RDF
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+   xmlns:ns1="http://www.w3.org/2001/vcard-rdf/3.0#"
+   xmlns:ns2="http://sampleVocabulary.org/1.3/People#">
+
+<ns1:work rdf:nodeID="bNode10">
+   <rdf:value>B.Parker@example.com</rdf:value>
+</ns1:work>
+
+<rdf:Description rdf:nodeID="bNode1">
+   <ns1:Family>Murphy</ns1:Family>
+   <ns1:Given>Monica</ns1:Given>
+</rdf:Description>
+
+<ns1:work rdf:nodeID="bNode2">
+   <rdf:value>+1 111 2222 999</rdf:value>
+</ns1:work>
+
+<ns1:work rdf:nodeID="bNode3">
+   <rdf:value>M.Murphy@example.com</rdf:value>
+</ns1:work>
+
+<rdf:Description rdf:nodeID="bNode4">
+   <ns1:Family>Simpson</ns1:Family>
+   <ns1:Given>George</ns1:Given>
+</rdf:Description>
+
+<ns1:work rdf:nodeID="bNode5">
+   <rdf:value>+1 111 2222 101</rdf:value>
+</ns1:work>
+
+<ns1:work rdf:nodeID="bNode6">
+   <rdf:value>G.Simpson@example.com</rdf:value>
+</ns1:work>
+
+<rdf:Description rdf:nodeID="bNode7">
+   <ns1:Family>Parker</ns1:Family>
+   <ns1:Given>Bill</ns1:Given>
+</rdf:Description>
+
+<ns1:work rdf:nodeID="bNode8">
+   <rdf:value>+1 111 2222 668</rdf:value>
+</ns1:work>
+
+<ns1:home rdf:nodeID="bNode9">
+   <rdf:value>+1 111 2212 431</rdf:value>
+</ns1:home>
+
+<rdf:Description rdf:about="http://example.com/employees/BillParker/">
+   <ns2:age rdf:datatype="http://www.w3.org/TR/xmlschema-2/integer">33</ns2:age>
+   <ns1:EMAIL rdf:nodeID="bNode10"/>
+   <ns1:FN>Bill Parker</ns1:FN>
+   <ns1:N rdf:nodeID="bNode7"/>
+   <ns1:TEL rdf:nodeID="bNode8"/>
+   <ns1:TEL rdf:nodeID="bNode9"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/employees/GeorgeSimpson/">
+   <ns2:age rdf:datatype="http://www.w3.org/TR/xmlschema-2/integer">41</ns2:age>
+   <ns1:EMAIL rdf:nodeID="bNode6"/>
+   <ns1:FN>George Simpson</ns1:FN>
+   <ns1:N rdf:nodeID="bNode4"/>
+   <ns1:TEL rdf:nodeID="bNode5"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.com/employees/MonicaMurphy/">
+   <ns2:age rdf:datatype="http://www.w3.org/TR/xmlschema-2/integer">29</ns2:age>
+   <ns1:EMAIL rdf:nodeID="bNode3"/>
+   <ns1:FN>Monica Murphy</ns1:FN>
+   <ns1:N rdf:nodeID="bNode1"/>
+   <ns1:TEL rdf:nodeID="bNode2"/>
+</rdf:Description>
+
+</rdf:RDF>

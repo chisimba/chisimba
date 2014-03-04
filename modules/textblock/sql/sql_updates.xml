@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<updates>
+    <update>
+        <table>tbl_textblock</table>
+        <version>0.78</version>
+        <description>Added css_id that was added to sql directly instead of sql update.Please DO NOT apply this update if you textblocks work fine.</description>
+        <data>
+        	<add>
+    			<length>250</length>
+                        <name>css_id</name>
+                        <type>text</type>
+		</add>
+	</data>
+    </update>
+        <update>
+        <table>tbl_textblock</table>
+        <version>0.79</version>
+        <description>Added css_class that was added to sql directly instead of sql update.Please DO NOT apply this update if you textblocks work fine.</description>
+        <data>
+        	<add>
+    			<length>250</length>
+                        <name>css_class</name>
+                        <type>text</type>
+		</add>
+	</data>
+    </update>
+
+        
+        <update>
+        <table>tbl_textblock</table>
+        <version>0.80</version>
+        <description>Added show_title that was added to sql directly instead of sql update.Please DO NOT apply this update if you textblocks work fine.</description>
+        <data>
+        	<add>
+    			<length>1</length>
+                        <name>show_title</name>
+                        <type>text</type>
+                        <notnull>true</notnull>
+                        <default>g</default>
+		</add>
+	</data>
+    </update>
+
+</updates>

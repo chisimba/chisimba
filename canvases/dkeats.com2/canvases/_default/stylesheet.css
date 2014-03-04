@@ -1,0 +1,201 @@
+/*
+    Document   : stylesheet.css
+    Created on : 30 May 2010, 1:11:21 PM
+    Author     : dkeats
+    Description:
+        Leave this blank for consistency to implement the underlying skin as
+        a canvas to enable selecting.
+*/
+
+body {
+    background: transparent url(images/bg.gif) repeat;
+    margin: 0px;
+    padding: 0px;
+}
+
+html {
+    margin: 0px;
+    padding: 0px;
+}
+
+#Canvas_Content_Body_Region2 p {
+    margin-bottom: 10px;
+}
+
+#Canvas_Content_Body_Region1, #Canvas_Content_Body_Region3 {
+    width: 300px;
+    float:left;
+}
+
+#OutermostWrapper {
+    background:transparent;
+    display: block;
+    clear: both;
+}
+
+.ChisimbaCanvas {
+    display: block;
+    background: transparent;
+    width: 990px;
+    -webkit-border-radius: 28px;
+    -moz-border-radius: 28px;
+    border-radius: 28px;
+    -webkit-box-shadow: 0px 0px 29px #2F4F4F;
+    -moz-box-shadow: 0px 0px 29px #2F4F4F;
+    box-shadow: 0px 0px 29px #2F4F4F;
+    padding: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+#Canvas_Content {
+    background: transparent;
+    width: 990px;
+    padding: 0;
+    margin: 0;
+    margin-top: 48px;
+    margin-bottom: 48px;
+}
+
+#Canvas_Content_Body {
+    background: transparent url(images/horizontal.png) repeat-y;
+    width: 990px;
+}
+
+.flickr_img {
+    border: none;
+}
+
+.flickr_img_wrapper {
+    border-radius: 12px;
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    border: none;
+    padding: 0px;
+    margin-top: 24px;
+    margin-bottom: -15px;
+}
+
+/* Add some height after the footer for Chrome */
+.Canvas_AfterContainer {
+    height: 0px;
+}
+
+/* A style for headings within text */
+.within_text {
+    color: #666666;
+    line-height: 1.1;
+    font-size: medium;
+    margin-top: 20px;
+}
+
+p.attribution {
+    color: #666666;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+p.attribution ul>li {
+    margin-left: 45px;
+}
+
+.attribution_title {
+    color: red;
+}
+
+
+blockquote {
+    background: rgb(75,123,148);
+    color: white;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.12, rgb(75,123,148)),
+        color-stop(0.9, rgb(5,45,61))
+    );
+    background-image: -moz-linear-gradient(
+        center bottom,
+        rgb(75,123,148) 12%,
+        rgb(5,45,61) 90%
+    );
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    padding: 10px;
+    position: relative;
+    text-shadow: 1px 1px 1px rgb(0,0,0);
+}
+
+blockquote:after {
+    content: "\00a0";
+    display: block;
+    bottom: -30px;
+    left: 50px;
+    width: 0;
+    height: 0;
+    position: absolute;
+    border-width: 15px 15px;
+    border-style: solid;
+    border-color: rgb(75,123,148) transparent transparent;
+}
+
+blockquote + p {
+    color: rgb(200, 180, 180);
+    font-size: .857em; /* 12px */
+    font-style: italic;
+    padding-left: 40px;
+}
+
+#menu {
+    padding-left: 6px;
+}
+
+.social_icon {
+    margin: 3px;
+}
+
+.social_icon_container {
+    width: 960px;
+    height: 54px;
+}
+
+.Canvas_Content_Footer_Before {
+    width: 960px;
+    height: 54px;
+    text-align: center;
+}
+
+
+
+
+/* TESTING DURING BLOG MODS */
+
+.blogpost_before {
+    height: 0px;
+}
+
+.blogpost_after {
+    height: 0px;
+}
+
+.blog_bottombar {
+    margin-top: 6px;
+    margin-bottom: 8px;
+}
+
+.inline_comments {
+    height: 133px;
+    background-color: green;
+}
+
+
+
+
+
+/* move to base skin */
+

@@ -1,0 +1,4 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classset__original__message__options.html" title="{set_original_message_options\n|# $noOfDesiredMessagesPerPage\l&#45; $objSearchForm\l|+ init()\l+ setNoOfDesiredMessagesPerPage()\l+ showBuiltSwitchMenu()\l# buildSwitchMenu()\l# buildSwitchMenuDropDownOption()\l# buildSearchField()\l# getSearchFormAction()\l# getSortandPaginationFormAction()\l}" alt="" coords="5,625,248,849"/>
+<area shape="rect" id="node5" href="$classset__reply__options.html" title="{set_reply_options\n|# $idSubjectMatter\l&#45; $noOfDesiredMessagesPerPage\l&#45; $objSearchForm\l|+ init()\l+ setSubjectMatterId()\l+ setNoOfDesiredMessagesPerPage()\l+ showBuiltSwitchMenu()\l# buildSwitchMenu()\l# buildSwitchMenuDropDownOption()\l# buildSearchField()\l# getSortandPaginationFormAction()\l# getSearchFormAction()\l}" alt="" coords="272,608,515,867"/>
+</map>

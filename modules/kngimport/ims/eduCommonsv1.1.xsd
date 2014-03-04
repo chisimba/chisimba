@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://cosl.usu.edu/xsd/eduCommonsv1.1"
+           targetNamespace="http://cosl.usu.edu/xsd/eduCommonsv1.1"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    
+    <xs:annotation>
+        <xs:documentation>
+            eduCommonsv1.1 XML Schema Document
+            Author: Brent Lambert
+            Version: 1.1
+        </xs:documentation>
+    </xs:annotation>
+    
+    <xs:complexType name="eduCommonsType">
+        <xs:annotation>
+            <xs:documentation>
+                eduCommons specific fields not represented in standard metadata sets. 
+                Used to set specific eduCommons options on content objects.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element ref="objectType" minOccurs="0"/>
+            <xs:element ref="copyright" minOccurs="0"/>
+            <xs:element ref="license" minOccurs="0"/>
+            <xs:element ref="clearedCopyright" minOccurs="0"/>
+            <xs:element ref="courseId" minOccurs="0"/>
+            <xs:element ref="term" minOccurs="0"/>
+            <xs:element ref="displayInstructorEmail" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="licenseType">
+        <xs:annotation>
+            <xs:documentation>
+                Information about the copyright license that is used for a content 
+                object. eduCommons uses this information to display copyright bylines, 
+                and embedded RDF copyright metadata in content views. 
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element ref="licenseName" minOccurs="0" maxOccurs="1"/>
+            <xs:element ref="licenseUrl" minOccurs="0" maxOccurs="1"/>
+            <xs:element ref="licenseIconUrl" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+        <xs:attribute name="category" use="required" type="licenseTypes"/>
+    </xs:complexType>
+    
+    <xs:simpleType name="objectTypes">
+        <xs:annotation>
+            <xs:documentation>
+                A list of possible types that a content object can have. eduCommons 
+                uses this information to create the correct type of object in an 
+                eduCommons environment.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:NMTOKEN">
+            <xs:enumeration value="Department"/>
+            <xs:enumeration value="Course"/>
+            <xs:enumeration value="File"/>
+            <xs:enumeration value="Image"/>
+            <xs:enumeration value="Document"/>
+            <xs:enumeration value="Link"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:simpleType name="licenseTypes">
+        <xs:annotation>
+            <xs:documentation>
+                Copyright license categories. All copyright licenses should fall under 
+                one of these categories. If a license is not specifically 
+                listed, use the "Other" category. If you know that the license will be 
+                the same as the eduCommons site wide settings use the "Site Default" 
+                setting.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:token">
+            <xs:enumeration value="Site Default"/>
+            <xs:enumeration value="All Rights Reserved"/>
+            <xs:enumeration value="GNU Free Document License"/>
+            <xs:enumeration value="Creative Commons License"/>
+            <xs:enumeration value="Other"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:element name="eduCommons" type="eduCommonsType"/>
+    <xs:element name="objectType" type="objectTypes"/>
+    <xs:element name="copyright" type="xs:string"/>
+    <xs:element name="license" type="licenseType"/>
+    <xs:element name="clearedCopyright" type="xs:boolean"/>
+    <xs:element name="courseId" type="xs:string"/>
+    <xs:element name="term" type="xs:string"/>
+    <xs:element name="displayInstructorEmail" type="xs:boolean"/>
+
+    <xs:element name="licenseName" type="xs:string"/>
+    <xs:element name="licenseUrl" type="xs:anyURI"/>
+    <xs:element name="licenseIconUrl" type="xs:anyURI"/>
+    
+</xs:schema>

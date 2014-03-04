@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<updates>
+    <update>
+        <table>tbl_calendar</table>
+        <version>1.104</version>
+        <description>added columns to allow modules to add events</description>
+        <data>
+            <add>
+                <name>moduleevent_table</name>
+                <type>text</type>
+                <length>255</length>
+            </add>
+            <add>
+                <name>moduleevent_id</name>
+                <type>text</type>
+                <length>32</length>
+            </add>
+            <change>
+                <timefrom>
+                    <definition>
+                        <type>time</type>
+                    </definition>
+                </timefrom>
+            </change>
+            <change>
+                <timeto>
+                    <definition>
+                        <type>time</type>
+                    </definition>
+                </timeto>
+            </change>
+        </data>
+    </update>
+    <update>
+        <table>tbl_calendar</table>
+        <version>1.110</version>
+        <description>added column for alerts in statusbar</description>
+        <data>
+            <add>
+                <name>alert_state</name>
+                <type>text</type>
+                <length>1</length>
+                <default>0</default>
+            </add>
+        </data>
+    </update>
+
+        <!--update>
+        <table>tbl_calendar</table>
+        <version>1.105</version>
+        <description>changed event details column from varchar 255 to text</description>
+        <data>
+
+            <change>
+                <eventdetails>
+                    <definition>
+                        <type>text</type>
+                    </definition>
+                </eventdetails>
+            </change>
+
+        </data>
+    </update -->
+</updates>

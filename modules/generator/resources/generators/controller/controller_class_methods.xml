@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This file is a code generation template for Chisimba controller class methods -->
+<chisimba_controller_methods>
+
+<item name="init" type="method">
+  <description>Code to generate the init() connstructor for the controller</description>
+  <code>
+    /**
+    *
+    * Constructor for the module controller
+    * @access public
+    *
+    */
+    public function init()
+    {
+        //Get an instance of the data access class for this module
+        //add in a try catch block for exception handling
+        try {
+        	$this->{DATABASECLASS} = $this->getObject('{DATABASECLASS}');
+			{LOGGER}
+		}
+		catch (customException $e)
+		{
+			customException::cleanUp();
+			exit;
+		}
+    }
+  </code>
+</item>
+
+<item name="dispatch" type="method">
+ <description>Coded to generate the dispatch method for the controller</description>
+  <code>
+    /**
+    *
+    * The standard dispatch method for a Chisimba module. The dispatch()
+    * method uses methods determined from the action parameter of the
+    * querystring and executes the appropriate method, returning its
+    * body template. This body template which renders the module
+    * output.
+    *
+    * @access public
+    * @return string The template determined by the method
+    *
+    */
+    public function dispatch()
+    {
+        //Get action from query string and set default to view
+        $action=$this->getParam('action', 'view');
+        /*
+        * Convert the action into a method (alternative to
+        * using case selections)
+        */
+        try {
+        	$method = $this->_getMethod($action);
+        	// Return the template determined by the method resulting from action
+        	return $this->$method();
+        }
+        catch (customException $e)
+		{
+			customException::cleanUp();
+			exit;
+        }
+    }
+  </code>
+</item>
+
+<item name="view" type="method">
+  <description>Coded to generate the view method for the controller</description>
+  <code>
+    /**
+    *
+    * Method corresponding to the view action. It fetches the data
+    * into an array and passes it to a main_tpl content template.
+    *
+    * @access private
+    * @return string The main template main_tpl.php
+    *
+    */
+    private function _view()
+    {
+        $ar = $this->{DATABASECLASS}->getAll($filter);
+        $this->setVarByRef('ar', $ar);
+        return "main_tpl.php";
+    }
+  </code>
+</item>
+
+
+<item name="edit" type="method">
+    <description>Coded to generate the edit method for the controller</description>
+  <code>
+    /**
+    *
+    * Method corresponding to the edit action. It sets the mode to
+    * edit and returns the edit template.
+    *
+    * @access private
+    * @return string The edit form template editform_tpl.php
+    *
+    */
+    private function _edit()
+    {
+        $this->setvar('mode', "edit");
+        return 'editform_tpl.php';
+    }
+  </code>
+</item>
+
+<item name="add" type="method">
+    <description>Coded to generate the add method for the controller</description>
+  <code>
+    /**
+    *
+    * Method corresponding to the add action. It sets the mode to
+    * add and returns the edit content template.
+    *
+    * @access private
+    * @return string The edit form template editform_tpl.php
+    *
+    */
+    private function _add()
+    {
+        $this->setvar('mode', 'add');
+        return 'editform_tpl.php';
+    }
+  </code>
+</item>
+
+<item name="save" type="method">
+  <description>Coded to generate the save method for the controller</description>
+  <code>
+    /**
+    *
+    * Method corresponding to the save action. It gets the mode from
+    * the querystring to and saves the data then sets nextAction to be
+    * null, which returns the module in view mode.
+    *
+    * @access private
+    *
+    */
+    private function _save()
+    {
+        $mode = $this->getParam("mode", NULL);
+        $this->{DATABASECLASS}->saveItem($mode);
+        return $this->nextAction(NULL);
+    }
+
+  </code>
+</item>
+
+<item name="delete" type="method">
+  <description>Coded to generate the delete method for the controller</description>
+  <code>
+    /**
+    *
+    * Method corresponding to the delete action. It requires a
+    * confirmation, and then delets the item, and then sets
+    * nextAction to be null, which returns the module in
+    * view mode.
+    *
+    * @access private
+    *
+    */
+    private function _delete()
+    {
+        // retrieve the confirmation code from the querystring
+        $confirm=$this->getParam("confirm", "no");
+        if ($confirm=="yes") {
+            $this->{DATABASECLASS}->deleteItem();
+            return $this->nextAction(NULL);
+        }
+    }
+  </code>
+</item>
+
+<item name="actionerror" type="method">
+  <description>Coded to generate the actionerror method for the controller,
+  which is the method called when the action does not correspond to
+  a method of the controller class.</description>
+  <code>
+    /**
+    *
+    * Method to return an error when the action is not a valid
+    * action method
+    *
+    * @access private
+    * @return string The dump template populated with the error message
+    *
+    */
+    private function _actionError()
+    {
+        $this->setVar('str', "<h3>"
+          . $this->objLanguage->languageText("phrase_unrecognizedaction")
+          .": " . $action . "</h3>");
+        return 'dump_tpl.php';
+    }
+  </code>
+</item>
+
+<item name="validaction" type="method">
+  <description>Coded to generate the validaction method for the
+  controller, which is a method to check if a given action is a
+  valid method</description>
+  <code>
+    /**
+    *
+    * Method to check if a given action is a valid method
+    * of this class preceded by double underscore (_). If the action
+    * is not a valid method it returns FALSE, if it is a valid method
+    * of this class it returns TRUE.
+    *
+    * @access private
+    * @param string $action The action parameter
+    * @return boolean TRUE|FALSE
+    *
+    */
+    private function _validAction($action)
+    {
+        if (method_exists($this, "_".$action)) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+  </code>
+</item>
+
+<item name="getmethod" type="method">
+  <description>Coded to generate the getmethod method for the
+  controller, which is a method to convert the action parameter
+  into the name of a method of this clas</description>
+  <code>
+    /**
+    *
+    * Method to convert the action parameter into the name of
+    * a method of this class.
+    *
+    * @access private
+    * @param string $action The action parameter
+    * @return stromg the name of the method
+    *
+    */
+    private function _getMethod($action)
+    {
+        if ($this->_validAction($action)) {
+            return "_" . $action;
+        } else {
+            return "_actionError";
+        }
+    }
+  </code>
+</item>
+
+</chisimba_controller_methods>

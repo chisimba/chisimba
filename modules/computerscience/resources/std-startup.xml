@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="1.0">
+ <bot name="CS4fn"/>
+ <category>
+  <pattern>LOAD AIML B</pattern>
+  <template>
+   <learn>aiml/1_std-cs4fn.aiml</learn>
+  </template>
+ </category>
+</aiml>

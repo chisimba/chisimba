@@ -1,0 +1,289 @@
+/*
+    An eLearning skin for the Sangari eLearning system
+
+    It uses the skin engine version 2 for Chisimba.
+
+    Author: Derek Keats
+    License: GPL V2
+
+*/
+
+
+@import "../canvas/stylesheet.css";
+
+/* The body & background */
+body {
+    background: url('images/bg.jpg');
+    background-repeat: repeat-x repeat-y;
+    background-attachment: fixed;
+}
+
+/* The top logo */
+#header {
+    background: white url('images/Sangari_logo.png') no-repeat top left;
+    height: 80px;
+    margin-top: 2px;
+}
+h1#sitename {
+    display:none;
+}
+
+/* The footer */
+#footer {
+    background: white url('images/mainmenu.png') repeat-x left;
+    color: white;
+    height: 30px;
+}
+
+#footer a:link, #footer a:visited {
+    color: skyblue;
+    text-decoration: none;
+}
+#footer a:hover, #footer a.visited:hover {
+    color: cyan;
+    text-decoration: none;
+}
+
+/* eLearning button styles */
+
+ul .glossytabs {
+    color: #4a5ca8;
+}
+
+.glossytabs li{
+    margin-left: 4px;
+    padding-left: 10px;
+}
+
+.glossytabs li a{
+    color: #4a5ca8;
+    font-size: 110%;
+    font-weight: bold;
+}
+
+.glossytabs li a strong {
+    background: transparent url(images/nav-bg.gif) repeat-x scroll 0;
+    float: left;
+    display: block;
+    padding: 0px 16px 0px 16px; /*Padding of menu items*/
+    font-weight: bold;
+}
+
+.glossytabs li.current a strong {
+    color: #000;
+    background: transparent url(images/current-bg.gif) repeat-x scroll 0;
+    font-weight: bold;
+}
+
+.glossytabs li a:hover strong {
+    background: transparent url(images/hover-bg.gif) repeat-x scroll 0;
+    font-weight: bold;
+}
+
+/** Personal blocks **/
+.tabbertab th.heading {
+    color: #3f95c3;
+    line-height: 15px;
+    font-size: small;
+}
+
+.tabbertab td {
+    color: #165879;
+    font-family: sans-serif;
+    font-size: small;
+    font-weight: lighter;
+    line-height: 15px;
+}
+
+.personalblock {
+    margin-top: 10px;
+    margin-bottom:10px;
+    padding: 5px;
+    border: 1px dotted #407aa7;
+}
+
+/** File manager **/
+#input_filequery{
+    width: 130px;
+}
+
+/** Wide calendar **/
+#widecalendar {
+    width: 98%;
+}
+div#widecalendar table.calendarTable td {
+    padding-left: 0px;
+    font-size: small;
+}
+div#widecalendar table.calendarTable td ul {
+    padding: 0px;
+    margin-left: 0px;
+}
+li.event_site, li.event_other, li.event_context, li.event_user, li.event_workgroup {
+    padding-left: 23px;
+    padding-right: 3px;
+}
+
+.dayNamesText {
+    font-size: smaller;
+}
+
+.undercallinks_wrapper {
+    margin-bottom: 20px;
+}
+
+.eventslist {
+    background: transparent;
+    width: 98%;
+}
+
+table.eventslist tr {
+    height: auto;
+    padding: 0px;
+}
+
+table.eventslist td {
+    padding-bottom: 10px;
+}
+
+/** Splashscreen **/
+.splashscreenwrapper {
+    margin: auto;
+    background: transparent;
+}
+.splashscreen {
+    background: transparent url('../../packages/splashnostalgia/resources/screens/Chalkboard.png') no-repeat top center;
+    width:496px;
+    height: 435px;
+    padding: 0px;
+    margin: auto;
+}
+.splashcontents {
+    margin: auto;
+    padding-left: 66px;
+    padding-right: 66px;
+    padding-top: 60px;
+}
+a.contexttitle {
+    color: #003366;
+    font-size: larger;
+    padding-left: 5px;
+}
+
+
+/** Creative commons license dropdowns **/
+
+option.copyright {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/copyright.gif');
+    background-repeat: no-repeat; 
+}
+option.by {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by.gif');
+    background-repeat: no-repeat;
+}
+option.by-sa {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by-sa.gif');
+    background-repeat: no-repeat;
+}
+option.by-nd {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by-nd.gif');
+    background-repeat: no-repeat;
+}
+option.by-nc {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by-nc.gif');
+    background-repeat: no-repeat;
+}
+option.by-nc-sa {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by-nc-sa.gif');
+    background-repeat: no-repeat;
+}
+option.by-nc-nd {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by-nc-nd.gif');
+    background-repeat: no-repeat;
+}
+option.gnu-fdl {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/gnu-fdl.gif');
+    background-repeat: no-repeat;
+}
+option.by-sa_gnu-fdl {
+    padding-left:90px;
+    background-image: url('../_common/icons/creativecommons_v3/by-sa_gnu-fdl.gif');
+    background-repeat: no-repeat;
+}
+/** End of CC License styles **/
+
+#chatDiv {
+    height: 500px;
+    border: none;
+    background: rgb(204,204,204); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(204,204,204,1) 0%, rgba(238,238,238,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(204,204,204,1)), color-stop(100%,rgba(238,238,238,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(204,204,204,1) 0%,rgba(238,238,238,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(204,204,204,1) 0%,rgba(238,238,238,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(204,204,204,1) 0%,rgba(238,238,238,1) 100%); /* IE10+ */
+    background: linear-gradient(top,  rgba(204,204,204,1) 0%,rgba(238,238,238,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cccccc', endColorstr='#eeeeee',GradientType=0 ); /* IE6-9 */
+}
+
+#sendDiv {
+    padding-left: 5px;
+    padding-top: 5px;
+    background: #a9e4f7; /* Old browsers */
+    background: -moz-linear-gradient(top,  #a9e4f7 0%, #0fb4e7 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a9e4f7), color-stop(100%,#0fb4e7)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #a9e4f7 0%,#0fb4e7 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #a9e4f7 0%,#0fb4e7 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #a9e4f7 0%,#0fb4e7 100%); /* IE10+ */
+    background: linear-gradient(top,  #a9e4f7 0%,#0fb4e7 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a9e4f7', endColorstr='#0fb4e7',GradientType=0 ); /* IE6-9 */
+}
+
+.chatbubble {
+    margin-top: 0px;
+    margin-bottom: 5px;
+    padding-top: 5px;
+    padding-bottom: 2px;
+    padding-left: 6px;
+    padding-right: 6px;
+    background: rgb(229,229,229); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(229,229,229,1) 0%, rgba(255,255,255,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(229,229,229,1)), color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(229,229,229,1) 0%,rgba(255,255,255,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(229,229,229,1) 0%,rgba(255,255,255,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(229,229,229,1) 0%,rgba(255,255,255,1) 100%); /* IE10+ */
+    background: linear-gradient(top,  rgba(229,229,229,1) 0%,rgba(255,255,255,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5e5e5', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -khtml-border-radius: 8px;
+}
+
+.chat_user {
+    color: #003366;
+    font-weight: bolder;
+}
+
+.chat_date {
+    color: #056EB5;
+}
+
+.chat_input {
+    width: 100%;
+}
+
+.chat_buttons {
+    padding-left: 20px;
+}
+
+.chat_buttons button {
+    margin-bottom: 6px;
+}

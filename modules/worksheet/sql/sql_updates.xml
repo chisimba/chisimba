@@ -1,0 +1,16 @@
+<DATA>
+<UPDATE>
+  <TABLE>
+       tbl_worksheet_questions
+  </TABLE>
+  <SQL>
+    ALTER TABLE tbl_worksheet_questions CHANGE question question text NOT NULL
+  </SQL>
+  <MODULE>
+    worksheet
+  </MODULE>
+  <VERSION>
+    1.1
+  </VERSION>
+</UPDATE>
+</DATA>

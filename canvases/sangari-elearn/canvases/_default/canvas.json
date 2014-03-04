@@ -1,0 +1,14 @@
+{
+    "name": "_default",
+    "description": "A canvas-based elearning skin for Chisimba.",
+    "downloadfrom":"http://www.chisimba.com/canvases/elearning/_default.zip",
+    "preview": {
+        "thumb": "_default_th.png",
+        "fullview":"_default.png"
+    },
+    "author": {
+        "authorname":"Derek Keats",
+        "email":"derek@dkeats.com",
+        "url":"http://www.dkeats.com"
+    }
+}

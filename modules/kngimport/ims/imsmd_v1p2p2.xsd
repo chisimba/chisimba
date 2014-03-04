@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSPY v5 rel. 3 U (http://www.xmlspy.com) by Karl (NA) -->
+<xs:schema targetNamespace="http://www.imsglobal.org/xsd/imsmd_v1p2" xmlns:x="http://www.w3.org/XML/1998/namespace" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.imsglobal.org/xsd/imsmd_v1p2" xmlns:tsd="http://namespaces.softwareag.com/tamino/TaminoSchemaDefinition" xmlns:sql="urn:schemas-microsoft-com:mapping-schema" elementFormDefault="qualified" version="IMS MD 1.2.3">
+	<xs:annotation>
+		<xs:appinfo>
+			<tsd:schemaInfo name="lom">
+				<tsd:collection name="lom"/>
+				<tsd:doctype name="lom">
+					<tsd:logical>
+						<tsd:content>closed</tsd:content>
+					</tsd:logical>
+				</tsd:doctype>
+			</tsd:schemaInfo>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="ims_xml.xsd"/>
+	<!-- ******************** -->
+	<!-- ** Change History ** -->
+	<!-- ******************** -->
+	<xs:annotation>
+		<xs:documentation>2001-04-26 T.D.Wason. IMS meta-data 1.2 XML-Schema.                                  </xs:documentation>
+		<xs:documentation>2001-06-07 S.E.Thropp. Changed the multiplicity on all elements to match the         </xs:documentation>
+		<xs:documentation>Final 1.2 Binding Specification.                                                     </xs:documentation>
+		<xs:documentation>Changed all elements that use the langstringType to a multiplicy of 1 or more        </xs:documentation>
+		<xs:documentation>Changed centity in the contribute element to have a multiplicity of 0 or more.       </xs:documentation>
+		<xs:documentation>Changed the requirement element to have a multiplicity of 0 or more.                 </xs:documentation>
+		<xs:documentation> 2001-07-25 Schawn Thropp.  Updates to bring the XSD up to speed with the W3C        </xs:documentation>
+		<xs:documentation> XML Schema Recommendation.  The following changes were made: Change the             </xs:documentation>
+		<xs:documentation> namespace to reference the 5/2/2001 W3C XML Schema Recommendation,the base          </xs:documentation>
+		<xs:documentation> type for the durtimeType, simpleType, was changed from timeDuration to duration.    </xs:documentation>
+		<xs:documentation> Any attribute declarations that have use="default" had to change to use="optional"  </xs:documentation>
+		<xs:documentation> - attr.type.  Any attribute declarations that have value ="somevalue" had to change </xs:documentation>
+		<xs:documentation> to default = "somevalue" - attr.type (URI)                                          </xs:documentation>
+		<xs:documentation> 2001-09-04 Schawn Thropp                                                            </xs:documentation>
+		<xs:documentation> Changed the targetNamespace and namespace of schema to reflect version change       </xs:documentation>
+		<xs:documentation> 2001-11-04 Chris Moffatt:                                                           </xs:documentation>
+		<xs:documentation>  1. Changes to enable the schema to work with commercial XML Tools                  </xs:documentation>
+		<xs:documentation>     a. Refer to the xml namespace using the "x" abbreviation instead of "xml"       </xs:documentation>
+		<xs:documentation>     b. Remove unecessary non-deterministic constructs from schema.                  </xs:documentation>
+		<xs:documentation>        i.e. change occurrences of "#any" to "#other"                                </xs:documentation>
+		<xs:documentation>  2. Revert to original IMS MD version 1.2 namespace.                                </xs:documentation>
+		<xs:documentation>     i.e. "http://www.imsglobal.org/xsd/imsmd_v1p2"                                  </xs:documentation>
+		<xs:documentation>     This change done to support the decision to only change the XML namespace with  </xs:documentation>
+		<xs:documentation>     major revisions of the specification ie. where the information model or binding </xs:documentation>
+		<xs:documentation>     changes (as opposed to addressing bugs or omissions). A stable namespace is     </xs:documentation>
+		<xs:documentation>     necessary to the increasing number of implementors.                             </xs:documentation>
+		<xs:documentation>  3. Changed name of schema file to "imsmd_v1p2p2.xsd" and                           </xs:documentation>
+		<xs:documentation>     version attribute to "IMS MD 1.2.3" to reflect minor version change             </xs:documentation>
+	</xs:annotation>
+	<!-- *************************** -->
+	<!-- ** Attribute Declaration ** -->
+	<!-- *************************** -->
+	<xs:attributeGroup name="attr.type">
+		<xs:attribute name="type" use="optional" default="URI">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="URI"/>
+					<xs:enumeration value="TEXT"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:attributeGroup>
+	<xs:group name="grp.any">
+		<xs:annotation>
+			<xs:documentation>Any namespaced element from any namespace may be used for an &quot;any&quot; element.  The namespace for the imported element must be defined in the instance, and the schema must be imported.  </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:any namespace="##other" processContents="strict" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:group>
+	<!-- ************************* -->
+	<!-- ** Element Declaration ** -->
+	<!-- ************************* -->
+	<xs:element name="aggregationlevel" type="aggregationlevelType"/>
+	<xs:element name="annotation" type="annotationType"/>
+	<xs:element name="catalogentry" type="catalogentryType"/>
+	<xs:element name="catalog" type="catalogType"/>
+	<xs:element name="centity" type="centityType"/>
+	<xs:element name="classification" type="classificationType"/>
+	<xs:element name="context" type="contextType"/>
+	<xs:element name="contribute" type="contributeType"/>
+	<xs:element name="copyrightandotherrestrictions" type="copyrightandotherrestrictionsType"/>
+	<xs:element name="cost" type="costType"/>
+	<xs:element name="coverage" type="coverageType"/>
+	<xs:element name="date" type="dateType"/>
+	<xs:element name="datetime" type="datetimeType"/>
+	<xs:element name="description" type="descriptionType"/>
+	<xs:element name="difficulty" type="difficultyType"/>
+	<xs:element name="educational" type="educationalType"/>
+	<xs:element name="entry" type="entryType"/>
+	<xs:element name="format" type="formatType"/>
+	<xs:element name="general" type="generalType"/>
+	<xs:element name="identifier" type="xs:string"/>
+	<xs:element name="intendedenduserrole" type="intendedenduserroleType"/>
+	<xs:element name="interactivitylevel" type="interactivitylevelType"/>
+	<xs:element name="interactivitytype" type="interactivitytypeType"/>
+	<xs:element name="keyword" type="keywordType"/>
+	<xs:element name="kind" type="kindType"/>
+	<xs:element name="langstring" type="langstringType"/>
+	<xs:element name="language" type="xs:string"/>
+	<xs:element name="learningresourcetype" type="learningresourcetypeType"/>
+	<xs:element name="lifecycle" type="lifecycleType"/>
+	<xs:element name="location" type="locationType"/>
+	<xs:element name="lom" type="lomType"/>
+	<xs:element name="maximumversion" type="minimumversionType"/>
+	<xs:element name="metadatascheme" type="metadataschemeType"/>
+	<xs:element name="metametadata" type="metametadataType"/>
+	<xs:element name="minimumversion" type="maximumversionType"/>
+	<xs:element name="name" type="nameType"/>
+	<xs:element name="purpose" type="purposeType"/>
+	<xs:element name="relation" type="relationType"/>
+	<xs:element name="requirement" type="requirementType"/>
+	<xs:element name="resource" type="resourceType"/>
+	<xs:element name="rights" type="rightsType"/>
+	<xs:element name="role" type="roleType"/>
+	<xs:element name="semanticdensity" type="semanticdensityType"/>
+	<xs:element name="size" type="sizeType"/>
+	<xs:element name="source" type="sourceType"/>
+	<xs:element name="status" type="statusType"/>
+	<xs:element name="structure" type="structureType"/>
+	<xs:element name="taxon" type="taxonType"/>
+	<xs:element name="taxonpath" type="taxonpathType"/>
+	<xs:element name="technical" type="technicalType"/>
+	<xs:element name="title" type="titleType"/>
+	<xs:element name="type" type="typeType"/>
+	<xs:element name="typicalagerange" type="typicalagerangeType"/>
+	<xs:element name="typicallearningtime" type="typicallearningtimeType"/>
+	<xs:element name="value" type="valueType"/>
+	<xs:element name="person" type="personType"/>
+	<xs:element name="vcard" type="xs:string"/>
+	<xs:element name="version" type="versionType"/>
+	<xs:element name="installationremarks" type="installationremarksType"/>
+	<xs:element name="otherplatformrequirements" type="otherplatformrequirementsType"/>
+	<xs:element name="duration" type="durationType"/>
+	<xs:element name="id" type="idType"/>
+	<!-- ******************* -->
+	<!-- ** Complex Types ** -->
+	<!-- ******************* -->
+	<xs:complexType name="aggregationlevelType">
+		<xs:sequence>
+			<xs:element ref="source"/>
+			<xs:element ref="value"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="annotationType" mixed="true">
+		<xs:sequence>
+			<xs:element ref="person" minOccurs="0"/>
+			<xs:element ref="date" minOccurs="0"/>
+			<xs:element ref="description" minOccurs="0"/>
+			<xs:group ref="grp.any"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="catalogentryType" mixed="true">
+		<xs:sequence>
+			<xs:element ref="catalog"/>
+			<xs:element ref="entry"/>
+			<xs:group ref="grp.any"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="centityType">
+		<xs:sequence>
+			<xs:element ref="vcard"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="classificationType" mixed="true">
+		<xs:sequence>
+			<xs:element ref="purpose" minOccurs="0"/>
+			<xs:element ref="taxonpath" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="description" minOccurs="0"/>
+			<xs:element ref="keyword" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:group ref="grp.any"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="contextType">
+		<xs:sequence>
+			<xs:element ref="source"/>
+			<xs:element ref="value"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="contributeType" mixed="true">
+		<xs:sequence>
+			<xs:element ref="role"/>
+			<xs:element ref="centity" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="date" minOccurs="0"/>
+			<xs:group ref="grp.any"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="copyrightandotherrestrictionsType">
+		<xs:sequence>
+			<xs:element ref="source"/>
+			<xs:element ref="value"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="costType">
+		<xs:sequence>
+			<xs:element ref="source"/>
+			<xs:element ref="value"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="coverageType">
+		<xs:sequence>
+			<xs:element ref="langstring" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="dateType">
+		<xs:sequence>
+			<xs:element ref="datetime" minOccurs="0"/>
+			<xs:element ref="description" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="descriptionType">
+		<xs:sequence>
+			<xs:element ref="langstring" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="difficultyType">
+		<xs:sequence>
+			<xs:element ref="source"/>
+			<xs:element ref="value"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="durationType">
+		<xs:sequence>
+			<xs:element ref="datetime" minOccurs="0"/>
+			<xs:element ref="description" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="educationalType" mixed="true">
+		<xs:sequence>
+			<xs:element ref="interactivitytype" minOccurs="0"/>
+			<xs:element ref="learningresourcetype" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="interactivitylevel" minOccurs="0"/>
+			<xs:element ref="semanticdensity" minOccurs="0"/>
+			<xs:element ref="intendedenduserrole" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="context" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="typicalagerange" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="difficulty" minOccurs="0"/>
+			<xs:element ref="typicallearningtime" minOccurs="0"/>
+			<xs:element ref="description" minOccurs="0"/>
+			<xs:element ref="language" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:group ref="grp.any"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="entryType">
+		<xs:sequence>
+			<xs:element ref="langstring" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="generalType" mixed="true">
+		<xs:sequence>
+			<xs:element ref="identifier" minOccurs="0"/>
+			<xs:element ref="title" minOccurs="0"/>
+			<xs:element ref="catalogentry" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="language" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="description" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="keyword" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="coverage" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="structure" minOccurs="0"/>
+			<xs:element ref="aggregationlevel" minOccurs="0"/>
+			<xs:group ref="grp.any"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="installationremarksType">
+		<xs:sequence>
+			<xs:element ref="langstring" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="intendedenduserroleType">
+		<xs:sequence>
+			<xs:element ref="source"/>
+			<xs:element ref="value"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="interactivitylevelType">
+		<xs:sequence>
+			<xs:element ref="source"/>
+			<xs:element ref="value"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="interactivitytypeType">
+		<xs:sequence>
+			<xs:element ref="source"/>
+			<xs:element ref="value"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="keywordType">
+		<xs:sequence>
+			<xs:element ref="langstring" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="kindType">
+		<xs:sequence>
+			<xs:element ref="source"/>
+			<xs:element ref="value"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="langstringType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute ref="x:lang"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="learningresourcetypeType">
+		<xs:sequence>
+			<xs:element ref="source"/>
+			<xs:element ref="value"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="lifecycleType" mixed="true">
+		<xs:sequence>
+			<xs:element ref="version" minOccurs="0"/>
+			<xs:element ref="status" minOccurs="0"/>
+			<xs:element ref="contribute" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:group ref="grp.any"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="locationType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attributeGroup ref="attr.type"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="lomType">
+		<xs:sequence>
+			<xs:element ref="general" minOccurs="0"/>
+			<xs:element ref="lifecycle" minOccurs="0"/>
+			<xs:element ref="metametadata" minOccurs="0"/>
+			<xs:element ref="technical" minOccurs="0"/>
+			<xs:element ref="educational" minOccurs="0"/>
+			<xs:element ref="rights" minOccurs="0"/>
+			<xs:element ref="relation" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="annotation" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="classification" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="metametadataType" mixed="true">
+		<xs:sequence>
+			<xs:element ref="identifier" minOccurs="0"/>
+			<xs:element ref="catalogentry" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="contribute" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="metadatascheme" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="language" minOccurs="0"/>
+			<xs:group ref="grp.any"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="nameType">
+		<xs:sequence>
+			<xs:element ref="source"/>
+			<xs:element ref="value"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="otherplatformrequirementsType">
+		<xs:sequence>
+			<xs:element ref="langstring" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="personType">
+		<xs:sequence>
+			<xs:element ref="vcard"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="purposeType">
+		<xs:sequence>
+			<xs:element ref="source"/>
+			<xs:element ref="value"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="relationType" mixed="true">
+		<xs:sequence>
+			<xs:element ref="kind" minOccurs="0"/>
+			<xs:element ref="resource" minOccurs="0"/>
+			<xs:group ref="grp.any"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="requirementType" mixed="true">
+		<xs:sequence>
+			<xs:element ref="type" minOccurs="0"/>
+			<xs:element ref="name" minOccurs="0"/>
+			<xs:element ref="minimumversion" minOccurs="0"/>
+			<xs:element ref="maximumversion" minOccurs="0"/>
+			<xs:group ref="grp.any"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="resourceType" mixed="true">
+		<xs:sequence>
+			<xs:element ref="identifier" minOccurs="0"/>
+			<xs:element ref="description" minOccurs="0"/>
+			<xs:element ref="catalogentry" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:group ref="grp.any"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rightsType" mixed="true">
+		<xs:sequence>
+			<xs:element ref="cost" minOccurs="0"/>
+			<xs:element ref="copyrightandotherrestrictions" minOccurs="0"/>
+			<xs:element ref="description" minOccurs="0"/>
+			<xs:group ref="grp.any"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="roleType">
+		<xs:sequence>
+			<xs:element ref="source"/>
+			<xs:element ref="value"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="semanticdensityType">
+		<xs:sequence>
+			<xs:element ref="source"/>
+			<xs:element ref="value"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="sourceType">
+		<xs:sequence>
+			<xs:element ref="langstring"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="statusType">
+		<xs:sequence>
+			<xs:element ref="source"/>
+			<xs:element ref="value"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="stringType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute ref="x:lang"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="structureType">
+		<xs:sequence>
+			<xs:element ref="source"/>
+			<xs:element ref="value"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="taxonpathType">
+		<xs:sequence>
+			<xs:element ref="source" minOccurs="0"/>
+			<xs:element ref="taxon" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="taxonType">
+		<xs:sequence>
+			<xs:element ref="id" minOccurs="0"/>
+			<xs:element ref="entry" minOccurs="0"/>
+			<xs:element ref="taxon" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="technicalType" mixed="true">
+		<xs:sequence>
+			<xs:element ref="format" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="size" minOccurs="0"/>
+			<xs:element ref="location" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="requirement" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="installationremarks" minOccurs="0"/>
+			<xs:element ref="otherplatformrequirements" minOccurs="0"/>
+			<xs:element ref="duration" minOccurs="0"/>
+			<xs:group ref="grp.any"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="titleType">
+		<xs:sequence>
+			<xs:element ref="langstring" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="typeType">
+		<xs:sequence>
+			<xs:element ref="source"/>
+			<xs:element ref="value"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="typicalagerangeType">
+		<xs:sequence>
+			<xs:element ref="langstring" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="typicallearningtimeType">
+		<xs:sequence>
+			<xs:element ref="datetime" minOccurs="0"/>
+			<xs:element ref="description" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="valueType">
+		<xs:sequence>
+			<xs:element ref="langstring"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="versionType">
+		<xs:sequence>
+			<xs:element ref="langstring" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ****************** -->
+	<!-- ** Simple Types ** -->
+	<!-- ****************** -->
+	<xs:simpleType name="formatType">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="sizeType">
+		<xs:restriction base="xs:int"/>
+	</xs:simpleType>
+	<xs:simpleType name="datetimeType">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="idType">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="metadataschemeType">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="catalogType">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="minimumversionType">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="maximumversionType">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+</xs:schema>

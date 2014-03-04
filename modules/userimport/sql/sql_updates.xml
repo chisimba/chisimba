@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<updates>
+	<update>
+        <table>tbl_importusers</table>
+        <version>1.9</version>
+        <description>Modified date column to be able to actually handle a date</description>
+        <data>
+        	<change>
+        		<creationDate>
+        		<type>text</type>
+        			<definition>
+		    			<type>text</type>
+    					<length>25</length>
+    				</definition>
+    			</creationDate>
+			</change>
+		</data>
+	</update>
+</updates>

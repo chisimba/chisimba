@@ -1,0 +1,31 @@
+<defaultdata>
+    <!-- tbl_podcaster_category tbl_podcaster_category -->
+    <tbl_podcaster_category>
+        <id>gen16Srv5Nme49_78098_1301584933</id>
+        <userid>1</userid>
+        <category>Publicast</category>
+        <description>This involves public lectures and marketing events.</description>
+        <puid>1</puid>
+    </tbl_podcaster_category>
+    <tbl_podcaster_category>
+        <id>gen16Srv5Nme49_49853_1301643043</id>
+        <userid>1</userid>
+        <category>Profcast</category>
+        <description>This involves regular recordings of a lecture or recordings by a lecturer to compliment a lecture</description>
+        <puid>3</puid>
+    </tbl_podcaster_category>
+    <tbl_podcaster_category>
+        <id>gen16Srv5Nme49_96330_1301643145</id>
+        <userid>1</userid>
+        <category>Ed-Tech</category>
+        <description>This involves highlights on new technologies that may support teaching and learning</description>
+        <puid>4</puid>
+    </tbl_podcaster_category>
+    <tbl_podcaster_category>
+        <id>gen16Srv5Nme49_89970_1301643213</id>
+        <userid>1</userid>
+        <category>Studentcast</category>
+        <description>This involves recordings by students.</description>
+        <puid>5</puid>
+    </tbl_podcaster_category>
+</defaultdata>

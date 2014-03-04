@@ -1,0 +1,74 @@
+/* Confluence print stylesheet. Common to all themes for print media */
+
+body {
+    background-color: #fff;
+    font-size: 10pt;
+    line-height: 1.2;
+}
+a, a:link, a:visited, a:hover {
+    color: #000;
+}
+
+#content,
+#footer {
+    font-family: "Hoefler Text", Garamond, Times, serif;
+}
+#content h1,
+#content h2,
+#content h3,
+#content h4,
+#content h5,
+#content h6 {
+    font-family: Helvetica, Arial, sans-serif;
+    page-break-after: avoid;
+}
+pre {
+    font-family: Monaco, "Courier New", monospace;
+}
+
+#header,
+#page-view-panel,
+#user-control-panel,
+#navigation,
+#sidebar,
+.page-actions,
+.navmenu,
+.ajs-menu-bar,
+.noprint,
+.inline-control-link,
+.inline-control-link a,
+a.show-labels-editor,
+.global-comment-actions,
+.comment-actions {
+    display: none;
+}
+
+#com-atlassian-confluence h1 img {
+    height: auto;
+    width: auto;
+}
+
+.print-only {
+    display: block;
+}
+#footer {
+    margin: 0;
+    padding: 0;
+}
+#footer #poweredby li.print-only {
+    display: list-item;
+    font-style: italic;
+}
+
+/* TODO - should this work? */
+#children-section {
+    page-break-inside: avoid;
+}
+
+#page-children a {
+    text-decoration: none;
+}
+
+#footer #poweredby li.noprint {
+    display:none;
+}

@@ -1,0 +1,139 @@
+<b>Usual commands</b><br>
+x+y : <m>x+y</m><br>
+x-y : <m>x-y</m><br>
+x*y : <m>x*y</m><br>
+x/y : <m>x/y</m><br>
+x^y : <m>x^y</m><br>
+x_y : <m>x_y</m><br>
+x&#060;&#062;y : <m>x<>y</m><br>
+x&#062;y : <m>x>y</m><br>
+x&#062;=y : <m>x>=y</m><br>
+x&#060;y : <m>x<y</m><br>
+x&#060;=y : <m>x<=y</m><br>
+<b>Parenthesis</b><br>
+visible : (x)<br>
+invisible : {x}<br>
+<b>Math space</b><br>
+a~b : <m>a~b</m><br>
+<b>Greek letters</b><br>
+alpha : <m>alpha</m><br>
+beta : <m>beta</m><br>
+gamma : <m>gamma</m><br>
+delta : <m>delta</m><br>
+epsilon : <m>epsilon</m><br>
+varepsilon : <m>varepsilon</m><br>
+zeta : <m>zeta</m><br>
+eta : <m>eta</m><br>
+theta : <m>theta</m><br>
+vartheta : <m>vartheta</m><br>
+iota : <m>iota</m><br>
+kappa : <m>kappa</m><br>
+lambda : <m>lambda</m><br>
+mu : <m>mu</m><br>
+nu : <m>nu</m><br>
+xi : <m>xi</m><br>
+pi : <m>pi</m><br>
+varpi : <m>varpi</m><br>
+rho : <m>rho</m><br>
+varrho : <m>varrho</m><br>
+sigma : <m>sigma</m><br>
+varsigma : <m>varsigma</m><br>
+tau : <m>tau</m><br>
+upsilon : <m>upsilon</m><br>
+phi : <m>phi</m><br>
+varphi : <m>varphi</m><br>
+chi : <m>chi</m><br>
+psi : <m>psi</m><br>
+omega : <m>omega</m><br>
+Gamma : <m>Gamma</m><br>
+Lambda : <m>Lambda</m><br>
+Sigma : <m>Sigma</m><br>
+Psi : <m>Psi</m><br>
+Delta : <m>Delta</m><br>
+Xi : <m>Xi</m><br>
+Upsilon : <m>Upsilon</m><br>
+Omega : <m>Omega</m><br>
+Theta : <m>Theta</m><br>
+Pi : <m>Pi</m><br>
+Phi : <m>Phi</m><br>
+<b>Symbols</b><br>
+infty : <m>infty</m><br>
+in : <m>in</m><br>
+notin : <m>notin</m><br>
+forall : <m>forall</m><br>
+exists : <m>exists</m><br>
+notexists : <m>notexists</m><br>
+partial : <m>partial</m><br>
+approx : <m>approx</m><br>
+pm : <m>pm</m><br>
+inter : <m>inter</m><br>
+union : <m>union</m><br>
+ortho : <m>ortho</m><br>
+parallel : <m>parallel</m><br>
+backslash : <m>backslash</m><br>
+prime : <m>prime</m><br>
+wedge : <m>wedge</m><br>
+vert : <m>vert</m><br>
+lbrace : {<br>
+rbrace : }<br>
+circ : <m>circ</m><br>
+varnothing : <m>varnothing</m><br>
+subset : <m>subset</m><br>
+notsubset : <m>notsubset</m><br>
+cdots : <m>cdots</m><br>
+vdots : <m>vdots</m><br>
+ddots : <m>ddots</m><br>
+<b>Arrows :</b><br>
+left : <m>left</m><br>
+right :  <m>right</m><br>
+leftright :  <m>leftright</m><br>
+doubleleft :  <m>doubleleft</m><br>
+doubleright :  <m>doubleright</m><br>
+doubleleftright :  <m>doubleleftright</m><br>
+nearrow :  <m>nearrow</m><br>
+searrow :  <m>searrow</m><br>
+<b>Sets</b><br>
+bbR : <m>bbR</m><br>
+bbN : <m>bbN</m><br>
+bbZ : <m>bbZ</m><br>
+bbC : <m>bbC</m><br>
+<b>Roots</b><br>
+sqrt{a} : <m>sqrt{a}</m><br>
+root{n}{a} : <m>root{n}{a}</m><br>
+<b>Limits</b><br>
+lim{a}{x} : <m>lim{a}{x}</m><br>
+<b>Big operators</b><br>
+int{a}{b}{x} : <m>int{a}{b}{x}</m><br>
+doubleint{a}{b}{x} : <m>doubleint{a}{b}{x}</m><br>
+tripleint{a}{b}{x} : <m>tripleint{a}{b}{x}</m><br>
+oint{a}{b}{x} : <m>oint{a}{b}{x}</m><br>
+sum{a}{b}{x} : <m>sum{a}{b}{x}</m><br>
+prod{a}{b}{x} : <m>prod{a}{b}{x}</m><br>
+bigcup{a}{b}{x} : <m>bigcup{a}{b}{x}</m><br>
+bigcap{a}{b}{x} : <m>bigcap{a}{b}{x}</m><br>
+<b>Delimiters</b><br>
+delim{[}{x}{]} : <m>delim{[}{x}{]}</m><br>
+delim{]}{x}{]} : <m>delim{]}{x}{]}</m><br>
+delim{[}{x}{[} : <m>delim{[}{x}{[}</m><br>
+delim{]}{x}{[} : <m>delim{]}{x}{[}</m><br>
+delim{lbrace}{x}{rbrace} : <m>delim{lbrace}{x}{rbrace}</m><br>
+delim{|}{x}{|} : <m>delim{|}{x}{|}</m><br>
+delim{vert}{x}{vert} : <m>delim{vert}{x}{vert}</m><br>
+<b>Matrix</b><br>
+matrix{num of lines}{num of columns}{first_element ... last_element}<br>
+Example :<br>
+matrix{2}{3}{a b c d e f g} : <m>matrix{2}{3}{a b c d e f g}</m><br><br>
+<b>Tabular</b><br>
+tabular{lines description}{columns description}{first_element ... last_element}<br>
+lines description : sequence of 1 (draw the horizontal line) or 0 (don't draw the horizontal line) - the length of the sequence=num of lines+1<br>
+columns description : sequence of 1 (draw the vertical line) or 0 (don't draw the vertical line) - the length of the sequence=num of columns+1<br>
+Examples :<br>
+tabular{111}{1111}{a b c d e f g} (2 lines & 3 columns): <m>tabular{111}{1111}{a b c d e f g}</m><br><br>
+tabular{1001}{101}{1 2 3 4 5 6} (3 lines & 2 columns): <m>tabular{1001}{101}{1 2 3 4 5 6}</m><br><br>
+<b>Constructions</b><br>
+vec{express} : <m>vec{express}</m><br><br>
+{express}under{foo} : <m>{express}under{foo}</m><br><br>
+{express}over{foo} : <m>{express}over{foo}</m><br><br>
+overline{express} : <m>overline{express}</m><br><br>
+underline{express} : <m>underline{express}</m><br><br>
+hat{express} : <m>hat{express}</m>

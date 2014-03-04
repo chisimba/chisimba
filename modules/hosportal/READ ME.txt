@@ -1,0 +1,6 @@
+Hello All,
+
+If you want ot view the technical refernce manual generated with doxygen,
+please go into the html folder and select and open the html file called
+"index.html". The technical reference manual has not been fully completed, however 
+it would not be long until I complete it.

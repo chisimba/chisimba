@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<updates>
+    <update>
+        <table>tbl_mynotes_text</table>
+        <version>0.012</version>
+        <description>Added column to display the public notes on the sidebar.</description>
+        <data>
+            <add>
+                <name>public_note</name>
+                <type>text</type>
+                <length>6</length>
+                <notnull>TRUE</notnull>
+                <default>false</default>
+            </add>
+        </data>
+    </update>
+</updates>

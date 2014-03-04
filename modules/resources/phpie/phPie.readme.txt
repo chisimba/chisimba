@@ -1,0 +1,121 @@
+//////////////////////////////////////////////////////////////
+///   phPie() by James Heinrich <info@silisoftware.com>     //
+//        available at http://www.silisoftware.com         ///
+//////////////////////////////////////////////////////////////
+///        This code is released under the GNU GPL:         //
+//           http://www.gnu.org/copyleft/gpl.html          ///
+//////////////////////////////////////////////////////////////
+        +---------------------------------------------+
+        | If you do use this code somewhere, send me  |
+        | an email and tell me how/where you used it. |
+        +---------------------------------------------+
+
+What does phPie() do?
+==========================
+
+Creates a PNG- (or GIF- or JPG-) format pie chart, with optional
+legend.
+
+
+Requirements
+============
+* PHP 4.0.2 or higher with:
+  Ø GD 1.6 or higher (for PNG support)
+  Ø GD 1.5 or lower  (for GIF support)
+  Ø GD (any version) (for JPG support)
+
+
+Usage
+=====
+
+phPie() has many parameters, all of which are optional except for
+the actual data to graph ($data):
+
+* $data (required)
+    This is the 1-dimensional array that contains the data to be
+    graphed. The keys of the array are the labels used for the legend
+    (if shown), the values are numeric (integer or float) and the
+    scale is auto-calculated from the total of all elements.
+
+* $width (optional, default = 500)
+	Width of the graph in pixels
+
+* $height (optional, default = 300)
+    Height of the graph in pixels
+
+* $CenterX (optional, default = null [horizontal center of graph])
+	Center point of pie. Defaults to center of graph if legend is not
+	shown, or a right-aligned circle of diameter $height * 95% if the
+	legend is shown.
+
+* $CenterY (optional, default = null [vertical center of graph])
+	Center point of pie.
+
+* $DiameterX (optional, default = null)
+	Horizontal diameter of pie. Defaults to 95% of width of graph if
+	the legend is not shown, or $height * 95% if the legend is shown.
+
+* $DiameterY (optional, default = null)
+	Vertical diameter of pie. Defaults to 95% of height of graph
+
+* $MinDisplayPct (optional - default: 1)
+	Percentage below which everything else is grouped into "Other"
+
+* $MarginPercent (optional - default: 5)
+	Margin around graph, in percent of image area
+
+* $BackgroundColor (optional - default: "CCCCCC")
+    HTML-hex colour for the background of the data area of the graph
+
+* $DisplayColors (optional - default: array("3399FF","FF9933","FF0000","66CC00","FF33FF","00FFFF","9933FF","EECC33","33FF33")
+    Array of HTML-hex colours for the data slices
+    (if there are more data sets than colours, they cycle).
+
+* $LineColor (optional - default: "000000")
+    HTML-hex colour for the line colour on the graph. This should be
+    a contrasting colour to $DisplayColors and $BackgroundColor.
+
+* $FontNumber (optional - default: 3)
+    Size for legend text. Range: 1 (smallest) to 5 (largest)
+
+* $Legend (optional - default: TRUE)
+    Whether or not to display a legend on left side
+    (LegendOnSlices, if true, overrides this setting)
+
+* $LegendOnSlices (optional - default: FALSE)
+    If true, label slices with data name and percentage
+
+* $SortData (optional - default: TRUE)
+    If true, sort data into largest-to-smallest order before graphing
+
+* $StartAngle (optional - default: 0)
+    Start point of pie: 0 = right, 90 = bottom, 180 = left, 270 = top
+
+* $SaveFilename (optional - default: '')
+    If not empty, graph will be saved to this file instead of displayed
+
+
+To actually display the an image with phPie(), you call it just as
+you would any other image:
+
+<IMG SRC="phPie.php?data[This]=23&data[That]=16&height=400">
+
+You may of course add as many of the parameters explained above into
+the SRC (be careful with text values containing special characters -
+see the documentation for PHP function urlencode() on www.php.net).
+
+Note: any boolean (true/false) parameters should be passed "1" for true
+and "0" for false [eg: &Legend=1&SortData=0]
+
+Note: parameters that take an array value (notably DisplayColors) should
+have their values passed like this:
+
+<IMG SRC="phPie.php?data[This]=23&data[That]=16&DisplayColors[]=3399FF&DisplayColors[]=FF9933">
+
+
+
+Acknowledgements
+================
+
+Based heavily upon sample code by cbriou@orange-art.fr taken from
+http://www.php.net/manual/en/function.imagearc.php

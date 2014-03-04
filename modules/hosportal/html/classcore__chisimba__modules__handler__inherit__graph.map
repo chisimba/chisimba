@@ -1,0 +1,4 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classcore__object__module.html" title="{core_object_module\n|&#45; $objObject\l|+ init()\l+ createNewObjectFromModule()\l+ EditModule()\l+ loadClassFromModule()\l+ instantiateObjectFromClass()\l+ instantiateNewObjectFromClass()\l}" alt="" coords="5,158,232,330"/>
+<area shape="rect" id="node5" href="$classobject__core__module.html" title="{object_core_module\n|&#45; $objObject\l|+ instatiateObjectFromClass()\l+ createNewObjectFromModule()\l+ EditModule()\l+ buttonSetToSubmit()\l+ setButtonLabel()\l+ showButton()\l}" alt="" coords="256,158,469,330"/>
+</map>

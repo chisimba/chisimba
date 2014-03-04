@@ -1,0 +1,64 @@
+/*JUITTER PLUGIN CSS*/
+
+/*Juitter container*/
+#juitterContainer {
+    
+} 
+
+/* UL that will contain the list of tweets */
+#juitterContainer .twittList {
+    margin:0;
+    padding:0;
+} 
+
+/* Bellow the list of tweets "<li>" */
+#juitterContainer .twittLI {
+    list-style:none;
+    background:#EEFDEA;
+    margin:0;
+    padding:5px 0 0 0;
+    border-bottom:dashed 1px #CAF8C9;
+    padding:3px;
+    clear:both;
+}
+
+#juitterContainer .twittList SPAN.time {
+    color:#777;
+    font-size:0.9em
+}
+
+/*Links inside the tweets list */
+#juitterContainer .twittList A {
+    color:#006600;
+} 
+
+/* Bellow the CSS for the avatar image  */
+.juitterAvatar {
+    display:block;
+    float:left;
+    border:solid 1px #D3EECA;
+    width:32px;
+    height:32px;
+    margin-top:0px;
+    margin-right: 5px;
+    margin-bottom: 2px;
+    overflow:hidden;
+}
+
+/*read it on twitter link*/
+#juitterContainer .jRM {
+    float:right;
+    clear:both
+}
+
+/*CSS for the external links*/
+#juitterContainer .extLink {
+
+}
+
+/*CSS for the hash links*/
+#juitterContainer .hashLink {
+
+} 
+
+/*end of Juitter CSS*/

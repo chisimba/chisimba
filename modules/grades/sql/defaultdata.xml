@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<defaultdata>
+
+  <!-- MODULE: grades, Table tbl_grades_grades create data used by this module -->
+    <tbl_grades_grades>
+        <id>init_1</id>
+        <name>Grade R</name>
+        <description>The pre-school grade</description>
+        <created_by>init_1</created_by>
+        <date_created>2012-03-01 00:00:00</date_created>
+    </tbl_grades_grades>
+    <tbl_grades_grades>
+        <id>init_2</id>
+        <name>Grade 1</name>
+        <description>The first school grade</description>
+        <created_by>init_1</created_by>
+        <date_created>2012-03-01 00:00:00</date_created>
+    </tbl_grades_grades>
+    <tbl_grades_grades>
+        <id>init_3</id>
+        <name>Grade 2</name>
+        <description>The second grade</description>
+        <created_by>init_1</created_by>
+        <date_created>2012-03-01 00:00:00</date_created>
+    </tbl_grades_grades>
+    <tbl_grades_grades>
+        <id>init_4</id>
+        <name>Grade 3</name>
+        <description>The third school grade</description>
+        <created_by>init_1</created_by>
+        <date_created>2012-03-01 00:00:00</date_created>
+    </tbl_grades_grades>
+    <tbl_grades_grades>
+        <id>init_5</id>
+        <name>Grade 4</name>
+        <description>The fourth school grade</description>
+        <created_by>init_1</created_by>
+        <date_created>2012-03-01 00:00:00</date_created>
+    </tbl_grades_grades>
+    <tbl_grades_grades>
+        <id>init_6</id>
+        <name>Grade 5</name>
+        <description>The fifth school grade</description>
+        <created_by>init_1</created_by>
+        <date_created>2012-03-01 00:00:00</date_created>
+    </tbl_grades_grades>
+    <tbl_grades_grades>
+        <id>init_7</id>
+        <name>Grade 6</name>
+        <description>The sixth school grade</description>
+        <created_by>init_1</created_by>
+        <date_created>2012-03-01 00:00:00</date_created>
+    </tbl_grades_grades>
+    <tbl_grades_grades>
+        <id>init_8</id>
+        <name>Grade 7</name>
+        <description>The seventh school grade</description>
+        <created_by>init_1</created_by>
+        <date_created>2012-03-01 00:00:00</date_created>
+    </tbl_grades_grades>
+    <tbl_grades_grades>
+        <id>init_9</id>
+        <name>Grade 8</name>
+        <description>The eighth school grade</description>
+        <created_by>init_1</created_by>
+        <date_created>2012-03-01 00:00:00</date_created>
+    </tbl_grades_grades>
+    <tbl_grades_grades>
+        <id>init_10</id>
+        <name>Grade 9</name>
+        <description>The ninth school grade</description>
+        <created_by>init_1</created_by>
+        <date_created>2012-03-01 00:00:00</date_created>
+    </tbl_grades_grades>
+    <tbl_grades_grades>
+        <id>init_11</id>
+        <name>Grade 10</name>
+        <description>The tenth school grade</description>
+        <created_by>init_1</created_by>
+        <date_created>2012-03-01 00:00:00</date_created>
+    </tbl_grades_grades>
+    <tbl_grades_grades>
+        <id>init_12</id>
+        <name>Grade 11</name>
+        <description>The eleventh school grade</description>
+        <created_by>init_1</created_by>
+        <date_created>2012-03-01 00:00:00</date_created>
+    </tbl_grades_grades>
+    <tbl_grades_grades>
+        <id>init_13</id>
+        <name>Grade 12</name>
+        <description>The twelfth school grade</description>
+        <created_by>init_1</created_by>
+        <date_created>2012-03-01 00:00:00</date_created>
+    </tbl_grades_grades>
+
+</defaultdata>

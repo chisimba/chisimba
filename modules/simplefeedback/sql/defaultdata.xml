@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<defaultdata>
+
+  <!-- MODULE: simplefeedback, Table tbl_simplefeedback_info create data used by this module -->
+    <tbl_simplefeedback_questions>
+        <id>init_1</id>
+        <userid>1</userid>
+        <surveyid>init_1</surveyid>
+        <datecreated>September 17, 2012, 8:14 pm</datecreated>
+        <questionno>1</questionno>
+        <question>
+            What did you like most about the event?
+        </question>
+    </tbl_simplefeedback_questions>
+    <tbl_simplefeedback_questions>
+        <id>init_2</id>
+        <userid>1</userid>
+        <surveyid>init_1</surveyid>
+        <datecreated>September 17, 2012, 8:14 pm</datecreated>
+        <questionno>2</questionno>
+        <question>
+            What did you like least about the event?
+        </question>
+    </tbl_simplefeedback_questions>
+    <tbl_simplefeedback_questions>
+        <id>init_3</id>
+        <userid>1</userid>
+        <surveyid>init_1</surveyid>
+        <datecreated>September 17, 2012, 8:14 pm</datecreated>
+        <questionno>3</questionno>
+        <question>
+            What would you like to see at the next event?
+        </question>
+    </tbl_simplefeedback_questions>
+    <tbl_simplefeedback_questions>
+        <id>init_4</id>
+        <userid>1</userid>
+        <surveyid>init_1</surveyid>
+        <datecreated>September 17, 2012, 8:14 pm</datecreated>
+        <questionno>4</questionno>
+        <question>
+            Please tell us how you are willing to contribute to the next event.
+        </question>
+    </tbl_simplefeedback_questions>
+    
+    <tbl_simplefeedback_surveys>
+        <id>init_1</id>
+        <userid>1</userid>
+        <datecreated>September 17, 2012, 8:14 pm</datecreated>
+        <title>Feedback on Software Freedom Day Gauteng</title>
+        <description>
+            Please give us your feedback on the 2012 Software 
+            Freedom Day activities so that we may improve the SFD 
+            programme for next year. Also, please tell us what you
+            are willing to do to help out with the event.
+        </description>
+    </tbl_simplefeedback_surveys>
+    
+</defaultdata>

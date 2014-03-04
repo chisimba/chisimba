@@ -1,0 +1,44 @@
+Yahoo! OS SDK
+=============
+After downloading and unpackaging the release, copy the contents of yosdk/lib 
+to a directory that is accessible via the PHP require/require_once methods. In 
+your PHP scripts, require the Yahoo.inc file:
+
+    require("Yahoo.inc");
+
+or
+
+    require_once("Yahoo.inc");
+
+Now you should be ready to instantiate your YahooSession object and get
+started.
+
+JSON Libraries
+==============
+The SDK will use the built-in json_encode/json_decode methods if they're 
+available. If they're not available, the SDK will fall back to using the 
+PEAR Services_JSON package:
+
+    http://pear.php.net/pepr/pepr-proposal-show.php?id=198
+
+If your PHP install doesn't supply json_encode/json_decode and you don't 
+have the PEAR package, the SDK will print an error telling you to get the 
+PEAR package and then exit. To install the PEAR package, download the tgz 
+file:
+
+    http://mike.teczno.com/JSON.tar.gz
+
+Unzip the file:
+
+    tar xzf JSON.tar.gz
+
+And copy JSON.php to the directory containing Yahoo.inc (supplied by 
+the SDK).
+
+Sample Application
+==================
+In the yosdk/sample directory you'll find sampleapp.php, a sample application 
+that will get you started. Put the file in your hosting directory and fill 
+in the consumer key, consumer key secret and application ID. When you're done, 
+point your browser at the URL. You will be directed to verify access to the 
+application and then you will be redirected back to your application.

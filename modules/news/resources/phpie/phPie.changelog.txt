@@ -1,0 +1,83 @@
+//////////////////////////////////////////////////////////////
+///   phPie() by James Heinrich <info@silisoftware.com>     //
+//        available at http://www.silisoftware.com         ///
+//////////////////////////////////////////////////////////////
+///        This code is released under the GNU GPL:         //
+//           http://www.gnu.org/copyleft/gpl.html          ///
+//////////////////////////////////////////////////////////////
+
+v1.1.7 - October 4, 2006
+  // Submitted by Jake Olefsky (jakeÿolefsky*com)
+  * Optional antialiasing
+  * Optional title for chart
+  * Optional outline for image
+  * Separate color for the "Other" slice
+  * If legend on slice would go off the edge of the image,
+    it is truncated
+
+v1.1.6 - December 6, 2005
+  * Bugfix: LegendOnSlices was broken
+    (thanks marcoÿdelucamarketing*ch)
+
+v1.1.5 - August 10, 2005
+  * Bugfix: LegendOnSlices was broken when StartAngle
+    other than zero  (thanks jose*rui*miraÿgmail*com)
+  * Bugfix: "Other" legend text misaligned
+
+v1.1.4 - March 6, 2005
+  * Split demo code out into phPie.demo.php
+  * Split class into phPie.class.php
+  * Split changelog into phPie.changelog.txt
+  * Split readme into phPie.readme.txt
+  * Bugfix: StartAngle wasn't properly utilized
+    (thanks Ben*Braineÿipl*com)
+  * CenterX,CenterY,DiameterX,DiameterY now default to
+    null instead of false.
+
+v1.1.3 - January 31, 2005
+  * Background color wasn't being used
+    (thanks rung_rotchÿhotmail*com)
+
+v1.1.2 - November 20, 2004
+  * Several bugfixes in case where GD is unavailable
+
+v1.1.1 - December 11, 2003
+  * Added option to display legend text next to slices
+    instead of down side. Enable this by setting
+    LegendOnSlices to true.
+  * Added StartAngle configuration variable
+  * Added SaveFilename configuration variable
+  * Improved gd_version() and added gd_info() for PHP
+    versions prior to 4.3.0
+
+v1.1.0 - December 8, 2003
+  * Converted functional structure to a class
+  * DisplayColors must now be passed as an array (not
+    a semicolon-seperated list as before)
+  * Corrected minimum PHP version required to 4.0.2
+
+v1.0.4 - January 15, 2003
+  * Modified gd_version() to handle PHP 4.3.0+'s bundled
+    version of the GD library
+  * Moved the plotting of the pie slice border color for
+    GD v2.0+ to on top of the pie slice fill color - it
+    looks better that way.
+  * Support for passing serialized data if
+    magic_quotes_gpc is off
+
+v1.0.3 - October 24, 2002
+  * added SortData option which will, if set to FALSE,
+    disable sorting the data and plot all data in the
+    order it's supplied, and not combine very small
+    values into "Other"
+
+v1.0.2 - October 23, 2002
+  * prevent flood-filling incorrect areas when slices
+    are very small and GD < v2.0.1 is used
+    Thanks Jami Lowery <jami@ego-systems.com>
+
+v1.0.1 - August 12, 2002
+  * Support for register_globals = off
+
+v1.0.0 - May 17, 2002
+  * initial public release

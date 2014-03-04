@@ -1,0 +1,97 @@
+JODConverter 2.2.0
+------------------
+
+** Bug
+    * [JODC-14] - Incorrect Excel mime-type
+    * [JODC-16] - Failure when converting from .txt files with different line endings
+    * [JODC-18] - File extension should be treated as case insensitive
+
+** Improvement
+    * [JODC-5] - Add macro execution options
+    * [JODC-10] - Make XStream dependency optional
+    * [JODC-11] - Replace commons-logging with slf4j
+    * [JODC-17] - Add CSV to default formats
+    * [JODC-19] - Revise DocumentFormat exportOptions API
+    * [JODC-20] - Make document formats easily customisable in webapp
+    * [JODC-22] - Add DocumentFamily.DRAWING
+
+** New Feature
+    * [JODC-9] - IKVM compatibility to build as a .NET DLL
+    * [JODC-13] - Add support for converting multiple files at once in ConvertDocument command line tool
+
+** Task
+    * [JODC-21] - Split CLI into separate module
+
+JODConverter 2.1.1
+-------------------
+
+ * renamed project to JODConverter
+
+ * renamed packages from net.sf.jooreports to com.artofsolving.jodconverter
+
+ * updated OpenOffice.org JARs to 2.1.0
+
+JOOConverter 2.1.0
+-------------------
+
+ * added support for custom export options (e.g. Image Quality for PDFs)
+
+ * HTML as an input format is now enabled by default
+
+ * fixed a rare pagination bug when exporting to PDF a document with fields
+
+ * many internal code improvements: switched to Maven2-based build process
+   and directory layout, improved unit test coverage, refactorings
+
+JOOConverter 2.1rc2
+-------------------
+
+ * file-based conversions are the default again; stream-based conversions
+   introduced in 2.1rc1 proved to be frequently slower so they are still
+   available but as an option (using StreamOpenOfficeDocumentConverter)
+
+ * made the webapp settings configurable using Spring and XML
+ 
+ * added a sample C#.net web service client to the online guide
+
+JOOConverter 2.1rc1
+-------------------
+
+ * now all conversions pass UNO streams instead of files to OpenOffice.org
+   - no need to use temporary files anymore
+   - works with an OOo service running as a different user
+   - works with an OOo service running on a different machine
+
+ * added servlet that can be invoked as a simple "web service" by remote clients
+
+ * added WordPerfect as a supported input format (thanks to Derek Hulley of Alfresco)
+
+ * added isConnected() method to OpenOfficeConnection
+
+JOOConverter 2.0.0
+------------------
+
+ * added default constructor to DocumentFormat to prevent error with XStream on some JVMs
+
+ * compiled and tested with Java 1.3 (was 1.4)
+
+ * replaced custom IO code with Jakarta Commons IO
+
+ * updated third-party libraries to their latest available versions
+
+
+JOOConverter 2.0rc2
+-------------------
+
+Due to popular demand JOOConverter, while still being part of JOOReports, is now
+released as a standalone project (as it was already the case with the 1.0 series).
+
+Changes compared to the version included in JOOReports 2.0rc1
+
+ * added the converter web application
+
+ * made jar file executable with ConvertDocument as main class
+
+ * added (but unsupported) HTML and XHTML export formats
+
+ * minor bug fixes

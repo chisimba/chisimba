@@ -1,0 +1,21 @@
+/*
+	This CSS provides necessary changes to the stylesheets for proper formatting when printing to pdf
+*/
+
+img
+{
+	display: inline;
+}
+
+table
+{
+	margin-left: auto; 
+	margin-right: auto;
+	width: 80%;
+}
+
+div.toc
+{
+	margin-left: auto; 
+	margin-right: auto;
+}

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This file is a code generation template for Chisimba register.conf generation labels for the input template -->
+<chisimba_register_ui_link>
+
+<title>Build a register.conf configuration file</title>
+<description>Build a register.conf registration file for the Chisimba MVC architecture. The register file is named 
+register.conf and resides in the base directory of your module along with the controller.</description>
+
+</chisimba_register_ui_link>

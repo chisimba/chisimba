@@ -1,0 +1,43 @@
+OK, so jpgraph is dual licensed, so this module should only be used for non commercial use. I am including it because most of what we do is non commercial anyway.
+
+There is a bit of server set up required to use this module. Namely on Ubuntu, the GD version is slightly crippled, so you need to rebuild and install it. For this reason, I would suggest using this module as a service on one machine.
+
+The instructions for doing the rebuild can be found at: http://www.paulscott.za.net/index.php?module=jabberblog&postid=ps123_9115_1292686540&action=viewsingle or below:
+
+It seems that the maintainers over at Ubuntu regard the PHP5 bundled GD version a fork of Boutells GD library (I understand why) and that forks = security risks (again, the logic is there). However, I am working on an application that requires a higher level of GD functions than the "older" GD library provides, chief amongst them the imageantialias() function (amongst others).
+
+The only recourse was to recompile PHP, build a php5-gd package from that and then replace the current php5-gd deb with the new one. Luckily if you link against the standard system GD library (not the PHP shared lib) you get the full deal!
+
+Sounds simple enough, and so it is! Here are the steps required:
+
+1. Completely remove your old php5-gd with an:
+apt-get remove --purge php5-gd
+
+2. You then need a fakeroot and build environment (if you don't already have one) so install that with the following:
+# Install build tools, debian helpers and fakeroot
+apt-get install build-essential debhelper fakeroot
+# source code should reside in /usr/src
+cd /usr/src
+# Download PHP source
+apt-get source php5
+# Install all packages required to build PHP5
+apt-get build-dep php5
+cd php5-5.3.2
+
+
+3. Next up we have to modify the debian rules as to how the package is compiled. All that you need to do here is to open up the debian/rules file in your favourite text editor and find the line that looks like:
+--with-gd=shared,/usr --enable-gd-native-ttf
+and replace it with:
+--with-gd=shared --enable-gd-native-ttf
+
+4. You can then go ahead and rebuild the deb with the following:
+# build the php5-* packages
+dpkg-buildpackage -rfakeroot
+cd ..
+# Install the new php5-gd package
+dpkg -i php5-gd_5.3.2-1ubuntu4.5_i386.deb
+
+
+5. Restart apache with /etc/init.d/apache2 force-reload and you should be smiling!
+
+That's it. Told you it would be simple!

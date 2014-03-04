@@ -1,0 +1,48 @@
+<html>
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>PhpMathPublisher : Demo Page Maker</title>
+<meta name="keywords" content="mathematic,math,mathematics,mathématique,math renderer,php,formulae,latex,mathml,publishing,pascal brachet,brachet">
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<p align="center"><IMG src="header.gif" border="0"></p>
+<div id="header">Web publishing system for mathematical documents<br><IMG src="sample.png" border="0"></div>
+<div id="contentlabel">Features</div>
+<div id="contentbox"><p>With PhpMathPublisher, you can publish mathematical documents on the web by using only a php script (no latex programs on the server, no mathml...).
+<ul>
+<li><strong>The method : </strong>each formula is transformed into image by a php script which returns the corresponding html code.</li>
+<li><strong>Advantages for the visitors : </strong>the web pages created by PhpMathPublisher can be displayed by all the cureent browsers.<br>The visitor does not have anything to install on his system:  neither fonts, nor plugins...</li>
+<li><strong>Advantages for the webmasters : </strong>
+	<ul>
+	<li>Only Php (with the GD library) and some fonts are required.</li>
+	<li>PhpMathPublisher is simple to install and use. You can convert a mathematical text with only one php command.</li>
+	<li>It can be easily used by CMS systems, weblogs and forums.</li>
+	<li>PhpMathPublisher creates cross-browser pages.</li>
+	<li>The png images created by the script are transparent and can be placed in any page.</li>
+	</ul>
+</li>
+</ul>
+</p></div>
+<div id="contentlabel">Installation and use of the script</div>
+<div id="contentbox">
+<p>
+<ol>
+<li>PhpMathPublisher needs a repertory for the fonts and another for the images (you can use your own directories or the defaults directories included in the package). You must first modify the firt lines of the "mathpublisher.php" script to indicate the absolute path to these directories.</li>
+<li>Then, you must install the fonts into their directory (there are located in the fonts/ directory in the package).</li>
+<li>The script is contained in only one file : "mathpublisher.php" <br>
+The only command to be used in your php pages to convert a mathematical expression is :<br> echo mathfilter($text,$size,$pathtoimg); (and include("mathpublisher.php") ;)<br>
+$text is the text with standard html tags and mathematical expressions (defined by the &#060;m&#062;...&#060;/m&#062; tag), $size is the size of the police used for the formulas and $pathtoimg is the relative path between the html pages and the images directory.<br>
+The "mathfilter" function creates the images of the formulas and returns the corresponding html code.
+Apart from the &#060;m&#062;...&#060;/m&#062; tag, $text can contain any html code. Syntax to be respected for the mathematical formulas is indicated in the <A href="help.html" target="_blank">help.html</A> file.<br>
+The php code of the demo files (in the examples/ directory) shows you how the script can be used by a webmaster.
+</li>
+</ol>
+<strong>Note :</strong> if you have some troubles with the AMS cmex10.ttf font on your server, you should try to use the Bakoma cmex10.ttf font (<A href="http://www.ctan.org/tex-archive/fonts/cm/ps-type1/bakoma/ttf/">http://www.ctan.org/tex-archive/fonts/cm/ps-type1/bakoma/ttf/</A>).
+</p>
+</div>
+<div id="footer">
+<p><A href="http://www.xm1math.net/phpmathpublisher/">PhpMathPublisher</A> - Copyright 2005 <b>Pascal Brachet - France</b> <br>The author is a teacher of mathematics in a French secondary school (Lycée Bernard Palissy - Agen).<br>
+This program is licensed to you under the terms of the GNU General Public License Version 2 as published by the Free Software Foundation.</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,1686 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<defaultdata>
+    <tbl_formbuilder_user_help_content>
+        <id>init_1</id>
+        <name>introduction</name>
+        <type>general</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+&lt;h1&gt; Introduction &lt;/h1&gt;
+
+&lt;p align=&quot;justify&quot;&gt;Form Builder is a standalone Chisimba module that permits users to
+create HTML forms through a user friendly WYSIWYG interface without having to
+code anything. This module surrenders control over to the user and provide over
+eleven different types of form elements; each one that can be built and
+configured differently.&lt;/p&gt;
+
+&lt;p&gt;Once users have built their forms, the form builder can construct it
+in any location, module or page depending on the user’s volition. Form
+submissions can be e-mailed to the user, saved in the form builder database
+for future viewing or both.&lt;/p&gt;
+
+&lt;p align=&quot;justify&quot;&gt;Additionally, publishing options are offered. Users are also given
+control over what actions are to be preformed once their form is submitted by users.
+This module is designed to be powerful and concurrently user friendly.&lt;/p&gt;
+
+&lt;h1&gt;Brief Module Flow&lt;/h1&gt;
+&lt;h2&gt;Discrepancy between Users and Designers&lt;/h2&gt;
+
+&lt;p align=&quot;justify&quot; &gt;It is imperative not to confuse and conflate the designers and users
+of the form. These are two separate entities as explicitly described below.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;i&gt; Designers:&lt;/i&gt; The designers of the form are the
+readers of this text who want to create forms for their users. The designers
+will build the forms with the desired form elements and configure them according
+to their needs.&lt;/li&gt;
+&lt;li&gt;&lt;i&gt;Users:&lt;/i&gt; The users of forms are the individuals who
+fill in the forms created by the designers and submit them.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;Basic Module Flow&lt;/h2&gt;
+
+&lt;p align=&quot;justify&quot;&gt;The form builder module is separated into four major entities. These
+entities succeed each other in solely one direction. &lt;/p&gt;
+
+&lt;p align=&quot;justify&quot;&gt;The first step in creating a form is to insert the form’s metadata.
+The metadata of the form can be loosely described as the information about the
+form such as the form’s name and description. Additionally, the designer’s name
+and email address are also considered as metadata for the form. Once the
+metadata of the form gets stored, the actual form can be built.&lt;/p&gt;
+
+&lt;p align=&quot;justify&quot; &gt;The WYSIWYG form editor is the most integral part of the form builder
+that allows designers to build the actual form. Designers can insert, edit,
+rearrange and delete form elements according to their needs. When users are
+satisfied with the contents of their actual form, it needs to be finalized by
+publishing it.&lt;/p&gt;
+
+&lt;p align=&quot;justify&quot; &gt;Once the form is built in the WYSIWYG form editor, it cannot be
+rendered for users of the form to submit unless it gets published. The form
+needs published so it can be used. Besides publishing, the designers of the
+form can select a set of actions to perform after submissions of their forms occur.
+Once designers have published their form, it is ready to be used.&lt;/p&gt;
+
+&lt;p align=&quot;justify&quot;&gt;The form listings consist of all the forms that have been created with
+the form builder module. Designers can search for their forms in the form
+listings. All possible actions for each form are provided. Designer’s can edit
+their existing form contents, publishing details and metadata. Additionally,
+form contents and publishing settings can be previewed. Saved submit results of
+the form can be viewed. The designer can also delete all for submissions or
+contents of the form completely. A brief schematic of these four entities is
+illustrated in the figure below.&lt;/p&gt;
+
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+    <tbl_formbuilder_user_help_content>
+        <id>init_2</id>
+        <name>introduction_after_module_flow_image</name>
+        <type>general</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+&lt;p align=&quot;justify&quot;&gt;When a designer first creates a form, the
+work flow in the figure above has to be stringently followed. The user has to insert
+the form’s metadata followed by actually building the form and finally publishing
+it for use. Once the form has been successfully created and this flow has been
+followed, designers can edit any part of the form in the form listings under
+form options.&lt;/p&gt;
+
+        </pagecontent>
+
+    </tbl_formbuilder_user_help_content>
+
+    <tbl_formbuilder_user_help_content>
+        <id>init_3</id>
+        <name>metadata_introduction</name>
+        <type>metadata</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+&lt;h1&gt;Form Metadata&lt;/h1&gt;
+&lt;h2&gt;Create a New Form&lt;/h2&gt;
+&lt;p align=&quot;justify&quot;&gt;The color themes and design of this module
+might possibly differ. However, the main functionality will remain the same.
+To create a new form, click on the links on the home page of the form builder
+module depicted in the figure below inside the orange rectangles.&lt;/p&gt;
+
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+    <tbl_formbuilder_user_help_content>
+        <id>init_4</id>
+        <name>metadata_submit_results_explanation</name>
+        <type>metadata</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+&lt;p align=&quot;justify&quot;&gt;Upon clicking the new form link, a
+modal window depicted in the figure below will appear containing all the form
+metadata that is required to be inserted. A modal window is a special dialog
+menu that prevents users from interacting with elements outside this window
+until this window been closed. The form number indicator displays the rank of
+the form. For instance, according to the figure below this will be the 16th
+form being created by the form builder module. Additionally, this number will
+also help in the finding of this form in the form listings as it will be
+displayed 16th on the list.&lt;/p&gt;
+&lt;h2&gt;Form Submission Actions&lt;/h2&gt;
+&lt;p align=&quot;justify&quot;&gt;The form title and description is self
+explanatory information about the designer’s form. The drop down consists of
+three options that are explicated below.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;i&gt;&quot;Save submit results in a database which can be view anytime&quot;:&lt;/i&gt; If this
+option is selected, all user submissions of the designer’s form will be stored
+in the form builder database. The submission results can be viewed at anytime.&lt;/li&gt;
+&lt;li&gt;&lt;i&gt;&quot;Email the results to email address entered above&quot;:&lt;/i&gt; If this
+selection is selected, the results of all form submissions will be emailed to
+the designer of the form to the email address inserted in the relevant text
+field above the drop down list. No submit results will be saved in the form
+builder database for future viewing. The submit results of each form submission
+will be sent in HMTL format.&lt;/li&gt;
+&lt;li&gt;&lt;i&gt;&quot;Save the results in the database AND email the results to me&quot;:&lt;/i&gt; After
+each form submission, both the first two options will be executed.&lt;/li&gt;
+&lt;/ul&gt;
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+
+    <tbl_formbuilder_user_help_content>
+        <id>init_5</id>
+        <name>metadata_text_after_figure</name>
+        <type>metadata</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+&lt;p align=&quot;justify&quot;&gt;Once all fields are correctly filled in, the
+designer can proceed to the next step in form design to the WYSIWYG form editor.&lt;/p&gt;
+
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+    <tbl_formbuilder_user_help_content>
+        <id>init_6</id>
+        <name>form_editor_introduction</name>
+        <type>form_editor</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+&lt;h1&gt;WYSIWYG Form Editor&lt;/h1&gt;
+&lt;h2&gt;Basic Editor Layout&lt;/h2&gt;
+&lt;p align=&quot;justify&quot;&gt;The form editor allows designers to actually
+build their forms through a simple WYSIWYG form editor toolbar according their
+volition. The form editor layout is depicted in the figure below with some
+form metadata information, form editor toolbar and the actual WYSIWYG form area
+beneath one another.&lt;/p&gt;
+
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+    <tbl_formbuilder_user_help_content>
+        <id>init_7</id>
+        <name>form_editor_dropdown_list</name>
+        <type>form_editor</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+&lt;h2&gt;Form Editor Toolbar Drop Down List&lt;/h2&gt;
+&lt;p align=&quot;justify&quot;&gt;The WYSIWYG form editor toolbar provides all
+possible functions to create form content. The actual form area enclosed in
+a gray rectangle under the form editor toolbar contains the actual form.
+The form area will show the actual look of the created form.&lt;/p&gt;
+
+&lt;p align=&quot;justify&quot;&gt;The toolbar contains a drop down list and
+three buttons. The drop down list contains all the possible form elements that
+designers can insert into their forms. These include the labels, radio buttons,
+drop down lists, multi-selectable drop down lists, check boxes, text inputs,
+text areas, HTML areas, submit buttons, reset buttons, html headings and date
+picker elements. The buttons below contain details regarding all these form
+elements. Designers that are not familiar with HTML form elements should
+browse through this section. This section also offers suggestions to insert
+which form elements for certain cases and scenarios in forms.&lt;/p&gt;
+
+&lt;p align=&quot;justify&quot;&gt;When a desired form element is chosen,
+a modal window will open in which the designer has to fill in the relevant
+parameters belonging to this form element to insert it. Form element modal
+windows are streamlined to simply insertion of form elements. A detailed
+explication of modal windows belonging to all of the form elements are given
+section below. If designers are unsure of the impacts of certain parameters to
+form elements contained in the modal windows, the interactive button section
+is available for a quick reference.&lt;/p&gt;
+
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+    <tbl_formbuilder_user_help_content>
+        <id>init_8</id>
+        <name>form_editor_text_interactive_button_section</name>
+        <type>form_editor</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+&lt;p align=&quot;justify&quot;&gt;Using the form element toolbar an example
+form is built with a radio buttons followed by a drop down list, check boxes,
+a text input field, a reset and lastly a submit button shown in the figure below.
+The form is enclosed in the gray rectangle is exactly what the form would look
+like when it is constructed for submission later hence the term WYSIWYG.&lt;/p&gt;
+
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+    <tbl_formbuilder_user_help_content>
+        <id>init_9</id>
+        <name>form_editor_rearrange_form_elements_section</name>
+        <type>form_editor</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+&lt;h2&gt;Form Editor Toolbar Rearrange Form Elements Button&lt;/h2&gt;
+&lt;p align=&quot;justify&quot;&gt;When a new form element is made, it is
+automatically inserted as the last form element in the form. What if designers
+want to place this form element some in the middle of their forms? Two major
+form element manipulation buttons are provided. The &quot;rearrange form elements&quot; button
+allows designers to change the order of their form elements. The &quot;rearrange form elements button&quot;
+can simply be clicked to be toggled. A button is turned on when it is toggled.
+It will automatically change to a distinct color denoting its changed sate.&lt;/p&gt;
+
+&lt;p align=&quot;justify&quot;&gt;Red dotted rectangles will appear around
+each form element to separate and distinguish the boundary of each form element.
+A green up/down arrow button will appear on the top right hand corner of each
+form element. Click this button belonging to desired form element and drag it
+to its desired position. Simply clicking and dragging the form elements to
+their desired positions would change the order of the form elements as they
+would appear in this WYSIWYG interface. Once designers are satisfied with the
+order the form elements, click on the &quot;rearrange form elements&quot; button
+to untoggle or turn it off. The red dotted rectangles and green icons will
+automatically disappear.&lt;/p&gt;
+
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+    <tbl_formbuilder_user_help_content>
+        <id>init_10</id>
+        <name>form_editor_delete_form_elements_section_intro</name>
+        <type>form_editor</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+&lt;h2&gt;Form Editor Toolbar Delete Form Elements Button&lt;/h2&gt;
+&lt;p align=&quot;justify&quot;&gt;How do designers remove unwanted form
+elements their form? Enter the &quot;delete form elements&quot; button that
+allows designers to easily remove form elements from their form. There is a
+design limitation that exists within form editor. Once a certain form element
+has been inserted into a form, it cannot be edited. If designers want to change
+the properties a particular form element they will have delete the existing
+unwanted form element and insert the same form element again with the
+desired properties. &lt;/p&gt;
+
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+    <tbl_formbuilder_user_help_content>
+        <id>init_11</id>
+        <name>form_editor_delete_form_elements_section_confirmation_message</name>
+        <type>form_editor</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+&lt;p align=&quot;justify&quot;&gt;To delete a form element simply click on the
+&quot;delete form elements&quot; button to toggle it. Similar to the rearrange
+form elements button, a red dotted border will appear around each form element
+to separate and distinguish between each form element as depicted in the figure
+above. A cut icon will appear on the top right corner of each form element.
+To delete a form element simply click on the relevant cut icon for that form
+element. It will glow red on mouse hover as in the radio form element in
+the figure above. Upon clicking the cut icon, a modal window will appear that
+will request a delete confirmation shown in the figure below. If the user clicks
+on the delete form element button, the pertinent form element will be deleted
+and cannot be recovered. Once the desired form elements have been deleted simply
+click on the &quot;delete form elements&quot; button again to untoggle or
+turn it off. This will remove the delete form element state with all the cut
+icons and red dotted borders.&lt;/p&gt;
+
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+
+    <tbl_formbuilder_user_help_content>
+        <id>init_12</id>
+        <name>form_editor_done_button</name>
+        <type>form_editor</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+&lt;h2&gt;Form Editor Toolbar Done Button&lt;/h2&gt;
+&lt;p align=&quot;justify&quot;&gt;When form designers are satisfied with their
+forms simply click on the &quot;done&quot; button inside the WYSIWYG form editor
+toolbar. Every form requires a submit button to be complete. The form editor
+will check if designers have added a submit button. If a form is devoid of a
+submit button the form editor will prompt designers with a message indicating
+the form is incomplete. However, designers are still allowed to continue with
+the form building process and enter the final stage of publishing this form.
+Despite this, designer’s can still come back and complete, alter or augment
+their forms according to their volition anytime in the future. This can be
+done by clicking on the &quot;edit form in WYSWIG editor&quot; button which
+can be found when clicking on the &quot;form options&quot; button for your form
+in the form listings. If a form seems to be complete and comprises of a submit
+button, a modal window will appear for publishing the form.&lt;/p&gt;
+
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+    <tbl_formbuilder_user_help_content>
+        <id>init_13</id>
+        <name>form_publisher_intro</name>
+        <type>form_publisher</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+&lt;h1&gt;Publishing Form Parameters&lt;/h1&gt;
+&lt;h2&gt;Significance of Publishing Forms&lt;/h2&gt;
+&lt;p align=&quot;justify&quot;&gt; Once the &quot;done&quot; button is clicked
+on, a modal window will appear to publish this form. Two options are given to
+publish the form or leave it unpublished as illustrated in th figure below.
+The designer can choose to leave the form unpublished and click on the 
+&quot;Set Publishing Parameters&quot; button to proceed with an unpublished
+form. The ramification of a form being unpublished is that it cannot be
+constructed for users for submission.&lt;/p&gt;
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+    <tbl_formbuilder_user_help_content>
+        <id>init_14</id>
+        <name>form_publisher_simple</name>
+        <type>form_publisher</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+&lt;h2&gt;Simple Publishing Parameters&lt;/h2&gt;
+&lt;p align=&quot;justify&quot;&gt; If designers choose to publish their form,
+a certain set of actions have to be set when their forms are submitted.
+Designers can prefer simple or advanced publishing parameters. For simple
+publishing parameters, once a form has been submitted, the form can always
+divert to a URL set in the text field labeled &quot;Insert a URL of your choice&quot;.
+In the figure below, the form is set to divert to google’s homepage.
+Additionally, a time delay can be set before the form builder diverts to the
+specified URL or designers can opt to divert without any delay. On the other
+hand, if designers’ do not want to divert to any URL, the &quot;provide a link
+to go the form builder module&quot; can be selected. Once a form gets submitted,
+a new page will load that contains a button that allows users to return to the
+home page of the form builder module.&lt;/p&gt;
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+    <tbl_formbuilder_user_help_content>
+        <id>init_15</id>
+        <name>form_publisher_advanced</name>
+        <type>form_publisher</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+&lt;h2&gt;Advanced Publishing Parameters&lt;/h2&gt;
+&lt;p align=&quot;justify&quot;&gt;Advanced publishing parameters are for
+Chisimba PHP developers. This is shown in the figure below. Instead of a URL,
+the form builder diverts to an action belonging to a Chisimba module. In the figure,
+the form is set to divert in 5 seconds after a form submission to the default
+action called home from the Post Login Chisimba module. Additionally, a checkbox
+option is given to pass all the form parameters to this action. If this
+checkbox is selected to be on, the names and values of all the form elements
+inside the form get transformed into a text string in standard URL-encoded
+notation. The chisimba code shown below gets executed.&lt;/p&gt;
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+    <tbl_formbuilder_user_help_content>
+        <id>init_16</id>
+        <name>form_publisher_final</name>
+        <type>form_publisher</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+&lt;p align=&quot;justify&quot;&gt;Once the publishing parameters are set, the
+designer’s form is ready for use!&lt;/p&gt;
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+    <tbl_formbuilder_user_help_content>
+        <id>init_17</id>
+        <name>form_options_intro</name>
+        <type>form_listings</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+&lt;h1&gt;Form Options inside the Form Listings&lt;/h1&gt;
+&lt;h2&gt;Basic Overview&lt;/h2&gt;
+&lt;p align=&quot;justify&quot;&gt;From home page, if designers click
+on the &quot;List All Forms&quot; button or link, a list of all designed forms
+are shown in a format shown in the main figure below.&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;&lt;b&gt;Main Figure&lt;/b&gt;&lt;/p&gt;
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+    <tbl_formbuilder_user_help_content>
+        <id>init_18</id>
+        <name>form_options_pagination</name>
+        <type>form_listings</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+&lt;h2&gt;Quick Search Toolbar&lt;/h2&gt;
+&lt;p align=&quot;justify&quot;&gt;Once the process of designing a form is
+completed, all designed forms are listing on this page. The entity labeled 1 in 
+main figure is a quick search bar. It would be innate that hundreds of forms
+would be built by scores of form designers. A quick search toolbar is helpful
+tool list a set of desired forms according to the search query. The quick
+search tool bar can take all form metadata parameters such as form titles,
+descriptions, designer names, email addresses of designers and creation dates.&lt;/p&gt;
+&lt;h2&gt;Form Pagination&lt;/h2&gt;
+&lt;p align=&quot;justify&quot;&gt;By default, 10 forms are listed on each page.
+If there are more forms than this number, click on the next and previous buttons
+labeled 2 to show next and previous pages of results. The button labeled as 3
+provides a pagination indicator. Additionally, if this button is clicked upon,
+a modal window pops up that permits the change of default number of forms being
+displayed on a page as depicted in the figure below.&lt;/p&gt;
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+    <tbl_formbuilder_user_help_content>
+        <id>init_19</id>
+        <name>form_options_accordion_form_listing</name>
+        <type>form_listings</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+
+&lt;h2&gt;Form Accordion Listing&lt;/h2&gt;
+
+&lt;p align=&quot;justify&quot;&gt;The entity labeled 4 is the quick start toolbar.
+The entity is labeled 5 is an accordion list of designed forms. Each form item
+can be expanded or stretched to reveal content associated with that form.
+In the main figure, form 3 is selected revealing its details and options.
+When an accordion form item is selected some form metadata labeled as 12 and a
+tool bar of form options are provided.&lt;/p&gt;
+
+&lt;h2&gt;Form Accordion Toolbar Buttons – Preview Form Button&lt;/h2&gt;
+
+&lt;p align=&quot;justify&quot;&gt;The &quot;Preview Form&quot; button labeled 6
+on the form options list opens a modal window that shows a read only version of
+the designed form. It cannot be altered or augmented in any way.&lt;/p&gt;
+
+&lt;h2&gt;Form Accordion Toolbar Buttons – Construct Form for Submission Button&lt;/h2&gt;
+
+&lt;p align=&quot;justify&quot;&gt;Button 7 called &quot;Construct form for Submission&quot;
+builds the designer’s form for the user to fill in and submit. Refer to introduction section
+to determine the discrepancy between designers and users of the form.&lt;/p&gt;
+
+&lt;h2&gt;Form Accordion Toolbar Buttons – Form Options Button&lt;/h2&gt;
+
+&lt;p align=&quot;justify&quot;&gt;If the button &quot;form options&quot; is
+clicked on, a modal window opens with all the possible form commands whether
+general or specific to the designer’s form depicted in the figure below.
+The new commands will allow designers to create new forms from scratch.
+If designers want to alter the form metadata, the button &quot;Edit Form Metadata&quot;
+exists for this use. If designers want to alter or augment their existing
+form contents which are the form elements, designers can go back to the
+WYSIWYG form editor to make willful changes. The build command buttons will
+either build the designed for preview or for users of that form for submission.
+Two delete options are given. The &quot;Delete Form Submissions&quot; button
+will delete all the submission results of users for that form.
+The &quot;Delete All Form Contents&quot; button will delete everything
+belonging to this form including the form metadata, form element contents,
+publishing settings and submission results. The form submission commands
+include a button for users of the form for submitting results and for
+designers to view results submitted by the users.&lt;/p&gt;
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+
+    <tbl_formbuilder_user_help_content>
+        <id>init_20</id>
+        <name>form_options_accordion_form_settings</name>
+        <type>form_listings</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+
+&lt;h2&gt;Form Accordion Toolbar Buttons – View Form Settings Button&lt;/h2&gt;
+
+&lt;p align=&quot;justify&quot;&gt;Returning to the main figur, the
+&quot;View Form Settings&quot; button colored coded as 9 will display a modal
+window displaying the publishing details selected by the designer as well as
+simple and advanced directions to construct or render designers’ forms. The
+figure below shows the form settings modal window with the general information
+tab opened. This tab simply provides the brief description of the publishing
+details selected by the user.&lt;/p&gt;
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+
+    <tbl_formbuilder_user_help_content>
+        <id>init_21</id>
+        <name>form_options_accordion_form_settings_simple</name>
+        <type>form_listings</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+&lt;p align=&quot;justify&quot;&gt;The form settings modal window with the
+&quot;Simple Publishing Details&quot; tab opened is shown in the figure below.
+For simple designers that possess fair knowledge about HTML can use the
+information in this tab to construct their form anywhere they desire. From 
+this figure, the first text area contains the URL address to create the
+designer’s form. Designers can use this knowledge to build their forms anywhere
+they desire. To see this in action, simple copy the contents of this text area
+and paste it into the internet address bar of an internet browser to build the
+form. The second text area contains HTML code to produce a link to construct
+or render form.&lt;/p&gt;
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+
+    <tbl_formbuilder_user_help_content>
+        <id>init_22</id>
+        <name>form_options_accordion_form_settings_advanced</name>
+        <type>form_listings</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+&lt;p align=&quot;justify&quot;&gt;The form setting modal window with the
+&quot;Advanced Publishing Details&quot; tab opened is shown in the figure below.
+This tab contains information for PHP developers to produce their forms
+anywhere in their modules. The first text area in this figure consists of
+Chisimba PHP code to construct or render the form. The second text area consists
+of a Chisimba PHP URI (Uniform Resource Indicator) that developers can use at
+their disposal.&lt;/p&gt;
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+
+    <tbl_formbuilder_user_help_content>
+        <id>init_23</id>
+        <name>form_options_accordion_form_publishing_and_submissions</name>
+        <type>form_listings</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+&lt;h2&gt;Form Accordion Toolbar Buttons – Publishing and Submit Options Button&lt;/h2&gt;
+
+&lt;p align=&quot;justify&quot;&gt;Returning to the main figure, the
+&quot;Publishing and Submit Options&quot; button color labeled 10 will produce
+the same modal window explicated in section call Form Publisher. Refer to this
+section for more information about this button. It is important to note that
+editing a form inside the WYSIWYG form editor will automatically unpublish it.
+When the designer decides to publish this form, the previous publishing
+parameters saved do not get lost.&lt;/p&gt;
+
+&lt;h2&gt;Form Accordion Toolbar Buttons – View Submit Result Records Button&lt;/h2&gt;
+&lt;p align=&quot;justify&quot;&gt;The &quot;View Submit Result Records&quot;
+button will enable designers to view all the current form submissions of this
+form in a page payout shown in the figure below. The default tab 
+&quot;List ALL Submitted Results&quot; will display of all form submissions in
+a format shown below. To view the actual result, click on the link shaped like
+an eye and the result will slide out to right hand side of the page shown 
+in this figure. Sometimes users will submit the form multiple times, the
+second tab &quot;List Final Submitted Results&quot; will list only the last
+submission of each user in the same format as in the figure below. The 
+&quot;View Multiple Submitted Results&quot; and &quot;View Result Graphically&quot;
+tabs are currently under construction by the developer of this module. It will
+possibly include pie charts and bar graphs to present the submit results.&lt;/p&gt;
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+
+
+
+    <tbl_formbuilder_user_help_content>
+        <id>init_24</id>
+        <name>conclusion</name>
+        <type>form_listings</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+&lt;h1&gt;Conclusion&lt;/h1&gt;
+
+&lt;p align=&quot;justify&quot;&gt;Some additional features will be added in
+future. Existing entities, layouts and styles would be slightly altered.
+However, the core functionality explicated in this manual will remain the same.
+When creating a new form, the form flow of inserting form metadata, form element
+contents inside the form editor and publishing details have to be inserted for
+successfully creating a new form. If any of these steps are neglected, the
+intended result of creating a form for users to fill in and submit will not be
+achieved. When forms are successfully created, the contents, metadata and
+publishing settings can easily be altered using the options provided in the
+form listings. Additionally, forms and form submissions can be deleted if
+it is required. The functionality of this module has been explored and
+explicated.&lt;/p&gt;
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+        <tbl_formbuilder_user_help_content>
+        <id>init_25</id>
+        <name>html_forms</name>
+        <type>htmlforms</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+&lt;h2&gt;HTML Forms&lt;/h2&gt;
+&lt;p align=&quot;justify&quot;&gt;HTML forms contain form elements or fields
+that allow users to enter or fill in information. For instance, text will
+inserted in text inputs and area and options are selected in drop down or radio
+buttons. The most integral part of a form is the submit button which takes the
+information filled in the form and executes certain specified actions. For
+instance, once the submit button is hit, the information filled in the form
+either get emailed to the designer of the form or saved into a database for
+future viewing or both. There are several types of form elements that can be
+added into a form. These will be explained in detail. Additionally, a specific
+mention will be given for the uses of these form elements and the cases to
+utilize them in forms.&lt;/p&gt;
+
+&lt;p align=&quot;justify&quot;&gt;Any HTML entity can be ascribed with an ID.
+This includes HTML form elements. With many form elements, it becomes easier to
+differentiate between multiple form elements of the same type. As a general
+rule, all form elements that are made by the form builder require a unique ID
+to be inserted.&lt;/p&gt;
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+
+            <tbl_formbuilder_user_help_content>
+        <id>init_26</id>
+        <name>textinput</name>
+        <type>textinput</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+&lt;h2&gt;Text Input&lt;/h2&gt;
+
+&lt;p align=&quot;justify&quot;&gt;The text input is a form field that allows
+users to fill in text which is restricted to only one line. Designers can also
+add more attributes to this form element. The text input can be given a name.
+This name becomes important when designers view form submission records.
+The text input’s name with the data that users input inside it will be shown.&lt;/p&gt;
+
+&lt;p align=&quot;justify&quot;&gt;Designers can also set the size of the text
+input field which defines the width of the field. The width of the field will
+determine the number of characters that can be visible inside the field.&lt;/p&gt;
+
+&lt;p align=&quot;justify&quot;&gt;A default value for the text input can be set.
+In this case the default value will be text that will appear inside the text
+input field by default. The value is text that the user of the form fills in
+that gets saved in a database or sent to designer by email with the name of the
+text input when the form gets submitted. The code below is the html code that
+produces a text input.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;&lt;textarea rows=&quot;2&quot; cols=&quot;70&quot;&gt;
+&lt;input type=&quot;text&quot; size=&quot;35&quot; value=&quot;Enter your name here!&quot;&gt;
+&lt;/textarea&gt;&lt;/p&gt;
+
+&lt;p align=&quot;justify&quot;&gt;The code above produces a text input shown below.
+Note that the value gets shown by default inside the field which can be changed
+by the user of the form.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;&lt;input type=&quot;text&quot; size=&quot;35&quot; value=&quot;Enter your name here!&quot;&gt;&lt;/p&gt;
+
+&lt;p align=&quot;justify&quot;&gt;A password field is like text input field
+which one minute difference. The only difference is that inserts data of type
+password and not text as seen in the code above. The data that gets entered into
+a password field is displayed as dots as to prevent others looking at the
+screen to read the password.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;&lt;textarea rows=&quot;2&quot; cols=&quot;70&quot;&gt;
+&lt;input type=&quot;password&quot; size=&quot;35&quot; value=&quot;password&quot;&gt;
+&lt;/textarea&gt;&lt;/p&gt;
+
+&lt;p align=&quot;justify&quot;&gt;The code above produces a password field shown below.
+Notice that the value password shows up as eight dots.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;&lt;input type=&quot;password&quot; size=&quot;35&quot; value=&quot;password&quot;&gt;&lt;/p&gt;
+
+&lt;p align=&quot;justify&quot;&gt;Apart from text and password fields, an input
+mask can also be applied to a text input field. An input mask is defined by the
+designer of the form that governs what users are allowed to enter as input in a
+text input field. It can also aid in adding special characters such as dashes
+for credit card numbers or parentheses for telephone numbers. The input masks
+offered by the form builder are listed in the table below.&lt;/p&gt;
+
+
+
+&lt;table cellspacing=&quot;5&quot; align=&quot;center&quot;&gt;
+&lt;tr&gt;
+&lt;th&gt;Input Mask Type&lt;/th&gt;
+&lt;th>Format&lt;/th>
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; Number &lt;/td&gt;
+&lt;td&gt; 1234567890 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; Date (US Format) &lt;/td&gt;
+&lt;td&gt; day/month/year &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; Date (ISO Format) &lt;/td&gt;
+&lt;td&gt; year-month-day &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; Time &lt;/td&gt;
+&lt;td&gt; hour : minute &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; Phone Number &lt;/td&gt;
+&lt;td&gt; (000)000-0000 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; Credit Card Number &lt;/td&gt;
+&lt;td&gt; 0000-0000-0000-0000 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+
+       </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+
+
+          <tbl_formbuilder_user_help_content>
+        <id>init_27</id>
+        <name>textinput_inserter</name>
+        <type>textinput</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+&lt;p align=&quot;justify&quot;&gt;This modal window inserts a single line text
+input field. When the &quot;Insert Text Input&quot; button is clicked on, if
+the fields completed inside this modal window are correct, this modal window
+will close and insert a new text input field. If some fields are not filled in
+correctly, an error message will be displayed on top of the modal window and the
+fields which contain the input error will be highlighted red. The main sections
+of this modal window displayed in the figure above are numbered and
+explained below.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;The insert id field will use the contents of this field and set the 
+id attribute in the html div container that holds the text input element. 
+This field value needs to be unique within this form. The name of the text 
+input field will take the contents of this field and set the name attribute 
+of the text input field. This value needs to be unique as no other form 
+elements within this form can have this value. Additionally, this value needs to 
+be intuitive, as it will be displayed in the submission of results section with 
+the value that the user of the form has submitted.&lt;/li&gt;
+
+&lt;li&gt;This section will allow designers to insert a label for the text 
+input element. If designers opt not to add a label for their text input fields 
+then simply leave the text area blank. Otherwise, insert the desired text in 
+the text area to be shown as a label. The label orientation radio buttons 
+allow designers to select the orientation of the label with respect to the text input field.
+Images inside these radio buttons allow users to visualize how the label orientation
+would look like.&lt;/li&gt;
+
+&lt;li&gt;This section allows designers to set the width of the text input field.
+The default size is 25. Any number outside 1 and 150 will result in an error and
+has to be rectified.&lt;/li&gt;
+
+&lt;li&gt;The input text type radio button allows designers to choose between a 
+text field and a password field. If a password field is chosen, the input mask 
+option and the default text input field will automatically hide away since it 
+is not required for a password field.&lt;/li&gt;
+
+&lt;li&gt;The input mask radio buttons sets the input mask type of the text input
+field. The no input mask option is selected as default.&lt;/li&gt;
+
+&lt;li&gt;Default text for the text input can be set by entering it inside this
+text area. If designers choose to leave the text input field blank, simply leave
+this field blank.&lt;/li&gt;
+&lt;/ol&gt;
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+
+   <tbl_formbuilder_user_help_content>
+        <id>init_28</id>
+        <name>textarea</name>
+        <type>textarea</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+&lt;h2&gt;Text Area&lt;/h2&gt;
+&lt;p align=&quot;justify&quot;&gt;Text areas are similar to text inputs except
+that text areas can span multiple lines. Text areas are unique form fields as
+these entities do not start with the tag &quot;input&quot; but rather the tag &quot;textarea&quot;
+as expressed in the code below. Text areas also possess &quot;row&quot; and
+&quot;cols&quot; attributes to specify the row and column size of the text area.
+All other attributes such as &quot;name&quot; and &quot;value&quot; behave the
+same as in text inputs.&lt;/p&gt;
+
+
+&lt;p align=&quot;center&quot;&gt;&lt;textarea rows=&quot;2&quot; cols=&quot;70&quot;&gt;
+&lt;textarea cols=&quot;70&quot; rows=&quot;4&quot; name=&quot;myTextArea&quot;>Default Text&lt;/textarea&gt;
+&lt;/textarea&gt;&lt;/p&gt;
+
+&lt;p align=&quot;justify&quot;&gt;This code above produces a text area shown below.
+Notice that the value of the text area is encapsulated inside the &quot;textarea&quot; tags
+rather than the value tag. However, this attribute is flexible as specifying default
+text within a value attribute will also produce the same result.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;&lt;textarea cols=&quot;70&quot; rows=&quot;4&quot; name=&quot;myTextArea&quot;>Default Text&lt;/textarea&gt;&lt;/p&gt;
+
+&lt;p align=&quot;justify&quot;&gt;The form builder also allows the insertion of
+text areas with text editing toolbars on top. There are five different types of
+toolbars that allow users to insert various types of data with different
+styles. The figure below shows a text area with the toolbar named &quot;forms&quot; toolbar.
+
+
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+
+      
+
+
+
+          <tbl_formbuilder_user_help_content>
+        <id>init_29</id>
+        <name>textarea_inserter</name>
+        <type>textarea</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+
+&lt;p align=&quot;justify&quot;&gt;This modal window inserts a single text area
+field. When the &quot;Insert Text Area&quot; button is clicked on, if the fields
+completed inside this modal window are correct, this modal window will close and
+insert a new text area field. If some fields are not filled in correctly, an
+error message will be displayed on top of the modal window and the fields which
+contain the input error will be highlighted red. The main sections of this modal
+window displayed in the figure above are numbered and explained below. Note that
+there are two tabs on top. If the simple tab is selected, a text area without
+toolbars on top will be inserted. If the advanced tab is selected, a text area
+with toolbars on top will be displayed. The only difference between the two tabs
+is that in the advanced tab there is a radio button entity that allows the
+choosing of a toolbar for the text area.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;The insert id field will use the contents of this field and set the
+id attribute in the html div container that holds the text area element.
+This field value needs to be unique within this form. The name of the text area
+field will take the contents of this field and set the name attribute of the text
+area field. This value needs to be unique as no other form elements within this
+form can have this value. Additionally, this value needs to be intuitive, as it
+will be displayed in the submission of results section with the value that the
+user of the form has submitted.&lt;/li&gt;
+&lt;li&gt;This section will allow designers to insert a label for the text
+area element. If designers opt not to add a label for their text area fields then
+simply leave the text area blank. Otherwise, insert the desired text in the text
+area to be shown as a label. The label orientation radio buttons allows designers
+to select the orientation of the label with respect to the text area. Images inside
+these radio buttons allow users to visualize how the label orientation would
+look like.&lt;/li&gt;
+&lt;li&gt;This section allows designers to set the width and height of the text
+area field. The default sizes are 70 and 10 for column and row sizes. The columns
+field will set the number of text characters that can be displayed. The rows field
+will set the number of rows of text that can be displayed. &lt;/li&gt;
+&lt;li&gt;Default text for the text area can be set by entering it inside this
+text area. If designers choose to leave the text area field blank, simply leave
+this field blank.&lt;/li&gt;
+&lt;/ol&gt;
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+
+
+      <tbl_formbuilder_user_help_content>
+        <id>init_30</id>
+        <name>cehckbox</name>
+        <type>checkbox</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+        &lt;h2&gt;Check Box&lt;/h2&gt;
+&lt;p align=&quot;justify&quot;&gt;Check boxes are utilized when the designer
+wants the user of the form to select one or more options from a set of
+alternatives. If only one option is to be selected in a group of options,
+it is suggested that radio buttons should be used.&lt;/p&gt;
+
+&lt;p align=&quot;justify&quot;&gt;Similar to other form elements, the name
+attribute adds an internal name to the field so the form builder can uniquely
+identify it apart form other fields. The value attribute defines what will be
+submitted by the user. In this case, if the use checks this form element,
+the value “on” gets saved along with the element’s name. If the check box
+remains unchecked, the value “off” gets stored. The value of the check box
+element should not be confused with the option text. The option text is what
+gets displayed next to the check box. It could be thought of as a label for the
+check box. &lt;/p&gt;
+
+&lt;p align=&quot;justify&quot;&gt;The attribute &quot;checked&quot; will allow
+designers to default check this field. Example HTML is given in the code below.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;&lt;textarea rows=&quot;3&quot; cols=&quot;70&quot;&gt;
+&lt;input type=&quot;checkbox&quot; name=&quot;Bird&quot;>Birds&lt;br&gt;
+	&lt;input type=&quot;checkbox&quot; name=&quot;Cat&quot; checked&gt;Cats&lt;br&gt;
+&lt;input type=&quot;checkbox&quot; name=&quot;Dog&quot;&gt;Dogs
+&lt;/textarea&gt;&lt;/p&gt;
+
+&lt;p align=&quot;justify&quot;&gt;The code above produces the form entity
+displayed below. Notice the checked attribute is added in the cats option to
+produce this check this option by default.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;input type=&quot;checkbox&quot; name=&quot;Bird&quot;>Birds&lt;br&gt;
+	&lt;input type=&quot;checkbox&quot; name=&quot;Cat&quot; checked&gt;Cats&lt;br&gt;
+&lt;input type=&quot;checkbox&quot; name=&quot;Dog&quot;&gt;Dogs
+&lt;/p&gt;
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+
+    <tbl_formbuilder_user_help_content>
+        <id>init_31</id>
+        <name>checkbox_inserter_intro</name>
+        <type>cehckbox</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+
+
+&lt;p align=&quot;justify&quot;&gt;This modal window above inserts check box elements
+within a single html div container. When the &quot;Insert Check Box Option&quot; button
+is clicked on, if the fields completed inside this modal window are correct,
+this modal window will close and insert a new check box. If some fields are not
+filled in correctly, an error message will be displayed on top of the modal window
+and the fields which contain the input error will be highlighted red. Upon the
+successful insertion of a check box option, another modal window displayed in the
+figure below will ask whether or not to add more check box options. If the
+designer is done inserting check boxes, simply click on the &quot;save&quot;
+button otherwise click the &quot;add another check box option&quot;
+button to add more options.&lt;/p&gt;
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+    <tbl_formbuilder_user_help_content>
+        <id>init_32</id>
+        <name>checkbox_inserter_body</name>
+        <type>cehckbox</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+
+
+&lt;p align=&quot;justify&quot;&gt;The main sections of this modal window
+displayed in main modal window figure on top which are numbered and
+explained below. &lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;The insert id field will use the contents of this field and set the
+id attribute in the html div container that hold the check box options. This
+field value needs to be unique within this form.&lt;/li&gt;
+
+&lt;li&gt;This section will allow designers to insert a label for the check box
+options. If designers opt not to add a label for their check box options then
+simply leave the text area blank. Otherwise, insert the desired text in the text
+area to be shown as a label. The label orientation radio buttons allows designers
+to select the orientation of the label with respect to the check box options.
+Images inside these radio buttons allow users to visualize how the label
+orientation would look like.&lt;/li&gt;
+
+&lt;li&gt;This section allows designers to set what layout to insert their check
+box option. Three different spacing and orientations can be chosen. Images inside
+the radio buttons will allow designers to visualize what the layout of the
+checkbox option would look like.&lt;/li&gt;
+
+&lt;li&gt;This section will allow designers to set the value and text of the
+check box option. It is imperative not to confuse and conflate these two
+entities together. The value of the check box option is actually the name
+attribute which adds an internal name to the check box option so the form builder
+can uniquely identify it apart form other fields. Additionally, this value needs
+to be intuitive, as it will be displayed in the submission of results section
+with the value that the user of the form has submitted. The value of the check
+box element should not be confused with the option text. The option text is what
+gets displayed next to the check box. It could be thought of as a label for the
+check box. The button &quot;set this option selected as default&quot; will apply the
+attribute &quot;checked&quot; to the option to default check this option.&lt;/li&gt;
+&lt;/ol&gt;
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+
+       <tbl_formbuilder_user_help_content>
+        <id>init_33</id>
+        <name>radio</name>
+        <type>radio</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+      &lt;h2&gt;Radio Button&lt;/h2&gt;
+&lt;p align=&quot;justify&quot;&gt;Radio buttons are used when the designer
+desires to permit the user of the form to select only one option from a set of
+other alternative options. If the designer wants to allow more options to be
+selected, it is suggested to use check box elements instead. Similar to all
+other form elements, the name attribute specifies a group of radio buttons the
+field belongs to. When the user selects one option; this causes all the other
+options become unselected. The value attribute defines what will be submitted
+if checked. Unlike the check box element, the value can be defined. Also, the
+option text has to be specified. It is imperative the designers not conflate
+the value attribute with the option text. The option text is what gets displayed
+next to the radio button while the value is what gets submitted when selected.
+Similar to the check box element, the checked attribute will allow designer to
+check only one option from a group of alternative options as a default. The code
+below shows some an example html to produce a group of radio buttons. &lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;&lt;textarea rows=&quot;3&quot; cols=&quot;70&quot;&gt;
+&lt;input type=&quot;radio&quot; name=&quot;group1&quot; value=&quot;Milk&quot;&gt; Milk&lt;br&gt;
+	&lt;input type=&quot;radio&quot; name=&quot;group1&quot; value=&quot;butter&quot; checked&gt; Butter&lt;br&gt;
+&lt;input type=&quot;radio&quot; name=&quot;group1&quot; value=&quot;Cheese&quot;&gt; Cheese
+&lt;/textarea&gt;&lt;/p&gt;
+
+&lt;p align=&quot;justify&quot;&gt;From the code above, the radio buttons
+produced is shown below. If this group of radio buttons gets submitted in this
+state, the value &quot;butter&quot; will be saved in the database or emailed to
+the designer of the form.&lt;/p&gt;
+
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;input type=&quot;radio&quot; name=&quot;group1&quot; value=&quot;Milk&quot;&gt; Milk&lt;br&gt;
+	&lt;input type=&quot;radio&quot; name=&quot;group1&quot; value=&quot;butter&quot; checked&gt; Butter&lt;br&gt;
+&lt;input type=&quot;radio&quot; name=&quot;group1&quot; value=&quot;Cheese&quot;&gt; Cheese
+&lt;/p&gt;
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+
+
+      <tbl_formbuilder_user_help_content>
+        <id>init_34</id>
+        <name>radio_inserter_intro</name>
+        <type>radio</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+&lt;p align=&quot;justify&quot;&gt;The modal window above inserts radio button
+elements within a single html div container. When the &quot;Insert Radio Option&quot;
+button is clicked on, if the fields completed inside this modal window are correct,
+this modal window will close and insert a new radio button. If some fields are not
+filled in correctly, an error message will be displayed on top of the modal window
+and the fields which contain the input error will be highlighted red. Upon the
+successful insertion of a radio button option, another modal window like the one
+displayed in the figure below will ask whether or not to add more radio button
+options. However, the figure below is for the check box entity. The modal window
+for the radio entity will be the same except, it would be applicable for a
+radio entity. If the designer is done inserting radio buttons, simply click on
+the &quot;save&quot; button otherwise click the &quot;add another radio button option&quot;
+button to add more options.&lt;/p&gt;
+
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+       <tbl_formbuilder_user_help_content>
+        <id>init_35</id>
+        <name>radio_inserter_body</name>
+        <type>radio</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+
+&lt;p align=&quot;justify&quot;&gt;The main sections of this modal window displayed
+in figure on top are numbered and explained below. &lt;/p&gt;
+
+&lt;ol&gt;
+
+&lt;li&gt;The insert id field will use the contents of this field and set the
+id attribute in the html div container that hold the radio button options.
+This field value needs to be unique within this form. This id field will also
+serve as setting the name attribute of the radio button. Similar to other form
+elements, the name attribute specifies a group of radio buttons the field belongs
+to. When the user selects one option; this causes all the other options become
+unselected. Additionally, this value needs to be intuitive, as it will be
+displayed in the submission of results section with the value that the user of
+the form has submitted.&lt;/li&gt;
+
+&lt;li&gt;This section will allow designers to insert a label for the radio
+button options. If designers opt not to add a label for their radio button
+options then simply leave the text area blank. Otherwise, insert the desired text
+in the text area to be shown as a label. The label orientation radio buttons
+allows designers to select the orientation of the label with respect to the
+radio button options. Images inside these radio buttons allow users to visualize
+how the label orientation would look like.&lt;/li&gt;
+
+&lt;li&gt;This section allows designers to set what layout to insert their radio
+button option. Three different spacing and orientations can be chosen. Images
+inside the radio buttons will allow designers to visualize what the layout of the
+radio button option would look like.&lt;/li&gt;
+
+&lt;li&gt;This section will allow designers to set the value and text of the radio
+button option. It is imperative not to confuse and conflate these two entities
+together. The value of the radio button option is what gets submitted when this
+option gets selected. The value of the radio button option should not be confused
+with the option text. The option text is what gets displayed next to the radio
+button. It could be thought of as a label for the radio button. The button
+&quot;set this option selected as default&quot; will apply the attribute
+&quot;checked&quot; to the option to default check this option. Once an option
+is set to be default selected, no other options can be set checked as default.&lt;/li&gt;
+&lt;/ol&gt;
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+
+     <tbl_formbuilder_user_help_content>
+        <id>init_36</id>
+        <name>dropdown</name>
+        <type>dropdown</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+      &lt;h2&gt;Drop Down List&lt;/h2&gt;
+&lt;p align=&quot;justify&quot;&gt;Drop down lists are possibly the most
+flexible form elements that can be inserted in forms by designers. Designers
+can set drop down lists to include the same propose and behave similar to radio
+buttons (one selection only) or check boxes (multiple selection permitted).
+The drop down list consumes less space than radio buttons or checkboxes at the
+cost of users not able to see all the options by default. To circumvent this
+restriction, designers can opt to add multi-selectable drop downs that permit
+the setting of a specific size to show more that just one option at a time.
+However, when designers opt to do this, the advantage of conserving space is
+lost. There is a delicate balanced relationship between space and accessibility.
+Designers should be aware of this tradeoff.&lt;/p&gt;
+
+&lt;p align=&quot;justify&quot;&gt;In some cases, designers should replace text
+fields with drop down menus. This will make designers’ forms more user friendly
+as selecting form a menu faster and easier than typing.&lt;/p&gt;
+
+&lt;p align=&quot;justify&quot;&gt;A single selectable drop down menu
+will be discussed. The name attribute specifies group of drop down list options.
+When the user selects one option, this causes all the other options to become
+unselected. The value attribute defines what will be submitted if checked.
+Unlike the check box element, the value can be defined. Also, the option text
+has to be specified. It is imperative the designers not conflate the value
+attribute with the option text. The option text is what gets displayed inside
+the drop down list while the value is what gets submitted when selected.
+Unlike radio buttons and check boxes, drop down lists have the selected attribute
+which serves the function similar to the checked attribute. The &quot;selected&quot;
+attribute will allow designer to check only one option from a group of
+alternative options as a default. The code below shows some an example html to
+produce a list inside drop down menu.&lt;/p&gt;
+
+
+&lt;p align=&quot;center&quot;&gt;&lt;textarea rows=&quot;5&quot; cols=&quot;70&quot;&gt;
+&lt;select name=&quot;mydropdown&quot;>
+&lt;option value=&quot;Milk&quot; selected=&quot;selected&quot;&gt;Fresh Milk&lt;/option&gt;
+	&lt;option value=&quot;Cheese&quot;&gt;Old Cheese&lt;/option&gt;
+&lt;option value=&quot;Bread&quot;&gt;Hot Bread&lt;/option&gt;
+&lt;/select&gt;
+&lt;/textarea&gt;&lt;/p&gt;
+
+&lt;p align=&quot;justify&quot;&gt;From the code above, this html code produces
+a drop down list shown below.&lt;/p&gt;
+
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;select name=&quot;mydropdown&quot;>
+&lt;option value=&quot;Milk&quot; selected=&quot;selected&quot;&gt;Fresh Milk&lt;/option&gt;
+	&lt;option value=&quot;Cheese&quot;&gt;Old Cheese&lt;/option&gt;
+&lt;option value=&quot;Bread&quot;&gt;Hot Bread&lt;/option&gt;
+&lt;/select&gt;
+&lt;/p&gt;
+
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+
+
+
+ <tbl_formbuilder_user_help_content>
+        <id>init_37</id>
+        <name>dropdown_inserter_intro</name>
+        <type>dropdown</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+
+&lt;p align=&quot;justify&quot;&gt;This modal window inserts drop down lists
+within a single html div container. When the &quot;Insert Drop down Option&quot;
+button is clicked on, if the fields completed inside this modal window are correct,
+this modal window will close and insert a new drop down list button.
+If some fields are not filled in correctly, an error message will be displayed
+on top of the modal window and the fields which contain the input error will
+be highlighted red.  Upon the successful insertion of a drop down option, another
+modal window like the one displayed in the figure below will ask whether or not
+to add more drop down options. However, the figure below is for the check box
+entity. The modal window for the drop down entity as opposed to the check box entity
+display below will be the same except, it would
+be applicable for a drop down entity. If the designer is done inserting drop down
+options, simply click on the &quot;save&quot; button otherwise click the
+&quot;add another drop down option&quot; button to add more options.&lt;/p&gt;
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+
+
+ <tbl_formbuilder_user_help_content>
+        <id>init_38</id>
+        <name>dropdown_inserter_body</name>
+        <type>dropdown</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+
+&lt;p align=&quot;justify&quot;&gt;The main sections of this modal window displayed
+in the top figure are numbered and explained below.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;The insert id field will use the contents of this field and set the id
+attribute in the html div container that holds the drop down menu. This field
+value needs to be unique within this form. This id field will also serve as
+setting the name attribute of the drop down list. Similar to other form elements,
+the name attribute specifies a group of drop down options the field belongs to.
+When the user selects one option; this causes all the other options become
+unselected and dormant. Additionally, this value needs to be intuitive, as it
+will be displayed in the submission of results section with the value that the
+user of the form has submitted.&lt;/li&gt;
+
+&lt;li&gt;This section will allow designers to insert a label for the drop down
+menu. If designers opt not to add a label for their drop down menu then simply
+leave the text area blank. Otherwise, insert the desired text in the text area
+to be shown as a label. The label orientation radio buttons allows designers to
+select the orientation of the label with respect to the drop down menu. Images
+inside these radio buttons allow users to visualize how the label orientation
+would look like.&lt;/li&gt;
+
+&lt;li&gt;This section will allow designers to set the value and text of the drop
+down option. It is imperative not to confuse and conflate these two entities
+together. The value of the drop down option is what gets submitted when this
+option gets selected. The value of the drop down option should not be confused
+with the option text. The option text is what gets displayed inside the drop
+down menu as an option. It could be thought of as a label for the drop down
+option. The button &quot;set this option selected as default&quot;
+will apply the attribute &quot;selected&quot; to the option to default select
+this option. Once an option is set to be default selected, no other options
+can be set selected as default.&lt;/li&gt;
+&lt;/ol&gt;
+
+
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+
+     <tbl_formbuilder_user_help_content>
+        <id>init_39</id>
+        <name>msdropdown</name>
+        <type>msdropdown</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+      &lt;h2&gt;Drop Down List&lt;/h2&gt;
+&lt;p align=&quot;justify&quot;&gt;Drop down lists are possibly the most
+flexible form elements that can be inserted in forms by designers. Designers
+can set drop down lists to include the same propose and behave similar to radio
+buttons (one selection only) or check boxes (multiple selection permitted).
+The drop down list consumes less space than radio buttons or checkboxes at the
+cost of users not able to see all the options by default. To circumvent this
+restriction, designers can opt to add multi-selectable drop downs that permit
+the setting of a specific size to show more that just one option at a time.
+However, when designers opt to do this, the advantage of conserving space is
+lost. There is a delicate balanced relationship between space and accessibility.
+Designers should be aware of this tradeoff.&lt;/p&gt;
+
+&lt;p align=&quot;justify&quot;&gt;In some cases, designers should replace text
+fields with drop down menus. This will make designers’ forms more user friendly
+as selecting form a menu faster and easier than typing.&lt;/p&gt;
+
+&lt;p align=&quot;justify&quot;&gt;A single selectable drop down menu
+will be discussed. The name attribute specifies group of drop down list options.
+When the user selects one option, this causes all the other options to become
+unselected. The value attribute defines what will be submitted if checked.
+Unlike the check box element, the value can be defined. Also, the option text
+has to be specified. It is imperative the designers not conflate the value
+attribute with the option text. The option text is what gets displayed inside
+the drop down list while the value is what gets submitted when selected.
+Unlike radio buttons and check boxes, drop down lists have the selected attribute
+which serves the function similar to the checked attribute. The &quot;selected&quot;
+attribute will allow designer to check only one option from a group of
+alternative options as a default. The code below shows some an example html to
+produce a list inside drop down menu.&lt;/p&gt;
+
+
+&lt;p align=&quot;center&quot;&gt;&lt;textarea rows=&quot;5&quot; cols=&quot;70&quot;&gt;
+&lt;select name=&quot;mydropdown&quot;>
+&lt;option value=&quot;Milk&quot; selected=&quot;selected&quot;&gt;Fresh Milk&lt;/option&gt;
+	&lt;option value=&quot;Cheese&quot;&gt;Old Cheese&lt;/option&gt;
+&lt;option value=&quot;Bread&quot;&gt;Hot Bread&lt;/option&gt;
+&lt;/select&gt;
+&lt;/textarea&gt;&lt;/p&gt;
+
+&lt;p align=&quot;justify&quot;&gt;From the code above, this html code produces
+a drop down list shown below.&lt;/p&gt;
+
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;select name=&quot;mydropdown&quot;>
+&lt;option value=&quot;Milk&quot; selected=&quot;selected&quot;&gt;Fresh Milk&lt;/option&gt;
+	&lt;option value=&quot;Cheese&quot;&gt;Old Cheese&lt;/option&gt;
+&lt;option value=&quot;Bread&quot;&gt;Hot Bread&lt;/option&gt;
+&lt;/select&gt;
+&lt;/p&gt;
+
+
+&lt;p align=&quot;justify&quot;&gt;The multi-selectable drop down menu allows
+designers to display any number of options. Additionally, multiple options can
+be selected as default. Users can also select multiple values. The code below
+is the html to produce a multi selectable drop down menu.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;&lt;textarea rows=&quot;5&quot; cols=&quot;70&quot;&gt;
+&lt;select multiple=&quot;multiple&quot; name=&quot;mydropdown[]&quot;&gt;
+&lt;option selected=&quot;selected&quot; value=&quot;Milk&quot;&gt;Fresh Milk&lt;/option&gt;
+	&lt;option value=&quot;Cheese&quot;&gt;Old Cheese&lt;/option&gt;
+&lt;option selected=&quot;selected&quot; value=&quot;Bread&quot;&gt;Hot Bread&lt;/option&gt;
+&lt;option value=&quot;Eggs&quot;&gt;Large Eggs&lt;/option&gt;
+&lt;/select&gt;
+&lt;/textarea&gt;&lt;/p&gt;
+
+&lt;p align=&quot;justify&quot;&gt;From the code above, a multi-selectable drop
+down menu is produced shown below. From the code above and resultant HTML element
+below, it can be seen that the values milk and break are selected as default.
+Additionally, a menu size is not specified. If a menu size is not specified,
+the menu will auto fit all options as seen in HTML element below.&lt;/p&gt;
+
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;select multiple=&quot;multiple&quot; name=&quot;mydropdown[]&quot;&gt;
+&lt;option selected=&quot;selected&quot; value=&quot;Milk&quot;&gt;Fresh Milk&lt;/option&gt;
+	&lt;option value=&quot;Cheese&quot;&gt;Old Cheese&lt;/option&gt;
+&lt;option selected=&quot;selected&quot; value=&quot;Bread&quot;&gt;Hot Bread&lt;/option&gt;
+&lt;option value=&quot;Eggs&quot;&gt;Large Eggs&lt;/option&gt;
+&lt;/select&gt;
+&lt;/p&gt;
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+
+     <tbl_formbuilder_user_help_content>
+        <id>init_40</id>
+        <name>msdropdown_inserter_intro</name>
+        <type>msdropdown</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+&lt;p align=&quot;justify&quot;&gt;This modal window inserts multi-selectable
+drop down lists within a single html div container. When the &quot;Insert Multi-
+Selectable Drop down Option&quot; button is clicked on, if the fields completed
+inside this modal window are correct, this modal window will close and insert a 
+new drop down list button. If some fields are not filled in correctly, an error 
+message will be displayed on top of the modal window and the fields which 
+contain the input error will be highlighted red. Upon the successful insertion of 
+a drop down option, another modal window like the one displayed in the figure 
+below will ask whether or not to add more drop down options. However, the figure
+below is for the check box entity. The modal window for the drop down entity
+as opposed to the window for the check box entity will be the same except, it would
+be applicable for a drop down entity. If the designer is done inserting drop down
+options, simply click on the &quot;save&quot; button otherwise click the
+&quot;add another drop down option&quot; button to add more options.&lt;/p&gt;
+
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+
+  <tbl_formbuilder_user_help_content>
+        <id>init_41</id>
+        <name>msdropdown_inserter_body</name>
+        <type>msdropdown</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+&lt;p align=&quot;justify&quot;&gt;The main sections of this modal window
+displayed in figure on top are numbered and explained below. &lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;The insert id field will use the contents of this field and set the id
+attribute in the html div container that holds the drop down menu. This field
+value needs to be unique within this form. This id field will also serve as
+setting the name attribute of the drop down list. Similar to other form elements,
+the name attribute specifies a group of drop down options the field belongs to.
+Additionally, this value needs to be intuitive, as it will be displayed in the
+submission of results section with the value that the user of the form has
+submitted.&lt;/li&gt;
+&lt;li&gt;This section will allow designers to insert a label for the drop dow
+n menu. If designers opt not to add a label for their drop down menu then simply
+leave the text area blank. Otherwise, insert the desired text in the text area
+to be shown as a label. The label orientation radio buttons allows designers to
+select the orientation of the label with respect to the drop down menu. Images
+inside these radio buttons allow users to visualize how the label orientation
+would look like.&lt;/li&gt;
+&lt;li&gt;This section sets the size of the drop down menu. A radio button is
+given with two options. The auto-fit option will fit all options with the menu
+and the menu is automatically grown and fit all the options enabling to be
+visible. The other option is to specify the menu size. When this option is
+selected a text input will appear in which the user will be asked to enter any
+number greater than 1. This number will set the number of options that can be
+visible.&lt;/li&gt;
+&lt;li&gt;This section will allow designers to set the value and text of the
+drop down option. It is imperative not to confuse and conflate these two entities
+together. The value of the drop down option is what gets submitted when this
+option gets selected. The value of the drop down option should not be confused
+with the option text. The option text is what gets displayed inside the drop
+down menu as an option. It could be thought of as a label for the drop down
+option. The button &quot;set this option selected as default&quot; will apply
+the attribute &quot;selected&quot; to the option to default select this option.&lt;/li&gt;
+&lt;/ol&gt;
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+
+     <tbl_formbuilder_user_help_content>
+        <id>init_42</id>
+        <name>datepicker</name>
+        <type>datepicker</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+&lt;h2&gt;Date Picker Object&lt;/h2&gt;
+
+&lt;p align=&quot;justify&quot;&gt;If the designer wants the user of the form
+to select a date, two approaches can be taken. A text input field with a date
+input mask can be inserted. However, this is not user friendly. The date picker
+object can be inserted to increase simplicity and usability. As with other form
+elements, a name attribute has to be given. Additionally, a date format has to
+be selected by the designer. Once this is set, dates that are filled in by
+users of the form will be saved and displayed in this format. A real time or
+default date can also be selected. The real time is a default setting if no
+default date is specified and will show the current date by default. If a
+specific date is chosen, this date will be shown by default. The date picker
+is not solely an HTML entity. It also incorporates some JavaScript. The object
+displays the layout of date picker object.&lt;/p&gt;
+
+&lt;p id=&quot;dpContainer&quot; align=&quot;center&quot;&gt;
+Date: &lt;input  type=&quot;text&quot; name=&quot;datepickerInput&quot; id=&quot;datepicker&quot;&gt;
+&lt;/p&gt;
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+
+<tbl_formbuilder_user_help_content>
+        <id>init_43</id>
+        <name>datepicker_inserter</name>
+        <type>datepicker</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+
+
+&lt;p align=&quot;justify&quot;&gt;This modal window inserts a single date picker
+object. When the &quot;Insert Date Picker&quot; button is clicked on, if the
+fields completed inside this modal window are correct, this modal window will
+close and insert a new date picker object. If some fields are not filled in
+correctly, an error message will be displayed on top of the modal window and the
+fields which contain the input error will be highlighted red. The main sections
+of this modal window displayed in the figure above are numbered and explained
+below. &lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;The insert id field will use the contents of this field and set the
+id attribute in the html div container that holds the date picker object.
+This field value needs to be unique within this form. The name of the date picker
+field will take the contents of this field and set the name attribute of the
+date picker. This value needs to be unique as no other form elements within this
+form can have this value. Additionally, this value needs to be intuitive, as
+it will be displayed in the submission of results section with the value that
+the user of the form has submitted.&lt;/li&gt;
+&lt;li&gt;A date format has to be selected by the designer. Once this is set,
+dates that are filled in by users of the form will be saved and displayed
+in this format.&lt;/li&gt;
+&lt;li&gt;A real time or default date can also be selected. The real time is a
+default setting if no default date is specified and will show the current date
+by default. If a specific date is chosen, this date will be shown by default.&lt;/li&gt;
+&lt;/ol&gt;
+
+
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+     <tbl_formbuilder_user_help_content>
+        <id>init_44</id>
+        <name>htmlheading</name>
+        <type>htmlheading</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+&lt;h2&gt;HTML Heading&lt;/h2&gt;
+&lt;p align=&quot;justify&quot;&gt;A HTML heading is simply a title or subtitle
+that can be displayed with various sizes and alignments. The html heading sizes
+run from 1 through to 6 with 1 being the largest and 6 the smallest. The alignments
+include left, center and right alignment with the left being default if one does
+not specify this attribute. HTML code is shown in the text area below
+that produces some html headings.&lt;/p&gt;
+
+
+&lt;p align=&quot;center&quot;&gt;&lt;textarea rows=&quot;6&quot; cols=&quot;70&quot;&gt;
+			&lt;h1 align=&quot;center&quot;&gt;Headings&lt;/h1&gt;
+			&lt;h2 align=&quot;right&quot;&gt;are&lt;/h2&gt;
+                        &lt;h3&gt;great&lt;/h3&gt;
+			&lt;h4 align=&quot;left&quot;&gt;for&lt;/h4&gt;
+			&lt;h5 align=&quot;right&quot;&gt;titles&lt;/h5&gt;
+			&lt;h6&gt;and subtitles&lt;/h6&gt;
+&lt;/textarea&gt;&lt;/p&gt;
+
+
+
+&lt;p align=&quot;justify&quot;&gt;The code above produces various html headings
+with various sizes and alignments shown below.&lt;/p&gt;
+			&lt;h1 align=&quot;center&quot;&gt;Headings&lt;/h1&gt;
+			&lt;h2 align=&quot;right&quot;&gt;are&lt;/h2&gt;
+                        &lt;h3&gt;great&lt;/h3&gt;
+			&lt;h4 align=&quot;left&quot;&gt;for&lt;/h4&gt;
+			&lt;h5 align=&quot;right&quot;&gt;titles&lt;/h5&gt;
+			&lt;h6&gt;and subtitles&lt;/h6&gt;
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+<tbl_formbuilder_user_help_content>
+        <id>init_45</id>
+        <name>htmlheading_inserter</name>
+        <type>htmlheading</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+
+&lt;p align=&quot;justify&quot;&gt;This modal window inserts a single html
+heading. When the &quot;Insert HTML Heading&quot; button is clicked on, 
+if the fields completed inside this modal window are correct, this modal window 
+will close and insert a new html heading. If some fields are not filled in 
+correctly, an error message will be displayed on top of the modal window and the
+fields which contain the input error will be highlighted red. The main sections 
+of this modal window displayed in the figure above are numbered and explained
+below. &lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;The insert id field will use the contents of this field and set the
+id attribute in the html div container that holds the html heading. This field
+value needs to be unique within this form. &lt;/li&gt;
+&lt;li&gt;The html heading sizes run from 1 through to 6 with 1 being the largest
+and 6 the smallest. The designer has to select only one of these radio buttons.&lt;/li&gt;
+&lt;li&gt;The alignments include left, center and right alignment with the
+left being default if one does not specify this attribute.&lt;/li&gt;
+&lt;li&gt;This section allows designers to add the actual text for the
+HTML heading.&lt;/li&gt;
+&lt;/ol&gt;
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+     <tbl_formbuilder_user_help_content>
+        <id>init_46</id>
+        <name>label</name>
+        <type>label</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+&lt;h2&gt;Label&lt;/h2&gt;
+&lt;p align=&quot;justify&quot;&gt;Typically, form elements are associated with
+text. This text can be referred to as labels. To create a label, simply enclose
+the intended text inside the tags &quot;label&quot;and &quot;/label&quot;.
+To associate these labels, the attribute &quot;for&quot; is used. The name form
+the form element is inserted inside the &quot;for&quot; attribute. If the label
+is devoid of this &quot;for&quot; attribute, then the label can simply be
+construed as text.&lt;/p&gt;
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+    <tbl_formbuilder_user_help_content>
+        <id>init_47</id>
+        <name>label_inserter</name>
+        <type>label</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+
+&lt;p align=&quot;justify&quot;&gt;This modal window inserts a single label.
+However, the attribute &quot;for&quot; will be set to null. Inserting this 
+kind of label is similar to simply inserting normal text. When the &quot;Insert 
+Label&quot; button is clicked on, if the fields completed inside this modal 
+window are correct, this modal window will close and insert a new label or 
+simply text. If some fields are not filled in correctly, an error message will 
+be displayed on top of the modal window and the fields which contain the input 
+error will be highlighted red. The main sections of this modal window displayed
+in the figure above are numbered and explained below. &lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;The insert id field will use the contents of this field and set the
+id attribute in the html div container that holds the label or simply text.
+This field value needs to be unique within this form. &lt;/li&gt;
+&lt;li&gt;This section allows designers to set what layout to insert their label.
+Three different spacing and orientations can be chosen.
+Images inside the radio buttons will allow designers to visualize what the
+layout of the label would look like.&lt;/li&gt;
+&lt;li&gt;This section allows designers to add the actual text for the label.&lt;/li&gt;
+&lt;/ol&gt;
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+
+
+     <tbl_formbuilder_user_help_content>
+        <id>init_48</id>
+        <name>button</name>
+        <type>button</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+&lt;h2&gt;Submit and Reset Buttons&lt;/h2&gt;
+
+&lt;p align=&quot;justify&quot;&gt;The reset button allows users of the form to
+reset all the form elements belonging to the form to their default values.
+The submit button allows users send the form to a specified address and conduct
+a set of particular specified actions. For instance, the action can be set to store all
+the results from the form into a database and divert to a particular website or
+send the form results via email to the designer and then divert to a particular
+website. The name attribute adds an internal name to the button so the form
+builder module handles the form and does not confuse the button with the other
+fields. The value attribute sets what is written on the button. It can be
+referred to as the label. HTML code that produces both a reset and submit button
+is expressed in the text area below.
+
+
+&lt;p align=&quot;center&quot;&gt;&lt;textarea rows=&quot;2&quot; cols=&quot;70&quot;&gt;
+&lt;input type=&quot;reset&quot; value=&quot;Reset All fields!&quot;&gt;
+&lt;input type=&quot;submit&quot; value=&quot;Send me your name!&quot;&gt;
+&lt;/textarea&gt;&lt;/p&gt;
+
+&lt;p align=&quot;justify&quot;&gt;The code block above produces submit and
+reset buttons next to each other shown below.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;input type=&quot;reset&quot; value=&quot;Reset All fields!&quot;&gt;
+&lt;input type=&quot;submit&quot; value=&quot;Send me your name!&quot;&gt;
+&lt;/p&gt;
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+     <tbl_formbuilder_user_help_content>
+        <id>init_49</id>
+        <name>button_inserter_intro</name>
+        <type>button</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+&lt;p align=&quot;justify&quot;&gt;This modal window inserts submit or reset
+buttons within a single html div container. When the &quot;Insert Button&quot;
+button is clicked on, if the fields completed inside this modal window are
+correct, this modal window will close and insert a new submit or reset button.
+If some fields are not filled in correctly, an error message will be displayed
+on top of the modal window and the fields which contain the input error will be
+highlighted red. Upon the successful insertion of a button, another modal window
+like the one displayed in the figure below will ask whether or not to add another
+button next to newly created one. However, this figure below show a modal window
+for a check box. This window will have the same format but it will be applicable
+for a button element. If the designer is done inserting buttons, simply click
+on the &quot;save&quot; button otherwise click the &quot;add another button&quot;
+button to add another button next to the newly created one.&lt;/p&gt;
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+
+
+     <tbl_formbuilder_user_help_content>
+        <id>init_50</id>
+        <name>button_inserter_body</name>
+        <type>button</type>
+        <datecreated>2010-11-11 12:00:00</datecreated>
+        <pagecontent>
+&lt;p align=&quot;justify&quot;&gt;The main sections of this modal window
+displayed in the figure on top are numbered and explained below.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;The insert id field will use the contents of this field and set the
+id attribute in the html div container that hold submit or reset buttons.
+This field value needs to be unique within this form. The name attribute adds an
+internal name to the button so the form builder module handles the form and
+does not confuse the button with the other fields.&lt;/li&gt;
+&lt;li&gt;This radio button permits either submit or reset buttons to
+be inserted.&lt;/li&gt;
+&lt;li&gt;The value attribute sets what is written on the button.
+It can be referred to as the label.&lt;/li&gt;
+&lt;/ol&gt;
+        </pagecontent>
+    </tbl_formbuilder_user_help_content>
+</defaultdata>

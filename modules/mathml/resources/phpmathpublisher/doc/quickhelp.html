@@ -1,0 +1,184 @@
+<html>
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>PhpMathPublisher : Help</title>
+<meta name="keywords" content="mathematic,math,mathematics,mathématique,math renderer,php,formulae,latex,mathml,publishing,pascal brachet,brachet">
+<style type="text/css">
+BODY {
+	font-family:  'Times New Roman',times,serif ;
+	background-color:#FFFFFF;
+	color:#000000;
+	margin-top: 5px;
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+}
+A:link    { color:#335d88;font-weight: bold; text-decoration: none;}
+A:visited { color:#335d88;font-weight: bold;  text-decoration: none;}
+A:hover   { color:red; font-weight: bold; text-decoration: none;}
+
+#contentlabel
+{
+	font-family : 'Times New Roman',times,serif ;
+	font-size : 1.2em;
+	font-style: bold;
+	color: #666666;
+	font-variant: small-caps;
+	background-color:#FFFFFF;
+	padding-left: 0px;
+	padding-right: 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border-bottom: 2px dotted #888;
+}
+
+#contentbox
+{
+	font-family : 'Times New Roman',times,serif ;
+	font-size : medium;
+}
+
+#header
+{
+	color: #666666;
+	font-family :  'Times New Roman',times,serif ;
+	font-weight: bold;
+	font-variant: small-caps;
+	background-color:#FFFFFF;
+	font-size: 1.4em;
+	padding: 2px 0 2px 10px;
+	margin: 0px;
+	text-align : center;
+	border-bottom: 2px dotted #888;
+}
+
+#nav 
+{
+	color: #335d88;
+	background-color: #95c1df;
+	font-family :  'Times New Roman',times,serif ;
+	font-size: 0.8em;
+	padding: 2px 0 2px 10px;
+	margin: 0px;
+}
+#aide
+{
+font-family :  arial,helvetica,sans-serif;
+}
+#aide .left
+{
+float : left;
+left : 1%;
+width :35%;
+font-family :  arial,helvetica,sans-serif;
+color:#000;
+background-color:#f0f0f0;
+border:1px solid #69c;
+line-height:150%;
+padding: 5px 5px 5px 5px;
+/*position: absolute;*/
+font-size: .8em;
+}
+
+#aide .center
+{
+margin : 1em 37%;
+font-family :  arial,helvetica,sans-serif;
+color:#000;
+background-color:#f0f0f0;
+border:1px solid #69c;
+line-height:150%;
+font-size: .8em;
+padding: 5px 5px 5px 5px;
+}
+#aide .right
+{
+float : right;
+right : 1%;
+width : 35%;
+font-family :  arial,helvetica,sans-serif;
+color:#000;
+background-color:#f0f0f0;
+border:1px solid #69c;
+line-height:150%;
+/*position: absolute;*/
+font-size: .8em;
+padding: 5px 5px 5px 5px;
+}
+
+
+
+#footer
+{
+position : relative;
+top : 1em;
+border-top: 2px dotted;
+border-color: #888;
+text-align: center;
+font-size: .8em;
+font-family :  'Times New Roman',times,serif ;
+padding: 2px;
+clear: both;
+}
+</style>
+</head>
+<body>
+<div id="header">PhpMathPublisher : help</div>
+<div id="contentbox"><p>To toggle to the math mode, you must use the &#060;m&#062;...&#060;/m&#062; tag. Apart from this tag, any html code can be used.<br>
+The math commands must be separated by a space character or surrounded by {}.<br>
+<strong>Examples </strong> :
+<ul>
+<li>&#060;m&#062;S(f)(t)=a_{0}+sum{n=1}{+infty}{a_{n} cos(n omega t)+b_{n} sin(n omega t)}&#060;/m&#062;</li>
+<li>&#060;m&#062;delim{lbrace}{matrix{3}{1}{{3x-5y+z=0} {sqrt{2}x-7y+8z=0} {x-8y+9z=0}}}{ }&#060;/m&#062;</li>
+<li>&#060;m&#062;delim{|}{{1/N} sum{n=1}{N}{gamma(u_n)} - 1/{2 pi} int{0}{2 pi}{gamma(t) dt}}{|} <= epsilon/3&#060;/m&#062;</li>
+</ul>
+</p></div>
+<div id="contentlabel">Quick help</div>
+<div id="aide">
+<div class="left">
+<strong>Usual commands:</strong><br>
++  -  *  /  ^  _  <>  >  >=  <  <=<br>
+<strong>Parenthesis :</strong><br>
+visible : (x)<br>
+invisible : {x}<br>
+<strong>Math space</strong> : ~<br>
+<strong>Greek letters :</strong><br>
+small letters : alpha, beta, gamma, delta, epsilon, varepsilon, zeta, eta, theta, vartheta, iota, kappa, lambda, mu, nu, xi, pi, varpi, rho, varrho, sigma, varsigma, tau, upsilon, phi, varphi, chi, psi, omega<br>
+capital letters : Gamma, Lambda, Sigma, Psi, Delta, Xi, Upsilon, Omega, Theta, Pi, Phi<br>
+<strong>Symbols :</strong><br> infty , in , notin , forall , exists, notexists , partial , approx , pm , inter , union , ortho , parallel , backslash , prime , wedge , vert , lbrace , rbrace , circ, varnothing , subset , notsubset , cdots , vdots , ddots
+</div>
+<div class="right">
+<strong>Delimiters :</strong><br>delim{ [ or ] or | or lbrace or vert }{expression}{ [ or ] or | or rbrace or vert }<br>Remark : for the standard brackets, don't use delim but directly the (  ) characters .<br>
+<strong>Matrix :</strong><br>matrix{num of lines}{num of columns}{first_element ... last_element}<br>
+<strong>Tabular :</strong><br>tabular{lines description}{columns description}{first_element ... last_element}<br>
+lines description : sequence of 1 (draw the horizontal line) or 0 (don't draw the horizontal line) - the length of the sequence=num of lines+1<br>
+columns description : sequence of 1 (draw the vertical line) or 0 (don't draw the vertical line) - the length of the sequence=num of columns+1<br>
+<strong>Constructions :</strong><br>
+vec{expression}<br>
+{expression}under{below} , {expression}over{above}<br>
+(below and above are smaller and centered)<br>
+overline{expression}<br>
+underline{expression}<br>
+hat{expression}
+</div>
+<div class="center">
+<strong>Arrows :</strong><br> left , right , leftright , doubleleft , doubleright , doubleleftright , nearrow , searrow<br>
+<strong>Sets :</strong><br> bbR , bbN , bbZ , bbC<br>
+<strong>Roots :</strong><br>square root : sqrt{expression}<br>
+nth root of expression : root{n}{expression}<br>
+<strong>Limits :</strong><br>lim{where}{expression}<br>
+<strong>Big operators :</strong><br>
+int{lower limit}{upper limit}{expression}<br>
+doubleint{lower limit}{upper limit}{expression}<br>
+tripleint{lower limit}{upper limit}{expression}<br>
+oint{lower limit}{upper limit}{expression}<br>
+sum{lower limit}{upper limit}{expression}<br>
+prod{lower limit}{upper limit}{expression}<br>
+bigcup{lower limit}{upper limit}{expression}<br>
+bigcap{lower limit}{upper limit}{expression}
+</div>
+</div>
+<div id="footer">
+<p><b><A href="http://www.xm1math.net/phpmathpublisher/" target="_blank">PhpMathPublisher</A></b> - Copyright 2005 <b>Pascal Brachet - France</b></p>
+</div>
+</body>
+</html>

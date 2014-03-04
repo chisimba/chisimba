@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<updates>
+    <update>
+        <table>tbl_twitterizer</table>
+        <version>0.003</version>
+        <description>added tstamp field</description>
+        <data>
+        	<add>
+				<name>tstamp</name>
+				<type>integer</type>				
+			</add>
+		</data>    
+	</update>
+</updates>

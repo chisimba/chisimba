@@ -1,0 +1,310 @@
+/*
+
+	Sterile 1.0
+	
+*/
+
+/* Main Layout
+------------------------------ */
+body {
+	background: #EEE;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+#main {
+	text-align: left;
+	margin: 40px auto 5px auto;
+	padding: 0;
+	width: 700px;
+	background: #FFF;
+	-moz-border-radius: 10px;
+	border: 1px solid #CCC;
+}
+#credit {
+	margin: 0 auto 40px auto;
+	width: 680px;
+	font-size: 9px;
+	color: #AAA;
+	text-align: right;
+	clear: both;
+}
+#credit a {
+	text-decoration: none;
+	color: #9C3;
+}
+#credit a:hover {
+	color: #7A2;
+	text-decoration: none;
+}
+#gallerytitle {
+	padding: 30px;
+	-moz-border-radius-topleft: 10px;
+	-moz-border-radius-topright: 10px;
+	background: #F8F8F8;
+	border-bottom: 1px solid #CCC;
+}
+#padbox {
+	padding: 20px;
+}
+
+
+/* Text Styles
+------------------------------ */
+body {
+	font: normal 11px Verdana, Arial, Helvetica, sans-serif;
+	color: #888;
+}
+h2 {
+	font: normal 16px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+	color: #666;
+	margin: 0;
+	padding: 0;
+}
+h2 a:link, h2 a:visited {
+	color: #9C3;
+	text-decoration: none;
+}
+h2 span {
+	color: #AAA;
+}
+h2 a:hover {
+	color: #7A2;
+	text-decoration: none;
+}
+h3 {
+	font: normal 16px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+	color: #666;
+	margin: 0;
+	padding: 0;
+}
+h4 {
+	font: normal 13px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+	color: #666;
+	margin: 0;
+	padding: 0;
+}
+
+
+/* Link Styles
+------------------------------ */
+a:link, a:active, a:visited { text-decoration: none; color: #9C3; }
+a:hover, a:focus { text-decoration: none; color: #7A2; }
+
+
+/* Miscellaneous
+------------------------------ */
+hr {
+	clear: both;
+	height: 0;
+	border: 0;
+	border-top: 1px solid #444;
+	margin: 0 0 12px 0;
+	padding: 0;
+	color: #444;
+}
+img {
+	border: 0;
+}
+blockquote {
+	border-left: 1px dotted #96967E;
+	margin-left: 20px;
+	padding-left: 20px;
+	color: #363630;
+}
+
+
+/* Page Navigation
+------------------------------ */
+pagelist {
+	padding: 10px 20px 5px 20px;
+}
+ul.pagelist {
+	clear: both;
+	padding: 0;
+	margin: 0;
+	list-style-type: none;
+}
+ul.pagelist li {
+	display: inline;
+}
+ul.pagelist li a, ul.pagelist span.disabledlink {
+	padding: 4px;
+}
+ul.pagelist li.current a {
+	font-weight: bold;
+	text-decoration: none;
+	color: #666;
+}
+ul.pagelist li.prev {
+	margin-right: 10px;
+}
+ul.pagelist li.next {
+	margin-left: 10px;
+}
+.disabledlink {
+	color: #AAA;
+	cursor: default;
+}
+.pagenav {
+	clear: both;
+}
+
+
+/* AJAX
+------------------------------ */
+#albumDescEditable {
+	margin-bottom: 12px;
+}
+#imageDescEditable {
+	margin-top: 24px;
+}
+
+/* Image Thumbnails
+------------------------------ */
+.imagethumb a {
+	display: block;
+	padding: 7px;
+	margin: 16px;
+	line-height: 0px;
+	background: url('img-bg.gif') top left no-repeat;
+}
+.imagethumb {
+	float: left;
+}
+.albumdesc2 {
+	padding: 5px 20px 5px 20px;
+	line-height: 18px;
+}
+
+
+/* Album Thumbnails
+------------------------------ */
+.album {
+	margin: 0 15px 15px 0;
+	float: left;
+	width: 315px;
+}
+.album .imagethumb a {
+	margin: 0;
+}
+.album h3 {
+	padding: 0;
+	margin: 0;
+}
+.album h3 a {
+	display: block;
+	width: 100%;
+}
+.album p {
+	margin: 0 0 4px 0;
+	line-height: 17px;
+	font-size: 10px;
+}
+.albumdesc {
+	float: right;
+	width: 205px;
+	padding: 6px 0 0 0;
+}
+
+
+/* Individual Image
+------------------------------ */
+.image { 
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+.imgdesc {
+	padding: 20px 0 10px 0;
+	line-height: 17px;
+}
+#image {
+	text-align: center;
+	line-height: 0;
+}
+.imgnav {
+	float: right;
+	width: 140px;
+	text-align: center;
+}
+.imgnav .imgprevious a, .imgnav .imgnext a {
+	font: normal 16px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+	display: block;
+	width: 50%;
+	height: 100%;
+	float: left;
+	text-decoration: none;
+	color: #9C3;
+}
+.imgnav .imgprevious a:hover, .imgnav .imgnext a:hover {
+	text-decoration: none;
+	color: #7A2;
+}
+.imgnav .imgprevious a {
+	float: left;
+}
+.imgnav .imgnext a {
+	float: right;
+}
+#narrow {
+	margin: 0 auto;
+	width: 440px;
+}
+
+
+/* Comments
+------------------------------ */
+#comments {
+	clear: both;
+}
+.error { 
+  color: #C33; 
+  font-weight: bold; 
+}
+.comment {
+	padding: 5px;
+	border: 1px solid #DDD;
+	background: #FFF;
+	margin-bottom: 5px;
+	line-height: 18px;
+}
+.commentmeta {
+	margin-bottom: 5px;
+	color: #AAA;
+	font-size: 9px;
+}
+
+
+/* Forms
+------------------------------ */
+.inputbox {
+	width: 250px;
+	padding: 2px;
+	color: #888;
+	background: #FFF;
+	border: 1px solid #DDD;
+	font: normal 10px Verdana, Arial, Helvetica, sans-serif;
+}
+textarea {
+	padding: 4px;
+	width: 100%;
+	color: #888;
+	background: #FFF;
+	border: 1px solid #DDD;
+	font: normal 10px Verdana, Arial, Helvetica, sans-serif;
+}
+.checkbox {
+	cursor: pointer;
+}
+.pushbutton {
+	cursor: pointer;
+	padding: 5px 10px;
+	color: #888;
+	background: #FFF;
+	border: 1px solid #DDD;
+	font: normal 10px Verdana, Arial, Helvetica, sans-serif;
+}
+label {
+	cursor: pointer;
+}

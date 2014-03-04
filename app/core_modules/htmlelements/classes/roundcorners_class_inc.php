@@ -57,12 +57,12 @@ class roundcorners extends object
             $this->content = $content;
         }
         
-        $this->appendArrayVar('headerParams', $this->getJavascriptFile('jquery/cornerz.js', 'jquery'));
+        /*$this->appendArrayVar('headerParams', $this->getJavascriptFile('jquery/cornerz.js', 'jquery'));
         $this->appendArrayVar('headerParams', "<script type=\"text/javascript\">
     jQuery(document).ready(function(){
         jQuery('.roundcorners').cornerz();
     })
-    </script>");
+    </script>");*/
          return '<div class="roundcorners">'.$this->content.'</div>';
     }
 

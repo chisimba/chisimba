@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<updates>
+    <update>
+        <table>tbl_learningcontent_activitystreamer</table>
+        <version>1.130</version>
+        <description>Added Session Id Field</description>
+        <data>
+            <add>
+                <name>sessionid</name>
+                <type>text</type>
+                <length>60</length>
+                <notnull>TRUE</notnull>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_learningcontent_activitystreamer</table>
+        <version>1.130</version>
+        <description>Added modulecode Field</description>
+        <data>
+            <add>
+                <name>modulecode</name>
+                <type>text</type>
+                <length>25</length>
+                <notnull>TRUE</notnull>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_learningcontent_activitystreamer</table>
+        <version>1.130</version>
+        <description>Added description Field</description>
+        <data>
+            <add>
+                <name>description</name>
+                <type>text</type>
+                <notnull>FALSE</notnull>
+            </add>
+        </data>
+    </update>    
+    <update>
+        <table>tbl_learningcontent_activitystreamer</table>
+        <version>1.130</version>
+        <description>Added starttime Field</description>
+        <data>
+            <add>
+                <name>starttime</name>
+                <type>timestamp</type>
+                <notnull>FALSE</notnull>
+            </add>
+        </data>
+    </update>    
+    <update>
+        <table>tbl_learningcontent_activitystreamer</table>
+        <version>1.130</version>
+        <description>Added endtime Field</description>
+        <data>
+            <add>
+                <name>endtime</name>
+                <type>timestamp</type>
+                <notnull>FALSE</notnull>
+            </add>
+        </data>
+    </update>    
+    <update>
+        <table>tbl_learningcontent_activitystreamer</table>
+        <version>1.130</version>
+        <description>Added pageorchapter Field</description>
+        <data>
+            <add>
+                <name>pageorchapter</name>
+                <type>text</type>
+                <length>32</length>
+                <notnull>FALSE</notnull>
+            </add>
+        </data>
+    </update>
+</updates>

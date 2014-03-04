@@ -1,0 +1,31 @@
+<html>
+<head>
+<!--
+	AutoComplete Field - HTML Code
+
+	This is a sample source code provided by fromvega.
+	Search for the complete article at http://www.fromvega.com
+
+	Enjoy!
+-->
+<link rel="stylesheet" href="autocomplete.css" type="text/css" media="screen">
+<script src="jquery.js" type="text/javascript"></script>
+<script src="dimensions.js" type="text/javascript"></script>
+<script src="autocomplete.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+	$(function(){
+	    setAutoComplete("searchField", "results", "autocomplete.php?part=");
+	});
+</script>
+</head>
+
+<body>
+	<h1>AutoComplete Field - http://fromvega.com/</h1>
+	<p>
+		<label for="searchField">Colors: </label>
+		<input id="searchField" name="searchField" type="text" />
+	</p>
+</body>
+
+</html>

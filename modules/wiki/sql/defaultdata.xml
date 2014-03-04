@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<defaultdata>
+    <tbl_wiki_wikis>
+        <id>init_1</id>
+        <group_type>default</group_type>
+        <group_id>1</group_id>
+        <wiki_name>Default wiki</wiki_name>
+        <wiki_description>The default wiki for the site</wiki_description>
+        <wiki_visibility>1</wiki_visibility>
+        <creator_id>1</creator_id>
+        <date_created>2007-06-01 12:00:00</date_created>
+    </tbl_wiki_wikis>
+    <tbl_wiki_pages>
+        <id>init_1</id>
+        <wiki_id>init_1</wiki_id>
+        <page_name>MainPage</page_name>
+        <main_page>1</main_page>
+        <page_summary>A brief overview of what a wiki is all about</page_summary>
+        <page_content>[[toc]]
++++ What is a wiki
+* A wiki is a website that allows visitors to add, remove, and edit content.
+* This ease of interaction and operation makes a wiki an effective tool for mass collaborative authoring.
+[MainPage Top]
+----
++++ Characteristics
+* A wiki enables documents to be written collaboratively, in a simple markup language using a web browser. A single page in a wiki is referred to as a "wiki page", while the entire body of pages, which are usually highly interconnected via hyperlinks, is "the wiki". A wiki is essentially a database for creating, browsing and searching information.
+* A defining characteristic of wiki technology is the ease with which pages can be created and updated. Generally, there is no review before modifications are accepted.
+[MainPage Top]
+----
++++ Pages and editing
+* The source format, sometimes known as "wikitext'", is augmented with a simplified markup language to indicate various structural and visual conventions. An often used example of one such convention is to start a line of text with an asterisk ("*") in order to mark it as an item in a bulleted list.
+[MainPage Top]
+----
++++ Linking and creating pages
+* Wikis are a hypertext medium, with non-linear navigational structures. Each page typically contains a large number of links to other pages. Hierarchical navigation pages often exist in larger wikis, often a consequence of the original page creation process, but they do not have to be used. Links are created using a specific syntax, the so-called "link pattern".
+* !CamelCase-based wikis are instantly recognizable because they have many links with names such as "!TableOfContents" and "!BeginnerQuestions".
+[MainPage Top]
+----
++++ Searching
+* Most wikis offer at least a title search, and sometimes a full-text search.
+[MainPage Top]
+----
++++ Controlling changes
+* History comparison reports highlight the changes between two revisions of a page. Wikis are generally designed with the philosophy of making it easy to correct mistakes, rather than making it difficult to make them. Thus, while wikis are very open, they provide a means to verify the validity of recent additions to the body of pages. The most prominent, on almost every wiki, is the "Recent Changes" page. A specific list numbering recent edits, or a list of all the edits made within a given time frame.
+[MainPage Top]
+----
++++ Reference
+* [http://en.wikipedia.org/wiki/Wiki http://en.wikipedia.org/wiki/Wiki]
+[MainPage Top]</page_content>
+        <page_version>1</page_version>
+        <version_comment>The default main page</version_comment>
+        <page_status>1</page_status>
+        <page_author_id>1</page_author_id>
+        <date_created>2007-06-01 12:00:00</date_created>
+    </tbl_wiki_pages>
+    <tbl_wiki_links>
+        <id>init_1</id>
+        <wiki_name>MeatBall</wiki_name>
+        <wiki_link>http://www.usemod.com/cgi-bin/mb.pl?%s</wiki_link>
+    </tbl_wiki_links>
+    <tbl_wiki_links>
+        <id>init_2</id>
+        <wiki_name>Wiki</wiki_name>
+        <wiki_link>http://c2.com/cgi/wiki?%s</wiki_link>
+    </tbl_wiki_links>
+    <tbl_wiki_links>
+        <id>init_3</id>
+        <wiki_name>Wikipedia</wiki_name>
+        <wiki_link>http://en.wikipedia.org/wiki/%s</wiki_link>
+    </tbl_wiki_links>
+</defaultdata>

@@ -1,0 +1,6 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classset__reply__options.html#a6d4d06729d6d4001dcb0227c3828e516" title="set_reply_options::buildSwitchMenu" alt="" coords="264,5,493,35"/>
+<area shape="rect" id="node7" href="$classset__original__message__options.html#a6d4d06729d6d4001dcb0227c3828e516" title="set_original_message_options::buildSwitchMenu" alt="" coords="228,59,529,88"/>
+<area shape="rect" id="node5" href="$classset__reply__options.html#a262193b071ce8a4d8ca986f9f0db39d7" title="set_reply_options::showBuiltSwitchMenu" alt="" coords="616,5,875,35"/>
+<area shape="rect" id="node9" href="$classset__original__message__options.html#a262193b071ce8a4d8ca986f9f0db39d7" title="set_original_message_options::showBuiltSwitchMenu" alt="" coords="580,59,911,88"/>
+</map>

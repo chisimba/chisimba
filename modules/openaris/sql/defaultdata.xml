@@ -1,0 +1,612 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<defaultdata>
+	<tbl_ahis_reporttype>
+		<id>init_01</id>
+		<name>Disease Report</name>
+	</tbl_ahis_reporttype>
+	<tbl_ahis_reporttype>
+		<id>init_02</id>
+		<name>Animal Population and Composition</name>
+	</tbl_ahis_reporttype>
+	<tbl_ahis_reporttype>
+		<id>init_03</id>
+		<name>Meat Inspection</name>
+	</tbl_ahis_reporttype>
+	<tbl_ahis_reporttype>
+		<id>init_04</id>
+		<name>Slaughter</name>
+	</tbl_ahis_reporttype>
+	<tbl_ahis_reporttype>
+		<id>init_05</id>
+		<name>Active Surveillance</name>
+	</tbl_ahis_reporttype>
+	<tbl_ahis_reporttype>
+		<id>init_06</id>
+		<name>Livestock Movement</name>
+	</tbl_ahis_reporttype>
+	<tbl_ahis_reporttype>
+		<id>init_07</id>
+		<name>Livestock Import</name>
+	</tbl_ahis_reporttype>
+	<tbl_ahis_reporttype>
+		<id>init_08</id>
+		<name>Livestock Export</name>
+	</tbl_ahis_reporttype>
+	<tbl_ahis_reporttype>
+		<id>init_10</id>
+		<name>Vaccination Report</name>
+	</tbl_ahis_reporttype>
+	<tbl_ahis_reporttype>
+		<id>init_09</id>
+		<name>Deworming</name>
+	</tbl_ahis_reporttype>
+    
+    <tbl_ahis_title>
+        <id>init_01</id>
+        <name>Mr</name>
+    </tbl_ahis_title>
+    <tbl_ahis_title>
+        <id>init_02</id>
+        <name>Mrs</name>
+    </tbl_ahis_title>
+    <tbl_ahis_title>
+        <id>init_03</id>
+        <name>Miss</name>
+    </tbl_ahis_title>
+    <tbl_ahis_title>
+        <id>init_04</id>
+        <name>Ms</name>
+    </tbl_ahis_title>
+    <tbl_ahis_title>
+        <id>init_05</id>
+        <name>Dr</name>
+    </tbl_ahis_title>
+    <tbl_ahis_title>
+        <id>init_06</id>
+        <name>Prof</name>
+    </tbl_ahis_title>
+    <tbl_ahis_title>
+        <id>init_07</id>
+        <name>Assoc Prof</name>
+    </tbl_ahis_title>
+    <tbl_ahis_title>
+        <id>init_08</id>
+        <name>Rev</name>
+    </tbl_ahis_title>
+
+    <tbl_ahis_status>
+        <id>init_01</id>
+        <name>Active</name>
+    </tbl_ahis_status>
+    <tbl_ahis_status>
+        <id>init_02</id>
+        <name>Inactive</name>
+    </tbl_ahis_status>
+    
+    <tbl_ahis_outbreak>
+         <id>init_01</id>
+         <name>Resolved</name>
+    </tbl_ahis_outbreak>
+    <tbl_ahis_outbreak>
+         <id>init_02</id>
+         <name>Ongoing</name>
+    </tbl_ahis_outbreak>
+    
+    <tbl_ahis_quality>
+         <id>init_01</id>
+         <name>Yes</name>
+    </tbl_ahis_quality>
+    <tbl_ahis_quality>
+         <id>init_02</id>
+         <name>No</name>
+    </tbl_ahis_quality>
+    
+    <tbl_ahis_disease>
+         <id>init_01</id>
+         <name>Foot-and-Mouth Disease</name>
+    </tbl_ahis_disease>
+    <tbl_ahis_disease>
+         <id>init_02</id>
+         <name>Vesicular stomatitis</name>
+    </tbl_ahis_disease>
+    <tbl_ahis_disease>
+         <id>init_03</id>
+         <name>Swine Vesicular Disease</name>
+    </tbl_ahis_disease>
+    <tbl_ahis_disease>
+         <id>init_04</id>
+         <name>Rinderpest</name>
+    </tbl_ahis_disease>
+    <tbl_ahis_disease>
+         <id>init_05</id>
+         <name>Test des petis-Rumminant(TPR)</name>
+    </tbl_ahis_disease>
+    <tbl_ahis_disease>
+         <id>init_06</id>
+         <name>Contagious Bovine Pleuropneumonial</name>
+    </tbl_ahis_disease><tbl_ahis_disease>
+         <id>init_07</id>
+         <name>African swine fever</name>
+    </tbl_ahis_disease>
+    <tbl_ahis_disease>
+         <id>init_08</id>
+         <name>Highly pathogenic avian influenza(HPAI)</name>
+    </tbl_ahis_disease>
+    <tbl_ahis_disease>
+         <id>init_09</id>
+         <name>New Castle Disease</name>
+    </tbl_ahis_disease>
+    <tbl_ahis_disease>
+         <id>init_10</id>
+         <name>Anthrax</name>
+    </tbl_ahis_disease>
+    <tbl_ahis_disease>
+         <id>init_11</id>
+         <name>Goat Mange</name>
+    </tbl_ahis_disease>
+    <tbl_ahis_disease>
+         <id>init_12</id>
+         <name>Sheep Mange</name>
+    </tbl_ahis_disease>
+    <tbl_ahis_disease>
+         <id>init_13</id>
+         <name>Dermatophilosis</name>
+    </tbl_ahis_disease>
+    <tbl_ahis_disease>
+         <id>init_14</id>
+         <name>Fowl Pox</name>
+    </tbl_ahis_disease>
+    <tbl_ahis_disease>
+         <id>init_15</id>
+         <name>Bovine tuberculosis</name>
+    </tbl_ahis_disease>
+    <tbl_ahis_disease>
+         <id>init_16</id>
+         <name>Bovine Trypanosomosis</name>
+    </tbl_ahis_disease>
+    <tbl_ahis_disease>
+         <id>init_17</id>
+         <name>Swine Trypanosomosis</name>
+    </tbl_ahis_disease>
+    <tbl_ahis_disease>
+         <id>init_18</id>
+         <name>Canine Trypanosomosis</name>
+    </tbl_ahis_disease>
+    <tbl_ahis_disease>
+         <id>init_19</id>
+         <name>Rabies</name>
+    </tbl_ahis_disease>
+    <tbl_ahis_disease>
+         <id>init_20</id>
+         <name>Black leg</name>
+    </tbl_ahis_disease>
+    <tbl_ahis_disease>
+         <id>init_21</id>
+         <name>Contagious pustular Dermatitis(Contagious Ecthyma/Orf)</name>
+    </tbl_ahis_disease>
+    
+    <tbl_ahis_causative>
+        <id>init_01</id>
+        <name>Influenza  A H5N1</name>   
+    </tbl_ahis_causative>
+    <tbl_ahis_causative>
+        <id>init_02</id>
+        <name>Brucella Abortus</name>   
+    </tbl_ahis_causative>
+    <tbl_ahis_causative>
+        <id>init_03</id>
+        <name>Foot and Mouth Disease Virus A</name>   
+    </tbl_ahis_causative>
+    <tbl_ahis_causative>
+        <id>init_04</id>
+        <name>Foot and Mouth Disease Virus O</name>   
+    </tbl_ahis_causative>
+    <tbl_ahis_causative>
+        <id>init_05</id>
+        <name>Anthrax</name>   
+    </tbl_ahis_causative>
+    <tbl_ahis_causative>
+        <id>init_06</id>
+        <name>Paramyxo Virus</name>   
+    </tbl_ahis_causative>
+    
+    <tbl_ahis_age>
+        <id>init_01</id>
+        <name>Adult</name>
+    </tbl_ahis_age>
+    <tbl_ahis_age>
+        <id>init_02</id>
+        <name>Juvenile</name>
+    </tbl_ahis_age>
+    <tbl_ahis_age>
+        <id>init_03</id>
+        <name>Neonate</name>
+    </tbl_ahis_age>
+    <tbl_ahis_age>
+        <id>init_04</id>
+        <name>Sub-Adult</name>
+    </tbl_ahis_age>
+    <tbl_ahis_age>
+        <id>init_05</id>
+        <name>Young</name>
+    </tbl_ahis_age>
+    <tbl_ahis_age>
+        <id>init_06</id>
+        <name>Heifer</name>
+    </tbl_ahis_age>
+    
+    <tbl_ahis_species>
+         <id>init_01</id>
+         <name>Avian</name>
+    </tbl_ahis_species>
+    <tbl_ahis_species>
+         <id>init_02</id>
+         <name>Bovine</name>
+    </tbl_ahis_species>
+    <tbl_ahis_species>
+         <id>init_03</id>
+         <name>Canine</name>
+    </tbl_ahis_species>
+    <tbl_ahis_species>
+         <id>init_04</id>
+         <name>Caprine</name>
+    </tbl_ahis_species>
+    <tbl_ahis_species>
+         <id>init_05</id>
+         <name>Equine</name>
+    </tbl_ahis_species>
+    <tbl_ahis_species>
+         <id>init_06</id>
+         <name>Ovine</name>
+    </tbl_ahis_species>
+    <tbl_ahis_species>
+         <id>init_07</id>
+         <name>Swine</name>
+    </tbl_ahis_species>
+    
+    <tbl_ahis_sex>
+         <id>init_01</id>
+         <name>All</name>
+    </tbl_ahis_sex>
+    <tbl_ahis_sex>
+         <id>init_02</id>
+         <name>Broilers</name>
+    </tbl_ahis_sex>
+    <tbl_ahis_sex>
+         <id>init_03</id>
+         <name>Cockerals</name>
+    </tbl_ahis_sex>
+    <tbl_ahis_sex>
+         <id>init_04</id>
+         <name>Male</name>
+    </tbl_ahis_sex>
+    <tbl_ahis_sex>
+         <id>init_05</id>
+         <name>Female</name>
+    </tbl_ahis_sex>
+    <tbl_ahis_sex>
+         <id>init_06</id>
+         <name>Neutered</name>
+    </tbl_ahis_sex>
+    <tbl_ahis_sex>
+         <id>init_07</id>
+         <name>Layers</name>
+    </tbl_ahis_sex>
+    
+     <tbl_ahis_production>
+         <id>init_01</id>
+         <name>Zero Grazing</name>
+    </tbl_ahis_production>
+    <tbl_ahis_production>
+         <id>init_02</id>
+         <name>Free Range</name>
+    </tbl_ahis_production>
+    <tbl_ahis_production>
+         <id>init_03</id>
+         <name>Traditional</name>
+    </tbl_ahis_production>
+    <tbl_ahis_production>
+         <id>init_04</id>
+         <name>Extensive (Transhumant)</name>
+    </tbl_ahis_production>
+    <tbl_ahis_production>
+         <id>init_05</id>
+         <name>Extensive (Pastoral)</name>
+    </tbl_ahis_production>
+    <tbl_ahis_production>
+         <id>init_06</id>
+         <name>Extensive (Pastoral and Transhumant)</name>
+    </tbl_ahis_production>
+    <tbl_ahis_production>
+         <id>init_07</id>
+         <name>Semi-Intensive</name>
+    </tbl_ahis_production>
+    <tbl_ahis_production>
+         <id>init_08</id>
+         <name>Stray</name>
+    </tbl_ahis_production>
+    <tbl_ahis_production>
+         <id>init_09</id>
+         <name>Intensive</name>
+    </tbl_ahis_production>
+    <tbl_ahis_production>
+         <id>init_10</id>
+         <name>Pastoral</name>
+    </tbl_ahis_production>
+    <tbl_ahis_production>
+         <id>init_11</id>
+         <name>Communal</name>
+    </tbl_ahis_production>
+    <tbl_ahis_production>
+         <id>init_12</id>
+         <name>Mixed</name>
+    </tbl_ahis_production>
+    <tbl_ahis_production>
+         <id>init_13</id>
+         <name>Nomadic</name>
+    </tbl_ahis_production>
+    <tbl_ahis_production>
+         <id>init_14</id>
+         <name>Sedentary</name>
+    </tbl_ahis_production>
+    
+    <tbl_ahis_diagnosis>
+         <id>init_01</id>
+         <name>History</name>
+    </tbl_ahis_diagnosis>
+    <tbl_ahis_diagnosis>
+         <id>init_02</id>
+         <name>Meat Inspection</name>
+    </tbl_ahis_diagnosis>
+    <tbl_ahis_diagnosis>
+         <id>init_03</id>
+         <name>Rumor</name>
+    </tbl_ahis_diagnosis>
+    <tbl_ahis_diagnosis>
+         <id>init_04</id>
+         <name>Clinical Science</name>
+    </tbl_ahis_diagnosis>
+    <tbl_ahis_diagnosis>
+         <id>init_05</id>
+         <name>Post-mortem lesions</name>
+    </tbl_ahis_diagnosis>
+    <tbl_ahis_diagnosis>
+         <id>init_06</id>
+         <name>Laboratory results</name>
+    </tbl_ahis_diagnosis>
+    
+    <tbl_ahis_control>
+         <id>init_01</id>
+         <name>Burning</name>
+    </tbl_ahis_control>
+    <tbl_ahis_control>
+         <id>init_02</id>
+         <name>Slaughter</name>
+    </tbl_ahis_control>
+	<tbl_ahis_control>
+         <id>init_03</id>
+         <name>Vaccination</name>
+    </tbl_ahis_control>
+    <tbl_ahis_control>
+         <id>init_04</id>
+         <name>Ban on Slaughter</name>
+    </tbl_ahis_control>
+    <tbl_ahis_control>
+         <id>init_05</id>
+         <name>Dip</name>
+    </tbl_ahis_control>
+    <tbl_ahis_control>
+         <id>init_06</id>
+         <name>Bury</name>
+    </tbl_ahis_control>
+    <tbl_ahis_control>
+         <id>init_07</id>
+         <name>Incineration</name>
+    </tbl_ahis_control>
+    <tbl_ahis_control>
+         <id>init_08</id>
+         <name>Movement restriction</name>
+    </tbl_ahis_control>
+    <tbl_ahis_control>
+         <id>init_09</id>
+         <name>Quarantine</name>
+    </tbl_ahis_control>
+    <tbl_ahis_control>
+         <id>init_10</id>
+         <name>Street biosecurity practice</name>
+    </tbl_ahis_control>
+    <tbl_ahis_control>
+         <id>init_11</id>
+         <name>Vector Control</name>
+    </tbl_ahis_control>
+    <tbl_ahis_countries>
+        <id>init_01</id>
+        <iso_country_code>GH</iso_country_code>
+        <common_name>Ghana</common_name>
+        <official_name>Ghana</official_name>
+        <default_language>English</default_language>
+        <default_currency>Cedi</default_currency>
+        <country_idd>GHC</country_idd>
+        <north_latitude>233</north_latitude>
+        <south_latitude>4.739</south_latitude>
+        <west_longitude>11.167</west_longitude>
+        <east_longitude>-3.249</east_longitude>
+        <area>1.203</area>
+        <unit_of_area_id>239300</unit_of_area_id>
+    </tbl_ahis_countries>
+    <tbl_ahis_countries>
+        <id>init_02</id>
+        <iso_country_code>KE</iso_country_code>
+        <common_name>Kenya</common_name>
+        <official_name>Kenya</official_name>
+        <default_language>English</default_language>
+        <default_currency>Shilling</default_currency>
+        <country_idd>KES</country_idd>
+        <north_latitude>254</north_latitude>
+        <south_latitude>-4.685</south_latitude>
+        <west_longitude>5.018</west_longitude>
+        <east_longitude>33.907</east_longitude>
+        <area>41.905</area>
+        <unit_of_area_id>587800</unit_of_area_id>
+    </tbl_ahis_countries>
+    <tbl_ahis_countries>
+        <id>init_03</id>
+        <iso_country_code>RW</iso_country_code>
+        <common_name>Rwanda</common_name>
+        <official_name>Rwanda</official_name>
+        <default_language>English</default_language>
+        <default_currency>Franc</default_currency>
+        <country_idd>RWF</country_idd>
+        <north_latitude>250</north_latitude>
+        <south_latitude>-2.827</south_latitude>
+        <west_longitude>-1.054</west_longitude>
+        <east_longitude>28.853</east_longitude>
+        <area>30.894</area>
+        <unit_of_area_id>25230</unit_of_area_id>
+    </tbl_ahis_countries>
+    <tbl_ahis_countries>
+        <id>init_04</id>
+        <iso_country_code>UG</iso_country_code>
+        <common_name>Uganda</common_name>
+        <official_name>Uganda</official_name>
+        <default_language>English</default_language>
+        <default_currency>Shilling</default_currency>
+        <country_idd>UGS</country_idd>
+        <north_latitude>256</north_latitude>
+        <south_latitude>-1.476</south_latitude>
+        <west_longitude>4.223</west_longitude>
+        <east_longitude>29.566</east_longitude>
+        <area>35.026</area>
+        <unit_of_area_id>243000</unit_of_area_id>
+    </tbl_ahis_countries>
+    <tbl_ahis_farming_system>
+        <id>Init_01</id>
+        <name>Intensive/commercial </name>
+    </tbl_ahis_farming_system>
+    <tbl_ahis_farming_system>
+        <id>Init_02</id>
+        <name>Mixed/subsistence </name>
+    </tbl_ahis_farming_system>
+    <tbl_ahis_farming_system>
+        <id>Init_03</id>
+        <name>Mixed/Commercial </name>
+    </tbl_ahis_farming_system>
+    <tbl_ahis_farming_system>
+        <id>Init_04</id>
+        <name>Pastoral/communal</name>
+    </tbl_ahis_farming_system>
+      <tbl_ahis_controlmeasure>
+        <id>Init_01</id>
+        <controlmeasure>Treatment</controlmeasure>
+        <abbreviation>T</abbreviation>
+        <description></description>
+    </tbl_ahis_controlmeasure>
+    <tbl_ahis_controlmeasure>
+        <id>Init_02</id>
+        <controlmeasure>Vaccination</controlmeasure>
+        <abbreviation>V</abbreviation>
+        <description>Ring and mass vaccination</description>
+    </tbl_ahis_controlmeasure>
+    <tbl_ahis_controlmeasure>
+        <id>Init_03</id>
+        <controlmeasure>Quarantine</controlmeasure>
+        <abbreviation>Q</abbreviation>
+        <description>Including isolation &amp; prohibiting access to the infected premise</description>
+    </tbl_ahis_controlmeasure>
+    <tbl_ahis_controlmeasure>
+        <id>Init_04</id>
+        <controlmeasure>Stamping out</controlmeasure>
+        <abbreviation>SO</abbreviation>
+        <description>Destruction of infected and all in-contact animals</description>
+    </tbl_ahis_controlmeasure>
+    <tbl_ahis_controlmeasure>
+        <id>Init_05</id>
+        <controlmeasure>Modified stamping out</controlmeasure>
+        <abbreviation>MSO</abbreviation>
+        <description>Destruction of only infected animals</description>
+    </tbl_ahis_controlmeasure>
+    <tbl_ahis_controlmeasure>
+        <id>Init_06</id>
+        <controlmeasure>Control of wildlife reservoirs</controlmeasure>
+        <abbreviation>CWR</abbreviation>
+        <description></description>
+    </tbl_ahis_controlmeasure>
+    <tbl_ahis_controlmeasure>
+        <id>Init_07</id>
+        <controlmeasure>Vector control</controlmeasure>
+        <abbreviation>VC</abbreviation>
+        <description></description>
+    </tbl_ahis_controlmeasure>
+    <tbl_ahis_controlmeasure>
+        <id>Init_08</id>
+        <controlmeasure>Destruction of infected material &amp; disinfection</controlmeasure>
+        <abbreviation>DD</abbreviation>
+        <description></description>
+    </tbl_ahis_controlmeasure>
+    <tbl_ahis_other_control_measures>
+        <id>1</id>
+        <control_measure>Notifiable disease</control_measure>
+        <control_measure_code>Nd</control_measure_code>
+        <abbreviation></abbreviation>
+        <description>legal obligation to report any suspected or confirmed case of the disease to the relevant authorities.</description>
+    </tbl_ahis_other_control_measures>
+    <tbl_ahis_other_control_measures>
+        <id>2</id>
+        <control_measure>Precautions at the borders</control_measure>
+        <control_measure_code>Pb</control_measure_code>
+        <abbreviation></abbreviation>
+        <description>Measures applied at border posts to prevent introduction of the disease into a country</description>
+    </tbl_ahis_other_control_measures>
+    <tbl_ahis_other_control_measures>
+        <id>3</id>
+        <control_measure>Monitoring</control_measure>
+        <control_measure_code>Mo</control_measure_code>
+        <abbreviation></abbreviation>
+        <description>On-going programmes to detect changes in the prevalence of disease in a given population and in its environment.</description>
+    </tbl_ahis_other_control_measures>
+    <tbl_ahis_other_control_measures>
+        <id>4</id>
+        <control_measure>Screening</control_measure>
+        <control_measure_code>Sc</control_measure_code>
+        <abbreviation></abbreviation>
+        <description>Diagnostic tests carried out systematically </description>
+    </tbl_ahis_other_control_measures>
+    <tbl_ahis_other_control_measures>
+        <id>5</id>
+        <control_measure>Surveillance</control_measure>
+        <control_measure_code>Su</control_measure_code>
+        <abbreviation></abbreviation>
+        <description>Continuous investigation of a given population to detect the absence or the occurrence of disease</description>
+    </tbl_ahis_other_control_measures>
+    <tbl_ahis_other_control_measures>
+        <id>6</id>
+        <control_measure>Zoning</control_measure>
+        <control_measure_code>Zo</control_measure_code>
+        <abbreviation></abbreviation>
+        <description>Delineation (by regulatory means) of free, surveillance and/or buffer, and infected zones within the country for disease control purposes.</description>
+    </tbl_ahis_other_control_measures>
+    <tbl_ahis_other_control_measures>
+        <id>7</id>
+        <control_measure>Vaccination prohibited</control_measure>
+        <control_measure_code>Vp</control_measure_code>
+        <abbreviation></abbreviation>
+        <description>Use of a vaccine to control the disease is prohibited under any circumstances.</description>
+    </tbl_ahis_other_control_measures>
+	
+	<tbl_ahis_role>
+        <id>init_01</id>
+        <name>Reporting Officer</name>
+    </tbl_ahis_role>
+    <tbl_ahis_role>
+        <id>init_02</id>
+        <name>Data Entry Officer</name>
+    </tbl_ahis_role>
+    <tbl_ahis_role>
+        <id>init_03</id>
+        <name>Validation Officer</name>
+    </tbl_ahis_role><tbl_ahis_role>
+        <id>init_04</id>
+        <name>Administrator</name>
+    </tbl_ahis_role>
+    
+</defaultdata>

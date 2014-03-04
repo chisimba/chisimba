@@ -1,0 +1,28 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-us">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Sample image</title>
+<link rel="stylesheet" type="text/css" href="../PTViewer.css">
+</head>
+
+<body>
+
+<p>Sample image using PTViewer 2.8:</p>
+
+<applet code="ptviewer.class" archive="ptviewer.jar" width=600 height=450>
+<param name=file value="images/chaberton.jpg">
+<param name=cursor value="MOVE">
+<param name=pan value=-105>
+<param name=showToolbar value="true">
+<param name=imgLoadFeedback value="false">
+<param name=hotspot0 value="X21.3 Y47.7 u'Sample27L2.htm' n'Hotspot description'">
+</applet>
+
+</body>
+
+</html>
+

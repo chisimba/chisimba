@@ -1,0 +1,399 @@
+                 ______________________________________
+                |            PHP iCalendar             |
+                | http://www.phpicalendar.net/         |
+                |______________________________________|
+
+Introduction:
+-------------
+PHP iCalendar is a PHP-based iCal file viewer/parser to display iCals in a Web browser. 
+Its based on v2.0 of the IETF spec. It displays iCal files in a nice logical, 
+clean manner with day, week, month, and year navigation. It is available in 13
+languages and includes support for printing, searching and RSS news feeds. 
+If you need a Calendar application (for creating calendar files), please check 
+the 'Supported Calendar Applications' section of the README.
+
+Contact:
+--------
+E-mail the developers and others on the list at:
+phpicalendar-devel@lists.sourceforge.net
+
+Installation:
+-------------
+- Put PHP iCalendar into your Sites folder (or another web directory)
+- PHP iCalendar works 'out of the box' but you may want to configure some things
+- Edit the file "config.inc.php" and see section below called "Configuration"
+- Put your iCal files into the directory you specify in config.inc.php
+  (default is "calendars")
+- Make sure PHP is enabled (http://developer.apple.com/internet/macosx/php.html)
+- Turn on Web sharing (if not already on)
+- View calendars in your web browser
+  If it is in your Sites folder, the URL would be:
+  <http://localhost/~username/phpicalendar>
+
+Configuration:
+--------------
+View config.inc.php. The comments behind each variable definition will
+tell you what each setting does. Change the values between the quotation
+marks to change the setting of that variable. If there are restrictions 
+as to what that variable can be set to, the comment behind will specify
+them. If you have difficulty with your configuration, you can ask the 
+developers and other PHP iCalendar users at the PHP iCalendar forums: 
+http://phpicalendar.net/forums/
+
+Creating calendars and events:
+--------------------------------
+PHP iCalendar DOES NOT create or edit calendars (or events). Instead it 
+provides a way to view calendars from applications that generate valid 
+IETF 2445 files (.ics). Some of the supported applications are:
+	
+	- Apple iCal
+		- http://www.apple.com/ical/
+	- Mozilla Calendar
+		- http://www.mozilla.org/projects/calendar/
+	- Ximian Evolution
+		- http://www.novell.com/products/evolution/
+	- KOrganizer
+		- http://korganizer.kde.org/
+	- WinDates 5.0
+		- http://www.rockinsoftware.com/windates.htm
+
+Bugs:
+-----
+If you find a bug, please let us know. The easiest way for you to do this
+is to visit our Bug Tracker on SourceForge. This guarantees that we both 
+look at it and take time to figure out what is causing it. You can submit
+bugs at the following URL:
+http://phpicalendar.sourceforge.net/bugs
+
+Requests:
+---------
+Got an idea? Great! Just like with Bugs, there is a Features Tracker over
+on SourceForge. Please use that to sumbit feature requests. That way, you can
+see what others have suggested so you don't duplicate requests, and it will give
+us a chance to keep the features that haven't been implemented in one central
+place that we can find later. The tracker can be found at the following URL:
+http://phpicalendar.sourceforge.net/requests
+
+Licensing: 
+----------
+This product is distributed under the GPL.  Please read through the file
+COPYING for more information about our license.
+
+Changes:
+--------
+cvs
+2.22
+	template.php will look in templates/default if a file is missing from templates/$template
+	add support for WKST and BYPOS tags
+	change popup to not require reparsing cal files
+	differentiate cookie names for different installs on the same host
+	allow image tags in events
+	use real calendar names instead of filenames
+	Year printview
+	Added sidebar to year view
+	Modified rss/index.php
+	-bug fixes from 2.21
+		Suppress lots of warnings and notices
+		all combined selection of webcals
+		passing of webcals in calendar links
+		More items controlled by language files
+		Problem with webcals with encoded spaces in URL
+		Fixes related to various recurring event combinations
+		Fix security hole for getting template file from cookies
+2.21
+	-patched security hole
+	-bug fixes from 2.2
+		Modified rss.php to improve compatibility
+		
+	-Modified templates to validate as XHTML 1.0 Transitional
+2.2
+	-Added Apple iCal native repository support.
+	-Added support for finding calendars in subdirectories.
+	-Can now select multiple local and web calendars.
+	-rss.php 
+		new feed types for different kinds of date ranges
+		changed handling of multi-day events
+	-bug fixes from 2.1 
+	 	handling of webcals
+		popup encoding
+		display when individual calendars displayed
+
+2.1
+	-Updated languages: Finnish
+	-RSS feeds display as previously indended.
+	-Updated languages: Finnish, Norwegian, French
+	-Todo popup respects CHARSET
+	-Allows multiple calendar selection.
+	-Search box can be made to go away.
+	-Cookie vulnerbility fixed (credit: aScii)
+	-Fix for occasionally broken popups.
+	-Various bug fixes.
+
+2.0.1	
+	-Event URLs display without LOCATION.
+	-Fixed VTIMEZONE dates on Windows IIS.
+	-Event popup respect CHARSET
+	-Tabs parsed into &nbsp;
+	-Search links work again.
+	-Search cleaned up.
+	-Weekly repeating events display better.
+	-Slashes stripped from event popups.
+
+2.0 c
+	-Enhanced error messaging system.
+	-New Open Source Documentation.
+		http://phpicalendar.net/documentation
+	-All links now have titles for mouseovers.
+	-Added Afrikaans Language.
+	-Todos can be turned off again.
+	-Month bottom can be turned off again.
+	-Preferences page can be turned off.
+	-Todos won't show private todos.
+	-RSS page respects https servers.
+
+2.0 beta
+	-Updated translations:
+		-Japanese
+		-Swedish
+		-French
+		-Dutch
+		-Traditional Chinese
+		-Lithuanian
+		-Portugese
+	-Added iCal specific publish.php.
+	-Fixed stat bug.
+	-PHP5 support added.
+	-Admin page works again.
+	-Admin page moved to its own folder.
+	-Oct. to Nov. transition more reliable.
+	-RSS handles files with spaces.
+	-Faster template generation.
+	-Requires PHP 4.1.0 or greater now.
+	-Various Bug fixes.
+
+2.0 alpha 2
+	-Mozilla calendars work again.
+	-Todos work again.
+	-Enhanced error messaging system.
+	-Webcals can be cached for greater performance.
+	-Support for 7 colors and 14 calendars by default.
+	-Italian and Spanish translations added.
+	-Some authentication issues resolved.
+	-Change your charset in config.
+	-Better Evolution compatibility.
+	-Better RSS Feeds.
+	-Various Bug fixes.
+
+2.0 alpha
+	-New templating system.
+	-Workaround for events starting between 0000 and 0100.
+	-Removed all styles except for default.
+	-Moved all HTML to XHTML.
+	-Revamped CSS.
+	-Added legends and calendar colors.
+	-HTTP authentication added for admin.php.
+	-Sessions added for locked calendars.
+	-Mozilla calendar support added to publish.php.
+	-RSS supports ports other than 80.
+	-RSS respects $calendar_path.
+	-YEARLY repeating events display better.
+	-All Calendars Combined can now be cached for greater performance.
+	-Parsing engine now twice as fast.
+	-Various bug fixes.
+	
+1.1
+	-Fixed a bug with HTTP authentication.
+	-Fixed a bug with multiple timezones in the same calendar.
+	-Added workarounds for dates prior to 1970.
+	-Fix for moving event information.
+	-Fix for adding newlines in Location field.
+
+1.0
+	-Added return false to popups.
+	-Added workaround for improperly set DTSTART dates.
+
+1.0 RC-2
+	-Fixed all reported bugs.
+	-Added failed login dialog for config authentication.
+	-RSS and Admin pages do not fail parsing.
+
+1.0 RC-1
+	-Fixed all reported bugs.
+	-Event and Todo popup now displays calendar name.
+	-Event popup now supports more than 1024 characters.
+	-Subscribe and download links now work again.
+	-URL support added for popups.
+	-Added config based calendar authentication.
+
+0.9.5
+	-Fixed all reported bugs.
+	-Added a method to publish without Webdav in iCal. calendars/publish.php
+	-Added ability to set 'bleed time' for events that run past midnight.
+
+0.9.4
+	-Vastly improved BYDAY, BYMONTHDAY, BYYEARDAY support.
+	-Improved DURATION Support.
+	-Smaller HTML footprint on all pages with same look and feel.
+	-Combined Calendars automatically refresh when changes are made.
+	-Vtodo popup works again.
+	-Validation increased on multiple pages.
+	-Fixed a bug not listing blacklisted calendars.
+	-Moved HTML head into header.inc.php to better support embedding of calendar.
+	-Moved HTML foot into footer.inc.php to better support embedding of calendar.
+	-Specify the name of 'All Calendars Combined' in language files.
+
+0.9.3	
+	-Multiple calendar support (up to 8).
+	-Fixed pesky <br /> tags in event popup.
+	-Added Esperanto language.
+	-Major bug fixes.
+	-Last to support Netscape 4.x
+	
+0.9.2
+	-Fixed an extra .php on the preferences page.
+	-Increased validations on many pages.
+	-Added support for CLASS (public, private, and confidential).
+	-Added support for LOCATION
+	-Added support for ATTENDEE
+	-Added support for ORGANIZER
+	-Added support for STATUS
+	-New javascript functions provide additional information.
+	-Added the ability to correct the servers time display
+	-Added admin.php for administration of calendars (uses cookies). See config.inc.php for configuration.
+		-Add or Update a calendar via a web interface
+		-Delete a calendar via a web interface
+
+0.9.1
+	-Added unset preferences
+	-Cookies now fall back to defaults if data is bad.
+	-Fixed a bug with the latest version of Ximian.
+	-Added the ability to hard-set cookie-uri and download-uri.
+	-Added Catalan and Tranditional Chinese languages.
+	-Back button on preferences page now works.
+	-Allow_Preferences option now works.
+
+0.9
+	-Added complete VTODO support.
+	-Added STATUS support for VEVENT and VTODO.
+	-Added RSS auto-detection on day, week, month, and year pages.
+	-Added year view icon.
+	-Added Finnish and Czech language support.
+	-Added Preferences page (uses cookies).
+		-Select defualt language
+		-Select default calendar
+		-Select default view
+		-Select default theme
+		-Select default start day
+		-Select default start time
+	-Print view can now be set for your default view.
+	-Updated silver and red styles.
+	-Calendars can now be stored outside of phpicalendar's installation.
+	-Cleaned up folders for easier installation.
+	-Minor interface enhancements.
+	-Minor bug fixes
+
+0.8.1
+	-Added header.inc.php for custom headers.
+	-Added Brazilian language support.
+	-Fixed a bug with some of the style sheets not displaying correctly.
+	-Fixed a bug with RSS not properly validating.
+	-Fixed a bug with Search returning errors on some characters.
+	-Brought some languages up to 0.8 translations.
+	-Added support for "last X in month"
+	-Fixed many small bugs.
+
+0.8
+	-Added search capability.
+	-Added a Printer Friendly view for Day, Week, and Month.
+	-Added support for single event changes in a recurring set.
+	-Added RSS feeds for Day, Week, and Month.
+	-Added Portugese language support.
+	-Added 'clickable links' for web addresses.
+	-Tweeked Red and Grey styles.
+	-Fixed a bug causing Sunday to be listed twice.
+	-Fixed a bug preventing < 4.1.0 php users to run app.
+	-Fixed a bug displaying quotes in summary.
+	-Fixed many other bugs (none open on SF!!)
+
+0.7
+	-Added Year view.
+	-New themes, Green, Orange, Grey, and Tan.
+	-Parses calendars much faster.
+	-Page titles added for bookmarking. 
+	-Fixed bug not letting notes to fully display.
+	-Fixed bug in recurring all-day events.
+	-Fixed a bug for showing &'s and #'s in the javascript.
+	-Greatly improved Mozilla Calendar support.
+	-Overlapping events now display better.
+	-Added complete timezone support (See TIMEZONE file for details).
+	-A new website for PHP iCalendar.
+	-Many bug fixes.
+
+0.6
+	-Added this README!
+    -Greatly improved CSS for "themes", theme SDK available.
+    -HTML bug fixes specific to Windows browsers
+    -All-day and Regular recurring event both support all types
+    -Bottom of month view updated
+    -Day, Week, Month navigation brought back.
+    -Localization update
+    	-Localized dates and times work with Mac OS X as well as
+    	 other *nixes.
+    	-Almost all text has been translated for supported languages
+    	-Added Spanish and Swedish
+    -Added ability to turn off the pop-up menu calendar list
+    -Added "black-listing" of specific local calendars
+    -Added remote calendar support
+        -Subscribe to calendars hosted remotely and have them show 
+         up in your popup
+        -Allow any URL of a calendar to be parsed by your server
+    -Added custom error page for user-friendly error messages.
+    -Added saving of parsed files to separate files for faster processing
+    -Custom options for mini-calendars, this months, events
+    -Bug fixes
+
+0.5
+    -Improved recurring event support
+        -All-day and Regular recurring events now obey ending dates and counts
+        -Regular recurring events for monthly
+    -New UI
+        -Mini-calendars in all views
+        -Jump-to pop-ups for Weeks and Months
+        -Subscribe works properly
+        -Color coding on month view
+        -Week view colors the length of the time like day
+    -Support for event notes/descriptions
+    -More language support
+        -Danish
+        -Dutch
+        -Italian
+        -Japanese
+        -Norwegian
+    -Bug fixes
+    
+0.4
+    -Improved recurring event support
+        -All-day recurring for all types
+        -Regular recurring events for daily, weekly
+    -Event pop-ups
+    -More style sheets
+    -Multiple language support
+        -English
+        -French
+        -German
+        -Polish
+    -24-hour clock support
+    -Bug fixes
+
+0.3
+    -Calendar list popup
+    -All-day yearly recurring support
+    -Bug fixes
+    
+0.2
+    -All-day event support
+    -Added month and week views
+    -Bug fixes
+
+0.1
+    -Initial Release

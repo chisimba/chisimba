@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<defaultdata>
+
+  <!-- MODULE: simpleblog, Table tbl_simpleblog_info create data used by this module -->
+    <tbl_simpleblog_blogs>
+        <id>init_1</id>
+        <blogid>1</blogid>
+        <userid>1</userid>
+        <datecreated>2011-01-10 22:16:25</datecreated>
+        <modifierid>1</modifierid>
+        <datemodified>2011-01-12 22:16:25</datemodified>
+        <blogtype>personal</blogtype>
+        <blog_name>The Administrative User Blog</blog_name>
+        <blog_description>
+            The weblog of Administrative User. This is the
+            default blog for the default administrative user.
+        </blog_description>
+    </tbl_simpleblog_blogs>
+    <tbl_simpleblog_blogs>
+        <id>init_2</id>
+        <blogid>site</blogid>
+        <userid>1</userid>
+        <datecreated>2011-01-14 11:16:25</datecreated>
+        <modifierid>1</modifierid>
+        <datemodified>2011-01-16 22:16:25</datemodified>
+        <blogtype>personal</blogtype>
+        <blog_name>Site blog</blog_name>
+        <blog_description>
+            The site blog is used to display posts from users 
+            who wish to contribute to the site content. Anyone
+            with blogging rights can post to the site blog, and 
+            their posts will appear.
+        </blog_description>
+    </tbl_simpleblog_blogs>
+    
+</defaultdata>

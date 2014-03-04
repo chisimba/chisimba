@@ -1,0 +1,278 @@
+<html>
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>PhpMathPublisher : Help</title>
+<meta name="keywords" content="mathematic,math,mathematics,mathématique,math renderer,php,formulae,latex,mathml,publishing,pascal brachet,brachet">
+<style type="text/css">
+BODY {
+	font-family:  'Times New Roman',times,serif ;
+	background-color:#FFFFFF;
+	color:#000000;
+	margin-top: 5px;
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+}
+A:link    { color:#335d88;font-weight: bold; text-decoration: none;}
+A:visited { color:#335d88;font-weight: bold;  text-decoration: none;}
+A:hover   { color:red; font-weight: bold; text-decoration: none;}
+
+#contentlabel
+{
+	font-family : 'Times New Roman',times,serif ;
+	font-size : 1.2em;
+	font-style: bold;
+	color: #666666;
+	font-variant: small-caps;
+	background-color:#FFFFFF;
+	padding-left: 0px;
+	padding-right: 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border-bottom: 2px dotted #888;
+}
+
+#contentbox
+{
+	font-family : 'Times New Roman',times,serif ;
+	font-size : medium;
+}
+
+#header
+{
+	color: #666666;
+	font-family :  'Times New Roman',times,serif ;
+	font-weight: bold;
+	font-variant: small-caps;
+	background-color:#FFFFFF;
+	font-size: 1.4em;
+	padding: 2px 0 2px 10px;
+	margin: 0px;
+	text-align : center;
+	border-bottom: 2px dotted #888;
+}
+
+#nav 
+{
+	color: #335d88;
+	background-color: #95c1df;
+	font-family :  'Times New Roman',times,serif ;
+	font-size: 0.8em;
+	padding: 2px 0 2px 10px;
+	margin: 0px;
+}
+#aide
+{
+font-family :  arial,helvetica,sans-serif;
+}
+#aide .left
+{
+float : left;
+left : 1%;
+width :48%;
+font-family :  arial,helvetica,sans-serif;
+color:#000;
+background-color:#f0f0f0;
+border:1px solid #69c;
+line-height:150%;
+padding: 5px 5px 5px 5px;
+/*position: absolute;*/
+font-size: 1em;
+}
+
+#aide .right
+{
+float : right;
+right : 1%;
+width : 48%;
+font-family :  arial,helvetica,sans-serif;
+color:#000;
+background-color:#f0f0f0;
+border:1px solid #69c;
+line-height:150%;
+/*position: absolute;*/
+font-size: 1em;
+padding: 5px 5px 5px 5px;
+}
+
+
+
+#footer
+{
+position : relative;
+top : 1em;
+border-top: 2px dotted;
+border-color: #888;
+text-align: center;
+font-size: .8em;
+font-family :  'Times New Roman',times,serif ;
+padding: 2px;
+clear: both;
+}
+</style>
+</head>
+<body>
+<div id="header">PhpMathPublisher : help</div>
+<div id="contentbox"><p>To toggle to the math mode, you must use the &#060;m&#062;...&#060;/m&#062; tag. Apart from this tag, any html code can be used.<br>
+The math commands must be separated by a space character or surrounded by {}.<br>
+<strong>Examples </strong> :
+<ul>
+<li>&#060;m&#062;S(f)(t)=a_{0}+sum{n=1}{+infty}{a_{n} cos(n omega t)+b_{n} sin(n omega t)}&#060;/m&#062;</li>
+<li>&#060;m&#062;delim{lbrace}{matrix{3}{1}{{3x-5y+z=0} {sqrt{2}x-7y+8z=0} {x-8y+9z=0}}}{ }&#060;/m&#062;</li>
+<li>&#060;m&#062;delim{|}{{1/N} sum{n=1}{N}{gamma(u_n)} - 1/{2 pi} int{0}{2 pi}{gamma(t) dt}}{|} <= epsilon/3&#060;/m&#062;</li>
+</ul>
+</p></div>
+<div id="contentlabel">List of commands</div>
+<div id="aide">
+<div class="left">
+<p>
+<b>Usual commands</b><br>
+x+y : <img src="img/d4ebb74e13fff2d03b396e0b6af60063.png" style="vertical-align:-7.5px; display: inline-block ;" alt="x+y" title="x+y"><br>
+x-y : <img src="img/907e0eee9edec91a1f88c7fb93637a66.png" style="vertical-align:-7.5px; display: inline-block ;" alt="x-y" title="x-y"><br>
+x*y : <img src="img/e646e1d7c5339c11685687bc0827fe32.png" style="vertical-align:-7.5px; display: inline-block ;" alt="x*y" title="x*y"><br>
+x/y : <img src="img/ea5553d453946e2c496e9aae0a6372a0.png" style="vertical-align:-19px; display: inline-block ;" alt="x/y" title="x/y"><br>
+x^y : <img src="img/500aa8f23e2ddacef8478037dfcb98ab.png" style="vertical-align:-7.5px; display: inline-block ;" alt="x^y" title="x^y"><br>
+x_y : <img src="img/39605777d43011c8d03ef08fea2b7def.png" style="vertical-align:-16.5px; display: inline-block ;" alt="x_y" title="x_y"><br>
+x&#060;&#062;y : <img src="img/235f8a6415184e12478c4576fcc47f05.png" style="vertical-align:-7.5px; display: inline-block ;" alt="x<>y" title="x<>y"><br>
+x&#062;y : <img src="img/b1c59285a8f58131f1bc3524673a4c95.png" style="vertical-align:-7.5px; display: inline-block ;" alt="x>y" title="x>y"><br>
+x&#062;=y : <img src="img/02d69dd704654a0ffaf5327132c26b8e.png" style="vertical-align:-7.5px; display: inline-block ;" alt="x>=y" title="x>=y"><br>
+x&#060;y : <img src="img/75c395e8d1b7f71eb932d9044ba4df32.png" style="vertical-align:-7.5px; display: inline-block ;" alt="x<y" title="x<y"><br>
+x&#060;=y : <img src="img/ce05a1fe278804d6b240eb54f40bbdf7.png" style="vertical-align:-7.5px; display: inline-block ;" alt="x<=y" title="x<=y"><br>
+<b>Parenthesis</b><br>
+visible : (x)<br>
+invisible : {x}<br>
+<b>Math space</b><br>
+a~b : <img src="img/64a222d053884943397a6fdfa4ea3143.png" style="vertical-align:-7.5px; display: inline-block ;" alt="a~b" title="a~b"><br>
+<b>Greek letters</b><br>
+alpha : <img src="img/2db4d817922b6a60df1adac1179ec1f1.png" style="vertical-align:-7.5px; display: inline-block ;" alt="alpha" title="alpha"><br>
+beta : <img src="img/ca76e2d9c2934299d982b366c4b9631c.png" style="vertical-align:-7.5px; display: inline-block ;" alt="beta" title="beta"><br>
+gamma : <img src="img/dafd987740ae7a608a7a3e6776e63762.png" style="vertical-align:-7.5px; display: inline-block ;" alt="gamma" title="gamma"><br>
+delta : <img src="img/50502dc5ff624927f2cd090e02b9c8d7.png" style="vertical-align:-7.5px; display: inline-block ;" alt="delta" title="delta"><br>
+epsilon : <img src="img/fd2b400592a975627747fe083c73dabc.png" style="vertical-align:-7.5px; display: inline-block ;" alt="epsilon" title="epsilon"><br>
+varepsilon : <img src="img/f1ab61997dd1387bdf059bc7f82e074f.png" style="vertical-align:-7.5px; display: inline-block ;" alt="varepsilon" title="varepsilon"><br>
+zeta : <img src="img/b566ab416f2f6362d97c6356baa30d14.png" style="vertical-align:-7.5px; display: inline-block ;" alt="zeta" title="zeta"><br>
+eta : <img src="img/80d58f742dff1ad97af2bb81dbdfa592.png" style="vertical-align:-7.5px; display: inline-block ;" alt="eta" title="eta"><br>
+theta : <img src="img/cee89d84c3da9b59c80bad31bf538423.png" style="vertical-align:-7.5px; display: inline-block ;" alt="theta" title="theta"><br>
+vartheta : <img src="img/8056373a0559b8b6a8cb06a5929664fb.png" style="vertical-align:-7.5px; display: inline-block ;" alt="vartheta" title="vartheta"><br>
+iota : <img src="img/7e3ff24bc8f43516c101b320c75c43ea.png" style="vertical-align:-7.5px; display: inline-block ;" alt="iota" title="iota"><br>
+kappa : <img src="img/93c0b85db2b9bcf8fd5abf97ece80b4e.png" style="vertical-align:-7.5px; display: inline-block ;" alt="kappa" title="kappa"><br>
+lambda : <img src="img/83c2aa2eaf2d8705df4c042124c644f1.png" style="vertical-align:-7.5px; display: inline-block ;" alt="lambda" title="lambda"><br>
+mu : <img src="img/7eb33b68fd75153cf07532f69851b61e.png" style="vertical-align:-7.5px; display: inline-block ;" alt="mu" title="mu"><br>
+nu : <img src="img/a3f92762a90c44c0bd9ad27477900fd3.png" style="vertical-align:-7.5px; display: inline-block ;" alt="nu" title="nu"><br>
+xi : <img src="img/28262e6cce5fac1cc670bdcda2778405.png" style="vertical-align:-7.5px; display: inline-block ;" alt="xi" title="xi"><br>
+pi : <img src="img/465ef2c348908fbec40915d3d069dfde.png" style="vertical-align:-7.5px; display: inline-block ;" alt="pi" title="pi"><br>
+varpi : <img src="img/5a36f3e529cfabea588c613c80d15d49.png" style="vertical-align:-7.5px; display: inline-block ;" alt="varpi" title="varpi"><br>
+rho : <img src="img/77643458fece23896d09ce584b384c5d.png" style="vertical-align:-7.5px; display: inline-block ;" alt="rho" title="rho"><br>
+varrho : <img src="img/0b238ecfe58f676ac1b248d18b19eb83.png" style="vertical-align:-7.5px; display: inline-block ;" alt="varrho" title="varrho"><br>
+sigma : <img src="img/42f8a93d5568cfa3263e7e3c34fa475e.png" style="vertical-align:-7.5px; display: inline-block ;" alt="sigma" title="sigma"><br>
+varsigma : <img src="img/70d11666b66959b5ffe3c41c1cf945f1.png" style="vertical-align:-7.5px; display: inline-block ;" alt="varsigma" title="varsigma"><br>
+tau : <img src="img/c69b4b157707ebd6fc9a52cc750ee8f9.png" style="vertical-align:-7.5px; display: inline-block ;" alt="tau" title="tau"><br>
+upsilon : <img src="img/5bf9cb3d52ad97ec1c19a557463c8902.png" style="vertical-align:-7.5px; display: inline-block ;" alt="upsilon" title="upsilon"><br>
+phi : <img src="img/08d0ec67eba2153b162332cc376c6501.png" style="vertical-align:-7.5px; display: inline-block ;" alt="phi" title="phi"><br>
+varphi : <img src="img/988db9d1646ad310d31ce1b864573347.png" style="vertical-align:-7.5px; display: inline-block ;" alt="varphi" title="varphi"><br>
+chi : <img src="img/d93a0c183fc37dc79b848d6cdbf7dcb0.png" style="vertical-align:-7.5px; display: inline-block ;" alt="chi" title="chi"><br>
+psi : <img src="img/ef7d7faaa32b16d3186f964397d2a494.png" style="vertical-align:-7.5px; display: inline-block ;" alt="psi" title="psi"><br>
+omega : <img src="img/e0b7ae33ffc407dc3e2493a96dad43a5.png" style="vertical-align:-7.5px; display: inline-block ;" alt="omega" title="omega"><br>
+Gamma : <img src="img/a13a10461d5802da23eb2eacf1463e30.png" style="vertical-align:-7.5px; display: inline-block ;" alt="Gamma" title="Gamma"><br>
+Lambda : <img src="img/8922e4a71383cf48034c17e74e536244.png" style="vertical-align:-7.5px; display: inline-block ;" alt="Lambda" title="Lambda"><br>
+Sigma : <img src="img/56a4019a89f4c2de667f399d765f1d40.png" style="vertical-align:-7.5px; display: inline-block ;" alt="Sigma" title="Sigma"><br>
+Psi : <img src="img/969f6c956f59ad381406192a96dfa295.png" style="vertical-align:-7.5px; display: inline-block ;" alt="Psi" title="Psi"><br>
+Delta : <img src="img/74edda0e8664842325c72aad75944598.png" style="vertical-align:-7.5px; display: inline-block ;" alt="Delta" title="Delta"><br>
+Xi : <img src="img/b9d407f1583d381586eb212b1abb0cb7.png" style="vertical-align:-7.5px; display: inline-block ;" alt="Xi" title="Xi"><br>
+Upsilon : <img src="img/0f5f4d813c2ff5f86b63c760a3a59f69.png" style="vertical-align:-7.5px; display: inline-block ;" alt="Upsilon" title="Upsilon"><br>
+Omega : <img src="img/15160f09c0d673429274849801e792bb.png" style="vertical-align:-7.5px; display: inline-block ;" alt="Omega" title="Omega"><br>
+Theta : <img src="img/fba89a92a75190cce445178491fa465e.png" style="vertical-align:-7.5px; display: inline-block ;" alt="Theta" title="Theta"><br>
+Pi : <img src="img/b931ce26ce2246f484ed225e71795022.png" style="vertical-align:-7.5px; display: inline-block ;" alt="Pi" title="Pi"><br>
+Phi : <img src="img/4c6d70703505b4d81831cd9f64e377f2.png" style="vertical-align:-7.5px; display: inline-block ;" alt="Phi" title="Phi"><br>
+<b>Symbols</b><br>
+infty : <img src="img/0ecc917fe107f0c9c44dccd347683354.png" style="vertical-align:-7.5px; display: inline-block ;" alt="infty" title="infty"><br>
+in : <img src="img/dc8dcd089da6879f8716b327db36eb68.png" style="vertical-align:-7.5px; display: inline-block ;" alt="in" title="in"><br>
+notin : <img src="img/e5df65f2081fbbe00312a4151cf4c445.png" style="vertical-align:-7.5px; display: inline-block ;" alt="notin" title="notin"><br>
+forall : <img src="img/76bcae9774289fd6b2846ae5cf7e64d5.png" style="vertical-align:-7.5px; display: inline-block ;" alt="forall" title="forall"><br>
+exists : <img src="img/2e1c83e313c4e6a949648ce406f156ce.png" style="vertical-align:-7.5px; display: inline-block ;" alt="exists" title="exists"><br>
+notexists : <img src="img/33d1bac66cd62ece8b168a555e60e4b3.png" style="vertical-align:-8.5px; display: inline-block ;" alt="notexists" title="notexists"><br>
+partial : <img src="img/bf24f88f954f7fbfab1c4d9080232148.png" style="vertical-align:-8px; display: inline-block ;" alt="partial" title="partial"><br>
+approx : <img src="img/e586c6f0b88ef51f9936396167aa0dd1.png" style="vertical-align:-7.5px; display: inline-block ;" alt="approx" title="approx"><br>
+pm : <img src="img/d35a82f4de9b8323552b7834bf162f9e.png" style="vertical-align:-7.5px; display: inline-block ;" alt="pm" title="pm"><br>
+inter : <img src="img/1b5ab7021459c1cacf4127fa06dcae66.png" style="vertical-align:-7.5px; display: inline-block ;" alt="inter" title="inter"><br>
+union : <img src="img/6fb78d83baba2a381b3f162ec12b1fe4.png" style="vertical-align:-7.5px; display: inline-block ;" alt="union" title="union"><br>
+ortho : <img src="img/4ab543b73d754623b0d646cb1f9e99dd.png" style="vertical-align:-7.5px; display: inline-block ;" alt="ortho" title="ortho"><br>
+parallel : <img src="img/a0bcd3846614b802f97dd2bc559220b6.png" style="vertical-align:-7.5px; display: inline-block ;" alt="parallel" title="parallel"><br>
+backslash : <img src="img/b50eb33f05d8ac9f754329bab1784546.png" style="vertical-align:-7.5px; display: inline-block ;" alt="backslash" title="backslash"><br>
+prime : <img src="img/57c7b463cf170b397d658cd99beaac30.png" style="vertical-align:-7.5px; display: inline-block ;" alt="prime" title="prime"><br>
+wedge : <img src="img/58edfc2a45b9f89ec9a33fd446294574.png" style="vertical-align:-7.5px; display: inline-block ;" alt="wedge" title="wedge"><br>
+vert : <img src="img/e59500e159e2d64447b61c411ed3a468.png" style="vertical-align:-7.5px; display: inline-block ;" alt="vert" title="vert"><br>
+lbrace : {<br>
+rbrace : }<br>
+circ : <img src="img/080bb093c827a569e2f18556b7ffeaf1.png" style="vertical-align:-7.5px; display: inline-block ;" alt="circ" title="circ"><br>
+varnothing : <img src="img/50607edea0d162153b77bcd88ef767c5.png" style="vertical-align:-7.5px; display: inline-block ;" alt="varnothing" title="varnothing"><br>
+subset : <img src="img/46be7efa4793d1b33696a18a8c87ff8f.png" style="vertical-align:-7.5px; display: inline-block ;" alt="subset" title="subset"><br>
+notsubset : <img src="img/1c502db42f871fea5ea6bcc4150089bc.png" style="vertical-align:-7.5px; display: inline-block ;" alt="notsubset" title="notsubset"><br>
+cdots : <img src="img/b59e72a76122eb79091aa7e86f354c60.png" style="vertical-align:-7.5px; display: inline-block ;" alt="cdots" title="cdots"><br>
+vdots : <img src="img/7e7c4f9b498b1f770bb22f6bc27c09f9.png" style="vertical-align:-8px; display: inline-block ;" alt="vdots" title="vdots"><br>
+ddots : <img src="img/daeb02c2df0ae4f1df7fdc994467a89c.png" style="vertical-align:-8px; display: inline-block ;" alt="ddots" title="ddots">
+</p>
+</div>
+<div class="right">
+<p>
+<b>Arrows :</b><br>
+left : <img src="img/e6dd33685d13dc7a5f7291114512fafc.png" style="vertical-align:-7.5px; display: inline-block ;" alt="left" title="left"><br>
+right :  <img src="img/d1df0405ffe0578ba1d4f54a25464fce.png" style="vertical-align:-7.5px; display: inline-block ;" alt="right" title="right"><br>
+leftright :  <img src="img/3bd6470e62a884ffeaa30c8b1b3f2f5b.png" style="vertical-align:-7.5px; display: inline-block ;" alt="leftright" title="leftright"><br>
+doubleleft :  <img src="img/bd58d2042db2d48bbc8e1dfa882d2e7d.png" style="vertical-align:-7.5px; display: inline-block ;" alt="doubleleft" title="doubleleft"><br>
+doubleright :  <img src="img/81ef5f2e8326e8684ca9ea8deae58b5a.png" style="vertical-align:-7.5px; display: inline-block ;" alt="doubleright" title="doubleright"><br>
+doubleleftright :  <img src="img/158c5704a6f4601be7425f69e70afe10.png" style="vertical-align:-7.5px; display: inline-block ;" alt="doubleleftright" title="doubleleftright"><br>
+nearrow :  <img src="img/7f6b7c6db2e22eb055b691c032fb99a6.png" style="vertical-align:-7.5px; display: inline-block ;" alt="nearrow" title="nearrow"><br>
+searrow :  <img src="img/ef0bdd8a0f4bd9d829a4d23e5a51c6ef.png" style="vertical-align:-7.5px; display: inline-block ;" alt="searrow" title="searrow"><br>
+<b>Sets</b><br>
+bbR : <img src="img/4a385cdeb32d8ee4f6b485036ee58de8.png" style="vertical-align:-7.5px; display: inline-block ;" alt="bbR" title="bbR"><br>
+bbN : <img src="img/756e3a028af48128934ed0cc274f38a3.png" style="vertical-align:-7.5px; display: inline-block ;" alt="bbN" title="bbN"><br>
+bbZ : <img src="img/d3eb3fcdb0647e1f0b2f178be384303d.png" style="vertical-align:-7.5px; display: inline-block ;" alt="bbZ" title="bbZ"><br>
+bbC : <img src="img/b4271c1294275784fb81cd588e1e4e34.png" style="vertical-align:-7.5px; display: inline-block ;" alt="bbC" title="bbC"><br>
+<b>Roots</b><br>
+sqrt{a} : <img src="img/7849e8b3631cc39bd9b7f23df651f3f3.png" style="vertical-align:-7.5px; display: inline-block ;" alt="sqrt{a}" title="sqrt{a}"><br>
+root{n}{a} : <img src="img/fb764e2cf4dcbda1a494111bc60c6474.png" style="vertical-align:-7.5px; display: inline-block ;" alt="root{n}{a}" title="root{n}{a}"><br>
+<b>Limits</b><br>
+lim{a}{x} : <img src="img/68f8350413595eff7376acea36ce6280.png" style="vertical-align:-25.5px; display: inline-block ;" alt="lim{a}{x}" title="lim{a}{x}"><br>
+<b>Big operators</b><br>
+int{a}{b}{x} : <img src="img/5f15df4dd7758873a29b24aa351a8c62.png" style="vertical-align:-25.5px; display: inline-block ;" alt="int{a}{b}{x}" title="int{a}{b}{x}"><br>
+doubleint{a}{b}{x} : <img src="img/7d5fbcf76a2975e6e71b3c9388c71e28.png" style="vertical-align:-28px; display: inline-block ;" alt="doubleint{a}{b}{x}" title="doubleint{a}{b}{x}"><br>
+tripleint{a}{b}{x} : <img src="img/426a22893ed69c4d5792a34b4cd8185e.png" style="vertical-align:-28px; display: inline-block ;" alt="tripleint{a}{b}{x}" title="tripleint{a}{b}{x}"><br>
+oint{a}{b}{x} : <img src="img/025485e02bcdbd3e8e16d1a2de22e988.png" style="vertical-align:-25.5px; display: inline-block ;" alt="oint{a}{b}{x}" title="oint{a}{b}{x}"><br>
+sum{a}{b}{x} : <img src="img/debbcf92ab014b93282c7422f6605538.png" style="vertical-align:-26px; display: inline-block ;" alt="sum{a}{b}{x}" title="sum{a}{b}{x}"><br>
+prod{a}{b}{x} : <img src="img/fc1e260b468c6d85bb33e879fd4057f9.png" style="vertical-align:-26px; display: inline-block ;" alt="prod{a}{b}{x}" title="prod{a}{b}{x}"><br>
+bigcup{a}{b}{x} : <img src="img/824ed28d219c555794e66ebe9659a084.png" style="vertical-align:-26px; display: inline-block ;" alt="bigcup{a}{b}{x}" title="bigcup{a}{b}{x}"><br>
+bigcap{a}{b}{x} : <img src="img/91d602d4ec51e8850bab60c2188c1f9a.png" style="vertical-align:-26px; display: inline-block ;" alt="bigcap{a}{b}{x}" title="bigcap{a}{b}{x}"><br>
+<b>Delimiters</b><br>
+delim{[}{x}{]} : <img src="img/6b5c2ab858733a005ad3f8c858d2c0be.png" style="vertical-align:-10px; display: inline-block ;" alt="delim{[}{x}{]}" title="delim{[}{x}{]}"><br>
+delim{]}{x}{]} : <img src="img/5e8c71a1e42362bf2be0f8111e4c3159.png" style="vertical-align:-10px; display: inline-block ;" alt="delim{]}{x}{]}" title="delim{]}{x}{]}"><br>
+delim{[}{x}{[} : <img src="img/87a7fdf6d0238edcc2e564ac8df5c80a.png" style="vertical-align:-10px; display: inline-block ;" alt="delim{[}{x}{[}" title="delim{[}{x}{[}"><br>
+delim{]}{x}{[} : <img src="img/94b92579d53c853910546b82539bd013.png" style="vertical-align:-10px; display: inline-block ;" alt="delim{]}{x}{[}" title="delim{]}{x}{[}"><br>
+delim{lbrace}{x}{rbrace} : <img src="img/d7db23b1568aafb39c0313e360582814.png" style="vertical-align:-12.5px; display: inline-block ;" alt="delim{lbrace}{x}{rbrace}" title="delim{lbrace}{x}{rbrace}"><br>
+delim{|}{x}{|} : <img src="img/d0a16322f2913dd6d5e01022d2fd72d9.png" style="vertical-align:-7.5px; display: inline-block ;" alt="delim{|}{x}{|}" title="delim{|}{x}{|}"><br>
+delim{vert}{x}{vert} : <img src="img/8a5adab4c0e62dac54cf637cf1eede89.png" style="vertical-align:-7.5px; display: inline-block ;" alt="delim{vert}{x}{vert}" title="delim{vert}{x}{vert}"><br>
+<b>Matrix</b><br>
+matrix{num of lines}{num of columns}{first_element ... last_element}<br>
+Example :<br>
+matrix{2}{3}{a b c d e f g} : <img src="img/beb522beb1a4a20afecda5281d378747.png" style="vertical-align:-21px; display: inline-block ;" alt="matrix{2}{3}{a b c d e f g}" title="matrix{2}{3}{a b c d e f g}"><br><br>
+<b>Tabular</b><br>
+tabular{lines description}{columns description}{first_element ... last_element}<br>
+lines description : sequence of 1 (draw the horizontal line) or 0 (don't draw the horizontal line) - the length of the sequence=num of lines+1<br>
+columns description : sequence of 1 (draw the vertical line) or 0 (don't draw the vertical line) - the length of the sequence=num of columns+1<br>
+Examples :<br>
+tabular{111}{1111}{a b c d e f g} : <img src="img/5d428a145b10814f10d96f8a1b4c4ec4.png" style="vertical-align:-25px; display: inline-block ;" alt="tabular{111}{1111}{a b c d e f g}" title="tabular{111}{1111}{a b c d e f g}"><br><br>
+tabular{1001}{101}{1 2 3 4 5 6} : <img src="img/f78b77609ac5824e4fbf486fc9fbf275.png" style="vertical-align:-39px; display: inline-block ;" alt="tabular{1001}{101}{1 2 3 4 5 6}" title="tabular{1001}{101}{1 2 3 4 5 6}"><br><br>
+<b>Constructions</b><br>
+vec{express} : <img src="img/32fe0ce74ea9849edc4062d8eb8ebb6c.png" style="vertical-align:-7.5px; display: inline-block ;" alt="vec{express}" title="vec{express}"><br><br>
+{express}under{foo} : <img src="img/98a6be27938c64e8e29c53fe4fe5aa3e.png" style="vertical-align:-25.5px; display: inline-block ;" alt="{express}under{foo}" title="{express}under{foo}"><br><br>
+{express}over{foo} : <img src="img/4322ec0f5caf9215be0899e773c67c20.png" style="vertical-align:-7.5px; display: inline-block ;" alt="{express}over{foo}" title="{express}over{foo}"><br><br>
+overline{express} : <img src="img/ee35b84f5bfd58f25d4016355429b3cc.png" style="vertical-align:-7.5px; display: inline-block ;" alt="overline{express}" title="overline{express}"><br><br>
+underline{express} : <img src="img/191841c936262f85bb65334abbb2749a.png" style="vertical-align:-9.5px; display: inline-block ;" alt="underline{express}" title="underline{express}"><br><br>
+hat{express} : <img src="img/d0d2c2745c2847a2f71b054c9aa006c3.png" style="vertical-align:-7.5px; display: inline-block ;" alt="hat{express}" title="hat{express}">
+</p>
+</div>
+</div>
+<div id="footer">
+<p><b><A href="http://www.xm1math.net/phpmathpublisher/" target="_blank">PhpMathPublisher</A></b> - Copyright 2005 <b>Pascal Brachet - France</b></p>
+</div>
+</body>
+</html>

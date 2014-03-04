@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<updates>
+    <update>
+        <table>tbl_simpleblog_posts</table>
+        <version>0.028</version>
+        <description>Added a field for tags</description>
+        <data>
+            <add>
+                <name>post_tags</name>
+                <type>clob</type>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_simpleblog_posts</table>
+        <version>0.033</version>
+        <description>Added a full text index</description>
+         <SQL>
+          ALTER TABLE tbl_simpleblog_posts ENGINE=myisam;
+         </SQL>
+         <SQL>
+          ALTER TABLE tbl_simpleblog_posts ADD FULLTEXT(post_title);
+         </SQL>
+         <SQL>
+          ALTER TABLE tbl_simpleblog_posts ADD FULLTEXT(post_content);
+         </SQL>
+    </update>
+</updates>

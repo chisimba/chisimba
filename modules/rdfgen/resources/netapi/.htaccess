@@ -1,0 +1,4 @@
+RewriteEngine on
+RewriteBase /rdfapi-php/netapi/
+RewriteRule ^[^\.]+$ netapi.php
+

@@ -1,0 +1,29 @@
+<h1>Head of School (HoS) Portal</h1>
+<P>Welcome to the new HoS portal. 
+This portal has been created for your convenience.
+ The data presented are the most up to date datasets as they appear in the MIU system. We are aware that
+ some of the data is not entirely correct and we have designed this portal in such a way that you
+ can not only look at all the relevant information for your school, but that you can also help us
+ check all data sets on their correctness, so that, together, we can continue to improve the in
+formation systems at Wits.</P>
+
+
+<h1>Quick Links</h1>
+
+<dl>
+
+<dt><a href="http://localhost/chisimba/index.php?module=hosportal&action=view" >Head of School Forum</a>
+
+<dt><a href="http://intranet.wits.ac.za/Support/MIU/OracleDataMarts.htm" target="_blank">Human Resources & Finance Reports</a>
+<dt><a href="http://harmony.wits.ac.za:7778/discoverer/viewer" target="_blank">Student Reports</a>
+
+<dt><a href="http://146.141.11.136:9704/analytics/saw.dll?Dashboard" target="_blank">Oracle BIEE Dashboard</a>
+<dt><a href="http://intranet.wits.ac.za/HigherEd/QQR/" target="_blank">Wits QQR</a>
+<dt><a href="http://146.141.22.16/wiasp/scripts/login/webiStart.asp" target="_blank">Audit Reports </a>
+<dt><a href="http://intranet.wits.ac.za/NR/rdonlyres/6F746F82-39E3-4B18-8B35-CC699A830DBD/0/MIUContactPersons.doc" target="_blank">Information &Training Requests  </a>
+<dt><a href="http://intranet.wits.ac.za/NR/rdonlyres/E6A5F76D-22DF-46FA-93D4-F51DBB90EFEA/0/WHATISHEMIS.doc" target="_blank">Hemis Information</a>
+<dt><a href="http://intranet.wits.ac.za/NR/rdonlyres/353A6AC0-FE36-4735-8945-77E8F89FED2B/0/EfficiencyRatios2007.ppt" target="_blank">Efficiency Ratios</a>
+  
+</dl>
+
+

@@ -190,7 +190,7 @@ class jquery extends object
      */
     public function loadSuperFishMenuPlugin($version = '1.4.8')
     {
-        $basePath = 'plugins/superfish/1.4.8/';
+        $basePath = 'plugins/superfish/' . $version . '/';
         $this->appendArrayVar('headerParams',
           '<link rel="stylesheet" type="text/css" href="'
           .$this->getResourceUri ($basePath . 'superfish.css' . '">'));
@@ -205,7 +205,7 @@ class jquery extends object
           $this->getJavascriptFile($basePath . 'jquery.bgiframe.min.js',
           'jquery'));
         $this->appendArrayVar('headerParams', 
-          $this->getJavascriptFile($basePath . 'superfish.js',
+          $this->getJavascriptFile($basePath . 'superfish.min.js',
           'jquery'));
         $this->appendArrayVar('headerParams', 
           $this->getJavascriptFile($basePath . 'supersubs.js',

@@ -1,0 +1,39 @@
+Using the scripts in web pages
+
+Using these scripts in web pages would be something like the following:
+
+<script src="latlon.js">/* Latitude/Longitude formulae */</script>
+<script src="geo.js">/* Geodesy representation conversions */</script>
+...
+<form name="f">
+Lat1: <input type="text" name="lat1" id="lat1"> Lon1: <input type="text" name="lon1" id="lon1">
+Lat2: <input type="text" name="lat2" id="lat2"> Lon2: <input type="text" name="lon2" id="lon2">
+<input type="button" name="calc-dist" id="calc-dist" value="Calculate distance"
+  onClick="var p1 = new LatLon(Geo.parseDMS(f.lat1.value), Geo.parseDMS(f.lon1.value));
+           var p2 = new LatLon(Geo.parseDMS(f.lat2.value), Geo.parseDMS(f.lon2.value));
+           alert(p1.distanceTo(p2));">
+</form>
+
+If you use jQuery, the code can be separated from the HTML:
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"> </script>
+<script src="latlon.js">/* Latitude/Longitude formulae */</script>
+<script src="geo.js">/* Geodesy representation conversions */</script>
+<script>
+  $(document).ready(function() {
+    $('#calc-dist').click(function() {
+      var lat1 = Geo.parseDMS($('#lat1').val());
+      var lon1 = Geo.parseDMS($('#lon1').val());
+      var lat2 = Geo.parseDMS($('#lat2').val());
+      var lon2 = Geo.parseDMS($('#lon2').val());
+      var p1 = new LatLon(lat1, lon1);
+      var p2 = new LatLon(lat2, lon2);
+      $('#result-distance').html(p1.distanceTo(p2)+' km');
+    });
+  });
+</script>
+...
+Lat1: <input type="text" name="lat1" id="lat1"> Lon1: <input type="text" name="lon1" id="lon1">
+Lat2: <input type="text" name="lat2" id="lat2"> Lon2: <input type="text" name="lon2" id="lon2">
+<input type="button" name="calc-dist" id="calc-dist" value="Calculate distance">
+<output id="result-distance"></output>

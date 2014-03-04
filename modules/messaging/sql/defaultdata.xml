@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<defaultdata>
+    <tbl_messaging_rooms>
+        <id>init_1</id>
+        <room_type>0</room_type>
+        <room_name>Lobby</room_name>
+        <room_desc>The public site wide chat room moderated by site admin</room_desc>
+        <text_only>0</text_only>
+        <disabled>0</disabled>
+        <owner_id>system</owner_id>
+        <date_created></date_created>
+        <updated></updated>
+    </tbl_messaging_rooms>
+</defaultdata>

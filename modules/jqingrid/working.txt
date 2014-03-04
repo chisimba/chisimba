@@ -1,0 +1,200 @@
+
+
+
+Overview
+
+Datagrids don't have to be difficult to use anymore - say hi to Ingrid. Ingrid is an unobtrusive jQuery component that adds datagrid behaviors (column resizing, paging, sorting, row and column styling, and more) to your tables. It's easy to get started - read on below, or check out the Example Pages.
+Examples
+
+   1. Default Ingrid. All the bells and whistles
+   2. Ingrid, tinier, with paging and column sorting turned off
+   3. Set a total row value, Ingrid calculates total pages available.
+
+How to Use
+Part 1 - Setup
+
+   1. Ingrid uses the sugary sweetness only found in your latest version of JQuery. You'll just need two files to get Ingrid working in your site/app.
+
+      <script type="text/javascript" src="js/jquery-1.2.js"></script>
+      <script type="text/javascript" src="js/ingrid.js"></script>
+
+   2. Include the Ingrid CSS (or roll your own).
+
+      <link rel="stylesheet" href="css/ingrid.css" type="text/css" media="screen" />
+
+   3. Check the CSS and make sure the images are properly referenced. For the default Ingrid style, there are 12 images in all you'll need.
+
+      ../img/load-bg.png
+      ../img/indicator_web20_working.gif
+      ../img/grid-hrow.gif
+      ../img/grid-split.gif
+      ../img/sort-asc.png
+      ../img/sort-desc.png
+      ../img/sort-none.png
+      ../img/page-bg.gif
+      ../img/page-first.png
+      ../img/page-prev.png
+      ../img/page-next.png
+      ../img/page-last.png
+      ../img/grid-loading.gif
+      ../img/grid-loading-done.gif
+
+Part 2 - Activate
+
+   1. Dump a table onto your page. Make sure it includes a <thead> and <tbody> elements. It should look like this:
+
+      <table id="table1">
+       <thead>
+        <tr>
+         <th>Col 1a</th>
+         <th>Col 1a</th>
+         <th>Col 1a</th>
+         <th>Col 1a</th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr>
+         <td>static col 1</td>
+         <td>static col 1</td>
+         <td>static col 1</td>
+         <td>static col 1</td>
+        </tr>
+        <tr>
+         <td>static col 1</td>
+         <td>static col 1</td>
+         <td>static col 1</td>
+         <td>static col 1</td>
+        </tr>
+        <tr>
+         <td>static col 1</td>
+         <td>static col 1</td>
+         <td>static col 1</td>
+         <td>static col 1</td>
+        </tr>
+        <tr>
+         <td>static col 1</td>
+         <td>static col 1</td>
+         <td>static col 1</td>
+         <td>static col 1</td>
+        </tr>
+        <tr>
+         <td>static col 1</td>
+         <td>static col 1</td>
+         <td>static col 1</td>
+         <td>static col 1</td>
+        </tr>
+       </tbody>
+      </table>
+
+   2. Include the jQuery special sauce in the head
+
+      <script type="text/javascript">
+      $(document).ready(
+      	function() {
+      		$("#table1").ingrid({ 
+      			url: 'remote.html',
+      			height: 350
+      		});
+      	}
+      ); 
+      </script>
+
+   3. Nice. Now you're using Ingrid.
+
+Part 3 - Server Side
+
+   1. Create a page that Ingrid can retrieve data from. It should spit out HTML that looks similar to the sample above (same number of columns, of course.) Make sure to include a <tbody> tag. Here's some sample PHP code:
+
+      <?php
+      $rows = 25;
+      $str  = '';
+      while (list($k, $v) = each($_GET)) {
+      	$str .= $k . '=' . $v . ', ';
+      }
+      ?>
+      <table>
+      <tbody>
+      <?php
+      for ($i=0; $i<$rows; $i++) {
+      ?>
+      <tr>
+      <td><?= $_GET['pg']; ?>:<?= $i; ?>:1 [GETs: <?= $str; ?>]</td>
+      <td><?= $_GET['pg']; ?>:<?= $i; ?>:2</td>
+      <td><?= $_GET['pg']; ?>:<?= $i; ?>:3</td>
+      <td><?= $_GET['pg']; ?>:<?= $i; ?>:4</td>
+      </tr>
+      <?php
+      }
+      ?>
+      </tbody>
+      </table>
+
+   2. That's it brohemian.
+
+See the Demo : v.0.9.3
+
+Just the files? OK:
+
+    * Ingrid is now hosted at Google Code. Go ahead and check her out, she won't mind ;)
+
+Changelog
+
+Changes now tracked at Google Code
+
+    * v.9.4 (Thanks Patrice!)
+      - bug fix: unable to clear last selected row from cookie
+      - bug fix: added onRowSelect callback during pre-selection
+      - feature: new param: unsortable columns
+      - feature: selection is now stored for all pages
+      - feature: page changed callback
+    * v.9.3 (Thanks Patrice!)
+      - Moved to Google Code
+      - bug fix: selection behaviour
+      - bug fix: hscroll width
+      - bug fix: attribute selector
+      - bug fix: result error handler
+      - bug fix: header auto-resize
+      - feature: new methods: unselect all, select all
+    * v.9.2
+      - Exposed onRowSelect() method to allow triggering external functions when an Ingrid row is selected
+      - Bug fixes. Big thanks to Arthur McLean and Kai Meder!
+    * v.9.1
+      - New feature: Row selection
+      - New feature: Saving state (page number, column sort & direction, selected rows)
+      - Exposed object model, added helper methods
+      - General code refactoring. Added way too many comments. I'll get to those later
+    * v.7
+      - Fixed issue where long text in table cells forces cells to be wider (or, text wraps).
+      - Fixed issue preventing users from directly entering page numbers - now, users can directly enter page numbers and hit "enter" to page data (Thanks Marco)
+    * v.6 - Initial Release. Please report bugs
+
+Questions
+
+What are all the moving parts?
+    Ingrid's got 3 main parts: a header, a body, and a paging control.
+    The header is a table with <th>'s as columns; the body is a table nested in a scrollable div; the paging control is a plain old div with links styled as buttons.
+    If that doesn't help, please consult this crude sketch that attempts to illustrate Ingrid. 
+
+How does the server-side script work?
+    Ingrid passes a couple different params to the server, depending on how it's configured. These params are simply passed to a page that you specify (PHP, ASP, JSP, etc, doesn't matter). For example, here's some of the parameters:
+
+    page=2 (page number)
+    sort=0 (column id to sort on, 0 is first column)
+    dir=desc (direction of sort, asc or desc)
+
+    So... in the examples on this website, if ingrid passed all these params, the URL would look like:
+
+    http://reconstrukt.com/ingrid/remote.php?page=2&sort=0&dir=desc
+
+    And this page builds & executes the SQL query based on these query string params, then just spits out an html <table>. 
+
+I think I saw Ingrid on Del.icio.us. Did I?
+    You most certainly did! Thanks to everyone's diligent bookmarking, Ingrid spent some time gracing the front page of Del.icio.us. Here's graphical proof 
+
+Contact
+
+Drop me a note at matt@reconstrukt.com. Cheers!
+Donate
+
+If you're feeling generous, buy me a cup of coffee.
+A donut. Bagel, whatever, I'm starving.

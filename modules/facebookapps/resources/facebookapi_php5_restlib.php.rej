@@ -1,0 +1,31 @@
+***************
+*** 59,75 ****
+     *                            directly accessing the $session_key member
+     *                            variable.
+     */
+-   // NOTE: if you change this file near this line, you must update changes.patch!
+-   public function __construct($api_key, $secret, $session_key=null, $server_addr=null) {
+      $this->secret       = $secret;
+      $this->session_key  = $session_key;
+      $this->api_key      = $api_key;
+      $this->batch_mode = FacebookRestClient::BATCH_MODE_DEFAULT;
+      $this->last_call_id = 0;
+      $this->call_as_apikey = '';
+-     // NOTE: if you change this file near this line, you must update changes.patch!
+-     if ($server_addr) {
+-       $this->server_addr = $server_addr;
+-     } else {
+        $this->server_addr  = Facebook::get_facebook_url('api') . '/restserver.php';
+-     }
+--- 59,69 ----
+     *                            directly accessing the $session_key member
+     *                            variable.
+     */
++   public function __construct($api_key, $secret, $session_key=null) {
+      $this->secret       = $secret;
+      $this->session_key  = $session_key;
+      $this->api_key      = $api_key;
+      $this->batch_mode = FacebookRestClient::BATCH_MODE_DEFAULT;
+      $this->last_call_id = 0;
+      $this->call_as_apikey = '';
+        $this->server_addr  = Facebook::get_facebook_url('api') . '/restserver.php';

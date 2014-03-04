@@ -1,0 +1,14 @@
+{
+    "name": "lorna",
+    "description": "A canvas for dkeats.com aimed at blog.",
+    "downloadfrom":"_NULL",
+    "preview": {
+        "thumb": "lorna_th.png",
+        "fullview":"lorna.png"
+    },
+    "author": {
+        "authorname":"Derek Keats",
+        "email":"derek@dkeats.com",
+        "url":"http://www.dkeats.com"
+    }
+}

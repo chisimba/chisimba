@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This file is a code generation template for Chisimba view template layout -->
+<chisimba_edit_template>
+
+<item name="startphp">
+<purpose>
+This is a parsecode that is used to create the start PHP
+tag in the class file. It is necessary because starting PHP
+uses XML reserved characters.
+</purpose>
+<code>{STARTPHP}
+</code>
+</item>
+
+
+<item name="initializeTemplate">
+<purpose>Initializes the 2 column layout for the view template</purpose>
+<code>
+//Create an instance of the css layout class
+$cssLayout = $this->newObject('csslayout', 'htmlelements');
+//Set columns to 2
+$cssLayout->setNumColumns(2);
+//Initialize NULL content for the left side column
+$leftSideColumn = "";
+</code>
+</item>
+
+
+<item name="createHeading">
+<purpose>Create a heading for the edit template</purpose>
+<code>
+//Add the templage heading to the main layer
+$objH = $this->getObject('htmlheading', 'htmlelements');
+//Heading H3 tag
+$objH->type=3; 
+switch ($mode) {
+	case 'add':
+		$objH->str = $objLanguage->languageText("mod_{MODULECODE}_title_add", '{MODULECODE}');
+		break;
+	case 'edit':
+		$objH->str = $objLanguage->languageText("mod_{MODULECODE}_title_edit", '{MODULECODE}');
+		break;
+	default:
+		break;			
+}
+//Add the heading to the output string for the main display area
+$rightSideColumn = $objH->show();
+</code>
+</item>
+
+
+<item name="renderOutput">
+<purpose>Render the output strings and display the output</purpose>
+<code>
+//Add the data to the main display area
+$rightSideColumn .= $objForm->show();
+//Add Left column
+$cssLayout->setLeftColumnContent($leftSideColumn);
+// Add Right Column
+$cssLayout->setMiddleColumnContent($rightSideColumn);
+//Output the content to the page
+echo $cssLayout->show();
+</code>
+</item>
+
+<item name="endphp">
+<purpose>
+This is a parsecode that is used to create the end PHP
+tag in the class file. It is necessary because ending PHP
+uses XML reserved characters.
+</purpose>
+<code>
+{ENDPHP}</code>
+</item>
+
+</chisimba_edit_template>

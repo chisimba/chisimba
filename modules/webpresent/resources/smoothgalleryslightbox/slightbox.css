@@ -1,0 +1,115 @@
+/* SLIGHTBOX */
+/* variation on SLIMBOX */
+
+#lbOverlay {
+	position: absolute;
+	left: 0;
+	width: 100%;
+	background-color: #000;
+	cursor: pointer;
+	z-index: 15;
+}
+
+#lbCenter, #lbBottom {
+	position: absolute;
+	left: 50%;
+	overflow: hidden;
+	background-color: #000;
+	z-index: 20;
+	border: 1px solid #666;
+}
+
+#lbCenter {
+	padding: 10px;
+}
+
+.lbLoading {
+	background: #fff url('img/loading-bar-black.gif') no-repeat center;
+	border: 1px solid #666;
+}
+
+#lbImage {
+	z-index: 25;
+}
+
+#lbPrevLink, #lbNextLink {
+	display: block;
+	position: absolute;
+	top: 0;
+	width: 50%;
+	outline: none;
+	z-index: 26;
+}
+
+#lbPrevLink {
+	left: 0;
+}
+
+#lbPrevLink:hover {
+	background: transparent url('img/fleche1.png') no-repeat 0% 50%;
+}
+
+* html #lbPrevLink:hover { background: transparent url('img/fleche1.gif') no-repeat 0% 50%; }
+
+#lbNextLink {
+	right: 0;
+}
+
+#lbNextLink:hover {
+	background: transparent url('img/fleche2.png') no-repeat 100% 50%;
+}
+
+* html #lbNextLink:hover { background: transparent url('img/fleche2.gif') no-repeat 100% 50%; }
+
+#lbBottom {
+	font-family: Verdana, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #666;
+	line-height: 1.4em;
+	text-align: left;
+	padding-left: 10px;
+	padding-right: 10px;
+	border-top-style: none;
+}
+
+#lbCloseLink {
+	display: block;
+	float: right;
+	width: 80px;
+	height: 30px;
+	background: transparent url('img/close9yj.gif') no-repeat center;
+	margin-bottom: 10px;
+}
+
+#lbNumber {
+	display: block;
+	float: left;
+}
+
+#lbNumber.gallery {
+	display: block;
+	float: left;
+	padding: 10px;
+}
+
+#lbCaption {
+	margin-left: 10px;
+	display: block;
+	float: left;
+}
+
+#lbDescription {
+	float: left;
+	padding-right: 10px;
+}
+
+#lbDescription #lbTitle {
+	float: left;
+	clear: both;
+	font-weight: bold;
+}
+
+#lbDescription #lbCaption {
+	margin-left: 0;
+}
+

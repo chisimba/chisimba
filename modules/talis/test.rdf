@@ -1,0 +1,18 @@
+<rdf:RDF 
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:sioc="http://rdfs.org/sioc/ns#"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:k="http://schemas.talis.com/kniblet/"
+  xmlns:c="http://www.charlvn.com/"
+>
+<sioc:Post rdf:about="http://kniblet.com/articles/adopting-a-stray-cat">
+ <c:author>Charl van Niekerk</c:author>
+  <k:body>
+It can be very very rewarding to adopt a stray cat. Cats become stray for all sorts of
+reasons but often they have lost their original owner or have been driven away through
+cruelty. Before you can adopt a stray cat you must win its trust. If you regularly feed it
+and don't approach it too soon it may learn that you mean it no harm. Persevere, gradually
+gaining its confidence until you can finally touch it and even call it over for its food.
+</k:body>
+</sioc:Post>
+</rdf:RDF>

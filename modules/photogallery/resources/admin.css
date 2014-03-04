@@ -1,0 +1,373 @@
+/*
+
+	Zen Photo Admin
+	
+*/
+
+
+/
+
+/* Main Layout
+------------------------------ *//*
+#logo {
+	float: left;
+	text-align: left;
+	margin: 20px 0 0 30px;
+	width: 200px;
+	height: 47px;
+}
+#logo img {
+	border: 0;
+}
+#main {
+	text-align: left;
+	padding: 20px 0;
+	clear: both;
+}
+#footer {
+	clear: both;
+	color: #597580;
+	font-size: 85%;
+	margin: 8px 30px 0px;
+	text-align: right;
+}
+#footer a {
+	color: #597580;
+	text-decoration: none;
+	border-bottom: 1px dotted #597580;
+}
+#footer a:hover {
+	color: #4B636B;
+	text-decoration: none;
+	border-bottom: 1px solid #4B636B;
+}
+#links {
+	float: right;
+	font-size: 100%;
+	margin: 40px 30px 0 0;
+}
+#links a {
+	color: #597580;
+	text-decoration: none;
+	border-bottom: 1px dotted #597580;
+}
+#links a:hover {
+	color: #4B636B;
+	text-decoration: none;
+	border-bottom: 1px solid #4B636B;
+}
+#content {
+	padding: 30px;
+	background-color: #fff;
+  	border-top: 1px solid #BAC9CF;
+	border-bottom: 5px solid #BAC9CF;
+	min-height: 450px;
+	_height: 450px; /* IE Only */
+/*}
+*/
+
+
+/* Text Styles
+------------------------------ */
+h1 {
+	color: #000;
+	font-size: 136%;
+	font-weight: normal;
+	margin: 0px 0px 20px 0px;
+}
+h2 {
+	font-size: 100%;
+	font-weight: bold;
+	margin: 0px 0px 5px 0px;
+}
+h3 {
+	font-size: 100%;
+	font-weight: normal;
+	margin: 0px 0px 5px 0px;
+}
+p {
+	line-height: 1.2em;
+}
+
+
+/* Menu
+------------------------------ */
+/*
+#nav {
+	list-style-type: none;
+	padding: 0;
+	_padding: 0 0 0 30px;
+	margin: 0 0 0 30px;
+	height: 30px;
+	width: 80%;
+}
+#nav li {
+	display: inline;
+}
+#nav li a {
+	border-top: 1px solid #C7D3D8;
+	border-left: 1px solid #C7D3D8;
+	border-right: 1px solid #C7D3D8;
+
+	font-size: 120%;
+	display: block;
+	float: left;
+	padding: 6px 12px;
+	margin: 0px 8px 0px 0px;
+	text-decoration: none;
+	font-weight: normal;
+	height: 17px;
+	color: #8797A5;
+	background: #E9ECEF;
+	
+	_position: relative; /* IE Only *//*
+	_top: 6px;	/* IE Only *//*
+}
+#nav li a:hover {
+	border-top: 1px solid #BAC9CF;
+	border-left: 1px solid #BAC9CF;
+	border-right: 1px solid #BAC9CF;
+
+	color: #000;
+	background-color: #F7F8F9;
+
+	height: 21px;
+	_height: 24px;
+
+	position: relative;
+	top: -3px;
+	_top: 1px; /* IE Only *//*
+}
+#nav li.current a {
+	border-top: 1px solid #BAC9CF;
+	border-left: 1px solid #BAC9CF;
+	border-right: 1px solid #BAC9CF;
+
+	color: #4D646F;
+	background-color: #fff;
+	cursor: default;
+
+	height: 21px;
+	_height: 24px;
+
+	position: relative;
+	top: -3px;
+	_top: 1px; /* IE Only */
+}
+
+*/
+/* Error Messages
+------------------------------ */
+.errorbox {
+	padding: 20px;
+	background-color: #FDD;
+	border-top: 1px solid #FAA;
+	border-left: 1px solid #FAA;
+	border-right: 1px solid #FAA;
+	border-bottom: 5px solid #FAA;
+	margin-bottom: 10px;
+	font-size: 100%;
+}
+.errorbox h2 {
+	color: #DD6666;
+	font-size: 100%;
+	font-weight: bold;
+	margin: 0px;
+}
+
+
+/* Miscellaneous
+------------------------------ */
+a {
+	color: #4D76CF;
+	text-decoration: none;
+}
+a img {
+	border-width: 1px;
+}
+a:hover {
+	color: #FF8A00;
+}
+hr {
+	height: 0px;
+	border: 0px;
+	border-bottom: 1px solid #BAC9CF;
+	margin: 1em 0px;
+}
+table.bordered {
+	/*width: 100%;*/
+	
+	padding: 0px;
+	border-spacing: 1px;
+	margin: .5em 0px;
+	
+  background: #F7F8F9;
+	border: 1px solid #BAC9CF;
+  border-bottom-width: 5px;
+}
+table.bordered th {
+	font-weight: normal;
+	padding: 4px 12px;
+	border-bottom: 2px solid #BAC9CF;
+	background: #ECF1F2;
+}
+table.bordered .subhead {
+	border-top: 1px solid #BAC9CF;
+}
+table.bordered td {
+	padding: 4px 16px;
+	margin: 0px;
+	background-color: #fff;
+}
+.box { 
+  background: #F7F8F9;
+  border: 1px solid #BAC9CF;
+  border-bottom-width: 5px;
+  padding: 10px;
+}
+
+div.box { 
+  background: #F7F8F9;
+  border: 1px solid #BAC9CF;
+  border-bottom-width: 5px;
+  padding: 4px 12px;
+}
+.imagethumb { margin: 0px; padding: 1px;}
+
+
+/* Sortable Album Divs
+------------------------------ */
+
+div.albumList {
+	list-style-type: none;
+	padding: 0px;
+	margin: 0px;
+}
+div.albumList div {
+	cursor: move;
+	margin: 2px 2px;
+	border: 1px solid #F0F3F8;
+}
+
+
+
+
+/* Forms
+------------------------------ */
+input {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 100%;
+}
+textarea {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 100%;
+}
+
+
+/* Individual Page Styles
+------------------------------ */
+#home-actions {
+	list-style-type: none;
+	margin: 0px 0px 0px 10px;
+	padding: 0px;
+}
+#home-actions li {
+	margin-bottom: 3px;
+	font-size: 100%;
+}
+
+#overview-stats, #overview-suggest {
+	width: 250px;
+	float: left;
+	margin: 0 0 10px 10px;
+	padding: 10px;
+}
+#overview-comments {
+	min-width: 410px;
+	_width: 410px;
+	float: left;
+	padding: 10px;
+}
+#overview-comments ul { list-style-type: none; padding: 0px; }
+#overview-comments ul li { margin-bottom: .5em; }
+#overview-comments .commentmeta {
+	font-size: 85%;
+	color: #999;
+}
+#overview-comments .commentbody {
+	font-size: 85%;
+}
+
+.fileuploadbox {
+	margin-bottom: 5px;
+}
+#albumselect {
+	padding: 10px;
+  background: #F7F8F9;
+	border-top: 1px solid #BAC9CF;
+	border-left: 1px solid #BAC9CF;
+	border-right: 1px solid #BAC9CF;
+	border-bottom: 5px solid #BAC9CF;
+}
+#albumselect input {
+	padding: 4px;
+	font-weight: normal;
+	font-size: 100%;
+}
+acronym {
+	cursor: help;
+}
+
+
+/* Login
+------------------------------ */
+#loginform {
+	padding: 10px;
+	width: 300px;
+	margin: 25px auto;
+	font-size: 100%;
+	background: #F7F8F9;
+	border-top: 1px solid #BAC9CF;
+	border-left: 1px solid #BAC9CF;
+	border-right: 1px solid #BAC9CF;
+	border-bottom: 5px solid #BAC9CF;
+}
+.button {
+	cursor: pointer;
+	padding: 5px 10px;
+}
+label {
+	cursor: pointer;
+}
+label:hover {
+	color: #000;
+}
+#loginform input.textfield {
+	margin: 0px;
+	font-size: 100%;
+	padding: 4px;
+}
+
+#loginform table {
+	margin: 0px auto;
+	border: 0px;
+}
+#loginform td { padding: 4px; }
+
+
+/* Thumbnail Preview selectbox effect.
+------------------------------------- */
+
+.thumbselect {
+  height: 80px;
+  padding-left: 90px;
+  background-repeat: no-repeat;
+  background-position: center left;
+}
+
+.thumboption {
+  padding-left: 90px;
+  height: 40px;
+  margin-bottom: 2px;
+  background-position: center left;
+}

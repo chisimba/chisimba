@@ -1,0 +1,10 @@
+<?php
+/**
+*  A main content template for _SHORTDESCRIPTION
+*  Author: _AUTHORNAME _EMAIL
+*  Date: _DATE
+*
+*/
+$objBuildCanvas = $this->getObject('buildcanvas', 'canvas');
+echo $objBuildCanvas->show('module');
+?>

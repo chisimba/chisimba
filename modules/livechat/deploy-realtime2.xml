@@ -1,0 +1,365 @@
+
+<project name="realtime2" default="dist" basedir=".">
+    <description>Realtime2.0 Build file</description>
+    <!-- set global properties for this build -->
+    <property name="src" location="." />
+    <property name="build" location="build" />
+    <property name="rver" location="2" />
+    <property name="dist" location="." />
+    <property name="realtime.lib.dir" value="lib" />
+    <property name="realtime.deploy.dir" value="/var/www/chisimba/packages/realtime/resources" />
+
+    <property name="realtime.core.file.name" value="deploy/realtime2-core.jar" />
+    <property name="realtime.whiteboard.file.name" value="deploy/realtime2-whiteboard.jar" />
+    <property name="realtime.usermanager.file.name" value="deploy/realtime2-usermanager.jar" />
+    <property name="realtime.chatmanager.file.name" value="deploy/realtime2-chatmanager.jar" />
+    <property name="realtime.presentations.file.name" value="deploy/realtime2-presentations.jar" />
+    <property name="realtime.roommanager.file.name" value="deploy/realtime2-roommanager.jar" />
+    <property name="realtime.xpskin.file.name" value="deploy/realtime2-xpskin.jar" />
+
+    <property name="resources.dir" value="resources" />
+    <path id="classpath.base">
+    </path>
+    <path id="classpath.lib">
+        <pathelement location="lib/commons-collections-3.1" />
+        <pathelement location="lib/commons-logging-api-rt.jar" />
+        <pathelement location="lib/quartz-all-1.6.0.jar" />
+        <pathelement location="lib/viewer.jar" />
+        <pathelement location="lib/commons-collections-3.1.jar" />
+        <pathelement location="lib/commons-logging.jar" />
+        <pathelement location="lib/jta-rt.jar" />
+        <pathelement location="lib/systray4j.jar" />
+        <pathelement location="lib/PgsLookAndFeel.jar"/>
+        <pathelement location="lib/commons-collections-3.1-rt.jar" />
+        <pathelement location="lib/DJNativeSwing.jar" />
+        <pathelement location="lib/DJNativeSwing-SWT.jar" />
+        <pathelement location="lib/kunststoff.jar" />
+        <pathelement location="lib/screenviewer.jar" />
+        <pathelement location="lib/commons-logging-api" />
+        <pathelement location="lib/l2fprod-common-all.jar"/>
+        <pathelement location="lib/jna.jar" />
+        <pathelement location="lib/kunstsoff-rt.jar" />
+        <pathelement location="lib/commons-logging-api.jar" />
+        <pathelement location="lib/smack.jar" />
+        <pathelement location="lib/smackx.jar" />
+        <pathelement location="lib/looks-2.3.0.jar" />
+        <pathelement location="deploy/realtime2-chatmanager.jar" />
+        <pathelement location="deploy/realtime2-presentations.jar" />
+        <pathelement location="deploy/realtime2-core.jar" />
+        <pathelement location="deploy/realtime2-usermanager.jar" />
+
+    </path>
+    <target name="init">
+        <!-- Create the time stamp -->
+        <tstamp>
+            <format property="build.time" pattern="yyyy-MM-dd HH:mm:ss Z"/>
+        </tstamp>
+        <echo>Generating Version.java...</echo>
+        <echo file="src/org/avoir/realtime/core/util/Version.java">
+
+            package org.avoir.realtime.core.util;${line.separator}
+
+            public class Version {${line.separator}
+            public static String versionShort = "chisimba-realtime-2.0.0";${line.separator}
+            public static String versionLong = "chisimba-realtime-2.0.0 build ${DSTAMP}";${line.separator}
+
+            public static String getLongVersion() {${line.separator}
+            String about = "Chisimba Realtime Tools " + Version.versionLong;${line.separator}
+            return about;${line.separator}
+            }${line.separator}
+
+            public static String getShortVersion() {${line.separator}
+            String about = "Chisimba Realtime Tools " + Version.versionShort;${line.separator}
+            return about;${line.separator}
+            }${line.separator}
+
+            }${line.separator}
+
+        </echo>
+        <!-- Create the build directory structure used by compile -->
+        <mkdir dir="${build}" />
+        <mkdir dir="../realtime2-presentations/build" />
+        <mkdir dir="../realtime2-roommanager/build" />
+        <mkdir dir="../realtime2-usermanager/build" />
+        <mkdir dir="../realtime2-chatmanager/build" />
+        <mkdir dir="../realtime2-whiteboard/build" />
+        <mkdir dir="../realtime2-xpskin/build" />
+        <mkdir dir="../realtime2/deploy"/>
+    </target>
+    <target name="compile" depends="init" description="compile the source ">
+        <!-- Compile the java code from ${src} into ${build} -->
+        <javac srcdir="${src}" destdir="${build}" debug="true"  source="1.5"  debuglevel="lines, vars,source">
+            <classpath refid="classpath.lib" />
+        </javac>
+
+    </target>
+        <target name="compile-core" depends="compile" description="compile the source ">
+</target>
+    <target name="compile-presentations" depends="init" description="compile the source ">
+
+        <javac srcdir="../realtime2-presentations/src" destdir="../realtime2-presentations/build" debug="true"  source="1.5"  debuglevel="lines, vars,source">
+            <classpath refid="classpath.lib" />
+        </javac>
+
+    </target>
+    <target name="compile-roommanager" depends="dist" description="compile the source ">
+
+        <javac srcdir="../realtime2-roommanager/src" destdir="../realtime2-roommanager/build" debug="true"  source="1.5"  debuglevel="lines, vars,source">
+            <classpath refid="classpath.lib" />
+        </javac>
+    </target>
+
+    <target name="compile-usermanager" depends="dist" description="compile the source ">
+
+        <javac srcdir="../realtime2-usermanager/src" destdir="../realtime2-usermanager/build" debug="true"  source="1.5"  debuglevel="lines, vars,source">
+            <classpath refid="classpath.lib" />
+        </javac>
+    </target>
+    <target name="compile-chatmanager" depends="init" description="compile the source ">
+
+        <javac srcdir="../realtime2-chatmanager/src" destdir="../realtime2-chatmanager/build" debug="true"  source="1.5"  debuglevel="lines, vars,source">
+            <classpath refid="classpath.lib" />
+        </javac>
+    </target>
+
+    <target name="compile-whiteboard" depends="init" description="compile the source ">
+
+        <javac srcdir="../realtime2-whiteboard/src" destdir="../realtime2-whiteboard/build" debug="true"  source="1.5"  debuglevel="lines, vars,source">
+            <classpath refid="classpath.lib" />
+        </javac>
+
+
+       
+    </target>
+
+    <target name="sign-deps" description="Signs the  other dependencies file" >
+
+
+        <signjar keystore="keystore" jar="lib/commons-collections-3.1-rt.jar" alias="realtime" storepass="fsiu2009" />
+        <copy file="lib/commons-collections-3.1-rt.jar" todir="${realtime.deploy.dir}" overwrite="true" />
+
+        <signjar keystore="keystore" jar="lib/l2fprod-common-all.jar" alias="realtime" storepass="fsiu2009" />
+        <copy file="lib/l2fprod-common-all.jar" todir="${realtime.deploy.dir}" overwrite="true" />
+
+        <signjar keystore="keystore" jar="lib/smackx.jar" alias="realtime" storepass="fsiu2009" />
+        <copy file="lib/smackx.jar" todir="${realtime.deploy.dir}" overwrite="true" />
+
+        <signjar keystore="keystore" jar="lib/commons-logging-api-rt.jar" alias="realtime" storepass="fsiu2009" />
+        <copy file="lib/commons-logging-api-rt.jar" todir="${realtime.deploy.dir}" overwrite="true" />
+
+
+        <signjar keystore="keystore" jar="lib/DJNativeSwing.jar" alias="realtime" storepass="fsiu2009" />
+        <copy file="lib/DJNativeSwing.jar" todir="${realtime.deploy.dir}" overwrite="true" />
+
+        <signjar keystore="keystore" jar="lib/log4j-1.2.16.jar" alias="realtime" storepass="fsiu2009" />
+        <copy file="lib/log4j-1.2.16.jar" todir="${realtime.deploy.dir}" overwrite="true" />
+
+
+        <signjar keystore="keystore" jar="lib/swt-linux.jar" alias="realtime" storepass="fsiu2009" />
+        <copy file="lib/swt-linux.jar" todir="${realtime.deploy.dir}" overwrite="true" />
+
+        <signjar keystore="keystore" jar="lib/DJNativeSwing-SWT.jar" alias="realtime" storepass="fsiu2009" />
+        <copy file="lib/DJNativeSwing-SWT.jar" todir="${realtime.deploy.dir}" overwrite="true" />
+
+        <signjar keystore="keystore" jar="lib/looks-2.3.0.jar" alias="realtime" storepass="fsiu2009" />
+        <copy file="lib/looks-2.3.0.jar" todir="${realtime.deploy.dir}" overwrite="true" />
+
+        <signjar keystore="keystore" jar="lib/swt-win.jar" alias="realtime" storepass="fsiu2009" />
+        <copy file="lib/swt-win.jar" todir="${realtime.deploy.dir}" overwrite="true" />
+
+        <signjar keystore="keystore" jar="lib/PgsLookAndFeel.jar" alias="realtime" storepass="fsiu2009" />
+        <copy file="lib/PgsLookAndFeel.jar" todir="${realtime.deploy.dir}" overwrite="true" />
+
+        <signjar keystore="keystore" jar="lib/jta-rt.jar" alias="realtime" storepass="fsiu2009" />
+        <copy file="lib/jta-rt.jar" todir="${realtime.deploy.dir}" overwrite="true" />
+
+        <signjar keystore="keystore" jar="lib/quartz-all-1.6.0.jar" alias="realtime" storepass="fsiu2009" />
+        <copy file="lib/quartz-all-1.6.0.jar" todir="${realtime.deploy.dir}" overwrite="true" />
+
+        <signjar keystore="keystore" jar="lib/kunstsoff-rt.jar" alias="realtime" storepass="fsiu2009" />
+        <copy file="lib/kunstsoff-rt.jar" todir="${realtime.deploy.dir}" overwrite="true" />
+
+        <signjar keystore="keystore" jar="lib/smack.jar" alias="realtime" storepass="fsiu2009" />
+        <copy file="lib/smack.jar" todir="${realtime.deploy.dir}" overwrite="true" />
+    </target>
+    <target name="sign-core-jar" description="Signs the core jar file" depends="sign-presentations-jar">
+        <signjar keystore="keystore" jar="${realtime.core.file.name}"  storepass="fsiu2009" />
+    </target>
+    <target name="sign-presentations-jar" description="Signs the  presentations jar file" depends="sign-roommanager-jar">
+        <signjar keystore="keystore" jar="${realtime.presentations.file.name}" storepass="fsiu2009" />
+    </target>
+    <target name="sign-roommanager-jar" description="Signs the  roommanager jar file" depends="sign-usermanager-jar">
+        <signjar keystore="keystore" jar="${realtime.roommanager.file.name}" storepass="fsiu2009" />
+    </target>
+    <target name="sign-usermanager-jar" description="Signs the  user manager jar file" depends="sign-whiteboard-jar">
+        <signjar keystore="keystore" jar="${realtime.usermanager.file.name}"  storepass="fsiu2009" />
+    </target>
+    <target name="sign-whiteboard-jar" description="Signs the  whiteboard jar file" depends="sign-xpskin-jar">
+        <signjar keystore="keystore" jar="${realtime.whiteboard.file.name}" storepass="fsiu2009" />
+    </target>
+    <target name="sign-xpskin-jar" description="Signs the  xpskin jar file" depends="dist">
+        <signjar keystore="keystore" jar="${realtime.xpskin.file.name}" storepass="fsiu2009" />
+    </target>
+
+    <target name="dist" depends="compile" description="generate the distribution">
+        <!-- Create the distribution directory -->
+        <mkdir dir="${dist}/deploy" />
+
+    </target>
+    <target name="deploy-core" depends="compile-core" description="generate the core jar">
+        <!-- Create the distribution directory -->
+        <mkdir dir="${dist}"/>
+        <jar destfile="${realtime.core.file.name}">
+
+
+            <manifest>
+                <attribute name="Implementation-Title" value="Realtime 2" />
+                <attribute name="Implementation-Version" value="2.0" />
+                <attribute name="Main-Class" value="org.avoir.realtime.core.Main" />
+                <attribute name="Class-Path" value=" ../deploy/realtime2-chatmanager.jar     ../deploy/realtime2-roommanager.jar   ../deploy/realtime2-xpskin.jar  ../deploy/realtime2-core.jar           ../deploy/realtime2-usermanager.jar
+ ../deploy/realtime2-presentations.jar   ../deploy/realtime2-whiteboard.jar  ../lib/commons-collections-3.1-rt.jar  ../lib/kunstsoff-rt.jar        ../lib/quartz-all-1.6.0.jar
+../lib/commons-logging-api-rt.jar      ../lib/l2fprod-common-all.jar  ../lib/smack.jar
+../lib/DJNativeSwing.jar               ../lib/linux-libsystray4j.jar  ../lib/smackx.jar ../lib/smackx-debug.jar
+../lib/DJNativeSwing-SWT.jar           ../lib/log4j-1.2.16.jar        ../lib/swt-linux.jar
+../lib/jna-3.0.7.jar                   ../lib/looks-2.3.0.jar         ../lib/swt-win.jar
+../lib/jta-rt.jar                      ../lib/PgsLookAndFeel.jar      ../lib/systray4j.jar
+" />
+            </manifest>
+
+            <fileset dir="../realtime2/build">
+                <include name="org/**/*.class" />
+            </fileset>
+
+            <fileset dir="../realtime2/src">
+                <include name="resources/licence" />
+                <include name="META-INF/smack.providers" />
+
+            </fileset>
+        </jar>
+        <signjar keystore="keystore" jar="${realtime.core.file.name}" alias="realtime"  storepass="fsiu2009" />
+        <copy file="${realtime.core.file.name}" todir="${realtime.deploy.dir}" overwrite="true" />
+    </target>
+
+
+    <target name="deploy-presentations" depends="compile-presentations" description="generate the presentations jar">
+        <!-- Create the distribution directory -->
+       
+        <jar destfile="${realtime.presentations.file.name}">
+            <fileset dir="../realtime2-presentations/build">
+                <include name="org/**/*.class" />
+                <include name="images/*.png" />
+            </fileset>
+
+            <fileset dir="../realtime2-presentations/src">
+                <include name="images/*.png" />
+            </fileset>
+        </jar>
+        <signjar keystore="keystore" jar="${realtime.presentations.file.name}" alias="realtime" storepass="fsiu2009" />
+        <copy file="${realtime.presentations.file.name}" todir="${realtime.deploy.dir}" overwrite="true" />
+    </target>
+
+
+    <target name="deploy-roommanager" depends="compile-roommanager" description="generate the roommanager jar">
+        <!-- Create the distribution directory -->
+        <mkdir dir="../realtime2-roommanager/build"/>
+        <jar destfile="${realtime.roommanager.file.name}">
+            <fileset dir="../realtime2-roommanager/build">
+                <include name="org/**/*.class" />
+
+            </fileset>
+            <fileset dir="../realtime2-roommanager/src">
+                <include name="images/*.jpg" />
+            </fileset>
+        </jar>
+
+
+
+        <signjar keystore="keystore" jar="${realtime.roommanager.file.name}"  alias="realtime" storepass="fsiu2009" />
+        <copy file="${realtime.roommanager.file.name}" todir="${realtime.deploy.dir}" overwrite="true" />
+    </target>
+
+
+    <target name="deploy-usermanager" depends="compile-usermanager" description="generate the usermanager jar">
+        <!-- Create the distribution directory -->
+        <mkdir dir="../realtime2-usermanager/build"/>
+        <jar destfile="${realtime.usermanager.file.name}">
+            <fileset dir="../realtime2-usermanager/build">
+                <include name="org/**/*.class" />
+
+            </fileset>
+
+            <fileset dir="../realtime2-usermanager/src">
+                <include name="images/*.png" />
+            </fileset>
+        </jar>
+        <signjar keystore="keystore" jar="${realtime.usermanager.file.name}"  alias="realtime" storepass="fsiu2009" />
+        <copy file="${realtime.usermanager.file.name}" todir="${realtime.deploy.dir}" overwrite="true" />
+    </target>
+
+
+    <target name="deploy-chatmanager" depends="compile-chatmanager" description="generate the chatmanager jar">
+        <!-- Create the distribution directory -->
+        <mkdir dir="../realtime2-chatmanager/build"/>
+        <jar destfile="${realtime.chatmanager.file.name}">
+            <fileset dir="../realtime2-chatmanager/build">
+                <include name="org/**/*.class" />
+                <include name="images/*.png" />
+            </fileset>
+
+            <fileset dir="../realtime2-chatmanager/src">
+                <include name="images/**/*.png" />
+                <include name="images/**/*.gif" />
+                <include name="images/**/*.jpg" />
+            </fileset>
+        </jar>
+        <signjar keystore="keystore" jar="${realtime.chatmanager.file.name}"  alias="realtime" storepass="fsiu2009" />
+        <copy file="${realtime.chatmanager.file.name}" todir="${realtime.deploy.dir}" overwrite="true" />
+    </target>
+
+
+
+
+    <target name="deploy-whiteboard" depends="compile-whiteboard" description="generate the whiteboard jar">
+        <!-- Create the distribution directory -->
+        <mkdir dir="${dist}"/>
+        <jar destfile="${realtime.whiteboard.file.name}">
+            <fileset dir="../realtime2-whiteboard/build">
+                <include name="org/**/*.class" />
+
+            </fileset>
+
+            <fileset dir="../realtime2-whiteboard/src">
+                <include name="images/**/*.png" />
+                <include name="images/**/*.gif" />
+                <include name="images/**/*.jpg" />
+            </fileset>
+        </jar>
+        <signjar keystore="keystore" jar="${realtime.whiteboard.file.name}"  alias="realtime" storepass="fsiu2009" />
+        <copy file="${realtime.whiteboard.file.name}" todir="${realtime.deploy.dir}" overwrite="true" />
+    </target>
+
+
+    <target name="deploy-xpskin" depends="compile" description="generate the xpskin jar">
+        <!-- Create the distribution directory -->
+        <mkdir dir="${dist}"/>
+        <jar destfile="${realtime.xpskin.file.name}">
+            <fileset dir="../realtime2-xpskin/build">
+                <include name="org/**/*.class" />
+                <include name="images/*.png" />
+            </fileset>
+        </jar>
+        <signjar keystore="keystore" jar="${realtime.xpskin.file.name}" alias="realtime"  storepass="fsiu2009" />
+        <copy file="${realtime.xpskin.file.name}" todir="${realtime.deploy.dir}" overwrite="true" />
+    </target>
+
+
+
+    <target name="deploy-all" depends="sign-deps,deploy-presentations,deploy-roommanager,deploy-chatmanager,deploy-usermanager,deploy-whiteboard,deploy-xpskin,deploy-core" description="Deploys the jar files to the web modules folder">
+    </target>
+
+    <target name="clean" description="clean up">
+        <!-- Delete the ${build} and ${dist} directory trees -->
+        <delete dir="${build}" />
+        <delete dir="${dist}" />
+    </target>
+</project>

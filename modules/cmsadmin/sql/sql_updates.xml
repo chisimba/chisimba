@@ -1,0 +1,577 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<updates>
+
+    <update>
+        <table>tbl_cms_content_frontpage</table>
+        <version>1.56</version>
+        <description>Added column to hide / display the full content on the front page or only display the summary.</description>
+        <data>
+           	<add>
+       			<name>show_content</name>
+    	    	<type>integer</type>
+       			<length>2</length>
+       			<notnull>TRUE</notnull>
+       			<default>0</default>
+    		</add>
+    	</data>
+	</update>
+	
+    <update>
+        <table>tbl_cms_sections</table>
+        <version>1.53</version>
+        <description>Added column to hide the title in the section - allows users to style their own titles</description>
+        <data>
+           	<add>
+       			<name>hidetitle</name>
+    	    	<type>integer</type>
+       			<length>3</length>
+       			<notnull>TRUE</notnull>
+       			<default>0</default>
+    		</add>
+    	</data>
+	</update>
+	
+    <update>
+        <table>tbl_cms_content</table>
+        <version>1.52</version>
+        <description>Added column to hide the title - allows users to style their own titles</description>
+        <data>
+           	<add>
+       			<name>hide_title</name>
+    	    	<type>integer</type>
+       			<length>1</length>
+       			<notnull>TRUE</notnull>
+       			<default>0</default>
+    		</add>
+    	</data>
+	</update>
+
+    <update>
+        <table>tbl_cms_sections</table>
+        <version>1.49</version>
+        <description>Added trash column for deleted/archived sections</description>
+        <data>
+           	<add>
+       			<name>trash</name>
+    	    	<type>integer</type>
+       			<length>1</length>
+       			<notnull>TRUE</notnull>
+       			<default>0</default>
+    		</add>
+    	</data>
+	</update>
+		
+    <update>
+    <table>tbl_cms_menustyles</table>
+    <version>1.48</version>
+    <description>Added default data for the menu styles</description>
+    <data>
+        <insert>
+           <id>init_1</id>
+           <menu_style>tree</menu_style>
+           <root_nodes>0</root_nodes>
+           <is_active>1</is_active>
+       </insert>
+       <insert>
+           <id>init_2</id>
+           <menu_style>buttons</menu_style>
+           <root_nodes>1</root_nodes>
+           <is_active>0</is_active>
+       </insert>
+   </data>
+   </update>
+   
+    <update>
+    <table>tbl_cms_blocks</table>
+    <version>1.47</version>
+    <description>Added leftside_blocks to allow configuring blocks on the left below the menu</description>
+    <data>
+       	<add>
+   			<name>leftside_blocks</name>
+	    	<type>integer</type>
+   			<length>3</length>
+		</add>
+	</data>
+  </update>
+  
+  <update>
+    <table>tbl_cms_blocks</table>
+    <version>1.31</version>
+    <description>Added sectionid to allow adding blocks to section with certain layouts</description>
+    <data>
+       	<add>
+   			<name>sectionid</name>
+	    	<type>text</type>
+   			<length>32</length>
+		</add>
+	</data>
+  </update>
+  <update>
+    <table>tbl_cms_blocks</table>
+    <version>1.31</version>
+    <description>Added frontpage_blocks for adding blocks to frontpage</description>
+    <data>
+       	<add>
+   			<name>frontpage_block</name>
+	    	<type>integer</type>
+   			<length>3</length>
+		</add>
+	</data>
+  </update>
+  <update>
+    <table>tbl_cms_content</table>
+    <version>1.30</version>
+    <description>Added a Creative Commons Licence Field</description>
+    <data>
+       	<add>
+   			<name>post_lic</name>
+	    	<type>text</type>
+   			<length>60</length>
+		</add>
+	</data>
+  </update>
+  <update>
+    <table>
+      tbl_cms_sections
+    </table>
+    <version>
+      1.28
+    </version>
+    <description>
+      changed count field to nodelevel
+    </description>
+    <data>
+       <rename>
+          <count>
+              <name>nodelevel</name>
+          </count> 
+       </rename>
+    </data>
+  </update>  
+  <update>
+    <table>
+      tbl_cms_content
+    </table>
+    <version>
+      1.24
+    </version>
+    <description>
+      removed menutext field
+    </description>
+    <data>
+        <remove>menutext</remove>
+    </data>
+  </update>  
+  <update>
+    <table>
+      tbl_cms_sections
+    </table>
+    <version>
+      1.22
+    </version>
+    <description>
+      added extra fields to the table
+    </description>
+    <data>
+      <add>
+         <name>showdate</name>
+         <type>integer</type>
+         <length>3</length>
+      </add>
+    </data>
+    <data>
+      <add>
+         <name>showintroduction</name>
+         <type>integer</type>
+         <length>3</length>
+      </add>
+    </data>
+    <data>
+      <add>
+         <name>numpagedisplay</name>
+         <type>integer</type>
+         <length>11</length>
+      </add>
+    </data>
+    <data>
+      <add>
+         <name>ordertype</name>
+         <type>text</type>
+         <length>100</length>
+      </add>
+    </data>
+    <data>
+       <remove>image</remove>
+    </data>
+    <data>
+       <remove>image_position</remove>
+    </data>
+    </update>
+  <update>
+    <table>
+      tbl_cms_sections
+    </table>
+    <version>
+      1.20
+    </version>
+    <description>
+      changed description field in section tbl to text
+    </description>
+    <data>
+      <change>
+        <description>
+          <definition>
+            <type>
+              clob
+            </type>
+          </definition>
+        </description>
+      </change>
+    </data>
+  </update>
+  <update>
+  		<table>tbl_cms_sections</table>
+  		<version>1.42</version>
+  		<description> Added additional fields to sections to accommodate context</description>
+  		<data>
+  			<add>
+  				<name>userid</name>
+  				<type>text</type>
+  				<length>255</length>
+  				
+  			</add>
+  			</data>
+  			<data>
+  				<data>
+  				<name>datecreated</name>
+  				<type>date</type>
+  				</data>
+  			</data>
+  			<data>
+  			    <add>
+  				<name>lastupdatedby</name>
+  				<type>text</type>
+  				<length>32</length>
+  				</add>
+  			</data>
+  			<data>
+  				<add>
+  				<name>updated</name>
+  				<type>timestamp</type>
+  				</add>
+  			</data>
+  			<data>
+  			   <add>
+  				<name>startdate</name>
+  				<type>date</type>
+  			  </add>
+  			</data>
+  			<data>
+  			   <add>
+  				<name>finishdate</name>
+  				<type>date</type>
+  				</add>
+  			</data>
+  			<data>
+  				<add>
+  				<name>contextcode</name>
+  				<type>text</type>
+  				<length>255</length>
+  				</add>
+  			</data>
+  			
+  </update>
+  <update>
+    <table>tbl_cms_content</table>
+    <version>1.42</version>
+    <description>Added a start publishing date and end publishing Field</description>
+    <data>
+       	<add>
+            <name>start_publish</name>
+            <type>date</type>
+   			
+        </add>
+    </data>
+    
+    <data>
+       	<add>
+            <name>end_publish</name>
+            <type>date</type>
+   			
+        </add>
+    </data>
+	
+  </update>
+  <update>
+        <table>tbl_cms_content</table>
+        <version>1.583</version>
+        <description>Increased field length for titles</description>
+        <data>
+        	<change>
+        		<title>
+        		<type>text</type>
+        			<definition>
+		    			<type>text</type>
+    					<length>255</length>
+    				</definition>
+    			</title>
+			</change>
+		</data>
+	</update>
+        
+  <update>
+    <table>tbl_cms_content</table>
+    <version>1.593</version>
+    <description>Added and Tested Public Access Control for public/logged in node level access to Content and Sections. Don't forget to do svn update in skins/_common/icons</description>
+    <data>
+       	<add>
+            <name>public_access</name>
+            <type>boolean</type>
+            <default>1</default>
+        </add>
+    </data>
+  </update>        
+
+  <update>
+    <table>tbl_cms_content_frontpage</table>
+    <version>1.593</version>
+    <description>Added and Tested Public Access Control for public/logged in node level access to Content and Sections. Don't forget to do svn update in skins/_common/icons</description>
+    <data>
+       	<add>
+            <name>public_access</name>
+            <type>boolean</type>
+            <default>1</default>
+        </add>
+    </data>
+  </update>        
+
+  <update>
+    <table>tbl_cms_sections</table>
+    <version>1.593</version>
+    <description>Added and Tested Public Access Control for public/logged in node level access to Content and Sections. Don't forget to do svn update in skins/_common/icons</description>
+    <data>
+       	<add>
+            <name>public_access</name>
+            <type>boolean</type>
+            <default>1</default>
+        </add>
+    </data>
+  </update>        
+
+
+  <update>
+    <table>tbl_cms_content</table>
+    <version>1.595</version>
+    <description>Optimized Javascript Libraries, added CMS display options. Don't forget to update htmlelements and creativecommons in app/core_modules/</description>
+    <data>
+      <add>
+        <name>hide_user</name>
+        <type>integer</type>
+        <length>0</length>
+        <notnull>0</notnull>
+        <default>0</default>
+      </add>
+    </data>
+    <data>
+      <add>
+        <name>hide_date</name>
+        <type>integer</type>
+        <length>0</length>
+        <notnull>0</notnull>
+        <default>0</default>
+      </add>
+    </data>
+  </update>        
+  
+  <update>
+    <table>tbl_cms_content</table>
+    <version>1.596</version>
+    <description>Add optional fields for pdf/mail/print</description>
+    <data>
+      <add>
+        <name>hide_pdf</name>
+        <type>text</type>
+        <length>1</length>
+        <notnull>0</notnull>
+        <default>g</default>
+      </add>
+    </data>
+    <data>
+      <add>
+        <name>hide_mail</name>
+        <type>text</type>
+        <length>1</length>
+        <notnull>0</notnull>
+        <default>g</default>
+      </add>
+    </data>
+    <data>
+      <add>
+        <name>hide_print</name>
+        <type>text</type>
+        <length>1</length>
+        <notnull>0</notnull>
+        <default>g</default>
+      </add>
+    </data>
+  </update>       
+
+  <update>
+    <table>tbl_cms_content</table>
+    <version>1.598</version>
+    <description>Added global options</description>
+    
+    <data>
+      <add>
+        <name>show_title</name>
+        <type>text</type>
+        <length>1</length>
+        <notnull>0</notnull>
+        <default>g</default>
+      </add>
+    </data>
+    
+    <data>
+      <add>
+        <name>show_author</name>
+        <type>text</type>
+        <length>1</length>
+        <notnull>0</notnull>
+        <default>g</default>
+      </add>
+    </data>
+    
+    <data>
+      <add>
+        <name>show_date</name>
+        <type>text</type>
+        <length>1</length>
+        <notnull>0</notnull>
+        <default>g</default>
+      </add>
+    </data>
+    
+    <data>
+      <add>
+        <name>show_pdf</name>
+        <type>text</type>
+        <length>1</length>
+        <notnull>0</notnull>
+        <default>g</default>
+      </add>
+    </data>
+    
+    <data>
+      <add>
+        <name>show_email</name>
+        <type>text</type>
+        <length>1</length>
+        <notnull>0</notnull>
+        <default>g</default>
+      </add>
+    </data>
+    
+    <data>
+      <add>
+        <name>show_print</name>
+        <type>text</type>
+        <length>1</length>
+        <notnull>0</notnull>
+        <default>g</default>
+      </add>
+    </data>
+    
+  </update>       
+
+  
+  <update>
+    <table>tbl_cms_content</table>
+    <version>1.601</version>
+    <description>Added Override Creation Date Field</description>
+    
+    <data>
+      <add>
+        <name>override_date</name>
+        <type>timestamp</type>
+      </add>
+    </data>
+    
+  </update>       
+
+  <update>
+    <table>tbl_cms_sections</table>
+    <version>1.602</version>
+    <description>Ensuring code consistancy and readability</description>
+
+    <data>
+        <remove>hidetitle</remove>
+    </data>
+    
+    <data>
+        <remove>showintroduction</remove>
+    </data>
+
+    <data>
+        <remove>showdate</remove>
+    </data>
+    
+    <data>
+      <add>
+        <name>show_title</name>
+        <type>text</type>
+        <length>1</length>
+        <notnull>0</notnull>
+        <default>g</default>
+      </add>
+    </data>
+
+    <data>
+      <add>
+        <name>show_user</name>
+        <type>text</type>
+        <length>1</length>
+        <notnull>0</notnull>
+        <default>g</default>
+      </add>
+    </data>
+	
+	<data>
+      <add>
+        <name>show_date</name>
+        <type>text</type>
+        <length>1</length>
+        <notnull>0</notnull>
+        <default>g</default>
+      </add>
+    </data>    
+
+	<data>
+      <add>
+        <name>show_introduction</name>
+        <type>text</type>
+        <length>1</length>
+        <notnull>0</notnull>
+        <default>g</default>
+      </add>
+    </data>
+  </update>
+
+  <update>
+    <table>tbl_cms_content</table>
+    <version>1.614</version>
+    <description> Content Flagging Field - show_flag</description>
+    
+    <data>
+      <add>
+        <name>show_flag</name>
+        <type>text</type>
+        <length>1</length>
+        <notnull>0</notnull>
+        <default>g</default>
+      </add>
+    </data>
+  </update>
+
+</updates>
+
+

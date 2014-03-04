@@ -1,0 +1,514 @@
+/* empty */
+/* empty */
+
+/* avoid titlecontent growing too large */
+
+.atb-titlecontent {
+    height:10px;
+}
+
+/* unlicensed */
+
+div.unlicensed {
+    text-align:center;
+    background-color:#FFF3F3;
+    border:9px solid #DD3333;
+    margin:50px;
+    padding:20px 50px 50px 50px;
+}
+div.unlicensed h1, div.unlicensed h1 a {
+    font-size:xx-large;
+    font-weight:bold;
+    color:#BB0000;
+}
+div.unlicensed p, div.unlicensed a {
+    color:#990000;
+    font-size:medium;
+    font-weight:normal;
+}
+
+
+/* search input */
+.search-query-text-input {
+    height:20px;
+    width:70%;
+    float:left;
+    margin-right:3px !important;
+}
+
+.search-filters-panel {
+    margin-top:3px;
+}
+
+/* mail css */
+.mailLabel {
+    color: #666666; font-weight: bold;
+}
+
+.mailthread {
+}
+
+.unparented {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.parented {
+    list-style-image: url("/confluence/images/icons/link_out_bot.gif");
+}
+
+.mailthread ul {
+    list-style-image: url("/confluence/images/icons/link_out_bot.gif");
+}
+
+.selectedMail {
+  background-color: #ffffcc;
+  padding: 2px;
+  border: 1px solid #ddd;
+}
+
+.excerpt {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+/* blog-list macro */
+.bloglist.default .permalink {
+    float:right;
+    font-size:x-small;
+}
+.bloglist.default .title {
+    font-size:x-large;
+}
+.bloglist.default .date {
+    font-size:x-large;
+}
+.bloglist.default .postedby, .bloglist.default .postedbydate {
+    font-size:x-small;
+}
+
+
+
+/* extracted-default theme.css */
+.tabnav .tabs a {
+    padding: 0px 3px 0px 3px;
+    margin: 0px 3px 0 0;
+    border-bottom: none;
+    text-decoration: none;
+    display: block;
+    float: left;
+}
+
+
+/* list page navigational tabs */
+.tabnav, .comment .tabnav {
+    padding: 0;
+    margin: 0;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    float: left;
+    display: inline;
+    list-style-position: outside;
+    width: 100%;
+    font-weight: normal;
+    font-size: 9pt;
+}
+
+
+/* comments in IE in 2.8 */
+.comment, .comment-body, .comment-header { height:auto; }
+
+/* support recently-updated display */
+.recentlyUpdatedItem {
+	border-bottom: #f0f0f0 1px solid;
+	border-top: #f0f0f0 1px solid;
+	margin: 10px 0 0 0;
+	padding: 0px;
+	border-spacing: 0px;
+	width: 100%;
+    text-decoration: none;
+    border-collapse: collapse;
+}
+
+.recentlyUpdatedItem td {
+    padding: 10px;
+    border-bottom: #f0f0f0 1px solid;
+    vertical-align: top;
+}
+
+.recentlyUpdatedItem .authorAndDate {
+	background-color: #f0f0f0;
+	width: 25%;
+}
+
+.recentlyUpdatedItem .date {
+    margin-top: 4px;
+    font-size: 90%;
+    color: #666;
+}
+
+.recentlyUpdatedItem .profilePic {
+    float: right;
+    background-color: #f0f0f0;
+    margin: 0 2px;
+}
+
+.recentlyUpdatedItem .twixie {
+    padding: 10px 0 0 4px;
+}
+
+.recentlyUpdatedItem .icon {
+    padding: 8px 0 0 1px;
+}
+
+.recentlyUpdatedItem .details {
+    padding-left: 7px;
+}
+
+.recentlyUpdatedItem .summary, .recentlyUpdatedItem .thumbnail {
+    margin-top: 3px;
+    color: #666666;
+}
+
+.moreRecentlyUpdatedItems {
+    text-align: right;
+    margin-top: 10px;
+    font-size: 10pt;
+}
+
+/* ensure titlecontent cell is correctly aligned */
+.atb-titlecontent {vertical-align:top;}
+
+/* support for page versions */
+.hidden {
+    display: none;
+}
+
+/* menus in opera */
+.menubar {
+    position: static;
+}
+
+/* pagetree2 */
+.pagetree2 .cell1, .pagetree2 .cell2, .pagetree2 .cell3, .pagetree2 .cell4, .pagetree2 .cell5 {
+    white-space:nowrap;
+}
+
+/* access keys */
+#atb-accessKeys { margin: 0; padding: 0; }
+#atb-accessKeys dt { margin: 0; padding: 0; position: absolute; top: -9999px; left: 0; }
+#atb-accessKeys dd { margin: 0; padding: 0; }
+#atb-accessKeys dd a { position: absolute; top: -9999px; left: 0; }
+#atb-accessKeys dd a:focus, #accessKeys dd a:active { background-color: #3556a2 !important; color: #fff !important; top: 0; font-size: 1.2em; padding: .5em; }
+
+/* make headings less ugly */
+.atb-page h1, .atb-page h2, .atb-page h3, .atb-page h4, .atb-page h5, .atb-page h6 {
+ background-color: transparent;
+ border-style: none;
+ padding: 0px;
+}
+.atb-title h1 {
+ font-size: 18px;
+ line-height: 1.0em;
+ margin-top: 0px;
+}
+
+/* make breadcrumbs less rancid */
+.breadcrumbs {
+ background-color: transparent;
+ border: 1px none transparent;
+}
+ol.breadcrumbs {
+    padding:0px;
+    margin:0px;
+}
+ol.breadcrumbs li.breadcrumb {
+    float:left;
+    list-style-type:none;
+    padding-right:3px;
+}
+
+ol.ellipsis li.breadcrumbsExpansion, ol.expanded li.breadcrumbsEllipsis { display:none; }
+ol.expanded li.breadcrumbsExpansion, ol.ellipsis li.breadcrumbsEllipsis { display:block; }
+
+/* labels in menus */
+div.dynarch-horiz-menu .label, div.dynarch-popup-menu .label {
+ font-weight: normal;
+}
+
+/* allow panel css to set design of menus in .atb-menu */
+.atb-menu div.dynarch-horiz-menu {
+ background-color: transparent;
+ background-image: none;
+ border-style: none;
+}
+
+/* remove margins from forms */
+.marginlessForm {
+ margin: 0px;
+}
+
+/* don't force search box to be 100% width */
+.confluence-searchbox {
+ width: auto;
+ white-space: nowrap;
+}
+
+/* remove padding from PageContent */
+.PageContent, .pagecontent {
+ padding: 0px;
+}
+
+/* ui table (e.g. attachments list) */
+.tableview th, .tabletitle, .pageSectionHeader {
+ border-bottom-width: 1px;
+}
+.tableview th, div.tabletitle {
+ font-weight: bold;
+}
+.mode-view-attachments .tableview td {
+ border-top: 1px solid #fff;
+ vertical-align: middle;
+}
+.tableview td {
+ border-bottom: 1px dotted #ccc;
+}
+.tableview tr:hover td {
+ border-bottom: 1px solid #000;
+}
+.rowAlternate {
+ background-color: #f7f7f7;
+}
+
+/* activity screens */
+.context-space-activity .pagebody {
+ padding: 0px;
+}
+
+/* no image borders */
+a img {
+ border-style: none;
+}
+
+/* hide accessibility features by default */
+.accessibility {
+ display: none;
+}
+
+/* left slider */
+.atb-leftslider {
+ cursor: w-resize !important;
+}
+
+/* right slider */
+.atb-rightslider {
+ cursor: e-resize !important;
+}
+
+/* allow special effects on tables, etc. */
+.layout {
+ direction:ltr;
+}
+
+/* inhibit selection where possible */
+.noselect {
+ -moz-user-select: none;
+ cursor: default;
+}
+
+/* line spacing */
+body, p, li, ul {
+ line-height:1.6em;
+}
+
+/* citation */
+cite:before { content: "\""; }
+cite:after { content: "\""; }
+cite, cite:before, cite:after {
+ font-family: Georgia, "Times New Roman", serif;
+ font-style: italic;
+}
+
+/* insertions and deletions */
+ins {
+ background-color: #DBFFDB;
+}
+del {
+ background-color: #FFE5E5;
+}
+
+/* make italics more readable */
+i, em {
+ letter-spacing: 1px;
+}
+
+/* tables */
+.confluenceTable {
+ border: 1px solid #B2B2B2;
+ border-collapse: collapse;
+}
+.confluenceTable th.confluenceTh {
+ background-color: #F5F5F5;
+ border: 1px dotted #B2B2B2;
+ font-weight: bold;
+ font-size: small;
+ padding: 3px 4px 3px 4px;
+}
+.confluenceTable .confluenceTd {
+ border: 1px dotted #B2B2B2;
+ padding: 3px 4px 3px 4px;
+}
+
+/* ExtJS unselectable panels */
+.x-unselectable { cursor: default; }
+
+/* skip navigation */
+@media screen, print, handheld, projection, tv {
+ .non-visual {display: none; visibility: hidden;}
+}
+
+/* sliders */
+.atb-slider .atb-slider-img {
+ width: 9px;
+ height: 20px;
+}
+.atb-leftslider .atb-leftslider-img {
+ background-position: top right;
+}
+.atb-rightslider .atb-rightslider-img {
+ background-position: top left;
+}
+
+.quicklinks {
+ overflow: auto;
+}
+.quicklinks div {
+ clear: none;
+ float: left;
+ margin-bottom: 4px;
+ width: 49%;
+}
+
+/* Stop menu items wrapping */
+div.dynarch-horiz-menu table tr td {
+ white-space: nowrap;
+}
+
+/* Provide support for menu spacers */
+div.dynarch-horiz-menu table tr td.spacer {
+ width: 100%;
+}
+div.dynarch-horiz-menu table tr td.spacer div {
+ display:none;
+}
+
+/* poweredBy */
+.poweredBy, .poweredBy a {
+ color:#909090;
+ font-size:small;
+}
+
+/* fixes comments squashing */
+?#comments-section .comment {
+    height: auto;
+}
+
+.atb-body {background-image:url(/confluence/s/1419/11/3.3.3/_/download/resources/com.adaptavist.confluence.themes.sitebuilder:sitebuilder/icons/.png);background-position:center center;background-repeat:repeat-y;padding:0px;margin:0px;text-align:left;background-color:#FFFFFF;}
+.atb-body, .atb-body p, .atb-body td, .atb-body th, .atb-body div, .atb-body span, .atb-body div.dynarch-horiz-menu, .atb-body div.dynarch-horiz-menu table, .atb-body div.dynarch-horiz-menu table, .atb-body input, .atb-body ul li, .atb-body ol li, .atb-body select {font-family:sans-serif;font-size:12px;line-height:1.6em;}
+.atb-page {border-style:solid;border-width:1px;border-color:#cccccc;background-color:#FFFFFF;}
+.atb-header {background-image:url(https://wikis.uit.tufts.edu/confluence/download/attachments/28152669/header_bg.gif);background-position:bottom center;background-repeat:repeat-x;width:200px !important;height:75px !important;background-color:#f1f0f0;}
+.atb-menu {background-image:url(https://wikis.uit.tufts.edu/confluence/download/attachments/28152669/menu_bg.gif);background-repeat:no-repeat;border-style:none;border-width:1px;border-color:#F3F4EC;padding:0px;vertical-align:top;text-align:right;height:18px !important;background-color:#d9efc1;}
+.atb-menu, .atb-menu p, .atb-menu td, .atb-menu th, .atb-menu div, .atb-menu span, .atb-menu div.dynarch-horiz-menu, .atb-menu div.dynarch-horiz-menu table, .atb-menu div.dynarch-horiz-menu table, .atb-menu input, .atb-menu ul li, .atb-menu ol li, .atb-menu select {color:#000000;}
+.atb-navigation {border-style:none;border-width:1px;border-color:#F3F4EC;padding:2px;height:15px !important;background-color:#FFFFFF;}
+.atb-navigation, .atb-navigation p, .atb-navigation td, .atb-navigation th, .atb-navigation div, .atb-navigation span, .atb-navigation div.dynarch-horiz-menu, .atb-navigation div.dynarch-horiz-menu table, .atb-navigation div.dynarch-horiz-menu table, .atb-navigation input, .atb-navigation ul li, .atb-navigation ol li, .atb-navigation select {font-size:10px;}
+.atb-leftSidebar {border-style:none;border-width:1px;border-color:#999999;padding:5px;vertical-align:top;width:230px !important;background-color:#f8f8f8;}
+.atb-title {padding:5px;overflow:visible;vertical-align:top;}
+.atb-title, .atb-title p, .atb-title td, .atb-title th, .atb-title div, .atb-title span, .atb-title div.dynarch-horiz-menu, .atb-title div.dynarch-horiz-menu table, .atb-title div.dynarch-horiz-menu table, .atb-title input, .atb-title ul li, .atb-title ol li, .atb-title select {color:#000000;}
+.atb-content {padding:5px;overflow:visible;vertical-align:top;}
+.atb-footnote {padding:5px;overflow:visible;vertical-align:top;height:10px !important;}
+.atb-footer {border-style:none;border-width:1px;border-color:#F3F4EC;padding:2px;text-align:center;height:20px !important;background-color:#e5e5e5;}
+.atb-footer, .atb-footer p, .atb-footer td, .atb-footer th, .atb-footer div, .atb-footer span, .atb-footer div.dynarch-horiz-menu, .atb-footer div.dynarch-horiz-menu table, .atb-footer div.dynarch-horiz-menu table, .atb-footer input, .atb-footer ul li, .atb-footer ol li, .atb-footer select {font-size:11px;color:#666666;}
+
+/* empty */
+
+.wiki-content h1{color: #4d8f05; font-size: 16px; 
+	font-family: Arial, Helvetica, sans-serif;}
+
+.wiki-content h2{color: #333333;  font-size: 15px; 
+	font-family: Arial, Helvetica, sans-serif;}
+
+.wiki-content h3{color: #666666;  font-size: 14px; 
+	font-family: Arial, Helvetica, sans-serif;}
+
+.wiki-content h4{color: #417dc1;  font-size: 13px; 
+	font-family: Arial, Helvetica, sans-serif;}
+
+
+#atb-titlediv h1{ color: #4d8f05; font-size: 16px; 
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.breadcrumbs a:link, .breadcrumbs a:visited, .breadcrumbs a:active, .breadcrumbs a:hover, .breadcrumbs {
+	color: #4d8f05;
+	text-decoration: underline;
+
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+ 
+
+div.dynarch-horiz-menu table tr td.hover { background: #d9efc1 ; border-color: #d9efc1; color: #000000;}
+div.dynarch-horiz-menu table tr td.active { background: #d9efc1; border-color: #d9efc1; color: #000000; }
+div.dynarch-horiz-menu table tr td.pressed { background:#d9efc1; border-color: #d9efc1;  color: #000000;}
+
+ div.dynarch-horiz-menu {height: 20px;}
+
+
+
+ #atb-footerdiv a{
+color:#666666;
+}
+
+.atb-title{
+padding-top:20px;
+padding-left: 40px;}
+
+.wiki-content{
+padding-left: 40px;
+padding-right: 40px;
+}
+
+
+
+.section-header{
+padding-left: 40px;}
+
+#page-children
+{
+padding-left:40px;}
+
+.commentsBlock
+ {
+padding-left: 40px;}
+
+ 
+
+
+/* Stop menu items wrapping */
+div.dynarch-horiz-menu table tr td {
+ white-space: nowrap;
+}
+
+/* Provide support for menu spacers */
+div.dynarch-horiz-menu table tr td.spacer {
+ width: 100%;
+}
+div.dynarch-horiz-menu table tr td.spacer div {
+ display:none;
+}
+
+ 
+
+

@@ -1,0 +1,2 @@
+delete from tbl_modules_owned_tables where tablename = 'tbl_oer_groups';
+drop table tbl_oer_groups;

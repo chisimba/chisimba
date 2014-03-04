@@ -1,0 +1,3404 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="\&quot;expires\&quot;" content=
+  "\&quot;0\&quot;" />
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=us-ascii" />
+  <meta name="generator" content="Claude" />
+  <meta name="version" content="0.9.9.96 beta" />
+  <meta name="copyright" content=
+  "Copyright (c) 2004, 2005, 2006, 2007 Ostyn Consulting -- All rights reserved" />
+  <meta name="description" content=
+  "Test wrapper for SCORM 2004 SCOs. Can act as a mini-RTE or as passthrough to a RTE. When used as mini-RTE, supports most of the data model but error checking is not complete and some complex behaviors are not implemented. To use as passthrough, specify the SCO to launch as a parameter named SCO (case insensitive) in the launch URL for the wrapper." />
+
+  <title>Claude's SCORM 2004 Test Wrapper</title>
+<script type="text/javascript">
+//<![CDATA[
+var gs_VERSION = "0.9.9.96 beta";
+
+// History
+//  0.9.9.3 2006-11-12
+//    Corrects a bug in handling of setting interaction type
+//  0.9.9.4 2006-12-05
+//    Added trap for negative interaction data index
+//    Corrected nonfunctional interactions.n.learner_response
+//  0.9.9.5 2007-01-18
+//    Added cmi._version
+//    Corrected several nonfunctional cmi.interactions data elements
+//    Corrected nonfunctional cmi.objectives elements
+//    Corrected nonfunctional cmi.progress_measure
+//  0.9.9.6 2007-06-01
+//    Added option to URL encode the SCO parameter
+
+// ========= LOCALIZABLE STRINGS ===========
+
+var gs_RESETTING_ATTEMPT = 'Resetting all attempt data.';
+var gs_CONFIRM_CLEAR_LOG = 'Clear the log?\n(OK to clear the log, Cancel to keep the log)';
+var gs_SAVE_LOGInstructions = 'Unfortunately, ECMAScript does not allow saving files. '
+  + 'The workaround is as follows:\n\n 1. Click in the log frame'
+  + '\n 2. Type Ctrl+A to select all the content'
+  + '\n 3. Type Ctrl-C\n\n This copies the log to the Windows clipboard.'
+  + '\n\nYou can then paste the log into any text application, '
+  + 'such as Notepad or a word processing application.';
+var gs_SECURITY_ISSUE = 'If you get a warning when trying to open a SCO with a'
+  + 'file:/// URL,'
+  + '\n - if the browser is IE 6, click the yellow warning at the top of the window.'
+  + '\n - if the browser is FireFox, there is no workaround. You must use a web server.';
+var gs_SCO_TRIES_TO_GRAB_TOP_WINDOW = 'Critical SCO error: '
+  + 'The SCO is trying to control or close a parent window.\n\n'
+  + 'This is not allowed in SCORM 2004.\n\nThe test wrapper instance is destroyed. '
+  + 'This SCO may cause enough damage to a runtime environment to prevent recording '
+  + 'of the tracking data or to corrupt the learner session in a LMS.';
+
+// misc captions
+var gs_CLEAR_LOG = "Clear log";
+var gs_COMPLETION_THRESHOLD_LABEL = "cmi.completion_threshold:";
+var gs_END_ATTEMPT = "End Attempt";
+var gs_HELP = "Help";
+var gs_LOAD = "Load SCO";
+var gs_OPTIONS = "Options";
+var gs_PASSING_SCORE_LABEL = "cmi.scaled_passing_score:";
+var gs_PRINT_LOG = "Print log";
+var gs_RELOAD = "Reload SCO";
+var gs_SAVE_LOG = "Save log";
+var gs_SET_MARK_IN_LOG = "Insert log label:";
+var gs_TXT_SCO_URL = "SCO URL:";
+var gs_UNLOAD_SCO = "Unload SCO - Allow Suspend";
+
+// misc alerts and messages
+var gs_ERR_LO_BROWSER = '"Sorry, this test wrapper requires IE 5.5, '
+  + 'FireFox 1.5 or an equally capable DOM enabled browser.';
+var gs_API_RETURNS_COLON = 'API returns:';
+var gs_ATTEMPT_NOT_SUSPENDED = 'Attempt not suspended';
+var gs_ATTEMPT_RESUMED = "Attempt resumed";
+var gs_ATTEMPT_SUSPENDED = 'Attempt suspended';
+var gs_ERR = 'ERR';
+var gs_FORCIBLE_UNLOAD = 'Forcible SCO unload';
+var gs_LOADING_SCO = "Loading SCO";
+var gs_API_PASSTHRU_MODE = "API calls handled by RTE";
+var gs_API_EMULATED = "No RTE is available. Emulating a RTE to handle API calls";
+var gs_NEW_SESSION = 'New Session';
+var gs_NEW_SESSION_RELAUNCH = "New session, SCO relaunched";
+var gs_NO_SCORM_API = 'SCORM API not available';
+var gs_ONE_MOMENT = "One moment, please...";
+var gs_SESSION_TERMINATED = 'Session terminated';
+var gs_TOTAL_TIME_COLON = 'Total Time:';
+var gs_UNRECOGNIZED_DM = 'Unrecognized data model';
+var gs_WARNING_COLON = 'Warning:'
+
+var gs_LOG_TEMP_TEXT = 'The log of the SCORM API events will '
+ + 'be displayed here. You can make this frame narrower or '
+ + 'wider by dragging the right edge of the frame.';
+
+// ========= Help string =======//
+var gs_HELP_TEXT = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">'+
+ '<html><head><meta http-equiv="Content-Type" content= "text/html; charset=us-ascii">'+
+ '<meta name="generator" content="Claude">'+
+ '<title>SCORM 2004 Wrapper Help<\/title> <style type="text/css">'+
+ ' body {font-family: Arial, Helvetica, Sans-Serif;font-size:10pt}'+
+ ' .typeit {font-family: Courier, Courier New;}'+
+ ' .heavy {font-weight: bold;} <\/style>'+
+ '<\/head>'+
+ '<body>'+
+ ' <h3>SCORM 2004 Wrapper by Claude Ostyn '+
+ '<small><small>Version&nbsp;' + gs_VERSION + '<br />'+
+ '&copy; 2007 Claude Ostyn - All rights reserved '+
+ '&nbsp;<a href="#terms">License and terms of use<\/a><\/small><\/small><\/h3>'+
+ ' <p><span class="heavy">Synopsis<\/span><br/>'+
+ 'This wrapper can be used to monitor the communications between a SCO and a '+
+ 'runtime environment. It can also be used as a minimal, standalone runtime '+
+ 'environment for quick testing of SCOs. It consists of a single HTML file '+
+ 'that, when launched, instantiates various windows including a log window, '+
+ 'a stage window in which the SCO will play, and a small control panel.<\/p> '+
+ '<p><span class="heavy">Using the wrapper with a LMS<\/span><br/> '+
+ 'Copy the wrapper file into the same directory as your SCO. '+
+ 'Modify your manifest to include the wrapper as a file in the '+
+ '<span class="typeit">&lt;resource&gt;<\/span> element you want to test. '+
+ 'Modify the URL in the <span class="typeit">href<\/span> attribute of the '+
+ '<span class="typeit">&lt;resource&gt;<\/span> by prepending the file name '+
+ 'of the wrapper, using the original file name of the SCO as the value of a '+
+ '"sco" parameter for the new URL. So, for example, if the original URL was '+
+ '<span class="typeit">mysco.html<\/span> the modified URL becomes '+
+ '<span class="typeit">scorm2004testwrap.htm?sco=mysco.html<\/span> '+
+ '<\/p><p>If it is necessary to URL encode the SCO parameter, this can '+
+ 'be specified by adding the parameter <span class="typeit">urlencoded</span> '+
+ 'with the value <span class="typeit">y</span>. For example,<br />'+
+ '<span class="typeit">scorm2004testwrap.htm?urlencoded=y&sco=my%20sco%2ehtml<\/span>'+
+ '<\/p> '+
+ '<p><span class="heavy">Using the wrapper standalone<\/span><br/> '+
+ 'You can launch the wrapper by itself in the file system or in a web site, '+
+ 'and specify a relative URL for the SCO to launch. The URL can be specified '+
+ 'in a parameter named "sco" or manually by typing it in after the wrapper '+
+ 'has been launched. The wrapper does not '+
+ 'implement all the features of a real LMS, and in this version some of the '+
+ 'error state values are not correct. However you can exercise most of the '+
+ 'functionality of a SCO, including suspend and resume.<\/p>'+
+ '<p><span class="heavy">Feedback<\/span><br />'+
+ 'Feedback is highly appreciated so this tool can '+
+ 'get improved and to prove that it is worth making it available to the '+
+ 'SCORM community. How you use it, what problem it helped you solve, '+
+ 'problems or bugs you discovered, and so on. Please send your feedback '+
+ 'to <a href="mailto:tools@ostyn.com?Subject=scorm2004testwrap&nbsp;'+
+ gs_VERSION +
+ '">tools@ostyn.com<\/a>.<br />For the most current version of this utility, '+
+ 'see <a href="http://www.ostyn.com/resources.htm">http://www.ostyn.com/resources.htm<\/a><\/p>'+
+ '<p><a name="terms"><\/a><span class="heavy">License and terms of use<\/span><br /> '+
+ '<a rel="license" href="http://creativecommons.org/licenses/by-sa/2.5/"'+
+ ' target="_external">'+
+ '<img alt="Creative Commons License" border="0" '+
+ 'src="http://creativecommons.org/images/public/somerights20.png"/><\/a> '+
+ 'This work is licensed under a <a rel="license" '+
+ 'href="http://creativecommons.org/licenses/by-sa/2.5/" target="_external">'+
+ 'Creative Commons '+
+ 'Attribution-ShareAlike2.5 License<\/a>.<br />'+
+ 'USE AT YOUR OWN RISK<br />'+
+ 'THIS SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR '+
+ 'IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, '+
+ 'FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE '+
+ 'AUTHOR OR COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER '+
+ 'LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, '+
+ 'OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE '+
+ 'SOFTWARE.<\/p>'+
+ ' <\/body> <\/html>';
+
+var gs_SCO_IN_POPUP = 'The SCO is running in a popup window.';
+var gs_SCO_REFOCUS_BTN = 'Reset focus';
+var gs_SCO_REFOCUS_BTNExplain = 'Click the Reset focus button to reactivate that window, if possible.';
+var gs_LAUNCH_OPTIONSNotAvailable = '(Launch options for window type and size are not available when the wrapper is running in a frame)';
+var gs_POPUP_PROBLEM = 'Unable to open a popup window. If you use a popup blocker,'
+ + ' please change its setting to allow popups from this site.';
+
+var gs_WRAPPER_OPTIONS = 'SCORM 2004 Wrapper Options';
+var gs_LAUNCH_OPTIONS = 'SCO Launch options';
+var gs_PROMPT_CLEAR_LOG_OPTION = 'Prompt to clear the log before loading the SCO.';
+var gs_LMS_EMULATION_OPTIONS = 'LMS Emulation options';
+var gs_RTE_PRESET_MODE_LABEL = 'cmi.mode (default value is "normal")';
+var gs_RTE_PRESET_CREDIT_LABEL = 'cmi.credit (default value is "credit")';
+
+var gs_LAUNCH_SCO_IN_FRAME = 'Launch SCO in the stage '
+    + 'frame within the main frameset. ';
+var gs_LAUNCH_SCO_IN_POPUP = 'Launch SCO in a popup window. Use this option to check whether a SCO '
+    + 'attempts to automatically close its window when allowed by the '
+    + 'specification. Closing of the window by the SCO is allowed but '
+    + 'not required if the SCO is launched in its own popup window.';
+var gs_LAUNCH_SCO_IN_FRAME_IN_POPUP = 'Launch SCO in a frame in a popup window '
+    + 'that uses a frameset. This is similar to the way the ADL test suite '
+    + 'launches a SCO for testing. Closing of the window by the SCO is '
+    + 'not allowed since the SCO does not own the frameset.';
+
+
+// ========= DEFAULT OPTIONS =========
+
+// Height and width of the popup stage window, if used.
+// Note that these are external dimensions for the window.
+// Currently SCORM does not specify a minimum window size,
+// or any way for the SCO to communicate its expected window
+// size.
+var gn_PopupStageWidth = 800;
+var gn_PopupStageHeight = 600;
+
+var gn_PassingScore = 0.75;
+var gn_CompletionThreshold = 1.0;
+
+// ========= MISCELLANEOUS DEFAULT VALUES ======== //
+var gs_DFLT_LEARNER_NAME = "Claude's SCORM 2004 Test Wrapper"
+var gs_Learner_Id = makePseudoGuid();
+    // makePseudoGuid() generates a random ID
+
+/// **** AUTO SESSION MANAGEMENT WHEN WRAPPER IS A SCO *****
+// If gb_AUTO_MANAGE_SESSION is true, the SCORM wrapper initiates and
+// manage its own communication session with the host runtime
+// environment if one is found. If it is false, the SCORM
+// wrapper doesn't attempt any communication with the API until
+// the "wrapped" SCO calls Initialize.
+// By default this is false. Set it to true in case there are
+// problems with the wrapped SCO and to avoid premature termination
+// of the test wrapper before the log can be recorded in case the LMS
+// has the nonstandard behavior of closing the window altogether as
+// soon as Terminate is called.
+var gb_AUTO_MANAGE_SESSION = false // Change to true for difficult cases;
+
+///////// DO NOT MODIFY ANYTHING BELOW THIS ///////////
+
+// ========= SANITY FLAGS =========
+var gbRunningInFrame = ((window.parent)&&(window.parent!=window));
+var gbAutoSuccessStatus = false;
+
+// ========= GENERIC UTILITY FUNCTIONS =========
+
+function makePseudoGuid()
+{
+  return "123456-1223435-112334<trick>4-1133-5[345ae\/\+.\{/]"
+}
+
+function trim(str)
+{
+  if (str == null) return "";
+  return str.replace(/^\s*(\b.*\b|)\s*$/, "$1");
+}
+
+function compareStr(sA,sB)
+{
+  if (sA > sB) return 1;
+  if (sA < sB) return -1;
+  return 0;
+}
+
+function IsUnsafeString(s)
+{
+  // True if any char < "!" that is not tab, CR or LF
+  var c;
+  for (var i=0;i<s.length;i++)
+  {
+    c = s.charCodeAt(i);
+    if ((c < 33)&&((c!=9)&&(c!=10)&&(c!=13))) return true;
+  }
+  return false;
+}
+
+function pseudoPrintf(s)
+{
+  // Replace placeholders in the form #1 #2 etc. in s with
+  // corresponding strings passed as extra arguments
+  // Note: number base is 1, not 0;
+  if (arguments.length < 2) return s;
+  var re = new RegExp("x1", "g");
+  for (var i=arguments.length-1;i>0;i--)
+  {
+    re.compile("#" + i,"g");
+    s = s.replace(re, arguments[i] + "");
+  }
+  return s;
+}
+
+function IsValidIeeeIdentifier(s)
+{
+  var OK = (!IsUnsafeString(s));
+  // Here other tests to be done
+  return OK;
+}
+
+function WriteWindowDocument(wnd, s)
+{
+  if (!wnd) return;
+  wnd.document.open();
+  wnd.document.write(s);
+  wnd.document.close();
+}
+
+function urlDecode(url)
+{
+	return unescape(url);
+}
+
+//// Generic cookie functions
+
+var gCookieExpDate = new Date ();
+
+// Mac date bug fix
+function FixCookieDate (date) {
+  var base = new Date(0);
+  var skew = base.getTime(); // dawn of (Unix) time - should be 0
+  if (skew > 0)  // Except on the Mac - ahead of its time
+    date.setTime (date.getTime() - skew);
+}
+
+function SetCookie (name,value,expires,path,domain,secure) {
+// first 2 params are required, others optional
+  //if (!(domain)) { domain = "Saranjan"; }
+  if (!(expires)) { expires = gCookieExpDate ;}
+  document.cookie = name + "=" + escape (value) +
+    ((expires) ? "; expires=" + expires.toGMTString() : "") +
+    ((path) ? "; path=" + path : "") +
+    ((domain) ? "; domain=" + domain : "") +
+    ((secure) ? "; secure" : "");
+  //alert('cookie set to expire ' + expires + ' : ' + GetCookie(name))
+}
+
+function DeleteCookie (name,path,domain) {
+  if (GetCookie(name)) {
+    document.cookie = name + "=" +
+      ((path) ? "; path=" + path : "") +
+      ((domain) ? "; domain=" + domain : "") +
+      "; expires=Thu, 01-Jan-70 00:00:01 GMT";
+  }
+}
+
+function GetCookie(nam) {
+// Parses document's cookie for a named value
+// Weird coding supports both IE6 and Mozilla
+  var a = document.cookie.split(";");
+  var aCk = null;
+  for (i=0; i<a.length;i++)
+  {
+    if (a[i].indexOf("=") < 0)
+    {
+      continue;
+    }
+    aCk = a[i].split("=");
+    if (trim(aCk[0]) == nam)
+    {
+      if (aCk.length > 0)
+      {
+        return unescape(aCk[1]);
+      }
+      else
+      {
+        break;
+      }
+    }
+  }
+  return "";
+}
+
+function GetCookieList()
+{
+  // Returns an array of cookie names
+  // IE uses the form 'name;' for empty cookies,
+  // while moz uses the form 'name=;'
+  var a = document.cookie.split(";");
+  var aNams = new Array();
+  for (i=0; i<a.length;i++)
+  {
+    if (a[i].indexOf("=") > -1)
+    {
+      aNams[aNams.length] = trim((a[i].split("="))[0]);
+    }
+    else
+    {
+      aNams[aNams.length] = trim(a[i]);
+    }
+  }
+  return aNams.sort(compareStr);
+}
+
+function ClearAllCookies(path, domain)
+{
+  var aNams = GetCookieList();
+  for (i=0;i<aNams.length;i++)
+  {
+    document.cookie = aNams[i] + "=" +
+      ((path) ? "; path=" + path : "") +
+      ((domain) ? "; domain=" + domain : "") +
+      "; expires=Thu, 01-Jan-70 00:00:01 GMT";
+  }
+}
+
+FixCookieDate (gCookieExpDate); // Correct for Mac date bug - call only once for given Date object!
+
+// Arbitrary expiration date set to 1 year for this app.
+gCookieExpDate.setTime (gCookieExpDate.getTime() + (365 * 24 * 60 * 60 * 1000)); // 1 * 24 hrs from now
+
+function clearCookies(aNames) {
+  if (aNames) {
+    for (i=0;i<aNames.length;i++){
+      DeleteCookie(aNames[i])
+    }
+  }
+}
+
+function GetCookieBool(nam, defV)
+{
+  var b = GetCookie(nam);
+  return ((b != null)? (b == "true") : defV);
+}
+
+function GetCookieString(nam, defV)
+{
+  var s = GetCookie(nam);
+  return ((s != "")? s : defV);
+}
+function GetCookieInt(nam, defV)
+{
+  var n = parseInt(GetCookie(nam));
+  return ((isNaN(n))? defV : n);
+}
+
+function GetCookieFloat(nam, defV)
+{
+  var n = parseFloat(GetCookie(nam));
+  return ((isNaN(n))? defV : n);
+}
+
+// End of generic cookie functions
+
+// Presets and cookie overrides
+
+var gbPromptClearLog = GetCookieBool("PromptClearLog",true);
+var gSCOLaunchWindowType = GetCookieString("LaunchWindowType","frame");
+gn_PopupStageWidth = GetCookieInt("PopupStageWidth",gn_PopupStageWidth);
+gn_PopupStageHeight = GetCookieInt("PopupStageHeight",gn_PopupStageHeight);
+gn_PassingScore = GetCookieFloat("PassingScore", gn_PassingScore);
+gn_CompletionThreshold = GetCookieFloat("CompletionThreshold",gn_CompletionThreshold);
+gRTEPresetBrowse = GetCookieString("RTEPresetBrowse","normal");
+gRTEPresetCredit = GetCookieString("RTEPresetCredit","credit");
+
+//!!! Other globals and presets
+
+/*** Debug flag. If true, alerts are shown for some significant events ***/
+var gbDebugSession = false; // default should be false
+
+// Encoded flag. If true, the SCO parameter is expected
+// to be URL encoded.
+var gbSCOParamEncoded = false;
+
+// Parse any parameters passed on command line
+
+var gaURLParams = new Array();
+
+function URLParams2Array()
+{
+  var s  = location.search;    // Strips query string from URL.
+
+  if (s.length > 0)
+  {
+    if (s.charAt(0) == "?") s = s.substr(1);
+    if (s.length > 0)
+    {
+      var aNamVals = s.split("&");
+      var aNamVal = null;
+      var v = "";
+      var Pattern1 = new RegExp(/\+/g);
+      for (var i=0;i<aNamVals.length;i++)
+      {
+        aNamVal = aNamVals[i].split("=");
+        v = aNamVal[1];
+        if ((v)&&(aNamVal[0].length>0))
+        {
+          v = v.replace(Pattern1, " ");
+          gaURLParams[gaURLParams.length] =
+            new Array(aNamVal[0].toUpperCase(),unescape(v));
+        }
+      }
+    }
+  }
+}
+
+URLParams2Array();
+
+// Special processing for the SCO parameter. If the SCO parameter
+// contains a ? then everything past that ? is considered to be
+// part of the SCO parameter.
+// This allows use of a complex SCO parameter without requiring
+// it to be fully URL encoded, as long as the SCO parameter is the
+// last one in the URL parameters.
+
+function ReprocessSCOParam()
+{
+  // We can skip some error trapping since we already know
+  // that there are params and that one of them is SCO.
+  var s = location.search;
+  if (s.charAt(0) == "?") s = s.substr(1);
+  var a = s.split("?");
+  var sFullUrl = GetURLParam("SCO");
+  if ((sFullUrl == "") || (a.length < 2)) return; // nothing to find
+  // Doublecheck
+  var p = s.toUpperCase().indexOf("SCO=");
+  if (p >= s.indexOf("?")) return; // too complicated; give up
+  // Reprocess, but stop at the SCO parameter
+  gaURLParams = new Array();
+  // Parameter order doesn't matter, so we can record the SCO param first
+  gaURLParams[0] = new Array("SCO",s.substr(p+4));
+  s = s.substr(0,p); // now we can process the other params
+  if (s.length > 0)
+  {
+    var aNamVals = s.split("&");
+    var aNamVal = null;
+    var v = "";
+    var Pattern1 = new RegExp(/\+/g);
+    for (var i=0;i<aNamVals.length;i++)
+    {
+      aNamVal = aNamVals[i].split("=");
+      v = aNamVal[1];
+      if ((v)&&(aNamVal[0].length>0))
+      {
+        v = v.replace(Pattern1, " ");
+        gaURLParams[gaURLParams.length] =
+          new Array(aNamVal[0].toUpperCase(),unescape(v));
+      }
+    }
+  }
+}
+
+if (true) // Change to false only if this is really problematic
+{
+	// If SCO param is found, reprocess so that its search string, if any,
+	// is included in the parameter value
+  if (GetURLParam("SCO") != "") ReprocessSCOParam();
+}
+
+function GetURLParam(nam) {
+  nam=nam.toUpperCase();
+  for (i=0;i<gaURLParams.length;i++){
+    if (gaURLParams[i][0]==nam){
+      return gaURLParams[i][1]
+    }
+  }
+  return ""
+}
+
+if (GetURLParam("DEBUG").toUpperCase().indexOf("Y") == 0)
+{
+	gbDebugSession == true;
+}
+
+if (GetURLParam("URLENCODED").toUpperCase().indexOf("Y") == 0)
+{
+	gbSCOParamEncoded = true;
+}
+
+// ========= LOGGING ===========
+var gsLog = "";
+var gnLogRow = 0;
+var gnLogMark = 1;
+
+function UpdateLog(s)
+{
+  //if ((s == null) || (s == "") || (!wndLog)) return;
+  var s1 = '<htlm><head><style>\n'
+    + 'body {font-family: Arial, Helvetica, Sans-Serif;font-size: xx-small;'
+    + 'margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px; '
+    + 'background-color: rgb(230,230,230);}\n'
+    + '.even {background-color: rgb(230,230,230);width: 100%;}\n'
+    + '.odd {background-color: rgb(215,215,215);}\n'
+    + '.mark {background-color: rgb(215,255,215);}\n'
+    + '.call {background-color: rgb(255,255,215);}\n'
+    + '<\/style><\/head><body STYLE="background-color: rgb(230,230,230); color: black" '
+    + 'marginwidth="0" leftmargin="0" hspace="0">';
+  doc = wndLog.document;
+  if (gsLog == "")
+  {
+    gsLog += s;
+    gnLogRow = 0;
+    doc.open();
+    doc.write(s1);
+    doc.write(gsLog);
+    doc.write('<\/body><\/html>')
+    doc.close();
+  }
+  else
+  {
+    gsLog += s;
+    doc.body.innerHTML += s;
+  }
+  doc.title = window.document.title + " Log";
+  wndLog.scrollTo(0,300000)
+}
+
+function AppendToLog(s, bIsGetSet)
+{
+  var sStyle;
+  var s2;
+  if (gnLogRow % 2 != 0)
+  {
+    sStyle = 'class="even'; // STYLE="background-color: rgb(230,230,230)"';
+  }
+  else
+  {
+    sStyle = 'class="odd'; // STYLE="background-color: rgb(215,215,215)"';
+  }
+  if (bIsGetSet) sStyle += ' call';
+  sStyle += '"';
+  s2 = pseudoPrintf('<div #1>#2<\/div>', sStyle, s);
+  //s2 = '<div ' + sStyle + '>' + s + '<\/div>';
+  UpdateLog(s2);
+  if ((!bIsGetSet)
+      && (s.indexOf("Commit") != 0)
+      && (s.indexOf("Initialize") != 0)
+      && (s.indexOf("Terminate") != 0)) gnLogRow++;
+}
+
+function SetMarkInLog(s)
+{
+  var doc = wndToolBar.document;
+  if (s == null)
+  {
+    fld = doc.getElementById("LogMarkText");
+    s = fld.value;
+    if ((s == null) || (s == "") || (s == "[" + gnLogMark + "]"))
+    {
+      s = "[" + gnLogMark + "]";
+      gnLogMark++;
+    }
+  }
+  s2 = pseudoPrintf('<div class="mark" '
+   + 'STYLE="background-color: rgb(215,255,215)"'
+   + '>***&nbsp;#1&nbsp;***<\/div>', s);
+  UpdateLog(s2);
+  gnLogRow++;
+}
+
+
+function LogAPICall(func, nam, val)
+{
+  var s = func + '("' + nam + '"';
+  if (val != null) s += ', "' + val + '"'
+  s += ')';
+  AppendToLog(s, ((func == "GetValue") || (func == "SetValue")));
+}
+
+function LogWarning(s)
+{
+  AppendToLog('<font color="brown">'+ gs_WARNING_COLON + ' ' + s + '<\/font>');
+}
+
+function LogAPIReturn(val, nErr)
+{
+	if (nErr)
+	{
+	  AppendToLog(pseudoPrintf('#1=#2 #3 "#4"<br />',
+ 	   gs_ERR, nErr, gs_API_RETURNS_COLON, val));
+ 	}
+ 	else
+ 	{
+	  AppendToLog(pseudoPrintf('#1 "#2"<br />', gs_API_RETURNS_COLON, val));
+ 	}
+}
+
+function LogEvent(str)
+{
+  AppendToLog(pseudoPrintf('<br />-----------<br />#1<br />'
+    + '-----------', str));
+}
+
+function ClearLog()
+{
+  gsLog ="";
+  gnLogRow = 0;
+  if (wndToolBar)
+  {
+    var fld = wndToolBar.document.getElementById("LogMarkText");
+    s = fld.value;
+    if (s == "[" + gnLogMark + "]")
+    {
+      //fld.value = "";
+    }
+  }
+  gnLogMark = 1;
+
+  WriteWindowDocument(wndLog, gsLog);
+}
+
+function SaveLog()
+{
+  alert(gs_SAVE_LOGInstructions);
+}
+
+function PrintLog()
+{
+  wndLog.focus();
+  wndLog.print();
+}
+
+// ========= MAKE THIS WORK AS A SCO ===========
+//// "Private" section - data and functions used by the script functions
+//// and which should not be called or inspected directly by a SCO -
+//// are identified by a leading underscore in the variable name
+//// or function name
+
+/*** Variables used in session management ***/
+var _gAPI = null;
+var _gnScormSessionState = 0;
+  // 0=not initialized yet; 1=initializing; 2=initialized; 3=terminating;
+  // 4=terminated; -1=Scorm session cannot be established.
+
+/***  API communication session management functions ***
+ These functions and the associated global variables allow this
+ script to locate the API implementation, and to
+ initialize and terminate the communication session automatically.
+
+ Statements in this section allow the generic script to be invoked
+ to initialize and terminate the session without having to add
+ onunload, onbeforeunload and onunload handlers to the body or
+ frameset element of each SCO that uses this script.
+ In other words, by just including this script you can turn just
+ about any web page into a SCO.
+*/
+
+function _ScanForAPI(win)
+{
+  var nFindAPITries = 500; // paranoid to prevent runaway
+  var objAPI = null;
+  var bOK = true;
+  var wndParent = null;
+  while ((!objAPI)&&(bOK)&&(nFindAPITries>0))
+  {
+    nFindAPITries--;
+    try { objAPI = win.API_1484_11; } catch (e) { bOK = false; }
+    if ((!objAPI)&&(bOK))
+    {
+    	try { wndParent = win.parent; } catch (e) { bOK = false; }
+      if ((!bOK)||(!wndParent)||(wndParent==win))
+      {
+      	break;
+      }
+      win = wndParent;
+    }
+  }
+  return objAPI;
+}
+
+function _GetAPI(win)
+{
+	var wndParent = null;
+	var wndOpener = null;
+	try { wndParent = win.parent; } catch(e) { }
+	try { wndOpener = win.opener; } catch(e) { }
+  if ((wndParent != null) && (wndParent != win))
+  {
+    _gAPI = _ScanForAPI(wndParent);
+  }
+  if ((_gAPI == null) && (wndOpener != null))
+  {
+    _gAPI = _ScanForAPI(wndOpener);
+  }
+}
+
+/*** Generic session management functions ***/
+function ScormVersion() // Hard wired - this script supports only SCORM 2004
+{
+  if (_gnScormSessionState > 0) return "SCORM 2004";
+  return "unknown"
+}
+
+function ScormInitialize()
+{
+  //if (gbDebugSession) alert("Calling Initialize");
+
+  // Check that initialize makes sense, otherwise forget it.
+  if (_gnScormSessionState != 0) return "false";
+  _GetAPI(window);
+
+  if (_gAPI == null) // Cannot do ((_gAPI == null) || (_gAPI.Initialize == "undefined")) because of sample RTE bug.
+  {
+    _gAPI = null;
+    if (gbDebugSession) alert("No valid API implementation found");
+    return "false";
+  }
+  if (!gb_AUTO_MANAGE_SESSION) return "false";
+
+  if (_gAPI)
+  {
+    _gnScormSessionState = 1; // State is "initializing"
+    if (_gAPI.Initialize("") == "true")
+    {
+      _gnScormSessionState = 2; // We are now "in session"
+      // Communication session is now initialized and ready to go
+      return "true";
+    }
+  }
+  if (gbDebugSession) alert("Back end API Initialize failed");
+  _gnScormSessionState = -1; // State is "error". Give up.
+  return "false";
+}
+
+function ScormTerminate()
+{
+  if (!gb_AUTO_MANAGE_SESSION) return "false";
+
+  // Do it only if in session, and prevent reentrance.
+  if (_gnScormSessionState == 2)
+  {
+    // if (gbDebugSession) alert("Terminating");
+
+    _gnScormSessionState = 3; // State is "terminating"
+    // Now call the API implementation to terminate the session
+    if (_gAPI.Terminate("") == "true")
+    {
+      _gnScormSessionState = 4; // State is "terminated"
+      return "true";
+
+    }
+    else
+    {
+      // Keep trying? -- TBD
+    }
+  }
+  return "false";
+}
+
+
+/***  Load and unload event management functions ***
+ These functions allow the generic script to be invoked
+ to initialize and terminate the session without having to add
+ onunload and onunload handlers to the body or frameset element
+ of the actual SCO. In other words, by just including this
+ script these functions can turn just about any web page into a SCO.
+*/
+
+/* Relay function for onload event */
+function _Scorm_InitSession()
+{
+  ScormInitialize();
+}
+
+/* Relay function for onbeforeunload and onunload events */
+var gbAlreadyWarnedAboutCloseTopWindow = false;
+function _Scorm_TerminateSession()
+{
+  // Trap used to detect if a SCO is trying to grab
+  // the top window when launched
+
+  if (gbInScoLaunch)
+  {
+    if (!gbAlreadyWarnedAboutCloseTopWindow) alert(gs_SCO_TRIES_TO_GRAB_TOP_WINDOW);
+    gbAlreadyWarnedAboutCloseTopWindow = true;
+  }
+
+  ScormTerminate();
+  // You cannot use this event to prevent unloading
+  // in onbeforeunload, therefore this function must
+  // specify explicitly that it has no return value.
+
+  cleanup();
+  return;
+}
+
+// Add the functions to the window prototype
+// This is what automates the load/unload event handling
+window.onload=_Scorm_InitSession;
+//window.onbeforeunload=_Scorm_TerminateSession;
+window.onunload=_Scorm_TerminateSession;
+
+/*** End load and unload event management functions ***/
+
+/*** General session info helper functions ***/
+
+function PassThroughOK() // Returns true if not managing but passing through to another API
+{
+	return ((!gb_AUTO_MANAGE_SESSION)&& (_gAPI));
+}
+
+function ScormIsInSession() // Returns true if managed session is in session
+{
+ 	// Returns true if SetValue and GetValue are allowed
+  return ((_gnScormSessionState == 2) || (_gnScormSessionState == 3));
+}
+
+function ScormGetSessionState()
+{
+  return _gnScormSessionState;
+}
+
+function ScormGetLastError()
+{
+  var nErr = -1;
+  if (_gAPI) nErr = _gAPI.GetLastError();
+  return nErr;
+}
+function ScormGetErrorString(nErr)
+{
+  var strErr = gs_NO_SCORM_API;
+  if (_gAPI)
+  {
+    // Note: Get Error functions may work even if the session is not open
+    // (to help diagnose session management errors), but we're still careful,
+    // and so we check. Checking for the existence of GetLastError does not
+    // work in ADL sample RTE 1.3.3 with JRE 1.5x, causes Java exception.
+    if (isNaN(parseInt(nErr.toString()))) nErr = _gAPI.GetLastError();
+    strErr = _gAPI.GetErrorString(nErr.toString());
+  }
+  return strErr;
+}
+
+function ScormGetDiagnostic(str)
+{
+  var strR = "";
+  if (_gAPI)
+  {
+    strR = _gAPI.GetDiagnostic(str.toString());
+  }
+  return strR;
+}
+
+/*** General data helper functions ***/
+function ScormGetValue(what, bIgnoreError)
+{
+  // bIgnoreError flag is set to true only when this function is used
+  // for testing, for example to query a value that does not exist yet.
+  var strR = "";
+  if (ScormIsInSession())
+  {
+    strR = _gAPI.GetValue(what);
+    if ((!bIgnoreError) && (gbDebugSession) && (strR=="") && (ScormGetLastError()!=0))
+    {
+      alert("GetValue Error:\nParam='" + what +
+        "'\n\nError=" + ScormGetLastError() + "\n" + ScormGetErrorString());
+    }
+  }
+  return strR;
+}
+
+function ScormSetValue(what, value)
+{
+  var err = "false"
+  if (ScormIsInSession())
+  {
+    err = _gAPI.SetValue(what, value.toString());
+    if ((gbDebugSession) && (err == "false"))
+    {
+      alert(pseudoPrintf('GetValue Error:\nParam1="#1"\n\nParam2="#2"'
+        + '\n\nError=#3\n#4',
+        what, value, ScormGetLastError(),ScormGetErrorString()));
+    }
+    if (err == "true")
+    {
+      // Additional auto behaviors for certain data elements
+       if ((what=="cmi.score.scaled")&&(err=="true"))
+      {
+        _gbScoreHasBeenSet = true; // set flag in case auto score is enabled
+        if (gbAutoSuccessStatus==true)
+         {
+           ScormSetSuccessStatusForScore(parseFloat(value));
+        }
+       }
+      else if ((what=="cmi.progress_measure")&&(err=="true")&&(gbAutoFineCompletionStatus==true))
+       {
+        ScormSetCompletionStatusForMeasure(parseFloat(value));
+      }
+    }
+  }
+  return err;
+}
+
+function ScormCommit()
+{
+  if (ScormIsInSession())
+  {
+    return _gAPI.Commit("");
+  }
+  return "false";
+}
+
+// ========= TIME AND DURATION FUNCTIONS ========
+// Helper functions for duration
+function centisecsToISODuration(n) {
+    // Note: SCORM and IEEE 1484.11.1 require centisec precision
+    // Months calculated by approximation based on average number
+  // of days over 4 years (365*4+1), not counting the extra day
+  // every 1000 years. If a reference date was available,
+  // the calculation could be more precise, but becomes complex,
+    // since the exact result depends on where the reference date
+    // falls within the period (e.g. beginning, end or ???)
+  // 1 year ~ (365*4+1)/4*60*60*24*100 = 3155760000 centiseconds
+  // 1 month ~ (365*4+1)/48*60*60*24*100 = 262980000 centiseconds
+  // 1 day = 8640000 centiseconds
+  // 1 hour = 360000 centiseconds
+  // 1 minute = 6000 centiseconds
+    n = Math.round(Math.max(n,0)); // there is no such thing as a negative duration
+    var str = "P";
+    var nCs = n;
+    // Next set of operations uses whole seconds
+    var nY = Math.floor(nCs / 3155760000);
+    nCs -= nY * 3155760000;
+    var nM = Math.floor(nCs / 262980000);
+    nCs -= nM * 262980000;
+    var nD = Math.floor(nCs / 8640000);
+    nCs -= nD * 8640000;
+    var nH = Math.floor(nCs / 360000);
+    nCs -= nH * 360000;
+    var nMin = Math.floor(nCs /6000);
+    nCs -= nMin * 6000
+    // Now we can construct string
+    if (nY > 0) str += nY + "Y";
+    if (nM > 0) str += nM + "M";
+    if (nD > 0) str += nD + "D";
+    if ((nH > 0) || (nMin > 0) || (nCs > 0)) {
+        str += "T";
+        if (nH > 0) str += nH + "H";
+        if (nMin > 0) str += nMin + "M";
+    if (nCs > 0) str += (nCs / 100) + "S";
+    }
+    if (str == "P") str = "PT0H0M0S";
+      // technically PT0S should do but SCORM test suite assumes longer form.
+    return str;
+}
+
+function ISODurationToCentisec(str) {
+    // Only gross syntax check is performed here
+    // Months calculated by approximation based on average number
+  // of days over 4 years (365*4+1), not counting the extra day
+  // every 1000 years. If a reference date was available,
+  // the calculation could be more precise, but becomes complex,
+    // since the exact result depends on where the reference date
+    // falls within the period (e.g. beginning, end or ???)
+  // 1 year ~ (365*4+1)/4*60*60*24*100 = 3155760000 centiseconds
+  // 1 month ~ (365*4+1)/48*60*60*24*100 = 262980000 centiseconds
+  // 1 day = 8640000 centiseconds
+  // 1 hour = 360000 centiseconds
+  // 1 minute = 6000 centiseconds
+    var aV = new Array(0,0,0,0,0,0);
+    var bErr = false;
+    var bTFound = false;
+    if (str.indexOf("P") != 0) bErr = true;
+    if (!bErr){
+        var aT = new Array("Y","M","D","H","M","S")
+        var p=0;
+        var i = 0;
+        str = str.substr(1); //get past the P
+        for (i = 0 ; i < aT.length; i++){
+            if (str.indexOf("T") == 0){
+                str = str.substr(1);
+                i = Math.max(i,3);
+        bTFound = true;
+            }
+            p = str.indexOf(aT[i]);
+            //alert("Checking for " + aT[i] + "\nstr = " + str);
+            if (p > -1){
+                // Is this a M before or after T?
+                if ((i == 1) && (str.indexOf("T") > -1) && (str.indexOf("T") < p)) continue;
+                if (aT[i] == "S"){
+                    aV[i] = parseFloat(str.substr(0,p))
+                } else {
+                    aV[i] = parseInt(str.substr(0,p))
+                }
+                if (isNaN(aV[i])){
+                    bErr = true;
+                    break;
+                } else if ((i > 2) && (!bTFound)){
+                    bErr = true;
+                    break;
+        }
+                str = str.substr(p+1);
+            }
+        }
+        if ((!bErr) && (str.length != 0)) bErr = true;
+        //alert(aV.toString())
+    }
+    if (bErr){
+        //alert("Bad format: " + str)
+        gnErr = 406; // TBD get correct error number here
+        return 0
+    }
+    return aV[0]*3155760000 + aV[1]*262980000
+      + aV[2]*8640000 + aV[3]*360000 + aV[4]*6000
+      + Math.round(aV[5]*100)
+}
+
+
+// ========= PSEUDO RTE ===========
+
+// Housekeeping
+var gbInScoLaunch = false;
+
+var gnErr = 0;
+
+var gbSuspended = false;
+
+// Comm session state management
+var gnRTECommState = 0;
+  // 0 = not initialized; 1 = initialized; 3 = terminated
+
+var gnSessionTime = 0; // current session time
+var gSessionStartTime = null;
+
+function Score() // Constructor for a new score
+{
+  this.scaled = "";
+  this.raw = "";
+  this.min = "";
+  this.max = "";
+}
+
+var gaScore = new Score();
+var gaNamedValues = new Array();
+var gaInteractions = new Array();
+var gaObjectives = new Array();
+var gaCommentsFromLearner = new Array();
+var gaCommentsFromLms = new Array();
+var gbSuspended = false;
+var gbResume = false;
+var gnTotalAttemptTime = 0; // centiseconds
+var gsPrimarySuccessStatus = "unknown";
+var gsPrimaryCompletionStatus = "not attempted"
+
+
+// These are not reinitialized on reset attempt
+var gLearnPrefAudioCaptioning = "0";
+var gLearnPrefAudioLevel = "1";
+var gLearnPrefDeliverySpeed = "1";
+var gLearnPrefLanguage = "fr-BE";
+
+var gSuspendData = "";
+var gSuspendLocation = "";
+
+function ResetSession()
+{
+  gnErr = 0;
+  gnRTECommState = 0;
+  gSessionStartTime = new Date();
+
+  if (gbSuspended)
+  {
+    gbResume = true; // value of cmi.entry will be "resume"
+    gnSessionTime = 0;
+  }
+  else
+  {
+    ResetAttempt();
+  }
+}
+
+function ResetAttempt()
+{
+  gnErr = 0;
+  gnRTECommState = 0;
+  gaScore = new Score();
+  gaNamedValues = new Array();
+  gaInteractions = new Array();
+  gaObjectives = new Array();
+  gaCommentsFromLearner = new Array();
+  gbSuspended = false;
+  gbResume = false;
+  gnTotalAttemptTime = 0;
+  gSuspendData = "";
+  gSuspendLocation = "";
+  gsPrimarySuccessStatus = "unknown";
+  gsPrimaryCompletionStatus = "not attempted";
+}
+
+function UpdateTotalTimeAtEndOfSession()
+{
+  if (gnSessionTime == 0)
+  {
+    var t2 = new Date().getUTCMilliseconds();
+    var t1 = gSessionStartTime.getUTCMilliseconds();
+    gnSessionTime == Math.round(t2 - t1);
+  }
+  gnTotalAttemptTime += gnSessionTime;
+  gSessionStartTime = null;
+}
+
+
+function NamedValue(nam,val) // Constructor for a name-value pair
+{
+  this.nam = nam;
+  this.val = val
+}
+
+function SetValueByName(nam,val)
+{
+  var n = -1;
+  for (i=0;i<gaNamedValues.length;i++)  if (gaNamedValues[i].nam == nam) n = i;
+  if (n == -1) gaNamedValues[gaNamedValues.length] = new NamedValue(nam,val);
+  else gaNamedValues[n].val = val;
+   return 0;
+}
+
+function GetValueByName(nam)
+{
+  var n = -1;
+  for (i=0;i<gaNamedValues.length;i++)  if (gaNamedValues[i].nam == nam) n = i;
+  if (n == -1) return null;
+  else return gaNamedValues[n].val;
+}
+
+function StripLeadingDots(s, n)
+{
+  var p = 0;
+  // strip n dotted elements in dot notation
+  var a = s.split(".");
+  for (i = 0; i< n; i++) p += a[i].length + 1;
+  return s.substr(p);
+}
+
+
+function SetValueScore(aScore, what, val)
+{
+  var n = parseFloat(val);
+  if (isNaN(n)) return 406;
+  switch(what)
+  {
+    case "scaled":
+      if ((n < -1.0) || (n > 1.0)) return 407;
+      aScore.scaled = n;
+      break;
+    case "raw":
+      aScore.raw = n;
+      break;
+    case "min":
+      aScore.min = n;
+      break;
+    case "max":
+      aScore.max = n;
+      break;
+    default:
+      return 401;
+  }
+  return 0
+}
+
+function GetValueScore(aScore, what)
+{
+  var r = "";
+  var nErr = 0;
+  switch(what)
+  {
+  	case "_children":
+  		r = "scaled,raw,min,max";
+  		break;
+    case "scaled":
+      r = aScore.scaled;
+      break;
+    case "raw":
+      r = aScore.raw;
+      break;
+    case "min":
+      r = aScore.min;
+      break;
+    case "max":
+      r = aScore.max;
+      break;
+    default:
+      gnErr = 351;
+  }
+  return r + "";
+}
+
+
+function Interaction(id) // Constructor for a new interaction record
+{
+  this.id = id;
+  this.type= null;
+  this.description = "";
+  this.latency = "";
+  this.timestamp = "";
+  this.result = "";
+  this.weigthing = "";
+  this.correctResponses = new Array();
+  this.learnerResponse = "";
+  this.objectives = new Array();
+}
+
+function isValidInteractionType(s)
+{
+  var a = new Array("true-false","choice","fill-in",
+     "long-fill-in","likert","matching","performance","sequencing","numeric","other")
+  for (i=0;i<a.length;i++)
+  {
+    if (s == a[i]) return true
+  }
+  return false;
+}
+
+function isPositiveInt(n)
+{
+  return ((!isNaN(n)) && (Math.round(n) == n) && (n >= 0))
+}
+
+function SetCorrectResponses(nInteraction, n2, nam, val)
+{
+  //alert("Set CorrectResponses\n" + nInteraction + "\n" + n2 + "\n" + nam + "\n" + val)
+  var nErr = 0;
+  var typ = gaInteractions[nInteraction].type;
+  if (typ == null) return 301; // tbd
+  var i = parseInt(n2);
+  if (!isPositiveInt(i)) return 351; // tbd
+  if (nam != "pattern") return 351; // tbd
+  if ((i > 0) && ((typ == "true-false") || (typ == likert))) return 351;
+  if (i > gaInteractions[nInteraction].correctResponses.length) return 351;
+  gaInteractions[nInteraction].correctResponses[i] = val.toString();
+  return 0;
+}
+
+function GetCorrectResponses(nInteraction, n2, nam)
+{
+  //alert("Get CorrectResponses\n" + nInteraction + "\n" + n2 + "\n" + nam)
+  var nErr = 0;
+  var r = "";
+  var typ = gaInteractions[nInteraction].type;
+  if (typ == null) nErr = 301; // tbd
+  else
+  {
+    var i = parseInt(n2);
+    if (!isPositiveInt(i)) nErr = 351; // tbd
+    else if (nam != "pattern") nErr = 351; // tbd
+    else if ((i > 0) && ((typ == "true-false") || (typ == likert))) nErr = 351;
+    else if (i > gaInteractions[nInteraction].correctResponses.length - 1) nErr = 351;
+    else r = gaInteractions[nInteraction].correctResponses[i].toString();
+  }
+  if (nErr != 0) gnErr = nErr;
+  return r
+}
+
+function SetValueInteractions(what, val)
+{
+  // what = the part of the element name after "interactions."
+  var nErr = 0;
+  var a = what.split(".");
+  var n = parseInt(a[0]);
+  if (!isPositiveInt(n)) return 406;
+  if (n > gaInteractions.length) return 407;
+  if (a[1] == "id")
+  {
+    if ((!val) || (val == "") || (!IsValidIeeeIdentifier(val))) return 406;
+    if (n == gaInteractions.length)
+    {
+      gaInteractions[n] = new Interaction(val);
+    }
+    else
+    {
+      gaInteractions[n].id = val;
+    }
+  }
+  else
+  {
+    if (n > gaInteractions.length - 1) return 407; // doesn't exist
+    if (gaInteractions[n].id == null) return 408; // id not set yet
+    switch(a[1])
+    {
+      case "type":
+        if (gaInteractions[n].type != null)
+        {
+          if (gaInteractions[n].type == val) return 0; // nothing to do
+          return 351; // can't redefine
+        }
+        if (isValidInteractionType(val)) gaInteractions[n].type = val;
+        else nErr = 351; // invalid type token
+        break;
+      case "latency":
+        gaInteractions[n].latency = val;
+        break;
+      case "timestamp":
+        gaInteractions[n].timestamp = val;
+        break;
+      case "result":
+        gaInteractions[n].result = val;
+        break;
+      case "weighting":
+        gaInteractions[n].weighting = val;
+        break;
+      case "description":
+        gaInteractions[n].description = val;
+        break;
+      case "correct_responses":
+        nErr = SetCorrectResponses(n, a[2], a[3], val);
+        break;
+      case "learner_response":
+        gaInteractions[n].learnerResponse = val;
+        break;
+      case "objectives":
+        if ((isPositiveInt(a[2]))
+            && (a[2] <= gaInteractions[n].objectives.length)
+            && (a[3] == "id"))
+        {
+          gaInteractions[n].objectives[a[2]] = val;
+        }
+        else nErr = 351;
+        break;
+      default:
+        nErr = 351;
+        break;
+    }
+  }
+  return nErr
+}
+
+function GetValueInteractions(what)
+{
+  // what = the part of the element name after "cmi.interactions."
+  var nErr = 0;
+  var r = "";
+  if (what == "_count")
+  {
+    if (!gaInteractions) return "0";
+    else return gaInteractions.length + "";
+  }
+  if (what == "_children") return "id,type,latency,timestamp,result,weighting,description,correct_responses,learner_response";
+  var a = what.split(".");
+  var n = a[0];
+  if (!isPositiveInt(n)) nErr = 406;
+  else if (!gaInteractions) nErr == 407;
+  else if (n > gaInteractions.length - 1) nErr = 407;
+  else switch(a[1])
+    {
+      case "id":
+        r = gaInteractions[n].id;
+        break;
+      case "type":
+        r = gaInteractions[n].type;
+        break;
+      case "latency":
+        r = gaInteractions[n].latency;
+        break;
+      case "timestamp":
+        r = gaInteractions[n].timestamp;
+        break;
+      case "result":
+        r = gaInteractions[n].result;
+        break;
+      case "weighting":
+        r = gaInteractions[n].weigting;
+        break;
+      case "description":
+        r = gaInteractions[n].description;
+        break;
+      case "correct_responses":
+      	if (a[2] == "_count")
+      	{
+      		r = gaInteractions[n].correctResponses.length + "";
+      	}
+      	else
+      	{
+        	var a = GetCorrectResponses(n, a[2], a[3]);
+        	if (a[0] != 0) nErr = a[0]; else r = a[1];
+        }
+        break;
+      case "learner_response":
+        r = gaInteractions[n].learnerResponse ;
+        break;
+      case "objectives":
+        if (a[2] == "_count")
+        {
+        	r = gaInteractions[n].objectives.length +"";
+        }
+        else if ((isPositiveInt(a[2]))
+            && (a[2] < gaInteractions[n].objectives.length)
+            && (a[3] == "id"))
+        {
+          r = gaInteractions[n].objectives[a[2]];
+        }
+        else nErr = 351;
+        break;
+      default:
+        nErr = 351;
+        break;
+    }
+  if (nErr != 0) gnErr = nErr;
+  return r
+}
+
+function SetValueLearnerPreference(what,val)
+{
+  var nErr = 0;
+  var r = "true";
+  switch (what)
+  {
+    case "audio_captioning":
+      if ((val != "-1") || (val != "0") || (val != 1))
+      {
+        nErr = 406; // TBD correct
+      }
+      else
+      {
+        gLearnPrefAudioCaptioning = val;
+      }
+      return "false";
+      break;
+    case "audio_level":
+      var n = parseFloat(val);
+      if ((isNaN(n)) || (n < 0))
+      {
+        nErr == 406; // TBD correct error
+      }
+      else
+      {
+        gLearnPrefAudioLevel = val
+      }
+      break;
+    case "delivery_speed":
+      var n = parseFloat(val);
+      if ((isNaN(n)) || (n < 0))
+      {
+        nErr == 406; // TBD correct error
+      }
+      else
+      {
+        gLearnPrefDeliverySpeed = val;
+      }
+      break;
+    case "language":
+      gLearnPrefLanguage = val;
+      break;
+    default:
+      nErr = 401; // TBD correct err value
+      break;
+  }
+  return nErr;
+}
+
+function GetValueLearnerPreference(what)
+{
+  var nErr = 0;
+  var r = "";
+  switch (what)
+  {
+    case "_children":
+      r = "audio_captioning,audio_level,delivery_speed,language";
+      break;
+    case "audio_captioning":
+      r = gLearnPrefAudioCaptioning;
+      break;
+    case "audio_level":
+      r = gLearnPrefAudioLevel;
+      break;
+    case "delivery_speed":
+      r = gLearnPrefDeliverySpeed; break;
+    case "language":
+      r = gLearnPrefLanguage;
+      break;
+    default:
+      nErr = 401; // TBD correct err value
+      break;
+  }
+  if (nErr != 0) gnErr = nErr;
+  return r;
+}
+
+function Objective(id) // Constructor for a new objective record
+{
+  this.id = id;
+  this.description = "";
+  this.score = new Score();
+  this.success_status = "unknown";
+  this.completion_status = "unknown";
+  this.progress_measure = "0";
+  return this;
+}
+
+function IsValidSuccessStatus(val)
+{
+  var a = new Array("passed","failed","unknown");
+  //alert(a.toString() + '\n"' + val + '"')
+  for (var i=0;i<a.length;i++)
+  {
+    if (val==a[i]) return true;
+  }
+  return false;
+}
+
+function IsValidCompletionStatus(val)
+{
+  var a = new Array("completed","incomplete","not attempted","unknown");
+  for (var i=0;i<a.length;i++) if (val==a[i]) return true;
+  return false;
+}
+
+function SetValueObjectives(what, val)
+{
+  // what = the part of the element name after "objectives."
+  var nErr = 0;
+  var a = what.split(".");
+  var n = parseInt(a[0]);
+  if (!isPositiveInt(n)) return 406;
+  if (n > gaObjectives.length) return 407;
+  if (a[1] == "id")
+  {
+    if ((!val) || (val == "") || (!IsValidIeeeIdentifier(val))) return 406;
+    if (n == gaObjectives.length)
+    {
+      // tbd add uniqueness check here
+      var bOK = true;
+      for (var i=0;i<gaObjectives.length;i++)
+      {
+        if (gaObjectives[i].id == val) bOK = false;
+      }
+      if (bOK)  gaObjectives[n] = new Objective(val);
+      else nErr = 351; // duplicate; err code TBD on final Rel 3.
+    }
+    else
+    {
+      if (gaObjectives[n].id != val)
+      {
+        nErr = 404; // Cannot change ID; err code TBD on final Rel 3.
+      }
+    }
+  }
+  else
+  {
+    if (n > gaObjectives.length - 1) return 407; // doesn't exist
+    if (gaObjectives[n].id == null) return 408; // id not set yet
+    switch(a[1])
+    {
+      case "description":
+        gaObjectives[n].description = val;
+        break;
+      case "success_status":
+        if (IsValidSuccessStatus(val)) gaObjectives[n].success_status = val;
+        else nErr = 406;
+        break;
+      case "completion_status":
+        if (IsValidCompletionStatus(val)) gaObjectives[n].completion_status = val;
+        else nErr = 406;
+        break;
+      case "progress_measure":
+        if ((!isNaN(n)) && (n >= 0.0) && (n <= 1.0)) gaObjectives[n].progress_measure = val;
+        else nErr = 406;
+        break;
+      case "score":
+        // a2 = "scaled" | "min" | "max" | "raw"
+        nErr = SetValueScore(gaObjectives[n].score, a[2], val);
+        break;
+      default:
+        nErr = 351;
+        break;
+    }
+  }
+  return nErr
+}
+
+function GetValueObjectives(what)
+{
+  // what = the part of the element name after "objectives."
+  if (what == "_children")
+  {
+  	return "id,score,success_status,completion_status,progress_measure,description";
+  }
+  else if (what == "_count")
+  {
+  	return gaObjectives.length + "";
+  }
+  var nErr = 0;
+  var r = "";
+  var a = what.split(".");
+  var n = parseInt(a[0]);
+  if (!isPositiveInt(n)) nErr = 406;
+  else if (n > gaObjectives.length - 1) nErr = 407;
+  else switch(a[1])
+    {
+      case "completion_status":
+        r = gaObjectives[n].completion_status;
+        break;
+      case "description":
+        r = gaObjectives[n].description;
+        break;
+      case "id":
+        r = gaObjectives[n].id;
+        break;
+      case "progress_measure":
+        r = gaObjectives[n].progress_measure;
+        break;
+      case "score":
+        // a2 = "scaled" | "min" | "max" | "raw"
+        r = GetValueScore(gaObjectives[n].score, a[2]);
+        break;
+      case "success_status":
+        r = gaObjectives[n].success_status;
+        break;
+      default:
+        nErr = 351;
+        break;
+    }
+  if (nErr != 0) gnErr = nErr;
+  return r
+}
+
+function SetValueSuspendData(val)
+{
+  if (val.length <= 64000)
+  {
+    gSuspendData = val;
+    if (val.length > 4000)
+    {
+      // Maybe add a compatibility warning here
+    }
+    return 0;
+  }
+  else
+  {
+    return 351;
+  }
+}
+
+function SetValueSuspendLocation(val)
+{
+  if (val.length <= 1000)
+  {
+    gSuspendLocation = val;
+    return 0;
+  }
+  else
+  {
+    return 351;
+  }
+}
+
+
+
+function CmiComment()
+{
+  this.comment = "";
+  this.location = "";
+  this.timestamp = "";
+}
+
+function SetValueCommentFromLearner(what, val)
+{
+  // what = n.element
+  var nErr = 0;
+  var aTemp = null
+  var a = what.split(".");
+  var n = parseInt(a[0]);
+  if (!isPositiveInt(n)) return 406;
+  if (n > gaCommentsFromLearner.length) return 407;
+  if (n == gaCommentsFromLearner.length) aTemp = new CmiComment()
+  else aTemp = gaCommentsFromLearner[n];
+  switch(a[1])
+  {
+    case "comment":
+      aTemp.comment = val;
+      break;
+    case "location":
+      aTemp.location = val;
+      break;
+    case "timestamp":
+      aTemp.timestamp = val;
+      break;
+    default:
+      nErr = 403; // TBD adjust this error
+  }
+  if (nErr == 0) gaCommentsFromLearner[n] = aTemp;
+  return nErr
+}
+
+function GetValueCommentFromLearner(what)
+{
+  // what = n.element
+  var nErr = 0;
+  var r = null;
+  if (what == "_children") return "comment,location,timestamp";
+  if (what == "_count") return gaCommentsFromLearner.length.toString();
+  var a = what.split(".");
+  var n = parseInt(a[0]);
+  if (!isPositiveInt(n)) return 406;
+  else if (n > gaCommentsFromLearner.length - 1)
+  {
+    nErr = 407 // TBD Adjust
+  }
+  else
+  {
+    switch(a[1])
+    {
+      case "comment":
+        r = gaCommentsFromLearner[n].comment;
+         break;
+      case "location":
+        r = gaCommentsFromLearner[n].location;
+        break;
+      case "timestamp":
+        r = gaCommentsFromLearner[n].timestamp;
+        break;
+      default:
+        nErr = 403; // TBD adjust this error
+    }
+  }
+  if (nErr != 0) gnErr = nErr;
+  return r
+}
+
+function GetValueCommentFromLms(what)
+{
+  // what = n.element
+  var nErr = 0;
+  var r = null;
+  if (what == "_children") return "comment,location,timestamp";
+  if (what == "_count") return gaCommentsFromLms.length;
+  var a = what.split(".");
+  var n = parseInt(a[0]);
+  if (!isPositiveInt(n)) return 406;
+  else if (n > gaCommentsFromLms.length - 1)
+  {
+    nErr = 407 // TBD Adjust
+  }
+  else
+  {
+    switch(a[1])
+    {
+      case "comment":
+        r = gaCommentsFromLms[n].comment;
+        break;
+      case "location":
+        r = gaCommentsFromLms[n].location;
+        break;
+      case "timestamp":
+        r = gaCommentsFromLms[n].timestamp;
+        break;
+      default:
+        nErr = 403; // TBD adjust this error
+    }
+  }
+  if (nErr != 0) gnErr = nErr;
+  return r
+}
+
+function SetValueSessionTime(val)
+{
+  gnErr = 0;
+  n = ISODurationToCentisec(val);
+  if (gnErr == 0) gnSessionTime = n;
+  return gnErr;
+}
+
+function SetValueSuccessStatus(val)
+{
+  if (IsValidSuccessStatus(val))
+  {
+    gsPrimarySuccessStatus = val;
+    gnErr = 0;
+  }
+  else
+  {
+    gnErr = 406;
+  }
+  return gnErr;
+}
+
+function GetValueSuccessStatus(val)
+{
+  var n = parseFloat(GetValueScore(gaScore, "scaled"));
+  if (!isNaN(n))
+  {
+    if (n >= gn_PassingScore) return "passed";
+    else return "failed";
+  }
+  return gsPrimarySuccessStatus;
+}
+
+function SetValueCompletionStatus(val)
+{
+  if (IsValidCompletionStatus(val))
+  {
+    gsPrimaryCompletionStatus = val;
+    gnErr = 0;
+  }
+  else
+  {
+    gnErr = 406;
+  }
+  return gnErr;
+}
+
+function GetValueCompletionStatus(val)
+{
+  var n = parseFloat(GetValueByName("progress_measure"));
+  if (!isNaN(n))
+  {
+    if (n >= gn_CompletionThreshold) return "completed";
+    else return "incomplete";
+  }
+  return gsPrimaryCompletionStatus;
+}
+
+
+function _SetValue(what, val)
+{
+  var nErr = 0;
+  var r = "false";
+  LogAPICall("SetValue", what, val);
+  if ((PassThroughOK())||(ScormIsInSession()))
+  {
+    r = _gAPI.SetValue(what, val)
+  	//gnErr = parseInt(_gAPI.GetLastError());
+    LogAPIReturn(r);
+    return r;
+  }
+  gnErr = 0;
+  if (gnRTECommState < 1)
+  {
+    nErr = 132; // tbd
+  }
+  else if (gnRTECommState > 2)
+  {
+    nErr = 133; // tbd
+  }
+  if (nErr == 0)
+  {
+    var a = what.split(".");
+    switch (a[0])
+    {
+      case "cmi":
+        switch(a[1])
+        {
+          case "comments_from_learner":
+            nErr = SetValueCommentFromLearner(StripLeadingDots(what,2),val);
+            break;
+          case "comments_from_lms":
+          case "completion_threshold":
+          case "entry":
+          case "launch_data":
+          case "max_time_allowed":
+          case "mode":
+          case "scaled_passing_score":
+          case "time_limit_action":
+          case "total_time":
+            nErr = 404;
+            break;
+          case "completion_status":
+            nErr = SetValueCompletionStatus(val);
+            break;
+          case "exit":
+            switch(val)
+            {
+              case "suspend":
+                gbSuspended = true;
+                break;
+              case "":
+              case "logout":
+              case "normal":
+              case "time-out":
+                break;
+              default:
+                nErr = 404;
+                break;
+            }
+            UpdateEndAttemptButton()
+            break;
+          case "interactions":
+            nErr = SetValueInteractions(StripLeadingDots(what,2),val);
+             break;
+          case "learner_preference":
+            nErr = SetValueLearnerPreference(StripLeadingDots(what,2),val);
+            break;
+          case "location":
+            nErr = SetValueSuspendLocation(val);
+            break;
+          case "objectives":
+            nErr = SetValueObjectives(StripLeadingDots(what,2),val);
+            break;
+          case "progress_measure":
+            // TBD add validation
+            nErr = SetValueByName(StripLeadingDots(what,1), val);
+            break;
+          case "score":
+            nErr = SetValueScore(gaScore,StripLeadingDots(what,2),val);
+            break;
+          case "session_time":
+            nErr = SetValueSessionTime(val);
+            break;
+          case "success_status":
+            nErr = SetValueSuccessStatus(val);
+            break;
+            break;
+          case "suspend_data":
+            nErr = SetValueSuspendData(val);
+            break;
+          default:
+            nErr = 401; // SetValueByName(StripLeadingDots(what,1), val);
+            break;
+        }
+        break;
+      case "adl":
+        if (a[1] == "nav")
+        {
+          if (a[2] == "request")
+          {
+            switch(val)
+            {
+              case "continue":
+              case "previous":
+              case "exit":
+              case "exitAll":
+              case "abandon":
+              case "abandonAll":
+              case "_none_":
+                nErr = SetValueByName(what, val);
+                break;
+              default:
+                if ((val.indexOf("choice") < 8) ||
+                    (val.indexOf("{target=") != 0) ||
+                    (val.indexOf("}") != val.indexOf("choice") - 1))
+                {
+                  nErr = 406;
+                }
+                break;
+            }
+          }
+          else
+          {
+            nErr = 406;
+          }
+        }
+        else
+        {
+          LogWarning(gs_UNRECOGNIZED_DM);
+          nErr = 401;
+        }
+        break;
+      default:
+        if (what == "")
+        {
+          nErr = 406;
+        }
+        else
+        {
+          LogWarning(gs_UNRECOGNIZED_DM);
+          nErr = 401;
+        }
+    }
+  }
+  if ((nErr == 0) && (gnErr != 0)) nErr = 0;
+  gnErr = nErr;
+  r = ((gnErr == 0).toString());
+  LogAPIReturn(r, gnErr)
+  return r
+}
+
+function _GetValue(what)
+{
+  var r = "";
+  LogAPICall("GetValue", what);
+  if ((PassThroughOK())||(ScormIsInSession()))
+  {
+    r = _gAPI.GetValue(what);
+  	//gnErr = parseInt(_gAPI.GetLastError());
+    LogAPIReturn(r);
+    return r;
+  }
+  var nErr = 0;
+  if (gnRTECommState < 1)
+  {
+    nErr = 122;
+  }
+  else if (gnRTECommState > 2)
+  {
+    nErr = 123; // tbd
+  }
+
+  if (nErr == 0)
+  {
+    var a = what.split(".")
+    gnErr = 0;
+    switch (a[0])
+    {
+      case "cmi":
+        switch(a[1])
+        {
+        	case "_version":
+        		r = "1.0."
+        		break;
+          case "comments_from_learner":
+            r = GetValueCommentFromLearner(StripLeadingDots(what,2));
+            break;
+          case "comments_from_lms":
+            r = GetValueCommentFromLms(StripLeadingDots(what,2));
+            break;
+          case "completion_status":
+            r = GetValueCompletionStatus();
+            break;
+            break;
+          case "completion_threshold":
+            r = ""; // tbd add a feature to preset threshold and test
+            break;
+          case "credit":
+            if (!gRTEPresetCredit) gRTEPresetCredit = "credit";
+            r = gRTEPresetCredit;
+            break;
+          case "entry":
+            if (gbResume) r = "resume";
+            else r = "ab-initio";
+            break;
+          case "exit":
+            r = "";
+            nErr = 405;
+            break;
+          case "interactions":
+             r = GetValueInteractions(StripLeadingDots(what,2));
+             break;
+          case "launch_data":
+            r = "";
+            break;
+          case "learner_id":
+            r = gs_Learner_Id;
+            break;
+          case "learner_name":
+            r = gs_DFLT_LEARNER_NAME;
+            break;
+          case "learner_preference":
+            r = GetValueLearnerPreference(StripLeadingDots(what,2));
+            break;
+          case "location":
+            r = gSuspendLocation;
+            break;
+          case "max_time_allowed":
+            r = "";
+            break;
+          case "mode":
+            r = ((gRTEPresetBrowse=="")?"normal":gRTEPresetBrowse);
+            break;
+          case "objectives":
+             r = GetValueObjectives(StripLeadingDots(what,2));
+             break;
+          case "progress_measure":
+            r = GetValueByName(StripLeadingDots(what,1));
+            break;
+          case "scaled_passing_score":
+            r = gn_PassingScore.toString();
+            break;
+          case "score":
+            r = GetValueScore(gaScore,StripLeadingDots(what,2))
+             break;
+          case "session_time":
+            r = "";
+            nErr = 405;
+            break;
+          case "success_status":
+            r = GetValueSuccessStatus();
+            break;
+          case "suspend_data":
+            r = gSuspendData;
+            break;
+          case "time_limit_action":
+            r = "continue,no message";
+            break;
+          case "total_time":
+            r = centisecsToISODuration(gnTotalAttemptTime);
+            break;
+          case "version":
+            r = "1.0";
+            break;
+          default:
+            r = ""; // GetValueByName(StripLeadingDots(what,1));
+            nErr = 401;
+          break;
+        }
+        break;
+      case "adl":
+        if (a[1] == "nav")
+        {
+          if (a[2] == "request")
+          {
+            switch(a[3])
+            {
+              case "continue":
+              case "previous":
+              case "exit":
+              case "exitAll":
+              case "abandon":
+              case "abandonAll":
+              case "_none_":
+                r = GetValueByName(what);
+                break;
+              default:
+                if ((val.indexOf("choice") < 8) ||
+                    (val.indexOf("{target=") != 0) ||
+                    (val.indexOf("}") != val.indexOf("choice") - 1))
+                {
+                  nErr = 406;
+                }
+                break;
+            }
+          }
+          else if (a[2] == "request_valid")
+          {
+            switch(a[3])
+            {
+              case "continue":
+              case "previous":
+                r = "unknown";
+                break;
+              case "choice":
+                if (a[4].indexOf("{target=") == 0) r = "unknown";
+                else nErr = 406;
+                break;
+              default:
+                nErr = 406;
+                break;
+            }
+          }
+          else
+          {
+            nErr = 406;
+          }
+        }
+        break;
+      default:
+        if (what == "")
+        {
+          nErr = 406;
+        }
+        else
+        {
+          LogWarning(gs_UNRECOGNIZED_DM);
+          nErr = 201;
+        }
+        break;
+    }
+  }
+  if ((nErr == 0) && (gnErr != 0)) nErr = 0;
+  gnErr = nErr;
+  LogAPIReturn(r, gnErr)
+  return r + "";
+}
+
+function _Initialize(parm)
+{
+  gnErr = 0;
+  var r = "true";
+
+  if (PassThroughOK())
+  {
+  	LogAPICall("Initialize", parm);
+  	r = _gAPI.Initialize(parm);
+  	//gnErr = parseInt(_gAPI.GetLastError());
+    LogAPIReturn(r);
+    if (r == "true") SetMarkInLog(gs_NEW_SESSION);
+    return r+"";
+  }
+  if (gnRTECommState == 0)
+  {
+    r = "true";
+    gbInScoLaunch = false;
+    gnRTECommState = 1;
+    SetMarkInLog("New session");
+  }
+  else if (gnRTECommState < 3)
+  {
+    r = "false";
+    gnErr = 103;
+  }
+  else if (gnRTECommState > 2)
+  {
+    r = "false";
+    gnErr = 104;
+  }
+  LogAPICall("Initialize", parm);
+  LogAPIReturn(r, gnErr)
+  return r + "";
+}
+
+function _Terminate(parm)
+{
+  gnErr = 0;
+  var r = null;
+  LogAPICall("Terminate", parm);
+  if (PassThroughOK())
+  {
+  	r = _gAPI.Terminate(parm);
+  	//gnErr = parseInt(_gAPI.GetLastError());
+    //LogAPIReturn(r, gnErr);
+    if (r == "true") SetMarkInLog(gs_SESSION_TERMINATED);
+    return r+"";
+  }
+  if (gnRTECommState == 0)
+  {
+    r = "false";
+    gnErr = 112;
+  }
+  else if (gnRTECommState == 1)
+  {
+    r = "true";
+    gnRTECommState = 3;
+    UpdateTotalTimeAtEndOfSession();
+    setTimeout("ShowTermination()", 50);
+    //ShowTermination();
+  }
+  else
+  {
+    r = "false";
+    gnErr = 113;
+  }
+  LogAPIReturn(r, gnErr)
+  return r + "";
+}
+
+function ShowTermination()
+{
+  SetMarkInLog(gs_SESSION_TERMINATED);
+  if (gbSuspended)
+  {
+    SetMarkInLog(gs_ATTEMPT_SUSPENDED);
+  }
+  else
+  {
+    SetMarkInLog(gs_ATTEMPT_NOT_SUSPENDED);
+  }
+  SetMarkInLog(gs_TOTAL_TIME_COLON + ' ' + centisecsToISODuration(gnTotalAttemptTime));
+}
+
+
+function _Commit(parm)
+{
+  gnErr = 0;
+  var r = "true";
+  LogAPICall("Commit", parm);
+  if (PassThroughOK())
+  {
+  	r = _gAPI.Commit(parm);
+  	//gnErr = parseInt(_gAPI.GetLastError());
+    LogAPIReturn(r);
+    return r+"";
+  }
+  if (ScormIsInSession())
+  {
+    r = ScormCommit(parm);
+    LogAPIReturn(r, ScormGetLastError());
+    return r;
+  }
+  if (gnRTECommState < 1)
+  {
+    gnErr = 142;
+    r = "false";
+  }
+  if (gnRTECommState > 2)
+  {
+    gnErr = 143;
+    r = "false";
+  }
+  LogAPIReturn(r, gnErr)
+  return r;
+}
+
+function _GetLastError(parm)
+{
+  var r = "";
+  var s = "#1=#2 #3 #2";
+  if (!parm) parm = "";
+  AppendToLog("GetLastError(" + parm + ")");
+  if (PassThroughOK())
+  {
+  	r = _gAPI.GetLastError(parm);
+	  AppendToLog(pseudoPrintf(s, gs_ERR, r, gs_API_RETURNS_COLON));
+    return r+"";
+  }
+  r = (ScormIsInSession())? ScormGetLastError(): gnErr;
+	AppendToLog(pseudoPrintf(s, gs_ERR, r, gs_API_RETURNS_COLON));
+  return r + "";
+}
+
+function _GetErrorString(parm)
+{
+  var r = null;
+
+  LogAPICall("GetErrorString", parm);
+  if (PassThroughOK())
+  {
+  	r = _gAPI.GetErrorString(parm);
+  	//gnErr = parseInt(_gAPI.GetLastError());
+    LogAPIReturn(r);
+    return r+"";
+  }
+  if ((gbDebugSession) && (typeof parm == 'number' && isFinite(parm)))
+  {
+    alert("GetErrorString called with numeric value, should be string: " + parm);
+  }
+  if (ScormIsInSession())
+  {
+    r = ScormGetErrorString(parm + "");
+    LogAPIReturn(r, ScormGetLastError());
+    return r;
+  }
+  var n = parseInt(parm);
+  if (isNaN(n))
+  {
+    gnErr = 406; // Type mismatch
+    return "";
+  }
+  switch (n)
+  {
+    case 101: r = "General exception"; break;
+    case 102: r = "General initialization failure"; break;
+    case 103: r = "Already initialized"; break;
+    case 104: r = "Content instance terminated"; break;
+    case 111: r = "General termination failure"; break;
+    case 112: r = "Termination before initialization"; break;
+    case 113: r = "Termination after termination"; break;
+    case 122: r = "Retrieve data before initialization"; break;
+    case 123: r = "Retrieve data after termination"; break;
+    case 132: r = "Store data before initialization"; break;
+    case 133: r = "Store data after termination"; break;
+    case 142: r = "Commit before initialization"; break;
+    case 143: r = "Commit after termination"; break;
+    case 201: r = "General argument error"; break;
+    case 302: r = "General get failure"; break;
+    case 351: r = "General set failure"; break;
+    case 391: r = "General commit failure"; break;
+    case 401: r = "Undefined data model element"; break;
+    case 402: r = "Unimplemented data model element"; break;
+    case 403: r = "Data model element value not initialized"; break;
+    case 404: r = "Data model element is read only"; break;
+    case 405: r = "Data model element is write only"; break;
+    case 406: r = "Data model element type mismatch"; break;
+    case 407: r = "Data model element value out of range"; break;
+    case 408: r = "Data model element dependency not established"; break;
+    default: r = "General exception"; break;
+  }
+  LogAPIReturn(r, gnErr)
+  return r + "";
+}
+function _GetDiagnostic(parm)
+{
+  var r = null;
+  LogAPICall("GetDiagnostic", parm);
+  if (PassThroughOK())
+  {
+  	r = _gAPI.GetDiagnostic(parm);
+  	//gnErr = parseInt(_gAPI.GetLastError());
+    LogAPIReturn(r);
+    return r+"";
+  }
+  if (ScormIsInSession())
+  {
+    r = ScormGetDiagnostic(parm);
+    LogAPIReturn(r, ScormGetLastError());
+    return r;
+  }
+  r = "SCORM 2004 SCO test harness by Claude Ostyn"
+  LogAPIReturn(r, gnErr)
+  return r + "";
+}
+
+
+// ========= API INSTANCE ===========
+var API_1484_11 = new Object();
+API_1484_11.SetValue = _SetValue;
+API_1484_11.GetValue = _GetValue;
+API_1484_11.Initialize = _Initialize;
+API_1484_11.Terminate = _Terminate;
+API_1484_11.Commit = _Commit;
+API_1484_11.GetLastError = _GetLastError;
+API_1484_11.GetErrorString = _GetErrorString;
+API_1484_11.GetDiagnostic = _GetDiagnostic;
+API_1484_11.version = "1.0.ostyn-test-wrap";
+
+
+// ========= END API INSTANCE ===========
+
+// ========= MANAGEMENT OF THE TESTED SCO =========
+
+function FileNameToUrl(url)
+{
+  p = url.indexOf(":\\");
+  if (p < 0) return url;
+  if (p == 2) url = url.substr(1); // clear leading backslash
+  rExp = /\\/gi;
+  url = url.replace(rExp,"/");
+  return url;
+}
+
+function LocalPath(url)
+{
+  if (url) s = url;
+  else s = FileNameToUrl(window.location.href);
+  p = s.indexOf("?");
+  if (p > -1) s = s.substr(0,p);
+  p = s.lastIndexOf("/");
+  s = s.substr(0,p+1);
+  return s;
+}
+
+function ShorterRelativeUrl(refUrl,url)
+{
+  // Returns the relative, shortened version of the url param
+  // Works only if refUrl is in a parent path of the url path
+  var s1 = LocalPath(refUrl);
+  if (url.indexOf(s1) == 0)
+  {
+    url = url.substr(s1.length);
+  }
+  return url;
+}
+
+var gbSCOLoaded = false;
+var gsLastScoUrl = null;
+var gTimerLoadSCOWait = null;
+var gnTimerLoadSCOWaitMaxIterations = 50; // will be set dynamically
+var gnTimerLoadSCOWaitMaxMilliseconds = 3000;
+
+var gStageWindow = null;
+var gWndPopupStage = null;
+
+function LoadSCO(url)
+{
+  var fld = this.wndToolBar.document.getElementById("ScoUrl");
+
+  if (((url == null) || (url == "")) && (fld)) url=fld.value;
+
+  if ((url == null) || (url == "")) return;
+
+  url = FileNameToUrl(url);
+  if ((url.indexOf(":/")!= 1) && (url.indexOf("http:") != 0) && (url.indexOf("file:") != 0))
+  {
+    //alert("LocalPath = " + LocalPath() + "\nURL = " + url);
+    url = LocalPath() + url;
+  }
+  if ((url.indexOf("http:") != 0) && (url.indexOf("file://") != 0))
+  {
+    url = "file:///" + url;
+  }
+
+  if (!(_gAPI))
+  {
+    if (fld) fld.value = ShorterRelativeUrl(window.location.href,url);
+  }
+  else
+  {
+    var spn = this.wndToolBar.document.getElementById("ScoUrl");
+    if (spn) spn.innerHTML = url;
+  }
+
+  if (gbSCOLoaded)
+  {
+    var UnloadedWhileInSession = (gnRTECommState == 1);
+    UnloadSCO();
+
+    // Here there is a problem. UnloadSCO is not blocking.
+    // If we reset the session too early, the SCO that is being
+    // unloaded won't be able to send its data before the
+    // session is terminated.
+    // If we reset it too late, we miss the Initialize call
+    // of the new SCO.
+    // It seems that the only solution is to unload
+    // by loading an interstitial page, but even then we
+    // don't know how long. The only safe way is to wait
+    // until the session has been terminated by the SCO.
+    // Since there is no "yield" in JavaScript,
+    // we have to split this into two functions and
+    // use a recurring timer.
+
+    var nDelay = 500; // Magic value; time between iterations
+    gnTimerLoadSCOWaitMaxIterations = gnTimerLoadSCOWaitMaxMilliseconds / nDelay;
+    gTimerLoadSCOWait = setInterval('LoadSCOWait("' + url + '")',nDelay);
+  }
+  else
+  {
+    LoadSCOPart2(url);
+  }
+}
+
+function LoadSCOWait(url)
+{
+  if ((gnRTECommState != 1) || (gnTimerLoadSCOWaitMaxIterations < 1))
+  {
+    if (gTimerLoadSCOWait)
+    {
+      clearInterval(gTimerLoadSCOWait);
+      gTimerLoadSCOWait = null;
+    }
+    LoadSCOPart2(url);
+    return;
+  }
+  gnTimerLoadSCOWaitMaxIterations++;
+  var s = '<style> '
+   + 'p {font-family: Arial, Helvetica, Sans-Serif;}'
+   + '<\/style><p>' + gs_ONE_MOMENT + '<\/p>';
+  WriteWindowDocument(wndSCORM2004Stage, s);
+}
+
+function LoadSCOPart2(url)
+{
+  ResetSession();
+  if (gnLogRow > 0)
+  {
+    if (gbPromptClearLog)
+    {
+      if (confirm(gs_CONFIRM_CLEAR_LOG)) ClearLog();
+    }
+    //else SetMarkInLog(gs_NEW_SESSION_RELAUNCH);
+  }
+
+  if (gbSuspended) // sanity check
+  {
+    if (url != gsLastScoUrl)
+    {
+      gbSuspended = false;
+      ResetAttempt();
+    }
+  }
+  if (gbSuspended)
+  {
+    gbResume = true; // value of cmi.entry will be "resume"
+    gbSuspended = false;
+    SetMarkInLog(gs_ATTEMPT_RESUMED);
+  }
+  gsLastScoUrl = url;
+  window.status = url;
+
+  SetCookie("SCO",url);
+  /*
+  if (!(_gAPI))
+  {
+    fld = this.wndToolBar.document.getElementById("ScoUrl");
+    fld.value = ShorterRelativeUrl(window.location.href,url);
+  }
+  else
+  {
+    spn = this.wndToolBar.document.getElementById("ScoUrl");
+    spn.innerHTML = url;
+  }
+  */
+
+  // In Firefox, there is a problem with attempting to load
+  // the SCO as part of the thread that loads the wrapper itself.
+  // Simplest workaround is to wait 1/4 second.
+  self.setTimeout('DelayedSCOLoader("' + url + '")', 500)
+}
+
+function DelayedSCOLoader(url)
+{
+  gbInScoLaunch = true;
+  SetMarkInLog(gs_LOADING_SCO);
+  if (PassThroughOK())
+  {
+  	SetMarkInLog(gs_API_PASSTHRU_MODE);
+  }
+  else if (!_gAPI)
+  {
+  	SetMarkInLog(gs_API_EMULATED);
+  }
+
+  // If this nested, force the launch method to be frame
+  // because otherwise things get really wild
+  if (gbRunningInFrame) gSCOLaunchWindowType = "frame";
+
+  if (gSCOLaunchWindowType == "frame")
+  {
+    gStageWindow = wndSCORM2004Stage
+    wndSCORM2004Stage.location = url;
+  }
+  else // popup or frameset in popup
+  {
+    gStageWindow = (LaunchURLInPopup(url));
+  }
+  if (ScormIsInSession())
+  {
+    // Only if acting as relay
+    wndToolBar.document.getElementById("ScoUrl").text = url;
+  }
+  gbSCOLoaded = true;
+  UpdateUnloadButton();
+  UpdateEndAttemptButton();
+  self.setTimeout('DelayedClearLaunchFlag()', 1000)
+}
+
+function DelayedClearLaunchFlag()
+{
+  gbInScoLaunch = false;
+}
+
+var gTimerPopupStageWatch = null;
+
+function IsValidWindow(wnd)
+{
+  return ((wnd)&&(typeof(wnd)!="undefined")&&(!wnd.closed));
+}
+
+function LaunchURLInPopup(url)
+{
+  var wnd = gWndPopupStage;
+  if (IsValidWindow(gWndPopupStage))
+  {
+    try
+    {
+      RefocusPopup();
+      gWndPopupStage.location = url;
+    }
+    catch (e)
+    {
+      alert(e.name + ": " + e.message
+        + "\n\nCannot launch SCO in existing popup window.");
+      try
+      {
+        gWndPopupStage.close();
+      }
+      catch (e) {}
+      gWndPopupStage = null;
+    }
+  }
+  if (!IsValidWindow(gWndPopupStage))
+  {
+    // New popup window
+    gWndPopupStage= window.open("about:blank",
+      "wndSCORMTestStage" + (new Date()).getTime(),
+      pseudoPrintf('width=#1,height=#2,'
+       + 'resizable=yes,scrollbars=yes,location=no',
+         gn_PopupStageWidth, gn_PopupStageHeight));
+    if (!IsValidWindow(gWndPopupStage))
+    {
+      gWndPopupStage = null;
+    }
+  }
+  if (gWndPopupStage)
+  {
+    try
+    {
+      gWndPopupStage.focus(); // redundant but safer
+    }
+    catch (e)
+    {
+      alert(e.name + ": " + e.message
+        + "\n\nError trying to set focus to popup window.");
+    }
+    if (gSCOLaunchWindowType == "popup")
+    {
+      gWndPopupStage.location.href = url;
+    }
+    else
+    {
+      try
+      {
+        SetWindowDocument(gWndPopupStage,
+          buildFrameSetForPopup("Test wrap frameset stage"));
+
+          /*
+          var doc = gWndPopupStage.document;
+          var oScript = doc.createElement("script");
+          oScript.setAttribute("language","javascript");
+          oScript.setAttribute("type","text/javascript");
+          oScript.text = 'var foo="bar";'
+          doc.getElementsByTagName('head')[0].appendChild(oScript);
+
+          var as = doc.getElementsByTagName('script');
+          alert("Script:\n\n"  + as[0].text );
+          */
+
+
+
+        //gWndPopupStage.opener = self; // redundant
+        //if (!gWndPopupStage.init) alert("Unable to instantiate popup stage initialization");
+        //if (!gWndPopupStage.init()) alert("Unable to initialize popup stage API.");
+        // Paranoid delay to give browser time to settle down
+        //gWndPopupStage.Stage.location.href = url;
+      }
+      catch(e)
+      {
+        alert(e.name + ": " + e.message
+          + "\n\nError trying to create SCO player frameset in popup.");
+        try
+        {
+          gWndPopupStage.close();
+        }
+        catch (e) {}
+        gWndPopupStage = null;
+      }
+  if (gWndPopupStage)
+  {
+        gWndPopupStage.API_1484_11 = API_1484_11;
+        //alert("API object: " + typeof(gWndPopupStage.API_1484_11));
+        setTimeout('LoadPopupFramesetStage("' + url + '")',1000);
+      }
+    }
+  }
+  if (IsValidWindow(gWndPopupStage))
+  {
+    setTimeout("LoadPopupPromptInStage()",250);
+  }
+  else
+  {
+     alert(gs_POPUP_PROBLEM);
+  }
+  return gWndPopupStage
+}
+
+function LoadPopupFramesetStage(url)
+{
+  gWndPopupStage.Stage.location.href = url;
+}
+
+function LoadPopupPromptInStage()
+{
+    var s = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">'
+    + '<html><head><meta http-equiv="Content-Type" content= "text/html; charset=us-ascii">'
+    + '<meta name="generator" content="Claude">'
+    + '<title>SCORM 2004 Wrapper SCO Popup Prompt<\/title> <style type="text/css">'
+    + ' body {font-family: Arial, Helvetica, Sans-Serif;font-size:10pt}'
+    + ' .typeit {font-family: Courier, Courier New;}'
+    + ' .heavy {font-weight: bold;} <\/style>'
+    + '<\/head><body>'
+    + '<h3>#1<\/h3>'
+    + '<form><input type="button" onclick="window.parent.RefocusPopup()"'
+    + 'value="#2" /> #3<\/form><p>URL=#4'
+    + '<\/body><\/html>';
+
+    SetWindowDocument(wndSCORM2004Stage,
+      pseudoPrintf(s, gs_SCO_IN_POPUP, gs_SCO_REFOCUS_BTN, gs_SCO_REFOCUS_BTNExplain,
+        gsLastScoUrl));
+    gTimerPopupStageWatch = setInterval("WatchPopupStageOpen()", 2500);
+}
+
+function WatchPopupStageOpen()
+{
+  if ((!gWndPopupStage) || (gWndPopupStage.closed))
+  {
+    if (gTimerPopupStageWatch)
+    {
+      clearInterval(gTimerPopupStageWatch);
+      gTimerPopupStageWatch = null;
+      HelpInStage();
+    }
+  }
+}
+
+function RefocusPopup()
+{
+  if (typeof(gWndPopupStage) != "undefined")
+  {
+    try
+    {
+      if (!gWndPopupStage.closed) gWndPopupStage.focus();
+    }
+    catch (e)
+    {
+      // nothing will help here;
+    }
+  }
+}
+
+function UnloadSCO()
+{
+  if (gWndPopupStage)
+  {
+    wndSCORM2004Stage.location.href = "about:blank";
+    if (!gWndPopupStage.closed) gWndPopupStage.close();
+  }
+  else
+  {
+    wndSCORM2004Stage.location.href = "about:blank";
+  }
+  gbInScoLaunch = false;
+  gbSCOLoaded = false;
+
+  SetMarkInLog(gs_FORCIBLE_UNLOAD);
+
+  UpdateEndAttemptButton();
+  UpdateUnloadButton();
+}
+
+function UpdateEndAttemptButton()
+{
+  btn = wndToolBar.document.getElementById("EndAttempt");
+  if ((btn) && (typeof(btn) == "object"))
+  {
+    btn.disabled = (!((gbResume) || (gbSuspended) || (gbSCOLoaded)));
+  }
+}
+
+function UpdateUnloadButton()
+{
+  btn = wndToolBar.document.getElementById("Unload");
+  if ((btn) && (typeof(btn) == "object")) btn.disabled = (!(gbSCOLoaded));
+}
+
+function EndAttempt()
+{
+  UnloadSCO();
+  // There might be some asynchronous stuff
+  // happening. Give it a chance to happen.
+  self.setTimeout('EndAttemptPart2()',1000);
+}
+
+function EndAttemptPart2()
+{
+  if (gnLogRow > 0)
+  {
+    if (confirm(gs_RESETTING_ATTEMPT + '\n\n' + gs_CONFIRM_CLEAR_LOG)) ClearLog();
+    else if (gbSuspended) SetMarkInLog("Attempt terminated");
+  }
+  else
+  {
+    alert (gs_RESETTING_ATTEMPT )
+  }
+  ResetAttempt();
+  UpdateEndAttemptButton()
+}
+
+function SetWindowDocument(wnd, sDoc)
+{
+  with (wnd.document)
+  {
+    open();
+    write(sDoc);
+    close();
+  }
+  return true;
+}
+
+///// Tricky stuff -- this creates a frameset to use in a popup window.
+///// The frameset includes a stage frame and a relay API instance.
+
+function buildFrameSetForPopup(title)
+{
+  var s = '<html><head><title>'+ title + '<\/title><\/head>\n'
+  + '<frameset rows="1,*">\n'
+  + '<frame id="dummy" name="dummy" src="about:blank">\n'
+  + '<frame id="Stage" name="Stage" src="about:blank">\n'
+  + '<\/frameset><\/html>'
+  //alert(s);
+  return s;
+}
+
+//alert("ok")
+
+function HelpInStage(wnd)
+{
+  if (!wnd) wnd = wndSCORM2004Stage;
+  SetWindowDocument(wnd, gs_HELP_TEXT);
+}
+
+var gWndPopupHelp = null;
+function HelpPopup()
+{
+  if ((!gWndPopupHelp) || (gWndPopupHelp.closed))
+  {
+    gWndPopupHelp = window.open("about:blank","wndHelp",
+      "width=640,height=500,resizable=yes,scrollbars=yes,location=no");
+  }
+  HelpInStage(gWndPopupHelp);
+  gWndPopupHelp.focus();
+}
+
+function MakeOptionCheckBox(id,handlerPrefix,checked,label)
+{
+  var s = '<table width="100%" cellpadding="0" cellspacing="2" border="0" align="left">'
+   + '<tr><td valign="top" width="5">'
+   + '<p><input type="checkbox" id="#1" '
+   + ((checked)? 'checked':'')
+   + ' onclick="#2CheckBoxClicked(this.id,this.checked)" />'
+   + '<\/p><\/td><td width="99%"><p>#3<\/p>'
+   + '<\/td><\/tr><\/table>';
+  return pseudoPrintf(s,id,handlerPrefix,label);
+}
+
+function MakeOptionRadioButtons(id,handlerPrefix,spacer,defVal,value,label)
+{
+  // Makes 1 to n radio buttons
+  // - id is ID of the group. Each button gets an ID that
+  //   is the value of id + "_" + number (e.g. a_0, a_1...) base 0
+  // - handler is a reference to a function that will handle clicks
+  // - spacer can be null, empty string, "br","div" or arbitrary
+  //  If the spacer is null or empty string, use space
+  // - defVal is the value of the radio button that is checked by default.
+  // - value is the value of the first button
+  // - label is the label of the first button
+  // - extra arguments are value, label, value, label, etc.
+  var s = "";
+  var grpType = "div"; // other would be "span"
+  var spacerType = 1;
+  switch(spacer)
+  {
+    case "tr":
+      sep = '<\/td><\/tr><tr><td valign="top">';
+      break;
+    case "div":
+      sep = '<\/div><div>';
+      break;
+    case "br":
+      sep = '<br \/';
+      break;
+    case null:
+    case "":
+      sep = '&nbsp; ';
+      break;
+    default:
+      sep = spacer;
+  }
+  nChoices = (arguments.length - 4) / 2;
+  var n = 0;
+  if ((spacer == "div") || (spacer == "tr"))
+  {
+    s = pseudoPrintf('<div id="#1">',id);
+    if (spacer == "tr")
+    {
+      s += '<table width="100%" cellspacing="5" cellpadding="0" border="0">'
+      + '<tr><td width="5">';
+    }
+  }
+  else
+  {
+    s = pseudoPrintf('<span id="#1">',id);
+  }
+  for (var i=4;i<arguments.length;i++)
+  {
+    s += pseudoPrintf('<input type="Radio" name=#1 id="#2" '
+           + 'value="#3" onclick="#4RadioButtonClicked(\'#1\',this.value)" #5>'
+           + ((spacer == "tr")?'<\/td><td width="99%">':'&nbsp;')
+           + '#6',
+           id,
+           id + "_" + (i-4).toString(),
+           arguments[i],
+           handlerPrefix,
+           (arguments[i] == defVal)? 'checked defaultchecked':'',
+           arguments[i+1]);
+    i++;
+    if (i < arguments.length) s += sep;
+  }
+  if ((spacer == "div") || (spacer == "tr"))
+  {
+    if (spacer == "tr")
+    {
+      s += '<\/tr><\/td><\/table>';
+    }
+    s += '<\/div>';
+  }
+  else
+  {
+    s += '<\/span>';
+  }
+  return s;
+}
+
+function MakeInputField(id,handlerPrefix,defVal,maxLength,size,label)
+{
+  var s = '<input type="Text" id="#1" value="#2" size="#4"'
+    + 'onchange="#5TextFieldChanged(this,\'#1\',this.value)" ';
+    if (maxLength) s+= 'maxlength="#3"'
+    s += ' />';
+  return label + ' ' + pseudoPrintf(s,
+    id, defVal, maxLength, size, handlerPrefix);
+}
+
+function TextFieldChanged(fld,id,val)
+{
+  switch(id)
+  {
+    case "PopupWidth":
+      var n = parseInt(val);
+      if (!isNaN(n))
+      {
+        gn_PopupStageWidth = Math.max(n,200);
+      }
+      fld.value = gn_PopupStageWidth;
+      SetCookie("PopupStageWidth", gn_PopupStageWidth+"");
+      break;
+    case "PopupHeight":
+      var n = parseInt(val);
+      if (!isNaN(n))
+      {
+        gn_PopupStageHeight = Math.max(n,200);
+      }
+      fld.value = gn_PopupStageHeight;
+      SetCookie("PopupStageHeight", gn_PopupStageHeight+"");
+      break;
+    case "PassingScore":
+      var n = parseFloat(val);
+      if (!isNaN(n))
+      {
+        gn_PassingScore = Math.min(Math.max(n,-1.0),1.0);
+      }
+      fld.value = gn_PassingScore;
+      SetCookie("gn_PassingScore", n+"");
+      break;
+    case "CompletionThreshold":
+      var n = parseFloat(val);
+      if (!isNaN(n))
+      {
+        gn_CompletionThreshold= Math.min(Math.max(n,0.0),1.0);
+      }
+      fld.value = gn_CompletionThreshold;
+      SetCookie("CompletionThreshold", gn_CompletionThreshold+"");
+      break;
+  }
+}
+
+function RadioButtonSet(wnd,id,value)
+{
+  var grp = wnd.document.getElementById(id);
+  if (grp)
+  {
+    var a = grp.getElementsByTagName("INPUT");
+    for (var i=0;i<a.length;i++)
+    {
+      if ((a[i].type.toUpperCase() == "RADIO") && (a.value == value))
+      {
+        a[i].checked = true;
+        break;
+      }
+    }
+  }
+}
+
+function CheckBoxClicked(id,checked)
+{
+  switch(id)
+  {
+    case "PromptClearLog":
+      gbPromptClearLog = (checked);
+      SetCookie("PromptClearLog", checked);
+      break;
+    default:
+      break;
+
+  }
+}
+
+function RadioButtonClicked(id,value)
+{
+  switch(id)
+  {
+    case "LaunchWindowType":
+      if (gSCOLaunchWindowType != value)
+      {
+        UnloadSCO();
+        HelpInStage();
+      }
+      gSCOLaunchWindowType = value;
+      SetCookie(id, value);
+      break;
+    case "RTEPresetBrowse":
+      gRTEPresetBrowse = value;
+      SetCookie(id, value);
+      break;
+    case "RTEPresetCredit":
+      gRTEPresetCredit = value;
+      SetCookie(id, value);
+      break;
+    default:
+      break;
+  }
+}
+
+
+function OptionsInStage(wnd)
+{
+  var err = false;
+  try
+  {
+    if (!wnd) wnd = wndSCORM2004Stage;
+    var doc = wnd.document;
+  }
+  catch (e)
+  {
+    err = true;
+    alert(gs_POPUP_PROBLEM);
+  }
+  if (err)
+  {
+    try
+    {
+      wnd.close();
+    } catch (e) { }
+    return;
+  }
+  var s = '<html><head><title>'+ gs_WRAPPER_OPTIONS +'<\/title>'
+    + '<style>'
+    + 'body { font-family: Arial, Sans-serif, helvetica; '
+    + 'font-size: 8pt; background-color: #eee; }'
+    + 'p {font-size: 8pt; padding: 2pt; margin: 2px;}'
+    + 'h3 {padding-bottom: 2px; margin-bottom:2px}'
+    + 'td { font-size: 8pt; }'
+    + 'input { font-size: 8pt; }'
+    + '#edge {margin:4px; padding: 4px; width:410px; border: thin inset white;}'
+    + 'form {padding-bottom: 0px; margin-bottom: 0px;}'
+    + '<\/style><\/head>'
+    + '<body><div id="edge">'
+    + '<form id="OptionsForm" onsubmit="return false">'
+    + '<div id="LaunchOptions">'
+    + '<h3>' + gs_LAUNCH_OPTIONS + '<\/h3>';
+    if (!gbRunningInFrame)
+    {
+      s += MakeOptionRadioButtons("LaunchWindowType",
+        "window.opener.",
+        "tr", gSCOLaunchWindowType,
+        "frame",gs_LAUNCH_SCO_IN_FRAME,
+        "popup",gs_LAUNCH_SCO_IN_POPUP,
+        "frameInPopup",gs_LAUNCH_SCO_IN_FRAME_IN_POPUP)
+      + 'Popup stage window size: &nbsp;'
+      + MakeInputField("PopupWidth","window.opener.",gn_PopupStageWidth,4,3,
+          "Width")
+      + ' &nbsp; '
+      + MakeInputField("PopupHeight","window.opener.",gn_PopupStageHeight,4,3,
+          "Height")
+      + MakeOptionCheckBox("PromptClearLog",
+        "window.opener.",gbPromptClearLog,
+        gs_PROMPT_CLEAR_LOG_OPTION);
+    }
+    else
+    {
+       s+= gs_LAUNCH_OPTIONSNotAvailable;
+    }
+    s += '<\/div><br clear="all"><div id="RTEEmulationOptions">'
+    + '<h3>' + gs_LMS_EMULATION_OPTIONS + '<\/h3><\/p>'
+    + '<p>' + gs_RTE_PRESET_CREDIT_LABEL + '<br />'
+    + MakeOptionRadioButtons("RTEPresetCredit",
+        "window.opener.",
+        "", gRTEPresetCredit,
+        "credit","credit",
+        "no-credit","no-credit")
+    + '<\/p><p>'
+    + gs_RTE_PRESET_MODE_LABEL + '<br />'
+    + MakeOptionRadioButtons("RTEPresetBrowse",
+        "window.opener.",
+        "", gRTEPresetBrowse,
+        "normal","normal",
+        "browse","browse",
+        "review","review")
+    + '<\/p>'
+    + '<p>'
+    //+ function MakeInputField(id,handlerPrefix,defVal,maxLength,size,label)
+    + MakeInputField("PassingScore",
+         "window.opener.",gn_PassingScore,6,3,gs_PASSING_SCORE_LABEL)
+    + '&nbsp; '
+    + MakeInputField("CompletionThreshold",
+         "window.opener.",gn_CompletionThreshold,6,3,gs_COMPLETION_THRESHOLD_LABEL)
+    + '<\/p>'
+    + '<\/div>'
+    + '<\/div>' // closing the edge div
+    + '<div align="center"><p>'
+    + '<input type="button" class="btn" value="Close"'
+    + ' onclick="window.close()"/><\/p>'
+    + '<\/div>'
+    + '<\/form><\/body><\/html>';
+  doc.open();
+  doc.write(s);
+  doc.close();
+}
+
+var gWndOptionsPopup = null;
+function ToggleOptions()
+{
+  if ((!gWndOptionsPopup) || (gWndOptionsPopup.closed))
+  {
+    gWndOptionsPopup = window.open("about:blank","wndOptions",
+      "width=450,height=500,left=150,top=20,resizable=yes,scrollbars=yes,location=no");
+  }
+  OptionsInStage(gWndOptionsPopup);
+  gWndOptionsPopup.focus();
+}
+
+// ========= INITIALIZATION =========
+
+function MakeToolBar()
+{
+  var sTextSize = "xx-small";
+  var s = '<htlm><head><style>'
+    + 'body {font-family: Arial, Helvetica, Sans-Serif;font-size: ' + sTextSize + ';'
+    + 'margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px; '
+    + 'background-color: silver;}\n'
+    + 'td {font-size: ' + sTextSize + ';}\n'
+    + '.btn {font-size: ' + sTextSize + '; font-weight: bold;padding-left:0px; padding-right:0px;}\n'
+    + '.fld {font-size: ' + sTextSize + ';}\n'
+    + '<\/style><\/head><body style="background-color: silver; color: black" '
+    + 'marginwidth="0" leftmargin="0" hspace="0">';
+
+    s += '<table width="100%" cellpadding="0" cellspacing="0"><tr><td nowrap>'
+    + '<input type="Button" name="ClearLog" value="' + gs_CLEAR_LOG + '" '
+    + 'class="btn" style="font-size: ' + sTextSize + '" onClick="window.parent.ClearLog()" /> '
+    + '<input type="Button" name="PrintLog" value="' + gs_PRINT_LOG + '" '
+    + 'class="btn" style="font-size: ' + sTextSize + '" onClick="window.parent.PrintLog()" /> '
+    + '<input type="Button" name="Options" value="'+ gs_OPTIONS +'" '
+    + 'class="btn" style="font-size: ' + sTextSize + '" onClick="window.parent.ToggleOptions()" />'
+    + '<br />'
+    + '<input type="Button" name="SetMarkInLog" value="'+ gs_SET_MARK_IN_LOG +'"'
+    + 'class="btn" style="font-size: ' + sTextSize + '" onClick="window.parent.SetMarkInLog()"> '
+    + '<input type="Text" name="LogMarkText" ID="LogMarkText" class="fld" style="font-size: xx-small" size="15" width="20" />'
+    + '<\/td><td>&nbsp;<\/td>'
+
+    /*
+    + '<input type="Button" name="SaveLog" value="'+ gs_SAVE_LOG +'" '
+    + 'class="btn" style="font-size: ' + sTextSize + '" onClick="window.parent.SaveLog()"> '
+    */
+
+  if (_gAPI)
+  {
+     s += '<td width="99%" nowrap style="font-size: ' + sTextSize + '">'
+    + gs_TXT_SCO_URL + ' <span id="ScoUrl">' + GetCookie("SCO") + '<\/span><br />'
+    + 'Forwarding calls to the back end API.';
+  }
+  else
+  {
+    s += '<td nowrap style="font-size: ' + sTextSize + ';padding-top: 5px" valign="top">'
+    + gs_TXT_SCO_URL
+    + '<\/td><td width="99%" nowrap style="font-size: ' + sTextSize + '">'
+    + '<input type="Text" name="ScoUrl" ID="ScoUrl" class="fld" style="font-size: '
+    + sTextSize + '" size="100" width="100" onchange="window.parent.LoadSCO()" '
+    + 'value="' + GetCookie("SCO") + '" />'
+    + '<font size="1"> &copy; 2007 Ostyn Consulting - All rights reserved<\/font>'
+
+    + '<br />'
+    + '<input type="Button" id="Load" name="Load" value="'+ gs_LOAD +'" '
+    + 'class="btn" style="font-size: ' + sTextSize + '" '
+    + 'onClick="window.parent.LoadSCO()" /> '
+    + '<input type="Button" id="Unload" name="Unload" value="'+ gs_UNLOAD_SCO +'" '
+    + 'class="btn" style="font-size: ' + sTextSize + '" '
+    + 'onClick="window.parent.UnloadSCO()" /> '
+    + '<input type="Button" id="EndAttempt" name="EndAttempt" value="'+ gs_END_ATTEMPT +'" '
+    + 'class="btn" style="font-size: ' + sTextSize + '" '
+    + 'onClick="window.parent.EndAttempt()" />&nbsp;'
+    ;
+  }
+  s += '<input type="Button" name="Help" value="'+ gs_HELP +'" '
+    + 'class="btn" style="font-size: ' + sTextSize + '" onClick="window.parent.Help()" /> ';
+
+
+  s += '&nbsp; ' + gs_VERSION + '<\/td><\/tr><\/table>';
+  s += '<\/body><\/html>';
+   var doc = wndToolBar.document;
+  doc.open();
+  doc.write(s);
+  doc.close();
+}
+
+function InitLogFrame()
+{
+  UpdateLog(gs_LOG_TEMP_TEXT);
+  gsLog = ""
+}
+
+function Help()
+{
+  // alert("Sorry, help not available yet.")
+  HelpPopup();
+}
+
+
+function init()
+{
+  if (document.getElementById == "undefined")
+  {
+    alert (gs_ERR_LO_BROWSER);
+    return;
+  }
+  ScormInitialize();
+  MakeToolBar();
+  InitLogFrame();
+  UpdateEndAttemptButton();
+  UpdateUnloadButton();
+  var url = GetURLParam("SCO");
+  if ((url != null) && (url != ""))
+  {
+  	if (gbSCOParamEncoded)
+  	{
+  		url = urlDecode(url);
+  	}
+    LoadSCO(url);
+  }
+  else
+  {
+    HelpInStage();
+  }
+}
+
+function cleanup()
+{
+  try {if (gWndPopupStage) gWndPopupStage.close();}
+  catch(e){}
+  try {if (gWndPopupHelp) gWndPopupHelp.close();}
+  catch(e){}
+  try {if (gWndOptionsPopup) gWndOptionsPopup.close();}
+  catch(e){}
+}
+
+//]]>
+</script>
+</head>
+
+<frameset rows="42,*" onload="init()">
+  <frame id="wndToolBar" name="wndToolBar" src="about:blank"
+  marginheight="0" scrolling="no" />
+
+  <frameset cols="200,*">
+    <frame id="wndLog" name="wndLog" src="about:blank" marginwidth=
+    "0" scrolling="auto" />
+    <frame id="wndSCORM2004Stage" name="wndSCORM2004Stage" src=
+    "about:blank" />
+  </frameset>
+
+  <noframes>
+    <body>
+      <p>This web page is used for SCORM diagnostics. Because of
+      the way it functions it requires a frame-enabled browser.</p>
+
+      <div>
+        <noscript>
+        <p>This web page is used for SCORM diagnostics. It requires
+        JavaScript to function because of the way it examines the
+        DOM and calls JavaScript calls to do its work and
+        dynamically generate its displays. If you cannot use
+        JavaScript you should not use this web page.</p></noscript>
+      </div>
+    </body>
+  </noframes>
+</frameset>
+</html>

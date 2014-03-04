@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<defaultdata>
+  <!-- Table tbl_writingtools_flags -->
+
+   <tbl_writingtools_flags>
+        <id>init_1</id>
+        <handle>grammar</handle>
+        <iconurl>__BUILTIN__</iconurl>
+        <moreinfourl>NULL</moreinfourl>
+        <title>Grammar can be improved</title>
+        <description>The grammar of this section makes it very difficult to follow. There is a lot of opportunity to improve the grammer, and therefore ensure that you convey the meaning that you intend from the text.</description>
+        <notes></notes>
+        <created>2005-03-10 22:16:25</created>
+        <creatorid>1</creatorid>
+	    <modified>NULL</modified>
+	    <modifierid>NULL</modifierid>
+   </tbl_writingtools_flags>
+   
+   <tbl_writingtools_flags>
+        <id>init_2</id>
+        <handle>needrefs</handle>
+        <iconurl>__BUILTIN__</iconurl>
+        <moreinfourl>NULL</moreinfourl>
+        <title>This section needs references</title>
+        <description>There is a lot of information in this section that would be improved by the citation of relevant references.</description>
+        <notes></notes>
+        <created>2005-03-10 22:16:25</created>
+        <creatorid>1</creatorid>
+        <modified>NULL</modified>
+        <modifierid>NULL</modifierid>
+   </tbl_writingtools_flags>
+   
+   
+</defaultdata>

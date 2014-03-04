@@ -1,0 +1,166 @@
+/*
+    Document   : stylesheet.css for AFORBES Canvas
+    Created on : 30 May 2010, 1:11:21 PM
+    Author     : dkeats
+    Description:
+        Leave this blank for consistency to implement the underlying skin as a canvas to enable selecting.
+*/
+body {
+    background-color: #f99118;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: #000;
+    font: 70% "Verdana", Arial, Tahoma, sans-serif;
+    line-height: 200%;
+}
+
+#header {
+    background: url('images/banner_bg.png') #FFF top left repeat-x;
+    margin-top: 0px;
+    border-bottom: 1px solid #CCCCCC;
+    padding-bottom: 4px;
+}
+
+h1#sitename {
+    background: url('images/banner.png') top left no-repeat;
+    width: 100%;
+    height: 185px;
+    margin: 0;
+    padding: 0;
+
+}
+
+
+h1#sitename a {
+    width: 324px;
+    height: 90px;
+    display: block;
+    text-decoration: none;
+}
+
+h1#sitename span {
+    visibility: hidden;
+}
+
+/* Locate the search box correctly */
+ div#header div#search {
+    margin: 0;
+    margin: 10px;
+    padding: 10px;
+    color: gray;
+    width: 360px;
+    position: absolute;
+    float: right;
+    margin-top:  173px;
+    margin-right:  96px;
+}
+
+ div#header div#search #input_search {
+     height: 12px;
+     font: 10px;
+     width: 95px;
+ }
+
+/* End of search box */
+
+#Canvas_Content_Body_Region2 {
+    background-color: #F7F7F7;
+    border-right: 1px solid #CCCCCC;
+    border-left: 1px solid #CCCCCC;
+    border-bottom: 1px solid #CCCCCC;
+    border-top: 1px solid #CCCCCC;
+}
+
+/** GLOSSY TABS FOR THE TOOLBAR **/
+/*Credits: By Santosh Setty (http://webdesigninfo.wordpress.com) */
+/*Posted to: Dynamic Drive CSS Library (http://www.dynamicdrive.com/style/) */
+
+.glossytabs{
+    position: relative;
+    margin: 0;
+    background: url(images/glossytabs/menuo_bg.gif) repeat-x; /*tab background image path*/
+    height: 46px;
+    list-style: none;
+}
+
+.glossytabs li{
+    float:left;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.glossytabs li a{
+    float: left;
+    display: block;
+    color:#000;
+    text-decoration: none;
+    font-family: sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    padding:0 0 0 16px; /*Padding to accomodate left tab image. Do not change*/
+    height: 46px;
+    line-height: 46px;
+    text-align: center;
+    cursor: pointer;	
+}
+
+.glossytabs li a strong{
+    float: left;
+    display: block;
+    padding: 0 16px 0 0px; /*Padding of menu items*/
+}
+
+.glossytabs li.current a, .glossytabs li a:hover{
+    color: #fff;
+    background: url(images/glossytabs/menuo_hover_left.gif) no-repeat; /*left tab image path*/
+    background-position: left;
+}
+
+.glossytabs .glossytabs li a:hover{
+    color: #fff;
+    background: url(images/glossytabs/menuo_hover_left.gif) no-repeat; /*left tab image path*/
+    background-position: left;
+}
+
+.glossytabs li.current a strong, .glossytabs li a:hover strong{
+    color: #fff;
+    background: url(images/glossytabs/menuo_hover_right.gif) no-repeat right top; /*right tab image path*/
+}
+
+#footer {
+    background-color: #393b3a;
+    color: #FFF;
+    padding: 5px;
+    border: 1px solid #FFF;
+}
+
+#footer a {
+    color: #FFFFCC;
+    font-weight: bold;
+}
+
+#Canvas_Content_Body_Region1 .featureboxheader, #Canvas_Content_Body_Region3 .featureboxheader, #Canvas_Content_Body_Region2 .featureboxheader {
+    background: url('images/featureboxheader.gif') #b65900 top left repeat-x;
+    border-left: 2px solid #f99118;
+    border-right: 2px solid #f99118;
+    font-size: 110%;
+}
+
+#Canvas_Content_Body_Region1 .featureboxcontent , #Canvas_Content_Body_Region3 .featureboxcontent, #Canvas_Content_Body_Region2 .featureboxcontent {
+    border: 2px solid #f99118;
+    background: #FFF;
+}
+
+#sendDiv {
+    background: rgb(249,145,24); /* Old browsers */
+    /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2Y5OTExOCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmNmU2YjQiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top,  rgba(249,145,24,1) 0%, rgba(246,230,180,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(249,145,24,1)), color-stop(100%,rgba(246,230,180,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(249,145,24,1) 0%,rgba(246,230,180,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(249,145,24,1) 0%,rgba(246,230,180,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(249,145,24,1) 0%,rgba(246,230,180,1) 100%); /* IE10+ */
+    background: linear-gradient(top,  rgba(249,145,24,1) 0%,rgba(246,230,180,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f99118', endColorstr='#f6e6b4',GradientType=0 ); /* IE6-8 */
+
+}

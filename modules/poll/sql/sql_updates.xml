@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<updates>
+	<update>
+		<table>tbl_poll_responses</table>
+		<version>1.0</version>
+		<description>Added a field for user id</description>
+		<data>
+			<add>
+				<name>user_id</name>
+				<type>text</type>
+				<length>32</length>
+			</add>
+		</data>
+	</update>
+	<update>
+		<table>tbl_poll_responses</table>
+		<version>1.0</version>
+		<description>Added a field for user id</description>
+		<data>
+			<add>
+				<name>date_modified</name>
+				<type>timestamp</type>
+			</add>
+		</data>
+	</update>
+</updates>

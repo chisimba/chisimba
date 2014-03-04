@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<updates>
+    <update>
+        <table>tbl_hotels_stories</table>
+        <version>2.200</version>
+        <description>Added a new for sticky stories</description>
+        <data>
+            <add>
+                <name>sticky</name>
+                <type>text</type>
+                <length>1</length>
+                <default>Y</default>
+            </add>
+        </data>
+    </update>
+</updates>

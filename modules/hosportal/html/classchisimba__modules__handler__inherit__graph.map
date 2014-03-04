@@ -1,0 +1,16 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classbutton__module.html" title="Class that models a button from the chisimba core modules." alt="" coords="5,235,219,407"/>
+<area shape="rect" id="node5" href="$classconfirm__module.html" title="Class that models a confrim option window pop up from the chisimba core modules." alt="" coords="243,244,456,399"/>
+<area shape="rect" id="node7" href="$classdropdown__module.html" title="Class that models a drop down object from the chisimba core modules." alt="" coords="480,235,696,407"/>
+<area shape="rect" id="node9" href="$classform__module.html" title="Class that models a form object from the chisimba core modules." alt="" coords="720,244,933,399"/>
+<area shape="rect" id="node11" href="$classhtmlarea__module.html" title="Class that models a html area object from the chisimba core modules." alt="" coords="957,227,1171,416"/>
+<area shape="rect" id="node13" href="$classhtmltable__module.html" title="{htmltable_module\n|&#45; $objTable\l|+ init()\l+ createNewObjectFromModule()\l+ EditModule()\l+ setBorderThickness()\l+ setCellPadding()\l+ setCellWidth()\l+ addLabelsToHeader()\l+ beginTableRow()\l+ beginHeaderTableRow()\l+ addHeaderCellWithObject()\l+ endHeaderTableRow()\l+ addCellwithObject()\l+ endTableRow()\l+ setAlternateColorsForRows()\l+ showBuiltTable()\l}" alt="" coords="1195,157,1408,485"/>
+<area shape="rect" id="node15" href="$classicon__module.html" title="{icon_module\n|&#45; $objIcon\l|+ init()\l+ setIconType()\l+ setAltTextForIcon()\l+ showIcon()\l+ setIconAlignment()\l+ createNewObjectFromModule()\l+ EditModule()\l}" alt="" coords="1432,227,1645,416"/>
+<area shape="rect" id="node17" href="$classlabel__module.html" title="{label_module\n|&#45; $objLabel\l|+ init()\l+ createNewObjectFromModule()\l+ EditModule()\l}" alt="" coords="1669,261,1883,381"/>
+<area shape="rect" id="node19" href="$classlanguage__module.html" title="{language_module\n|&#45; $objLanguage\l|+ init()\l+ createNewObjectFromModule()\l+ EditModule()\l+ insertTextFromConfigFile()\l+ insertTextFromVariables()\l}" alt="" coords="1907,244,2120,399"/>
+<area shape="rect" id="node21" href="$classlink__module.html" title="{link_module\n|&#45; $objLink\l|+ init()\l+ createNewObjectFromModule()\l+ embedLinkToObject()\l+ showLink()\l+ EditModule()\l}" alt="" coords="2144,244,2357,399"/>
+<area shape="rect" id="node23" href="$classswitchmenu__module.html" title="{switchmenu_module\n|&#45; $objSwitchMenu\l|+ init()\l+ createNewObjectFromModule()\l+ EditModule()\l+ addBlockToMenu()\l+ showSwitchMenu()\l}" alt="" coords="2381,244,2595,399"/>
+<area shape="rect" id="node25" href="$classtextarea__module.html" title="{textarea_module\n|&#45; $objTextArea\l|+ init()\l+ createNewObjectFromModule()\l+ EditModule()\l}" alt="" coords="2619,261,2832,381"/>
+<area shape="rect" id="node27" href="$classtextinput__module.html" title="{textinput_module\n|&#45; $objTextInput\l|+ init()\l+ createNewObjectFromModule()\l+ EditModule()\l}" alt="" coords="2856,261,3069,381"/>
+<area shape="rect" id="node29" href="$classuser__module.html" title="{user_module\n|&#45; $objUser\l|+ init()\l+ createNewObjectFromModule()\l+ EditModule()\l+ getUserFullName()\l+ getUserFirstName()\l+ getUserName()\l}" alt="" coords="3093,235,3307,407"/>
+</map>

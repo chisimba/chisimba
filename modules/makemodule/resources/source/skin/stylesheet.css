@@ -1,0 +1,56 @@
+/*
+    _SKINCODE.
+
+    _SKINDESCRIPTION
+
+    It is a version 3.0 for Chisimba and supports canvases. It does not
+    support the old styles any longer.
+
+    Author: _AUTHORNAME
+    License: GPL V2
+    
+*/
+@import "../canvas/canvasbase.css";
+
+/** reset Margins and padding **/
+body {
+    margin:0px;
+}
+
+html {
+    margin:0px;
+    padding:0px;
+}
+
+body {
+}
+
+
+.ChisimbaCanvas {
+}
+
+#Canvas_BeforeContainer {
+}
+
+.Canvas_Content_Head_Before {
+}
+
+div#header div#search {
+}
+
+
+#Canvas_Content {
+}
+
+h1#sitename {
+}
+
+/* The tweet button */
+.tweet_button {
+    float: right;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+#Head_After {
+}

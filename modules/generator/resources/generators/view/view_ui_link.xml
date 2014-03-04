@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This file is a code generation template for Chisimba view data generation labels for the view template -->
+<chisimba_view_ui_link>
+
+<title>Build a simple view template</title>
+<description>Build a template for viewing data within a template in the Chisimba MVC architecture. The view template is named 
+view_tpl.php and resides in the templates/content directory of your module.</description>
+
+</chisimba_view_ui_link>

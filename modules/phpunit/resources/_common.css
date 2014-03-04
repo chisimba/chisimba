@@ -1,0 +1,80 @@
+/*Grid Bottom Padding (Dynamically set via jquery when grid has loaded)*/
+.grid_padding_bottom{
+    padding-bottom: 10px;
+}
+
+/* Boxy Form Table Left Space*/
+.boxy_td_left {
+   padding-right: 17px;
+}
+
+.boxy_td_key_left {
+   padding-right: 30px;
+}
+
+.boxy_td_key_table_pad_right{
+    padding-right: 10px;
+}
+
+.match_target_url_init{
+    width: 270px;
+    align: left;
+}
+
+.match_target_url_grow{
+    width: 270px;
+    align: left;
+}
+
+/* Toggle Effect */
+
+.toggleHide{
+    display : none;
+}
+
+.toggleShow{
+    display : block;
+}
+
+
+/** Icon + text div links (Control Panel) **/
+
+.smallicon {
+    height: 75px;
+    width: 85px;
+    text-align: center;
+    font-size: 110%;
+    line-height: 80%;
+    float: left;
+    padding: 0px;
+    margin: 2px;
+    color : black;
+}
+
+.smallicon a, .smallicon a:visited {
+    display: block;
+    float: left;
+    border: 1px solid #f0f0f0;
+    height: 75px;
+    width: 85px;
+    vertical-align: middle;
+    font-size: 110%;
+    line-height: 80%;
+    text-decoration: none;
+    padding: 0px;
+    margin: 0px;
+    background: #f5f5f5;
+    color : black;
+}
+
+.smallicon a:hover {
+    border-left: 1px solid #eee;
+    border-top: 1px solid #eee;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    background: #fcfcfc;
+
+}
+
+.smallicon img  { padding: 2px 0; padding-bottom: 3px; margin: 0 auto;  }
+.smallicon span { display: block; text-align: center; }

@@ -1,0 +1,37 @@
+body {
+	font: 12px 'Trebuchet MS', Trebuchet, Helvetica, sans-serif;
+	color: #6B506B;	
+	margin: 20px;
+	padding: 0; 
+	min-width: 1000px;
+	line-height: 20px;	
+}
+a {
+	color: #6B506B;
+}
+pre {
+	display: block;
+	margin: 1em 0;
+	padding: 10px 16px;
+	border-left: 6px solid #69037E;
+	background-color: #ededed;
+	overflow: auto;
+}
+code{
+	font: 11px courier, fixed;
+	background-color: #ededed;
+	color: #0A246A;
+	padding: 0.3em 0.4em;
+}
+pre code{
+	padding: 0; margin: 0;
+}
+h1 {
+	font: 21px normal Georgia;
+	color: #B59BB5;
+}
+.demo {
+	color: #0A246A;
+	padding: 0px 0 5px 1px;
+	width: 500px;
+}

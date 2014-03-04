@@ -1,0 +1,9 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classset__reply__options.html#ab7a9f8d58b0766b9c0921c09a3118062" title="buildSwitchMenuDropDownOption" alt="" coords="245,5,461,35"/>
+<area shape="rect" id="node7" href="$classset__reply__options.html#a09536267fe4b8307a55a842d70ac1bdf" title="getSortandPaginationFormAction" alt="" coords="247,59,460,88"/>
+<area shape="rect" id="node9" href="$classset__message__options__handler.html#a90769df73c4555ee5e6a7ff06659296d" title="set_message_options_handler::setSortAuthorAscLink" alt="" coords="187,112,520,141"/>
+<area shape="rect" id="node11" href="$classset__message__options__handler.html#afc4d038aadafcd09334b654c8eb30fed" title="set_message_options_handler::setSortAuthorDescLink" alt="" coords="184,165,523,195"/>
+<area shape="rect" id="node13" href="$classset__message__options__handler.html#a527913e244aa5fe928b54476e1a43dcb" title="set_message_options_handler::setSortLatestModifiedLink" alt="" coords="176,219,531,248"/>
+<area shape="rect" id="node15" href="$classset__message__options__handler.html#ad865d8a4f0907ab779d34a581ef115af" title="set_message_options_handler::setSortOldestModifiedLink" alt="" coords="175,272,532,301"/>
+<area shape="rect" id="node5" href="$classset__message__options__handler.html#ac15f053b9ab16f70aec656064cfd0996" title="set_message_options_handler::setUpNoOfMessagesDropDownOption" alt="" coords="581,5,1008,35"/>
+</map>

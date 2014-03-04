@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<updates>
+    <update>
+        <table>tbl_geonames</table>
+        <version>0.2</version>
+        <description>added new column for administrative names</description>
+        <data>
+            <add>
+                <name>admin1name</name>
+                <type>text</type>
+                <length>255</length>
+            </add>
+        </data>
+        <data>
+            <add>
+                <name>admin2name</name>
+                <type>text</type>
+                <length>255</length>
+            </add>
+        </data>
+    </update>
+</updates>

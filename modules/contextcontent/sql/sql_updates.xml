@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<updates>
+    <update>
+        <table>tbl_contextcontent_order</table>
+        <version>1.0</version>
+        <description>Added a field for navigation visibility</description>
+        <data>
+            <add>
+                <name>isbookmarked</name>
+                <type>text</type>
+                <length>32</length>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_contextcontent_order</table>
+        <version>1.0</version>
+        <description>Added a field for navigation manipulation</description>
+        <data>
+            <add>
+                <name>bookmark</name>
+                <type>text</type>
+                <length>32</length>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_contextcontent_order</table>
+        <version>0.4</version>
+        <description>Added a field for chapter</description>
+        <data>
+            <add>
+                <name>chapterid</name>
+                <type>text</type>
+                <length>32</length>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_contextcontent_chaptercontext</table>
+        <version>1.220</version>
+        <description>Added a field for scorm</description>
+        <data>
+            <add>
+                <name>scorm</name>
+                <type>text</type>
+                <length>1</length>
+                <notnull>FALSE</notnull>
+                <default>N</default>
+            </add>
+        </data>
+    </update>
+
+    <update>
+        <table>tbl_contextcontent_pages</table>
+        <version>1.434</version>
+        <description>Added a field for scorm for pages</description>
+        <data>
+            <add>
+                <name>scorm</name>
+                <type>text</type>
+                <length>1</length>
+                <default>N</default>
+            </add>
+        </data>
+    </update>
+
+
+       <update>
+        <table>tbl_contextcontent_chaptercontext</table>
+        <version>1.584</version>
+        <description>Added fields for release dates</description>
+        <data>
+            <add>
+                <name>releasedate</name>
+                <type>timestamp</type>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_contextcontent_chaptercontext</table>
+        <version>1.584</version>
+        <description>Added fields for release dates</description>
+        <data>
+            <add>
+                <name>enddate</name>
+                <type>timestamp</type>
+            </add>
+        </data>
+    </update>
+  <update>
+        <table>tbl_contextcontent_activitystreamer</table>
+        <version>1.587</version>
+        <description>Added a new field to store the session Id</description>
+        <data>
+            <add>
+                <name>sessionid</name>
+                <type>text</type>
+                <length>60</length>
+                <notnull>TRUE</notnull>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_contextcontent_activitystreamer</table>
+        <version>1.587</version>
+        <description>Added a new field to store module code</description>
+        <data>
+            <add>
+                <name>modulecode</name>
+                <type>text</type>
+                <length>25</length>
+                <notnull>TRUE</notnull>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_contextcontent_activitystreamer</table>
+        <version>1.587</version>
+        <description>Added a new field to store flag pageorchapter</description>
+        <data>
+            <add>
+                <name>pageorchapter</name>
+                <type>text</type>
+                <length>32</length>
+                <notnull>TRUE</notnull>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_contextcontent_activitystreamer</table>
+        <version>1.587</version>
+        <description>Added a new field to store the description</description>
+        <data>
+            <add>
+                <name>description</name>
+                <type>text</type>
+                <notnull>TRUE</notnull>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_contextcontent_activitystreamer</table>
+        <version>1.587</version>
+        <description>Added a new field to store the starttime</description>
+        <data>
+            <add>
+                <name>starttime</name>
+                <type>timestamp</type>
+                <notnull>TRUE</notnull>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_contextcontent_activitystreamer</table>
+        <version>1.587</version>
+        <description>Added a new field to store the endtime</description>
+        <data>
+            <add>
+                <name>endtime</name>
+                <type>timestamp</type>
+            </add>
+        </data>
+    </update>
+</updates>

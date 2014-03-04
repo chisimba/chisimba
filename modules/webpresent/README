@@ -1,0 +1,6 @@
+Please ensure that you have the following installed (all in Ubuntu repos)
+
+1. Openoffice.org
+2. python-uno
+3. unoconv
+4. swftools

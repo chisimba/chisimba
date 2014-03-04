@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<defaultdata>
+
+   <tbl_plants_list>
+       <id>5001</id>
+       <alphabeticalname>Protea, King</alphabeticalname>
+       <fullname>King Protea</fullname>
+       <scientificname>Protea cynaroides</scientificname>
+   </tbl_plants_list>
+   <tbl_plants_list>
+       <id>5002</id>
+       <alphabeticalname>Cedar, Clanwilliam</alphabeticalname>
+       <fullname>Clanwilliam cedar</fullname>
+       <scientificname>Widdringtonia cedarbergensis</scientificname>
+   </tbl_plants_list>
+
+</defaultdata>
+
+
+ 

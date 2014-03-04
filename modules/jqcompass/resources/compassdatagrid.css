@@ -1,0 +1,63 @@
+.compassTable th { text-align: left; }
+.compassTable tr, .compassTable { overflow: hidden; }
+
+.compassTable { padding: 0px; margin: -1px 0px; border-collapse: collapse; width: 100%; border: 0px solid #dedede; overflow: hidden; }
+.compassTable td, .compassTable th { line-height: 26px; color: #666; }
+.compassTable th { white-space: nowrap; color: #666; cursor: pointer; text-indent: 5px; border-width: 1px 0px 0px 0px; border-style: solid; border-color: #efefef; border-collapse: collapse; background: url(images/th-bg.gif) bottom left repeat-x #f9f9f9; }
+	.compassTable th.sorted { }
+
+.compassTable tr { border-collapse: collapse; border-top: 1px solid #f0f0f0; border-bottom: 1px solid #ebebeb; }
+.compassTable td { border-right: 0px solid #dedede; padding: 0px 5px; }
+
+.compassTable .even { background-color: #fff; /*eef2ff*/ }
+.compassTable .odd { background-color: #fff; }
+.compassTable tr.hover { background-color: #f3f1f1; }
+.compassTable th.hover { border-bottom: 1px solid #aaccf6; background: url(images/th-hover-bg.gif) bottom left repeat-x #ebf3fd; color: #17294c; }
+	.compassTable th.hover div { }
+	.compassTable th div { background: url(images/unsorted.gif) 100% 50% no-repeat; width: auto; }
+	.compassTable th.sort-asc { background: url(images/th-sort-bg.gif) bottom left repeat-x #fff9dd !important; border-color: #e8e467; color: #000 !important; }
+		.compassTable th.sort-asc div { background-image: url(images/sort-asc.gif); }
+	.compassTable th.sort-desc { background: url(images/th-sort-bg.gif) bottom left repeat-x #fff9dd !important; border-color: #e8e467; color: #000 !important; }
+		.compassTable th.sort-desc div { background-image: url(images/sort-desc.gif); }
+	.compassTable th.nosort div { background: transparent; cursor: default; }
+.compassTable tr.selected { /*background: #daeaff !important;*/ background: #e9f2fe; /*daeaff*/ border-color: #e5eff7; }
+.compassTable tr.selected td { }
+.compassTable tr.selected td, .compassTable tr.selected td a {}
+
+.proxy { }
+.compassTable th div { position: relative; }
+.compassTable th div .ui-resizable-e { position: absolute; top: 0px; right: 0px; bottom: 0px; width: 8px; }
+
+.compassTable th .ui-resizable-e {
+	cursor: col-resize !important;
+	background-color: transparent !important;
+}
+
+#ctResizer { position: absolute; top: 0; left: 0; display: none; width: 4px; background-color: #666; z-index: 9000; }
+
+/* Pager */
+.ctPager { color: #555; position: relative; width: auto; margin-left: -1px; font-size: 11px; line-height: 20px; background: url(images/pager-bg.gif) bottom left repeat-x #666; height: 30px; border: 1px solid #d7d7d7; }
+.ctPager .inner { position: absolute; top: 5px; left: 5px; right: 5px; bottom: 5px; }
+.ctPager .imgWrap { border: 1px solid transparent; }
+.ctPager .imgWrap img { float: left; padding: 1px; border-width: 1px 0px 0px 1px; border-style: solid; border-color: transparent; cursor: pointer; }
+.ctPager .imgWrapHover { border: 1px solid #bbb; }
+.ctPager .imgWrapHover img { border-color: #fff !important; border-style: solid; border-width: 1px 0px 0px 1px; }
+.ctPager div { float: left; }
+.ctPager .separator { height: 20px; margin: 0px 6px; border-left: 1px solid #aaa; border-right: 1px solid #fff; }
+
+.ctPager .perPage { }
+
+.ctPager div.toggleHolder { float: right; white-space: nowrap; margin-right: -3px; }
+.toggleHolder ul, .toggleHolder ul li { margin: 0px; padding: 0px; list-style-type: none; }
+.toggleHolder ul li { position: relative; border: 1px solid transparent; cursor: pointer; background: url(images/down.png) 97% 50% no-repeat; }
+.toggleHolder ul li span { display: block; padding: 0px 15px; border-width: 1px 0px 0px 1px; border-style: solid; border-color: transparent; }
+.toggleHolder ul li.hover { border-color: #ccc; }
+.toggleHolder ul li.hover span { border-color: #fff; }
+.toggleHolder ul li input { float: left; padding-right: 4px; margin-right: 12px; margin-top: 4px; }
+
+/* Holds our dropdown */
+.toggleHolder ul li ul { margin: 0px; display: none; position: absolute; top: 8px; right: 5px; z-index: 4000; background: url(images/toggle-cols-separator.gif) 25px 0px repeat-y #ebeced; padding: 2px; border: 1px solid #d0d0d0; }
+.toggleHolder ul li.hover ul { display: block; }
+.toggleHolder ul li ul li { color: #555; white-space: nowrap; height: 22px; line-height: 22px; padding: 0px 15px 0px 2px; border: 1px solid transparent; background: transparent; }
+.toggleHolder ul li ul li.hover { background: url(images/th-hover-bg.gif) left top repeat-x #ebf3fd; border-color: #aaccf6; color: #17294c; cursor: pointer; }
+.toggleHolder ul li ul li span { border: 0px; }

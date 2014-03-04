@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<updates>
+    <update>
+        <table>tbl_forms</table>
+        <version>0.70</version>
+        <description>Added Missing Field</description>
+        <data>
+        <add>
+            <name>emailtowhere</name>
+            <type>text</type>
+            <length>32</length>
+        </add>
+        </data>
+    </update>
+</updates>

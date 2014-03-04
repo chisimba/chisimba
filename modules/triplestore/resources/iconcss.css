@@ -1,0 +1,13 @@
+.icon-32 { height:32px; width:32px}
+.icon-24 { height:24px; width:24px}
+
+.sexy-add { background-image: url(../../../skins/_common2/css/images/sexybuttons/icons/silk/add.png) !important; background-repeat: no-repeat; }
+.sexy-delete { background-image: url(../../../skins/_common2/css/images/sexybuttons/icons/silk/delete.png) !important; background-repeat: no-repeat; }
+.sexy-pencil { background-image: url(../../../skins/_common2/css/images/sexybuttons/icons/silk/pencil.png) !important; background-repeat: no-repeat; }
+.sexy-newf { background-image: url(../../../skins/_common2/css/images/sexybuttons/icons/silk/folder_add.png) !important; background-repeat: no-repeat; }
+.sexy-deletef { background-image: url(../../../skins/_common2/css/images/sexybuttons/icons/silk/folder_delete.png) !important; background-repeat: no-repeat; }
+.sexy-bookmark { background-image: url(../../../skins/_common2/css/images/sexybuttons/icons/silk/bookmark_add.png) !important; background-repeat: no-repeat; }
+.sexy-download { background-image: url(../../../skins/_common2/css/images/sexybuttons/icons/silk/disk_download.png) !important; background-repeat: no-repeat; }
+.sexy-cancel { background-image: url(../../../skins/_common2/css/images/sexybuttons/icons/silk/cross.png) !important; background-repeat: no-repeat; }
+.sexy-view { background-image: url(../../../skins/_common2/css/images/sexybuttons/icons/silk/zoom.png) !important; background-repeat: no-repeat; }
+.sexy-upload { background-image: url(../../../skins/_common2/css/images/sexybuttons/icons/silk/world_add.png) !important; background-repeat: no-repeat; }

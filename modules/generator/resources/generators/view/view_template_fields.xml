@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This file is a code generation template for Chisimba view template data fields -->
+<chisimba_view_fields_template>
+<!-- WORKING HERE NEED TO CHANGE FROM FORM TO TABLE -->
+<item type="field" name="textinput">
+<description>Generates a text input for the relatively short text fields</description>
+<code>
+//Set the value of the element to {FIELDNAME}
+if (isset(${FIELDNAME})) {
+    //Create a text input element for ${FIELDNAME}
+    $objElement = new textinput("{FIELDNAME}");
+    $objElement->setValue(${FIELDNAME});
+    //Add the ${FIELDNAME} element to the form
+    $objForm->addToForm($this->objLanguage->languageText("mod_{MODULECODE}_fieldname_{FIELDNAME}", 
+      "{MODULECODE}") . "&#60;br /&#62;" . $objElement->show() . "&#60;br /&#62;&#60;br /&#62;");
+}
+
+</code>
+</item>
+
+<item type="field" name="textarea">
+<description>Generates a text area for the longer text fields</description>
+<code>
+//Set the value of the element to {FIELDNAME}
+if (isset(${FIELDNAME})) {
+    //Create a text area element for {FIELDNAME}
+    $objElement = new textarea("{FIELDNAME}");
+    $objElement->setContent(${FIELDNAME});
+    //Add the ${FIELDNAME} element to the form
+    $objForm->addToForm($this->objLanguage->languageText("mod_{MODULECODE}_fieldname_{FIELDNAME}", 
+      "{MODULECODE}") . "&#60;br /&#62;" . $objElement->show() . "&#60;br /&#62;&#60;br /&#62;");
+}
+</code>
+</item>
+
+<item type="field" name="dropdown">
+<description>Generates a dropdown for the values obtained from a supplied array</description>
+<code>Todo</code>
+</item>
+
+<item type="field" name="radio">
+<description>Generates a radio input for the values obtained from a supplied array</description>
+<code>
+//Pass data into the array for the radio items
+{ARRAY_FOR_RADIO}
+//Create a radio element for {FIELDNAME}
+$objElement = new radio ("{FIELDNAME}");
+foreach ($ar as $item) {
+    $objElement->addOption($item, $item);
+}
+return $objElement->show();</code>
+</item>
+
+<item type="field" name="wyswygsimple">
+<description>Generates a simple wysyg input for the value of a text field</description>
+<code>Todo</code>
+</item>
+
+<item type="field" name="wyswygfull">
+<description>Generates a full wysyg input for the value of a text field</description>
+<code>Todo</code>
+</item>
+
+
+
+</chisimba_edit_fields_template>
