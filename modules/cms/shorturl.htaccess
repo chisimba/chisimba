@@ -1,4 +1,0 @@
-RewriteEngine on
-
-RewriteCond %{REQUEST_URI} !((.+\..+)|(^/[a-z0-9_-]+/$)|(^/[a-z0-9_-]+$)) [NC]
-RewriteRule (.*)$ /fresh/index.php?module=shorturl&action=redirect [QSA,L]

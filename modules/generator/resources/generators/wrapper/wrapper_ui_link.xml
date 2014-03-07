@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- This file is a code generation template for Chisimba wrapper generation labels for the input template -->
-<chisimba_wrapper_ui_link>
-
-<title>Build a wrapper for foreign class</title>
-<description>Build a wrapper to include a foreign class into a Chisimba module using 
-the adapter pattern.</description>
-
-</chisimba_wrapper_ui_link>

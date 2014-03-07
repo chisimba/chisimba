@@ -1,1 +1,0 @@
-See http://n2.talis.com/wiki/Moriarty for more information

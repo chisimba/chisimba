@@ -1,3 +1,0 @@
-check if user is a member
-
-

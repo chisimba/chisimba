@@ -1,5 +1,0 @@
-tu
-
-This skin was developed for the thumbzup API developer site. 
-Please do not use it for any other purpose unless you create
-your own adaptation.

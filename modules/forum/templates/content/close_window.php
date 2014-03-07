@@ -1,1 +1,0 @@
-<a href="javascript:window.close();"><?php echo $this->objLanguage->languageText('phrase_closewindow'); ?></a>
