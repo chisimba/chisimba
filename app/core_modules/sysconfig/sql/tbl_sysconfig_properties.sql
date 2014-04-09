@@ -25,10 +25,9 @@ $fields = array(
         'default' => 'novalue'
         ),
     'pvalue' => array(
-        'type' => 'text',
-        'length' => 255,
-        'notnull' => 1,
-        'default' => 'unknown'
+        'type' => 'clob',
+        'notnull' => 0,
+        'default' => ''
         ),
     'pdesc' => array(
         'type' => 'clob'

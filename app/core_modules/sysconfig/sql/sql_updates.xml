@@ -53,6 +53,7 @@
         </data>
     </update>
 ]]>
+<![CDATA[
     <update>
         <table>tbl_sysconfig_properties</table>
         <version>1.602</version>
@@ -71,4 +72,26 @@
             </change>
         </data>
     </update>
+]]>
+<![CDATA[
+    <update>
+        <table>tbl_sysconfig_properties</table>
+        <version>1.605</version>
+        <description>change pvalue field type to clob</description>
+        <data>
+            <change>
+                <pvalue>
+                    <type>clob</type>
+                    <notnull>0</notnull>
+                    <default></default>
+                    <definition>
+                        <type>clob</type>
+                        <notnull>0</notnull>
+                        <default></default>
+                    </definition>
+                </pvalue>
+            </change>
+        </data>
+    </update>
+]]>
 </updates>

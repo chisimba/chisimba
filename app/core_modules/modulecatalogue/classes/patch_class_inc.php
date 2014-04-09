@@ -90,7 +90,7 @@ class patch extends dbtable {
                         $check = file_get_contents($updateFile);
                         if(!empty($check)) {
                             if (!$objXml = simplexml_load_file($updateFile)) {
-                                throw new Exception($this->objLanguage->languageText('mod_modulecatalogue_badxml').' '.$updateFile);
+                                throw new Exception($this->objLanguage->languageText('mod_modulecatalogue_badxml','modulecatalogue').' ['.$updateFile.']');
                             }
                             $desc = $objXml->xpath("//update[version='{$codeVersion}']/description");
                             if (isset($desc[0])) {
@@ -107,7 +107,8 @@ class patch extends dbtable {
             }
             return $modules;
         } catch (Exception $e) {
-            echo customException::cleanUp($e->getMessage());
+            echo $e->getMessage();
+            customException::cleanUp();
             exit(0);
         }
     }
