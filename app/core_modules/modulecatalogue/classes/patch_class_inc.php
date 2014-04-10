@@ -90,7 +90,7 @@ class patch extends dbtable {
                         $check = file_get_contents($updateFile);
                         if(!empty($check)) {
                             if (!$objXml = simplexml_load_file($updateFile)) {
-                                throw new Exception($this->objLanguage->languageText('mod_modulecatalogue_badxml','modulecatalogue').' ['.$updateFile.']');
+                                throw new Exception($this->objLanguage->code2Txt('mod_modulecatalogue_badxml','modulecatalogue',array('FILENAME' => $updateFile)));
                             }
                             $desc = $objXml->xpath("//update[version='{$codeVersion}']/description");
                             if (isset($desc[0])) {
@@ -106,9 +106,12 @@ class patch extends dbtable {
                 }
             }
             return $modules;
+        } catch (customException $e) {
+            echo $e->getMessage();
+            $e->cleanUp();
+            exit(0);
         } catch (Exception $e) {
             echo $e->getMessage();
-            customException::cleanUp();
             exit(0);
         }
     }
@@ -140,6 +143,7 @@ class patch extends dbtable {
     */
     function applyUpdates($modname) {
         try {
+            log_debug('patch::applyUpdates::BEGIN');
             // Find the updates file
             $this->objModule = $this->getObject('modules','modulecatalogue');
             $this->objModuleAdmin = $this->getObject('modulesadmin','modulecatalogue');
@@ -169,152 +173,170 @@ class patch extends dbtable {
             // Apply the table changes
             $oldversion = (float)$this->getVersion($modname);
             $result = array();
+            log_debug('patch::applyUpdates::findSqlXML');
             if (file_exists($file)){
+                log_debug('patch::applyUpdates::file_exists($file)');
                 $check = file_get_contents($file);
                 if (!empty($check)) {
-                $objXml = simplexml_load_file($file);
-                foreach ($objXml->update as $update) {
-                    $ver = (float)$update->version;
-                    $verStr = str_replace('.','_',$update->version);
-                    if ($ver>$oldversion) {
-                        foreach ($update->data as $data) {
-                            foreach ($data as $opKey => $opValue) {
-                                $pData = array();
-                                $change = '';
-                                switch ($opKey) {
-                                    case 'name':
-                                        $pData[$opKey] = (string)$opValue;
-                                        break;
-                                    case 'add':
-                                        $name = (string)$opValue->name;
-                                        $innerData = array();
-                                        foreach ($opValue as $rowKey => $rowVal) {
-                                            if ($rowKey != 'name') {
-                                                $k = (string)$rowKey;
-                                                $rowVal = (string)$rowVal;
-                                                if (($rowKey == 'notnull')||($rowKey =='unsigned')) {
-                                                            if ($this->dbType == 'pgsql') {
-                                                                $rowVal = ($rowVal == 0)? 'f':'t';
+                    log_debug('patch::applyUpdates::!empty($check)');
+                    $objXml = simplexml_load_file($file);
+                    foreach ($objXml->update as $update) {
+                        log_debug('patch::applyUpdates::$update=='.var_export($update, TRUE));
+                        $ver = (float)$update->version;
+                        log_debug('patch::applyUpdates::$ver=='.var_export($ver, TRUE));
+                        $verStr = str_replace('.','_',$update->version);
+                        if ($ver>$oldversion) {
+                            foreach ($update->data as $data) {
+                                log_debug('patch::applyUpdates::$data=='.$data);
+                                foreach ($data as $opKey => $opValue) {
+                                    log_debug('patch::applyUpdates::$opKey => $opValue=='.$opKey.' => '.$opValue);
+                                    $pData = array();
+                                    $change = '';
+                                    switch ($opKey) {
+                                        case 'name':
+                                            $pData[$opKey] = (string)$opValue;
+                                            break;
+                                        case 'add':
+                                            $name = (string)$opValue->name;
+                                            $innerData = array();
+                                            foreach ($opValue as $rowKey => $rowVal) {
+                                                if ($rowKey != 'name') {
+                                                    $k = (string)$rowKey;
+                                                    $rowVal = (string)$rowVal;
+                                                    if (($rowKey == 'notnull')||($rowKey =='unsigned')) {
+                                                                if ($this->dbType == 'pgsql') {
+                                                                    $rowVal = ($rowVal == 0)? 'f':'t';
+                                                                }
                                                             }
-                                                        }
-                                                $v = $rowVal;
-                                                $innerData[$k] = $v;
-                                            }
-                                        }
-                                        $pData[$opKey] = array($name=>$innerData);
-                                        break;
-                                    case 'remove':
-                                        $op = (string)$opKey;
-                                        $strVal = (string)$opValue;
-                                        $pData[$op] = array($strVal => array());
-                                        break;
-                                    case 'change':
-                                        $op = (string)$opKey;
-                                        $chArray = array();
-                                        $change = array();
-                                        foreach ($opValue as $name => $chData) {
-                                            foreach ($chData as $chKey => $chVal) {
-                                                $chKey = (string)$chKey;
-                                                if (($chKey == 'notnull')||($chKey=='unsigned')) {
-                                                    if ($this->dbType == 'pgsql') {
-                                                        $chVal = (string)$chVal;
-                                                        $chVal = ($chVal == 0)? 'f':'t';
-                                                    }
-                                                }
-                                                if ($chKey == 'definition') {
-                                                    $def = array();
-                                                    foreach ($chVal as $inKey => $inVal) {
-                                                        $inKey = (string)$inKey;
-                                                        $inVal = (string)$inVal;
-                                                        if (($inKey == 'notnull')||($inKey=='unsigned')) {
-                                                            if ($this->dbType == 'pgsql') {
-                                                                $inVal = ($inVal == 0)? 0:'t';
-                                                            }
-                                                        }
-                                                        $def[$inKey] = $inVal;
-                                                    }
-                                                    $chArray[$chKey] = $def;
-                                                } else {
-                                                    $chArray[$chKey] = (string)$chVal;
+                                                    $v = $rowVal;
+                                                    $innerData[$k] = $v;
                                                 }
                                             }
-                                            $change[$name]=$chArray;
-                                            $pData[$op] = $change;
-                                        }
-                                        break;
-                                    case 'rename':
-                                        $op = (string)$opKey;
-                                        $chArray = array();
-                                        $change = array();
-                                        foreach ($opValue as $name => $chData) {
-                                            foreach ($chData as $chKey => $chVal) {
-                                                $chKey = (string)$chKey;
-                                                if ($chKey == 'definition') {
-                                                    $def = array();
-                                                    foreach ($chVal as $inKey => $inVal) {
-                                                        $inKey = (string)$inKey;
-                                                        $def[$inKey] = (string)$inVal;
+                                            $pData[$opKey] = array($name=>$innerData);
+                                            break;
+                                        case 'remove':
+                                            $op = (string)$opKey;
+                                            $strVal = (string)$opValue;
+                                            $pData[$op] = array($strVal => array());
+                                            break;
+                                        case 'change':
+                                            $op = (string)$opKey;
+                                            $chArray = array();
+                                            $change = array();
+                                            foreach ($opValue as $name => $chData) {
+                                                log_debug('patch::applyUpdates::$name => $chData=='.$name.' => '.$chData);
+                                                foreach ($chData as $chKey => $chVal) {
+                                                    log_debug('patch::applyUpdates::$chKey => $chVal=='.$chKey.' => '.$chVal);
+                                                    $chKey = (string)$chKey;
+                                                    if (($chKey == 'notnull')||($chKey=='unsigned')) {
+                                                        if ($this->dbType == 'pgsql') {
+                                                            $chVal = (string)$chVal;
+                                                            $chVal = ($chVal == 0)? 'f':'t';
+                                                        }
                                                     }
-                                                    $chArray[$chKey] = $def;
-                                                } else {
-                                                    if ($chKey == 'name') {
+                                                    if ($chKey == 'definition') {
+                                                        $def = array();
+                                                        foreach ($chVal as $inKey => $inVal) {
+                                                            log_debug('patch::applyUpdates::$inKey => $inVal=='.$inKey.' => '.$inVal);
+                                                            $inKey = (string)$inKey;
+                                                            $inVal = (string)$inVal;
+                                                            if (($inKey == 'notnull')||($inKey=='unsigned')) {
+                                                                if ($this->dbType == 'pgsql') {
+                                                                    $inVal = ($inVal == 0)? 0:'t';
+                                                                }
+                                                            }
+                                                            $def[$inKey] = $inVal;
+                                                        }
+                                                        $chArray[$chKey] = $def;
+                                                    } else {
                                                         $chArray[$chKey] = (string)$chVal;
                                                     }
                                                 }
+                                                $change[$name]=$chArray;
+                                                $pData[$op] = $change;
                                             }
-                                            $change[$name]=$chArray;
+                                            break;
+                                        case 'rename':
+                                            $op = (string)$opKey;
+                                            $chArray = array();
+                                            $change = array();
+                                            foreach ($opValue as $name => $chData) {
+                                                foreach ($chData as $chKey => $chVal) {
+                                                    $chKey = (string)$chKey;
+                                                    if ($chKey == 'definition') {
+                                                        $def = array();
+                                                        foreach ($chVal as $inKey => $inVal) {
+                                                            $inKey = (string)$inKey;
+                                                            $def[$inKey] = (string)$inVal;
+                                                        }
+                                                        $chArray[$chKey] = $def;
+                                                    } else {
+                                                        if ($chKey == 'name') {
+                                                            $chArray[$chKey] = (string)$chVal;
+                                                        }
+                                                    }
+                                                }
+                                                $change[$name]=$chArray;
+                                                $pData[$op] = $change;
+                                            }
+                                            break;
+                                        case 'insert':
+                                            $op = (string)$opKey;
+                                            $change = array();
+
+                                            foreach($opValue as $rowKey => $rowVal){
+                                                $change[(string)$rowKey] = (string)$rowVal;
+                                            }
                                             $pData[$op] = $change;
-                                        }
-                                        break;
-                                    case 'insert':
-                                        $op = (string)$opKey;
-                                        $change = array();
+                                            break;
 
-                                        foreach($opValue as $rowKey => $rowVal){
-                                            $change[(string)$rowKey] = (string)$rowVal;
-                                        }
-                                        $pData[$op] = $change;
-                                        break;
-
-                                    default:
-                                        throw new customException('error in patch data');
-                                        break;
-                                }
-                                if(isset($pData['change']) && is_array($pData['change'])) {
-                                    $field2change = array_keys($pData['change']);
-                                    $existfields = $this->objModuleAdmin->listTblFields($update->table);
-                                    foreach($field2change as $changes) {
-                                        if(in_array($changes, $existfields)) {
-                                            // return FALSE;
-                                            // No changes were needed so we bring the mod to the version specified
-                                            $patch = array('moduleid'=>$modname,'version'=>$ver,'tablename'=>$update->table,
-                                                       'patchdata'=>$pData,'applied'=>$this->objModule->now());
-                                            $this->objModule->insert($patch,'tbl_module_patches');
+                                        default:
+                                            throw new customException('error in patch data');
+                                            break;
+                                    }
+                                    log_debug('patch::applyUpdates::'.var_export($pData, TRUE));
+                                    if(isset($pData['change']) && is_array($pData['change'])) {
+                                        $field2change = array_keys($pData['change']);
+                                        $existfields = $this->objModuleAdmin->listTblFields($update->table);
+                                        foreach($field2change as $changes) {
+                                            if(in_array($changes, $existfields)) {
+                                                // return FALSE;
+                                                // No changes were needed so we bring the mod to the version specified
+                                                $patch = array('moduleid'=>$modname,'version'=>$ver,'tablename'=>$update->table,
+                                                           'patchdata'=>$pData,'applied'=>$this->objModule->now());
+                                                $this->objModule->insert($patch,'tbl_module_patches');
+                                            }
                                         }
                                     }
-                                }
-                                $ret = $this->objModuleAdmin->alterTable($update->table,$pData,true);
-                                if ($ret == MDB2_OK || $ret === TRUE) {
-                                    //$this->objModuleAdmin->alterTable($update->table,$pData,false);
-                                    $ret = $this->objModuleAdmin->alterTable($update->table,$pData,false);
-                                    if ($ret != MDB2_OK || $ret === FALSE) {
+                                    $ret = $this->objModuleAdmin->alterTable($update->table,$pData,true);
+                                    log_debug('patch::applyUpdates::$ret=='.var_export($ret, TRUE));
+                                    //log_debug('patch::applyUpdates::MDB2_OK=='.var_export(MDB2_OK, TRUE));
+                                    if ($ret === TRUE || !is_string($ret)) {
+                                        log_debug('patch::applyUpdates::$ret === TRUE || !is_string($ret)');
+                                        //$this->objModuleAdmin->alterTable($update->table,$pData,false);
+                                        $ret = $this->objModuleAdmin->alterTable($update->table,$pData,false);
+                                        log_debug('patch::applyUpdates::$ret=='.var_export($ret, TRUE));
+                                        //log_debug('patch::applyUpdates::MDB2_OK=='.var_export(MDB2_OK, TRUE));
+                                        if ($ret === FALSE || is_string($ret)) {
+                                            log_debug('patch::applyUpdates::$ret === FALSE || is_string($ret)');
+                                            return FALSE;
+                                        }
+                                        // MDB2_OK==1
+                                        $patch = array('moduleid'=>$modname,'version'=>$ver,'tablename'=>$update->table,
+                                        'patchdata'=>$pData,'applied'=>$this->objModule->now());
+                                        $this->objModule->insert($patch,'tbl_module_patches');
+                                    } else {
+                                        log_debug('patch::applyUpdates::!{$ret === TRUE || !is_string($ret)}');
+                                        if (is_string($ret)) {
+                                            log_debug($ret);
+                                        }
                                         return FALSE;
                                     }
-                                    // MDB2_OK==1
-                                    $patch = array('moduleid'=>$modname,'version'=>$ver,'tablename'=>$update->table,
-                                    'patchdata'=>$pData,'applied'=>$this->objModule->now());
-                                    $this->objModule->insert($patch,'tbl_module_patches');
-                                } else {
-                                    if (is_string($ret)) {
-                                        log_debug($ret);
-                                    }
-                                    return FALSE;
                                 }
                             }
                         }
                     }
                 }
-            }
             }
             //update version info in db
             $regData = $this->objModfile->readRegisterFile($this->objModfile->findregisterfile($modname));
@@ -329,6 +351,7 @@ class patch extends dbtable {
             $objModAdmin = $this->getObject('modulesadmin');
             $objModAdmin->loadData($modname);
             // Now pass along the info to the template.
+            log_debug('patch::applyUpdates::END');
             return $result;
         } catch (Exception $e) {
             echo customException::cleanUp($e->getMessage());
