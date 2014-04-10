@@ -26,8 +26,8 @@ $fields = array(
         ),
     'pvalue' => array(
         'type' => 'clob',
-        'notnull' => 0,
-        'default' => ''
+        'length' => 1024,
+        'notnull' => 0
         ),
     'pdesc' => array(
         'type' => 'clob'
