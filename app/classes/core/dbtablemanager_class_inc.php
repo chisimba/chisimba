@@ -816,13 +816,13 @@ class dbTableManager extends object {
         } else {
             $ret = $this->_db->mgAlterTable($name, $changes, $check);
         }
-        log_debug('alterTable::$ret=='.var_export($ret, TRUE));
+        //log_debug('alterTable::$ret=='.var_export($ret, TRUE));
         if (PEAR::isError($ret)) {
-            log_debug('alterTable::PEAR::isError($ret)::$ret=='.var_export($ret, TRUE).';$ret->getMessage()=='.$ret->getMessage());
+            //log_debug('alterTable::PEAR::isError($ret)::$ret=='.var_export($ret, TRUE).';$ret->getMessage()=='.$ret->getMessage());
             return $ret->getMessage();
         } else {
             // var_dump($ret);
-            log_debug('alterTable::else::$ret=='.var_export($ret, TRUE));
+            //log_debug('alterTable::else::$ret=='.var_export($ret, TRUE));
             return $ret;
         }
     }
