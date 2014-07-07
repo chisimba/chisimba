@@ -29,7 +29,7 @@ Ext.apply(Ext.form.VTypes, {
     },
     // vtype Text property: The error text to display when the validation function returns false
     vemailText: 'This field should be an e-mail address in the format "user@example.com".'
-	    
+
 });
 
 Ext.apply(Ext.form.VTypes, {
@@ -100,24 +100,106 @@ var edittitleCombo = new Ext.form.ComboBox({
     width: 150
 });
 
+/*
 // create the combo instance
 var countryCombo = new Ext.form.ComboBox({
-    typeAhead: true,
-    fieldLabel:'Country',
+    typeAhead: true,-
+    fieldLabel:'Country',-
+    name: 'country',-
+    hiddenName: 'countryId',-
+    triggerAction: 'all',-
+    emptyText:'Select a Country...',-
+    editable: false,-
+    lazyRender:true,
+    mode: 'local',-
+    store: countrydata,-
+    valueField: 'countryId',-
+    displayField: 'countryText',-
+    allowBlank:false,-
+    width: 150,-
+    readOnly: true
+});
+*/
+var countryCombo = new Ext.form.ComboBox({
+    xtype: 'combo',
+    fieldLabel: 'Country',
     name: 'country',
     hiddenName: 'countryId',
-    triggerAction: 'all',
-    emptyText:'Select a Country...',
+    autoSelect: false,
+    allowBlank: false,
     editable: false,
-    lazyRender:true,
+    triggerAction: 'all',
+    typeAhead: true,
+    width:150,
+    listWidth: 150,
+    enableKeyEvents: true,
     mode: 'local',
-    store: countrydata,
+    //forceSelection: true,
+    emptyText:'Select a Country...',
     valueField: 'countryId',
     displayField: 'countryText',
-    allowBlank:false,
-    width: 150
+    //autoSelect: true,
+    store: countrydata,
+    chisimba_searchstring: '',
+    listeners: {
+        focus: function(comboBoxObj) {
+            comboBoxObj.chisimba_searchstring = '';
+        },
+        keypress: function(comboBoxObj, keyEventObj) {
+            // Ext.Store names anonymous fields (like in array above) "field1", "field2", etc.
+            var valueFieldName = "countryId";
+            var displayFieldName = "countryText";
+
+            // Which drop-down item is already selected (if any)?
+            //var selectedIndices = this.view.getSelectedIndexes();
+            //var currentSelectedIndex = (selectedIndices.length > 0) ? selectedIndices[0] : null;
+
+            // Prepare the search criteria we'll use to query the data store
+            var charCode = keyEventObj.getCharCode()
+            if (charCode == 0x08) {
+                //alert('!');
+                var len = comboBoxObj.chisimba_searchstring.length;
+                if (len > 0) {
+                    comboBoxObj.chisimba_searchstring = comboBoxObj.chisimba_searchstring.substr(0, len-1);
+                }
+            }
+            else if (charCode >= 0x20) {
+                var typedChar = String.fromCharCode(charCode);
+                comboBoxObj.chisimba_searchstring += typedChar;
+            }
+            //else {
+            //}
+
+            //var startIndex = (currentSelectedIndex == null) ? 0 : ++currentSelectedIndex;
+
+            //var matchIndex = this.store.find(displayFieldName, typedChar, startIndex, false);
+            var matchIndex = this.store.find(displayFieldName, comboBoxObj.chisimba_searchstring, 0/*startIndex*/, false);
+
+            if( matchIndex >= 0 ) {
+                this.select(matchIndex);
+                var record = this.store.getAt(matchIndex);
+                this.setValue(record.get(valueFieldName));
+            }
+            /*
+            else if (matchIndex == -1 && startIndex > 0) {
+                // If nothing matched but we didn't start the search at the beginning of the list
+                // (because the user already had somethign selected), search again from beginning.
+                //matchIndex = this.store.find(displayFieldName, typedChar, 0, false);
+                matchIndex = this.store.find(displayFieldName, comboBoxObj.chisimba_searchstring, 0, false);
+                if( matchIndex >= 0 ) {
+                    this.select(matchIndex);
+                }
+            }
+            if( matchIndex >= 0 ) {
+                var record = this.store.getAt(matchIndex);
+                this.setValue(record.get(valueFieldName));
+            }
+            */
+        }
+    }
 });
 
+/*
 var editcountry = new Ext.form.ComboBox({
     typeAhead: true,
     fieldLabel:'Country',
@@ -133,6 +215,85 @@ var editcountry = new Ext.form.ComboBox({
     displayField: 'countryText',
     allowBlank:false,
     width: 150
+});
+*/
+var editcountryCombo = new Ext.form.ComboBox({
+    xtype: 'combo',
+    fieldLabel: 'Country',
+    name: 'country',
+    hiddenName: 'countryId',
+    autoSelect: false,
+    allowBlank: false,
+    editable: false,
+    triggerAction: 'all',
+    typeAhead: true,
+    width:150,
+    listWidth: 150,
+    enableKeyEvents: true,
+    mode: 'local',
+    //forceSelection: true,
+    emptyText:'Select a Country...',
+    valueField: 'countryId',
+    displayField: 'countryText',
+    //autoSelect: true,
+    store: countrydata,
+    chisimba_searchstring: '',
+    listeners: {
+        focus: function(comboBoxObj) {
+            comboBoxObj.chisimba_searchstring = '';
+        },
+        keypress: function(comboBoxObj, keyEventObj) {
+            // Ext.Store names anonymous fields (like in array above) "field1", "field2", etc.
+            var valueFieldName = "countryId";
+            var displayFieldName = "countryText";
+
+            // Which drop-down item is already selected (if any)?
+            //var selectedIndices = this.view.getSelectedIndexes();
+            //var currentSelectedIndex = (selectedIndices.length > 0) ? selectedIndices[0] : null;
+
+            // Prepare the search criteria we'll use to query the data store
+            var charCode = keyEventObj.getCharCode()
+            if (charCode == 0x08) {
+                //alert('!');
+                var len = comboBoxObj.chisimba_searchstring.length;
+                if (len > 0) {
+                    comboBoxObj.chisimba_searchstring = comboBoxObj.chisimba_searchstring.substr(0, len-1);
+                }
+            }
+            else if (charCode >= 0x20) {
+                var typedChar = String.fromCharCode(charCode);
+                comboBoxObj.chisimba_searchstring += typedChar;
+            }
+            //else {
+            //}
+
+            //var startIndex = (currentSelectedIndex == null) ? 0 : ++currentSelectedIndex;
+
+            //var matchIndex = this.store.find(displayFieldName, typedChar, startIndex, false);
+            var matchIndex = this.store.find(displayFieldName, comboBoxObj.chisimba_searchstring, 0/*startIndex*/, false);
+
+            if( matchIndex >= 0 ) {
+                this.select(matchIndex);
+                var record = this.store.getAt(matchIndex);
+                this.setValue(record.get(valueFieldName));
+            }
+            /*
+            else if (matchIndex == -1 && startIndex > 0) {
+                // If nothing matched but we didn't start the search at the beginning of the list
+                // (because the user already had somethign selected), search again from beginning.
+                //matchIndex = this.store.find(displayFieldName, typedChar, 0, false);
+                matchIndex = this.store.find(displayFieldName, comboBoxObj.chisimba_searchstring, 0, false);
+                if( matchIndex >= 0 ) {
+                    this.select(matchIndex);
+                }
+            }
+            if( matchIndex >= 0 ) {
+                var record = this.store.getAt(matchIndex);
+                this.setValue(record.get(valueFieldName));
+            }
+            */
+        }
+    }
 });
 
 var edituri;
@@ -183,7 +344,7 @@ var edituser = new Ext.FormPanel({
             layout: 'form',
             defaultType: 'textfield',
             items: [
-            editcountry,
+            editcountryCombo,
             {
                 xtype: 'radiogroup',
                 name: 'useradmin_sex',
