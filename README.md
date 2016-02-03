@@ -21,7 +21,8 @@ http://groups.google.com/group/chisimba‐dev
 
 Have fun! Enjoy Chisimba!
 
-
+Hello world
+==========
 
 A Chisimba MVC hello world
 
@@ -40,6 +41,7 @@ where /path/to/chisimba/ is the place where your chisimba files are located, for
 
 Create a text file in that directory and name it controller.php. Open it in your favorite text editor (or IDE) and first enter the opening PHP tag and the required description of your module as follows:
 
+```
 <?php
 /**
  * 
