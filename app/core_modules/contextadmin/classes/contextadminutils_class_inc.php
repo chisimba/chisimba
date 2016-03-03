@@ -91,7 +91,7 @@ class contextadminutils extends object {
     /*
     * Method that initializes the objects
     */
-    public public function init() {
+    public function init() {
         $this->objDBContextModules = $this->getObject ( 'dbcontextmodules', 'context' );
         $this->objButtons = $this->getObject ( 'navbuttons', 'navigation' );
         $this->objDBContext = $this->getObject ( 'dbcontext', 'context' );
