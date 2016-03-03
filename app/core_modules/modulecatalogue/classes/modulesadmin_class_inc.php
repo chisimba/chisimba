@@ -650,7 +650,7 @@ class modulesadmin extends dbTableManager
                                     $perm = str_replace('acl_','',$val);
 
                                     $permId = $objPerm->getId($perm);
-                                    var_dump($permId); die();
+                                    die();
                                     if(empty($permId)){
                                         $permId = $objPerm->newAcl($perm, $moduleId
                                         .' '.$perm);
