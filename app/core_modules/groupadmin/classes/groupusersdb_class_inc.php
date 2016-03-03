@@ -354,7 +354,6 @@ class groupusersdb extends dbTable
         //Check if groupId is empty
         if(!empty($groupId)){
         $SubGroups = $this->objGroups->getSubgroups( $groupId );
-        var_dump($groupId);
         $lstGroups = "'".implode("', '", $SubGroups )."'";
 
         $sql = "SELECT ";
