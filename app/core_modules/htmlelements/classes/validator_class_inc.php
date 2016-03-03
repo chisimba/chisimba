@@ -78,7 +78,7 @@ class Validator extends controller {
     * Validate text only
     */
     public function validateTextOnly($theinput,$description = ''){
-        $result = ereg ("^[A-Za-z\ ]+$", $theinput );
+        $result = preg_match('#^[A-Za-z\ ]+$#', $theinput );
         if ($result){
             return true;
         }else{
@@ -91,7 +91,7 @@ class Validator extends controller {
     * Validate text only, no spaces allowed
     */
     public function validateTextOnlyNoSpaces($theinput,$description = ''){
-        $result = ereg ("^[A-Za-z0-9]+$", $theinput );
+        $result = preg_match('#^[A-Za-z0-9]+$#', $theinput );
         if ($result){
             return true;
         }else{
@@ -104,7 +104,7 @@ class Validator extends controller {
     * Validate email address
     */
     public function validateEmail($themail,$description = ''){
-        $result = ereg ("^[^@ ]+@[^@ ]+\.[^@ \.]+$", $themail );
+        $result = preg_match('#^[^@ ]+@[^@ ]+\.[^@ \.]+$#', $themail );
         if ($result){
             return true;
         }else{
